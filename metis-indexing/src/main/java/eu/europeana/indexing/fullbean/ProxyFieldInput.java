@@ -1,12 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.BooleanSupplier;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import eu.europeana.corelib.definitions.jibx.EdmType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
@@ -16,8 +9,14 @@ import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.Type2;
-import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Converts a {@link ProxyType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
@@ -45,7 +44,7 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
 
     final String docType = Optional.ofNullable(proxy.getType()).map(Type2::getType)
         .map(EdmType::xmlValue).orElse(null);
-    mongoProxy.setEdmType(DocType.safeValueOf(docType));
+    mongoProxy.setEdmType(docType);
 
     mongoProxy.setProxyFor(
         Optional.ofNullable(proxy.getProxyFor()).map(ResourceType::getResource).orElse(null));

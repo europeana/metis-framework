@@ -12,12 +12,12 @@ import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -114,6 +114,7 @@ public class TestObjectFactory {
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, abstractMetisPlugins, 0);
+    workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
 
@@ -240,7 +241,7 @@ public class TestObjectFactory {
     ds.setCountry(Country.GREECE);
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
-    ds.setUnfitForPublication(false);
+    ds.setPublicationFitness(PublicationFitness.PARTIALLY_FIT);
     ds.setNotes("Notes");
     return ds;
   }
@@ -273,7 +274,8 @@ public class TestObjectFactory {
     SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "",
         "Sensitive Information");
     final int resourceNum = 2;
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1", RecordState.SUCCESS, "",
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1",
+        RecordState.SUCCESS, "",
         "Sensitive Information");
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);

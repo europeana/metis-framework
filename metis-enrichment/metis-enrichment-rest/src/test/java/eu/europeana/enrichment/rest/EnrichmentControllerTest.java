@@ -2,7 +2,7 @@ package eu.europeana.enrichment.rest;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,19 +11,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
-import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
-import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
-import java.io.IOException;
+import eu.europeana.enrichment.service.EnrichmentService;
+import eu.europeana.enrichment.utils.InputValue;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,15 +33,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 public class EnrichmentControllerTest {
 
   private static MockMvc enrichmentControllerMock;
-  private static Enricher enrichmerMock;
-  private static Converter converterMock;
+  private static EnrichmentService enrichmentServiceMock;
 
   @BeforeAll
   public static void setUp() {
-    enrichmerMock = mock(Enricher.class);
-    converterMock = mock(Converter.class);
+    enrichmentServiceMock = mock(EnrichmentService.class);
 
-    EnrichmentController enrichmentController = new EnrichmentController(enrichmerMock, converterMock);
+    EnrichmentController enrichmentController = new EnrichmentController(enrichmentServiceMock);
     enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
         .setControllerAdvice(new RestResponseExceptionHandler())
         .build();
@@ -51,19 +47,15 @@ public class EnrichmentControllerTest {
 
   @AfterEach
   public void tearDown() {
-    Mockito.reset(enrichmerMock);
-    Mockito.reset(converterMock);
+    Mockito.reset(enrichmentServiceMock);
   }
 
   @Test
   public void getByUri_JSON() throws Exception {
-    EntityWrapper wrapper = new EntityWrapper();
     String uri = "http://www.example.com";
-    when(enrichmerMock.getByUri(uri)).thenReturn(wrapper);
-
     Agent agent = getAgent(uri);
-    when(converterMock.convert(wrapper)).thenReturn(agent);
-    enrichmentControllerMock.perform(get("/getByUri")
+    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri)).thenReturn(agent);
+    enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is(200))
@@ -74,29 +66,13 @@ public class EnrichmentControllerTest {
   }
 
   @Test
-  public void getByUri_JSON_throwsException() throws Exception {
-    EntityWrapper wrapper = new EntityWrapper();
-    String uri = "http://www.example.com";
-    when(enrichmerMock.getByUri(uri)).thenReturn(wrapper);
-
-    Agent agent = getAgent(uri);
-    when(converterMock.convert(wrapper)).thenThrow(new IOException("MyException"));
-    enrichmentControllerMock.perform(get("/getByUri")
-        .param("uri", "http://www.example.com")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().is(400))
-        .andExpect(jsonPath("$.errorMessage", is("Error converting object to EnrichmentBase")));
-  }
-
-  @Test
   public void getByUri_XML() throws Exception {
-    EntityWrapper wrapper = new EntityWrapper();
+
     String uri = "http://www.example.com";
-    when(enrichmerMock.getByUri(uri)).thenReturn(wrapper);
     Agent agent = getAgent(uri);
+    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri)).thenReturn(agent);
     Map<String, String> namespaceMap = getNamespaceMap();
-    when(converterMock.convert(wrapper)).thenReturn(agent);
-    enrichmentControllerMock.perform(get("/getByUri")
+    enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_XML_VALUE))
         .andExpect(status().is(200))
@@ -108,6 +84,7 @@ public class EnrichmentControllerTest {
 
   @Test
   public void enrich_XML() throws Exception {
+    String uri = "http://www.example.com";
     String body =
         "{\n"
             + "  \"inputValueList\": [\n"
@@ -121,14 +98,12 @@ public class EnrichmentControllerTest {
             + "}";
 
     Map<String, String> namespaceMap = getNamespaceMap();
+    Agent agent = getAgent(uri);
 
-    EnrichmentResultList enrichmentResultList = new EnrichmentResultList();
-    enrichmentResultList.getEnrichmentBaseWrapperList()
-        .add(new EnrichmentBaseWrapper("DC_CONTRIBUTOR", getAgent("http://www.example.com")));
+    when(enrichmentServiceMock.enrichByInputValueList(anyListOf(InputValue.class)))
+        .thenReturn(Collections.singletonList(new ImmutablePair<>("DC_CONTRIBUTOR", agent)));
 
-    when(converterMock.convert(anyList())).thenReturn(enrichmentResultList);
-
-    enrichmentControllerMock.perform(post("/enrich")
+    enrichmentControllerMock.perform(post("/enrich/input_value_list")
         .content(body)
         .accept(MediaType.APPLICATION_XML_VALUE)
         .contentType(MediaType.APPLICATION_JSON))
@@ -141,29 +116,6 @@ public class EnrichmentControllerTest {
             .string("labelNl"))
         .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
             .string("10-10-10"));
-  }
-
-  @Test
-  public void enrich_throwsException() throws Exception {
-    String body =
-        "{\n"
-            + "  \"inputValueList\": [\n"
-            + "    {\n"
-            + "      \"value\": \"Music\",\n"
-            + "      \"vocabularies\": [\n"
-            + "        \"CONCEPT\"\n"
-            + "      ]\n"
-            + "    }\n"
-            + "  ]\n"
-            + "}";
-
-    when(converterMock.convert(anyList())).thenThrow(new IOException("myException"));
-    enrichmentControllerMock.perform(post("/enrich")
-        .content(body)
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().is(400))
-        .andExpect(jsonPath("$.errorMessage", is("Error converting object.")));
   }
 
   private Agent getAgent(String uri) {

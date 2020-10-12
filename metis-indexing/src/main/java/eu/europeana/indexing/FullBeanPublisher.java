@@ -1,5 +1,7 @@
 package eu.europeana.indexing;
 
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import com.mongodb.MongoClientException;
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
@@ -21,10 +23,7 @@ import eu.europeana.indexing.solr.SolrDocumentPopulator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.TriConsumer;
 import eu.europeana.metis.mongo.RecordRedirectDao;
-import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -55,8 +54,6 @@ class FullBeanPublisher {
 
   private static final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> EMPTY_PREPROCESSOR = (created, updated, recordDateAndCreationDate) -> {
   };
-  private static final int PUBLISH_MAX_RETRIES = 30;
-  private static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
@@ -91,9 +88,8 @@ class FullBeanPublisher {
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    * parse strings to instances of {@link FullBeanImpl}. Will be called once during every publish.
    */
-  FullBeanPublisher(EdmMongoServer edmMongoClient,
-      RecordRedirectDao recordRedirectDao, SolrClient solrServer,
-      boolean preserveUpdateAndCreateTimesFromRdf,
+  FullBeanPublisher(EdmMongoServer edmMongoClient, RecordRedirectDao recordRedirectDao,
+      SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.edmMongoClient = edmMongoClient;
     this.solrServer = solrServer;
@@ -131,8 +127,7 @@ class FullBeanPublisher {
    * </ul>
    */
   public void publishWithRedirects(RdfWrapper rdf, Date recordDate,
-      List<String> datasetIdsToRedirectFrom)
-      throws IndexingException {
+      List<String> datasetIdsToRedirectFrom) throws IndexingException {
     publish(rdf, recordDate, datasetIdsToRedirectFrom, true);
   }
 
@@ -185,8 +180,9 @@ class FullBeanPublisher {
     // Perform redirection
     final List<Pair<String, Date>> recordsForRedirection;
     try {
-      recordsForRedirection = RecordRedirectsUtil.checkAndApplyRedirects(recordRedirectDao, rdf,
-              recordDate, datasetIdsToRedirectFrom, performRedirects, this::getSolrDocuments);
+      recordsForRedirection = RecordRedirectsUtil
+          .checkAndApplyRedirects(recordRedirectDao, rdf, recordDate, datasetIdsToRedirectFrom,
+              performRedirects, this::getSolrDocuments);
     } catch (RuntimeException e) {
       throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
     }
@@ -207,13 +203,14 @@ class FullBeanPublisher {
 
     // Publish to Solr
     try {
-      ExternalRequestUtil.retryableExternalRequest(() -> {
-            publishToSolr(rdf, savedFullBean);
-            return null;
-          }, Collections.singletonMap(UnknownHostException.class, ""), PUBLISH_MAX_RETRIES,
-          PERIOD_BETWEEN_RETRIES_IN_MILLIS);
-    } catch (IndexingException e) {
-      throw e;
+      retryableExternalRequestForNetworkExceptions(() -> {
+        try {
+          publishToSolr(rdf, savedFullBean);
+        } catch (IndexingException e) {
+          throw new RuntimeException(e);
+        }
+        return null;
+      });
     } catch (Exception e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     }

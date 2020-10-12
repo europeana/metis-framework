@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * Contains execution information of a dataset.
- * <p>Such as the last preview, last publish, first publish, last harvest information.</p>
+ * <p>Such as the last preview, first publish, last publish, last depublish, last harvest
+ * information.</p>
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-03
@@ -23,8 +24,19 @@ public class DatasetExecutionInformation {
   private int lastPublishedRecords;
   private boolean lastPublishedRecordsReadyForViewing;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date lastDepublishedDate;
+  private int lastDepublishedRecords;
+  private PublicationStatus publicationStatus;
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date lastHarvestedDate;
   private int lastHarvestedRecords;
+
+  /**
+   * The status of the dataset with regards to (de)publication.
+   */
+  public enum PublicationStatus{
+    PUBLISHED, DEPUBLISHED
+  }
 
   public DatasetExecutionInformation() {
     //Required for json serialization
@@ -86,6 +98,31 @@ public class DatasetExecutionInformation {
 
   public void setLastPublishedRecordsReadyForViewing(boolean lastPublishedRecordsReadyForViewing) {
     this.lastPublishedRecordsReadyForViewing = lastPublishedRecordsReadyForViewing;
+  }
+
+  public Date getLastDepublishedDate() {
+    return lastDepublishedDate == null ? null : new Date(lastDepublishedDate.getTime());
+  }
+
+  public void setLastDepublishedDate(Date lastDepublishedDate) {
+    this.lastDepublishedDate =
+        lastDepublishedDate == null ? null : new Date(lastDepublishedDate.getTime());
+  }
+
+  public int getLastDepublishedRecords() {
+    return lastDepublishedRecords;
+  }
+
+  public void setLastDepublishedRecords(int lastDepublishedRecords) {
+    this.lastDepublishedRecords = lastDepublishedRecords;
+  }
+
+  public PublicationStatus getPublicationStatus() {
+    return publicationStatus;
+  }
+
+  public void setPublicationStatus(PublicationStatus publicationStatus) {
+    this.publicationStatus = publicationStatus;
   }
 
   public Date getLastHarvestedDate() {

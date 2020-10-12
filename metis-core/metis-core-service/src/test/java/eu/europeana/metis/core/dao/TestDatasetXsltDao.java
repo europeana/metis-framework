@@ -4,14 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import java.util.Date;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,8 +36,8 @@ class TestDatasetXsltDao {
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
-    ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-    MongoClient mongoClient = new MongoClient(address);
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     datasetXsltDao = new DatasetXsltDao(provider);
@@ -52,7 +54,7 @@ class TestDatasetXsltDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.createQuery(DatasetXslt.class));
+    datastore.find(DatasetXslt.class).delete(new DeleteOptions().multi(true));
   }
 
   @Test
@@ -95,10 +97,19 @@ class TestDatasetXsltDao {
 
   @Test
   void getLatestXsltForDatasetId() {
-    datasetXsltDao.create(datasetXslt);
-    datasetXsltDao.create(datasetXslt);
-    String xsltId3 = datasetXsltDao.create(datasetXslt);
-    DatasetXslt latestDatasetXsltForDatasetId = datasetXsltDao.getLatestXsltForDatasetId(datasetXslt.getDatasetId());
+    final Dataset dataset = TestObjectFactory.createDataset("testName");
+    final DatasetXslt datasetXslt1 = TestObjectFactory.createXslt(dataset);
+    datasetXslt1.setCreatedDate(new Date(1000));
+    final DatasetXslt datasetXslt2 = TestObjectFactory.createXslt(dataset);
+    datasetXslt2.setCreatedDate(new Date(2000));
+    final DatasetXslt datasetXslt3 = TestObjectFactory.createXslt(dataset);
+    datasetXslt3.setCreatedDate(new Date(3000));
+
+    datasetXsltDao.create(datasetXslt1);
+    datasetXsltDao.create(datasetXslt2);
+    String xsltId3 = datasetXsltDao.create(datasetXslt3);
+    DatasetXslt latestDatasetXsltForDatasetId = datasetXsltDao
+        .getLatestXsltForDatasetId(datasetXslt3.getDatasetId());
     assertEquals(xsltId3, latestDatasetXsltForDatasetId.getId().toString());
   }
 }

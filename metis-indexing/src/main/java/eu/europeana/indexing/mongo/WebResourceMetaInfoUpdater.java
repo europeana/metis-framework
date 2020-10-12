@@ -2,6 +2,8 @@ package eu.europeana.indexing.mongo;
 
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
+import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
@@ -10,14 +12,11 @@ import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import org.mongodb.morphia.mapping.Mapper;
-import org.mongodb.morphia.query.Query;
 
 /**
  * Field updater for instances of {@link WebResourceMetaInfoImpl}.
@@ -35,20 +34,20 @@ public class WebResourceMetaInfoUpdater
         ancestorInformation.getRootAbout());
     final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =
         () -> createQuery(mongoServer, hashCode);
-    return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer,
-        WebResourceMetaInfoImpl.class, querySupplier, null);
+    return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer, querySupplier, null);
   }
 
   private static Query<WebResourceMetaInfoImpl> createQuery(MongoServer mongoServer, String id) {
-    return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class).field(Mapper.ID_KEY)
-        .equal(id);
+    return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class)
+        .filter(Filters.eq("_id", id));
   }
 
   // TODO This is code from corelib (eu.europeana.corelib.search.impl.WebMetaInfo). This should be
   // in a common library?
   private static String generateHashCode(String webResourceId, String recordId) {
     return HASH_FUNCTION.newHasher().putString(webResourceId, StandardCharsets.UTF_8)
-        .putString("-", StandardCharsets.UTF_8).putString(recordId, StandardCharsets.UTF_8).hash().toString();
+        .putString("-", StandardCharsets.UTF_8).putString(recordId, StandardCharsets.UTF_8).hash()
+        .toString();
   }
 
   @Override

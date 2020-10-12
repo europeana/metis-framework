@@ -1,10 +1,11 @@
 package eu.europeana.metis.core.rest.config;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -13,6 +14,8 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.DatasetService;
+import eu.europeana.metis.core.service.DepublishRecordIdService;
+import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import java.io.IOException;
@@ -30,6 +33,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -69,6 +74,11 @@ public class Application implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedOrigins(propertiesHolder.getAllowedCorsHosts());
+  }
+
+  @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
+  public StandardServletMultipartResolver getMultipartResolver() {
+    return new StandardServletMultipartResolver();
   }
 
   @Bean
@@ -115,6 +125,19 @@ public class Application implements WebMvcConfigurer {
   }
 
   /**
+   * Get the DAO for depublished records.
+   *
+   * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
+   * @return DAO used to access the database for depublished records.
+   */
+  @Bean
+  public DepublishRecordIdDao getDepublishedRecordDao(
+      MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new DepublishRecordIdDao(morphiaDatastoreProvider,
+        propertiesHolder.getMaxDepublishRecordIdsPerDataset());
+  }
+
+  /**
    * Get the Service for datasets.
    * <p>It encapsulates several DAOs and combines their functionality into methods</p>
    *
@@ -136,6 +159,13 @@ public class Application implements WebMvcConfigurer {
         workflowExecutionDao, scheduledWorkflowDao, redissonClient, authorizer);
     datasetService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return datasetService;
+  }
+
+  @Bean
+  public DepublishRecordIdService getDepublishedRecordService(
+      DepublishRecordIdDao depublishRecordIdDao, OrchestratorService orchestratorService,
+      Authorizer authorizer) {
+    return new DepublishRecordIdService(authorizer, orchestratorService, depublishRecordIdDao);
   }
 
   /**

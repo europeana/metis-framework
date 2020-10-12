@@ -44,10 +44,10 @@ public class PluginWithExecutionId<T extends MetisPlugin> {
 
   @Override
   public boolean equals(Object otherObject) {
-    if (!(otherObject instanceof PluginWithExecutionId)) {
+    if (otherObject == null || otherObject.getClass() != this.getClass()) {
       return false;
     }
-    final PluginWithExecutionId other = (PluginWithExecutionId) otherObject;
+    final PluginWithExecutionId<?> other = (PluginWithExecutionId<?>) otherObject;
     return this.getPlugin().getId().equals(other.getPlugin().getId());
   }
 

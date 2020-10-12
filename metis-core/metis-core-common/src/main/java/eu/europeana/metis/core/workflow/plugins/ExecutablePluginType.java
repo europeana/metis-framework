@@ -29,7 +29,9 @@ public enum ExecutablePluginType {
 
   PREVIEW(PluginType.PREVIEW),
 
-  PUBLISH(PluginType.PUBLISH);
+  PUBLISH(PluginType.PUBLISH),
+
+  DEPUBLISH(PluginType.DEPUBLISH);
 
   private final PluginType pluginType;
 

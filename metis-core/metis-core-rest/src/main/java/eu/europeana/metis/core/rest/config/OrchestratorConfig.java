@@ -10,6 +10,7 @@ import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -18,6 +19,7 @@ import eu.europeana.metis.core.execution.QueueConsumer;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.execution.WorkflowPostProcessor;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
@@ -147,7 +149,8 @@ public class OrchestratorConfig implements WebMvcConfigurer {
               String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
                   .getRedisPort()));
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
-        singleServerConfig.setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
+        singleServerConfig
+            .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
       }
     } else {
@@ -168,12 +171,13 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils, DatasetDao datasetDao,
-      WorkflowExecutionFactory workflowExecutionFactory,
-      WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer) {
+          WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
+          DatasetDao datasetDao, WorkflowExecutionFactory workflowExecutionFactory,
+          WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer,
+          DepublishRecordIdDao depublishRecordIdDao) {
     OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
         workflowDao, workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager,
-        redissonClient, authorizer);
+        redissonClient, authorizer, depublishRecordIdDao);
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }
@@ -181,9 +185,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
       WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
-      DatasetXsltDao datasetXsltDao) {
+      DatasetXsltDao datasetXsltDao, DepublishRecordIdDao depublishRecordIdDao) {
     WorkflowExecutionFactory workflowExecutionFactory =
-        new WorkflowExecutionFactory(datasetXsltDao, workflowExecutionDao, workflowUtils);
+        new WorkflowExecutionFactory(datasetXsltDao, depublishRecordIdDao, workflowExecutionDao,
+            workflowUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
@@ -211,14 +216,20 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
+  public WorkflowPostProcessor workflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
+      DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
+    return new WorkflowPostProcessor(depublishRecordIdDao, datasetDao, workflowExecutionDao, dpsClient);
+  }
+
+  @Bean
   public WorkflowExecutorManager getWorkflowExecutorManager(
-      WorkflowExecutionDao workflowExecutionDao,
+      WorkflowExecutionDao workflowExecutionDao, WorkflowPostProcessor workflowPostProcessor,
       @Qualifier("rabbitmqPublisherChannel") Channel rabbitmqPublisherChannel,
       @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel,
       RedissonClient redissonClient, DpsClient dpsClient) {
     WorkflowExecutorManager workflowExecutorManager =
-        new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
-            rabbitmqConsumerChannel, redissonClient, dpsClient);
+        new WorkflowExecutorManager(workflowExecutionDao, workflowPostProcessor,
+            rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager
@@ -246,8 +257,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao) {
-    return new WorkflowUtils(workflowExecutionDao);
+  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao,
+      DepublishRecordIdDao depublishRecordIdDao) {
+    return new WorkflowUtils(workflowExecutionDao, depublishRecordIdDao);
   }
 
   @Bean

@@ -1,11 +1,11 @@
 package eu.europeana.indexing;
 
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.io.Closeable;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
 
 /**
  * <p>
@@ -55,8 +55,8 @@ public interface AbstractConnectionProvider extends Closeable {
    *
    * @return A dataset remover.
    */
-  default IndexedRecordRemover getIndexedRecordRemover() {
-    return new IndexedRecordRemover(getEdmMongoClient(), getSolrClient());
+  default IndexedRecordAccess getIndexedRecordAccess() {
+    return new IndexedRecordAccess(getEdmMongoClient(), getSolrClient());
   }
 
   /**

@@ -8,6 +8,7 @@ package eu.europeana.metis.core.workflow.plugins;
  */
 public enum Topology {
 
+  HTTP_HARVEST("http_harvest"),
   OAIPMH_HARVEST("oai_harvest"),
 
   VALIDATION("validation"),
@@ -24,9 +25,9 @@ public enum Topology {
 
   INDEX("indexer"),
 
-  HTTP_HARVEST("http_harvest");
+  DEPUBLISH("depublication");
 
-  private String topologyName;
+  private final String topologyName;
 
   Topology(String topologyName) {
     this.topologyName = topologyName;

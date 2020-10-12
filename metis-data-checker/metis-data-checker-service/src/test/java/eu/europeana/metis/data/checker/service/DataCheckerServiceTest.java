@@ -13,6 +13,7 @@ import eu.europeana.metis.data.checker.service.persistence.RecordDao;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -48,7 +49,7 @@ public class DataCheckerServiceTest {
   public void test() throws DataCheckerServiceException, IOException {
     String record = IOUtils.toString(
         Thread.currentThread().getContextClassLoader().getResourceAsStream("Item_5791754.xml"),
-        "UTF-8");
+        StandardCharsets.UTF_8.name());
     ValidationResult result = new ValidationResult();
     result.setSuccess(true);
     when(mockValidationClient.validateRecord("EDM-INTERNAL", record)).thenReturn(result);

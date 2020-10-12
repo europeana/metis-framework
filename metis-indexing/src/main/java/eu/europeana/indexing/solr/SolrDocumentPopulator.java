@@ -4,6 +4,7 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.solr.facet.FacetEncoder;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
@@ -21,7 +22,7 @@ import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.utils.MediaType;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
@@ -40,8 +41,8 @@ import org.apache.solr.common.SolrInputDocument;
  * This class provides functionality to populate Solr documents. Both methods in this class should
  * be called to fill the Solr document. The method {@link #populateWithProperties(SolrInputDocument,
  * FullBeanImpl)} copies properties from the source to the Solr document. The method {@link
- * #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis
- * and sets technical metadata.
+ * #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis and
+ * sets technical metadata.
  *
  * @author jochen
  */
@@ -56,28 +57,30 @@ public class SolrDocumentPopulator {
    */
   public void populateWithProperties(SolrInputDocument document, FullBeanImpl fullBean) {
 
+    // Get the type: filter duplicates
+    final String[] types = Optional.ofNullable(fullBean.getProxies()).stream().flatMap(List::stream)
+        .filter(Objects::nonNull).map(ProxyImpl::getEdmType).filter(Objects::nonNull).distinct()
+        .toArray(String[]::new);
+    SolrPropertyUtils.addValues(document, EdmLabel.PROVIDER_EDM_TYPE, types);
+
     // Gather the licenses.
-    final List<LicenseImpl> licenses;
-    if (fullBean.getLicenses() == null) {
-      licenses = Collections.emptyList();
-    } else {
-      licenses = fullBean.getLicenses().stream().filter(Objects::nonNull)
-          .collect(Collectors.toList());
-    }
+    final List<LicenseImpl> licenses = Optional.ofNullable(fullBean.getLicenses()).stream()
+        .flatMap(List::stream).filter(Objects::nonNull).collect(Collectors.toList());
 
     // Gather the quality annotations.
-    final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations())
-        .map(List::stream).orElseGet(Stream::empty).filter(Objects::nonNull)
+    final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations()).stream()
+        .flatMap(Collection::stream).filter(Objects::nonNull)
         .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
-        .ofNullable(annotation.getTarget()).map(Arrays::stream).orElseGet(Stream::empty)
+        .ofNullable(annotation.getTarget()).stream().flatMap(Arrays::stream)
         .anyMatch(acceptableTargets::contains);
     final Map<String, QualityAnnotation> qualityAnnotations = Optional
         .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElseGet(Stream::empty)
         .filter(Objects::nonNull)
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
         .filter(hasAcceptableTarget)
-        .collect(Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
+        .collect(
+            Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
 
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));

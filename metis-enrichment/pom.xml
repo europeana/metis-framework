@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.9.0</version>
+    <version>2</version>
   </parent>
   <artifactId>metis-enrichment</artifactId>
   <packaging>pom</packaging>
@@ -14,7 +14,6 @@
     <module>metis-enrichment-common</module>
     <module>metis-enrichment-rest</module>
     <module>metis-enrichment-client</module>
-    <module>metis-enrichment-proxy-rest</module>
   </modules>
   <distributionManagement>
     <repository>

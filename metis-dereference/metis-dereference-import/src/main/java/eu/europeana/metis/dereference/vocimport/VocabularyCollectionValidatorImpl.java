@@ -5,13 +5,22 @@ import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
+import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabularyTrie;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
+import org.xml.sax.SAXException;
 
 public class VocabularyCollectionValidatorImpl implements VocabularyCollectionValidator {
 
@@ -55,12 +64,12 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private void validateInternal(Consumer<Vocabulary> vocabularyReceiver,
           Consumer<String> warningReceiver, boolean validateExamples)
           throws VocabularyImportException {
-    final NameDuplicationChecker nameDuplicationChecker = new NameDuplicationChecker();
+    final DuplicationChecker duplicationChecker = new DuplicationChecker();
     final Iterable<VocabularyLoader> vocabularyLoaders = importer.importVocabularies();
     for (VocabularyLoader loader : vocabularyLoaders) {
       final Vocabulary vocabulary = loader.load();
       final IncomingRecordToEdmConverter converter = validateVocabulary(vocabulary,
-              nameDuplicationChecker);
+              duplicationChecker);
       if (validateExamples) {
         validateExamples(vocabulary, warningReceiver, converter);
       }
@@ -69,7 +78,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private IncomingRecordToEdmConverter validateVocabulary(Vocabulary vocabulary,
-          NameDuplicationChecker nameDuplicationChecker) throws VocabularyImportException {
+          DuplicationChecker duplicationChecker) throws VocabularyImportException {
 
     // Check the presence of the required fields.
     if (vocabulary.getName() == null) {
@@ -93,9 +102,8 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
                       vocabulary.getReadableMappingLocation()));
     }
 
-    // Check whether name is unique.
-    nameDuplicationChecker
-            .checkAndRegisterName(vocabulary.getName(), vocabulary.getReadableMetadataLocation());
+    // Check whether name and links are unique.
+    duplicationChecker.checkAndRegister(vocabulary);
 
     // Verifying the xslt - compile it.
     try {
@@ -185,21 +193,60 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
               readableMetadataLocation, "did not yield a mapped result, but is expected to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
     }
+
+    // Check whether the example yielded valid XML
+    if (StringUtils.isNotBlank(result)) {
+      try {
+        isValidXml(result);
+      } catch (IOException | SAXException e) {
+        final String message = getTestErrorMessage(example, isCounterExample,
+                readableMetadataLocation, "did not yield a valid XML", e);
+        throw new VocabularyImportException(message, e);
+      }
+    }
   }
 
-  private static class NameDuplicationChecker {
+  private void isValidXml(String result) throws IOException, SAXException {
 
+    // Create document builder
+    final DocumentBuilder documentBuilder;
+    try {
+      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      factory.setNamespaceAware(true);
+      documentBuilder = factory.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new IllegalStateException("Problems setting up XML reader (this should not happen).", e);
+    }
+
+    // Parse the input.
+    try (InputStream inputStream = new ByteArrayInputStream(
+            result.getBytes(StandardCharsets.UTF_8))) {
+      documentBuilder.parse(inputStream);
+    }
+  }
+
+  private static class DuplicationChecker {
+
+    private final NonCollidingPathVocabularyTrie trie = new NonCollidingPathVocabularyTrie();
     private final Map<String, String> knownNames = new HashMap<>();
 
-    void checkAndRegisterName(String name, String readableMetadataLocation) {
-      final String nameToCheck = name.trim().replaceAll("\\s", " ").toLowerCase(Locale.ENGLISH);
+    void checkAndRegister(Vocabulary vocabulary) throws VocabularyImportException {
+
+      // Handle the link uniqueness
+      trie.insert(vocabulary);
+
+      // Handle the name uniqueness
+      final String nameToCheck = vocabulary.getName().trim().replaceAll("\\s", " ")
+              .toLowerCase(Locale.ENGLISH);
       if (knownNames.containsKey(nameToCheck)) {
         final String message = String.format("Duplicate name '%s' detected in metadata at [%s]:"
-                        + " metadata at [%s] contains a name that is similar.", name,
-                readableMetadataLocation, knownNames.get(nameToCheck));
-        throw new IllegalStateException(message);
+                        + " metadata at [%s] contains a name that is similar.", vocabulary.getName(),
+                vocabulary.getReadableMetadataLocation(), knownNames.get(nameToCheck));
+        throw new VocabularyImportException(message);
       }
-      knownNames.put(nameToCheck, readableMetadataLocation);
+      knownNames.put(nameToCheck, vocabulary.getReadableMetadataLocation());
     }
   }
 }

@@ -1,18 +1,18 @@
 package eu.europeana.enrichment.rest.config;
 
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.utils.EnrichmentEntityDao;
-import eu.europeana.enrichment.utils.RedisProvider;
+import eu.europeana.enrichment.service.EnrichmentService;
+import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.metis.mongo.MongoClientProvider;
+import eu.europeana.metis.mongo.MongoProperties;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -28,10 +28,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * Spring configuration class
- * Created by ymamakis on 12-2-16.
- */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
     "eu.europeana.enrichment.rest.exception"})
@@ -52,23 +48,14 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
 
-  //Redis
-  @Value("${redis.host}")
-  private String redisHost;
-  @Value("${redis.port}")
-  private int redisPort;
-  @Value("${redis.password}")
-  private String redisPassword;
-
-  @Value("${enrichment.mongoDb}")
-  private String enrichmentMongo;
-  @Value("${enrichment.mongoPort:27017}")
+  @Value("${enrichment.mongo.host}")
+  private String enrichmentMongoHost;
+  @Value("${enrichment.mongo.port:27017}")
   private int enrichmentMongoPort;
+  @Value("${enrichment.mongo.database}")
+  private String enrichmentMongoDatabase;
 
-  @Value("${enrichment.proxy.url}")
-  private String enrichmentProxyUrl;
-
-  private RedisProvider redisProvider;
+  private MongoClient mongoClient;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -78,9 +65,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
-
-    if(redisProvider == null)
-      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Override
@@ -97,29 +81,23 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  @DependsOn("redisInternalEnricher")
-  Enricher enricher() {
-    return new Enricher(getRedisInternalEnricher());
+  EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
+    return new EnrichmentService(enrichmentDao);
   }
 
   @Bean
-  EnrichmentEntityDao getEntityDao() {
-    return new EnrichmentEntityDao(enrichmentMongo, enrichmentMongoPort);
+  MongoClient getMongoClient() {
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties
+        .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
+    mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    return mongoClient;
   }
 
   @Bean
-  Converter converter() {
-    return new Converter();
-  }
-
-  @Bean
-  RedisProvider getRedisProvider() {
-      return redisProvider;
-  }
-
-  @Bean(name = "redisInternalEnricher")
-  RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(getEntityDao(), getRedisProvider());
+  EnrichmentDao getEnrichmentDao(MongoClient mongoClient) {
+    return new EnrichmentDao(mongoClient, enrichmentMongoDatabase);
   }
 
   @Bean
@@ -135,6 +113,16 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return new PropertySourcesPlaceholderConfigurer();
   }
 
+  /**
+   * Closes any connections previous acquired.
+   */
+  @PreDestroy
+  public void close() {
+    if (mongoClient != null) {
+      mongoClient.close();
+    }
+  }
+
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
@@ -147,7 +135,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   private ApiInfo apiInfo() {
-    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu", "development@europeana.eu");
+    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu",
+        "development@europeana.eu");
 
     return new ApiInfo(
         "Enrichment REST API",

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.9.0</version>
+    <version>2</version>
   </parent>
   <artifactId>metis-enrichment-client</artifactId>
   <packaging>jar</packaging>
@@ -32,10 +32,6 @@
       <artifactId>metis-enrichment-common</artifactId>
       <version>${project.version}</version>
       <exclusions>
-        <exclusion>
-          <groupId>org.mongojack</groupId>
-          <artifactId>mongojack</artifactId>
-        </exclusion>
         <exclusion>
           <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-xc</artifactId>

@@ -2,13 +2,14 @@ package eu.europeana.metis.core.dao;
 
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
+import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
 
-import com.mongodb.WriteResult;
-import dev.morphia.Key;
+import com.mongodb.client.result.DeleteResult;
+import dev.morphia.DeleteOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.Sort;
-import dev.morphia.query.internal.MorphiaCursor;
+import dev.morphia.query.experimental.filters.Filter;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,30 +52,33 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
 
   @Override
   public String create(ScheduledWorkflow scheduledWorkflow) {
-    Key<ScheduledWorkflow> scheduledWorkflowKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+    final ObjectId objectId = Optional.ofNullable(scheduledWorkflow.getId())
+        .orElseGet(ObjectId::new);
+    scheduledWorkflow.setId(objectId);
+    ScheduledWorkflow scheduledWorkflowSaved = ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
         scheduledWorkflow.getDatasetId());
-    return scheduledWorkflowKey == null ? null : scheduledWorkflowKey.getId().toString();
+    return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 
   @Override
   public String update(ScheduledWorkflow scheduledWorkflow) {
-    Key<ScheduledWorkflow> scheduledWorkflowKey =
-        ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    ScheduledWorkflow scheduledWorkflowSaved =
+        ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
         scheduledWorkflow.getDatasetId());
-    return scheduledWorkflowKey == null ? null : scheduledWorkflowKey.getId().toString();
+    return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 
   @Override
   public ScheduledWorkflow getById(String id) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class)
-        .field("_id").equal(new ObjectId(id));
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
+        .filter(Filters.eq(ID.getFieldName(), new ObjectId(id)));
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(query::first);
   }
 
   @Override
@@ -88,9 +93,9 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @return the found ScheduledWorkflow or null
    */
   public ScheduledWorkflow getScheduledWorkflow(String datasetId) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(ScheduledWorkflow.class)
-            .field(DATASET_ID.getFieldName()).equal(datasetId).first());
+            .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId)).first());
   }
 
   /**
@@ -100,9 +105,9 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @return the found ScheduledWorkflow or null
    */
   public ScheduledWorkflow getScheduledWorkflowByDatasetId(String datasetId) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(ScheduledWorkflow.class)
-            .field(DATASET_ID.getFieldName()).equal(datasetId).first());
+            .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId)).first());
   }
 
   /**
@@ -112,11 +117,11 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @return true if exist, otherwise false
    */
   public boolean exists(ScheduledWorkflow scheduledWorkflow) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore()
-            .find(ScheduledWorkflow.class).field(DATASET_ID.getFieldName())
-            .equal(scheduledWorkflow.getDatasetId())
-            .project("_id", true).first()) != null;
+            .find(ScheduledWorkflow.class)
+            .filter(Filters.eq(DATASET_ID.getFieldName(), scheduledWorkflow.getDatasetId()))
+            .first(new FindOptions().projection().include(ID.getFieldName()))) != null;
   }
 
   /**
@@ -127,9 +132,11 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    */
   public String existsForDatasetId(String datasetId) {
     ScheduledWorkflow storedScheduledWorkflow = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+        .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().find(ScheduledWorkflow.class)
-                .field(DATASET_ID.getFieldName()).equal(datasetId).project("_id", true).first());
+                .filter(
+                    Filters.eq(DATASET_ID.getFieldName(), datasetId))
+                .first(new FindOptions().projection().include(ID.getFieldName())));
     return storedScheduledWorkflow == null ? null : storedScheduledWorkflow.getId().toString();
   }
 
@@ -141,15 +148,14 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    */
   public boolean deleteScheduledWorkflow(String datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
-    query.field(DATASET_ID.getFieldName()).equal(datasetId);
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+        .find(ScheduledWorkflow.class);
+    query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
+    DeleteResult delete = ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(query::delete);
     LOGGER.debug(
         "ScheduledWorkflow with datasetId: {} deleted from Mongo",
         datasetId);
-    return (delete == null ? 0 : delete.getN()) == 1;
+    return (delete == null ? 0 : delete.getDeletedCount()) == 1;
   }
 
   /**
@@ -160,14 +166,13 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    */
   public boolean deleteAllByDatasetId(String datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
-    query.field(DATASET_ID.getFieldName()).equal(datasetId);
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+        .find(ScheduledWorkflow.class);
+    query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
+    DeleteResult deleteResult = ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(() -> query.delete(new DeleteOptions().multi(true)));
     LOGGER.debug(
         "ScheduledWorkflows with datasetId: {} deleted from Mongo", datasetId);
-    return (delete == null ? 0 : delete.getN()) >= 1;
+    return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
   }
 
   /**
@@ -180,15 +185,14 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   public List<ScheduledWorkflow> getAllScheduledWorkflows(
       ScheduleFrequence scheduleFrequence, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
+        .find(ScheduledWorkflow.class);
     if (scheduleFrequence != null && scheduleFrequence != ScheduleFrequence.NULL) {
-      query.field("scheduleFrequence").equal(scheduleFrequence);
+      query.filter(Filters.eq("scheduleFrequence", scheduleFrequence));
     }
-    query.order(Sort.ascending(ID.getFieldName()));
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   /**
@@ -203,26 +207,20 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
       LocalDateTime lowerBound,
       LocalDateTime upperBound, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
-    query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
-        query.criteria("pointerDate").greaterThanOrEq(
-            Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(
-        query.criteria("pointerDate")
-            .lessThan(Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant())));
-    query.order(Sort.ascending(ID.getFieldName()));
+        .find(ScheduledWorkflow.class);
+    final Filter scheduleFrequenceFilter = Filters.eq("scheduleFrequence", ScheduleFrequence.ONCE);
+    final Filter pointerDateLowerBoundFilter = Filters
+        .gte("pointerDate", Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()));
+    final Filter pointerDateUpperBoundFilter = Filters
+        .lt("pointerDate", Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant()));
+    query.filter(Filters
+        .and(scheduleFrequenceFilter, pointerDateLowerBoundFilter, pointerDateUpperBoundFilter));
+
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
 
-  }
-
-  private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
-      try (MorphiaCursor<T> cursor = query.find(findOptions)) {
-        return cursor.toList();
-      }
-    });
   }
 
   public int getScheduledWorkflowPerRequest() {

@@ -4,23 +4,13 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.9.0</version>
+    <version>2</version>
   </parent>
   <artifactId>metis-enrichment-rest</artifactId>
   <packaging>war</packaging>
   <url>http://www.europeana.eu</url>
 
   <dependencies>
-    <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
@@ -58,8 +48,8 @@
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
-      <artifactId>mongo-java-driver</artifactId>
-      <version>${version.mongo.java.driver}</version>
+      <artifactId>mongodb-driver-core</artifactId>
+      <version>${version.mongodb.driver.core}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
@@ -68,6 +58,10 @@
         <exclusion>
           <artifactId>corelib-web</artifactId>
           <groupId>eu.europeana.corelib</groupId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

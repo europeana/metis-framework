@@ -1,10 +1,9 @@
 package eu.europeana.enrichment.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Arrays;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Enrichment input class wrapper. It defines the basics needed for enrichment as the value to be
@@ -14,16 +13,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 @XmlRootElement
-@JsonInclude(Include.ALWAYS)
+@JsonInclude
 public class InputValue {
 
-  private String originalField;
+  private String rdfFieldName;
 
   private String value;
 
   private String language;
 
-  private List<EntityClass> vocabularies;
+  private List<EntityType> entityTypes;
 
   public InputValue() {
   }
@@ -31,25 +30,24 @@ public class InputValue {
   /**
    * Constructor with all possible fields provided for enrichment.
    *
-   * @param originalField the origin field name
+   * @param rdfFieldName the rdf field name
    * @param value the value to be enriched
    * @param language the language to use for enrichment of the value
-   * @param vocabularies the vocabularies that this value represents
+   * @param entityTypes the vocabularies that this value represents
    */
-  public InputValue(String originalField, String value, String language,
-      EntityClass... vocabularies) {
-    this.originalField = originalField;
+  public InputValue(String rdfFieldName, String value, String language, EntityType... entityTypes) {
+    this.rdfFieldName = rdfFieldName;
     this.value = value;
     this.language = language;
-    this.vocabularies = Arrays.asList(vocabularies);
+    this.entityTypes = Arrays.asList(entityTypes);
   }
 
-  public String getOriginalField() {
-    return originalField;
+  public String getRdfFieldName() {
+    return rdfFieldName;
   }
 
-  public void setOriginalField(String originalField) {
-    this.originalField = originalField;
+  public void setRdfFieldName(String rdfFieldName) {
+    this.rdfFieldName = rdfFieldName;
   }
 
   public String getValue() {
@@ -60,12 +58,12 @@ public class InputValue {
     this.value = value;
   }
 
-  public List<EntityClass> getVocabularies() {
-    return vocabularies;
+  public List<EntityType> getEntityTypes() {
+    return entityTypes;
   }
 
-  public void setVocabularies(List<EntityClass> vocabularies) {
-    this.vocabularies = vocabularies;
+  public void setEntityTypes(List<EntityType> entityTypes) {
+    this.entityTypes = entityTypes;
   }
 
   public String getLanguage() {

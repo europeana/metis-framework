@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
@@ -22,16 +21,12 @@ final class RdfBindingFactoryProvider {
 
   /**
    * @return A binding factory.
-   * @throws RdfConverterException In case the binding factory could not be created.
+   * @throws JiBXException In case the binding factory could not be created.
    */
-  static IBindingFactory getBindingFactory() throws RdfConverterException {
+  static IBindingFactory getBindingFactory() throws JiBXException {
     synchronized (RdfBindingFactoryProvider.class) {
       if (rdfBindingFactory == null) {
-        try {
-          rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-        } catch (JiBXException e) {
-          throw new RdfConverterException("Unable to create binding factory", e);
-        }
+        rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
       }
       return rdfBindingFactory;
     }

@@ -18,23 +18,24 @@ import org.slf4j.LoggerFactory;
  * dereference request. It represents the list of vocabulary candidates for a given resource before
  * the resource has been resolved, and provides further functionality for when that happens.
  * </p>
- * 
- * @author jochen
+ * In practice, there should be at most one candidate vocabulary (and if there are more, it will be
+ * noted in the logs). But this class is fully functional for multiple vocabulary candidates.
  *
+ * @author jochen
  */
 public final class VocabularyCandidates {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyCandidates.class);
 
-  private final List<Vocabulary> candidates;
+  private final List<Vocabulary> vocabularies;
 
   /**
    * Constructor.
-   * 
-   * @param candidates The candidates to be in this list.
+   *
+   * @param vocabularies The candidates to be in this list.
    */
-  VocabularyCandidates(List<Vocabulary> candidates) {
-    this.candidates = new ArrayList<>(candidates);
+  VocabularyCandidates(List<Vocabulary> vocabularies) {
+    this.vocabularies = new ArrayList<>(vocabularies);
   }
 
   /**
@@ -71,6 +72,10 @@ public final class VocabularyCandidates {
     if (candidates.isEmpty()) {
       LOGGER.info("No vocabularies found for uri {}", resourceId);
     }
+    if (candidates.size() > 1 && LOGGER.isWarnEnabled()) {
+      LOGGER.warn("Multiple vocabularies found for uri {}: {}", resourceId,
+              candidates.stream().map(Vocabulary::getName).collect(Collectors.joining(", ")));
+    }
     return new VocabularyCandidates(candidates);
   }
 
@@ -79,15 +84,16 @@ public final class VocabularyCandidates {
   }
 
   /**
-   * Collects the suffixes of all the candidates. This method is useful for resolving the resource.
+   * Collects the suffixes of all the vocabulary candidates. This method is useful for resolving
+   * the resource.
    * Note that all the vocabulary candidates must at this point represent the same vocabulary, so
    * the number of suffixes should be very limited (1, if all vocabularies are configured the same
    * way).
-   * 
+   *
    * @return The collection of suffixes. Is not null.
    */
-  public Set<String> getCandidateSuffixes() {
-    return candidates.stream()
+  public Set<String> getVocabulariesSuffixes() {
+    return vocabularies.stream()
         .map(vocabulary -> vocabulary.getSuffix() == null ? "" : vocabulary.getSuffix())
         .collect(Collectors.toSet());
   }
@@ -98,15 +104,15 @@ public final class VocabularyCandidates {
    * @return Whether there are any candidates.
    */
   public boolean isEmpty() {
-    return candidates.isEmpty();
+    return vocabularies.isEmpty();
   }
 
   /**
    * Provides an immutable (read-only) view of the vocabularies in this collection.
-   * 
+   *
    * @return The candidates.
    */
-  public List<Vocabulary> getCandidates() {
-    return Collections.unmodifiableList(candidates);
+  public List<Vocabulary> getVocabularies() {
+    return Collections.unmodifiableList(vocabularies);
   }
 }

@@ -1,12 +1,16 @@
 package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
+import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
@@ -37,6 +41,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.utils.URIBuilder;
+import org.springframework.util.CollectionUtils;
 
 /**
  * This class is a utility class that can answer questions related to the validation of workflows.
@@ -56,14 +61,18 @@ public class WorkflowUtils {
       .unmodifiableSet(EnumSet.complementOf(EnumSet.of(ExecutablePluginType.LINK_CHECKING)));
 
   private final WorkflowExecutionDao workflowExecutionDao;
+  private final DepublishRecordIdDao depublishRecordIdDao;
 
   /**
    * Constructor.
    *
-   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the database.
+   * @param workflowExecutionDao the workflow execution dao
+   * @param depublishRecordIdDao the depublication record id dao
    */
-  public WorkflowUtils(WorkflowExecutionDao workflowExecutionDao) {
+  public WorkflowUtils(WorkflowExecutionDao workflowExecutionDao,
+      DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionDao = workflowExecutionDao;
+    this.depublishRecordIdDao = depublishRecordIdDao;
   }
 
   /**
@@ -72,6 +81,7 @@ public class WorkflowUtils {
    * <li>That the workflow is not empty and contains plugins with valid types,</li>
    * <li>That the first plugin is not link checking (except when it is the only plugin),</li>
    * <li>That no two plugins of the same type occur in the workflow,</li>
+   * <li>That if depublish is enabled no other plugins are allowed in the workflow,</li>
    * <li>That the first plugin has a valid predecessor plugin in the dataset's history (as defined by
    * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the
    * enforced predecessor type, and the root plugin (i.e. harvest) of which is equal to the latest
@@ -96,39 +106,44 @@ public class WorkflowUtils {
   public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
-    // Sanity checks: workflow should have a plugin list.
+    // Workflow should have a plugin list.
     if (workflow.getMetisPluginsMetadata() == null) {
       throw new BadContentException("Workflow should not be empty.");
     }
 
     // Compile the list of enabled plugins.
-    final List<AbstractExecutablePluginMetadata> plugins = workflow.getMetisPluginsMetadata()
+    final List<AbstractExecutablePluginMetadata> enabledPlugins = workflow.getMetisPluginsMetadata()
         .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
 
-    // Sanity checks: workflow should not be empty and all should have a type.
-    if (plugins.isEmpty()) {
+    // Workflow should not be empty and all should have a type.
+    if (enabledPlugins.isEmpty()) {
       throw new BadContentException("Workflow should not be empty.");
     }
-    if (plugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
+    if (enabledPlugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
         .anyMatch(Objects::isNull)) {
-      throw new BadContentException("There are plugins of which the type could not be determined.");
+      throw new BadContentException(
+          "There are enabled plugins of which the type could not be determined.");
     }
 
+    // Validate dataset/record depublication
+    validateDepublishPlugin(workflow.getDatasetId(), enabledPlugins);
+
     // Validate and normalize the harvest parameters of harvest plugins (even if not enabled)
-    validateAndTrimHarvestParameters(plugins);
+    validateAndTrimHarvestParameters(enabledPlugins);
 
     // Check that first plugin is not link checking (except if it is the only plugin)
-    if (plugins.size() > 1 && plugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
+    if (enabledPlugins.size() > 1
+        && enabledPlugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
 
-    // Make sure that all plugins (except the first) have a predecessor within the workflow.
+    // Make sure that all enabled plugins (except the first) have a predecessor within the workflow.
     final EnumSet<ExecutablePluginType> previousTypesInWorkflow = EnumSet
-        .of(plugins.get(0).getExecutablePluginType());
-    for (int i = 1; i < plugins.size(); i++) {
+        .of(enabledPlugins.get(0).getExecutablePluginType());
+    for (int i = 1; i < enabledPlugins.size(); i++) {
 
       // Find the permissible predecessors
-      final ExecutablePluginType pluginType = plugins.get(i).getExecutablePluginType();
+      final ExecutablePluginType pluginType = enabledPlugins.get(i).getExecutablePluginType();
       final Set<ExecutablePluginType> permissiblePredecessors = getPredecessorTypes(pluginType);
 
       // Check if we have the right predecessor plugin types in the workflow
@@ -143,19 +158,19 @@ public class WorkflowUtils {
     }
 
     // We should now have seen all types. Make sure that there are no duplicates
-    if (previousTypesInWorkflow.size() != plugins.size()) {
+    if (previousTypesInWorkflow.size() != enabledPlugins.size()) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
 
     // Check the presence of the predecessor and return it.
-    return computePredecessorPlugin(plugins.get(0).getExecutablePluginType(),
+    return computePredecessorPlugin(enabledPlugins.get(0).getExecutablePluginType(),
         enforcedPredecessorType, workflow.getDatasetId());
   }
 
   private static void validateAndTrimHarvestParameters(
-      List<AbstractExecutablePluginMetadata> plugins)
+      List<AbstractExecutablePluginMetadata> enabledPlugins)
       throws BadContentException {
-    for (AbstractExecutablePluginMetadata pluginMetadata : plugins) {
+    for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
       if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
         final OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) pluginMetadata;
         final URI validatedUri = validateUrl(oaipmhMetadata.getUrl());
@@ -169,6 +184,31 @@ public class WorkflowUtils {
       if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
         final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
         httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
+      }
+    }
+  }
+
+  private void validateDepublishPlugin(String datasetId,
+      List<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
+    // If depublish requested, make sure it's the only plugin in the workflow
+    final Optional<DepublishPluginMetadata> depublishPluginMetadata = enabledPlugins.stream()
+        .filter(plugin -> plugin.getExecutablePluginType().toPluginType() == PluginType.DEPUBLISH)
+        .map(plugin -> (DepublishPluginMetadata) plugin).findFirst();
+    if (enabledPlugins.size() > 1 && depublishPluginMetadata.isPresent()) {
+      throw new BadContentException(
+          "If DEPUBLISH plugin enabled, no other enabled plugins are allowed.");
+    }
+
+    // If record depublication requested, check if there are pending record ids in the db
+    if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
+        .isDatasetDepublish()) {
+      final Set<String> pendingDepublicationIds = depublishRecordIdDao
+          .getAllDepublishRecordIdsWithStatus(datasetId,
+              DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+              DepublicationStatus.PENDING_DEPUBLICATION);
+      if (CollectionUtils.isEmpty(pendingDepublicationIds)) {
+        throw new BadContentException(
+            "Record depublication requested but there are no pending depublication record ids in the db");
       }
     }
   }
@@ -216,12 +256,15 @@ public class WorkflowUtils {
    * @return the {@link AbstractExecutablePlugin} that the pluginType execution can use as a source.
    * Can be null in case the given type does not require a predecessor.
    */
-  public static AbstractExecutablePlugin computePredecessorPlugin(ExecutablePluginType pluginType,
+  public static AbstractExecutablePlugin computePredecessorPlugin(ExecutablePluginType
+      pluginType,
       WorkflowExecution workflowExecution) {
 
     // If the plugin type does not need a predecessor we are done.
     final Set<ExecutablePluginType> predecessorTypes = getPredecessorTypes(pluginType);
-    if (predecessorTypes.isEmpty()) {
+    if (predecessorTypes.isEmpty() || (pluginType == ExecutablePluginType.DEPUBLISH
+        && predecessorTypes.size() == 1 && predecessorTypes
+        .contains(ExecutablePluginType.PUBLISH))) {
       return null;
     }
 
@@ -250,9 +293,13 @@ public class WorkflowUtils {
    * This method first computes the candidate type(s) this predecessor can have according to the
    * execution rules, based on the given target plugin type (using {@link
    * #getPredecessorTypes(ExecutablePluginType)}). If no predecessor is required for this type, this
-   * method returns null. The enforced predecessor type provides a way to override the computed
-   * candidate types (if there are any): if provided, it is the only candidate type, meaning that
-   * any resulting predecessor plugin will be of this type.
+   * method returns null. Null is also returned for a predecessor {@link
+   * ExecutablePluginType#PUBLISH} that has at least one successful execution and pluginType {@link
+   * ExecutablePluginType#DEPUBLISH}, for which we do not need to perform all the checks since the
+   * predecessor may have been superseded by an invalid plugin execution. The enforced predecessor
+   * type provides a way to override the computed candidate types (if there are any): if provided,
+   * it is the only candidate type, meaning that any resulting predecessor plugin will be of this
+   * type.
    * </p>
    *
    * <p>
@@ -274,48 +321,67 @@ public class WorkflowUtils {
    * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
    * @param enforcedPredecessorType If not null, overrides the predecessor type of the plugin.
    * @param datasetId the dataset ID of the new plugin's dataset.
-   * @return the {@link ExecutablePlugin} that the pluginType execution will use as a
-   * source. Can be null in case the given type does not require a predecessor.
+   * @return the {@link ExecutablePlugin} that the pluginType execution will use as a source. Can be
+   * null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
   public PluginWithExecutionId<ExecutablePlugin> computePredecessorPlugin(
-          ExecutablePluginType pluginType, ExecutablePluginType enforcedPredecessorType,
-          String datasetId) throws PluginExecutionNotAllowed {
+      ExecutablePluginType pluginType, ExecutablePluginType enforcedPredecessorType,
+      String datasetId) throws PluginExecutionNotAllowed {
 
-    // If the plugin type does not need a predecessor (even the enforced one) we are done.
+    final PluginWithExecutionId<ExecutablePlugin> predecessorPlugin;
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
+
     if (defaultPredecessorTypes.isEmpty()) {
-      return null;
+      // If the plugin type does not need a predecessor (even the enforced one) we are done.
+      predecessorPlugin = null;
+    } else if (pluginType == ExecutablePluginType.DEPUBLISH && defaultPredecessorTypes.size() == 1
+        && defaultPredecessorTypes.contains(ExecutablePluginType.PUBLISH)) {
+      // We also return null if a DEPUBLISH Operation is requested and a successful PUBLISH exists
+      // However, make sure there at least one successful plugin of the predecessor
+      final boolean hasAtLeastOneSuccessfulPlugin = defaultPredecessorTypes.stream()
+              .map(Collections::singleton).map(type -> workflowExecutionDao
+                      .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
+              .filter(Objects::nonNull).anyMatch(WorkflowUtils::pluginHasSuccessfulRecords);
+      if (!hasAtLeastOneSuccessfulPlugin) {
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+      }
+      predecessorPlugin = null;
+    } else {
+
+      // Determine which predecessor plugin types are permissible (list is never empty).
+      final Set<ExecutablePluginType> predecessorTypes = Optional
+          .ofNullable(enforcedPredecessorType)
+          .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
+
+      // Find the latest successful harvest to compare with. If none exist, throw exception.
+      final PluginWithExecutionId<ExecutablePlugin> latestHarvest = Optional
+          .ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
+              HARVEST_PLUGIN_GROUP, true)).orElseThrow(
+              () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+
+      // Find the latest successful plugin of each type and filter on existence of successful records.
+      final Stream<PluginWithExecutionId<ExecutablePlugin>> latestSuccessfulPlugins = predecessorTypes
+          .stream().map(Collections::singleton).map(
+              type -> workflowExecutionDao
+                  .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
+          .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords);
+
+      // Sort on finished state, so that the root check occurs as little as possible.
+      final Stream<PluginWithExecutionId<ExecutablePlugin>> sortedSuccessfulPlugins =
+          latestSuccessfulPlugins.sorted(Comparator.comparing(
+              plugin -> Optional.ofNullable(plugin.getPlugin().getFinishedDate())
+                  .orElseGet(() -> new Date(Long.MIN_VALUE)),
+              Comparator.reverseOrder()));
+
+      // Find the first plugin that satisfies the root check. If none found, throw exception.
+      final Predicate<PluginWithExecutionId<ExecutablePlugin>> rootCheck = plugin -> getRootAncestor(
+          plugin).equals(latestHarvest);
+      predecessorPlugin = sortedSuccessfulPlugins
+          .filter(rootCheck).findFirst().orElseThrow(
+              () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
     }
-
-    // Determine which predecessor plugin types are permissible (list is never empty).
-    final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
-        .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
-
-    // Find the latest successful harvest to compare with. If none exist, throw exception.
-    final PluginWithExecutionId<ExecutablePlugin> latestHarvest = Optional
-        .ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
-            HARVEST_PLUGIN_GROUP, true)).orElseThrow(
-            () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
-
-    // Find the latest successful plugin of each type and filter on existence of successful records.
-    final Stream<PluginWithExecutionId<ExecutablePlugin>> latestSuccessfulPlugins = predecessorTypes
-        .stream().map(Collections::singleton).map(
-            type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true))
-        .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords);
-
-    // Sort on finished state, so that the root check occurs as little as possible.
-    final Stream<PluginWithExecutionId<ExecutablePlugin>> sortedSuccessfulPlugins =
-        latestSuccessfulPlugins.sorted(Comparator.comparing(
-            plugin -> Optional.ofNullable(plugin.getPlugin().getFinishedDate())
-                .orElseGet(() -> new Date(Long.MIN_VALUE)),
-            Comparator.reverseOrder()));
-
-    // Find the first plugin that satisfies the root check. If none found, throw exception.
-    final Predicate<PluginWithExecutionId<ExecutablePlugin>> rootCheck = plugin -> getRootAncestor(
-            plugin).equals(latestHarvest);
-    return sortedSuccessfulPlugins.filter(rootCheck).findFirst().orElseThrow(
-            () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+    return predecessorPlugin;
   }
 
   private static boolean pluginHasSuccessfulRecords(
@@ -332,13 +398,13 @@ public class WorkflowUtils {
    * @return The root ancestor. Is not null.
    */
   public PluginWithExecutionId<ExecutablePlugin> getRootAncestor(
-          PluginWithExecutionId<ExecutablePlugin> plugin) {
+      PluginWithExecutionId<ExecutablePlugin> plugin) {
     final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
     final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
-            compileVersionEvolution(plugin.getPlugin(), execution);
+        compileVersionEvolution(plugin.getPlugin(), execution);
     return evolution.stream().findFirst()
-            .map(pair -> new PluginWithExecutionId<>(pair.getRight(), pair.getLeft()))
-            .orElse(plugin);
+        .map(pair -> new PluginWithExecutionId<>(pair.getRight(), pair.getLeft()))
+        .orElse(plugin);
   }
 
   /**
@@ -377,6 +443,9 @@ public class WorkflowUtils {
       case PUBLISH:
         predecessorTypes = EnumSet.of(ExecutablePluginType.PREVIEW);
         break;
+      case DEPUBLISH:
+        predecessorTypes = EnumSet.of(ExecutablePluginType.PUBLISH);
+        break;
       case LINK_CHECKING:
         predecessorTypes = ALL_EXCEPT_LINK_GROUP;
         break;
@@ -410,7 +479,8 @@ public class WorkflowUtils {
 
       // Move to the previous execution: stop when we have none or it is not executable.
       currentExecutionAndPlugin = getPreviousExecutionAndPlugin(
-          currentExecutionAndPlugin.getLeft(), currentExecutionAndPlugin.getRight().getDatasetId());
+          currentExecutionAndPlugin.getLeft(),
+          currentExecutionAndPlugin.getRight().getDatasetId());
       if (currentExecutionAndPlugin == null || !(currentExecutionAndPlugin
           .getLeft() instanceof ExecutablePlugin)) {
         break;

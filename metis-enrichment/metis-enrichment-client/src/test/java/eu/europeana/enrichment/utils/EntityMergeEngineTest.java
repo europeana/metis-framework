@@ -522,12 +522,12 @@ public class EntityMergeEngineTest {
       assertNull(copy);
     } else {
       assertNotNull(copy);
-      assertEquals(new Float(original), floatExtractor.apply(copy));
+      assertEquals(Float.valueOf(original), floatExtractor.apply(copy));
     }
   }
 
   private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount,
-          int timeSpanCount) {
+      int timeSpanCount) {
 
     // Four main lists.
     if (agentCount == 0) {
@@ -584,7 +584,8 @@ public class EntityMergeEngineTest {
     inputList.add(createPlace());
     inputList.add(createFirstPlaceWithNullValues());
     inputList.add(createSecondPlaceWithNullValues());
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper.createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
 
     // Perform merge
     RDF rdf = new RDF();
@@ -612,7 +613,8 @@ public class EntityMergeEngineTest {
     inputList.add(createTimeSpan());
     inputList.add(createAgentWithNullValues());
     inputList.add(createConceptWithNullValues());
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper.createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
 
     // Perform merge
     RDF rdf = new RDF();

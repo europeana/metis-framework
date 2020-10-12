@@ -1,16 +1,21 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
+import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
@@ -20,10 +25,12 @@ import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
+import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.function.BooleanSupplier;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -37,6 +44,7 @@ import org.springframework.util.CollectionUtils;
 public class WorkflowExecutionFactory {
 
   private final DatasetXsltDao datasetXsltDao;
+  private final DepublishRecordIdDao depublishRecordIdDao;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowUtils workflowUtils;
 
@@ -49,12 +57,15 @@ public class WorkflowExecutionFactory {
    * Constructor with parameters required to support the {@link OrchestratorService}
    *
    * @param datasetXsltDao the Dao instance to access the dataset xslts
+   * @param depublishRecordIdDao The Dao instance to access depublish records.
    * @param workflowExecutionDao the Dao instance to access the workflow executions
    * @param workflowUtils the utilities class for workflow operations
    */
   public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao,
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils) {
+      DepublishRecordIdDao depublishRecordIdDao, WorkflowExecutionDao workflowExecutionDao,
+      WorkflowUtils workflowUtils) {
     this.datasetXsltDao = datasetXsltDao;
+    this.depublishRecordIdDao = depublishRecordIdDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.workflowUtils = workflowUtils;
   }
@@ -62,7 +73,8 @@ public class WorkflowExecutionFactory {
   // Expect the dataset to be synced with eCloud.
   // Does not save the workflow execution.
   WorkflowExecution createWorkflowExecution(Workflow workflow, Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin> predecessor, int priority) {
+      PluginWithExecutionId<ExecutablePlugin> predecessor, int priority)
+      throws BadContentException {
 
     // Create the plugins
     final List<AbstractExecutablePlugin> workflowPlugins = new ArrayList<>();
@@ -70,7 +82,8 @@ public class WorkflowExecutionFactory {
     for (AbstractExecutablePluginMetadata pluginMetadata : workflow.getMetisPluginsMetadata()) {
       if (pluginMetadata.isEnabled()) {
         workflowPlugins
-            .add(createWorkflowPlugin(dataset, predecessor, pluginMetadata, typesInWorkflow));
+            .add(createWorkflowExecutionPlugin(dataset, predecessor, pluginMetadata,
+                typesInWorkflow));
         typesInWorkflow.add(pluginMetadata.getExecutablePluginType());
       }
     }
@@ -85,10 +98,10 @@ public class WorkflowExecutionFactory {
     return new WorkflowExecution(dataset, workflowPlugins, priority);
   }
 
-  private AbstractExecutablePlugin createWorkflowPlugin(Dataset dataset,
+  private AbstractExecutablePlugin createWorkflowExecutionPlugin(Dataset dataset,
       PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
       AbstractExecutablePluginMetadata pluginMetadata,
-      List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
+      List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) throws BadContentException {
 
     // Add some extra configuration to the plugin metadata depending on the type.
     if (pluginMetadata instanceof TransformationPluginMetadata) {
@@ -115,6 +128,10 @@ public class WorkflowExecutionFactory {
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
       ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
+    } else if (pluginMetadata instanceof DepublishPluginMetadata) {
+      ((DepublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
+          isMetisUseAlternativeIndexingEnvironment());
+      setupDepublishPluginMetadata(dataset, ((DepublishPluginMetadata) pluginMetadata));
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
           .setSampleSize(getDefaultSamplingSizeForLinkChecking());
@@ -245,6 +262,28 @@ public class WorkflowExecutionFactory {
     pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
     pluginMetadata.setCountry(dataset.getCountry().getName());
     pluginMetadata.setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
+  }
+
+  private void setupDepublishPluginMetadata(Dataset dataset,
+      DepublishPluginMetadata pluginMetadata) throws BadContentException {
+    final Set<String> recordIdsToDepublish = pluginMetadata.getRecordIdsToDepublish();
+    if (!pluginMetadata.isDatasetDepublish()) {
+      final Set<String> pendingDepublicationIds;
+      if (recordIdsToDepublish.isEmpty()) {
+        //Get all record ids that are marked as PENDING_DEPUBLICATION in the database
+        pendingDepublicationIds = depublishRecordIdDao
+            .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
+                DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+                DepublicationStatus.PENDING_DEPUBLICATION);
+      } else {
+        //Match provided record ids that are marked as PENDING_DEPUBLICATION in the database
+        pendingDepublicationIds = depublishRecordIdDao
+            .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
+                DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+                DepublicationStatus.PENDING_DEPUBLICATION, recordIdsToDepublish);
+      }
+      pluginMetadata.setRecordIdsToDepublish(pendingDepublicationIds);
+    }
   }
 
   public ValidationProperties getValidationExternalProperties() {

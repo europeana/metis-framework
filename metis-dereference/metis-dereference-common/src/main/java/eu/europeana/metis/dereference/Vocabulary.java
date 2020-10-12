@@ -1,24 +1,30 @@
 package eu.europeana.metis.dereference;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexed;
+import dev.morphia.annotations.Indexes;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
+import org.bson.types.ObjectId;
 
 /**
  * A controlled vocabulary representation Created by ymamakis on 2/11/16.
  */
 
-@Entity("Vocabulary")
+@Entity
+@Indexes({
+    @Index(fields = {@Field("uris")}),
+    @Index(fields = {@Field("name")}, options = @IndexOptions(unique = true))
+})
 public class Vocabulary implements Serializable {
 
   /**
@@ -27,45 +33,18 @@ public class Vocabulary implements Serializable {
   private static final long serialVersionUID = 2946293185967000824L;
 
   @Id
-  private String id;
-
-  /**
-   * The URI of the controlled vocabulary.
-   *
-   * @deprecated Is present because it may be searched by old implementations. Should always be
-   * equal to the server (without path) so that it is always found. This field will be removed.
-   */
-  @Indexed
-  @Deprecated
-  private String uri;
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId id;
 
   /**
    * The URIs of the controlled vocabulary
    */
-  @Indexed
   private Set<String> uris;
 
   /**
    * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
    */
   private String suffix;
-
-  /**
-   * Rules that take into account the rdf:type attribute of an rdf:Description to specify whether
-   * @deprecated Is no longer used. Should always be null. This field will be removed.
-   */
-  @Deprecated
-  private Set<String> typeRules;
-
-  /**
-   * Rules by URL
-   *
-   * @deprecated Should be equal to the URI paths. This means that together (concatenated) with the
-   * deprecated field {@link #uri} it will contain all possible URIs, as before. This field will be
-   * removed.
-   */
-  @Deprecated
-  private Set<String> rules;
 
   /**
    * The XSLT to convert an external entity to an internal entity
@@ -80,7 +59,6 @@ public class Vocabulary implements Serializable {
   /**
    * The name of the vocabulary
    */
-  @Indexed(options = @IndexOptions(unique = true))
   private String name;
 
   @XmlElement
@@ -90,28 +68,6 @@ public class Vocabulary implements Serializable {
 
   public void setUris(Collection<String> uris) {
     this.uris = new HashSet<>(uris);
-    inferDataForBackwardsCompatibility();
-  }
-
-  /**
-   * Set the data that is present only for backwards compatibility. Data is inferred from {@link
-   * #uris}, so this method should be called after this value is changed.
-   *
-   * @deprecated Will be removed when the data is removed.
-   */
-  @Deprecated
-  private void inferDataForBackwardsCompatibility() {
-    final String sampleUrl = uris.iterator().next();
-    final String server;
-    try {
-      final URL convertedUrl = new URL(sampleUrl);
-      server = convertedUrl.getProtocol() + "://" + convertedUrl.getAuthority() + "/";
-    } catch (MalformedURLException e) {
-      throw new IllegalStateException("Shouldn't happen: problem with URL " + sampleUrl);
-    }
-    this.uri = server;
-    this.typeRules = null;
-    this.rules = uris.stream().map(link -> link.substring(server.length())).collect(Collectors.toSet());
   }
 
   @XmlElement
@@ -151,11 +107,11 @@ public class Vocabulary implements Serializable {
   }
 
   @XmlElement
-  public String getId() {
+  public ObjectId getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(ObjectId id) {
     this.id = id;
   }
 }

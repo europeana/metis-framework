@@ -1,17 +1,20 @@
 package eu.europeana.metis.core.mongo;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.Mapper;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -60,16 +63,19 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
 
   private void createDatastore(MongoClient mongoClient, String databaseName) {
     // Register the mappings and set up the data store.
-    final Morphia morphia = new Morphia();
-    morphia.map(Dataset.class);
-    morphia.map(DatasetIdSequence.class);
-    morphia.map(Workflow.class);
-    morphia.map(WorkflowExecution.class);
-    morphia.map(ScheduledWorkflow.class);
-    morphia.map(AbstractMetisPlugin.class);
-    morphia.map(AbstractMetisPluginMetadata.class);
-    morphia.map(DatasetXslt.class);
-    datastore = morphia.createDatastore(mongoClient, databaseName);
+    // TODO: 8/28/20 The mapper options should eventually be removed but requires an update of the affected fields on all documents in the database
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
+    final Mapper mapper = datastore.getMapper();
+    mapper.map(Dataset.class);
+    mapper.map(DatasetIdSequence.class);
+    mapper.map(Workflow.class);
+    mapper.map(WorkflowExecution.class);
+    mapper.map(ScheduledWorkflow.class);
+    mapper.map(DatasetXslt.class);
+    mapper.map(DepublishRecordId.class);
 
     // Initialize the DatasetIdSequence if required.
     if (datastore.find(DatasetIdSequence.class).count() == 0) {

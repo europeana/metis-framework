@@ -24,9 +24,10 @@ public class NormalizerFactory {
 
   private static final NormalizerStep[] DEFAULT_NORMALIZER_STEPS = {
 
-      // First: clean space characters and markup tags, thus normalizing text.
+      // First: clean space characters, markup tags and IRI violations, thus normalizing text.
       NormalizerStep.CLEAN_SPACE_CHARACTERS,
       NormalizerStep.CLEAN_MARKUP_TAGS,
+      NormalizerStep.CLEAN_IRI_VIOLATIONS,
 
       // Second: normalize language tags.
       NormalizerStep.NORMALIZE_DC_LANGUAGE_REFERENCES,

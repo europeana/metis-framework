@@ -4,17 +4,29 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.9.0</version>
+    <version>2</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <dependencies>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>dev.morphia.morphia</groupId>
+          <artifactId>core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>dev.morphia.morphia</groupId>
+          <artifactId>core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- Including the Log4j api (only) to satisfy corelib-storage. -->
 	<dependency>
@@ -24,8 +36,8 @@
 	</dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
-      <artifactId>mongo-java-driver</artifactId>
-      <version>${version.mongo.java.driver}</version>
+      <artifactId>mongodb-driver-core</artifactId>
+      <version>${version.mongodb.driver.core}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
@@ -94,7 +95,7 @@ public final class XpathQuery {
 
   private XPathExpression toXPath() throws XPathExpressionException {
     XPath xpath = XPATH_FACTORY.newXPath();
-    xpath.setNamespaceContext(new SimpleNamespaceContext());
+    xpath.setNamespaceContext(new SimpleNamespaceContext(this.namespaceByPrefixMap::get));
     return xpath.compile(this.expression);
   }
 
@@ -109,7 +110,13 @@ public final class XpathQuery {
     return (NodeList) toXPath().evaluate(dom, XPathConstants.NODESET);
   }
 
-  private class SimpleNamespaceContext implements NamespaceContext {
+  private static class SimpleNamespaceContext implements NamespaceContext {
+
+    private final UnaryOperator<String> namespaceByPrefixLookup;
+
+    public SimpleNamespaceContext(UnaryOperator<String> namespaceByPrefixLookup) {
+      this.namespaceByPrefixLookup = namespaceByPrefixLookup;
+    }
 
     @Override
     public String getNamespaceURI(String prefix) {
@@ -120,7 +127,7 @@ public final class XpathQuery {
       }
 
       // In case prefix is in map.
-      final String resultFromMap = namespaceByPrefixMap.get(prefix);
+      final String resultFromMap = namespaceByPrefixLookup.apply(prefix);
       if (resultFromMap != null) {
         return resultFromMap;
       }

@@ -1,38 +1,52 @@
 package eu.europeana.metis.dereference;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexed;
+import dev.morphia.annotations.Indexes;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.bson.types.ObjectId;
 
 /**
  * A processed (mapped) Entity Created by ymamakis on 2/11/16.
  */
 @XmlRootElement
-@Entity("ProcessedEntity")
+@Entity
+@Indexes({
+    @Index(fields = {@Field("resourceId")}, options = @IndexOptions(unique = true))
+})
 public class ProcessedEntity {
 
   @Id
-  private String id;
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId id;
 
-  /** The resourceId (URI) of the resource **/
-  @Indexed(options = @IndexOptions(unique = true))
+  /**
+   * The resourceId (URI) of the resource
+   **/
   private String resourceId;
 
-  /** A xml representation of the mapped resource in one of the contextual resources **/
+  /**
+   * A xml representation of the mapped resource in one of the contextual resources
+   **/
   private String xml;
 
-  /** The ID of the vocabulary of which the resource is part. **/
+  /**
+   * The ID of the vocabulary of which the resource is part.
+   **/
   private String vocabularyId;
 
   @XmlElement
-  public String getId() {
+  public ObjectId getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(ObjectId id) {
     this.id = id;
   }
 

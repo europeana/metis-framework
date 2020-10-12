@@ -15,6 +15,7 @@ import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,8 @@ public class AuthenticationController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
   private static final String ACTION_NOT_ALLOWED_FOR_USER = "Action not allowed";
+  private static final Pattern CRLF_PATTERN = Pattern
+      .compile(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX);
 
   private final AuthenticationService authenticationService;
 
@@ -176,8 +179,8 @@ public class AuthenticationController {
     }
     authenticationService.deleteUser(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} deleted", emailParameter.getEmail().replaceAll(
-          CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+      LOGGER.info("User with email: {} deleted",
+          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
     }
   }
 
@@ -212,8 +215,8 @@ public class AuthenticationController {
     }
     MetisUser metisUser = authenticationService.updateUserFromZoho(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated", emailParameter.getEmail().replaceAll(
-          CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+      LOGGER.info("User with email: {} updated",
+          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
     }
     return metisUser;
   }
@@ -247,8 +250,8 @@ public class AuthenticationController {
     }
     authenticationService.updateUserMakeAdmin(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} made admin", emailParameter.getEmail().replaceAll(
-          CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+      LOGGER.info("User with email: {} made admin",
+          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
     }
   }
 

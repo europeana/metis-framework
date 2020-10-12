@@ -17,6 +17,7 @@ import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,54 +30,51 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * Created by gmamakis on 8-3-17.
- */
 public enum EnrichmentFields {
-  
+
   DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
-      EntityClass.AGENT),
+      EntityType.AGENT),
 
   DC_CONTRIBUTOR(Choice::ifContributor, Choice::getContributor, Choice::setContributor,
-      Contributor::new, EntityClass.AGENT),
+      Contributor::new, EntityType.AGENT),
 
-  DC_DATE(Choice::ifDate, Choice::getDate, Choice::setDate, Date::new, EntityClass.TIMESPAN),
+  DC_DATE(Choice::ifDate, Choice::getDate, Choice::setDate, Date::new, EntityType.TIMESPAN),
 
   DCTERMS_ISSUED(Choice::ifIssued, Choice::getIssued, Choice::setIssued, Issued::new,
-      EntityClass.TIMESPAN),
+      EntityType.TIMESPAN),
 
   DCTERMS_CREATED(Choice::ifCreated, Choice::getCreated, Choice::setCreated, Created::new,
-      EntityClass.TIMESPAN),
+      EntityType.TIMESPAN),
 
   DC_COVERAGE(Choice::ifCoverage, Choice::getCoverage, Choice::setCoverage, Coverage::new,
-      EntityClass.PLACE),
+      EntityType.PLACE),
 
   DCTERMS_TEMPORAL(Choice::ifTemporal, Choice::getTemporal, Choice::setTemporal, Temporal::new,
-      EntityClass.TIMESPAN),
+      EntityType.TIMESPAN),
 
-  DC_TYPE(Choice::ifType, Choice::getType, Choice::setType, Type::new, EntityClass.CONCEPT),
+  DC_TYPE(Choice::ifType, Choice::getType, Choice::setType, Type::new, EntityType.CONCEPT),
 
   DCTERMS_SPATIAL(Choice::ifSpatial, Choice::getSpatial, Choice::setSpatial, Spatial::new,
-      EntityClass.PLACE),
+      EntityType.PLACE),
 
   DC_SUBJECT(Choice::ifSubject, Choice::getSubject, Choice::setSubject, Subject::new,
-      EntityClass.CONCEPT),
+      EntityType.CONCEPT),
 
   DCTERMS_MEDIUM(Choice::ifMedium, Choice::getMedium, Choice::setMedium, Medium::new,
-      EntityClass.CONCEPT),
+      EntityType.CONCEPT),
 
   DC_FORMAT(Choice::ifFormat, Choice::getFormat, Choice::setFormat, Format::new,
-      EntityClass.CONCEPT);
+      EntityType.CONCEPT);
 
   private final ChoiceContentHandler<?> choiceContentHandler;
-  private final EntityClass entityClass;
+  private final EntityType entityType;
 
   <T extends ResourceOrLiteralType> EnrichmentFields(Predicate<Choice> choiceChecker,
       Function<Choice, T> contentGetter, BiConsumer<Choice, T> contentSetter,
-      Supplier<T> contentCreator, EntityClass entityClass) {
+      Supplier<T> contentCreator, EntityType entityType) {
     this.choiceContentHandler =
         new ChoiceContentHandler<>(choiceChecker, contentGetter, contentSetter, contentCreator);
-    this.entityClass = entityClass;
+    this.entityType = entityType;
   }
 
   /**
@@ -87,9 +85,9 @@ public enum EnrichmentFields {
    */
   public final List<InputValue> extractFieldValuesForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
-            .filter(content -> StringUtils.isNotEmpty(content.getString()))
-            .map(this::convert)
-            .collect(Collectors.toList());
+        .filter(content -> StringUtils.isNotEmpty(content.getString()))
+        .map(this::convert)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -100,29 +98,28 @@ public enum EnrichmentFields {
    */
   public final Set<String> extractFieldLinksForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
-            .map(ResourceOrLiteralType::getResource)
-            .filter(Objects::nonNull)
-            .map(Resource::getResource)
-            .filter(StringUtils::isNotBlank)
-            .collect(Collectors.toSet());
+        .map(ResourceOrLiteralType::getResource)
+        .filter(Objects::nonNull)
+        .map(Resource::getResource)
+        .filter(StringUtils::isNotBlank)
+        .collect(Collectors.toSet());
   }
 
   private Stream<? extends ResourceOrLiteralType> extractFields(ProxyType proxy) {
-    return Optional.ofNullable(proxy.getChoiceList())
-    		.map(List::stream).orElseGet(Stream::empty)
-    		.filter(choiceContentHandler.choiceChecker)
-            .map(choiceContentHandler.contentGetter)
-            .filter(Objects::nonNull);
+    return Optional.ofNullable(proxy.getChoiceList()).stream().flatMap(Collection::stream)
+        .filter(choiceContentHandler.choiceChecker)
+        .map(choiceContentHandler.contentGetter)
+        .filter(Objects::nonNull);
   }
 
   private InputValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() == null ? null : content.getLang().getLang();
-    return new InputValue(this.name(), content.getString(), language, entityClass);
+    return new InputValue(this.name(), content.getString(), language, entityType);
   }
 
   /**
    * Create a field appendable on a Europeana Proxy during enrichment for semantic linking
-   * 
+   *
    * @param about The rdf:about of the Class to append on the specified field
    * @return The full field to append
    */
@@ -140,13 +137,14 @@ public enum EnrichmentFields {
    */
   public final String getResourceIfRightChoice(Choice choice) {
     return choiceContentHandler.choiceChecker.test(choice) ? Optional
-            .of(choiceContentHandler.contentGetter.apply(choice))
-            .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
+        .of(choiceContentHandler.contentGetter.apply(choice))
+        .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
-    private final Predicate<Choice> choiceChecker;
-    private final Function<Choice, T> contentGetter;
+
+    protected final Predicate<Choice> choiceChecker;
+    protected final Function<Choice, T> contentGetter;
     private final BiConsumer<Choice, T> contentSetter;
     private final Supplier<T> contentCreator;
 

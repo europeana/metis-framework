@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
@@ -63,9 +64,13 @@ class TextProcessor implements MediaProcessor {
         resource.getResourceUrl(), resource.getProvidedFileSize()));
   }
 
+  boolean generateThumbnailForPdf(Resource resource, boolean mainThumbnailAvailable) {
+    return !(mainThumbnailAvailable && resource.getUrlTypes().contains(UrlType.IS_SHOWN_BY));
+  }
+
   @Override
-  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType)
-      throws MediaExtractionException {
+  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType,
+          boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Sanity check
     try {
@@ -78,7 +83,8 @@ class TextProcessor implements MediaProcessor {
 
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
-    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
+    if (PDF_MIME_TYPE.equals(detectedMimeType) && generateThumbnailForPdf(resource,
+            mainThumbnailAvailable)) {
       final Path pdfImage = pdfToImageConverter.convertToPdf(resource.getContentPath());
       try {
         thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
@@ -101,9 +107,9 @@ class TextProcessor implements MediaProcessor {
     }
 
     // Get the size of the resource
-    final long contentSize;
+    final Long contentSize;
     try {
-      contentSize = resource.getContentSize();
+      contentSize = nullIfNegative(resource.getContentSize());
     } catch (RuntimeException | IOException e) {
       closeAllThumbnailsSilently(thumbnails);
       throw new MediaExtractionException(
@@ -113,7 +119,7 @@ class TextProcessor implements MediaProcessor {
     // Done
     final TextResourceMetadata metadata = new TextResourceMetadata(detectedMimeType,
         resource.getResourceUrl(), contentSize, characteristics.containsText(),
-        characteristics.getResolution(), thumbnails);
+        nullIfNegative(characteristics.getResolution()), thumbnails);
     return new ResourceExtractionResultImpl(metadata, thumbnails);
   }
 

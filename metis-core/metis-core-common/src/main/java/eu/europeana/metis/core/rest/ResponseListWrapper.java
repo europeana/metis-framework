@@ -30,11 +30,11 @@ public class ResponseListWrapper<T> {
    * there would be another nextPage. This method assumes a page count of 1.
    *
    * @param results the {@link List} of objects
-   * @param resultsPerRequestLimit the result limit per request
-   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param resultsPerRequestLimit the imposed result limit per request (i.e. page length)
+   * @param page the non-negative requested page number
    */
-  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage) {
-    this.setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, null);
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int page) {
+    this.setResultsAndLastPage(results, resultsPerRequestLimit, page, null);
   }
   
   /**
@@ -42,15 +42,15 @@ public class ResponseListWrapper<T> {
    * there would be another nextPage. This method assumes a page count of 1.
    *
    * @param results the {@link List} of objects
-   * @param resultsPerRequestLimit the result limit per request
-   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param resultsPerRequestLimit the imposed result limit per request (i.e. page length)
+   * @param page the non-negative requested page number
    * @param maxResultCountReached whether the maximum result count is reached (the number of
    *        results, regardless of pagination, the server is willing to serve). Can be null if this
    *        is not applicable.
    */
-  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int page,
       Boolean maxResultCountReached) {
-    setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, 1, maxResultCountReached);
+    setResultsAndLastPage(results, resultsPerRequestLimit, page, 1, maxResultCountReached);
   }
 
   /**
@@ -58,13 +58,13 @@ public class ResponseListWrapper<T> {
    * there would be another nextPage.
    *
    * @param results the {@link List} of objects
-   * @param resultsPerRequestLimit the result limit per request
-   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param resultsPerRequestLimit the imposed result limit per request (i.e. page length)
+   * @param page the non-negative requested page number
    * @param pageCount the number of pages that were requested.
    */
-  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int page,
       int pageCount) {
-    this.setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, pageCount, null);
+    this.setResultsAndLastPage(results, resultsPerRequestLimit, page, pageCount, null);
   }
   
   /**
@@ -72,21 +72,21 @@ public class ResponseListWrapper<T> {
    * there would be another nextPage.
    *
    * @param results the {@link List} of objects
-   * @param resultsPerRequestLimit the result limit per request
-   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param resultsPerRequestLimit the imposed result limit per request (i.e. page length)
+   * @param page the non-negative requested page number
    * @param pageCount the number of pages that were requested.
    * @param maxResultCountReached whether the maximum result count is reached (the number of
    *        results, regardless of pagination, the server is willing to serve). Can be null if this
    *        is not applicable.
    */
-  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int page,
       int pageCount, Boolean maxResultCountReached) {
     if (results == null || results.isEmpty() || Boolean.TRUE.equals(maxResultCountReached)) {
       this.nextPage = -1;
     } else if (results.size() < resultsPerRequestLimit * pageCount) {
       this.nextPage = -1;
     } else {
-      this.nextPage = nextPage + pageCount;
+      this.nextPage = page + pageCount;
     }
     this.listSize = results == null ? 0 : results.size();
     this.maxResultCountReached = maxResultCountReached;

@@ -7,7 +7,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.core.workflow.CancelledSystemId;
+import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,7 +34,14 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
 
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
-  private DataStatus dataStatus;
+
+  /**
+   * Required by (de)serialization in db.
+   * <p>It is not to be used manually</p>
+   */
+  AbstractExecutablePlugin() {
+    //Required by (de)serialization in db
+  }
 
   /**
    * Constructor with provided pluginType
@@ -73,16 +80,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   @Override
   public void setExecutionProgress(ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
-  }
-
-  @Override
-  public DataStatus getDataStatus() {
-    return dataStatus;
-  }
-
-  @Override
-  public void setDataStatus(DataStatus dataStatus) {
-    this.dataStatus = dataStatus;
   }
 
   private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
@@ -208,8 +205,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     String pluginTypeName = getPluginType().name();
     LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
         ecloudBasePluginParameters.getEcloudDatasetId());
+
+    DpsTask dpsTask = prepareDpsTask(datasetId, ecloudBasePluginParameters);
     try {
-      DpsTask dpsTask = prepareDpsTask(datasetId, ecloudBasePluginParameters);
       setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       setDataStatus(DataStatus.VALID);
     } catch (DpsException | RuntimeException e) {
@@ -237,7 +235,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
       dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()),
-          CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
+          SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
               ? "Cancelled By System" : "Cancelled By User");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);

@@ -125,11 +125,11 @@ class IndexerImpl implements Indexer {
 
   @Override
   public void index(InputStream record, Date recordDate,
-          boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-          boolean performRedirects) throws IndexingException {
+      boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
+      boolean performRedirects) throws IndexingException {
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
     indexRdf(stringToRdfConverter.convertToRdf(record), recordDate,
-            preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects);
+        preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects);
   }
 
   @Override
@@ -149,14 +149,20 @@ class IndexerImpl implements Indexer {
 
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordRemover().removeRecord(rdfAbout);
+    return this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout);
   }
 
   @Override
   public int removeAll(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordRemover()
-        .removeDataset(datasetId, maxRecordDate);
+    // TODO: 8/26/20 Update removeAll method to return long instead of int, it will affect clients
+    return Math.toIntExact(
+        this.connectionProvider.getIndexedRecordAccess().removeDataset(datasetId, maxRecordDate));
+  }
+
+  @Override
+  public long countRecords(String datasetId) {
+    return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId);
   }
 
   /**

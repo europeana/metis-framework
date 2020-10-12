@@ -25,7 +25,11 @@ public final class RestEndpoints {
   public static final String DATASETS_ORGANIZATION_NAME = "/datasets/organization_name/{organizationName}";
   public static final String DATASETS_COUNTRIES = "/datasets/countries";
   public static final String DATASETS_LANGUAGES = "/datasets/languages";
-  public static final String DATASETS_SEARCH ="/datasets/search";
+  public static final String DATASETS_SEARCH = "/datasets/search";
+
+  // DEPUBLISHED RECORDS
+  public static final String DEPUBLISH_RECORDIDS_DATASETID = "/depublish/record_ids/{datasetId}";
+  public static final String DEPUBLISH_EXECUTE_DATASETID = "/depublish/execute/{datasetId}";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";
@@ -72,13 +76,9 @@ public final class RestEndpoints {
   public static final String LOAD_VOCABULARIES = "/load_vocabularies";
 
   /* METIS ENRICHMENT Endpoint */
-  public static final String ENRICHMENT_BYID = "/getById";
-  public static final String ENRICHMENT_BYURI = "/getByUri";
-  public static final String ENRICHMENT_ENRICH = "/enrich";
-
-  /* METIS REDIRECTS Endpoint */
-  public static final String REDIRECT_SINGLE = "/redirect/single";
-  public static final String REDIRECT_BATCH = "/redirect/batch";
+  public static final String ENRICH_CODEURI = "/enrich/code_uri";
+  public static final String ENRICH_CODEURI_OR_OWLSAMEAS = "/enrich/code_uri_or_owl_same_as";
+  public static final String ENRICH_INPUT_VALUE_LIST = "/enrich/input_value_list";
 
   /* METIS SCHEMA VALIDATION ENDPOINT */
   public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
@@ -90,10 +90,6 @@ public final class RestEndpoints {
 
   /* METIS PREVIEW SERVICE ENDPOINT*/
   public static final String DATA_CHECKER_UPLOAD = "/upload";
-
-  /* METIS LINKCHECK SERVICE ENDPOINT*/
-  public static final String LINKCHECK = "/linkcheck";
-
 
   private RestEndpoints() {
   }

@@ -4,10 +4,20 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.9.0</version>
+    <version>2</version>
   </parent>
   <artifactId>metis-core-common</artifactId>
   <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-authentication-common</artifactId>
@@ -25,7 +35,7 @@
     </dependency>
     <dependency>
       <groupId>dev.morphia.morphia</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>morphia-core</artifactId>
       <version>${version.morphia.core}</version>
     </dependency>
     <dependency>
@@ -36,6 +46,11 @@
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-xml</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${version.jackson}</version>
     </dependency>
     <dependency>
@@ -50,8 +65,8 @@
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
-      <artifactId>mongo-java-driver</artifactId>
-      <version>${version.mongo.java.driver}</version>
+      <artifactId>mongodb-driver-core</artifactId>
+      <version>${version.mongodb.driver.core}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

@@ -1,74 +1,56 @@
 package eu.europeana.enrichment.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import java.io.IOException;
+import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
+import eu.europeana.enrichment.utils.EntityType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 
 /**
  * Contains functionality for converting from an incoming Object to a different one.
  */
-@Service
-public class Converter {
+public final class Converter {
 
-  /**
-   * Converts a {@link List<EntityWrapper>} to an {@link EnrichmentResultList}
-   *
-   * @param wrapperList the {@link List<EntityWrapper>} to convert
-   * @return the result of the convertion
-   * @throws IOException if conversion fails
-   */
-  public EnrichmentResultList convert(List<EntityWrapper> wrapperList) throws IOException {
-    EnrichmentResultList list = new EnrichmentResultList();
-
-    for (EntityWrapper wrapper : wrapperList) {
-      list.getEnrichmentBaseWrapperList().add(new EnrichmentBaseWrapper(wrapper.getOriginalField(), convert(wrapper)));
-    }
-    return list;
-
+  private Converter() {
   }
 
-  /**
-   * Converts an {@link EntityWrapper} to an {@link EnrichmentBase} object
-   *
-   * @param wrapper the {@link EntityWrapper} to convert
-   * @return the result of the conversion
-   * @throws IOException if conversion fails
-   */
-  public EnrichmentBase convert(EntityWrapper wrapper) throws IOException {
+  public static List<EnrichmentBase> convert(List<EnrichmentTerm> enrichmentTerms) {
+    return enrichmentTerms.stream().map(Converter::convert).collect(Collectors.toList());
+  }
+
+  public static EnrichmentBase convert(EnrichmentTerm enrichmentTerm) {
     final EnrichmentBase result;
-    switch (wrapper.getEntityClass()) {
+    final EntityType entityType = enrichmentTerm.getEntityType();
+    if (entityType == null) {
+      return null;
+    }
+    switch (entityType) {
       case AGENT:
-        result = convertAgent(wrapper.getContextualEntity());
+        result = convertAgent((AgentEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       case CONCEPT:
-        result = convertConcept(wrapper.getContextualEntity());
+        result = convertConcept((ConceptEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       case PLACE:
-        result = convertPlace(wrapper.getContextualEntity());
+        result = convertPlace((PlaceEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       case TIMESPAN:
-        result = convertTimespan(wrapper.getContextualEntity());
+        result = convertTimespan((TimespanEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       default:
         result = null;
@@ -77,119 +59,110 @@ public class Converter {
     return result;
   }
 
-  private Timespan convertTimespan(String contextualEntity)
-      throws IOException {
-    TimespanImpl ts = new ObjectMapper().readValue(contextualEntity,
-        TimespanImpl.class);
+  private static Timespan convertTimespan(TimespanEnrichmentEntity timespanEnrichmentEntity) {
 
     Timespan output = new Timespan();
 
-    output.setAbout(ts.getAbout());
-    output.setPrefLabelList(convert(ts.getPrefLabel()));
-    output.setAltLabelList(convert(ts.getAltLabel()));
-    output.setBeginList(convert(ts.getBegin()));
-    output.setEndList(convert(ts.getEnd()));
-    output.setHasPartsList(convertPart(ts.getDctermsHasPart()));
-    output.setHiddenLabel(convert(ts.getHiddenLabel()));
-    output.setIsPartOfList(convertPart(ts.getIsPartOf()));
-    output.setNotes(convert(ts.getNote()));
-    output.setSameAs(convertToPartsList(ts.getOwlSameAs()));
+    output.setAbout(timespanEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(timespanEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(timespanEnrichmentEntity.getAltLabel()));
+    output.setBeginList(convert(timespanEnrichmentEntity.getBegin()));
+    output.setEndList(convert(timespanEnrichmentEntity.getEnd()));
+    output.setHasPartsList(convertPart(timespanEnrichmentEntity.getDctermsHasPart()));
+    output.setHiddenLabel(convert(timespanEnrichmentEntity.getHiddenLabel()));
+    output.setIsPartOfList(convertPart(timespanEnrichmentEntity.getIsPartOf()));
+    output.setNotes(convert(timespanEnrichmentEntity.getNote()));
+    output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
 
     return output;
   }
 
-  private Concept convertConcept(String contextualEntity)
-      throws IOException {
-    ConceptImpl concept = new ObjectMapper().readValue(contextualEntity, ConceptImpl.class);
+  private static Concept convertConcept(ConceptEnrichmentEntity conceptEnrichmentEntity) {
     Concept output = new Concept();
 
-    output.setAbout(concept.getAbout());
-    output.setPrefLabelList(convert(concept.getPrefLabel()));
-    output.setAltLabelList(convert(concept.getAltLabel()));
-    output.setHiddenLabel(convert(concept.getHiddenLabel()));
-    output.setNotation(convert(concept.getNotation()));
-    output.setNotes(convert(concept.getNote()));
-    output.setBroader(convertToResourceList(concept.getBroader()));
-    output.setBroadMatch(convertToResourceList(concept.getBroadMatch()));
-    output.setCloseMatch(convertToResourceList(concept.getCloseMatch()));
-    output.setExactMatch(convertToResourceList(concept.getExactMatch()));
-    output.setInScheme(convertToResourceList(concept.getInScheme()));
-    output.setNarrower(convertToResourceList(concept.getNarrower()));
-    output.setNarrowMatch(convertToResourceList(concept.getNarrowMatch()));
-    output.setRelated(convertToResourceList(concept.getRelated()));
-    output.setRelatedMatch(convertToResourceList(concept.getRelatedMatch()));
+    output.setAbout(conceptEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(conceptEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(conceptEnrichmentEntity.getAltLabel()));
+    output.setHiddenLabel(convert(conceptEnrichmentEntity.getHiddenLabel()));
+    output.setNotation(convert(conceptEnrichmentEntity.getNotation()));
+    output.setNotes(convert(conceptEnrichmentEntity.getNote()));
+    output.setBroader(convertToResourceList(conceptEnrichmentEntity.getBroader()));
+    output.setBroadMatch(convertToResourceList(conceptEnrichmentEntity.getBroadMatch()));
+    output.setCloseMatch(convertToResourceList(conceptEnrichmentEntity.getCloseMatch()));
+    output.setExactMatch(convertToResourceList(conceptEnrichmentEntity.getExactMatch()));
+    output.setInScheme(convertToResourceList(conceptEnrichmentEntity.getInScheme()));
+    output.setNarrower(convertToResourceList(conceptEnrichmentEntity.getNarrower()));
+    output.setNarrowMatch(convertToResourceList(conceptEnrichmentEntity.getNarrowMatch()));
+    output.setRelated(convertToResourceList(conceptEnrichmentEntity.getRelated()));
+    output.setRelatedMatch(convertToResourceList(conceptEnrichmentEntity.getRelatedMatch()));
 
     return output;
   }
 
 
-  private Place convertPlace(String contextualEntity)
-      throws IOException {
-    PlaceImpl place = new ObjectMapper().readValue(contextualEntity,
-        PlaceImpl.class);
+  private static Place convertPlace(PlaceEnrichmentEntity placeEnrichmentEntity) {
 
     Place output = new Place();
 
-    output.setAbout(place.getAbout());
-    output.setPrefLabelList(convert(place.getPrefLabel()));
-    output.setAltLabelList(convert(place.getAltLabel()));
+    output.setAbout(placeEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(placeEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(placeEnrichmentEntity.getAltLabel()));
 
-    output.setHasPartsList(convertPart(place.getDcTermsHasPart()));
-    output.setIsPartOfList(convertPart(place.getIsPartOf()));
-    output.setNotes(convert(place.getNote()));
-    output.setSameAs(convertToPartsList(place.getOwlSameAs()));
+    output.setHasPartsList(convertPart(placeEnrichmentEntity.getDcTermsHasPart()));
+    output.setIsPartOfList(convertPart(placeEnrichmentEntity.getIsPartOf()));
+    output.setNotes(convert(placeEnrichmentEntity.getNote()));
+    output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
 
-    if ((place.getLatitude() != null && place.getLatitude() != 0) &&
-        (place.getLongitude() != null && place.getLongitude() != 0)) {
-      output.setLat(place.getLatitude().toString());
-      output.setLon(place.getLongitude().toString());
+    if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0) &&
+        (placeEnrichmentEntity.getLongitude() != null
+            && placeEnrichmentEntity.getLongitude() != 0)) {
+      output.setLat(placeEnrichmentEntity.getLatitude().toString());
+      output.setLon(placeEnrichmentEntity.getLongitude().toString());
     }
 
-    if (place.getAltitude() != null && place.getAltitude() != 0) {
-      output.setAlt(place.getAltitude().toString());
+    if (placeEnrichmentEntity.getAltitude() != null && placeEnrichmentEntity.getAltitude() != 0) {
+      output.setAlt(placeEnrichmentEntity.getAltitude().toString());
     }
     return output;
   }
 
-  private Agent convertAgent(String contextualEntity)
-      throws IOException {
-    AgentImpl agent = new ObjectMapper().readValue(contextualEntity,
-        AgentImpl.class);
+  private static Agent convertAgent(AgentEnrichmentEntity agentEntityEnrichment) {
 
     Agent output = new Agent();
 
-    output.setAbout(agent.getAbout());
-    output.setPrefLabelList(convert(agent.getPrefLabel()));
-    output.setAltLabelList(convert(agent.getAltLabel()));
-    output.setHiddenLabel(convert(agent.getHiddenLabel()));
-    output.setFoafName(convert(agent.getFoafName()));
-    output.setNotes(convert(agent.getNote()));
+    output.setAbout(agentEntityEnrichment.getAbout());
+    output.setPrefLabelList(convert(agentEntityEnrichment.getPrefLabel()));
+    output.setAltLabelList(convert(agentEntityEnrichment.getAltLabel()));
+    output.setHiddenLabel(convert(agentEntityEnrichment.getHiddenLabel()));
+    output.setFoafName(convert(agentEntityEnrichment.getFoafName()));
+    output.setNotes(convert(agentEntityEnrichment.getNote()));
 
-    output.setBeginList(convert(agent.getBegin()));
-    output.setEndList(convert(agent.getEnd()));
+    output.setBeginList(convert(agentEntityEnrichment.getBegin()));
+    output.setEndList(convert(agentEntityEnrichment.getEnd()));
 
-    output.setIdentifier(convert(agent.getDcIdentifier()));
-    output.setHasMet(convert(agent.getEdmHasMet()));
-    output.setBiographicaInformation(convert(agent.getRdaGr2BiographicalInformation()));
-    output.setPlaceOfBirth(convertResourceOrLiteral(agent.getRdaGr2PlaceOfBirth()));
-    output.setPlaceOfDeath(convertResourceOrLiteral(agent.getRdaGr2PlaceOfDeath()));
-    output.setDateOfBirth(convert(agent.getRdaGr2DateOfBirth()));
-    output.setDateOfDeath(convert(agent.getRdaGr2DateOfDeath()));
-    output.setDateOfEstablishment(convert(agent.getRdaGr2DateOfEstablishment()));
-    output.setDateOfTermination(convert(agent.getRdaGr2DateOfTermination()));
-    output.setGender(convert(agent.getRdaGr2Gender()));
+    output.setIdentifier(convert(agentEntityEnrichment.getDcIdentifier()));
+    output.setHasMet(convert(agentEntityEnrichment.getEdmHasMet()));
+    output.setBiographicaInformation(
+        convert(agentEntityEnrichment.getRdaGr2BiographicalInformation()));
+    output.setPlaceOfBirth(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfBirth()));
+    output.setPlaceOfDeath(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfDeath()));
+    output.setDateOfBirth(convert(agentEntityEnrichment.getRdaGr2DateOfBirth()));
+    output.setDateOfDeath(convert(agentEntityEnrichment.getRdaGr2DateOfDeath()));
+    output.setDateOfEstablishment(convert(agentEntityEnrichment.getRdaGr2DateOfEstablishment()));
+    output.setDateOfTermination(convert(agentEntityEnrichment.getRdaGr2DateOfTermination()));
+    output.setGender(convert(agentEntityEnrichment.getRdaGr2Gender()));
 
-    output.setDate(convertResourceOrLiteral(agent.getDcDate()));
+    output.setDate(convertResourceOrLiteral(agentEntityEnrichment.getDcDate()));
     output.setProfessionOrOccupation(
-        convertResourceOrLiteral(agent.getRdaGr2ProfessionOrOccupation()));
+        convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2ProfessionOrOccupation()));
 
-    output.setWasPresentAt(convertToResourceList(agent.getEdmWasPresentAt()));
-    output.setSameAs(convertToPartsList(agent.getOwlSameAs()));
+    output.setWasPresentAt(convertToResourceList(agentEntityEnrichment.getEdmWasPresentAt()));
+    output.setSameAs(convertToPartsList(agentEntityEnrichment.getOwlSameAs()));
 
     return output;
   }
 
-  private List<Label> convert(Map<String, List<String>> map) {
+  private static List<Label> convert(Map<String, List<String>> map) {
     List<Label> labels = new ArrayList<>();
     if (map == null) {
       return labels;
@@ -202,7 +175,7 @@ public class Converter {
     return labels;
   }
 
-  private List<Part> convertPart(Map<String, List<String>> map) {
+  private static List<Part> convertPart(Map<String, List<String>> map) {
     List<Part> parts = new ArrayList<>();
     if (map == null) {
       return parts;
@@ -213,7 +186,7 @@ public class Converter {
     return parts;
   }
 
-  private List<LabelResource> convertResourceOrLiteral(Map<String, List<String>> map) {
+  private static List<LabelResource> convertResourceOrLiteral(Map<String, List<String>> map) {
     List<LabelResource> parts = new ArrayList<>();
     if (map == null) {
       return parts;
@@ -227,21 +200,21 @@ public class Converter {
     return parts;
   }
 
-  private List<Resource> convertToResourceList(String[] resources) {
+  private static List<Resource> convertToResourceList(String[] resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
     return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
   }
 
-  private List<Part> convertToPartsList(String[] resources) {
+  private static List<Part> convertToPartsList(String[] resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
     return Arrays.stream(resources).map(Part::new).collect(Collectors.toList());
   }
 
-  private boolean isUri(String str) {
+  private static boolean isUri(String str) {
     return str.startsWith("http://");
   }
 }

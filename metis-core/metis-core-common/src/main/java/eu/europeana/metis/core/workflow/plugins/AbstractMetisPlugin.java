@@ -34,10 +34,11 @@ import java.util.Date;
 public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata> implements
     MetisPlugin<M> {
 
-  protected final PluginType pluginType;
+  protected PluginType pluginType;
   private String id;
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
+  private DataStatus dataStatus;
   private String failMessage;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
@@ -46,6 +47,15 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
   private M pluginMetadata;
+
+
+  /**
+   * Required by (de)serialization in db.
+   * <p>It is not to be used manually</p>
+   */
+  protected AbstractMetisPlugin() {
+    //Required by (de)serialization in db
+  }
 
   /**
    * Constructor with provided pluginType
@@ -80,6 +90,16 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   @Override
   public PluginType getPluginType() {
     return pluginType;
+  }
+
+  @Override
+  public DataStatus getDataStatus() {
+    return dataStatus;
+  }
+
+  @Override
+  public void setDataStatus(DataStatus dataStatus) {
+    this.dataStatus = dataStatus;
   }
 
   @Override

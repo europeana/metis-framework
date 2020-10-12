@@ -28,6 +28,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -66,6 +67,8 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
@@ -117,6 +120,7 @@ class TestOrchestratorService {
   private static WorkflowDao workflowDao;
   private static DatasetDao datasetDao;
   private static DatasetXsltDao datasetXsltDao;
+  private static DepublishRecordIdDao depublishRecordIdDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static WorkflowExecutionFactory workflowExecutionFactory;
   private static OrchestratorService orchestratorService;
@@ -130,12 +134,13 @@ class TestOrchestratorService {
     workflowDao = mock(WorkflowDao.class);
     datasetDao = mock(DatasetDao.class);
     datasetXsltDao = mock(DatasetXsltDao.class);
+    depublishRecordIdDao = mock(DepublishRecordIdDao.class);
     workflowExecutorManager = mock(WorkflowExecutorManager.class);
     redissonClient = mock(RedissonClient.class);
     authorizer = mock(Authorizer.class);
 
     workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao,
-        workflowExecutionDao, workflowUtils));
+        depublishRecordIdDao, workflowExecutionDao, workflowUtils));
     workflowExecutionFactory.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
     workflowExecutionFactory.setValidationInternalProperties(
@@ -143,7 +148,7 @@ class TestOrchestratorService {
 
     orchestratorService = spy(new OrchestratorService(workflowExecutionFactory, workflowDao,
         workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager, redissonClient,
-        authorizer));
+        authorizer, depublishRecordIdDao));
     orchestratorService.setSolrCommitPeriodInMins(SOLR_COMMIT_PERIOD_IN_MINS);
   }
 
@@ -185,9 +190,11 @@ class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    doThrow(PluginExecutionNotAllowed.class).when(workflowUtils).validateWorkflowPlugins(workflow, null);
+    doThrow(PluginExecutionNotAllowed.class).when(workflowUtils)
+        .validateWorkflowPlugins(workflow, null);
     assertThrows(PluginExecutionNotAllowed.class,
-        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
+        () -> orchestratorService
+            .createWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
 
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
@@ -206,7 +213,8 @@ class TestOrchestratorService {
     when(workflowDao.workflowExistsForDataset(workflow.getDatasetId())).thenReturn(true);
 
     assertThrows(WorkflowAlreadyExistsException.class,
-        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
+        () -> orchestratorService
+            .createWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
 
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).workflowExistsForDataset(workflow.getDatasetId());
@@ -239,7 +247,8 @@ class TestOrchestratorService {
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     assertThrows(NoWorkflowFoundException.class,
-        () -> orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
+        () -> orchestratorService
+            .updateWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).getWorkflow(anyString());
     inOrder.verifyNoMoreInteractions();
@@ -346,13 +355,14 @@ class TestOrchestratorService {
 
     // Add the workflow
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(dataset.getDatasetId(), null,
+            null,
             0);
     verifyNoMoreInteractions(authorizer);
 
@@ -362,7 +372,8 @@ class TestOrchestratorService {
             .toMap(AbstractExecutablePluginMetadata::getExecutablePluginType, Function.identity(),
                 (m1, m2) -> m1));
     final ValidationInternalPluginMetadata metadataInternal =
-        (ValidationInternalPluginMetadata) pluginsByType.get(ExecutablePluginType.VALIDATION_INTERNAL);
+        (ValidationInternalPluginMetadata) pluginsByType
+            .get(ExecutablePluginType.VALIDATION_INTERNAL);
     assertEquals(workflowExecutionFactory.getValidationInternalProperties().getUrlOfSchemasZip(),
         metadataInternal.getUrlOfSchemasZip());
     assertEquals(workflowExecutionFactory.getValidationInternalProperties().getSchemaRootPath(),
@@ -370,7 +381,8 @@ class TestOrchestratorService {
     assertEquals(workflowExecutionFactory.getValidationInternalProperties().getSchematronRootPath(),
         metadataInternal.getSchematronRootPath());
     final ValidationExternalPluginMetadata metadataExternal =
-        (ValidationExternalPluginMetadata) pluginsByType.get(ExecutablePluginType.VALIDATION_EXTERNAL);
+        (ValidationExternalPluginMetadata) pluginsByType
+            .get(ExecutablePluginType.VALIDATION_EXTERNAL);
     assertEquals(workflowExecutionFactory.getValidationExternalProperties().getUrlOfSchemasZip(),
         metadataExternal.getUrlOfSchemasZip());
     assertEquals(workflowExecutionFactory.getValidationExternalProperties().getSchemaRootPath(),
@@ -406,7 +418,7 @@ class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -428,7 +440,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -449,7 +461,7 @@ class TestOrchestratorService {
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowUtils.validateWorkflowPlugins(workflow, null))
-            .thenReturn(new PluginWithExecutionId<>("execution id", oaipmhHarvestPlugin));
+        .thenReturn(new PluginWithExecutionId<>("execution id", oaipmhHarvestPlugin));
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -459,7 +471,7 @@ class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -475,7 +487,7 @@ class TestOrchestratorService {
     when(workflowUtils.validateWorkflowPlugins(workflow, null))
         .thenThrow(new PluginExecutionNotAllowed(""));
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0));
   }
 
   @Test
@@ -494,7 +506,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -517,7 +529,7 @@ class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -537,7 +549,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -548,7 +560,7 @@ class TestOrchestratorService {
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId))
         .thenThrow(NoDatasetFoundException.class);
     assertThrows(NoDatasetFoundException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, null,null, 0));
   }
 
   @Test
@@ -556,7 +568,7 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(datasetDao.getDatasetByDatasetId(datasetId)).thenReturn(null);
     assertThrows(NoDatasetFoundException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(datasetId, null, 0));
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(datasetId, null, null, 0));
   }
 
   @Test
@@ -568,7 +580,7 @@ class TestOrchestratorService {
         .thenReturn(dataset);
     when(workflowDao.getWorkflow(dataset.getDatasetId())).thenReturn(null);
     assertThrows(NoWorkflowFoundException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null,null, 0));
   }
 
   @Test
@@ -583,7 +595,7 @@ class TestOrchestratorService {
     when(workflowUtils.validateWorkflowPlugins(workflow, null))
         .thenThrow(new BadContentException(""));
     assertThrows(BadContentException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0));
   }
 
   @Test
@@ -599,7 +611,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     assertThrows(WorkflowExecutionAlreadyExistsException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0));
   }
 
   @Test
@@ -841,6 +853,12 @@ class TestOrchestratorService {
             TimeUnit.MINUTES));
     firstPublishPlugin.setDataStatus(null); // Is default status, means valid.
     firstPublishPlugin.setExecutionProgress(executionProgress);
+    final WorkflowExecution executionWithFirstPublishPlugin = TestObjectFactory
+        .createWorkflowExecutionObject();
+    final List<AbstractMetisPlugin> metisPluginsFirstPublish = executionWithFirstPublishPlugin
+        .getMetisPlugins();
+    metisPluginsFirstPublish.add(firstPublishPlugin);
+    executionWithFirstPublishPlugin.setMetisPlugins(metisPluginsFirstPublish);
 
     // Create preview plugin
     AbstractExecutablePlugin previewPlugin = ExecutablePluginFactory
@@ -859,6 +877,12 @@ class TestOrchestratorService {
             TimeUnit.MINUTES));
     lastPublishPlugin.setDataStatus(null); // Is default status, means valid.
     lastPublishPlugin.setExecutionProgress(executionProgress);
+    final WorkflowExecution executionWithLastPublishPlugin = TestObjectFactory
+        .createWorkflowExecutionObject();
+    final List<AbstractMetisPlugin> metisPluginsLastPublish = executionWithLastPublishPlugin
+        .getMetisPlugins();
+    metisPluginsLastPublish.add(lastPublishPlugin);
+    executionWithLastPublishPlugin.setMetisPlugins(metisPluginsLastPublish);
 
     // Create reindex to preview plugin
     AbstractMetisPlugin reindexToPreviewPlugin = new ReindexToPreviewPlugin(
@@ -866,6 +890,9 @@ class TestOrchestratorService {
     reindexToPreviewPlugin.setFinishedDate(
         DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 1),
             TimeUnit.MINUTES));
+    final WorkflowExecution executionWithReindexToPreview = TestObjectFactory
+        .createWorkflowExecutionObject();
+    executionWithReindexToPreview.setMetisPlugins(Arrays.asList(reindexToPreviewPlugin));
 
     // Create execution in progress with a publish plugin
     final WorkflowExecution workflowExecutionObject = TestObjectFactory
@@ -883,22 +910,26 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST), false))
-            .thenReturn(new PluginWithExecutionId<>("", oaipmhHarvestPlugin));
+        .thenReturn(new PluginWithExecutionId<>("", oaipmhHarvestPlugin));
     when(workflowExecutionDao.getFirstSuccessfulPlugin(datasetId,
         EnumSet.of(PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH)))
-            .thenReturn(firstPublishPlugin);
+        .thenReturn(new PluginWithExecutionId<MetisPlugin>(
+            executionWithFirstPublishPlugin.getId().toString(), firstPublishPlugin));
     when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.PREVIEW), false))
-            .thenReturn(new PluginWithExecutionId<>("", previewPlugin));
+        .thenReturn(new PluginWithExecutionId<>("", previewPlugin));
     when(workflowExecutionDao.getLatestSuccessfulPlugin(datasetId,
         EnumSet.of(PluginType.PREVIEW, PluginType.REINDEX_TO_PREVIEW)))
-            .thenReturn(reindexToPreviewPlugin);
+        .thenReturn(
+            new PluginWithExecutionId<MetisPlugin>(executionWithReindexToPreview.getId().toString(),
+                reindexToPreviewPlugin));
     when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.PUBLISH), false))
-            .thenReturn(new PluginWithExecutionId<>("", lastPublishPlugin));
+        .thenReturn(new PluginWithExecutionId<>("", lastPublishPlugin));
     when(workflowExecutionDao.getLatestSuccessfulPlugin(datasetId,
         EnumSet.of(PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH)))
-            .thenReturn(lastPublishPlugin);
+        .thenReturn(new PluginWithExecutionId<MetisPlugin>(
+            executionWithLastPublishPlugin.getId().toString(), lastPublishPlugin));
     when(workflowExecutionDao.getRunningOrInQueueExecution(datasetId))
         .thenReturn(workflowExecutionObject);
 
@@ -951,15 +982,19 @@ class TestOrchestratorService {
     assertNotNull(result);
     assertNotNull(result.getExecutions());
     assertEquals(3, result.getExecutions().size());
-    assertEquals(pair1.getExecutionIdAsString(), result.getExecutions().get(0).getWorkflowExecutionId());
+    assertEquals(pair1.getExecutionIdAsString(),
+        result.getExecutions().get(0).getWorkflowExecutionId());
     assertEquals(pair1.getStartedDate(), result.getExecutions().get(0).getStartedDate());
-    assertEquals(pair2.getExecutionIdAsString(), result.getExecutions().get(1).getWorkflowExecutionId());
+    assertEquals(pair2.getExecutionIdAsString(),
+        result.getExecutions().get(1).getWorkflowExecutionId());
     assertEquals(pair2.getStartedDate(), result.getExecutions().get(1).getStartedDate());
-    assertEquals(pair3.getExecutionIdAsString(), result.getExecutions().get(2).getWorkflowExecutionId());
+    assertEquals(pair3.getExecutionIdAsString(),
+        result.getExecutions().get(2).getWorkflowExecutionId());
     assertEquals(pair3.getStartedDate(), result.getExecutions().get(2).getStartedDate());
 
     // Test when the user is not allowed
-    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenThrow(new UserUnauthorizedException(""));
+    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId))
+        .thenThrow(new UserUnauthorizedException(""));
     assertThrows(UserUnauthorizedException.class, () -> orchestratorService
         .getDatasetExecutionHistory(metisUser, datasetId));
   }
@@ -970,6 +1005,7 @@ class TestOrchestratorService {
     // Create plugins
     final AbstractExecutablePlugin plugin1 = mock(AbstractExecutablePlugin.class);
     when(plugin1.getPluginType()).thenReturn(PluginType.OAIPMH_HARVEST);
+    when(plugin1.getPluginMetadata()).thenReturn(new HTTPHarvestPluginMetadata());
     final ExecutionProgress progress1 = new ExecutionProgress();
     progress1.setProcessedRecords(10);
     progress1.setErrors(1);
@@ -977,11 +1013,13 @@ class TestOrchestratorService {
     final AbstractExecutablePlugin plugin2 = mock(AbstractExecutablePlugin.class);
     final ExecutionProgress progress2 = new ExecutionProgress();
     when(plugin2.getPluginType()).thenReturn(PluginType.TRANSFORMATION);
+    when(plugin2.getPluginMetadata()).thenReturn(new TransformationPluginMetadata());
     progress2.setProcessedRecords(10);
     progress2.setErrors(10);
     when(plugin2.getExecutionProgress()).thenReturn(progress2);
     final AbstractExecutablePlugin plugin3 = mock(AbstractExecutablePlugin.class);
     when(plugin3.getPluginType()).thenReturn(PluginType.MEDIA_PROCESS);
+    when(plugin2.getPluginMetadata()).thenReturn(new MediaProcessPluginMetadata());
     when(plugin3.getExecutionProgress()).thenReturn(null);
     final ReindexToPreviewPlugin plugin4 = mock(ReindexToPreviewPlugin.class);
     when(plugin4.getPluginType()).thenReturn(PluginType.REINDEX_TO_PUBLISH);
@@ -1001,11 +1039,11 @@ class TestOrchestratorService {
     assertNotNull(result.getPlugins());
     assertEquals(3, result.getPlugins().size());
     assertEquals(plugin1.getPluginType(), result.getPlugins().get(0).getPluginType());
-    assertTrue(result.getPlugins().get(0).isHasSuccessfulData());
+    assertTrue(result.getPlugins().get(0).isCanDisplayRawXml());
     assertEquals(plugin2.getPluginType(), result.getPlugins().get(1).getPluginType());
-    assertFalse(result.getPlugins().get(1).isHasSuccessfulData());
+    assertFalse(result.getPlugins().get(1).isCanDisplayRawXml());
     assertEquals(plugin3.getPluginType(), result.getPlugins().get(2).getPluginType());
-    assertFalse(result.getPlugins().get(2).isHasSuccessfulData());
+    assertFalse(result.getPlugins().get(2).isCanDisplayRawXml());
 
     // Test when the workflow execution does not exist
     doReturn(null).when(orchestratorService)
@@ -1070,8 +1108,9 @@ class TestOrchestratorService {
         plugin3);
 
     // Mock the methods in workflow utils.
-    final List<Pair<AbstractExecutablePlugin, WorkflowExecution>> evolutionWithContent = Arrays.asList(
-        ImmutablePair.of(plugin1, execution1), ImmutablePair.of(plugin2, execution2));
+    final List<Pair<AbstractExecutablePlugin, WorkflowExecution>> evolutionWithContent = Arrays
+        .asList(
+            ImmutablePair.of(plugin1, execution1), ImmutablePair.of(plugin2, execution2));
     doReturn(evolutionWithContent).when(workflowUtils).compileVersionEvolution(plugin3, execution2);
     doReturn(new ArrayList<>()).when(workflowUtils).compileVersionEvolution(plugin1, execution1);
 

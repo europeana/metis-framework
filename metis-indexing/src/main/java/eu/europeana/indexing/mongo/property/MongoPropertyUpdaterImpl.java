@@ -1,6 +1,13 @@
 package eu.europeana.indexing.mongo.property;
 
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import com.mongodb.DuplicateKeyException;
+import dev.morphia.UpdateOptions;
+import dev.morphia.query.Query;
+import dev.morphia.query.Update;
+import dev.morphia.query.experimental.updates.UpdateOperator;
+import dev.morphia.query.experimental.updates.UpdateOperators;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
@@ -11,6 +18,7 @@ import eu.europeana.indexing.mongo.AbstractEdmEntityUpdater;
 import eu.europeana.indexing.mongo.WebResourceInformation;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +31,6 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,21 +46,22 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   private static final UnaryOperator<String[]> STRING_ARRAY_PREPROCESSING = array -> Stream
       .of(array).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
 
-  private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR =
-      Comparator.comparing(AbstractEdmEntity::getAbout);
+  private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR = Comparator
+      .comparing(AbstractEdmEntity::getAbout);
 
   private final T current;
   private final T updated;
   private final MongoServer mongoServer;
-  private final UpdateOperations<T> mongoOperations;
+  private final List<UpdateOperator> updateOperators;
   private final Supplier<Query<T>> queryCreator;
 
   MongoPropertyUpdaterImpl(T current, T updated, MongoServer mongoServer,
-      UpdateOperations<T> mongoOperations, Supplier<Query<T>> queryCreator) {
+      List<UpdateOperator> updateOperators, Supplier<Query<T>> queryCreator) {
     this.current = current;
     this.updated = updated;
     this.mongoServer = mongoServer;
-    this.mongoOperations = mongoOperations;
+    this.updateOperators = Optional.ofNullable(updateOperators).stream().flatMap(Collection::stream)
+        .collect(Collectors.toList());
     this.queryCreator = queryCreator;
   }
 
@@ -159,16 +166,15 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   public void updateWebResources(String updateField,
       Function<T, List<? extends WebResource>> getter, RootAboutWrapper ancestorInformation,
       AbstractEdmEntityUpdater<WebResourceImpl, RootAboutWrapper> webResourceUpdater) {
-    final Function<T, List<WebResourceImpl>> castGetter =
-        getter.andThen(MongoPropertyUpdaterImpl::castWebResourceList);
+    final Function<T, List<WebResourceImpl>> castGetter = getter
+        .andThen(MongoPropertyUpdaterImpl::castWebResourceList);
     updateReferencedEntities(updateField, castGetter, entity -> ancestorInformation,
         webResourceUpdater);
   }
 
   private static List<WebResourceImpl> castWebResourceList(List<? extends WebResource> input) {
-    return input == null ? null
-        : input.stream().map(webResource -> ((WebResourceImpl) webResource))
-            .collect(Collectors.toList());
+    return input == null ? null : input.stream().map(webResource -> ((WebResourceImpl) webResource))
+        .collect(Collectors.toList());
   }
 
   @Override
@@ -176,8 +182,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       Function<T, P> getter, Function<T, A> ancestorInfoGetter,
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
-    final UnaryOperator<P> preprocessing =
-        entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer);
+    final UnaryOperator<P> preprocessing = entity -> objectUpdater
+        .update(entity, ancestorInformation, null, null, mongoServer);
     updateProperty(updateField, getter, MongoPropertyUpdaterImpl::equals, preprocessing);
   }
 
@@ -193,11 +199,12 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
-    final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
+    final UnaryOperator<List<P>> preprocessing = entities -> new ArrayList<>(entities.stream()
         .map(entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer))
-        .collect(Collectors.toList());
-    final BiPredicate<List<P>, List<P>> equality =
-        (w1, w2) -> listEquals(w1, w2, ENTITY_COMPARATOR);
+        .collect(Collectors.toMap(AbstractEdmEntity::getAbout, Function.identity(), (o1, o2) -> o2))
+        .values());
+    final BiPredicate<List<P>, List<P>> equality = (w1, w2) -> listEquals(w1, w2,
+        ENTITY_COMPARATOR);
     updateProperty(updateField, getter, equality, preprocessing);
   }
 
@@ -225,14 +232,14 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     if (equality.test(currentValue, updatedValue)) {
       if (updatedValue != null) {
         // If there has been no change, set only on insert (only needed if value is not null).
-        mongoOperations.setOnInsert(updateField, updatedValue);
+        updateOperators.add(UpdateOperators.setOnInsert(Map.of(updateField, updatedValue)));
       }
     } else {
       // If there has been a change, either set the value or unset it if it is null.
       if (updatedValue == null) {
-        mongoOperations.unset(updateField);
+        updateOperators.add(UpdateOperators.unset(updateField));
       } else {
-        mongoOperations.set(updateField, updatedValue);
+        updateOperators.add(UpdateOperators.set(updateField, updatedValue));
       }
     }
   }
@@ -249,7 +256,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     // If we need to remove it, do so.
     boolean markForDeletion = currentValue != null && updatedValue == null;
     if (markForDeletion) {
-      mongoOperations.unset(updateField);
+      updateOperators.add(UpdateOperators.unset(updateField));
     }
 
     // Done
@@ -270,12 +277,17 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
   @Override
   public T applyOperations() {
+    final UpdateOperator firstUpdateOperator = updateOperators.get(0);
+    final UpdateOperator[] extraUpdateOperators = this.updateOperators
+        .subList(1, this.updateOperators.size()).toArray(UpdateOperator[]::new);
+    final Update<T> update = queryCreator.get().update(firstUpdateOperator, extraUpdateOperators);
+    final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
     try {
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
+      retryableExternalRequestForNetworkExceptions(() -> update.execute(updateOptions));
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
+      update.execute(updateOptions);
     }
-    return queryCreator.get().get();
+    return queryCreator.get().first();
   }
 }

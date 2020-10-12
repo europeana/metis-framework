@@ -5,6 +5,7 @@ package eu.europeana.metis.core.common;
  */
 public enum Country {
 
+  //@formatter:off
   ALBANIA("Albania", "AL"),
   ANDORRA("Andorra", "AD"),
   ARMENIA("Armenia", "AM"),
@@ -18,7 +19,7 @@ public enum Country {
   CANADA("Canada", "CA"),
   CHINA("China", "CN"),
   CROATIA("Croatia", "HR"),
-  CYRPUS("Cyprus", "CY"),
+  CYPRUS("Cyprus", "CY"),
   CZECH_REPUBLIC("Czech Republic", "CZ"),
   DENMARK("Denmark", "DK"),
   ESTONIA("Estonia", "EE"),
@@ -65,6 +66,7 @@ public enum Country {
   UKRAINE("Ukraine", "UA"),
   UNITED_KINGDOM("United Kingdom", "GB"),
   UNITED_STATES("United States of America", "US");
+  //@formatter:on
 
   private String name;
   private String isoCode;

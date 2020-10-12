@@ -29,6 +29,7 @@ import org.redisson.api.RedissonClient;
 class TestWorkflowExecutorManager {
 
   private static WorkflowExecutionDao workflowExecutionDao;
+  private static WorkflowPostProcessor workflowPostProcessor;
   private static RedissonClient redissonClient;
   private static Channel rabbitmqPublisherChannel;
   private static Channel rabbitmqConsumerChannel;
@@ -37,13 +38,14 @@ class TestWorkflowExecutorManager {
   @BeforeAll
   static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
+    workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqPublisherChannel = Mockito.mock(Channel.class);
     rabbitmqConsumerChannel = Mockito.mock(Channel.class);
     DpsClient dpsClient = Mockito.mock(DpsClient.class);
-    workflowExecutorManager =
-        new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
-            rabbitmqConsumerChannel, redissonClient, dpsClient);
+    workflowExecutorManager = new WorkflowExecutorManager(workflowExecutionDao,
+            workflowPostProcessor, rabbitmqPublisherChannel, rabbitmqConsumerChannel,
+            redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(10);
     workflowExecutorManager.setDpsMonitorCheckIntervalInSecs(5);
@@ -55,6 +57,7 @@ class TestWorkflowExecutorManager {
   @AfterEach
   void cleanUp() {
     Mockito.reset(workflowExecutionDao);
+    Mockito.reset(workflowPostProcessor);
     Mockito.reset(redissonClient);
     Mockito.reset(rabbitmqPublisherChannel);
     Mockito.reset(rabbitmqConsumerChannel);

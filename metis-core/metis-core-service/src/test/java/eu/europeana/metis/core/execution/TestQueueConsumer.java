@@ -51,6 +51,7 @@ import org.redisson.api.RedissonClient;
 class TestQueueConsumer {
 
   private static WorkflowExecutionDao workflowExecutionDao;
+  private static WorkflowPostProcessor workflowPostProcessor;
   private static RedissonClient redissonClient;
   private static Channel rabbitmqConsumerChannel;
   private static Channel rabbitmqPublisherChannel;
@@ -60,14 +61,15 @@ class TestQueueConsumer {
   @BeforeAll
   static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
+    workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqPublisherChannel = Mockito.mock(Channel.class);
     rabbitmqConsumerChannel = Mockito.mock(Channel.class);
     DpsClient dpsClient = Mockito.mock(DpsClient.class);
-    workflowExecutorManager =
-        new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
-            rabbitmqConsumerChannel, redissonClient, dpsClient);
+    workflowExecutorManager = new WorkflowExecutorManager(workflowExecutionDao,
+            workflowPostProcessor, rabbitmqPublisherChannel, rabbitmqConsumerChannel,
+            redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(2);
     workflowExecutorManager.setDpsMonitorCheckIntervalInSecs(1);
@@ -78,6 +80,7 @@ class TestQueueConsumer {
   @AfterEach
   void cleanUp() {
     Mockito.reset(workflowExecutionDao);
+    Mockito.reset(workflowPostProcessor);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(redissonClient);
     Mockito.reset(rabbitmqPublisherChannel);
@@ -91,7 +94,7 @@ class TestQueueConsumer {
         workflowExecutorManager, workflowExecutionMonitor);
     ArgumentCaptor<Integer> basicQos = ArgumentCaptor.forClass(Integer.class);
     verify(rabbitmqConsumerChannel, times(1)).basicQos(basicQos.capture());
-    assertEquals(new Integer(1), basicQos.getValue());
+    assertEquals(Integer.valueOf(1), basicQos.getValue());
     ArgumentCaptor<Boolean> autoAcknowledge = ArgumentCaptor.forClass(Boolean.class);
     verify(rabbitmqConsumerChannel, times(1)).basicConsume(eq(rabbitmqQueueName),
         autoAcknowledge.capture(), any(QueueConsumer.class));
@@ -109,7 +112,7 @@ class TestQueueConsumer {
     ArgumentCaptor<Integer> basicQos = ArgumentCaptor.forClass(Integer.class);
     verify(rabbitmqConsumerChannel, times(1)).basicQos(basicQos.capture());
     verify(rabbitmqConsumerChannel, times(1)).basicConsume(eq(rabbitmqQueueName), eq(false), any());
-    assertEquals(new Integer(1), basicQos.getValue());
+    assertEquals(Integer.valueOf(1), basicQos.getValue());
     verifyNoMoreInteractions(rabbitmqConsumerChannel);
   }
 

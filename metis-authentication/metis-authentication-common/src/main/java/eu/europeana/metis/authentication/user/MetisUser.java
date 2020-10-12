@@ -93,8 +93,4 @@ public class MetisUser {
   public MetisUserAccessToken getMetisUserAccessToken() {
     return metisUserAccessToken;
   }
-
-  public void setMetisUserAccessToken(MetisUserAccessToken metisUserAccessToken) {
-    this.metisUserAccessToken = metisUserAccessToken;
-  }
 }

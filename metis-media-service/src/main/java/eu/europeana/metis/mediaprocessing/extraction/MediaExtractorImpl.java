@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
+
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -10,6 +12,7 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -94,12 +97,12 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
     this.textProcessor = new TextProcessor(thumbnailGenerator,
-            new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
+        new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
   }
 
   @Override
-  public ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry)
-      throws MediaExtractionException {
+  public ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry,
+      boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Decide how to process it.
     final ProcessingMode mode = getMode(resourceEntry);
@@ -109,22 +112,22 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Download resource and then perform media extraction on it.
     try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
-      return performProcessing(resource, mode);
+      return performProcessing(resource, mode, mainThumbnailAvailable);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
-          "Problem while processing " + resourceEntry.getResourceUrl(), e);
+          String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
   }
 
   private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
       ProcessingMode mode) throws IOException {
-    
+
     // Determine the download method to use (full download vs. quick ping)
     return (mode == ProcessingMode.FULL)
         ? this.resourceDownloadClient.downloadBasedOnMimeType(resourceEntry)
         : this.resourceDownloadClient.downloadWithoutContent(resourceEntry);
   }
-  
+
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {
     final ProcessingMode result;
     if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
@@ -178,7 +181,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     if (providedMimeType != null) {
       final int separatorIndex = providedMimeType.indexOf(';');
       final String adjustedMimeType =
-              separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
+          separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
       metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
     }
     try (final InputStream stream = TikaInputStream.get(path, metadata)) {
@@ -205,24 +208,29 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
     return processor;
   }
-  
+
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
       String detectedMimeType) throws MediaExtractionException, IOException {
-    
+
     // If the mime type changed and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
       final RdfResourceEntry downloadInput =
           new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
-      try (final Resource resourceWithContent = this.resourceDownloadClient.downloadWithContent(downloadInput)) {
+
+      ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
         if (resourceWithContent.hasContent()) {
           try (final InputStream inputStream = resourceWithContent.getContentStream()) {
             resource.markAsWithContent(inputStream);
           }
         }
+      };
+      try (final Resource resourceWithContent = this.resourceDownloadClient
+              .downloadWithContent(downloadInput)) {
+        performThrowingAction(resourceWithContent, action);
       }
     }
-    
+
     // Verify that we have content when we need to.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
         && !resource.hasContent()) {
@@ -231,8 +239,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
-  ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode)
-      throws MediaExtractionException {
+  ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode,
+      boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Sanity check - shouldn't be called for this mode.
     if (mode == ProcessingMode.NONE) {
@@ -241,7 +249,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Detect and verify the mime type.
     final String detectedMimeType = detectAndVerifyMimeType(resource, mode);
-    
+
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
     try {
@@ -258,7 +266,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     if (processor == null) {
       result = null;
     } else if (mode == ProcessingMode.FULL) {
-      result = processor.extractMetadata(resource, detectedMimeType);
+      result = processor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     } else {
       result = processor.copyMetadata(resource, detectedMimeType);
     }

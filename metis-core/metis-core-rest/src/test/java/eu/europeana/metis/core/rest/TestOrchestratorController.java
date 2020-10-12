@@ -38,6 +38,7 @@ import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.utils.TestObjectFactory;
@@ -75,7 +76,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  */
 class TestOrchestratorController {
 
-  private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+  private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+      "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
   static {
     simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
   }
@@ -135,7 +138,8 @@ class TestOrchestratorController {
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
-    verify(orchestratorService, never()).createWorkflow(any(), anyString(), any(Workflow.class), any());
+    verify(orchestratorService, never())
+        .createWorkflow(any(), anyString(), any(Workflow.class), any());
   }
 
   @Test
@@ -206,7 +210,8 @@ class TestOrchestratorController {
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
-    verify(orchestratorService, never()).updateWorkflow(any(), anyString(), any(Workflow.class), any());
+    verify(orchestratorService, never())
+        .updateWorkflow(any(), anyString(), any(Workflow.class), any());
   }
 
   @Test
@@ -216,7 +221,8 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-        .when(orchestratorService).updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .when(orchestratorService)
+        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -316,7 +322,8 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), anyInt()))
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+            anyInt()))
         .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
@@ -348,7 +355,8 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), anyInt()))
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+            anyInt()))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
@@ -367,7 +375,8 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+            anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -385,7 +394,8 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+            anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -403,7 +413,8 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+            anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -508,7 +519,8 @@ class TestOrchestratorController {
         .createPlugin(new ValidationExternalPluginMetadata());
     plugin.setId("validation_external_id");
     when(orchestratorService.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-        metisUser, Integer.toString(TestObjectFactory.DATASETID), ExecutablePluginType.VALIDATION_EXTERNAL,
+        metisUser, Integer.toString(TestObjectFactory.DATASETID),
+        ExecutablePluginType.VALIDATION_EXTERNAL,
         null))
         .thenReturn(plugin);
 
@@ -531,7 +543,8 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     when(orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
-            Integer.toString(TestObjectFactory.DATASETID), ExecutablePluginType.OAIPMH_HARVEST, null))
+            Integer.toString(TestObjectFactory.DATASETID), ExecutablePluginType.OAIPMH_HARVEST,
+            null))
         .thenReturn(null);
 
     orchestratorControllerMock.perform(
@@ -584,7 +597,7 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     int listSize = 2;
-    ResponseListWrapper<WorkflowExecution>listOfWorkflowExecutions = new ResponseListWrapper<>();
+    ResponseListWrapper<WorkflowExecutionView> listOfWorkflowExecutions = new ResponseListWrapper<>();
     listOfWorkflowExecutions.setResultsAndLastPage(
         TestObjectFactory.createListOfWorkflowExecutions(listSize + 1),
         orchestratorService.getWorkflowExecutionsPerRequest(), 0);
@@ -634,7 +647,7 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     int listSize = 2;
-    ResponseListWrapper<WorkflowExecution>listOfWorkflowExecutions = new ResponseListWrapper<>();
+    ResponseListWrapper<WorkflowExecutionView> listOfWorkflowExecutions = new ResponseListWrapper<>();
     listOfWorkflowExecutions.setResultsAndLastPage(
         TestObjectFactory.createListOfWorkflowExecutions(listSize + 1),
         orchestratorService.getWorkflowExecutionsPerRequest(), 0);
@@ -819,10 +832,10 @@ class TestOrchestratorController {
     // Create nonempty history
     final PluginWithDataAvailability plugin1 = new PluginWithDataAvailability();
     plugin1.setPluginType(PluginType.OAIPMH_HARVEST);
-    plugin1.setHasSuccessfulData(true);
+    plugin1.setCanDisplayRawXml(true);
     final PluginWithDataAvailability plugin2 = new PluginWithDataAvailability();
     plugin2.setPluginType(PluginType.ENRICHMENT);
-    plugin2.setHasSuccessfulData(false);
+    plugin2.setCanDisplayRawXml(false);
     final PluginsWithDataAvailability resultNonEmpty = new PluginsWithDataAvailability();
     resultNonEmpty.setPlugins(Arrays.asList(plugin1, plugin2));
 
@@ -831,19 +844,20 @@ class TestOrchestratorController {
         .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
         .thenReturn(resultNonEmpty);
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
-            TestObjectFactory.EXECUTIONID)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .perform(
+            get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+                TestObjectFactory.EXECUTIONID)
+                .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.plugins", hasSize(2)))
         .andExpect(jsonPath("$.plugins[0].pluginType",
             is(plugin1.getPluginType().name())))
-        .andExpect(jsonPath("$.plugins[0].hasSuccessfulData",
-            is(plugin1.isHasSuccessfulData())))
+        .andExpect(jsonPath("$.plugins[0].canDisplayRawXml",
+            is(plugin1.isCanDisplayRawXml())))
         .andExpect(jsonPath("$.plugins[1].pluginType",
             is(plugin2.getPluginType().name())))
-        .andExpect(jsonPath("$.plugins[1].hasSuccessfulData",
-            is(plugin2.isHasSuccessfulData())));
+        .andExpect(jsonPath("$.plugins[1].canDisplayRawXml",
+            is(plugin2.isCanDisplayRawXml())));
 
     // Test happy flow with empty evolution
     final PluginsWithDataAvailability resultEmpty = new PluginsWithDataAvailability();
@@ -852,9 +866,10 @@ class TestOrchestratorController {
         .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
         .thenReturn(resultEmpty);
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
-            TestObjectFactory.EXECUTIONID)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .perform(
+            get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+                TestObjectFactory.EXECUTIONID)
+                .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.plugins", hasSize(0)));
 
@@ -863,18 +878,20 @@ class TestOrchestratorController {
         .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
         .thenThrow(new NoWorkflowExecutionFoundException(""));
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
-            TestObjectFactory.EXECUTIONID)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .perform(
+            get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+                TestObjectFactory.EXECUTIONID)
+                .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(404));
 
     // Test for unauthorized user
     doThrow(new UserUnauthorizedException("")).when(orchestratorService)
         .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID);
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
-            TestObjectFactory.EXECUTIONID)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .perform(
+            get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+                TestObjectFactory.EXECUTIONID)
+                .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(401));
   }
 

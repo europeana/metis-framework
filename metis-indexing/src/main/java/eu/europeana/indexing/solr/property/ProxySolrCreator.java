@@ -40,8 +40,5 @@ public class ProxySolrCreator implements PropertySolrCreator<Proxy> {
     SolrPropertyUtils.addValues(doc, EdmLabel.PROXY_EDM_YEAR, proxy.getYear());
     SolrPropertyUtils.addValues(doc, EdmLabel.PROXY_EDM_HAS_MET, proxy.getEdmHasMet());
     SolrPropertyUtils.addValues(doc, EdmLabel.PROXY_EDM_ISRELATEDTO, proxy.getEdmIsRelatedTo());
-    if (proxy.getEdmType() != null) {
-      doc.addField(EdmLabel.PROVIDER_EDM_TYPE.toString(), proxy.getEdmType().getEnumNameValue());
-    }
   }
 }

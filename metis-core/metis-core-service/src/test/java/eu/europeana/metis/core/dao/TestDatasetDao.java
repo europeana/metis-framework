@@ -8,9 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -44,8 +45,8 @@ class TestDatasetDao {
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
-    ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-    MongoClient mongoClient = new MongoClient(address);
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
 
@@ -64,8 +65,8 @@ class TestDatasetDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.createQuery(Dataset.class));
-    datastore.delete(datastore.createQuery(DatasetIdSequence.class));
+    datastore.find(Dataset.class).delete(new DeleteOptions().multi(true));
+    datastore.find(DatasetIdSequence.class).delete();
     Mockito.reset(ecloudDataSetServiceClient);
   }
 
@@ -79,7 +80,7 @@ class TestDatasetDao {
     assertEquals(dataset.getDataProvider(), storedDataset.getDataProvider());
     assertEquals(dataset.getDescription(), storedDataset.getDescription());
     assertEquals(dataset.getLanguage(), storedDataset.getLanguage());
-    assertEquals(dataset.getUnfitForPublication(), storedDataset.getUnfitForPublication());
+    assertEquals(dataset.getPublicationFitness(), storedDataset.getPublicationFitness());
     assertEquals(dataset.getNotes(), storedDataset.getNotes());
     assertEquals(dataset.getReplacedBy(), storedDataset.getReplacedBy());
     assertEquals(dataset.getUpdatedDate(), storedDataset.getUpdatedDate());
@@ -97,7 +98,7 @@ class TestDatasetDao {
     assertEquals(dataset.getDataProvider(), storedDataset.getDataProvider());
     assertEquals(dataset.getDescription(), storedDataset.getDescription());
     assertEquals(dataset.getLanguage(), storedDataset.getLanguage());
-    assertEquals(dataset.getUnfitForPublication(), storedDataset.getUnfitForPublication());
+    assertEquals(dataset.getPublicationFitness(), storedDataset.getPublicationFitness());
     assertEquals(dataset.getNotes(), storedDataset.getNotes());
     assertEquals(dataset.getReplacedBy(), storedDataset.getReplacedBy());
     assertEquals(dataset.getUpdatedDate(), storedDataset.getUpdatedDate());

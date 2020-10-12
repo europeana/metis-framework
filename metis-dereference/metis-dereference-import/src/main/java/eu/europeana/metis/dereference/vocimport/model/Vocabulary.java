@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,12 +29,13 @@ public class Vocabulary {
 
   private Vocabulary(Builder builder) {
     this.name = builder.name;
-    this.types = builder.types;
-    this.paths = builder.paths;
+    this.types = Optional.ofNullable(builder.types).orElseGet(Collections::emptySet);
+    this.paths = Optional.ofNullable(builder.paths).orElseGet(Collections::emptyList);
     this.parentIterations = builder.parentIterations;
     this.suffix = builder.suffix;
-    this.examples = builder.examples;
-    this.counterExamples = builder.counterExamples;
+    this.examples = Optional.ofNullable(builder.examples).orElseGet(Collections::emptyList);
+    this.counterExamples = Optional.ofNullable(builder.counterExamples)
+            .orElseGet(Collections::emptyList);
     this.transformation = builder.transformation;
     this.readableMetadataLocation = builder.readableMetadataLocation;
     this.readableMappingLocation = builder.readableMappingLocation;
@@ -88,16 +90,16 @@ public class Vocabulary {
    */
   public static class Builder {
 
-    private String name;
-    private Set<Type> types;
-    private List<String> paths;
-    private int parentIterations;
-    private String suffix;
-    private List<String> examples;
-    private List<String> counterExamples;
-    private String transformation;
-    private String readableMetadataLocation;
-    private String readableMappingLocation;
+    protected String name;
+    protected Set<Type> types;
+    protected List<String> paths;
+    protected int parentIterations;
+    protected String suffix;
+    protected List<String> examples;
+    protected List<String> counterExamples;
+    protected String transformation;
+    protected String readableMetadataLocation;
+    protected String readableMappingLocation;
 
     private Builder() {
     }
@@ -119,7 +121,7 @@ public class Vocabulary {
     }
 
     public Builder setParentIterations(Integer parentIterations) {
-      this.parentIterations = Optional.ofNullable(parentIterations).orElse(0);
+      this.parentIterations = Objects.requireNonNullElse(parentIterations, 0);
       return this;
     }
 

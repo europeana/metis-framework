@@ -10,12 +10,13 @@ import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
 import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -133,9 +134,10 @@ public class TestObjectFactory {
    * @param size the number of dummy workflow executions to create
    * @return the created list
    */
-  public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
+  public static List<WorkflowExecutionView> createListOfWorkflowExecutions(int size) {
     return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
-        .collect(Collectors.toList());
+            .map(execution -> new WorkflowExecutionView(execution, plugin -> true))
+            .collect(Collectors.toList());
   }
 
   /**
@@ -221,7 +223,7 @@ public class TestObjectFactory {
     ds.setCountry(Country.GREECE);
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
-    ds.setUnfitForPublication(false);
+    ds.setPublicationFitness(PublicationFitness.PARTIALLY_FIT);
     ds.setNotes("Notes");
     return ds;
   }

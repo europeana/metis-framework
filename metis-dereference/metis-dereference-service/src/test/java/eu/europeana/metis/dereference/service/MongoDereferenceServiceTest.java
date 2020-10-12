@@ -10,14 +10,15 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -43,7 +44,10 @@ class MongoDereferenceServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-    VocabularyDao vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest") {
+
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
+    VocabularyDao vocabularyDao = new VocabularyDao(mongoClient, "voctest") {
       {
         vocabularyDaoDatastore = this.getDatastore();
       }
@@ -79,7 +83,8 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new ImmutablePair<>(place, geonames)).when(service).retrieveCachedEntity(entityId);
+    doReturn(new ImmutablePair<>(place, geonames)).when(service)
+        .computeEnrichmentBaseVocabularyPair(entityId);
 
     // Test the method
     final EnrichmentResultList result = service.dereference(entityId);
@@ -88,13 +93,13 @@ class MongoDereferenceServiceTest {
     assertEquals(1, result.getEnrichmentBaseWrapperList().size());
     assertNotNull(result.getEnrichmentBaseWrapperList().get(0));
     assertSame(place, result.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase());
-    assertNull(result.getEnrichmentBaseWrapperList().get(0).getOriginalField());
+    assertNull(result.getEnrichmentBaseWrapperList().get(0).getRdfFieldName());
 
     // Test null argument
     assertThrows(IllegalArgumentException.class, ()->service.dereference(null));
 
     // Test absent object
-    doReturn(null).when(service).retrieveCachedEntity(entityId);
+    doReturn(null).when(service).computeEnrichmentBaseVocabularyPair(entityId);
     final EnrichmentResultList emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
     assertNotNull(emptyResult.getEnrichmentBaseWrapperList());

@@ -60,7 +60,7 @@ public class AuthenticationClient {
     HttpEntity<String> request = new HttpEntity<>(headers);
     try {
       ResponseEntity<String> response =
-          ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> restTemplate
+          ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> restTemplate
               .exchange(String.format("%s%s", baseUrl, RestEndpoints.AUTHENTICATION_USER_BY_TOKEN),
                   HttpMethod.GET, request, String.class));
       return objectMapper.readValue(response == null ? null : response.getBody(), MetisUser.class);
