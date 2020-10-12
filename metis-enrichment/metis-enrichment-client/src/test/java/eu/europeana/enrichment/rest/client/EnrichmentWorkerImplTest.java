@@ -7,10 +7,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
@@ -20,8 +22,15 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.dereference.DereferenceClient;
+import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
+import eu.europeana.enrichment.rest.client.dereference.DereferencerImpl;
+import eu.europeana.enrichment.rest.client.enrichment.Enricher;
+import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
+import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
+import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
@@ -34,6 +43,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.jibx.runtime.JiBXException;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -86,21 +97,30 @@ class EnrichmentWorkerImplTest {
     ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList3);
   }
 
+  @BeforeEach
+  public void setUp(){
+
+
+  }
+
   @Test
-  void testEnrichmentWorkerHappyFlow() throws DereferenceOrEnrichException {
+  void testEnrichmentWorkerHappyFlow()
+      throws DereferenceException, EnrichmentException {
     for (Mode mode : Mode.values()) {
       testEnrichmentWorkerHappyFlow(mode);
     }
   }
 
   @Test
-  void testEnrichmentWorkerNullFlow() throws DereferenceOrEnrichException {
+  void testEnrichmentWorkerNullFlow()
+      throws DereferenceException, EnrichmentException {
     for (Mode mode : Mode.values()) {
       testEnrichmentWorkerNullFlow(mode);
     }
   }
 
-  private void testEnrichmentWorkerHappyFlow(Mode mode) throws DereferenceOrEnrichException {
+  private void testEnrichmentWorkerHappyFlow(Mode mode)
+      throws DereferenceException, EnrichmentException {
     // Create mocks of the dependencies
     final EnrichmentClient enrichmentClient = Mockito.mock(EnrichmentClient.class);
     doReturn(ENRICHMENT_RESULT).when(enrichmentClient).enrich(any());
@@ -110,17 +130,25 @@ class EnrichmentWorkerImplTest {
         .dereference(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
+//    when(enricher.extractValuesForEnrichment(any())).thenReturn(Arrays.asList(ENRICHMENT_EXTRACT_RESULT));
+//    when(enricher.extractReferencesForEnrichment(any())).thenReturn(Collections.emptyMap());
+//    when(dereferencer.extractReferencesForDereferencing(any())).thenReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet()));
+
     // Create enrichment worker and mock the enrichment and dereferencing results.
-    final EnrichmentWorkerImpl worker =
-        spy(new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, entityMergeEngine));
-    doReturn(Arrays.asList(ENRICHMENT_EXTRACT_RESULT)).when(worker)
+    final Enricher enricher = spy(new EnricherImpl(entityMergeEngine, enrichmentClient));
+    doReturn(Arrays.asList(ENRICHMENT_EXTRACT_RESULT)).when(enricher)
             .extractValuesForEnrichment(any());
     // TODO test the result of this method better
-    doReturn(Collections.emptyMap()).when(worker).extractReferencesForEnrichment(any());
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet())).when(worker)
+    doReturn(Collections.emptyMap()).when(enricher).extractReferencesForEnrichment(any());
+
+    final Dereferencer dereferencer =
+        spy(new DereferencerImpl(entityMergeEngine, enrichmentClient, dereferenceClient));
+    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet())).when(dereferencer)
         .extractReferencesForDereferencing(any());
 
     // Execute the worker
+    final EnrichmentWorkerImpl worker =
+        spy(new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, entityMergeEngine));
     final RDF inputRdf = new RDF();
     worker.process(inputRdf, mode);
 
@@ -131,12 +159,13 @@ class EnrichmentWorkerImplTest {
             mode == Mode.DEREFERENCE_AND_ENRICHMENT || mode == Mode.ENRICHMENT_ONLY;
 
     // Check the performed tasks
-    verifyDereferencingHappyFlow(doDereferencing, worker, dereferenceClient, inputRdf);
-    verifyEnrichmentHappyFlow(doEnrichment, worker, enrichmentClient, inputRdf);
+    verifyDereferencingHappyFlow(doDereferencing, dereferencer, dereferenceClient, inputRdf);
+    verifyEnrichmentHappyFlow(doEnrichment, enricher, enrichmentClient, inputRdf);
     verifyMergeHappyFlow(doEnrichment, doDereferencing, entityMergeEngine);
   }
 
-  private void testEnrichmentWorkerNullFlow(Mode mode) throws DereferenceOrEnrichException {
+  private void testEnrichmentWorkerNullFlow(Mode mode)
+      throws DereferenceException, EnrichmentException {
     // Create mocks of the dependencies
     final EnrichmentClient enrichmentClient = Mockito.mock(EnrichmentClient.class);
     final DereferenceClient dereferenceClient = Mockito.mock(DereferenceClient.class);
@@ -144,14 +173,19 @@ class EnrichmentWorkerImplTest {
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
     // Create enrichment worker and mock the enrichment and dereferencing results.
-    final EnrichmentWorkerImpl worker =
-        spy(new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, entityMergeEngine));
-    doReturn(Collections.emptyList()).when(worker).extractValuesForEnrichment(any());
-    doReturn(Collections.emptyMap()).when(worker).extractReferencesForEnrichment(any());
-    doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(worker)
+    final Enricher enricher =
+        spy(new EnricherImpl(entityMergeEngine, enrichmentClient));
+    doReturn(Collections.emptyList()).when(enricher).extractValuesForEnrichment(any());
+    doReturn(Collections.emptyMap()).when(enricher).extractReferencesForEnrichment(any());
+
+    final Dereferencer dereferencer =
+        spy(new DereferencerImpl(entityMergeEngine, enrichmentClient, dereferenceClient));
+    doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
         .extractReferencesForDereferencing(any());
 
     // Execute the worker
+    final EnrichmentWorkerImpl worker =
+        spy(new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, entityMergeEngine));
     final RDF inputRdf = new RDF();
     worker.process(inputRdf, mode);
 
@@ -162,19 +196,19 @@ class EnrichmentWorkerImplTest {
             mode == Mode.DEREFERENCE_AND_ENRICHMENT || mode == Mode.ENRICHMENT_ONLY;
 
     // Check the performed tasks
-    verifyDereferencingNullFlow(doDereferencing, worker, dereferenceClient, inputRdf);
-    verifyEnrichmentNullFlow(doEnrichment, worker, enrichmentClient, inputRdf);
+    verifyDereferencingNullFlow(doDereferencing, dereferencer, dereferenceClient, inputRdf);
+    verifyEnrichmentNullFlow(doEnrichment, enricher, enrichmentClient, inputRdf);
     verifyMergeNullFlow(doDereferencing, entityMergeEngine);
   }
 
   // Verify dereference related calls
-  private void verifyDereferencingHappyFlow(boolean doDereferencing, EnrichmentWorkerImpl worker,
+  private void verifyDereferencingHappyFlow(boolean doDereferencing, Dereferencer dereferencer,
       DereferenceClient dereferenceClient, RDF inputRdf) {
     if (doDereferencing) {
 
       // Extracting values for dereferencing
-      verify(worker, times(1)).extractReferencesForDereferencing(any());
-      verify(worker, times(1)).extractReferencesForDereferencing(inputRdf);
+      verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
+      verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
 
       // Actually dereferencing.
       verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT.length)).dereference(anyString());
@@ -183,18 +217,18 @@ class EnrichmentWorkerImplTest {
       }
 
     } else {
-      verify(worker, never()).extractReferencesForDereferencing(any());
+      verify(dereferencer, never()).extractReferencesForDereferencing(any());
       verify(dereferenceClient, never()).dereference(anyString());
     }
   }
 
-  private void verifyDereferencingNullFlow(boolean doDereferencing, EnrichmentWorkerImpl worker,
+  private void verifyDereferencingNullFlow(boolean doDereferencing, Dereferencer dereferencer,
       DereferenceClient dereferenceClient, RDF inputRdf) {
     if (doDereferencing) {
 
       // Extracting values for dereferencing
-      verify(worker, times(1)).extractReferencesForDereferencing(any());
-      verify(worker, times(1)).extractReferencesForDereferencing(inputRdf);
+      verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
+      verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
 
       // Actually dereferencing: don't use the null values.
       final Set<String> dereferenceUrls = Arrays.stream(new String[0])
@@ -205,31 +239,31 @@ class EnrichmentWorkerImplTest {
       }
 
     } else {
-      verify(worker, never()).extractReferencesForDereferencing(any());
+      verify(dereferencer, never()).extractReferencesForDereferencing(any());
       verify(dereferenceClient, never()).dereference(anyString());
     }
   }
 
   // Verify enrichment related calls
-  private void verifyEnrichmentHappyFlow(boolean doEnrichment, EnrichmentWorkerImpl worker,
+  private void verifyEnrichmentHappyFlow(boolean doEnrichment, Enricher enricher,
       EnrichmentClient enrichmentClient, RDF inputRdf) {
     if (doEnrichment) {
 
       // Extracting values for enrichment
-      verify(worker, times(1)).extractValuesForEnrichment(any());
-      verify(worker, times(1)).extractValuesForEnrichment(inputRdf);
+      verify(enricher, times(1)).extractValuesForEnrichment(any());
+      verify(enricher, times(1)).extractValuesForEnrichment(inputRdf);
 
       // Actually enriching
       verify(enrichmentClient, times(1)).enrich(enrichmentExtractionCaptor.capture());
       assertArrayEquals(ENRICHMENT_EXTRACT_RESULT, enrichmentExtractionCaptor.getValue().toArray());
 
     } else {
-      verify(worker, never()).extractValuesForEnrichment(any());
+      verify(enricher, never()).extractValuesForEnrichment(any());
       verify(enrichmentClient, never()).enrich(any());
     }
   }
 
-  private void verifyEnrichmentNullFlow(boolean doEnrichment, EnrichmentWorkerImpl worker,
+  private void verifyEnrichmentNullFlow(boolean doEnrichment, Enricher worker,
       EnrichmentClient enrichmentClient, RDF inputRdf) {
     if (doEnrichment) {
 
@@ -282,7 +316,7 @@ class EnrichmentWorkerImplTest {
 
   @Test
   void testProcessWrapperMethods()
-      throws JiBXException, UnsupportedEncodingException, DereferenceOrEnrichException {
+      throws JiBXException, UnsupportedEncodingException, DereferenceOrEnrichException, DereferenceException, EnrichmentException, SerializationException {
 
     // Create enrichment worker and mock the actual worker method as well as the RDF conversion
     // methods.
@@ -324,13 +358,19 @@ class EnrichmentWorkerImplTest {
       fail("Expected an exception to occur.");
     } catch (IllegalArgumentException e) {
       // This is expected
+    } catch (DereferenceException e) {
+      e.printStackTrace();
+    } catch (SerializationException e) {
+      e.printStackTrace();
+    } catch (EnrichmentException e) {
+      e.printStackTrace();
     }
 
     // Test empty RDF input
     try {
       worker.process(new RDF(), null);
       fail("Expected an exception to occur.");
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException | EnrichmentException | DereferenceException e) {
       // This is expected
     }
   }
