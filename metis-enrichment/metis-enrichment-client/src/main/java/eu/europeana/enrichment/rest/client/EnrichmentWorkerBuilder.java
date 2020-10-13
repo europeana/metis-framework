@@ -18,12 +18,10 @@ public class EnrichmentWorkerBuilder {
   private Dereferencer dereferencer = null;
   private Enricher enricher = null;
 
-  // TODO: Fix Javadoc
   /**
-   * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
-   * enrichment worker will not be configured to perform dereferencing.
+   * Set the dereferencer service. The default value is null.
    *
-   * @param dereferencer The URL of the dereferencing service.
+   * @param dereferencer The derenferencer.
    * @return This instance, for convenience.
    */
   public EnrichmentWorkerBuilder setDereferencer(Dereferencer dereferencer) {
@@ -31,15 +29,13 @@ public class EnrichmentWorkerBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
-   * Set the URL of the enrichment service. The default is null. If set to a blank value, the
-   * enrichment worker will not be configured to perform enrichment.
+   * Set the enricher service. The default value is null.
    *
-   * @param enricher The URL of the dereferencing service.
+   * @param enricher The enricher.
    * @return This instance, for convenience.
    */
-  public EnrichmentWorkerBuilder setEnricher(Enricher enricher) { // TODO: Remove this --> it is used for building the client
+  public EnrichmentWorkerBuilder setEnricher(Enricher enricher) {
     this.enricher = enricher;
     return this;
   }

@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.rest.client.EnrichmentWorker;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 public class DereferencerBuilder {
 
-  // TODO: Fix Javadoc
   /**
    * The default value of the maximum amount of time, in milliseconds, we wait for a connection to a
    * resource before timing out. It's currently set to {@value DereferencerBuilder#DEFAULT_CONNECT_TIMEOUT}
@@ -17,7 +15,6 @@ public class DereferencerBuilder {
    */
   public static final int DEFAULT_CONNECT_TIMEOUT = 10_000;
 
-  // TODO: Fix Javadoc
   /**
    * The default value of the maximum amount of time, in milliseconds, we wait for the response
    * before timing out. It's currently set to {@value DereferencerBuilder#DEFAULT_RESPONSE_TIMEOUT}
@@ -25,7 +22,6 @@ public class DereferencerBuilder {
    */
   public static final int DEFAULT_RESPONSE_TIMEOUT = 60_000;
 
-  // TODO: Fix Javadoc
   /**
    * The default value of the batch size with which we query the enrichment service. It's currently
    * set to {@value DereferencerBuilder#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
@@ -37,7 +33,6 @@ public class DereferencerBuilder {
   private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
   private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
   private int batchSizeEnrichment = DEFAULT_BATCH_SIZE_ENRICHMENT;
-  // TODO: Create simply a new entityMergeEngine
 
   // TODO: Fix Javadoc
   /**
@@ -52,7 +47,6 @@ public class DereferencerBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the URL of the enrichment service. The default is null. If set to a blank value, the
    * enrichment worker will not be configured to perform enrichment.
@@ -65,7 +59,6 @@ public class DereferencerBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the maximum amount of time, in milliseconds, we wait for a connection before timing out.
    * The default (when not calling this method) is {@value DereferencerBuilder#DEFAULT_CONNECT_TIMEOUT}
@@ -80,7 +73,6 @@ public class DereferencerBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the maximum amount of time, in milliseconds, we wait for the response. The default (when
    * not calling this method is {@value DereferencerBuilder#DEFAULT_RESPONSE_TIMEOUT}
@@ -95,7 +87,6 @@ public class DereferencerBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the batch size with which we query the enrichment service. The default (when not calling
    * this method) is {@value DereferencerBuilder#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
@@ -111,9 +102,8 @@ public class DereferencerBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
-   * Builds an {@link EnrichmentWorker} according to the parameters that are set.
+   * Builds an {@link Dereferencer} according to the parameters that are set.
    *
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.

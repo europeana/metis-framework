@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-import eu.europeana.enrichment.rest.client.EnrichmentWorker;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -32,9 +31,7 @@ public class EnricherBuilder {
   private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
   private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
   private int batchSizeEnrichment = DEFAULT_BATCH_SIZE_ENRICHMENT;
-  // TODO: Create simply a new entityMergeEngine
 
-  // TODO: Fix Javadoc
   /**
    * Set the URL of the enrichment service. The default is null. If set to a blank value, the
    * enrichment worker will not be configured to perform enrichment.
@@ -47,7 +44,6 @@ public class EnricherBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the maximum amount of time, in milliseconds, we wait for a connection before timing out.
    * The default (when not calling this method) is {@value EnricherBuilder#DEFAULT_CONNECT_TIMEOUT}
@@ -62,7 +58,6 @@ public class EnricherBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the maximum amount of time, in milliseconds, we wait for the response. The default (when
    * not calling this method is {@value EnricherBuilder#DEFAULT_RESPONSE_TIMEOUT}
@@ -77,7 +72,6 @@ public class EnricherBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
    * Set the batch size with which we query the enrichment service. The default (when not calling
    * this method) is {@value EnricherBuilder#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
@@ -93,9 +87,8 @@ public class EnricherBuilder {
     return this;
   }
 
-  // TODO: Fix Javadoc
   /**
-   * Builds an {@link EnrichmentWorker} according to the parameters that are set.
+   * Builds an {@link Enricher} according to the parameters that are set.
    *
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
