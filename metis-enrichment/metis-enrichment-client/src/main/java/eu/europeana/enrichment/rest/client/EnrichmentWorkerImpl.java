@@ -1,16 +1,11 @@
 package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.rest.client.dereference.DereferenceClient;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
-import eu.europeana.enrichment.rest.client.dereference.DereferencerImpl;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
-import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
-import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import java.io.InputStream;
 import java.util.Collections;
@@ -27,32 +22,29 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorkerImpl.class);
 
-  private final EnrichmentClient enrichmentClient;
-  private final DereferenceClient dereferenceClient;
-  private final EntityMergeEngine entityMergeEngine;
+  private final Enricher enricher;
+  private final Dereferencer dereferencer;
   private final Set<Mode> supportedModes;
 
   /**
    * Constructor.
    *
-   * @param dereferenceClient The dereference client.
-   * @param enrichmentClient The enrichment client.
-   * @param entityMergeEngine The engine to be used for merging entities into the RDF.
+   * @param dereferencer The dereference service.
+   * @param enricher The enrichment service.
    */
-  public EnrichmentWorkerImpl(DereferenceClient dereferenceClient,
-      EnrichmentClient enrichmentClient,
-      EntityMergeEngine entityMergeEngine) {
-    this.dereferenceClient = dereferenceClient;
-    this.enrichmentClient = enrichmentClient;
-    this.entityMergeEngine = entityMergeEngine;
+  public EnrichmentWorkerImpl(Dereferencer dereferencer, Enricher enricher) {
+
+    this.enricher = enricher;
+    this.dereferencer = dereferencer;
     supportedModes = EnumSet.noneOf(Mode.class);
-    if (dereferenceClient != null) {
+
+    if (dereferencer != null) {
       supportedModes.add(Mode.DEREFERENCE_ONLY);
     }
-    if (enrichmentClient != null) {
+    if (enricher != null) {
       supportedModes.add(Mode.ENRICHMENT_ONLY);
     }
-    if (enrichmentClient != null && dereferenceClient != null) {
+    if (enricher != null && dereferencer != null) {
       supportedModes.add(Mode.DEREFERENCE_AND_ENRICHMENT);
     }
   }
@@ -145,9 +137,6 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(rdf));
     }
-
-    Enricher enricher = new EnricherImpl(entityMergeEngine, enrichmentClient);
-    Dereferencer dereferencer = new DereferencerImpl(entityMergeEngine, enrichmentClient, dereferenceClient);
 
     // Dereferencing first: this is because we may enrich based on its results.
     if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.DEREFERENCE_ONLY == mode) {

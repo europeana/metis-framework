@@ -130,10 +130,6 @@ class EnrichmentWorkerImplTest {
         .dereference(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
-//    when(enricher.extractValuesForEnrichment(any())).thenReturn(Arrays.asList(ENRICHMENT_EXTRACT_RESULT));
-//    when(enricher.extractReferencesForEnrichment(any())).thenReturn(Collections.emptyMap());
-//    when(dereferencer.extractReferencesForDereferencing(any())).thenReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet()));
-
     // Create enrichment worker and mock the enrichment and dereferencing results.
     final Enricher enricher = spy(new EnricherImpl(entityMergeEngine, enrichmentClient));
     doReturn(Arrays.asList(ENRICHMENT_EXTRACT_RESULT)).when(enricher)
@@ -148,7 +144,7 @@ class EnrichmentWorkerImplTest {
 
     // Execute the worker
     final EnrichmentWorkerImpl worker =
-        spy(new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, entityMergeEngine));
+        spy(new EnrichmentWorkerImpl(dereferencer, enricher));
     final RDF inputRdf = new RDF();
     worker.process(inputRdf, mode);
 
@@ -185,7 +181,7 @@ class EnrichmentWorkerImplTest {
 
     // Execute the worker
     final EnrichmentWorkerImpl worker =
-        spy(new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, entityMergeEngine));
+        spy(new EnrichmentWorkerImpl(dereferencer, enricher));
     final RDF inputRdf = new RDF();
     worker.process(inputRdf, mode);
 
@@ -320,7 +316,7 @@ class EnrichmentWorkerImplTest {
 
     // Create enrichment worker and mock the actual worker method as well as the RDF conversion
     // methods.
-    final EnrichmentWorkerImpl worker = spy(new EnrichmentWorkerImpl(null, null, null));
+    final EnrichmentWorkerImpl worker = spy(new EnrichmentWorkerImpl(null, null));
     final RDF inputRdf = new RDF();
     final String outputString = "OutputString";
     doReturn(inputRdf).when(worker).convertStringToRdf(anyString());
@@ -350,7 +346,7 @@ class EnrichmentWorkerImplTest {
   void testEnrichmentWorkerNullValues() throws DereferenceOrEnrichException {
 
     // Create enrichment worker
-    final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null, null);
+    final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
 
     // Test null string input
     try {
