@@ -28,13 +28,11 @@ import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
-import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,7 +41,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.jibx.runtime.JiBXException;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -312,7 +309,7 @@ class EnrichmentWorkerImplTest {
 
   @Test
   void testProcessWrapperMethods()
-      throws JiBXException, UnsupportedEncodingException, DereferenceOrEnrichException, DereferenceException, EnrichmentException, SerializationException {
+      throws JiBXException, DereferenceException, EnrichmentException, SerializationException {
 
     // Create enrichment worker and mock the actual worker method as well as the RDF conversion
     // methods.
@@ -343,7 +340,7 @@ class EnrichmentWorkerImplTest {
   }
 
   @Test
-  void testEnrichmentWorkerNullValues() throws DereferenceOrEnrichException {
+  void testEnrichmentWorkerNullValues(){
 
     // Create enrichment worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
