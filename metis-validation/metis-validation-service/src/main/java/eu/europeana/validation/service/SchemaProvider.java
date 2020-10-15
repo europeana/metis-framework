@@ -4,16 +4,19 @@ import eu.europeana.validation.model.Schema;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
-import java.nio.file.Files;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.file.Path;
 import java.util.Enumeration;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +41,8 @@ public class SchemaProvider {
   private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
   private static final String ZIP_FILE_NAME = "zip.zip";
   private String schemasRootDirectory;
+
+  private HttpClient httpClient = HttpClient.newBuilder().build();
 
   private final PredefinedSchemas predefinedSchemasLocations;
 
@@ -137,6 +142,11 @@ public class SchemaProvider {
   private File downloadZipIfNeeded(String zipLocation, String destinationDir)
       throws SchemaProviderException {
 
+    HttpRequest httpRequest = HttpRequest.newBuilder()
+        .GET()
+        .uri(URI.create(zipLocation))
+        .build();
+
     File schemasLocation = new File(schemasRootDirectory, destinationDir);
 
     if (new File(schemasLocation, ZIP_FILE_NAME).exists()) {
@@ -149,17 +159,20 @@ public class SchemaProvider {
       throw new SchemaProviderException("Unable to create schemaDirecory");
     }
 
-    final File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
-    // We know where the schema zips are located: this come from the config files.
-    try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") InputStream urlLocation = new URL(
-            zipLocation).openStream();
-            OutputStream fos = Files.newOutputStream(destinationFile.toPath())
-    ) {
-      IOUtils.copy(urlLocation, fos);
-      return destinationFile;
+    File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
+    final HttpResponse<Path> httpResponse;
+
+    try {
+      httpResponse = httpClient.send(httpRequest, BodyHandlers.ofFile(destinationFile.toPath()));
+      destinationFile = httpResponse.body().toFile();
     } catch (IOException e) {
-      throw new SchemaProviderException("Unable to store schema file", e);
+      LOGGER.info(String.format("There was some trouble sending a request to %s", schemasLocation));
+    } catch (InterruptedException e){
+      Thread.currentThread().interrupt();
+      LOGGER.info("The thread was interrupted");
     }
+
+    return destinationFile;
   }
 
   private void unzipArchiveIfNeeded(File downloadedFile, String rootFileLocation)
@@ -188,8 +201,8 @@ public class SchemaProvider {
       throws SchemaProviderException, IOException {
     if (entry.isDirectory()) {
       // We chose were to store the downloaded files.
-      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-      final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
+      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") final boolean couldCreateDir = new File(
+          downloadedFile.getParent(), entry.getName()).mkdir();
       if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
       }
