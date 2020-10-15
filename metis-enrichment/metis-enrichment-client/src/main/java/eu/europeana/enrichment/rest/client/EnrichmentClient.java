@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
-import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -57,6 +55,15 @@ public class EnrichmentClient {
     this.batchSize = batchSize;
   }
 
+  private static <T> HttpEntity<T> createRequest(T body) {
+    final HttpHeaders headers = new HttpHeaders();
+    if (body != null) {
+      headers.setContentType(MediaType.APPLICATION_JSON);
+    }
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+    return new HttpEntity<>(body, headers);
+  }
+
   /**
    * Enrich REST call invocation
    *
@@ -66,15 +73,11 @@ public class EnrichmentClient {
   public EnrichmentResultList enrich(List<InputValue> values) {
     final InputValueList inList = new InputValueList();
     inList.setInputValues(values);
-    final HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-    final HttpEntity<InputValueList> request = new HttpEntity<>(inList, headers);
     final String url = endpoint + ENRICH_INPUT_VALUE_LIST;
     try {
-      return TemporaryResponseConverter
-              .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
-    } catch (RestClientException | JAXBException e) {
+      return template.postForObject(endpoint + ENRICH_INPUT_VALUE_LIST, createRequest(inList),
+              EnrichmentResultList.class);
+    } catch (RestClientException e) {
       LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
@@ -97,20 +100,13 @@ public class EnrichmentClient {
       throw new IllegalStateException(e);
     }
 
-    UriComponentsBuilder builder;
-    builder = UriComponentsBuilder.fromHttpUrl(endpoint + ENRICH_CODEURI_OR_OWLSAMEAS)
-        .queryParam("uri", encodedUri);
-
-    final HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_XML);
-    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-    final HttpEntity<Void> request = new HttpEntity<>(headers);
-
+    final UriComponentsBuilder builder = UriComponentsBuilder
+            .fromHttpUrl(endpoint + ENRICH_CODEURI_OR_OWLSAMEAS).queryParam("uri", encodedUri);
     final URI fullUri = builder.build(true).toUri();
     try {
-      return TemporaryResponseConverter.convert(template.exchange(fullUri, HttpMethod.GET, request,
-              byte[].class), EnrichmentBase.class, () -> null);
-    } catch (RestClientException | JAXBException e) {
+      return template.exchange(fullUri, HttpMethod.GET, createRequest(null), EnrichmentBase.class)
+              .getBody();
+    } catch (RestClientException e) {
       LOGGER.warn("Enrichment client GET call failed: {}.", fullUri, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
@@ -123,20 +119,7 @@ public class EnrichmentClient {
    * @return the enriched information. Does not return null, but could return an empty list.
    */
   public List<EnrichmentBaseWrapper> getByUri(Collection<String> uriList) {
-    return performInBatches(input -> {
-      final HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(MediaType.APPLICATION_JSON);
-      headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-      final HttpEntity<List<String>> request = new HttpEntity<>(input, headers);
-      final String url = endpoint + ENRICH_CODEURI_OR_OWLSAMEAS;
-      try {
-        return TemporaryResponseConverter
-                .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
-      } catch (RestClientException | JAXBException e) {
-        LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
-        throw new UnknownException("Enrichment client call failed.", e);
-      }
-    }, uriList);
+    return performInBatches(endpoint + ENRICH_CODEURI_OR_OWLSAMEAS, uriList);
   }
 
   /**
@@ -146,29 +129,15 @@ public class EnrichmentClient {
    * @return the enriched information
    */
   public List<EnrichmentBaseWrapper> getById(Collection<String> uriList) {
-    return performInBatches(input-> {
-      final HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(MediaType.APPLICATION_JSON);
-      headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-      final HttpEntity<List<String>> request = new HttpEntity<>(input, headers);
-      final String url = endpoint + ENRICH_CODEURI;
-      try {
-        return TemporaryResponseConverter
-                .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
-      } catch (RestClientException | JAXBException e) {
-        LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
-        throw new UnknownException("Enrichment client call failed.", e);
-      }
-    }, uriList);
+    return performInBatches(endpoint + ENRICH_CODEURI, uriList);
   }
 
-  private List<EnrichmentBaseWrapper> performInBatches(
-          Function<List<String>, EnrichmentResultList> operation, Collection<String> input) {
+  private List<EnrichmentBaseWrapper> performInBatches(String url, Collection<String> inputValues) {
 
     // Create partitions
     final List<List<String>> partitions = new ArrayList<>();
     partitions.add(new ArrayList<>());
-    input.forEach(item -> {
+    inputValues.forEach(item -> {
       List<String> currentPartition = partitions.get(partitions.size() - 1);
       if (currentPartition.size() >= batchSize) {
         currentPartition = new ArrayList<>();
@@ -179,9 +148,15 @@ public class EnrichmentClient {
 
     // Process partitions
     final List<EnrichmentBaseWrapper> result = new ArrayList<>();
-    partitions.stream().map(operation).filter(Objects::nonNull)
-            .map(EnrichmentResultList::getEnrichmentBaseWrapperList).filter(Objects::nonNull)
-            .flatMap(List::stream).forEach(result::add);
+    partitions.stream().map(list -> list.toArray(String[]::new)).map(inputValue -> {
+      try {
+        return template.postForObject(url, createRequest(inputValue), EnrichmentResultList.class);
+      } catch (RestClientException e) {
+        LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
+        throw new UnknownException("Enrichment client call failed.", e);
+      }
+    }).filter(Objects::nonNull).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
+            .filter(Objects::nonNull).flatMap(List::stream).forEach(result::add);
     return result;
   }
 }

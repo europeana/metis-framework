@@ -148,12 +148,24 @@
             <groupId>eu.europeana</groupId>
           </exclusion>
           <exclusion>
+            <groupId>stax</groupId>
+            <artifactId>stax-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>de.flapdoodle.embed</groupId>
             <artifactId>de.flapdoodle.embed.mongo</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.mongodb.morphia</groupId>
+            <artifactId>morphia</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>dev.morphia.morphia</groupId>
+            <artifactId>core</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.apache.solr</groupId>
@@ -328,6 +340,10 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <artifactId>xml-apis</artifactId>
+            <groupId>xml-apis</groupId>
+          </exclusion>
+          <exclusion>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>*</artifactId>
           </exclusion>
@@ -387,6 +403,17 @@
           <exclusion>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>xerces</groupId>
+        <artifactId>xercesImpl</artifactId>
+        <version>${version.xerces}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>xml-apis</artifactId>
+            <groupId>xml-apis</groupId>
           </exclusion>
         </exclusions>
       </dependency>

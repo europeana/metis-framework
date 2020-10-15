@@ -22,7 +22,6 @@
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
-      <version>${version.xerces}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

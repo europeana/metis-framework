@@ -13,13 +13,10 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -30,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 class DereferenceClientTest {
 
   @Test
-  void testDereference() throws JAXBException {
+  void testDereference() {
     Agent agent1 = new Agent();
     agent1.setAbout("Test Agent 1");
 
@@ -43,20 +40,15 @@ class DereferenceClientTest {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
         .createNullOriginalFieldEnrichmentBaseWrapperList(agentList);
 
-    EnrichmentResultList enrichmentResultList = new EnrichmentResultList(enrichmentBaseWrapperList);
-
-    final JAXBContext jaxbContext = JAXBContext.newInstance(EnrichmentResultList.class);
-    final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    jaxbMarshaller.marshal(enrichmentResultList, outputStream);
-    ResponseEntity<byte[]> result = new ResponseEntity<>(outputStream.toByteArray(), HttpStatus.OK);
+    final EnrichmentResultList enrichmentResultList = new EnrichmentResultList(enrichmentBaseWrapperList);
+    final ResponseEntity<EnrichmentResultList> result = new ResponseEntity<>(enrichmentResultList,
+            HttpStatus.OK);
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
     doReturn(result).when(restTemplate).exchange(any(URI.class),
         any(HttpMethod.class),
         any(HttpEntity.class),
-        eq(byte[].class));
+        eq(EnrichmentResultList.class));
 
     final DereferenceClient dereferenceClient = spy(new DereferenceClient(restTemplate, "http://dummy"));
     EnrichmentResultList res = dereferenceClient.dereference("http://dummy");
@@ -64,7 +56,7 @@ class DereferenceClientTest {
     verify(restTemplate, times(1)).exchange(any(URI.class),
         eq(HttpMethod.GET),
         any(HttpEntity.class),
-        eq(byte[].class));
+        eq(EnrichmentResultList.class));
 
     assertEquals(res.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase().getAbout(),
         agent1.getAbout());

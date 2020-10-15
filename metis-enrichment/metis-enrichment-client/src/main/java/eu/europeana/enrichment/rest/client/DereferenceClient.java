@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
@@ -9,16 +8,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import javax.xml.bind.JAXBException;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -44,7 +43,12 @@ public class DereferenceClient {
    * @return The list of all vocabularies
    */
   public List<Vocabulary> getAllVocabularies() {
-    return restTemplate.getForObject(hostUrl + RestEndpoints.VOCABULARIES, List.class);
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+    final HttpEntity<String> entity = new HttpEntity<>(headers);
+    final Vocabulary[] result = restTemplate.exchange(hostUrl + RestEndpoints.VOCABULARIES,
+            HttpMethod.GET, entity, Vocabulary[].class).getBody();
+    return Optional.ofNullable(result).map(Arrays::asList).orElseGet(Collections::emptyList);
   }
 
   /**
@@ -79,23 +83,17 @@ public class DereferenceClient {
       dereferenceUrl = new URI(hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString);
     } catch (URISyntaxException e) {
       // Cannot really happen.
-      LOGGER.warn("URL [" + dereferenceUrlString + "] is not valid.", e);
+      LOGGER.warn("URL [{}] is not valid.", dereferenceUrlString, e);
       return null;
     }
 
     // Execute the dereference call.
     final HttpHeaders headers = new HttpHeaders();
     headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-    final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+    final HttpEntity<String> entity = new HttpEntity<>(headers);
 
     // Make the call and return the result.
-    final ResponseEntity<byte[]> result = restTemplate
-            .exchange(dereferenceUrl, HttpMethod.GET, entity, byte[].class);
-    try {
-      return TemporaryResponseConverter.convert(result);
-    } catch (JAXBException e) {
-      LOGGER.warn("URL [{}] could not be deserialized.", dereferenceUrlString, e);
-      throw new UnknownException("Dereference client call failed.", e);
-    }
+    return restTemplate
+            .exchange(dereferenceUrl, HttpMethod.GET, entity, EnrichmentResultList.class).getBody();
   }
 }
