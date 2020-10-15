@@ -169,7 +169,7 @@ public class SchemaProvider {
       LOGGER.info(String.format("There was some trouble sending a request to %s", schemasLocation));
     } catch (InterruptedException e){
       Thread.currentThread().interrupt();
-      LOGGER.info(String.format("There was some trouble sending a request to %s", schemasLocation));
+      LOGGER.info("The thread was interrupted");
     }
 
     return destinationFile;
