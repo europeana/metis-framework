@@ -34,7 +34,6 @@ public class DereferencerBuilder {
   private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
   private int batchSizeEnrichment = DEFAULT_BATCH_SIZE_ENRICHMENT;
 
-  // TODO: Fix Javadoc
   /**
    * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
    * enrichment worker will not be configured to perform dereferencing.

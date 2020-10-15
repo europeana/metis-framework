@@ -1,13 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.enrichment.rest.client.dereference.DereferenceClient;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
-import eu.europeana.enrichment.utils.EntityMergeEngine;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * This class is able to construct {@link EnrichmentWorker} instances and is as such the main
