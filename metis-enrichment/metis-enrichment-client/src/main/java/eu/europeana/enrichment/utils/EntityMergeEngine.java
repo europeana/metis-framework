@@ -23,6 +23,7 @@ import eu.europeana.corelib.definitions.jibx.HasPart;
 import eu.europeana.corelib.definitions.jibx.HiddenLabel;
 import eu.europeana.corelib.definitions.jibx.Identifier;
 import eu.europeana.corelib.definitions.jibx.InScheme;
+import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.IsRelatedTo;
 import eu.europeana.corelib.definitions.jibx.Lat;
@@ -306,7 +307,10 @@ public class EntityMergeEngine {
     timeSpanType
         .setHasPartList(ItemExtractorUtils.extractParts(timespan.getHasPartsList(), HasPart::new));
 
-    // isNextInSequence: not available
+    // isNextInSequence
+    timeSpanType.setIsNextInSequence(ItemExtractorUtils
+        .extractAsResource(timespan.getIsNextInSequence(), IsNextInSequence::new,
+            Part::getResource));
 
     // isPartOfList
     timeSpanType.setIsPartOfList(

@@ -1,5 +1,7 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
+import java.util.Optional;
 import java.util.function.Function;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
@@ -27,6 +29,9 @@ final class TimespanFieldInput implements Function<TimeSpanType, TimespanImpl> {
     mongoTimespan.setEnd(FieldInputUtils.createLiteralMapFromString(timeSpan.getEnd()));
     mongoTimespan
         .setHiddenLabel(FieldInputUtils.createLiteralMapFromList(timeSpan.getHiddenLabelList()));
+    mongoTimespan.setIsNextInSequence(
+        Optional.ofNullable(timeSpan.getIsNextInSequence()).map(IsNextInSequence::getResource)
+            .orElse(null));
     return mongoTimespan;
   }
 }
