@@ -394,6 +394,7 @@ public class EntityMergeEngineTest {
     verifyList(original.getIsPartOfList(), copy.getIsPartOfList(), this::verifyPart);
     verifyList(original.getNotes(), copy.getNoteList(), this::verifyLabel);
     verifyList(original.getPrefLabelList(), copy.getPrefLabelList(), this::verifyLabel);
+    verifyList(original.getHiddenLabel(), copy.getHiddenLabelList(), this::verifyLabel);
     verifyList(original.getSameAs(), copy.getSameAList(), this::verifyPart);
     assertNull(copy.getIsNextInSequence());
   }

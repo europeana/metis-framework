@@ -25,6 +25,8 @@ final class TimespanFieldInput implements Function<TimeSpanType, TimespanImpl> {
     mongoTimespan.setOwlSameAs(FieldInputUtils.resourceListToArray(timeSpan.getSameAList()));
     mongoTimespan.setBegin(FieldInputUtils.createLiteralMapFromString(timeSpan.getBegin()));
     mongoTimespan.setEnd(FieldInputUtils.createLiteralMapFromString(timeSpan.getEnd()));
+    mongoTimespan
+        .setHiddenLabel(FieldInputUtils.createLiteralMapFromList(timeSpan.getHiddenLabelList()));
     return mongoTimespan;
   }
 }

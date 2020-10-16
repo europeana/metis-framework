@@ -2,7 +2,6 @@ package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import eu.europeana.corelib.definitions.edm.entity.Address;
 import java.util.List;
 import java.util.Map;
 
