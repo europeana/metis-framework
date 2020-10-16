@@ -12,6 +12,7 @@ public class DereferencerBuilder extends AbstractConnectionBuilder {
 
   private String dereferenceUrl = null;
   private String enrichmentUrl = null;
+
   /**
    * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
    * enrichment worker will not be configured to perform dereferencing.
@@ -39,9 +40,7 @@ public class DereferencerBuilder extends AbstractConnectionBuilder {
     }
 
     // Create the request factory
-    final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-    requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
-    requestFactory.setReadTimeout(Math.max(responseTimeout, 0));
+    final HttpComponentsClientHttpRequestFactory requestFactory = super.createRequestFactory();
 
     // Create the dereference client if needed
     final DereferenceClient dereferenceClient;

@@ -37,10 +37,7 @@ public class EnricherBuilder extends AbstractConnectionBuilder {
     }
 
     // Create the request factory
-    final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-    requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
-    requestFactory.setReadTimeout(Math.max(responseTimeout, 0));
-
+    final HttpComponentsClientHttpRequestFactory requestFactory = super.createRequestFactory();
 
     // Create the enrichment client if needed
     final EnrichmentClient enrichmentClient;

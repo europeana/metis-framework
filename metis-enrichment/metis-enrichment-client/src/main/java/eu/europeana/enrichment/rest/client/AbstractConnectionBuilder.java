@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+
 public abstract class AbstractConnectionBuilder {
 
   /**
@@ -22,8 +24,8 @@ public abstract class AbstractConnectionBuilder {
    */
   public static final int DEFAULT_BATCH_SIZE_ENRICHMENT = 20;
 
-  protected int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
-  protected int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
+  private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
+  private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
   protected int batchSizeEnrichment = DEFAULT_BATCH_SIZE_ENRICHMENT;
 
   /**
@@ -67,6 +69,22 @@ public abstract class AbstractConnectionBuilder {
     }
     this.batchSizeEnrichment = batchSizeEnrichment;
     return this;
+  }
+
+  /**
+   * Creates a new Http connection factory using the values set up previously for the connection
+   * timeout and response time out
+   *
+   * @return a HttpComponentsClientHttpRequestFactory instance with all the information set up
+   * previously
+   */
+  protected HttpComponentsClientHttpRequestFactory createRequestFactory() {
+
+    final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+    requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
+    requestFactory.setReadTimeout(Math.max(responseTimeout, 0));
+
+    return requestFactory;
   }
 
 }
