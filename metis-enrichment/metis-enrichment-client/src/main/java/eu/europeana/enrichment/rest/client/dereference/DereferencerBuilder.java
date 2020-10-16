@@ -15,13 +15,25 @@ public class DereferencerBuilder extends AbstractConnectionBuilder {
 
   /**
    * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
-   * enrichment worker will not be configured to perform dereferencing.
+   * dereferencer will not be configured to perform dereferencing.
    *
    * @param dereferenceUrl The URL of the dereferencing service.
    * @return This instance, for convenience.
    */
   public DereferencerBuilder setDereferenceUrl(String dereferenceUrl) {
     this.dereferenceUrl = dereferenceUrl;
+    return this;
+  }
+
+  /**
+   * Set the URL of the enrichment service. The default is null. If set to a blank value, the
+   * dereferencer will not be configured to perform dereferencing.
+   *
+   * @param enrichmentUrl The URL of the enrichment service.
+   * @return This instance, for convenience.
+   */
+  public DereferencerBuilder setEnrichmentUrl(String enrichmentUrl) {
+    this.enrichmentUrl = enrichmentUrl;
     return this;
   }
 
@@ -36,7 +48,7 @@ public class DereferencerBuilder extends AbstractConnectionBuilder {
     // Make sure that the worker can do something.
     if (StringUtils.isBlank(dereferenceUrl) && StringUtils.isBlank(enrichmentUrl)) {
       throw new IllegalStateException(
-          "Either dereferencing or enrichment (or both) must be enabled.");
+          "Dereferencing must be enabled.");
     }
 
     // Create the request factory

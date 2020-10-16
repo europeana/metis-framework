@@ -33,7 +33,7 @@ public class EnricherBuilder extends AbstractConnectionBuilder {
     // Make sure that the worker can do something.
     if (StringUtils.isBlank(enrichmentUrl)) {
       throw new IllegalStateException(
-          "Either dereferencing or enrichment (or both) must be enabled.");
+          "Enrichment must be enabled.");
     }
 
     // Create the request factory
