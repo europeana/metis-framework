@@ -22,18 +22,17 @@ import org.bson.types.ObjectId;
  */
 @Entity
 @Indexes({
-    @Index(fields = {@Field("codeUri")}, options = @IndexOptions(unique = true)),
-    @Index(fields = {@Field("owlSameAs")}),
     @Index(fields = {@Field("created")}),
     @Index(fields = {@Field("updated")}),
     @Index(fields = {@Field("entityType")}),
-    @Index(fields = {@Field("codeUri"), @Field("entityType")}),
-    @Index(fields = {@Field("owlSameAs"), @Field("entityType")}),
+    @Index(fields = {@Field("enrichmentEntity.about"), @Field("entityType")}),
+    @Index(fields = {@Field("enrichmentEntity.owlSameAs"), @Field("entityType")}),
     @Index(fields = {@Field("labelInfos.lowerCaseLabel"), @Field("labelInfos.lang"),
         @Field("entityType")}),
     @Index(fields = {@Field("created"), @Field("entityType")}),
     @Index(fields = {@Field("updated"), @Field("entityType")}),
-    @Index(fields = {@Field("enrichmentEntity.about")}, options = @IndexOptions(unique = true))
+    @Index(fields = {@Field("enrichmentEntity.about")}, options = @IndexOptions(unique = true)),
+    @Index(fields = {@Field("enrichmentEntity.owlSameAs")})
 })
 public class EnrichmentTerm {
 
@@ -42,8 +41,6 @@ public class EnrichmentTerm {
   private ObjectId id;
 
   private String parent;
-  private String codeUri;
-  private List<String> owlSameAs;
   private Date created;
   private Date updated;
   private EntityType entityType;
@@ -86,28 +83,12 @@ public class EnrichmentTerm {
     this.id = id;
   }
 
-  public String getCodeUri() {
-    return codeUri;
-  }
-
-  public void setCodeUri(String codeUri) {
-    this.codeUri = codeUri;
-  }
-
   public String getParent() {
     return parent;
   }
 
   public void setParent(String parent) {
     this.parent = parent;
-  }
-
-  public void setOwlSameAs(List<String> owlSameAs) {
-    this.owlSameAs = owlSameAs;
-  }
-
-  public List<String> getOwlSameAs() {
-    return owlSameAs;
   }
 
   public Date getUpdated() {

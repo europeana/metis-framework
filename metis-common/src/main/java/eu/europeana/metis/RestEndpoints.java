@@ -49,15 +49,11 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID = "/orchestrator/workflows/executions/{executionId}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY =
-      "/orchestrator/workflows/executions/{executionId}/plugins/data-availability";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY = "/orchestrator/workflows/executions/{executionId}/plugins/data-availability";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID = "/orchestrator/workflows/executions/dataset/{datasetId}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN =
-      "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_plugin";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY =
-      "/orchestrator/workflows/executions/dataset/{datasetId}/history";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION =
-      "/orchestrator/workflows/executions/dataset/{datasetId}/information";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_plugin";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY = "/orchestrator/workflows/executions/dataset/{datasetId}/history";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION = "/orchestrator/workflows/executions/dataset/{datasetId}/information";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW = "/orchestrator/workflows/executions/overview";
   public static final String ORCHESTRATOR_WORKFLOWS_EVOLUTION = "/orchestrator/workflows/evolution/{workflowExecutionId}/{pluginType}";
@@ -76,8 +72,8 @@ public final class RestEndpoints {
   public static final String LOAD_VOCABULARIES = "/load_vocabularies";
 
   /* METIS ENRICHMENT Endpoint */
-  public static final String ENRICH_CODEURI = "/enrich/code_uri";
-  public static final String ENRICH_CODEURI_OR_OWLSAMEAS = "/enrich/code_uri_or_owl_same_as";
+  public static final String ENRICH_ENTITY_ABOUT = "/enrich/entity_about";
+  public static final String ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS = "/enrich/entity_about_or_owl_same_as";
   public static final String ENRICH_INPUT_VALUE_LIST = "/enrich/input_value_list";
 
   /* METIS SCHEMA VALIDATION ENDPOINT */

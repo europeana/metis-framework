@@ -28,7 +28,6 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
   private Map<String,String> edmOrganizationScope;
   private Map<String,String> edmGeographicLevel;
   private Map<String,String> edmCountry;
-  private String[] owlSameAs;
   private Address address;
 
   public Map<String, List<String>> getEdmAcronym() {
@@ -169,14 +168,6 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
 
   public void setFoafMbox(List<String> foafMbox) {
     this.foafMbox = foafMbox;
-  }
-
-  public String[] getOwlSameAs() {
-    return owlSameAs;
-  }
-
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs;
   }
 
   public Address getAddress() {

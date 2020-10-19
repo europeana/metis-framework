@@ -19,7 +19,6 @@ public class AgentEnrichmentEntity extends AbstractEnrichmentEntity {
   private String[] edmWasPresentAt;
   private Map<String,List<String>> edmHasMet;
   private Map<String,List<String>> edmIsRelatedTo;
-  private String[] owlSameAs;
   private Map<String,List<String>> foafName;
   private Map<String,List<String>> dcDate;
   private Map<String,List<String>> dcIdentifier;
@@ -72,14 +71,6 @@ public class AgentEnrichmentEntity extends AbstractEnrichmentEntity {
 
   public Map<String,List<String>> getEdmIsRelatedTo() {
     return this.edmIsRelatedTo;
-  }
-
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs!=null?owlSameAs.clone():null;
-  }
-
-  public String[] getOwlSameAs() {
-    return (StringArrayUtils.isNotBlank(this.owlSameAs) ? this.owlSameAs.clone() : null);
   }
 
   public void setFoafName(Map<String,List<String>> foafName) {

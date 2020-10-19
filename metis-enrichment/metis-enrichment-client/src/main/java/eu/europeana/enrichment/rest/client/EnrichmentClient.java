@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.ENRICH_CODEURI;
-import static eu.europeana.metis.RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS;
+import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT;
+import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS;
 import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
@@ -101,7 +101,7 @@ public class EnrichmentClient {
     }
 
     final UriComponentsBuilder builder = UriComponentsBuilder
-            .fromHttpUrl(endpoint + ENRICH_CODEURI_OR_OWLSAMEAS).queryParam("uri", encodedUri);
+            .fromHttpUrl(endpoint + ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS).queryParam("uri", encodedUri);
     final URI fullUri = builder.build(true).toUri();
     try {
       return template.exchange(fullUri, HttpMethod.GET, createRequest(null), EnrichmentBase.class)
@@ -119,7 +119,7 @@ public class EnrichmentClient {
    * @return the enriched information. Does not return null, but could return an empty list.
    */
   public List<EnrichmentBaseWrapper> getByUri(Collection<String> uriList) {
-    return performInBatches(endpoint + ENRICH_CODEURI_OR_OWLSAMEAS, uriList);
+    return performInBatches(endpoint + ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS, uriList);
   }
 
   /**
@@ -129,7 +129,7 @@ public class EnrichmentClient {
    * @return the enriched information
    */
   public List<EnrichmentBaseWrapper> getById(Collection<String> uriList) {
-    return performInBatches(endpoint + ENRICH_CODEURI, uriList);
+    return performInBatches(endpoint + ENRICH_ENTITY_ABOUT, uriList);
   }
 
   private List<EnrichmentBaseWrapper> performInBatches(String url, Collection<String> inputValues) {

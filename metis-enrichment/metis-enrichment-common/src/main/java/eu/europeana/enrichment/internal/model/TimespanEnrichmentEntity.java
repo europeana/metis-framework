@@ -17,7 +17,6 @@ public class TimespanEnrichmentEntity extends AbstractEnrichmentEntity {
   private Map<String, List<String>> end;
   private Map<String, List<String>> isPartOf;
   private Map<String, List<String>> dctermsHasPart;
-  private String[] owlSameAs;
   private String[] isNextInSequence;
 
   public Map<String, List<String>> getBegin() {
@@ -50,14 +49,6 @@ public class TimespanEnrichmentEntity extends AbstractEnrichmentEntity {
 
   public void setDctermsHasPart(Map<String, List<String>> dctermsHasPart) {
     this.dctermsHasPart = dctermsHasPart;
-  }
-
-  public String[] getOwlSameAs() {
-    return (StringArrayUtils.isNotBlank(owlSameAs) ? this.owlSameAs.clone() : null);
-  }
-
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs != null ? owlSameAs.clone() : null;
   }
 
   public String[] getIsNextInSequence() {

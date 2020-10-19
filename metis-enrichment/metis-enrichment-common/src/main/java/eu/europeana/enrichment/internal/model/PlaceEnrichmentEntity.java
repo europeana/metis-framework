@@ -2,7 +2,6 @@ package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import eu.europeana.corelib.utils.StringArrayUtils;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +18,6 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
   private Float altitude;
   private Map<String, Float> position;
   private Map<String, List<String>> dcTermsHasPart;
-  private String[] owlSameAs;
 
   public Map<String, List<String>> getIsPartOf() {
     return this.isPartOf;
@@ -79,14 +77,6 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
 
   public Map<String, List<String>> getDcTermsHasPart() {
     return this.dcTermsHasPart;
-  }
-
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs != null ? owlSameAs.clone() : null;
-  }
-
-  public String[] getOwlSameAs() {
-    return (StringArrayUtils.isNotBlank(owlSameAs) ? this.owlSameAs.clone() : null);
   }
 
   @Override

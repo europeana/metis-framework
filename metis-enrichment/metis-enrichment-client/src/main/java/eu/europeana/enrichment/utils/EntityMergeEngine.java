@@ -308,9 +308,11 @@ public class EntityMergeEngine {
         .setHasPartList(ItemExtractorUtils.extractParts(timespan.getHasPartsList(), HasPart::new));
 
     // isNextInSequence
-    timeSpanType.setIsNextInSequence(ItemExtractorUtils
-        .extractAsResource(timespan.getIsNextInSequence(), IsNextInSequence::new,
-            Part::getResource));
+    if (timespan.getIsNextInSequence() != null) {
+      timeSpanType.setIsNextInSequence(ItemExtractorUtils
+          .extractAsResource(timespan.getIsNextInSequence(), IsNextInSequence::new,
+              Part::getResource));
+    }
 
     // isPartOfList
     timeSpanType.setIsPartOfList(

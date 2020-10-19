@@ -207,11 +207,11 @@ public final class Converter {
     return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
   }
 
-  private static List<Part> convertToPartsList(String[] resources) {
+  private static List<Part> convertToPartsList(List<String> resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
-    return Arrays.stream(resources).map(Part::new).collect(Collectors.toList());
+    return resources.stream().map(Part::new).collect(Collectors.toList());
   }
 
   private static boolean isUri(String str) {
