@@ -55,7 +55,7 @@ public class EnrichmentControllerTest {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
     when(enrichmentServiceMock.enrichByAboutOrOwlSameAs(uri)).thenReturn(agent);
-    enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
+    enrichmentControllerMock.perform(get("/enrich/entity_about_or_owl_same_as")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is(200))
@@ -72,7 +72,7 @@ public class EnrichmentControllerTest {
     Agent agent = getAgent(uri);
     when(enrichmentServiceMock.enrichByAboutOrOwlSameAs(uri)).thenReturn(agent);
     Map<String, String> namespaceMap = getNamespaceMap();
-    enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
+    enrichmentControllerMock.perform(get("/enrich/entity_about_or_owl_same_as")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_XML_VALUE))
         .andExpect(status().is(200))
