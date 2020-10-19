@@ -32,7 +32,8 @@ public class CancelableBodyWrapper<T> implements BodyHandler<T> {
         latch.await();
         cancelableSubscriber.cancel();
       } catch (InterruptedException e) {
-        LOG.info("There was some problem interrupting the connection");
+        LOG.info("There was some problem interrupting the connection. Interrupting Thread.");
+        Thread.currentThread().interrupt();
       }
     });
   }

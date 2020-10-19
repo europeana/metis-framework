@@ -157,7 +157,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
           fileSize <= 0 ? null : fileSize, content);
     } catch (IOException | RuntimeException e) {
       if (bodyWrapper.isCancelled()) {
-        throw new IOException("The request was aborted: it exceeded the time limit.");
+        throw new IOException("The request was aborted: it exceeded the time limit.", e);
       } else {
         throw e;
       }

@@ -12,6 +12,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
@@ -163,10 +164,10 @@ public class SchemaProvider {
     final HttpResponse<Path> httpResponse;
 
     try {
-      httpResponse = httpClient.send(httpRequest, BodyHandlers.ofFile(destinationFile.toPath()));
+      httpResponse = httpClient.send(httpRequest, BodyHandlers.ofFile(Paths.get(destinationFile.toURI())));
       destinationFile = httpResponse.body().toFile();
     } catch (IOException e) {
-      LOGGER.info(String.format("There was some trouble sending a request to %s", schemasLocation));
+      LOGGER.info("There was some trouble sending a request to {}", schemasLocation);
     } catch (InterruptedException e){
       Thread.currentThread().interrupt();
       LOGGER.info("The thread was interrupted");
