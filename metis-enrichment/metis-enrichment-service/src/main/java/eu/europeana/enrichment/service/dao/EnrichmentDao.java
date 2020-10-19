@@ -38,7 +38,7 @@ public class EnrichmentDao {
 
   public static final String ID_FIELD = "_id";
   public static final String ENTITY_TYPE_FIELD = "entityType";
-  public static final String ENTITY_ABOUT_FIELD = "enrichmentEntity.owlSameAs";
+  public static final String ENTITY_ABOUT_FIELD = "enrichmentEntity.about";
   public static final String ENTITY_OWL_SAME_AS_FIELD = "enrichmentEntity.owlSameAs";
   private static final String UPDATED_FIELD = "updated";
   public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
