@@ -115,31 +115,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       throw new IOException("A problem occurred when sending the request");
     }
 
-    final URI actualUri;
-
     // Do first check redirection and analysis
-    if (Family.familyOf(statusCode) == Family.REDIRECTION) {
-      final String redirectUris = httpResponse.headers().firstValue(HttpHeaders.LOCATION)
-          .filter(StringUtils::isNotBlank)
-          .orElseThrow(() -> new IOException("There was problems retrieving the Location value"));
-      httpResponse = performRedirect(statusCode, resourceUri.resolve(redirectUris),
-          maxNumberOfRedirects, bodyWrapper);
-
-      actualUri = httpResponse.uri();
-      if (actualUri == null) {
-        throw new IOException("There was some trouble retrieving the uri");
-      }
-
-    } else if (Status.fromStatusCode(statusCode) != Status.OK) {
-      throw new IOException(
-          String.format("Download failed of resource %s. Status code %s", resourceUri, statusCode));
-    } else {
-      actualUri = httpResponse.uri();
-
-      if (actualUri == null) {
-        throw new IOException("There was some trouble retrieving the uri");
-      }
-    }
+    final URI actualUri = checkActualUriFromHttpResponse(statusCode, resourceUri, bodyWrapper);
 
     // Obtain header information.
     final String mimeType = httpResponse.headers().firstValue(HttpHeaders.CONTENT_TYPE)
@@ -171,6 +148,37 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     // Cancel abort trigger
     timer.cancel();
     abortTask.cancel();
+
+    return result;
+  }
+
+  private URI checkActualUriFromHttpResponse(int statusCode, URI resourceUri,
+      CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
+
+    URI result;
+
+    if (Family.familyOf(statusCode) == Family.REDIRECTION) {
+      final String redirectUris = httpResponse.headers().firstValue(HttpHeaders.LOCATION)
+          .filter(StringUtils::isNotBlank)
+          .orElseThrow(() -> new IOException("There was problems retrieving the Location value"));
+      httpResponse = performRedirect(statusCode, resourceUri.resolve(redirectUris),
+          maxNumberOfRedirects, bodyWrapper);
+
+      result = httpResponse.uri();
+      if (result == null) {
+        throw new IOException("There was some trouble retrieving the uri");
+      }
+
+    } else if (Status.fromStatusCode(statusCode) != Status.OK) {
+      throw new IOException(
+          String.format("Download failed of resource %s. Status code %s", resourceUri, statusCode));
+    } else {
+      result = httpResponse.uri();
+
+      if (result == null) {
+        throw new IOException("There was some trouble retrieving the uri");
+      }
+    }
 
     return result;
   }
