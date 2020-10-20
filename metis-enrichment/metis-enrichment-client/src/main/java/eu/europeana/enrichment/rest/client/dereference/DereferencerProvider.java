@@ -1,13 +1,13 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.rest.client.AbstractConnectionBuilder;
+import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-public class DereferencerBuilder extends AbstractConnectionBuilder {
+public class DereferencerProvider extends AbstractConnectionProvider {
 
 
   private String dereferenceUrl = null;
@@ -20,7 +20,7 @@ public class DereferencerBuilder extends AbstractConnectionBuilder {
    * @param dereferenceUrl The URL of the dereferencing service.
    * @return This instance, for convenience.
    */
-  public DereferencerBuilder setDereferenceUrl(String dereferenceUrl) {
+  public DereferencerProvider setDereferenceUrl(String dereferenceUrl) {
     this.dereferenceUrl = dereferenceUrl;
     return this;
   }
@@ -32,7 +32,7 @@ public class DereferencerBuilder extends AbstractConnectionBuilder {
    * @param enrichmentUrl The URL of the enrichment service.
    * @return This instance, for convenience.
    */
-  public DereferencerBuilder setEnrichmentUrl(String enrichmentUrl) {
+  public DereferencerProvider setEnrichmentUrl(String enrichmentUrl) {
     this.enrichmentUrl = enrichmentUrl;
     return this;
   }

@@ -17,7 +17,7 @@ public interface EnrichmentWorker {
    * Contains the Modes that are available for processing.
    */
   enum Mode {
-    ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT
+    ENRICHMENT, DEREFERENCE
   }
 
   /**
@@ -29,8 +29,8 @@ public interface EnrichmentWorker {
 
   /**
    * Performs dereference and enrichment on an input stream to produce a target byte array. This is
-   * a wrapper for {@link #process(InputStream, Mode)} where the mode is {@link
-   * Mode#DEREFERENCE_AND_ENRICHMENT}.
+   * a wrapper for {@link #process(InputStream, Set<Mode>)} where the mode set has both {@link
+   * Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
    * @return The processed RDF as a byte array.
@@ -50,13 +50,13 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  byte[] process(final InputStream inputStream, Mode mode)
+  byte[] process(final InputStream inputStream, Set<Mode> modes)
       throws SerializationException, EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input String to produce a target String. This is a
-   * wrapper for {@link #process(String, Mode)} where the mode is {@link
-   * Mode#DEREFERENCE_AND_ENRICHMENT}.
+   * wrapper for {@link #process(String, Set<Mode>)} where the mode set has both @link
+   * Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputString The RDF to be processed as a String.
    * @return The processed RDF as a String.
@@ -76,12 +76,13 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  String process(final String inputString, Mode mode)
+  String process(final String inputString, Set<Mode> modes)
       throws SerializationException, EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF. This is a wrapper
-   * for {@link #process(RDF, Mode)} where the mode is {@link Mode#DEREFERENCE_AND_ENRICHMENT}.
+   * for {@link #process(RDF, Set<Mode>)} where the mode set has both is @link
+   * Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputRdf The RDF to be processed.
    * @return The processed RDF. Note: this may be the same object as the input object.
@@ -95,12 +96,12 @@ public interface EnrichmentWorker {
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
    *
    * @param rdf The RDF to be processed.
-   * @param mode The processing mode to be applied.
+   * @param modes A set of the processing modes to be applied.
    * @return The processed RDF. Note: this will be the same object as the input object.
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  RDF process(final RDF rdf, Mode mode)
+  RDF process(final RDF rdf, Set<Mode> modes)
       throws EnrichmentException, DereferenceException;
 
 }

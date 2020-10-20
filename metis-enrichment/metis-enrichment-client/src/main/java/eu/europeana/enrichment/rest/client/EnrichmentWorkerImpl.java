@@ -8,8 +8,10 @@ import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
@@ -39,14 +41,12 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     supportedModes = EnumSet.noneOf(Mode.class);
 
     if (dereferencer != null) {
-      supportedModes.add(Mode.DEREFERENCE_ONLY);
+      supportedModes.add(Mode.DEREFERENCE);
     }
     if (enricher != null) {
-      supportedModes.add(Mode.ENRICHMENT_ONLY);
+      supportedModes.add(Mode.ENRICHMENT);
     }
-    if (enricher != null && dereferencer != null) {
-      supportedModes.add(Mode.DEREFERENCE_AND_ENRICHMENT);
-    }
+
   }
 
   @Override
@@ -57,18 +57,18 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public byte[] process(InputStream inputStream)
       throws EnrichmentException, DereferenceException, SerializationException {
-    return process(inputStream, Mode.DEREFERENCE_AND_ENRICHMENT);
+    return process(inputStream, new HashSet<>(Arrays.asList(Mode.values())));
   }
 
   @Override
-  public byte[] process(final InputStream inputStream, Mode mode)
+  public byte[] process(final InputStream inputStream, Set<Mode> modes)
       throws SerializationException, EnrichmentException, DereferenceException {
     if (inputStream == null) {
       throw new IllegalArgumentException("The input stream cannot be null.");
     }
     try {
       final RDF inputRdf = convertInputStreamToRdf(inputStream);
-      final RDF resultRdf = process(inputRdf, mode);
+      final RDF resultRdf = process(inputRdf, modes);
       return convertRdfToBytes(resultRdf);
     } catch (JiBXException e) {
       throw new SerializationException(
@@ -85,18 +85,18 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public String process(String inputString)
       throws EnrichmentException, DereferenceException, SerializationException {
-    return process(inputString, Mode.DEREFERENCE_AND_ENRICHMENT);
+    return process(inputString, new HashSet<>(Arrays.asList(Mode.values())));
   }
 
   @Override
-  public String process(final String inputString, Mode mode)
+  public String process(final String inputString, Set<Mode> modes)
       throws SerializationException, EnrichmentException, DereferenceException {
     if (inputString == null) {
       throw new IllegalArgumentException("Input RDF string cannot be null.");
     }
     try {
       final RDF inputRdf = convertStringToRdf(inputString);
-      final RDF resultRdf = process(inputRdf, mode);
+      final RDF resultRdf = process(inputRdf, modes);
       return convertRdfToString(resultRdf);
     } catch (JiBXException e) {
       throw new SerializationException(
@@ -113,33 +113,33 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public RDF process(final RDF inputRdf)
       throws  EnrichmentException, DereferenceException {
-    return process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+    return process(inputRdf, new HashSet<>(Arrays.asList(Mode.values())));
   }
 
   @Override
-  public RDF process(final RDF rdf, Mode mode)
+  public RDF process(final RDF rdf, Set<Mode> modes)
       throws EnrichmentException, DereferenceException {
 
     // Sanity checks
     if (rdf == null) {
       throw new IllegalArgumentException("Input RDF cannot be null.");
     }
-    if (mode == null) {
-      throw new IllegalArgumentException("Mode cannot be null.");
+    if (modes == null) {
+      throw new IllegalArgumentException("Set of Modes cannot be null.");
     }
-    if (!getSupportedModes().contains(mode)) {
-      throw new IllegalArgumentException(
-          "The requested mode '" + mode.name() + "' is not supported by this instance.");
-    }
+//    if (!getSupportedModes().contains(Mode)) {
+//      throw new IllegalArgumentException(
+//          "The requested mode '" + modes.name() + "' is not supported by this instance.");
+//    }
 
     // Preparation
-    LOGGER.info("Received RDF for enrichment/dereferencing. Mode: {}", mode);
+    LOGGER.info("Received RDF for enrichment/dereferencing. Mode: {}", modes);
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(rdf));
     }
 
     // Dereferencing first: this is because we may enrich based on its results.
-    if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.DEREFERENCE_ONLY == mode) {
+    if (modes.contains(Mode.DEREFERENCE)) {
       LOGGER.debug("Performing dereferencing...");
       dereferencer.dereference(rdf);
       LOGGER.debug("Dereferencing completed.");
@@ -149,7 +149,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
 
     // Enrichment second: we use the result of dereferencing as well.
-    if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.ENRICHMENT_ONLY == mode) {
+    if (modes.contains(Mode.ENRICHMENT)) {
       LOGGER.debug("Performing enrichment...");
       enricher.enrichment(rdf);
       LOGGER.debug("Enrichment completed.");

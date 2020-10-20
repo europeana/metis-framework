@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class EnricherBuilderTest {
+public class EnricherProviderTest {
 
   @Test
   void testIllegalArgumentException() {
-    assertThrows(IllegalStateException.class, () -> new EnricherBuilder().build());
+    assertThrows(IllegalStateException.class, () -> new EnricherProvider().build());
     assertThrows(IllegalStateException.class,
-        () -> new EnricherBuilder()
+        () -> new EnricherProvider()
             .setEnrichmentUrl("")
             .build());
   }

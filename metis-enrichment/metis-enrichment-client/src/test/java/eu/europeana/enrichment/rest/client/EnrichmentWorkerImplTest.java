@@ -20,6 +20,8 @@ import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
+import java.util.Set;
+import java.util.TreeSet;
 import org.jibx.runtime.JiBXException;
 import org.junit.jupiter.api.Test;
 
@@ -29,20 +31,36 @@ class EnrichmentWorkerImplTest {
   @Test
   void testEnrichmentWorkerHappyFlow()
       throws DereferenceException, EnrichmentException {
-    for (Mode mode : Mode.values()) {
-      testEnrichmentWorkerHappyFlow(mode);
-    }
+    TreeSet<Mode> modeSetWithOnlyEnrichment = new TreeSet<>();
+    TreeSet<Mode> modeSetWithOnlyDereference = new TreeSet<>();
+    TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
+
+    modeSetWithOnlyEnrichment.add(Mode.ENRICHMENT);
+    testEnrichmentWorkerHappyFlow(modeSetWithOnlyEnrichment);
+    modeSetWithOnlyDereference.add(Mode.DEREFERENCE);
+    testEnrichmentWorkerHappyFlow(modeSetWithOnlyDereference);
+    modeSetWithBoth.add(Mode.ENRICHMENT);
+    modeSetWithBoth.add(Mode.DEREFERENCE);
+    testEnrichmentWorkerHappyFlow(modeSetWithBoth);
   }
 
   @Test
   void testEnrichmentWorkerNullFlow()
       throws DereferenceException, EnrichmentException {
-    for (Mode mode : Mode.values()) {
-      testEnrichmentWorkerNullFlow(mode);
-    }
+    TreeSet<Mode> modeSetWithOnlyEnrichment = new TreeSet<>();
+    TreeSet<Mode> modeSetWithOnlyDereference = new TreeSet<>();
+    TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
+
+    modeSetWithOnlyEnrichment.add(Mode.ENRICHMENT);
+    testEnrichmentWorkerNullFlow(modeSetWithOnlyEnrichment);
+    modeSetWithOnlyDereference.add(Mode.DEREFERENCE);
+    testEnrichmentWorkerNullFlow(modeSetWithOnlyDereference);
+    modeSetWithBoth.add(Mode.ENRICHMENT);
+    modeSetWithBoth.add(Mode.DEREFERENCE);
+    testEnrichmentWorkerNullFlow(modeSetWithBoth);
   }
 
-  private void testEnrichmentWorkerHappyFlow(Mode mode)
+  private void testEnrichmentWorkerHappyFlow(Set<Mode> modes)
       throws DereferenceException, EnrichmentException {
 
     // Create enricher and mock it.
@@ -53,13 +71,11 @@ class EnrichmentWorkerImplTest {
     // Execute the worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);
     final RDF inputRdf = new RDF();
-    worker.process(inputRdf, mode);
+    worker.process(inputRdf, modes);
 
     // Counters of method calls depend on the mode
-    final boolean doDereferencing =
-            mode == Mode.DEREFERENCE_AND_ENRICHMENT || mode == Mode.DEREFERENCE_ONLY;
-    final boolean doEnrichment =
-            mode == Mode.DEREFERENCE_AND_ENRICHMENT || mode == Mode.ENRICHMENT_ONLY;
+    final boolean doDereferencing = modes.contains(Mode.DEREFERENCE);
+    final boolean doEnrichment = modes.contains(Mode.ENRICHMENT);
 
     // Check the performed tasks
     verifyDereferencingHappyFlow(doDereferencing, dereferencer, inputRdf);
@@ -67,7 +83,7 @@ class EnrichmentWorkerImplTest {
 //    verifyMergeHappyFlow(doEnrichment, doDereferencing, entityMergeEngine);
   }
 
-  private void testEnrichmentWorkerNullFlow(Mode mode)
+  private void testEnrichmentWorkerNullFlow(Set<Mode> modes)
       throws DereferenceException, EnrichmentException {
 
     // Create enrichment worker and mock the enrichment and dereferencing results.
@@ -79,13 +95,11 @@ class EnrichmentWorkerImplTest {
     final EnrichmentWorkerImpl worker =
         spy(new EnrichmentWorkerImpl(dereferencer, enricher));
     final RDF inputRdf = new RDF();
-    worker.process(inputRdf, mode);
+    worker.process(inputRdf, modes);
 
     // Counters of method calls depend on the mode
-    final boolean doDereferencing =
-            mode == Mode.DEREFERENCE_AND_ENRICHMENT || mode == Mode.DEREFERENCE_ONLY;
-    final boolean doEnrichment =
-            mode == Mode.DEREFERENCE_AND_ENRICHMENT || mode == Mode.ENRICHMENT_ONLY;
+    final boolean doDereferencing = modes.contains(Mode.DEREFERENCE);
+    final boolean doEnrichment = modes.contains(Mode.ENRICHMENT);
 
     // Check the performed tasks
     verifyDereferencingNullFlow(doDereferencing, dereferencer, inputRdf);
@@ -156,9 +170,13 @@ class EnrichmentWorkerImplTest {
     final String returnedString = worker.process("");
     assertEquals(outputString, returnedString);
 
+    TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
+    modeSetWithBoth.add(Mode.ENRICHMENT);
+    modeSetWithBoth.add(Mode.DEREFERENCE);
+
     // Validate the method calls to the actual worker method
     verify(worker, times(2)).process(any(RDF.class), any());
-    verify(worker, times(2)).process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+    verify(worker, times(2)).process(inputRdf, modeSetWithBoth);
 
     // Test null string input
     try {
@@ -175,9 +193,13 @@ class EnrichmentWorkerImplTest {
     // Create enrichment worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
 
+    TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
+    modeSetWithBoth.add(Mode.ENRICHMENT);
+    modeSetWithBoth.add(Mode.DEREFERENCE);
+
     // Test null string input
     try {
-      worker.process((String) null, Mode.DEREFERENCE_AND_ENRICHMENT);
+      worker.process((String) null, modeSetWithBoth);
       fail("Expected an exception to occur.");
     } catch (IllegalArgumentException e) {
       // This is expected
