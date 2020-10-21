@@ -72,6 +72,18 @@ public interface Entity {
    */
   void setFoafDepiction(String foafDepiction);
 
+
+  /**
+   * @return the owl:sameAs for the entity
+   */
+  List<String> getOwlSameAs();
+
+  /**
+   * sets the owl:sameAs for entity
+   * @param owlSameAs the owl:sameAs
+   */
+  void setOwlSameAs(List<String> owlSameAs);
+
   /**
    * @return the foaf:depiction for cotextual class
    */

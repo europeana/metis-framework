@@ -28,7 +28,7 @@ public class ConverterTest {
     AgentEnrichmentEntity agentEntityEnrichment = new AgentEnrichmentEntity();
     agentEntityEnrichment.setAbout("myAbout");
     agentEntityEnrichment.setEdmWasPresentAt(new String[]{"a", "b"});
-    agentEntityEnrichment.setOwlSameAs(new String[]{"1", "2"});
+    agentEntityEnrichment.setOwlSameAs(List.of("1", "2"));
     agentEntityEnrichment.setAltLabel(createAltLabels("en", new String[]{"a_en", "b_en"}));
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
@@ -85,7 +85,7 @@ public class ConverterTest {
   public void convertTimespan() {
     TimespanEnrichmentEntity timespanEnrichmentEntity = new TimespanEnrichmentEntity();
     timespanEnrichmentEntity.setAbout("myAbout");
-    timespanEnrichmentEntity.setOwlSameAs(new String[]{"1", "2"});
+    timespanEnrichmentEntity.setOwlSameAs(List.of("1", "2"));
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
     enrichmentTerm.setEnrichmentEntity(timespanEnrichmentEntity);
@@ -101,7 +101,7 @@ public class ConverterTest {
   public void convertPlace() {
     PlaceEnrichmentEntity placeEnrichmentEntity = new PlaceEnrichmentEntity();
     placeEnrichmentEntity.setAbout("myAbout");
-    placeEnrichmentEntity.setOwlSameAs(new String[]{"1", "2"});
+    placeEnrichmentEntity.setOwlSameAs(List.of("1", "2"));
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
     enrichmentTerm.setEnrichmentEntity(placeEnrichmentEntity);
@@ -117,7 +117,7 @@ public class ConverterTest {
   public void convertOtherObject_returns_null() {
     final OrganizationEnrichmentEntity organizationEnrichmentEntity = new OrganizationEnrichmentEntity();
     organizationEnrichmentEntity.setAbout("myAbout");
-    organizationEnrichmentEntity.setOwlSameAs(new String[]{"1", "2"});
+    organizationEnrichmentEntity.setOwlSameAs(List.of("1", "2"));
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
     enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);

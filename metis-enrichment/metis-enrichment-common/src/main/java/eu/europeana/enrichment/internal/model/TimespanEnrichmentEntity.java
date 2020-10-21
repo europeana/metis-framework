@@ -2,7 +2,6 @@ package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import eu.europeana.corelib.utils.StringArrayUtils;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public class TimespanEnrichmentEntity extends AbstractEnrichmentEntity {
   private Map<String, List<String>> end;
   private Map<String, List<String>> isPartOf;
   private Map<String, List<String>> dctermsHasPart;
-  private String[] owlSameAs;
+  private String isNextInSequence;
 
   public Map<String, List<String>> getBegin() {
     return this.begin;
@@ -51,12 +50,12 @@ public class TimespanEnrichmentEntity extends AbstractEnrichmentEntity {
     this.dctermsHasPart = dctermsHasPart;
   }
 
-  public String[] getOwlSameAs() {
-    return (StringArrayUtils.isNotBlank(owlSameAs) ? this.owlSameAs.clone() : null);
+  public String getIsNextInSequence() {
+    return this.isNextInSequence;
   }
 
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs != null ? owlSameAs.clone() : null;
+  public void setIsNextInSequence(String isNextInSequence) {
+    this.isNextInSequence = isNextInSequence;
   }
 
   @Override

@@ -12,6 +12,7 @@ import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.Begin;
 import eu.europeana.corelib.definitions.jibx.End;
+import eu.europeana.corelib.definitions.jibx.HiddenLabel;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
 import eu.europeana.corelib.definitions.jibx.Note;
@@ -25,9 +26,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Timespan Field Input Creator
- * 
- * @author Yorgos.Mamakis@ kb.nl
  *
+ * @author Yorgos.Mamakis@ kb.nl
  */
 class TimespanFieldInputTest {
 
@@ -63,10 +63,16 @@ class TimespanFieldInputTest {
     assertNotNull(prefLabel);
     prefLabelList.add(prefLabel);
     timespan.setPrefLabelList(prefLabelList);
+    List<HiddenLabel> hiddelLabelList = new ArrayList<>();
+    HiddenLabel hiddenLabel = new HiddenLabel();
+    hiddenLabel.setLang(lang);
+    hiddenLabel.setString("test hidden label");
+    assertNotNull(hiddenLabel);
+    hiddelLabelList.add(hiddenLabel);
+    timespan.setHiddenLabelList(hiddelLabelList);
     List<IsPartOf> isPartOfList = new ArrayList<>();
     IsPartOf isPartOf = new IsPartOf();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isPartOfResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isPartOfResource = new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
     isPartOfResource.setResource("test resource");
     isPartOf.setResource(isPartOfResource);
     isPartOfList.add(isPartOf);
@@ -78,8 +84,7 @@ class TimespanFieldInputTest {
     // create mongo
     EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
     Datastore datastoreMock = mock(Datastore.class);
-    @SuppressWarnings("unchecked")
-    Query<TimespanImpl> queryMock = mock(Query.class);
+    @SuppressWarnings("unchecked") Query<TimespanImpl> queryMock = mock(Query.class);
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(TimespanImpl.class)).thenReturn(queryMock);
@@ -99,6 +104,8 @@ class TimespanFieldInputTest {
         .containsKey(timespan.getAltLabelList().get(0).getLang().getLang()));
     assertTrue(timespanMongo.getPrefLabel()
         .containsKey(timespan.getPrefLabelList().get(0).getLang().getLang()));
+    assertTrue(timespanMongo.getHiddenLabel()
+        .containsKey(timespan.getHiddenLabelList().get(0).getLang().getLang()));
     assertEquals(timespan.getAltLabelList().get(0).getString(),
         timespanMongo.getAltLabel().values().iterator().next().get(0));
     assertEquals(timespan.getPrefLabelList().get(0).getString(),

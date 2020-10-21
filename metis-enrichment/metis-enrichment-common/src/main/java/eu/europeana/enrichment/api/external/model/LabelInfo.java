@@ -1,10 +1,15 @@
 package eu.europeana.enrichment.api.external.model;
 
 import dev.morphia.annotations.Embedded;
+import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import java.util.List;
 
 /**
  * Contains the labels that come from the preLabel fields of a contextual class.
+ * <p>Should contain the
+ * {@link AbstractEnrichmentEntity#getPrefLabel()} and {@link AbstractEnrichmentEntity#getAltLabel()}
+ * fields in lower case per language.
+ * </p>
  *
  * @author Simon Tzanakis
  * @since 2020-08-04
@@ -13,14 +18,12 @@ import java.util.List;
 public class LabelInfo {
 
   private String lang;
-  private List<String> originalLabel;
   private List<String> lowerCaseLabel;
 
   public LabelInfo() {
   }
 
-  public LabelInfo(List<String> originalLabel, List<String> lowerCaseLabel, String lang) {
-    this.originalLabel = originalLabel;
+  public LabelInfo(List<String> lowerCaseLabel, String lang) {
     this.lowerCaseLabel = lowerCaseLabel;
     this.lang = lang;
   }
@@ -31,14 +34,6 @@ public class LabelInfo {
 
   public void setLang(String lang) {
     this.lang = lang;
-  }
-
-  public List<String> getOriginalLabel() {
-    return originalLabel;
-  }
-
-  public void setOriginalLabel(List<String> originalLabel) {
-    this.originalLabel = originalLabel;
   }
 
   public List<String> getLowerCaseLabel() {

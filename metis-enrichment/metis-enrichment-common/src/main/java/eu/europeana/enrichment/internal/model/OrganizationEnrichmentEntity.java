@@ -2,7 +2,6 @@ package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import eu.europeana.corelib.definitions.edm.entity.Address;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,6 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
   private Map<String,String> edmOrganizationScope;
   private Map<String,String> edmGeographicLevel;
   private Map<String,String> edmCountry;
-  private String[] owlSameAs;
   private Address address;
 
   public Map<String, List<String>> getEdmAcronym() {
@@ -170,14 +168,6 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
 
   public void setFoafMbox(List<String> foafMbox) {
     this.foafMbox = foafMbox;
-  }
-
-  public String[] getOwlSameAs() {
-    return owlSameAs;
-  }
-
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs;
   }
 
   public Address getAddress() {

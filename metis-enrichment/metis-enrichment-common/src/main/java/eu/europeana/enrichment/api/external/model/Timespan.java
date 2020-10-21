@@ -1,4 +1,3 @@
-
 package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ public class Timespan extends EnrichmentBase {
   private List<Label> endList = new ArrayList<>();
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> hiddenLabel = new ArrayList<>();
+  @XmlElement(name = "isNextInSequence", namespace = "http://www.europeana.eu/schemas/edm/")
+  private Part isNextInSequence;
 
   public List<Part> getIsPartOfList() {
     return unmodifiableListAcceptingNull(isPartOfList);
@@ -74,5 +75,13 @@ public class Timespan extends EnrichmentBase {
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
     this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
+  }
+
+  public Part getIsNextInSequence() {
+    return isNextInSequence;
+  }
+
+  public void setIsNextInSequence(Part isNextInSequence) {
+    this.isNextInSequence = isNextInSequence;
   }
 }

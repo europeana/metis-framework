@@ -386,7 +386,6 @@ public class EntityConverterUtils {
   public static EnrichmentTerm organizationImplToEnrichmentTerm(
       OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setCodeUri(organizationEnrichmentEntity.getAbout());
     enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);
     enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
     enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));

@@ -20,8 +20,10 @@ import eu.europeana.corelib.definitions.jibx.ExactMatch;
 import eu.europeana.corelib.definitions.jibx.Gender;
 import eu.europeana.corelib.definitions.jibx.HasMet;
 import eu.europeana.corelib.definitions.jibx.HasPart;
+import eu.europeana.corelib.definitions.jibx.HiddenLabel;
 import eu.europeana.corelib.definitions.jibx.Identifier;
 import eu.europeana.corelib.definitions.jibx.InScheme;
+import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.IsRelatedTo;
 import eu.europeana.corelib.definitions.jibx.Lat;
@@ -142,12 +144,11 @@ public class EntityMergeEngine {
     agentType.setBegin(ItemExtractorUtils.extractFirstLabel(agent.getBeginList(), Begin::new));
 
     // biographicalInformation
-    agentType.setBiographicalInformationList(
-        ItemExtractorUtils.extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(),
+    agentType.setBiographicalInformationList(ItemExtractorUtils
+        .extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(),
             BiographicalInformation::new));
-    agentType.setProfessionOrOccupationList(
-        ItemExtractorUtils
-            .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
+    agentType.setProfessionOrOccupationList(ItemExtractorUtils
+        .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
     // dateList
     agentType.setDateList(ItemExtractorUtils.extractLabelResources(agent.getDate(), Date::new));
@@ -169,9 +170,8 @@ public class EntityMergeEngine {
         ItemExtractorUtils.extractFirstLabel(agent.getDateOfDeath(), DateOfDeath::new));
 
     // dateOfEstablishment
-    agentType.setDateOfEstablishment(
-        ItemExtractorUtils
-            .extractFirstLabel(agent.getDateOfEstablishment(), DateOfEstablishment::new));
+    agentType.setDateOfEstablishment(ItemExtractorUtils
+        .extractFirstLabel(agent.getDateOfEstablishment(), DateOfEstablishment::new));
 
     // dateofTermination
     agentType.setDateOfTermination(
@@ -209,9 +209,8 @@ public class EntityMergeEngine {
         ItemExtractorUtils.extractLabels(agent.getPrefLabelList(), PrefLabel::new));
 
     // professionOrOccupationList
-    agentType.setProfessionOrOccupationList(
-        ItemExtractorUtils
-            .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
+    agentType.setProfessionOrOccupationList(ItemExtractorUtils
+        .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
     // sameAsList
     agentType.setSameAList(
@@ -222,8 +221,7 @@ public class EntityMergeEngine {
 
   private static eu.europeana.corelib.definitions.jibx.Concept convertConcept(Concept baseConcept) {
 
-    eu.europeana.corelib.definitions.jibx.Concept concept =
-        new eu.europeana.corelib.definitions.jibx.Concept();
+    eu.europeana.corelib.definitions.jibx.Concept concept = new eu.europeana.corelib.definitions.jibx.Concept();
 
     // about
     ItemExtractorUtils.setAbout(baseConcept, concept);
@@ -235,20 +233,20 @@ public class EntityMergeEngine {
         .extractLabels(baseConcept.getAltLabelList(), AltLabel::new);
     ItemExtractorUtils.toChoices(altLabels, Choice::setAltLabel, choices);
 
-    final List<BroadMatch> broadMatches =
-        ItemExtractorUtils.extractResources(baseConcept.getBroadMatch(), BroadMatch::new);
+    final List<BroadMatch> broadMatches = ItemExtractorUtils
+        .extractResources(baseConcept.getBroadMatch(), BroadMatch::new);
     ItemExtractorUtils.toChoices(broadMatches, Choice::setBroadMatch, choices);
 
     final List<Broader> broaders = ItemExtractorUtils
         .extractResources(baseConcept.getBroader(), Broader::new);
     ItemExtractorUtils.toChoices(broaders, Choice::setBroader, choices);
 
-    final List<CloseMatch> closeMatches =
-        ItemExtractorUtils.extractResources(baseConcept.getCloseMatch(), CloseMatch::new);
+    final List<CloseMatch> closeMatches = ItemExtractorUtils
+        .extractResources(baseConcept.getCloseMatch(), CloseMatch::new);
     ItemExtractorUtils.toChoices(closeMatches, Choice::setCloseMatch, choices);
 
-    final List<ExactMatch> exactMatches =
-        ItemExtractorUtils.extractResources(baseConcept.getExactMatch(), ExactMatch::new);
+    final List<ExactMatch> exactMatches = ItemExtractorUtils
+        .extractResources(baseConcept.getExactMatch(), ExactMatch::new);
     ItemExtractorUtils.toChoices(exactMatches, Choice::setExactMatch, choices);
 
     final List<InScheme> inSchemes = ItemExtractorUtils
@@ -259,8 +257,8 @@ public class EntityMergeEngine {
         .extractResources(baseConcept.getNarrower(), Narrower::new);
     ItemExtractorUtils.toChoices(narrowers, Choice::setNarrower, choices);
 
-    final List<NarrowMatch> narrowMatches =
-        ItemExtractorUtils.extractResources(baseConcept.getNarrowMatch(), NarrowMatch::new);
+    final List<NarrowMatch> narrowMatches = ItemExtractorUtils
+        .extractResources(baseConcept.getNarrowMatch(), NarrowMatch::new);
     ItemExtractorUtils.toChoices(narrowMatches, Choice::setNarrowMatch, choices);
 
     final List<Notation> notations = ItemExtractorUtils
@@ -270,16 +268,16 @@ public class EntityMergeEngine {
     final List<Note> notes = ItemExtractorUtils.extractLabels(baseConcept.getNotes(), Note::new);
     ItemExtractorUtils.toChoices(notes, Choice::setNote, choices);
 
-    final List<PrefLabel> prefLabels =
-        ItemExtractorUtils.extractLabels(baseConcept.getPrefLabelList(), PrefLabel::new);
+    final List<PrefLabel> prefLabels = ItemExtractorUtils
+        .extractLabels(baseConcept.getPrefLabelList(), PrefLabel::new);
     ItemExtractorUtils.toChoices(prefLabels, Choice::setPrefLabel, choices);
 
     final List<Related> relateds = ItemExtractorUtils
         .extractResources(baseConcept.getRelated(), Related::new);
     ItemExtractorUtils.toChoices(relateds, Choice::setRelated, choices);
 
-    final List<RelatedMatch> relatedMatches =
-        ItemExtractorUtils.extractResources(baseConcept.getRelatedMatch(), RelatedMatch::new);
+    final List<RelatedMatch> relatedMatches = ItemExtractorUtils
+        .extractResources(baseConcept.getRelatedMatch(), RelatedMatch::new);
     ItemExtractorUtils.toChoices(relatedMatches, Choice::setRelatedMatch, choices);
 
     concept.setChoiceList(choices);
@@ -309,7 +307,12 @@ public class EntityMergeEngine {
     timeSpanType
         .setHasPartList(ItemExtractorUtils.extractParts(timespan.getHasPartsList(), HasPart::new));
 
-    // isNextInSequence: not available
+    // isNextInSequence
+    if (timespan.getIsNextInSequence() != null) {
+      timeSpanType.setIsNextInSequence(ItemExtractorUtils
+          .extractAsResource(timespan.getIsNextInSequence(), IsNextInSequence::new,
+              Part::getResource));
+    }
 
     // isPartOfList
     timeSpanType.setIsPartOfList(
@@ -323,9 +326,12 @@ public class EntityMergeEngine {
         ItemExtractorUtils.extractLabels(timespan.getPrefLabelList(), PrefLabel::new));
 
     // sameAsList
-    timeSpanType
-        .setSameAList(ItemExtractorUtils
-            .extractAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
+    timeSpanType.setSameAList(ItemExtractorUtils
+        .extractAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
+
+    // hiddenLabelList
+    timeSpanType.setHiddenLabelList(
+        ItemExtractorUtils.extractLabels(timespan.getHiddenLabel(), HiddenLabel::new));
 
     // done
     return timeSpanType;
@@ -409,8 +415,7 @@ public class EntityMergeEngine {
       final Set<String> links = getSameAsLinks(entity);
       links.add(entity.getAbout());
       final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get)
-          .filter(Objects::nonNull)
-          .flatMap(Set::stream).collect(Collectors.toSet());
+          .filter(Objects::nonNull).flatMap(Set::stream).collect(Collectors.toSet());
       convertAndAddEntity(rdf, entity, fields);
     }
   }

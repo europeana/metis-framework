@@ -19,6 +19,7 @@ public abstract class AbstractEnrichmentEntity implements Entity {
   private Map<String,List<String>> altLabel;
   private Map<String,List<String>> hiddenLabel;
   private Map<String,List<String>> note;
+  private List<String> owlSameAs;
   private String foafDepiction;
 
   public String getAbout() {
@@ -67,6 +68,16 @@ public abstract class AbstractEnrichmentEntity implements Entity {
   @Override
   public void setNote(Map<String,List<String>>note) {
     this.note = note;
+  }
+
+  @Override
+  public List<String> getOwlSameAs() {
+    return this.owlSameAs;
+  }
+
+  @Override
+  public void setOwlSameAs(List<String> owlSameAs) {
+    this.owlSameAs = owlSameAs;
   }
 
   @Override

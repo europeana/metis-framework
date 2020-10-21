@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Contains functionality for converting from an incoming Object to a different one.
@@ -73,6 +74,9 @@ public final class Converter {
     output.setIsPartOfList(convertPart(timespanEnrichmentEntity.getIsPartOf()));
     output.setNotes(convert(timespanEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
+    if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsNextInSequence())) {
+      output.setIsNextInSequence(new Part(timespanEnrichmentEntity.getIsNextInSequence()));
+    }
 
     return output;
   }
@@ -113,9 +117,9 @@ public final class Converter {
     output.setNotes(convert(placeEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
 
-    if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0) &&
-        (placeEnrichmentEntity.getLongitude() != null
-            && placeEnrichmentEntity.getLongitude() != 0)) {
+    if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0)
+        && (placeEnrichmentEntity.getLongitude() != null
+        && placeEnrichmentEntity.getLongitude() != 0)) {
       output.setLat(placeEnrichmentEntity.getLatitude().toString());
       output.setLon(placeEnrichmentEntity.getLongitude().toString());
     }
@@ -167,11 +171,8 @@ public final class Converter {
     if (map == null) {
       return labels;
     }
-    map.forEach((key, entry) ->
-        entry.stream().map(
-            value -> new Label(key, value)
-        ).forEach(labels::add)
-    );
+    map.forEach(
+        (key, entry) -> entry.stream().map(value -> new Label(key, value)).forEach(labels::add));
     return labels;
   }
 
@@ -180,9 +181,7 @@ public final class Converter {
     if (map == null) {
       return parts;
     }
-    map.forEach((key, entry) ->
-        entry.stream().map(Part::new).forEach(parts::add)
-    );
+    map.forEach((key, entry) -> entry.stream().map(Part::new).forEach(parts::add));
     return parts;
   }
 
@@ -191,12 +190,9 @@ public final class Converter {
     if (map == null) {
       return parts;
     }
-    map.forEach((key, entry) ->
-        entry.stream().map(
-            value ->
-                (isUri(key) ? new LabelResource(key) : new LabelResource(key, value))
-        ).forEach(parts::add)
-    );
+    map.forEach((key, entry) -> entry.stream()
+        .map(value -> (isUri(key) ? new LabelResource(key) : new LabelResource(key, value)))
+        .forEach(parts::add));
     return parts;
   }
 
@@ -207,11 +203,11 @@ public final class Converter {
     return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
   }
 
-  private static List<Part> convertToPartsList(String[] resources) {
+  private static List<Part> convertToPartsList(List<String> resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
-    return Arrays.stream(resources).map(Part::new).collect(Collectors.toList());
+    return resources.stream().map(Part::new).collect(Collectors.toList());
   }
 
   private static boolean isUri(String str) {

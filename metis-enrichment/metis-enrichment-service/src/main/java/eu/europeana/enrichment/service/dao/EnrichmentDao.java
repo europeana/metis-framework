@@ -12,6 +12,7 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.experimental.filters.Filters;
+import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.MorphiaUtils;
@@ -37,9 +38,9 @@ public class EnrichmentDao {
 
   public static final String ID_FIELD = "_id";
   public static final String ENTITY_TYPE_FIELD = "entityType";
-  public static final String CODE_URI_FIELD = "codeUri";
+  public static final String ENTITY_ABOUT_FIELD = "enrichmentEntity.about";
+  public static final String ENTITY_OWL_SAME_AS_FIELD = "enrichmentEntity.owlSameAs";
   private static final String UPDATED_FIELD = "updated";
-  public static final String OWL_SAME_AS_FIELD = "owlSameAs";
   public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
   public static final String LANG_FIELD = "labelInfos.lang";
 
@@ -164,35 +165,36 @@ public class EnrichmentDao {
   }
 
   /**
-   * Delete enrichmentTerms that match the provided codeUris.
+   * Delete enrichmentTerms that match the provided entity abouts.
    * <p>Removes entities from the corresponding enrichmentTerm using {@code entityType}.
-   * It also removes entities that match with the provided codeUris with owlSameAs.</p>
+   * It also removes entities that match with the provided entity abouts with owlSameAs.</p>
    *
    * @param entityType the entity type string
-   * @param codeUris the code uri to match
-   * @return a list of all the removed code uris except the provided one
+   * @param entityAbout the entity abouts to match
+   * @return a list of all the removed uris except the provided ones
    */
-  public List<String> deleteEnrichmentTerms(EntityType entityType, List<String> codeUris) {
+  public List<String> deleteEnrichmentTerms(EntityType entityType, List<String> entityAbout) {
     //Remove from EnrichmentTerm
-    deleteEnrichmentTerms(codeUris);
+    deleteEnrichmentTerms(entityAbout);
 
-    //Find all TermLists that have owlSameAs equals with codeUri
+    //Find all TermLists that have owlSameAs equals with entity about
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
         .find(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
-        .filter(Filters.in(OWL_SAME_AS_FIELD, codeUris));
+        .filter(Filters.in(ENTITY_OWL_SAME_AS_FIELD, entityAbout));
     final List<EnrichmentTerm> enrichmentTermsOwlSameAs = MorphiaUtils.getListOfQueryRetryable(
         enrichmentTermsSameAsQuery);
-    final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
-        .map(EnrichmentTerm::getCodeUri)
+    final List<String> sameAsUris = enrichmentTermsOwlSameAs.stream()
+        .map(EnrichmentTerm::getEnrichmentEntity)
+        .map(AbstractEnrichmentEntity::getAbout)
         .collect(Collectors.toList());
     //Remove from EnrichmentTerm
-    deleteEnrichmentTerms(sameAsCodeUris);
-    return sameAsCodeUris;
+    deleteEnrichmentTerms(sameAsUris);
+    return sameAsUris;
   }
 
-  private void deleteEnrichmentTerms(List<String> codeUri) {
+  private void deleteEnrichmentTerms(List<String> entityAbout) {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
-        () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri))
+        () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(ENTITY_ABOUT_FIELD, entityAbout))
             .delete(new DeleteOptions().multi(true)));
   }
 }
