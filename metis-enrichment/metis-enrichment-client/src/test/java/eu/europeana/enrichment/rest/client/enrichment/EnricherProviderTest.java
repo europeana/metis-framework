@@ -8,11 +8,13 @@ public class EnricherProviderTest {
 
   @Test
   void testIllegalArgumentException() {
-    assertThrows(IllegalStateException.class, () -> new EnricherProvider().build());
+    assertThrows(IllegalStateException.class, () -> new EnricherProvider().create());
     assertThrows(IllegalStateException.class,
-        () -> new EnricherProvider()
-            .setEnrichmentUrl("")
-            .build());
+        () -> {
+      EnricherProvider provider = new EnricherProvider();
+            provider.setEnrichmentUrl("");
+            provider.create();
+    });
   }
 
 }

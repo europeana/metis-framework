@@ -57,7 +57,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public byte[] process(InputStream inputStream)
       throws EnrichmentException, DereferenceException, SerializationException {
-    return process(inputStream, new HashSet<>(Arrays.asList(Mode.values())));
+    return process(inputStream, EnumSet.allOf(Mode.class));
   }
 
   @Override
@@ -85,7 +85,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public String process(String inputString)
       throws EnrichmentException, DereferenceException, SerializationException {
-    return process(inputString, new HashSet<>(Arrays.asList(Mode.values())));
+    return process(inputString, EnumSet.allOf(Mode.class));
   }
 
   @Override
@@ -113,7 +113,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public RDF process(final RDF inputRdf)
       throws  EnrichmentException, DereferenceException {
-    return process(inputRdf, new HashSet<>(Arrays.asList(Mode.values())));
+    return process(inputRdf, EnumSet.allOf(Mode.class));
   }
 
   @Override
@@ -127,10 +127,10 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (modes == null) {
       throw new IllegalArgumentException("Set of Modes cannot be null.");
     }
-//    if (!getSupportedModes().contains(Mode)) {
-//      throw new IllegalArgumentException(
-//          "The requested mode '" + modes.name() + "' is not supported by this instance.");
-//    }
+    if (!getSupportedModes().containsAll(modes)) {
+      throw new IllegalArgumentException(
+          "The requested mode(s) is not supported by this instance.");
+    }
 
     // Preparation
     LOGGER.info("Received RDF for enrichment/dereferencing. Mode: {}", modes);

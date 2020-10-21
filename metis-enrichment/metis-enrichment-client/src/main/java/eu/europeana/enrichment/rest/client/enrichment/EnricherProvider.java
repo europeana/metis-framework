@@ -17,9 +17,8 @@ public class EnricherProvider extends AbstractConnectionProvider {
    * @param enrichmentUrl The URL of the dereferencing service.
    * @return This instance, for convenience.
    */
-  public EnricherProvider setEnrichmentUrl(String enrichmentUrl) {
+  public void setEnrichmentUrl(String enrichmentUrl) {
     this.enrichmentUrl = enrichmentUrl;
-    return this;
   }
 
   /**
@@ -28,7 +27,7 @@ public class EnricherProvider extends AbstractConnectionProvider {
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
    */
-  public Enricher build() {
+  public Enricher create() {
 
     // Make sure that the worker can do something.
     if (StringUtils.isBlank(enrichmentUrl)) {

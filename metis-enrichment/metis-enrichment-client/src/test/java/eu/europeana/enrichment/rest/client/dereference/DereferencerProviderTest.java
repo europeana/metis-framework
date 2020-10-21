@@ -8,12 +8,14 @@ public class DereferencerProviderTest {
 
   @Test
   void testIllegalArgumentException() {
-    assertThrows(IllegalStateException.class, () -> new DereferencerProvider().build());
+    assertThrows(IllegalStateException.class, () -> new DereferencerProvider().create());
     assertThrows(IllegalStateException.class,
-        () -> new DereferencerProvider()
-            .setDereferenceUrl("")
-            .setEnrichmentUrl("")
-            .build());
+        () -> {
+      DereferencerProvider provider = new DereferencerProvider();
+            provider.setDereferenceUrl("");
+            provider.setEnrichmentUrl("");
+            provider.create();
+            });
   }
 
 }

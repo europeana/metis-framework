@@ -37,9 +37,8 @@ public abstract class AbstractConnectionProvider {
    * before timing out. If not positive, this signifies that the connection does not time out.
    * @return This instance, for convenience.
    */
-  public AbstractConnectionProvider setConnectTimeout(int connectTimeout) {
+  public void setConnectTimeout(int connectTimeout) {
     this.connectTimeout = connectTimeout;
-    return this;
   }
 
   /**
@@ -51,9 +50,8 @@ public abstract class AbstractConnectionProvider {
    * before timing out. If not positive, this signifies that the response does not time out.
    * @return This instance, for convenience.
    */
-  public AbstractConnectionProvider setResponseTimeout(int responseTimeout) {
+  public void setResponseTimeout(int responseTimeout) {
     this.responseTimeout = responseTimeout;
-    return this;
   }
 
   /**
@@ -63,12 +61,11 @@ public abstract class AbstractConnectionProvider {
    * @param batchSizeEnrichment The batch size. Must be strictly positive.
    * @return This instance, for convenience.
    */
-  public AbstractConnectionProvider setBatchSizeEnrichment(int batchSizeEnrichment) {
+  public void setBatchSizeEnrichment(int batchSizeEnrichment) {
     if (batchSizeEnrichment < 1) {
       throw new IllegalArgumentException("Batch size cannot be 0 or negative.");
     }
     this.batchSizeEnrichment = batchSizeEnrichment;
-    return this;
   }
 
   /**

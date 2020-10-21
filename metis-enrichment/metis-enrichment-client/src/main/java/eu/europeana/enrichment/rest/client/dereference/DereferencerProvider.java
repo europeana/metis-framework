@@ -20,9 +20,9 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    * @param dereferenceUrl The URL of the dereferencing service.
    * @return This instance, for convenience.
    */
-  public DereferencerProvider setDereferenceUrl(String dereferenceUrl) {
+  public void setDereferenceUrl(String dereferenceUrl) {
     this.dereferenceUrl = dereferenceUrl;
-    return this;
+
   }
 
   /**
@@ -32,9 +32,9 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    * @param enrichmentUrl The URL of the enrichment service.
    * @return This instance, for convenience.
    */
-  public DereferencerProvider setEnrichmentUrl(String enrichmentUrl) {
+  public void setEnrichmentUrl(String enrichmentUrl) {
     this.enrichmentUrl = enrichmentUrl;
-    return this;
+
   }
 
   /**
@@ -43,7 +43,7 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
    */
-  public Dereferencer build() {
+  public Dereferencer create() {
 
     // Make sure that the worker can do something.
     if (StringUtils.isBlank(dereferenceUrl) && StringUtils.isBlank(enrichmentUrl)) {
