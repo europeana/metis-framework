@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;

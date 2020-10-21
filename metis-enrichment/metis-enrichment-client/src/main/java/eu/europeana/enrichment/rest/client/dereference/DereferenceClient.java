@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client;
+package eu.europeana.enrichment.rest.client.dereference;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
@@ -32,7 +32,7 @@ public class DereferenceClient {
   private final String hostUrl;
   private final RestTemplate restTemplate;
 
-  DereferenceClient(RestTemplate restTemplate, String hostUrl) {
+  public DereferenceClient(RestTemplate restTemplate, String hostUrl) {
     this.restTemplate = restTemplate;
     this.hostUrl = hostUrl;
   }

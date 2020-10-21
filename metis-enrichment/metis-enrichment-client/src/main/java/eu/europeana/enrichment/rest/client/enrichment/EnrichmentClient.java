@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT;
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS;
@@ -49,7 +49,7 @@ public class EnrichmentClient {
    * @param endpoint the endpoint of the rest api.
    * @param batchSize The batch size.
    */
-  EnrichmentClient(RestTemplate template, String endpoint, int batchSize) {
+  public EnrichmentClient(RestTemplate template, String endpoint, int batchSize) {
     this.template = template;
     this.endpoint = endpoint;
     this.batchSize = batchSize;
