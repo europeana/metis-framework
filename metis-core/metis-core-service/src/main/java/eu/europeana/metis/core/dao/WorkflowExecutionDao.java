@@ -363,7 +363,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .eq(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName(),
             PluginStatus.FINISHED);
 
-    List<Filter> pluginTypesFilters = new ArrayList<>();
+    List<Filter> pluginTypesFilters = new ArrayList<>(pluginTypes.size());
     final String pluginTypeField = METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName();
     for (PluginType pluginType : pluginTypes) {
       pluginTypesFilters.add(Filters.eq(pluginTypeField, pluginType));

@@ -119,9 +119,9 @@ public class RdfRetriever {
     try {
       return httpClient.send(httpRequest, BodyHandlers.ofString());
     } catch (InterruptedException e) {
-      LOG.info(String.format("That was some problem sending a request to %s", url));
+      LOG.info("There was some problem sending a request to {}", url);
       Thread.currentThread().interrupt();
-      throw new IOException("Connection failed due to an interrupt.");
+      throw new IOException("Connection failed due to an interrupt.", e);
     }
   }
 }

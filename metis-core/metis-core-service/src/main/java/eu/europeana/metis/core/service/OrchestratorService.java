@@ -863,7 +863,7 @@ public class OrchestratorService {
       final boolean pluginHasBlacklistedType = Optional.of(((ExecutablePlugin<?>) plugin))
               .map(ExecutablePlugin::getPluginMetadata)
               .map(ExecutablePluginMetadata::getExecutablePluginType)
-              .map(NO_XML_PREVIEW_TYPES::contains).orElse(true);
+              .map(NO_XML_PREVIEW_TYPES::contains).orElse(Boolean.TRUE);
       result = !pluginHasBlacklistedType && progress != null
               && progress.getProcessedRecords() > progress.getErrors();
     } else {
