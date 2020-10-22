@@ -1,8 +1,11 @@
 package eu.europeana.metis.core.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
@@ -37,8 +40,8 @@ public class TestDepublishRecordIdService {
     orchestratorService = mock(OrchestratorService.class);
     depublishRecordIdDao = mock(DepublishRecordIdDao.class);
 
-    depublishRecordIdService = new DepublishRecordIdService(authorizer, orchestratorService,
-        depublishRecordIdDao);
+    depublishRecordIdService = spy(new DepublishRecordIdService(authorizer, orchestratorService,
+        depublishRecordIdDao));
 
   }
 
@@ -54,11 +57,10 @@ public class TestDepublishRecordIdService {
   void addRecordIdsToBeDepublishedTest() throws GenericMetisException {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-//    DepublishRecordIdUtils utils = mock(DepublishRecordIdUtils.class);
     depublishRecordIdService.addRecordIdsToBeDepublished(metisUser, datasetId,"1002");
 
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
-//    verify(utils, times(1)).checkAndNormalizeRecordIds(any(),any());
+    verify(depublishRecordIdService, times(1)).checkAndNormalizeRecordIds(any(),any());
     verify(depublishRecordIdDao, times(1)).createRecordIdsToBeDepublished(any(), any());
     verifyNoMoreInteractions(orchestratorService);
 
@@ -69,11 +71,10 @@ public class TestDepublishRecordIdService {
   void deletePendingRecordIdsTest() throws GenericMetisException {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-//    DepublishRecordIdUtils utils = mock(DepublishRecordIdUtils.class);
     depublishRecordIdService.deletePendingRecordIds(metisUser, datasetId,"1002");
 
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
-//    verify(utils, times(1)).checkAndNormalizeRecordIds(any(),any());
+    verify(depublishRecordIdService, times(2)).checkAndNormalizeRecordIds(any(),any());
     verify(depublishRecordIdDao, times(1)).deletePendingRecordIds(any(), any());
     verifyNoMoreInteractions(orchestratorService);
 
@@ -83,14 +84,13 @@ public class TestDepublishRecordIdService {
   void getDepublishRecordIdsTest() throws GenericMetisException {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-//    final DepublishRecordIdSortField sortField = mock(DepublishRecordIdSortField.class);
-//    final SortDirection sortDirection = mock(SortDirection.class);
-//    final ResponseListWrapper<DepublishRecordIdView> wrapper = mock(ResponseListWrapper.class);
-    depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId,1, null, null, "search");
+    depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId,1, DepublishRecordIdSortField.RECORD_ID, SortDirection.ASCENDING, "search");
+
+//    doReturn(1).when(depublishRecordIdDao).getPageSize();
 
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
-//    verify(depublishRecordIdDao, times(1)).getDepublishRecordIds(any(), any(), any(), any(), anyString());
-//    verify(wrapper, times(1)).setResultsAndLastPage(any(), any(), any());
+//    verify(depublishRecordIdService, times(1)).createResponseListWrapper(any(), any());
+//    verify(depublishRecordIdDao, times(1)).getPageSize();
     verifyNoMoreInteractions(orchestratorService);
 
   }

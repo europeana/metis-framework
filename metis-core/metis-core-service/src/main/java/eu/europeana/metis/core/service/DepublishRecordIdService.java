@@ -72,8 +72,8 @@ public class DepublishRecordIdService {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     // Check and normalize the record IDs.
-    final Set<String> normalizedRecordIds = DepublishRecordIdUtils
-            .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
+    final Set<String> normalizedRecordIds = checkAndNormalizeRecordIds(datasetId,
+        recordIdsInSeparateLines);
 
     // Add the records.
     return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
@@ -102,8 +102,8 @@ public class DepublishRecordIdService {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     // Check and normalize the record IDs (Just in case).
-    final Set<String> normalizedRecordIds = DepublishRecordIdUtils
-            .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
+    final Set<String> normalizedRecordIds = checkAndNormalizeRecordIds(datasetId,
+        recordIdsInSeparateLines);
 
     // Delete the records.
     return depublishRecordIdDao.deletePendingRecordIds(datasetId, normalizedRecordIds);
@@ -138,18 +138,16 @@ public class DepublishRecordIdService {
         .getDepublishRecordIds(datasetId, page, sortField, sortDirection, searchQuery);
 
     // Compile the result
-    final ResponseListWrapper<DepublishRecordIdView> result = new ResponseListWrapper<>();
-    result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
-    return result;
+    return createResponseListWrapper(records, page);
+
   }
 
   /**
    * Creates a workflow with one plugin {@link eu.europeana.metis.core.workflow.plugins.DepublishPlugin}.
    * <p>The plugin will contain {@link DepublishPluginMetadata} that contain information of whether
-   * the depublication
-   * is for an entire dataset or for individual records ids. Those ids are either provided or all of
-   * the ids, previously populated, from the database will be used. Only ids in {@link
-   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * the depublication is for an entire dataset or for individual records ids. Those ids are either
+   * provided or all of the ids, previously populated, from the database will be used. Only ids in
+   * {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
    * will be attempted for depublication.</p>
    *
    * @param metisUser The user performing this operation. Cannot be null.
@@ -191,8 +189,8 @@ public class DepublishRecordIdService {
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
     if (StringUtils.isNotBlank(recordIdsInSeparateLines)) {
       // Check and normalize the record IDs (Just in case).
-      final Set<String> normalizedRecordIds = DepublishRecordIdUtils
-              .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
+      final Set<String> normalizedRecordIds = checkAndNormalizeRecordIds(datasetId,
+          recordIdsInSeparateLines);
       depublishPluginMetadata.setRecordIdsToDepublish(normalizedRecordIds);
     }
     workflow.setMetisPluginsMetadata(Collections.singletonList(depublishPluginMetadata));
@@ -214,6 +212,7 @@ public class DepublishRecordIdService {
    *     The records in the dataset are ready for viewing.
    *   </li>
    * </ul>
+   *
    * @param metisUser The user performing this operation. Cannot be null.
    * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
    * @return Whether a depublication can be triggered.
@@ -226,7 +225,7 @@ public class DepublishRecordIdService {
    * </ul>
    */
   public boolean canTriggerDepublication(MetisUser metisUser, String datasetId)
-          throws GenericMetisException {
+      throws GenericMetisException {
 
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
@@ -239,12 +238,24 @@ public class DepublishRecordIdService {
     } else {
       // If a (re-)index took place recently, or the status is not published, we can't depublish.
       final DatasetExecutionInformation executionInformation = orchestratorService
-              .getDatasetExecutionInformation(datasetId);
+          .getDatasetExecutionInformation(datasetId);
       result = executionInformation.getPublicationStatus() == PublicationStatus.PUBLISHED &&
-              executionInformation.isLastPublishedRecordsReadyForViewing();
+          executionInformation.isLastPublishedRecordsReadyForViewing();
     }
 
     // Done
+    return result;
+  }
+
+  Set<String> checkAndNormalizeRecordIds(String datasetId,
+      String recordIdsInSeparateLines) throws BadContentException {
+    return DepublishRecordIdUtils
+        .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
+  }
+
+  public ResponseListWrapper<DepublishRecordIdView> createResponseListWrapper(List<DepublishRecordIdView> records, int page){
+    final ResponseListWrapper<DepublishRecordIdView> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
     return result;
   }
 }
