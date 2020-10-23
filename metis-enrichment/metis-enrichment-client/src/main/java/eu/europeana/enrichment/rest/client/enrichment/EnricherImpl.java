@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 public class EnricherImpl implements Enricher{
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Enricher.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
   private final EnrichmentClient enrichmentClient;

@@ -22,7 +22,7 @@ import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 public class DereferencerImpl implements Dereferencer{
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Dereferencer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
   private final EnrichmentClient enrichmentClient;

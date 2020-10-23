@@ -4,8 +4,6 @@ import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 public class DereferencerProvider extends AbstractConnectionProvider {
 
@@ -18,7 +16,6 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    * dereferencer will not be configured to perform dereferencing.
    *
    * @param dereferenceUrl The URL of the dereferencing service.
-   * @return This instance, for convenience.
    */
   public void setDereferenceUrl(String dereferenceUrl) {
     this.dereferenceUrl = dereferenceUrl;
@@ -30,7 +27,6 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    * dereferencer will not be configured to perform dereferencing.
    *
    * @param enrichmentUrl The URL of the enrichment service.
-   * @return This instance, for convenience.
    */
   public void setEnrichmentUrl(String enrichmentUrl) {
     this.enrichmentUrl = enrichmentUrl;
@@ -51,13 +47,10 @@ public class DereferencerProvider extends AbstractConnectionProvider {
           "Dereferencing must be enabled.");
     }
 
-    // Create the request factory
-    final HttpComponentsClientHttpRequestFactory requestFactory = super.createRequestFactory();
-
     // Create the dereference client if needed
     final DereferenceClient dereferenceClient;
     if (StringUtils.isNotBlank(dereferenceUrl)) {
-      dereferenceClient = new DereferenceClient(new RestTemplate(requestFactory), dereferenceUrl);
+      dereferenceClient = new DereferenceClient(createRestTemplate(), dereferenceUrl);
     } else {
       dereferenceClient = null;
     }
@@ -65,7 +58,7 @@ public class DereferencerProvider extends AbstractConnectionProvider {
     // Create the enrichment client if needed
     final EnrichmentClient enrichmentClient;
     if (StringUtils.isNotBlank(enrichmentUrl)) {
-      enrichmentClient = new EnrichmentClient(new RestTemplate(requestFactory), enrichmentUrl,
+      enrichmentClient = new EnrichmentClient(createRestTemplate(), enrichmentUrl,
           batchSizeEnrichment);
     } else {
       enrichmentClient = null;

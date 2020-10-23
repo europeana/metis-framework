@@ -1,6 +1,10 @@
 package eu.europeana.enrichment.rest.client;
 
+import java.util.Arrays;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 public abstract class AbstractConnectionProvider {
 
@@ -35,7 +39,6 @@ public abstract class AbstractConnectionProvider {
    *
    * @param connectTimeout The maximum amount of time, in milliseconds, we wait for a connection
    * before timing out. If not positive, this signifies that the connection does not time out.
-   * @return This instance, for convenience.
    */
   public void setConnectTimeout(int connectTimeout) {
     this.connectTimeout = connectTimeout;
@@ -48,7 +51,6 @@ public abstract class AbstractConnectionProvider {
    *
    * @param responseTimeout The maximum amount of time, in milliseconds, we wait for the response
    * before timing out. If not positive, this signifies that the response does not time out.
-   * @return This instance, for convenience.
    */
   public void setResponseTimeout(int responseTimeout) {
     this.responseTimeout = responseTimeout;
@@ -59,7 +61,6 @@ public abstract class AbstractConnectionProvider {
    * this method) is {@value AbstractConnectionProvider#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
    *
    * @param batchSizeEnrichment The batch size. Must be strictly positive.
-   * @return This instance, for convenience.
    */
   public void setBatchSizeEnrichment(int batchSizeEnrichment) {
     if (batchSizeEnrichment < 1) {
@@ -69,19 +70,19 @@ public abstract class AbstractConnectionProvider {
   }
 
   /**
-   * Creates a new Http connection factory using the values set up previously for the connection
-   * timeout and response time out
+   * Creates a new Http connection using the values set up previously for the connection timeout and
+   * response time out
    *
-   * @return a HttpComponentsClientHttpRequestFactory instance with all the information set up
-   * previously
+   * @return a {@link RestTemplate} instance with all the information
+   * set up previously
    */
-  protected HttpComponentsClientHttpRequestFactory createRequestFactory() {
-
+  protected RestTemplate createRestTemplate() {
     final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
     requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
     requestFactory.setReadTimeout(Math.max(responseTimeout, 0));
-
-    return requestFactory;
+    final RestTemplate restTemplate = new RestTemplate(requestFactory);
+    restTemplate.setMessageConverters(Arrays.asList(new Jaxb2RootElementHttpMessageConverter(),
+            new MappingJackson2HttpMessageConverter()));
+    return restTemplate;
   }
-
 }
