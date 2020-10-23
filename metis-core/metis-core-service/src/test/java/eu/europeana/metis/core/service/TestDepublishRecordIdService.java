@@ -95,4 +95,14 @@ public class TestDepublishRecordIdService {
 
   }
 
+  @Test
+  void createAndAddInQueueDepublishWorkflowExecutionTest(){
+
+  }
+
+  @Test
+  void canTriggerDepublicationTest(){
+
+  }
+
 }
