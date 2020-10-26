@@ -138,7 +138,7 @@ public class DepublishRecordIdService {
         .getDepublishRecordIds(datasetId, page, sortField, sortDirection, searchQuery);
 
     // Compile the result
-    return createResponseListWrapper(records, page);
+   return createResponseListWrapper(records, page);
 
   }
 
@@ -182,9 +182,9 @@ public class DepublishRecordIdService {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     //Prepare depublish workflow, do not save in the database. Only create workflow execution
-    final Workflow workflow = new Workflow();
+    final Workflow workflow = createNewWorkflow();
     workflow.setDatasetId(datasetId);
-    final DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
+    final DepublishPluginMetadata depublishPluginMetadata = createNewDepublishPluginMetadata();
     depublishPluginMetadata.setEnabled(true);
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
     if (StringUtils.isNotBlank(recordIdsInSeparateLines)) {
@@ -253,9 +253,17 @@ public class DepublishRecordIdService {
         .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
   }
 
-  public ResponseListWrapper<DepublishRecordIdView> createResponseListWrapper(List<DepublishRecordIdView> records, int page){
+  ResponseListWrapper<DepublishRecordIdView> createResponseListWrapper(List<DepublishRecordIdView> records, int page){
     final ResponseListWrapper<DepublishRecordIdView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
     return result;
+  }
+
+  Workflow createNewWorkflow(){
+    return new Workflow();
+  }
+
+  DepublishPluginMetadata createNewDepublishPluginMetadata(){
+    return new DepublishPluginMetadata();
   }
 }
