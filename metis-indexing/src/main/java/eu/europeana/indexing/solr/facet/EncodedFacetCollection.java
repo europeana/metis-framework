@@ -46,7 +46,7 @@ enum EncodedFacetCollection {
       .collect(Collectors.toMap(EncodedFacetCollection::getMediaType, Function.identity()));
 
   private final MediaTypeEncoding mediaType;
-  private final Set<EncodedFacet> facets;
+  private final Set<EncodedFacet<?>> facets;
 
   /**
    * Constructor.
@@ -55,7 +55,7 @@ enum EncodedFacetCollection {
    * @param facets The facets that matter for the media type. Note: this should NOT include the
    * media type facet {@link EncodedFacet#MEDIA_TYPE} as it should receive a special treatment.
    */
-  EncodedFacetCollection(final MediaTypeEncoding value, EncodedFacet... facets) {
+  EncodedFacetCollection(final MediaTypeEncoding value, EncodedFacet<?>... facets) {
     this.mediaType = value;
     this.facets = Stream.of(facets).collect(Collectors.toSet());
   }
@@ -70,7 +70,7 @@ enum EncodedFacetCollection {
   /**
    * @return The facets that are to be applied to web resources of this type.
    */
-  Set<EncodedFacet> getFacets() {
+  Set<EncodedFacet<?>> getFacets() {
     return Collections.unmodifiableSet(facets);
   }
 
