@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestDepublishRecordIdService {
@@ -58,7 +59,7 @@ public class TestDepublishRecordIdService {
 
   }
 
-  @AfterEach
+  @BeforeEach
   void cleanUp() {
     reset(authorizer);
     reset(orchestratorService);
@@ -80,10 +81,11 @@ public class TestDepublishRecordIdService {
 
   @Test
   void deletePendingRecordIdsTest() throws GenericMetisException {
+    //TODO: Add first then delete
     depublishRecordIdService.deletePendingRecordIds(metisUser, datasetId, "1002");
 
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
-    verify(depublishRecordIdService, times(2)).checkAndNormalizeRecordIds(any(), any());
+    verify(depublishRecordIdService, times(1)).checkAndNormalizeRecordIds(any(), any());
     verify(depublishRecordIdDao, times(1)).deletePendingRecordIds(any(), any());
     verifyNoMoreInteractions(orchestratorService);
 
