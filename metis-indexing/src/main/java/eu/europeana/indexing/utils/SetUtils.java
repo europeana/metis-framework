@@ -1,9 +1,11 @@
 package eu.europeana.indexing.utils;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * This class provides utility functionality for set manipulation.
@@ -43,7 +45,10 @@ public final class SetUtils {
    */
   public static <E, C> Set<C> generateOptionalCombinations(List<Set<E>> input, C emptyCombination,
           BiFunction<C, E, C> concatenator) {
-    return generateCombinations(input, emptyCombination, concatenator, false);
+    // Check and ignore empty set to avoid needless computations.
+    final List<Set<E>> filteredSet = input.stream().filter(set -> !set.isEmpty())
+            .collect(Collectors.toList());
+    return generateCombinations(filteredSet, emptyCombination, concatenator, false);
   }
 
   /**
@@ -73,10 +78,14 @@ public final class SetUtils {
    */
   public static <E, C> Set<C> generateForcedCombinations(List<Set<E>> input, C emptyCombination,
           BiFunction<C, E, C> concatenator) {
+    // Check to avoid needless computations
+    if (input.stream().anyMatch(Set::isEmpty)) {
+      return Collections.emptySet();
+    }
     return generateCombinations(input, emptyCombination, concatenator, true);
   }
 
-  public static <E, C> Set<C> generateCombinations(List<Set<E>> input, C emptyCombination,
+  private static <E, C> Set<C> generateCombinations(List<Set<E>> input, C emptyCombination,
           BiFunction<C, E, C> concatenator, boolean forceOneFromEachSet) {
 
     // Bootstrap the algorithm by setting the set of new combinations equal to the empty
