@@ -5,8 +5,6 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -16,7 +14,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
@@ -29,9 +26,7 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,8 +37,8 @@ public class TestDepublishRecordIdService {
   private static OrchestratorService orchestratorService;
   private static DepublishRecordIdDao depublishRecordIdDao;
   private static DepublishRecordIdService depublishRecordIdService;
-  private static MetisUser metisUser ;
-  private static String datasetId ;
+  private static MetisUser metisUser;
+  private static String datasetId;
 
   @BeforeAll
   static void setUp() {
@@ -64,7 +59,7 @@ public class TestDepublishRecordIdService {
     reset(authorizer);
     reset(orchestratorService);
     reset(depublishRecordIdDao);
-
+    reset(depublishRecordIdService);
   }
 
   @Test
@@ -81,7 +76,6 @@ public class TestDepublishRecordIdService {
 
   @Test
   void deletePendingRecordIdsTest() throws GenericMetisException {
-    //TODO: Add first then delete
     depublishRecordIdService.deletePendingRecordIds(metisUser, datasetId, "1002");
 
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
@@ -113,7 +107,6 @@ public class TestDepublishRecordIdService {
     verify(depublishRecordIdDao, times(1))
         .getDepublishRecordIds(anyString(), anyInt(), any(), any(), anyString());
     verify(depublishRecordIdService, times(1)).createResponseListWrapper(anyList(), anyInt());
-//    verify(depublishRecordIdDao, times(1)).getPageSize();
     verifyNoMoreInteractions(orchestratorService);
 
   }
@@ -141,9 +134,11 @@ public class TestDepublishRecordIdService {
 
   @Test
   void canTriggerDepublicationTest() throws GenericMetisException {
-    final DatasetExecutionInformation mockExecutionInformation = mock(DatasetExecutionInformation.class);
+    final DatasetExecutionInformation mockExecutionInformation = mock(
+        DatasetExecutionInformation.class);
 
-    doReturn(mockExecutionInformation).when(orchestratorService).getDatasetExecutionInformation(datasetId);
+    doReturn(mockExecutionInformation).when(orchestratorService)
+        .getDatasetExecutionInformation(datasetId);
     doReturn(PublicationStatus.PUBLISHED).when(mockExecutionInformation).getPublicationStatus();
     doReturn(true).when(mockExecutionInformation).isLastPreviewRecordsReadyForViewing();
     depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);

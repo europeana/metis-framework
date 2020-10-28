@@ -402,8 +402,9 @@ public class DepublishRecordIdDao {
     return pageSize;
   }
 
-  long deleteRecords(Query<DepublishRecordId> query){
-        return retryableExternalRequestForNetworkExceptions(() -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
+  long deleteRecords(Query<DepublishRecordId> query) {
+    return retryableExternalRequestForNetworkExceptions(
+        () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
   }
 
 }

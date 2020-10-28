@@ -6,7 +6,7 @@ import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-
+import dev.morphia.DeleteOptions;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,23 +38,27 @@ public class TestDepublishRecordIdDao {
   private static final long MAX_DEPUBLISH_RECORD_IDS_PER_DATASET = 5L;
   private static final int PAGE_SIZE = 3;
   private static DepublishRecordIdDao depublishRecordIdDao;
+  private static MongoClient mongoClient;
 
   @BeforeEach
-  void resetMocks(){
-    reset(provider);
-    reset(depublishRecordIdDao);
+  void cleanUp() {
+
+    new MorphiaDatastoreProviderImpl(mongoClient, "test").getDatastore()
+        .find(DepublishRecordId.class).delete(new DeleteOptions().multi(true));
+    reset(provider, depublishRecordIdDao);
   }
 
   @BeforeAll
-  static void prepare(){
+  static void prepare() {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
-    MongoClient mongoClient = MongoClients
+    mongoClient = MongoClients
         .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     provider = spy(new MorphiaDatastoreProviderImpl(mongoClient, "test"));
-    depublishRecordIdDao = spy(new DepublishRecordIdDao(provider, MAX_DEPUBLISH_RECORD_IDS_PER_DATASET, PAGE_SIZE));
+    depublishRecordIdDao = spy(
+        new DepublishRecordIdDao(provider, MAX_DEPUBLISH_RECORD_IDS_PER_DATASET, PAGE_SIZE));
   }
 
   @AfterAll
@@ -67,14 +70,11 @@ public class TestDepublishRecordIdDao {
   void createRecordIdsToBeDepublishedTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = new HashSet<>();
-    setTest.add("1002");
-
-    long originalSize = provider.getDatastore().find(DepublishRecordId.class).count();
+    setTest.add("1001");
 
     depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest);
 
-    verify(depublishRecordIdDao, times(1)).addRecords(anySet(), anyString(), any(), any());
-    assertEquals(originalSize + 1, provider.getDatastore().find(DepublishRecordId.class).count());
+    assertEquals(1, provider.getDatastore().find(DepublishRecordId.class).count());
   }
 
   @Test
@@ -85,9 +85,8 @@ public class TestDepublishRecordIdDao {
     final Query<DepublishRecordId> mockQuery = mock(Query.class);
     final Datastore mockDatastore = mock(Datastore.class);
 
-
-    provider.getDatastore().find(DepublishRecordId.class).count();
-    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest);
+    depublishRecordIdDao
+        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
 
     doReturn(mockDatastore).when(provider).getDatastore();
     doReturn(mockQuery).when(mockDatastore).find(DepublishRecordId.class);
@@ -96,70 +95,82 @@ public class TestDepublishRecordIdDao {
 
     verify(mockDatastore, times(1)).find(DepublishRecordId.class);
     verify(mockQuery, times(3)).filter(any());
-    verify(depublishRecordIdDao, times(1)).deleteRecords(mockQuery);
     assertEquals(0, provider.getDatastore().find(DepublishRecordId.class).count());
   }
 
 
   @Test
-  void countSuccessfullyDepublishedRecordIdsForDatasetTest(){
+  void countSuccessfullyDepublishedRecordIdsForDatasetTest() {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = new HashSet<>();
-    setTest.add("1005");
+    setTest.add("1003");
 
-    depublishRecordIdDao.addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
+    depublishRecordIdDao
+        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
+    reset(provider);
     long result = depublishRecordIdDao.countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
 
-    verify(provider, times(2)).getDatastore();
+    verify(provider, times(1)).getDatastore();
     assertEquals(1L, result);
   }
 
   @Test
-  void getDepublishRecordIdsTest(){ //TODO: FAILING
+  void getDepublishRecordIdsTest() {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = new HashSet<>();
-//    setTest.add("1005");
-//
-//    depublishRecordIdDao.addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
-    List<DepublishRecordIdView> result = depublishRecordIdDao.getDepublishRecordIds(datasetId, 1, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-        String.valueOf(Pattern.DOTALL));
+    setTest.add("1004");
+    setTest.add("1005");
 
-//    verify(depublishRecordIdDao, times(1)).prepareQueryForDepublishRecordIds(anyString(), any(), anyString());
-//    assertEquals(1, result.size());
+    depublishRecordIdDao
+        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
+    List<DepublishRecordIdView> find1004 = depublishRecordIdDao
+        .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
+            SortDirection.ASCENDING,
+            "1004");
+
+    List<DepublishRecordIdView> findAll = depublishRecordIdDao
+        .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
+            SortDirection.ASCENDING,
+            null);
+
+    assertEquals(1, find1004.size());
+    assertEquals(2, findAll.size());
   }
 
   @Test
   void getAllDepublishRecordIdsWithStatusTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = new HashSet<>();
-    setTest.add("1005");
+    setTest.add("1006");
 
-    depublishRecordIdDao.addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
-    Set<String> result = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+    depublishRecordIdDao
+        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
+    Set<String> result = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(datasetId,
+        DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
         DepublicationStatus.DEPUBLISHED, setTest);
 
-//    verify(depublishRecordIdDao, times(1)).prepareQueryForDepublishRecordIds(anyString(), any(), anyString());
-//    verify(depublishRecordIdDao, times(1)).createFindOptionsObject();
     assertEquals(1, result.size());
   }
 
   @Test
-  void markRecordIdsWithDepublicationStatusTest(){
+  void markRecordIdsWithDepublicationStatusTest() {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = new HashSet<>();
-    setTest.add("1005");
+    setTest.add("1007");
 
-//    doReturn(setTest).when(depublishRecordIdDao).getNonExistingRecordIds(datasetId, setTest);
-    depublishRecordIdDao.addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
-    depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, setTest, DepublicationStatus.DEPUBLISHED,
-        Date.from(Instant.now()));
+    depublishRecordIdDao
+        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
+    reset(provider, depublishRecordIdDao);
+    depublishRecordIdDao
+        .markRecordIdsWithDepublicationStatus(datasetId, setTest, DepublicationStatus.DEPUBLISHED,
+            Date.from(Instant.now()));
 
-//    verify(depublishRecordIdDao, times(1)).getNonExistingRecordIds(anyString(), anySet());
-    verify(depublishRecordIdDao, times(2)).addRecords(anySet(), anyString(), any(), any());
+    verify(provider, times(3)).getDatastore();
+    verify(depublishRecordIdDao, times(1)).addRecords(anySet(), anyString(), any(), any());
   }
 
   @Test
-  void getPageSizeTest(){
+  void getPageSizeTest() {
     verifyNoInteractions(provider);
     assertEquals(3, depublishRecordIdDao.getPageSize());
   }
