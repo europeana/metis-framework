@@ -161,6 +161,8 @@ class TestWorkflowUtils {
     // Mock the DAO for the objects just created.
     int counter = 1;
     AbstractExecutablePlugin recentPredecessorPlugin = null;
+    boolean needsValidPredecessor =
+            metadata.getExecutablePluginType() != ExecutablePluginType.DEPUBLISH;
     for (ExecutablePluginType predecessorType : predecessorTypes) {
       final AbstractExecutablePlugin predecessorPlugin = ExecutablePluginFactory
           .createPlugin(metadata);
@@ -169,13 +171,13 @@ class TestWorkflowUtils {
       predecessorPlugin.getExecutionProgress().setErrors(0);
       predecessorPlugin.setFinishedDate(new Date(counter));
       when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
-          Collections.singleton(predecessorType), true)).thenReturn(
+          Collections.singleton(predecessorType), needsValidPredecessor)).thenReturn(
           new PluginWithExecutionId<>(predecessorExecutionId.toString(), predecessorPlugin));
       recentPredecessorPlugin = predecessorPlugin;
       counter++;
     }
-    if (predecessorTypes.isEmpty() || (predecessorTypes.contains(ExecutablePluginType.PUBLISH)
-        && metadata.getExecutablePluginType() == ExecutablePluginType.DEPUBLISH)) {
+    if (predecessorTypes.isEmpty()
+            || metadata.getExecutablePluginType() == ExecutablePluginType.DEPUBLISH) {
       assertNull(workflowUtils
           .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
               DATASET_ID));

@@ -262,9 +262,7 @@ public class WorkflowUtils {
 
     // If the plugin type does not need a predecessor we are done.
     final Set<ExecutablePluginType> predecessorTypes = getPredecessorTypes(pluginType);
-    if (predecessorTypes.isEmpty() || (pluginType == ExecutablePluginType.DEPUBLISH
-        && predecessorTypes.size() == 1 && predecessorTypes
-        .contains(ExecutablePluginType.PUBLISH))) {
+    if (predecessorTypes.isEmpty()) {
       return null;
     }
 
@@ -332,20 +330,20 @@ public class WorkflowUtils {
     final PluginWithExecutionId<ExecutablePlugin> predecessorPlugin;
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
 
-    if (defaultPredecessorTypes.isEmpty()) {
-      // If the plugin type does not need a predecessor (even the enforced one) we are done.
-      predecessorPlugin = null;
-    } else if (pluginType == ExecutablePluginType.DEPUBLISH && defaultPredecessorTypes.size() == 1
-        && defaultPredecessorTypes.contains(ExecutablePluginType.PUBLISH)) {
-      // We also return null if a DEPUBLISH Operation is requested and a successful PUBLISH exists
-      // However, make sure there at least one successful plugin of the predecessor
-      final boolean hasAtLeastOneSuccessfulPlugin = defaultPredecessorTypes.stream()
-              .map(Collections::singleton).map(type -> workflowExecutionDao
-                      .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
-              .filter(Objects::nonNull).anyMatch(WorkflowUtils::pluginHasSuccessfulRecords);
+    if (pluginType == ExecutablePluginType.DEPUBLISH) {
+      // If a DEPUBLISH Operation is requested we don't link to the predecessor plugin. However,
+      // make sure there at least one successful exists (possibly invalidated by later reindex).
+      final PluginWithExecutionId<ExecutablePlugin> successfulPublish = workflowExecutionDao
+              .getLatestSuccessfulExecutablePlugin(datasetId,
+                      EnumSet.of(ExecutablePluginType.PUBLISH), false);
+      final boolean hasAtLeastOneSuccessfulPlugin = Optional.ofNullable(successfulPublish)
+              .filter(WorkflowUtils::pluginHasSuccessfulRecords).isPresent();
       if (!hasAtLeastOneSuccessfulPlugin) {
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
+      predecessorPlugin = null;
+    } else if (defaultPredecessorTypes.isEmpty()) {
+      // If the plugin type does not need a predecessor (even the enforced one) we are done.
       predecessorPlugin = null;
     } else {
 
@@ -443,12 +441,10 @@ public class WorkflowUtils {
       case PUBLISH:
         predecessorTypes = EnumSet.of(ExecutablePluginType.PREVIEW);
         break;
-      case DEPUBLISH:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.PUBLISH);
-        break;
       case LINK_CHECKING:
         predecessorTypes = ALL_EXCEPT_LINK_GROUP;
         break;
+      case DEPUBLISH:
       case HTTP_HARVEST:
       case OAIPMH_HARVEST:
         predecessorTypes = Collections.emptySet();
