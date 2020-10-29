@@ -52,11 +52,17 @@ public class MongoClientProvider<E extends Exception> {
    * the details). The connection URL can provide settings that will override the default settings.
    *
    * @param connectionUri The connection URI as a string
+   * @param maxConnectionIdleTime The max connection idle time
    * @param exceptionCreator How to report exceptions.
    * @throws E In case the connection URI is not valid.
    */
-  public MongoClientProvider(String connectionUri, Function<String, E> exceptionCreator) throws E {
+  public MongoClientProvider(String connectionUri, int maxConnectionIdleTime,
+      Function<String, E> exceptionCreator) throws E {
     final Builder clientSettingsBuilder = getDefaultClientSettingsBuilder();
+    if (maxConnectionIdleTime > 0) {
+      clientSettingsBuilder.applyToConnectionPoolSettings(
+          builder -> builder.maxConnectionIdleTime(maxConnectionIdleTime, TimeUnit.SECONDS));
+    }
 
     final ConnectionString connectionString;
     try {
@@ -99,7 +105,7 @@ public class MongoClientProvider<E extends Exception> {
         .applyToSslSettings(builder -> builder.enabled(properties.mongoEnableSsl()));
     clientSettingsBuilder.applyToClusterSettings(builder -> builder.hosts(mongoHosts));
     if (mongoCredential != null) {
-        clientSettingsBuilder.credential(mongoCredential);
+      clientSettingsBuilder.credential(mongoCredential);
     }
     final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
 
@@ -125,44 +131,44 @@ public class MongoClientProvider<E extends Exception> {
   public static Builder getDefaultClientSettingsBuilder() {
     return MongoClientSettings.builder()
         // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
-        .retryWrites(DEFAULT_RETRY_WRITES)
-        .applyToConnectionPoolSettings(
-            builder -> builder
-                .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS, TimeUnit.MILLISECONDS))
+        .retryWrites(DEFAULT_RETRY_WRITES).applyToConnectionPoolSettings(builder -> builder
+            .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS, TimeUnit.MILLISECONDS))
         .readPreference(DEFAULT_READ_PREFERENCE);
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor for
-   * the details.
+   * Convenience method for {@link #MongoClientProvider(String, int, Function)}. See that
+   * constructor for the details.
    *
    * @param connectionUri The connection URI.
+   * @param maxConnectionIdleTime The max connection idle time
    * @return An instance.
    */
-  public static MongoClientProvider<IllegalArgumentException> create(String connectionUri) {
-    return new MongoClientProvider<>(connectionUri, IllegalArgumentException::new);
+  public static MongoClientProvider<IllegalArgumentException> create(String connectionUri,
+      int maxConnectionIdleTime) {
+    return new MongoClientProvider<>(connectionUri, maxConnectionIdleTime,
+        IllegalArgumentException::new);
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor for
-   * the details.
+   * Convenience method for {@link #MongoClientProvider(String, int, Function)}. See that
+   * constructor for the details.
    *
    * @param connectionUri The connection URI.
+   * @param maxConnectionIdleTime The max connection idle time
    * @return A supplier for {@link MongoClient} instances based on this class.
    */
-  public static Supplier<MongoClient> createAsSupplier(String connectionUri) {
-    return create(connectionUri)::createMongoClient;
+  public static Supplier<MongoClient> createAsSupplier(String connectionUri,
+      int maxConnectionIdleTime) {
+    return create(connectionUri, maxConnectionIdleTime)::createMongoClient;
   }
 
   /**
-   * Returns the authentication database for mongo connections that are provided. This is provided
-   * for backwards compatibility. Can be null (signifying that the default is to be used or that no
-   * authentication is specified).
+   * Returns the authentication database for mongo connections that are provided. Can be null
+   * (signifying that the default is to be used or that no authentication is specified).
    *
    * @return The authentication database.
-   * @deprecated Provided only for backwards compatibility. May be removed in future releases.
    */
-  @Deprecated(forRemoval = true)
   public final String getAuthenticationDatabase() {
     return authenticationDatabase;
   }
