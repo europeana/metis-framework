@@ -1,0 +1,2 @@
+#Those are generated files that we will be skipping until we introduce schema classes instead of jibx
+src/main/java/*

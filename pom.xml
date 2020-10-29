@@ -19,6 +19,7 @@
     <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
+    <module>metis-schema</module>
   </modules>
 
   <!-- Github connection -->
