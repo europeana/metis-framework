@@ -1,6 +1,6 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.Indexer;
 import java.util.Date;
 import org.junit.jupiter.api.Test;

@@ -10,10 +10,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-edm-definitions</artifactId>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
     </dependency>
-
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common</artifactId>

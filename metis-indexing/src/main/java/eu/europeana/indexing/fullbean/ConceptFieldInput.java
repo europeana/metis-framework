@@ -1,13 +1,13 @@
 package eu.europeana.indexing.fullbean;
 
 import java.util.function.Function;
-import eu.europeana.corelib.definitions.jibx.Concept;
+import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.utils.StringArrayUtils;
 
 /**
- * Converts a {@link Concept} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
- * {@link ConceptImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link Concept} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link ConceptImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class ConceptFieldInput implements Function<Concept, ConceptImpl> {
 

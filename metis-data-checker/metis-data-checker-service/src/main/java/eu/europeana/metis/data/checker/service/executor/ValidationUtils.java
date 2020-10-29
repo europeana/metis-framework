@@ -1,6 +1,6 @@
 package eu.europeana.metis.data.checker.service.executor;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.data.checker.service.persistence.RecordDao;

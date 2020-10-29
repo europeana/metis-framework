@@ -1,12 +1,12 @@
 package eu.europeana.indexing.tiers.metadata;
 
-import eu.europeana.corelib.definitions.jibx.AboutType;
-import eu.europeana.corelib.definitions.jibx.Concept;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.Concept;
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
+import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;

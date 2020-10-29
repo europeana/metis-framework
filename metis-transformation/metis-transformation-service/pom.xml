@@ -10,6 +10,10 @@
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -29,10 +33,6 @@
       <artifactId>mockito-core</artifactId>
       <version>${version.mockito.core}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-edm-definitions</artifactId>
     </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>

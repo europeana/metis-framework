@@ -7,52 +7,52 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
-import eu.europeana.corelib.definitions.jibx.Alternative;
-import eu.europeana.corelib.definitions.jibx.ConformsTo;
-import eu.europeana.corelib.definitions.jibx.Contributor;
-import eu.europeana.corelib.definitions.jibx.Coverage;
-import eu.europeana.corelib.definitions.jibx.Created;
-import eu.europeana.corelib.definitions.jibx.Creator;
-import eu.europeana.corelib.definitions.jibx.CurrentLocation;
-import eu.europeana.corelib.definitions.jibx.Date;
-import eu.europeana.corelib.definitions.jibx.Description;
-import eu.europeana.corelib.definitions.jibx.EdmType;
-import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType;
-import eu.europeana.corelib.definitions.jibx.Extent;
-import eu.europeana.corelib.definitions.jibx.Format;
-import eu.europeana.corelib.definitions.jibx.HasFormat;
-import eu.europeana.corelib.definitions.jibx.HasPart;
-import eu.europeana.corelib.definitions.jibx.HasVersion;
-import eu.europeana.corelib.definitions.jibx.Identifier;
-import eu.europeana.corelib.definitions.jibx.IsFormatOf;
-import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
-import eu.europeana.corelib.definitions.jibx.IsPartOf;
-import eu.europeana.corelib.definitions.jibx.IsReferencedBy;
-import eu.europeana.corelib.definitions.jibx.IsReplacedBy;
-import eu.europeana.corelib.definitions.jibx.IsRequiredBy;
-import eu.europeana.corelib.definitions.jibx.IsVersionOf;
-import eu.europeana.corelib.definitions.jibx.Issued;
-import eu.europeana.corelib.definitions.jibx.Language;
-import eu.europeana.corelib.definitions.jibx.Medium;
-import eu.europeana.corelib.definitions.jibx.Provenance;
-import eu.europeana.corelib.definitions.jibx.ProxyFor;
-import eu.europeana.corelib.definitions.jibx.ProxyIn;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
-import eu.europeana.corelib.definitions.jibx.Publisher;
-import eu.europeana.corelib.definitions.jibx.References;
-import eu.europeana.corelib.definitions.jibx.Relation;
-import eu.europeana.corelib.definitions.jibx.Replaces;
-import eu.europeana.corelib.definitions.jibx.Requires;
-import eu.europeana.corelib.definitions.jibx.Rights;
-import eu.europeana.corelib.definitions.jibx.Source;
-import eu.europeana.corelib.definitions.jibx.Spatial;
-import eu.europeana.corelib.definitions.jibx.Subject;
-import eu.europeana.corelib.definitions.jibx.TableOfContents;
-import eu.europeana.corelib.definitions.jibx.Temporal;
-import eu.europeana.corelib.definitions.jibx.Title;
-import eu.europeana.corelib.definitions.jibx.Type;
-import eu.europeana.corelib.definitions.jibx.Type2;
+import eu.europeana.metis.schema.jibx.Alternative;
+import eu.europeana.metis.schema.jibx.ConformsTo;
+import eu.europeana.metis.schema.jibx.Contributor;
+import eu.europeana.metis.schema.jibx.Coverage;
+import eu.europeana.metis.schema.jibx.Created;
+import eu.europeana.metis.schema.jibx.Creator;
+import eu.europeana.metis.schema.jibx.CurrentLocation;
+import eu.europeana.metis.schema.jibx.Date;
+import eu.europeana.metis.schema.jibx.Description;
+import eu.europeana.metis.schema.jibx.EdmType;
+import eu.europeana.metis.schema.jibx.EuropeanaProxy;
+import eu.europeana.metis.schema.jibx.EuropeanaType;
+import eu.europeana.metis.schema.jibx.Extent;
+import eu.europeana.metis.schema.jibx.Format;
+import eu.europeana.metis.schema.jibx.HasFormat;
+import eu.europeana.metis.schema.jibx.HasPart;
+import eu.europeana.metis.schema.jibx.HasVersion;
+import eu.europeana.metis.schema.jibx.Identifier;
+import eu.europeana.metis.schema.jibx.IsFormatOf;
+import eu.europeana.metis.schema.jibx.IsNextInSequence;
+import eu.europeana.metis.schema.jibx.IsPartOf;
+import eu.europeana.metis.schema.jibx.IsReferencedBy;
+import eu.europeana.metis.schema.jibx.IsReplacedBy;
+import eu.europeana.metis.schema.jibx.IsRequiredBy;
+import eu.europeana.metis.schema.jibx.IsVersionOf;
+import eu.europeana.metis.schema.jibx.Issued;
+import eu.europeana.metis.schema.jibx.Language;
+import eu.europeana.metis.schema.jibx.Medium;
+import eu.europeana.metis.schema.jibx.Provenance;
+import eu.europeana.metis.schema.jibx.ProxyFor;
+import eu.europeana.metis.schema.jibx.ProxyIn;
+import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.Publisher;
+import eu.europeana.metis.schema.jibx.References;
+import eu.europeana.metis.schema.jibx.Relation;
+import eu.europeana.metis.schema.jibx.Replaces;
+import eu.europeana.metis.schema.jibx.Requires;
+import eu.europeana.metis.schema.jibx.Rights;
+import eu.europeana.metis.schema.jibx.Source;
+import eu.europeana.metis.schema.jibx.Spatial;
+import eu.europeana.metis.schema.jibx.Subject;
+import eu.europeana.metis.schema.jibx.TableOfContents;
+import eu.europeana.metis.schema.jibx.Temporal;
+import eu.europeana.metis.schema.jibx.Title;
+import eu.europeana.metis.schema.jibx.Type;
+import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.ArrayList;
@@ -279,8 +279,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceAlternative);
     EuropeanaType.Choice choiceConformsTo = new EuropeanaType.Choice();
     ConformsTo conformsTo = new ConformsTo();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource conformsResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource conformsResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     conformsResource.setResource("test conforms to");
     conformsTo.setResource(conformsResource);
     choiceConformsTo.setConformsTo(conformsTo);
@@ -288,8 +288,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceCreated = new EuropeanaType.Choice();
 
     Created created = new Created();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource createdResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource createdResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     createdResource.setResource("test created");
     created.setResource(createdResource);
     choiceCreated.setCreated(created);
@@ -297,8 +297,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceExtent = new EuropeanaType.Choice();
 
     Extent extent = new Extent();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource extentResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource extentResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     extentResource.setResource("test extent");
     extent.setResource(extentResource);
 
@@ -307,8 +307,8 @@ class ProxyFieldInputTest {
 
     EuropeanaType.Choice choiceHasFormat = new EuropeanaType.Choice();
     HasFormat hasFormat = new HasFormat();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource choiceHasFormatResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource choiceHasFormatResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     choiceHasFormatResource.setResource("test hasFormat");
     hasFormat.setResource(choiceHasFormatResource);
 
@@ -316,8 +316,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceHasFormat);
     EuropeanaType.Choice choiceHasPart = new EuropeanaType.Choice();
     HasPart hasPart = new HasPart();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource hasPartResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource hasPartResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     hasPartResource.setResource("test hasPart");
     hasPart.setResource(hasPartResource);
     choiceHasPart.setHasPart(hasPart);
@@ -325,8 +325,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceHasVersion = new EuropeanaType.Choice();
 
     HasVersion hasVersion = new HasVersion();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource hasVersionResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource hasVersionResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     hasVersionResource.setResource("test hasVersion");
     hasVersion.setResource(hasVersionResource);
 
@@ -334,8 +334,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceHasVersion);
     EuropeanaType.Choice choiceIsFormatOf = new EuropeanaType.Choice();
     IsFormatOf isFormatOf = new IsFormatOf();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isFormatOfResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isFormatOfResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isFormatOfResource.setResource("test isFormatOf");
     isFormatOf.setResource(isFormatOfResource);
 
@@ -343,8 +343,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIsFormatOf);
     EuropeanaType.Choice choiceIsPartOf = new EuropeanaType.Choice();
     IsPartOf isPartOf = new IsPartOf();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isPartOfResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isPartOfResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isPartOfResource.setResource("test isPartOf");
     isPartOf.setResource(isPartOfResource);
 
@@ -352,8 +352,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIsPartOf);
     EuropeanaType.Choice choiceIsReferencedBy = new EuropeanaType.Choice();
     IsReferencedBy isReferencedBy = new IsReferencedBy();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isReferencedByResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isReferencedByResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isReferencedByResource.setResource("test isReferencedBy");
     isReferencedBy.setResource(isReferencedByResource);
 
@@ -362,8 +362,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIsReferencedBy);
     EuropeanaType.Choice choiceIsReplacedBy = new EuropeanaType.Choice();
     IsReplacedBy isReplacedBy = new IsReplacedBy();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isReplacedByResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isReplacedByResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isReplacedByResource.setResource("test isReplacedBy");
     isReplacedBy.setResource(isReplacedByResource);
 
@@ -371,8 +371,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIsReplacedBy);
     EuropeanaType.Choice choiceIsRequiredBy = new EuropeanaType.Choice();
     IsRequiredBy isRequiredBy = new IsRequiredBy();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isRequiredByResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isRequiredByResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isRequiredByResource.setResource("test isRequiredBy");
     isRequiredBy.setResource(isRequiredByResource);
 
@@ -380,8 +380,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIsRequiredBy);
     EuropeanaType.Choice choiceIssued = new EuropeanaType.Choice();
     Issued issued = new Issued();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource issuedResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource issuedResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     issuedResource.setResource("test issued");
     issued.setResource(issuedResource);
 
@@ -389,8 +389,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIssued);
     EuropeanaType.Choice choiceIsVersionOf = new EuropeanaType.Choice();
     IsVersionOf isVersionOf = new IsVersionOf();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isVersionOfResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isVersionOfResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isVersionOfResource.setResource("test isVersionOf");
     isVersionOf.setResource(isVersionOfResource);
 
@@ -398,8 +398,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceIsVersionOf);
     EuropeanaType.Choice choiceMedium = new EuropeanaType.Choice();
     Medium medium = new Medium();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource mediumResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource mediumResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     mediumResource.setResource("test medium");
     medium.setResource(mediumResource);
 
@@ -408,8 +408,8 @@ class ProxyFieldInputTest {
     dctermsList.add(choiceMedium);
     EuropeanaType.Choice choiceProvenance = new EuropeanaType.Choice();
     Provenance provenance = new Provenance();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource provenanceResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource provenanceResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     provenanceResource.setResource("test provenance");
     provenance.setResource(provenanceResource);
     choiceProvenance.setProvenance(provenance);
@@ -417,8 +417,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceReferences = new EuropeanaType.Choice();
 
     References references = new References();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource referencesResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource referencesResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     referencesResource.setResource("test references");
     references.setResource(referencesResource);
 
@@ -427,8 +427,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceReplaces = new EuropeanaType.Choice();
 
     Replaces replaces = new Replaces();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource replacesResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource replacesResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     replacesResource.setResource("test replaces");
     replaces.setResource(replacesResource);
     choiceReplaces.setReplaces(replaces);
@@ -436,8 +436,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceRequires = new EuropeanaType.Choice();
 
     Requires requires = new Requires();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource requiresResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource requiresResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     requiresResource.setResource("test requires");
     requires.setResource(requiresResource);
     choiceRequires.setRequires(requires);
@@ -445,8 +445,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceSpatial = new EuropeanaType.Choice();
 
     Spatial spatial = new Spatial();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource spatialResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource spatialResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     spatialResource.setResource("test spatial");
     spatial.setResource(spatialResource);
     choiceSpatial.setSpatial(spatial);
@@ -454,8 +454,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceTableOfContents = new EuropeanaType.Choice();
 
     TableOfContents tableOfContents = new TableOfContents();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource tableOfContentsResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource tableOfContentsResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     tableOfContentsResource.setResource("test TOC");
     tableOfContents.setResource(tableOfContentsResource);
 
@@ -464,8 +464,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceTemporal = new EuropeanaType.Choice();
 
     Temporal temporal = new Temporal();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource temporalResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource temporalResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     temporalResource.setResource("temporal");
     temporal.setResource(temporalResource);
     choiceTemporal.setTemporal(temporal);
@@ -473,8 +473,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceContributor = new EuropeanaType.Choice();
 
     Contributor contributor = new Contributor();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource contributorResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource contributorResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     contributorResource.setResource("test contributor");
     contributor.setResource(contributorResource);
     choiceContributor.setContributor(contributor);
@@ -482,8 +482,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceCoverage = new EuropeanaType.Choice();
 
     Coverage coverage = new Coverage();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource coverageResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource coverageResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     coverageResource.setResource("test coverage");
     coverage.setResource(coverageResource);
     choiceCoverage.setCoverage(coverage);
@@ -491,8 +491,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceCreator = new EuropeanaType.Choice();
 
     Creator creator = new Creator();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource creatorResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource creatorResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     creatorResource.setResource("test creator");
     creator.setResource(creatorResource);
     choiceCreator.setCreator(creator);
@@ -500,8 +500,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceDate = new EuropeanaType.Choice();
 
     Date date = new Date();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource dateResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource dateResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     dateResource.setResource("test date");
     date.setResource(dateResource);
     choiceDate.setDate(date);
@@ -509,8 +509,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceDescription = new EuropeanaType.Choice();
 
     Description description = new Description();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource descriptionResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource descriptionResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     descriptionResource.setResource("test description");
     description.setResource(descriptionResource);
     choiceDescription.setDescription(description);
@@ -518,8 +518,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceFormat = new EuropeanaType.Choice();
 
     Format format = new Format();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource formatResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource formatResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     formatResource.setResource("test format");
     format.setResource(formatResource);
 
@@ -538,8 +538,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choicePublisher = new EuropeanaType.Choice();
 
     Publisher publisher = new Publisher();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource publisherResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource publisherResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     publisherResource.setResource("test publisher");
     publisher.setResource(publisherResource);
     choicePublisher.setPublisher(publisher);
@@ -547,8 +547,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceRelation = new EuropeanaType.Choice();
 
     Relation relation = new Relation();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource relationResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource relationResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     relationResource.setResource("test relation");
     relation.setResource(relationResource);
 
@@ -557,8 +557,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceRights = new EuropeanaType.Choice();
 
     Rights rights = new Rights();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource rightsResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource rightsResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     rightsResource.setResource("test rights");
     rights.setResource(rightsResource);
     choiceRights.setRights(rights);
@@ -566,8 +566,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceSource = new EuropeanaType.Choice();
 
     Source source = new Source();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource sourceResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource sourceResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     sourceResource.setResource("test source");
     source.setResource(sourceResource);
 
@@ -576,8 +576,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceSubject = new EuropeanaType.Choice();
 
     Subject subject = new Subject();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource subjectResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource subjectResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     subjectResource.setResource("test subject");
     subject.setResource(subjectResource);
 
@@ -591,8 +591,8 @@ class ProxyFieldInputTest {
     EuropeanaType.Choice choiceType = new EuropeanaType.Choice();
 
     Type type = new Type();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource typeResource =
-        new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource typeResource =
+        new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     typeResource.setResource("test type");
     type.setResource(typeResource);
     choiceType.setType(type);

@@ -1,6 +1,6 @@
 package eu.europeana.indexing.tiers.media;
 
-import eu.europeana.corelib.definitions.jibx.EdmType;
+import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.utils.RdfWrapper;

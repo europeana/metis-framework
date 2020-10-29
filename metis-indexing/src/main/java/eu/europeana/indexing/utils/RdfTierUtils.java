@@ -1,14 +1,14 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.corelib.definitions.jibx.AggregatedCHO;
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.Created;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.HasBody;
-import eu.europeana.corelib.definitions.jibx.HasQualityAnnotation;
-import eu.europeana.corelib.definitions.jibx.HasTarget;
-import eu.europeana.corelib.definitions.jibx.QualityAnnotation;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.AggregatedCHO;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.Created;
+import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.HasBody;
+import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
+import eu.europeana.metis.schema.jibx.HasTarget;
+import eu.europeana.metis.schema.jibx.QualityAnnotation;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
