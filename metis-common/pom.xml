@@ -9,6 +9,11 @@
   <artifactId>metis-common</artifactId>
 
   <dependencies>
+<!--    This dependency is a temporary one, until the morphia classeses are moved to metis-->
+    <dependency>
+      <groupId>eu.europeana.corelib</groupId>
+      <artifactId>corelib-storage</artifactId>
+    </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>

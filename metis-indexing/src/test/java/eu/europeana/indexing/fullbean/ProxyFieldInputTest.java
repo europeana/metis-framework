@@ -53,7 +53,7 @@ import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.metis.schema.jibx.Type;
 import eu.europeana.metis.schema.jibx.Type2;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.ArrayList;
 import java.util.List;

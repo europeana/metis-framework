@@ -1,11 +1,11 @@
 package eu.europeana.indexing;
 
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.io.Closeable;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
 
 /**
  * <p>

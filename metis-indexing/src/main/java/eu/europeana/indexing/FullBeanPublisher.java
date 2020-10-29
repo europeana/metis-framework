@@ -11,7 +11,7 @@ import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoSocketException;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.beans.IdBean;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;

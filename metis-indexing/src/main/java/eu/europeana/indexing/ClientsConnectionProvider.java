@@ -1,6 +1,6 @@
 package eu.europeana.indexing;
 
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import org.apache.solr.client.solrj.SolrClient;

@@ -16,7 +16,7 @@ import eu.europeana.metis.schema.jibx.End;
 import eu.europeana.metis.schema.jibx.LiteralType.Lang;
 import eu.europeana.metis.schema.jibx.Note;
 import eu.europeana.metis.schema.jibx.PrefLabel;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import java.util.ArrayList;
 import java.util.List;

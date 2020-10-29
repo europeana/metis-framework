@@ -9,9 +9,9 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
-import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class WebResourceMetaInfoUpdater
   @Override
   protected MongoPropertyUpdater<WebResourceMetaInfoImpl> createPropertyUpdater(
       WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation,
-      Date recordDate, Date recordCreationDate, MongoServer mongoServer) {
+      Date recordDate, Date recordCreationDate, EdmMongoServer mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
         ancestorInformation.getRootAbout());
     final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =
@@ -37,7 +37,7 @@ public class WebResourceMetaInfoUpdater
     return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer, querySupplier, null);
   }
 
-  private static Query<WebResourceMetaInfoImpl> createQuery(MongoServer mongoServer, String id) {
+  private static Query<WebResourceMetaInfoImpl> createQuery(EdmMongoServer mongoServer, String id) {
     return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class)
         .filter(Filters.eq("_id", id));
   }

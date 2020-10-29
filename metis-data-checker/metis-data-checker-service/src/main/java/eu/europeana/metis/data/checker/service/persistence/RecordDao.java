@@ -2,7 +2,7 @@ package eu.europeana.metis.data.checker.service.persistence;
 
 import dev.morphia.DeleteOptions;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;

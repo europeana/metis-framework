@@ -1,14 +1,13 @@
 package eu.europeana.indexing;
 
-import com.mongodb.client.MongoClient;
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
 import com.mongodb.MongoSecurityException;
 import com.mongodb.ServerAddress;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import eu.europeana.metis.solr.CompoundSolrClient;
@@ -90,7 +89,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
       MongoClient client)
       throws SetupRelatedIndexingException {
     try {
-      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), false);
+      return new EdmMongoServer(client, settings.getMongoDatabaseName(), false);
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
