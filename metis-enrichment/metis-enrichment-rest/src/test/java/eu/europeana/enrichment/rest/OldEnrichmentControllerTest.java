@@ -30,7 +30,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class EnrichmentControllerTest {
+public class OldEnrichmentControllerTest {
 
   private static MockMvc enrichmentControllerMock;
   private static EnrichmentService enrichmentServiceMock;
@@ -39,8 +39,8 @@ public class EnrichmentControllerTest {
   public static void setUp() {
     enrichmentServiceMock = mock(EnrichmentService.class);
 
-    EnrichmentController enrichmentController = new EnrichmentController(enrichmentServiceMock);
-    enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
+    OldEnrichmentController oldEnrichmentController = new OldEnrichmentController(enrichmentServiceMock);
+    enrichmentControllerMock = MockMvcBuilders.standaloneSetup(oldEnrichmentController)
         .setControllerAdvice(new RestResponseExceptionHandler())
         .build();
   }
