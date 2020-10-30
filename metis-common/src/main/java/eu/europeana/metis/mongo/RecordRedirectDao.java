@@ -53,14 +53,14 @@ public class RecordRedirectDao {
     }
   }
 
-  private static Datastore createDatastore(MongoClient mongoClient, String databaseName) {
+  private Datastore createDatastore(MongoClient mongoClient, String databaseName) {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
         .discriminator(DiscriminatorFunction.className())
         .collectionNaming(NamingStrategy.identity()).build();
-    final Datastore datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
-    datastore.getMapper().map(RecordRedirect.class);
+    final Datastore morphiaDatastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
+    morphiaDatastore.getMapper().map(RecordRedirect.class);
     LOGGER.info("Datastore initialized");
-    return datastore;
+    return morphiaDatastore;
   }
 
   /**

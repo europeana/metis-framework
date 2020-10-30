@@ -1,8 +1,6 @@
 package eu.europeana.metis.mongo;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoClientSettings.Builder;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
@@ -27,89 +25,57 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.exception.EuropeanaException;
 import eu.europeana.corelib.web.exception.ProblemType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Connection for
+ */
 public class EdmMongoServer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EdmMongoServer.class);
 
-  private MongoClient mongoClient;
-  private String databaseName;
-  private Datastore datastore;
+  private final MongoClient mongoClient;
+  private final String databaseName;
+  private final Datastore datastore;
 
   /**
-   * Create a new Morphia datastore to do get/delete/save operations on the database Any required
-   * login credentials as well as connection options (like timeouts) should be set in advance in the
-   * provided mongoClient Used by corelib.search embeddedMongoProvider (unit test usage) only
+   * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
+   * This constructor is meant to be used when the database is already available.
    *
-   * @deprecated please use EdmMongoServerImpl(MongoClient, String, boolean)
+   * @param mongoClient the mongo client connection
+   * @param databaseName the database name of the record redirect database
    */
-  @Deprecated
   public EdmMongoServer(MongoClient mongoClient, String databaseName) {
     this(mongoClient, databaseName, false);
   }
 
   /**
-   * Create a new Morphia datastore to do get/delete/save operations on the database Any required
-   * login credentials as well as connection options (like timeouts) should be set in advance in the
-   * provided mongoClient Used by corelib.search embeddedMongoProvider (unit test usage) only
+   * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
+   * This constructor is meant to be used mostly for when the creation of the database is required.
    *
-   * @param createIndexes, if true then it will try to create the necessary indexes if needed
+   * @param mongoClient the mongo client connection
+   * @param databaseName the database name of the record redirect database
+   * @param createIndexes flag that initiates the database/indices
    */
   public EdmMongoServer(MongoClient mongoClient, String databaseName, boolean createIndexes) {
     this.mongoClient = mongoClient;
     this.databaseName = databaseName;
-    createDatastore(createIndexes);
+    this.datastore = createDatastore();
+    if (createIndexes) {
+      LOGGER.info("Initializing database indices");
+      datastore.ensureIndexes();
+    }
   }
 
-  /**
-   * Create a new datastore to do get/delete/save operations on the database.
-   *
-   * @param hosts comma-separated host names
-   * @param ports comma-separated port numbers
-   * @deprecated please use EdmMongoServerImpl(MongoClient, String, boolean)    *
-   */
-  @Deprecated
-  public EdmMongoServer(String hosts, String ports, String databaseName, String username,
-      String password) {
-    this(hosts, ports, databaseName, username, password, false);
-  }
-
-  /**
-   * Create a new datastore to do get/delete/save operations on the database. (called only from #102
-   * above, which is deprecated / unused)
-   *
-   * @param hosts comma-separated host names
-   * @param ports comma-separated port numbers
-   * @param createIndexes, if true then it will try to create the necessary indexes if needed
-   * @deprecated please use EdmMongoServerImpl(MongoClient, String, boolean)
-   */
-  @Deprecated
-  public EdmMongoServer(String hosts, String ports, String databaseName, String username,
-      String password, boolean createIndexes) {
-    //Keep alive is removed and by default enabled
-    final Builder mongoClientSettingsBuilder = MongoClientSettings.builder().applyToSocketSettings(
-        builder -> builder.connectTimeout(5, TimeUnit.SECONDS).readTimeout(6, TimeUnit.SECONDS))
-        .applyToConnectionPoolSettings(builder -> builder.maxSize(10));
-
-    this.mongoClient = new MongoProviderImpl(hosts, ports, databaseName, username, password,
-        mongoClientSettingsBuilder).getMongoClient();
-    this.databaseName = databaseName;
-    createDatastore(createIndexes);
-  }
-
-  private void createDatastore(boolean createIndexes) {
-    this.datastore = Morphia.createDatastore(this.mongoClient, databaseName);
-    final Mapper mapper = datastore.getMapper();
-
+  private Datastore createDatastore() {
+    final Datastore morphiaDatastore = Morphia.createDatastore(this.mongoClient, databaseName);
+    final Mapper mapper = morphiaDatastore.getMapper();
     mapper.map(FullBeanImpl.class);
     mapper.map(ProvidedCHOImpl.class);
     mapper.map(AgentImpl.class);
@@ -125,11 +91,9 @@ public class EdmMongoServer {
     mapper.map(ConceptSchemeImpl.class);
     mapper.map(BasicProxyImpl.class);
     mapper.map(WebResourceMetaInfoImpl.class);
+    LOGGER.info("Datastore initialized");
 
-    if (createIndexes) {
-      datastore.ensureIndexes();
-    }
-    LOGGER.info("Morphia EDMMongoServer datastore is created");
+    return morphiaDatastore;
   }
 
   public Datastore getDatastore() {
@@ -160,8 +124,7 @@ public class EdmMongoServer {
   public Map<String, WebResourceMetaInfoImpl> retrieveWebMetaInfos(List<String> hashCodes) {
     Map<String, WebResourceMetaInfoImpl> metaInfos = new HashMap<>();
 
-    final BasicDBObject basicObject = new BasicDBObject("$in",
-        hashCodes);   // e.g. {"$in":["1","2","3"]}
+    final BasicDBObject basicObject = new BasicDBObject("$in", hashCodes);
     long start = 0;
     if (LOGGER.isDebugEnabled()) {
       start = System.currentTimeMillis();

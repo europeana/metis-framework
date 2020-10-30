@@ -89,7 +89,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
       MongoClient client)
       throws SetupRelatedIndexingException {
     try {
-      return new EdmMongoServer(client, settings.getMongoDatabaseName(), false);
+      return new EdmMongoServer(client, settings.getMongoDatabaseName());
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
