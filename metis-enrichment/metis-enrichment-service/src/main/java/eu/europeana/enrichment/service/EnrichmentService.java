@@ -6,6 +6,7 @@ import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,11 +56,42 @@ public class EnrichmentService {
   }
 
   /**
-   * Get an enrichment by providing a list of {@link InputValue}s.
+   * Get an enrichment by providing a list of {@link SearchValue}s.
    *
+   * @param searchValues a list of structured search values with parameters
+   * @return the enrichment values in a structured list
+   */
+  public List<EnrichmentBase> enrichByEnrichmentSearchValues(List<SearchValue> searchValues) {
+    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+    try {
+      for (SearchValue searchValue : searchValues) {
+        final List<EntityType> entityTypes = searchValue.getEntityTypes();
+        //Language has to be a valid 2 code, otherwise we do not use it
+        final String inputValueLanguage = searchValue.getLanguage();
+        final String language = (StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES
+            .contains(inputValueLanguage)) ? inputValueLanguage : null;
+        final String value = searchValue.getValue().toLowerCase(Locale.US);
+
+        if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
+          continue;
+        }
+        for (EntityType entityType : entityTypes) {
+          enrichmentBases.addAll(findEnrichmentTerms(entityType, value, language));
+        }
+      }
+    } catch (RuntimeException e) {
+      LOGGER.warn("Unable to retrieve entity from tag", e);
+    }
+    return enrichmentBases;
+  }
+
+  /**
+   * Get an enrichment by providing a list of {@link InputValue}s.
+   * @deprecated The method will be replaced with enrichByEnrichmentSearchValues
    * @param inputValues a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
    */
+  @Deprecated
   public List<Pair<String, EnrichmentBase>> enrichByInputValueList(List<InputValue> inputValues) {
     final List<Pair<String, EnrichmentBase>> enrichmentBases = new ArrayList<>();
     try {
@@ -93,6 +125,31 @@ public class EnrichmentService {
    * @param uri The URI to check for match
    * @return the structured result of the enrichment
    */
+  public EnrichmentBase enrichByEquivalenceValues(String uri) {
+    try {
+      //First check entity about, otherwise owlSameAs
+      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
+          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, uri)));
+      if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
+        foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections
+            .singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD, uri)));
+      }
+      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+        return foundEnrichmentBases.get(0);
+      }
+    } catch (RuntimeException e) {
+      LOGGER.warn("Unable to retrieve entity from id", e);
+    }
+    return null;
+  }
+
+  /**
+   * Get an enrichment by providing a URI, might match owl:sameAs.
+   * @deprecated This method will be replaced with enrichByEquivalenceValues
+   * @param uri The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  @Deprecated
   public EnrichmentBase enrichByAboutOrOwlSameAs(String uri) {
     try {
       //First check entity about, otherwise owlSameAs
@@ -117,6 +174,26 @@ public class EnrichmentService {
    * @param entityAbout The URI to check for match
    * @return the structured result of the enrichment
    */
+  public EnrichmentBase enrichById(String entityAbout) {
+    try {
+      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections
+          .singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, entityAbout)));
+      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+        return foundEnrichmentBases.get(0);
+      }
+    } catch (RuntimeException e) {
+      LOGGER.warn("Unable to retrieve entity from entityAbout", e);
+    }
+    return null;
+  }
+
+  /**
+   * Get an enrichment by providing a URI.
+   * @deprecated This method will be replaced with enrichById
+   * @param entityAbout The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  @Deprecated
   public EnrichmentBase enrichByAbout(String entityAbout) {
     try {
       List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections

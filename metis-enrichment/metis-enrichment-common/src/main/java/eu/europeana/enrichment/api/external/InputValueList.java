@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = InputValueList.API_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 @ApiModel(value = InputValueList.API_NAME)
+@Deprecated
 public class InputValueList {
 
   static final String API_NAME = "inputValueList";
@@ -32,14 +33,16 @@ public class InputValueList {
   @JsonProperty("inputValue")
   private List<InputValue> inputValues;
 
+  @Deprecated
   public InputValueList() {
     // Required for XML mapping.
   }
 
+  @Deprecated
   public List<InputValue> getInputValues() {
     return inputValues == null ? null : Collections.unmodifiableList(inputValues);
   }
-
+  @Deprecated
   public void setInputValues(List<InputValue> inputValues) {
     this.inputValues = inputValues == null ? null : new ArrayList<>(inputValues);
   }

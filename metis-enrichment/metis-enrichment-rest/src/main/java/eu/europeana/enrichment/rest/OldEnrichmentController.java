@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Api("/old/")
 @Controller
+@Deprecated
 public class OldEnrichmentController {
 
   private final EnrichmentService enrichmentService;
