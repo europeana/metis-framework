@@ -43,7 +43,7 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by providing a list of {@link InputValueList}.
+   * Get an enrichment by providing a list of {@link EnrichmentSearch}.
    *
    * @param enrichmentSearch a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
@@ -53,7 +53,7 @@ public class EnrichmentController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  @ApiOperation(value = "Get an enrichment by providing a list of InputValueList", response = EnrichmentResultList.class)
+  @ApiOperation(value = "Get an enrichment by providing a list of SearchValue", response = EnrichmentResultList.class)
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public List<EnrichmentBase> search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
