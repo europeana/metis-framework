@@ -17,7 +17,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EnrichmentResultList {
 
   @XmlElement(name = "enrichmentBaseWrapperList", type = EnrichmentBaseWrapper.class)
+  @Deprecated
   private final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = new ArrayList<>();
+
+  @XmlElement(name = "enrichmentResultWrapperList", type = EnrichmentResultBaseWrapper.class)
+  private final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = new ArrayList<>();
 
   public EnrichmentResultList() {
   }
@@ -27,8 +31,18 @@ public class EnrichmentResultList {
    *
    * @param enrichmentBaseWrapperList the list to initialize the class with
    */
+  @Deprecated
   public EnrichmentResultList(Collection<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
     this.enrichmentBaseWrapperList.addAll(enrichmentBaseWrapperList);
+  }
+
+  /**
+   * Constructor with initial {@link EnrichmentBase} list.
+   *
+   * @param enrichmentResultBaseWrappers the list to initialize the class with
+   */
+  public EnrichmentResultList(List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers){
+    this.enrichmentResultBaseWrapperList.addAll(enrichmentResultBaseWrappers);
   }
 
   public List<EnrichmentBaseWrapper> getEnrichmentBaseWrapperList() {

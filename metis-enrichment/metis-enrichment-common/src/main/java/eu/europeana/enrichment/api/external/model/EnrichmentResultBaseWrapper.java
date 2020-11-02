@@ -9,14 +9,11 @@ import javax.xml.bind.annotation.XmlElements;
 /**
  * Wrapper of {@link EnrichmentBase}, used for easier (de)serialization.
  *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2019-03-07
+ * @author Joana Sousa
+ * @since 2020-11-02
  */
-@Deprecated
-public class EnrichmentBaseWrapper {
+public class EnrichmentResultBaseWrapper {
 
-  @XmlElement(name = "rdfFieldName")
-  private String rdfFieldName;
 
   @XmlElements(value = {
       @XmlElement(name = "Concept", namespace = "http://www.w3.org/2004/02/skos/core#", type = Concept.class),
@@ -25,22 +22,16 @@ public class EnrichmentBaseWrapper {
       @XmlElement(name = "Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type = Timespan.class)})
   private EnrichmentBase enrichmentBase;
 
-  public EnrichmentBaseWrapper() {
+  public EnrichmentResultBaseWrapper() {
   }
 
   /**
    * Constructor with all fields
    *
-   * @param rdfFieldName the rdf field name
    * @param enrichmentBase the enrichment information class generated
    */
-  public EnrichmentBaseWrapper(String rdfFieldName, EnrichmentBase enrichmentBase) {
-    this.rdfFieldName = rdfFieldName;
+  public EnrichmentResultBaseWrapper(EnrichmentBase enrichmentBase) {
     this.enrichmentBase = enrichmentBase;
-  }
-
-  public String getRdfFieldName() {
-    return rdfFieldName;
   }
 
   public EnrichmentBase getEnrichmentBase() {
@@ -48,17 +39,17 @@ public class EnrichmentBaseWrapper {
   }
 
   /**
-   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper} with
-   * 'null' {@link #rdfFieldName}.
+   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper}.
    * <p>This is mostly used for dereferencing.</p>
    *
    * @param resultList the collection of {@link EnrichmentBase}
    * @return the converted list
    */
-  public static List<EnrichmentBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
+  public static List<EnrichmentResultBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
       Collection<EnrichmentBase> resultList) {
     return resultList.stream()
-        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
+        .map(EnrichmentResultBaseWrapper::new).collect(
             Collectors.toList());
   }
+
 }

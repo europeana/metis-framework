@@ -1,9 +1,10 @@
 package eu.europeana.enrichment.rest;
 
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
-import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
@@ -55,11 +56,17 @@ public class EnrichmentController {
   @ResponseBody
   @ApiOperation(value = "Get an enrichment by providing a list of SearchValue", response = EnrichmentResultList.class)
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public List<EnrichmentBase> search(
+  public EnrichmentResultList search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
-    return enrichmentService
+//    enrichmentService
+//        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream().filter(Objects::nonNull)
+//        .collect(Collectors.toList());
+
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
         .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream().filter(Objects::nonNull)
+        .map(EnrichmentResultBaseWrapper::new)
         .collect(Collectors.toList());
+    return new EnrichmentResultList(enrichmentResultBaseWrappers);
   }
 
   /**
@@ -94,10 +101,12 @@ public class EnrichmentController {
       + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public List<EnrichmentBase> equivalence(@RequestBody List<String> uris) {
-    return uris.stream()
+  public EnrichmentResultList equivalence(@RequestBody List<String> uris) {
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uris.stream()
         .map(enrichmentService::enrichByEquivalenceValues).filter(Objects::nonNull)
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
+    return new EnrichmentResultList(enrichmentBaseWrappers);
 
   }
 
@@ -114,9 +123,13 @@ public class EnrichmentController {
       + "match an entity's about", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public List<EnrichmentBase> entityId(@RequestBody List<String> uris) {
-    return uris.stream().map(enrichmentService::enrichById).filter(Objects::nonNull)
+  public EnrichmentResultList entityId(@RequestBody List<String> uris) {
+    List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
+        .map(enrichmentService::enrichById).filter(Objects::nonNull)
+        .map(EnrichmentResultBaseWrapper::new)
         .collect(Collectors.toList());
+
+    return new EnrichmentResultList(enrichmentBaseWrappers);
 
   }
 }

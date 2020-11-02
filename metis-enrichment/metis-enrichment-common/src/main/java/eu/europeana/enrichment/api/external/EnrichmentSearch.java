@@ -28,8 +28,8 @@ public class EnrichmentSearch {
 
     static final String API_NAME = "enrichmentSearch";
 
-    @XmlElement(name = "enrichmentSearch")
-    @JsonProperty("enrichmentSearchTerm")
+    @XmlElement(name = "searchValue")
+    @JsonProperty("searchValue")
     private List<SearchValue> searchValues;
 
     public EnrichmentSearch() {
