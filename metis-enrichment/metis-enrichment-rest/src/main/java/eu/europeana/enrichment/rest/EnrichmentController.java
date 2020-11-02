@@ -58,9 +58,6 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
-//    enrichmentService
-//        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream().filter(Objects::nonNull)
-//        .collect(Collectors.toList());
 
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
         .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream().filter(Objects::nonNull)
