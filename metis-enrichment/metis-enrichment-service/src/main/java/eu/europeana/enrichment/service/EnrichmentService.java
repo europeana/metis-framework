@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -39,19 +40,22 @@ import org.springframework.stereotype.Service;
 public class EnrichmentService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
-  private static final Set<String> ALL_2CODE_LANGUAGES = all2CodeLanguages();
+  private static final Set<String> ALL_2CODE_LANGUAGES = new HashSet<>();
+  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES = new HashMap<>();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
   private final EnrichmentDao enrichmentDao;
 
+  static {
+    Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
+      ALL_2CODE_LANGUAGES.add(locale.getLanguage());
+      ALL_3CODE_TO_2CODE_LANGUAGES.put(locale.getISO3Language(), locale.getLanguage());
+    });
+  }
+
   @Autowired
   public EnrichmentService(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
-  }
-
-  private static Set<String> all2CodeLanguages() {
-    return Arrays.stream(Locale.getISOLanguages()).map(Locale::new).map(Locale::toString)
-        .collect(Collectors.toCollection(TreeSet::new));
   }
 
   /**
@@ -66,10 +70,17 @@ public class EnrichmentService {
       for (InputValue inputValue : inputValues) {
         final String originalField = inputValue.getRdfFieldName();
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
-        //Language has to be a valid 2 code, otherwise we do not use it
+        //Language has to be a valid 2 or 3 code, otherwise we do not use it
         final String inputValueLanguage = inputValue.getLanguage();
-        final String language = (StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES
-            .contains(inputValueLanguage)) ? inputValueLanguage : null;
+        final String language;
+        if (inputValueLanguage != null && inputValueLanguage.length() == 3) {
+          language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage.toLowerCase(Locale.US));
+        } else if (inputValueLanguage != null && inputValueLanguage.length() == 2) {
+          language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
+        } else {
+          language = null;
+        }
+
         final String value = inputValue.getValue().toLowerCase(Locale.US);
 
         if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
