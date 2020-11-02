@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlElements;
 /**
  * Wrapper of {@link EnrichmentBase}, used for easier (de)serialization.
  *
- * @author Joana Sousa
- * @since 2020-11-02
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2019-03-07
  */
 public class EnrichmentResultBaseWrapper {
 

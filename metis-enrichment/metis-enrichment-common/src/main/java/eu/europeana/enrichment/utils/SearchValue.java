@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * enriched, the Controlled vocabulary to be used and the field (optional) from which the value
  * originated
  *
- * @author Joana Sousa
+ * @author Joana Sousa (joana.sousa@europeana.eu)
+ * @since 2020-11-02
  */
 @XmlRootElement
 @JsonInclude
