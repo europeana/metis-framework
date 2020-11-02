@@ -15,7 +15,7 @@ import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.mongo.AbstractEdmEntityUpdater;
 import eu.europeana.indexing.mongo.WebResourceInformation;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -51,11 +51,11 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
   private final T current;
   private final T updated;
-  private final EdmMongoServer mongoServer;
+  private final RecordDao mongoServer;
   private final List<UpdateOperator> updateOperators;
   private final Supplier<Query<T>> queryCreator;
 
-  MongoPropertyUpdaterImpl(T current, T updated, EdmMongoServer mongoServer,
+  MongoPropertyUpdaterImpl(T current, T updated, RecordDao mongoServer,
       List<UpdateOperator> updateOperators, Supplier<Query<T>> queryCreator) {
     this.current = current;
     this.updated = updated;

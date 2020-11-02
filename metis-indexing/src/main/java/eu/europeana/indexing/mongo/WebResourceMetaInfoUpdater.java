@@ -11,7 +11,7 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class WebResourceMetaInfoUpdater
   @Override
   protected MongoPropertyUpdater<WebResourceMetaInfoImpl> createPropertyUpdater(
       WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation,
-      Date recordDate, Date recordCreationDate, EdmMongoServer mongoServer) {
+      Date recordDate, Date recordCreationDate, RecordDao mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
         ancestorInformation.getRootAbout());
     final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =
@@ -37,7 +37,7 @@ public class WebResourceMetaInfoUpdater
     return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer, querySupplier, null);
   }
 
-  private static Query<WebResourceMetaInfoImpl> createQuery(EdmMongoServer mongoServer, String id) {
+  private static Query<WebResourceMetaInfoImpl> createQuery(RecordDao mongoServer, String id) {
     return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class)
         .filter(Filters.eq("_id", id));
   }

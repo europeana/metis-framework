@@ -1,6 +1,6 @@
 package eu.europeana.indexing;
 
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.io.Closeable;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public interface AbstractConnectionProvider extends Closeable {
    *
    * @return A Mongo client.
    */
-  EdmMongoServer getEdmMongoClient();
+  RecordDao getEdmMongoClient();
 
   /**
    * Provides a Mongo redirect dao.

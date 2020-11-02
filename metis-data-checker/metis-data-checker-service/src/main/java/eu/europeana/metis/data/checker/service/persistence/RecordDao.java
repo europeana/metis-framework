@@ -2,7 +2,6 @@ package eu.europeana.metis.data.checker.service.persistence;
 
 import dev.morphia.DeleteOptions;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.metis.mongo.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -36,7 +35,7 @@ import org.springframework.stereotype.Service;
 public class RecordDao {
 
   private final SolrClient solrServer;
-  private final EdmMongoServer mongoServer;
+  private final eu.europeana.metis.mongo.RecordDao mongoServer;
   private final Indexer indexer;
 
   /**
@@ -53,7 +52,7 @@ public class RecordDao {
             .getIndexer());
   }
 
-  RecordDao(SolrClient solrServer, EdmMongoServer mongoServer, Indexer indexer) {
+  RecordDao(SolrClient solrServer, eu.europeana.metis.mongo.RecordDao mongoServer, Indexer indexer) {
     this.solrServer = solrServer;
     this.mongoServer = mongoServer;
     this.indexer = indexer;

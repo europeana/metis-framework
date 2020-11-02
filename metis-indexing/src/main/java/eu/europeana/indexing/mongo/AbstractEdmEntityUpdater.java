@@ -4,7 +4,7 @@ import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import java.util.Date;
 
 /**
@@ -18,7 +18,7 @@ public abstract class AbstractEdmEntityUpdater<R extends AbstractEdmEntity, A>
 
   @Override
   protected final MongoPropertyUpdater<R> createPropertyUpdater(R newEntity, A ancestorInformation,
-      Date recordDate, Date recordCreationDate, EdmMongoServer mongoServer) {
+      Date recordDate, Date recordCreationDate, RecordDao mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
         getObjectClass(), AbstractEdmEntity::getAbout, null, null, null);
   }

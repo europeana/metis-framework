@@ -9,7 +9,7 @@ import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
 import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 import eu.europeana.indexing.utils.TriConsumer;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import java.util.ArrayList;
 import java.util.Date;
 import org.apache.commons.lang3.tuple.Pair;
@@ -28,7 +28,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
    * retrieved the current version of the full bean from the database. It will be called once. It's
    * first parameter is the current full bean (as retrieved from the database) and its second
    * parameter is the updated full bean (as passed to {@link AbstractMongoObjectUpdater#createPropertyUpdater(Object,
-   * Object, Date, Date, EdmMongoServer)}).
+   * Object, Date, Date, RecordDao)}).
    */
   public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor) {
     this.fullBeanPreprocessor = fullBeanPreprocessor;
@@ -45,14 +45,14 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
    * @return The updated entity.
    */
   public final FullBeanImpl update(FullBeanImpl newEntity, Date recordDate, Date recordCreationDate,
-      EdmMongoServer mongoServer) {
+      RecordDao mongoServer) {
     return update(newEntity, null, recordDate, recordCreationDate, mongoServer);
   }
 
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
       Void ancestorInformation, Date recordDate, Date recordCreationDate,
-      EdmMongoServer mongoServer) {
+      RecordDao mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
         FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate,
         recordCreationDate);

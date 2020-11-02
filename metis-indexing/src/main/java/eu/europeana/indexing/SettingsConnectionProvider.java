@@ -7,7 +7,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import eu.europeana.metis.solr.CompoundSolrClient;
@@ -34,7 +34,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   private final CompoundSolrClient solrClient;
   private final MongoClient mongoClient;
-  private final EdmMongoServer edmMongoClient;
+  private final RecordDao edmMongoClient;
   private final RecordRedirectDao recordRedirectDao;
 
   /**
@@ -85,11 +85,11 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
   }
 
-  private static EdmMongoServer setUpEdmMongoConnection(IndexingSettings settings,
+  private static RecordDao setUpEdmMongoConnection(IndexingSettings settings,
       MongoClient client)
       throws SetupRelatedIndexingException {
     try {
-      return new EdmMongoServer(client, settings.getMongoDatabaseName());
+      return new RecordDao(client, settings.getMongoDatabaseName());
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
@@ -115,7 +115,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   @Override
-  public EdmMongoServer getEdmMongoClient() {
+  public RecordDao getEdmMongoClient() {
     return edmMongoClient;
   }
 

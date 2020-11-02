@@ -34,14 +34,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Connection for
+ * Connection for accessing Europeana records.
  */
-public class EdmMongoServer {
+public class RecordDao {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EdmMongoServer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(RecordDao.class);
 
   private final MongoClient mongoClient;
-  private final String databaseName;
   private final Datastore datastore;
 
   /**
@@ -51,7 +50,7 @@ public class EdmMongoServer {
    * @param mongoClient the mongo client connection
    * @param databaseName the database name of the record redirect database
    */
-  public EdmMongoServer(MongoClient mongoClient, String databaseName) {
+  public RecordDao(MongoClient mongoClient, String databaseName) {
     this(mongoClient, databaseName, false);
   }
 
@@ -63,17 +62,16 @@ public class EdmMongoServer {
    * @param databaseName the database name of the record redirect database
    * @param createIndexes flag that initiates the database/indices
    */
-  public EdmMongoServer(MongoClient mongoClient, String databaseName, boolean createIndexes) {
+  public RecordDao(MongoClient mongoClient, String databaseName, boolean createIndexes) {
     this.mongoClient = mongoClient;
-    this.databaseName = databaseName;
-    this.datastore = createDatastore();
+    this.datastore = createDatastore(databaseName);
     if (createIndexes) {
       LOGGER.info("Initializing database indices");
       datastore.ensureIndexes();
     }
   }
 
-  private Datastore createDatastore() {
+  private Datastore createDatastore(String databaseName) {
     final Datastore morphiaDatastore = Morphia.createDatastore(this.mongoClient, databaseName);
     final Mapper mapper = morphiaDatastore.getMapper();
     mapper.map(FullBeanImpl.class);
@@ -147,7 +145,7 @@ public class EdmMongoServer {
   @Override
   public String toString() {
     return "MongoDB: [Hosts: " + mongoClient.getClusterDescription().getClusterSettings().getHosts()
-        + "]\n" + "[DB: " + databaseName + "]\n";
+        + "]\n" + "[DB: " + datastore.getDatabase().getName() + "]\n";
   }
 
   public <T> T searchByAbout(Class<T> clazz, String about) {

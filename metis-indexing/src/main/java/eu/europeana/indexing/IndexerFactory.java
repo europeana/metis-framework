@@ -3,7 +3,7 @@ package eu.europeana.indexing;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import org.apache.solr.client.solrj.SolrClient;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
 /**
@@ -31,7 +31,7 @@ public class IndexerFactory {
    * @param recordRedirectDao The record redirect dao
    * @param solrClient The Solr client to use.
    */
-  public IndexerFactory(EdmMongoServer mongoClient, RecordRedirectDao recordRedirectDao,
+  public IndexerFactory(RecordDao mongoClient, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient) {
     this(() -> new ClientsConnectionProvider(mongoClient, recordRedirectDao, solrClient));
   }

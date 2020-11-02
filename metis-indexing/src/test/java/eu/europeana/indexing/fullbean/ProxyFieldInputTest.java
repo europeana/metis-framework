@@ -53,7 +53,7 @@ import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.metis.schema.jibx.Type;
 import eu.europeana.metis.schema.jibx.Type2;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ class ProxyFieldInputTest {
 
   private void testMongo(ProxyType proxy) {
 
-    EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
+    RecordDao mongoServerMock = mock(RecordDao.class);
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<ProxyImpl> queryMock = mock(Query.class);

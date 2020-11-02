@@ -11,7 +11,7 @@ import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoSocketException;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.beans.IdBean;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -57,7 +57,7 @@ class FullBeanPublisher {
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
-  private final EdmMongoServer edmMongoClient;
+  private final RecordDao edmMongoClient;
   private final SolrClient solrServer;
   private final boolean preserveUpdateAndCreateTimesFromRdf;
   private final RecordRedirectDao recordRedirectDao;
@@ -71,7 +71,7 @@ class FullBeanPublisher {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    */
-  FullBeanPublisher(EdmMongoServer edmMongoClient, RecordRedirectDao recordRedirectDao,
+  FullBeanPublisher(RecordDao edmMongoClient, RecordRedirectDao recordRedirectDao,
       SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf) {
     this(edmMongoClient, recordRedirectDao, solrServer, preserveUpdateAndCreateTimesFromRdf,
         RdfToFullBeanConverter::new);
@@ -88,7 +88,7 @@ class FullBeanPublisher {
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    * parse strings to instances of {@link FullBeanImpl}. Will be called once during every publish.
    */
-  FullBeanPublisher(EdmMongoServer edmMongoClient, RecordRedirectDao recordRedirectDao,
+  FullBeanPublisher(RecordDao edmMongoClient, RecordRedirectDao recordRedirectDao,
       SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.edmMongoClient = edmMongoClient;

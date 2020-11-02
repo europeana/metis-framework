@@ -4,7 +4,7 @@ import dev.morphia.Datastore;
 import dev.morphia.DeleteOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
@@ -28,7 +28,7 @@ public class IndexedRecordAccess {
 
   private static final String ABOUT_FIELD = "about";
 
-  private final EdmMongoServer mongoServer;
+  private final RecordDao mongoServer;
   private final SolrClient solrServer;
 
   /**
@@ -37,7 +37,7 @@ public class IndexedRecordAccess {
    * @param mongoServer The Mongo server connection.
    * @param solrServer The Solr server connection.
    */
-  IndexedRecordAccess(EdmMongoServer mongoServer, SolrClient solrServer) {
+  IndexedRecordAccess(RecordDao mongoServer, SolrClient solrServer) {
     this.mongoServer = mongoServer;
     this.solrServer = solrServer;
   }

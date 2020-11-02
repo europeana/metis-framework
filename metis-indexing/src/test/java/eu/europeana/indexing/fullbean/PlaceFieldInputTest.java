@@ -17,7 +17,7 @@ import eu.europeana.metis.schema.jibx.Note;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.PrefLabel;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.metis.mongo.EdmMongoServer;
+import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ class PlaceFieldInputTest {
     PlaceImpl placeImpl = new PlaceImpl();
     placeImpl.setAbout("test about");
 
-    EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
+    RecordDao mongoServerMock = mock(RecordDao.class);
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<PlaceImpl> queryMock = mock(Query.class);
