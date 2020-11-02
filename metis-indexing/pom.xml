@@ -9,6 +9,11 @@
   <artifactId>metis-indexing</artifactId>
   <dependencies>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
       <exclusions>
