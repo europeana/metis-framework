@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -40,19 +41,22 @@ import org.springframework.stereotype.Service;
 public class EnrichmentService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
-  private static final Set<String> ALL_2CODE_LANGUAGES = all2CodeLanguages();
+  private static final Set<String> ALL_2CODE_LANGUAGES = new HashSet<>();
+  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES = new HashMap<>();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
   private final EnrichmentDao enrichmentDao;
 
+  static {
+    Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
+      ALL_2CODE_LANGUAGES.add(locale.getLanguage());
+      ALL_3CODE_TO_2CODE_LANGUAGES.put(locale.getISO3Language(), locale.getLanguage());
+    });
+  }
+
   @Autowired
   public EnrichmentService(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
-  }
-
-  private static Set<String> all2CodeLanguages() {
-    return Arrays.stream(Locale.getISOLanguages()).map(Locale::new).map(Locale::toString)
-        .collect(Collectors.toCollection(TreeSet::new));
   }
 
   /**
@@ -66,10 +70,17 @@ public class EnrichmentService {
     try {
       for (SearchValue searchValue : searchValues) {
         final List<EntityType> entityTypes = searchValue.getEntityTypes();
-        //Language has to be a valid 2 code, otherwise we do not use it
+        //Language has to be a valid 2 or 3 code, otherwise we do not use it
         final String inputValueLanguage = searchValue.getLanguage();
-        final String language = (StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES
-            .contains(inputValueLanguage)) ? inputValueLanguage : null;
+        final String language;
+        if (inputValueLanguage != null && inputValueLanguage.length() == 3) {
+          language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage.toLowerCase(Locale.US));
+        } else if (inputValueLanguage != null && inputValueLanguage.length() == 2) {
+          language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
+        } else {
+          language = null;
+        }
+
         final String value = searchValue.getValue().toLowerCase(Locale.US);
 
         if(StringUtils.isBlank(value)){
@@ -104,10 +115,17 @@ public class EnrichmentService {
       for (InputValue inputValue : inputValues) {
         final String originalField = inputValue.getRdfFieldName();
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
-        //Language has to be a valid 2 code, otherwise we do not use it
+        //Language has to be a valid 2 or 3 code, otherwise we do not use it
         final String inputValueLanguage = inputValue.getLanguage();
-        final String language = (StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES
-            .contains(inputValueLanguage)) ? inputValueLanguage : null;
+        final String language;
+        if (inputValueLanguage != null && inputValueLanguage.length() == 3) {
+          language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage.toLowerCase(Locale.US));
+        } else if (inputValueLanguage != null && inputValueLanguage.length() == 2) {
+          language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
+        } else {
+          language = null;
+        }
+
         final String value = inputValue.getValue().toLowerCase(Locale.US);
 
         if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
@@ -220,26 +238,33 @@ public class EnrichmentService {
   }
 
   public List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
-    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNamesAndValues);
+    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
+    fieldNameMap.put(null, fieldNamesAndValues);
+    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
   }
 
   private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
       String termLanguage) {
 
+    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
     //Find all terms that match label and language. Order of Pairs matter for the query performance.
-    final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
-    fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
+    final List<Pair<String, String>> labelInfosFields = new ArrayList<>();
+    labelInfosFields.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
     //If language not defined we are searching without specifying the language
     if (StringUtils.isNotBlank(termLanguage)) {
-      fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
+      labelInfosFields.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
     }
 
+    final List<Pair<String, String>> enrichmentTermFields = new ArrayList<>();
+
     if(entityType != null) {
-      fieldNamesAndValues
+      enrichmentTermFields
           .add(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()));
     }
+    fieldNameMap.put(EnrichmentDao.LABEL_INFOS_FIELD, labelInfosFields);
+    fieldNameMap.put(null, enrichmentTermFields);
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
-        .getAllEnrichmentTermsByFields(fieldNamesAndValues);
+        .getAllEnrichmentTermsByFields(fieldNameMap);
     final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
         .map(this::findParentEntities).flatMap(List::stream)
         .collect(Collectors.toList());
