@@ -148,23 +148,29 @@ public class EnrichmentService {
   }
 
   public List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
-    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNamesAndValues);
+    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
+    fieldNameMap.put(null, fieldNamesAndValues);
+    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
   }
 
   private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
       String termLanguage) {
 
+    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
     //Find all terms that match label and language. Order of Pairs matter for the query performance.
-    final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
-    fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
+    final List<Pair<String, String>> labelInfosFields = new ArrayList<>();
+    labelInfosFields.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
     //If language not defined we are searching without specifying the language
     if (StringUtils.isNotBlank(termLanguage)) {
-      fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
+      labelInfosFields.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
     }
-    fieldNamesAndValues
+    fieldNameMap.put(EnrichmentDao.LABEL_INFOS_FIELD, labelInfosFields);
+    final List<Pair<String, String>> enrichmentTermFields = new ArrayList<>();
+    enrichmentTermFields
         .add(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()));
+    fieldNameMap.put(null, enrichmentTermFields);
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
-        .getAllEnrichmentTermsByFields(fieldNamesAndValues);
+        .getAllEnrichmentTermsByFields(fieldNameMap);
     final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
         .map(enrichmentTerm -> findParentEntities(entityType, enrichmentTerm)).flatMap(List::stream)
         .collect(Collectors.toList());
