@@ -72,11 +72,17 @@ public class EnrichmentService {
             .contains(inputValueLanguage)) ? inputValueLanguage : null;
         final String value = searchValue.getValue().toLowerCase(Locale.US);
 
-        if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
+        if(StringUtils.isBlank(value)){
           continue;
         }
-        for (EntityType entityType : entityTypes) {
-          enrichmentBases.addAll(findEnrichmentTerms(entityType, value, language));
+
+        if (CollectionUtils.isEmpty(entityTypes)) {
+          enrichmentBases.addAll(findEnrichmentTerms(null, value, language));
+        }
+        else {
+          for (EntityType entityType : entityTypes) {
+            enrichmentBases.addAll(findEnrichmentTerms(entityType, value, language));
+          }
         }
       }
     } catch (RuntimeException e) {
@@ -227,12 +233,15 @@ public class EnrichmentService {
     if (StringUtils.isNotBlank(termLanguage)) {
       fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
     }
-    fieldNamesAndValues
-        .add(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()));
+
+    if(entityType != null) {
+      fieldNamesAndValues
+          .add(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()));
+    }
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
         .getAllEnrichmentTermsByFields(fieldNamesAndValues);
     final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
-        .map(enrichmentTerm -> findParentEntities(entityType, enrichmentTerm)).flatMap(List::stream)
+        .map(this::findParentEntities).flatMap(List::stream)
         .collect(Collectors.toList());
 
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
@@ -243,15 +252,13 @@ public class EnrichmentService {
     return enrichmentBases;
   }
 
-  private List<EnrichmentTerm> findParentEntities(EntityType entityType,
-      EnrichmentTerm enrichmentTerm) {
+  private List<EnrichmentTerm> findParentEntities(EnrichmentTerm enrichmentTerm) {
     Set<String> parentAbouts = findParentAbouts(enrichmentTerm);
     //Do not get entities for very broad TIMESPAN
-    if (entityType == EntityType.TIMESPAN) {
       parentAbouts = parentAbouts.stream().filter(
           parentAbout -> !PATTERN_MATCHING_VERY_BROAD_TIMESPANS.matcher(parentAbout).matches())
           .collect(Collectors.toSet());
-    }
+
 
     final List<Pair<String, List<String>>> fieldNamesAndValues = new ArrayList<>();
     fieldNamesAndValues

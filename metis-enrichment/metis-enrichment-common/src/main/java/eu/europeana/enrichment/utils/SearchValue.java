@@ -1,10 +1,12 @@
 package eu.europeana.enrichment.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.Arrays;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Enrichment input class wrapper. It defines the basics needed for enrichment as the value to be
