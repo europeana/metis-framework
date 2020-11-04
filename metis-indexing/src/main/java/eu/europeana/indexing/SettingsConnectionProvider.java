@@ -70,7 +70,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   private static MongoClient createMongoClient(IndexingSettings settings)
       throws SetupRelatedIndexingException {
 
-    // Perform logging
+    // Perform logging unecessary
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
           "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
@@ -126,7 +126,6 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   @Override
   public void close() throws IOException {
-    recordDao.close();
     mongoClient.close();
     this.solrClient.close();
   }
