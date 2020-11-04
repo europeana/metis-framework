@@ -52,17 +52,11 @@ public class MongoClientProvider<E extends Exception> {
    * the details). The connection URL can provide settings that will override the default settings.
    *
    * @param connectionUri The connection URI as a string
-   * @param maxConnectionIdleTime The max connection idle time
    * @param exceptionCreator How to report exceptions.
    * @throws E In case the connection URI is not valid.
    */
-  public MongoClientProvider(String connectionUri, int maxConnectionIdleTime,
-      Function<String, E> exceptionCreator) throws E {
+  public MongoClientProvider(String connectionUri, Function<String, E> exceptionCreator) throws E {
     final Builder clientSettingsBuilder = getDefaultClientSettingsBuilder();
-    if (maxConnectionIdleTime > 0) {
-      clientSettingsBuilder.applyToConnectionPoolSettings(
-          builder -> builder.maxConnectionIdleTime(maxConnectionIdleTime, TimeUnit.SECONDS));
-    }
 
     final ConnectionString connectionString;
     try {
@@ -137,30 +131,25 @@ public class MongoClientProvider<E extends Exception> {
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, int, Function)}. See that
+   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that
    * constructor for the details.
    *
    * @param connectionUri The connection URI.
-   * @param maxConnectionIdleTime The max connection idle time
    * @return An instance.
    */
-  public static MongoClientProvider<IllegalArgumentException> create(String connectionUri,
-      int maxConnectionIdleTime) {
-    return new MongoClientProvider<>(connectionUri, maxConnectionIdleTime,
-        IllegalArgumentException::new);
+  public static MongoClientProvider<IllegalArgumentException> create(String connectionUri) {
+    return new MongoClientProvider<>(connectionUri, IllegalArgumentException::new);
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, int, Function)}. See that
+   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that
    * constructor for the details.
    *
    * @param connectionUri The connection URI.
-   * @param maxConnectionIdleTime The max connection idle time
    * @return A supplier for {@link MongoClient} instances based on this class.
    */
-  public static Supplier<MongoClient> createAsSupplier(String connectionUri,
-      int maxConnectionIdleTime) {
-    return create(connectionUri, maxConnectionIdleTime)::createMongoClient;
+  public static Supplier<MongoClient> createAsSupplier(String connectionUri) {
+    return create(connectionUri)::createMongoClient;
   }
 
   /**

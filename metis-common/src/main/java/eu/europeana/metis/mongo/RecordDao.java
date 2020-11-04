@@ -39,8 +39,6 @@ import org.slf4j.LoggerFactory;
 public class RecordDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RecordDao.class);
-
-  private final MongoClient mongoClient;
   private final Datastore datastore;
 
   /**
@@ -63,16 +61,15 @@ public class RecordDao {
    * @param createIndexes flag that initiates the database/indices
    */
   public RecordDao(MongoClient mongoClient, String databaseName, boolean createIndexes) {
-    this.mongoClient = mongoClient;
-    this.datastore = createDatastore(databaseName);
+    this.datastore = createDatastore(mongoClient, databaseName);
     if (createIndexes) {
       LOGGER.info("Initializing database indices");
       datastore.ensureIndexes();
     }
   }
 
-  private Datastore createDatastore(String databaseName) {
-    final Datastore morphiaDatastore = Morphia.createDatastore(this.mongoClient, databaseName);
+  private Datastore createDatastore(MongoClient mongoClient, String databaseName) {
+    final Datastore morphiaDatastore = Morphia.createDatastore(mongoClient, databaseName);
     final Mapper mapper = morphiaDatastore.getMapper();
     mapper.map(FullBeanImpl.class);
     mapper.map(ProvidedCHOImpl.class);
@@ -144,18 +141,10 @@ public class RecordDao {
 
   @Override
   public String toString() {
-    return "MongoDB: [Hosts: " + mongoClient.getClusterDescription().getClusterSettings().getHosts()
-        + "]\n" + "[DB: " + datastore.getDatabase().getName() + "]\n";
+    return "{ datastore=" + datastore.getDatabase().getName() + " }";
   }
 
   public <T> T searchByAbout(Class<T> clazz, String about) {
     return datastore.find(clazz).filter(Filters.eq("about", about)).first();
-  }
-
-  public void close() {
-    if (mongoClient != null) {
-      LOGGER.info("Closing MongoClient for EDMMongoServer");
-      mongoClient.close();
-    }
   }
 }

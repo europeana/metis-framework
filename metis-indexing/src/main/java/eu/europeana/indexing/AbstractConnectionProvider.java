@@ -30,7 +30,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A publisher.
    */
   default FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {
-    return new FullBeanPublisher(getEdmMongoClient(), getRecordRedirectDao(), getSolrClient(),
+    return new FullBeanPublisher(getRecordDao(), getRecordRedirectDao(), getSolrClient(),
         preserveUpdateAndCreateTimesFromRdf);
   }
 
@@ -56,7 +56,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A dataset remover.
    */
   default IndexedRecordAccess getIndexedRecordAccess() {
-    return new IndexedRecordAccess(getEdmMongoClient(), getSolrClient());
+    return new IndexedRecordAccess(getRecordDao(), getSolrClient());
   }
 
   /**
@@ -71,7 +71,7 @@ public interface AbstractConnectionProvider extends Closeable {
    *
    * @return A Mongo client.
    */
-  RecordDao getEdmMongoClient();
+  RecordDao getRecordDao();
 
   /**
    * Provides a Mongo redirect dao.

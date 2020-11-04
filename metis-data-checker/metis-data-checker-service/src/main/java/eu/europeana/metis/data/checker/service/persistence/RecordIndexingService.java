@@ -1,7 +1,6 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
 import dev.morphia.DeleteOptions;
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -20,6 +19,8 @@ import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.Indexer;
 import eu.europeana.indexing.IndexerFactory;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
 import java.util.Date;
 import org.apache.solr.client.solrj.SolrClient;
@@ -28,14 +29,11 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Record persistence DAO Created by ymamakis on 9/2/16.
- */
 @Service
-public class RecordDao {
+public class RecordIndexingService {
 
   private final SolrClient solrServer;
-  private final eu.europeana.metis.mongo.RecordDao mongoServer;
+  private final RecordDao mongoServer;
   private final Indexer indexer;
 
   /**
@@ -45,14 +43,14 @@ public class RecordDao {
    * @throws IndexingException In case of problems setting up the indexer.
    */
   @Autowired
-  public RecordDao(AbstractConnectionProvider connectionProvider) throws IndexingException {
-    this(connectionProvider.getSolrClient(), connectionProvider.getEdmMongoClient(),
-        new IndexerFactory(connectionProvider.getEdmMongoClient(),
+  public RecordIndexingService(AbstractConnectionProvider connectionProvider) throws IndexingException {
+    this(connectionProvider.getSolrClient(), connectionProvider.getRecordDao(),
+        new IndexerFactory(connectionProvider.getRecordDao(),
             connectionProvider.getRecordRedirectDao(), connectionProvider.getSolrClient())
             .getIndexer());
   }
 
-  RecordDao(SolrClient solrServer, eu.europeana.metis.mongo.RecordDao mongoServer, Indexer indexer) {
+  RecordIndexingService(SolrClient solrServer, eu.europeana.metis.mongo.RecordDao mongoServer, Indexer indexer) {
     this.solrServer = solrServer;
     this.mongoServer = mongoServer;
     this.indexer = indexer;

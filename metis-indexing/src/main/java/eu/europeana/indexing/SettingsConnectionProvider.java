@@ -34,7 +34,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   private final CompoundSolrClient solrClient;
   private final MongoClient mongoClient;
-  private final RecordDao edmMongoClient;
+  private final RecordDao recordDao;
   private final RecordRedirectDao recordRedirectDao;
 
   /**
@@ -58,7 +58,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     // Create mongo connection.
     try {
       this.mongoClient = createMongoClient(settings);
-      this.edmMongoClient = setUpEdmMongoConnection(settings, this.mongoClient);
+      this.recordDao = setUpEdmMongoConnection(settings, this.mongoClient);
       this.recordRedirectDao = setUpRecordRedirectDaoConnection(settings, this.mongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
@@ -115,8 +115,8 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   @Override
-  public RecordDao getEdmMongoClient() {
-    return edmMongoClient;
+  public RecordDao getRecordDao() {
+    return recordDao;
   }
 
   @Override
@@ -126,7 +126,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   @Override
   public void close() throws IOException {
-    edmMongoClient.close();
+    recordDao.close();
     mongoClient.close();
     this.solrClient.close();
   }

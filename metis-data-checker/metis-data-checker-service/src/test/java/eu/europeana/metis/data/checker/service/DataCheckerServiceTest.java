@@ -9,7 +9,7 @@ import eu.europeana.metis.data.checker.common.model.DatasetProperties;
 import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
 import eu.europeana.metis.data.checker.service.executor.ValidationTaskFactory;
 import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
-import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.data.checker.service.persistence.RecordIndexingService;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
@@ -27,13 +27,13 @@ import org.mockito.Mockito;
 public class DataCheckerServiceTest {
 
   private DataCheckerService service;
-  private RecordDao mockDao;
+  private RecordIndexingService mockDao;
   private DataCheckerServiceConfig mockConfig;
   private ValidationClient mockValidationClient;
 
   @BeforeEach
   public void prepare() {
-    mockDao = Mockito.mock(RecordDao.class);
+    mockDao = Mockito.mock(RecordIndexingService.class);
     mockConfig = Mockito.mock(DataCheckerServiceConfig.class);
     mockValidationClient = Mockito.mock(ValidationClient.class);
     final ValidationUtils validationUtils = new ValidationUtils(mockValidationClient, mockDao,

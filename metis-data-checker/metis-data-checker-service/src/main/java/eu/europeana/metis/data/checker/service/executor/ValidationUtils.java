@@ -3,7 +3,7 @@ package eu.europeana.metis.data.checker.service.executor;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.data.checker.service.persistence.RecordIndexingService;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.client.ValidationClient;
@@ -13,15 +13,15 @@ import java.util.Date;
 public class ValidationUtils {
 
   private final ValidationClient validationClient;
-  private final RecordDao recordDao;
+  private final RecordIndexingService recordIndexingService;
   private final String schemaBeforeTransformation;
   private final String schemaAfterTransformation;
   private final String xsltUrl;
 
-  public ValidationUtils(ValidationClient validationClient, RecordDao recordDao,
+  public ValidationUtils(ValidationClient validationClient, RecordIndexingService recordIndexingService,
       String schemaBeforeTransformation, String schemaAfterTransformation, String metisCoreUri) {
     this.validationClient = validationClient;
-    this.recordDao = recordDao;
+    this.recordIndexingService = recordIndexingService;
     this.schemaBeforeTransformation = schemaBeforeTransformation;
     this.schemaAfterTransformation = schemaAfterTransformation;
     this.xsltUrl = metisCoreUri + RestEndpoints.DATASETS_XSLT_DEFAULT;
@@ -36,7 +36,7 @@ public class ValidationUtils {
   }
 
   public void persist(RDF rdf, Date recordDate) throws IndexingException {
-    recordDao.createRecord(rdf, recordDate);
+    recordIndexingService.createRecord(rdf, recordDate);
   }
 
   public XsltTransformer createTransformer(String datasetName, String edmCountry,

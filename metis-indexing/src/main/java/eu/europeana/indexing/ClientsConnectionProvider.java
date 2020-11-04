@@ -46,7 +46,7 @@ final class ClientsConnectionProvider implements AbstractConnectionProvider {
   }
 
   @Override
-  public RecordDao getEdmMongoClient() {
+  public RecordDao getRecordDao() {
     return edmMongoClient;
   }
 

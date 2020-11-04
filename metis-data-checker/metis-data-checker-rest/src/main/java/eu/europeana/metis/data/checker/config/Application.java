@@ -7,7 +7,7 @@ import eu.europeana.indexing.SettingsConnectionProvider;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.data.checker.service.ZipService;
 import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
-import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.data.checker.service.persistence.RecordIndexingService;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.client.ValidationClient;
 import java.io.IOException;
@@ -204,8 +204,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  RecordDao recordDao() throws IndexingException {
-    return new RecordDao(indexingConnection);
+  RecordIndexingService recordIndexingService() throws IndexingException {
+    return new RecordIndexingService(indexingConnection);
   }
 
   @Bean
@@ -229,7 +229,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   public ValidationUtils getValidationUtils() throws IOException, IndexingException {
-    return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
+    return new ValidationUtils(validationClient(), recordIndexingService(), schemaBeforeTransformation,
         schemaAfterTransformation, metisCoreUri);
   }
 
