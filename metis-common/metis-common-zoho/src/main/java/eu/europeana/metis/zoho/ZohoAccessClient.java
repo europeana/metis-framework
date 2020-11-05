@@ -9,7 +9,6 @@ import com.zoho.crm.library.exception.ZCRMException;
 import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
 import com.zoho.oauth.client.ZohoOAuthClient;
 import com.zoho.oauth.common.ZohoOAuthException;
-import eu.europeana.metis.exception.BadContentException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,8 +20,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.lang.Nullable;
-import org.springframework.util.CollectionUtils;
 
 /**
  * Class that contains methods related to communication with the Zoho service.
@@ -51,7 +48,7 @@ public class ZohoAccessClient {
    * @param zcrmConfigurations the key value map of zoho configuration
    * @throws ZohoOAuthException if initialization of {@link ZCRMRestClient} failed.
    */
-  public ZohoAccessClient(@Nullable String grantToken, Map<String, String> zcrmConfigurations)
+  public ZohoAccessClient(String grantToken, Map<String, String> zcrmConfigurations)
       throws ZohoOAuthException {
     try {
       ZCRMRestClient.initialize(new HashMap<>(zcrmConfigurations));
@@ -81,14 +78,14 @@ public class ZohoAccessClient {
    *
    * @param email the email to search for
    * @return the contact corresponding to the email
-   * @throws BadContentException if an exception occurred during searching
+   * @throws ZohoException if an exception occurred during searching
    */
-  public Optional<ZCRMRecord> getZcrmRecordContactByEmail(String email) throws BadContentException {
+  public Optional<ZCRMRecord> getZcrmRecordContactByEmail(String email) throws ZohoException {
     final BulkAPIResponse bulkAPIResponseContacts;
     try {
       bulkAPIResponseContacts = zcrmModuleContacts.searchByEmail(email);
     } catch (ZCRMException e) {
-      throw new BadContentException("Zoho search by email threw an exception", e);
+      throw new ZohoException("Zoho search by email threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseContacts.getData(),
         ZCRMRecord.class);
@@ -100,10 +97,10 @@ public class ZohoAccessClient {
    *
    * @param organizationName the organization name to search for
    * @return the organization corresponding to the organization name
-   * @throws BadContentException if an exception occurred during searching
+   * @throws ZohoException if an exception occurred during searching
    */
   public Optional<ZCRMRecord> getZcrmRecordOrganizationByName(String organizationName)
-      throws BadContentException {
+      throws ZohoException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
       bulkAPIResponseAccounts = zcrmModuleAccounts
@@ -112,7 +109,7 @@ public class ZohoAccessClient {
                   ZohoConstants.ACCOUNT_NAME_FIELD,
                   ZohoConstants.EQUALS_OPERATION, organizationName));
     } catch (ZCRMException e) {
-      throw new BadContentException(
+      throw new ZohoException(
           "Zoho search organization by organization name threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseAccounts.getData(),
@@ -125,10 +122,10 @@ public class ZohoAccessClient {
    *
    * @param organizationId the organization id to search for
    * @return the organization corresponding to the organization id
-   * @throws BadContentException if an exception occurred during searching
+   * @throws ZohoException if an exception occurred during searching
    */
   public Optional<ZCRMRecord> getZcrmRecordOrganizationById(String organizationId)
-      throws BadContentException {
+      throws ZohoException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
       bulkAPIResponseAccounts = zcrmModuleAccounts
@@ -137,7 +134,7 @@ public class ZohoAccessClient {
                   ZohoConstants.EQUALS_OPERATION,
                   organizationId));
     } catch (ZCRMException e) {
-      throw new BadContentException(
+      throw new ZohoException(
           "Zoho search organization by organization id threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseAccounts.getData(),
@@ -151,13 +148,14 @@ public class ZohoAccessClient {
    * @param startPage The number of the item from which the paging should start. First item is at
    * number 1. Uses default number of items per page.
    * @return the list of deleted Zoho Organizations
-   * @throws BadContentException if an error occurred during accessing Zoho
+   * @throws ZohoException if an error occurred during accessing Zoho
    */
   public List<ZCRMTrashRecord> getZCRMTrashRecordDeletedOrganizations(int startPage)
-      throws BadContentException {
+      throws ZohoException {
+
 
     if (startPage < 1) {
-      throw new BadContentException(
+      throw new ZohoException(
           "Invalid start page index. Index must be >= 1",
           new IllegalArgumentException("start page: " + startPage));
     }
@@ -166,7 +164,7 @@ public class ZohoAccessClient {
       bulkAPIResponseDeletedRecords = zcrmModuleAccounts
           .getDeletedRecords(startPage, ITEMS_PER_PAGE);
     } catch (ZCRMException e) {
-      throw new BadContentException("Cannot get deleted organization list from: "
+      throw new ZohoException("Cannot get deleted organization list from: "
           + startPage, e);
     }
     return castItemsToType(bulkAPIResponseDeletedRecords.getData(), ZCRMTrashRecord.class);
@@ -179,10 +177,10 @@ public class ZohoAccessClient {
    * @param rows the number of entries to be returned, Zoho will have an upper limit
    * @param modifiedDate the date of last modification to check
    * @return the list of Zoho Organizations
-   * @throws BadContentException if an error occurred during accessing Zoho
+   * @throws ZohoException if an error occurred during accessing Zoho
    */
   public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date modifiedDate)
-      throws BadContentException {
+      throws ZohoException {
     return getZcrmRecordOrganizations(start, rows, modifiedDate, null, null);
   }
 
@@ -197,13 +195,13 @@ public class ZohoAccessClient {
    * ZohoConstants#EQUALS_OPERATION},{@link ZohoConstants#STARTS_WITH_OPERATION}. If not provided or
    * wrong value, it will default to {@link ZohoConstants#EQUALS_OPERATION}.
    * @return the list of Zoho Organizations
-   * @throws BadContentException if an error occurred during accessing Zoho
+   * @throws ZohoException if an error occurred during accessing Zoho
    */
   public List<ZCRMRecord> getZcrmRecordOrganizations(int page, int pageSize, Date modifiedDate,
-      Map<String, String> searchCriteria, String criteriaOperator) throws BadContentException {
+      Map<String, String> searchCriteria, String criteriaOperator) throws ZohoException {
 
     if (page < 1 || pageSize < 1) {
-      throw new BadContentException(
+      throw new ZohoException(
           "Invalid page or pageSize index. Index must be >= 1",
           new IllegalArgumentException(
               String.format("Provided page: %s, and pageSize: %s", page, pageSize)));
@@ -217,7 +215,7 @@ public class ZohoAccessClient {
 
     final BulkAPIResponse bulkAPIResponse;
     try {
-      if (CollectionUtils.isEmpty(searchCriteria)) {//No searchCriteria available
+      if (isNullOrEmpty(searchCriteria)) {//No searchCriteria available
         bulkAPIResponse = zcrmModuleAccounts
             .getRecords(null, null, null, start, pageSize, modifiedDateString, null, Boolean.FALSE);
       } else {
@@ -226,7 +224,7 @@ public class ZohoAccessClient {
                 pageSize);
       }
     } catch (ZCRMException e) {
-      throw new BadContentException(
+      throw new ZohoException(
           "Cannot get organization list from: " + start + " rows :" + pageSize, e);
     }
 
@@ -246,7 +244,7 @@ public class ZohoAccessClient {
    */
   private String createZohoCriteriaString(Map<String, String> searchCriteria,
       String criteriaOperator) {
-    if (CollectionUtils.isEmpty(searchCriteria)) {
+    if (isNullOrEmpty(searchCriteria)) {
       searchCriteria = new HashMap<>();
     }
 
@@ -268,5 +266,9 @@ public class ZohoAccessClient {
       Class<T> classType) {
     return zcrmEntities.stream().filter(classType::isInstance).map(classType::cast)
         .collect(Collectors.toList());
+  }
+
+  public static boolean isNullOrEmpty(final Map<?, ?> m) {
+    return m == null || m.isEmpty();
   }
 }

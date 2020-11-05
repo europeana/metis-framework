@@ -1,4 +1,4 @@
-package eu.europeana.metis.common.model;
+package eu.europeana.metis.zoho;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

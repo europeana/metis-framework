@@ -25,9 +25,9 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.zoho.crm</groupId>
-      <artifactId>java-sdk</artifactId>
-      <version>${version.com.zoho.crm.java-sdk}</version>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-zoho</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
