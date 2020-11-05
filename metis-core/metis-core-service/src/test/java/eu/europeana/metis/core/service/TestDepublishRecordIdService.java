@@ -1,10 +1,11 @@
 package eu.europeana.metis.core.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -17,15 +18,14 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
+import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.rest.DepublishRecordIdView;
-import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.GenericMetisException;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -87,28 +87,29 @@ public class TestDepublishRecordIdService {
 
   @Test
   void getDepublishRecordIdsTest() throws GenericMetisException {
-    final ResponseListWrapper<DepublishRecordIdView> mockResponseListWrapper = mock(
-        ResponseListWrapper.class);
-    final List<DepublishRecordIdView> mockResultList = new ArrayList<>();
-    final DepublishRecordIdView mockDepublishRecordIdView = mock(DepublishRecordIdView.class);
-    mockResultList.add(mockDepublishRecordIdView);
 
-    doReturn(mockResponseListWrapper).when(depublishRecordIdService)
-        .createResponseListWrapper(anyList(), anyInt());
-    doReturn(mockResultList).when(depublishRecordIdDao)
-        .getDepublishRecordIds(anyString(), anyInt(), any(), any(), anyString());
-    doReturn(1).when(depublishRecordIdDao).getPageSize();
+    // Mock the DAO
+    final DepublishRecordId record = new DepublishRecordId();
+    record.setRecordId("RECORD_ID");
+    doReturn(List.of(new DepublishRecordIdView(record))).when(depublishRecordIdDao)
+        .getDepublishRecordIds(eq(datasetId), anyInt(), any(), any(), anyString());
 
-    depublishRecordIdService
-        .getDepublishRecordIds(metisUser, datasetId, 1, DepublishRecordIdSortField.RECORD_ID,
-            SortDirection.ASCENDING, "search");
+    // Make the actual call
+    final var result = depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId, 1,
+            DepublishRecordIdSortField.RECORD_ID, SortDirection.ASCENDING, "search");
 
+    // Verify the interactions
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
-    verify(depublishRecordIdDao, times(1))
-        .getDepublishRecordIds(anyString(), anyInt(), any(), any(), anyString());
-    verify(depublishRecordIdService, times(1)).createResponseListWrapper(anyList(), anyInt());
+    verify(depublishRecordIdDao, times(1)).getDepublishRecordIds(datasetId,
+            1, DepublishRecordIdSortField.RECORD_ID, SortDirection.ASCENDING, "search");
+    verify(depublishRecordIdDao, times(1)).getDepublishRecordIds(anyString(),
+            anyInt(), any(), any(), anyString());
     verifyNoMoreInteractions(orchestratorService);
 
+    // verify the result
+    assertEquals(1, result.getListSize());
+    assertEquals(1, result.getResults().size());
+    assertEquals(record.getRecordId(), result.getResults().get(0).getRecordId());
   }
 
   @Test

@@ -138,8 +138,9 @@ public class DepublishRecordIdService {
         .getDepublishRecordIds(datasetId, page, sortField, sortDirection, searchQuery);
 
     // Compile the result
-   return createResponseListWrapper(records, page);
-
+    final ResponseListWrapper<DepublishRecordIdView> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
+    return result;
   }
 
   /**
@@ -251,12 +252,6 @@ public class DepublishRecordIdService {
       String recordIdsInSeparateLines) throws BadContentException {
     return DepublishRecordIdUtils
         .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
-  }
-
-  ResponseListWrapper<DepublishRecordIdView> createResponseListWrapper(List<DepublishRecordIdView> records, int page){
-    final ResponseListWrapper<DepublishRecordIdView> result = new ResponseListWrapper<>();
-    result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
-    return result;
   }
 
   Workflow createNewWorkflow(){
