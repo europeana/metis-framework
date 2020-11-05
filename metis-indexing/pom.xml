@@ -10,6 +10,21 @@
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-internal</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-mongo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-solr</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-schema</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -37,17 +52,6 @@
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-core</artifactId>
       <version>${version.mongodb.driver.core}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.solr</groupId>
-      <artifactId>solr-solrj</artifactId>
-      <version>${version.solr.solrj}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -78,16 +82,6 @@
       <artifactId>mockito-core</artifactId>
       <version>${version.mockito.core}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-internal</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-mongo</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 </project>

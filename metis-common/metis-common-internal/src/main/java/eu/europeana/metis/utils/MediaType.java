@@ -7,6 +7,7 @@ import java.util.Arrays;
  *
  * @author jochen
  */
+// TODO: 05/11/2020 Move this class to the upcoming module that will contain the europeana record models
 public enum MediaType {
 
   /**

@@ -16,12 +16,6 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-internal</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.solr</groupId>
-          <artifactId>solr-solrj</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
