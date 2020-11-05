@@ -2,7 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
-import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
 
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.DeleteOptions;

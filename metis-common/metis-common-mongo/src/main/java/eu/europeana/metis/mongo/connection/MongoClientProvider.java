@@ -1,4 +1,4 @@
-package eu.europeana.metis.mongo;
+package eu.europeana.metis.mongo.connection;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -9,7 +9,7 @@ import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import eu.europeana.metis.mongo.MongoProperties.ReadPreferenceValue;
+import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;

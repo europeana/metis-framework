@@ -1,7 +1,7 @@
 package eu.europeana.indexing;
 
-import eu.europeana.metis.mongo.RecordDao;
-import eu.europeana.metis.mongo.RecordRedirectDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.io.Closeable;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;

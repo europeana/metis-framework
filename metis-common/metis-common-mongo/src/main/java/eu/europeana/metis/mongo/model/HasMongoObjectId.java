@@ -1,4 +1,4 @@
-package eu.europeana.metis.mongo;
+package eu.europeana.metis.mongo.model;
 
 import org.bson.types.ObjectId;
 

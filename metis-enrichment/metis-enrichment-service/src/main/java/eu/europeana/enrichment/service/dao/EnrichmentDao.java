@@ -15,7 +15,7 @@ import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.mongo.MorphiaUtils;
+import eu.europeana.metis.mongo.utils.MorphiaUtils;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
 import java.util.List;

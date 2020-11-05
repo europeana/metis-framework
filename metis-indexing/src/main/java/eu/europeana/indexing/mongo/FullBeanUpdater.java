@@ -9,7 +9,7 @@ import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
 import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 import eu.europeana.indexing.utils.TriConsumer;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.ArrayList;
 import java.util.Date;
 import org.apache.commons.lang3.tuple.Pair;

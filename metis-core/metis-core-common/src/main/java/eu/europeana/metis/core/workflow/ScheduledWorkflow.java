@@ -8,8 +8,8 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.mongo.ObjectIdSerializer;
-import eu.europeana.metis.mongo.HasMongoObjectId;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import eu.europeana.metis.mongo.model.HasMongoObjectId;
 import java.util.Date;
 import org.bson.types.ObjectId;
 

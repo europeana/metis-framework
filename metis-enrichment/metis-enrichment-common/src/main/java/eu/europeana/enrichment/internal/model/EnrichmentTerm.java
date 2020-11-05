@@ -9,7 +9,7 @@ import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.enrichment.api.external.model.LabelInfo;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.mongo.ObjectIdSerializer;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;

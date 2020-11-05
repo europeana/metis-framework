@@ -11,7 +11,7 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;

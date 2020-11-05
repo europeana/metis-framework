@@ -2,7 +2,7 @@ package eu.europeana.indexing.mongo;
 
 import eu.europeana.indexing.mongo.property.MongoObjectUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.Date;
 
 /**

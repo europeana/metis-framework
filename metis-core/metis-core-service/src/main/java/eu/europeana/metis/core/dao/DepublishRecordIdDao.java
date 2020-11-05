@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.dao;
 
-import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import dev.morphia.DeleteOptions;

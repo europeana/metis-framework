@@ -16,7 +16,7 @@ import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.mongo.CustomObjectMapper;
+import eu.europeana.metis.mongo.utils.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

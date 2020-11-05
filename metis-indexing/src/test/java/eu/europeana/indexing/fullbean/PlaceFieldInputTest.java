@@ -17,7 +17,7 @@ import eu.europeana.metis.schema.jibx.Note;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.PrefLabel;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import java.util.ArrayList;
 import java.util.List;

@@ -14,7 +14,7 @@ import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.LiteralType.Lang;
 import eu.europeana.metis.schema.jibx.Note;
 import eu.europeana.metis.schema.jibx.PrefLabel;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mongo;
+package eu.europeana.metis.mongo.embedded;
 
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;

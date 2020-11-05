@@ -1,4 +1,4 @@
-package eu.europeana.metis.mongo;
+package eu.europeana.metis.mongo.dao;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;

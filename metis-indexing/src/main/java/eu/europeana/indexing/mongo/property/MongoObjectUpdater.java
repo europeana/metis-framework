@@ -1,6 +1,6 @@
 package eu.europeana.indexing.mongo.property;
 
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.Date;
 
 /**

@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service.dao;
 
-import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.client.MongoClient;

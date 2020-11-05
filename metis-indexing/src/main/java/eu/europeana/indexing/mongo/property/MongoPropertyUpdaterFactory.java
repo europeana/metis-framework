@@ -5,7 +5,7 @@ import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
 import eu.europeana.indexing.utils.TriConsumer;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mongo;
+package eu.europeana.metis.mongo.dao;
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
@@ -7,6 +7,7 @@ import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
+import eu.europeana.metis.mongo.model.RecordRedirect;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.List;
 import org.bson.types.ObjectId;

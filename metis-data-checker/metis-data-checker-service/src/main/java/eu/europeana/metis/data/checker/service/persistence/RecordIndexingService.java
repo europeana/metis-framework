@@ -19,7 +19,7 @@ import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.Indexer;
 import eu.europeana.indexing.IndexerFactory;
 import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.metis.mongo.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
 import java.util.Date;
@@ -50,7 +50,7 @@ public class RecordIndexingService {
             .getIndexer());
   }
 
-  RecordIndexingService(SolrClient solrServer, eu.europeana.metis.mongo.RecordDao mongoServer, Indexer indexer) {
+  RecordIndexingService(SolrClient solrServer, RecordDao mongoServer, Indexer indexer) {
     this.solrServer = solrServer;
     this.mongoServer = mongoServer;
     this.indexer = indexer;

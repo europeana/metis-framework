@@ -49,7 +49,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.mongo.MorphiaUtils;
+import eu.europeana.metis.mongo.utils.MorphiaUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mongo;
+package eu.europeana.metis.mongo.connection;
 
 import com.mongodb.MongoCredential;
 import com.mongodb.ReadPreference;
