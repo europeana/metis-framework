@@ -21,7 +21,7 @@ import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.metis.schema.model.MediaType;
-import eu.europeana.metis.utils.Orientation;
+import eu.europeana.metis.schema.model.Orientation;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;

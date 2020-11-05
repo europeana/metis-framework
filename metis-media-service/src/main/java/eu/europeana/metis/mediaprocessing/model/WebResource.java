@@ -21,7 +21,7 @@ import eu.europeana.metis.schema.jibx.StringType;
 import eu.europeana.metis.schema.jibx.Type1;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import eu.europeana.metis.schema.jibx.Width;
-import eu.europeana.metis.utils.Orientation;
+import eu.europeana.metis.schema.model.Orientation;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.function.Supplier;

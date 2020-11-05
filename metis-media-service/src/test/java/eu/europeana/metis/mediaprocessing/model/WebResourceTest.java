@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.WebResourceType;
-import eu.europeana.metis.utils.Orientation;
+import eu.europeana.metis.schema.model.Orientation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

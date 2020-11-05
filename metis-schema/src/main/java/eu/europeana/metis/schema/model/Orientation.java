@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.schema.model;
 
 import java.util.Arrays;
 import java.util.Locale;
