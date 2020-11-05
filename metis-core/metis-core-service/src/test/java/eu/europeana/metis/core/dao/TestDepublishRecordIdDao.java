@@ -23,12 +23,12 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.time.Instant;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class TestDepublishRecordIdDao {
@@ -69,19 +69,18 @@ public class TestDepublishRecordIdDao {
   @Test
   void createRecordIdsToBeDepublishedTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<String> setTest = new HashSet<>();
-    setTest.add("1001");
+    final Set<String> setTest = Set.of("1001");
 
     depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest);
 
     assertEquals(1, provider.getDatastore().find(DepublishRecordId.class).count());
+    assertEquals("1001", provider.getDatastore().find(DepublishRecordId.class).first().getRecordId());
   }
 
   @Test
   void deletePendingRecordIdsTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<String> setTest = new HashSet<>();
-    setTest.add("1002");
+    final Set<String> setTest = Set.of("1002");
     final Query<DepublishRecordId> mockQuery = mock(Query.class);
     final Datastore mockDatastore = mock(Datastore.class);
 
@@ -102,8 +101,7 @@ public class TestDepublishRecordIdDao {
   @Test
   void countSuccessfullyDepublishedRecordIdsForDatasetTest() {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<String> setTest = new HashSet<>();
-    setTest.add("1003");
+    final Set<String> setTest = Set.of("1003");
 
     depublishRecordIdDao
         .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
@@ -117,9 +115,7 @@ public class TestDepublishRecordIdDao {
   @Test
   void getDepublishRecordIdsTest() {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<String> setTest = new HashSet<>();
-    setTest.add("1004");
-    setTest.add("1005");
+    final Set<String> setTest = Set.of("1004", "1005");
 
     depublishRecordIdDao
         .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
@@ -140,8 +136,7 @@ public class TestDepublishRecordIdDao {
   @Test
   void getAllDepublishRecordIdsWithStatusTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<String> setTest = new HashSet<>();
-    setTest.add("1006");
+    final Set<String> setTest = Set.of("1006");
 
     depublishRecordIdDao
         .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
@@ -153,10 +148,11 @@ public class TestDepublishRecordIdDao {
   }
 
   @Test
+  @Disabled
   void markRecordIdsWithDepublicationStatusTest() {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<String> setTest = new HashSet<>();
-    setTest.add("1007");
+    final Set<String> setTest = Set.of("1007");
+
 
     depublishRecordIdDao
         .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());

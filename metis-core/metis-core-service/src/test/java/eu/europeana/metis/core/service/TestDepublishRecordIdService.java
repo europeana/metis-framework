@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.service;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -23,6 +25,7 @@ import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.ArrayList;
@@ -133,7 +136,7 @@ public class TestDepublishRecordIdService {
   }
 
   @Test
-  void canTriggerDepublicationTest() throws GenericMetisException {
+  void canTriggerDepublicationResultTrueTest() throws GenericMetisException {
     final DatasetExecutionInformation mockExecutionInformation = mock(
         DatasetExecutionInformation.class);
 
@@ -141,13 +144,27 @@ public class TestDepublishRecordIdService {
         .getDatasetExecutionInformation(datasetId);
     doReturn(PublicationStatus.PUBLISHED).when(mockExecutionInformation).getPublicationStatus();
     doReturn(true).when(mockExecutionInformation).isLastPreviewRecordsReadyForViewing();
-    depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
+    doReturn(true).when(mockExecutionInformation).isLastPublishedRecordsReadyForViewing();
+    boolean result = depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
 
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
     verify(orchestratorService, times(1)).getRunningOrInQueueExecution(datasetId);
     verify(orchestratorService, times(1)).getDatasetExecutionInformation(datasetId);
     verify(mockExecutionInformation, times(1)).getPublicationStatus();
     verify(mockExecutionInformation, times(1)).isLastPublishedRecordsReadyForViewing();
+    assertTrue(result);
+  }
+
+  @Test
+  void canTriggerDepublicationResultFalseTest() throws GenericMetisException {
+    final WorkflowExecution mockWorkflow = mock(WorkflowExecution.class);
+
+    doReturn(mockWorkflow).when(orchestratorService).getRunningOrInQueueExecution(datasetId);
+    boolean result = depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
+
+    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
+    verify(orchestratorService, times(1)).getRunningOrInQueueExecution(datasetId);
+    assertFalse(result);
   }
 
 }
