@@ -14,7 +14,7 @@ public class CompoundSolrClient implements Closeable {
   private final LBHttpSolrClient httpSolrClient;
   private final CloudSolrClient cloudSolrClient;
 
-  CompoundSolrClient(LBHttpSolrClient httpSolrClient, CloudSolrClient cloudSolrClient) {
+  public CompoundSolrClient(LBHttpSolrClient httpSolrClient, CloudSolrClient cloudSolrClient) {
     this.httpSolrClient = httpSolrClient;
     this.cloudSolrClient = cloudSolrClient;
   }

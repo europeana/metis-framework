@@ -18,6 +18,17 @@
       <artifactId>metis-common-internal</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-network</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>${version.javax.ws.rs.api}</version>
+    </dependency>
 
     <dependency>
       <groupId>io.lindstrom</groupId>
