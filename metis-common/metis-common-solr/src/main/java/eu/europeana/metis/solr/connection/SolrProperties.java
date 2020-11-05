@@ -1,4 +1,4 @@
-package eu.europeana.metis.solr;
+package eu.europeana.metis.solr.connection;
 
 import eu.europeana.metis.network.InetAddressUtil;
 import java.net.InetSocketAddress;

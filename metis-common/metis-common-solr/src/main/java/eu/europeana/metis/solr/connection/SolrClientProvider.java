@@ -1,5 +1,6 @@
-package eu.europeana.metis.solr;
+package eu.europeana.metis.solr.connection;
 
+import eu.europeana.metis.solr.client.CompoundSolrClient;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.time.Duration;

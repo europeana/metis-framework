@@ -1,4 +1,4 @@
-package eu.europeana.metis.solr;
+package eu.europeana.metis.solr.client;
 
 import java.io.Closeable;
 import java.io.IOException;
