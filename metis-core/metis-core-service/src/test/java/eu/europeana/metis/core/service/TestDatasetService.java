@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;

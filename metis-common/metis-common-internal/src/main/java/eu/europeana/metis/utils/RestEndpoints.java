@@ -1,11 +1,8 @@
-package eu.europeana.metis;
+package eu.europeana.metis.utils;
 
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * REST Endpoints Created by ymamakis on 7/29/16.
- */
 public final class RestEndpoints {
   /* METIS-CORE Endopoints*/
 

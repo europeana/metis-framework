@@ -1,4 +1,4 @@
-package eu.europeana.metis;
+package eu.europeana.metis.utils;
 
 /**
  * Contains common used String values

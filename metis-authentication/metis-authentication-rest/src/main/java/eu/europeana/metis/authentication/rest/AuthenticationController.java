@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.rest;
 
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;

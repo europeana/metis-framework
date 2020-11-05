@@ -8,7 +8,7 @@ import eu.europeana.metis.mongo.RecordDao;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,14 +1,12 @@
 package eu.europeana.metis.mongo;
 
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
-
 import dev.morphia.aggregation.experimental.Aggregation;
 import dev.morphia.aggregation.experimental.AggregationOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -46,9 +44,9 @@ public final class MorphiaUtils {
    */
   public static <T> List<T> getListOfQueryRetryable(Query<T> query, FindOptions findOptions) {
     final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = getMorphiaCursorFromQuery();
-    return retryableExternalRequestForNetworkExceptions(() -> {
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       try (MorphiaCursor<T> cursor = queryFunction.apply(query, findOptions)) {
-        return performFunction(cursor, MorphiaCursor::toList);
+        return SonarqubeNullcheckAvoidanceUtils.performFunction(cursor, MorphiaCursor::toList);
       }
     });
   }
@@ -83,9 +81,9 @@ public final class MorphiaUtils {
       Class<R> resultObjectClass, AggregationOptions aggregationOptions) {
     final BiFunction<Aggregation<T>, AggregationOptions, MorphiaCursor<R>> aggregationFunction = getMorphiaCursorFromAggregation(
         resultObjectClass);
-    return retryableExternalRequestForNetworkExceptions(() -> {
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       try (MorphiaCursor<R> cursor = aggregationFunction.apply(aggregation, aggregationOptions)) {
-        return performFunction(cursor, MorphiaCursor::toList);
+        return SonarqubeNullcheckAvoidanceUtils.performFunction(cursor, MorphiaCursor::toList);
       }
     });
   }

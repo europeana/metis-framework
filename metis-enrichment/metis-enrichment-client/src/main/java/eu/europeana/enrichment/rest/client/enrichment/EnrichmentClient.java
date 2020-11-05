@@ -1,8 +1,8 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT;
-import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS;
-import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
+import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ABOUT;
+import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS;
+import static eu.europeana.metis.utils.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.InputValueList;

@@ -1,8 +1,8 @@
 package eu.europeana.metis.authentication.rest.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;

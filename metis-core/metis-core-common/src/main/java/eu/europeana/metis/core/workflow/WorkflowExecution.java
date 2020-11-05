@@ -7,7 +7,7 @@ import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.Indexes;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
 /**

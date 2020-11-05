@@ -41,7 +41,7 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
+      <artifactId>metis-common-internal</artifactId>
       <version>${project.version}</version>
       <exclusions>
         <!--Needs exclusion because of conflict versions of stax2-api-->

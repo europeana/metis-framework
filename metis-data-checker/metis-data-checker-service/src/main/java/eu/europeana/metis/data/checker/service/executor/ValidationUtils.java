@@ -2,7 +2,7 @@ package eu.europeana.metis.data.checker.service.executor;
 
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.data.checker.service.persistence.RecordIndexingService;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;

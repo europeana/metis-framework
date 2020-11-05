@@ -1,6 +1,6 @@
 package eu.europeana.metis.data.checker.rest;
 
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
 import eu.europeana.metis.data.checker.common.exception.DataCheckerValidationException;
 import eu.europeana.metis.data.checker.common.exception.ZipFileException;
