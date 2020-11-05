@@ -113,16 +113,6 @@
       <version>${version.spring}</version>
     </dependency>
     <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-internal</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-mongo</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
     </dependency>
