@@ -133,7 +133,7 @@ public class DepublishRecordIdDao {
     return recordIdsToAdd.size();
   }
 
-  private void addRecords(Set<String> recordIdsToAdd, String datasetId,
+  void addRecords(Set<String> recordIdsToAdd, String datasetId,
       DepublicationStatus depublicationStatus, Instant depublicationDate) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
@@ -176,8 +176,7 @@ public class DepublishRecordIdDao {
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
         DepublicationStatus.PENDING_DEPUBLICATION));
 
-    return retryableExternalRequestForNetworkExceptions(
-        () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
+    return deleteRecords(query);
   }
 
   /**
@@ -186,7 +185,7 @@ public class DepublishRecordIdDao {
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records for the given dataset.
    */
-  private long countDepublishRecordIdsForDataset(String datasetId) {
+  long countDepublishRecordIdsForDataset(String datasetId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());
@@ -402,4 +401,10 @@ public class DepublishRecordIdDao {
   public int getPageSize() {
     return pageSize;
   }
+
+  long deleteRecords(Query<DepublishRecordId> query) {
+    return retryableExternalRequestForNetworkExceptions(
+        () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
+  }
+
 }
