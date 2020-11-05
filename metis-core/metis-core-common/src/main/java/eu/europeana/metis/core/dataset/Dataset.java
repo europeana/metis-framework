@@ -15,7 +15,7 @@ import eu.europeana.metis.core.common.CountrySerializer;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.LanguageDeserializer;
 import eu.europeana.metis.core.common.LanguageSerializer;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.ObjectIdSerializer;
 import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.util.ArrayList;
 import java.util.Date;

@@ -16,7 +16,7 @@ import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.MorphiaUtils;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;

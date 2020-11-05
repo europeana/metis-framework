@@ -1,4 +1,4 @@
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.network.NetworkUtil;
 import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;

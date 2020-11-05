@@ -3,7 +3,7 @@ package eu.europeana.metis.core.dataset;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.ObjectIdSerializer;
 import org.bson.types.ObjectId;
 
 /**

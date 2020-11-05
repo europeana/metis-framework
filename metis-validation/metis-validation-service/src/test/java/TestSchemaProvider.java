@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.network.NetworkUtil;
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;

@@ -11,7 +11,7 @@ import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.ObjectIdSerializer;
 import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.util.ArrayList;
 import java.util.List;

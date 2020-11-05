@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Indexed;
-import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
 

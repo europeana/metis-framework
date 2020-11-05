@@ -11,5 +11,7 @@
 
   <modules>
     <module>metis-common-internal</module>
+    <module>metis-common-mongo</module>
+    <module>metis-common-network</module>
   </modules>
 </project>

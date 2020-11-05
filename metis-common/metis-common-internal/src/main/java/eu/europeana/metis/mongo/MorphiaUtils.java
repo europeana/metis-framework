@@ -5,7 +5,7 @@ import dev.morphia.aggregation.experimental.AggregationOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.internal.MorphiaCursor;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils;
 import java.util.List;
 import java.util.Optional;

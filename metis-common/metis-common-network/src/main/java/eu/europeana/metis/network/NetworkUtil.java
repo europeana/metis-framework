@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.network;
 
 import java.io.IOException;
 import java.net.InetAddress;

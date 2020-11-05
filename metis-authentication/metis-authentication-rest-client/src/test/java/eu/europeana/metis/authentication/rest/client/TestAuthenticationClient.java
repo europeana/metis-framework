@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.network.NetworkUtil;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

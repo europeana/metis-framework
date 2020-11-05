@@ -1,6 +1,6 @@
 package eu.europeana.indexing;
 
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.MongoClientException;
 import com.mongodb.MongoConfigurationException;

@@ -6,7 +6,7 @@ import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.io.IOException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

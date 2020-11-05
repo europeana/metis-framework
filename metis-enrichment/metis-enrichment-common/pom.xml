@@ -15,6 +15,11 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-mongo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>dev.morphia.morphia</groupId>
       <artifactId>morphia-core</artifactId>
       <version>${version.morphia.core}</version>

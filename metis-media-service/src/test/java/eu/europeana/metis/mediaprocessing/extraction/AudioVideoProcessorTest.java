@@ -34,7 +34,7 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.utils.MediaType;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.network.NetworkUtil;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;

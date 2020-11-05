@@ -1,6 +1,5 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.network;
 
-import com.mongodb.ServerAddress;
 import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.function.Function;
@@ -61,20 +60,5 @@ public class InetAddressUtil<E extends Exception> {
     return IntStream.range(0, hosts.length)
             .mapToObj(index -> new InetSocketAddress(hosts[index], portGetter.applyAsInt(index)))
             .collect(Collectors.toList());
-  }
-
-  /**
-   * This method converts arrays of hosts and ports to a list of Mongo-style Internet addresses.
-   *
-   * @param hosts The hosts. This cannot be null or empty.
-   * @param ports The ports. This cannot be null or empty. Must contain either the same number of
-   * elements as the hosts array, or exactly 1 element (which will then apply to all hosts).
-   * @return The list of converted internet addresses.
-   * @throws E In case either of the arrays is null, or their lengths don't match.
-   */
-  public List<ServerAddress> getMongoAddressesFromHostsAndPorts(String[] hosts,
-          int[] ports) throws E {
-    return getAddressesFromHostsAndPorts(hosts, ports).stream().map(ServerAddress::new).collect(
-            Collectors.toList());
   }
 }

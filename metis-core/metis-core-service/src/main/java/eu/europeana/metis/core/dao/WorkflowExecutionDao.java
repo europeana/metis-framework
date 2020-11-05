@@ -11,7 +11,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_TYPE;
 import static eu.europeana.metis.core.common.DaoFieldNames.STARTED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.WORKFLOW_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_ID;
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;

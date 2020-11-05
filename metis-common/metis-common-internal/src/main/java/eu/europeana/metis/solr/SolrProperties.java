@@ -1,6 +1,6 @@
 package eu.europeana.metis.solr;
 
-import eu.europeana.metis.utils.InetAddressUtil;
+import eu.europeana.metis.network.InetAddressUtil;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.ArrayList;

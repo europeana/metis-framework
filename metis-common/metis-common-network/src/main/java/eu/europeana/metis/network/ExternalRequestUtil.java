@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.network;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -16,7 +16,6 @@ import javax.ws.rs.NotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpServerErrorException;
 
 /**
@@ -234,10 +233,14 @@ public final class ExternalRequestUtil {
             .getMessage().toLowerCase(Locale.US).contains(entry.getValue().toLowerCase(Locale.US)));
 
     boolean foundMatch = false;
-    if (!CollectionUtils.isEmpty(exceptionStringMap)) {
+    if (!isNullOrEmpty(exceptionStringMap)) {
       foundMatch = exceptionStringMap.entrySet().stream().anyMatch(sameInstanceAndMessageMatches);
     }
     return foundMatch;
+  }
+
+  public static boolean isNullOrEmpty(final Map<?, ?> m) {
+    return m == null || m.isEmpty();
   }
 
   private static Throwable getCause(Throwable e) {

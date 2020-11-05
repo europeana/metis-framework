@@ -29,6 +29,11 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-mongo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europeana.cloud</groupId>
       <artifactId>ecloud-service-dps-rest-client-java</artifactId>
       <version>${version.ecloud}</version>

@@ -1,4 +1,4 @@
-package eu.europeana.metis.json;
+package eu.europeana.metis.mongo;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;

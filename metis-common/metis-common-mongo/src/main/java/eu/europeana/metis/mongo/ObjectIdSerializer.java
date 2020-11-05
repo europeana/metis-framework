@@ -1,4 +1,4 @@
-package eu.europeana.metis.json;
+package eu.europeana.metis.mongo;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

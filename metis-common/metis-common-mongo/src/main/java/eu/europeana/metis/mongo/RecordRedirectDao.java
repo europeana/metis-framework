@@ -7,7 +7,7 @@ import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -57,7 +57,8 @@ public class RecordRedirectDao {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
         .discriminator(DiscriminatorFunction.className())
         .collectionNaming(NamingStrategy.identity()).build();
-    final Datastore morphiaDatastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
+    final Datastore morphiaDatastore = Morphia
+        .createDatastore(mongoClient, databaseName, mapperOptions);
     morphiaDatastore.getMapper().map(RecordRedirect.class);
     LOGGER.info("Datastore initialized");
     return morphiaDatastore;
@@ -71,11 +72,10 @@ public class RecordRedirectDao {
    */
   public String createUpdate(RecordRedirect recordRedirect) {
     RecordRedirect recordRedirectSaved = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(
-            () -> datastore.save(recordRedirect));
-    LOGGER.debug(
-        "RecordRedirect with oldId: '{}', newId: '{}' and timestamp: '{}' created in Mongo",
-        recordRedirect.getOldId(), recordRedirect.getNewId(), recordRedirect.getTimestamp());
+        .retryableExternalRequestForNetworkExceptions(() -> datastore.save(recordRedirect));
+    LOGGER
+        .debug("RecordRedirect with oldId: '{}', newId: '{}' and timestamp: '{}' created in Mongo",
+            recordRedirect.getOldId(), recordRedirect.getNewId(), recordRedirect.getTimestamp());
     return recordRedirectSaved == null ? null : recordRedirectSaved.getId().toString();
   }
 
@@ -96,8 +96,8 @@ public class RecordRedirectDao {
    */
   public RecordRedirect getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
-        () -> datastore.find(RecordRedirect.class)
-            .filter(Filters.eq("_id", new ObjectId(id))).first());
+        () -> datastore.find(RecordRedirect.class).filter(Filters.eq("_id", new ObjectId(id)))
+            .first());
   }
 
   /**

@@ -40,7 +40,7 @@ import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.network.NetworkUtil;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;

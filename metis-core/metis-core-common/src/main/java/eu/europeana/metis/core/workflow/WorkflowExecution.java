@@ -12,7 +12,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.ObjectIdSerializer;
 import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.util.ArrayList;
 import java.util.Date;
