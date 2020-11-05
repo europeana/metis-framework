@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.network;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

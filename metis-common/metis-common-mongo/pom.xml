@@ -4,11 +4,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>metis-framework</artifactId>
+    <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
     <version>3-SNAPSHOT</version>
   </parent>
-
   <artifactId>metis-common-mongo</artifactId>
 
   <dependencies>
@@ -17,7 +16,7 @@
       <artifactId>metis-common-network</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!--    This dependency is a temporary one, until the morphia classeses are moved to metis-->
+    <!--    This dependency is a temporary one, until the morphia classes are moved to metis-->
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
@@ -31,6 +30,11 @@
       <groupId>dev.morphia.morphia</groupId>
       <artifactId>morphia-core</artifactId>
       <version>${version.morphia.core}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.flapdoodle.embed</groupId>
+      <artifactId>de.flapdoodle.embed.mongo</artifactId>
+      <version>${version.embedded.mongo}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
