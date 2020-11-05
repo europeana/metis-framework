@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.schema.model;
 
 import java.util.Arrays;
 
@@ -7,7 +7,6 @@ import java.util.Arrays;
  *
  * @author jochen
  */
-// TODO: 05/11/2020 Move this class to the upcoming module that will contain the europeana record models
 public enum MediaType {
 
   /**

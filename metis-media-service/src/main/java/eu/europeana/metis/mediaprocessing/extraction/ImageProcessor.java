@@ -6,13 +6,14 @@ import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
+import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
 import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>Implementation of {@link MediaProcessor} that is designed to handle resources of type
- * {@link eu.europeana.metis.utils.MediaType#IMAGE}.
+ * {@link MediaType#IMAGE}.
  * </p>
  * <p>
  * Note: if we don't have metadata, we still return the thumbnails. This is according to the specs:

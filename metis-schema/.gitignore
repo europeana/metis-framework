@@ -1,2 +1,3 @@
 #Those are generated files that we will be skipping until we introduce schema classes instead of jibx
-src/main/java/*
+src/main/java/eu/europeana/metis/schema/jibx
+src/main/java/*.xml

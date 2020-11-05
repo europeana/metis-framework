@@ -11,7 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;

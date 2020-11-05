@@ -10,7 +10,7 @@ import static org.mockito.Mockito.spy;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

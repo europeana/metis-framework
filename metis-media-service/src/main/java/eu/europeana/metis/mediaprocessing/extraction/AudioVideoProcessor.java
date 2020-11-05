@@ -7,7 +7,7 @@ import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 import io.lindstrom.mpd.MPDParser;
 import io.lindstrom.mpd.data.AdaptationSet;
 import io.lindstrom.mpd.data.FrameRate;
@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of types {@link
- * eu.europeana.metis.utils.MediaType#AUDIO} and {@link eu.europeana.metis.utils.MediaType#VIDEO}.
+ * MediaType#AUDIO} and {@link MediaType#VIDEO}.
  * </p>
  * <p>
  * Note: No thumbnails are created for audio or video files.

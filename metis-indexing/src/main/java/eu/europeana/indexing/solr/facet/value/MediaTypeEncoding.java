@@ -1,7 +1,7 @@
 package eu.europeana.indexing.solr.facet.value;
 
 import eu.europeana.indexing.utils.WebResourceWrapper;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 
 /**
  * This categorizes the media type.

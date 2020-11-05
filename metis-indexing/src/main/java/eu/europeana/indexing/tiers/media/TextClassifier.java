@@ -3,7 +3,7 @@ package eu.europeana.indexing.tiers.media;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 
 /**
  * Classifier for text.

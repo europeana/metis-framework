@@ -7,7 +7,7 @@ import eu.europeana.metis.schema.jibx.HexBinaryType;
 import eu.europeana.metis.schema.jibx.OrientationType;
 import eu.europeana.metis.schema.jibx.SpatialResolution;
 import eu.europeana.metis.schema.jibx.WebResourceType;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;
