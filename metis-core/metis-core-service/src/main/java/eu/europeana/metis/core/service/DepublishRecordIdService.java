@@ -183,9 +183,9 @@ public class DepublishRecordIdService {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     //Prepare depublish workflow, do not save in the database. Only create workflow execution
-    final Workflow workflow = createNewWorkflow();
+    final Workflow workflow = new Workflow();
     workflow.setDatasetId(datasetId);
-    final DepublishPluginMetadata depublishPluginMetadata = createNewDepublishPluginMetadata();
+    final DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
     depublishPluginMetadata.setEnabled(true);
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
     if (StringUtils.isNotBlank(recordIdsInSeparateLines)) {
@@ -254,11 +254,4 @@ public class DepublishRecordIdService {
         .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
   }
 
-  Workflow createNewWorkflow(){
-    return new Workflow();
-  }
-
-  DepublishPluginMetadata createNewDepublishPluginMetadata(){
-    return new DepublishPluginMetadata();
-  }
 }

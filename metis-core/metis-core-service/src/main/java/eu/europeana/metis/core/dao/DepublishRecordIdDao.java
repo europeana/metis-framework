@@ -185,7 +185,7 @@ public class DepublishRecordIdDao {
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records for the given dataset.
    */
-  private long countDepublishRecordIdsForDataset(String datasetId) {
+  long countDepublishRecordIdsForDataset(String datasetId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());

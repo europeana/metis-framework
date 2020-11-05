@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -27,12 +26,13 @@ import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 public class TestDepublishRecordIdService {
 
@@ -117,23 +117,27 @@ public class TestDepublishRecordIdService {
 
   @Test
   void createAndAddInQueueDepublishWorkflowExecutionTest() throws GenericMetisException {
-    final Workflow mockWorkflow = mock(Workflow.class);
-    final DepublishPluginMetadata mockDepublishPluginMetadata = mock(DepublishPluginMetadata.class);
+    //Mock Workflow and Set<String>
+    String mockRecordIdsSeparateLines = "RECORD_ID";
+    final Set<String> mockNormalizedRecordIds = Set.of(mockRecordIdsSeparateLines);
+    doReturn(mockNormalizedRecordIds).when(depublishRecordIdService).checkAndNormalizeRecordIds(datasetId,
+        mockRecordIdsSeparateLines);
 
-    doReturn(mockWorkflow).when(depublishRecordIdService).createNewWorkflow();
-    doReturn(mockDepublishPluginMetadata).when(depublishRecordIdService)
-        .createNewDepublishPluginMetadata();
-    depublishRecordIdService
-        .createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId, true, 1, "search");
+    //Do the actual call
+    WorkflowExecution result = depublishRecordIdService
+        .createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId, true, 1, mockRecordIdsSeparateLines);
 
+    //Verify interactions
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
-    verify(mockWorkflow, times(1)).setDatasetId(datasetId);
-    verify(mockDepublishPluginMetadata, times(1)).setEnabled(true);
-    verify(mockDepublishPluginMetadata, times(1)).setDatasetDepublish(anyBoolean());
-    verify(mockDepublishPluginMetadata, times(1)).setRecordIdsToDepublish(any());
-    verify(mockWorkflow, times(1)).setMetisPluginsMetadata(any());
     verify(orchestratorService, times(1))
         .addWorkflowInQueueOfWorkflowExecutions(any(), anyString(), any(), any(), anyInt());
+
+    //Verify values
+    ArgumentCaptor<Workflow> workflowArgumentCaptor = ArgumentCaptor.forClass(Workflow.class);
+    verify(orchestratorService, times(1))
+        .addWorkflowInQueueOfWorkflowExecutions(any(), anyString(), workflowArgumentCaptor.capture(), any(), anyInt());
+    Workflow sentWorkflow = workflowArgumentCaptor.getValue();
+    assertEquals(datasetId, sentWorkflow.getDatasetId());
   }
 
   @Test

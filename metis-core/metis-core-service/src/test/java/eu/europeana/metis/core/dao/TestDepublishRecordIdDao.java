@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -67,33 +68,55 @@ public class TestDepublishRecordIdDao {
   }
 
   @Test
-  void createRecordIdsToBeDepublishedTest() throws BadContentException {
+  void createRecordIdsToBeDepublishedHappyScenarioTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = Set.of("1001");
 
     depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest);
 
     assertEquals(1, provider.getDatastore().find(DepublishRecordId.class).count());
-    assertEquals("1001", provider.getDatastore().find(DepublishRecordId.class).first().getRecordId());
+    assertEquals("1001",
+        provider.getDatastore().find(DepublishRecordId.class).first().getRecordId());
+  }
+
+  @Test
+  void createRecordIdsToBeDepublishedBigNumberOfCandidateRecordIdsTest() {
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    final Set<String> setTest = Set.of("1008", "1009", "1010", "1011", "1012", "1013");
+
+    Throwable exception = assertThrows(BadContentException.class,
+        () -> depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest));
+
+    assertEquals("Can't add these records: this would violate the maximum number of records per dataset.",
+        exception.getMessage());
+  }
+
+  @Test
+  void createRecordIdsToBeDepublishedBigNumberOfDepublishedRecord(){
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    final Set<String> setTest = Set.of("1014");
+
+    doReturn(6L).when(depublishRecordIdDao).countDepublishRecordIdsForDataset(datasetId);
+
+    Throwable exception = assertThrows(BadContentException.class,
+        () -> depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest));
+
+    assertEquals("Can't add these records: this would violate the maximum number of records per dataset.",
+        exception.getMessage());
   }
 
   @Test
   void deletePendingRecordIdsTest() throws BadContentException {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = Set.of("1002");
-    final Query<DepublishRecordId> mockQuery = mock(Query.class);
-    final Datastore mockDatastore = mock(Datastore.class);
 
     depublishRecordIdDao
-        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
+        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
 
-    doReturn(mockDatastore).when(provider).getDatastore();
-    doReturn(mockQuery).when(mockDatastore).find(DepublishRecordId.class);
-    doReturn(1L).when(depublishRecordIdDao).deleteRecords(mockQuery);
+    assertEquals(1, provider.getDatastore().find(DepublishRecordId.class).count());
+
     depublishRecordIdDao.deletePendingRecordIds(datasetId, setTest);
 
-    verify(mockDatastore, times(1)).find(DepublishRecordId.class);
-    verify(mockQuery, times(3)).filter(any());
     assertEquals(0, provider.getDatastore().find(DepublishRecordId.class).count());
   }
 
@@ -150,12 +173,13 @@ public class TestDepublishRecordIdDao {
   @Test
   @Disabled
   void markRecordIdsWithDepublicationStatusTest() {
+    //TODO: This method is actually complex and this unit test is insufficient. Needs to be improved
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = Set.of("1007");
 
-
     depublishRecordIdDao
         .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
+    //Reset the provider and depublishRecordIdDao since the previous method will lead to misleading results later
     reset(provider, depublishRecordIdDao);
     depublishRecordIdDao
         .markRecordIdsWithDepublicationStatus(datasetId, setTest, DepublicationStatus.DEPUBLISHED,
