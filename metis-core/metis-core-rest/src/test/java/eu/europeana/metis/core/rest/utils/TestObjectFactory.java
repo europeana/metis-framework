@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.utils;
+package eu.europeana.metis.core.rest.utils;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;

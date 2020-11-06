@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.metis.core.rest.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

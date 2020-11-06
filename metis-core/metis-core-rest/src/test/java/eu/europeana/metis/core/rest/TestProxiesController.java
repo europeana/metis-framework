@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import eu.europeana.metis.core.utils.TestObjectFactory;
+import eu.europeana.metis.core.rest.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import java.util.ArrayList;
 import java.util.Arrays;
