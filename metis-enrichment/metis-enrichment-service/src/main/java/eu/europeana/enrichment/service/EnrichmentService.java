@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.service;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
@@ -65,8 +66,8 @@ public class EnrichmentService {
    * @param searchValues a list of structured search values with parameters
    * @return the enrichment values in a structured list
    */
-  public List<EnrichmentBase> enrichByEnrichmentSearchValues(List<SearchValue> searchValues) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+  public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(List<SearchValue> searchValues) {
+    final List<EnrichmentResultBaseWrapper> enrichmentBases = new ArrayList<>();
     try {
       for (SearchValue searchValue : searchValues) {
         final List<EntityType> entityTypes = searchValue.getEntityTypes();
@@ -88,11 +89,11 @@ public class EnrichmentService {
         }
 
         if (CollectionUtils.isEmpty(entityTypes)) {
-          enrichmentBases.addAll(findEnrichmentTerms(null, value, language));
+          enrichmentBases.add(new EnrichmentResultBaseWrapper(findEnrichmentTerms(null, value, language)));
         }
         else {
           for (EntityType entityType : entityTypes) {
-            enrichmentBases.addAll(findEnrichmentTerms(entityType, value, language));
+            enrichmentBases.add(new EnrichmentResultBaseWrapper(findEnrichmentTerms(entityType, value, language)));
           }
         }
       }

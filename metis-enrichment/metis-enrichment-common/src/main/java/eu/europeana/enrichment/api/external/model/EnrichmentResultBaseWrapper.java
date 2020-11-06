@@ -3,8 +3,11 @@ package eu.europeana.enrichment.api.external.model;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Wrapper of {@link EnrichmentBase}, used for easier (de)serialization.
@@ -12,6 +15,8 @@ import javax.xml.bind.annotation.XmlElements;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-07
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class EnrichmentResultBaseWrapper {
 
 
@@ -20,7 +25,7 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/", type = Agent.class),
       @XmlElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/", type = Place.class),
       @XmlElement(name = "Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type = Timespan.class)})
-  private EnrichmentBase enrichmentBase;
+  private List<EnrichmentBase> enrichmentBase;
 
   public EnrichmentResultBaseWrapper() {
   }
@@ -30,11 +35,11 @@ public class EnrichmentResultBaseWrapper {
    *
    * @param enrichmentBase the enrichment information class generated
    */
-  public EnrichmentResultBaseWrapper(EnrichmentBase enrichmentBase) {
+  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase) {
     this.enrichmentBase = enrichmentBase;
   }
 
-  public EnrichmentBase getEnrichmentBase() {
+  public List<EnrichmentBase> getEnrichmentBase() {
     return enrichmentBase;
   }
 
@@ -46,10 +51,9 @@ public class EnrichmentResultBaseWrapper {
    * @return the converted list
    */
   public static List<EnrichmentResultBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
-      Collection<EnrichmentBase> resultList) {
+      Collection<List<EnrichmentBase>> resultList) {
     return resultList.stream()
-        .map(EnrichmentResultBaseWrapper::new).collect(
-            Collectors.toList());
+        .map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList());
   }
 
 }

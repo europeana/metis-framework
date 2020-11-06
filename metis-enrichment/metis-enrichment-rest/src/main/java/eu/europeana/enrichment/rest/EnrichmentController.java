@@ -61,7 +61,6 @@ public class EnrichmentController {
 
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
         .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream().filter(Objects::nonNull)
-        .map(EnrichmentResultBaseWrapper::new)
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentResultBaseWrappers);
   }
@@ -120,13 +119,12 @@ public class EnrichmentController {
       + "match an entity's about", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList entityId(@RequestBody List<String> uris) {
-    List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
+  public EnrichmentResultBaseWrapper entityId(@RequestBody List<String> uris) {
+    List<EnrichmentBase> enrichmentBaseWrappers = uris.stream()
         .map(enrichmentService::enrichById).filter(Objects::nonNull)
-        .map(EnrichmentResultBaseWrapper::new)
         .collect(Collectors.toList());
 
-    return new EnrichmentResultList(enrichmentBaseWrappers);
+    return new EnrichmentResultBaseWrapper(enrichmentBaseWrappers);
 
   }
 }
