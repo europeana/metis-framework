@@ -8,8 +8,8 @@
     <groupId>eu.europeana.metis</groupId>
     <version>3-SNAPSHOT</version>
   </parent>
-
   <artifactId>metis-common-solr</artifactId>
+
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -30,6 +30,18 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
+    </dependency>
+
+    <!--Test dependencies-->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
