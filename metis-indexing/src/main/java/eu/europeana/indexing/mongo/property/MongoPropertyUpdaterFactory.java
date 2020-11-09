@@ -4,8 +4,8 @@ import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
-import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.utils.TriConsumer;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ public final class MongoPropertyUpdaterFactory {
   private MongoPropertyUpdaterFactory() {
   }
 
-  private static <T> MongoPropertyUpdater<T> create(T updated, MongoServer mongoServer,
+  private static <T> MongoPropertyUpdater<T> create(T updated, RecordDao mongoServer,
       Supplier<Query<T>> queryCreator,
       TriConsumer<T, T, Pair<Date, Date>> dataPreprocessor, Date recordDate,
       Date recordCreationDate, List<UpdateOperator> updateOperators) {
@@ -61,7 +61,7 @@ public final class MongoPropertyUpdaterFactory {
    * @return The property updater.
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
-      MongoServer mongoServer, Supplier<Query<T>> queryCreator,
+      RecordDao mongoServer, Supplier<Query<T>> queryCreator,
       TriConsumer<T, T, Pair<Date, Date>> preprocessor) {
     return create(updated, mongoServer, queryCreator, preprocessor, null, null, null);
   }
@@ -85,7 +85,7 @@ public final class MongoPropertyUpdaterFactory {
    * @return The property updater.
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
-      MongoServer mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
+      RecordDao mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
       TriConsumer<T, T, Pair<Date, Date>> preprocessor, Date recordDate, Date recordCreationDate) {
 
     // Sanity checks.

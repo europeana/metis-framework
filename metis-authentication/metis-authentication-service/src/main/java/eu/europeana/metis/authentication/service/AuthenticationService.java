@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.service;
 
 import com.zoho.crm.library.crud.ZCRMRecord;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
@@ -9,7 +9,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
-import eu.europeana.metis.common.model.OrganizationRole;
+import eu.europeana.metis.zoho.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
@@ -17,6 +17,7 @@ import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoConstants;
+import eu.europeana.metis.zoho.ZohoException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -109,12 +110,10 @@ public class AuthenticationService {
    * <li>{@link NoUserFoundException} if the user was not found in the system.</li>
    * </ul>
    */
-  public MetisUser updateUserFromZoho(String email)
-      throws GenericMetisException {
+  public MetisUser updateUserFromZoho(String email) throws GenericMetisException {
     MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (Objects.isNull(storedMetisUser)) {
-      throw new NoUserFoundException(
-          String.format("User with email: %s does not exist", email));
+      throw new NoUserFoundException(String.format("User with email: %s does not exist", email));
     }
 
     MetisUserModel metisUser = constructMetisUserFromZoho(email);
@@ -129,11 +128,14 @@ public class AuthenticationService {
     return convert(storedMetisUser);
   }
 
-  private MetisUserModel constructMetisUserFromZoho(String email)
-      throws GenericMetisException {
+  private MetisUserModel constructMetisUserFromZoho(String email) throws GenericMetisException {
     //Get user from zoho
-    final Optional<ZCRMRecord> zcrmRecordContact = zohoAccessClient
-        .getZcrmRecordContactByEmail(email);
+    final Optional<ZCRMRecord> zcrmRecordContact;
+    try {
+      zcrmRecordContact = zohoAccessClient.getZcrmRecordContactByEmail(email);
+    } catch (ZohoException e) {
+      throw new GenericMetisException("Could not retrieve Zoho user", e);
+    }
     if (zcrmRecordContact.isEmpty()) {
       throw new NoUserFoundException("User was not found in Zoho");
     }
@@ -156,8 +158,13 @@ public class AuthenticationService {
   }
 
   private void checkMetisUserOrganizationRole(MetisUserModel metisUser) throws BadContentException {
-    final Optional<ZCRMRecord> zcrmRecordOrganization = zohoAccessClient
-        .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
+    final Optional<ZCRMRecord> zcrmRecordOrganization;
+    try {
+      zcrmRecordOrganization = zohoAccessClient
+          .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
+    } catch (ZohoException e) {
+      throw new BadContentException("Could not retrieve Zoho organization", e);
+    }
     if (zcrmRecordOrganization.isEmpty()) {
       throw new BadContentException("Organization Role from Zoho is empty");
     }
@@ -317,8 +324,7 @@ public class AuthenticationService {
    * <li>{@link NoUserFoundException} if the user to update was not found in the system</li>
    * </ul>
    */
-  public void updateUserMakeAdmin(String userEmailToMakeAdmin)
-      throws GenericMetisException {
+  public void updateUserMakeAdmin(String userEmailToMakeAdmin) throws GenericMetisException {
     if (Objects.isNull(psqlMetisUserDao.getMetisUserByEmail(userEmailToMakeAdmin))) {
       throw new NoUserFoundException(
           String.format("User with email %s does not exist", userEmailToMakeAdmin));
@@ -336,8 +342,7 @@ public class AuthenticationService {
    * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
-  public boolean isUserAdmin(String accessToken)
-      throws GenericMetisException {
+  public boolean isUserAdmin(String accessToken) throws GenericMetisException {
     MetisUserModel storedMetisUser = authenticateUserInternal(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
@@ -425,8 +430,7 @@ public class AuthenticationService {
     return convert(authenticateUserInternal(accessToken));
   }
 
-  private MetisUserModel authenticateUserInternal(String accessToken)
-      throws GenericMetisException {
+  private MetisUserModel authenticateUserInternal(String accessToken) throws GenericMetisException {
     MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     if (Objects.isNull(storedMetisUser)) {
       throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN);
@@ -445,8 +449,7 @@ public class AuthenticationService {
    * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
-  public boolean hasPermissionToRequestAllUsers(String accessToken)
-      throws GenericMetisException {
+  public boolean hasPermissionToRequestAllUsers(String accessToken) throws GenericMetisException {
     MetisUserModel storedMetisUser = authenticateUserInternal(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
         || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
@@ -484,8 +487,8 @@ public class AuthenticationService {
   }
 
   private static List<MetisUser> convert(List<MetisUserModel> records) {
-    return Optional.ofNullable(records).stream().flatMap(Collection::stream)
-        .map(MetisUser::new).collect(Collectors.toList());
+    return Optional.ofNullable(records).stream().flatMap(Collection::stream).map(MetisUser::new)
+        .collect(Collectors.toList());
   }
 }
 

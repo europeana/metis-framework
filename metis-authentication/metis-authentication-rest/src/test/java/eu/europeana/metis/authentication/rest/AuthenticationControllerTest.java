@@ -17,8 +17,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.authentication.rest.utils.TestUtils;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
@@ -27,7 +27,7 @@ import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
-import eu.europeana.metis.utils.TestUtils;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

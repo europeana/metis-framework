@@ -1,9 +1,9 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.corelib.definitions.jibx.Preview;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.SpatialResolution;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.metis.schema.jibx.Preview;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.SpatialResolution;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;

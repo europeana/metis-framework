@@ -1,14 +1,14 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
+import eu.europeana.metis.schema.jibx.IsNextInSequence;
 import java.util.Optional;
 import java.util.function.Function;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 
 /**
- * Converts a {@link TimeSpanType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
- * {@link TimespanImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link TimeSpanType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link TimespanImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class TimespanFieldInput implements Function<TimeSpanType, TimespanImpl> {
 

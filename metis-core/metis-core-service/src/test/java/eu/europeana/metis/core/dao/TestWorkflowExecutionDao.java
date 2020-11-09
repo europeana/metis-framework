@@ -42,7 +42,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;

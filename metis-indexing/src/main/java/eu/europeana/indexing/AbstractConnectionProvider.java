@@ -1,11 +1,11 @@
 package eu.europeana.indexing;
 
-import eu.europeana.metis.mongo.RecordRedirectDao;
+import eu.europeana.metis.mongo.dao.RecordDao;
+import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.io.Closeable;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
 
 /**
  * <p>
@@ -30,7 +30,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A publisher.
    */
   default FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {
-    return new FullBeanPublisher(getEdmMongoClient(), getRecordRedirectDao(), getSolrClient(),
+    return new FullBeanPublisher(getRecordDao(), getRecordRedirectDao(), getSolrClient(),
         preserveUpdateAndCreateTimesFromRdf);
   }
 
@@ -56,7 +56,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A dataset remover.
    */
   default IndexedRecordAccess getIndexedRecordAccess() {
-    return new IndexedRecordAccess(getEdmMongoClient(), getSolrClient());
+    return new IndexedRecordAccess(getRecordDao(), getSolrClient());
   }
 
   /**
@@ -71,7 +71,7 @@ public interface AbstractConnectionProvider extends Closeable {
    *
    * @return A Mongo client.
    */
-  EdmMongoServer getEdmMongoClient();
+  RecordDao getRecordDao();
 
   /**
    * Provides a Mongo redirect dao.

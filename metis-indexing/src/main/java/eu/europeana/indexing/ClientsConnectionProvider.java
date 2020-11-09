@@ -1,8 +1,8 @@
 package eu.europeana.indexing;
 
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.metis.mongo.RecordRedirectDao;
+import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import org.apache.solr.client.solrj.SolrClient;
 
 /**
@@ -14,7 +14,7 @@ import org.apache.solr.client.solrj.SolrClient;
  */
 final class ClientsConnectionProvider implements AbstractConnectionProvider {
 
-  private final EdmMongoServer edmMongoClient;
+  private final RecordDao edmMongoClient;
   private final RecordRedirectDao recordRedirectDao;
   private final SolrClient solrClient;
 
@@ -26,7 +26,7 @@ final class ClientsConnectionProvider implements AbstractConnectionProvider {
    * @param solrClient The Solr client to be used. Cannot be null.
    * @throws SetupRelatedIndexingException In case either of the two clients are null.
    */
-  ClientsConnectionProvider(EdmMongoServer edmMongoClient, RecordRedirectDao recordRedirectDao,
+  ClientsConnectionProvider(RecordDao edmMongoClient, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient)
       throws SetupRelatedIndexingException {
     if (edmMongoClient == null) {
@@ -46,7 +46,7 @@ final class ClientsConnectionProvider implements AbstractConnectionProvider {
   }
 
   @Override
-  public EdmMongoServer getEdmMongoClient() {
+  public RecordDao getRecordDao() {
     return edmMongoClient;
   }
 

@@ -6,7 +6,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
-import eu.europeana.metis.mongo.HasMongoObjectId;
+import eu.europeana.metis.mongo.model.HasMongoObjectId;
 import java.time.Instant;
 import org.bson.types.ObjectId;
 

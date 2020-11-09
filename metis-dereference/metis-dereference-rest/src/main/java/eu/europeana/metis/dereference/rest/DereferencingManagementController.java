@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;

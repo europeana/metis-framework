@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.rest.execution.details;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;

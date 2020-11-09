@@ -1,6 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,13 +15,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceType;
 
 /**
- * Class with utility methods for converting an instance of {@link eu.europeana.corelib.definitions.jibx.RDF}
- * to an instance of {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Class with utility methods for converting an instance of {@link eu.europeana.metis.schema.jibx.RDF}
+ * to an instance of {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class FieldInputUtils {
 

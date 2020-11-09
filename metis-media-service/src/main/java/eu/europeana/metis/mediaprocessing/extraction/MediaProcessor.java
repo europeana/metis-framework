@@ -3,10 +3,11 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.schema.model.MediaType;
 
 /**
  * Implementations of this interface are capable of processing a particular {@link
- * eu.europeana.metis.utils.MediaType}.
+ * MediaType}.
  */
 interface MediaProcessor {
 

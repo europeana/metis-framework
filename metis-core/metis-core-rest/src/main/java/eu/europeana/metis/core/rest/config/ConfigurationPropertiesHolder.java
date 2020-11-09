@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.rest.config;
 
 import eu.europeana.metis.core.workflow.ValidationProperties;
-import eu.europeana.metis.mongo.MongoProperties;
+import eu.europeana.metis.mongo.connection.MongoProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;

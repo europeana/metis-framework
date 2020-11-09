@@ -1,15 +1,15 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.QualityAnnotation;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.QualityAnnotation;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.QualityAnnotationImpl;
 import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Converts a {@link QualityAnnotation} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to
- * a {@link QualityAnnotationImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link QualityAnnotation} from an {@link eu.europeana.metis.schema.jibx.RDF} to
+ * a {@link QualityAnnotationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-06-13

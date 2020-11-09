@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service.dao;
 
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.DuplicateKeyException;
 import com.mongodb.client.MongoClient;

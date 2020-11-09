@@ -1,13 +1,13 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.corelib.definitions.jibx.Duration;
-import eu.europeana.corelib.definitions.jibx.HasColorSpace;
-import eu.europeana.corelib.definitions.jibx.HasMimeType;
-import eu.europeana.corelib.definitions.jibx.HexBinaryType;
-import eu.europeana.corelib.definitions.jibx.OrientationType;
-import eu.europeana.corelib.definitions.jibx.SpatialResolution;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.jibx.Duration;
+import eu.europeana.metis.schema.jibx.HasColorSpace;
+import eu.europeana.metis.schema.jibx.HasMimeType;
+import eu.europeana.metis.schema.jibx.HexBinaryType;
+import eu.europeana.metis.schema.jibx.OrientationType;
+import eu.europeana.metis.schema.jibx.SpatialResolution;
+import eu.europeana.metis.schema.jibx.WebResourceType;
+import eu.europeana.metis.schema.model.MediaType;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;

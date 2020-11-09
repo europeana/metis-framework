@@ -19,6 +19,7 @@
     <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
+    <module>metis-schema</module>
   </modules>
 
   <!-- Github connection -->
@@ -336,9 +337,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>eu.europeana.corelib</groupId>
-        <artifactId>corelib-edm-definitions</artifactId>
-        <version>${version.corelib}</version>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-schema</artifactId>
+        <version>${project.version}</version>
         <exclusions>
           <exclusion>
             <artifactId>xml-apis</artifactId>

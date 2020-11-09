@@ -1,6 +1,6 @@
 package eu.europeana.indexing.mongo.property;
 
-import eu.europeana.corelib.storage.MongoServer;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.Date;
 
 /**
@@ -21,5 +21,5 @@ public interface MongoObjectUpdater<R, A> {
    * @param mongoServer The mongo server.
    * @return The updated entity.
    */
-  R update(R newEntity, A ancestorInformation, Date recordDate, Date recordCreationDate, MongoServer mongoServer);
+  R update(R newEntity, A ancestorInformation, Date recordDate, Date recordCreationDate, RecordDao mongoServer);
 }

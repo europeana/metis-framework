@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 
 import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
@@ -23,6 +24,7 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.zoho.ZohoException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -89,8 +91,8 @@ class AuthenticationServiceTest {
   void registerUserFailsOnZohoUserRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenThrow(new BadContentException("Exception"));
-    assertThrows(BadContentException.class,
+        .thenThrow(new ZohoException("Exception"));
+    assertThrows(GenericMetisException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
@@ -101,7 +103,6 @@ class AuthenticationServiceTest {
     assertThrows(NoUserFoundException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
-
 
   @Test
   void registerUserParsingUserFromZohoNoOrganizationNameProvided() throws Exception {

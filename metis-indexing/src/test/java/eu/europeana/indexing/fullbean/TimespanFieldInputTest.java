@@ -9,16 +9,16 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
-import eu.europeana.corelib.definitions.jibx.AltLabel;
-import eu.europeana.corelib.definitions.jibx.Begin;
-import eu.europeana.corelib.definitions.jibx.End;
-import eu.europeana.corelib.definitions.jibx.HiddenLabel;
-import eu.europeana.corelib.definitions.jibx.IsPartOf;
-import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
-import eu.europeana.corelib.definitions.jibx.Note;
-import eu.europeana.corelib.definitions.jibx.PrefLabel;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.schema.jibx.AltLabel;
+import eu.europeana.metis.schema.jibx.Begin;
+import eu.europeana.metis.schema.jibx.End;
+import eu.europeana.metis.schema.jibx.HiddenLabel;
+import eu.europeana.metis.schema.jibx.IsPartOf;
+import eu.europeana.metis.schema.jibx.LiteralType.Lang;
+import eu.europeana.metis.schema.jibx.Note;
+import eu.europeana.metis.schema.jibx.PrefLabel;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ class TimespanFieldInputTest {
     timespan.setHiddenLabelList(hiddelLabelList);
     List<IsPartOf> isPartOfList = new ArrayList<>();
     IsPartOf isPartOf = new IsPartOf();
-    eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource isPartOfResource = new eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource();
+    eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource isPartOfResource = new eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource();
     isPartOfResource.setResource("test resource");
     isPartOf.setResource(isPartOfResource);
     isPartOfList.add(isPartOf);
@@ -82,7 +82,7 @@ class TimespanFieldInputTest {
     timespanImpl.setAbout(timespan.getAbout());
 
     // create mongo
-    EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
+    RecordDao mongoServerMock = mock(RecordDao.class);
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked") Query<TimespanImpl> queryMock = mock(Query.class);
 
