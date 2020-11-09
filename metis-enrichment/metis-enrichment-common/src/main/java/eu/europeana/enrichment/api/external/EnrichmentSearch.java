@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ApiModel(value = EnrichmentSearch.API_NAME)
 public class EnrichmentSearch {
 
-    static final String API_NAME = "enrichmentSearch";
+    static final String API_NAME = "searchTerms";
 
     @XmlElement(name = "searchValue")
     @JsonProperty("searchValue")

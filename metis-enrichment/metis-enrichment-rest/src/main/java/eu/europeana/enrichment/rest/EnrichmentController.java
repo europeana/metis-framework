@@ -1,17 +1,20 @@
 package eu.europeana.enrichment.rest;
 
+import eu.europeana.enrichment.api.external.EnrichmentReference;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.service.EnrichmentService;
+import eu.europeana.enrichment.utils.ReferenceValue;
 import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -60,7 +63,8 @@ public class EnrichmentController {
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
 
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
-        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream().filter(Objects::nonNull)
+        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream()
+        .filter(Objects::nonNull)
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentResultBaseWrappers);
   }
@@ -80,14 +84,15 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase equivalence(
       @ApiParam("uri") @RequestParam("uri") String uri) {
-    return enrichmentService.enrichByEquivalenceValues(uri);
+    return enrichmentService
+        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.EMPTY_LIST));
   }
 
   /**
    * Get an enrichment providing a list of URIs where each of them could match a codeUri or
    * owlSameAs.
    *
-   * @param uris The URIs to check for match
+   * @param enrichmentReference The references to check for match
    * @return the structured result of the enrichment
    * @deprecated This method will no longer be available for use
    */
@@ -97,11 +102,13 @@ public class EnrichmentController {
       + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList equivalence(@RequestBody List<String> uris) {
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uris.stream()
+  public EnrichmentResultList equivalence(
+      @RequestBody EnrichmentReference enrichmentReference) {
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
+        .getReferenceValues().stream()
         .map(enrichmentService::enrichByEquivalenceValues).filter(Objects::nonNull)
-        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
-        .collect(Collectors.toList());
+        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base))).collect(
+            Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
 
   }
@@ -119,12 +126,13 @@ public class EnrichmentController {
       + "match an entity's about", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultBaseWrapper entityId(@RequestBody List<String> uris) {
-    List<EnrichmentBase> enrichmentBaseWrappers = uris.stream()
+  public EnrichmentResultList entityId(@RequestBody List<String> uris) {
+    List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
         .map(enrichmentService::enrichById).filter(Objects::nonNull)
-        .collect(Collectors.toList());
+        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base))).collect(
+            Collectors.toList());
 
-    return new EnrichmentResultBaseWrapper(enrichmentBaseWrappers);
+    return new EnrichmentResultList(enrichmentBaseWrappers);
 
   }
 }

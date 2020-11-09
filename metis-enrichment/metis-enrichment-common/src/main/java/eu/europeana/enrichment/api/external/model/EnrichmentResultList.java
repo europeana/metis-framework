@@ -20,7 +20,7 @@ public class EnrichmentResultList {
   @Deprecated
   private final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = new ArrayList<>();
 
-  @XmlElement(name = "enrichmentResultWrapperList", type = EnrichmentResultBaseWrapper.class)
+  @XmlElement(name = "result", type = EnrichmentResultBaseWrapper.class)
   private final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = new ArrayList<>();
 
   public EnrichmentResultList() {

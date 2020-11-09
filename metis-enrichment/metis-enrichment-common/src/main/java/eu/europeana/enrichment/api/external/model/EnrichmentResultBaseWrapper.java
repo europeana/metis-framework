@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-07
  */
-@XmlRootElement
+@XmlRootElement(name = "result")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EnrichmentResultBaseWrapper {
 
