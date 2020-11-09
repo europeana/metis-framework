@@ -95,7 +95,7 @@ public class EnrichmentController {
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ApiOperation(value =
-      "Get an enrichment providing a EnrichmentReference where each ReferenceValue them could "
+      "Get an enrichment providing a EnrichmentReference where each reference could "
           + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
