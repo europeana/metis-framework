@@ -3,7 +3,6 @@ package eu.europeana.enrichment.rest;
 import eu.europeana.enrichment.api.external.EnrichmentReference;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.service.EnrichmentService;
@@ -47,11 +46,10 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by providing a list of {@link EnrichmentSearch}.
+   * Get an enrichment by providing a {@link EnrichmentSearch}.
    *
    * @param enrichmentSearch a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
-   * @deprecated This method will no longer be available for use
    */
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_SEARCH, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
@@ -74,7 +72,6 @@ public class EnrichmentController {
    *
    * @param uri The URI to check for match
    * @return the structured result of the enrichment
-   * @deprecated This method will no longer be available for use
    */
   @GetMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -89,17 +86,17 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment providing a list of URIs where each of them could match a codeUri or
-   * owlSameAs.
+   * Get an enrichment providing a {@link EnrichmentReference} where each reference could match a
+   * codeUri or owlSameAs.
    *
    * @param enrichmentReference The references to check for match
    * @return the structured result of the enrichment
-   * @deprecated This method will no longer be available for use
    */
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Get an enrichment providing a list of URIs where each of them could "
-      + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
+  @ApiOperation(value =
+      "Get an enrichment providing a EnrichmentReference where each ReferenceValue them could "
+          + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList equivalence(
@@ -118,7 +115,6 @@ public class EnrichmentController {
    *
    * @param uris The URIs to check for match
    * @return the structured result of the enrichment
-   * @deprecated This method will no longer be available for use
    */
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_ID, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
