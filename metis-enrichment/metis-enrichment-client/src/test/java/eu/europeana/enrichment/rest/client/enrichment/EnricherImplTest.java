@@ -16,6 +16,7 @@ import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +27,7 @@ import org.mockito.Mockito;
 
 public class EnricherImplTest {
 
-  private ArgumentCaptor<List<InputValue>> enrichmentExtractionCaptor = ArgumentCaptor
+  private ArgumentCaptor<List<SearchValue>> enrichmentExtractionCaptor = ArgumentCaptor
       .forClass(List.class);
 
   private ArgumentCaptor<List<EnrichmentBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor

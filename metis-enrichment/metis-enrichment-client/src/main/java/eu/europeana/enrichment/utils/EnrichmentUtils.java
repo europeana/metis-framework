@@ -32,6 +32,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.math3.util.Pair;
 
 /**
  * Utilities for enrichment and dereferencing Created by gmamakis on 8-3-17.
@@ -52,11 +53,11 @@ public final class EnrichmentUtils {
    * @param rdf The RDF to extract from.
    * @return List<InputValue> The extracted fields that need to be enriched.
    */
-  public static List<InputValue> extractValuesForEnrichmentFromRDF(RDF rdf) {
+  public static List<SearchValue> extractValuesForEnrichmentFromRDF(RDF rdf) {
     final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
-    final List<InputValue> valuesForEnrichment = new ArrayList<>();
+    final List<SearchValue> valuesForEnrichment = new ArrayList<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
-      List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
+      List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
       valuesForEnrichment.addAll(values);
     }
     return valuesForEnrichment;

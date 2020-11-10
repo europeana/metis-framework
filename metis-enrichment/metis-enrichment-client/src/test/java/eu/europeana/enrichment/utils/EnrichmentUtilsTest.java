@@ -148,28 +148,27 @@ public class EnrichmentUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    List<InputValue> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
+    List<SearchValue> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
 
     assertNotNull(result);
     assertEquals(10, result.size());
 
     ArrayList<String> resultProcessed = new ArrayList<>();
-    for (InputValue inputValue : result) {
-      resultProcessed.add(inputValue.getValue() + "|" + inputValue.getLanguage() + "|" + inputValue
-          .getRdfFieldName());
+    for (SearchValue searchValue : result) {
+      resultProcessed.add(searchValue.getValue() + "|" + searchValue.getLanguage());
     }
 
-    assertTrue(resultProcessed.contains("Creator|English|DC_CREATOR"));
-    assertTrue(resultProcessed.contains("Contributor|Dutch|DC_CONTRIBUTOR"));
-    assertTrue(resultProcessed.contains("Date|German|DC_DATE"));
-    assertTrue(resultProcessed.contains("Issued|French|DCTERMS_ISSUED"));
-    assertTrue(resultProcessed.contains("Created|Italian|DCTERMS_CREATED"));
+    assertTrue(resultProcessed.contains("Creator|English"));
+    assertTrue(resultProcessed.contains("Contributor|Dutch"));
+    assertTrue(resultProcessed.contains("Date|German"));
+    assertTrue(resultProcessed.contains("Issued|French"));
+    assertTrue(resultProcessed.contains("Created|Italian"));
 
-    assertTrue(resultProcessed.contains("Coverage|Spanish|DC_COVERAGE"));
-    assertTrue(resultProcessed.contains("Temporal|Polish|DCTERMS_TEMPORAL"));
-    assertTrue(resultProcessed.contains("Type|Romanian|DC_TYPE"));
-    assertTrue(resultProcessed.contains("Spatial|Greek|DCTERMS_SPATIAL"));
-    assertTrue(resultProcessed.contains("Subject|Bulgarian|DC_SUBJECT"));
+    assertTrue(resultProcessed.contains("Coverage|Spanish"));
+    assertTrue(resultProcessed.contains("Temporal|Polish"));
+    assertTrue(resultProcessed.contains("Type|Romanian"));
+    assertTrue(resultProcessed.contains("Spatial|Greek"));
+    assertTrue(resultProcessed.contains("Subject|Bulgarian"));
   }
 
   @Test

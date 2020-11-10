@@ -2,14 +2,18 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT;
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS;
+import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
+import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_SEARCH;
 import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.SearchValue;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -70,12 +74,12 @@ public class EnrichmentClient {
    * @param values The values to be enriched
    * @return The enrichments generated for the input values
    */
-  public EnrichmentResultList enrich(List<InputValue> values) {
-    final InputValueList inList = new InputValueList();
-    inList.setInputValues(values);
-    final String url = endpoint + ENRICH_INPUT_VALUE_LIST;
+  public EnrichmentResultList enrich(List<SearchValue> values) {
+    final EnrichmentSearch inList = new EnrichmentSearch();
+    inList.setSearchValues(values);
+    final String url = endpoint + ENRICH_ENTITY_SEARCH;
     try {
-      return template.postForObject(endpoint + ENRICH_INPUT_VALUE_LIST, createRequest(inList),
+      return template.postForObject(endpoint + ENRICH_ENTITY_SEARCH, createRequest(inList),
               EnrichmentResultList.class);
     } catch (RestClientException e) {
       LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
@@ -101,7 +105,7 @@ public class EnrichmentClient {
     }
 
     final UriComponentsBuilder builder = UriComponentsBuilder
-            .fromHttpUrl(endpoint + ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS).queryParam("uri", encodedUri);
+            .fromHttpUrl(endpoint + ENRICH_ENTITY_EQUIVALENCE).queryParam("uri", encodedUri);
     final URI fullUri = builder.build(true).toUri();
     try {
       return template.exchange(fullUri, HttpMethod.GET, createRequest(null), EnrichmentBase.class)

@@ -83,7 +83,7 @@ public enum EnrichmentFields {
    * @param proxy The proxy to use for enrichment
    * @return A list of values ready for enrichment
    */
-  public final List<InputValue> extractFieldValuesForEnrichment(ProxyType proxy) {
+  public final List<SearchValue> extractFieldValuesForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
         .filter(content -> StringUtils.isNotEmpty(content.getString()))
         .map(this::convert)
@@ -112,9 +112,9 @@ public enum EnrichmentFields {
         .filter(Objects::nonNull);
   }
 
-  private InputValue convert(ResourceOrLiteralType content) {
+  private SearchValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() == null ? null : content.getLang().getLang();
-    return new InputValue(this.name(), content.getString(), language, entityType);
+    return new SearchValue(content.getString(), language, entityType);
   }
 
   /**

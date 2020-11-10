@@ -6,9 +6,11 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.SearchValue;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.math3.util.Pair;
 
 public interface Enricher {
 
@@ -25,7 +27,7 @@ public interface Enricher {
    * @return A enrichment result list with the information retrieved to enrich the RDF
    * @throws EnrichmentException
    */
-  EnrichmentResultList enrichValues(List<InputValue> valuesForEnrichment)
+  EnrichmentResultList enrichValues(List<SearchValue> valuesForEnrichment)
       throws EnrichmentException;
 
   /**
@@ -43,7 +45,7 @@ public interface Enricher {
    * @return A list with values extracted from the RDF
    * in addition with other details associated
    */
-  List<InputValue> extractValuesForEnrichment(RDF rdf);
+  List<SearchValue> extractValuesForEnrichment(RDF rdf);
 
 
   /**

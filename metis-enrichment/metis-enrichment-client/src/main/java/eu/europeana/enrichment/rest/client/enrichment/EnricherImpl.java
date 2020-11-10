@@ -11,12 +11,14 @@ import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.SearchValue;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.math3.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +40,7 @@ public class EnricherImpl implements Enricher{
   public void enrichment(RDF rdf) throws EnrichmentException {
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
-    final List<InputValue> valuesForEnrichment = extractValuesForEnrichment(rdf);
+    final List<SearchValue> valuesForEnrichment = extractValuesForEnrichment(rdf);
     final Map<String, Set<EnrichmentFields>> referencesForEnrichment = extractReferencesForEnrichment(
         rdf);
 
@@ -71,7 +73,7 @@ public class EnricherImpl implements Enricher{
   }
 
   @Override
-  public EnrichmentResultList enrichValues(List<InputValue> valuesForEnrichment)
+  public EnrichmentResultList enrichValues(List<SearchValue> valuesForEnrichment)
       throws EnrichmentException {
     try {
       return CollectionUtils.isEmpty(valuesForEnrichment) ? null
@@ -97,7 +99,7 @@ public class EnricherImpl implements Enricher{
   }
 
   @Override
-  public List<InputValue> extractValuesForEnrichment(RDF rdf) {
+  public List<SearchValue> extractValuesForEnrichment(RDF rdf) {
     return EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
   }
 
