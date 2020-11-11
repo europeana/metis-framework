@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT;
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS;
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
+import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_ID;
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_SEARCH;
 import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 
@@ -11,6 +12,7 @@ import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.SearchValue;
@@ -122,8 +124,8 @@ public class EnrichmentClient {
    * @param uriList the list of URIs to enrich
    * @return the enriched information. Does not return null, but could return an empty list.
    */
-  public List<EnrichmentBaseWrapper> getByUri(Collection<String> uriList) {
-    return performInBatches(endpoint + ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS, uriList);
+  public List<EnrichmentResultBaseWrapper> getByUri(Collection<String> uriList) {
+    return performInBatches(endpoint + ENRICH_ENTITY_EQUIVALENCE, uriList);
   }
 
   /**
@@ -132,11 +134,11 @@ public class EnrichmentClient {
    * @param uriList the list of IDs to enrich
    * @return the enriched information
    */
-  public List<EnrichmentBaseWrapper> getById(Collection<String> uriList) {
-    return performInBatches(endpoint + ENRICH_ENTITY_ABOUT, uriList);
+  public List<EnrichmentResultBaseWrapper> getById(Collection<String> uriList) {
+    return performInBatches(endpoint + ENRICH_ENTITY_ID, uriList);
   }
 
-  private List<EnrichmentBaseWrapper> performInBatches(String url, Collection<String> inputValues) {
+  private List<EnrichmentResultBaseWrapper> performInBatches(String url, Collection<String> inputValues) {
 
     // Create partitions
     final List<List<String>> partitions = new ArrayList<>();
@@ -151,7 +153,7 @@ public class EnrichmentClient {
     });
 
     // Process partitions
-    final List<EnrichmentBaseWrapper> result = new ArrayList<>();
+    final List<EnrichmentResultBaseWrapper> result = new ArrayList<>();
     partitions.stream().map(list -> list.toArray(String[]::new)).map(inputValue -> {
       try {
         return template.postForObject(url, createRequest(inputValue), EnrichmentResultList.class);
@@ -159,7 +161,7 @@ public class EnrichmentClient {
         LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
         throw new UnknownException("Enrichment client call failed.", e);
       }
-    }).filter(Objects::nonNull).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
+    }).filter(Objects::nonNull).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
             .filter(Objects::nonNull).flatMap(List::stream).forEach(result::add);
     return result;
   }

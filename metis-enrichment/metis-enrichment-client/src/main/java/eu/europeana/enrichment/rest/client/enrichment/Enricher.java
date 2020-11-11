@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentFields;
@@ -27,7 +28,7 @@ public interface Enricher {
    * @return A enrichment result list with the information retrieved to enrich the RDF
    * @throws EnrichmentException
    */
-  EnrichmentResultList enrichValues(List<SearchValue> valuesForEnrichment)
+  List<Pair<EnrichmentResultBaseWrapper, EnrichmentFields>> enrichValues(List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment)
       throws EnrichmentException;
 
   /**
@@ -36,7 +37,7 @@ public interface Enricher {
    * @return A list with RDF fields retrieved and the information associated with it
    * @throws EnrichmentException
    */
-  List<EnrichmentBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
+  List<EnrichmentResultBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
       throws EnrichmentException;
 
   /**
@@ -45,7 +46,7 @@ public interface Enricher {
    * @return A list with values extracted from the RDF
    * in addition with other details associated
    */
-  List<SearchValue> extractValuesForEnrichment(RDF rdf);
+  List<Pair<SearchValue, EnrichmentFields>> extractValuesForEnrichment(RDF rdf);
 
 
   /**

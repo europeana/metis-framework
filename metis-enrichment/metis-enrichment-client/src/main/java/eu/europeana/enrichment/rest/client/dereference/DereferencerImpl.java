@@ -5,6 +5,7 @@ import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequ
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +47,11 @@ public class DereferencerImpl implements Dereferencer{
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    final List<EnrichmentBaseWrapper> dereferenceInformation = dereferenceEntities(resourceIds);
+    final List<EnrichmentResultBaseWrapper> dereferenceInformation = dereferenceEntities(resourceIds);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    entityMergeEngine.mergeEntities(rdf, dereferenceInformation);
+    entityMergeEngine.mergeEntities(rdf, dereferenceInformation, null);
 
     // Done.
     LOGGER.debug("Dereference completed.");
@@ -57,7 +59,7 @@ public class DereferencerImpl implements Dereferencer{
   }
 
   @Override
-  public List<EnrichmentBaseWrapper> dereferenceEntities(Set<String> resourceIds)
+  public List<EnrichmentResultBaseWrapper> dereferenceEntities(Set<String> resourceIds)
       throws DereferenceException {
 
     // Sanity check.
@@ -66,10 +68,14 @@ public class DereferencerImpl implements Dereferencer{
     }
 
     // First try to get them from our own entity collection database.
-    final List<EnrichmentBaseWrapper> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
-    final Set<String> foundOwnEntityIds = result.stream()
-        .map(EnrichmentBaseWrapper::getEnrichmentBase).map(EnrichmentBase::getAbout)
-        .collect(Collectors.toSet());
+    final List<EnrichmentResultBaseWrapper> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
+    final List<List<EnrichmentBase>> listOfListEnrichmentBase = result.stream()
+        .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList)
+        .collect(Collectors.toList());
+
+    final Set<String> foundOwnEntityIds = listOfListEnrichmentBase.stream()
+        .map(this::getAllAboutField)
+        .flatMap(List::stream).collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
     for (String resourceId : resourceIds) {
@@ -82,8 +88,12 @@ public class DereferencerImpl implements Dereferencer{
     return result;
   }
 
+  private List<String> getAllAboutField(List<EnrichmentBase> listEnrichmentBase){
+    return listEnrichmentBase.stream().map(EnrichmentBase::getAbout).collect(Collectors.toList());
+  }
 
-  private List<EnrichmentBaseWrapper> dereferenceOwnEntities(Set<String> resourceIds) throws DereferenceException {
+
+  private List<EnrichmentResultBaseWrapper> dereferenceOwnEntities(Set<String> resourceIds) throws DereferenceException {
     try {
       return retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.getById(resourceIds));
@@ -94,7 +104,7 @@ public class DereferencerImpl implements Dereferencer{
   }
 
 
-  private List<EnrichmentBaseWrapper> dereferenceExternalEntity(String resourceId) throws DereferenceException {
+  private List<EnrichmentResultBaseWrapper> dereferenceExternalEntity(String resourceId) throws DereferenceException {
 
     // Perform the dereferencing.
     EnrichmentResultList result;
@@ -112,7 +122,7 @@ public class DereferencerImpl implements Dereferencer{
     }
 
     // Return the result.
-    return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
+    return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
         .orElseGet(Collections::emptyList);
   }
 

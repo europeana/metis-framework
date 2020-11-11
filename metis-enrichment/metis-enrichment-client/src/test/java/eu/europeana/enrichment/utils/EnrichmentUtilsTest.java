@@ -23,7 +23,9 @@ import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.math3.util.Pair;
 import org.junit.jupiter.api.Test;
 
 public class EnrichmentUtilsTest {
@@ -148,13 +150,14 @@ public class EnrichmentUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    List<SearchValue> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
+    List<Pair<SearchValue, EnrichmentFields>> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
 
     assertNotNull(result);
     assertEquals(10, result.size());
 
     ArrayList<String> resultProcessed = new ArrayList<>();
-    for (SearchValue searchValue : result) {
+    List<SearchValue> searchValueList = result.stream().map(Pair::getFirst).collect(Collectors.toList());
+    for (SearchValue searchValue : searchValueList) {
       resultProcessed.add(searchValue.getValue() + "|" + searchValue.getLanguage());
     }
 

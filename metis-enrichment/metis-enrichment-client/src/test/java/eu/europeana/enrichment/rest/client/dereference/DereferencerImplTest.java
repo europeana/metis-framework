@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
@@ -25,7 +26,7 @@ import org.mockito.ArgumentCaptor;
 
 public class DereferencerImplTest {
 
-  private ArgumentCaptor<List<EnrichmentBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
+  private ArgumentCaptor<List<EnrichmentResultBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
       .forClass(List.class);
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT =
@@ -130,23 +131,23 @@ public class DereferencerImplTest {
 
   // Verify merge calls
   private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) {
-    final List<List<EnrichmentBaseWrapper>> expectedMerges = new ArrayList<>();
+    final List<List<EnrichmentResultBaseWrapper>> expectedMerges = new ArrayList<>();
 
     expectedMerges.add(DEREFERENCE_RESULT.stream().filter(Objects::nonNull)
-        .map(EnrichmentResultList::getEnrichmentBaseWrapperList).flatMap(List::stream)
+        .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).flatMap(List::stream)
         .collect(Collectors.toList()));
 
     verify(entityMergeEngine, times(expectedMerges.size())).mergeEntities(any(),
-        enrichmentResultCaptor.capture());
+        enrichmentResultCaptor.capture(), any());
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
     int currentPointer = 0;
-    final List<List<EnrichmentBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues()
+    final List<List<EnrichmentResultBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues()
         .subList(
             enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
             enrichmentResultCaptor.getAllValues().size());
-    for (List<EnrichmentBaseWrapper> capturedMerge : foundValues) {
+    for (List<EnrichmentResultBaseWrapper> capturedMerge : foundValues) {
       assertArrayEquals(expectedMerges.get(currentPointer).toArray(), capturedMerge.toArray());
       currentPointer++;
     }
@@ -170,8 +171,8 @@ public class DereferencerImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(1)).mergeEntities(any(), eq(Collections.emptyList()));
-    verify(entityMergeEngine, times(1)).mergeEntities(any(), any());
+    verify(entityMergeEngine, times(1)).mergeEntities(any(), eq(Collections.emptyList()), anyMap());
+    verify(entityMergeEngine, times(1)).mergeEntities(any(), any(), anyMap());
   }
 
 }

@@ -53,12 +53,12 @@ public final class EnrichmentUtils {
    * @param rdf The RDF to extract from.
    * @return List<InputValue> The extracted fields that need to be enriched.
    */
-  public static List<SearchValue> extractValuesForEnrichmentFromRDF(RDF rdf) {
+  public static List<Pair<SearchValue, EnrichmentFields>> extractValuesForEnrichmentFromRDF(RDF rdf) {
     final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
-    final List<SearchValue> valuesForEnrichment = new ArrayList<>();
+    final List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment = new ArrayList<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
       List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-      valuesForEnrichment.addAll(values);
+      values.stream().map(val -> valuesForEnrichment.add(new Pair<>(val, field)));
     }
     return valuesForEnrichment;
   }

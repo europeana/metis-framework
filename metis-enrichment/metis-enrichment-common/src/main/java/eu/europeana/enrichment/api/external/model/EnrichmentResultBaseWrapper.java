@@ -39,7 +39,7 @@ public class EnrichmentResultBaseWrapper {
     this.enrichmentBase = enrichmentBase;
   }
 
-  public List<EnrichmentBase> getEnrichmentBase() {
+  public List<EnrichmentBase> getEnrichmentBaseList() {
     return enrichmentBase;
   }
 

@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
@@ -10,6 +11,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
@@ -30,7 +32,7 @@ public class EnricherImplTest {
   private ArgumentCaptor<List<SearchValue>> enrichmentExtractionCaptor = ArgumentCaptor
       .forClass(List.class);
 
-  private ArgumentCaptor<List<EnrichmentBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
+  private ArgumentCaptor<List<EnrichmentResultBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
       .forClass(List.class);
 
   private static final EnrichmentResultList ENRICHMENT_RESULT;
@@ -105,21 +107,21 @@ public class EnricherImplTest {
 
   // Verify merge calls
   private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) {
-    final List<List<EnrichmentBaseWrapper>> expectedMerges = new ArrayList<>();
+    final List<List<EnrichmentResultBaseWrapper>> expectedMerges = new ArrayList<>();
 
-    expectedMerges.add(ENRICHMENT_RESULT.getEnrichmentBaseWrapperList());
+    expectedMerges.add(ENRICHMENT_RESULT.getEnrichmentBaseResultWrapperList());
 
     verify(entityMergeEngine, times(expectedMerges.size())).mergeEntities(any(),
-        enrichmentResultCaptor.capture());
+        enrichmentResultCaptor.capture(), any());
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
     int currentPointer = 0;
-    final List<List<EnrichmentBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues()
+    final List<List<EnrichmentResultBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues()
         .subList(
             enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
             enrichmentResultCaptor.getAllValues().size());
-    for (List<EnrichmentBaseWrapper> capturedMerge : foundValues) {
+    for (List<EnrichmentResultBaseWrapper> capturedMerge : foundValues) {
       assertArrayEquals(expectedMerges.get(currentPointer).toArray(), capturedMerge.toArray());
       currentPointer++;
     }
@@ -137,8 +139,8 @@ public class EnricherImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()));
-    verify(entityMergeEngine, times(0)).mergeEntities(any(), any());
+    verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()), anyMap());
+    verify(entityMergeEngine, times(0)).mergeEntities(any(), any(), anyMap());
   }
 
 }
