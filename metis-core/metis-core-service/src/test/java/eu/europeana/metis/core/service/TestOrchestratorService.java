@@ -67,7 +67,6 @@ import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
@@ -995,7 +994,7 @@ class TestOrchestratorService {
     // Mock the dao and call the method.
     doReturn(new ResultList<>(List.of(execution1, execution2, execution3), false))
             .when(workflowExecutionDao).getAllWorkflowExecutions(any(), any(), any(), anyBoolean(),
-            anyInt(), anyInt(), anyBoolean());
+            anyInt(), any(), anyBoolean());
     final ExecutionHistory result = orchestratorService.getDatasetExecutionHistory(metisUser, datasetId);
 
     // Verify the interactions
@@ -1003,7 +1002,7 @@ class TestOrchestratorService {
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(
             eq(Collections.singleton(datasetId)), isNull(), eq(DaoFieldNames.STARTED_DATE), eq(false),
-            eq(0), eq(Integer.MAX_VALUE), eq(false));
+            eq(0), isNull(), eq(false));
     verifyNoMoreInteractions(workflowExecutionDao);
 
     // Verify the result
