@@ -14,6 +14,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -22,10 +23,12 @@ import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.api.external.SearchValue;
+import eu.europeana.enrichment.utils.InputValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.math3.util.Pair;
 import org.junit.jupiter.api.Test;
@@ -34,14 +37,11 @@ import org.mockito.Mockito;
 
 public class EnricherImplTest {
 
-  private ArgumentCaptor<List<EnrichmentBase>> enrichmentExtractionCaptor = ArgumentCaptor
-      .forClass(List.class);
+  private final ArgumentCaptor<List<SearchValue>> enrichmentExtractionCaptor = ArgumentCaptor
+          .forClass(List.class);
 
-  private ArgumentCaptor<List<SearchValue>> enrichmentSearchValuesCaptor = ArgumentCaptor
-      .forClass(List.class);
-
-  private ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
-      .forClass(List.class);
+  private final ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
+          .forClass(List.class);
 
   private static final EnrichmentResultList ENRICHMENT_RESULT;
 
@@ -114,9 +114,9 @@ public class EnricherImplTest {
 
 
     // Actually enriching
-    verify(enrichmentClient, times(1)).enrich(enrichmentSearchValuesCaptor.capture());
+    verify(enrichmentClient, times(1)).enrich(enrichmentExtractionCaptor.capture());
     assertArrayEquals(ENRICHMENT_EXTRACT_RESULT.stream().map(Pair::getFirst).toArray(),
-        enrichmentSearchValuesCaptor.getValue().toArray());
+        enrichmentExtractionCaptor.getValue().toArray());
 
 
   }
@@ -128,7 +128,7 @@ public class EnricherImplTest {
         .forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
 
     verify(entityMergeEngine, times(expectedMerges.size())).mergeEntities(any(),
-        enrichmentExtractionCaptor.capture(), anySet());
+        enrichmentResultCaptor.capture(), anySet());
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
@@ -161,5 +161,4 @@ public class EnricherImplTest {
     verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()), anyMap());
     verify(entityMergeEngine, times(0)).mergeEntities(any(), any(), anyMap());
   }
-
 }

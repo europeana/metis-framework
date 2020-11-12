@@ -9,6 +9,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.DereferenceUtils;
+import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,7 +50,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    entityMergeEngine.mergeEntities(rdf, dereferenceInformation, Collections.emptyMap());
+    entityMergeEngine.mergeEntities(rdf, dereferenceInformation, Collections.emptySet());
 
     // Done.
     LOGGER.debug("Dereference completed.");
