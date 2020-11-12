@@ -22,7 +22,6 @@ import dev.morphia.Datastore;
 import dev.morphia.DeleteOptions;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
@@ -482,7 +481,7 @@ class TestWorkflowExecutionDao {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       final ResultList<WorkflowExecution> result = workflowExecutionDao.getAllWorkflowExecutions(
           Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)), workflowStatuses,
-          DaoFieldNames.ID, false, nextPage, true);
+          DaoFieldNames.ID, false, nextPage, 1, true);
       assertFalse(result.isMaxResultCountReached());
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(result.getResults(),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage,
@@ -511,8 +510,8 @@ class TestWorkflowExecutionDao {
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       final ResultList<WorkflowExecution> result = workflowExecutionDao.getAllWorkflowExecutions(
-          Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)), workflowStatuses,
-          DaoFieldNames.CREATED_DATE, true, nextPage, false);
+              Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)),
+              workflowStatuses, DaoFieldNames.CREATED_DATE, true, nextPage, 1, false);
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(result.getResults(),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage,
           result.isMaxResultCountReached());
@@ -564,50 +563,6 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.create(workflowExecution);
     assertTrue(
         workflowExecutionDao.deleteAllByDatasetId(workflowExecution.getDatasetId()));
-  }
-
-  @Test
-  void testGetAllExecutionStartDates() {
-
-    // Try with empty list
-    final String datasetId = "" + TestObjectFactory.DATASETID;
-    final List<ExecutionIdAndStartedDatePair> emptyResult = workflowExecutionDao
-        .getAllExecutionStartDates(datasetId).getResults();
-    assertNotNull(emptyResult);
-    assertTrue(emptyResult.isEmpty());
-
-    // Create three executions.
-    final WorkflowExecution newestExecution = TestObjectFactory.createWorkflowExecutionObject();
-    newestExecution.setStartedDate(new Date(1000));
-    newestExecution.setDatasetId(datasetId);
-    final String newestExecutionId = workflowExecutionDao.create(newestExecution);
-
-    final WorkflowExecution oldestExecution = TestObjectFactory.createWorkflowExecutionObject();
-    oldestExecution.setStartedDate(new Date(0));
-    oldestExecution.setDatasetId(datasetId);
-    final String oldestExecutionId = workflowExecutionDao.create(oldestExecution);
-
-    final WorkflowExecution middleExecution = TestObjectFactory.createWorkflowExecutionObject();
-    middleExecution.setStartedDate(new Date(500));
-    middleExecution.setDatasetId(datasetId);
-    final String middleExecutionId = workflowExecutionDao.create(middleExecution);
-
-    // Outcome should not depend on pagination.
-    workflowExecutionDao.setWorkflowExecutionsPerRequest(1);
-
-    // Make the call
-    final List<ExecutionIdAndStartedDatePair> resultWithContent = workflowExecutionDao
-        .getAllExecutionStartDates(datasetId).getResults();
-
-    // Check
-    assertNotNull(resultWithContent);
-    assertEquals(3, resultWithContent.size());
-    assertEquals(newestExecutionId, resultWithContent.get(0).getExecutionIdAsString());
-    assertEquals(newestExecution.getStartedDate(), resultWithContent.get(0).getStartedDate());
-    assertEquals(middleExecutionId, resultWithContent.get(1).getExecutionIdAsString());
-    assertEquals(middleExecution.getStartedDate(), resultWithContent.get(1).getStartedDate());
-    assertEquals(oldestExecutionId, resultWithContent.get(2).getExecutionIdAsString());
-    assertEquals(oldestExecution.getStartedDate(), resultWithContent.get(2).getStartedDate());
   }
 
   @Test

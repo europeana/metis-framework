@@ -116,9 +116,10 @@ class TestWorkflowExecutionMonitor {
     // Mock the retrieval of executions: 1, 2 and 3 are running, 4 is in queue.
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution3))
         .when(monitor).updateCurrentRunningExecutions();
-    when(workflowExecutionDao.getAllWorkflowExecutions(isNull(),
-        eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0), eq(true)))
-         .thenReturn(new ResultList<>(Collections.singletonList(workflowExecution4), false));
+    when(workflowExecutionDao
+            .getAllWorkflowExecutions(isNull(), eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(),
+                    anyBoolean(), eq(0), eq(1), eq(true)))
+            .thenReturn(new ResultList<>(Collections.singletonList(workflowExecution4), false));
     when(workflowExecutionDao.getWorkflowExecutionsPerRequest()).thenReturn(4);
 
     // Perform method and verify the requeued executions
@@ -137,7 +138,8 @@ class TestWorkflowExecutionMonitor {
     inOrder.verify(lock).lock();
     inOrder.verify(monitor, times(1)).updateCurrentRunningExecutions();
     inOrder.verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(),
-        eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0), eq(true));
+            eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0),
+            eq(1), eq(true));
     inOrder.verify(lock).unlock();
     inOrder.verifyNoMoreInteractions();
   }
