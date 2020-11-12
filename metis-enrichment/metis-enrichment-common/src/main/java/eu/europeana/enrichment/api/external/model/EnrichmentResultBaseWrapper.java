@@ -44,7 +44,7 @@ public class EnrichmentResultBaseWrapper {
   }
 
   /**
-   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper}.
+   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentResultBaseWrapper}.
    * <p>This is mostly used for dereferencing.</p>
    *
    * @param resultList the collection of {@link EnrichmentBase}

@@ -15,6 +15,7 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.Year;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -58,7 +59,7 @@ public final class EnrichmentUtils {
     final List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment = new ArrayList<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
       List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-      values.stream().map(val -> valuesForEnrichment.add(new Pair<>(val, field)));
+      values.forEach(val -> valuesForEnrichment.add(new Pair<>(val, field)));
     }
     return valuesForEnrichment;
   }

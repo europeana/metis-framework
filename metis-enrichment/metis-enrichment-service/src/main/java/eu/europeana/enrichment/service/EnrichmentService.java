@@ -7,8 +7,8 @@ import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.enrichment.utils.ReferenceValue;
-import eu.europeana.enrichment.utils.SearchValue;
+import eu.europeana.enrichment.api.external.ReferenceValue;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,7 +72,7 @@ public class EnrichmentService {
     final List<EnrichmentResultBaseWrapper> enrichmentBases = new ArrayList<>();
     try {
       for (SearchValue searchValue : searchValues) {
-        final List<EntityType> entityTypes = searchValue.getEntityTypes();
+        final Set<EntityType> entityTypes = searchValue.getEntityTypes();
         //Language has to be a valid 2 or 3 code, otherwise we do not use it
         final String inputValueLanguage = searchValue.getLanguage();
         final String language;
@@ -156,7 +156,7 @@ public class EnrichmentService {
    */
   public EnrichmentBase enrichByEquivalenceValues(ReferenceValue referenceValue) {
     try {
-      final List<EntityType> entityTypes = referenceValue.getEntityTypes();
+      final Set<EntityType> entityTypes = referenceValue.getEntityTypes();
       List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
 
       //First check if there are entities to work with

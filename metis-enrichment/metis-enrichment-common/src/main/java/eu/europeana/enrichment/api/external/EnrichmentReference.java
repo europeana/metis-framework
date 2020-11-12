@@ -3,7 +3,6 @@ package eu.europeana.enrichment.api.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.europeana.enrichment.utils.ReferenceValue;
 import io.swagger.annotations.ApiModel;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,9 +1,12 @@
-package eu.europeana.enrichment.utils;
+package eu.europeana.enrichment.api.external;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import eu.europeana.enrichment.utils.EntityType;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +27,7 @@ public class SearchValue {
 
   private String language;
 
-  private List<EntityType> entityTypes;
+  private Set<EntityType> entityTypes;
 
   public SearchValue(){
   }
@@ -39,7 +42,7 @@ public class SearchValue {
   public SearchValue(String value, String language, EntityType... entityTypes) {
     this.value = value;
     this.language = language;
-    this.entityTypes = Arrays.asList(entityTypes);
+    this.entityTypes = Set.of(entityTypes);
   }
 
   public String getValue() {
@@ -58,11 +61,11 @@ public class SearchValue {
     this.language = language;
   }
 
-  public List<EntityType> getEntityTypes() {
-    return entityTypes;
+  public Set<EntityType> getEntityTypes() {
+    return new HashSet<>(entityTypes);
   }
 
-  public void setEntityTypes(List<EntityType> entityTypes) {
-    this.entityTypes = entityTypes;
+  public void setEntityTypes(Set<EntityType> entityTypes) {
+    this.entityTypes = new HashSet<>(entityTypes);
   }
 }

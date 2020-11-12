@@ -1,13 +1,10 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentFields;
-import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.enrichment.utils.SearchValue;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,7 +25,7 @@ public interface Enricher {
    * @return A enrichment result list with the information retrieved to enrich the RDF
    * @throws EnrichmentException
    */
-  List<Pair<EnrichmentResultBaseWrapper, EnrichmentFields>> enrichValues(List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment)
+  List<Pair<EnrichmentBase, EnrichmentFields>> enrichValues(List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment)
       throws EnrichmentException;
 
   /**
@@ -37,7 +34,7 @@ public interface Enricher {
    * @return A list with RDF fields retrieved and the information associated with it
    * @throws EnrichmentException
    */
-  List<EnrichmentResultBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
+  List<EnrichmentBase> enrichReferences(Set<String> referencesForEnrichment)
       throws EnrichmentException;
 
   /**

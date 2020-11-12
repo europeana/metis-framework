@@ -45,8 +45,6 @@ import eu.europeana.corelib.definitions.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -65,7 +63,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.math3.util.Pair;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -392,13 +389,12 @@ public class EntityMergeEngine {
    * Merge entities in a record.
    *
    * @param rdf The RDF to enrich
-   * @param enrichmentResultBaseWrappers The information to append
+   * @param enrichmentBaseList The information to append
    */
-  public void mergeEntities(RDF rdf, List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers,
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
       Set<EnrichmentFields> proxyLinkTypes) {
-    for (EnrichmentResultBaseWrapper base : enrichmentResultBaseWrappers) {
-      base.getEnrichmentBaseList()
-          .forEach(enrichmentBase -> convertAndAddEntity(rdf, enrichmentBase, proxyLinkTypes));
+    for (EnrichmentBase base : enrichmentBaseList) {
+      convertAndAddEntity(rdf, base, proxyLinkTypes);
     }
   }
 
@@ -410,20 +406,19 @@ public class EntityMergeEngine {
    * @param proxyLinkTypes Lookup of the link types to create in the europeana proxy. The keys are
    * the about values of the entities to add.
    */
-  public void mergeEntities(RDF rdf, List<List<EnrichmentBase>> contextualEntities,
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
       Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
-    for (List<EnrichmentBase> entitiesList : contextualEntities) {
-      final Set<String> links = entitiesList.stream().map(this::getSameAsLinks).flatMap(Set::stream)
-          .collect(Collectors.toSet());
-      entitiesList.forEach(entity -> links.add(entity.getAbout()));
+    for (EnrichmentBase enrichmentBase : contextualEntities) {
+      final Set<String> links = getSameAsLinks(enrichmentBase);
+      links.add(enrichmentBase.getAbout());
       final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get)
           .filter(Objects::nonNull).flatMap(Set::stream).collect(Collectors.toSet());
-      entitiesList.forEach(entity -> convertAndAddEntity(rdf, entity, fields));
+      convertAndAddEntity(rdf, enrichmentBase, fields);
     }
   }
 
 
-  private Set<String> getSameAsLinks(EnrichmentBase contextualClass) {
+  private static Set<String> getSameAsLinks(EnrichmentBase contextualClass) {
     final List<? extends WebResource> result;
     if (contextualClass instanceof Agent) {
       result = ((Agent) contextualClass).getSameAs();

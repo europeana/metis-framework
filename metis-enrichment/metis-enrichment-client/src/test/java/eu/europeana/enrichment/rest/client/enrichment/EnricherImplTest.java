@@ -18,7 +18,7 @@ import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.enrichment.utils.SearchValue;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -26,7 +27,7 @@ import org.mockito.ArgumentCaptor;
 
 public class DereferencerImplTest {
 
-  private ArgumentCaptor<List<EnrichmentResultBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
+  private ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
       .forClass(List.class);
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT =

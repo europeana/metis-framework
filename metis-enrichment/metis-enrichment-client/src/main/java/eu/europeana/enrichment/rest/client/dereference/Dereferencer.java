@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
@@ -23,7 +24,7 @@ public interface Dereferencer {
    * @return A list of RDF field names with the information associated with it
    * @throws DereferenceException
    */
-  List<EnrichmentResultBaseWrapper> dereferenceEntities(Set<String> resourceIds) throws DereferenceException;
+  List<EnrichmentBase> dereferenceEntities(Set<String> resourceIds) throws DereferenceException;
 
   /**
    * It extracts the references for dereferencing from a RDF file

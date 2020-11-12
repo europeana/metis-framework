@@ -1,7 +1,11 @@
-package eu.europeana.enrichment.utils;
+package eu.europeana.enrichment.api.external;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import eu.europeana.enrichment.utils.EntityType;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -10,7 +14,7 @@ public class ReferenceValue {
 
   private String reference;
 
-  private List<EntityType> entityTypes;
+  private Set<EntityType> entityTypes;
 
   public ReferenceValue(){
   }
@@ -21,7 +25,7 @@ public class ReferenceValue {
    * @param reference the id to be enriched
    * @param entityTypes the vocabularies that this value represents
    */
-  public ReferenceValue(String reference, List<EntityType> entityTypes) {
+  public ReferenceValue(String reference, Set<EntityType> entityTypes) {
     this.reference = reference;
     this.entityTypes = entityTypes;
   }
@@ -34,11 +38,11 @@ public class ReferenceValue {
     this.reference = reference;
   }
 
-  public List<EntityType> getEntityTypes() {
-    return entityTypes;
+  public Set<EntityType> getEntityTypes() {
+    return new HashSet<>(entityTypes);
   }
 
-  public void setEntityTypes(List<EntityType> entityTypes) {
-    this.entityTypes = entityTypes;
+  public void setEntityTypes(Set<EntityType> entityTypes) {
+    this.entityTypes = new HashSet<>(entityTypes);
   }
 }

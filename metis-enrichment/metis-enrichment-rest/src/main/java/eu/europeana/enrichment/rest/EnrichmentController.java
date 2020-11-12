@@ -6,7 +6,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.service.EnrichmentService;
-import eu.europeana.enrichment.utils.ReferenceValue;
+import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -82,7 +82,7 @@ public class EnrichmentController {
   public EnrichmentBase equivalence(
       @ApiParam("uri") @RequestParam("uri") String uri) {
     return enrichmentService
-        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.EMPTY_LIST));
+        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
   }
 
   /**

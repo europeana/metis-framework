@@ -21,6 +21,7 @@ import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

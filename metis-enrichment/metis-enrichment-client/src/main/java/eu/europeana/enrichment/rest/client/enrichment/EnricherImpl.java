@@ -10,7 +10,7 @@ import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.enrichment.utils.SearchValue;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,28 +47,23 @@ public class EnricherImpl implements Enricher {
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
-    final List<Pair<EnrichmentResultBaseWrapper, EnrichmentFields>> valueEnrichmentInformation = enrichValues(
+    final List<Pair<EnrichmentBase, EnrichmentFields>> valueEnrichmentInformation = enrichValues(
         valuesForEnrichment);
-    final List<EnrichmentResultBaseWrapper> referenceEnrichmentInformation = enrichReferences(
+    final List<EnrichmentBase> referenceEnrichmentInformation = enrichReferences(
         referencesForEnrichment.keySet());
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (valueEnrichmentInformation != null) {
-      final Set<EnrichmentFields> enrichmentFieldsSet = valueEnrichmentInformation.stream()
-          .map(Pair::getSecond).collect(Collectors.toSet());
-      final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = valueEnrichmentInformation
-          .stream().map(Pair::getFirst).collect(Collectors.toList());
+      for(Pair<EnrichmentBase, EnrichmentFields> pair : valueEnrichmentInformation) {
+          entityMergeEngine
+              .mergeEntities(rdf, List.of(pair.getFirst()), Set.of(pair.getSecond()));
+      }
+    }
 
-      if (CollectionUtils.isNotEmpty(enrichmentResultBaseWrapperList)) {
-        entityMergeEngine
-            .mergeEntities(rdf, enrichmentResultBaseWrapperList, enrichmentFieldsSet);
-      }
-      if (!referenceEnrichmentInformation.isEmpty()) {
-        final List<List<EnrichmentBase>> entities = referenceEnrichmentInformation.stream()
-            .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).collect(Collectors.toList());
-        entityMergeEngine.mergeEntities(rdf, entities, referencesForEnrichment);
-      }
+    if (!referenceEnrichmentInformation.isEmpty()) {
+      entityMergeEngine
+          .mergeEntities(rdf, referenceEnrichmentInformation, referencesForEnrichment);
     }
 
     // Setting additional field values and set them in the RDF.
@@ -81,22 +76,28 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  //TODO: Input parameter is List<Pair<SearchValue, EnrichmentFields>
-  //TODO: Output is List<Pair<EnrichmentResult, EnrichmentFields>>
-  public List<Pair<EnrichmentResultBaseWrapper, EnrichmentFields>> enrichValues(
+  public List<Pair<EnrichmentBase, EnrichmentFields>> enrichValues(
       List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment)
       throws EnrichmentException {
     try {
+      if(CollectionUtils.isEmpty(valuesForEnrichment)){
+          return Collections.emptyList();
+      }
       List<SearchValue> searchValues = valuesForEnrichment.stream().map(Pair::getFirst)
           .collect(Collectors.toList());
       EnrichmentResultList result = retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.enrich(searchValues));
-      List<Pair<EnrichmentResultBaseWrapper, EnrichmentFields>> output = new ArrayList<>();
-      for (int i = 0; i < valuesForEnrichment.size(); i++) {
-        output.add(new Pair<>(result.getEnrichmentBaseResultWrapperList().get(i),
-            valuesForEnrichment.get(i).getSecond()));
+      List<List<EnrichmentBase>> enrichmentBaseLists = result.getEnrichmentBaseResultWrapperList()
+          .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList)
+          .collect(Collectors.toList());
+      List<Pair<EnrichmentBase, EnrichmentFields>> output = new ArrayList<>();
+      for (Pair<SearchValue, EnrichmentFields> pair : valuesForEnrichment) {
+        for (List<EnrichmentBase> enrichmentBases : enrichmentBaseLists) {
+          enrichmentBases.forEach(base -> output.add(new Pair<>(base, pair.getSecond())));
+        }
       }
       return output;
+
     } catch (Exception e) {
       throw new EnrichmentException(
           "Exception occurred while trying to perform enrichment.", e);
@@ -104,7 +105,7 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public List<EnrichmentResultBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
+  public List<EnrichmentBase> enrichReferences(Set<String> referencesForEnrichment)
       throws EnrichmentException {
     try {
       return CollectionUtils.isEmpty(referencesForEnrichment) ? Collections.emptyList()
