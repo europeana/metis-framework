@@ -27,8 +27,10 @@ import org.mockito.ArgumentCaptor;
 
 public class DereferencerImplTest {
 
-  private ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
+  private ArgumentCaptor<List<EnrichmentResultBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
       .forClass(List.class);
+
+  private ArgumentCaptor<List<EnrichmentBase>> enrichmentBaseListCaptor = ArgumentCaptor.forClass(List.class);
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT =
       {"enrich1", "enrich3", "enrich4"};
@@ -49,18 +51,18 @@ public class DereferencerImplTest {
     timeSpan1.setAbout("timespan1");
     final Timespan timeSpan2 = new Timespan();
     timeSpan2.setAbout("timespan2");
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList1 = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Arrays.asList(agent1, null, agent2));
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList1 = EnrichmentResultBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));
     final EnrichmentResultList dereferenceResult1 =
         new EnrichmentResultList(enrichmentBaseWrapperList1);
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList2 = EnrichmentBaseWrapper
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList2 = EnrichmentResultBaseWrapper
         .createNullOriginalFieldEnrichmentBaseWrapperList(
-            Arrays.asList(timeSpan1, timeSpan2, null));
+            List.of(Arrays.asList(timeSpan1, timeSpan2, null)));
     final EnrichmentResultList dereferenceResult2 =
         new EnrichmentResultList(enrichmentBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList3 = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Arrays.asList(place1, null, place2));
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList3 = EnrichmentResultBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(List.of(Arrays.asList(place1, null, place2)));
     ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList3);
   }
 
@@ -139,16 +141,16 @@ public class DereferencerImplTest {
         .collect(Collectors.toList()));
 
     verify(entityMergeEngine, times(expectedMerges.size())).mergeEntities(any(),
-        enrichmentResultCaptor.capture(), any());
+        enrichmentBaseListCaptor.capture(), anySet());
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
     int currentPointer = 0;
-    final List<List<EnrichmentResultBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues()
+    final List<List<EnrichmentBase>> foundValues = enrichmentBaseListCaptor.getAllValues()
         .subList(
-            enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
-            enrichmentResultCaptor.getAllValues().size());
-    for (List<EnrichmentResultBaseWrapper> capturedMerge : foundValues) {
+            enrichmentBaseListCaptor.getAllValues().size() - expectedMerges.size(),
+            enrichmentBaseListCaptor.getAllValues().size());
+    for (List<EnrichmentBase> capturedMerge : foundValues) {
       assertArrayEquals(expectedMerges.get(currentPointer).toArray(), capturedMerge.toArray());
       currentPointer++;
     }

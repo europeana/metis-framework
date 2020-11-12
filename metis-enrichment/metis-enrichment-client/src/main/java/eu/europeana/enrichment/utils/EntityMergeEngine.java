@@ -409,7 +409,7 @@ public class EntityMergeEngine {
   public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
       Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
     for (EnrichmentBase enrichmentBase : contextualEntities) {
-      final Set<String> links = getSameAsLinks(enrichmentBase);
+      final Set<String> links = this.getSameAsLinks(enrichmentBase);
       links.add(enrichmentBase.getAbout());
       final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get)
           .filter(Objects::nonNull).flatMap(Set::stream).collect(Collectors.toSet());

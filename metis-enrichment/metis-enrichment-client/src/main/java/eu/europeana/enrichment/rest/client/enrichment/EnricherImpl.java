@@ -56,8 +56,8 @@ public class EnricherImpl implements Enricher {
     LOGGER.debug("Merging Enrichment Information...");
     if (valueEnrichmentInformation != null) {
       for(Pair<EnrichmentBase, EnrichmentFields> pair : valueEnrichmentInformation) {
-          entityMergeEngine
-              .mergeEntities(rdf, List.of(pair.getFirst()), Set.of(pair.getSecond()));
+        entityMergeEngine.mergeEntities(rdf, List.of(pair.getFirst()), Set.of(pair.getSecond()));
+
       }
     }
 
@@ -87,14 +87,11 @@ public class EnricherImpl implements Enricher {
           .collect(Collectors.toList());
       EnrichmentResultList result = retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.enrich(searchValues));
-      List<List<EnrichmentBase>> enrichmentBaseLists = result.getEnrichmentBaseResultWrapperList()
-          .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList)
-          .collect(Collectors.toList());
-      List<Pair<EnrichmentBase, EnrichmentFields>> output = new ArrayList<>();
-      for (Pair<SearchValue, EnrichmentFields> pair : valuesForEnrichment) {
-        for (List<EnrichmentBase> enrichmentBases : enrichmentBaseLists) {
-          enrichmentBases.forEach(base -> output.add(new Pair<>(base, pair.getSecond())));
-        }
+      final List<Pair<EnrichmentBase, EnrichmentFields>> output = new ArrayList<>();
+      for (int index = 0; index < searchValues.size(); index++){
+        final EnrichmentFields fieldType = valuesForEnrichment.get(index).getSecond();
+        result.getEnrichmentBaseResultWrapperList().get(index).getEnrichmentBaseList()
+            .forEach(base -> output.add(new Pair<>(base, fieldType)));
       }
       return output;
 

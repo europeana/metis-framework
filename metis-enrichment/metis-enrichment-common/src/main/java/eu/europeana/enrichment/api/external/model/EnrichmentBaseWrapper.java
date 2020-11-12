@@ -55,7 +55,7 @@ public class EnrichmentBaseWrapper {
    * @param resultList the collection of {@link EnrichmentBase}
    * @return the converted list
    */
-  public static List<EnrichmentBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
+  public static List<EnrichmentBaseWrapper> createEnrichmentBaseWrapperList(
       Collection<EnrichmentBase> resultList) {
     return resultList.stream()
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(

@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_SEARCH;
-import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
@@ -45,7 +44,7 @@ class EnrichmentClientTest {
     agentList.add(agent2);
 
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-            .createNullOriginalFieldEnrichmentBaseWrapperList(agentList);
+            .createEnrichmentBaseWrapperList(agentList);
     EnrichmentResultList result = new EnrichmentResultList(enrichmentBaseWrapperList);
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
