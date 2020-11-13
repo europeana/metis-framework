@@ -33,7 +33,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.math3.util.Pair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Utilities for enrichment and dereferencing Created by gmamakis on 8-3-17.
@@ -59,7 +60,7 @@ public final class EnrichmentUtils {
     final List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment = new ArrayList<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
       List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-      values.forEach(val -> valuesForEnrichment.add(new Pair<>(val, field)));
+      values.forEach(val -> valuesForEnrichment.add(new MutablePair<>(val, field)));
     }
     return valuesForEnrichment;
   }

@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -14,7 +13,6 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -23,14 +21,11 @@ import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.api.external.SearchValue;
-import eu.europeana.enrichment.utils.InputValue;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.apache.commons.math3.util.Pair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -57,13 +52,13 @@ public class EnricherImplTest {
         EnrichmentResultBaseWrapper.createNullOriginalFieldEnrichmentBaseWrapperList(
             List.of(List.of(place1),Collections.emptyList(), List.of(place2)));
     ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList);
-    ENRICHMENT_EXTRACT_RESULT.add(new Pair<>(new SearchValue("value1", "lang1", EntityType.AGENT),
+    ENRICHMENT_EXTRACT_RESULT.add(new MutablePair<>(new SearchValue("value1", "lang1", EntityType.AGENT),
         EnrichmentFields.DC_CREATOR));
     ENRICHMENT_EXTRACT_RESULT.add(
-        new Pair<>(new SearchValue("value2", null, EntityType.AGENT, EntityType.CONCEPT),
+        new MutablePair<>(new SearchValue("value2", null, EntityType.AGENT, EntityType.CONCEPT),
             EnrichmentFields.DC_SUBJECT));
     ENRICHMENT_EXTRACT_RESULT
-        .add(new Pair<>(new SearchValue("value3", "lang2"), EnrichmentFields.DCTERMS_SPATIAL));
+        .add(new MutablePair<>(new SearchValue("value3", "lang2"), EnrichmentFields.DCTERMS_SPATIAL));
   }
 
   @Test
@@ -115,7 +110,7 @@ public class EnricherImplTest {
 
     // Actually enriching
     verify(enrichmentClient, times(1)).enrich(enrichmentExtractionCaptor.capture());
-    assertArrayEquals(ENRICHMENT_EXTRACT_RESULT.stream().map(Pair::getFirst).toArray(),
+    assertArrayEquals(ENRICHMENT_EXTRACT_RESULT.stream().map(Pair::getKey).toArray(),
         enrichmentExtractionCaptor.getValue().toArray());
 
 

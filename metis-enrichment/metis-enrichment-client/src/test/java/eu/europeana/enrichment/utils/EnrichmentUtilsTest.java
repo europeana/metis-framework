@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.math3.util.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 public class EnrichmentUtilsTest {
@@ -157,7 +157,7 @@ public class EnrichmentUtilsTest {
     assertEquals(10, result.size());
 
     ArrayList<String> resultProcessed = new ArrayList<>();
-    List<SearchValue> searchValueList = result.stream().map(Pair::getFirst).collect(Collectors.toList());
+    List<SearchValue> searchValueList = result.stream().map(Pair::getKey).collect(Collectors.toList());
     for (SearchValue searchValue : searchValueList) {
       resultProcessed.add(searchValue.getValue() + "|" + searchValue.getLanguage());
     }

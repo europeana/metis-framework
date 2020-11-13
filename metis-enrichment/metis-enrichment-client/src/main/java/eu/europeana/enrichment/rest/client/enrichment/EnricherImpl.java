@@ -4,7 +4,6 @@ import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequ
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentFields;
@@ -18,7 +17,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.math3.util.Pair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +56,7 @@ public class EnricherImpl implements Enricher {
     LOGGER.debug("Merging Enrichment Information...");
     if (valueEnrichmentInformation != null) {
       for(Pair<EnrichmentBase, EnrichmentFields> pair : valueEnrichmentInformation) {
-        entityMergeEngine.mergeEntities(rdf, List.of(pair.getFirst()), Set.of(pair.getSecond()));
+        entityMergeEngine.mergeEntities(rdf, List.of(pair.getKey()), Set.of(pair.getValue()));
 
       }
     }
@@ -83,15 +83,15 @@ public class EnricherImpl implements Enricher {
       if(CollectionUtils.isEmpty(valuesForEnrichment)){
           return Collections.emptyList();
       }
-      List<SearchValue> searchValues = valuesForEnrichment.stream().map(Pair::getFirst)
+      List<SearchValue> searchValues = valuesForEnrichment.stream().map(Pair::getKey)
           .collect(Collectors.toList());
       EnrichmentResultList result = retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.enrich(searchValues));
       final List<Pair<EnrichmentBase, EnrichmentFields>> output = new ArrayList<>();
       for (int index = 0; index < searchValues.size(); index++){
-        final EnrichmentFields fieldType = valuesForEnrichment.get(index).getSecond();
+        final EnrichmentFields fieldType = valuesForEnrichment.get(index).getValue();
         result.getEnrichmentBaseResultWrapperList().get(index).getEnrichmentBaseList()
-            .forEach(base -> output.add(new Pair<>(base, fieldType)));
+            .forEach(base -> output.add(new MutablePair<>(base, fieldType)));
       }
       return output;
 

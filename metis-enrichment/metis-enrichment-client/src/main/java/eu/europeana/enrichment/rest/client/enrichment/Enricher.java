@@ -8,7 +8,7 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.math3.util.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public interface Enricher {
 
