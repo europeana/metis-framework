@@ -528,7 +528,7 @@ public class OrchestratorService {
 
     // Find the executions.
     final ResultList<WorkflowExecution> data = workflowExecutionDao.getAllWorkflowExecutions(
-        datasetIds, workflowStatuses, orderField, ascending, nextPage, false);
+            datasetIds, workflowStatuses, orderField, ascending, nextPage, 1, false);
 
     // Compile and return the result.
     final List<WorkflowExecutionView> convertedData = data.getResults().stream()
@@ -797,18 +797,27 @@ public class OrchestratorService {
     // Check that the user is authorized
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
-    // Get the information from the database
-    final List<Execution> executions = workflowExecutionDao.getAllExecutionStartDates(datasetId)
-        .getResults().stream().map(entry -> {
-          final Execution execution = new Execution();
-          execution.setWorkflowExecutionId(entry.getExecutionIdAsString());
-          execution.setStartedDate(entry.getStartedDate());
-          return execution;
-        }).collect(Collectors.toList());
+    // Get the executions from the database
+    final ResultList<WorkflowExecution> allExecutions = workflowExecutionDao
+            .getAllWorkflowExecutions(Set.of(datasetId), null, DaoFieldNames.STARTED_DATE, false, 0,
+                    null, false);
+
+    // Filter the executions.
+    final List<Execution> executions = allExecutions.getResults().stream()
+            .filter(entry -> entry.getMetisPlugins().stream()
+                    .anyMatch(OrchestratorService::canDisplayRawXml))
+            .map(OrchestratorService::convert).collect(Collectors.toList());
 
     // Done
     final ExecutionHistory result = new ExecutionHistory();
     result.setExecutions(executions);
+    return result;
+  }
+
+  private static Execution convert(WorkflowExecution execution) {
+    final Execution result = new Execution();
+    result.setWorkflowExecutionId(execution.getId().toString());
+    result.setStartedDate(execution.getStartedDate());
     return result;
   }
 
@@ -839,8 +848,8 @@ public class OrchestratorService {
 
     // Compile the result.
     final List<PluginWithDataAvailability> plugins = execution.getMetisPlugins().stream()
-        .filter(plugin -> plugin instanceof ExecutablePlugin)
-        .map(plugin -> (ExecutablePlugin<?>) plugin).map(OrchestratorService::convert)
+        .filter(OrchestratorService::canDisplayRawXml)
+        .map(OrchestratorService::convert)
         .collect(Collectors.toList());
     final PluginsWithDataAvailability result = new PluginsWithDataAvailability();
     result.setPlugins(plugins);
@@ -849,9 +858,9 @@ public class OrchestratorService {
     return result;
   }
 
-  private static PluginWithDataAvailability convert(ExecutablePlugin<?> plugin) {
+  private static PluginWithDataAvailability convert(MetisPlugin<?> plugin) {
     final PluginWithDataAvailability result = new PluginWithDataAvailability();
-    result.setCanDisplayRawXml(canDisplayRawXml(plugin));
+    result.setCanDisplayRawXml(true); // If this method is called, it is known that it can display.
     result.setPluginType(plugin.getPluginType());
     return result;
   }
@@ -859,12 +868,14 @@ public class OrchestratorService {
   private static boolean canDisplayRawXml(MetisPlugin<?> plugin) {
     final boolean result;
     if (plugin instanceof ExecutablePlugin) {
+      final boolean dataIsValid =
+              MetisPlugin.getDataStatus(((ExecutablePlugin<?>) plugin)) == DataStatus.VALID;
       final ExecutionProgress progress = ((ExecutablePlugin<?>) plugin).getExecutionProgress();
       final boolean pluginHasBlacklistedType = Optional.of(((ExecutablePlugin<?>) plugin))
               .map(ExecutablePlugin::getPluginMetadata)
               .map(ExecutablePluginMetadata::getExecutablePluginType)
               .map(NO_XML_PREVIEW_TYPES::contains).orElse(Boolean.TRUE);
-      result = !pluginHasBlacklistedType && progress != null
+      result = dataIsValid && !pluginHasBlacklistedType && progress != null
               && progress.getProcessedRecords() > progress.getErrors();
     } else {
       result = false;
