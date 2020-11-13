@@ -17,7 +17,6 @@ import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response.Status.Family;
 import org.apache.commons.lang3.StringUtils;
@@ -36,8 +35,6 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpClient.class);
 
-  private final ScheduledExecutorService connectionCleaningSchedule = Executors
-      .newScheduledThreadPool(1);
   private final ExecutorService httpConnectionsThreadpool = Executors.newFixedThreadPool(1);
 
   private final int responseTimeout;
@@ -56,10 +53,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    */
   AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
       int requestTimeout) {
-    httpClient = HttpClient.newBuilder()
-        .executor(httpConnectionsThreadpool)
-        .connectTimeout(Duration.ofMillis(connectTimeout))
-        .build();
+    httpClient = HttpClient.newBuilder().executor(httpConnectionsThreadpool)
+        .connectTimeout(Duration.ofMillis(connectTimeout)).build();
     maxNumberOfRedirects = maxRedirectCount;
     this.responseTimeout = responseTimeout;
     this.requestTimeout = requestTimeout;
@@ -88,12 +83,12 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       public void run() {
         LOGGER.info("Aborting request due to time limit: {}.", resourceUri.getPath());
         bodyWrapper.cancel();
-        futureRequest.thenAccept(response-> {
+        futureRequest.thenAccept(response -> {
           try {
             response.body().close();
           } catch (IOException e) {
             LOGGER.warn("Something went wrong while trying to close the input stream after"
-                    + " cancelling the http request.", e);
+                + " cancelling the http request.", e);
           }
         });
       }
@@ -101,31 +96,28 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
-    // Execute the request and save the result.
-    final Pair<HttpResponse<InputStream>, URI> redirectedResponse = makeRedirectedRequest(
-            resourceUri, bodyWrapper);
-    final URI actualUri = redirectedResponse.getRight();
-    final HttpResponse<InputStream> httpResponse = redirectedResponse.getLeft();
-    futureRequest.complete(httpResponse);
-
+    HttpResponse<InputStream> httpResponse = null;
     try {
+      // Execute the request and save the result.
+      final Pair<HttpResponse<InputStream>, URI> redirectedResponse = makeRedirectedRequest(
+          resourceUri, bodyWrapper);
+      final URI actualUri = redirectedResponse.getRight();
+      httpResponse = redirectedResponse.getLeft();
+      futureRequest.complete(httpResponse);
 
       // Obtain header information.
-      final String mimeType = httpResponse.headers()
-              .firstValue(HttpHeaders.CONTENT_TYPE)
-              .filter(StringUtils::isNotBlank)
-              .orElse(null);
-      final long fileSize = httpResponse.headers()
-              .firstValueAsLong(HttpHeaders.CONTENT_LENGTH)
-              .orElse(0);
+      final String mimeType = httpResponse.headers().firstValue(HttpHeaders.CONTENT_TYPE)
+          .filter(StringUtils::isNotBlank).orElse(null);
+      final long fileSize = httpResponse.headers().firstValueAsLong(HttpHeaders.CONTENT_LENGTH)
+          .orElse(0);
 
       // Process the result.
-      final ContentRetriever content = httpResponse.body() == null ?
-              ContentRetriever.forEmptyContent() : httpResponse::body;
+      final ContentRetriever content =
+          httpResponse.body() == null ? ContentRetriever.forEmptyContent() : httpResponse::body;
       final R result;
       try {
-        result = createResult(resourceEntry, actualUri, mimeType,
-                fileSize <= 0 ? null : fileSize, content);
+        result = createResult(resourceEntry, actualUri, mimeType, fileSize <= 0 ? null : fileSize,
+            content);
       } catch (IOException | RuntimeException e) {
         if (bodyWrapper.isCancelled()) {
           throw new IOException("The request was aborted: it exceeded the time limit.", e);
@@ -139,19 +131,20 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
         throw new IOException("The request was aborted: it exceeded the time limit.");
       }
 
-      // Cancel abort trigger
-      timer.cancel();
-      abortTask.cancel();
-
       // Done.
       return result;
     } finally {
-      httpResponse.body().close();
+      // Cancel abort trigger
+      timer.cancel();
+      abortTask.cancel();
+      if (httpResponse != null) {
+        httpResponse.body().close();
+      }
     }
   }
 
   private Pair<HttpResponse<InputStream>, URI> makeRedirectedRequest(final URI resourceUri,
-          CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
+      CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
 
     // Bootstrap the redirection loop
     URI currentLocation = resourceUri;
@@ -165,7 +158,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
         // Perform the request. If we get a non-redirect result, we're done.
         currentResponse = makeHttpRequest(currentLocation, bodyWrapper);
-        if(Family.familyOf(currentResponse.statusCode()) != Family.REDIRECTION) {
+        if (Family.familyOf(currentResponse.statusCode()) != Family.REDIRECTION) {
           break;
         }
 
@@ -176,12 +169,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
         redirectsLeft--;
 
         // Compute current location.
-        currentLocation = currentResponse.headers()
-                .firstValue(HttpHeaders.LOCATION)
-                .filter(StringUtils::isNotBlank)
-                .map(currentLocation::resolve)
-                .orElseThrow(() -> new IOException(
-                        "There was problems retrieving the redirect Location value"));
+        currentLocation = currentResponse.headers().firstValue(HttpHeaders.LOCATION)
+            .filter(StringUtils::isNotBlank).map(currentLocation::resolve).orElseThrow(
+                () -> new IOException("There was problems retrieving the redirect Location value"));
 
         // Prepare for next step.
         currentResponse.body().close();
@@ -189,9 +179,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
       // If we don't have success, we throw an exception.
       if (Family.familyOf(currentResponse.statusCode()) != Family.SUCCESSFUL) {
-        throw new IOException(
-                String.format("Download failed of resource %s. Status code %s for location %s",
-                        resourceUri, currentResponse.statusCode(), currentLocation));
+        throw new IOException(String
+            .format("Download failed of resource %s. Status code %s for location %s", resourceUri,
+                currentResponse.statusCode(), currentLocation));
       }
 
       // We have success. Done.
@@ -208,14 +198,11 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   }
 
   private HttpResponse<InputStream> makeHttpRequest(URI uri,
-          CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
+      CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
 
     // Create the request.
-    final HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .timeout(Duration.ofMillis(responseTimeout))
-        .uri(uri)
-        .build();
+    final HttpRequest httpRequest = HttpRequest.newBuilder().GET()
+        .timeout(Duration.ofMillis(responseTimeout)).uri(uri).build();
 
     // Execute the request.
     final HttpResponse<InputStream> response;
@@ -224,7 +211,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     } catch (InterruptedException interruptedException) {
       LOGGER.info("The thread was interrupted");
       Thread.currentThread().interrupt();
-      throw new IOException("Could not retrieve the response: thread was interrupted.", interruptedException);
+      throw new IOException("Could not retrieve the response: thread was interrupted.",
+          interruptedException);
     }
 
     // Return the response object.
@@ -265,12 +253,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       ContentRetriever contentRetriever) throws IOException;
 
   @Override
-  public void close() throws IOException {
-    try {
-      connectionCleaningSchedule.shutdown();
-    } finally {
-      httpConnectionsThreadpool.shutdownNow();
-    }
+  public void close() {
+    httpConnectionsThreadpool.shutdownNow();
   }
 
   /**
