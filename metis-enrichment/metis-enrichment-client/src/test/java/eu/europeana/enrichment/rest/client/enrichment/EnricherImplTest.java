@@ -11,6 +11,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
@@ -106,7 +107,6 @@ public class EnricherImplTest {
     // Extracting values for enrichment
     verify(enricher, times(1)).extractValuesForEnrichment(any());
     verify(enricher, times(1)).extractValuesForEnrichment(inputRdf);
-
 
     // Actually enriching
     verify(enrichmentClient, times(1)).enrich(enrichmentExtractionCaptor.capture());

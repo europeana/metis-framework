@@ -14,7 +14,7 @@ import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;

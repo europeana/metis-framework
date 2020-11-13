@@ -5,8 +5,8 @@ import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_NAME;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATA_PROVIDER;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.PROVIDER;
-import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;

@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.exceptions.SerializationException;

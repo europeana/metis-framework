@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;

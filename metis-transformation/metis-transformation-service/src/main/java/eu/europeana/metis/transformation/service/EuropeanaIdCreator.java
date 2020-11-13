@@ -1,7 +1,7 @@
 package eu.europeana.metis.transformation.service;
 
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ProvidedCHOType;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.RdfNamespaceContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

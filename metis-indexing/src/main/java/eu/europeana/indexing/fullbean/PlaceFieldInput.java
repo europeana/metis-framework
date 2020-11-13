@@ -1,12 +1,12 @@
 package eu.europeana.indexing.fullbean;
 
 import java.util.function.Function;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 
 /**
- * Converts a {@link PlaceType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
- * {@link PlaceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link PlaceType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link PlaceImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class PlaceFieldInput implements Function<PlaceType, PlaceImpl> {
 

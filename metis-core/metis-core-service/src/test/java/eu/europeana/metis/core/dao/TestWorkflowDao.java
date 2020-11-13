@@ -13,7 +13,7 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

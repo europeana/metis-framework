@@ -1,9 +1,9 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.corelib.definitions.jibx.AboutType;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.EuropeanaType;
+import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;

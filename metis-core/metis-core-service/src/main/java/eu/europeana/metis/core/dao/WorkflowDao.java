@@ -9,7 +9,7 @@ import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;

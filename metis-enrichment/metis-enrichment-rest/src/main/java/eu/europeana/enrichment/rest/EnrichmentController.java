@@ -8,6 +8,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

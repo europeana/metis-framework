@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.execution;
 
-import static eu.europeana.metis.utils.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
+import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
@@ -17,7 +17,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.Callable;

@@ -1,10 +1,10 @@
 package eu.europeana.validation.rest;
 
-import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
+import static eu.europeana.metis.utils.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.utils.ZipFileReader;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;

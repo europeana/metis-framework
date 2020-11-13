@@ -1,13 +1,13 @@
 package eu.europeana.indexing;
 
-import eu.europeana.corelib.definitions.jibx.Identifier;
-import eu.europeana.corelib.definitions.jibx.IsShownBy;
-import eu.europeana.corelib.definitions.jibx.Title;
+import eu.europeana.metis.schema.jibx.Identifier;
+import eu.europeana.metis.schema.jibx.IsShownBy;
+import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.metis.mongo.RecordRedirect;
-import eu.europeana.metis.mongo.RecordRedirectDao;
+import eu.europeana.metis.mongo.model.RecordRedirect;
+import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

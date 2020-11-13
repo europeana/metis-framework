@@ -7,7 +7,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.bson.types.ObjectId;

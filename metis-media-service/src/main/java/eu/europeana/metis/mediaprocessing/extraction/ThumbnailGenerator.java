@@ -5,7 +5,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

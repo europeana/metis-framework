@@ -1,27 +1,27 @@
 package eu.europeana.indexing.fullbean;
 
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
-import eu.europeana.corelib.definitions.jibx.CodecName;
-import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
-import eu.europeana.corelib.definitions.jibx.DoubleType;
-import eu.europeana.corelib.definitions.jibx.Duration;
-import eu.europeana.corelib.definitions.jibx.HasColorSpace;
-import eu.europeana.corelib.definitions.jibx.HasMimeType;
-import eu.europeana.corelib.definitions.jibx.HexBinaryType;
-import eu.europeana.corelib.definitions.jibx.IntegerType;
-import eu.europeana.corelib.definitions.jibx.LongType;
-import eu.europeana.corelib.definitions.jibx.NonNegativeIntegerType;
-import eu.europeana.corelib.definitions.jibx.OrientationType;
-import eu.europeana.corelib.definitions.jibx.Type1;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.metis.schema.jibx.CodecName;
+import eu.europeana.metis.schema.jibx.ColorSpaceType;
+import eu.europeana.metis.schema.jibx.DoubleType;
+import eu.europeana.metis.schema.jibx.Duration;
+import eu.europeana.metis.schema.jibx.HasColorSpace;
+import eu.europeana.metis.schema.jibx.HasMimeType;
+import eu.europeana.metis.schema.jibx.HexBinaryType;
+import eu.europeana.metis.schema.jibx.IntegerType;
+import eu.europeana.metis.schema.jibx.LongType;
+import eu.europeana.metis.schema.jibx.NonNegativeIntegerType;
+import eu.europeana.metis.schema.jibx.OrientationType;
+import eu.europeana.metis.schema.jibx.Type1;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.metis.utils.MediaType;
-import eu.europeana.metis.utils.Orientation;
+import eu.europeana.metis.schema.model.MediaType;
+import eu.europeana.metis.schema.model.Orientation;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +33,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Converts a {@link WebResourceType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
- * {@link WebResourceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link WebResourceType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link WebResourceImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl> {
 

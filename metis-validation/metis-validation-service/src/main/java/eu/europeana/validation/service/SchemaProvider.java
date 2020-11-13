@@ -41,9 +41,9 @@ public class SchemaProvider {
 
   private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
   private static final String ZIP_FILE_NAME = "zip.zip";
-  private String schemasRootDirectory;
+  private final String schemasRootDirectory;
 
-  private HttpClient httpClient = HttpClient.newBuilder().build();
+  private final HttpClient httpClient = HttpClient.newBuilder().build();
 
   private final PredefinedSchemas predefinedSchemasLocations;
 

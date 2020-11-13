@@ -12,6 +12,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.schema.model.MediaType;
 import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
@@ -24,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of type {@link
- * eu.europeana.metis.utils.MediaType#TEXT}.
+ * MediaType#TEXT}.
  * </p>
  * <p>
  * Note: if we don't have metadata, we don't return thumbnails either.

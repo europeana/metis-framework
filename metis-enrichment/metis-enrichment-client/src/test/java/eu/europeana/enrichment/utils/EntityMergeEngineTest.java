@@ -6,17 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.corelib.definitions.jibx.AgentType;
-import eu.europeana.corelib.definitions.jibx.Alt;
-import eu.europeana.corelib.definitions.jibx.Concept.Choice;
-import eu.europeana.corelib.definitions.jibx.Lat;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
-import eu.europeana.corelib.definitions.jibx._Long;
+import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Alt;
+import eu.europeana.metis.schema.jibx.Concept.Choice;
+import eu.europeana.metis.schema.jibx.Lat;
+import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
+import eu.europeana.metis.schema.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -351,7 +351,7 @@ public class EntityMergeEngineTest {
     assertTrue(copy.getNameList().isEmpty());
   }
 
-  private void verifyConcept(Concept original, eu.europeana.corelib.definitions.jibx.Concept copy) {
+  private void verifyConcept(Concept original, eu.europeana.metis.schema.jibx.Concept copy) {
     assertNotNull(copy);
     verifyString(original.getAbout(), copy.getAbout(), true);
     int choicesCount = 0;
@@ -402,7 +402,7 @@ public class EntityMergeEngineTest {
 
   // Compares those choices of the right type. Returns the number of choices covered.
   private <O, C> int verifyChoiceList(List<O> original,
-      eu.europeana.corelib.definitions.jibx.Concept copy, Predicate<Choice> choiceFilter,
+      eu.europeana.metis.schema.jibx.Concept copy, Predicate<Choice> choiceFilter,
       Function<Choice, C> choiceGetter, BiConsumer<O, C> objectVerification) {
     final List<C> items = copy.getChoiceList().stream().filter(choiceFilter).map(choiceGetter)
         .collect(Collectors.toList());

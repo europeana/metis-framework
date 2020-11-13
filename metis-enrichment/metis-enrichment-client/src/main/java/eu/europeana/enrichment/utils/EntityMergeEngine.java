@@ -1,47 +1,47 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.corelib.definitions.jibx.AboutType;
-import eu.europeana.corelib.definitions.jibx.AgentType;
-import eu.europeana.corelib.definitions.jibx.Alt;
-import eu.europeana.corelib.definitions.jibx.AltLabel;
-import eu.europeana.corelib.definitions.jibx.Begin;
-import eu.europeana.corelib.definitions.jibx.BiographicalInformation;
-import eu.europeana.corelib.definitions.jibx.BroadMatch;
-import eu.europeana.corelib.definitions.jibx.Broader;
-import eu.europeana.corelib.definitions.jibx.CloseMatch;
-import eu.europeana.corelib.definitions.jibx.Concept.Choice;
-import eu.europeana.corelib.definitions.jibx.Date;
-import eu.europeana.corelib.definitions.jibx.DateOfBirth;
-import eu.europeana.corelib.definitions.jibx.DateOfDeath;
-import eu.europeana.corelib.definitions.jibx.DateOfEstablishment;
-import eu.europeana.corelib.definitions.jibx.DateOfTermination;
-import eu.europeana.corelib.definitions.jibx.End;
-import eu.europeana.corelib.definitions.jibx.ExactMatch;
-import eu.europeana.corelib.definitions.jibx.Gender;
-import eu.europeana.corelib.definitions.jibx.HasMet;
-import eu.europeana.corelib.definitions.jibx.HasPart;
-import eu.europeana.corelib.definitions.jibx.HiddenLabel;
-import eu.europeana.corelib.definitions.jibx.Identifier;
-import eu.europeana.corelib.definitions.jibx.InScheme;
-import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
-import eu.europeana.corelib.definitions.jibx.IsPartOf;
-import eu.europeana.corelib.definitions.jibx.IsRelatedTo;
-import eu.europeana.corelib.definitions.jibx.Lat;
-import eu.europeana.corelib.definitions.jibx.NarrowMatch;
-import eu.europeana.corelib.definitions.jibx.Narrower;
-import eu.europeana.corelib.definitions.jibx.Notation;
-import eu.europeana.corelib.definitions.jibx.Note;
-import eu.europeana.corelib.definitions.jibx.PlaceOfBirth;
-import eu.europeana.corelib.definitions.jibx.PlaceOfDeath;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
-import eu.europeana.corelib.definitions.jibx.PrefLabel;
-import eu.europeana.corelib.definitions.jibx.ProfessionOrOccupation;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.Related;
-import eu.europeana.corelib.definitions.jibx.RelatedMatch;
-import eu.europeana.corelib.definitions.jibx.SameAs;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
-import eu.europeana.corelib.definitions.jibx._Long;
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Alt;
+import eu.europeana.metis.schema.jibx.AltLabel;
+import eu.europeana.metis.schema.jibx.Begin;
+import eu.europeana.metis.schema.jibx.BiographicalInformation;
+import eu.europeana.metis.schema.jibx.BroadMatch;
+import eu.europeana.metis.schema.jibx.Broader;
+import eu.europeana.metis.schema.jibx.CloseMatch;
+import eu.europeana.metis.schema.jibx.Concept.Choice;
+import eu.europeana.metis.schema.jibx.Date;
+import eu.europeana.metis.schema.jibx.DateOfBirth;
+import eu.europeana.metis.schema.jibx.DateOfDeath;
+import eu.europeana.metis.schema.jibx.DateOfEstablishment;
+import eu.europeana.metis.schema.jibx.DateOfTermination;
+import eu.europeana.metis.schema.jibx.End;
+import eu.europeana.metis.schema.jibx.ExactMatch;
+import eu.europeana.metis.schema.jibx.Gender;
+import eu.europeana.metis.schema.jibx.HasMet;
+import eu.europeana.metis.schema.jibx.HasPart;
+import eu.europeana.metis.schema.jibx.HiddenLabel;
+import eu.europeana.metis.schema.jibx.Identifier;
+import eu.europeana.metis.schema.jibx.InScheme;
+import eu.europeana.metis.schema.jibx.IsNextInSequence;
+import eu.europeana.metis.schema.jibx.IsPartOf;
+import eu.europeana.metis.schema.jibx.IsRelatedTo;
+import eu.europeana.metis.schema.jibx.Lat;
+import eu.europeana.metis.schema.jibx.NarrowMatch;
+import eu.europeana.metis.schema.jibx.Narrower;
+import eu.europeana.metis.schema.jibx.Notation;
+import eu.europeana.metis.schema.jibx.Note;
+import eu.europeana.metis.schema.jibx.PlaceOfBirth;
+import eu.europeana.metis.schema.jibx.PlaceOfDeath;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.PrefLabel;
+import eu.europeana.metis.schema.jibx.ProfessionOrOccupation;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.Related;
+import eu.europeana.metis.schema.jibx.RelatedMatch;
+import eu.europeana.metis.schema.jibx.SameAs;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
+import eu.europeana.metis.schema.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -218,9 +218,9 @@ public class EntityMergeEngine {
     return agentType;
   }
 
-  private static eu.europeana.corelib.definitions.jibx.Concept convertConcept(Concept baseConcept) {
+  private static eu.europeana.metis.schema.jibx.Concept convertConcept(Concept baseConcept) {
 
-    eu.europeana.corelib.definitions.jibx.Concept concept = new eu.europeana.corelib.definitions.jibx.Concept();
+    eu.europeana.metis.schema.jibx.Concept concept = new eu.europeana.metis.schema.jibx.Concept();
 
     // about
     ItemExtractorUtils.setAbout(baseConcept, concept);

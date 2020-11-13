@@ -1,6 +1,6 @@
 package eu.europeana.indexing.tiers.metadata;
 
-import eu.europeana.corelib.definitions.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;

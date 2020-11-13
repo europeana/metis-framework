@@ -11,7 +11,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.dereference.DereferencerImpl;

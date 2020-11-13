@@ -6,7 +6,7 @@ import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;

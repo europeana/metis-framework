@@ -9,15 +9,15 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
-import eu.europeana.corelib.definitions.jibx.AltLabel;
-import eu.europeana.corelib.definitions.jibx.IsPartOf;
-import eu.europeana.corelib.definitions.jibx.Lat;
-import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
-import eu.europeana.corelib.definitions.jibx.Note;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
-import eu.europeana.corelib.definitions.jibx.PrefLabel;
-import eu.europeana.corelib.definitions.jibx._Long;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.metis.schema.jibx.AltLabel;
+import eu.europeana.metis.schema.jibx.IsPartOf;
+import eu.europeana.metis.schema.jibx.Lat;
+import eu.europeana.metis.schema.jibx.LiteralType.Lang;
+import eu.europeana.metis.schema.jibx.Note;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.PrefLabel;
+import eu.europeana.metis.schema.jibx._Long;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ class PlaceFieldInputTest {
     PlaceImpl placeImpl = new PlaceImpl();
     placeImpl.setAbout("test about");
 
-    EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
+    RecordDao mongoServerMock = mock(RecordDao.class);
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<PlaceImpl> queryMock = mock(Query.class);

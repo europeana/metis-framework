@@ -12,6 +12,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
     </dependency>
@@ -59,11 +64,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 </project>

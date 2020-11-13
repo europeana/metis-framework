@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.utils;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performAction;
+import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
 import com.zoho.oauth.client.ZohoPersistenceHandler;
 import com.zoho.oauth.common.ZohoOAuthException;

@@ -1,7 +1,7 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 
 /**
  * Objects implementing this class represent RDF files that can be enriched with extracted resource

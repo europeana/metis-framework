@@ -9,7 +9,7 @@ import dev.morphia.Datastore;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;

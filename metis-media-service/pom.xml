@@ -10,20 +10,24 @@
 
   <dependencies>
     <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-edm-definitions</artifactId>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-network</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.solr</groupId>
-          <artifactId>solr-solrj</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>${version.javax.ws.rs.api}</version>
     </dependency>
 
     <dependency>
@@ -91,12 +95,6 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>${version.apache.httpclient}</version>
     </dependency>
 
     <dependency>

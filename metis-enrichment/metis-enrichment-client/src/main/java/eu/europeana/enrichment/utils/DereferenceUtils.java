@@ -1,16 +1,16 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.corelib.definitions.jibx.AboutType;
-import eu.europeana.corelib.definitions.jibx.AgentType;
-import eu.europeana.corelib.definitions.jibx.Concept;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Concept;
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;

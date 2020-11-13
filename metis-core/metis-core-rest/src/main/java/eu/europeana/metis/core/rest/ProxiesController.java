@@ -2,8 +2,8 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.rest.stats.NodePathStatistics;

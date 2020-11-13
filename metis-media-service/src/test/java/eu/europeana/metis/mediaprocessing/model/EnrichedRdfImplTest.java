@@ -15,10 +15,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.SpatialResolution;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.SpatialResolution;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;

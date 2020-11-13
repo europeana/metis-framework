@@ -10,6 +10,25 @@
 
   <dependencies>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-zoho</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-network</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
@@ -18,16 +37,6 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${version.hibernate.core}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.zoho.crm</groupId>
-      <artifactId>java-sdk</artifactId>
-      <version>${version.com.zoho.crm.java-sdk}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>

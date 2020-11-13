@@ -12,7 +12,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.Date;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

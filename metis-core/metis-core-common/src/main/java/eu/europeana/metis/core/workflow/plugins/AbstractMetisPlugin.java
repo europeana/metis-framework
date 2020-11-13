@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import dev.morphia.annotations.Embedded;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.util.Date;
 
 /**

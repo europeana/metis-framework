@@ -19,8 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -29,8 +29,8 @@ import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
-import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.utils.TestUtils;
+import eu.europeana.metis.core.rest.utils.TestObjectFactory;
+import eu.europeana.metis.core.rest.utils.TestUtils;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.exception.BadContentException;
