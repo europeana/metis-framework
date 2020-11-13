@@ -9,7 +9,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.DereferenceUtils;
-import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.util.ArrayList;
 import java.util.Collections;

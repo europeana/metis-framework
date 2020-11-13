@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-import static eu.europeana.metis.RestEndpoints.ENRICH_ENTITY_SEARCH;
+import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_SEARCH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
