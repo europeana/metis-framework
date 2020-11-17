@@ -62,8 +62,7 @@ public class EnrichmentController {
 
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
         .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream()
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
+        .filter(Objects::nonNull).collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentResultBaseWrappers);
   }
 
@@ -79,8 +78,7 @@ public class EnrichmentController {
       + "owlSameAs", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentBase equivalence(
-      @ApiParam("uri") @RequestParam("uri") String uri) {
+  public EnrichmentBase equivalence(@ApiParam("uri") @RequestParam("uri") String uri) {
     return enrichmentService
         .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
   }
@@ -92,20 +90,20 @@ public class EnrichmentController {
    * @param enrichmentReference The references to check for match
    * @return the structured result of the enrichment
    */
-  @PostMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+  @PostMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, consumes = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ApiOperation(value =
       "Get an enrichment providing a EnrichmentReference where each reference could "
           + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList equivalence(
-      @RequestBody EnrichmentReference enrichmentReference) {
+  public EnrichmentResultList equivalence(@RequestBody EnrichmentReference enrichmentReference) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
-        .getReferenceValues().stream()
-        .map(enrichmentService::enrichByEquivalenceValues).filter(Objects::nonNull)
-        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base))).collect(
-            Collectors.toList());
+        .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
+        .filter(Objects::nonNull)
+        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base)))
+        .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
 
   }
@@ -123,10 +121,11 @@ public class EnrichmentController {
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList entityId(@RequestBody List<String> uris) {
+    // TODO: 17/11/2020 Support for xml input. Requires a wrapper class with a field of the list of uris
     List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
         .map(enrichmentService::enrichById).filter(Objects::nonNull)
-        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base))).collect(
-            Collectors.toList());
+        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base)))
+        .collect(Collectors.toList());
 
     return new EnrichmentResultList(enrichmentBaseWrappers);
 

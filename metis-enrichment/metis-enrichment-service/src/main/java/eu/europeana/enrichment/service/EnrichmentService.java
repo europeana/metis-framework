@@ -72,7 +72,7 @@ public class EnrichmentService {
     final List<EnrichmentResultBaseWrapper> enrichmentBases = new ArrayList<>();
     try {
       for (SearchValue searchValue : searchValues) {
-        final Set<EntityType> entityTypes = searchValue.getEntityTypes();
+        final List<EntityType> entityTypes = searchValue.getEntityTypes();
         //Language has to be a valid 2 or 3 code, otherwise we do not use it
         final String inputValueLanguage = searchValue.getLanguage();
         final String language;
@@ -156,7 +156,7 @@ public class EnrichmentService {
    */
   public EnrichmentBase enrichByEquivalenceValues(ReferenceValue referenceValue) {
     try {
-      final Set<EntityType> entityTypes = referenceValue.getEntityTypes();
+      final List<EntityType> entityTypes = referenceValue.getEntityTypes();
       List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
 
       //First check if there are entities to work with

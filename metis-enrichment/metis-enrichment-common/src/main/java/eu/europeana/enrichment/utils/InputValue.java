@@ -11,10 +11,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * originated
  *
  * @author Yorgos.Mamakis@ europeana.eu
+ * @deprecated
  */
 @XmlRootElement
 @JsonInclude
-@Deprecated
+@Deprecated(forRemoval = true)
 public class InputValue {
 
   private String rdfFieldName;

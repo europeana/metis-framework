@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * JSON helper class for InputValue class
  * 
  * @author Yorgos.Mamakis@ europeana.eu
+ * @deprecated
  *
  */
 @JsonSerialize
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = InputValueList.API_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
 @ApiModel(value = InputValueList.API_NAME)
-@Deprecated
+@Deprecated(forRemoval = true)
 public class InputValueList {
 
   static final String API_NAME = "inputValueList";

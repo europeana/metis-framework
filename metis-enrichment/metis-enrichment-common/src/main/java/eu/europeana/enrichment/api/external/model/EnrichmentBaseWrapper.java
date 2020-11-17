@@ -11,8 +11,9 @@ import javax.xml.bind.annotation.XmlElements;
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-07
+ * @deprecated
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class EnrichmentBaseWrapper {
 
   @XmlElement(name = "rdfFieldName")

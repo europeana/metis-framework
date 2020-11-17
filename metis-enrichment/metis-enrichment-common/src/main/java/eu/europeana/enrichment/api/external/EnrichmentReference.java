@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Helper class for ReferenceValue class
+ * Wrapper class for ReferenceValue class.
+ * <p>Required for proper (un)marshalling xml</p>
  *
  * @author Joana Sousa (joana.sousa@europeana.eu)
  *

@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * JSON helper class for InputValue class
+ * Wrapper class for SearchValue class.
+ * <p>Required for proper (un)marshalling xml</p>
  *
  * @author Joana Sousa joana.sousa@europeana.eu
  *
