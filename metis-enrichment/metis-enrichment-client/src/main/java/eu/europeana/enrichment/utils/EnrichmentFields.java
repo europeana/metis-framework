@@ -1,12 +1,12 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.Created;
 import eu.europeana.metis.schema.jibx.Creator;
 import eu.europeana.metis.schema.jibx.Date;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
-import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Format;
 import eu.europeana.metis.schema.jibx.Issued;
 import eu.europeana.metis.schema.jibx.Medium;
@@ -17,6 +17,7 @@ import eu.europeana.metis.schema.jibx.Spatial;
 import eu.europeana.metis.schema.jibx.Subject;
 import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -83,7 +84,7 @@ public enum EnrichmentFields {
    * @param proxy The proxy to use for enrichment
    * @return A list of values ready for enrichment
    */
-  public final List<InputValue> extractFieldValuesForEnrichment(ProxyType proxy) {
+  public final List<SearchValue> extractFieldValuesForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
         .filter(content -> StringUtils.isNotEmpty(content.getString()))
         .map(this::convert)
@@ -112,9 +113,9 @@ public enum EnrichmentFields {
         .filter(Objects::nonNull);
   }
 
-  private InputValue convert(ResourceOrLiteralType content) {
+  private SearchValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() == null ? null : content.getLang().getLang();
-    return new InputValue(this.name(), content.getString(), language, entityType);
+    return new SearchValue(content.getString(), language, entityType);
   }
 
   /**

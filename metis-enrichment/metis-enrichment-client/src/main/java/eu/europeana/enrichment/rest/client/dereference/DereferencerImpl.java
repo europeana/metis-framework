@@ -4,7 +4,7 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
-public class DereferencerImpl implements Dereferencer{
+public class DereferencerImpl implements Dereferencer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
@@ -45,11 +45,11 @@ public class DereferencerImpl implements Dereferencer{
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    final List<EnrichmentBaseWrapper> dereferenceInformation = dereferenceEntities(resourceIds);
+    final List<EnrichmentBase> dereferenceInformation = dereferenceEntities(resourceIds);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    entityMergeEngine.mergeEntities(rdf, dereferenceInformation);
+    entityMergeEngine.mergeEntities(rdf, dereferenceInformation, Collections.emptySet());
 
     // Done.
     LOGGER.debug("Dereference completed.");
@@ -57,7 +57,7 @@ public class DereferencerImpl implements Dereferencer{
   }
 
   @Override
-  public List<EnrichmentBaseWrapper> dereferenceEntities(Set<String> resourceIds)
+  public List<EnrichmentBase> dereferenceEntities(Set<String> resourceIds)
       throws DereferenceException {
 
     // Sanity check.
@@ -66,10 +66,11 @@ public class DereferencerImpl implements Dereferencer{
     }
 
     // First try to get them from our own entity collection database.
-    final List<EnrichmentBaseWrapper> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
+    final List<EnrichmentBase> result = new ArrayList<>(
+        dereferenceOwnEntities(resourceIds));
+
     final Set<String> foundOwnEntityIds = result.stream()
-        .map(EnrichmentBaseWrapper::getEnrichmentBase).map(EnrichmentBase::getAbout)
-        .collect(Collectors.toSet());
+        .map(EnrichmentBase::getAbout).collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
     for (String resourceId : resourceIds) {
@@ -77,13 +78,13 @@ public class DereferencerImpl implements Dereferencer{
         result.addAll(dereferenceExternalEntity(resourceId));
       }
     }
-
     // Done.
     return result;
+
   }
 
-
-  private List<EnrichmentBaseWrapper> dereferenceOwnEntities(Set<String> resourceIds) throws DereferenceException {
+  private List<EnrichmentBase> dereferenceOwnEntities(Set<String> resourceIds)
+      throws DereferenceException {
     try {
       return retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.getById(resourceIds));
@@ -94,7 +95,8 @@ public class DereferencerImpl implements Dereferencer{
   }
 
 
-  private List<EnrichmentBaseWrapper> dereferenceExternalEntity(String resourceId) throws DereferenceException {
+  private List<EnrichmentBase> dereferenceExternalEntity(String resourceId)
+      throws DereferenceException {
 
     // Perform the dereferencing.
     EnrichmentResultList result;
@@ -112,8 +114,10 @@ public class DereferencerImpl implements Dereferencer{
     }
 
     // Return the result.
-    return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
-        .orElseGet(Collections::emptyList);
+    return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
+        .orElseGet(Collections::emptyList).stream()
+        .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(
+            Collectors.toList());
   }
 
   @Override

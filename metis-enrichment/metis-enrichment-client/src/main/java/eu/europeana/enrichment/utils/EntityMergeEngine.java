@@ -45,7 +45,6 @@ import eu.europeana.metis.schema.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -390,14 +389,12 @@ public class EntityMergeEngine {
    * Merge entities in a record.
    *
    * @param rdf The RDF to enrich
-   * @param enrichmentBaseWrapperList The information to append
+   * @param enrichmentBaseList The information to append
    */
-  public void mergeEntities(RDF rdf, List<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
-    for (EnrichmentBaseWrapper enrichmentBaseWrapper : enrichmentBaseWrapperList) {
-      final Set<EnrichmentFields> proxyLinkTypes = Optional
-          .ofNullable(enrichmentBaseWrapper.getRdfFieldName()).filter(StringUtils::isNotBlank)
-          .map(EnrichmentFields::valueOf).map(Collections::singleton).orElse(null);
-      convertAndAddEntity(rdf, enrichmentBaseWrapper.getEnrichmentBase(), proxyLinkTypes);
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      Set<EnrichmentFields> proxyLinkTypes) {
+    for (EnrichmentBase base : enrichmentBaseList) {
+      convertAndAddEntity(rdf, base, proxyLinkTypes);
     }
   }
 
@@ -411,12 +408,12 @@ public class EntityMergeEngine {
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
       Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
-    for (EnrichmentBase entity : contextualEntities) {
-      final Set<String> links = getSameAsLinks(entity);
-      links.add(entity.getAbout());
+    for (EnrichmentBase enrichmentBase : contextualEntities) {
+      final Set<String> links = this.getSameAsLinks(enrichmentBase);
+      links.add(enrichmentBase.getAbout());
       final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get)
           .filter(Objects::nonNull).flatMap(Set::stream).collect(Collectors.toSet());
-      convertAndAddEntity(rdf, entity, fields);
+      convertAndAddEntity(rdf, enrichmentBase, fields);
     }
   }
 

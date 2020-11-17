@@ -93,7 +93,7 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Prepare the result: empty if we didn't find an entity.
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(resultList);
+        .createEnrichmentBaseWrapperList(resultList);
     return new EnrichmentResultList(enrichmentBaseWrapperList);
   }
 

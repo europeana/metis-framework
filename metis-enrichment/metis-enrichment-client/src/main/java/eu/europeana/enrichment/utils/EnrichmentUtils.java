@@ -15,6 +15,7 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.Year;
+import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,6 +33,8 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Utilities for enrichment and dereferencing Created by gmamakis on 8-3-17.
@@ -52,12 +55,12 @@ public final class EnrichmentUtils {
    * @param rdf The RDF to extract from.
    * @return List<InputValue> The extracted fields that need to be enriched.
    */
-  public static List<InputValue> extractValuesForEnrichmentFromRDF(RDF rdf) {
+  public static List<Pair<SearchValue, EnrichmentFields>> extractValuesForEnrichmentFromRDF(RDF rdf) {
     final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
-    final List<InputValue> valuesForEnrichment = new ArrayList<>();
+    final List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment = new ArrayList<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
-      List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-      valuesForEnrichment.addAll(values);
+      List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
+      values.forEach(val -> valuesForEnrichment.add(new MutablePair<>(val, field)));
     }
     return valuesForEnrichment;
   }

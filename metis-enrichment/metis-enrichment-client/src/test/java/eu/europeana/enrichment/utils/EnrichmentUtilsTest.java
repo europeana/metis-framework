@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.Created;
@@ -23,7 +24,9 @@ import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 public class EnrichmentUtilsTest {
@@ -148,28 +151,28 @@ public class EnrichmentUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    List<InputValue> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
+    List<Pair<SearchValue, EnrichmentFields>> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
 
     assertNotNull(result);
     assertEquals(10, result.size());
 
     ArrayList<String> resultProcessed = new ArrayList<>();
-    for (InputValue inputValue : result) {
-      resultProcessed.add(inputValue.getValue() + "|" + inputValue.getLanguage() + "|" + inputValue
-          .getRdfFieldName());
+    List<SearchValue> searchValueList = result.stream().map(Pair::getKey).collect(Collectors.toList());
+    for (SearchValue searchValue : searchValueList) {
+      resultProcessed.add(searchValue.getValue() + "|" + searchValue.getLanguage());
     }
 
-    assertTrue(resultProcessed.contains("Creator|English|DC_CREATOR"));
-    assertTrue(resultProcessed.contains("Contributor|Dutch|DC_CONTRIBUTOR"));
-    assertTrue(resultProcessed.contains("Date|German|DC_DATE"));
-    assertTrue(resultProcessed.contains("Issued|French|DCTERMS_ISSUED"));
-    assertTrue(resultProcessed.contains("Created|Italian|DCTERMS_CREATED"));
+    assertTrue(resultProcessed.contains("Creator|English"));
+    assertTrue(resultProcessed.contains("Contributor|Dutch"));
+    assertTrue(resultProcessed.contains("Date|German"));
+    assertTrue(resultProcessed.contains("Issued|French"));
+    assertTrue(resultProcessed.contains("Created|Italian"));
 
-    assertTrue(resultProcessed.contains("Coverage|Spanish|DC_COVERAGE"));
-    assertTrue(resultProcessed.contains("Temporal|Polish|DCTERMS_TEMPORAL"));
-    assertTrue(resultProcessed.contains("Type|Romanian|DC_TYPE"));
-    assertTrue(resultProcessed.contains("Spatial|Greek|DCTERMS_SPATIAL"));
-    assertTrue(resultProcessed.contains("Subject|Bulgarian|DC_SUBJECT"));
+    assertTrue(resultProcessed.contains("Coverage|Spanish"));
+    assertTrue(resultProcessed.contains("Temporal|Polish"));
+    assertTrue(resultProcessed.contains("Type|Romanian"));
+    assertTrue(resultProcessed.contains("Spatial|Greek"));
+    assertTrue(resultProcessed.contains("Subject|Bulgarian"));
   }
 
   @Test

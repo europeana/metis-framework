@@ -16,7 +16,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBException;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -38,7 +37,7 @@ class DereferenceClientTest {
     agentList.add(agent1);
     agentList.add(agent2);
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(agentList);
+        .createEnrichmentBaseWrapperList(agentList);
 
     final EnrichmentResultList enrichmentResultList = new EnrichmentResultList(enrichmentBaseWrapperList);
     final ResponseEntity<EnrichmentResultList> result = new ResponseEntity<>(enrichmentResultList,

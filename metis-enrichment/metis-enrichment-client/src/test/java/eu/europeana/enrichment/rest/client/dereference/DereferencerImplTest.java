@@ -1,11 +1,19 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anySet;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
@@ -20,13 +28,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 
 public class DereferencerImplTest {
-
-  private ArgumentCaptor<List<EnrichmentBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
-      .forClass(List.class);
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT =
       {"enrich1", "enrich3", "enrich4"};
@@ -47,21 +51,20 @@ public class DereferencerImplTest {
     timeSpan1.setAbout("timespan1");
     final Timespan timeSpan2 = new Timespan();
     timeSpan2.setAbout("timespan2");
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList1 = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Arrays.asList(agent1, null, agent2));
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList1 = EnrichmentResultBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));
     final EnrichmentResultList dereferenceResult1 =
         new EnrichmentResultList(enrichmentBaseWrapperList1);
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList2 = EnrichmentBaseWrapper
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList2 = EnrichmentResultBaseWrapper
         .createNullOriginalFieldEnrichmentBaseWrapperList(
-            Arrays.asList(timeSpan1, timeSpan2, null));
+            List.of(Arrays.asList(timeSpan1, timeSpan2, null)));
     final EnrichmentResultList dereferenceResult2 =
         new EnrichmentResultList(enrichmentBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList3 = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Arrays.asList(place1, null, place2));
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList3 = EnrichmentResultBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(List.of(Arrays.asList(place1, null, place2)));
     ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList3);
   }
-
 
   @Test
   void testDereferencerHappyFlow() throws DereferenceException {
@@ -130,26 +133,13 @@ public class DereferencerImplTest {
 
   // Verify merge calls
   private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) {
-    final List<List<EnrichmentBaseWrapper>> expectedMerges = new ArrayList<>();
-
-    expectedMerges.add(DEREFERENCE_RESULT.stream().filter(Objects::nonNull)
-        .map(EnrichmentResultList::getEnrichmentBaseWrapperList).flatMap(List::stream)
-        .collect(Collectors.toList()));
-
-    verify(entityMergeEngine, times(expectedMerges.size())).mergeEntities(any(),
-        enrichmentResultCaptor.capture());
-    // Note that the captor returns a linked list, so we don't want to use indices.
-    // But the interface gives a generic type List, so we don't want to depend on the
-    // linked list functionality either.
-    int currentPointer = 0;
-    final List<List<EnrichmentBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues()
-        .subList(
-            enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
-            enrichmentResultCaptor.getAllValues().size());
-    for (List<EnrichmentBaseWrapper> capturedMerge : foundValues) {
-      assertArrayEquals(expectedMerges.get(currentPointer).toArray(), capturedMerge.toArray());
-      currentPointer++;
-    }
+    final List<EnrichmentBase> expectedMerges = new ArrayList<>();
+    DEREFERENCE_RESULT.stream().filter(Objects::nonNull)
+            .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
+            .filter(Objects::nonNull).flatMap(List::stream)
+            .forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
+    verify(entityMergeEngine, times(1)).mergeEntities(any(),
+        eq(expectedMerges), anySet());
   }
 
   private void verifyDereferenceNullFlow(DereferenceClient dereferenceClient,
@@ -170,8 +160,7 @@ public class DereferencerImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(1)).mergeEntities(any(), eq(Collections.emptyList()));
-    verify(entityMergeEngine, times(1)).mergeEntities(any(), any());
+    verify(entityMergeEngine, times(1)).mergeEntities(any(), eq(Collections.emptyList()), anySet());
+    verify(entityMergeEngine, times(1)).mergeEntities(any(), any(), anySet());
   }
-
 }
