@@ -2,18 +2,20 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
-import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.enrichment.api.external.SearchValue;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -29,8 +31,7 @@ public class EnricherImpl implements Enricher {
   private final EntityMergeEngine entityMergeEngine;
   private final EnrichmentClient enrichmentClient;
 
-  public EnricherImpl(EntityMergeEngine entityMergeEngine,
-      EnrichmentClient enrichmentClient) {
+  public EnricherImpl(EntityMergeEngine entityMergeEngine, EnrichmentClient enrichmentClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.enrichmentClient = enrichmentClient;
   }
@@ -55,15 +56,14 @@ public class EnricherImpl implements Enricher {
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (valueEnrichmentInformation != null) {
-      for(Pair<EnrichmentBase, EnrichmentFields> pair : valueEnrichmentInformation) {
+      for (Pair<EnrichmentBase, EnrichmentFields> pair : valueEnrichmentInformation) {
         entityMergeEngine.mergeEntities(rdf, List.of(pair.getKey()), Set.of(pair.getValue()));
 
       }
     }
 
     if (!referenceEnrichmentInformation.isEmpty()) {
-      entityMergeEngine
-          .mergeEntities(rdf, referenceEnrichmentInformation, referencesForEnrichment);
+      entityMergeEngine.mergeEntities(rdf, referenceEnrichmentInformation, referencesForEnrichment);
     }
 
     // Setting additional field values and set them in the RDF.
@@ -77,27 +77,27 @@ public class EnricherImpl implements Enricher {
 
   @Override
   public List<Pair<EnrichmentBase, EnrichmentFields>> enrichValues(
-      List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment)
-      throws EnrichmentException {
+      List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment) throws EnrichmentException {
     try {
-      if(CollectionUtils.isEmpty(valuesForEnrichment)){
-          return Collections.emptyList();
+      if (CollectionUtils.isEmpty(valuesForEnrichment)) {
+        return Collections.emptyList();
       }
       List<SearchValue> searchValues = valuesForEnrichment.stream().map(Pair::getKey)
           .collect(Collectors.toList());
       EnrichmentResultList result = retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.enrich(searchValues));
       final List<Pair<EnrichmentBase, EnrichmentFields>> output = new ArrayList<>();
-      for (int index = 0; index < searchValues.size(); index++){
+      for (int index = 0; index < searchValues.size(); index++) {
         final EnrichmentFields fieldType = valuesForEnrichment.get(index).getValue();
-        result.getEnrichmentBaseResultWrapperList().get(index).getEnrichmentBaseList()
+        final List<EnrichmentBase> enrichmentBaseList = result.getEnrichmentBaseResultWrapperList()
+            .get(index).getEnrichmentBaseList();
+        Optional.ofNullable(enrichmentBaseList).stream().flatMap(Collection::stream)
             .forEach(base -> output.add(new MutablePair<>(base, fieldType)));
       }
       return output;
 
     } catch (Exception e) {
-      throw new EnrichmentException(
-          "Exception occurred while trying to perform enrichment.", e);
+      throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }
   }
 
@@ -109,8 +109,7 @@ public class EnricherImpl implements Enricher {
           : retryableExternalRequestForNetworkExceptions(
               () -> enrichmentClient.getByUri(referencesForEnrichment));
     } catch (Exception e) {
-      throw new EnrichmentException(
-          "Exception occurred while trying to perform enrichment.", e);
+      throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }
   }
 

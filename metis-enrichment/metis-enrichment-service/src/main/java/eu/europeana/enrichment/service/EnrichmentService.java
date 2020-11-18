@@ -160,18 +160,16 @@ public class EnrichmentService {
       List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
 
       //First check if there are entities to work with
-      if(CollectionUtils.isEmpty(entityTypes)){
+      if (CollectionUtils.isEmpty(entityTypes)) {
         //First check entity about, otherwise owlSameAs
-        foundEnrichmentBases = getEnrichmentTermsAndConvert(
-            Collections.singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD,
-                referenceValue.getReference())));
+        foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections.singletonList(
+            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, referenceValue.getReference())));
         if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
-          foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections
-              .singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD,
+          foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections.singletonList(
+              new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD,
                   referenceValue.getReference())));
         }
-      }
-      else {
+      } else {
         //If there are entities to work with, then do this
         for (EntityType entityType : entityTypes) {
           foundEnrichmentBases = getEnrichmentTermsAndConvert(
@@ -179,11 +177,10 @@ public class EnrichmentService {
                   new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD,
                       referenceValue.getReference())));
           if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
-            foundEnrichmentBases = getEnrichmentTermsAndConvert(
-                List.of(
-                    new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD, entityType.name()),
-                    new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD,
-                        referenceValue.getReference())));
+            foundEnrichmentBases = getEnrichmentTermsAndConvert(List.of(
+                new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD, entityType.name()),
+                new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD,
+                    referenceValue.getReference())));
           }
         }
       }
@@ -298,8 +295,7 @@ public class EnrichmentService {
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
         .getAllEnrichmentTermsByFields(fieldNameMap);
     final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
-        .map(this::findParentEntities).flatMap(List::stream)
-        .collect(Collectors.toList());
+        .map(this::findParentEntities).flatMap(List::stream).collect(Collectors.toList());
 
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     //Convert to EnrichmentBases
