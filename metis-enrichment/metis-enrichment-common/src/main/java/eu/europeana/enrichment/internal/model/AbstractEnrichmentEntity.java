@@ -20,6 +20,7 @@ public abstract class AbstractEnrichmentEntity implements Entity {
   private Map<String,List<String>> hiddenLabel;
   private Map<String,List<String>> note;
   private List<String> owlSameAs;
+  private String isPartOf;
   private String foafDepiction;
 
   public String getAbout() {
@@ -78,6 +79,16 @@ public abstract class AbstractEnrichmentEntity implements Entity {
   @Override
   public void setOwlSameAs(List<String> owlSameAs) {
     this.owlSameAs = owlSameAs;
+  }
+
+  @Override
+  public String getIsPartOf() {
+    return this.isPartOf;
+  }
+
+  @Override
+  public void setIsPartOf(String isPartOf) {
+    this.isPartOf = isPartOf;
   }
 
   @Override

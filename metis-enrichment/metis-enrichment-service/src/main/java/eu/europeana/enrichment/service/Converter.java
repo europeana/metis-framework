@@ -71,9 +71,13 @@ public final class Converter {
     output.setEndList(convert(timespanEnrichmentEntity.getEnd()));
     output.setHasPartsList(convertPart(timespanEnrichmentEntity.getDctermsHasPart()));
     output.setHiddenLabel(convert(timespanEnrichmentEntity.getHiddenLabel()));
-    output.setIsPartOfList(convertPart(timespanEnrichmentEntity.getIsPartOf()));
     output.setNotes(convert(timespanEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
+
+    if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsPartOf())) {
+      output.setIsPartOf(new Part(timespanEnrichmentEntity.getIsPartOf()));
+    }
+
     if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsNextInSequence())) {
       output.setIsNextInSequence(new Part(timespanEnrichmentEntity.getIsNextInSequence()));
     }
@@ -113,10 +117,12 @@ public final class Converter {
     output.setAltLabelList(convert(placeEnrichmentEntity.getAltLabel()));
 
     output.setHasPartsList(convertPart(placeEnrichmentEntity.getDcTermsHasPart()));
-    output.setIsPartOfList(convertPart(placeEnrichmentEntity.getIsPartOf()));
     output.setNotes(convert(placeEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
 
+    if (StringUtils.isNotBlank(placeEnrichmentEntity.getIsPartOf())) {
+      output.setIsPartOf(new Part(placeEnrichmentEntity.getIsPartOf()));
+    }
     if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0)
         && (placeEnrichmentEntity.getLongitude() != null
         && placeEnrichmentEntity.getLongitude() != 0)) {
