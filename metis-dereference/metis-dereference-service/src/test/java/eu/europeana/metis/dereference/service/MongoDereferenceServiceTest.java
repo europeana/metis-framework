@@ -2,7 +2,6 @@ package eu.europeana.metis.dereference.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,7 +43,6 @@ class MongoDereferenceServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-
     MongoClient mongoClient = MongoClients
         .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     VocabularyDao vocabularyDao = new VocabularyDao(mongoClient, "voctest") {
@@ -55,7 +53,8 @@ class MongoDereferenceServiceTest {
 
     ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
 
-    service = spy(new MongoDereferenceService(new RdfRetriever(), processedEntityDao, vocabularyDao));
+    service = spy(
+        new MongoDereferenceService(new RdfRetriever(), processedEntityDao, vocabularyDao));
   }
 
   @AfterEach
@@ -70,8 +69,8 @@ class MongoDereferenceServiceTest {
     // Create vocabulary for geonames and save it.
     final Vocabulary geonames = new Vocabulary();
     geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
-    geonames.setXslt(
-        IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
+    geonames.setXslt(IOUtils
+        .toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
             StandardCharsets.UTF_8));
     geonames.setName("Geonames");
     geonames.setIterations(0);
@@ -89,20 +88,21 @@ class MongoDereferenceServiceTest {
     // Test the method
     final EnrichmentResultList result = service.dereference(entityId);
     assertNotNull(result);
-    assertNotNull(result.getEnrichmentBaseWrapperList());
-    assertEquals(1, result.getEnrichmentBaseWrapperList().size());
-    assertNotNull(result.getEnrichmentBaseWrapperList().get(0));
-    assertSame(place, result.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase());
-    assertNull(result.getEnrichmentBaseWrapperList().get(0).getRdfFieldName());
+    assertNotNull(result.getEnrichmentBaseResultWrapperList());
+    assertEquals(1, result.getEnrichmentBaseResultWrapperList().size());
+    assertNotNull(result.getEnrichmentBaseResultWrapperList().get(0));
+    assertSame(place,
+        result.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
 
     // Test null argument
-    assertThrows(IllegalArgumentException.class, ()->service.dereference(null));
+    assertThrows(IllegalArgumentException.class, () -> service.dereference(null));
 
     // Test absent object
     doReturn(null).when(service).computeEnrichmentBaseVocabularyPair(entityId);
     final EnrichmentResultList emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
-    assertNotNull(emptyResult.getEnrichmentBaseWrapperList());
-    assertTrue(emptyResult.getEnrichmentBaseWrapperList().isEmpty());
+    assertNotNull(emptyResult.getEnrichmentBaseResultWrapperList());
+    assertTrue(
+        emptyResult.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().isEmpty());
   }
 }

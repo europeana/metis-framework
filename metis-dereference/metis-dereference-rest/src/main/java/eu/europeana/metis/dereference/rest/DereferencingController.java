@@ -83,8 +83,8 @@ public class DereferencingController {
     for (String resourceId : resourceIds) {
       EnrichmentResultList result = dereference(resourceId);
       if (result != null) {
-        dereferencedEntities.getEnrichmentBaseWrapperList()
-            .addAll(result.getEnrichmentBaseWrapperList());
+        dereferencedEntities.getEnrichmentBaseResultWrapperList()
+            .addAll(result.getEnrichmentBaseResultWrapperList());
       }
     }
     return dereferencedEntities;

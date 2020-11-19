@@ -2,7 +2,7 @@ package eu.europeana.metis.dereference.service;
 
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -19,6 +19,7 @@ import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -92,9 +93,10 @@ public class MongoDereferenceService implements DereferenceService {
     final Collection<EnrichmentBase> resultList = dereferenceResource(resourceId);
 
     // Prepare the result: empty if we didn't find an entity.
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-        .createEnrichmentBaseWrapperList(resultList);
-    return new EnrichmentResultList(enrichmentBaseWrapperList);
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = EnrichmentResultBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(
+            Collections.singletonList(new ArrayList<>(resultList)));
+    return new EnrichmentResultList(enrichmentResultBaseWrappers);
   }
 
   /**

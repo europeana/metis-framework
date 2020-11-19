@@ -16,10 +16,11 @@ import static org.mockito.Mockito.verify;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
@@ -43,33 +44,38 @@ class EnrichmentClientTest {
     agentList.add(agent1);
     agentList.add(agent2);
 
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-            .createEnrichmentBaseWrapperList(agentList);
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(
+            Collections.singletonList(new ArrayList<>(agentList)));
     EnrichmentResultList result = new EnrichmentResultList(enrichmentBaseWrapperList);
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
-    doReturn(result).when(restTemplate).postForObject(eq(ENRICH_ENTITY_SEARCH),
-            any(HttpEntity.class), eq(EnrichmentResultList.class));
+    doReturn(result).when(restTemplate)
+        .postForObject(eq(ENRICH_ENTITY_SEARCH), any(HttpEntity.class),
+            eq(EnrichmentResultList.class));
 
     final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(restTemplate, "", 20));
     EnrichmentResultList res = enrichmentClient.enrich(new ArrayList<>());
 
-    verify(restTemplate, times(1)).postForObject(eq(ENRICH_ENTITY_SEARCH),
-            any(HttpEntity.class), eq(EnrichmentResultList.class));
-    assertEquals(res.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase().getAbout(),
-            agent1.getAbout());
-    assertEquals(res.getEnrichmentBaseWrapperList().get(1).getEnrichmentBase().getAbout(),
-            agent2.getAbout());
+    verify(restTemplate, times(1)).postForObject(eq(ENRICH_ENTITY_SEARCH), any(HttpEntity.class),
+        eq(EnrichmentResultList.class));
+    assertEquals(
+        res.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0).getAbout(),
+        agent1.getAbout());
+    assertEquals(
+        res.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(1).getAbout(),
+        agent2.getAbout());
   }
 
   @Test
   void testEnrichException() {
     final RestTemplate restTemplate = mock(RestTemplate.class);
-    doThrow(new UnknownException("test")).when(restTemplate).postForObject(not(eq(
-            ENRICH_ENTITY_SEARCH)), any(HttpEntity.class), eq(EnrichmentResultList.class));
+    doThrow(new UnknownException("test")).when(restTemplate)
+        .postForObject(not(eq(ENRICH_ENTITY_SEARCH)), any(HttpEntity.class),
+            eq(EnrichmentResultList.class));
 
     final EnrichmentClient enrichmentClient = spy(
-            new EnrichmentClient(restTemplate, "http://dummy", 20));
+        new EnrichmentClient(restTemplate, "http://dummy", 20));
 
     assertThrows(UnknownException.class, () -> enrichmentClient.enrich(new ArrayList<>()));
   }
@@ -83,18 +89,16 @@ class EnrichmentClientTest {
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
 
-    doReturn(result).when(restTemplate).exchange(any(URI.class),
-            any(HttpMethod.class),
-            any(HttpEntity.class),
+    doReturn(result).when(restTemplate)
+        .exchange(any(URI.class), any(HttpMethod.class), any(HttpEntity.class),
             eq(EnrichmentBase.class));
 
     final EnrichmentClient enrichmentClient = spy(
-            new EnrichmentClient(restTemplate, "http://dummy", 20));
+        new EnrichmentClient(restTemplate, "http://dummy", 20));
 
     EnrichmentBase res = enrichmentClient.getByUri("http://test");
-    verify(restTemplate, times(1)).exchange(any(URI.class),
-            eq(HttpMethod.GET),
-            any(HttpEntity.class),
+    verify(restTemplate, times(1))
+        .exchange(any(URI.class), eq(HttpMethod.GET), any(HttpEntity.class),
             eq(EnrichmentBase.class));
     assertEquals(res.getAbout(), agent.getAbout());
   }
