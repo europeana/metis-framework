@@ -56,6 +56,11 @@ public class EnrichmentService {
     });
   }
 
+  /**
+   * Parameter constructor.
+   *
+   * @param enrichmentDao the enrichment dao
+   */
   @Autowired
   public EnrichmentService(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
@@ -80,8 +85,8 @@ public class EnrichmentService {
     return enrichmentBases;
   }
 
-  private void findEnrichmentEntitiesBySearchValue(List<EnrichmentResultBaseWrapper> enrichmentBases,
-      SearchValue searchValue) {
+  private void findEnrichmentEntitiesBySearchValue(
+      List<EnrichmentResultBaseWrapper> enrichmentBases, SearchValue searchValue) {
     final String value = searchValue.getValue().toLowerCase(Locale.US);
     if (!StringUtils.isBlank(value)) {
       final List<EntityType> entityTypes = searchValue.getEntityTypes();
@@ -101,8 +106,8 @@ public class EnrichmentService {
             .add(new EnrichmentResultBaseWrapper(findEnrichmentTerms(null, value, language)));
       } else {
         for (EntityType entityType : entityTypes) {
-          enrichmentBases.add(new EnrichmentResultBaseWrapper(
-              findEnrichmentTerms(entityType, value, language)));
+          enrichmentBases.add(
+              new EnrichmentResultBaseWrapper(findEnrichmentTerms(entityType, value, language)));
         }
       }
     }
@@ -118,30 +123,13 @@ public class EnrichmentService {
     try {
       final List<EntityType> entityTypes = referenceValue.getEntityTypes();
       List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
-
-      //First check if there are entities to work with
       if (CollectionUtils.isEmpty(entityTypes)) {
-        //First check entity about, otherwise owlSameAs
-        foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections.singletonList(
-            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, referenceValue.getReference())));
-        if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
-          foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections.singletonList(
-              new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD,
-                  referenceValue.getReference())));
-        }
+        foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceValue.getReference(),
+            null);
       } else {
-        //If there are entities to work with, then do this
         for (EntityType entityType : entityTypes) {
-          foundEnrichmentBases = getEnrichmentTermsAndConvert(
-              List.of(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()),
-                  new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD,
-                      referenceValue.getReference())));
-          if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
-            foundEnrichmentBases = getEnrichmentTermsAndConvert(
-                List.of(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()),
-                    new ImmutablePair<>(EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD,
-                        referenceValue.getReference())));
-          }
+          foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceValue.getReference(),
+              entityType);
         }
       }
 
@@ -152,6 +140,33 @@ public class EnrichmentService {
       LOGGER.warn("Unable to retrieve entity from id", e);
     }
     return null;
+  }
+
+  private List<EnrichmentBase> searchBasesFirstAboutThenOwlSameAs(String reference,
+      EntityType entityType) {
+    final Pair<String, String> parameterAbout = new ImmutablePair<>(
+        EnrichmentDao.ENTITY_ABOUT_FIELD, reference);
+    final Pair<String, String> parameterOwlSameAs = new ImmutablePair<>(
+        EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD, reference);
+
+    List<EnrichmentBase> foundEnrichmentBases;
+    final List<Pair<String, String>> parametersAbout = new ArrayList<>();
+    final List<Pair<String, String>> parametersOwlSameAs = new ArrayList<>();
+    if (entityType != null) {
+      final ImmutablePair<String, String> parameterEntityType = new ImmutablePair<>(
+          EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name());
+      parametersAbout.add(parameterEntityType);
+      parametersOwlSameAs.add(parameterEntityType);
+    }
+    // Get by about first
+    parametersAbout.add(parameterAbout);
+    foundEnrichmentBases = getEnrichmentTermsAndConvert(parametersAbout);
+    if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
+      // If empty try OwlSameAs
+      parametersOwlSameAs.add(parameterOwlSameAs);
+      foundEnrichmentBases = getEnrichmentTermsAndConvert(parametersOwlSameAs);
+    }
+    return foundEnrichmentBases;
   }
 
   /**
@@ -179,7 +194,7 @@ public class EnrichmentService {
     return Converter.convert(enrichmentTerms);
   }
 
-  public List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
+  private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
     final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
     fieldNameMap.put(null, fieldNamesAndValues);
     return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);

@@ -76,8 +76,7 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
       return false;
     }
     if (o.getClass() == this.getClass()) {
-      return ((PlaceEnrichmentEntity) o).getAbout() != null ? this.getAbout()
-          .equals(((PlaceEnrichmentEntity) o).getAbout()) : false;
+      return this.getAbout().equals(((PlaceEnrichmentEntity) o).getAbout());
     }
     return false;
   }
@@ -85,6 +84,6 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
   @Override
   public int hashCode() {
     return (int) (this.getAbout() != null ? this.getAbout().hashCode()
-        : this.latitude * 100 + this.longitude);
+        : ((double) this.latitude * 100 + this.longitude));
   }
 }

@@ -35,11 +35,11 @@ public final class Converter {
   }
 
   public static EnrichmentBase convert(EnrichmentTerm enrichmentTerm) {
-    final EnrichmentBase result;
     final EntityType entityType = enrichmentTerm.getEntityType();
     if (entityType == null) {
       return null;
     }
+    final EnrichmentBase result;
     switch (entityType) {
       case AGENT:
         result = convertAgent((AgentEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
