@@ -587,14 +587,14 @@ public class EntityMergeEngineTest {
     inputList.add(createPlace());
     inputList.add(createFirstPlaceWithNullValues());
     inputList.add(createSecondPlaceWithNullValues());
-    final List<EnrichmentBase> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Collections.singletonList(inputList))
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
         .collect(Collectors.toList());
 
     // Perform merge
     RDF rdf = new RDF();
-    new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList, Collections.emptySet());
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet());
 
     // Verify RDF
     verifyRdf(rdf, 0, 0, 3, 0);
@@ -618,8 +618,8 @@ public class EntityMergeEngineTest {
     inputList.add(createTimeSpan());
     inputList.add(createAgentWithNullValues());
     inputList.add(createConceptWithNullValues());
-    final List<EnrichmentBase> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Collections.singletonList(inputList))
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
         .collect(Collectors.toList());
 
@@ -629,7 +629,7 @@ public class EntityMergeEngineTest {
     rdf.setAgentList(null);
     rdf.setConceptList(null);
     rdf.setTimeSpanList(null);
-    new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList, Collections.emptySet());
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet());
 
     // Verify RDF
     verifyRdf(rdf, 2, 2, 0, 1);
@@ -650,12 +650,12 @@ public class EntityMergeEngineTest {
     final List<EnrichmentBase> inputList = new ArrayList<>();
     inputList.add(new EnrichmentBase() {
     });
-    final List<EnrichmentBase> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Collections.singletonList(inputList))
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
         .collect(Collectors.toList());
     RDF rdf = new RDF();
     assertThrows(IllegalArgumentException.class, () -> new EntityMergeEngine()
-        .mergeEntities(rdf, enrichmentBaseWrapperList, Collections.emptySet()));
+        .mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet()));
   }
 }

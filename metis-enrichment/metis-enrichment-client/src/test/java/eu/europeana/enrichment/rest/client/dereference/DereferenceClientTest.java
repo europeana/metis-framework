@@ -37,12 +37,12 @@ class DereferenceClientTest {
     ArrayList<EnrichmentBase> agentList = new ArrayList<>();
     agentList.add(agent1);
     agentList.add(agent2);
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(
             Collections.singletonList(new ArrayList<>(agentList)));
 
     final EnrichmentResultList enrichmentResultList = new EnrichmentResultList(
-        enrichmentBaseWrapperList);
+        enrichmentResultBaseWrapperList);
     final ResponseEntity<EnrichmentResultList> result = new ResponseEntity<>(enrichmentResultList,
         HttpStatus.OK);
 

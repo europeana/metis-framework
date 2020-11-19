@@ -44,10 +44,10 @@ class EnrichmentClientTest {
     agentList.add(agent1);
     agentList.add(agent2);
 
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(
             Collections.singletonList(new ArrayList<>(agentList)));
-    EnrichmentResultList result = new EnrichmentResultList(enrichmentBaseWrapperList);
+    EnrichmentResultList result = new EnrichmentResultList(enrichmentResultBaseWrapperList);
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
     doReturn(result).when(restTemplate)

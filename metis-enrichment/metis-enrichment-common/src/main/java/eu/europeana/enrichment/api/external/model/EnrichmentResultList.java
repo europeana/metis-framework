@@ -26,7 +26,6 @@ public class EnrichmentResultList {
    *
    * @param enrichmentResultBaseWrappers the list to initialize the class with
    */
-  //TODO: Eventually, when the previous constructor is gone, make this constructor have as input parameter a Collection
   public EnrichmentResultList(List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers) {
     this.enrichmentResultBaseWrapperList.addAll(enrichmentResultBaseWrappers);
   }

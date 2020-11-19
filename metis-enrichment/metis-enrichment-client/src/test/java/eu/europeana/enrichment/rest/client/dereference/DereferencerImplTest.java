@@ -51,19 +51,22 @@ public class DereferencerImplTest {
     timeSpan1.setAbout("timespan1");
     final Timespan timeSpan2 = new Timespan();
     timeSpan2.setAbout("timespan2");
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList1 = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList1 =
+        EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));
     final EnrichmentResultList dereferenceResult1 =
-        new EnrichmentResultList(enrichmentBaseWrapperList1);
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList2 = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(
+        new EnrichmentResultList(enrichmentResultBaseWrapperList1);
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList2 =
+        EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(
             List.of(Arrays.asList(timeSpan1, timeSpan2, null)));
     final EnrichmentResultList dereferenceResult2 =
-        new EnrichmentResultList(enrichmentBaseWrapperList2);
+        new EnrichmentResultList(enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList3 = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(List.of(Arrays.asList(place1, null, place2)));
-    ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList3);
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList3 =
+        EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(place1, null, place2)));
+    ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentResultBaseWrapperList3);
   }
 
   @Test
