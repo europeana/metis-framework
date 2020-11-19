@@ -69,19 +69,9 @@ public final class RestEndpoints {
   public static final String LOAD_VOCABULARIES = "/load_vocabularies";
 
   /* METIS ENRICHMENT Endpoint */
-  /** @deprecated */
-  @Deprecated
-  public static final String ENRICH_ENTITY_ABOUT = "/enrich/entity_about";
-  /** @deprecated */
-  @Deprecated
-  public static final String ENRICH_ENTITY_ABOUT_OR_OWLSAMEAS = "/enrich/entity_about_or_owl_same_as";
-  /** @deprecated */
-  @Deprecated
-  public static final String ENRICH_INPUT_VALUE_LIST = "/enrich/input_value_list";
   public static final String ENRICH_ENTITY_SEARCH = "/enrich/entity/search";
   public static final String ENRICH_ENTITY_EQUIVALENCE = "/enrich/entity/equivalence";
   public static final String ENRICH_ENTITY_ID = "/enrich/entity/id";
-
 
   /* METIS SCHEMA VALIDATION ENDPOINT */
   public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";

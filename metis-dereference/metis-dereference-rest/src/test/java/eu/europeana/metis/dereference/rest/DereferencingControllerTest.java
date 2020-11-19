@@ -9,12 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,63 +40,60 @@ class DereferencingControllerTest {
     DereferencingController dereferenceController = new DereferencingController(
         dereferenceServiceMock);
     dereferencingControllerMock = MockMvcBuilders.standaloneSetup(dereferenceController)
-        .setControllerAdvice(new RestResponseExceptionHandler())
-        .build();
+        .setControllerAdvice(new RestResponseExceptionHandler()).build();
   }
 
   @Test
   void dereferenceGet_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
-    list.getEnrichmentBaseWrapperList().add(new EnrichmentBaseWrapper(null, getAgent("http://www.example.com")));
+    list.getEnrichmentBaseResultWrapperList().add(new EnrichmentResultBaseWrapper(
+        Collections.singletonList(getAgent("http" + "://www.example.com"))));
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(list);
 
-    dereferencingControllerMock.perform(get("/dereference/?uri=http://www.example.com")
-        .accept(MediaType.APPLICATION_XML_VALUE))
+    dereferencingControllerMock.perform(
+        get("/dereference/?uri=http://www.example.com").accept(MediaType.APPLICATION_XML_VALUE))
         .andExpect(status().is(200))
         //  .andExpect(content().string(""))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/@rdf:about", namespaceMap)
-            .string("http://www.example.com"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap)
-            .string("labelEn"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap)
-            .string("labelNl"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
-            .string("10-10-10"));
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/@rdf:about", namespaceMap)
+            .string("http://www.example.com")).andExpect(xpath(
+        "metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='en']",
+        namespaceMap).string("labelEn")).andExpect(xpath(
+        "metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']",
+        namespaceMap).string("labelNl")).andExpect(xpath(
+        "metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']",
+        namespaceMap).string("10-10-10"));
   }
 
   @Test
   void dereferencePost_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
-    list.getEnrichmentBaseWrapperList().add(new EnrichmentBaseWrapper(null, getAgent("http://www.example.com")));
+    list.getEnrichmentBaseResultWrapperList().add(new EnrichmentResultBaseWrapper(
+        Collections.singletonList(getAgent("http://www" + ".example.com"))));
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(list);
 
-    dereferencingControllerMock.perform(post("/dereference")
-        .accept(MediaType.APPLICATION_XML_VALUE)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("[ \"http://www.example.com\" ]"))
+    dereferencingControllerMock.perform(post("/dereference").accept(MediaType.APPLICATION_XML_VALUE)
+        .contentType(MediaType.APPLICATION_JSON).content("[ \"http://www.example.com\" ]"))
         .andExpect(status().is(200))
         //  .andExpect(content().string(""))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/@rdf:about", namespaceMap)
-            .string("http://www.example.com"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap)
-            .string("labelEn"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap)
-            .string("labelNl"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
-            .string("10-10-10"));
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/@rdf:about",
+            namespaceMap).string("http://www.example.com")).andExpect(xpath(
+        "metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='en']",
+        namespaceMap).string("labelEn")).andExpect(xpath(
+        "metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']",
+        namespaceMap).string("labelNl")).andExpect(xpath(
+        "metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']",
+        namespaceMap).string("10-10-10"));
   }
 
   @Test
   void exceptionHandling() throws Exception {
     when(dereferenceServiceMock.dereference("http://www.example.com"))
         .thenThrow(new TransformerException("myException"));
-    dereferencingControllerMock.perform(post("/dereference")
-        .content("[ \"http://www.example.com\" ]")
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().is(500))
-        .andExpect(content().string(
-            "{\"errorMessage\":\"Dereferencing failed for uri: http://www.example.com with root cause: myException\"}"));
+    dereferencingControllerMock.perform(
+        post("/dereference").content("[ \"http://www.example.com\" ]")
+            .accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(500)).andExpect(content().string(
+        "{\"errorMessage\":\"Dereferencing failed for uri: http://www.example.com with root cause: myException\"}"));
   }
 
   private Agent getAgent(String uri) {

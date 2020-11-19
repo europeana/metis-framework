@@ -107,14 +107,14 @@ public class EnrichmentDao {
    * then the key should be null and the corresponding list should contain the field nam and value
    * pairs.</p>
    *
-   * @param containingListfieldNameAndValues the map of fields and an internal list of pairs with
+   * @param containingListFieldNameAndValues the map of fields and an internal list of pairs with
    * key being the fieldName and value being the fieldValue.
    * @return the retrieved list of enrichmentTerm
    */
   public List<EnrichmentTerm> getAllEnrichmentTermsByFields(
-      Map<String, List<Pair<String, String>>> containingListfieldNameAndValues) {
+      Map<String, List<Pair<String, String>>> containingListFieldNameAndValues) {
     final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
-    for (Map.Entry<String, List<Pair<String, String>>> entry : containingListfieldNameAndValues
+    for (Map.Entry<String, List<Pair<String, String>>> entry : containingListFieldNameAndValues
         .entrySet()) {
 
       final List<Filter> filters = new ArrayList<>(entry.getValue().size());

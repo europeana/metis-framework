@@ -2,7 +2,7 @@ package eu.europeana.metis.dereference.service;
 
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -19,6 +19,7 @@ import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,7 +58,7 @@ public class MongoDereferenceService implements DereferenceService {
    * Constructor.
    *
    * @param processedEntityDao Object managing the processed entity cache.
-   * @param vocabularyDao      Object that accesses vocabularies.
+   * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
   public MongoDereferenceService(ProcessedEntityDao processedEntityDao,
@@ -68,9 +69,9 @@ public class MongoDereferenceService implements DereferenceService {
   /**
    * Constructor.
    *
-   * @param retriever          Object that retrieves entities from their source services.
+   * @param retriever Object that retrieves entities from their source services.
    * @param processedEntityDao Object managing the processed entity cache.
-   * @param vocabularyDao      Object that accesses vocabularies.
+   * @param vocabularyDao Object that accesses vocabularies.
    */
   MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
       VocabularyDao vocabularyDao) {
@@ -92,9 +93,10 @@ public class MongoDereferenceService implements DereferenceService {
     final Collection<EnrichmentBase> resultList = dereferenceResource(resourceId);
 
     // Prepare the result: empty if we didn't find an entity.
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-        .createEnrichmentBaseWrapperList(resultList);
-    return new EnrichmentResultList(enrichmentBaseWrapperList);
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(
+            Collections.singletonList(new ArrayList<>(resultList)));
+    return new EnrichmentResultList(enrichmentResultBaseWrappers);
   }
 
   /**
@@ -141,8 +143,9 @@ public class MongoDereferenceService implements DereferenceService {
     final int iterations = resource.getRight().getIterations();
     final Map<String, EnrichmentBase> result;
     if (iterations > 0) {
-      result = GraphUtils.breadthFirstSearch(resourceId, resource.getLeft(),
-          resource.getRight().getIterations(), valueResolver, this::extractBroaderResources);
+      result = GraphUtils
+          .breadthFirstSearch(resourceId, resource.getLeft(), resource.getRight().getIterations(),
+              valueResolver, this::extractBroaderResources);
     } else {
       result = new HashMap<>();
       result.put(resourceId, resource.getLeft());
@@ -157,9 +160,9 @@ public class MongoDereferenceService implements DereferenceService {
     if (resource instanceof Concept) {
       resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
     } else if (resource instanceof Timespan) {
-      resourceIdStream = getStream(((Timespan) resource).getIsPartOfList()).map(Part::getResource);
+      resourceIdStream = Stream.of(((Timespan) resource).getIsPartOf()).map(Part::getResource);
     } else if (resource instanceof Place) {
-      resourceIdStream = getStream(((Place) resource).getIsPartOfList()).map(Part::getResource);
+      resourceIdStream = Stream.of(((Place) resource).getIsPartOf()).map(Part::getResource);
     } else {
       resourceIdStream = Stream.empty();
     }
@@ -206,12 +209,12 @@ public class MongoDereferenceService implements DereferenceService {
    * </ul>
    * </p>
    *
-   * @param resourceId   the url of the provider entity
+   * @param resourceId the url of the provider entity
    * @param cachedEntity the cached entity object
    * @return a pair with the computed values
-   * @throws URISyntaxException   if the resource identifier url is invalid
+   * @throws URISyntaxException if the resource identifier url is invalid
    * @throws TransformerException if an exception occurred during transformation of the original
-   *                              entity
+   * entity
    */
   private Pair<String, Vocabulary> computeEntityVocabularyPair(String resourceId,
       ProcessedEntity cachedEntity) throws URISyntaxException, TransformerException {

@@ -93,9 +93,11 @@ public class EntityMergeEngine {
     placeType
         .setHasPartList(ItemExtractorUtils.extractParts(place.getHasPartsList(), HasPart::new));
 
-    // isPartOfList
-    placeType
-        .setIsPartOfList(ItemExtractorUtils.extractParts(place.getIsPartOfList(), IsPartOf::new));
+    // isPartOf
+    if (place.getIsPartOf() != null) {
+      placeType.setIsPartOfList(
+          ItemExtractorUtils.extractParts(List.of(place.getIsPartOf()), IsPartOf::new));
+    }
 
     // lat
     if (place.getLat() != null) {
@@ -313,9 +315,10 @@ public class EntityMergeEngine {
               Part::getResource));
     }
 
-    // isPartOfList
-    timeSpanType.setIsPartOfList(
-        ItemExtractorUtils.extractParts(timespan.getIsPartOfList(), IsPartOf::new));
+    // isPartOf
+    if (timespan.getIsPartOf() != null) {
+      timeSpanType.setIsPartOfList(ItemExtractorUtils.extractParts(List.of(timespan.getIsPartOf()), IsPartOf::new));
+    }
 
     // noteList
     timeSpanType.setNoteList(ItemExtractorUtils.extractLabels(timespan.getNotes(), Note::new));

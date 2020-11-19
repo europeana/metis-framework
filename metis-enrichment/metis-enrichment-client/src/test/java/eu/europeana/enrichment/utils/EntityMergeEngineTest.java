@@ -20,7 +20,6 @@ import eu.europeana.metis.schema.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -58,7 +57,7 @@ public class EntityMergeEngineTest {
     place.setHasPartsList(Arrays.asList(part1));
 
     Part part2 = new Part("partP2");
-    place.setIsPartOfList(Arrays.asList(part2));
+    place.setIsPartOf(part2);
 
     place.setLat("12.34");
     place.setLon("43.21");
@@ -81,7 +80,7 @@ public class EntityMergeEngineTest {
     place.setAbout("aboutP1");
     place.setAltLabelList(Arrays.asList(new Label[]{null}));
     place.setHasPartsList(Arrays.asList(new Part[]{}));
-    place.setIsPartOfList(null);
+    place.setIsPartOf(null);
     place.setNotes(Arrays.asList(new Label()));
     place.setPrefLabelList(null);
     return place;
@@ -91,7 +90,7 @@ public class EntityMergeEngineTest {
     Place place = new Place();
     place.setAbout("aboutP2");
     place.setHasPartsList(Arrays.asList(new Part()));
-    place.setIsPartOfList(Arrays.asList(new Part("")));
+    place.setIsPartOf(new Part(""));
     return place;
   }
 
@@ -286,7 +285,7 @@ public class EntityMergeEngineTest {
     timespan.setHasPartsList(Arrays.asList(part1));
 
     Part part2 = new Part("partT2");
-    timespan.setIsPartOfList(Arrays.asList(part2));
+    timespan.setIsPartOf(part2);
 
     Label label7 = new Label("LangT7", "labelT7");
     Label label8 = new Label("LangT8", "labelT8");
@@ -311,7 +310,9 @@ public class EntityMergeEngineTest {
     verifyFloat(original.getAlt(), copy.getAlt(), Alt::getAlt);
     verifyList(original.getAltLabelList(), copy.getAltLabelList(), this::verifyLabel);
     verifyList(original.getHasPartsList(), copy.getHasPartList(), this::verifyPart);
-    verifyList(original.getIsPartOfList(), copy.getIsPartOfList(), this::verifyPart);
+    if (original.getIsPartOf() != null) {
+      verifyList(List.of(original.getIsPartOf()), copy.getIsPartOfList(), this::verifyPart);
+    }
     verifyFloat(original.getLat(), copy.getLat(), Lat::getLat);
     verifyFloat(original.getLon(), copy.getLong(), _Long::getLong);
     verifyList(original.getNotes(), copy.getNoteList(), this::verifyLabel);
@@ -392,7 +393,7 @@ public class EntityMergeEngineTest {
     verifyFirstListItem(original.getBeginList(), copy.getBegin(), this::verifyLabel);
     verifyFirstListItem(original.getEndList(), copy.getEnd(), this::verifyLabel);
     verifyList(original.getHasPartsList(), copy.getHasPartList(), this::verifyPart);
-    verifyList(original.getIsPartOfList(), copy.getIsPartOfList(), this::verifyPart);
+    verifyList(List.of(original.getIsPartOf()), copy.getIsPartOfList(), this::verifyPart);
     verifyList(original.getNotes(), copy.getNoteList(), this::verifyLabel);
     verifyList(original.getPrefLabelList(), copy.getPrefLabelList(), this::verifyLabel);
     verifyList(original.getHiddenLabel(), copy.getHiddenLabelList(), this::verifyLabel);
@@ -401,9 +402,9 @@ public class EntityMergeEngineTest {
   }
 
   // Compares those choices of the right type. Returns the number of choices covered.
-  private <O, C> int verifyChoiceList(List<O> original,
-      eu.europeana.metis.schema.jibx.Concept copy, Predicate<Choice> choiceFilter,
-      Function<Choice, C> choiceGetter, BiConsumer<O, C> objectVerification) {
+  private <O, C> int verifyChoiceList(List<O> original, eu.europeana.metis.schema.jibx.Concept copy,
+      Predicate<Choice> choiceFilter, Function<Choice, C> choiceGetter,
+      BiConsumer<O, C> objectVerification) {
     final List<C> items = copy.getChoiceList().stream().filter(choiceFilter).map(choiceGetter)
         .collect(Collectors.toList());
     verifyList(original, items, objectVerification);
@@ -586,15 +587,14 @@ public class EntityMergeEngineTest {
     inputList.add(createPlace());
     inputList.add(createFirstPlaceWithNullValues());
     inputList.add(createSecondPlaceWithNullValues());
-    final List<EnrichmentBase> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Collections.singletonList(inputList))
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
-        .collect(
-            Collectors.toList());
+        .collect(Collectors.toList());
 
     // Perform merge
     RDF rdf = new RDF();
-    new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList, Collections.emptySet());
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet());
 
     // Verify RDF
     verifyRdf(rdf, 0, 0, 3, 0);
@@ -618,8 +618,8 @@ public class EntityMergeEngineTest {
     inputList.add(createTimeSpan());
     inputList.add(createAgentWithNullValues());
     inputList.add(createConceptWithNullValues());
-    final List<EnrichmentBase> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Collections.singletonList(inputList))
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
         .collect(Collectors.toList());
 
@@ -629,7 +629,7 @@ public class EntityMergeEngineTest {
     rdf.setAgentList(null);
     rdf.setConceptList(null);
     rdf.setTimeSpanList(null);
-    new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList, Collections.emptySet());
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet());
 
     // Verify RDF
     verifyRdf(rdf, 2, 2, 0, 1);
@@ -650,13 +650,12 @@ public class EntityMergeEngineTest {
     final List<EnrichmentBase> inputList = new ArrayList<>();
     inputList.add(new EnrichmentBase() {
     });
-    final List<EnrichmentBase> enrichmentBaseWrapperList = EnrichmentResultBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(Collections.singletonList(inputList))
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
         .collect(Collectors.toList());
     RDF rdf = new RDF();
-    assertThrows(IllegalArgumentException.class,
-        () -> new EntityMergeEngine()
-            .mergeEntities(rdf, enrichmentBaseWrapperList, Collections.emptySet()));
+    assertThrows(IllegalArgumentException.class, () -> new EntityMergeEngine()
+        .mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet()));
   }
 }
