@@ -1,7 +1,5 @@
 package eu.europeana.enrichment;
 
-import eu.europeana.enrichment.api.external.ReferenceValue;
-import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.internal.model.Entity;
 import java.net.URL;
 import java.util.List;
@@ -13,17 +11,17 @@ public class RemoteEntityResolver implements EntityResolver{
   private URL enrichmentServiceUrl;
 
   @Override
-  public Map<SearchValue, List<Entity>> resolveByText(Set<SearchValue> searchValues) {
+  public Map<SearchTerm, List<Entity>> resolveByText(Set<SearchTerm> searchTermSet) {
     return null;
   }
 
   @Override
-  public Map<ReferenceValue, Entity> resolveById(Set<ReferenceValue> referenceValues) {
+  public Map<ReferenceTerm, Entity> resolveById(Set<ReferenceTerm> referenceTermSet) {
     return null;
   }
 
   @Override
-  public Map<ReferenceValue, List<Entity>> resolveByUri(Set<ReferenceValue> referenceValues) {
+  public Map<ReferenceTerm, List<Entity>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
     return null;
   }
 }
