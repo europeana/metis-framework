@@ -178,8 +178,8 @@ public class EnrichmentClient {
       result.addAll(Optional.ofNullable(enrichmentResultList)
           .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).stream()
           .filter(Objects::nonNull).flatMap(Collection::stream)
-          .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
-          .collect(Collectors.toList()));
+          .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
+          .flatMap(List::stream).collect(Collectors.toList()));
     }
     return result;
   }

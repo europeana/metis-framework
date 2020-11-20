@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/", type = Agent.class),
       @XmlElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/", type = Place.class),
       @XmlElement(name = "Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type = Timespan.class)})
-  private List<EnrichmentBase> enrichmentBase;
+  private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
   public EnrichmentResultBaseWrapper() {
   }
