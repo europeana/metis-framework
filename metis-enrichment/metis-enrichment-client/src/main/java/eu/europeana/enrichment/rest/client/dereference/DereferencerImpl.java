@@ -13,6 +13,7 @@ import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,8 +29,7 @@ public class DereferencerImpl implements Dereferencer {
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
 
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine,
-      EnrichmentClient enrichmentClient,
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EnrichmentClient enrichmentClient,
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.enrichmentClient = enrichmentClient;
@@ -66,11 +66,10 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     // First try to get them from our own entity collection database.
-    final List<EnrichmentBase> result = new ArrayList<>(
-        dereferenceOwnEntities(resourceIds));
+    final List<EnrichmentBase> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
 
-    final Set<String> foundOwnEntityIds = result.stream()
-        .map(EnrichmentBase::getAbout).collect(Collectors.toSet());
+    final Set<String> foundOwnEntityIds = result.stream().map(EnrichmentBase::getAbout)
+        .collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
     for (String resourceId : resourceIds) {
@@ -89,8 +88,8 @@ public class DereferencerImpl implements Dereferencer {
       return retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.getById(resourceIds));
     } catch (Exception e) {
-      throw new DereferenceException(
-          "Exception occurred while trying to perform dereferencing.", e);
+      throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
+          e);
     }
   }
 
@@ -109,15 +108,15 @@ public class DereferencerImpl implements Dereferencer {
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
       result = null;
     } catch (Exception e) {
-      throw new DereferenceException(
-          "Exception occurred while trying to perform dereferencing.", e);
+      throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
+          e);
     }
 
     // Return the result.
     return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
         .orElseGet(Collections::emptyList).stream()
-        .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(
-            Collectors.toList());
+        .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
+        .flatMap(List::stream).collect(Collectors.toList());
   }
 
   @Override
