@@ -160,9 +160,11 @@ public class MongoDereferenceService implements DereferenceService {
     if (resource instanceof Concept) {
       resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
     } else if (resource instanceof Timespan) {
-      resourceIdStream = Stream.of(((Timespan) resource).getIsPartOf()).map(Part::getResource);
+      resourceIdStream = Optional.ofNullable(((Timespan) resource).getIsPartOf())
+          .map(Part::getResource).stream();
     } else if (resource instanceof Place) {
-      resourceIdStream = Stream.of(((Place) resource).getIsPartOf()).map(Part::getResource);
+      resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf())
+          .map(Part::getResource).stream();
     } else {
       resourceIdStream = Stream.empty();
     }
