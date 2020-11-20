@@ -74,7 +74,7 @@ public abstract class AbstractEnrichmentEntity implements Entity {
 
   @Override
   public List<String> getOwlSameAs() {
-    return new ArrayList<>(this.owlSameAs);
+    return this.owlSameAs == null ? null : new ArrayList<>(this.owlSameAs);
   }
 
   @Override
