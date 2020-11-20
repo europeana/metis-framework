@@ -83,7 +83,7 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
 
   @Override
   public int hashCode() {
-    return (int) (this.getAbout() != null ? this.getAbout().hashCode()
-        : ((double) this.latitude * 100 + this.longitude));
+    return (int) (this.getAbout() == null ? ((double) this.latitude * 100 + this.longitude)
+        : this.getAbout().hashCode());
   }
 }

@@ -81,9 +81,8 @@ public class WorkflowExecutionFactory {
     final List<ExecutablePluginType> typesInWorkflow = new ArrayList<>();
     for (AbstractExecutablePluginMetadata pluginMetadata : workflow.getMetisPluginsMetadata()) {
       if (pluginMetadata.isEnabled()) {
-        workflowPlugins
-            .add(createWorkflowExecutionPlugin(dataset, predecessor, pluginMetadata,
-                typesInWorkflow));
+        workflowPlugins.add(
+            createWorkflowExecutionPlugin(dataset, predecessor, pluginMetadata, typesInWorkflow));
         typesInWorkflow.add(pluginMetadata.getExecutablePluginType());
       }
     }
@@ -113,24 +112,24 @@ public class WorkflowExecutionFactory {
       this.setupValidationInternalForPluginMetadata(
           (ValidationInternalPluginMetadata) pluginMetadata, getValidationInternalProperties());
     } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata) {
-      ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-          isMetisUseAlternativeIndexingEnvironment());
-      ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
-          dataset.getDatasetIdsToRedirectFrom());
+      ((IndexToPreviewPluginMetadata) pluginMetadata)
+          .setUseAlternativeIndexingEnvironment(isMetisUseAlternativeIndexingEnvironment());
+      ((IndexToPreviewPluginMetadata) pluginMetadata)
+          .setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PREVIEW, typesInWorkflowBeforeThisPlugin);
       ((IndexToPreviewPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof IndexToPublishPluginMetadata) {
-      ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-          isMetisUseAlternativeIndexingEnvironment());
-      ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
-          dataset.getDatasetIdsToRedirectFrom());
+      ((IndexToPublishPluginMetadata) pluginMetadata)
+          .setUseAlternativeIndexingEnvironment(isMetisUseAlternativeIndexingEnvironment());
+      ((IndexToPublishPluginMetadata) pluginMetadata)
+          .setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
       ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof DepublishPluginMetadata) {
-      ((DepublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-          isMetisUseAlternativeIndexingEnvironment());
+      ((DepublishPluginMetadata) pluginMetadata)
+          .setUseAlternativeIndexingEnvironment(isMetisUseAlternativeIndexingEnvironment());
       setupDepublishPluginMetadata(dataset, ((DepublishPluginMetadata) pluginMetadata));
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
@@ -184,8 +183,8 @@ public class WorkflowExecutionFactory {
 
     // Get some history from the database: find the latest successful plugin of the same type.
     final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulPlugin = workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(), EnumSet
-            .of(executablePluginType), true);
+        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
+            EnumSet.of(executablePluginType), true);
 
     // Check if we can find the answer in the workflow itself. Iterate backwards and see what we find.
     for (int i = typesInWorkflowBeforeThisPlugin.size() - 1; i >= 0; i--) {
@@ -204,29 +203,26 @@ public class WorkflowExecutionFactory {
 
     // If we have a previous execution of this plugin, we see if things have changed since then.
     final boolean performRedirect;
-    if (latestSuccessfulPlugin != null) {
-
+    if (latestSuccessfulPlugin == null) {
+      // If it's the first plugin execution, just check if dataset ids to redirect from are present.
+      performRedirect = !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+    } else {
       // Check if since the latest plugin's execution, the dataset information is updated and (now)
       // contains dataset ids to redirect from.
       final boolean datasetUpdatedSinceLatestPlugin = dataset.getUpdatedDate() != null &&
-          dataset.getUpdatedDate()
-              .compareTo(latestSuccessfulPlugin.getPlugin().getFinishedDate()) >= 0
-          && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+          dataset.getUpdatedDate().compareTo(latestSuccessfulPlugin.getPlugin().getFinishedDate())
+              >= 0 && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
 
       // Check if the latest plugin execution is based on a different harvest as this one will be.
       // If this plugin's harvest cannot be determined, assume it is not the same (this shouldn't
       // happen as we checked the workflow already). This is a lambda: we wish to evaluate on demand.
-      final BooleanSupplier rootDiffersForLatestPlugin = () -> workflowPredecessor == null ||
-          !workflowUtils.getRootAncestor(latestSuccessfulPlugin)
-              .equals(workflowUtils.getRootAncestor(workflowPredecessor));
+      final BooleanSupplier rootDiffersForLatestPlugin = () -> workflowPredecessor == null
+          || !workflowUtils.getRootAncestor(latestSuccessfulPlugin)
+          .equals(workflowUtils.getRootAncestor(workflowPredecessor));
 
       // In either of these situations, we perform a redirect.
       performRedirect =
           datasetUpdatedSinceLatestPlugin || rootDiffersForLatestPlugin.getAsBoolean();
-    } else {
-
-      // If it's the first plugin execution, just check if dataset ids to redirect from are present.
-      performRedirect = !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
     }
 
     // Done
@@ -264,8 +260,8 @@ public class WorkflowExecutionFactory {
     pluginMetadata.setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
   }
 
-  private void setupDepublishPluginMetadata(Dataset dataset,
-      DepublishPluginMetadata pluginMetadata) throws BadContentException {
+  private void setupDepublishPluginMetadata(Dataset dataset, DepublishPluginMetadata pluginMetadata)
+      throws BadContentException {
     final Set<String> recordIdsToDepublish = pluginMetadata.getRecordIdsToDepublish();
     if (!pluginMetadata.isDatasetDepublish()) {
       final Set<String> pendingDepublicationIds;

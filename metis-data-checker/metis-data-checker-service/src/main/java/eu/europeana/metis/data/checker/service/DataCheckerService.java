@@ -102,7 +102,6 @@ public class DataCheckerService {
     try {
       recordIndexingService.commit();
     } catch (IndexingException e) {
-      LOGGER.error("Updating search engine failed", e);
       throw new DataCheckerServiceException("Updating search engine failed", e);
     }
   }
@@ -119,11 +118,9 @@ public class DataCheckerService {
         taskResults.add(taskResultFuture.get());
       }
     } catch (InterruptedException e) {
-      LOGGER.error("Processing validations interrupted", e);
       Thread.currentThread().interrupt();
       throw new DataCheckerServiceException("Processing validations was interrupted", e);
     } catch (ExecutionException e) {
-      LOGGER.error("Executing validations failed", e);
       throw new DataCheckerServiceException("Executing validations failed", e);
     }
     return taskResults;

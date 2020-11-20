@@ -56,7 +56,6 @@ public class MongoClientProvider<E extends Exception> {
    * @throws E In case the connection URI is not valid.
    */
   public MongoClientProvider(String connectionUri, Function<String, E> exceptionCreator) throws E {
-    final Builder clientSettingsBuilder = getDefaultClientSettingsBuilder();
 
     final ConnectionString connectionString;
     try {
@@ -67,6 +66,7 @@ public class MongoClientProvider<E extends Exception> {
       throw wrappingException;
     }
     this.authenticationDatabase = connectionString.getDatabase();
+    final Builder clientSettingsBuilder = getDefaultClientSettingsBuilder();
     clientSettingsBuilder.applyConnectionString(connectionString);
     final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
 
@@ -112,6 +112,7 @@ public class MongoClientProvider<E extends Exception> {
    * @param properties The properties of the Mongo connection. Note that if the passed properties
    * object is changed after calling this method, those changes will not be reflected when calling
    * {@link #createMongoClient()}.
+   * @throws E In case the properties are wrong
    */
   public MongoClientProvider(MongoProperties<E> properties) throws E {
     this(properties, getDefaultClientSettingsBuilder());

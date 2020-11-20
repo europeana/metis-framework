@@ -18,7 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A class with a static method to combine the default trustore with a custom trustore into one and use that during the application lifecycle.
+ * A class with a static method to combine the default trustore with a custom trustore into one and
+ * use that during the application lifecycle.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-06
@@ -35,7 +36,8 @@ public final class CustomTruststoreAppender {
    *
    * @param trustorePath the path to the truststore file
    * @param trustorePassword the password to access the trustore file
-   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom trustore to the default
+   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom
+   * trustore to the default
    */
   public static void appendCustomTrustoreToDefault(String trustorePath, String trustorePassword)
       throws TrustStoreConfigurationException {
@@ -121,6 +123,7 @@ public final class CustomTruststoreAppender {
       try {
         x509TrustManagerToBeMerged.checkServerTrusted(chain, authType);
       } catch (CertificateException e) {
+        LOGGER.debug("No custom trusted certificate found", e);
         LOGGER.warn(
             "Custom x509TrustManager did not have trusted certificates for the accessible resource, will try default x509TrustManager now");
         x509TrustManager.checkServerTrusted(chain, authType);
@@ -128,8 +131,8 @@ public final class CustomTruststoreAppender {
     }
 
     @Override
-    public void checkClientTrusted(X509Certificate[] chain,
-        String authType) throws CertificateException {
+    public void checkClientTrusted(X509Certificate[] chain, String authType)
+        throws CertificateException {
       // If you're planning to use client-cert auth,
       // do the same as checking the server.
       x509TrustManager.checkClientTrusted(chain, authType);

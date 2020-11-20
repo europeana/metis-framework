@@ -291,13 +291,13 @@ public class AuthenticationService {
   public MetisUser loginUser(String email, String password) throws GenericMetisException {
     MetisUserModel storedMetisUser = authenticateUser(email, password);
 
-    if (storedMetisUser.getMetisUserAccessToken() != null) {
-      psqlMetisUserDao.updateAccessTokenTimestamp(email);
-    } else {
+    if (storedMetisUser.getMetisUserAccessToken() == null) {
       MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
           generateAccessToken(), new Date());
       psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
       storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
+    } else {
+      psqlMetisUserDao.updateAccessTokenTimestamp(email);
     }
     return convert(storedMetisUser);
   }

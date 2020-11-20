@@ -29,7 +29,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setBroader(String[] broader) {
-    this.broader = broader != null ? broader.clone() : null;
+    this.broader = broader == null ? null : broader.clone();
   }
 
   public String[] getNarrower() {
@@ -37,7 +37,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setNarrower(String[] narrower) {
-    this.narrower = narrower != null ? narrower.clone() : null;
+    this.narrower = narrower == null ? null : narrower.clone();
   }
 
   public String[] getRelated() {
@@ -45,7 +45,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setRelated(String[] related) {
-    this.related = related != null ? related.clone() : null;
+    this.related = related == null ? null : related.clone();
   }
 
   public String[] getBroadMatch() {
@@ -53,7 +53,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setBroadMatch(String[] broadMatch) {
-    this.broadMatch = broadMatch != null ? broadMatch.clone() : null;
+    this.broadMatch = broadMatch == null ? null : broadMatch.clone();
   }
 
   public String[] getNarrowMatch() {
@@ -61,7 +61,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setNarrowMatch(String[] narrowMatch) {
-    this.narrowMatch = narrowMatch != null ? narrowMatch.clone() : null;
+    this.narrowMatch = narrowMatch == null ? null : narrowMatch.clone();
   }
 
   public String[] getRelatedMatch() {
@@ -69,7 +69,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setRelatedMatch(String[] relatedMatch) {
-    this.relatedMatch = relatedMatch != null ? relatedMatch.clone() : null;
+    this.relatedMatch = relatedMatch == null ? null : relatedMatch.clone();
   }
 
   public String[] getExactMatch() {
@@ -77,7 +77,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setExactMatch(String[] exactMatch) {
-    this.exactMatch = exactMatch != null ? exactMatch.clone() : null;
+    this.exactMatch = exactMatch == null ? null : exactMatch.clone();
   }
 
   public String[] getCloseMatch() {
@@ -85,7 +85,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setCloseMatch(String[] closeMatch) {
-    this.closeMatch = closeMatch != null ? closeMatch.clone() : null;
+    this.closeMatch = closeMatch == null ? null : closeMatch.clone();
   }
 
   public Map<String, List<String>> getNotation() {
@@ -101,7 +101,7 @@ public class ConceptEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
   public void setInScheme(String[] inScheme) {
-    this.inScheme = inScheme != null ? inScheme.clone() : null;
+    this.inScheme = inScheme == null ? null : inScheme.clone();
   }
 
   @Override

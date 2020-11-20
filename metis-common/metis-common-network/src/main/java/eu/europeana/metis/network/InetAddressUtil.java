@@ -35,8 +35,8 @@ public class InetAddressUtil<E extends Exception> {
    * @return The list of converted internet addresses.
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */
-  public List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts,
-          int[] ports) throws E {
+  public List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts, int[] ports)
+      throws E {
 
     // Null check.
     if (hosts == null) {
@@ -58,7 +58,7 @@ public class InetAddressUtil<E extends Exception> {
 
     // Compile the server address list
     return IntStream.range(0, hosts.length)
-            .mapToObj(index -> new InetSocketAddress(hosts[index], portGetter.applyAsInt(index)))
-            .collect(Collectors.toList());
+        .mapToObj(index -> new InetSocketAddress(hosts[index], portGetter.applyAsInt(index)))
+        .collect(Collectors.toList());
   }
 }

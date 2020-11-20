@@ -14,7 +14,7 @@ public class IndexToPublishPluginMetadata extends AbstractExecutablePluginMetada
   private static final ExecutablePluginType pluginType = ExecutablePluginType.PUBLISH;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
-  private boolean performRedirects = false;
+  private boolean performRedirects;
   private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
 
   public IndexToPublishPluginMetadata() {

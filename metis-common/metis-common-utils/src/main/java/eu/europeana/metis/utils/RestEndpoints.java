@@ -3,6 +3,9 @@ package eu.europeana.metis.utils;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Contains rest endpoint used throughout the applications.
+ */
 public final class RestEndpoints {
   /* METIS-CORE Endopoints*/
 
