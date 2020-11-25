@@ -38,6 +38,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
+@Deprecated(forRemoval = true)
 public class EnrichmentClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentClient.class);

@@ -1,6 +1,6 @@
 package eu.europeana.enrichment;
 
-import eu.europeana.enrichment.internal.model.Entity;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +12,17 @@ public class PersistentEntityResolver implements  EntityResolver{
 
 
   @Override
-  public Map<SearchTerm, List<Entity>> resolveByText(Set<SearchTerm> searchTermSet) {
+  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<SearchTerm> searchTermSet) {
     return null;
   }
 
   @Override
-  public Map<ReferenceTerm, Entity> resolveById(Set<ReferenceTerm> referenceTermSet) {
+  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
     return null;
   }
 
   @Override
-  public Map<ReferenceTerm, List<Entity>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
+  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
     return null;
   }
 }

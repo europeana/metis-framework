@@ -6,7 +6,15 @@ import java.util.List;
 
 public abstract class ReferenceTerm {
 
-  URL reference;
+  private URL reference;
+
+  public ReferenceTerm(URL reference){
+    this.reference = reference;
+  }
+
+  public URL getReference(){
+    return reference;
+  }
 
   public abstract List<EntityType> getCandidateTypes();
 
