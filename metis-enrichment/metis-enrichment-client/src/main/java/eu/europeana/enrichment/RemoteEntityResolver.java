@@ -51,9 +51,25 @@ public class RemoteEntityResolver implements EntityResolver {
 
   @Override
   public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
-//    List<EnrichmentBase> list = performInBatches(enrichmentServiceUrl.toString(), ENRICH_ENTITY_ID,
-//        referenceTermSet);
-    return null;
+
+    Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
+
+    List<URL> urlList = referenceTermSet.stream().map(ReferenceTerm::getReference)
+        .collect(Collectors.toList());
+    List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
+        ENRICH_ENTITY_ID, urlList.stream().map(URL::toString).collect(Collectors.toList()),
+        MediaType.APPLICATION_XML);
+
+    List<EnrichmentBase> enrichmentBaseList = enrichmentResultBaseWrapperList.stream()
+        .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
+        .collect(Collectors.toList());
+
+    for (int i = 0; i < urlList.size(); i++) {
+      ReferenceTerm referenceTerm = new ReferenceTermContext(urlList.get(i));
+      result.put(referenceTerm, enrichmentBaseList.get(i));
+    }
+
+    return result;
   }
 
   @Override
@@ -65,7 +81,9 @@ public class RemoteEntityResolver implements EntityResolver {
     List<URL> urlList = referenceTermSet.stream().map(ReferenceTerm::getReference)
         .collect(Collectors.toList());
     List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
-        ENRICH_ENTITY_EQUIVALENCE, urlList.stream().map(URL::toString).collect(Collectors.toList()));
+        ENRICH_ENTITY_EQUIVALENCE,
+        urlList.stream().map(URL::toString).collect(Collectors.toList()),
+        MediaType.APPLICATION_JSON);
 
     for (int i = 0; i < urlList.size(); i++) {
       ReferenceTerm referenceTerm = new ReferenceTermContext(urlList.get(i));
@@ -77,7 +95,7 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   private List<EnrichmentResultBaseWrapper> performInBatches(String endpointPath,
-      Collection<String> inputValues) {
+      Collection<String> inputValues, MediaType acceptanceHeader) {
 
     // Create partitions
     final List<List<String>> partitions = new ArrayList<>();
@@ -96,19 +114,20 @@ public class RemoteEntityResolver implements EntityResolver {
 
     for (List<String> partition : partitions) {
       final HttpEntity<Object> httpEntity;
-      if (endpointPath.equals(ENRICH_ENTITY_EQUIVALENCE)) {
-        httpEntity = createRequest(partition.toArray(String[]::new));
+      if (endpointPath.equals(ENRICH_ENTITY_ID)) {
+        httpEntity = createRequest(partition.toArray(String[]::new), acceptanceHeader);
       } else {
         List<ReferenceValue> referenceValues = partition.stream()
             .map(uri -> new ReferenceValue(uri, Collections.emptySet()))
             .collect(Collectors.toList());
         final EnrichmentReference enrichmentReference = new EnrichmentReference();
         enrichmentReference.setReferenceValues(referenceValues);
-        httpEntity = createRequest(enrichmentReference);
+        httpEntity = createRequest(enrichmentReference, acceptanceHeader);
       }
       final EnrichmentResultList enrichmentResultList;
       try {
         URI uri = enrichmentServiceUrl.toURI().resolve(endpointPath);
+        System.out.println("URI: " + uri);
         enrichmentResultList = template
             .postForObject(uri, httpEntity, EnrichmentResultList.class);
       } catch (RestClientException | URISyntaxException e) {
@@ -124,12 +143,12 @@ public class RemoteEntityResolver implements EntityResolver {
     return result;
   }
 
-  private static <T> HttpEntity<T> createRequest(T body) {
+  private static <T> HttpEntity<T> createRequest(T body, MediaType acceptType) {
     final HttpHeaders headers = new HttpHeaders();
     if (body != null) {
       headers.setContentType(MediaType.APPLICATION_JSON);
     }
-    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+    headers.setAccept(Collections.singletonList(acceptType));
     return new HttpEntity<>(body, headers);
   }
 }

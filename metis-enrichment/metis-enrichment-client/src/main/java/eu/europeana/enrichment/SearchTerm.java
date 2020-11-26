@@ -14,4 +14,12 @@ public abstract class SearchTerm {
   public abstract boolean equals(SearchTerm searchTerm);
 
   public abstract int hashCode();
+
+  public String getTextValue(){
+    return textValue;
+  }
+
+  public LanguageCodes getLanguage(){
+    return language;
+  }
 }
