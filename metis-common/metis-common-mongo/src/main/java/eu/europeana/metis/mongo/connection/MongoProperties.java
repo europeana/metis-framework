@@ -3,15 +3,14 @@ package eu.europeana.metis.mongo.connection;
 import com.mongodb.MongoCredential;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
+import eu.europeana.metis.network.InetAddressUtil;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.IntUnaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -167,42 +166,6 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * This method converts arrays of hosts and ports to a list of Internet addresses.
-   *
-   * @param hosts The hosts. This cannot be null or empty.
-   * @param ports The ports. This cannot be null or empty. Must contain either the same number of
-   * elements as the hosts array, or exactly 1 element (which will then apply to all hosts).
-   * @return The list of converted internet addresses.
-   * @throws E In case either of the arrays is null, or their lengths don't match.
-   */
-  private List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts, int[] ports)
-      throws E {
-
-    // Null check.
-    if (hosts == null) {
-      throw exceptionCreator.apply("The host array is null.");
-    }
-    if (ports == null) {
-      throw exceptionCreator.apply("The port array is null.");
-    }
-
-    // Check the hosts and ports input for array length.
-    final IntUnaryOperator portGetter;
-    if (ports.length == 1) {
-      portGetter = index -> ports[0];
-    } else if (hosts.length == ports.length) {
-      portGetter = index -> ports[index];
-    } else {
-      throw exceptionCreator.apply("The port array length does not match the host array length.");
-    }
-
-    // Compile the server address list
-    return IntStream.range(0, hosts.length)
-        .mapToObj(index -> new InetSocketAddress(hosts[index], portGetter.applyAsInt(index)))
-        .collect(Collectors.toList());
-  }
-
-  /**
    * This method converts arrays of hosts and ports to a list of Mongo-style Internet addresses.
    *
    * @param hosts The hosts. This cannot be null or empty.
@@ -213,8 +176,8 @@ public class MongoProperties<E extends Exception> {
    */
   private List<ServerAddress> getMongoAddressesFromHostsAndPorts(String[] hosts, int[] ports)
       throws E {
-    return getAddressesFromHostsAndPorts(hosts, ports).stream().map(ServerAddress::new)
-        .collect(Collectors.toList());
+    return new InetAddressUtil<>(this.exceptionCreator).getAddressesFromHostsAndPorts(hosts, ports)
+        .stream().map(ServerAddress::new).collect(Collectors.toList());
   }
 
   /**

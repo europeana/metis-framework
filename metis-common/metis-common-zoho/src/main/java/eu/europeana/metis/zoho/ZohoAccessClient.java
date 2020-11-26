@@ -10,6 +10,7 @@ import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
 import com.zoho.oauth.client.ZohoOAuthClient;
 import com.zoho.oauth.common.ZohoOAuthException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -103,14 +104,12 @@ public class ZohoAccessClient {
       throws ZohoException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
-      bulkAPIResponseAccounts = zcrmModuleAccounts
-          .searchByCriteria(
-              String.format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING,
-                  ZohoConstants.ACCOUNT_NAME_FIELD,
-                  ZohoConstants.EQUALS_OPERATION, organizationName));
+      bulkAPIResponseAccounts = zcrmModuleAccounts.searchByCriteria(String
+          .format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, ZohoConstants.ACCOUNT_NAME_FIELD,
+              ZohoConstants.EQUALS_OPERATION, organizationName));
     } catch (ZCRMException e) {
-      throw new ZohoException(
-          "Zoho search organization by organization name threw an exception", e);
+      throw new ZohoException("Zoho search organization by organization name threw an exception",
+          e);
     }
     final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseAccounts.getData(),
         ZCRMRecord.class);
@@ -128,14 +127,11 @@ public class ZohoAccessClient {
       throws ZohoException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
-      bulkAPIResponseAccounts = zcrmModuleAccounts
-          .searchByCriteria(
-              String.format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, ZohoConstants.ID_FIELD,
-                  ZohoConstants.EQUALS_OPERATION,
-                  organizationId));
+      bulkAPIResponseAccounts = zcrmModuleAccounts.searchByCriteria(String
+          .format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, ZohoConstants.ID_FIELD,
+              ZohoConstants.EQUALS_OPERATION, organizationId));
     } catch (ZCRMException e) {
-      throw new ZohoException(
-          "Zoho search organization by organization id threw an exception", e);
+      throw new ZohoException("Zoho search organization by organization id threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseAccounts.getData(),
         ZCRMRecord.class);
@@ -153,10 +149,8 @@ public class ZohoAccessClient {
   public List<ZCRMTrashRecord> getZCRMTrashRecordDeletedOrganizations(int startPage)
       throws ZohoException {
 
-
     if (startPage < 1) {
-      throw new ZohoException(
-          "Invalid start page index. Index must be >= 1",
+      throw new ZohoException("Invalid start page index. Index must be >= 1",
           new IllegalArgumentException("start page: " + startPage));
     }
     final BulkAPIResponse bulkAPIResponseDeletedRecords;
@@ -164,8 +158,7 @@ public class ZohoAccessClient {
       bulkAPIResponseDeletedRecords = zcrmModuleAccounts
           .getDeletedRecords(startPage, ITEMS_PER_PAGE);
     } catch (ZCRMException e) {
-      throw new ZohoException("Cannot get deleted organization list from: "
-          + startPage, e);
+      throw new ZohoException("Cannot get deleted organization list from: " + startPage, e);
     }
     return castItemsToType(bulkAPIResponseDeletedRecords.getData(), ZCRMTrashRecord.class);
   }
@@ -201,8 +194,7 @@ public class ZohoAccessClient {
       Map<String, String> searchCriteria, String criteriaOperator) throws ZohoException {
 
     if (page < 1 || pageSize < 1) {
-      throw new ZohoException(
-          "Invalid page or pageSize index. Index must be >= 1",
+      throw new ZohoException("Invalid page or pageSize index. Index must be >= 1",
           new IllegalArgumentException(
               String.format("Provided page: %s, and pageSize: %s", page, pageSize)));
     }
@@ -224,8 +216,8 @@ public class ZohoAccessClient {
                 pageSize);
       }
     } catch (ZCRMException e) {
-      throw new ZohoException(
-          "Cannot get organization list from: " + start + " rows :" + pageSize, e);
+      throw new ZohoException("Cannot get organization list from: " + start + " rows :" + pageSize,
+          e);
     }
 
     return castItemsToType(bulkAPIResponse.getData(), ZCRMRecord.class);
@@ -248,26 +240,32 @@ public class ZohoAccessClient {
       searchCriteria = new HashMap<>();
     }
 
-    if (Objects.isNull(criteriaOperator) || (!ZohoConstants.EQUALS_OPERATION.equals(criteriaOperator)
-        && !ZohoConstants.STARTS_WITH_OPERATION.equals(criteriaOperator))) {
+    if (Objects.isNull(criteriaOperator) || (
+        !ZohoConstants.EQUALS_OPERATION.equals(criteriaOperator)
+            && !ZohoConstants.STARTS_WITH_OPERATION.equals(criteriaOperator))) {
       criteriaOperator = ZohoConstants.EQUALS_OPERATION;
     }
 
     String finalCriteriaOperator = criteriaOperator;
-    return searchCriteria.entrySet().stream().map(entry ->
-        Arrays.stream(entry.getValue().split(ZohoConstants.DELIMITER_COMMA))
-            .map(value -> String
-                .format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, entry.getKey(),
-                    finalCriteriaOperator, value.trim())).collect(
-            Collectors.joining(ZohoConstants.OR))).collect(Collectors.joining(ZohoConstants.OR));
+    return searchCriteria.entrySet().stream().map(
+        entry -> Arrays.stream(entry.getValue().split(ZohoConstants.DELIMITER_COMMA)).map(
+            value -> String.format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, entry.getKey(),
+                finalCriteriaOperator, value.trim())).collect(Collectors.joining(ZohoConstants.OR)))
+        .collect(Collectors.joining(ZohoConstants.OR));
   }
 
-  private static <T extends ZCRMEntity> List<T> castItemsToType(List<? extends ZCRMEntity> zcrmEntities,
-      Class<T> classType) {
+  private static <T extends ZCRMEntity> List<T> castItemsToType(
+      Collection<? extends ZCRMEntity> zcrmEntities, Class<T> classType) {
     return zcrmEntities.stream().filter(classType::isInstance).map(classType::cast)
         .collect(Collectors.toList());
   }
 
+  /**
+   * Check map for nullity or emptiness
+   *
+   * @param m the map
+   * @return true if null or empty, false otherwise
+   */
   public static boolean isNullOrEmpty(final Map<?, ?> m) {
     return m == null || m.isEmpty();
   }

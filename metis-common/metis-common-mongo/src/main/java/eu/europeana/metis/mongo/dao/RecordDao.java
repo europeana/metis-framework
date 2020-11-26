@@ -95,6 +95,13 @@ public class RecordDao {
     return this.datastore;
   }
 
+  /**
+   * Get a full bean using an identifier matching it's {@code about} field.
+   *
+   * @param id the identifier of the fullbean
+   * @return the matched full bean
+   * @throws EuropeanaException if anything when wrong with the request
+   */
   public FullBean getFullBean(String id) throws EuropeanaException {
     try {
       long start = 0;
@@ -116,6 +123,12 @@ public class RecordDao {
     }
   }
 
+  /**
+   * Find Web resource metadata matches using a list of hash codes.
+   *
+   * @param hashCodes the hash codes
+   * @return a map of the web resource metadata id and the metadata corresponding to that id
+   */
   public Map<String, WebResourceMetaInfoImpl> retrieveWebMetaInfos(List<String> hashCodes) {
     Map<String, WebResourceMetaInfoImpl> metaInfos = new HashMap<>();
 
@@ -144,6 +157,14 @@ public class RecordDao {
     return "{ datastore=" + datastore.getDatabase().getName() + " }";
   }
 
+  /**
+   * Get a document using a class type and an about value.
+   *
+   * @param clazz the class representing type
+   * @param about the about value
+   * @param <T> the type
+   * @return the object found
+   */
   public <T> T searchByAbout(Class<T> clazz, String about) {
     return datastore.find(clazz).filter(Filters.eq("about", about)).first();
   }

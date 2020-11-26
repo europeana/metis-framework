@@ -7,6 +7,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
+ * Class that is used to read all configuration properties for the application.
+ * <p>
+ * It uses {@link PropertySource} to identify the properties on application startup
+ * </p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-03-13
  */
@@ -133,7 +138,7 @@ public class ConfigurationPropertiesHolder {
   //Authentication
   @Value("${authentication.baseUrl}")
   private String authenticationBaseUrl;
-  
+
   // CORS
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
@@ -296,9 +301,9 @@ public class ConfigurationPropertiesHolder {
 
   public MongoProperties<IllegalArgumentException> getMongoProperties() {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
-            IllegalArgumentException::new);
+        IllegalArgumentException::new);
     mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
-            mongoPassword, mongoEnableSSL, null);
+        mongoPassword, mongoEnableSSL, null);
     return mongoProperties;
   }
 

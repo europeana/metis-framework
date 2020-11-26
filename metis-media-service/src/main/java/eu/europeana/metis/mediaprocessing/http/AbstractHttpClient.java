@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class represents an HTTP request client that can be used to resolve a resource link. This
- * client is thread-safe, but the connection settings are tuned for use by one thread only.
+ * client is thread-safe.
  *
  * @param <I> The type of the resource entry (the input object defining the request).
  * @param <R> The type of the resulting/downloaded object (the result of the request).
@@ -35,11 +35,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpClient.class);
 
-  private final ExecutorService httpConnectionsThreadpool = Executors.newFixedThreadPool(1);
-
+  private final int connectTimeout;
   private final int responseTimeout;
   private final int requestTimeout;
-  private final HttpClient httpClient;
   private final int maxNumberOfRedirects;
 
   /**
@@ -53,11 +51,10 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    */
   AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
       int requestTimeout) {
-    httpClient = HttpClient.newBuilder().executor(httpConnectionsThreadpool)
-        .connectTimeout(Duration.ofMillis(connectTimeout)).build();
-    maxNumberOfRedirects = maxRedirectCount;
+    this.connectTimeout = connectTimeout;
     this.responseTimeout = responseTimeout;
     this.requestTimeout = requestTimeout;
+    this.maxNumberOfRedirects = maxRedirectCount;
   }
 
   /**
@@ -96,11 +93,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
+    final ExecutorService httpConnectionsThreadPool = Executors.newSingleThreadExecutor();
     HttpResponse<InputStream> httpResponse = null;
     try {
+
+      // Create the client.
+      final HttpClient httpClient = HttpClient.newBuilder().executor(httpConnectionsThreadPool)
+              .connectTimeout(Duration.ofMillis(connectTimeout)).build();
+
       // Execute the request and save the result.
       final Pair<HttpResponse<InputStream>, URI> redirectedResponse = makeRedirectedRequest(
-          resourceUri, bodyWrapper);
+          resourceUri, httpClient, bodyWrapper);
       final URI actualUri = redirectedResponse.getRight();
       httpResponse = redirectedResponse.getLeft();
       futureRequest.complete(httpResponse);
@@ -134,9 +137,13 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Done.
       return result;
     } finally {
+
       // Cancel abort trigger
       timer.cancel();
       abortTask.cancel();
+
+      // Close the connection thread and the response.
+      httpConnectionsThreadPool.shutdownNow();
       if (httpResponse != null) {
         httpResponse.body().close();
       }
@@ -144,7 +151,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   }
 
   private Pair<HttpResponse<InputStream>, URI> makeRedirectedRequest(final URI resourceUri,
-      CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
+      HttpClient httpClient, CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
 
     // Bootstrap the redirection loop
     URI currentLocation = resourceUri;
@@ -157,7 +164,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       while (true) {
 
         // Perform the request. If we get a non-redirect result, we're done.
-        currentResponse = makeHttpRequest(currentLocation, bodyWrapper);
+        currentResponse = makeHttpRequest(currentLocation, httpClient, bodyWrapper);
         if (Family.familyOf(currentResponse.statusCode()) != Family.REDIRECTION) {
           break;
         }
@@ -197,7 +204,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     }
   }
 
-  private HttpResponse<InputStream> makeHttpRequest(URI uri,
+  private HttpResponse<InputStream> makeHttpRequest(URI uri, HttpClient httpClient,
       CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
 
     // Create the request.
@@ -254,7 +261,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   @Override
   public void close() {
-    httpConnectionsThreadpool.shutdownNow();
+    // Nothing to do.
   }
 
   /**

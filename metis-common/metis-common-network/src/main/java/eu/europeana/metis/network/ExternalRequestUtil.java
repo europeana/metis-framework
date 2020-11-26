@@ -239,6 +239,12 @@ public final class ExternalRequestUtil {
     return foundMatch;
   }
 
+  /**
+   * Check map for nullity or emptiness
+   *
+   * @param m the map
+   * @return true if null or empty, false otherwise
+   */
   public static boolean isNullOrEmpty(final Map<?, ?> m) {
     return m == null || m.isEmpty();
   }

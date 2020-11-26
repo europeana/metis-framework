@@ -68,5 +68,4 @@ public class Address {
   public void setVcardHasGeo(String vcardHasGeo) {
     this.vcardHasGeo = vcardHasGeo;
   }
-
 }

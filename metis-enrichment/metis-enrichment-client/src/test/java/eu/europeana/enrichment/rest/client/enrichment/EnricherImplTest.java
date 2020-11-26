@@ -33,10 +33,10 @@ import org.mockito.Mockito;
 public class EnricherImplTest {
 
   private final ArgumentCaptor<List<SearchValue>> enrichmentExtractionCaptor = ArgumentCaptor
-          .forClass(List.class);
+      .forClass(List.class);
 
   private final ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
-          .forClass(List.class);
+      .forClass(List.class);
 
   private static final EnrichmentResultList ENRICHMENT_RESULT;
 
@@ -48,17 +48,18 @@ public class EnricherImplTest {
     final Place place2 = new Place();
     place2.setAbout("place2");
 
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrapperList =
-        EnrichmentResultBaseWrapper.createNullOriginalFieldEnrichmentBaseWrapperList(
-            List.of(List.of(place1),Collections.emptyList(), List.of(place2)));
-    ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList);
-    ENRICHMENT_EXTRACT_RESULT.add(new MutablePair<>(new SearchValue("value1", "lang1", EntityType.AGENT),
-        EnrichmentFields.DC_CREATOR));
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(
+            List.of(List.of(place1), Collections.emptyList(), List.of(place2)));
+    ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentResultBaseWrapperList);
+    ENRICHMENT_EXTRACT_RESULT.add(
+        new MutablePair<>(new SearchValue("value1", "lang1", EntityType.AGENT),
+            EnrichmentFields.DC_CREATOR));
     ENRICHMENT_EXTRACT_RESULT.add(
         new MutablePair<>(new SearchValue("value2", null, EntityType.AGENT, EntityType.CONCEPT),
             EnrichmentFields.DC_SUBJECT));
-    ENRICHMENT_EXTRACT_RESULT
-        .add(new MutablePair<>(new SearchValue("value3", "lang2"), EnrichmentFields.DCTERMS_SPATIAL));
+    ENRICHMENT_EXTRACT_RESULT.add(
+        new MutablePair<>(new SearchValue("value3", "lang2"), EnrichmentFields.DCTERMS_SPATIAL));
   }
 
   @Test
@@ -69,8 +70,7 @@ public class EnricherImplTest {
 
     // Create enricher.
     final Enricher enricher = spy(new EnricherImpl(entityMergeEngine, enrichmentClient));
-    doReturn(ENRICHMENT_EXTRACT_RESULT).when(enricher)
-        .extractValuesForEnrichment(any());
+    doReturn(ENRICHMENT_EXTRACT_RESULT).when(enricher).extractValuesForEnrichment(any());
     doReturn(Collections.emptyMap()).when(enricher).extractReferencesForEnrichment(any());
 
     final RDF inputRdf = new RDF();
@@ -100,8 +100,8 @@ public class EnricherImplTest {
     verifyMergeNullFlow(entityMergeEngine);
   }
 
-  private void verifyEnricherHappyFlow(Enricher enricher,
-      EnrichmentClient enrichmentClient, RDF inputRdf) {
+  private void verifyEnricherHappyFlow(Enricher enricher, EnrichmentClient enrichmentClient,
+      RDF inputRdf) {
 
     // Extracting values for enrichment
     verify(enricher, times(1)).extractValuesForEnrichment(any());
@@ -121,18 +121,18 @@ public class EnricherImplTest {
     ENRICHMENT_RESULT.getEnrichmentBaseResultWrapperList()
         .forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
 
-    verify(entityMergeEngine, times(expectedMerges.size())).mergeEntities(any(),
-        enrichmentResultCaptor.capture(), anySet());
+    verify(entityMergeEngine, times(expectedMerges.size()))
+        .mergeEntities(any(), enrichmentResultCaptor.capture(), anySet());
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
     int currentPointer = 0;
     final List<List<EnrichmentBase>> allValues = enrichmentResultCaptor.getAllValues();
-    final List<List<EnrichmentBase>> foundValues = allValues.subList(
-        enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
-        enrichmentResultCaptor.getAllValues().size());
+    final List<List<EnrichmentBase>> foundValues = allValues
+        .subList(enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
+            enrichmentResultCaptor.getAllValues().size());
     for (List<EnrichmentBase> capturedMerge : foundValues) {
-      for (EnrichmentBase capturedMergedItem :capturedMerge) {
+      for (EnrichmentBase capturedMergedItem : capturedMerge) {
         assertSame(expectedMerges.get(currentPointer), capturedMergedItem);
         currentPointer++;
       }

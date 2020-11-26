@@ -521,10 +521,8 @@ public class DatasetService {
           dataset.getCountry().getName(), dataset.getLanguage().name());
       europeanIdCreator = new EuropeanaIdCreator();
     } catch (TransformationException e) {
-      LOGGER.info("Transformation setup failed.", e);
       throw new XsltSetupException("Could not setup XSL transformation.", e);
     } catch (EuropeanaIdException e) {
-      LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
       throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED,
           e);
     }

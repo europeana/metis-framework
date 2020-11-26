@@ -12,16 +12,11 @@ import java.util.Map;
 @JsonInclude(Include.NON_EMPTY)
 public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
 
-  private Map<String, List<String>> isPartOf;
   private Float latitude;
   private Float longitude;
   private Float altitude;
   private Map<String, Float> position;
   private Map<String, List<String>> dcTermsHasPart;
-
-  public Map<String, List<String>> getIsPartOf() {
-    return this.isPartOf;
-  }
 
   public Float getLatitude() {
     if (this.latitude == null || this.longitude == null || (this.latitude == 0
@@ -37,10 +32,6 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
       return null;
     }
     return this.longitude;
-  }
-
-  public void setIsPartOf(Map<String, List<String>> isPartOf) {
-    this.isPartOf = isPartOf;
   }
 
   public void setLatitude(Float latitude) {
@@ -85,15 +76,14 @@ public class PlaceEnrichmentEntity extends AbstractEnrichmentEntity {
       return false;
     }
     if (o.getClass() == this.getClass()) {
-      return ((PlaceEnrichmentEntity) o).getAbout() != null ? this.getAbout()
-          .equals(((PlaceEnrichmentEntity) o).getAbout()) : false;
+      return this.getAbout().equals(((PlaceEnrichmentEntity) o).getAbout());
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return (int) (this.getAbout() != null ? this.getAbout().hashCode()
-        : this.latitude * 100 + this.longitude);
+    return (int) (this.getAbout() == null ? ((double) this.latitude * 100 + this.longitude)
+        : this.getAbout().hashCode());
   }
 }

@@ -14,7 +14,7 @@ public class IndexToPreviewPluginMetadata extends AbstractExecutablePluginMetada
   private static final ExecutablePluginType pluginType = ExecutablePluginType.PREVIEW;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
-  private boolean performRedirects = false;
+  private boolean performRedirects;
   private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
 
   public IndexToPreviewPluginMetadata() {

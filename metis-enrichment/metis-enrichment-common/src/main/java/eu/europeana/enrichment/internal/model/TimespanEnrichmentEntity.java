@@ -14,7 +14,6 @@ public class TimespanEnrichmentEntity extends AbstractEnrichmentEntity {
 
   private Map<String, List<String>> begin;
   private Map<String, List<String>> end;
-  private Map<String, List<String>> isPartOf;
   private Map<String, List<String>> dctermsHasPart;
   private String isNextInSequence;
 
@@ -22,24 +21,16 @@ public class TimespanEnrichmentEntity extends AbstractEnrichmentEntity {
     return this.begin;
   }
 
-  public Map<String, List<String>> getEnd() {
-    return this.end;
-  }
-
-  public Map<String, List<String>> getIsPartOf() {
-    return this.isPartOf;
-  }
-
   public void setBegin(Map<String, List<String>> begin) {
     this.begin = begin;
   }
 
-  public void setEnd(Map<String, List<String>> end) {
-    this.end = end;
+  public Map<String, List<String>> getEnd() {
+    return this.end;
   }
 
-  public void setIsPartOf(Map<String, List<String>> isPartOf) {
-    this.isPartOf = isPartOf;
+  public void setEnd(Map<String, List<String>> end) {
+    this.end = end;
   }
 
   public Map<String, List<String>> getDctermsHasPart() {
