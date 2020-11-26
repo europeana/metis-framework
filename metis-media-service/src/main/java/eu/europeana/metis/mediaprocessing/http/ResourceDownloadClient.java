@@ -53,10 +53,13 @@ public class ResourceDownloadClient extends
    * @param responseTimeout The response timeout in milliseconds.
    * @param downloadTimeout The time after which the download will be aborted (if it hasn't finished
    * by then). In milliseconds.
+   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
+   * it.
    */
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype,
-      int connectTimeout, int responseTimeout, int downloadTimeout) {
-    super(maxRedirectCount, connectTimeout, responseTimeout, downloadTimeout);
+      int connectTimeout, int responseTimeout, int downloadTimeout, int requestClientRefreshRate) {
+    super(maxRedirectCount, connectTimeout, responseTimeout, downloadTimeout,
+            requestClientRefreshRate);
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
