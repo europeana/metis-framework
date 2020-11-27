@@ -82,17 +82,20 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
    * @param responseTimeout The response timeout in milliseconds for downloading resources.
    * @param downloadTimeout The download timeout in milliseconds for downloading resources.
+   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
+   * it.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
   public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
-      int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
-      throws MediaProcessorException {
+          int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout,
+          int requestClientRefreshRate) throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
-        this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
+            this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout,
+            requestClientRefreshRate);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
-        downloadTimeout);
+        downloadTimeout, requestClientRefreshRate);
     this.tika = new Tika();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));

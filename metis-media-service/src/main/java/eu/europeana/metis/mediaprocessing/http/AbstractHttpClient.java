@@ -15,8 +15,6 @@ import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response.Status.Family;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +37,11 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private final int responseTimeout;
   private final int requestTimeout;
   private final int maxNumberOfRedirects;
+  private final int requestClientRefreshRate;
+
+  // Don't access these except through the synchronized method.
+  private HttpClient httpClient;
+  private int requestCounter;
 
   /**
    * Constructor.
@@ -48,13 +51,26 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param responseTimeout The response timeout in milliseconds.
    * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
    * by then). In milliseconds.
+   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
+   * it.
    */
   AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
-      int requestTimeout) {
+      int requestTimeout, int requestClientRefreshRate) {
     this.connectTimeout = connectTimeout;
     this.responseTimeout = responseTimeout;
     this.requestTimeout = requestTimeout;
     this.maxNumberOfRedirects = maxRedirectCount;
+    this.requestClientRefreshRate = requestClientRefreshRate;
+  }
+
+  private synchronized HttpClient getHttpClientForRequest() {
+    if (httpClient == null || requestCounter >= requestClientRefreshRate) {
+      requestCounter = 0;
+      httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofMillis(connectTimeout))
+              .build();
+    }
+    requestCounter++;
+    return httpClient;
   }
 
   /**
@@ -93,17 +109,12 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
-    final ExecutorService httpConnectionsThreadPool = Executors.newSingleThreadExecutor();
     HttpResponse<InputStream> httpResponse = null;
     try {
 
-      // Create the client.
-      final HttpClient httpClient = HttpClient.newBuilder().executor(httpConnectionsThreadPool)
-              .connectTimeout(Duration.ofMillis(connectTimeout)).build();
-
       // Execute the request and save the result.
       final Pair<HttpResponse<InputStream>, URI> redirectedResponse = makeRedirectedRequest(
-          resourceUri, httpClient, bodyWrapper);
+          resourceUri, getHttpClientForRequest(), bodyWrapper);
       final URI actualUri = redirectedResponse.getRight();
       httpResponse = redirectedResponse.getLeft();
       futureRequest.complete(httpResponse);
@@ -143,7 +154,6 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       abortTask.cancel();
 
       // Close the connection thread and the response.
-      httpConnectionsThreadPool.shutdownNow();
       if (httpResponse != null) {
         httpResponse.body().close();
       }

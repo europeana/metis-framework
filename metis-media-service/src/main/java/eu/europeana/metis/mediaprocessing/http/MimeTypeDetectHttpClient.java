@@ -28,9 +28,12 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
    * @param connectTimeout The connection timeout in milliseconds.
    * @param responseTimeout The response timeout in milliseconds.
    * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
+   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
+   * it.
    */
-  public MimeTypeDetectHttpClient(int connectTimeout, int responseTimeout, int requestTimeout) {
-    super(0, connectTimeout, responseTimeout, requestTimeout);
+  public MimeTypeDetectHttpClient(int connectTimeout, int responseTimeout, int requestTimeout,
+          int requestClientRefreshRate) {
+    super(0, connectTimeout, responseTimeout, requestTimeout, requestClientRefreshRate);
   }
 
   @Override
