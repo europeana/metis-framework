@@ -6,13 +6,15 @@ import java.util.List;
 
 public class SearchTermContext extends SearchTerm{
 
+  private FieldType candidateTypes;
+
   public SearchTermContext(String textValue, LanguageCodes language) {
     super(textValue, language);
   }
 
   @Override
   public List<EntityType> getCandidateTypes() {
-    return null;
+    return candidateTypes.getCandidateTypes();
   }
 
   @Override

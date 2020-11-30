@@ -6,13 +6,15 @@ import java.util.List;
 
 public class ReferenceTermContext extends ReferenceTerm{
 
+  private FieldType candidateTypes;
+
   ReferenceTermContext(URL reference) {
     super(reference);
   }
 
   @Override
   public List<EntityType> getCandidateTypes() {
-    return null;
+    return candidateTypes.getCandidateTypes();
   }
 
   @Override

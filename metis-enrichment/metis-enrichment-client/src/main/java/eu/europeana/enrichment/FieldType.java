@@ -7,10 +7,17 @@ import java.util.List;
 
 public class FieldType {
 
-  List<EntityType> candidateTypes;
+  private List<EntityType> candidateTypes;
 
   public void appendReferenceToRecord(URL url, RDF rdf){
 
   }
 
+  public List<EntityType> getCandidateTypes() {
+    return candidateTypes;
+  }
+
+  public void setCandidateTypes(List<EntityType> candidateTypes) {
+    this.candidateTypes = candidateTypes;
+  }
 }
