@@ -6,6 +6,7 @@ import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -24,7 +26,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PersistentEntityResolver implements  EntityResolver{
+public class PersistentEntityResolver implements EntityResolver {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PersistentEntityResolver.class);
   private static final Set<String> ALL_2CODE_LANGUAGES = new HashSet<>();
@@ -58,6 +60,28 @@ public class PersistentEntityResolver implements  EntityResolver{
     return result;
   }
 
+  @Override
+  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
+    Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
+    for (ReferenceTerm value : referenceTermSet) {
+      try {
+        EnrichmentBase foundEnrichmentBases = getEnrichmentTermAndConvert(
+            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference()));
+        if (foundEnrichmentBases != null) {
+          result.put(value, foundEnrichmentBases);
+        }
+      } catch (RuntimeException e) {
+        LOGGER.warn("Unable to retrieve entity from entityAbout", e);
+      }
+    }
+    return result;
+  }
+
+  @Override
+  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
+    return null;
+  }
+
   private void findEnrichmentEntitiesBySearchTerm(
       Map<SearchTerm, List<EnrichmentBase>> searchTermListMap, SearchTerm searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
@@ -69,7 +93,9 @@ public class PersistentEntityResolver implements  EntityResolver{
       if (inputValueLanguage != null && inputValueLanguage.name().length() == 3) {
         language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage.name());
       } else if (inputValueLanguage != null && inputValueLanguage.name().length() == 2) {
-        language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage.name()) ? inputValueLanguage.name() : null;
+        language =
+            ALL_2CODE_LANGUAGES.contains(inputValueLanguage.name()) ? inputValueLanguage.name()
+                : null;
       } else {
         language = null;
       }
@@ -84,17 +110,6 @@ public class PersistentEntityResolver implements  EntityResolver{
         }
       }
     }
-  }
-
-
-    @Override
-  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
-    return null;
-  }
-
-  @Override
-  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
-    return null;
   }
 
   private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
@@ -150,4 +165,11 @@ public class PersistentEntityResolver implements  EntityResolver{
     }
     return parentEntities;
   }
+
+  private EnrichmentBase getEnrichmentTermAndConvert(Pair<String, URL> pair) {
+    final Optional<EnrichmentTerm> enrichmentTerm = enrichmentDao
+        .getEnrichmentTermByField(pair.getKey(), pair.getValue().toString());
+    return enrichmentTerm.isEmpty() ? null : Converter.convert(enrichmentTerm.get());
+  }
+
 }
