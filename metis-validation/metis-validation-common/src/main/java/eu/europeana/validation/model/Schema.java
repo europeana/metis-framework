@@ -1,50 +1,25 @@
 package eu.europeana.validation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Id;
-import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexed;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.bson.types.ObjectId;
 
 /**
  * Created by ymamakis on 3/14/16.
  */
 
 @XmlRootElement
-@Entity
 public class Schema {
 
-    @Id
-    private ObjectId id;
-
-
-    @Indexed(options = @IndexOptions(unique = true))
     private String name;
-
     private String path;
-
     private String schematronPath;
-
-
-    @Indexed()
     private String version;
-
-
     @XmlTransient
     @JsonIgnore
     private byte[] zip;
-    @XmlElement
-    public ObjectId getId() {
-        return id;
-    }
 
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
     @XmlElement
     public String getName() {
         return name;
