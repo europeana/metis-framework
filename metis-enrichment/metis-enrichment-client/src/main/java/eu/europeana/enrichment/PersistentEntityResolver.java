@@ -6,7 +6,6 @@ import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -66,7 +65,7 @@ public class PersistentEntityResolver implements EntityResolver {
     for (ReferenceTerm value : referenceTermSet) {
       try {
         EnrichmentBase foundEnrichmentBases = getEnrichmentTermAndConvert(
-            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference()));
+            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference().toString()));
         if (foundEnrichmentBases != null) {
           result.put(value, foundEnrichmentBases);
         }
@@ -79,7 +78,31 @@ public class PersistentEntityResolver implements EntityResolver {
 
   @Override
   public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
-    return null;
+    Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
+
+    for(ReferenceTerm referenceTerm: referenceTermSet){
+      try {
+        final List<EntityType> entityTypes = referenceTerm.getCandidateTypes();
+        List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
+        if (CollectionUtils.isEmpty(entityTypes)) {
+          foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
+              null);
+        } else {
+          for (EntityType entityType : entityTypes) {
+            foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
+                entityType);
+          }
+        }
+
+        if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+          result.put(referenceTerm, foundEnrichmentBases);
+        }
+      } catch (RuntimeException e) {
+        LOGGER.warn("Unable to retrieve entity from id", e);
+      }
+    }
+
+    return result;
   }
 
   private void findEnrichmentEntitiesBySearchTerm(
@@ -166,9 +189,38 @@ public class PersistentEntityResolver implements EntityResolver {
     return parentEntities;
   }
 
-  private EnrichmentBase getEnrichmentTermAndConvert(Pair<String, URL> pair) {
+  private List<EnrichmentBase> searchBasesFirstAboutThenOwlSameAs(String reference,
+      EntityType entityType) {
+    final Pair<String, String> parameterAbout = new ImmutablePair<>(
+        EnrichmentDao.ENTITY_ABOUT_FIELD, reference);
+    final Pair<String, String> parameterOwlSameAs = new ImmutablePair<>(
+        EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD, reference);
+
+    List<EnrichmentBase> foundEnrichmentBases;
+    final List<Pair<String, String>> parametersAbout = new ArrayList<>();
+    final List<Pair<String, String>> parametersOwlSameAs = new ArrayList<>();
+    if (entityType != null) {
+      final ImmutablePair<String, String> parameterEntityType = new ImmutablePair<>(
+          EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name());
+      parametersAbout.add(parameterEntityType);
+      parametersOwlSameAs.add(parameterEntityType);
+    }
+    // Get by about first
+    parametersAbout.add(parameterAbout);
+    foundEnrichmentBases = parametersAbout.stream().map(this::getEnrichmentTermAndConvert)
+        .collect(Collectors.toList());
+    if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
+      // If empty try OwlSameAs
+      parametersOwlSameAs.add(parameterOwlSameAs);
+      foundEnrichmentBases = parametersOwlSameAs.stream().map(this::getEnrichmentTermAndConvert).collect(
+          Collectors.toList());
+    }
+    return foundEnrichmentBases;
+  }
+
+  private EnrichmentBase getEnrichmentTermAndConvert(Pair<String, String> pair) {
     final Optional<EnrichmentTerm> enrichmentTerm = enrichmentDao
-        .getEnrichmentTermByField(pair.getKey(), pair.getValue().toString());
+        .getEnrichmentTermByField(pair.getKey(), pair.getValue());
     return enrichmentTerm.isEmpty() ? null : Converter.convert(enrichmentTerm.get());
   }
 
