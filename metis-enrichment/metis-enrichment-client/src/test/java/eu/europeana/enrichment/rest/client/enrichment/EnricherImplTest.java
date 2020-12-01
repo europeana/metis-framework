@@ -17,7 +17,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.utils.EnrichmentFields;
+import eu.europeana.enrichment.utils.FieldType;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.api.external.SearchValue;
@@ -40,7 +40,7 @@ public class EnricherImplTest {
 
   private static final EnrichmentResultList ENRICHMENT_RESULT;
 
-  private static final List<Pair<SearchValue, EnrichmentFields>> ENRICHMENT_EXTRACT_RESULT = new ArrayList<>();
+  private static final List<Pair<SearchValue, FieldType>> ENRICHMENT_EXTRACT_RESULT = new ArrayList<>();
 
   static {
     final Place place1 = new Place();
@@ -54,12 +54,12 @@ public class EnricherImplTest {
     ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentResultBaseWrapperList);
     ENRICHMENT_EXTRACT_RESULT.add(
         new MutablePair<>(new SearchValue("value1", "lang1", EntityType.AGENT),
-            EnrichmentFields.DC_CREATOR));
+            FieldType.DC_CREATOR));
     ENRICHMENT_EXTRACT_RESULT.add(
         new MutablePair<>(new SearchValue("value2", null, EntityType.AGENT, EntityType.CONCEPT),
-            EnrichmentFields.DC_SUBJECT));
+            FieldType.DC_SUBJECT));
     ENRICHMENT_EXTRACT_RESULT.add(
-        new MutablePair<>(new SearchValue("value3", "lang2"), EnrichmentFields.DCTERMS_SPATIAL));
+        new MutablePair<>(new SearchValue("value3", "lang2"), FieldType.DCTERMS_SPATIAL));
   }
 
   @Test

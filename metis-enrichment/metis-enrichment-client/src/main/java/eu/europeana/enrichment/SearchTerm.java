@@ -15,7 +15,7 @@ public abstract class SearchTerm {
     this.language = language;
   }
 
-  public abstract List<EntityType> getCandidateTypes();
+  public abstract List<EntityType> getFieldType();
 
   public abstract boolean equals(SearchTerm searchTerm);
 

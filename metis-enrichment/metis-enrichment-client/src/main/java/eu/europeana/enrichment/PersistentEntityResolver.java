@@ -82,7 +82,7 @@ public class PersistentEntityResolver implements EntityResolver {
 
     for(ReferenceTerm referenceTerm: referenceTermSet){
       try {
-        final List<EntityType> entityTypes = referenceTerm.getCandidateTypes();
+        final List<EntityType> entityTypes = referenceTerm.getFieldType();
         List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
         if (CollectionUtils.isEmpty(entityTypes)) {
           foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
@@ -109,7 +109,7 @@ public class PersistentEntityResolver implements EntityResolver {
       Map<SearchTerm, List<EnrichmentBase>> searchTermListMap, SearchTerm searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
     if (!StringUtils.isBlank(value)) {
-      final List<EntityType> entityTypes = searchTerm.getCandidateTypes();
+      final List<EntityType> entityTypes = searchTerm.getFieldType();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
       final LanguageCodes inputValueLanguage = searchTerm.getLanguage();
       final String language;

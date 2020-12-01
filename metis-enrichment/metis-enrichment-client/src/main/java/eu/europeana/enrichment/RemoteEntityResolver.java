@@ -66,9 +66,7 @@ public class RemoteEntityResolver implements EntityResolver {
         }, MediaType.APPLICATION_XML);
 
     for (int i = 0; i < searchTermList.size(); i++) {
-      SearchTerm searchTerm = new SearchTermContext(searchTermList.get(i).getTextValue(),
-          searchTermList.get(i).getLanguage());
-      result.put(searchTerm, enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
+      result.put(searchTermList.get(i), enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
     }
     return result;
   }
@@ -76,17 +74,15 @@ public class RemoteEntityResolver implements EntityResolver {
   @Override
   public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
     Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
-    List<URL> urlList = referenceTermSet.stream().map(ReferenceTerm::getReference)
-        .collect(Collectors.toList());
+    List<ReferenceTerm> referenceTermList = List.copyOf(referenceTermSet);
     List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
-        ENRICH_ENTITY_ID, urlList.stream().map(URL::toString).collect(Collectors.toList()),
+        ENRICH_ENTITY_ID, referenceTermList.stream().map(ReferenceTerm::getReference).map(URL::toString).collect(Collectors.toList()),
         partition -> partition.toArray(String[]::new), MediaType.APPLICATION_XML);
     List<EnrichmentBase> enrichmentBaseList = enrichmentResultBaseWrapperList.stream()
         .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
         .collect(Collectors.toList());
-    for (int i = 0; i < urlList.size(); i++) {
-      ReferenceTerm referenceTerm = new ReferenceTermContext(urlList.get(i));
-      result.put(referenceTerm, enrichmentBaseList.get(i));
+    for (int i = 0; i < referenceTermList.size(); i++) {
+      result.put(referenceTermList.get(i), enrichmentBaseList.get(i));
     }
     return result;
   }
@@ -95,11 +91,10 @@ public class RemoteEntityResolver implements EntityResolver {
   public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(
       Set<ReferenceTerm> referenceTermSet) {
     Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
-    List<URL> urlList = referenceTermSet.stream().map(ReferenceTerm::getReference)
-        .collect(Collectors.toList());
+    List<ReferenceTerm> referenceTermList = List.copyOf(referenceTermSet);
     List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
         ENRICH_ENTITY_EQUIVALENCE,
-        urlList.stream().map(URL::toString).collect(Collectors.toList()),
+        referenceTermList.stream().map(ReferenceTerm::getReference).map(URL::toString).collect(Collectors.toList()),
         partition -> {
           List<ReferenceValue> referenceValues = partition.stream()
               .map(uri -> new ReferenceValue(uri, Collections.emptySet()))
@@ -109,9 +104,8 @@ public class RemoteEntityResolver implements EntityResolver {
           return enrichmentReference;
         },
         MediaType.APPLICATION_JSON);
-    for (int i = 0; i < urlList.size(); i++) {
-      ReferenceTerm referenceTerm = new ReferenceTermContext(urlList.get(i));
-      result.put(referenceTerm, enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
+    for (int i = 0; i < referenceTermList.size(); i++) {
+      result.put(referenceTermList.get(i), enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
     }
     return result;
   }

@@ -6,7 +6,7 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.utils.EnrichmentFields;
+import eu.europeana.enrichment.utils.FieldType;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -41,14 +41,14 @@ public class EnricherImpl implements Enricher {
   public void enrichment(RDF rdf) throws EnrichmentException {
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
-    final List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment = extractValuesForEnrichment(
+    final List<Pair<SearchValue, FieldType>> valuesForEnrichment = extractValuesForEnrichment(
         rdf);
-    final Map<String, Set<EnrichmentFields>> referencesForEnrichment = extractReferencesForEnrichment(
+    final Map<String, Set<FieldType>> referencesForEnrichment = extractReferencesForEnrichment(
         rdf);
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
-    final List<Pair<EnrichmentBase, EnrichmentFields>> valueEnrichmentInformation = enrichValues(
+    final List<Pair<EnrichmentBase, FieldType>> valueEnrichmentInformation = enrichValues(
         valuesForEnrichment);
     final List<EnrichmentBase> referenceEnrichmentInformation = enrichReferences(
         referencesForEnrichment.keySet());
@@ -56,7 +56,7 @@ public class EnricherImpl implements Enricher {
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (valueEnrichmentInformation != null) {
-      for (Pair<EnrichmentBase, EnrichmentFields> pair : valueEnrichmentInformation) {
+      for (Pair<EnrichmentBase, FieldType> pair : valueEnrichmentInformation) {
         entityMergeEngine.mergeEntities(rdf, List.of(pair.getKey()), Set.of(pair.getValue()));
 
       }
@@ -76,8 +76,8 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public List<Pair<EnrichmentBase, EnrichmentFields>> enrichValues(
-      List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment) throws EnrichmentException {
+  public List<Pair<EnrichmentBase, FieldType>> enrichValues(
+      List<Pair<SearchValue, FieldType>> valuesForEnrichment) throws EnrichmentException {
     try {
       if (CollectionUtils.isEmpty(valuesForEnrichment)) {
         return Collections.emptyList();
@@ -86,9 +86,9 @@ public class EnricherImpl implements Enricher {
           .collect(Collectors.toList());
       EnrichmentResultList result = retryableExternalRequestForNetworkExceptions(
           () -> enrichmentClient.enrich(searchValues));
-      final List<Pair<EnrichmentBase, EnrichmentFields>> output = new ArrayList<>();
+      final List<Pair<EnrichmentBase, FieldType>> output = new ArrayList<>();
       for (int index = 0; index < searchValues.size(); index++) {
-        final EnrichmentFields fieldType = valuesForEnrichment.get(index).getValue();
+        final FieldType fieldType = valuesForEnrichment.get(index).getValue();
         final List<EnrichmentBase> enrichmentBaseList = result.getEnrichmentBaseResultWrapperList()
             .get(index).getEnrichmentBaseList();
         Optional.ofNullable(enrichmentBaseList).stream().flatMap(Collection::stream)
@@ -114,12 +114,12 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public List<Pair<SearchValue, EnrichmentFields>> extractValuesForEnrichment(RDF rdf) {
+  public List<Pair<SearchValue, FieldType>> extractValuesForEnrichment(RDF rdf) {
     return EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
   }
 
   @Override
-  public Map<String, Set<EnrichmentFields>> extractReferencesForEnrichment(RDF rdf) {
+  public Map<String, Set<FieldType>> extractReferencesForEnrichment(RDF rdf) {
     return EnrichmentUtils.extractReferencesForEnrichmentFromRDF(rdf);
 
   }

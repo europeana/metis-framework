@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class ReferenceTerm {
 
-  private URL reference;
+  private final URL reference;
 
   public ReferenceTerm(URL reference){
     this.reference = reference;
@@ -16,7 +16,7 @@ public abstract class ReferenceTerm {
     return reference;
   }
 
-  public abstract List<EntityType> getCandidateTypes();
+  public abstract List<EntityType> getFieldType();
 
   public abstract boolean equals(ReferenceTerm referenceTerm);
 

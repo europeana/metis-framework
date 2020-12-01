@@ -55,10 +55,10 @@ public final class EnrichmentUtils {
    * @param rdf The RDF to extract from.
    * @return List<InputValue> The extracted fields that need to be enriched.
    */
-  public static List<Pair<SearchValue, EnrichmentFields>> extractValuesForEnrichmentFromRDF(RDF rdf) {
+  public static List<Pair<SearchValue, FieldType>> extractValuesForEnrichmentFromRDF(RDF rdf) {
     final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
-    final List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment = new ArrayList<>();
-    for (EnrichmentFields field : EnrichmentFields.values()) {
+    final List<Pair<SearchValue, FieldType>> valuesForEnrichment = new ArrayList<>();
+    for (FieldType field : FieldType.values()) {
       List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
       values.forEach(val -> valuesForEnrichment.add(new MutablePair<>(val, field)));
     }
@@ -74,30 +74,30 @@ public final class EnrichmentUtils {
    * @return The extracted references that need to be checked for sameAs equivalency, mapped to the
    * respective type(s) of reference in which they occur.
    */
-  public static Map<String, Set<EnrichmentFields>> extractReferencesForEnrichmentFromRDF(RDF rdf) {
+  public static Map<String, Set<FieldType>> extractReferencesForEnrichmentFromRDF(RDF rdf) {
 
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
     final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
             .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
-    final Map<String, Set<EnrichmentFields>> directReferences = new HashMap<>();
-    for (EnrichmentFields field : EnrichmentFields.values()) {
+    final Map<String, Set<FieldType>> directReferences = new HashMap<>();
+    for (FieldType field : FieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
               .flatMap(Set::stream).collect(Collectors.toSet());
       for (String directLink : directLinks) {
-        directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(EnrichmentFields.class))
+        directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(FieldType.class))
                 .add(field);
       }
     }
 
     // Get all sameAs links from the directly referenced contextual entities.
-    final Map<String, Set<EnrichmentFields>> indirectReferences = new HashMap<>();
+    final Map<String, Set<FieldType>> indirectReferences = new HashMap<>();
     final Consumer<AboutType> contextualTypeProcessor = contextualClass -> {
-      final Set<EnrichmentFields> linkTypes = directReferences.get(contextualClass.getAbout());
+      final Set<FieldType> linkTypes = directReferences.get(contextualClass.getAbout());
       if (linkTypes != null) {
         for (String sameAsLink : getSameAsLinks(contextualClass)) {
           indirectReferences
-                  .computeIfAbsent(sameAsLink, key -> EnumSet.noneOf(EnrichmentFields.class))
+                  .computeIfAbsent(sameAsLink, key -> EnumSet.noneOf(FieldType.class))
                   .addAll(linkTypes);
         }
       }
@@ -112,7 +112,7 @@ public final class EnrichmentUtils {
             .forEach(contextualTypeProcessor);
 
     // Merge the two maps.
-    final Map<String, Set<EnrichmentFields>> result = mergeMapInto(directReferences,
+    final Map<String, Set<FieldType>> result = mergeMapInto(directReferences,
             indirectReferences);
 
     // Clean up the result: no null values. But objects we already have need to 

@@ -362,7 +362,7 @@ public class EntityMergeEngine {
   }
 
   private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-      Set<EnrichmentFields> proxyLinkTypes) {
+      Set<FieldType> proxyLinkTypes) {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;
@@ -395,7 +395,7 @@ public class EntityMergeEngine {
    * @param enrichmentBaseList The information to append
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      Set<EnrichmentFields> proxyLinkTypes) {
+      Set<FieldType> proxyLinkTypes) {
     for (EnrichmentBase base : enrichmentBaseList) {
       convertAndAddEntity(rdf, base, proxyLinkTypes);
     }
@@ -410,11 +410,11 @@ public class EntityMergeEngine {
    * the about values of the entities to add.
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
-      Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
+      Map<String, Set<FieldType>> proxyLinkTypes) {
     for (EnrichmentBase enrichmentBase : contextualEntities) {
       final Set<String> links = this.getSameAsLinks(enrichmentBase);
       links.add(enrichmentBase.getAbout());
-      final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get)
+      final Set<FieldType> fields = links.stream().map(proxyLinkTypes::get)
           .filter(Objects::nonNull).flatMap(Set::stream).collect(Collectors.toSet());
       convertAndAddEntity(rdf, enrichmentBase, fields);
     }

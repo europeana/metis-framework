@@ -4,7 +4,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.utils.EnrichmentFields;
+import eu.europeana.enrichment.utils.FieldType;
 import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public interface Enricher {
    * @return A enrichment result list with the information retrieved to enrich the RDF
    * @throws EnrichmentException
    */
-  List<Pair<EnrichmentBase, EnrichmentFields>> enrichValues(List<Pair<SearchValue, EnrichmentFields>> valuesForEnrichment)
+  List<Pair<EnrichmentBase, FieldType>> enrichValues(List<Pair<SearchValue, FieldType>> valuesForEnrichment)
       throws EnrichmentException;
 
   /**
@@ -44,7 +44,7 @@ public interface Enricher {
    * @return A list with values extracted from the RDF
    * in addition with other details associated
    */
-  List<Pair<SearchValue, EnrichmentFields>> extractValuesForEnrichment(RDF rdf);
+  List<Pair<SearchValue, FieldType>> extractValuesForEnrichment(RDF rdf);
 
 
   /**
@@ -53,6 +53,6 @@ public interface Enricher {
    * @return The extracted references that mapped to the
    * respective type(s) of reference in which they occur.
    */
-  Map<String, Set<EnrichmentFields>> extractReferencesForEnrichment(RDF rdf);
+  Map<String, Set<FieldType>> extractReferencesForEnrichment(RDF rdf);
 
 }

@@ -11,6 +11,7 @@ import eu.europeana.metis.schema.jibx.Format;
 import eu.europeana.metis.schema.jibx.Issued;
 import eu.europeana.metis.schema.jibx.Medium;
 import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.Spatial;
@@ -18,6 +19,7 @@ import eu.europeana.metis.schema.jibx.Subject;
 import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
 import eu.europeana.enrichment.api.external.SearchValue;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +33,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-public enum EnrichmentFields {
+public enum FieldType {
 
   DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
       EntityType.AGENT),
@@ -70,7 +72,7 @@ public enum EnrichmentFields {
   private final ChoiceContentHandler<?> choiceContentHandler;
   private final EntityType entityType;
 
-  <T extends ResourceOrLiteralType> EnrichmentFields(Predicate<Choice> choiceChecker,
+  <T extends ResourceOrLiteralType> FieldType(Predicate<Choice> choiceChecker,
       Function<Choice, T> contentGetter, BiConsumer<Choice, T> contentSetter,
       Supplier<T> contentCreator, EntityType entityType) {
     this.choiceContentHandler =
@@ -140,6 +142,14 @@ public enum EnrichmentFields {
     return choiceContentHandler.choiceChecker.test(choice) ? Optional
         .of(choiceContentHandler.contentGetter.apply(choice))
         .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
+  }
+
+  /**
+   *
+   * @return the entity type associated to this field - it is not null.
+   */
+  public EntityType getEntityType() {
+    return entityType;
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {

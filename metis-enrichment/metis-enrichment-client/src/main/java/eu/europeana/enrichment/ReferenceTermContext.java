@@ -1,20 +1,22 @@
 package eu.europeana.enrichment;
 
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.enrichment.utils.FieldType;
 import java.net.URL;
 import java.util.List;
 
 public class ReferenceTermContext extends ReferenceTerm{
 
-  private FieldType candidateTypes;
+  private final FieldType fieldType;
 
-  ReferenceTermContext(URL reference) {
+  ReferenceTermContext(URL reference, FieldType fieldType) {
     super(reference);
+    this.fieldType = fieldType;
   }
 
   @Override
-  public List<EntityType> getCandidateTypes() {
-    return candidateTypes.getCandidateTypes();
+  public List<EntityType> getFieldType() {
+    return List.of(fieldType.getEntityType());
   }
 
   @Override

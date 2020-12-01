@@ -32,10 +32,10 @@ public final class RdfProxyUtils {
    * @param linkTypes the types of the link to add in the europeana proxy.
    */
   public static void appendLinkToEuropeanaProxy(RDF rdf, String link,
-          Set<EnrichmentFields> linkTypes) {
-    final Map<EnrichmentFields, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
+          Set<FieldType> linkTypes) {
+    final Map<FieldType, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
     final ProxyType europeanaProxy = getEuropeanaProxy(rdf);
-    for (EnrichmentFields linkType : linkTypes) {
+    for (FieldType linkType : linkTypes) {
       final boolean alreadyExists = Optional.ofNullable(allProxyLinksPerType.get(linkType))
               .orElseGet(Collections::emptySet).contains(link);
       if (!alreadyExists) {
@@ -48,13 +48,13 @@ public final class RdfProxyUtils {
     replaceProxy(rdf, europeanaProxy);
   }
 
-  private static Map<EnrichmentFields, Set<String>> getAllProxyLinksPerType(RDF rdf) {
+  private static Map<FieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
     final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList())
             .map(List::stream).orElseGet(Stream::empty).filter(Objects::nonNull)
             .map(ProxyType::getChoiceList).filter(Objects::nonNull).flatMap(List::stream)
             .filter(Objects::nonNull).collect(Collectors.toList());
-    final Map<EnrichmentFields, Set<String>> result = new EnumMap<>(EnrichmentFields.class);
-    for (EnrichmentFields linkType : EnrichmentFields.values()) {
+    final Map<FieldType, Set<String>> result = new EnumMap<>(FieldType.class);
+    for (FieldType linkType : FieldType.values()) {
       final Set<String> links = allChoices.stream().map(linkType::getResourceIfRightChoice)
               .filter(Objects::nonNull).collect(Collectors.toSet());
       if (!links.isEmpty()) {
