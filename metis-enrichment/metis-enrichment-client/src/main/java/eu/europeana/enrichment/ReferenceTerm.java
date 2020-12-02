@@ -4,22 +4,13 @@ import eu.europeana.enrichment.utils.EntityType;
 import java.net.URL;
 import java.util.List;
 
-public abstract class ReferenceTerm {
+public interface ReferenceTerm {
 
-  private final URL reference;
+  List<EntityType> getFieldType();
 
-  public ReferenceTerm(URL reference){
-    this.reference = reference;
-  }
+  boolean equals(ReferenceTerm referenceTerm);
 
-  public URL getReference(){
-    return reference;
-  }
+  int hashCode();
 
-  public abstract List<EntityType> getFieldType();
-
-  public abstract boolean equals(ReferenceTerm referenceTerm);
-
-  public abstract int hashCode();
-
+  URL getReference();
 }

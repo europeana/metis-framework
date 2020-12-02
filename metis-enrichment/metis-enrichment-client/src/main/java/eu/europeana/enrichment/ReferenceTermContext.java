@@ -6,7 +6,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
-public class ReferenceTermContext extends ReferenceTerm{
+public class ReferenceTermContext extends AbstractReferenceTerm {
 
   private final FieldType fieldType;
 
