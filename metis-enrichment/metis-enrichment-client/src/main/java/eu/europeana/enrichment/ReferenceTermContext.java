@@ -4,6 +4,7 @@ import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.FieldType;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 public class ReferenceTermContext extends ReferenceTerm{
 
@@ -21,11 +22,25 @@ public class ReferenceTermContext extends ReferenceTerm{
 
   @Override
   public boolean equals(ReferenceTerm referenceTerm) {
-    return false;
+
+    if(referenceTerm == this){
+      return true;
+    }
+
+    if(!(referenceTerm instanceof ReferenceTermContext)){
+      return false;
+    }
+
+    ReferenceTermContext other = (ReferenceTermContext) referenceTerm;
+
+    boolean hasSameReference = Objects.equals(other.getReference(), this.getReference());
+    boolean hasSameFieldType = Objects.equals(other.getFieldType(), this.getFieldType());
+
+    return hasSameReference && hasSameFieldType;
   }
 
   @Override
   public int hashCode() {
-    return 0;
+    return Objects.hash(this.getReference(), fieldType);
   }
 }

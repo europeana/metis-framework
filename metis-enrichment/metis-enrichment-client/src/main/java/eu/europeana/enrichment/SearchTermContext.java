@@ -4,6 +4,7 @@ import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.FieldType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchTermContext extends SearchTerm{
 
@@ -21,11 +22,25 @@ public class SearchTermContext extends SearchTerm{
 
   @Override
   public boolean equals(SearchTerm searchTerm) {
-    return false;
+    if(searchTerm == this){
+      return true;
+    }
+
+    if(!(searchTerm instanceof SearchTermContext)){
+      return false;
+    }
+
+    SearchTermContext other = (SearchTermContext) searchTerm;
+
+    boolean hasSameTextValues = Objects.equals(other.getTextValue(), this.getTextValue());
+    boolean hasSameLanguage = Objects.equals(other.getLanguage(), this.getLanguage());
+    boolean hasSameFieldType = Objects.equals(other.getFieldType(), this.getFieldType());
+
+    return hasSameTextValues && hasSameLanguage && hasSameFieldType;
   }
 
   @Override
   public int hashCode() {
-    return 0;
+    return Objects.hash(this.getTextValue(), this.getLanguage(), fieldType);
   }
 }
