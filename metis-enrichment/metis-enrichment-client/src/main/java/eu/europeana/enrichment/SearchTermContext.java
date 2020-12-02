@@ -6,7 +6,7 @@ import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchTermContext extends SearchTerm{
+public class SearchTermContext extends AbstractSearchTerm {
 
   private final FieldType fieldType;
 

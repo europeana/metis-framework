@@ -10,7 +10,7 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
 
   private final FieldType fieldType;
 
-  ReferenceTermContext(URL reference, FieldType fieldType) {
+  public ReferenceTermContext(URL reference, FieldType fieldType) {
     super(reference);
     this.fieldType = fieldType;
   }
