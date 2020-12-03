@@ -20,6 +20,8 @@
   xmlns:cc="http://creativecommons.org/ns#"
   xmlns:odrl="http://www.w3.org/ns/odrl/2/"
   xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:lib="http://localhost.com"
   version="1.0"><!--Implementers: please note that overriding process-prolog or process-root is
     the preferred method for meta-stylesheets to use where possible. -->
   <xsl:param name="archiveDirParameter"/>
@@ -29,6 +31,76 @@
   <xsl:variable name="document-uri">
     <xsl:value-of select="document-uri(/)"/>
   </xsl:variable>
+  <xsl:variable name="license_patterns">
+    <!--
+    CC VERSION 1.0 LICENSES
+    <http://creativecommons.org/licenses/[PERMISSIONS]/1.0/[PORT]/>
+    PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd | by-nd-nc
+    PORT: generic (no port) | fi | il | nl
+    -->
+    <pattern
+      value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd|by-nd-nc)/1[.]0/(fi|il|nl)?$"/>
+
+    <!--
+    CC VERSION 2.0 LICENSES
+    <http://creativecommons.org/licenses/[PERMISSIONS]/2.0/[PORT]/>
+    PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+    PORT: generic (no port) | au | at | be | br | ca | cl | hr | uk | fr | de | it | jp | nl | pl | kr | es | tw
+    -->
+    <pattern
+      value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]0/(au|at|be|br|ca|cl|hr|uk|fr|de|it|jp|nl|pl|kr|es|tw)?$"/>
+
+    <!--
+    CC VERSION 2.1 LICENSES
+    <http://creativecommons.org/licenses/[PERMISSIONS]/2.1/[PORT]/>
+    PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+    PORT: au | es | jp
+    -->
+    <pattern
+      value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]1/(au|es|jp)$"/>
+
+    <!--
+    CC VERSION 2.5 LICENSES
+    <http://creativecommons.org/licenses/[PERMISSIONS]/2.5/[PORT]/>
+    PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+    PORT: generic (no port) | ar | au | br | bg | ca | cn | co | hr | dk | hu | in | il | it | mk | my | mt | mx | nl | pe | pl | pt | scotland | si | za | es | se | ch | tw
+    -->
+    <pattern
+      value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]5/(ar|au|br|bg|ca|cn|co|hr|dk|hu|in|il|it|mk|my|mt|mx|nl|pe|pl|pt|scotland|si|za|es|se|ch|tw)?$"/>
+
+    <!--
+    CC VERSION 3.0 LICENSES
+    <http://creativecommons.org/licenses/[PERMISSIONS]/3.0/[PORT]/>
+    PERMISSIONS: by | by-sa | by-nd |  by-nc | by-nc-sa | by-nc-nd
+    PORT: generic (no port) | au | at | br | cl | cn | cr | hr | cz | ec | eg | ee | fr | de | gr | gt | hk | igo | ie | it | lu | nl | nz | no | ph | pl | pt | pr | ro | rs | sg | za | es | ch | tw | th | ug | us | ve | vn
+    -->
+    <pattern
+      value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/3[.]0/(au|at|br|cl|cn|cr|hr|cz|ec|eg|ee|fr|de|gr|gt|hk|igo|ie|it|lu|nl|nz|no|ph|pl|pt|pr|ro|rs|sg|za|es|ch|tw|th|ug|us|ve|vn)?$"/>
+
+    <!--
+    CC VERSION 4.0 LICENSES
+    <http://creativecommons.org/licenses/[PERMISSIONS]/4.0/>
+    PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+    -->
+    <pattern
+      value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/4[.]0/$"/>
+
+    <!--
+    CC PUBLIC DOMAIN TOOLS
+    <http://creativecommons.org/publicdomain/[PUBLIC DOMAIN TOOL]/1.0/
+    PUBLIC DOMAIN TOOL: zero | mark
+    -->
+    <pattern value="^http[:]//creativecommons[.]org/publicdomain/(zero|mark)/1[.]0/$"/>
+
+    <!--
+    RIGHTSSTATEMENTS.ORG
+    <http://rightsstatements.org/vocab/[PERMISSIONS]/1.0/>
+    PERMISSIONS: NoC-NC | NoC-OKLR | InC | InC-EDU | InC-OW-EU | CNE
+    -->
+    <pattern
+      value="^http[:]//rightsstatements[.]org/vocab/(NoC-NC|NoC-OKLR|InC|InC-EDU|InC-OW-EU|CNE)/1[.]0/$"/>
+  </xsl:variable>
+  <xsl:variable name="cc_licenses" select="//cc:License" />
 
   <!--PHASES-->
 
@@ -288,6 +360,20 @@
         <xsl:apply-templates/>
       </svrl:active-pattern>
       <xsl:apply-templates select="/" mode="M25"/>
+      <svrl:active-pattern>
+        <xsl:attribute name="document">
+          <xsl:value-of select="document-uri(/)"/>
+        </xsl:attribute>
+        <xsl:apply-templates/>
+      </svrl:active-pattern>
+      <xsl:apply-templates select="/" mode="M26"/>
+      <svrl:active-pattern>
+        <xsl:attribute name="document">
+          <xsl:value-of select="document-uri(/)"/>
+        </xsl:attribute>
+        <xsl:apply-templates/>
+      </svrl:active-pattern>
+      <xsl:apply-templates select="/" mode="M27"/>
       <svrl:ns-prefix-in-attribute-values uri="http://www.europeana.eu/schemas/edm/" prefix="edm"/>
       <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
       <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/terms/" prefix="dct"/>
@@ -713,7 +799,40 @@
 
 
   <!--RULE -->
-  <xsl:template match="*" priority="1000" mode="M24">
+  <xsl:template match="ore:Aggregation/edm:rights" priority="1000" mode="M24">
+    <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+      context="ore:Aggregation/edm:rights"/>
+    <!--ASSERT -->
+    <xsl:choose>
+      <xsl:when test="lib:isValidRightsField(@rdf:resource)"/>
+      <xsl:otherwise>
+        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+          test="lib:isValidRightsField(@rdf:resource)">
+          <xsl:attribute name="location">
+            <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+          </xsl:attribute>
+          <xsl:attribute name="nodeId">
+            <xsl:value-of select="@rdf:about"/>
+          </xsl:attribute>
+          <svrl:text>
+            Invalid Rights Statements
+          </svrl:text>
+        </svrl:failed-assert>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M24"/>
+  </xsl:template>
+  <xsl:template match="text()" priority="-1" mode="M24"/>
+  <xsl:template match="@*|node()" priority="-2" mode="M24">
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M24"/>
+  </xsl:template>
+  <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">Schematron validation</svrl:text>
+
+  <!--PATTERN -->
+
+
+  <!--RULE -->
+  <xsl:template match="*" priority="1000" mode="M25">
     <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="*"/>
 
     <!--ASSERT -->
@@ -731,18 +850,53 @@
         </svrl:failed-assert>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M24"/>
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M25"/>
   </xsl:template>
-  <xsl:template match="text()" priority="-1" mode="M24"/>
-  <xsl:template match="@*|node()" priority="-2" mode="M24">
-    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M24"/>
+  <xsl:template match="text()" priority="-1" mode="M25"/>
+  <xsl:template match="@*|node()" priority="-2" mode="M25">
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M25"/>
   </xsl:template>
 
-  <!--PATTERN -->
+  <xsl:function name="lib:isValidRS" as="xs:boolean">
+    <xsl:param name="uri"/>
+    <xsl:sequence select="some $x in $license_patterns/pattern/@value satisfies fn:matches($uri,$x)"/>
+  </xsl:function>
 
+  <xsl:function name="lib:isValidRightsField" as="xs:boolean">
+    <xsl:param name="uri"/>
+    <xsl:sequence select="lib:isValidRS($uri) or lib:isValidRS($cc_licenses[@rdf:about=$uri]/odrl:inheritFrom/@rdf:resource)"/>
+  </xsl:function>
+
+  <xsl:template match="edm:WebResource/edm:rights" priority="1000" mode="M26">
+    <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="edm:WebResource/edm:rights"/>
+    <!--ASSERT -->
+    <xsl:choose>
+      <xsl:when test="lib:isValidRightsField(@rdf:resource)"/>
+      <xsl:otherwise>
+        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+          test="lib:isValidRightsField(@rdf:resource)">
+          <xsl:attribute name="location">
+            <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+          </xsl:attribute>
+          <xsl:attribute name="nodeId">
+            <xsl:value-of select="@rdf:about"/>
+          </xsl:attribute>
+          <svrl:text>
+            Invalid Rights Statements
+          </svrl:text>
+        </svrl:failed-assert>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M26"/>
+  </xsl:template>
+  <xsl:template match="text()" priority="-1" mode="M26"/>
+  <xsl:template match="@*|node()" priority="-2" mode="M26">
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M26"/>
+  </xsl:template>
+  <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">Schematron validation</svrl:text>
 
   <!--RULE -->
-  <xsl:template match="edm:WebResource" priority="1000" mode="M25">
+  <xsl:template match="edm:WebResource" priority="1000" mode="M27">
     <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="edm:WebResource"/>
 
     <!--ASSERT -->
@@ -763,11 +917,11 @@
         </svrl:failed-assert>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M25"/>
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M27"/>
   </xsl:template>
-  <xsl:template match="text()" priority="-1" mode="M25"/>
-  <xsl:template match="@*|node()" priority="-2" mode="M25">
-    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M25"/>
+  <xsl:template match="text()" priority="-1" mode="M27"/>
+  <xsl:template match="@*|node()" priority="-2" mode="M27">
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M27"/>
   </xsl:template>
   <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">Schematron validation</svrl:text>
 
