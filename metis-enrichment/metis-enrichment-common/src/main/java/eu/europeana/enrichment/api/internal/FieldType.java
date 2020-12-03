@@ -1,5 +1,6 @@
-package eu.europeana.enrichment.utils;
+package eu.europeana.enrichment.api.internal;
 
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;

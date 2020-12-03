@@ -1,4 +1,4 @@
-package eu.europeana.enrichment;
+package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
@@ -14,7 +14,7 @@ public abstract class AbstractSearchTerm implements SearchTerm {
     this.language = language;
   }
 
-  public abstract List<EntityType> getFieldType();
+  public abstract List<EntityType> getCandidateTypes();
 
   public abstract boolean equals(SearchTerm searchTerm);
 

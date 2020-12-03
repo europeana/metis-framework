@@ -2,14 +2,20 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.utils.FieldType;
+import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.metis.schema.jibx.LanguageCodes;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,11 +35,12 @@ public class EnricherImpl implements Enricher {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
-  private final EnrichmentClient enrichmentClient;
+  private final RemoteEntityResolver remoteEntityResolver;
 
-  public EnricherImpl(EntityMergeEngine entityMergeEngine, EnrichmentClient enrichmentClient) {
+  public EnricherImpl(EntityMergeEngine entityMergeEngine,
+      RemoteEntityResolver remoteEntityResolver) {
     this.entityMergeEngine = entityMergeEngine;
-    this.enrichmentClient = enrichmentClient;
+    this.remoteEntityResolver = remoteEntityResolver;
   }
 
 
@@ -46,12 +53,21 @@ public class EnricherImpl implements Enricher {
     final Map<String, Set<FieldType>> referencesForEnrichment = extractReferencesForEnrichment(
         rdf);
 
+    Set<ReferenceTerm> referenceTermSet = referencesForEnrichment.entrySet().stream().map(entry -> {
+      ReferenceTermContext value = null;
+      try {
+        value = new ReferenceTermContext(new URL(entry.getKey()), entry.getValue());
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
+      }
+      return value;
+    }).collect(Collectors.toSet());
+
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final List<Pair<EnrichmentBase, FieldType>> valueEnrichmentInformation = enrichValues(
         valuesForEnrichment);
-    final List<EnrichmentBase> referenceEnrichmentInformation = enrichReferences(
-        referencesForEnrichment.keySet());
+    final List<EnrichmentBase> referenceEnrichmentInformation = enrichReferences(referenceTermSet);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
@@ -82,15 +98,16 @@ public class EnricherImpl implements Enricher {
       if (CollectionUtils.isEmpty(valuesForEnrichment)) {
         return Collections.emptyList();
       }
-      List<SearchValue> searchValues = valuesForEnrichment.stream().map(Pair::getKey)
+      List<SearchTerm> searchTerms = valuesForEnrichment.stream()
+          .map(pair -> new SearchTermContext(pair.getKey().getValue(), LanguageCodes.convert(
+              pair.getKey().getLanguage()), Set.of(pair.getValue())))
           .collect(Collectors.toList());
-      EnrichmentResultList result = retryableExternalRequestForNetworkExceptions(
-          () -> enrichmentClient.enrich(searchValues));
+      Map<SearchTerm, List<EnrichmentBase>> result = retryableExternalRequestForNetworkExceptions(
+          () -> remoteEntityResolver.resolveByText(Set.copyOf(searchTerms)));
       final List<Pair<EnrichmentBase, FieldType>> output = new ArrayList<>();
-      for (int index = 0; index < searchValues.size(); index++) {
+      for (int index = 0; index < searchTerms.size(); index++) {
         final FieldType fieldType = valuesForEnrichment.get(index).getValue();
-        final List<EnrichmentBase> enrichmentBaseList = result.getEnrichmentBaseResultWrapperList()
-            .get(index).getEnrichmentBaseList();
+        final List<EnrichmentBase> enrichmentBaseList = result.get(searchTerms.get(index));
         Optional.ofNullable(enrichmentBaseList).stream().flatMap(Collection::stream)
             .forEach(base -> output.add(new MutablePair<>(base, fieldType)));
       }
@@ -102,12 +119,13 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public List<EnrichmentBase> enrichReferences(Set<String> referencesForEnrichment)
+  public List<EnrichmentBase> enrichReferences(Set<ReferenceTerm> referencesForEnrichment)
       throws EnrichmentException {
     try {
+      Map<ReferenceTerm, List<EnrichmentBase>> result = retryableExternalRequestForNetworkExceptions(
+          () -> remoteEntityResolver.resolveByUri(referencesForEnrichment));
       return CollectionUtils.isEmpty(referencesForEnrichment) ? Collections.emptyList()
-          : retryableExternalRequestForNetworkExceptions(
-              () -> enrichmentClient.getByUri(referencesForEnrichment));
+          : result.values().stream().flatMap(List::stream).collect(Collectors.toList());
     } catch (Exception e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }

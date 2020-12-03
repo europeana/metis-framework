@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Aggregation;

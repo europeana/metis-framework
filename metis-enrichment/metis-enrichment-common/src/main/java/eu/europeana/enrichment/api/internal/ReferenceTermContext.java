@@ -1,23 +1,24 @@
-package eu.europeana.enrichment;
+package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.enrichment.utils.FieldType;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ReferenceTermContext extends AbstractReferenceTerm {
 
-  private final FieldType fieldType;
+  private final Set<FieldType> fieldTypes;
 
-  public ReferenceTermContext(URL reference, FieldType fieldType) {
+  public ReferenceTermContext(URL reference, Set<FieldType> fieldTypes) {
     super(reference);
-    this.fieldType = fieldType;
+    this.fieldTypes = fieldTypes;
   }
 
   @Override
-  public List<EntityType> getFieldType() {
-    return List.of(fieldType.getEntityType());
+  public List<EntityType> getCandidateTypes() {
+    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toList());
   }
 
   @Override
@@ -34,13 +35,13 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
     ReferenceTermContext other = (ReferenceTermContext) referenceTerm;
 
     boolean hasSameReference = Objects.equals(other.getReference(), this.getReference());
-    boolean hasSameFieldType = Objects.equals(other.getFieldType(), this.getFieldType());
+    boolean hasSameFieldType = Objects.equals(other.getCandidateTypes(), this.getCandidateTypes());
 
     return hasSameReference && hasSameFieldType;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.getReference(), fieldType);
+    return Objects.hash(this.getReference(), fieldTypes);
   }
 }

@@ -1,4 +1,4 @@
-package eu.europeana.enrichment;
+package eu.europeana.enrichment.api.internal;
 
 
 import java.net.URL;

@@ -1,10 +1,11 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.utils.FieldType;
+import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public interface Enricher {
    * @return A list with RDF fields retrieved and the information associated with it
    * @throws EnrichmentException
    */
-  List<EnrichmentBase> enrichReferences(Set<String> referencesForEnrichment)
+  List<EnrichmentBase> enrichReferences(Set<ReferenceTerm> referencesForEnrichment)
       throws EnrichmentException;
 
   /**

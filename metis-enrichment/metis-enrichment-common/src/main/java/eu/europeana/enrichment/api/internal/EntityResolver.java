@@ -1,4 +1,4 @@
-package eu.europeana.enrichment;
+package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import java.util.List;

@@ -1,4 +1,4 @@
-package eu.europeana.enrichment;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ID;
@@ -12,6 +12,9 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.internal.EntityResolver;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.SearchTerm;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;

@@ -1,8 +1,10 @@
-package eu.europeana.enrichment;
+package eu.europeana.enrichment.service;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.internal.EntityResolver;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
-import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
@@ -82,7 +84,7 @@ public class PersistentEntityResolver implements EntityResolver {
 
     for(ReferenceTerm referenceTerm: referenceTermSet){
       try {
-        final List<EntityType> entityTypes = referenceTerm.getFieldType();
+        final List<EntityType> entityTypes = referenceTerm.getCandidateTypes();
         List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
         if (CollectionUtils.isEmpty(entityTypes)) {
           foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
@@ -109,7 +111,7 @@ public class PersistentEntityResolver implements EntityResolver {
       Map<SearchTerm, List<EnrichmentBase>> searchTermListMap, SearchTerm searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
     if (!StringUtils.isBlank(value)) {
-      final List<EntityType> entityTypes = searchTerm.getFieldType();
+      final List<EntityType> entityTypes = searchTerm.getCandidateTypes();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
       final LanguageCodes inputValueLanguage = searchTerm.getLanguage();
       final String language;
