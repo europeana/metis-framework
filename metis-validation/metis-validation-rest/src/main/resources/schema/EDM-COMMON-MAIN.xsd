@@ -13,6 +13,7 @@
     xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
     xmlns:foaf="http://xmlns.com/foaf/0.1/"
     xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     elementFormDefault="qualified">
     
     <import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="DC.xsd"/>
@@ -692,6 +693,15 @@
                 the europeana.eu domain or the creativecommons.org domain. For users of Europeana.eu
                 this copyright information also applies to the preview specified in edm:object.
             </documentation>
+            <appinfo>
+                <sch:pattern>
+                    <sch:rule context="edm:rights">
+                        <sch:assert test="not(isValidRightsField(@rdf:resource,../../cc:License))">
+                            Not valid Rights Statement
+                        </sch:assert>
+                    </sch:rule>
+                </sch:pattern>
+            </appinfo>
         </annotation>
     </element>
 

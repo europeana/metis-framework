@@ -141,7 +141,8 @@
 
   <complexType name="WebResourceType">
     <annotation>
-      <documentation>Base class for WebResource implementations</documentation>      <appinfo>
+      <documentation>Base class for WebResource implementations</documentation>
+      <appinfo>
         <sch:pattern>
           <sch:rule context="edm:WebResource">
             <sch:assert test="not(dct:hasPart[text()])"> 

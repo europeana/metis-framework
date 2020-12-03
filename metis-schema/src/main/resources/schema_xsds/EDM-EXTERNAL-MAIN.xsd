@@ -1,111 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://www.europeana.eu/schemas/edm/"
-	xmlns:edm="http://www.europeana.eu/schemas/edm/" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:owl="http://www.w3.org/2002/07/owl#" 
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:dcterms="http://purl.org/dc/terms/" 
-	xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#"
-	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:ore="http://www.openarchives.org/ore/terms/" 
-	xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-	xmlns:cc="http://creativecommons.org/ns#"
-		xmlns:svcs="http://rdfs.org/sioc/services#"
-		xmlns:doap="http://usefulinc.com/ns/doap#"
-	elementFormDefault="qualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.europeana.eu/schemas/edm/"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:svcs="http://rdfs.org/sioc/services#"
+  xmlns:doap="http://usefulinc.com/ns/doap#"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:lib="http://localhost.com"
+  elementFormDefault="qualified">
 
-	<import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd" />
-	<import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="SKOS.xsd" />
-	<import namespace="http://www.w3.org/2002/07/owl#" schemaLocation="OWL.xsd" />
-	<import namespace="http://www.openarchives.org/ore/terms/" schemaLocation="ORE.xsd" />
-	<import namespace="http://creativecommons.org/ns#" schemaLocation="CC.xsd"/>
-	<import namespace="http://rdfs.org/sioc/services#" schemaLocation="SVCS.xsd"/>
+  <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
+  <import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="SKOS.xsd"/>
+  <import namespace="http://www.w3.org/2002/07/owl#" schemaLocation="OWL.xsd"/>
+  <import namespace="http://www.openarchives.org/ore/terms/" schemaLocation="ORE.xsd"/>
+  <import namespace="http://creativecommons.org/ns#" schemaLocation="CC.xsd"/>
+  <import namespace="http://rdfs.org/sioc/services#" schemaLocation="SVCS.xsd"/>
 
-	<import namespace="http://usefulinc.com/ns/doap#" schemaLocation="DOAP.xsd"/>
-	<include schemaLocation="EDM-COMMON-MAIN.xsd" />
-	<include schemaLocation="CONTEXTS.xsd"/>	
-	
-	<complexType name="RDF">
-		<annotation>
-			<documentation> The RDF root element declaration </documentation>
-			<!-- Declared namespaces for schematron validation -->
-			<appinfo>
-				<sch:title>Schematron validation</sch:title>
-				<sch:ns prefix="edm" uri="http://www.europeana.eu/schemas/edm/" />
-				<sch:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/" />
-				<sch:ns prefix="dct" uri="http://purl.org/dc/terms/" />
-				<sch:ns prefix="ore" uri="http://www.openarchives.org/ore/terms/" />
-				<sch:ns prefix="owl" uri="http://www.w3.org/2002/07/owl#" />
-				<sch:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
-				<sch:ns prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#" />
-				<sch:ns prefix="skos" uri="http://www.w3.org/2004/02/skos/core#" />
-				<sch:ns prefix="svcs" uri="http://rdfs.org/sioc/services#"/>
-			</appinfo>
-		</annotation>
-		<sequence minOccurs="0" maxOccurs="unbounded">
-			<choice>
-				<element name="ProvidedCHO" type="edm:ProvidedCHOType" />
-				<element name="WebResource" type="edm:WebResourceType" />
-				<element name="Agent" type="edm:AgentType" />
-				<element name="Place" type="edm:PlaceType" />
-				<element name="TimeSpan" type="edm:TimeSpanType" />
-				<element ref="skos:Concept" />
-				<element ref="ore:Aggregation" />
-				<element ref="cc:License" />
-				<element ref="svcs:Service"/>
-			</choice>
-		</sequence>
-	</complexType>
+  <import namespace="http://usefulinc.com/ns/doap#" schemaLocation="DOAP.xsd"/>
+  <include schemaLocation="EDM-COMMON-MAIN.xsd"/>
+  <include schemaLocation="CONTEXTS.xsd"/>
 
-	<complexType name="ProvidedCHOType">
-		<complexContent>
-			<annotation>
-				<documentation>
-					This class comprises the Cultural Heritage objects that Europeana
-					collects descriptions about.
-				</documentation>
-				<appinfo>
-					<sch:pattern>
-						<sch:rule context="edm:ProvidedCHO">
-							<sch:assert	test="dc:subject or dc:type or dct:temporal or dct:spatial">
-								id: <sch:value-of select="@rdf:about" />
-								- A ProvidedCHO must have a dc:subject or dc:type or dct:temporal or dct:spatial.
-							</sch:assert>
-							<sch:assert
-									test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or 								normalize-space(dc:type)!='')) or (dct:temporal and 									(exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!=''))  or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space							(dct:spatial)!='')))">
-								A Proxy must have a non empty
-								dc:subject or dc:type or dct:temporal or
-								dct:spatial.
-							</sch:assert>
-							<!--<sch:assert test="dc:title or dc:description">
-								id:
-								<sch:value-of select="@rdf:about" />
-								- A Proxy must have a dc:title or
-								dc:description.
-							</sch:assert> -->
-							<sch:assert
-									test="(dc:title and normalize-space(dc:title)!='') or (dc:description and (exists(dc:description/@rdf:resource) or normalize-space(dc:description)!=''))">A Proxy must have a non empty dc:title or a non empty
-								dc:description</sch:assert>
-							<sch:assert
-									test="not(edm:type='TEXT') or (edm:type='TEXT' and exists(dc:language))">
-								id:
-								<sch:value-of select="@rdf:about" />
-								- Within a Proxy
-								context, dc:language is mandatory when dc:language has the value
-								'TEXT'.
-							</sch:assert>
-						</sch:rule>
-					</sch:pattern>
-				</appinfo>
-			</annotation>
-			<extension base="edm:BaseProvidedCHOType">
-				<sequence>
-					<element ref="edm:type" maxOccurs="1" minOccurs="1"/>
-					<element ref="owl:sameAs" maxOccurs="unbounded" minOccurs="0" />
-				</sequence>
-			</extension>
-		</complexContent>
-	</complexType>
+  <complexType name="RDF">
+    <annotation>
+      <documentation>The RDF root element declaration</documentation>
+      <!-- Declared namespaces for schematron validation -->
+      <appinfo>
+        <sch:title>Schematron validation</sch:title>
+        <sch:ns prefix="edm" uri="http://www.europeana.eu/schemas/edm/"/>
+        <sch:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
+        <sch:ns prefix="dct" uri="http://purl.org/dc/terms/"/>
+        <sch:ns prefix="ore" uri="http://www.openarchives.org/ore/terms/"/>
+        <sch:ns prefix="owl" uri="http://www.w3.org/2002/07/owl#"/>
+        <sch:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        <sch:ns prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+        <sch:ns prefix="skos" uri="http://www.w3.org/2004/02/skos/core#"/>
+        <sch:ns prefix="svcs" uri="http://rdfs.org/sioc/services#"/>
 
+        <xsl:variable name="license_patterns">
+          <!--
+          CC VERSION 1.0 LICENSES
+          <http://creativecommons.org/licenses/[PERMISSIONS]/1.0/[PORT]/>
+          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd | by-nd-nc
+          PORT: generic (no port) | fi | il | nl
+          -->
+          <pattern
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd|by-nd-nc)/1[.]0/(fi|il|nl)?$"/>
+
+          <!--
+          CC VERSION 2.0 LICENSES
+          <http://creativecommons.org/licenses/[PERMISSIONS]/2.0/[PORT]/>
+          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+          PORT: generic (no port) | au | at | be | br | ca | cl | hr | uk | fr | de | it | jp | nl | pl | kr | es | tw
+          -->
+          <pattern
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]0/(au|at|be|br|ca|cl|hr|uk|fr|de|it|jp|nl|pl|kr|es|tw)?$"/>
+
+          <!--
+          CC VERSION 2.1 LICENSES
+          <http://creativecommons.org/licenses/[PERMISSIONS]/2.1/[PORT]/>
+          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+          PORT: au | es | jp
+          -->
+          <pattern
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]1/(au|es|jp)$"/>
+
+          <!--
+          CC VERSION 2.5 LICENSES
+          <http://creativecommons.org/licenses/[PERMISSIONS]/2.5/[PORT]/>
+          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+          PORT: generic (no port) | ar | au | br | bg | ca | cn | co | hr | dk | hu | in | il | it | mk | my | mt | mx | nl | pe | pl | pt | scotland | si | za | es | se | ch | tw
+          -->
+          <pattern
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]5/(ar|au|br|bg|ca|cn|co|hr|dk|hu|in|il|it|mk|my|mt|mx|nl|pe|pl|pt|scotland|si|za|es|se|ch|tw)?$"/>
+
+          <!--
+          CC VERSION 3.0 LICENSES
+          <http://creativecommons.org/licenses/[PERMISSIONS]/3.0/[PORT]/>
+          PERMISSIONS: by | by-sa | by-nd |  by-nc | by-nc-sa | by-nc-nd
+          PORT: generic (no port) | au | at | br | cl | cn | cr | hr | cz | ec | eg | ee | fr | de | gr | gt | hk | igo | ie | it | lu | nl | nz | no | ph | pl | pt | pr | ro | rs | sg | za | es | ch | tw | th | ug | us | ve | vn
+          -->
+          <pattern
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/3[.]0/(au|at|br|cl|cn|cr|hr|cz|ec|eg|ee|fr|de|gr|gt|hk|igo|ie|it|lu|nl|nz|no|ph|pl|pt|pr|ro|rs|sg|za|es|ch|tw|th|ug|us|ve|vn)?$"/>
+
+          <!--
+          CC VERSION 4.0 LICENSES
+          <http://creativecommons.org/licenses/[PERMISSIONS]/4.0/>
+          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
+          -->
+          <pattern
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/4[.]0/$"/>
+
+          <!--
+          CC PUBLIC DOMAIN TOOLS
+          <http://creativecommons.org/publicdomain/[PUBLIC DOMAIN TOOL]/1.0/
+          PUBLIC DOMAIN TOOL: zero | mark
+          -->
+          <pattern value="^http[:]//creativecommons[.]org/publicdomain/(zero|mark)/1[.]0/$"/>
+
+          <!--
+          RIGHTSSTATEMENTS.ORG
+          <http://rightsstatements.org/vocab/[PERMISSIONS]/1.0/>
+          PERMISSIONS: NoC-NC | NoC-OKLR | InC | InC-EDU | InC-OW-EU | CNE
+          -->
+          <pattern
+            value="^http[:]//rightsstatements[.]org/vocab/(NoC-NC|NoC-OKLR|InC|InC-EDU|InC-OW-EU|CNE)/1[.]0/$"/>
+        </xsl:variable>
+
+        <xsl:function name="lib:isValidRS" as="xs:boolean">
+          <xsl:param name="uri"/>
+          <xsl:sequence
+            select="some $x in $license_patterns/pattern/@value satisfies fn:matches($uri,$x)"/>
+        </xsl:function>
+
+        <xsl:function name="lib:isValidRightsField" as="xs:boolean">
+          <xsl:param name="uri"/>
+          <xsl:sequence
+            select="lib:isValidRS($uri) or lib:isValidRS($cc_licenses[@rdf:about=$uri]/odrl:inheritFrom/@rdf:resource)"/>
+        </xsl:function>
+      </appinfo>
+    </annotation>
+    <sequence minOccurs="0" maxOccurs="unbounded">
+      <choice>
+        <element name="ProvidedCHO" type="edm:ProvidedCHOType"/>
+        <element name="WebResource" type="edm:WebResourceType"/>
+        <element name="Agent" type="edm:AgentType"/>
+        <element name="Place" type="edm:PlaceType"/>
+        <element name="TimeSpan" type="edm:TimeSpanType"/>
+        <element ref="skos:Concept"/>
+        <element ref="ore:Aggregation"/>
+        <element ref="cc:License"/>
+        <element ref="svcs:Service"/>
+      </choice>
+    </sequence>
+  </complexType>
+
+  <complexType name="ProvidedCHOType">
+    <complexContent>
+      <annotation>
+        <documentation>
+          This class comprises the Cultural Heritage objects that Europeana
+          collects descriptions about.
+        </documentation>
+        <appinfo>
+          <sch:pattern>
+            <sch:rule context="edm:ProvidedCHO">
+              <sch:assert test="dc:subject or dc:type or dct:temporal or dct:spatial">
+                id:
+                <sch:value-of select="@rdf:about"/>
+                - A ProvidedCHO must have a dc:subject or dc:type or dct:temporal or dct:spatial.
+              </sch:assert>
+              <sch:assert
+                test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or 								normalize-space(dc:type)!='')) or (dct:temporal and 									(exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!=''))  or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space							(dct:spatial)!='')))">
+                A Proxy must have a non empty
+                dc:subject or dc:type or dct:temporal or
+                dct:spatial.
+              </sch:assert>
+              <sch:assert
+                test="(dc:title and normalize-space(dc:title)!='') or (dc:description and (exists(dc:description/@rdf:resource) or normalize-space(dc:description)!=''))">
+                A Proxy must have a non empty dc:title or a non empty
+                dc:description
+              </sch:assert>
+              <sch:assert
+                test="not(edm:type='TEXT') or (edm:type='TEXT' and exists(dc:language))">
+                id:
+                <sch:value-of select="@rdf:about"/>
+                - Within a Proxy
+                context, dc:language is mandatory when dc:language has the value
+                'TEXT'.
+              </sch:assert>
+            </sch:rule>
+          </sch:pattern>
+        </appinfo>
+      </annotation>
+      <extension base="edm:BaseProvidedCHOType">
+        <sequence>
+          <element ref="edm:type" maxOccurs="1" minOccurs="1"/>
+          <element ref="owl:sameAs" maxOccurs="unbounded" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
 </schema>
