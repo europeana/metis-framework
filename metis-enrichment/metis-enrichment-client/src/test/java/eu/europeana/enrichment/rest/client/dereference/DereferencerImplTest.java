@@ -10,6 +10,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -17,7 +18,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.util.ArrayList;
@@ -73,8 +73,8 @@ public class DereferencerImplTest {
   void testDereferencerHappyFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final EnrichmentClient enrichmentClient = mock(EnrichmentClient.class);
-    doReturn(ENRICHMENT_RESULT).when(enrichmentClient).enrich(any());
+    final RemoteEntityResolver enrichmentClient = mock(RemoteEntityResolver.class);
+    doReturn(ENRICHMENT_RESULT).when(enrichmentClient).resolveByText(any());
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
     doReturn(DEREFERENCE_RESULT.get(0),
         DEREFERENCE_RESULT.subList(1, DEREFERENCE_RESULT.size()).toArray()).when(dereferenceClient)
@@ -99,13 +99,13 @@ public class DereferencerImplTest {
   void testDereferencerNullFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final EnrichmentClient enrichmentClient = mock(EnrichmentClient.class);
+    final RemoteEntityResolver remoteEntityResolver = mock(RemoteEntityResolver.class);
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
 
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
     // Create dereferencer.
-    final Dereferencer dereferencer = spy(new DereferencerImpl(entityMergeEngine, enrichmentClient, dereferenceClient));
+    final Dereferencer dereferencer = spy(new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
         .extractReferencesForDereferencing(any());
 

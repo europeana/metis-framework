@@ -1,8 +1,10 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
 import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
+import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.apache.commons.lang3.StringUtils;
 
 public class DereferencerProvider extends AbstractConnectionProvider {
@@ -56,16 +58,18 @@ public class DereferencerProvider extends AbstractConnectionProvider {
     }
 
     // Create the enrichment client if needed
-    final EnrichmentClient enrichmentClient;
+    RemoteEntityResolver remoteEntityResolver = null;
     if (StringUtils.isNotBlank(enrichmentUrl)) {
-      enrichmentClient = new EnrichmentClient(createRestTemplate(), enrichmentUrl,
-          batchSizeEnrichment);
-    } else {
-      enrichmentClient = null;
+      try {
+        remoteEntityResolver = new RemoteEntityResolver(new URL(enrichmentUrl),
+            batchSizeEnrichment, createRestTemplate());
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
+      }
     }
 
     // Done.
-    return new DereferencerImpl(new EntityMergeEngine(), enrichmentClient, dereferenceClient);
+    return new DereferencerImpl(new EntityMergeEngine(), remoteEntityResolver, dereferenceClient);
   }
 
 }

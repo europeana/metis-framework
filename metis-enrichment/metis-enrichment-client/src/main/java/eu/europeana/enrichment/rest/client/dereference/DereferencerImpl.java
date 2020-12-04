@@ -2,14 +2,18 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,13 +30,13 @@ public class DereferencerImpl implements Dereferencer {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
-  private final EnrichmentClient enrichmentClient;
+  private final RemoteEntityResolver remoteEntityResolver;
   private final DereferenceClient dereferenceClient;
 
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EnrichmentClient enrichmentClient,
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine, RemoteEntityResolver remoteEntityResolver,
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
-    this.enrichmentClient = enrichmentClient;
+    this.remoteEntityResolver = remoteEntityResolver;
     this.dereferenceClient = dereferenceClient;
 
   }
@@ -42,10 +46,20 @@ public class DereferencerImpl implements Dereferencer {
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
     Set<String> resourceIds = extractReferencesForDereferencing(rdf);
+    Set<ReferenceTerm> referenceTerms = resourceIds.stream().map(id -> {
+      ReferenceTerm value = null;
+      try {
+        value = new ReferenceTermContext(new URL(id), null);
+      } catch (MalformedURLException e) {
+        e.printStackTrace();
+      }
+
+      return value;
+    }).collect(Collectors.toSet());
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    final List<EnrichmentBase> dereferenceInformation = dereferenceEntities(resourceIds);
+    final List<EnrichmentBase> dereferenceInformation = dereferenceEntities(referenceTerms);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
@@ -57,7 +71,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public List<EnrichmentBase> dereferenceEntities(Set<String> resourceIds)
+  public List<EnrichmentBase> dereferenceEntities(Set<ReferenceTerm> resourceIds)
       throws DereferenceException {
 
     // Sanity check.
@@ -72,9 +86,9 @@ public class DereferencerImpl implements Dereferencer {
         .collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
-    for (String resourceId : resourceIds) {
-      if (!foundOwnEntityIds.contains(resourceId)) {
-        result.addAll(dereferenceExternalEntity(resourceId));
+    for (ReferenceTerm resourceId : resourceIds) {
+      if (!foundOwnEntityIds.contains(resourceId.getReference().toString())) {
+        result.addAll(dereferenceExternalEntity(resourceId.getReference().toString()));
       }
     }
     // Done.
@@ -82,11 +96,11 @@ public class DereferencerImpl implements Dereferencer {
 
   }
 
-  private List<EnrichmentBase> dereferenceOwnEntities(Set<String> resourceIds)
+  private List<EnrichmentBase> dereferenceOwnEntities(Set<ReferenceTerm> resourceIds)
       throws DereferenceException {
     try {
-      return retryableExternalRequestForNetworkExceptions(
-          () -> enrichmentClient.getById(resourceIds));
+      return new ArrayList<>(retryableExternalRequestForNetworkExceptions(
+          () -> remoteEntityResolver.resolveById(resourceIds)).values());
     } catch (Exception e) {
       throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
           e);
