@@ -4,21 +4,19 @@ import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-public class SearchTermContext extends AbstractSearchTerm {
+public class SearchTermType extends AbstractSearchTerm{
 
-  private final Set<FieldType> fieldTypes;
+  private List<EntityType> entityTypes;
 
-  public SearchTermContext(String textValue, LanguageCodes language, Set<FieldType> fieldTypes) {
+  public SearchTermType(String textValue, LanguageCodes language, List<EntityType> entityTypes) {
     super(textValue, language);
-    this.fieldTypes = fieldTypes;
+    this.entityTypes = entityTypes;
   }
 
   @Override
   public List<EntityType> getCandidateTypes() {
-    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toList());
+    return entityTypes;
   }
 
   @Override
@@ -27,11 +25,12 @@ public class SearchTermContext extends AbstractSearchTerm {
       return true;
     }
 
-    if(!(searchTerm instanceof SearchTermContext)){
+    if(!(searchTerm instanceof SearchTermType)){
       return false;
     }
 
-    SearchTermContext other = (SearchTermContext) searchTerm;
+    SearchTermType other = (SearchTermType) searchTerm;
+
 
     boolean hasSameTextValues = Objects.equals(other.getTextValue(), this.getTextValue());
     boolean hasSameLanguage = Objects.equals(other.getLanguage(), this.getLanguage());
@@ -42,6 +41,6 @@ public class SearchTermContext extends AbstractSearchTerm {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.getTextValue(), this.getLanguage(), fieldTypes);
+    return Objects.hash(this.getTextValue(), this.getLanguage(), entityTypes);
   }
 }

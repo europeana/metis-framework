@@ -15,4 +15,5 @@ public abstract class AbstractReferenceTerm implements ReferenceTerm{
     return reference;
   }
 
+  public abstract int hashCode();
 }

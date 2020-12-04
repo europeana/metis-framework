@@ -5,9 +5,9 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
-import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.ReferenceTermType;
 import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermContext;
+import eu.europeana.enrichment.api.internal.SearchTermType;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
@@ -54,8 +54,8 @@ public class EnrichmentService {
    */
   public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(
       List<SearchValue> searchValues) {
-    Set<SearchTerm> searchTerms = searchValues.stream().map(search -> new SearchTermContext(search.getValue(), LanguageCodes
-        .convert(search.getLanguage()), null)).collect(Collectors.toSet());
+    Set<SearchTerm> searchTerms = searchValues.stream().map(search -> new SearchTermType(search.getValue(), LanguageCodes
+        .convert(search.getLanguage()), search.getEntityTypes())).collect(Collectors.toSet());
     Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver.resolveByText(searchTerms);
 
     return result.values().stream().map(EnrichmentResultBaseWrapper::new).collect(
@@ -72,7 +72,7 @@ public class EnrichmentService {
     ReferenceTerm referenceTerm;
     Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
     try {
-      referenceTerm = new ReferenceTermContext(new URL(referenceValue.getReference()), null);
+      referenceTerm = new ReferenceTermType(new URL(referenceValue.getReference()), referenceValue.getEntityTypes());
       result = persistentEntityResolver.resolveByUri(Set.of(referenceTerm));
     } catch (MalformedURLException e) {
       e.printStackTrace();
@@ -90,7 +90,7 @@ public class EnrichmentService {
     ReferenceTerm referenceTerm;
     Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
     try {
-      referenceTerm = new ReferenceTermContext(new URL(entityAbout), null);
+      referenceTerm = new ReferenceTermType(new URL(entityAbout), new ArrayList<>());
       result = persistentEntityResolver.resolveById(Set.of(referenceTerm));
     } catch (MalformedURLException e) {
       e.printStackTrace();

@@ -3,7 +3,7 @@ package eu.europeana.enrichment.rest.client.dereference;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
-import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.ReferenceTermType;
 import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -49,7 +49,7 @@ public class DereferencerImpl implements Dereferencer {
     Set<ReferenceTerm> referenceTerms = resourceIds.stream().map(id -> {
       ReferenceTerm value = null;
       try {
-        value = new ReferenceTermContext(new URL(id), null);
+        value = new ReferenceTermType(new URL(id), new ArrayList<>());
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
