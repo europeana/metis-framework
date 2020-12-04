@@ -57,8 +57,7 @@ public class EnrichmentControllerTest {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
     ReferenceValue reference = new ReferenceValue(uri, anySet());
-    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(
-        (List<EnrichmentBase>) agent); //TODO: Fix this
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(List.of(agent)); //TODO: Fix this
     enrichmentControllerMock.perform(get("/enrich/entity/equivalence")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON))
@@ -75,8 +74,7 @@ public class EnrichmentControllerTest {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
     ReferenceValue reference = new ReferenceValue(uri, anySet());
-    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(
-        (List<EnrichmentBase>) agent); //TODO: Fix this
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(List.of(agent)); //TODO: Fix this
     Map<String, String> namespaceMap = getNamespaceMap();
     enrichmentControllerMock.perform(get("/enrich/entity/equivalence")
         .param("uri", "http://www.example.com")

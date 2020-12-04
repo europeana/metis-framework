@@ -105,10 +105,11 @@ public class EnricherImpl implements Enricher {
       Map<SearchTerm, List<EnrichmentBase>> result = retryableExternalRequestForNetworkExceptions(
           () -> remoteEntityResolver.resolveByText(Set.copyOf(searchTerms)));
       final List<Pair<EnrichmentBase, FieldType>> output = new ArrayList<>();
+      final List<List<EnrichmentBase>> listEnrichmentBase = new ArrayList<>(result.values());
       for (int index = 0; index < searchTerms.size(); index++) {
         final FieldType fieldType = valuesForEnrichment.get(index).getValue();
-        final List<EnrichmentBase> enrichmentBaseList = result.get(searchTerms.get(index));
-        Optional.ofNullable(enrichmentBaseList).stream().flatMap(Collection::stream)
+        final List<EnrichmentBase> enrichmentBaseList = new ArrayList<>(listEnrichmentBase.get(index));
+        Optional.of(enrichmentBaseList).stream().flatMap(Collection::stream)
             .forEach(base -> output.add(new MutablePair<>(base, fieldType)));
       }
       return output;
