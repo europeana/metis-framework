@@ -4,31 +4,23 @@ import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
-import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.schema.jibx.LanguageCodes;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,28 +34,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class EnrichmentService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
-  private static final Set<String> ALL_2CODE_LANGUAGES = new HashSet<>();
-  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES = new HashMap<>();
-  private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
-      .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
-  private final EnrichmentDao enrichmentDao;
-
-  static {
-    Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
-      ALL_2CODE_LANGUAGES.add(locale.getLanguage());
-      ALL_3CODE_TO_2CODE_LANGUAGES.put(locale.getISO3Language(), locale.getLanguage());
-    });
-  }
+  private final PersistentEntityResolver persistentEntityResolver;
 
   /**
    * Parameter constructor.
    *
-   * @param enrichmentDao the enrichment dao
+   * @param persistentEntityResolver the entity resolver
    */
   @Autowired
-  public EnrichmentService(EnrichmentDao enrichmentDao) {
-    this.enrichmentDao = enrichmentDao;
+  public EnrichmentService(PersistentEntityResolver persistentEntityResolver) {
+    this.persistentEntityResolver = persistentEntityResolver;
   }
 
   /**
@@ -74,43 +54,12 @@ public class EnrichmentService {
    */
   public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(
       List<SearchValue> searchValues) {
-    final List<EnrichmentResultBaseWrapper> enrichmentBases = new ArrayList<>();
-    try {
-      for (SearchValue searchValue : searchValues) {
-        findEnrichmentEntitiesBySearchValue(enrichmentBases, searchValue);
-      }
-    } catch (RuntimeException e) {
-      LOGGER.warn("Unable to retrieve entity from tag", e);
-    }
-    return enrichmentBases;
-  }
+    Set<SearchTerm> searchTerms = searchValues.stream().map(search -> new SearchTermContext(search.getValue(), LanguageCodes
+        .convert(search.getLanguage()), null)).collect(Collectors.toSet());
+    Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver.resolveByText(searchTerms);
 
-  private void findEnrichmentEntitiesBySearchValue(
-      List<EnrichmentResultBaseWrapper> enrichmentBases, SearchValue searchValue) {
-    final String value = searchValue.getValue().toLowerCase(Locale.US);
-    if (!StringUtils.isBlank(value)) {
-      final List<EntityType> entityTypes = searchValue.getEntityTypes();
-      //Language has to be a valid 2 or 3 code, otherwise we do not use it
-      final String inputValueLanguage = searchValue.getLanguage();
-      final String language;
-      if (inputValueLanguage != null && inputValueLanguage.length() == 3) {
-        language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage.toLowerCase(Locale.US));
-      } else if (inputValueLanguage != null && inputValueLanguage.length() == 2) {
-        language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
-      } else {
-        language = null;
-      }
-
-      if (CollectionUtils.isEmpty(entityTypes)) {
-        enrichmentBases
-            .add(new EnrichmentResultBaseWrapper(findEnrichmentTerms(null, value, language)));
-      } else {
-        for (EntityType entityType : entityTypes) {
-          enrichmentBases.add(
-              new EnrichmentResultBaseWrapper(findEnrichmentTerms(entityType, value, language)));
-        }
-      }
-    }
+    return result.values().stream().map(EnrichmentResultBaseWrapper::new).collect(
+        Collectors.toList());
   }
 
   /**
@@ -119,54 +68,16 @@ public class EnrichmentService {
    * @param referenceValue The URI to check for match
    * @return the structured result of the enrichment
    */
-  public EnrichmentBase enrichByEquivalenceValues(ReferenceValue referenceValue) {
+  public List<EnrichmentBase> enrichByEquivalenceValues(ReferenceValue referenceValue) {
+    ReferenceTerm referenceTerm;
+    Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
     try {
-      final List<EntityType> entityTypes = referenceValue.getEntityTypes();
-      List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
-      if (CollectionUtils.isEmpty(entityTypes)) {
-        foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceValue.getReference(),
-            null);
-      } else {
-        for (EntityType entityType : entityTypes) {
-          foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceValue.getReference(),
-              entityType);
-        }
-      }
-
-      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
-        return foundEnrichmentBases.get(0);
-      }
-    } catch (RuntimeException e) {
-      LOGGER.warn("Unable to retrieve entity from id", e);
+      referenceTerm = new ReferenceTermContext(new URL(referenceValue.getReference()), null);
+      result = persistentEntityResolver.resolveByUri(Set.of(referenceTerm));
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
     }
-    return null;
-  }
-
-  private List<EnrichmentBase> searchBasesFirstAboutThenOwlSameAs(String reference,
-      EntityType entityType) {
-    final Pair<String, String> parameterAbout = new ImmutablePair<>(
-        EnrichmentDao.ENTITY_ABOUT_FIELD, reference);
-    final Pair<String, String> parameterOwlSameAs = new ImmutablePair<>(
-        EnrichmentDao.ENTITY_OWL_SAME_AS_FIELD, reference);
-
-    List<EnrichmentBase> foundEnrichmentBases;
-    final List<Pair<String, String>> parametersAbout = new ArrayList<>();
-    final List<Pair<String, String>> parametersOwlSameAs = new ArrayList<>();
-    if (entityType != null) {
-      final ImmutablePair<String, String> parameterEntityType = new ImmutablePair<>(
-          EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name());
-      parametersAbout.add(parameterEntityType);
-      parametersOwlSameAs.add(parameterEntityType);
-    }
-    // Get by about first
-    parametersAbout.add(parameterAbout);
-    foundEnrichmentBases = getEnrichmentTermsAndConvert(parametersAbout);
-    if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
-      // If empty try OwlSameAs
-      parametersOwlSameAs.add(parameterOwlSameAs);
-      foundEnrichmentBases = getEnrichmentTermsAndConvert(parametersOwlSameAs);
-    }
-    return foundEnrichmentBases;
+    return new ArrayList<>(result.values()).get(0);
   }
 
   /**
@@ -176,83 +87,17 @@ public class EnrichmentService {
    * @return the structured result of the enrichment
    */
   public EnrichmentBase enrichById(String entityAbout) {
+    ReferenceTerm referenceTerm;
+    Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
     try {
-      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(Collections
-          .singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, entityAbout)));
-      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
-        return foundEnrichmentBases.get(0);
-      }
-    } catch (RuntimeException e) {
-      LOGGER.warn("Unable to retrieve entity from entityAbout", e);
+      referenceTerm = new ReferenceTermContext(new URL(entityAbout), null);
+      result = persistentEntityResolver.resolveById(Set.of(referenceTerm));
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
     }
-    return null;
+    return new ArrayList<>(result.values()).get(0);
   }
 
-  private List<EnrichmentBase> getEnrichmentTermsAndConvert(
-      List<Pair<String, String>> fieldNamesAndValues) {
-    final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
-    return Converter.convert(enrichmentTerms);
-  }
-
-  private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
-    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
-    fieldNameMap.put(null, fieldNamesAndValues);
-    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
-  }
-
-  private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
-      String termLanguage) {
-
-    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
-    //Find all terms that match label and language. Order of Pairs matter for the query performance.
-    final List<Pair<String, String>> labelInfosFields = new ArrayList<>();
-    labelInfosFields.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
-    //If language not defined we are searching without specifying the language
-    if (StringUtils.isNotBlank(termLanguage)) {
-      labelInfosFields.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
-    }
-
-    final List<Pair<String, String>> enrichmentTermFields = new ArrayList<>();
-
-    if (entityType != null) {
-      enrichmentTermFields
-          .add(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()));
-    }
-    fieldNameMap.put(EnrichmentDao.LABEL_INFOS_FIELD, labelInfosFields);
-    fieldNameMap.put(null, enrichmentTermFields);
-    final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
-        .getAllEnrichmentTermsByFields(fieldNameMap);
-    final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
-        .map(this::findParentEntities).flatMap(List::stream).collect(Collectors.toList());
-
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
-    //Convert to EnrichmentBases
-    enrichmentBases.addAll(Converter.convert(enrichmentTerms));
-    enrichmentBases.addAll(Converter.convert(parentEnrichmentTerms));
-
-    return enrichmentBases;
-  }
-
-  private List<EnrichmentTerm> findParentEntities(EnrichmentTerm enrichmentTerm) {
-    final Set<String> parentAbouts = new HashSet<>();
-    final List<EnrichmentTerm> parentEntities = new ArrayList<>();
-    Predicate<String> isTimespanVeryBroad = parent ->
-        enrichmentTerm.getEntityType().equals(EntityType.TIMESPAN)
-            && PATTERN_MATCHING_VERY_BROAD_TIMESPANS.matcher(parent).matches();
-    String parentAbout = enrichmentTerm.getEnrichmentEntity().getIsPartOf();
-    while (StringUtils.isNotBlank(parentAbout) && !isTimespanVeryBroad.test(parentAbout)) {
-      EnrichmentTerm currentEnrichmentTerm = enrichmentDao
-          .getEnrichmentTermByField(EnrichmentDao.ENTITY_ABOUT_FIELD, parentAbout).orElse(null);
-      //Break when there is no other parent available or when we have already encountered the
-      // same about
-      if (currentEnrichmentTerm == null || !parentAbouts.add(parentAbout)) {
-        break;
-      }
-      parentEntities.add(currentEnrichmentTerm);
-      parentAbout = currentEnrichmentTerm.getEnrichmentEntity().getIsPartOf();
-    }
-    return parentEntities;
-  }
 
   /* --- Organization specific methods, used by the annotations api --- */
 
@@ -266,20 +111,7 @@ public class EnrichmentService {
    */
   public OrganizationEnrichmentEntity saveOrganization(
       OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
-
-    final EnrichmentTerm enrichmentTerm = EntityConverterUtils
-        .organizationImplToEnrichmentTerm(organizationEnrichmentEntity, created, updated);
-
-    final Optional<ObjectId> objectId = enrichmentDao
-        .getEnrichmentTermObjectIdByField(EnrichmentDao.ENTITY_ABOUT_FIELD,
-            organizationEnrichmentEntity.getAbout());
-    objectId.ifPresent(enrichmentTerm::setId);
-
-    //Save term list
-    final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
-    return enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
-        .map(EnrichmentTerm::getEnrichmentEntity).map(OrganizationEnrichmentEntity.class::cast)
-        .orElse(null);
+    return persistentEntityResolver.saveOrganization(organizationEnrichmentEntity, created, updated);
   }
 
   /**
@@ -289,12 +121,7 @@ public class EnrichmentService {
    * @return list of ids of existing organizations
    */
   public List<String> findExistingOrganizations(List<String> organizationIds) {
-    List<String> existingOrganizationIds = new ArrayList<>();
-    for (String id : organizationIds) {
-      Optional<OrganizationEnrichmentEntity> organization = getOrganizationByUri(id);
-      organization.ifPresent(value -> existingOrganizationIds.add(value.getAbout()));
-    }
-    return existingOrganizationIds;
+   return persistentEntityResolver.findExistingOrganizations(organizationIds);
   }
 
   /**
@@ -304,10 +131,7 @@ public class EnrichmentService {
    * @return OrganizationImpl object
    */
   public Optional<OrganizationEnrichmentEntity> getOrganizationByUri(String uri) {
-    final List<EnrichmentTerm> enrichmentTerm = getEnrichmentTerms(
-        Collections.singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, uri)));
-    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getEnrichmentEntity)
-        .map(OrganizationEnrichmentEntity.class::cast);
+   return persistentEntityResolver.getOrganizationByUri(uri);
   }
 
   /**
@@ -316,7 +140,7 @@ public class EnrichmentService {
    * @param organizationIds The organization ids
    */
   public void deleteOrganizations(List<String> organizationIds) {
-    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
+    persistentEntityResolver.deleteOrganizations(organizationIds);
   }
 
   /**
@@ -325,7 +149,7 @@ public class EnrichmentService {
    * @param organizationId The organization id
    */
   public void deleteOrganization(String organizationId) {
-    deleteOrganizations(Collections.singletonList(organizationId));
+    persistentEntityResolver.deleteOrganization(organizationId);
   }
 
   /**
@@ -334,6 +158,6 @@ public class EnrichmentService {
    * @return the date of the latest updated organization
    */
   public Date getDateOfLastUpdatedOrganization() {
-    return enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
+    return persistentEntityResolver.getDateOfLastUpdatedOrganization();
   }
 }

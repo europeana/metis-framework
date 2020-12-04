@@ -5,11 +5,14 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +27,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -224,6 +228,95 @@ public class PersistentEntityResolver implements EntityResolver {
     final Optional<EnrichmentTerm> enrichmentTerm = enrichmentDao
         .getEnrichmentTermByField(pair.getKey(), pair.getValue());
     return enrichmentTerm.isEmpty() ? null : Converter.convert(enrichmentTerm.get());
+  }
+
+  /* --- Organization specific methods, used by the annotations api --- */
+
+  /**
+   * Save an organization to the database
+   *
+   * @param organizationEnrichmentEntity the organization to save
+   * @param created the created date to be used
+   * @param updated the updated date to be used
+   * @return the saved organization
+   */
+  public OrganizationEnrichmentEntity saveOrganization(
+      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
+
+    final EnrichmentTerm enrichmentTerm = EntityConverterUtils
+        .organizationImplToEnrichmentTerm(organizationEnrichmentEntity, created, updated);
+
+    final Optional<ObjectId> objectId = enrichmentDao
+        .getEnrichmentTermObjectIdByField(EnrichmentDao.ENTITY_ABOUT_FIELD,
+            organizationEnrichmentEntity.getAbout());
+    objectId.ifPresent(enrichmentTerm::setId);
+
+    //Save term list
+    final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
+    return enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
+        .map(EnrichmentTerm::getEnrichmentEntity).map(OrganizationEnrichmentEntity.class::cast)
+        .orElse(null);
+  }
+
+  /**
+   * Return the list of ids for existing organizations from database
+   *
+   * @param organizationIds The organization ids to check existence
+   * @return list of ids of existing organizations
+   */
+  public List<String> findExistingOrganizations(List<String> organizationIds) {
+    List<String> existingOrganizationIds = new ArrayList<>();
+    for (String id : organizationIds) {
+      Optional<OrganizationEnrichmentEntity> organization = getOrganizationByUri(id);
+      organization.ifPresent(value -> existingOrganizationIds.add(value.getAbout()));
+    }
+    return existingOrganizationIds;
+  }
+
+  /**
+   * Get an organization by uri
+   *
+   * @param uri The EDM organization uri
+   * @return OrganizationImpl object
+   */
+  public Optional<OrganizationEnrichmentEntity> getOrganizationByUri(String uri) {
+    final List<EnrichmentTerm> enrichmentTerm = getEnrichmentTerms(
+        Collections.singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, uri)));
+    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getEnrichmentEntity)
+        .map(OrganizationEnrichmentEntity.class::cast);
+  }
+
+  private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
+    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
+    fieldNameMap.put(null, fieldNamesAndValues);
+    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
+  }
+
+  /**
+   * Delete organizations from database by given organization ids
+   *
+   * @param organizationIds The organization ids
+   */
+  public void deleteOrganizations(List<String> organizationIds) {
+    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
+  }
+
+  /**
+   * This method removes organization from database by given organization id.
+   *
+   * @param organizationId The organization id
+   */
+  public void deleteOrganization(String organizationId) {
+    deleteOrganizations(Collections.singletonList(organizationId));
+  }
+
+  /**
+   * Get the date of the latest updated organization.
+   *
+   * @return the date of the latest updated organization
+   */
+  public Date getDateOfLastUpdatedOrganization() {
+    return enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
   }
 
 }

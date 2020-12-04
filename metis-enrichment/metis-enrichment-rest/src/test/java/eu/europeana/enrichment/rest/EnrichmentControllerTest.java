@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
@@ -56,7 +57,8 @@ public class EnrichmentControllerTest {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
     ReferenceValue reference = new ReferenceValue(uri, anySet());
-    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(agent);
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(
+        (List<EnrichmentBase>) agent); //TODO: Fix this
     enrichmentControllerMock.perform(get("/enrich/entity/equivalence")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON))
@@ -73,7 +75,8 @@ public class EnrichmentControllerTest {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
     ReferenceValue reference = new ReferenceValue(uri, anySet());
-    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(agent);
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(
+        (List<EnrichmentBase>) agent); //TODO: Fix this
     Map<String, String> namespaceMap = getNamespaceMap();
     enrichmentControllerMock.perform(get("/enrich/entity/equivalence")
         .param("uri", "http://www.example.com")

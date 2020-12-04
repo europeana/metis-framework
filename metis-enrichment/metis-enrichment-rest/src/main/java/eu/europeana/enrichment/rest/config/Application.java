@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.EnrichmentService;
+import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
@@ -82,7 +83,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
-    return new EnrichmentService(enrichmentDao);
+    return new EnrichmentService(new PersistentEntityResolver(enrichmentDao));
   }
 
   @Bean
