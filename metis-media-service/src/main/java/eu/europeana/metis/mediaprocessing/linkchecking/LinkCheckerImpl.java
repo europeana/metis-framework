@@ -23,11 +23,9 @@ public class LinkCheckerImpl implements LinkChecker {
    * Constructor.
    * 
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
-   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
-   * it.
    */
-  public LinkCheckerImpl(int maxRedirectCount, int requestClientRefreshRate) {
-    linkCheckClient = new LinkCheckClient(maxRedirectCount, requestClientRefreshRate);
+  public LinkCheckerImpl(int maxRedirectCount) {
+    linkCheckClient = new LinkCheckClient(maxRedirectCount);
   }
 
   @Override

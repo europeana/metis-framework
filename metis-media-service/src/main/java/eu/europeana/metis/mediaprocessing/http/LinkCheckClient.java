@@ -17,12 +17,9 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
    * Constructor.
    *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
-   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
-   * it.
    */
-  public LinkCheckClient(int maxRedirectCount, int requestClientRefreshRate) {
-    super(maxRedirectCount, CONNECT_TIMEOUT, RESPONSE_TIMEOUT, REQUEST_TIMEOUT,
-            requestClientRefreshRate);
+  public LinkCheckClient(int maxRedirectCount) {
+    super(maxRedirectCount, CONNECT_TIMEOUT, RESPONSE_TIMEOUT, REQUEST_TIMEOUT);
   }
 
   @Override
