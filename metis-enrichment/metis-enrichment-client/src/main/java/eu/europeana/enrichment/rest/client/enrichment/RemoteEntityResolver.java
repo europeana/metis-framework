@@ -59,7 +59,7 @@ public class RemoteEntityResolver implements EntityResolver {
 
     Function<List<SearchTerm>, EnrichmentSearch> inputFunction = partition -> {
       List<SearchValue> referenceValues = partition.stream()
-          .map(uri -> new SearchValue(uri.getTextValue(), uri.getLanguage().toString()))
+          .map(uri -> new SearchValue(uri.getTextValue(), uri.getLanguage()))
           .collect(Collectors.toList());
       final EnrichmentSearch enrichmentSearch = new EnrichmentSearch();
       enrichmentSearch.setSearchValues(referenceValues);
@@ -69,7 +69,7 @@ public class RemoteEntityResolver implements EntityResolver {
     List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
         ENRICH_ENTITY_SEARCH, searchTermList, inputFunction, MediaType.APPLICATION_XML);
 
-    for (int i = 0; i < searchTermList.size(); i++) {
+    for (int i = 0; i < enrichmentResultBaseWrapperList.size(); i++) {
       result.put(searchTermList.get(i), enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
     }
     return result;
