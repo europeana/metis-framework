@@ -10,7 +10,6 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermType;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
-import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;

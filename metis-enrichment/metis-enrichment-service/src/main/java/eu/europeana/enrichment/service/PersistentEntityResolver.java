@@ -8,7 +8,6 @@ import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
