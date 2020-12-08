@@ -1,30 +1,38 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import eu.europeana.metis.mediaprocessing.http.wrappers.CancelableBodyWrapper;
+
+import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandler;
-import java.net.http.HttpResponse.BodyHandlers;
-import java.time.Duration;
+import java.net.URISyntaxException;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CompletableFuture;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response.Status.Family;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.client5.http.protocol.RedirectLocations;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * This class represents an HTTP request client that can be used to resolve a resource link. This
- * client is thread-safe.
+ * client is thread-safe, but the connection settings are tuned for use by one thread only.
  *
  * @param <I> The type of the resource entry (the input object defining the request).
  * @param <R> The type of the resulting/downloaded object (the result of the request).
@@ -33,15 +41,18 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpClient.class);
 
-  private final int connectTimeout;
-  private final int responseTimeout;
-  private final int requestTimeout;
-  private final int maxNumberOfRedirects;
-  private final int requestClientRefreshRate;
+  private static final int HTTP_SUCCESS_MIN_INCLUSIVE = HttpStatus.SC_OK;
+  private static final int HTTP_SUCCESS_MAX_EXCLUSIVE = HttpStatus.SC_MULTIPLE_CHOICES;
 
-  // Don't access these except through the synchronized method.
-  private HttpClient httpClient;
-  private int requestCounter;
+  private static final long CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS = 60L;
+  private static final long MAX_TASK_IDLE_TIME_IN_SECONDS = 300L;
+
+  private final PoolingHttpClientConnectionManager connectionManager;
+  private final CloseableHttpClient client;
+  private final ScheduledExecutorService connectionCleaningSchedule = Executors
+          .newScheduledThreadPool(1);
+
+  private final int requestTimeout;
 
   /**
    * Constructor.
@@ -51,26 +62,37 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param responseTimeout The response timeout in milliseconds.
    * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
    * by then). In milliseconds.
-   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
-   * it.
    */
   AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
-      int requestTimeout, int requestClientRefreshRate) {
-    this.connectTimeout = connectTimeout;
-    this.responseTimeout = responseTimeout;
+          int requestTimeout) {
+
+    // Set the request config settings
+    final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
+            .setConnectTimeout(Timeout.ofMilliseconds(connectTimeout))
+            .setResponseTimeout(Timeout.ofMilliseconds(responseTimeout)).build();
     this.requestTimeout = requestTimeout;
-    this.maxNumberOfRedirects = maxRedirectCount;
-    this.requestClientRefreshRate = requestClientRefreshRate;
+
+    // Create a connection manager tuned to one thread use.
+    connectionManager = new PoolingHttpClientConnectionManager();
+    connectionManager.setDefaultMaxPerRoute(1);
+
+    // Build the client.
+    client = HttpClients.custom().setDefaultRequestConfig(requestConfig)
+            .setConnectionManager(connectionManager).build();
+
+    // Start the cleaning thread.
+    connectionCleaningSchedule.scheduleWithFixedDelay(() -> cleanConnections(connectionManager),
+            CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS, CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS,
+            TimeUnit.SECONDS);
   }
 
-  private synchronized HttpClient getHttpClientForRequest() {
-    if (httpClient == null || requestCounter >= requestClientRefreshRate) {
-      requestCounter = 0;
-      httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofMillis(connectTimeout))
-              .build();
+  private void cleanConnections(PoolingHttpClientConnectionManager connectionManager) {
+    try {
+      connectionManager.closeExpired();
+      connectionManager.closeIdle(TimeValue.ofSeconds(MAX_TASK_IDLE_TIME_IN_SECONDS));
+    } catch (RuntimeException e) {
+      LOGGER.warn("Could not clean up expired and idle connections.", e);
     }
-    requestCounter++;
-    return httpClient;
   }
 
   /**
@@ -85,158 +107,71 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   public R download(I resourceEntry) throws IOException {
 
     // Set up the connection.
-    final URI resourceUri = URI.create(getResourceUrl(resourceEntry));
-    final BodyHandler<InputStream> handler = BodyHandlers.ofInputStream();
-    final CancelableBodyWrapper<InputStream> bodyWrapper = new CancelableBodyWrapper<>(handler);
+    final String resourceUlr = getResourceUrl(resourceEntry);
+    final HttpGet httpGet = new HttpGet(resourceUlr);
+    final HttpClientContext context = HttpClientContext.create();
 
-    // Set up the abort trigger - fill the future later!
-    final CompletableFuture<HttpResponse<InputStream>> futureRequest = new CompletableFuture<>();
+    // Set up the abort trigger
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
-        LOGGER.info("Aborting request due to time limit: {}.", resourceUri.getPath());
-        bodyWrapper.cancel();
-        futureRequest.thenAccept(response -> {
-          try {
-            response.body().close();
-          } catch (IOException e) {
-            LOGGER.warn("Something went wrong while trying to close the input stream after"
-                + " cancelling the http request.", e);
-          }
-        });
+        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
+        httpGet.abort();
       }
     };
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
-    HttpResponse<InputStream> httpResponse = null;
-    try {
+    // Execute the request.
+    try (final CloseableHttpResponse responseObject = client.execute(httpGet, context)) {
 
-      // Execute the request and save the result.
-      final Pair<HttpResponse<InputStream>, URI> redirectedResponse = makeRedirectedRequest(
-          resourceUri, getHttpClientForRequest(), bodyWrapper);
-      final URI actualUri = redirectedResponse.getRight();
-      httpResponse = redirectedResponse.getLeft();
-      futureRequest.complete(httpResponse);
+      // Do first analysis
+      final HttpEntity responseEntity = performThrowingFunction(responseObject, response -> {
+        final int status = response.getCode();
+        if (!httpCallIsSuccessful(status)) {
+          throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
+                  status + " (message: " + response.getReasonPhrase() + ").");
+        }
+        return response.getEntity();
+      });
 
       // Obtain header information.
-      final String mimeType = httpResponse.headers().firstValue(HttpHeaders.CONTENT_TYPE)
-          .filter(StringUtils::isNotBlank).orElse(null);
-      final long fileSize = httpResponse.headers().firstValueAsLong(HttpHeaders.CONTENT_LENGTH)
-          .orElse(0);
+      final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
+              .orElse(null);
+      final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)
+              .filter(size -> size >= 0).orElse(null);
+      final RedirectLocations redirectUris = context.getRedirectLocations();
+      final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
+              : redirectUris.get(redirectUris.size() - 1);
 
       // Process the result.
-      final ContentRetriever content =
-          httpResponse.body() == null ? ContentRetriever.forEmptyContent() : httpResponse::body;
-      final R result;
-      try {
-        result = createResult(resourceEntry, actualUri, mimeType, fileSize <= 0 ? null : fileSize,
-            content);
-      } catch (IOException | RuntimeException e) {
-        if (bodyWrapper.isCancelled()) {
-          throw new IOException("The request was aborted: it exceeded the time limit.", e);
-        } else {
-          throw e;
-        }
-      }
+      final ContentRetriever content = responseEntity == null ?
+              ContentRetriever.forEmptyContent() : responseEntity::getContent;
+      return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
 
-      // If aborted (and createResult did not throw an exception) throw exception anyway.
-      if (bodyWrapper.isCancelled()) {
-        throw new IOException("The request was aborted: it exceeded the time limit.");
-      }
+    } catch (URISyntaxException e) {
 
-      // Done.
-      return result;
+      // Shouldn't really happen.
+      throw new IOException("An unexpected exception occurred.", e);
+
+    } catch (IOException e) {
+
+      // If aborted, provide a nicer message. Otherwise, just rethrow.
+      if (httpGet.isAborted()) {
+        throw new IOException("The request was aborted: it exceeded the time limit.", e);
+      }
+      throw e;
+
     } finally {
 
       // Cancel abort trigger
       timer.cancel();
       abortTask.cancel();
-
-      // Close the connection thread and the response.
-      if (httpResponse != null) {
-        httpResponse.body().close();
-      }
     }
   }
 
-  private Pair<HttpResponse<InputStream>, URI> makeRedirectedRequest(final URI resourceUri,
-      HttpClient httpClient, CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
-
-    // Bootstrap the redirection loop
-    URI currentLocation = resourceUri;
-    HttpResponse<InputStream> currentResponse = null;
-    int redirectsLeft = maxNumberOfRedirects;
-
-    try {
-
-      // Loop while we get redirects.
-      while (true) {
-
-        // Perform the request. If we get a non-redirect result, we're done.
-        currentResponse = makeHttpRequest(currentLocation, httpClient, bodyWrapper);
-        if (Family.familyOf(currentResponse.statusCode()) != Family.REDIRECTION) {
-          break;
-        }
-
-        // So it is a redirect. Check and reduce redirect counter.
-        if (redirectsLeft == 0) {
-          throw new IOException("Could not retrieve the entity: too many redirects.");
-        }
-        redirectsLeft--;
-
-        // Compute current location.
-        currentLocation = currentResponse.headers().firstValue(HttpHeaders.LOCATION)
-            .filter(StringUtils::isNotBlank).map(currentLocation::resolve).orElseThrow(
-                () -> new IOException("There was problems retrieving the redirect Location value"));
-
-        // Prepare for next step.
-        currentResponse.body().close();
-      }
-
-      // If we don't have success, we throw an exception.
-      if (Family.familyOf(currentResponse.statusCode()) != Family.SUCCESSFUL) {
-        throw new IOException(String
-            .format("Download failed of resource %s. Status code %s for location %s", resourceUri,
-                currentResponse.statusCode(), currentLocation));
-      }
-
-      // We have success. Done.
-      return Pair.of(currentResponse, currentLocation);
-
-    } catch (IOException | RuntimeException e) {
-
-      // Make sure to close any response before throwing any exception.
-      if (currentResponse != null) {
-        currentResponse.body().close();
-      }
-      throw e;
-    }
-  }
-
-  private HttpResponse<InputStream> makeHttpRequest(URI uri, HttpClient httpClient,
-      CancelableBodyWrapper<InputStream> bodyWrapper) throws IOException {
-
-    // Create the request.
-    final HttpRequest httpRequest = HttpRequest.newBuilder().GET()
-        .timeout(Duration.ofMillis(responseTimeout)).uri(uri).build();
-
-    // Execute the request.
-    final HttpResponse<InputStream> response;
-    try {
-      response = httpClient.send(httpRequest, bodyWrapper);
-    } catch (InterruptedException interruptedException) {
-      LOGGER.info("The thread was interrupted");
-      Thread.currentThread().interrupt();
-      throw new IOException("Could not retrieve the response: thread was interrupted.",
-          interruptedException);
-    }
-
-    // Return the response object.
-    if (response == null) {
-      throw new IOException("Could not retrieve the response: object was null.");
-    }
-    return response;
+  private static boolean httpCallIsSuccessful(int status) {
+    return status >= HTTP_SUCCESS_MIN_INCLUSIVE && status < HTTP_SUCCESS_MAX_EXCLUSIVE;
   }
 
   /**
@@ -261,17 +196,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param contentRetriever Object that allows access to the resulting data. Note that if this
    * object is not used, the data is not transferred (or the transfer is cancelled). Note that this
    * stream cannot be used after this method returns, as the connection will be closed immediately.
-   * Also, the stream could be closed at any time (e.g. when the request times out), at which point
-   * an exception should be thrown.
    * @return The resulting object.
    * @throws IOException In case a connection or other IO problem occurred.
    */
   protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType, Long fileSize,
-      ContentRetriever contentRetriever) throws IOException;
+          ContentRetriever contentRetriever) throws IOException;
 
   @Override
-  public void close() {
-    // Nothing to do.
+  public void close() throws IOException {
+    connectionCleaningSchedule.shutdown();
+    connectionManager.close();
+    client.close();
   }
 
   /**

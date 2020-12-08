@@ -51,20 +51,12 @@ public class MediaProcessorFactory {
    */
   public static final int DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT = 600_000;
 
-  /**
-   * The default value of the number of requests we do with a request client before we refresh it
-   * (i.e. purge its cache and clear its resources). It's currently set to {@value
-   * MediaProcessorFactory#DEFAULT_REQUEST_CLIENT_REFRESH_RATE} requests.
-   */
-  public static final int DEFAULT_REQUEST_CLIENT_REFRESH_RATE = 50;
-
   private int maxRedirectCount = DEFAULT_MAX_REDIRECT_COUNT;
   private int thumbnailGenerateTimeout = DEFAULT_THUMBNAIL_GENERATE_TIMEOUT;
   private int audioVideoProbeTimeout = DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT;
   private int resourceConnectTimeout = DEFAULT_RESOURCE_CONNECT_TIMEOUT;
   private int resourceResponseTimeout = DEFAULT_RESOURCE_RESPONSE_TIMEOUT;
   private int resourceDownloadTimeout = DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT;
-  private int requestClientRefreshRate = DEFAULT_REQUEST_CLIENT_REFRESH_RATE;
 
   /**
    * Set the maximum number of times we will follow a redirect. The default (when not calling this
@@ -155,21 +147,6 @@ public class MediaProcessorFactory {
   }
 
   /**
-   * Set the number of requests we perform with a given request client before we refresh the client
-   * and purge its cache and clear its resources. The default (when not calling this method or
-   * calling it with zero or a negative number) is {@value MediaProcessorFactory#DEFAULT_REQUEST_CLIENT_REFRESH_RATE}
-   * requests.
-   *
-   * @param requestClientRefreshRate The number of requests we do with a client before refreshing
-   * it.
-   */
-  public void setRequestClientRefreshRate(int requestClientRefreshRate) {
-    this.requestClientRefreshRate =
-            requestClientRefreshRate < 1 ? DEFAULT_REQUEST_CLIENT_REFRESH_RATE
-                    : requestClientRefreshRate;
-  }
-
-  /**
    * Create a media extractor object that can be used to extract media metadata and thumbnails.
    *
    * @return A media extractor.
@@ -178,7 +155,7 @@ public class MediaProcessorFactory {
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
     return new MediaExtractorImpl(maxRedirectCount, thumbnailGenerateTimeout,
         audioVideoProbeTimeout, resourceConnectTimeout, resourceResponseTimeout,
-        resourceDownloadTimeout, requestClientRefreshRate);
+        resourceDownloadTimeout);
   }
 
   /**
@@ -188,6 +165,6 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the link checker.
    */
   public LinkChecker createLinkChecker() throws MediaProcessorException {
-    return new LinkCheckerImpl(maxRedirectCount, requestClientRefreshRate);
+    return new LinkCheckerImpl(maxRedirectCount);
   }
 }
