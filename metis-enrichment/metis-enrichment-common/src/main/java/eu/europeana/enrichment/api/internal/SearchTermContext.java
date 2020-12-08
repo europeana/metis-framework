@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.LanguageCodes;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +10,7 @@ public class SearchTermContext extends AbstractSearchTerm {
 
   private final Set<FieldType> fieldTypes;
 
-  public SearchTermContext(String textValue, LanguageCodes language, Set<FieldType> fieldTypes) {
+  public SearchTermContext(String textValue, String language, Set<FieldType> fieldTypes) {
     super(textValue, language);
     this.fieldTypes = fieldTypes;
   }
@@ -21,27 +20,27 @@ public class SearchTermContext extends AbstractSearchTerm {
     return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toList());
   }
 
+  public Set<FieldType> getFieldTypes() {
+    return fieldTypes;
+  }
+
   @Override
-  public boolean equals(SearchTerm searchTerm) {
-    if(searchTerm == this){
+  public boolean equals(Object other) {
+    if(other == this){
       return true;
     }
 
-    if(!(searchTerm instanceof SearchTermContext)){
+    if(!(other instanceof SearchTermContext)){
       return false;
     }
 
-    SearchTermContext other = (SearchTermContext) searchTerm;
+    SearchTermContext o = (SearchTermContext) other;
 
-    boolean hasSameTextValues = Objects.equals(other.getTextValue(), this.getTextValue());
-    boolean hasSameLanguage = Objects.equals(other.getLanguage(), this.getLanguage());
-    boolean hasSameFieldType = Objects.equals(other.getCandidateTypes(), this.getCandidateTypes());
+    boolean hasSameTextValues = Objects.equals(o.getTextValue(), this.getTextValue());
+    boolean hasSameLanguage = Objects.equals(o.getLanguage(), this.getLanguage());
+    boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
 
     return hasSameTextValues && hasSameLanguage && hasSameFieldType;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.getTextValue(), this.getLanguage(), fieldTypes);
-  }
 }

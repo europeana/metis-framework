@@ -22,26 +22,21 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
   }
 
   @Override
-  public boolean equals(ReferenceTerm referenceTerm) {
+  public boolean equals(Object other) {
 
-    if(referenceTerm == this){
+    if(other == this){
       return true;
     }
 
-    if(!(referenceTerm instanceof ReferenceTermContext)){
+    if(!(other instanceof ReferenceTermContext)){
       return false;
     }
 
-    ReferenceTermContext other = (ReferenceTermContext) referenceTerm;
+    ReferenceTermContext o = (ReferenceTermContext) other;
 
-    boolean hasSameReference = Objects.equals(other.getReference(), this.getReference());
-    boolean hasSameFieldType = Objects.equals(other.getCandidateTypes(), this.getCandidateTypes());
+    boolean hasSameReference = Objects.equals(o.getReference(), this.getReference());
+    boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
 
     return hasSameReference && hasSameFieldType;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.getReference(), fieldTypes);
   }
 }

@@ -16,7 +16,6 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.LanguageCodes;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -55,12 +54,12 @@ public class EnricherImplTest {
     final Place place2 = new Place();
     place2.setAbout("place2");
 
-    SearchTerm searchTerm1 = new SearchTermContext("value1", LanguageCodes.EN,
-        Set.of(FieldType.DC_COVERAGE));
-    SearchTerm searchTerm2 = new SearchTermContext("value2", LanguageCodes.EN,
-        Set.of(FieldType.DC_COVERAGE));
-    SearchTerm searchTerm3 = new SearchTermContext("value3", LanguageCodes.EN,
-        Set.of(FieldType.DC_COVERAGE));
+    SearchTerm searchTerm1 = new SearchTermContext("value1", "en",
+        Set.of(FieldType.DC_CREATOR));
+    SearchTerm searchTerm2 = new SearchTermContext("value2", null,
+        Set.of(FieldType.DC_SUBJECT));
+    SearchTerm searchTerm3 = new SearchTermContext("value3", "pt",
+        Set.of(FieldType.DCTERMS_SPATIAL));
 
     ENRICHMENT_RESULT = new HashMap<>();
     ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
@@ -127,12 +126,11 @@ public class EnricherImplTest {
     // Actually enriching
     verify(remoteEntityResolver, times(1)).resolveByText(enrichmentExtractionCaptor.capture());
 
-    Comparator<SearchTerm> compareValue = (SearchTerm s1, SearchTerm s2) -> s1.getTextValue().compareTo(s2.getTextValue());
+    Comparator<SearchTerm> compareValue = Comparator.comparing(SearchTerm::getTextValue);
 
     List<SearchTerm> expectedValue = ENRICHMENT_EXTRACT_RESULT.stream()
-        .map(pair -> new SearchTermContext(pair.getKey().getValue(),
-            LanguageCodes.convert(pair.getKey().getLanguage()), Set.of(pair.getValue()))).collect(
-            Collectors.toList());
+        .map(pair -> new SearchTermContext(pair.getKey().getValue(), pair.getKey().getLanguage(),
+            Set.of(pair.getValue()))).collect(Collectors.toList());
 
     List<SearchTerm> actualResult = new ArrayList<>(
         List.copyOf(enrichmentExtractionCaptor.getValue()));

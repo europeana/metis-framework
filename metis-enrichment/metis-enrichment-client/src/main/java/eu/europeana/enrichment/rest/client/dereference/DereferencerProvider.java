@@ -2,13 +2,17 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
 import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
+import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DereferencerProvider extends AbstractConnectionProvider {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerProvider.class);
 
   private String dereferenceUrl = null;
   private String enrichmentUrl = null;
@@ -41,7 +45,7 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
    */
-  public Dereferencer create() {
+  public Dereferencer create() throws DereferenceException {
 
     // Make sure that the worker can do something.
     if (StringUtils.isBlank(dereferenceUrl) && StringUtils.isBlank(enrichmentUrl)) {
@@ -64,7 +68,8 @@ public class DereferencerProvider extends AbstractConnectionProvider {
         remoteEntityResolver = new RemoteEntityResolver(new URL(enrichmentUrl),
             batchSizeEnrichment, createRestTemplate());
       } catch (MalformedURLException e) {
-        e.printStackTrace();
+        LOGGER.debug("There was a problem with the input values");
+        throw new DereferenceException("Problems while building a new Dereferencer", e);
       }
     }
 

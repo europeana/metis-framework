@@ -1,12 +1,17 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
+import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EnricherProvider extends AbstractConnectionProvider {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnricherProvider.class);
 
   private String enrichmentUrl = null;
 
@@ -26,7 +31,7 @@ public class EnricherProvider extends AbstractConnectionProvider {
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
    */
-  public Enricher create() {
+  public Enricher create() throws EnrichmentException {
 
     // Make sure that the worker can do something.
     if (StringUtils.isBlank(enrichmentUrl)) {
@@ -41,7 +46,8 @@ public class EnricherProvider extends AbstractConnectionProvider {
         remoteEntityResolver = new RemoteEntityResolver(new URL(enrichmentUrl),
                 batchSizeEnrichment, createRestTemplate());
       } catch (MalformedURLException e) {
-        e.printStackTrace();
+        LOGGER.debug("There was a problem creating entity resolver");
+        throw new EnrichmentException("There was a problem while creating new Enricher", e);
       }
     }
 

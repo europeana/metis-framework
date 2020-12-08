@@ -21,6 +21,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.ws.rs.BadRequestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EnrichmentService {
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
 
   private final PersistentEntityResolver persistentEntityResolver;
 
@@ -54,8 +58,9 @@ public class EnrichmentService {
    */
   public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(
       List<SearchValue> searchValues) {
-    Set<SearchTerm> searchTerms = searchValues.stream().map(search -> new SearchTermType(search.getValue(), LanguageCodes
-        .convert(search.getLanguage()), search.getEntityTypes())).collect(Collectors.toSet());
+    Set<SearchTerm> searchTerms = searchValues.stream().map(
+        search -> new SearchTermType(search.getValue(), search.getLanguage(),
+            search.getEntityTypes())).collect(Collectors.toSet());
     Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver.resolveByText(searchTerms);
 
     return result.values().stream().map(EnrichmentResultBaseWrapper::new).collect(
@@ -70,12 +75,13 @@ public class EnrichmentService {
    */
   public List<EnrichmentBase> enrichByEquivalenceValues(ReferenceValue referenceValue) {
     ReferenceTerm referenceTerm;
-    Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
+    Map<ReferenceTerm, List<EnrichmentBase>> result;
     try {
       referenceTerm = new ReferenceTermType(new URL(referenceValue.getReference()), referenceValue.getEntityTypes());
       result = persistentEntityResolver.resolveByUri(Set.of(referenceTerm));
     } catch (MalformedURLException e) {
-      e.printStackTrace();
+      LOGGER.debug("There was a problem converting the input to ReferenceTermType");
+      throw new BadRequestException("The input values are invalid");
     }
     return new ArrayList<>(result.values()).get(0);
   }
@@ -93,7 +99,8 @@ public class EnrichmentService {
       referenceTerm = new ReferenceTermType(new URL(entityAbout), new ArrayList<>());
       result = persistentEntityResolver.resolveById(Set.of(referenceTerm));
     } catch (MalformedURLException e) {
-      e.printStackTrace();
+      LOGGER.debug("There was a problem converting the input to ReferenceTermType");
+      throw new BadRequestException("The input values are invalid");
     }
     return new ArrayList<>(result.values()).get(0);
   }

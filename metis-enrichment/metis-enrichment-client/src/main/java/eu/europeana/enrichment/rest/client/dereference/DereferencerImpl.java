@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,7 +34,8 @@ public class DereferencerImpl implements Dereferencer {
   private final RemoteEntityResolver remoteEntityResolver;
   private final DereferenceClient dereferenceClient;
 
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine, RemoteEntityResolver remoteEntityResolver,
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine,
+      RemoteEntityResolver remoteEntityResolver,
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.remoteEntityResolver = remoteEntityResolver;
@@ -46,20 +48,10 @@ public class DereferencerImpl implements Dereferencer {
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
     Set<String> resourceIds = extractReferencesForDereferencing(rdf);
-    Set<ReferenceTerm> referenceTerms = resourceIds.stream().map(id -> {
-      ReferenceTerm value = null;
-      try {
-        value = new ReferenceTermType(new URL(id), new ArrayList<>());
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
-
-      return value;
-    }).collect(Collectors.toSet());
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    final List<EnrichmentBase> dereferenceInformation = dereferenceEntities(referenceTerms);
+    final List<EnrichmentBase> dereferenceInformation = dereferenceEntities(resourceIds);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
@@ -71,7 +63,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public List<EnrichmentBase> dereferenceEntities(Set<ReferenceTerm> resourceIds)
+  public List<EnrichmentBase> dereferenceEntities(Set<String> resourceIds)
       throws DereferenceException {
 
     // Sanity check.
@@ -80,13 +72,27 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     // First try to get them from our own entity collection database.
-    final List<EnrichmentBase> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
+    Set<ReferenceTerm> referenceTermSet = new HashSet<>();
+
+    for(String id : resourceIds){
+      final ReferenceTerm referenceTerm;
+      try {
+        referenceTerm = new ReferenceTermType(new URL(id), new ArrayList<>());
+      } catch (MalformedURLException e) {
+        LOGGER.debug("There is a problem with the input values");
+        throw new DereferenceException("There was some problem with the input values while dereferencing", e);
+      }
+
+      referenceTermSet.add(referenceTerm);
+    }
+
+    final List<EnrichmentBase> result = new ArrayList<>(dereferenceOwnEntities(referenceTermSet));
 
     final Set<String> foundOwnEntityIds = result.stream().map(EnrichmentBase::getAbout)
         .collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
-    for (ReferenceTerm resourceId : resourceIds) {
+    for (ReferenceTerm resourceId : referenceTermSet) {
       if (!foundOwnEntityIds.contains(resourceId.getReference().toString())) {
         result.addAll(dereferenceExternalEntity(resourceId.getReference().toString()));
       }

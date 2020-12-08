@@ -27,7 +27,7 @@ public interface Enricher {
    * @return A enrichment result list with the information retrieved to enrich the RDF
    * @throws EnrichmentException
    */
-  List<Pair<EnrichmentBase, FieldType>> enrichValues(List<Pair<SearchValue, FieldType>> valuesForEnrichment)
+  List<Pair<EnrichmentBase, Set<FieldType>>> enrichValues(List<Pair<SearchValue, FieldType>> valuesForEnrichment)
       throws EnrichmentException;
 
   /**
@@ -36,7 +36,7 @@ public interface Enricher {
    * @return A list with RDF fields retrieved and the information associated with it
    * @throws EnrichmentException
    */
-  List<EnrichmentBase> enrichReferences(Set<ReferenceTerm> referencesForEnrichment)
+  List<EnrichmentBase> enrichReferences(Map<String, Set<FieldType>> referencesForEnrichment)
       throws EnrichmentException;
 
   /**

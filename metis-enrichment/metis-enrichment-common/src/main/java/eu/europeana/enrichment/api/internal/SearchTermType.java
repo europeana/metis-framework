@@ -9,7 +9,7 @@ public class SearchTermType extends AbstractSearchTerm{
 
   private List<EntityType> entityTypes;
 
-  public SearchTermType(String textValue, LanguageCodes language, List<EntityType> entityTypes) {
+  public SearchTermType(String textValue, String language, List<EntityType> entityTypes) {
     super(textValue, language);
     this.entityTypes = entityTypes;
   }
@@ -20,27 +20,23 @@ public class SearchTermType extends AbstractSearchTerm{
   }
 
   @Override
-  public boolean equals(SearchTerm searchTerm) {
-    if(searchTerm == this){
+  public boolean equals(Object other) {
+    if(other == this){
       return true;
     }
 
-    if(!(searchTerm instanceof SearchTermType)){
+    if(!(other instanceof SearchTermType)){
       return false;
     }
 
-    SearchTermType other = (SearchTermType) searchTerm;
+    SearchTermType o = (SearchTermType) other;
 
 
-    boolean hasSameTextValues = Objects.equals(other.getTextValue(), this.getTextValue());
-    boolean hasSameLanguage = Objects.equals(other.getLanguage(), this.getLanguage());
-    boolean hasSameFieldType = Objects.equals(other.getCandidateTypes(), this.getCandidateTypes());
+    boolean hasSameTextValues = Objects.equals(o.getTextValue(), this.getTextValue());
+    boolean hasSameLanguage = Objects.equals(o.getLanguage(), this.getLanguage());
+    boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
 
     return hasSameTextValues && hasSameLanguage && hasSameFieldType;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(this.getTextValue(), this.getLanguage(), entityTypes);
-  }
 }

@@ -117,13 +117,13 @@ public class PersistentEntityResolver implements EntityResolver {
     if (!StringUtils.isBlank(value)) {
       final List<EntityType> entityTypes = searchTerm.getCandidateTypes();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
-      final LanguageCodes inputValueLanguage = searchTerm.getLanguage();
+      final String inputValueLanguage = searchTerm.getLanguage();
       final String language;
-      if (inputValueLanguage != null && inputValueLanguage.name().length() == 3) {
-        language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage.name());
-      } else if (inputValueLanguage != null && inputValueLanguage.name().length() == 2) {
+      if (inputValueLanguage != null && inputValueLanguage.length() == 3) {
+        language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage);
+      } else if (inputValueLanguage != null && inputValueLanguage.length() == 2) {
         language =
-            ALL_2CODE_LANGUAGES.contains(inputValueLanguage.name()) ? inputValueLanguage.name()
+            ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage
                 : null;
       } else {
         language = null;

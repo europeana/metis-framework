@@ -14,7 +14,6 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermType;
 import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.LanguageCodes;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -70,9 +69,9 @@ public class DereferencerImplTest {
         new EnrichmentResultList(enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
 
-    SearchTerm searchTerm1 = new SearchTermType("value1", LanguageCodes.EN, List.of(EntityType.PLACE));
-    SearchTerm searchTerm2 = new SearchTermType("value2", LanguageCodes.EN, List.of(EntityType.CONCEPT));
-    SearchTerm searchTerm3 = new SearchTermType("value3", LanguageCodes.EN, List.of(EntityType.AGENT));
+    SearchTerm searchTerm1 = new SearchTermType("value1", "en", List.of(EntityType.PLACE));
+    SearchTerm searchTerm2 = new SearchTermType("value2", "en", List.of(EntityType.CONCEPT));
+    SearchTerm searchTerm3 = new SearchTermType("value3", "en", List.of(EntityType.AGENT));
 
     ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
     ENRICHMENT_RESULT.put(searchTerm2, null);

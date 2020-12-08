@@ -8,12 +8,14 @@ public interface SearchTerm {
 
   List<EntityType> getCandidateTypes();
 
-  boolean equals(SearchTerm searchTerm);
+  @Override
+  boolean equals(Object other);
 
- int hashCode();
+  @Override
+  int hashCode();
 
   String getTextValue();
 
-  LanguageCodes getLanguage();
+  String getLanguage();
 
 }

@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
