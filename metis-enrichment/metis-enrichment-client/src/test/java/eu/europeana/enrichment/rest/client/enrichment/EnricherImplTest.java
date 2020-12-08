@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anySet;
@@ -165,7 +166,7 @@ public class EnricherImplTest {
             enrichmentResultCaptor.getAllValues().size());
     for (List<EnrichmentBase> capturedMerge : foundValues) {
       for (EnrichmentBase capturedMergedItem : capturedMerge) {
-        assertSame(expectedMerges.get(currentPointer), capturedMergedItem);
+        assertTrue(expectedMerges.contains(capturedMergedItem));
         currentPointer++;
       }
     }
