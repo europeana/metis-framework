@@ -17,16 +17,17 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.execution.QueueConsumer;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
+import eu.europeana.metis.core.execution.SemaphoresPerPluginManager;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.execution.WorkflowPostProcessor;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
-import eu.europeana.metis.core.service.WorkflowExecutionFactory;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
+import eu.europeana.metis.core.service.WorkflowExecutionFactory;
 import eu.europeana.metis.exception.GenericMetisException;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
@@ -110,8 +111,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     //Does not close the channel if an unhandled exception occurred
     //Can happen in QueueConsumer and it's safe to not handle the execution, it will be picked up
     //again from the failsafe Executor.
-    connectionFactory.setExceptionHandler(
-        new ForgivingExceptionHandler());
+    connectionFactory.setExceptionHandler(new ForgivingExceptionHandler());
     connection = connectionFactory.newConnection();
     return connection;
   }
@@ -144,37 +144,34 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
     SingleServerConfig singleServerConfig;
     if (propertiesHolder.isRedisEnableSSL()) {
-      singleServerConfig = config.useSingleServer()
-          .setAddress(
-              String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
-                  .getRedisPort()));
+      singleServerConfig = config.useSingleServer().setAddress(String
+          .format("rediss://%s:%s", propertiesHolder.getRedisHost(),
+              propertiesHolder.getRedisPort()));
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
         singleServerConfig
             .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
       }
     } else {
-      singleServerConfig = config.useSingleServer()
-          .setAddress(
-              String.format("redis://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
-                  .getRedisPort()));
+      singleServerConfig = config.useSingleServer().setAddress(String
+          .format("redis://%s:%s", propertiesHolder.getRedisHost(),
+              propertiesHolder.getRedisPort()));
     }
     if (StringUtils.isNotEmpty(propertiesHolder.getRedisPassword())) {
       singleServerConfig.setPassword(propertiesHolder.getRedisPassword());
     }
-    config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(
-        propertiesHolder
-            .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
+    config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(propertiesHolder
+        .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
     return redissonClient;
   }
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-          WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
-          DatasetDao datasetDao, WorkflowExecutionFactory workflowExecutionFactory,
-          WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer,
-          DepublishRecordIdDao depublishRecordIdDao) {
+      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils, DatasetDao datasetDao,
+      WorkflowExecutionFactory workflowExecutionFactory,
+      WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer,
+      DepublishRecordIdDao depublishRecordIdDao) {
     OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
         workflowDao, workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager,
         redissonClient, authorizer, depublishRecordIdDao);
@@ -186,9 +183,8 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
       WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
       DatasetXsltDao datasetXsltDao, DepublishRecordIdDao depublishRecordIdDao) {
-    WorkflowExecutionFactory workflowExecutionFactory =
-        new WorkflowExecutionFactory(datasetXsltDao, depublishRecordIdDao, workflowExecutionDao,
-            workflowUtils);
+    WorkflowExecutionFactory workflowExecutionFactory = new WorkflowExecutionFactory(datasetXsltDao,
+        depublishRecordIdDao, workflowExecutionDao, workflowUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
@@ -218,24 +214,28 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public WorkflowPostProcessor workflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
       DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
-    return new WorkflowPostProcessor(depublishRecordIdDao, datasetDao, workflowExecutionDao, dpsClient);
+    return new WorkflowPostProcessor(depublishRecordIdDao, datasetDao, workflowExecutionDao,
+        dpsClient);
+  }
+
+  @Bean
+  public SemaphoresPerPluginManager semaphoresPerPluginManager() {
+    return new SemaphoresPerPluginManager(propertiesHolder.getMaxConcurrentThreads());
   }
 
   @Bean
   public WorkflowExecutorManager getWorkflowExecutorManager(
+      SemaphoresPerPluginManager semaphoresPerPluginManager,
       WorkflowExecutionDao workflowExecutionDao, WorkflowPostProcessor workflowPostProcessor,
       @Qualifier("rabbitmqPublisherChannel") Channel rabbitmqPublisherChannel,
       @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel,
       RedissonClient redissonClient, DpsClient dpsClient) {
-    WorkflowExecutorManager workflowExecutorManager =
-        new WorkflowExecutorManager(workflowExecutionDao, workflowPostProcessor,
-            rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient, dpsClient);
+    WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
+        semaphoresPerPluginManager, workflowExecutionDao, workflowPostProcessor,
+        rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
-    workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager
         .setDpsMonitorCheckIntervalInSecs(propertiesHolder.getDpsMonitorCheckIntervalInSecs());
-    workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
-        propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInSecs());
     workflowExecutorManager.setPeriodOfNoProcessedRecordsChangeInMinutes(
         propertiesHolder.getPeriodOfNoProcessedRecordsChangeInMinutes());
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
@@ -247,10 +247,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public WorkflowExecutionDao getWorkflowExecutionDao(
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    WorkflowExecutionDao workflowExecutionDao = new WorkflowExecutionDao(
-        morphiaDatastoreProvider);
-    workflowExecutionDao.setWorkflowExecutionsPerRequest(
-        RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
+    WorkflowExecutionDao workflowExecutionDao = new WorkflowExecutionDao(morphiaDatastoreProvider);
+    workflowExecutionDao
+        .setWorkflowExecutionsPerRequest(RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
     workflowExecutionDao
         .setMaxServedExecutionListLength(propertiesHolder.getMaxServedExecutionListLength());
     return workflowExecutionDao;
@@ -280,12 +279,12 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
     // Computes the leniency for the failsafe action: how long ago (worst case) can the last update
     // time have been set before we assume the execution hangs.
-    final Duration failsafeLeniency =
-        Duration.ZERO.plusMillis(propertiesHolder.getDpsConnectTimeoutInMillisecs())
-            .plusMillis(propertiesHolder.getDpsReadTimeoutInMillisecs())
-            .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
-            .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
-            .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
+    final Duration failsafeLeniency = Duration.ZERO
+        .plusMillis(propertiesHolder.getDpsConnectTimeoutInMillisecs())
+        .plusMillis(propertiesHolder.getDpsReadTimeoutInMillisecs())
+        .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
+        .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
+        .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
 
     // Create and return the workflow execution monitor.
     workflowExecutionMonitor = new WorkflowExecutionMonitor(workflowExecutorManager,
@@ -295,8 +294,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public SchedulerExecutor getSchedulingExecutor(OrchestratorService orchestratorService,
-      ScheduleWorkflowService scheduleWorkflowService,
-      RedissonClient redissonClient) {
+      ScheduleWorkflowService scheduleWorkflowService, RedissonClient redissonClient) {
     schedulerExecutor = new SchedulerExecutor(orchestratorService, scheduleWorkflowService,
         redissonClient);
     return schedulerExecutor;
@@ -318,8 +316,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     LOGGER.info("Failsafe task finished.");
   }
 
-  @Scheduled(fixedDelayString = "${periodic.scheduler.check.in.millisecs}",
-      initialDelayString = "${periodic.scheduler.check.in.millisecs}")
+  @Scheduled(fixedDelayString = "${periodic.scheduler.check.in.millisecs}", initialDelayString = "${periodic.scheduler.check.in.millisecs}")
   public void runSchedulingExecutor() {
     LOGGER.info("Scheduler task started (runs every {} milliseconds).",
         propertiesHolder.getPeriodicSchedulerCheckInMillisecs());

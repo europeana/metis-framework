@@ -8,10 +8,6 @@ interface WorkflowExecutionSettings {
 
   int getDpsMonitorCheckIntervalInSecs();
 
-  int getMaxConcurrentThreads();
-
-  int getPollingTimeoutForCleaningCompletionServiceInSecs();
-
   int getPeriodOfNoProcessedRecordsChangeInMinutes();
 
   String getEcloudBaseUrl();

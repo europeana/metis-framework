@@ -1,21 +1,24 @@
 package eu.europeana.metis.core.execution;
 
-import com.rabbitmq.client.AMQP.BasicProperties;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.PreDestroy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import javax.annotation.PreDestroy;
+import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Class that handles the initializing connection to the RabbitMQ distributed queue and handling the
@@ -25,16 +28,17 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-13
  */
+@EnableScheduling
 public class QueueConsumer extends DefaultConsumer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(QueueConsumer.class);
 
   private final WorkflowExecutionSettings workflowExecutionSettings;
-  private final PersistenceProvider persistenceProvider;
+  private final WorkflowExecutorManager workflowExecutorManager;
   private final WorkflowExecutionMonitor workflowExecutionMonitor;
 
   private final ExecutorService threadPool;
-  private final ExecutorCompletionService<WorkflowExecution> completionService;
+  private final ExecutorCompletionService<Pair<WorkflowExecution, Boolean>> completionService;
   private int threadsCounter;
 
   /**
@@ -44,18 +48,18 @@ public class QueueConsumer extends DefaultConsumer {
    * @param rabbitmqConsumerChannel the consumer channel of the queue
    * @param rabbitmqQueueName the queue name
    * @param workflowExecutionSettings the object that contains execution related settings
-   * @param persistenceProvider the object that contains persistence related objects
+   * @param workflowExecutorManager the object that contains persistence related objects
    * @param workflowExecutionMonitor the object used to monitor executions
    * @throws IOException if the consumer channel initialization fails
    */
   public QueueConsumer(Channel rabbitmqConsumerChannel, String rabbitmqQueueName,
-      WorkflowExecutionSettings workflowExecutionSettings, PersistenceProvider persistenceProvider,
+      WorkflowExecutionSettings workflowExecutionSettings,
+      WorkflowExecutorManager workflowExecutorManager,
       WorkflowExecutionMonitor workflowExecutionMonitor) throws IOException {
-    super(persistenceProvider.getRabbitmqConsumerChannel());
+    super(workflowExecutorManager.getRabbitmqConsumerChannel());
     this.workflowExecutionSettings = workflowExecutionSettings;
-    this.persistenceProvider = persistenceProvider;
-    threadPool =
-        Executors.newFixedThreadPool(this.workflowExecutionSettings.getMaxConcurrentThreads());
+    this.workflowExecutorManager = workflowExecutorManager;
+    threadPool = Executors.newCachedThreadPool();
     completionService = new ExecutorCompletionService<>(threadPool);
     this.workflowExecutionMonitor = workflowExecutionMonitor;
 
@@ -75,85 +79,74 @@ public class QueueConsumer extends DefaultConsumer {
       AMQP.BasicProperties properties, byte[] body) throws IOException {
     String objectId = new String(body, StandardCharsets.UTF_8);
     LOGGER.info("WorkflowExecution id: {} received from queue.", objectId);
-    //Clean thread pool, some executions might have already finished
-    if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
-      LOGGER.debug(
-          "Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
-          threadsCounter, workflowExecutionSettings.getMaxConcurrentThreads());
-      checkAndCleanCompletionService();
-    }
 
-    boolean sendAck = true;
     try {
-      WorkflowExecution workflowExecution =
-          persistenceProvider.getWorkflowExecutionDao().getById(objectId);
+      WorkflowExecution workflowExecution = workflowExecutorManager.getWorkflowExecutionDao()
+          .getById(objectId);
       if (workflowExecution == null) {
         // This execution no longer exists and we need to ignore it.
         LOGGER.warn("Workflow execution with id: {} is in queue but no longer exists.", objectId);
       } else if (workflowExecution.isCancelling()) {
         // Has been cancelled, do not execute
         workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
-        persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
+        workflowExecutorManager.getWorkflowExecutionDao().update(workflowExecution);
         LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
             workflowExecution.getId());
       } else {
-        sendAck = submitExecutionOrMarkNack(objectId);
+        submitExecution(objectId);
       }
     } catch (RuntimeException e) {
       LOGGER.error(
           "Exception occurred during submitting message from queue to a workflowExecution for id {}",
           objectId, e);
     } finally {
-      sendAckOrNack(rabbitmqEnvelope, objectId, sendAck);
+      sendAck(rabbitmqEnvelope, objectId);
     }
   }
 
-  private boolean submitExecutionOrMarkNack(String objectId) {
-    boolean sendAck;
-    //If the thread pool is still full, executions are still active. Flag to send the message back to the queue.
-    if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
-      sendAck = false;
-    } else {
-      // Submit for execution
-      WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
-          workflowExecutionSettings, workflowExecutionMonitor);
-      completionService.submit(workflowExecutor);
-      threadsCounter++;
-      sendAck = true;
-    }
-    return sendAck;
+  private void submitExecution(String objectId) {
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, workflowExecutorManager,
+        workflowExecutionSettings, workflowExecutionMonitor);
+    completionService.submit(workflowExecutor);
+    threadsCounter++;
   }
 
-  private void sendAckOrNack(Envelope rabbitmqEnvelope, String objectId, boolean sendAck)
-      throws IOException {
-    if (sendAck) {
-      // Send ACK back to remove from queue asap.
-      super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
-      LOGGER.debug("ACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
-    } else {
-      //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
-      //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
-      super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
-      LOGGER.debug("NACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
-    }
+  private void sendAck(Envelope rabbitmqEnvelope, String objectId) throws IOException {
+    // Send ACK back to remove from queue asap.
+    super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
+    LOGGER.debug("ACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
   }
 
+  @Scheduled(fixedDelay = 5000)
   private void checkAndCleanCompletionService() throws IOException {
-    //Block for a small period and try cleaning up
+    LOGGER.debug("Wait till next task finishes, threadsCounter: {}", threadsCounter);
     try {
-      Future<WorkflowExecution> userWorkflowExecutionFuture = completionService
-          .poll(workflowExecutionSettings.getPollingTimeoutForCleaningCompletionServiceInSecs(),
-              TimeUnit.SECONDS);
-      if (userWorkflowExecutionFuture != null) {
+      Future<Pair<WorkflowExecution, Boolean>> userWorkflowExecutionFuture = completionService
+          .poll();
+      while (userWorkflowExecutionFuture != null) {
         threadsCounter--;
-      }
-      while (completionService.poll() != null) {
-        threadsCounter--;
+        final WorkflowExecution workflowExecution = userWorkflowExecutionFuture.get().getLeft();
+        if (workflowExecution != null) {
+          boolean wasExecutionClaimedAndPluginRan = userWorkflowExecutionFuture.get().getRight();
+          LOGGER.debug("workflowExecutionId: {} - Task finished", workflowExecution.getId());
+          //If a plugin did not run, we are sending it back to queue so another instance can pick it up
+          if (!wasExecutionClaimedAndPluginRan) {
+            LOGGER.debug("workflowExecutionId: {} - Sent to queue because execution could "
+                    + "not be claimed or plugin could not run in this instance",
+                workflowExecution.getId());
+            workflowExecutorManager
+                .addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
+                    workflowExecution.getWorkflowPriority());
+          }
+        }
+        userWorkflowExecutionFuture = completionService.poll();
       }
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
       throw new IOException(
           "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
+    } catch (ExecutionException e) {
+      throw new IOException("Exception occurred in Future task", e);
     }
   }
 

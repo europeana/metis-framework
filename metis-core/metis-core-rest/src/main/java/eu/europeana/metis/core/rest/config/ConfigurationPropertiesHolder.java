@@ -34,8 +34,6 @@ public class ConfigurationPropertiesHolder {
   private int periodicFailsafeCheckInMillisecs;
   @Value("${periodic.scheduler.check.in.millisecs}")
   private int periodicSchedulerCheckInMillisecs;
-  @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
-  private int pollingTimeoutForCleaningCompletionServiceInSecs;
   @Value("${period.of.no.processed.records.change.in.minutes}")
   private int periodOfNoProcessedRecordsChangeInMinutes;
 
@@ -181,10 +179,6 @@ public class ConfigurationPropertiesHolder {
 
   public int getPeriodicSchedulerCheckInMillisecs() {
     return periodicSchedulerCheckInMillisecs;
-  }
-
-  public int getPollingTimeoutForCleaningCompletionServiceInSecs() {
-    return pollingTimeoutForCleaningCompletionServiceInSecs;
   }
 
   public int getPeriodOfNoProcessedRecordsChangeInMinutes() {

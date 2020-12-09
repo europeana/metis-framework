@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
@@ -38,7 +40,9 @@ public class WorkflowExecutionMonitor {
   private final Duration failsafeLeniency;
   private final RLock lock;
 
-  /** The currently running executions. **/
+  /**
+   * The currently running executions.
+   **/
   private Map<String, WorkflowExecutionEntry> currentRunningExecutions = Collections.emptyMap();
 
   /**
@@ -62,11 +66,12 @@ public class WorkflowExecutionMonitor {
   List<WorkflowExecution> updateCurrentRunningExecutions() {
 
     // Get all workflow executions that are currently running
-    final List<WorkflowExecution> allRunningWorkflowExecutions =
-        getWorkflowExecutionsWithStatus(WorkflowStatus.RUNNING);
+    final List<WorkflowExecution> allRunningWorkflowExecutions = getWorkflowExecutionsWithStatus(
+        WorkflowStatus.RUNNING);
 
     // Go by all running executions and compare them with the data we already have.
-    final Map<String, WorkflowExecutionEntry> newExecutions = new HashMap<>(allRunningWorkflowExecutions.size());
+    final Map<String, WorkflowExecutionEntry> newExecutions = new HashMap<>(
+        allRunningWorkflowExecutions.size());
     for (WorkflowExecution execution : allRunningWorkflowExecutions) {
       final WorkflowExecutionEntry currentEntry = getEntry(execution);
       final WorkflowExecutionEntry newEntry;
@@ -139,12 +144,12 @@ public class WorkflowExecutionMonitor {
     // Get all the executions, using paging.
     final List<WorkflowExecution> workflowExecutions = new ArrayList<>();
     int nextPage = 0;
-    ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper =
-        new ResponseListWrapper<>();
+    ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
     do {
       userWorkflowExecutionResponseListWrapper.clear();
-      final ResultList<WorkflowExecution> result = workflowExecutionDao.getAllWorkflowExecutions(
-              null, EnumSet.of(workflowStatus), DaoFieldNames.ID, true, nextPage, 1, true);
+      final ResultList<WorkflowExecution> result = workflowExecutionDao
+          .getAllWorkflowExecutions(null, EnumSet.of(workflowStatus), DaoFieldNames.ID, true,
+              nextPage, 1, true);
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(result.getResults(),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage,
           result.isMaxResultCountReached());
@@ -170,12 +175,12 @@ public class WorkflowExecutionMonitor {
    * postpone the decision (by denying it now). This shouldn't happen.</li>
    * <li>In all other cases permission is granted: the execution is determined to be hanging.</li>
    * </ol>
-   * 
+   *
    * @param workflowExecutionId The ID of the workflow execution which the caller wishes to claim.
    * @return A recent version of the workflow execution if the claim is granted. Null if the claim
-   *         is denied.
+   * is denied.
    */
-  public WorkflowExecution claimExecution(String workflowExecutionId) {
+  public Pair<WorkflowExecution, Boolean> claimExecution(String workflowExecutionId) {
 
     try {
 
@@ -185,26 +190,23 @@ public class WorkflowExecutionMonitor {
       // Retrieve the most current version of the execution.
       final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 
-      // If we can't claim the execution, we're done.
-      if (!mayClaimExecution(workflowExecution)) {
-        return null;
+      final boolean claimed = mayClaimExecution(workflowExecution);
+      if (claimed) {
+        //Update dates
+        final Date now = new Date();
+        workflowExecution.setUpdatedDate(now);
+        if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
+          workflowExecution.setStartedDate(now);
+          workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+        }
+        workflowExecutionDao.updateMonitorInformation(workflowExecution);
       }
 
-      // Otherwise prepare the execution for running.
-      final Date now = new Date();
-      workflowExecution.setUpdatedDate(now);
-      if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
-        workflowExecution.setStartedDate(now);
-        workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-      }
-      workflowExecutionDao.updateMonitorInformation(workflowExecution);
-
-      // Done
-      return workflowExecution;
+      return new ImmutablePair<>(workflowExecution, claimed);
 
     } catch (RuntimeException e) {
       LOGGER.warn("Exception thrown while claiming workflow execution.", e);
-      return null;
+      return new ImmutablePair<>(null, false);
     } finally {
       lock.unlock();
     }
@@ -260,7 +262,9 @@ public class WorkflowExecutionMonitor {
      **/
     private final Instant executionUpdateTime;
 
-    /** This is the date on this machine. Can be treated as a time. **/
+    /**
+     * This is the date on this machine. Can be treated as a time.
+     **/
     private final Instant timeOfLastUpdateTimeChange;
 
     public WorkflowExecutionEntry(Date updateTime) {
@@ -270,7 +274,7 @@ public class WorkflowExecutionMonitor {
 
     /**
      * Determines whether the given update time is equal to the one we know.
-     * 
+     *
      * @param otherUpdateTime the update time to compare.
      * @return Whether it is equal to the one we have in the entry.
      */
@@ -282,7 +286,7 @@ public class WorkflowExecutionMonitor {
     /**
      * Determines whether this workflow execution is hanging according to the given leniency. It is
      * assumed to be hanging if we obtained the last update more than the leniency period ago.
-     * 
+     *
      * @param leniency The leniency with which to decide whether the execution is hanging.
      * @return Whether or not the execution is assumed to be hanging.
      */

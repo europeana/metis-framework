@@ -46,6 +46,15 @@ public enum ExecutablePluginType {
     return pluginType;
   }
 
+  public static ExecutablePluginType getExecutablePluginFromPluginType(PluginType pluginType) {
+    for (ExecutablePluginType executablePluginType : values()) {
+      if (executablePluginType.pluginType.equals(pluginType)) {
+        return executablePluginType;
+      }
+    }
+    return null;
+  }
+
   /**
    * Lookup of a {@link ExecutablePluginType} enum from a provided enum String representation of the
    * enum value.
