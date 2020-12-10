@@ -119,7 +119,7 @@ public class QueueConsumer extends DefaultConsumer {
 
   @Scheduled(fixedDelay = 5000)
   private void checkAndCleanCompletionService() throws IOException {
-    LOGGER.debug("Wait till next task finishes, threadsCounter: {}", threadsCounter);
+    LOGGER.debug("Check if we have a task that has finished, threadsCounter: {}", threadsCounter);
     try {
       Future<Pair<WorkflowExecution, Boolean>> userWorkflowExecutionFuture = completionService
           .poll();
@@ -128,9 +128,10 @@ public class QueueConsumer extends DefaultConsumer {
         final WorkflowExecution workflowExecution = userWorkflowExecutionFuture.get().getLeft();
         if (workflowExecution != null) {
           boolean wasExecutionClaimedAndPluginRan = userWorkflowExecutionFuture.get().getRight();
-          LOGGER.debug("workflowExecutionId: {} - Task finished", workflowExecution.getId());
           //If a plugin did not run, we are sending it back to queue so another instance can pick it up
-          if (!wasExecutionClaimedAndPluginRan) {
+          if (wasExecutionClaimedAndPluginRan) {
+            LOGGER.debug("workflowExecutionId: {} - Task finished", workflowExecution.getId());
+          } else {
             LOGGER.debug("workflowExecutionId: {} - Sent to queue because execution could "
                     + "not be claimed or plugin could not run in this instance",
                 workflowExecution.getId());

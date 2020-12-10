@@ -91,19 +91,20 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   public Pair<WorkflowExecution, Boolean> call() {
 
     // Claim the execution: if this claim is denied, we stop this execution.
-    LOGGER.info("Claiming workflow execution with id: {}", workflowExecutionId);
+    LOGGER.info("workflowExecutionId: {} - Claiming workflow execution", workflowExecutionId);
     final Pair<WorkflowExecution, Boolean> workflowExecutionClaimedPair = workflowExecutionMonitor
         .claimExecution(this.workflowExecutionId);
     workflowExecution = workflowExecutionClaimedPair.getLeft();
     final Boolean workflowClaimed = workflowExecutionClaimedPair.getRight();
     if (workflowClaimed.equals(Boolean.FALSE)) {
-      LOGGER.info("Discarding WorkflowExecution with id: {}, it could not be claimed.",
-          workflowExecutionId);
+      LOGGER
+          .info("workflowExecutionId: {} - Discarding workflow execution, it could not be claimed.",
+              workflowExecutionId);
       return new ImmutablePair<>(workflowExecution, Boolean.FALSE);
     }
 
     // Perform the work - run the workflow.
-    LOGGER.info("Starting user workflow execution with id: {} and priority {}",
+    LOGGER.info("workflowExecutionId: {}, priority {} - Starting workflow execution",
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
     final Pair<Date, Boolean> didPluginRunDatePair = runInqueueOrRunningStateWorkflowExecution();
     final Date finishDate = didPluginRunDatePair.getLeft();
@@ -119,16 +120,22 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         String cancelledBy = workflowExecutionDao.getById(workflowExecution.getId().toString())
             .getCancelledBy();
         workflowExecution.setCancelledBy(cancelledBy);
-        LOGGER.info("Cancelled running workflow execution with id: {}", workflowExecution.getId());
+        LOGGER.info("workflowExecutionId: {} - Cancelled running workflow execution",
+            workflowExecution.getId());
       } else if (finishDate == null && didPluginRun) {
         // One plugin failed, or we are being interrupted
         workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
-      } else if (finishDate != null) {
+      } else if (finishDate == null) {
+        LOGGER
+            .info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to run",
+                workflowExecutionId);
+      } else {
         // If the workflow finished successfully, we record this.
         workflowExecution.setFinishedDate(finishDate);
         workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
         workflowExecution.setCancelling(false);
-        LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
+        LOGGER.info("workflowExecutionId: {} - Finished workflow execution",
+            workflowExecution.getId());
       }
     }
 
@@ -194,8 +201,15 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
   private boolean runMetisPluginWithSemaphoreAllocation(int i, AbstractMetisPlugin plugin)
       throws InterruptedException {
+    // Sanity check
+    if (plugin == null) {
+      throw new IllegalStateException("Plugin cannot be null.");
+    }
+    // Check the plugin: it has to be executable
+    AbstractExecutablePlugin executablePlugin = expectExecutablePlugin(plugin);
+
     final ExecutablePluginType executablePluginType = ExecutablePluginType
-        .getExecutablePluginFromPluginType(plugin.getPluginType());
+        .getExecutablePluginFromPluginType(executablePlugin.getPluginType());
     if (executablePluginType == null) {
       throw new IllegalStateException("Plugin type cannot be null.");
     }
@@ -207,22 +221,21 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       try {
         //Update date for workflow execution so that it does not become stale
         final Date updatedDate = new Date();
-        plugin.setUpdatedDate(updatedDate);
+        executablePlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
         if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
           workflowExecution.setStartedDate(updatedDate);
           workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
         }
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
-        LOGGER.debug("Acquired semaphore for workflowExecutionId: {} and executablePluginType: {}",
+        LOGGER.debug("workflowExecutionId: {}, executablePluginType: {} - Acquired semaphore",
             workflowExecutionId, executablePluginType);
         final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
-        runMetisPlugin(plugin, startDateToUse, workflowExecution.getDatasetId());
+        runMetisPlugin(executablePlugin, startDateToUse, workflowExecution.getDatasetId());
       } finally {
-        semaphoresPerPluginManager.getUnmodifiableMaxThreadsPerPlugin()
-            .get(ExecutablePluginType.getExecutablePluginFromPluginType(plugin.getPluginType()))
-            .release();
-        LOGGER.debug("Released semaphore for workflowExecutionId: {} and executablePluginType: {}",
+        semaphoresPerPluginManager.getUnmodifiableMaxThreadsPerPlugin().get(ExecutablePluginType
+            .getExecutablePluginFromPluginType(executablePlugin.getPluginType())).release();
+        LOGGER.debug("workflowExecutionId: {}, executablePluginType: {} - Released semaphore",
             workflowExecutionId, executablePluginType);
       }
     }
@@ -233,29 +246,17 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
    * It will prepare the plugin, request the external execution and will periodically monitor,
    * update the plugin's progress and at the end finalize the plugin's status and finished date.
    *
-   * @param pluginUnchecked the plugin to run
+   * @param executablePlugin the plugin to run
    * @param startDateToUse The date that should be used as start date (if the plugin is not already
    * running).
    * @param datasetId The dataset ID.
    */
-  private void runMetisPlugin(AbstractMetisPlugin pluginUnchecked, Date startDateToUse,
+  private void runMetisPlugin(AbstractExecutablePlugin<?> executablePlugin, Date startDateToUse,
       String datasetId) {
-
-    // Sanity check
-    if (pluginUnchecked == null) {
-      throw new IllegalStateException("Plugin cannot be null.");
-    }
-
-    // Trigger the plugin (if it has not already started)
-    final AbstractExecutablePlugin<?> plugin;
     try {
-
-      // Check the plugin: it has to be executable
-      plugin = expectExecutablePlugin(pluginUnchecked);
-
       // Compute previous plugin revision information. Only need to look within the workflow: when
       // scheduling the workflow, the previous plugin information is set for the first plugin.
-      final AbstractExecutablePluginMetadata metadata = plugin.getPluginMetadata();
+      final AbstractExecutablePluginMetadata metadata = executablePlugin.getPluginMetadata();
       if (metadata.getRevisionTimestampPreviousPlugin() == null
           || metadata.getRevisionNamePreviousPlugin() == null) {
         final AbstractExecutablePlugin predecessor = WorkflowUtils
@@ -266,20 +267,23 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       }
 
       // Start execution if it has not already started
-      if (StringUtils.isEmpty(plugin.getExternalTaskId())) {
-        if (plugin.getPluginStatus() == PluginStatus.INQUEUE) {
-          plugin.setStartedDate(startDateToUse);
+      if (StringUtils.isEmpty(executablePlugin.getExternalTaskId())) {
+        if (executablePlugin.getPluginStatus() == PluginStatus.INQUEUE) {
+          executablePlugin.setStartedDate(startDateToUse);
         }
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
             getExternalTaskIdOfPreviousPlugin(metadata), metisCoreBaseUrl);
-        plugin.execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
+        executablePlugin
+            .execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
-      LOGGER.warn("Execution of plugin failed", e);
-      pluginUnchecked.setFinishedDate(null);
-      pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-      pluginUnchecked.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
+      LOGGER.warn(String
+          .format("workflowExecutionId: %s, pluginType: %s - Execution of plugin " + "failed",
+              workflowExecutionId, executablePlugin.getPluginType()), e);
+      executablePlugin.setFinishedDate(null);
+      executablePlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+      executablePlugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
           ExceptionUtils.getStackTrace(e)));
       return;
     } finally {
@@ -288,7 +292,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    periodicCheckingLoop(sleepTime, plugin, datasetId);
+    periodicCheckingLoop(sleepTime, executablePlugin, datasetId);
   }
 
   private String getExternalTaskIdOfPreviousPlugin(
@@ -340,11 +344,15 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
                 ? PluginStatus.CLEANING : PluginStatus.RUNNING);
       } catch (InterruptedException e) {
-        LOGGER.warn("Thread was interrupted during monitoring of external task", e);
+        LOGGER.warn(String.format(
+            "workflowExecutionId: %s, pluginType: %s - Thread was interrupted during monitoring of external task",
+            workflowExecutionId, plugin.getPluginType()), e);
         currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
-        LOGGER.warn("ExternalTaskException occurred.", e);
+        LOGGER.warn(String
+            .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
+                workflowExecutionId, plugin.getPluginType()), e);
         if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
             UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)) {
           // Set plugin to FAILED and return immediately
@@ -356,8 +364,9 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         }
         consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(String.format(
-            "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
-            consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
+            "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
+            workflowExecutionId, plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
+            MAX_CANCEL_OR_MONITOR_FAILURES), e);
         if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
           //Set pending status once
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
