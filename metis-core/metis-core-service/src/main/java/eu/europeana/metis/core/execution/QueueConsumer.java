@@ -70,10 +70,32 @@ public class QueueConsumer extends DefaultConsumer {
     rabbitmqConsumerChannel.basicConsume(rabbitmqQueueName, false, this);
   }
 
-  //Does not run as a thread. Each execution will run separately one after the other for each consumption
-  //Make sure that if an exception occurs from mongo connections, the related "current" execution is safe
-  //to not be processed in this run and will be picked up on a later stage. See also the configuration of
-  //the related ConnectionFactory.
+  /**
+   * Handles each consumed message from the queue.
+   * <p>
+   * Does not run as a thread. Each execution will run separately one after the other for each
+   * consumption. Make sure that if an exception occurs from mongo connections, the related
+   * "current" execution is safe to not be processed in this run and will be picked up on a later
+   * stage. See also the configuration of the related {@link com.rabbitmq.client.ConnectionFactory}.
+   * </p>
+   * <p>
+   * Each message consumed is a workflow execution identifier which is used to retrieve a {@link
+   * WorkflowExecution} from the database. That workflow execution is then provided to a {@link
+   * WorkflowExecutor} which is a {@link java.util.concurrent.Callable} and is in turn submitted to
+   * the {@link ExecutorCompletionService} in this class. If everything goes well the message is
+   * finally ACKed to the queue.
+   * </p>
+   * <p>
+   * Cleanup and identification of submitted and finished tasks is controlled as a {@link Scheduled}
+   * thread in the method {@link #checkAndCleanCompletionService}.
+   * </p>
+   *
+   * @param consumerTag the consumer tage
+   * @param rabbitmqEnvelope the rabbitmq envelope
+   * @param properties the queue properties
+   * @param body the body of the consumed message
+   * @throws IOException if an exception occurred while sending an ACK back to the queue
+   */
   @Override
   public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
       AMQP.BasicProperties properties, byte[] body) throws IOException {
@@ -125,21 +147,7 @@ public class QueueConsumer extends DefaultConsumer {
           .poll();
       while (userWorkflowExecutionFuture != null) {
         threadsCounter--;
-        final WorkflowExecution workflowExecution = userWorkflowExecutionFuture.get().getLeft();
-        if (workflowExecution != null) {
-          boolean wasExecutionClaimedAndPluginRan = userWorkflowExecutionFuture.get().getRight();
-          //If a plugin did not run, we are sending it back to queue so another instance can pick it up
-          if (wasExecutionClaimedAndPluginRan) {
-            LOGGER.debug("workflowExecutionId: {} - Task finished", workflowExecution.getId());
-          } else {
-            LOGGER.debug("workflowExecutionId: {} - Sent to queue because execution could "
-                    + "not be claimed or plugin could not run in this instance",
-                workflowExecution.getId());
-            workflowExecutorManager
-                .addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
-                    workflowExecution.getWorkflowPriority());
-          }
-        }
+        checkCollectedFuture(userWorkflowExecutionFuture);
         userWorkflowExecutionFuture = completionService.poll();
       }
     } catch (InterruptedException e) {
@@ -148,6 +156,37 @@ public class QueueConsumer extends DefaultConsumer {
           "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
     } catch (ExecutionException e) {
       throw new IOException("Exception occurred in Future task", e);
+    }
+  }
+
+  /**
+   * Checks if the workflow execution was run as expected.
+   * <p>
+   * If one of the plugins was not allowed to run therefore the workflow execution did not complete
+   * as a whole then we are resending the execution identifier back to the queue. If this execution
+   * needs to be prioritized then the priority should be updated inside the {@link
+   * java.util.concurrent.Callable}
+   * </p>
+   *
+   * @param userWorkflowExecutionFuture the workflow execution future
+   * @throws InterruptedException if we were interrupted
+   * @throws ExecutionException if the submitted execution on the completion service failed
+   */
+  private void checkCollectedFuture(
+      Future<Pair<WorkflowExecution, Boolean>> userWorkflowExecutionFuture)
+      throws InterruptedException, ExecutionException {
+    final WorkflowExecution workflowExecution = userWorkflowExecutionFuture.get().getLeft();
+    if (workflowExecution != null) {
+      boolean wasExecutionClaimedAndPluginRan = userWorkflowExecutionFuture.get().getRight();
+      //If a plugin did not run, we are sending it back to queue so another instance can pick it up
+      if (wasExecutionClaimedAndPluginRan) {
+        LOGGER.debug("workflowExecutionId: {} - Task finished", workflowExecution.getId());
+      } else {
+        LOGGER.debug("workflowExecutionId: {} - Sent to queue because execution could "
+            + "not be claimed or plugin could not run in this instance", workflowExecution.getId());
+        workflowExecutorManager.addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
+            workflowExecution.getWorkflowPriority());
+      }
     }
   }
 

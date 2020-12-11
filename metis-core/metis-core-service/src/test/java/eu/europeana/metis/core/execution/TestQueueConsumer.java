@@ -63,7 +63,7 @@ class TestQueueConsumer {
 
   @BeforeAll
   static void prepare() {
-    semaphoresPerPluginManager = new SemaphoresPerPluginManager(2);
+    semaphoresPerPluginManager = new SemaphoresPerPluginManager(1, 2);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);

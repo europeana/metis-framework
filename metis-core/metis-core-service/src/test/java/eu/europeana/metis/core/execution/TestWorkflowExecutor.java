@@ -63,7 +63,7 @@ class TestWorkflowExecutor {
     workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
-    persistenceProvider = new PersistenceProvider(null, null, new SemaphoresPerPluginManager(2),
+    persistenceProvider = new PersistenceProvider(null, null, new SemaphoresPerPluginManager(1, 2),
         workflowExecutionDao, workflowPostProcessor, null, dpsClient);
     workflowExecutionSettings = Mockito.mock(WorkflowExecutionSettings.class);
     when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);

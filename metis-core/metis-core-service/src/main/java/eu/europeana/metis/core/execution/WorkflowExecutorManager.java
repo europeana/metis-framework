@@ -35,6 +35,7 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   /**
    * Autowired constructor.
    *
+   * @param semaphoresPerPluginManager the semaphores per plugin manager
    * @param workflowExecutionDao the DAO for accessing WorkflowExecutions
    * @param workflowPostProcessor the workflow post processor
    * @param rabbitmqPublisherChannel the channel for publishing to RabbitMQ

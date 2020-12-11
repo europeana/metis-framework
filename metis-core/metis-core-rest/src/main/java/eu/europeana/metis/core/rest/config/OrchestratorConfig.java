@@ -220,7 +220,8 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public SemaphoresPerPluginManager semaphoresPerPluginManager() {
-    return new SemaphoresPerPluginManager(propertiesHolder.getMaxConcurrentThreads());
+    return new SemaphoresPerPluginManager(propertiesHolder.getFailsafeMarginOfInactivityInSecs(),
+        propertiesHolder.getMaxConcurrentThreads());
   }
 
   @Bean

@@ -108,10 +108,10 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
     final Pair<Date, Boolean> didPluginRunDatePair = runInqueueOrRunningStateWorkflowExecution();
     final Date finishDate = didPluginRunDatePair.getLeft();
-    final Boolean didPluginRun = didPluginRunDatePair.getRight();
+    final Boolean didPluginsRun = didPluginRunDatePair.getRight();
 
+    // Process the results if we were not interrupted
     if (!currentThread().isInterrupted()) {
-      // Process the results
       if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
         // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
         // plugins.
@@ -122,10 +122,13 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         workflowExecution.setCancelledBy(cancelledBy);
         LOGGER.info("workflowExecutionId: {} - Cancelled running workflow execution",
             workflowExecution.getId());
-      } else if (finishDate == null && didPluginRun) {
-        // One plugin failed, or we are being interrupted
+      } else if (finishDate == null && didPluginsRun) {
+        // One plugin failed
         workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
       } else if (finishDate == null) {
+        // A plugin was not allowed to run because of no slot space
+        // Increase priority for this execution
+        workflowExecution.setWorkflowPriority(workflowExecution.getWorkflowPriority() + 1);
         LOGGER
             .info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to run",
                 workflowExecutionId);
@@ -142,33 +145,38 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     // The only full update is used here. The rest of the execution uses partial updates to avoid
     // losing the cancelling state field
     workflowExecutionDao.update(workflowExecution);
-    return new ImmutablePair<>(workflowExecution, didPluginRun);
+    return new ImmutablePair<>(workflowExecution, didPluginsRun);
   }
 
   /**
    * Will determine from which plugin of the workflow to start execution from and will iterate
-   * through the plugins of the workflow one by one.
+   * through the plugins of the workflow and run them one by one.
+   * <p>It returns a {@link Pair} of a finished {@link Date} and a {@link Boolean} flag.
+   * <ul>
+   *   <li>
+   *     The Date represents the finished date of the workflow or null if it did not finish
+   *     as expected. That can happen if an error occurred or some plugin was not permitted to
+   *     run.
+   *   </li>
+   *   <li>
+   *     The Boolean flag represents true if all plugins were allowed to run or false if one of
+   *     the plugins was not allowed to run.
+   *   </li>
+   * </ul>
+   * </p>
    *
-   * @return The date the full workflow finished (or null if it did not finish successfully).
+   * @return The pair of date and boolean flag
    */
   private Pair<Date, Boolean> runInqueueOrRunningStateWorkflowExecution() {
 
     // Find the first plugin to continue execution from
-    int firstPluginPositionToStart = 0;
-    for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
-      AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
-      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
-          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
-        firstPluginPositionToStart = i;
-        break;
-      }
-    }
+    int firstPluginPositionToStart = getFirstPluginPositionToStart();
 
     boolean didPluginRun = true;
+    boolean continueNextPlugin = true;
     // One by one start the plugins of the workflow
-    for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size(); i++) {
+    for (int i = firstPluginPositionToStart;
+        i < workflowExecution.getMetisPlugins().size() && continueNextPlugin; i++) {
       final AbstractMetisPlugin plugin = workflowExecution.getMetisPlugins().get(i);
 
       try {
@@ -177,14 +185,10 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       } catch (InterruptedException e) {
         currentThread().interrupt();
       }
-      final boolean shouldExecutionOfPluginsStop =
-          currentThread().isInterrupted() || !didPluginRun || (
-              workflowExecutionDao.isCancelling(workflowExecution.getId())
-                  && plugin.getFinishedDate() == null)
-              || plugin.getPluginStatus() == PluginStatus.FAILED;
-      if (shouldExecutionOfPluginsStop) {
-        break;
-      }
+      continueNextPlugin = !currentThread().isInterrupted() && didPluginRun && (
+          !workflowExecutionDao.isCancelling(workflowExecution.getId())
+              || plugin.getFinishedDate() != null)
+          && plugin.getPluginStatus() != PluginStatus.FAILED;
     }
 
     // Compute the finished date
@@ -199,6 +203,35 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     return new ImmutablePair<>(finishDate, didPluginRun);
   }
 
+  private int getFirstPluginPositionToStart() {
+    int firstPluginPositionToStart = 0;
+    for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
+      AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
+      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
+        firstPluginPositionToStart = i;
+        break;
+      }
+    }
+    return firstPluginPositionToStart;
+  }
+
+  /**
+   * Tries to acquire a semaphore permission corresponding to the provided plugin's type.
+   * <ol>
+   *   <li>If semaphore permission granted then there is space for that plugin and the plugin
+   *   starts</li>
+   *   <li>If semaphore permission NOT granted then the plugin din not run and a false flag is
+   *   send back as a return result</li>
+   * </ol>
+   *
+   * @param i the index of the plugin in the list of plugins inside the workflow execution
+   * @param plugin the provided plugin to be ran
+   * @return true if plugin ran, false if plugin did not run
+   * @throws InterruptedException if an interruption occurred
+   */
   private boolean runMetisPluginWithSemaphoreAllocation(int i, AbstractMetisPlugin plugin)
       throws InterruptedException {
     // Sanity check
@@ -214,9 +247,9 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       throw new IllegalStateException("Plugin type cannot be null.");
     }
 
-    //Try acquire semaphore and run plugin
-    boolean acquired = semaphoresPerPluginManager.getUnmodifiableMaxThreadsPerPlugin()
-        .get(executablePluginType).tryAcquire(5, TimeUnit.SECONDS);
+    //Try acquire semaphore and run plugin. Don't forget to release
+    boolean acquired = semaphoresPerPluginManager
+        .tryAcquireForExecutablePluginType(executablePluginType);
     if (acquired) {
       try {
         //Update date for workflow execution so that it does not become stale
@@ -233,8 +266,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
         runMetisPlugin(executablePlugin, startDateToUse, workflowExecution.getDatasetId());
       } finally {
-        semaphoresPerPluginManager.getUnmodifiableMaxThreadsPerPlugin().get(ExecutablePluginType
-            .getExecutablePluginFromPluginType(executablePlugin.getPluginType())).release();
+        semaphoresPerPluginManager.releaseForPluginType(executablePluginType);
         LOGGER.debug("workflowExecutionId: {}, executablePluginType: {} - Released semaphore",
             workflowExecutionId, executablePluginType);
       }
@@ -364,7 +396,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         }
         consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(String.format(
-            "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
+            "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "
+                + "consecutive times. After exceeding %s retries, pending status will be set",
             workflowExecutionId, plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
             MAX_CANCEL_OR_MONITOR_FAILURES), e);
         if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
