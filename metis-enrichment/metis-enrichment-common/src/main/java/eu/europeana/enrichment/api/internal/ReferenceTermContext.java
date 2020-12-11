@@ -13,7 +13,7 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
 
   public ReferenceTermContext(URL reference, Set<FieldType> fieldTypes) {
     super(reference);
-    this.fieldTypes = fieldTypes;
+    this.fieldTypes = Set.copyOf(fieldTypes);
   }
 
   @Override
@@ -24,19 +24,15 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
   @Override
   public boolean equals(Object other) {
 
-    if(other == this){
-      return true;
-    }
-
-    if(!(other instanceof ReferenceTermContext)){
-      return false;
-    }
-
     ReferenceTermContext o = (ReferenceTermContext) other;
 
-    boolean hasSameReference = Objects.equals(o.getReference(), this.getReference());
     boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
 
-    return hasSameReference && hasSameFieldType;
+    return super.equals(other) && hasSameFieldType;
+  }
+
+  @Override
+  public int hashCode(){
+    return Objects.hash(this.getReference(), fieldTypes);
   }
 }

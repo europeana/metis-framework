@@ -1,24 +1,35 @@
 package eu.europeana.enrichment.api.internal;
 
-import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.LanguageCodes;
-import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractSearchTerm implements SearchTerm {
 
-  private String textValue;
-  private LanguageCodes language;
+  private final String textValue;
+  private final LanguageCodes language;
 
   public AbstractSearchTerm(String textValue, String language){
     this.textValue = textValue;
     this.language = LanguageCodes.convert(language);
   }
 
-  public abstract List<EntityType> getCandidateTypes();
-
   @Override
-  public abstract boolean equals(Object other);
+  public boolean equals(Object other){
+    if(other == this){
+      return true;
+    }
+
+    if(other == null || getClass() != other.getClass()){
+      return false;
+    }
+
+    SearchTermContext o = (SearchTermContext) other;
+
+    boolean hasSameTextValues = Objects.equals(o.getTextValue(), this.getTextValue());
+    boolean hasSameLanguage = Objects.equals(o.getLanguage(), this.getLanguage());
+
+    return hasSameTextValues && hasSameLanguage;
+  }
 
   @Override
   public int hashCode(){

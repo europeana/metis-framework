@@ -8,11 +8,5 @@ public interface ReferenceTerm {
 
   List<EntityType> getCandidateTypes();
 
-  @Override
-  boolean equals(Object other);
-
-  @Override
-  int hashCode();
-
   URL getReference();
 }

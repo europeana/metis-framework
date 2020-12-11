@@ -69,9 +69,9 @@ public class DereferencerImplTest {
         new EnrichmentResultList(enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
 
-    SearchTerm searchTerm1 = new SearchTermType("value1", "en", List.of(EntityType.PLACE));
-    SearchTerm searchTerm2 = new SearchTermType("value2", "en", List.of(EntityType.CONCEPT));
-    SearchTerm searchTerm3 = new SearchTermType("value3", "en", List.of(EntityType.AGENT));
+    SearchTerm searchTerm1 = new SearchTermType("value1", "en", Set.of(EntityType.PLACE));
+    SearchTerm searchTerm2 = new SearchTermType("value2", "en", Set.of(EntityType.CONCEPT));
+    SearchTerm searchTerm3 = new SearchTermType("value3", "en", Set.of(EntityType.AGENT));
 
     ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
     ENRICHMENT_RESULT.put(searchTerm2, null);

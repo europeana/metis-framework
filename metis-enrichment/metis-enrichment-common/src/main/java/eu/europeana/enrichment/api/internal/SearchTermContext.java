@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -12,7 +13,7 @@ public class SearchTermContext extends AbstractSearchTerm {
 
   public SearchTermContext(String textValue, String language, Set<FieldType> fieldTypes) {
     super(textValue, language);
-    this.fieldTypes = fieldTypes;
+    this.fieldTypes = Set.copyOf(fieldTypes);
   }
 
   @Override
@@ -21,26 +22,22 @@ public class SearchTermContext extends AbstractSearchTerm {
   }
 
   public Set<FieldType> getFieldTypes() {
-    return fieldTypes;
+    return new HashSet<>(fieldTypes);
   }
 
   @Override
   public boolean equals(Object other) {
-    if(other == this){
-      return true;
-    }
-
-    if(!(other instanceof SearchTermContext)){
-      return false;
-    }
 
     SearchTermContext o = (SearchTermContext) other;
 
-    boolean hasSameTextValues = Objects.equals(o.getTextValue(), this.getTextValue());
-    boolean hasSameLanguage = Objects.equals(o.getLanguage(), this.getLanguage());
     boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
 
-    return hasSameTextValues && hasSameLanguage && hasSameFieldType;
+    return super.equals(other) && hasSameFieldType;
+  }
+
+  @Override
+  public int hashCode(){
+    return Objects.hash(getTextValue(), getLanguage(), fieldTypes);
   }
 
 }

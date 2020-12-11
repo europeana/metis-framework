@@ -77,7 +77,7 @@ public class DereferencerImpl implements Dereferencer {
     for(String id : resourceIds){
       final ReferenceTerm referenceTerm;
       try {
-        referenceTerm = new ReferenceTermType(new URL(id), new ArrayList<>());
+        referenceTerm = new ReferenceTermType(new URL(id), new HashSet<>());
       } catch (MalformedURLException e) {
         LOGGER.debug("There is a problem with the input values");
         throw new DereferenceException("There was some problem with the input values while dereferencing", e);

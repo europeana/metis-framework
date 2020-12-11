@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class EnrichmentService {
       List<SearchValue> searchValues) {
     Set<SearchTerm> searchTerms = searchValues.stream().map(
         search -> new SearchTermType(search.getValue(), search.getLanguage(),
-            search.getEntityTypes())).collect(Collectors.toSet());
+            Set.copyOf(search.getEntityTypes()))).collect(Collectors.toSet());
     Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver.resolveByText(searchTerms);
 
     return result.values().stream().map(EnrichmentResultBaseWrapper::new).collect(
@@ -76,7 +77,7 @@ public class EnrichmentService {
     ReferenceTerm referenceTerm;
     Map<ReferenceTerm, List<EnrichmentBase>> result;
     try {
-      referenceTerm = new ReferenceTermType(new URL(referenceValue.getReference()), referenceValue.getEntityTypes());
+      referenceTerm = new ReferenceTermType(new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
       result = persistentEntityResolver.resolveByUri(Set.of(referenceTerm));
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
@@ -95,7 +96,7 @@ public class EnrichmentService {
     ReferenceTerm referenceTerm;
     Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
     try {
-      referenceTerm = new ReferenceTermType(new URL(entityAbout), new ArrayList<>());
+      referenceTerm = new ReferenceTermType(new URL(entityAbout), new HashSet<>());
       result = persistentEntityResolver.resolveById(Set.of(referenceTerm));
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");

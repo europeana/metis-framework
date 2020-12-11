@@ -17,8 +17,23 @@ public abstract class AbstractReferenceTerm implements ReferenceTerm{
     return reference;
   }
 
-  public abstract boolean equals(Object other);
+  @Override
+  public boolean equals(Object other){
+    if(other == this){
+      return true;
+    }
 
+    if(other == null || getClass() != other.getClass()){
+      return false;
+    }
+
+    ReferenceTermContext o = (ReferenceTermContext) other;
+
+    return Objects.equals(o.getReference(), this.getReference());
+
+  }
+
+  @Override
   public int hashCode(){
     return Objects.hash(this.getReference());
   }

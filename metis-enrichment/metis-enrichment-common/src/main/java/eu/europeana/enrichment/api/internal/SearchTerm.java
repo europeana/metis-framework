@@ -7,12 +7,6 @@ public interface SearchTerm {
 
   List<EntityType> getCandidateTypes();
 
-  @Override
-  boolean equals(Object other);
-
-  @Override
-  int hashCode();
-
   String getTextValue();
 
   String getLanguage();

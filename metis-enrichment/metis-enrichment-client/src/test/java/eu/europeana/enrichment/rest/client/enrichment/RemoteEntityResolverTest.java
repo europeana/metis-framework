@@ -70,8 +70,8 @@ public class RemoteEntityResolverTest {
 
     final RemoteEntityResolver remoteEntityResolver = spy(new RemoteEntityResolver(new URL("http://example.com"), 20, restTemplate));
     Set<SearchTerm> setToTest = new HashSet<>();
-    setToTest.add(new SearchTermType("Paris", "en", List.of(EntityType.PLACE)));
-    setToTest.add(new SearchTermType("London", "en", List.of(EntityType.PLACE)));
+    setToTest.add(new SearchTermType("Paris", "en", Set.of(EntityType.PLACE)));
+    setToTest.add(new SearchTermType("London", "en", Set.of(EntityType.PLACE)));
 
     Map<SearchTerm, List<EnrichmentBase>> res = remoteEntityResolver.resolveByText(setToTest);
 
@@ -112,7 +112,7 @@ public class RemoteEntityResolverTest {
         new RemoteEntityResolver(new URL("http://dummy"), 20, restTemplate));
 
     Map<ReferenceTerm, List<EnrichmentBase>> res = remoteEntityResolver
-        .resolveByUri(Set.of(new ReferenceTermType(new URL("http://test"), new ArrayList<>())));
+        .resolveByUri(Set.of(new ReferenceTermType(new URL("http://test"), new HashSet<>())));
     verify(restTemplate, times(1))
         .exchange(any(URI.class), eq(HttpMethod.GET), any(HttpEntity.class),
             eq(EnrichmentBase.class));
