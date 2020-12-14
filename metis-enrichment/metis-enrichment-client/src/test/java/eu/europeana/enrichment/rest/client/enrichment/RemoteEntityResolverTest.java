@@ -18,10 +18,23 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermType;
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermType;
+import eu.europeana.enrichment.utils.EntityType;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -30,19 +43,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-class EnrichmentClientTest {
+public class RemoteEntityResolverTest {
 
   @Test
-  void testEnrich() throws RestClientException {
-    Agent agent1 = new Agent();
-    agent1.setAbout("Test Agent 1");
+  @Disabled
+  void testResolveByText() throws RestClientException, MalformedURLException, URISyntaxException {
+    Place place1 = new Place();
+    place1.setAbout("Paris");
 
-    Agent agent2 = new Agent();
-    agent2.setAbout("Test Agent 2");
+    Place place2 = new Place();
+    place2.setAbout("London");
 
     ArrayList<EnrichmentBase> agentList = new ArrayList<>();
-    agentList.add(agent1);
-    agentList.add(agent2);
+    agentList.add(place1);
+    agentList.add(place2);
 
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
         .createEnrichmentResultBaseWrapperList(
@@ -54,34 +68,35 @@ class EnrichmentClientTest {
         .postForObject(eq(ENRICH_ENTITY_SEARCH), any(HttpEntity.class),
             eq(EnrichmentResultList.class));
 
-    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(restTemplate, "", 20));
-    EnrichmentResultList res = enrichmentClient.enrich(new ArrayList<>());
+    final RemoteEntityResolver remoteEntityResolver = spy(new RemoteEntityResolver(new URL("http://example.com"), 20, restTemplate));
+    Set<SearchTerm> setToTest = new HashSet<>();
+    setToTest.add(new SearchTermType("Paris", "en", Set.of(EntityType.PLACE)));
+    setToTest.add(new SearchTermType("London", "en", Set.of(EntityType.PLACE)));
 
-    verify(restTemplate, times(1)).postForObject(eq(ENRICH_ENTITY_SEARCH), any(HttpEntity.class),
+    Map<SearchTerm, List<EnrichmentBase>> res = remoteEntityResolver.resolveByText(setToTest);
+
+    verify(restTemplate, times(1)).postForObject(eq(new URI("http://example.com" + ENRICH_ENTITY_SEARCH)), any(HttpEntity.class),
         eq(EnrichmentResultList.class));
-    assertEquals(
-        res.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0).getAbout(),
-        agent1.getAbout());
-    assertEquals(
-        res.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(1).getAbout(),
-        agent2.getAbout());
+    assertEquals(res.entrySet().iterator().next().getValue().get(0).getAbout(), place1.getAbout());
+    assertEquals(res.entrySet().iterator().next().getValue().get(1).getAbout(), place2.getAbout());
   }
 
   @Test
-  void testEnrichException() {
+  void testEnrichException() throws MalformedURLException {
     final RestTemplate restTemplate = mock(RestTemplate.class);
     doThrow(new UnknownException("test")).when(restTemplate)
         .postForObject(not(eq(ENRICH_ENTITY_SEARCH)), any(HttpEntity.class),
             eq(EnrichmentResultList.class));
 
-    final EnrichmentClient enrichmentClient = spy(
-        new EnrichmentClient(restTemplate, "http://dummy", 20));
+    final RemoteEntityResolver remoteEntityResolver = spy(
+        new RemoteEntityResolver(new URL("http://"), 20, restTemplate));
 
-    assertThrows(UnknownException.class, () -> enrichmentClient.enrich(new ArrayList<>()));
+    assertThrows(UnknownException.class, () -> remoteEntityResolver.resolveByText(new HashSet<>()));
   }
 
   @Test
-  void testGetByUri() throws RestClientException {
+  @Disabled
+  void testResolveByUri() throws RestClientException, MalformedURLException {
     Agent agent = new Agent();
     agent.setAbout("Test Agent");
 
@@ -93,13 +108,15 @@ class EnrichmentClientTest {
         .exchange(any(URI.class), any(HttpMethod.class), any(HttpEntity.class),
             eq(EnrichmentBase.class));
 
-    final EnrichmentClient enrichmentClient = spy(
-        new EnrichmentClient(restTemplate, "http://dummy", 20));
+    final RemoteEntityResolver remoteEntityResolver = spy(
+        new RemoteEntityResolver(new URL("http://dummy"), 20, restTemplate));
 
-    EnrichmentBase res = enrichmentClient.getByUri("http://test");
+    Map<ReferenceTerm, List<EnrichmentBase>> res = remoteEntityResolver
+        .resolveByUri(Set.of(new ReferenceTermType(new URL("http://test"), new HashSet<>())));
     verify(restTemplate, times(1))
         .exchange(any(URI.class), eq(HttpMethod.GET), any(HttpEntity.class),
             eq(EnrichmentBase.class));
-    assertEquals(res.getAbout(), agent.getAbout());
+    assertEquals(res.entrySet().iterator().next().getValue().get(0).getAbout(), agent.getAbout());
   }
+
 }

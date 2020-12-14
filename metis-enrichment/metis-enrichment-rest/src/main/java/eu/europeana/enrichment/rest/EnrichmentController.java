@@ -80,7 +80,8 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase equivalence(@ApiParam("uri") @RequestParam("uri") String uri) {
     return enrichmentService
-        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
+        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet())).get(0);
+    //TODO 07-12-2020: For this case it is expected only one as a result, but we should handle this better in the future
   }
 
   /**
@@ -102,7 +103,7 @@ public class EnrichmentController {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
         .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
         .filter(Objects::nonNull)
-        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base)))
+        .map(EnrichmentResultBaseWrapper::new)
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
 

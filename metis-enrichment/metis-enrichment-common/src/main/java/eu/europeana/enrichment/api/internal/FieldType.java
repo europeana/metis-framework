@@ -1,5 +1,6 @@
-package eu.europeana.enrichment.utils;
+package eu.europeana.enrichment.api.internal;
 
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-public enum EnrichmentFields {
+public enum FieldType {
 
   DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
       EntityType.AGENT),
@@ -70,7 +71,7 @@ public enum EnrichmentFields {
   private final ChoiceContentHandler<?> choiceContentHandler;
   private final EntityType entityType;
 
-  <T extends ResourceOrLiteralType> EnrichmentFields(Predicate<Choice> choiceChecker,
+  <T extends ResourceOrLiteralType> FieldType(Predicate<Choice> choiceChecker,
       Function<Choice, T> contentGetter, BiConsumer<Choice, T> contentSetter,
       Supplier<T> contentCreator, EntityType entityType) {
     this.choiceContentHandler =
@@ -140,6 +141,14 @@ public enum EnrichmentFields {
     return choiceContentHandler.choiceChecker.test(choice) ? Optional
         .of(choiceContentHandler.contentGetter.apply(choice))
         .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
+  }
+
+  /**
+   *
+   * @return the entity type associated to this field - it is not null.
+   */
+  public EntityType getEntityType() {
+    return entityType;
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {

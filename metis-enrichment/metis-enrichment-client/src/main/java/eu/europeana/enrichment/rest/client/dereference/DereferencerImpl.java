@@ -2,16 +2,21 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermType;
+import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -26,13 +31,14 @@ public class DereferencerImpl implements Dereferencer {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
-  private final EnrichmentClient enrichmentClient;
+  private final RemoteEntityResolver remoteEntityResolver;
   private final DereferenceClient dereferenceClient;
 
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EnrichmentClient enrichmentClient,
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine,
+      RemoteEntityResolver remoteEntityResolver,
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
-    this.enrichmentClient = enrichmentClient;
+    this.remoteEntityResolver = remoteEntityResolver;
     this.dereferenceClient = dereferenceClient;
 
   }
@@ -66,15 +72,29 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     // First try to get them from our own entity collection database.
-    final List<EnrichmentBase> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
+    Set<ReferenceTerm> referenceTermSet = new HashSet<>();
+
+    for(String id : resourceIds){
+      final ReferenceTerm referenceTerm;
+      try {
+        referenceTerm = new ReferenceTermType(new URL(id), new HashSet<>());
+      } catch (MalformedURLException e) {
+        LOGGER.debug("There is a problem with the input values");
+        throw new DereferenceException("There was some problem with the input values while dereferencing", e);
+      }
+
+      referenceTermSet.add(referenceTerm);
+    }
+
+    final List<EnrichmentBase> result = new ArrayList<>(dereferenceOwnEntities(referenceTermSet));
 
     final Set<String> foundOwnEntityIds = result.stream().map(EnrichmentBase::getAbout)
         .collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
-    for (String resourceId : resourceIds) {
-      if (!foundOwnEntityIds.contains(resourceId)) {
-        result.addAll(dereferenceExternalEntity(resourceId));
+    for (ReferenceTerm resourceId : referenceTermSet) {
+      if (!foundOwnEntityIds.contains(resourceId.getReference().toString())) {
+        result.addAll(dereferenceExternalEntity(resourceId.getReference().toString()));
       }
     }
     // Done.
@@ -82,11 +102,11 @@ public class DereferencerImpl implements Dereferencer {
 
   }
 
-  private List<EnrichmentBase> dereferenceOwnEntities(Set<String> resourceIds)
+  private List<EnrichmentBase> dereferenceOwnEntities(Set<ReferenceTerm> resourceIds)
       throws DereferenceException {
     try {
-      return retryableExternalRequestForNetworkExceptions(
-          () -> enrichmentClient.getById(resourceIds));
+      return new ArrayList<>(retryableExternalRequestForNetworkExceptions(
+          () -> remoteEntityResolver.resolveById(resourceIds)).values());
     } catch (Exception e) {
       throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
           e);

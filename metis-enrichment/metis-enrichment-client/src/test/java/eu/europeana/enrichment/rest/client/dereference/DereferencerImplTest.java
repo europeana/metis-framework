@@ -10,6 +10,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermType;
+import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -17,13 +21,14 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,10 +38,10 @@ import org.junit.jupiter.api.Test;
 public class DereferencerImplTest {
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT =
-      {"enrich1", "enrich3", "enrich4"};
+      {"http://example.com/about", "http://example.com/concept", "http://example.com/place"};
 
   private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
-  private static final EnrichmentResultList ENRICHMENT_RESULT;
+  private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
 
   static {
     final Agent agent1 = new Agent();
@@ -63,18 +68,23 @@ public class DereferencerImplTest {
     final EnrichmentResultList dereferenceResult2 =
         new EnrichmentResultList(enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList3 =
-        EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(place1, null, place2)));
-    ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentResultBaseWrapperList3);
+
+    SearchTerm searchTerm1 = new SearchTermType("value1", "en", Set.of(EntityType.PLACE));
+    SearchTerm searchTerm2 = new SearchTermType("value2", "en", Set.of(EntityType.CONCEPT));
+    SearchTerm searchTerm3 = new SearchTermType("value3", "en", Set.of(EntityType.AGENT));
+
+    ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
+    ENRICHMENT_RESULT.put(searchTerm2, null);
+    ENRICHMENT_RESULT.put(searchTerm3, List.of(place2));
+
   }
 
   @Test
   void testDereferencerHappyFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final EnrichmentClient enrichmentClient = mock(EnrichmentClient.class);
-    doReturn(ENRICHMENT_RESULT).when(enrichmentClient).enrich(any());
+    final RemoteEntityResolver remoteEntityResolver = mock(RemoteEntityResolver.class);
+    doReturn(ENRICHMENT_RESULT).when(remoteEntityResolver).resolveByText(anySet());
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
     doReturn(DEREFERENCE_RESULT.get(0),
         DEREFERENCE_RESULT.subList(1, DEREFERENCE_RESULT.size()).toArray()).when(dereferenceClient)
@@ -82,7 +92,7 @@ public class DereferencerImplTest {
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
     final Dereferencer dereferencer = spy(
-        new DereferencerImpl(entityMergeEngine, enrichmentClient, dereferenceClient));
+        new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet()))
         .when(dereferencer)
         .extractReferencesForDereferencing(any());
@@ -99,13 +109,13 @@ public class DereferencerImplTest {
   void testDereferencerNullFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final EnrichmentClient enrichmentClient = mock(EnrichmentClient.class);
+    final RemoteEntityResolver remoteEntityResolver = mock(RemoteEntityResolver.class);
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
 
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
     // Create dereferencer.
-    final Dereferencer dereferencer = spy(new DereferencerImpl(entityMergeEngine, enrichmentClient, dereferenceClient));
+    final Dereferencer dereferencer = spy(new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
         .extractReferencesForDereferencing(any());
 
