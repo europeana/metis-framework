@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -48,16 +49,15 @@ public class EnricherImpl implements Enricher {
   public void enrichment(RDF rdf) throws EnrichmentException {
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
-    final List<Pair<SearchValue, FieldType>> valuesForEnrichment = extractValuesForEnrichment(
-        rdf);
-    final Map<String, Set<FieldType>> referencesForEnrichment = extractReferencesForEnrichment(
-        rdf);
+    final List<Pair<SearchValue, FieldType>> valuesForEnrichment = extractValuesForEnrichment(rdf);
+    final Map<String, Set<FieldType>> referencesForEnrichment = extractReferencesForEnrichment(rdf);
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final List<Pair<EnrichmentBase, Set<FieldType>>> valueEnrichmentInformation = enrichValues(
         valuesForEnrichment);
-    final List<EnrichmentBase> referenceEnrichmentInformation = enrichReferences(referencesForEnrichment);
+    final List<EnrichmentBase> referenceEnrichmentInformation = enrichReferences(
+        referencesForEnrichment);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
@@ -88,8 +88,8 @@ public class EnricherImpl implements Enricher {
       if (CollectionUtils.isEmpty(valuesForEnrichment)) {
         return Collections.emptyList();
       }
-      List<SearchTermContext> searchTerms = valuesForEnrichment.stream()
-          .map(pair -> new SearchTermContext(pair.getKey().getValue(), pair.getKey().getLanguage(),
+      List<SearchTermContext> searchTerms = valuesForEnrichment.stream().map(
+          pair -> new SearchTermContext(pair.getKey().getValue(), pair.getKey().getLanguage(),
               Set.of(pair.getValue()))).collect(Collectors.toList());
       Map<SearchTerm, List<EnrichmentBase>> result = retryableExternalRequestForNetworkExceptions(
           () -> remoteEntityResolver.resolveByText(Set.copyOf(searchTerms)));
@@ -112,21 +112,23 @@ public class EnricherImpl implements Enricher {
     try {
       Set<ReferenceTerm> referenceTermSet = new HashSet<>();
 
-      for(Map.Entry<String, Set<FieldType>> entry: referencesForEnrichment.entrySet()){
-        ReferenceTermContext value = null;
+      for (Map.Entry<String, Set<FieldType>> entry : referencesForEnrichment.entrySet()) {
+        ReferenceTermContext value;
         try {
           value = new ReferenceTermContext(new URL(entry.getKey()), entry.getValue());
+          referenceTermSet.add(value);
         } catch (MalformedURLException e) {
-          LOGGER.debug("There was a problem creating converting input values for enriching references");
+          LOGGER.debug(
+              "There was a problem creating converting input values for enriching references");
         }
-        referenceTermSet.add(value);
       }
 
       Map<ReferenceTerm, List<EnrichmentBase>> result = retryableExternalRequestForNetworkExceptions(
           () -> remoteEntityResolver.resolveByUri(referenceTermSet));
 
       return CollectionUtils.isEmpty(referenceTermSet) ? Collections.emptyList()
-          : result.values().stream().flatMap(List::stream).collect(Collectors.toList());
+          : result.values().stream().flatMap(List::stream).filter(Objects::nonNull)
+              .collect(Collectors.toList());
     } catch (Exception e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }

@@ -58,11 +58,11 @@ public class RemoteEntityResolver implements EntityResolver {
     List<SearchTerm> searchTermList = List.copyOf(searchTermSet);
 
     Function<List<SearchTerm>, EnrichmentSearch> inputFunction = partition -> {
-      List<SearchValue> referenceValues = partition.stream()
+      List<SearchValue> searchValues = partition.stream()
           .map(uri -> new SearchValue(uri.getTextValue(), uri.getLanguage()))
           .collect(Collectors.toList());
       final EnrichmentSearch enrichmentSearch = new EnrichmentSearch();
-      enrichmentSearch.setSearchValues(referenceValues);
+      enrichmentSearch.setSearchValues(searchValues);
       return enrichmentSearch;
     };
 
@@ -70,7 +70,8 @@ public class RemoteEntityResolver implements EntityResolver {
         ENRICH_ENTITY_SEARCH, searchTermList, inputFunction, MediaType.APPLICATION_XML);
 
     for (int i = 0; i < enrichmentResultBaseWrapperList.size(); i++) {
-      result.put(searchTermList.get(i), enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
+      result.put(searchTermList.get(i),
+          enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
     }
     return result;
   }
@@ -85,7 +86,8 @@ public class RemoteEntityResolver implements EntityResolver {
         .map(URL::toString).collect(Collectors.toList());
 
     List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
-        ENRICH_ENTITY_ID, uriList, partition -> partition.toArray(String[]::new), MediaType.APPLICATION_XML);
+        ENRICH_ENTITY_ID, uriList, partition -> partition.toArray(String[]::new),
+        MediaType.APPLICATION_XML);
 
     List<EnrichmentBase> enrichmentBaseList = enrichmentResultBaseWrapperList.stream()
         .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
@@ -108,8 +110,7 @@ public class RemoteEntityResolver implements EntityResolver {
 
     Function<List<String>, EnrichmentReference> inputFunction = partition -> {
       List<ReferenceValue> referenceValues = partition.stream()
-          .map(uri -> new ReferenceValue(uri, Collections.emptySet()))
-          .collect(Collectors.toList());
+          .map(uri -> new ReferenceValue(uri, Collections.emptySet())).collect(Collectors.toList());
 
       final EnrichmentReference enrichmentReference = new EnrichmentReference();
       enrichmentReference.setReferenceValues(referenceValues);
@@ -119,7 +120,8 @@ public class RemoteEntityResolver implements EntityResolver {
     List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
         ENRICH_ENTITY_EQUIVALENCE, uriList, inputFunction, MediaType.APPLICATION_JSON);
     for (int i = 0; i < referenceTermList.size(); i++) {
-      result.put(referenceTermList.get(i), enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
+      result.put(referenceTermList.get(i),
+          enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
     }
     return result;
   }
@@ -144,17 +146,16 @@ public class RemoteEntityResolver implements EntityResolver {
       final HttpEntity<Object> httpEntity = createRequest(body, acceptanceHeader);
       final EnrichmentResultList enrichmentResultList;
       try {
-        URI uri = enrichmentServiceUrl.toURI().resolve(endpointPath);
-        enrichmentResultList = template
-            .postForObject(uri, httpEntity, EnrichmentResultList.class);
+        URI uri = enrichmentServiceUrl.toURI()
+            .resolve(enrichmentServiceUrl.getPath() + endpointPath).normalize();
+        enrichmentResultList = template.postForObject(uri, httpEntity, EnrichmentResultList.class);
       } catch (RestClientException | URISyntaxException e) {
         LOGGER.warn("Enrichment client POST call failed: {}.", enrichmentServiceUrl, e);
         throw new UnknownException("Enrichment client call failed.", e);
       }
       result.addAll(Optional.ofNullable(enrichmentResultList)
           .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).stream()
-          .filter(Objects::nonNull).flatMap(Collection::stream)
-          .collect(Collectors.toList()));
+          .filter(Objects::nonNull).flatMap(Collection::stream).collect(Collectors.toList()));
     }
     return result;
   }
