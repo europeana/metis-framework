@@ -52,7 +52,7 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<SearchTerm> searchTermSet) {
+  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<? extends SearchTerm> searchTermSet) {
     final Map<SearchTerm, List<EnrichmentBase>> result = new HashMap<>();
     try {
       for (SearchTerm searchTerm : searchTermSet) {
@@ -65,7 +65,7 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
+  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<? extends ReferenceTerm> referenceTermSet) {
     final Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
     for (ReferenceTerm value : referenceTermSet) {
       try {
@@ -82,12 +82,12 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
+  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<? extends ReferenceTerm> referenceTermSet) {
     Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
 
     for(ReferenceTerm referenceTerm: referenceTermSet){
       try {
-        final List<EntityType> entityTypes = referenceTerm.getCandidateTypes();
+        final Set<EntityType> entityTypes = referenceTerm.getCandidateTypes();
         final List<EnrichmentBase> foundEnrichmentBases;
         if (CollectionUtils.isEmpty(entityTypes)) {
           foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(
@@ -115,7 +115,7 @@ public class PersistentEntityResolver implements EntityResolver {
       Map<SearchTerm, List<EnrichmentBase>> searchTermListMap, SearchTerm searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
     if (!StringUtils.isBlank(value)) {
-      final List<EntityType> entityTypes = searchTerm.getCandidateTypes();
+      final Set<EntityType> entityTypes = searchTerm.getCandidateTypes();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
       final String inputValueLanguage = searchTerm.getLanguage();
       final String language;

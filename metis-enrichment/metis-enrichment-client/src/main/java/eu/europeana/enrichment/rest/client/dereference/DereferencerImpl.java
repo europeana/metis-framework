@@ -2,16 +2,16 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
-import eu.europeana.enrichment.api.internal.ReferenceTerm;
-import eu.europeana.enrichment.api.internal.ReferenceTermType;
-import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.internal.EntityResolver;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,16 +31,14 @@ public class DereferencerImpl implements Dereferencer {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
-  private final RemoteEntityResolver remoteEntityResolver;
+  private final EntityResolver remoteEntityResolver;
   private final DereferenceClient dereferenceClient;
 
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine,
-      RemoteEntityResolver remoteEntityResolver,
-      DereferenceClient dereferenceClient) {
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityResolver remoteEntityResolver,
+          DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.remoteEntityResolver = remoteEntityResolver;
     this.dereferenceClient = dereferenceClient;
-
   }
 
   @Override
@@ -77,7 +75,7 @@ public class DereferencerImpl implements Dereferencer {
     for(String id : resourceIds){
       final ReferenceTerm referenceTerm;
       try {
-        referenceTerm = new ReferenceTermType(new URL(id), new HashSet<>());
+        referenceTerm = new ReferenceTermImpl(new URL(id), new HashSet<>());
       } catch (MalformedURLException e) {
         LOGGER.debug("There is a problem with the input values");
         throw new DereferenceException("There was some problem with the input values while dereferencing", e);

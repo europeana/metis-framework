@@ -1,12 +1,14 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This is an implementation of {@link SearchTerm} that provides context in the sense that it is
+ * aware of the field type(s) in which the search term was found.
+ */
 public class SearchTermContext extends AbstractSearchTerm {
 
   private final Set<FieldType> fieldTypes;
@@ -17,27 +19,11 @@ public class SearchTermContext extends AbstractSearchTerm {
   }
 
   @Override
-  public List<EntityType> getCandidateTypes() {
-    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toList());
+  public Set<EntityType> getCandidateTypes() {
+    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
   }
 
   public Set<FieldType> getFieldTypes() {
-    return new HashSet<>(fieldTypes);
+    return Collections.unmodifiableSet(fieldTypes);
   }
-
-  @Override
-  public boolean equals(Object other) {
-
-    SearchTermContext o = (SearchTermContext) other;
-
-    boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
-
-    return super.equals(other) && hasSameFieldType;
-  }
-
-  @Override
-  public int hashCode(){
-    return Objects.hash(getTextValue(), getLanguage(), fieldTypes);
-  }
-
 }

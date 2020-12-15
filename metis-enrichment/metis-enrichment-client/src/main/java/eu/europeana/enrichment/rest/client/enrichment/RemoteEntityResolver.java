@@ -46,7 +46,7 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<SearchTerm> searchTermSet) {
+  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<? extends SearchTerm> searchTermSet) {
     final List<SearchTerm> searchTermList = List.copyOf(searchTermSet);
     final Function<List<SearchTerm>, EnrichmentSearch> inputFunction = partition -> {
       final List<SearchValue> searchValues = partition.stream()
@@ -67,7 +67,7 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
+  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<? extends ReferenceTerm> referenceTermSet) {
     final List<ReferenceTerm> referenceTermList = List.copyOf(referenceTermSet);
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
             ENRICH_ENTITY_ID, referenceTermList,
@@ -86,7 +86,7 @@ public class RemoteEntityResolver implements EntityResolver {
 
   @Override
   public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(
-      Set<ReferenceTerm> referenceTermSet) {
+      Set<? extends ReferenceTerm> referenceTermSet) {
     final List<ReferenceTerm> referenceTermList = List.copyOf(referenceTermSet);
     final Function<List<ReferenceTerm>, EnrichmentReference> inputFunction = partition -> {
       final List<ReferenceValue> referenceValues = partition.stream()

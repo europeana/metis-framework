@@ -11,7 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermType;
+import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -69,9 +69,9 @@ public class DereferencerImplTest {
         new EnrichmentResultList(enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
 
-    SearchTerm searchTerm1 = new SearchTermType("value1", "en", Set.of(EntityType.PLACE));
-    SearchTerm searchTerm2 = new SearchTermType("value2", "en", Set.of(EntityType.CONCEPT));
-    SearchTerm searchTerm3 = new SearchTermType("value3", "en", Set.of(EntityType.AGENT));
+    SearchTerm searchTerm1 = new SearchTermImpl("value1", "en", Set.of(EntityType.PLACE));
+    SearchTerm searchTerm2 = new SearchTermImpl("value2", "en", Set.of(EntityType.CONCEPT));
+    SearchTerm searchTerm3 = new SearchTermImpl("value3", "en", Set.of(EntityType.AGENT));
 
     ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
     ENRICHMENT_RESULT.put(searchTerm2, null);
