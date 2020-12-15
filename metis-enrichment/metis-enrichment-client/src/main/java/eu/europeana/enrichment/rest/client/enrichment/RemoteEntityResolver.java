@@ -41,7 +41,7 @@ import org.springframework.web.client.RestTemplate;
 public class RemoteEntityResolver implements EntityResolver {
 
   private final int batchSize;
-  private RestTemplate template;
+  private final RestTemplate template;
   private static final Logger LOGGER = LoggerFactory.getLogger(RemoteEntityResolver.class);
   private final URL enrichmentServiceUrl;
 
@@ -146,8 +146,10 @@ public class RemoteEntityResolver implements EntityResolver {
       final HttpEntity<Object> httpEntity = createRequest(body, acceptanceHeader);
       final EnrichmentResultList enrichmentResultList;
       try {
-        URI uri = enrichmentServiceUrl.toURI()
-            .resolve(enrichmentServiceUrl.getPath() + endpointPath).normalize();
+        final URI parentUri = enrichmentServiceUrl.toURI();
+        final URI uri = new URI(parentUri.getScheme(), parentUri.getUserInfo(), parentUri.getHost(),
+                parentUri.getPort(), parentUri.getPath() + "/" + endpointPath, parentUri.getQuery(),
+                parentUri.getFragment()).normalize();
         enrichmentResultList = template.postForObject(uri, httpEntity, EnrichmentResultList.class);
       } catch (RestClientException | URISyntaxException e) {
         LOGGER.warn("Enrichment client POST call failed: {}.", enrichmentServiceUrl, e);
