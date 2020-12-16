@@ -12,9 +12,8 @@ import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -74,16 +73,15 @@ public class EnrichmentService {
    * @return the structured result of the enrichment
    */
   public List<EnrichmentBase> enrichByEquivalenceValues(ReferenceValue referenceValue) {
-    ReferenceTerm referenceTerm;
-    Map<ReferenceTerm, List<EnrichmentBase>> result;
     try {
-      referenceTerm = new ReferenceTermType(new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
-      result = persistentEntityResolver.resolveByUri(Set.of(referenceTerm));
+      final ReferenceTerm referenceTerm = new ReferenceTermType(
+              new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
+      return persistentEntityResolver.resolveByUri(Set.of(referenceTerm))
+              .getOrDefault(referenceTerm, Collections.emptyList());
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
       throw new BadRequestException("The input values are invalid");
     }
-    return new ArrayList<>(result.values()).get(0);
   }
 
   /**
@@ -93,18 +91,15 @@ public class EnrichmentService {
    * @return the structured result of the enrichment
    */
   public EnrichmentBase enrichById(String entityAbout) {
-    ReferenceTerm referenceTerm;
-    Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
     try {
-      referenceTerm = new ReferenceTermType(new URL(entityAbout), new HashSet<>());
-      result = persistentEntityResolver.resolveById(Set.of(referenceTerm));
+      final ReferenceTerm referenceTerm = new ReferenceTermType(new URL(entityAbout),
+              new HashSet<>());
+      return persistentEntityResolver.resolveById(Set.of(referenceTerm)).get(referenceTerm);
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
       throw new BadRequestException("The input values are invalid");
     }
-    return new ArrayList<>(result.values()).get(0);
   }
-
 
   /* --- Organization specific methods, used by the annotations api --- */
 

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.Created;

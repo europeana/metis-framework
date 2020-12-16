@@ -8,6 +8,9 @@ import org.jibx.runtime.JiBXException;
 /**
  * This class maintains an instance of {@link IBindingFactory} which it can make available upon
  * request.
+ *
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
  */
 final class RdfBindingFactoryProvider {
 

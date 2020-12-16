@@ -1,17 +1,16 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
-import eu.europeana.enrichment.utils.RdfConversionUtils;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
+import eu.europeana.metis.schema.convert.SerializationException;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
-import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,9 +67,6 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       final RDF inputRdf = convertInputStreamToRdf(inputStream);
       final RDF resultRdf = process(inputRdf, modes);
       return convertRdfToBytes(resultRdf);
-    } catch (JiBXException e) {
-      throw new SerializationException(
-          "Something went wrong with converting to or from the RDF format.", e);
     } catch (EnrichmentException e){
       throw new EnrichmentException(
           "Something went wrong with the enrichment from the RDF file.", e);
@@ -96,9 +92,6 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       final RDF inputRdf = convertStringToRdf(inputString);
       final RDF resultRdf = process(inputRdf, modes);
       return convertRdfToString(resultRdf);
-    } catch (JiBXException e) {
-      throw new SerializationException(
-          "Something went wrong with converting to or from the RDF format.", e);
     } catch (EnrichmentException e){
       throw new EnrichmentException(
           "Something went wrong with the enrichment from the RDF file.", e);
@@ -164,26 +157,26 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   private String convertRdfToStringForLogging(final RDF rdf) {
     try {
       return convertRdfToString(rdf);
-    } catch (JiBXException e) {
+    } catch (SerializationException e) {
       LOGGER.warn("Exception occurred while rendering an RDF document as a String.", e);
       return "[COULD NOT RENDER RDF]";
     }
   }
 
 
-  String convertRdfToString(RDF rdf) throws JiBXException {
+  String convertRdfToString(RDF rdf) throws SerializationException {
     return RdfConversionUtils.convertRdfToString(rdf);
   }
 
-  byte[] convertRdfToBytes(RDF rdf) throws JiBXException {
+  byte[] convertRdfToBytes(RDF rdf) throws SerializationException {
     return RdfConversionUtils.convertRdfToBytes(rdf);
   }
 
-  RDF convertStringToRdf(String xml) throws JiBXException {
+  RDF convertStringToRdf(String xml) throws SerializationException {
     return RdfConversionUtils.convertStringToRdf(xml);
   }
 
-  RDF convertInputStreamToRdf(InputStream xml) throws JiBXException {
+  RDF convertInputStreamToRdf(InputStream xml) throws SerializationException {
     return RdfConversionUtils.convertInputStreamToRdf(xml);
   }
 }
