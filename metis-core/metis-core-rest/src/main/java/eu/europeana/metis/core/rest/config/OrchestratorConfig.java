@@ -331,7 +331,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     LOGGER.debug("Queue consumer cleanup started (runs every {} milliseconds).",
         propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInMillisecs());
     this.queueConsumer.checkAndCleanCompletionService();
-    LOGGER.info("Queue consumer cleanup finished.");
+    LOGGER.debug("Queue consumer cleanup finished.");
   }
 
   @PreDestroy

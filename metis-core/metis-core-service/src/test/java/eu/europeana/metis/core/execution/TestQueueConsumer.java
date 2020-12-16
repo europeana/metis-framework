@@ -271,9 +271,9 @@ class TestQueueConsumer {
     t.start();
     t.interrupt();
     t.join();
-    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+    Awaitility.await().atMost(60, TimeUnit.SECONDS)
         .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+    Awaitility.await().atMost(60, TimeUnit.SECONDS)
         .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertTrue(0 <= queueConsumer.getThreadsCounter() && queueConsumer.getThreadsCounter() <= 3);
   }
