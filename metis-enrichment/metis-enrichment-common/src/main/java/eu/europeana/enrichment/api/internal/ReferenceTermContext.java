@@ -24,11 +24,12 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
   @Override
   public boolean equals(Object other) {
 
+    if(!super.equals(other)){
+      return false;
+    }
     ReferenceTermContext o = (ReferenceTermContext) other;
 
-    boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
-
-    return super.equals(other) && hasSameFieldType;
+    return Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
   }
 
   @Override

@@ -27,7 +27,7 @@ public abstract class AbstractReferenceTerm implements ReferenceTerm{
       return false;
     }
 
-    ReferenceTermContext o = (ReferenceTermContext) other;
+    AbstractReferenceTerm o = (AbstractReferenceTerm) other;
 
     return Objects.equals(o.getReference(), this.getReference());
 
