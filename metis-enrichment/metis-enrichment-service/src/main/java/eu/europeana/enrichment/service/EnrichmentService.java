@@ -74,7 +74,7 @@ public class EnrichmentService {
    */
   public List<EnrichmentBase> enrichByEquivalenceValues(ReferenceValue referenceValue) {
     try {
-      final ReferenceTerm referenceTerm = new ReferenceTermType(
+      final ReferenceTerm referenceTerm = new ReferenceTermImpl(
               new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
       return persistentEntityResolver.resolveByUri(Set.of(referenceTerm))
               .getOrDefault(referenceTerm, Collections.emptyList());
@@ -92,7 +92,7 @@ public class EnrichmentService {
    */
   public EnrichmentBase enrichById(String entityAbout) {
     try {
-      final ReferenceTerm referenceTerm = new ReferenceTermType(new URL(entityAbout),
+      final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(entityAbout),
               new HashSet<>());
       return persistentEntityResolver.resolveById(Set.of(referenceTerm)).get(referenceTerm);
     } catch (MalformedURLException e) {
