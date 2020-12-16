@@ -63,7 +63,7 @@ class TestQueueConsumer {
 
   @BeforeAll
   static void prepare() {
-    semaphoresPerPluginManager = new SemaphoresPerPluginManager(1, 2);
+    semaphoresPerPluginManager = new SemaphoresPerPluginManager(2);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
@@ -129,13 +129,37 @@ class TestQueueConsumer {
         .priority(priority).build();
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
 
-    when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
+    when(workflowExecutionMonitor.claimExecution(objectId))
+        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(rabbitmqConsumerChannel).basicAck(envelope.getDeliveryTag(), false);
 
     QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
         workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
     queueConsumer
         .handleDelivery("1", envelope, basicProperties, objectId.getBytes(StandardCharsets.UTF_8));
+  }
+
+  @Test
+  void handleDeliveryExecutionThatMayNotBeClaimed() throws IOException {
+
+    String objectId = new ObjectId().toString();
+    int priority = 0;
+    Envelope envelope = new Envelope(1, false, "", "");
+    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
+        .priority(priority).build();
+    WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+
+    when(workflowExecutionMonitor.claimExecution(objectId))
+        .thenReturn(new ImmutablePair<>(workflowExecution, false));
+    doNothing().when(rabbitmqConsumerChannel).basicNack(envelope.getDeliveryTag(), false, true);
+
+    QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
+        workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
+    queueConsumer
+        .handleDelivery("1", envelope, basicProperties, objectId.getBytes(StandardCharsets.UTF_8));
+
+    verify(workflowExecutionMonitor, times(1)).claimExecution(any());
+    verifyNoMoreInteractions(workflowExecutionMonitor);
   }
 
   @Test
@@ -148,7 +172,8 @@ class TestQueueConsumer {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setCancelling(true);
 
-    when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
+    when(workflowExecutionMonitor.claimExecution(objectId))
+        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(rabbitmqConsumerChannel).basicAck(envelope.getDeliveryTag(), false);
 
     QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
@@ -201,9 +226,12 @@ class TestQueueConsumer {
     workflowExecution3.setId(objectId3);
     workflowExecution3.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution3.setMetisPlugins(abstractMetisPlugins2);
-    when(workflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
-    when(workflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
-    when(workflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
+    when(workflowExecutionMonitor.claimExecution(objectId1.toString()))
+        .thenReturn(new ImmutablePair<>(workflowExecution1, true));
+    when(workflowExecutionMonitor.claimExecution(objectId2.toString()))
+        .thenReturn(new ImmutablePair<>(workflowExecution2, true));
+    when(workflowExecutionMonitor.claimExecution(objectId3.toString()))
+        .thenReturn(new ImmutablePair<>(workflowExecution3, true));
     doNothing().when(rabbitmqConsumerChannel).basicAck(envelope.getDeliveryTag(), false);
 
     //For running properly the WorkflowExecution.
@@ -231,11 +259,12 @@ class TestQueueConsumer {
         workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
+    queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
 
     Thread t = new Thread(() -> {
       try {
-        queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
-      } catch (IOException e) {
+        queueConsumer.checkAndCleanCompletionService();
+      } catch (InterruptedException e) {
         e.printStackTrace();
       }
     });

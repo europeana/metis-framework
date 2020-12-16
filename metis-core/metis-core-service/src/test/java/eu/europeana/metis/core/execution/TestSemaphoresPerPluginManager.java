@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 class TestSemaphoresPerPluginManager {
 
   @Test
-  void initiateAndCheckAllSemaphores() throws InterruptedException {
-    final SemaphoresPerPluginManager semaphoresPerPluginManager = new SemaphoresPerPluginManager(1,
-        2);
+  void initiateAndCheckAllSemaphores() {
+    final SemaphoresPerPluginManager semaphoresPerPluginManager = new SemaphoresPerPluginManager(2);
 
     int successAcquiresCounter = 0;
     for (ExecutablePluginType executablePluginType : ExecutablePluginType.values()) {
@@ -26,9 +25,8 @@ class TestSemaphoresPerPluginManager {
   }
 
   @Test
-  void checkFullSemaphore() throws InterruptedException {
-    final SemaphoresPerPluginManager semaphoresPerPluginManager = new SemaphoresPerPluginManager(1,
-        1);
+  void checkFullSemaphore() {
+    final SemaphoresPerPluginManager semaphoresPerPluginManager = new SemaphoresPerPluginManager(1);
 
     boolean acquired = semaphoresPerPluginManager
         .tryAcquireForExecutablePluginType(ExecutablePluginType.ENRICHMENT);

@@ -77,6 +77,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   private final ConfigurationPropertiesHolder propertiesHolder;
   private SchedulerExecutor schedulerExecutor;
   private WorkflowExecutionMonitor workflowExecutionMonitor;
+  private QueueConsumer queueConsumer;
 
   private Connection connection;
   private Channel publisherChannel;
@@ -220,8 +221,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public SemaphoresPerPluginManager semaphoresPerPluginManager() {
-    return new SemaphoresPerPluginManager(propertiesHolder.getFailsafeMarginOfInactivityInSecs(),
-        propertiesHolder.getMaxConcurrentThreads());
+    return new SemaphoresPerPluginManager(propertiesHolder.getMaxConcurrentThreads());
   }
 
   @Bean
@@ -283,7 +283,6 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     final Duration failsafeLeniency = Duration.ZERO
         .plusMillis(propertiesHolder.getDpsConnectTimeoutInMillisecs())
         .plusMillis(propertiesHolder.getDpsReadTimeoutInMillisecs())
-        .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
         .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
         .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
 
@@ -305,8 +304,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   public QueueConsumer getQueueConsumer(WorkflowExecutorManager workflowExecutionManager,
       WorkflowExecutionMonitor workflowExecutionMonitor,
       @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel) throws IOException {
-    return new QueueConsumer(rabbitmqConsumerChannel, propertiesHolder.getRabbitmqQueueName(),
-        workflowExecutionManager, workflowExecutionManager, workflowExecutionMonitor);
+    queueConsumer = new QueueConsumer(rabbitmqConsumerChannel,
+        propertiesHolder.getRabbitmqQueueName(), workflowExecutionManager, workflowExecutionManager,
+        workflowExecutionMonitor);
+    return queueConsumer;
   }
 
   @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}")
@@ -325,6 +326,14 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     LOGGER.info("Scheduler task finished.");
   }
 
+  @Scheduled(fixedDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}", initialDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}")
+  public void runQueueConsumerCleanup() throws InterruptedException {
+    LOGGER.debug("Queue consumer cleanup started (runs every {} milliseconds).",
+        propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInMillisecs());
+    this.queueConsumer.checkAndCleanCompletionService();
+    LOGGER.info("Queue consumer cleanup finished.");
+  }
+
   @PreDestroy
   public void close() throws GenericMetisException {
     try {
@@ -337,6 +346,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       }
       if (connection != null && connection.isOpen()) {
         connection.close();
+      }
+      // Shutdown the queue consumer
+      if (queueConsumer != null) {
+        queueConsumer.close();
       }
 
       // Shut down Redisson

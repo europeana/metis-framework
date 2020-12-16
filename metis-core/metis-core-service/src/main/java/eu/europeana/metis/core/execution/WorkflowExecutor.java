@@ -56,9 +56,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
 
-  private final String workflowExecutionId;
   private final SemaphoresPerPluginManager semaphoresPerPluginManager;
-  private final WorkflowExecutionMonitor workflowExecutionMonitor;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowPostProcessor workflowPostProcessor;
   private final int monitorCheckIntervalInSecs;
@@ -67,13 +65,11 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
   private final String metisCoreBaseUrl;
-
   private WorkflowExecution workflowExecution;
 
-  WorkflowExecutor(String workflowExecutionId, PersistenceProvider persistenceProvider,
-      WorkflowExecutionSettings workflowExecutionSettings,
-      WorkflowExecutionMonitor workflowExecutionMonitor) {
-    this.workflowExecutionId = workflowExecutionId;
+  WorkflowExecutor(WorkflowExecution workflowExecution, PersistenceProvider persistenceProvider,
+      WorkflowExecutionSettings workflowExecutionSettings) {
+    this.workflowExecution = workflowExecution;
     this.semaphoresPerPluginManager = persistenceProvider.getSemaphoresPerPluginManager();
     this.workflowExecutionDao = persistenceProvider.getWorkflowExecutionDao();
     this.workflowPostProcessor = persistenceProvider.getWorkflowPostProcessor();
@@ -84,25 +80,10 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
     this.metisCoreBaseUrl = workflowExecutionSettings.getMetisCoreBaseUrl();
-    this.workflowExecutionMonitor = workflowExecutionMonitor;
   }
 
   @Override
   public Pair<WorkflowExecution, Boolean> call() {
-
-    // Claim the execution: if this claim is denied, we stop this execution.
-    LOGGER.info("workflowExecutionId: {} - Claiming workflow execution", workflowExecutionId);
-    final Pair<WorkflowExecution, Boolean> workflowExecutionClaimedPair = workflowExecutionMonitor
-        .claimExecution(this.workflowExecutionId);
-    workflowExecution = workflowExecutionClaimedPair.getLeft();
-    final Boolean workflowClaimed = workflowExecutionClaimedPair.getRight();
-    if (workflowClaimed.equals(Boolean.FALSE)) {
-      LOGGER
-          .info("workflowExecutionId: {} - Discarding workflow execution, it could not be claimed.",
-              workflowExecutionId);
-      return new ImmutablePair<>(workflowExecution, Boolean.FALSE);
-    }
-
     // Perform the work - run the workflow.
     LOGGER.info("workflowExecutionId: {}, priority {} - Starting workflow execution",
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
@@ -131,7 +112,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         workflowExecution.setWorkflowPriority(workflowExecution.getWorkflowPriority() + 1);
         LOGGER
             .info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to run",
-                workflowExecutionId);
+                workflowExecution.getId());
       } else {
         // If the workflow finished successfully, we record this.
         workflowExecution.setFinishedDate(finishDate);
@@ -252,24 +233,19 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         .tryAcquireForExecutablePluginType(executablePluginType);
     if (acquired) {
       try {
-        //Update date for workflow execution so that it does not become stale
-        final Date updatedDate = new Date();
-        executablePlugin.setUpdatedDate(updatedDate);
-        workflowExecution.setUpdatedDate(updatedDate);
-        if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
-          workflowExecution.setStartedDate(updatedDate);
-          workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-        }
-        workflowExecutionDao.updateMonitorInformation(workflowExecution);
         LOGGER.debug("workflowExecutionId: {}, executablePluginType: {} - Acquired semaphore",
-            workflowExecutionId, executablePluginType);
+            workflowExecution.getId(), executablePluginType);
         final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
         runMetisPlugin(executablePlugin, startDateToUse, workflowExecution.getDatasetId());
       } finally {
         semaphoresPerPluginManager.releaseForPluginType(executablePluginType);
         LOGGER.debug("workflowExecutionId: {}, executablePluginType: {} - Released semaphore",
-            workflowExecutionId, executablePluginType);
+            workflowExecution.getId(), executablePluginType);
       }
+    } else {
+      // Rest workflow execution to INQUEUE so that it can be reclaimed
+      workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+      workflowExecutionDao.updateMonitorInformation(workflowExecution);
     }
     return acquired;
   }
@@ -312,7 +288,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     } catch (ExternalTaskException | RuntimeException e) {
       LOGGER.warn(String
           .format("workflowExecutionId: %s, pluginType: %s - Execution of plugin " + "failed",
-              workflowExecutionId, executablePlugin.getPluginType()), e);
+              workflowExecution.getId(), executablePlugin.getPluginType()), e);
       executablePlugin.setFinishedDate(null);
       executablePlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
       executablePlugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
@@ -378,13 +354,13 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       } catch (InterruptedException e) {
         LOGGER.warn(String.format(
             "workflowExecutionId: %s, pluginType: %s - Thread was interrupted during monitoring of external task",
-            workflowExecutionId, plugin.getPluginType()), e);
+            workflowExecution.getId(), plugin.getPluginType()), e);
         currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
         LOGGER.warn(String
             .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
-                workflowExecutionId, plugin.getPluginType()), e);
+                workflowExecution.getId(), plugin.getPluginType()), e);
         if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
             UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)) {
           // Set plugin to FAILED and return immediately
@@ -398,7 +374,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         LOGGER.warn(String.format(
             "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "
                 + "consecutive times. After exceeding %s retries, pending status will be set",
-            workflowExecutionId, plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
+            workflowExecution.getId(), plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
             MAX_CANCEL_OR_MONITOR_FAILURES), e);
         if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
           //Set pending status once

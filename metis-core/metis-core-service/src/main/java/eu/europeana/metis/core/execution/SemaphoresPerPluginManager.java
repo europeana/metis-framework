@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Manages a map of {@link ExecutablePluginType} keys and {@link Semaphore} values.
@@ -14,17 +13,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class SemaphoresPerPluginManager {
 
-  private final int acquireTimeoutSecs;
   private final Map<ExecutablePluginType, Semaphore> unmodifiableMaxThreadsPerPlugin;
 
   /**
    * Constructor that initializes the map with provided number of permissions on the semaphores.
    *
-   * @param acquireTimeoutSecs the timeout for acquiring a permission from a semaphore
    * @param permissionsPerSemaphore the permissions for each semaphore
    */
-  public SemaphoresPerPluginManager(int acquireTimeoutSecs, int permissionsPerSemaphore) {
-    this.acquireTimeoutSecs = acquireTimeoutSecs;
+  public SemaphoresPerPluginManager(int permissionsPerSemaphore) {
     Map<ExecutablePluginType, Semaphore> maxThreadsPerPlugin = new EnumMap<>(
         ExecutablePluginType.class);
     for (ExecutablePluginType executablePluginType : ExecutablePluginType.values()) {
@@ -38,12 +34,9 @@ public class SemaphoresPerPluginManager {
    *
    * @param executablePluginType the provided executable plugin type
    * @return true if acquisition was successful, false otherwise
-   * @throws InterruptedException if we were interrupted during acquisition
    */
-  public boolean tryAcquireForExecutablePluginType(ExecutablePluginType executablePluginType)
-      throws InterruptedException {
-    return unmodifiableMaxThreadsPerPlugin.get(executablePluginType)
-        .tryAcquire(acquireTimeoutSecs, TimeUnit.SECONDS);
+  public boolean tryAcquireForExecutablePluginType(ExecutablePluginType executablePluginType) {
+    return unmodifiableMaxThreadsPerPlugin.get(executablePluginType).tryAcquire();
   }
 
   /**

@@ -13,7 +13,6 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
@@ -63,7 +62,7 @@ class TestWorkflowExecutor {
     workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
-    persistenceProvider = new PersistenceProvider(null, null, new SemaphoresPerPluginManager(1, 2),
+    persistenceProvider = new PersistenceProvider(null, null, new SemaphoresPerPluginManager(2),
         workflowExecutionDao, workflowPostProcessor, null, dpsClient);
     workflowExecutionSettings = Mockito.mock(WorkflowExecutionSettings.class);
     when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
@@ -102,8 +101,6 @@ class TestWorkflowExecutor {
     doReturn(currentlyProcessingExecutionProgress).doReturn(processedExecutionProgress)
         .when(oaipmhHarvestPlugin).getExecutionProgress();
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
 
@@ -112,11 +109,11 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
-    verify(workflowExecutionDao, times(3)).updateMonitorInformation(workflowExecution);
+    verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
 
     InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
@@ -147,8 +144,6 @@ class TestWorkflowExecutor {
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
 
@@ -157,8 +152,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
@@ -194,8 +189,6 @@ class TestWorkflowExecutor {
     doReturn(currentlyProcessingExecutionProgress).doReturn(droppedExecutionProgress)
         .when(oaipmhHarvestPlugin).getExecutionProgress();
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
 
@@ -204,11 +197,11 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
-    verify(workflowExecutionDao, times(3)).updateMonitorInformation(workflowExecution);
+    verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
 
     InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
@@ -243,8 +236,6 @@ class TestWorkflowExecutor {
         .monitor(dpsClient);
     doReturn(currentlyProcessingExecutionProgress).when(oaipmhHarvestPlugin).getExecutionProgress();
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
 
@@ -253,8 +244,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
@@ -298,8 +289,6 @@ class TestWorkflowExecutor {
     doReturn(currentlyProcessingExecutionProgress).doReturn(processedExecutionProgress)
         .when(oaipmhHarvestPlugin).getExecutionProgress();
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
 
@@ -309,8 +298,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
@@ -354,8 +343,6 @@ class TestWorkflowExecutor {
     doNothing().when(oaipmhHarvestPlugin)
         .cancel(dpsClient, SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false)
         .thenReturn(true);
@@ -366,11 +353,11 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
-    verify(workflowExecutionDao, times(3)).updateMonitorInformation(workflowExecution);
+    verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
 
     verify(oaipmhHarvestPlugin, never()).setFailMessage(anyString());
@@ -402,8 +389,6 @@ class TestWorkflowExecutor {
     when(oaipmhHarvestPlugin.getExecutionProgress())
         .thenReturn(currentlyProcessingExecutionProgress);
 
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(new ImmutablePair<>(workflowExecution, true));
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
@@ -414,8 +399,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
     assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
@@ -423,19 +408,6 @@ class TestWorkflowExecutor {
     assertNotNull(workflowExecution.getUpdatedDate());
     assertNotNull(workflowExecution.getFinishedDate());
     assertNotNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
-  }
-
-  @Test
-  void callExecutionThatMayNotBeClaimed() {
-    when(workflowExecutionMonitor.claimExecution(any()))
-        .thenReturn(new ImmutablePair<>(new WorkflowExecution(), false));
-
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor("testId", persistenceProvider,
-        workflowExecutionSettings, workflowExecutionMonitor);
-    workflowExecutor.call();
-
-    verify(workflowExecutionMonitor, times(1)).claimExecution(any());
-    verifyNoMoreInteractions(workflowExecutionDao);
   }
 
   @Test
@@ -464,8 +436,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
     ArgumentCaptor<WorkflowExecution> workflowExecutionArgumentCaptor = ArgumentCaptor
@@ -505,8 +477,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        persistenceProvider, workflowExecutionSettings);
     workflowExecutor.call();
 
     ArgumentCaptor<WorkflowExecution> workflowExecutionArgumentCaptor = ArgumentCaptor

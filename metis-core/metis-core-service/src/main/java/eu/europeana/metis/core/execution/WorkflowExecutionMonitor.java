@@ -183,23 +183,25 @@ public class WorkflowExecutionMonitor {
   public Pair<WorkflowExecution, Boolean> claimExecution(String workflowExecutionId) {
 
     try {
-
       // Lock for the duration of this request
       lock.lock();
 
       // Retrieve the most current version of the execution.
       final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 
-      final boolean claimed = mayClaimExecution(workflowExecution);
-      if (claimed) {
-        //Update dates
-        final Date now = new Date();
-        workflowExecution.setUpdatedDate(now);
-        if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
-          workflowExecution.setStartedDate(now);
-          workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+      boolean claimed = false;
+      if (workflowExecution != null) {
+        claimed = mayClaimExecution(workflowExecution);
+        if (claimed) {
+          //Update dates
+          final Date now = new Date();
+          workflowExecution.setUpdatedDate(now);
+          if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
+            workflowExecution.setStartedDate(now);
+            workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+          }
+          workflowExecutionDao.updateMonitorInformation(workflowExecution);
         }
-        workflowExecutionDao.updateMonitorInformation(workflowExecution);
       }
 
       return new ImmutablePair<>(workflowExecution, claimed);
