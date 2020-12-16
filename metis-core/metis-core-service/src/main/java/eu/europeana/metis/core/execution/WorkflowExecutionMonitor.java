@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
@@ -34,6 +35,8 @@ public class WorkflowExecutionMonitor {
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionMonitor.class);
 
   private static final String FAILSAFE_LOCK = "failsafeLock";
+  public static final Set<WorkflowStatus> CLAIMABLE_STATUSES = Set
+      .of(WorkflowStatus.INQUEUE, WorkflowStatus.RUNNING);
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowExecutorManager workflowExecutorManager;
@@ -182,15 +185,17 @@ public class WorkflowExecutionMonitor {
    */
   public Pair<WorkflowExecution, Boolean> claimExecution(String workflowExecutionId) {
 
+    WorkflowExecution workflowExecution;
+    boolean claimed = false;
     try {
       // Lock for the duration of this request
       lock.lock();
 
       // Retrieve the most current version of the execution.
-      final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
+      workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 
-      boolean claimed = false;
-      if (workflowExecution != null) {
+      if (workflowExecution != null && CLAIMABLE_STATUSES
+          .contains(workflowExecution.getWorkflowStatus())) {
         claimed = mayClaimExecution(workflowExecution);
         if (claimed) {
           //Update dates
@@ -204,14 +209,14 @@ public class WorkflowExecutionMonitor {
         }
       }
 
-      return new ImmutablePair<>(workflowExecution, claimed);
 
     } catch (RuntimeException e) {
       LOGGER.warn("Exception thrown while claiming workflow execution.", e);
-      return new ImmutablePair<>(null, false);
+      workflowExecution = null;
     } finally {
       lock.unlock();
     }
+    return new ImmutablePair<>(workflowExecution, claimed);
   }
 
   /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */

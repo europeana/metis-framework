@@ -106,11 +106,17 @@ public class QueueConsumer extends DefaultConsumer {
     final Boolean workflowClaimed = workflowExecutionClaimedPair.getRight();
     if (workflowClaimed.equals(Boolean.TRUE)) {
       handleClaimedExecution(rabbitmqEnvelope, objectId, workflowExecution);
-    } else {
+    } else if (workflowClaimed.equals(Boolean.FALSE) && WorkflowExecutionMonitor.CLAIMABLE_STATUSES
+        .contains(workflowExecution.getWorkflowStatus())) {
       LOGGER.info(
           "workflowExecutionId: {} - Send workflow execution identifier back to the queue, it "
               + "could not be claimed.", workflowExecution.getId());
       sendNack(rabbitmqEnvelope, objectId);
+    } else {
+      LOGGER.info(
+          "workflowExecutionId: {} - Does not have a claimable status, discarding message",
+          workflowExecution.getId());
+      sendAck(rabbitmqEnvelope, objectId);
     }
   }
 
@@ -147,7 +153,8 @@ public class QueueConsumer extends DefaultConsumer {
   private void sendAck(Envelope rabbitmqEnvelope, String objectId) throws IOException {
     // Send ACK back to remove from queue asap.
     super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
-    LOGGER.debug("workflowExecutionId: {} - ACK sent with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
+    LOGGER.debug("workflowExecutionId: {} - ACK sent with tag {}", objectId,
+        rabbitmqEnvelope.getDeliveryTag());
   }
 
   private void sendNack(Envelope rabbitmqEnvelope, String objectId) throws IOException {
