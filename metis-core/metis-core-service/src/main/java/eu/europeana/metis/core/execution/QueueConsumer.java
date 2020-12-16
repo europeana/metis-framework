@@ -104,29 +104,33 @@ public class QueueConsumer extends DefaultConsumer {
         .claimExecution(objectId);
     WorkflowExecution workflowExecution = workflowExecutionClaimedPair.getLeft();
     final Boolean workflowClaimed = workflowExecutionClaimedPair.getRight();
-    if (workflowClaimed.equals(Boolean.TRUE)) {
-      handleClaimedExecution(rabbitmqEnvelope, objectId, workflowExecution);
+
+    boolean sendAck = true;
+    if (workflowExecution == null) {
+      // This execution no longer exists and we need to ignore it.
+      LOGGER.warn("workflowExecutionId: {} - Was in queue but no longer exists.", objectId);
+    } else if (workflowClaimed.equals(Boolean.TRUE)) {
+      handleClaimedExecution(workflowExecution);
     } else if (workflowClaimed.equals(Boolean.FALSE) && WorkflowExecutionMonitor.CLAIMABLE_STATUSES
         .contains(workflowExecution.getWorkflowStatus())) {
       LOGGER.info(
           "workflowExecutionId: {} - Send workflow execution identifier back to the queue, it "
               + "could not be claimed.", workflowExecution.getId());
-      sendNack(rabbitmqEnvelope, objectId);
+      sendAck = false;
     } else {
-      LOGGER.info(
-          "workflowExecutionId: {} - Does not have a claimable status, discarding message",
+      LOGGER.info("workflowExecutionId: {} - Does not have a claimable status, discarding message",
           workflowExecution.getId());
+    }
+    if (sendAck) {
       sendAck(rabbitmqEnvelope, objectId);
+    } else {
+      sendNack(rabbitmqEnvelope, objectId);
     }
   }
 
-  private void handleClaimedExecution(Envelope rabbitmqEnvelope, String objectId,
-      WorkflowExecution workflowExecution) throws IOException {
+  private void handleClaimedExecution(WorkflowExecution workflowExecution) {
     try {
-      if (workflowExecution == null) {
-        // This execution no longer exists and we need to ignore it.
-        LOGGER.warn("workflowExecutionId: {} - Was in queue but no longer exists.", objectId);
-      } else if (workflowExecution.isCancelling()) {
+      if (workflowExecution.isCancelling()) {
         // Has been cancelled, do not execute
         workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
         workflowExecutorManager.getWorkflowExecutionDao().update(workflowExecution);
@@ -137,9 +141,7 @@ public class QueueConsumer extends DefaultConsumer {
     } catch (RuntimeException e) {
       LOGGER.error(String.format(
           "workflowExecutionId: %s - Exception occurred during submitting message from queue",
-          objectId), e);
-    } finally {
-      sendAck(rabbitmqEnvelope, objectId);
+          workflowExecution.getId()), e);
     }
   }
 
@@ -217,6 +219,9 @@ public class QueueConsumer extends DefaultConsumer {
     }
   }
 
+  /**
+   * Close resources
+   */
   public void close() {
     threadPool.shutdown();
   }
