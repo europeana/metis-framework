@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
@@ -24,10 +25,10 @@ public class EnricherImpl implements Enricher {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
 
   private final RecordParser recordParser;
-  private final RemoteEntityResolver remoteEntityResolver;
+  private final EntityResolver remoteEntityResolver;
   private final EntityMergeEngine entityMergeEngine;
 
-  public EnricherImpl(RecordParser recordParser, RemoteEntityResolver remoteEntityResolver,
+  public EnricherImpl(RecordParser recordParser, EntityResolver remoteEntityResolver,
           EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.remoteEntityResolver = remoteEntityResolver;

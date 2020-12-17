@@ -1,5 +1,12 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.Concept;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
@@ -43,27 +50,14 @@ import eu.europeana.metis.schema.jibx.RelatedMatch;
 import eu.europeana.metis.schema.jibx.SameAs;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Part;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.api.external.model.WebResource;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -345,10 +339,10 @@ public class EntityMergeEngine {
       Consumer<List<T>> listSetter) {
 
     // Check if Entity already exists in the list. If so, return it. We don't overwrite.
-    final T existingEntity = Optional.ofNullable(listGetter.get()).map(List::stream)
-        .orElseGet(Stream::empty)
-        .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
-        .orElse(null);
+    final T existingEntity = Optional.ofNullable(listGetter.get()).stream()
+            .flatMap(Collection::stream)
+            .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout()))
+            .findAny().orElse(null);
     if (existingEntity != null) {
       return existingEntity;
     }
@@ -400,43 +394,5 @@ public class EntityMergeEngine {
     for (EnrichmentBase base : enrichmentBaseList) {
       convertAndAddEntity(rdf, base, proxyLinkTypes);
     }
-  }
-
-  /**
-   * Merge entities in a record.
-   *
-   * @param rdf The RDF to enrich.
-   * @param contextualEntities The objects to append.
-   * @param proxyLinkTypes Lookup of the link types to create in the europeana proxy. The keys are
-   * the about values of the entities to add.
-   */
-  public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
-      Map<String, Set<FieldType>> proxyLinkTypes) {
-    for (EnrichmentBase enrichmentBase : contextualEntities) {
-      final Set<String> links = this.getSameAsLinks(enrichmentBase);
-      links.add(enrichmentBase.getAbout());
-      final Set<FieldType> fields = links.stream().map(proxyLinkTypes::get)
-          .filter(Objects::nonNull).flatMap(Set::stream).collect(Collectors.toSet());
-      convertAndAddEntity(rdf, enrichmentBase, fields);
-    }
-  }
-
-
-  private static Set<String> getSameAsLinks(EnrichmentBase contextualClass) {
-    final List<? extends WebResource> result;
-    if (contextualClass instanceof Agent) {
-      result = ((Agent) contextualClass).getSameAs();
-    } else if (contextualClass instanceof Concept) {
-      result = ((Concept) contextualClass).getExactMatch();
-    } else if (contextualClass instanceof Place) {
-      result = ((Place) contextualClass).getSameAs();
-    } else if (contextualClass instanceof Timespan) {
-      result = ((Timespan) contextualClass).getSameAs();
-    } else {
-      result = null;
-    }
-    return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
-        .filter(Objects::nonNull).map(WebResource::getResourceUri).filter(StringUtils::isNotBlank)
-        .collect(Collectors.toSet());
   }
 }

@@ -29,7 +29,7 @@ public interface EnrichmentWorker {
 
   /**
    * Performs dereference and enrichment on an input stream to produce a target byte array. This is
-   * a wrapper for {@link #process(InputStream, Set<Mode>)} where the mode set has both {@link
+   * a wrapper for {@link #process(InputStream, Set)} where the mode set has both {@link
    * Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
@@ -55,7 +55,7 @@ public interface EnrichmentWorker {
 
   /**
    * Performs dereference and enrichment on an input String to produce a target String. This is a
-   * wrapper for {@link #process(String, Set<Mode>)} where the mode set has both @link
+   * wrapper for {@link #process(String, Set)} where the mode set has both @link
    * Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputString The RDF to be processed as a String.
@@ -81,7 +81,7 @@ public interface EnrichmentWorker {
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF. This is a wrapper
-   * for {@link #process(RDF, Set<Mode>)} where the mode set has both is @link
+   * for {@link #process(RDF, Set)} where the mode set has both is @link
    * Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputRdf The RDF to be processed.
@@ -89,8 +89,7 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  RDF process(final RDF inputRdf)
-      throws EnrichmentException, DereferenceException;
+  RDF process(final RDF inputRdf) throws EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
@@ -101,7 +100,6 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  RDF process(final RDF rdf, Set<Mode> modes)
-      throws EnrichmentException, DereferenceException;
+  RDF process(final RDF rdf, Set<Mode> modes) throws EnrichmentException, DereferenceException;
 
 }

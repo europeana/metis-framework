@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -173,7 +172,7 @@ public class EnricherImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()), anyMap());
-    verify(entityMergeEngine, times(0)).mergeEntities(any(), any(), anyMap());
+    verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()), any());
+    verify(entityMergeEngine, times(0)).mergeEntities(any(), any(), any());
   }
 }

@@ -62,19 +62,20 @@ public class DereferencerProvider extends AbstractConnectionProvider {
     }
 
     // Create the enrichment client if needed
-    RemoteEntityResolver remoteEntityResolver = null;
+    final RemoteEntityResolver remoteEntityResolver;
     if (StringUtils.isNotBlank(enrichmentUrl)) {
       try {
         remoteEntityResolver = new RemoteEntityResolver(new URL(enrichmentUrl),
-            batchSizeEnrichment, createRestTemplate());
+                batchSizeEnrichment, createRestTemplate());
       } catch (MalformedURLException e) {
         LOGGER.debug("There was a problem with the input values");
         throw new DereferenceException("Problems while building a new Dereferencer", e);
       }
+    } else {
+      remoteEntityResolver = null;
     }
 
     // Done.
     return new DereferencerImpl(new EntityMergeEngine(), remoteEntityResolver, dereferenceClient);
   }
-
 }
