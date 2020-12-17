@@ -10,6 +10,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -36,7 +38,6 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
@@ -204,6 +205,12 @@ class TestQueueConsumer {
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins2 = new ArrayList<>();
     abstractMetisPlugins2.add(oaipmhHarvestPlugin2);
 
+    OaipmhHarvestPlugin oaipmhHarvestPlugin3 = Mockito.spy(OaipmhHarvestPlugin.class);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata3 = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPlugin3.setPluginMetadata(oaipmhHarvestPluginMetadata3);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins3 = new ArrayList<>();
+    abstractMetisPlugins3.add(oaipmhHarvestPlugin3);
+
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
         .priority(priority).build();
@@ -218,14 +225,17 @@ class TestQueueConsumer {
     WorkflowExecution workflowExecution2 = TestObjectFactory.createWorkflowExecutionObject();
     WorkflowExecution workflowExecution3 = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution1.setId(objectId1);
-    workflowExecution1.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution1.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecution1.setMetisPlugins(abstractMetisPlugins1);
+    workflowExecution1.setStartedDate(new Date(1000));
     workflowExecution2.setId(objectId2);
-    workflowExecution2.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution2.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecution2.setMetisPlugins(abstractMetisPlugins2);
+    workflowExecution2.setStartedDate(new Date(2000));
     workflowExecution3.setId(objectId3);
-    workflowExecution3.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    workflowExecution3.setMetisPlugins(abstractMetisPlugins2);
+    workflowExecution3.setWorkflowStatus(WorkflowStatus.RUNNING);
+    workflowExecution3.setMetisPlugins(abstractMetisPlugins3);
+    workflowExecution3.setStartedDate(new Date(3000));
     when(workflowExecutionMonitor.claimExecution(objectId1.toString()))
         .thenReturn(new ImmutablePair<>(workflowExecution1, true));
     when(workflowExecutionMonitor.claimExecution(objectId2.toString()))
@@ -255,25 +265,24 @@ class TestQueueConsumer {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
-        workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
+    QueueConsumer queueConsumer = spy(
+        new QueueConsumer(rabbitmqConsumerChannel, null, workflowExecutorManager,
+            workflowExecutorManager, workflowExecutionMonitor));
+    doThrow(InterruptedException.class).doCallRealMethod().when(queueConsumer)
+        .checkAndCleanCompletionService();
+
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
+    Awaitility.await().forever().until(() -> oaipmhHarvestPlugin1.getStartedDate() != null);
+    Awaitility.await().forever().until(() -> oaipmhHarvestPlugin2.getStartedDate() != null);
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
 
-    Thread t = new Thread(() -> {
-      try {
-        queueConsumer.checkAndCleanCompletionService();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    });
-    t.start();
-    t.interrupt();
-    t.join();
-    Awaitility.await().atMost(60, TimeUnit.SECONDS)
+    assertThrows(InterruptedException.class, queueConsumer::checkAndCleanCompletionService);
+    queueConsumer.checkAndCleanCompletionService();
+
+    Awaitility.await().forever()
         .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(60, TimeUnit.SECONDS)
+    Awaitility.await().forever()
         .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertTrue(0 <= queueConsumer.getThreadsCounter() && queueConsumer.getThreadsCounter() <= 3);
   }
