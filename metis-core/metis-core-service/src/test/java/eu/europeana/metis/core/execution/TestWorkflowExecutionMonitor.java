@@ -1,6 +1,5 @@
 package eu.europeana.metis.core.execution;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -33,10 +32,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.redisson.api.RLock;
@@ -88,20 +87,20 @@ class TestWorkflowExecutionMonitor {
     final Instant id2 = id1.minusSeconds(1);
     final Instant id3 = id2.minusSeconds(1);
     final Instant id4 = id3.minusSeconds(1);
-    final WorkflowExecution workflowExecution1 =
-        createWorkflowExecution(id1, new Date(updatedTime));
-    final WorkflowExecution workflowExecution2 =
-        createWorkflowExecution(id2, new Date(updatedTime));
-    final WorkflowExecution workflowExecution3 =
-        createWorkflowExecution(id3, new Date(updatedTime));
-    final WorkflowExecution workflowExecution4 =
-        createWorkflowExecution(id4, new Date(updatedTime));
+    final WorkflowExecution workflowExecution1 = createWorkflowExecution(id1,
+        new Date(updatedTime));
+    final WorkflowExecution workflowExecution2 = createWorkflowExecution(id2,
+        new Date(updatedTime));
+    final WorkflowExecution workflowExecution3 = createWorkflowExecution(id3,
+        new Date(updatedTime));
+    final WorkflowExecution workflowExecution4 = createWorkflowExecution(id4,
+        new Date(updatedTime));
 
     // Create monitor
     final Duration leniency = Duration.ofSeconds(10);
-    final WorkflowExecutionMonitor monitor =
-        Mockito.spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, leniency));
+    final WorkflowExecutionMonitor monitor = Mockito.spy(
+        new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao, redissonClient,
+            leniency));
 
     // Mock the get entry: 1 is normal, 2 is hanging and 3 and 4 are null.
     WorkflowExecutionEntry entry1 = mock(WorkflowExecutionEntry.class);
@@ -117,19 +116,22 @@ class TestWorkflowExecutionMonitor {
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution3))
         .when(monitor).updateCurrentRunningExecutions();
     when(workflowExecutionDao
-            .getAllWorkflowExecutions(isNull(), eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(),
-                    anyBoolean(), eq(0), eq(1), eq(true)))
-            .thenReturn(new ResultList<>(Collections.singletonList(workflowExecution4), false));
+        .getAllWorkflowExecutions(isNull(), eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(),
+            anyBoolean(), eq(0), eq(1), eq(true)))
+        .thenReturn(new ResultList<>(Collections.singletonList(workflowExecution4), false));
     when(workflowExecutionDao.getWorkflowExecutionsPerRequest()).thenReturn(4);
 
     // Perform method and verify the requeued executions
     monitor.performFailsafe();
-    verify(workflowExecutorManager, times(1)).addWorkflowExecutionToQueue(
-        eq(workflowExecution2.getId().toString()), eq(workflowExecution2.getWorkflowPriority()));
-    verify(workflowExecutorManager, times(1)).addWorkflowExecutionToQueue(
-        eq(workflowExecution3.getId().toString()), eq(workflowExecution3.getWorkflowPriority()));
-    verify(workflowExecutorManager, times(1)).addWorkflowExecutionToQueue(
-        eq(workflowExecution4.getId().toString()), eq(workflowExecution4.getWorkflowPriority()));
+    verify(workflowExecutorManager, times(1))
+        .addWorkflowExecutionToQueue(eq(workflowExecution2.getId().toString()),
+            eq(workflowExecution2.getWorkflowPriority()));
+    verify(workflowExecutorManager, times(1))
+        .addWorkflowExecutionToQueue(eq(workflowExecution3.getId().toString()),
+            eq(workflowExecution3.getWorkflowPriority()));
+    verify(workflowExecutorManager, times(1))
+        .addWorkflowExecutionToQueue(eq(workflowExecution4.getId().toString()),
+            eq(workflowExecution4.getWorkflowPriority()));
     verifyNoMoreInteractions(workflowExecutorManager);
 
     // Verify calls that need to be locked.
@@ -137,9 +139,9 @@ class TestWorkflowExecutionMonitor {
     inOrder.verify(monitor).performFailsafe();
     inOrder.verify(lock).lock();
     inOrder.verify(monitor, times(1)).updateCurrentRunningExecutions();
-    inOrder.verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(),
-            eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0),
-            eq(1), eq(true));
+    inOrder.verify(workflowExecutionDao, times(1))
+        .getAllWorkflowExecutions(isNull(), eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(),
+            anyBoolean(), eq(0), eq(1), eq(true));
     inOrder.verify(lock).unlock();
     inOrder.verifyNoMoreInteractions();
   }
@@ -168,9 +170,9 @@ class TestWorkflowExecutionMonitor {
   void testClaimExecution() {
 
     // Create monitor.
-    WorkflowExecutionMonitor monitor =
-        Mockito.spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, Duration.ofHours(1)));
+    WorkflowExecutionMonitor monitor = Mockito.spy(
+        new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao, redissonClient,
+            Duration.ofHours(1)));
 
     // Create workflow execution
     final WorkflowExecution workflowExecution = createWorkflowExecution(Instant.now(), null);
@@ -181,54 +183,31 @@ class TestWorkflowExecutionMonitor {
     // Test when claim succeeds on execution in queue.
     // Note: Don't use Instant.now(): date must be created in the same way to have same precision.
     doReturn(true).when(monitor).mayClaimExecution(workflowExecution);
-    final Instant begin1 = new Date().toInstant();
-    assertSame(workflowExecution, monitor.claimExecution(id));
-    final Instant end1 = new Date().toInstant();
+    assertSame(workflowExecution, monitor.claimExecution(id).getLeft());
 
-    InOrder inOrder = Mockito.inOrder(lock, redissonClient, workflowExecutorManager,
-        workflowExecutionDao, monitor);
+    InOrder inOrder = Mockito
+        .inOrder(lock, redissonClient, workflowExecutorManager, workflowExecutionDao, monitor);
     inOrder.verify(monitor, times(1)).claimExecution(any());
     inOrder.verify(lock, times(1)).lock();
     inOrder.verify(workflowExecutionDao, times(1)).getById(id);
     inOrder.verify(monitor, times(1)).mayClaimExecution(workflowExecution);
-    inOrder.verify(workflowExecutionDao, times(1)).updateMonitorInformation(workflowExecution);
     inOrder.verify(lock, times(1)).unlock();
     inOrder.verifyNoMoreInteractions();
 
-    // Check values in workflow execution after claim.
-    assertNotNull(workflowExecution.getStartedDate());
-    assertNotNull(workflowExecution.getUpdatedDate());
-    assertFalse(workflowExecution.getStartedDate().toInstant().isAfter(end1));
-    assertFalse(workflowExecution.getUpdatedDate().toInstant().isAfter(end1));
-    assertFalse(workflowExecution.getStartedDate().toInstant().isBefore(begin1));
-    assertFalse(workflowExecution.getUpdatedDate().toInstant().isBefore(begin1));
-    assertEquals(WorkflowStatus.RUNNING, workflowExecution.getWorkflowStatus());
-
-    // Test when execution was already running.
-    // Note: Don't use Instant.now(): date must be created in the same way to have same precision.
-    final Date oldStartedDate = workflowExecution.getStartedDate();
-    final Instant begin2 = new Date().toInstant();
-    assertSame(workflowExecution, monitor.claimExecution(id));
-    final Instant end2 = new Date().toInstant();
-    assertEquals(oldStartedDate, workflowExecution.getStartedDate());
-    assertNotNull(workflowExecution.getUpdatedDate());
-    assertFalse(workflowExecution.getUpdatedDate().toInstant().isAfter(end2));
-    assertFalse(workflowExecution.getUpdatedDate().toInstant().isBefore(begin2));
-    assertEquals(WorkflowStatus.RUNNING, workflowExecution.getWorkflowStatus());
-
+    assertSame(workflowExecution, monitor.claimExecution(id).getLeft());
     // Test when claim fails.
     doReturn(false).when(monitor).mayClaimExecution(workflowExecution);
-    assertNull(monitor.claimExecution(id));
+    assertFalse(monitor.claimExecution(id).getRight());
   }
 
   @Test
   void testClaimExecutionWithException() {
     final String id = "id";
-    WorkflowExecutionMonitor monitor =
-        Mockito.spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, Duration.ofHours(1)));
+    WorkflowExecutionMonitor monitor = Mockito.spy(
+        new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao, redissonClient,
+            Duration.ofHours(1)));
     doThrow(new RuntimeException("Test exception")).when(workflowExecutionDao).getById(id);
-    assertNull(monitor.claimExecution(id));
+    assertNull(monitor.claimExecution(id).getLeft());
     verify(lock, times(1)).unlock();
   }
 
@@ -278,9 +257,9 @@ class TestWorkflowExecutionMonitor {
 
     // Create monitor
     final Duration leniency = Duration.ofSeconds(10);
-    final WorkflowExecutionMonitor monitor =
-        spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, leniency));
+    final WorkflowExecutionMonitor monitor = spy(
+        new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao, redissonClient,
+            leniency));
 
     // Create workflow execution
     final WorkflowExecution workflowExecution = createWorkflowExecution(Instant.now(), null);
@@ -329,19 +308,19 @@ class TestWorkflowExecutionMonitor {
     final Instant id2 = id1.minusSeconds(1);
     final Instant id3 = id2.minusSeconds(1);
     final Instant id4 = id3.minusSeconds(1);
-    final WorkflowExecution workflowExecution1 =
-        createWorkflowExecution(id1, new Date(updatedTime));
-    final WorkflowExecution workflowExecution2 =
-        createWorkflowExecution(id2, new Date(updatedTime));
-    final WorkflowExecution workflowExecution3 =
-        createWorkflowExecution(id3, new Date(updatedTime));
-    final WorkflowExecution workflowExecution4 =
-        createWorkflowExecution(id4, new Date(updatedTime));
+    final WorkflowExecution workflowExecution1 = createWorkflowExecution(id1,
+        new Date(updatedTime));
+    final WorkflowExecution workflowExecution2 = createWorkflowExecution(id2,
+        new Date(updatedTime));
+    final WorkflowExecution workflowExecution3 = createWorkflowExecution(id3,
+        new Date(updatedTime));
+    final WorkflowExecution workflowExecution4 = createWorkflowExecution(id4,
+        new Date(updatedTime));
 
     // Create monitor
-    final WorkflowExecutionMonitor monitor =
-        spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, Duration.ofSeconds(10)));
+    final WorkflowExecutionMonitor monitor = spy(
+        new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao, redissonClient,
+            Duration.ofSeconds(10)));
 
     // Set base for current executions: include workflows 1, 2 and 3. Verify.
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution3))
