@@ -27,6 +27,11 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
     if(!super.equals(other)){
       return false;
     }
+
+    if(getClass() != other.getClass()){
+      return false;
+    }
+
     ReferenceTermContext o = (ReferenceTermContext) other;
 
     return Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());

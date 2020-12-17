@@ -32,6 +32,10 @@ public class SearchTermContext extends AbstractSearchTerm {
       return false;
     }
 
+    if(getClass() != other.getClass()){
+      return false;
+    }
+
     SearchTermContext o = (SearchTermContext) other;
 
     return Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());

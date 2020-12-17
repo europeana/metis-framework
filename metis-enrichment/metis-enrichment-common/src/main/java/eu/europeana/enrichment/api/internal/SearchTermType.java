@@ -27,6 +27,10 @@ public class SearchTermType extends AbstractSearchTerm{
       return false;
     }
 
+    if(getClass() != other.getClass()){
+      return false;
+    }
+
     SearchTermType o = (SearchTermType) other;
 
     return Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());

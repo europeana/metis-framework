@@ -29,6 +29,10 @@ public class ReferenceTermType extends AbstractReferenceTerm{
       return false;
     }
 
+    if(getClass() != other.getClass()){
+      return false;
+    }
+
     ReferenceTermType o = (ReferenceTermType) other;
 
     return Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
