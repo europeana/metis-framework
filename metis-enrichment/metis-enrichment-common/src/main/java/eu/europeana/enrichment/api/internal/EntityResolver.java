@@ -16,7 +16,7 @@ public interface EntityResolver {
    * @param searchTerms The search terms to resolve.
    * @return A map from the search term to a list of entities that the search term yielded.
    */
-  Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<? extends SearchTerm> searchTerms);
+  <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms);
 
   /**
    * Resolve entities by an ID reference (i.e. any resulting entity has the reference as ID).
@@ -24,7 +24,7 @@ public interface EntityResolver {
    * @param referenceTerms The references to resolve.
    * @return A map from the reference to the entity that the reference points to.
    */
-  Map<ReferenceTerm, EnrichmentBase> resolveById(Set<? extends ReferenceTerm> referenceTerms);
+  <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms);
 
   /**
    * Resolve entities by an equivalence reference (i.e. any resulting entity either has the
@@ -33,6 +33,5 @@ public interface EntityResolver {
    * @param referenceTerms The references to resolve.
    * @return A map from the reference to a list of entities that the reference is equivalent to.
    */
-  Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(
-          Set<? extends ReferenceTerm> referenceTerms);
+  <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms);
 }

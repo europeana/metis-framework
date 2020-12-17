@@ -52,7 +52,6 @@ public class EnricherProvider extends AbstractConnectionProvider {
     }
 
     // Done.
-    return new EnricherImpl(new EntityMergeEngine(), remoteEntityResolver);
+    return new EnricherImpl(new MetisRecordParser(), remoteEntityResolver, new EntityMergeEngine());
   }
-
 }

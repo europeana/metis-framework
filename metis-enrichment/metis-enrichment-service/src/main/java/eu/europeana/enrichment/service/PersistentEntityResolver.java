@@ -52,10 +52,10 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<? extends SearchTerm> searchTermSet) {
-    final Map<SearchTerm, List<EnrichmentBase>> result = new HashMap<>();
+  public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
+    final Map<T, List<EnrichmentBase>> result = new HashMap<>();
     try {
-      for (SearchTerm searchTerm : searchTermSet) {
+      for (T searchTerm : searchTerms) {
         findEnrichmentEntitiesBySearchTerm(result, searchTerm);
       }
     } catch (RuntimeException e) {
@@ -65,9 +65,9 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<? extends ReferenceTerm> referenceTermSet) {
-    final Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
-    for (ReferenceTerm value : referenceTermSet) {
+  public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
+    final Map<T, EnrichmentBase> result = new HashMap<>();
+    for (T value : referenceTerms) {
       try {
         List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(List.of(
             new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference().toString())));
@@ -82,10 +82,10 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<? extends ReferenceTerm> referenceTermSet) {
-    Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
+  public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
+    final Map<T, List<EnrichmentBase>> result = new HashMap<>();
 
-    for(ReferenceTerm referenceTerm: referenceTermSet){
+    for(T referenceTerm: referenceTerms){
       try {
         final Set<EntityType> entityTypes = referenceTerm.getCandidateTypes();
         final List<EnrichmentBase> foundEnrichmentBases;
@@ -111,8 +111,8 @@ public class PersistentEntityResolver implements EntityResolver {
     return result;
   }
 
-  private void findEnrichmentEntitiesBySearchTerm(
-      Map<SearchTerm, List<EnrichmentBase>> searchTermListMap, SearchTerm searchTerm) {
+  private <T extends SearchTerm> void findEnrichmentEntitiesBySearchTerm(
+      Map<T, List<EnrichmentBase>> searchTermListMap, T searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
     if (!StringUtils.isBlank(value)) {
       final Set<EntityType> entityTypes = searchTerm.getCandidateTypes();

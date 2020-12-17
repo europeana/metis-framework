@@ -1,13 +1,13 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.Created;
 import eu.europeana.metis.schema.jibx.Creator;
 import eu.europeana.metis.schema.jibx.Date;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Format;
 import eu.europeana.metis.schema.jibx.Issued;
 import eu.europeana.metis.schema.jibx.Medium;
@@ -18,9 +18,7 @@ import eu.europeana.metis.schema.jibx.Spatial;
 import eu.europeana.metis.schema.jibx.Subject;
 import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
-import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -83,13 +81,13 @@ public enum FieldType {
    * Extract fields from a Proxy for enrichment
    *
    * @param proxy The proxy to use for enrichment
-   * @return A list of values ready for enrichment
+   * @return A list of values (text and language) ready for enrichment
    */
-  public final List<SearchValue> extractFieldValuesForEnrichment(ProxyType proxy) {
+  public final Set<FieldValue> extractFieldValuesForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
         .filter(content -> StringUtils.isNotEmpty(content.getString()))
         .map(this::convert)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -114,9 +112,9 @@ public enum FieldType {
         .filter(Objects::nonNull);
   }
 
-  private SearchValue convert(ResourceOrLiteralType content) {
+  private FieldValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() == null ? null : content.getLang().getLang();
-    return new SearchValue(content.getString(), language, entityType);
+    return new FieldValue(content.getString(), language);
   }
 
   /**
@@ -175,6 +173,41 @@ public enum FieldType {
       content.setString(""); // Required, otherwise jibx (de)serialization fails
       contentSetter.accept(choice, content);
       return choice;
+    }
+  }
+
+  public static final class FieldValue{
+    private final String value;
+    private final String language;
+
+    public FieldValue(String value, String language) {
+      this.value = value;
+      this.language = language;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public String getLanguage() {
+      return language;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      final FieldValue that = (FieldValue) o;
+      return Objects.equals(value, that.value) && Objects.equals(language, that.language);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(value, language);
     }
   }
 }
