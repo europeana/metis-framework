@@ -194,8 +194,7 @@ public class WorkflowExecutionMonitor {
       // Retrieve the most current version of the execution.
       workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 
-      if (workflowExecution != null && CLAIMABLE_STATUSES
-          .contains(workflowExecution.getWorkflowStatus())) {
+      if (workflowExecution != null) {
         claimed = mayClaimExecution(workflowExecution);
         if (claimed) {
           //Update dates
@@ -222,38 +221,37 @@ public class WorkflowExecutionMonitor {
   /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */
   boolean mayClaimExecution(WorkflowExecution workflowExecution) {
 
-    // If the status is not RUNNING, we can give the answer straight away: only executions in the
-    // queue may be started.
-    if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
-      boolean result = workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE;
-      if (!result) {
-        LOGGER.info("Claim for execution {} denied: workflow not in RUNNING or INQUEUE state.",
+    if (CLAIMABLE_STATUSES.contains(workflowExecution.getWorkflowStatus())) {
+      //If it's INQUEUE we are directly claiming it
+      if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
+        return true;
+      }
+
+      // If it is running, we check whether it is currently hanging. Get the map entry.
+      final WorkflowExecutionEntry currentExecution = getEntry(workflowExecution);
+
+      // If there is no entry, permission is denied: we assume one will appear shortly.
+      if (currentExecution == null) {
+        LOGGER.info(
+            "workflowExecutionId: {} - Claim denied: wait for scheduled monitoring task to monitor this RUNNING execution.",
+            workflowExecution.getId());
+        return false;
+      }
+
+      // Grant permission only if the execution appears to be hanging.
+      final boolean isExecutionHanging =
+          currentExecution.updateTimeValueIsEqual(workflowExecution.getUpdatedDate())
+              && currentExecution.assumeHanging(failsafeLeniency);
+      if (!isExecutionHanging) {
+        LOGGER.info(
+            "workflowExecutionId: {} - Claim denied: RUNNING execution does not (yet) appear to be hanging.",
             workflowExecution.getId());
       }
-      return result;
+      return isExecutionHanging;
     }
-
-    // If it is running, we check whether it is currently hanging. Get the map entry.
-    final WorkflowExecutionEntry currentExecution = getEntry(workflowExecution);
-
-    // If there is no entry, permission is denied: we assume one will appear shortly.
-    if (currentExecution == null) {
-      LOGGER.info(
-          "Claim for execution {} denied: wait for scheduled monitoring task to monitor this RUNNING execution.",
-          workflowExecution.getId());
-      return false;
-    }
-
-    // Grant permission only if the execution appears to be hanging.
-    final boolean result =
-        currentExecution.updateTimeValueIsEqual(workflowExecution.getUpdatedDate())
-            && currentExecution.assumeHanging(failsafeLeniency);
-    if (!result) {
-      LOGGER.info(
-          "Claim for execution {} denied: RUNNING execution does not (yet) appear to be hanging.",
-          workflowExecution.getId());
-    }
-    return result;
+    LOGGER.info("workflowExecutionId: {} - Claim denied: workflow not in RUNNING or INQUEUE state.",
+        workflowExecution.getId());
+    return false;
   }
 
   /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */

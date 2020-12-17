@@ -106,25 +106,30 @@ public class QueueConsumer extends DefaultConsumer {
     final Boolean workflowClaimed = workflowExecutionClaimedPair.getRight();
 
     boolean sendAck = true;
-    if (workflowExecution == null) {
-      // This execution no longer exists and we need to ignore it.
-      LOGGER.warn("workflowExecutionId: {} - Was in queue but no longer exists.", objectId);
-    } else if (workflowClaimed.equals(Boolean.TRUE)) {
-      handleClaimedExecution(workflowExecution);
-    } else if (workflowClaimed.equals(Boolean.FALSE) && WorkflowExecutionMonitor.CLAIMABLE_STATUSES
-        .contains(workflowExecution.getWorkflowStatus())) {
-      LOGGER.info(
-          "workflowExecutionId: {} - Send workflow execution identifier back to the queue, it "
-              + "could not be claimed.", workflowExecution.getId());
-      sendAck = false;
-    } else {
-      LOGGER.info("workflowExecutionId: {} - Does not have a claimable status, discarding message",
-          workflowExecution.getId());
-    }
-    if (sendAck) {
-      sendAck(rabbitmqEnvelope, objectId);
-    } else {
-      sendNack(rabbitmqEnvelope, objectId);
+    try {
+      if (workflowExecution == null) {
+        // This execution no longer exists and we need to ignore it.
+        LOGGER.warn("workflowExecutionId: {} - Was in queue but no longer exists.", objectId);
+      } else if (workflowClaimed.equals(Boolean.TRUE)) {
+        handleClaimedExecution(workflowExecution);
+      } else if (workflowClaimed.equals(Boolean.FALSE)
+          && WorkflowExecutionMonitor.CLAIMABLE_STATUSES
+          .contains(workflowExecution.getWorkflowStatus())) {
+        LOGGER.info(
+            "workflowExecutionId: {} - Send workflow execution identifier back to the queue, it "
+                + "could not be claimed.", workflowExecution.getId());
+        sendAck = false;
+      } else {
+        LOGGER
+            .info("workflowExecutionId: {} - Does not have a claimable status, discarding message",
+                workflowExecution.getId());
+      }
+    } finally {
+      if (sendAck) {
+        sendAck(rabbitmqEnvelope, objectId);
+      } else {
+        sendNack(rabbitmqEnvelope, objectId);
+      }
     }
   }
 

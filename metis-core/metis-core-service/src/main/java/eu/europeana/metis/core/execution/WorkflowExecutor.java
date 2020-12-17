@@ -160,12 +160,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         i < workflowExecution.getMetisPlugins().size() && continueNextPlugin; i++) {
       final AbstractMetisPlugin plugin = workflowExecution.getMetisPlugins().get(i);
 
-      try {
-        //Run plugin if available space
-        didPluginRun = runMetisPluginWithSemaphoreAllocation(i, plugin);
-      } catch (InterruptedException e) {
-        currentThread().interrupt();
-      }
+      //Run plugin if available space
+      didPluginRun = runMetisPluginWithSemaphoreAllocation(i, plugin);
       continueNextPlugin = !currentThread().isInterrupted() && didPluginRun && (
           !workflowExecutionDao.isCancelling(workflowExecution.getId())
               || plugin.getFinishedDate() != null)
@@ -213,8 +209,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
    * @return true if plugin ran, false if plugin did not run
    * @throws InterruptedException if an interruption occurred
    */
-  private boolean runMetisPluginWithSemaphoreAllocation(int i, AbstractMetisPlugin plugin)
-      throws InterruptedException {
+  private boolean runMetisPluginWithSemaphoreAllocation(int i, AbstractMetisPlugin plugin) {
     // Sanity check
     if (plugin == null) {
       throw new IllegalStateException("Plugin cannot be null.");
