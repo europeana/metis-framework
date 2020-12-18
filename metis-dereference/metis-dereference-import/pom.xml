@@ -57,6 +57,12 @@
       <groupId>org.apache.maven.enforcer</groupId>
       <artifactId>enforcer-api</artifactId>
       <version>${api.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
