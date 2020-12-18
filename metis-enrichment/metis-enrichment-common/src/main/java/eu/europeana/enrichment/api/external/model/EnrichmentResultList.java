@@ -31,6 +31,6 @@ public class EnrichmentResultList {
   }
 
   public List<EnrichmentResultBaseWrapper> getEnrichmentBaseResultWrapperList() {
-    return enrichmentResultBaseWrapperList;
+    return new ArrayList<>(enrichmentResultBaseWrapperList);
   }
 }
