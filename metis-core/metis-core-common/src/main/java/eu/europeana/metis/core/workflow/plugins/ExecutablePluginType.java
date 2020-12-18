@@ -55,7 +55,7 @@ public enum ExecutablePluginType {
    */
   public static ExecutablePluginType getExecutablePluginFromPluginType(PluginType pluginType) {
     for (ExecutablePluginType executablePluginType : values()) {
-      if (executablePluginType.pluginType.equals(pluginType)) {
+      if (executablePluginType.pluginType == pluginType) {
         return executablePluginType;
       }
     }

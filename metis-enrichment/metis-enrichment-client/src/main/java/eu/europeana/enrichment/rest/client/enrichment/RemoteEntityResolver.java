@@ -58,7 +58,7 @@ public class RemoteEntityResolver implements EntityResolver {
     };
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
         ENRICH_ENTITY_SEARCH, searchTermList, inputFunction);
-    final Map<SearchTerm, List<EnrichmentBase>> result = new HashMap<>();
+    final Map<SearchTerm, List<EnrichmentBase>> result = new HashMap<>(enrichmentResultBaseWrapperList.size());
     for (int i = 0; i < enrichmentResultBaseWrapperList.size(); i++) {
       result.put(searchTermList.get(i),
           enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
@@ -99,7 +99,7 @@ public class RemoteEntityResolver implements EntityResolver {
     };
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
         ENRICH_ENTITY_EQUIVALENCE, referenceTermList, inputFunction);
-    final Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
+    final Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>(referenceTermList.size());
     for (int i = 0; i < referenceTermList.size(); i++) {
       result.put(referenceTermList.get(i),
           enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
