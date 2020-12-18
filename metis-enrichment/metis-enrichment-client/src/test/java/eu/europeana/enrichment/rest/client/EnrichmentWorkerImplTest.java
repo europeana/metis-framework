@@ -19,10 +19,9 @@ import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
+import eu.europeana.metis.schema.convert.SerializationException;
 import java.util.Set;
 import java.util.TreeSet;
-import org.jibx.runtime.JiBXException;
 import org.junit.jupiter.api.Test;
 
 class EnrichmentWorkerImplTest {
@@ -153,7 +152,7 @@ class EnrichmentWorkerImplTest {
 
   @Test
   void testProcessWrapperMethods()
-      throws JiBXException, DereferenceException, EnrichmentException, SerializationException {
+      throws DereferenceException, EnrichmentException, SerializationException {
 
     // Create enrichment worker and mock the actual worker method as well as the RDF conversion
     // methods.
@@ -203,11 +202,7 @@ class EnrichmentWorkerImplTest {
       fail("Expected an exception to occur.");
     } catch (IllegalArgumentException e) {
       // This is expected
-    } catch (DereferenceException e) {
-      e.printStackTrace();
-    } catch (SerializationException e) {
-      e.printStackTrace();
-    } catch (EnrichmentException e) {
+    } catch (DereferenceException | SerializationException | EnrichmentException e) {
       e.printStackTrace();
     }
 

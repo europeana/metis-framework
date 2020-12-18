@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiResponses;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -79,8 +80,9 @@ public class EnrichmentController {
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase equivalence(@ApiParam("uri") @RequestParam("uri") String uri) {
-    return enrichmentService
-        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet())).get(0);
+    List<EnrichmentBase> result =  enrichmentService
+        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
+    return result.stream().findFirst().orElse(null);
     //TODO 07-12-2020: For this case it is expected only one as a result, but we should handle this better in the future
   }
 
@@ -102,11 +104,8 @@ public class EnrichmentController {
   public EnrichmentResultList equivalence(@RequestBody EnrichmentReference enrichmentReference) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
         .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
-        .filter(Objects::nonNull)
-        .map(EnrichmentResultBaseWrapper::new)
-        .collect(Collectors.toList());
+        .map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
-
   }
 
   /**
@@ -123,12 +122,11 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList entityId(@RequestBody List<String> uris) {
     // TODO: 17/11/2020 Support for xml input. Requires a wrapper class with a field of the list of uris
-    List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
-        .map(enrichmentService::enrichById).filter(Objects::nonNull)
-        .map(base -> new EnrichmentResultBaseWrapper(Collections.singletonList(base)))
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
+        .map(enrichmentService::enrichById)
+        .map(result -> Optional.ofNullable(result).map(List::of).orElseGet(Collections::emptyList))
+        .map(EnrichmentResultBaseWrapper::new)
         .collect(Collectors.toList());
-
     return new EnrichmentResultList(enrichmentBaseWrappers);
-
   }
 }

@@ -11,6 +11,9 @@ import org.jibx.runtime.JiBXException;
 
 /**
  * This object implements RDF serialization functionality.
+ *
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
  */
 class RdfSerializerImpl implements RdfSerializer {
 

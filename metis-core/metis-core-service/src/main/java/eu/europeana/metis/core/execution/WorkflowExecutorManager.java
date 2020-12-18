@@ -21,14 +21,10 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     WorkflowExecutionSettings {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutorManager.class);
-  private static final int DEFAULT_MAX_CONCURRENT_THREADS = 10;
   private static final int DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS = 5;
-  private static final int DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS = 10;
   private static final int DEFAULT_PERIOD_OF_NO_PROCESSED_RECORDS_CHANGE_IN_MINUTES = 30;
 
-  private int maxConcurrentThreads = DEFAULT_MAX_CONCURRENT_THREADS; //Use setter otherwise default
   private int dpsMonitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
-  private int pollingTimeoutForCleaningCompletionServiceInSecs = DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS; //Use setter otherwise default
   private int periodOfNoProcessedRecordsChangeInMinutes = DEFAULT_PERIOD_OF_NO_PROCESSED_RECORDS_CHANGE_IN_MINUTES; //Use setter otherwise default
 
   private String rabbitmqQueueName; //Initialize with setter
@@ -39,6 +35,7 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   /**
    * Autowired constructor.
    *
+   * @param semaphoresPerPluginManager the semaphores per plugin manager
    * @param workflowExecutionDao the DAO for accessing WorkflowExecutions
    * @param workflowPostProcessor the workflow post processor
    * @param rabbitmqPublisherChannel the channel for publishing to RabbitMQ
@@ -46,11 +43,12 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
    * @param redissonClient the redisson client for distributed locks
    * @param dpsClient the Data Processing Service client from ECloud
    */
-  public WorkflowExecutorManager(WorkflowExecutionDao workflowExecutionDao,
-          WorkflowPostProcessor workflowPostProcessor, Channel rabbitmqPublisherChannel,
-          Channel rabbitmqConsumerChannel, RedissonClient redissonClient, DpsClient dpsClient) {
-    super(rabbitmqPublisherChannel, rabbitmqConsumerChannel, workflowExecutionDao,
-            workflowPostProcessor, redissonClient, dpsClient);
+  public WorkflowExecutorManager(SemaphoresPerPluginManager semaphoresPerPluginManager,
+      WorkflowExecutionDao workflowExecutionDao, WorkflowPostProcessor workflowPostProcessor,
+      Channel rabbitmqPublisherChannel, Channel rabbitmqConsumerChannel,
+      RedissonClient redissonClient, DpsClient dpsClient) {
+    super(rabbitmqPublisherChannel, rabbitmqConsumerChannel, semaphoresPerPluginManager,
+        workflowExecutionDao, workflowPostProcessor, redissonClient, dpsClient);
   }
 
   /**
@@ -79,10 +77,6 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.rabbitmqQueueName = rabbitmqQueueName;
   }
 
-  public void setMaxConcurrentThreads(int maxConcurrentThreads) {
-    this.maxConcurrentThreads = maxConcurrentThreads;
-  }
-
   public void setEcloudBaseUrl(String ecloudBaseUrl) {
     this.ecloudBaseUrl = ecloudBaseUrl;
   }
@@ -99,11 +93,6 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.dpsMonitorCheckIntervalInSecs = dpsMonitorCheckIntervalInSecs;
   }
 
-  public void setPollingTimeoutForCleaningCompletionServiceInSecs(
-      int pollingTimeoutForCleaningCompletionServiceInSecs) {
-    this.pollingTimeoutForCleaningCompletionServiceInSecs = pollingTimeoutForCleaningCompletionServiceInSecs;
-  }
-
   public void setPeriodOfNoProcessedRecordsChangeInMinutes(
       int periodOfNoProcessedRecordsChangeInMinutes) {
     this.periodOfNoProcessedRecordsChangeInMinutes = periodOfNoProcessedRecordsChangeInMinutes;
@@ -112,16 +101,6 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   @Override
   public int getDpsMonitorCheckIntervalInSecs() {
     return dpsMonitorCheckIntervalInSecs;
-  }
-
-  @Override
-  public int getMaxConcurrentThreads() {
-    return maxConcurrentThreads;
-  }
-
-  @Override
-  public int getPollingTimeoutForCleaningCompletionServiceInSecs() {
-    return pollingTimeoutForCleaningCompletionServiceInSecs;
   }
 
   @Override

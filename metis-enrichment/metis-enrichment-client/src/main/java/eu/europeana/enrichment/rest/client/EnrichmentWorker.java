@@ -3,7 +3,7 @@ package eu.europeana.enrichment.rest.client;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
+import eu.europeana.metis.schema.convert.SerializationException;
 import java.io.InputStream;
 import java.util.Set;
 

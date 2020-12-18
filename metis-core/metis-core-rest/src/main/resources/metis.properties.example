@@ -7,7 +7,7 @@ failsafe.margin.of.inactivity.in.secs=
 periodic.failsafe.check.in.millisecs=
 periodic.scheduler.check.in.millisecs=
 redisson.lock.watchdog.timeout.in.secs=
-polling.timeout.for.cleaning.completion.service.in.secs=
+polling.timeout.for.cleaning.completion.service.in.millisecs=
 #If a task passed this cap the task will be cancelled
 period.of.no.processed.records.change.in.minutes=
 

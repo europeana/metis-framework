@@ -39,6 +39,9 @@ import org.xml.sax.SAXException;
  * This implements RDF deserialization functionality. The code that obtains the individual resources
  * does not assume that we can convert the record to an EDM internal format. Link checking must also
  * run on EDM external. We therefore use XPath expressions to obtain the required data.
+ *
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 

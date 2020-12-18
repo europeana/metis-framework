@@ -20,6 +20,9 @@ import org.jibx.runtime.JiBXException;
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
  *
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
+ *
  * @author jochen
  */
 public class StringToFullBeanConverter extends RdfToFullBeanConverter {

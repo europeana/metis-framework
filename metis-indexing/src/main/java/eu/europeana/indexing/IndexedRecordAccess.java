@@ -140,7 +140,7 @@ public class IndexedRecordAccess {
 
     if (maxRecordDate != null) {
       //Set date format properly for Solr, the timezone has to be added
-      DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_SOLR, Locale.US);
+      DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
       dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
       solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED).append(":[* TO ")
           .append(dateFormat.format(maxRecordDate)).append('}');

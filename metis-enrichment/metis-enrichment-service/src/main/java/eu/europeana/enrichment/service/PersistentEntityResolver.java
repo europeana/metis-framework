@@ -66,13 +66,13 @@ public class PersistentEntityResolver implements EntityResolver {
 
   @Override
   public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
-    Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
+    final Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
     for (ReferenceTerm value : referenceTermSet) {
       try {
-        EnrichmentBase foundEnrichmentBases = getEnrichmentTermAndConvert(
-            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference().toString()));
-        if (foundEnrichmentBases != null) {
-          result.put(value, foundEnrichmentBases);
+        List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(List.of(
+            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference().toString())));
+        if (!foundEnrichmentBases.isEmpty()) {
+          result.put(value, foundEnrichmentBases.get(0));
         }
       } catch (RuntimeException e) {
         LOGGER.warn("Unable to retrieve entity from entityAbout", e);
@@ -88,14 +88,15 @@ public class PersistentEntityResolver implements EntityResolver {
     for(ReferenceTerm referenceTerm: referenceTermSet){
       try {
         final List<EntityType> entityTypes = referenceTerm.getCandidateTypes();
-        List<EnrichmentBase> foundEnrichmentBases = new ArrayList<>();
+        final List<EnrichmentBase> foundEnrichmentBases;
         if (CollectionUtils.isEmpty(entityTypes)) {
-          foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
-              null);
+          foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(
+                  referenceTerm.getReference().toString(), null);
         } else {
+          foundEnrichmentBases = new ArrayList<>();
           for (EntityType entityType : entityTypes) {
-            foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
-                entityType);
+            foundEnrichmentBases.addAll(searchBasesFirstAboutThenOwlSameAs(
+                    referenceTerm.getReference().toString(), entityType));
           }
         }
 
@@ -212,21 +213,25 @@ public class PersistentEntityResolver implements EntityResolver {
     }
     // Get by about first
     parametersAbout.add(parameterAbout);
-    foundEnrichmentBases = parametersAbout.stream().map(this::getEnrichmentTermAndConvert)
-        .collect(Collectors.toList());
+    foundEnrichmentBases = getEnrichmentTermsAndConvert(parametersAbout);
     if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
       // If empty try OwlSameAs
       parametersOwlSameAs.add(parameterOwlSameAs);
-      foundEnrichmentBases = parametersOwlSameAs.stream().map(this::getEnrichmentTermAndConvert).collect(
-          Collectors.toList());
+      foundEnrichmentBases = getEnrichmentTermsAndConvert(parametersOwlSameAs);
     }
     return foundEnrichmentBases;
   }
 
-  private EnrichmentBase getEnrichmentTermAndConvert(Pair<String, String> pair) {
-    final Optional<EnrichmentTerm> enrichmentTerm = enrichmentDao
-        .getEnrichmentTermByField(pair.getKey(), pair.getValue());
-    return enrichmentTerm.isEmpty() ? null : Converter.convert(enrichmentTerm.get());
+  private List<EnrichmentBase> getEnrichmentTermsAndConvert(
+          List<Pair<String, String>> fieldNamesAndValues) {
+    final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
+    return Converter.convert(enrichmentTerms);
+  }
+
+  private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
+    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
+    fieldNameMap.put(null, fieldNamesAndValues);
+    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
   }
 
   /* --- Organization specific methods, used by the annotations api --- */
@@ -283,12 +288,6 @@ public class PersistentEntityResolver implements EntityResolver {
         Collections.singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, uri)));
     return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getEnrichmentEntity)
         .map(OrganizationEnrichmentEntity.class::cast);
-  }
-
-  private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
-    final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
-    fieldNameMap.put(null, fieldNamesAndValues);
-    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
   }
 
   /**

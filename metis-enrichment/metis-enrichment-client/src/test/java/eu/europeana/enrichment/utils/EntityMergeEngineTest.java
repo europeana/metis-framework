@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
+import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Alt;
 import eu.europeana.metis.schema.jibx.Concept.Choice;
@@ -27,7 +29,6 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,7 +38,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import org.jibx.runtime.JiBXException;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.CollectionUtils;
 
@@ -580,7 +580,7 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergePlace() throws UnsupportedEncodingException, JiBXException {
+  public void testMergePlace() throws SerializationException {
 
     // Create input
     final List<EnrichmentBase> inputList = new ArrayList<>();
@@ -609,7 +609,7 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergeOtherTypes() throws UnsupportedEncodingException, JiBXException {
+  public void testMergeOtherTypes() throws SerializationException {
 
     // Create input
     final List<EnrichmentBase> inputList = new ArrayList<>();
