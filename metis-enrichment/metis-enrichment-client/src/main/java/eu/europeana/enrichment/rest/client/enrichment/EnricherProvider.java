@@ -11,6 +11,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>Instances of this object can set up {@link Enricher} instances. It has connection settings
+ * that will apply only when needed (i.e. when no alternative {@link EntityResolver} is provided and
+ * the default is used).</p>
+ * <p> Users of this code can use the defaults, but also supply their own
+ * implementation for the functionality represented by {@link RecordParser} and/or {@link
+ * EntityResolver}. </p>
+ */
 public class EnricherProvider extends AbstractConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherProvider.class);

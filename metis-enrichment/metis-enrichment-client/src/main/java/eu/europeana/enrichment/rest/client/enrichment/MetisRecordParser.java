@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is the Metis implementation of record parsing. When extracting references  from an RDF file,
+ * This is the Metis implementation of record parsing. When extracting references from an RDF file,
  * it returns both the references in the provider proxy as well as any declared equivalency (sameAs
  * or exactMatch) references in the referenced contextual classes.
  */

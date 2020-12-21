@@ -19,11 +19,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,6 +33,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from
+ * there.
+ */
 public class RemoteEntityResolver implements EntityResolver {
 
   private final int batchSize;
@@ -47,7 +51,6 @@ public class RemoteEntityResolver implements EntityResolver {
 
   @Override
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
-    final List<T> searchTermList = List.copyOf(searchTerms);
     final Function<List<T>, EnrichmentSearch> inputFunction = partition -> {
       final List<SearchValue> searchValues = partition.stream()
           .map(uri -> new SearchValue(uri.getTextValue(), uri.getLanguage()))
@@ -56,38 +59,20 @@ public class RemoteEntityResolver implements EntityResolver {
       enrichmentSearch.setSearchValues(searchValues);
       return enrichmentSearch;
     };
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
-        ENRICH_ENTITY_SEARCH, searchTermList, inputFunction);
-    final Map<T, List<EnrichmentBase>> result = new HashMap<>();
-    for (int i = 0; i < enrichmentResultBaseWrapperList.size(); i++) {
-      result.put(searchTermList.get(i),
-          enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
-    }
-    return result;
+    return performInBatches(ENRICH_ENTITY_SEARCH, searchTerms, inputFunction, Function.identity());
   }
 
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
-    final List<T> referenceTermList = List.copyOf(referenceTerms);
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
-            ENRICH_ENTITY_ID, referenceTermList,
+    return performInBatches(ENRICH_ENTITY_ID, referenceTerms,
             partition -> partition.stream().map(ReferenceTerm::getReference).map(URL::toString)
-                    .toArray(String[]::new));
-    final Map<T, EnrichmentBase> results = new HashMap<>();
-    for (int i = 0; i < referenceTermList.size(); i++) {
-      final EnrichmentBase result = enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList()
-              .stream().findFirst().orElse(null);
-      if (result != null) {
-        results.put(referenceTermList.get(i), result);
-      }
-    }
-    return results;
+                    .toArray(String[]::new),
+            resultItem -> resultItem.stream().findFirst().orElse(null));
   }
 
   @Override
   public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(
           Set<T> referenceTerms) {
-    final List<T> referenceTermList = List.copyOf(referenceTerms);
     final Function<List<T>, EnrichmentReference> inputFunction = partition -> {
       final List<ReferenceValue> referenceValues = partition.stream()
               .map(ReferenceTerm::getReference).map(URL::toString)
@@ -97,18 +82,13 @@ public class RemoteEntityResolver implements EntityResolver {
       enrichmentReference.setReferenceValues(referenceValues);
       return enrichmentReference;
     };
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = performInBatches(
-        ENRICH_ENTITY_EQUIVALENCE, referenceTermList, inputFunction);
-    final Map<T, List<EnrichmentBase>> result = new HashMap<>();
-    for (int i = 0; i < referenceTermList.size(); i++) {
-      result.put(referenceTermList.get(i),
-          enrichmentResultBaseWrapperList.get(i).getEnrichmentBaseList());
-    }
-    return result;
+    return performInBatches(ENRICH_ENTITY_EQUIVALENCE, referenceTerms, inputFunction,
+            Function.identity());
   }
 
-  private <I, B> List<EnrichmentResultBaseWrapper> performInBatches(String endpointPath,
-      Collection<I> inputValues, Function<List<I>, B> bodyCreator) {
+  private <I, B, R> Map<I, R> performInBatches(String endpointPath, Set<I> inputValues,
+          Function<List<I>, B> bodyCreator, Function<List<EnrichmentBase>, R> resultParser) {
+
     // Determine the URI
     final URI uri;
     try {
@@ -120,6 +100,7 @@ public class RemoteEntityResolver implements EntityResolver {
       throw new UnknownException(
               "URL syntax issue with service url: " + enrichmentServiceUrl + ".", e);
     }
+
     // Create partitions
     final List<List<I>> partitions = new ArrayList<>();
     partitions.add(new ArrayList<>());
@@ -131,34 +112,52 @@ public class RemoteEntityResolver implements EntityResolver {
       }
       currentPartition.add(item);
     });
+
     // Process partitions
-    final List<EnrichmentResultBaseWrapper> result = new ArrayList<>();
+    final Map<I, R> result = new HashMap<>();
     for (List<I> partition : partitions) {
-      final B body = bodyCreator.apply(partition);
-      final HttpEntity<Object> httpEntity = createRequest(body);
-      final EnrichmentResultList enrichmentResultList;
-      try {
-        enrichmentResultList = template.postForObject(uri, httpEntity, EnrichmentResultList.class);
-      } catch (RestClientException e) {
-        throw new UnknownException("Enrichment client POST call failed: " + uri + ".", e);
+      final EnrichmentResultList enrichmentResultList = executeRequest(uri, bodyCreator, partition);
+      for (int i = 0; i < partition.size(); i++) {
+        final I inputItem = partition.get(i);
+        Optional.ofNullable(enrichmentResultList
+                .getEnrichmentBaseResultWrapperList().get(i))
+                .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList)
+                .filter(list -> !list.isEmpty())
+                .map(resultParser).ifPresent(resultItem -> result.put(inputItem, resultItem));
       }
-      if (enrichmentResultList == null) {
-        throw new UnknownException("Empty body from server (" + uri + ").");
-      }
-      if (enrichmentResultList.getEnrichmentBaseResultWrapperList().size() != partition.size()) {
-        throw new UnknownException("Server returned unexpected number of results (" + uri + ").");
-      }
-      result.addAll(enrichmentResultList.getEnrichmentBaseResultWrapperList());
     }
+
+    // Done.
     return result;
   }
 
-  private static <B> HttpEntity<B> createRequest(B body) {
+  private <I, B> EnrichmentResultList executeRequest(URI uri, Function<List<I>, B> bodyCreator,
+          List<I> partition) {
+
+    // Create the request
+    final B body = bodyCreator.apply(partition);
     final HttpHeaders headers = new HttpHeaders();
     if (body != null) {
       headers.setContentType(MediaType.APPLICATION_JSON);
     }
     headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
-    return new HttpEntity<>(body, headers);
+    final HttpEntity<B> httpEntity = new HttpEntity<>(body, headers);
+
+    // Send the request.
+    final EnrichmentResultList enrichmentResultList;
+    try {
+      enrichmentResultList = template.postForObject(uri, httpEntity, EnrichmentResultList.class);
+    } catch (RestClientException e) {
+      throw new UnknownException("Enrichment client POST call failed: " + uri + ".", e);
+    }
+    if (enrichmentResultList == null) {
+      throw new UnknownException("Empty body from server (" + uri + ").");
+    }
+    if (enrichmentResultList.getEnrichmentBaseResultWrapperList().size() != partition.size()) {
+      throw new UnknownException("Server returned unexpected number of results (" + uri + ").");
+    }
+
+    // Done
+    return enrichmentResultList;
   }
 }

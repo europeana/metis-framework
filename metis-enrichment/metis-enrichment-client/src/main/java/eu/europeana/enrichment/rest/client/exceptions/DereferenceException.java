@@ -1,17 +1,19 @@
 package eu.europeana.enrichment.rest.client.exceptions;
 
-public class DereferenceException extends Exception{
+/**
+ * Exception indicating a problem arising during dereferencing.
+ */
+public class DereferenceException extends Exception {
 
-  // TODO: Similar/Same to DereferenceOrEnrichException class. So we can distinguish where the exception happens.
+  private static final long serialVersionUID = -4429750421981318176L;
 
   /**
    * Constructor.
    *
-   * @param message
-   * @param cause
+   * @param message The message.
+   * @param cause The cause.
    */
   public DereferenceException(String message, Throwable cause) {
     super(message, cause);
   }
-
 }

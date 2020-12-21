@@ -10,6 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Instances of this object can set up {@link Dereferencer} instances. It has connection settings
+ * that will apply both to the dereference and enrichment endpoints that it needs.
+ */
 public class DereferencerProvider extends AbstractConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerProvider.class);

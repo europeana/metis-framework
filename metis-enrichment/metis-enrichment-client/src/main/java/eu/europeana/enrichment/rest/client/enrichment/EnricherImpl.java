@@ -20,18 +20,21 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The default implementation for the enrichment functionality.
+ */
 public class EnricherImpl implements Enricher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
 
   private final RecordParser recordParser;
-  private final EntityResolver remoteEntityResolver;
+  private final EntityResolver entityResolver;
   private final EntityMergeEngine entityMergeEngine;
 
-  public EnricherImpl(RecordParser recordParser, EntityResolver remoteEntityResolver,
+  public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver,
           EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
-    this.remoteEntityResolver = remoteEntityResolver;
+    this.entityResolver = entityResolver;
     this.entityMergeEngine = entityMergeEngine;
   }
 
@@ -79,7 +82,7 @@ public class EnricherImpl implements Enricher {
     }
     try {
       return retryableExternalRequestForNetworkExceptions(
-          () -> remoteEntityResolver.resolveByText(Set.copyOf(searchTerms)));
+          () -> entityResolver.resolveByText(Set.copyOf(searchTerms)));
     } catch (RuntimeException e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }
@@ -93,7 +96,7 @@ public class EnricherImpl implements Enricher {
     }
     try {
       return retryableExternalRequestForNetworkExceptions(
-          () -> remoteEntityResolver.resolveByUri(references));
+          () -> entityResolver.resolveByUri(references));
     } catch (RuntimeException e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }

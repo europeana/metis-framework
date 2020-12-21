@@ -30,6 +30,9 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * An entity resolver that works by accessing a persistent database.
+ */
 public class PersistentEntityResolver implements EntityResolver {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PersistentEntityResolver.class);
