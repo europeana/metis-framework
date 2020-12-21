@@ -78,9 +78,8 @@ public class QueueConsumer extends DefaultConsumer {
    * Each message consumed is a workflow execution identifier which is used to claim and retrieve a
    * {@link WorkflowExecution} from the database. That workflow execution is then provided to a
    * {@link WorkflowExecutor} which is a {@link java.util.concurrent.Callable} and is in turn
-   * submitted to the {@link ExecutorCompletionService} in this class. If the workflow execution
-   * could not be claimed then the message is NACKed to the queue. If instead everything goes well
-   * the message is finally ACKed to the queue.
+   * submitted to the {@link ExecutorCompletionService} in this class. Every message retrieved is
+   * ACked and therefore removed from the queue.
    * </p>
    * <p>
    * Cleanup and identification of submitted and finished tasks is controlled in the method {@link
@@ -105,31 +104,25 @@ public class QueueConsumer extends DefaultConsumer {
     WorkflowExecution workflowExecution = workflowExecutionClaimedPair.getLeft();
     final Boolean workflowClaimed = workflowExecutionClaimedPair.getRight();
 
-    boolean sendAck = true;
     try {
       if (workflowExecution == null) {
         // This execution no longer exists and we need to ignore it.
         LOGGER.warn("workflowExecutionId: {} - Was in queue but no longer exists.", objectId);
       } else if (workflowClaimed.equals(Boolean.TRUE)) {
+        LOGGER.info("workflowExecutionId: {} - Claimed", workflowExecution.getId());
         handleClaimedExecution(workflowExecution);
       } else if (workflowClaimed.equals(Boolean.FALSE)
           && WorkflowExecutionMonitor.CLAIMABLE_STATUSES
           .contains(workflowExecution.getWorkflowStatus())) {
-        LOGGER.info(
-            "workflowExecutionId: {} - Send workflow execution identifier back to the queue, it "
-                + "could not be claimed.", workflowExecution.getId());
-        sendAck = false;
+        LOGGER.info("workflowExecutionId: {} - Could not be claimed, discarding message",
+            workflowExecution.getId());
       } else {
         LOGGER
             .info("workflowExecutionId: {} - Does not have a claimable status, discarding message",
                 workflowExecution.getId());
       }
     } finally {
-      if (sendAck) {
-        sendAck(rabbitmqEnvelope, objectId);
-      } else {
-        sendNack(rabbitmqEnvelope, objectId);
-      }
+      sendAck(rabbitmqEnvelope, objectId);
     }
   }
 
@@ -161,14 +154,6 @@ public class QueueConsumer extends DefaultConsumer {
     // Send ACK back to remove from queue asap.
     super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
     LOGGER.debug("workflowExecutionId: {} - ACK sent with tag {}", objectId,
-        rabbitmqEnvelope.getDeliveryTag());
-  }
-
-  private void sendNack(Envelope rabbitmqEnvelope, String objectId) throws IOException {
-    //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
-    //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
-    super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
-    LOGGER.debug("workflowExecutionId: {} - NACK sent with tag {}", objectId,
         rabbitmqEnvelope.getDeliveryTag());
   }
 
@@ -214,9 +199,9 @@ public class QueueConsumer extends DefaultConsumer {
       boolean wasExecutionClaimedAndPluginRan = workflowExecutionRanFlagPair.getRight();
       //If a plugin did not run, we are sending it back to queue so another instance can pick it up
       if (wasExecutionClaimedAndPluginRan) {
-        LOGGER.debug("workflowExecutionId: {} - Task finished", workflowExecution.getId());
+        LOGGER.info("workflowExecutionId: {} - Task finished", workflowExecution.getId());
       } else {
-        LOGGER.debug("workflowExecutionId: {} - Sent to queue because execution could "
+        LOGGER.info("workflowExecutionId: {} - Sent to queue because execution could "
             + "not be claimed or plugin could not run in this instance", workflowExecution.getId());
         workflowExecutorManager.addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
             workflowExecution.getWorkflowPriority());

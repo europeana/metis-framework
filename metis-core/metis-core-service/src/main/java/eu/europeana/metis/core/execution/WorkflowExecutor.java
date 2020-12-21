@@ -111,7 +111,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         // Increase priority for this execution
         workflowExecution.setWorkflowPriority(workflowExecution.getWorkflowPriority() + 1);
         LOGGER
-            .info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to run",
+            .info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to "
+                    + "run(priority increased)",
                 workflowExecution.getId());
       } else {
         // If the workflow finished successfully, we record this.
@@ -315,16 +316,17 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             workflowExecution.getDatasetId());
     return Optional.ofNullable(previousExecution)
         .flatMap(execution -> execution.getMetisPluginWithType(previousPluginType))
-        .map(WorkflowExecutor::expectExecutablePlugin)
-        .map(AbstractExecutablePlugin::getExternalTaskId).orElse(null);
+        .map(this::expectExecutablePlugin).map(AbstractExecutablePlugin::getExternalTaskId)
+        .orElse(null);
   }
 
-  private static AbstractExecutablePlugin expectExecutablePlugin(AbstractMetisPlugin plugin) {
+  private AbstractExecutablePlugin expectExecutablePlugin(AbstractMetisPlugin plugin) {
     if (plugin == null || plugin instanceof AbstractExecutablePlugin) {
       return (AbstractExecutablePlugin) plugin;
     }
-    throw new IllegalStateException("Workflow executor found plugin with ID " + plugin.getId()
-        + " that is not an executable plugin.");
+    throw new IllegalStateException(String.format(
+        "workflowExecutionId: %s, pluginId: %s - Found plugin that is not an executable plugin.",
+        workflowExecution.getId(), plugin.getId()));
   }
 
   private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin,

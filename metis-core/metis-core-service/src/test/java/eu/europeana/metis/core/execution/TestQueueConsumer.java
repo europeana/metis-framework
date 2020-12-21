@@ -152,7 +152,7 @@ class TestQueueConsumer {
 
     when(workflowExecutionMonitor.claimExecution(objectId))
         .thenReturn(new ImmutablePair<>(workflowExecution, false));
-    doNothing().when(rabbitmqConsumerChannel).basicNack(envelope.getDeliveryTag(), false, true);
+    doNothing().when(rabbitmqConsumerChannel).basicAck(envelope.getDeliveryTag(), false);
 
     QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
         workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);

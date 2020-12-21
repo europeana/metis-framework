@@ -35,7 +35,7 @@ public class WorkflowExecutionMonitor {
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionMonitor.class);
 
   private static final String FAILSAFE_LOCK = "failsafeLock";
-  public static final Set<WorkflowStatus> CLAIMABLE_STATUSES = Set
+  protected static final Set<WorkflowStatus> CLAIMABLE_STATUSES = EnumSet
       .of(WorkflowStatus.INQUEUE, WorkflowStatus.RUNNING);
 
   private final WorkflowExecutionDao workflowExecutionDao;
@@ -244,13 +244,13 @@ public class WorkflowExecutionMonitor {
               && currentExecution.assumeHanging(failsafeLeniency);
       if (!isExecutionHanging) {
         LOGGER.info(
-            "workflowExecutionId: {} - Claim denied: RUNNING execution does not (yet) appear to be hanging.",
-            workflowExecution.getId());
+            "workflowExecutionId: {} - Claim denied: {} execution does not (yet) appear to be "
+                + "hanging.", workflowExecution.getId(), WorkflowStatus.RUNNING);
       }
       return isExecutionHanging;
     }
-    LOGGER.info("workflowExecutionId: {} - Claim denied: workflow not in RUNNING or INQUEUE state.",
-        workflowExecution.getId());
+    LOGGER.info("workflowExecutionId: {} - Claim denied: workflow not in {} or {} state.",
+        workflowExecution.getId(), WorkflowStatus.RUNNING, WorkflowStatus.INQUEUE);
     return false;
   }
 
