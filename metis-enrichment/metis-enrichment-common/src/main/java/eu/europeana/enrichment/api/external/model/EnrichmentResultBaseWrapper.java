@@ -36,11 +36,11 @@ public class EnrichmentResultBaseWrapper {
    * @param enrichmentBase the enrichment information class generated
    */
   public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase) {
-    this.enrichmentBase = enrichmentBase;
+    this.enrichmentBase = new ArrayList<>(enrichmentBase);
   }
 
   public List<EnrichmentBase> getEnrichmentBaseList() {
-    return enrichmentBase;
+    return new ArrayList<>(enrichmentBase);
   }
 
   /**

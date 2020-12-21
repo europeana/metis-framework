@@ -178,7 +178,7 @@ public class PersistentEntityResolver implements EntityResolver {
     final Set<String> parentAbouts = new HashSet<>();
     final List<EnrichmentTerm> parentEntities = new ArrayList<>();
     Predicate<String> isTimespanVeryBroad = parent ->
-        enrichmentTerm.getEntityType().equals(EntityType.TIMESPAN)
+        enrichmentTerm.getEntityType() == EntityType.TIMESPAN
             && PATTERN_MATCHING_VERY_BROAD_TIMESPANS.matcher(parent).matches();
     String parentAbout = enrichmentTerm.getEnrichmentEntity().getIsPartOf();
     while (StringUtils.isNotBlank(parentAbout) && !isTimespanVeryBroad.test(parentAbout)) {

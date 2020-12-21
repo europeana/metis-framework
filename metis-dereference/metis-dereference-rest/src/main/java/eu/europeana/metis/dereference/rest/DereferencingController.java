@@ -1,5 +1,6 @@
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.DereferenceService;
@@ -78,8 +79,7 @@ public class DereferencingController {
     for (String resourceId : resourceIds) {
       EnrichmentResultList result = dereference(resourceId);
       if (result != null) {
-        dereferencedEntities.getEnrichmentBaseResultWrapperList()
-            .addAll(result.getEnrichmentBaseResultWrapperList());
+        dereferencedEntities = new EnrichmentResultList(result.getEnrichmentBaseResultWrapperList());
       }
     }
     return dereferencedEntities;

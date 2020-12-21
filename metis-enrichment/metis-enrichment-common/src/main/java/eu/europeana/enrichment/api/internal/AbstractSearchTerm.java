@@ -23,7 +23,7 @@ public abstract class AbstractSearchTerm implements SearchTerm {
       return false;
     }
 
-    SearchTermContext o = (SearchTermContext) other;
+    AbstractSearchTerm o = (AbstractSearchTerm) other;
 
     boolean hasSameTextValues = Objects.equals(o.getTextValue(), this.getTextValue());
     boolean hasSameLanguage = Objects.equals(o.getLanguage(), this.getLanguage());

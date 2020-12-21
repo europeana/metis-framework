@@ -28,11 +28,17 @@ public class SearchTermContext extends AbstractSearchTerm {
   @Override
   public boolean equals(Object other) {
 
+    if(!super.equals(other)){
+      return false;
+    }
+
+    if(getClass() != other.getClass()){
+      return false;
+    }
+
     SearchTermContext o = (SearchTermContext) other;
 
-    boolean hasSameFieldType = Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
-
-    return super.equals(other) && hasSameFieldType;
+    return Objects.equals(o.getCandidateTypes(), this.getCandidateTypes());
   }
 
   @Override

@@ -72,7 +72,7 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     // First try to get them from our own entity collection database.
-    Set<ReferenceTerm> referenceTermSet = new HashSet<>();
+    Set<ReferenceTerm> referenceTermSet = new HashSet<>(resourceIds.size());
 
     for(String id : resourceIds){
       final ReferenceTerm referenceTerm;

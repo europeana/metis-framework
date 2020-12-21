@@ -190,6 +190,8 @@ public final class XmlUtil {
     try {
       final TransformerFactory transformerFactory = TransformerFactory.newInstance();
       transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
       final Transformer transformer = transformerFactory.newTransformer();
       final DOMSource source = new DOMSource(dom);
       final StreamResult result = new StreamResult(writer);
