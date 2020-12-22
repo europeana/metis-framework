@@ -2,6 +2,7 @@ package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -19,5 +20,24 @@ public class SearchTermImpl extends AbstractSearchTerm {
   @Override
   public Set<EntityType> getCandidateTypes() {
     return Collections.unmodifiableSet(entityTypes);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final SearchTermImpl that = (SearchTermImpl) o;
+    return Objects.equals(getTextValue(), that.getTextValue()) &&
+            Objects.equals(getLanguage(), that.getLanguage()) &&
+            Objects.equals(getCandidateTypes(), that.getCandidateTypes());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getTextValue(), getLanguage(), getCandidateTypes());
   }
 }

@@ -14,7 +14,8 @@ public interface EntityResolver {
    * Resolve entities by a textual reference.
    *
    * @param searchTerms The search terms to resolve.
-   * @return A map from the search term to a list of entities that the search term yielded.
+   * @return A map from provided search terms to lists of entities that the search term yielded.
+   * Note: not all provided search terms may be present (i.e. if the search yielded no result).
    */
   <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms);
 
@@ -22,7 +23,8 @@ public interface EntityResolver {
    * Resolve entities by an ID reference (i.e. any resulting entity has the reference as ID).
    *
    * @param referenceTerms The references to resolve.
-   * @return A map from the reference to the entity that the reference points to.
+   * @return A map from provided references to the entities that the references represent. Note: not
+   * all provided references may be present (i.e. if the reference doesn't exist).
    */
   <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms);
 
@@ -31,7 +33,8 @@ public interface EntityResolver {
    * reference as ID or is defined to be equivalent to the reference).
    *
    * @param referenceTerms The references to resolve.
-   * @return A map from the reference to a list of entities that the reference is equivalent to.
+   * @return A map from provided references to the entities that the references are equivalent to.
+   * Note: not all provided references may be present (i.e. if the reference didn't resolve).
    */
   <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms);
 }

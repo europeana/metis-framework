@@ -3,6 +3,7 @@ package eu.europeana.enrichment.api.internal;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,5 +21,23 @@ public class ReferenceTermImpl extends AbstractReferenceTerm{
   @Override
   public Set<EntityType> getCandidateTypes() {
     return Collections.unmodifiableSet(entityTypes);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final ReferenceTermImpl that = (ReferenceTermImpl) o;
+    return Objects.equals(getCandidateTypes(), that.getCandidateTypes()) && Objects
+            .equals(getReference(), that.getReference());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getCandidateTypes(), getReference());
   }
 }
