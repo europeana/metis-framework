@@ -702,16 +702,20 @@ public class OrchestratorService {
       MetisPlugin<?> firstPublishPlugin, ExecutablePlugin<?> lastExecutablePublishPlugin,
       MetisPlugin<?> lastPublishPlugin, ExecutablePlugin<?> lastExecutableDepublishPlugin,
       boolean isPublishCleaningOrRunning, Date date, String datasetId) {
+
     // Set the first publication information
     executionInfo.setFirstPublishedDate(
         firstPublishPlugin == null ? null : firstPublishPlugin.getFinishedDate());
 
     // Set the last publish information
     if (Objects.nonNull(lastPublishPlugin)) {
+      final boolean depublishHappenedAfterLatestPublish =
+              lastExecutableDepublishPlugin != null && lastPublishPlugin.getFinishedDate()
+                      .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       executionInfo.setLastPublishedRecordsReadyForViewing(
           !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin,
-              date));
+              date) && !depublishHappenedAfterLatestPublish);
     }
     if (Objects.nonNull(lastExecutablePublishPlugin)) {
       executionInfo.setLastPublishedRecords(
@@ -720,14 +724,14 @@ public class OrchestratorService {
     }
 
     // Determine the publication and depublication situation of the dataset
-    final boolean depublishHappenedAfterLatestPublish =
+    final boolean depublishHappenedAfterLatestExecutablePublish =
         lastExecutableDepublishPlugin != null && lastExecutablePublishPlugin != null &&
             lastExecutablePublishPlugin.getFinishedDate()
                 .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
     /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
         we don't have to look further into the past for all depublish actions after the last
         publish. We should make this code more robust by not assuming that here. */
-    final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestPublish
+    final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestExecutablePublish
         && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
         && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
         .isDatasetDepublish();
@@ -744,7 +748,7 @@ public class OrchestratorService {
     executionInfo.setPublicationStatus(status);
 
     // Set the current depublished record count (all records depublished since last publish).
-    if (depublishHappenedAfterLatestPublish) {
+    if (depublishHappenedAfterLatestExecutablePublish) {
       final int depublishedRecordCount;
       if (datasetCurrentlyDepublished) {
         depublishedRecordCount = executionInfo.getLastPublishedRecords();
