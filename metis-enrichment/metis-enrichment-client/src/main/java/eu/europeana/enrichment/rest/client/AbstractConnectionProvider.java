@@ -6,6 +6,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Subclasses of this class contain settings for connections.
+ */
 public abstract class AbstractConnectionProvider {
 
   /**

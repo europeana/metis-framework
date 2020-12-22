@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.utils;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
+import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
@@ -26,12 +28,13 @@ import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
-public class EnrichmentUtilsTest {
+public class MetisRecordParserTest {
 
   @Test
   public void testExtractedFieldValuesForEnrichment() {
@@ -153,15 +156,14 @@ public class EnrichmentUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    List<Pair<SearchValue, FieldType>> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
+    Set<SearchTermContext> result = new MetisRecordParser().parseSearchTerms(rdf);
 
     assertNotNull(result);
     assertEquals(10, result.size());
 
     ArrayList<String> resultProcessed = new ArrayList<>();
-    List<SearchValue> searchValueList = result.stream().map(Pair::getKey).collect(Collectors.toList());
-    for (SearchValue searchValue : searchValueList) {
-      resultProcessed.add(searchValue.getValue() + "|" + searchValue.getLanguage());
+    for (SearchTermContext searchValue : result) {
+      resultProcessed.add(searchValue.getTextValue() + "|" + searchValue.getLanguage());
     }
 
     assertTrue(resultProcessed.contains("Creator|English"));

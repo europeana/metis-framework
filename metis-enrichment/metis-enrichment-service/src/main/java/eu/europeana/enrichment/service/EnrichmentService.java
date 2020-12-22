@@ -5,9 +5,9 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
-import eu.europeana.enrichment.api.internal.ReferenceTermType;
+import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermType;
+import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import java.net.MalformedURLException;
@@ -57,13 +57,13 @@ public class EnrichmentService {
    */
   public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(
       List<SearchValue> searchValues) {
-    Set<SearchTerm> searchTerms = searchValues.stream().map(
-        search -> new SearchTermType(search.getValue(), search.getLanguage(),
-            Set.copyOf(search.getEntityTypes()))).collect(Collectors.toSet());
-    Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver.resolveByText(searchTerms);
-
-    return result.values().stream().map(EnrichmentResultBaseWrapper::new).collect(
-        Collectors.toList());
+    final Set<SearchTerm> searchTerms = searchValues.stream().map(
+            search -> new SearchTermImpl(search.getValue(), search.getLanguage(),
+                    Set.copyOf(search.getEntityTypes()))).collect(Collectors.toSet());
+    final Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver
+            .resolveByText(searchTerms);
+    return result.values().stream().map(EnrichmentResultBaseWrapper::new)
+            .collect(Collectors.toList());
   }
 
   /**
@@ -74,7 +74,7 @@ public class EnrichmentService {
    */
   public List<EnrichmentBase> enrichByEquivalenceValues(ReferenceValue referenceValue) {
     try {
-      final ReferenceTerm referenceTerm = new ReferenceTermType(
+      final ReferenceTerm referenceTerm = new ReferenceTermImpl(
               new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
       return persistentEntityResolver.resolveByUri(Set.of(referenceTerm))
               .getOrDefault(referenceTerm, Collections.emptyList());
@@ -92,7 +92,7 @@ public class EnrichmentService {
    */
   public EnrichmentBase enrichById(String entityAbout) {
     try {
-      final ReferenceTerm referenceTerm = new ReferenceTermType(new URL(entityAbout),
+      final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(entityAbout),
               new HashSet<>());
       return persistentEntityResolver.resolveById(Set.of(referenceTerm)).get(referenceTerm);
     } catch (MalformedURLException e) {

@@ -1,41 +1,28 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.internal.FieldType;
-import eu.europeana.metis.schema.jibx.AboutType;
-import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Completeness;
-import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.LiteralType;
-import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
-import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.Year;
-import eu.europeana.enrichment.api.external.SearchValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BooleanSupplier;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.MutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Utilities for enrichment and dereferencing Created by gmamakis on 8-3-17.
@@ -48,113 +35,6 @@ public final class EnrichmentUtils {
   private static final int POINTS_UPPER_CAP = 5;
 
   private EnrichmentUtils() {
-  }
-
-  /**
-   * Extract the values to enrich from an RDF file
-   *
-   * @param rdf The RDF to extract from.
-   * @return List<InputValue> The extracted fields that need to be enriched.
-   */
-  public static List<Pair<SearchValue, FieldType>> extractValuesForEnrichmentFromRDF(RDF rdf) {
-    final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
-    final List<Pair<SearchValue, FieldType>> valuesForEnrichment = new ArrayList<>();
-    for (FieldType field : FieldType.values()) {
-      List<SearchValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-      values.forEach(val -> valuesForEnrichment.add(new MutablePair<>(val, field)));
-    }
-    return valuesForEnrichment;
-  }
-
-  /**
-   * Extract the references to be checked for sameAs equivalency in the entity collection from an
-   * RDF file. This returns both the references in the provider proxy as well as any declared
-   * equivalency (sameAs or exactMatch) references in the referenced contextual classes.
-   *
-   * @param rdf The RDF to extract from.
-   * @return The extracted references that need to be checked for sameAs equivalency, mapped to the
-   * respective type(s) of reference in which they occur.
-   */
-  public static Map<String, Set<FieldType>> extractReferencesForEnrichmentFromRDF(RDF rdf) {
-
-    // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
-    // use this below to follow sameAs links).
-    final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
-            .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
-    final Map<String, Set<FieldType>> directReferences = new HashMap<>();
-    for (FieldType field : FieldType.values()) {
-      final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
-              .flatMap(Set::stream).collect(Collectors.toSet());
-      for (String directLink : directLinks) {
-        directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(FieldType.class))
-                .add(field);
-      }
-    }
-
-    // Get all sameAs links from the directly referenced contextual entities.
-    final Map<String, Set<FieldType>> indirectReferences = new HashMap<>();
-    final Consumer<AboutType> contextualTypeProcessor = contextualClass -> {
-      final Set<FieldType> linkTypes = directReferences.get(contextualClass.getAbout());
-      if (linkTypes != null) {
-        for (String sameAsLink : getSameAsLinks(contextualClass)) {
-          indirectReferences
-                  .computeIfAbsent(sameAsLink, key -> EnumSet.noneOf(FieldType.class))
-                  .addAll(linkTypes);
-        }
-      }
-    };
-    Optional.ofNullable(rdf.getAgentList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
-    Optional.ofNullable(rdf.getConceptList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
-    Optional.ofNullable(rdf.getPlaceList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
-    Optional.ofNullable(rdf.getTimeSpanList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
-
-    // Merge the two maps.
-    final Map<String, Set<FieldType>> result = mergeMapInto(directReferences,
-            indirectReferences);
-
-    // Clean up the result: no null values. But objects we already have need to 
-    // stay: maybe they are matched using a sameAs link.
-    result.remove(null);
-
-    // Done
-    return result;
-  }
-
-  private static <T, S> Map<T, Set<S>> mergeMapInto(Map<T, Set<S>> map1, Map<T, Set<S>> map2) {
-    // Merge the second map into the first one.
-    map2.forEach((key, values) -> map1.merge(key, values, (values1, values2) -> {
-      values1.addAll(values2);
-      return values1;
-    }));
-    return map1;
-  }
-
-  private static Set<String> getSameAsLinks(AboutType contextualClass) {
-    final List<? extends ResourceType> result;
-    if (contextualClass instanceof AgentType) {
-      result = ((AgentType) contextualClass).getSameAList();
-    } else if (contextualClass instanceof Concept) {
-      result = Optional.ofNullable(((Concept) contextualClass).getChoiceList()).stream()
-              .flatMap(Collection::stream)
-              .filter(Objects::nonNull)
-              .filter(Concept.Choice::ifExactMatch)
-              .map(Concept.Choice::getExactMatch)
-              .filter(Objects::nonNull)
-              .collect(Collectors.toList());
-    } else if (contextualClass instanceof PlaceType) {
-      result = ((PlaceType) contextualClass).getSameAList();
-    } else if (contextualClass instanceof TimeSpanType) {
-      result = ((TimeSpanType) contextualClass).getSameAList();
-    } else {
-      result = null;
-    }
-    return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
-            .filter(Objects::nonNull).map(ResourceType::getResource).filter(StringUtils::isNotBlank)
-            .collect(Collectors.toSet());
   }
 
   /**

@@ -1,40 +1,21 @@
 package eu.europeana.enrichment.api.internal;
 
-
 import java.net.URL;
-import java.util.Objects;
 
-public abstract class AbstractReferenceTerm implements ReferenceTerm{
+/**
+ * This class is a basic implementation of {@link ReferenceTerm} that leaves the details of the
+ * candidate types unimplemented.
+ */
+public abstract class AbstractReferenceTerm implements ReferenceTerm {
 
   private final URL reference;
 
-  public AbstractReferenceTerm(URL reference){
+  public AbstractReferenceTerm(URL reference) {
     this.reference = reference;
   }
 
   @Override
-  public URL getReference(){
+  public URL getReference() {
     return reference;
-  }
-
-  @Override
-  public boolean equals(Object other){
-    if(other == this){
-      return true;
-    }
-
-    if(other == null || getClass() != other.getClass()){
-      return false;
-    }
-
-    AbstractReferenceTerm o = (AbstractReferenceTerm) other;
-
-    return Objects.equals(o.getReference(), this.getReference());
-
-  }
-
-  @Override
-  public int hashCode(){
-    return Objects.hash(this.getReference());
   }
 }

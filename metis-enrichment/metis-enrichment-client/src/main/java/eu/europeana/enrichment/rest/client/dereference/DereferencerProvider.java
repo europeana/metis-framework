@@ -10,6 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Instances of this object can set up {@link Dereferencer} instances. It has connection settings
+ * that will apply both to the dereference and enrichment endpoints that it needs.
+ */
 public class DereferencerProvider extends AbstractConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerProvider.class);
@@ -62,19 +66,20 @@ public class DereferencerProvider extends AbstractConnectionProvider {
     }
 
     // Create the enrichment client if needed
-    RemoteEntityResolver remoteEntityResolver = null;
+    final RemoteEntityResolver remoteEntityResolver;
     if (StringUtils.isNotBlank(enrichmentUrl)) {
       try {
         remoteEntityResolver = new RemoteEntityResolver(new URL(enrichmentUrl),
-            batchSizeEnrichment, createRestTemplate());
+                batchSizeEnrichment, createRestTemplate());
       } catch (MalformedURLException e) {
         LOGGER.debug("There was a problem with the input values");
         throw new DereferenceException("Problems while building a new Dereferencer", e);
       }
+    } else {
+      remoteEntityResolver = null;
     }
 
     // Done.
     return new DereferencerImpl(new EntityMergeEngine(), remoteEntityResolver, dereferenceClient);
   }
-
 }

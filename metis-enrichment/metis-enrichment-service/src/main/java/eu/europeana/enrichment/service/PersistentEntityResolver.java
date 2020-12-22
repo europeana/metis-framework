@@ -30,6 +30,9 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * An entity resolver that works by accessing a persistent database.
+ */
 public class PersistentEntityResolver implements EntityResolver {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PersistentEntityResolver.class);
@@ -52,10 +55,10 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<SearchTerm, List<EnrichmentBase>> resolveByText(Set<SearchTerm> searchTermSet) {
-    final Map<SearchTerm, List<EnrichmentBase>> result = new HashMap<>();
+  public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
+    final Map<T, List<EnrichmentBase>> result = new HashMap<>();
     try {
-      for (SearchTerm searchTerm : searchTermSet) {
+      for (T searchTerm : searchTerms) {
         findEnrichmentEntitiesBySearchTerm(result, searchTerm);
       }
     } catch (RuntimeException e) {
@@ -65,9 +68,9 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, EnrichmentBase> resolveById(Set<ReferenceTerm> referenceTermSet) {
-    final Map<ReferenceTerm, EnrichmentBase> result = new HashMap<>();
-    for (ReferenceTerm value : referenceTermSet) {
+  public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
+    final Map<T, EnrichmentBase> result = new HashMap<>();
+    for (T value : referenceTerms) {
       try {
         List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(List.of(
             new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference().toString())));
@@ -82,12 +85,12 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public Map<ReferenceTerm, List<EnrichmentBase>> resolveByUri(Set<ReferenceTerm> referenceTermSet) {
-    Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
+  public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
+    final Map<T, List<EnrichmentBase>> result = new HashMap<>();
 
-    for(ReferenceTerm referenceTerm: referenceTermSet){
+    for(T referenceTerm: referenceTerms){
       try {
-        final List<EntityType> entityTypes = referenceTerm.getCandidateTypes();
+        final Set<EntityType> entityTypes = referenceTerm.getCandidateTypes();
         final List<EnrichmentBase> foundEnrichmentBases;
         if (CollectionUtils.isEmpty(entityTypes)) {
           foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(
@@ -111,11 +114,11 @@ public class PersistentEntityResolver implements EntityResolver {
     return result;
   }
 
-  private void findEnrichmentEntitiesBySearchTerm(
-      Map<SearchTerm, List<EnrichmentBase>> searchTermListMap, SearchTerm searchTerm) {
+  private <T extends SearchTerm> void findEnrichmentEntitiesBySearchTerm(
+      Map<T, List<EnrichmentBase>> searchTermListMap, T searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
     if (!StringUtils.isBlank(value)) {
-      final List<EntityType> entityTypes = searchTerm.getCandidateTypes();
+      final Set<EntityType> entityTypes = searchTerm.getCandidateTypes();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
       final String inputValueLanguage = searchTerm.getLanguage();
       final String language;

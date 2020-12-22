@@ -1,18 +1,19 @@
 package eu.europeana.enrichment.rest.client.exceptions;
 
-public class EnrichmentException extends Exception{
+/**
+ * Exception indicating a problem arising during enrichment.
+ */
+public class EnrichmentException extends Exception {
 
-  // TODO: Similar/Same to DereferenceOrEnrichException class. So we can distinguish where the exception happens
+  private static final long serialVersionUID = 1205297107575299710L;
 
   /**
    * Constructor.
    *
-   * @param message
-   * @param cause
+   * @param message The message.
+   * @param cause The cause.
    */
   public EnrichmentException(String message, Throwable cause) {
     super(message, cause);
   }
-
-
 }
