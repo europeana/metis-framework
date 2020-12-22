@@ -15,6 +15,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.utils.EntityType;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -53,8 +54,9 @@ public class RemoteEntityResolver implements EntityResolver {
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
     final Function<List<T>, EnrichmentSearch> inputFunction = partition -> {
       final List<SearchValue> searchValues = partition.stream()
-          .map(uri -> new SearchValue(uri.getTextValue(), uri.getLanguage()))
-          .collect(Collectors.toList());
+              .map(term -> new SearchValue(term.getTextValue(), term.getLanguage(),
+                      term.getCandidateTypes().toArray(EntityType[]::new)))
+              .collect(Collectors.toList());
       final EnrichmentSearch enrichmentSearch = new EnrichmentSearch();
       enrichmentSearch.setSearchValues(searchValues);
       return enrichmentSearch;

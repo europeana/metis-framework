@@ -2,11 +2,11 @@ package eu.europeana.enrichment.rest;
 
 import eu.europeana.enrichment.api.external.EnrichmentReference;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.api.external.ReferenceValue;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +15,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,11 +59,8 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
-
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
-        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()).stream()
-        .filter(Objects::nonNull).collect(Collectors.toList());
-    return new EnrichmentResultList(enrichmentResultBaseWrappers);
+    return new EnrichmentResultList(enrichmentService
+            .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()));
   }
 
   /**

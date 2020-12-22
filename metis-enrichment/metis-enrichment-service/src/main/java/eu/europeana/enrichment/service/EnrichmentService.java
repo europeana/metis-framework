@@ -57,12 +57,12 @@ public class EnrichmentService {
    */
   public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(
       List<SearchValue> searchValues) {
-    final Set<SearchTerm> searchTerms = searchValues.stream().map(
+    final List<SearchTerm> orderedSearchTerms = searchValues.stream().map(
             search -> new SearchTermImpl(search.getValue(), search.getLanguage(),
-                    Set.copyOf(search.getEntityTypes()))).collect(Collectors.toSet());
+                    Set.copyOf(search.getEntityTypes()))).collect(Collectors.toList());
     final Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver
-            .resolveByText(searchTerms);
-    return result.values().stream().map(EnrichmentResultBaseWrapper::new)
+            .resolveByText(new HashSet<>(orderedSearchTerms));
+    return orderedSearchTerms.stream().map(result::get).map(EnrichmentResultBaseWrapper::new)
             .collect(Collectors.toList());
   }
 
