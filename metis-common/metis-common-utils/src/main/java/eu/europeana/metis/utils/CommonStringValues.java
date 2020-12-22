@@ -17,7 +17,7 @@ public final class CommonStringValues {
   public static final String EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED = "EuropeanaIdCreator initialization failed.";
 
   public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-  public static final String DATE_FORMAT_SOLR = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+  public static final String DATE_FORMAT_Z = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
   public static final String DATE_FORMAT_FOR_SCHEDULING = "yyyy-MM-dd'T'HH:mm:ssXXX";
   public static final String DATE_FORMAT_FOR_REQUEST_PARAM = "yyyy-MM-dd'T'HH:mm:ssZ";
 

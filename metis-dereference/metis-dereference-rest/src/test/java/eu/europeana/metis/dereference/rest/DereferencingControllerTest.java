@@ -45,9 +45,10 @@ class DereferencingControllerTest {
 
   @Test
   void dereferenceGet_outputXML() throws Exception {
-    EnrichmentResultList list = new EnrichmentResultList();
-    list.getEnrichmentBaseResultWrapperList().add(new EnrichmentResultBaseWrapper(
-        Collections.singletonList(getAgent("http" + "://www.example.com"))));
+    List<EnrichmentResultBaseWrapper> wrapperList = new ArrayList<>();
+    wrapperList.add(new EnrichmentResultBaseWrapper(
+        Collections.singletonList(getAgent("http://www.example.com"))));
+    EnrichmentResultList list = new EnrichmentResultList(wrapperList);
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(list);
 
     dereferencingControllerMock.perform(
@@ -66,9 +67,10 @@ class DereferencingControllerTest {
 
   @Test
   void dereferencePost_outputXML() throws Exception {
-    EnrichmentResultList list = new EnrichmentResultList();
-    list.getEnrichmentBaseResultWrapperList().add(new EnrichmentResultBaseWrapper(
-        Collections.singletonList(getAgent("http://www" + ".example.com"))));
+    List<EnrichmentResultBaseWrapper> wrapperList = new ArrayList<>();
+    wrapperList.add(new EnrichmentResultBaseWrapper(
+        Collections.singletonList(getAgent("http://www.example.com"))));
+    EnrichmentResultList list = new EnrichmentResultList(wrapperList);
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(list);
 
     dereferencingControllerMock.perform(post("/dereference").accept(MediaType.APPLICATION_XML_VALUE)
@@ -76,11 +78,14 @@ class DereferencingControllerTest {
         .andExpect(status().is(200))
         //  .andExpect(content().string(""))
         .andExpect(xpath("metis:results/metis:result/edm:Agent/@rdf:about",
-            namespaceMap).string("http://www.example.com")).andExpect(xpath(
+            namespaceMap).string("http://www.example.com"))
+        .andExpect(xpath(
         "metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='en']",
-        namespaceMap).string("labelEn")).andExpect(xpath(
+        namespaceMap).string("labelEn"))
+        .andExpect(xpath(
         "metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']",
-        namespaceMap).string("labelNl")).andExpect(xpath(
+        namespaceMap).string("labelNl"))
+        .andExpect(xpath(
         "metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']",
         namespaceMap).string("10-10-10"));
   }

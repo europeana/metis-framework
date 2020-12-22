@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,7 +141,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     parameters.put("REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
     parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
     parameters.put("REVISION_PROVIDER", ecloudBasePluginParameters.getEcloudProvider());
-    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     parameters.put("REVISION_TIMESTAMP",
         dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
     parameters.put("PREVIOUS_TASK_ID", ecloudBasePluginParameters.getPreviousExternalTaskId());

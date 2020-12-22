@@ -80,7 +80,7 @@ public class EnrichmentService {
               .getOrDefault(referenceTerm, Collections.emptyList());
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
-      throw new BadRequestException("The input values are invalid");
+      throw new BadRequestException("The input values are invalid", e);
     }
   }
 
@@ -97,7 +97,7 @@ public class EnrichmentService {
       return persistentEntityResolver.resolveById(Set.of(referenceTerm)).get(referenceTerm);
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
-      throw new BadRequestException("The input values are invalid");
+      throw new BadRequestException("The input values are invalid", e);
     }
   }
 

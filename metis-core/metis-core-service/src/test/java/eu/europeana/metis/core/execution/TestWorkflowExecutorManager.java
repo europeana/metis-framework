@@ -37,17 +37,18 @@ class TestWorkflowExecutorManager {
 
   @BeforeAll
   static void prepare() {
+    SemaphoresPerPluginManager semaphoresPerPluginManager = Mockito
+        .mock(SemaphoresPerPluginManager.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqPublisherChannel = Mockito.mock(Channel.class);
     rabbitmqConsumerChannel = Mockito.mock(Channel.class);
     DpsClient dpsClient = Mockito.mock(DpsClient.class);
-    workflowExecutorManager = new WorkflowExecutorManager(workflowExecutionDao,
-            workflowPostProcessor, rabbitmqPublisherChannel, rabbitmqConsumerChannel,
-            redissonClient, dpsClient);
+    workflowExecutorManager = new WorkflowExecutorManager(semaphoresPerPluginManager,
+        workflowExecutionDao, workflowPostProcessor, rabbitmqPublisherChannel,
+        rabbitmqConsumerChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
-    workflowExecutorManager.setMaxConcurrentThreads(10);
     workflowExecutorManager.setDpsMonitorCheckIntervalInSecs(5);
     workflowExecutorManager.setEcloudBaseUrl("http://universe.space");
     workflowExecutorManager.setEcloudProvider("providerExample");
@@ -72,7 +73,8 @@ class TestWorkflowExecutorManager {
     verify(rabbitmqPublisherChannel, times(1))
         .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class),
             byteArrayArgumentCaptor.capture());
-    assertArrayEquals(objectId.getBytes(StandardCharsets.UTF_8), byteArrayArgumentCaptor.getValue());
+    assertArrayEquals(objectId.getBytes(StandardCharsets.UTF_8),
+        byteArrayArgumentCaptor.getValue());
   }
 
   @Test

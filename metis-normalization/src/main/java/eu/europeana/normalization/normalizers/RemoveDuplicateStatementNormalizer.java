@@ -36,32 +36,53 @@ import eu.europeana.normalization.util.XpathQuery;
  * duplicates among all subject statements, but it will not compare any subject statement with a
  * type statement.
  * </p>
- * 
  */
 public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction {
 
-  private static final XpathQuery PROXY_QUERY_TITLE =
-      getProxySubtagQuery(Namespace.DC.getElement("title"));
+  private static final XpathQuery PROXY_QUERY_TITLE = getProxySubtagQuery(
+      Namespace.DC.getElement("title"));
 
-  private static final XpathQuery PROXY_QUERY_ALTERNATIVE =
-      getProxySubtagQuery(Namespace.DCTERMS.getElement("alternative"));
+  private static final XpathQuery PROXY_QUERY_ALTERNATIVE = getProxySubtagQuery(
+      Namespace.DCTERMS.getElement("alternative"));
 
-  private static final XpathQuery PROXY_QUERY_SUBJECT =
-      getProxySubtagQuery(Namespace.DC.getElement("subject"));
+  private static final XpathQuery PROXY_QUERY_SUBJECT = getProxySubtagQuery(
+      Namespace.DC.getElement("subject"));
 
-  private static final XpathQuery PROXY_QUERY_IDENTIFIER =
-      getProxySubtagQuery(Namespace.DC.getElement("identifier"));
+  private static final XpathQuery PROXY_QUERY_IDENTIFIER = getProxySubtagQuery(
+      Namespace.DC.getElement("identifier"));
 
-  private static final XpathQuery PROXY_QUERY_TYPE =
-      getProxySubtagQuery(Namespace.DC.getElement("type"));
+  private static final XpathQuery PROXY_QUERY_TYPE = getProxySubtagQuery(
+      Namespace.DC.getElement("type"));
 
-  private static final XpathQuery[][] FIELD_SETS_TO_EVALUATE =
-      new XpathQuery[][] {{PROXY_QUERY_TITLE, PROXY_QUERY_ALTERNATIVE}, {PROXY_QUERY_SUBJECT},
-          {PROXY_QUERY_IDENTIFIER}, {PROXY_QUERY_TYPE}};
+  private static final XpathQuery EUROPEANA_PROXY_QUERY_TITLE = getEuropeanaProxySubtagQuery(
+      Namespace.DC.getElement("title"));
+
+  private static final XpathQuery EUROPEANA_PROXY_QUERY_ALTERNATIVE = getEuropeanaProxySubtagQuery(
+      Namespace.DCTERMS.getElement("alternative"));
+
+  private static final XpathQuery EUROPEANA_PROXY_QUERY_SUBJECT = getEuropeanaProxySubtagQuery(
+      Namespace.DC.getElement("subject"));
+
+  private static final XpathQuery EUROPEANA_PROXY_QUERY_IDENTIFIER = getEuropeanaProxySubtagQuery(
+      Namespace.DC.getElement("identifier"));
+
+  private static final XpathQuery EUROPEANA_PROXY_QUERY_TYPE = getEuropeanaProxySubtagQuery(
+      Namespace.DC.getElement("type"));
+
+  private static final XpathQuery[][] FIELD_SETS_TO_EVALUATE = new XpathQuery[][]{
+      {EUROPEANA_PROXY_QUERY_TITLE, EUROPEANA_PROXY_QUERY_ALTERNATIVE},
+      {EUROPEANA_PROXY_QUERY_SUBJECT}, {EUROPEANA_PROXY_QUERY_IDENTIFIER},
+      {EUROPEANA_PROXY_QUERY_TYPE}, {PROXY_QUERY_TITLE, PROXY_QUERY_ALTERNATIVE},
+      {PROXY_QUERY_SUBJECT}, {PROXY_QUERY_IDENTIFIER}, {PROXY_QUERY_TYPE}};
 
   private static XpathQuery getProxySubtagQuery(Namespace.Element subtag) {
-    return new XpathQuery("/%s/%s/%s", XpathQuery.RDF_TAG, Namespace.ORE.getElement("Proxy"),
-        subtag);
+    return new XpathQuery("/%s/%s[not(%s='true')]/%s", XpathQuery.RDF_TAG,
+        Namespace.ORE.getElement("Proxy"), Namespace.EDM.getElement("europeanaProxy"), subtag);
+  }
+
+  private static XpathQuery getEuropeanaProxySubtagQuery(Namespace.Element subtag) {
+    return new XpathQuery("/%s/%s[%s='true']/%s", XpathQuery.RDF_TAG,
+        Namespace.ORE.getElement("Proxy"), Namespace.EDM.getElement("europeanaProxy"), subtag);
   }
 
   @Override
@@ -113,9 +134,8 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
    * Class that represents an XML element with its attributes. This class can check for equality: an
    * element is considered equal if it has the same text, as well as exactly the same attributes
    * with the same values.
-   * 
-   * @author jochen
    *
+   * @author jochen
    */
   static final class TextAttributesPair {
 

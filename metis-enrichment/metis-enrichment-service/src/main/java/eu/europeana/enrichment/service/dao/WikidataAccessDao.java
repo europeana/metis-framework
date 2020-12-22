@@ -107,6 +107,8 @@ public class WikidataAccessDao {
   public final void init(InputStream xslTemplate) throws WikidataAccessException {
     try {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
       transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       Source xslt = new StreamSource(xslTemplate);
       transformer = transformerFactory.newTransformer(xslt);
