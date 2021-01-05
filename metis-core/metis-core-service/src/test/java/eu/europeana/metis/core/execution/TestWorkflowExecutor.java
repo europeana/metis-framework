@@ -31,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.bson.types.ObjectId;
@@ -109,8 +110,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
@@ -152,8 +153,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
@@ -197,8 +198,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
@@ -244,8 +245,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
@@ -275,14 +276,11 @@ class TestWorkflowExecutor {
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
-    doThrow(new ExternalTaskException("Some error",
-        new HttpServerErrorException(HttpStatus.BAD_GATEWAY))).doThrow(
-        new ExternalTaskException("Some error",
-            new HttpServerErrorException(HttpStatus.BAD_GATEWAY))).doThrow(
-        new ExternalTaskException("Some error",
-            new HttpServerErrorException(HttpStatus.BAD_GATEWAY))).doThrow(
-        new ExternalTaskException("Some error",
-            new HttpServerErrorException(HttpStatus.BAD_GATEWAY)))
+    final ExternalTaskException exception = new ExternalTaskException("Some error",
+        new HttpServerErrorException(HttpStatus.BAD_GATEWAY));
+    final ExternalTaskException[] externalTaskExceptions = new ExternalTaskException[WorkflowExecutor.MAX_CANCEL_OR_MONITOR_FAILURES];
+    Arrays.fill(externalTaskExceptions, exception);
+    doThrow(externalTaskExceptions)
         .doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
         .doReturn(new MonitorResult(processedExecutionProgress.getStatus(), null))
         .when(oaipmhHarvestPlugin).monitor(dpsClient);
@@ -298,8 +296,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
@@ -353,8 +351,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
@@ -399,8 +397,8 @@ class TestWorkflowExecutor {
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
@@ -436,8 +434,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     ArgumentCaptor<WorkflowExecution> workflowExecutionArgumentCaptor = ArgumentCaptor
@@ -477,8 +475,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
 
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        persistenceProvider, workflowExecutionSettings);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
     workflowExecutor.call();
 
     ArgumentCaptor<WorkflowExecution> workflowExecutionArgumentCaptor = ArgumentCaptor

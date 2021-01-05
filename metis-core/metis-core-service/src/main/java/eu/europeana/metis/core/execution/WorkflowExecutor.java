@@ -54,7 +54,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   private static final String DETAILED_EXCEPTION_FORMAT = "%s%nDetailed exception:%s";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
-  private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 10;
+  protected static final int MAX_CANCEL_OR_MONITOR_FAILURES = 10;
 
   private final SemaphoresPerPluginManager semaphoresPerPluginManager;
   private final WorkflowExecutionDao workflowExecutionDao;
