@@ -707,36 +707,52 @@ public class OrchestratorService {
     executionInfo.setFirstPublishedDate(
         firstPublishPlugin == null ? null : firstPublishPlugin.getFinishedDate());
 
-    // Set the last publish information
-    if (Objects.nonNull(lastPublishPlugin)) {
-      final boolean depublishHappenedAfterLatestPublish =
-              lastExecutableDepublishPlugin != null && lastPublishPlugin.getFinishedDate()
-                      .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
-      executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
-      executionInfo.setLastPublishedRecordsReadyForViewing(
-          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin,
-              date) && !depublishHappenedAfterLatestPublish);
-    }
-    if (Objects.nonNull(lastExecutablePublishPlugin)) {
-      executionInfo.setLastPublishedRecords(
-          lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
-              - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
-    }
-
-    // Determine the publication and depublication situation of the dataset
+    // Determine the depublication situation of the dataset
     final boolean depublishHappenedAfterLatestExecutablePublish =
         lastExecutableDepublishPlugin != null && lastExecutablePublishPlugin != null &&
             lastExecutablePublishPlugin.getFinishedDate()
                 .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
     /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
         we don't have to look further into the past for all depublish actions after the last
-        publish. We should make this code more robust by not assuming that here. */
+        publish). We should make this code more robust by not assuming that here. */
     final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestExecutablePublish
         && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
         && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
         .isDatasetDepublish();
 
-    // Set the depublish status.
+    // Compute the current published record count (records successfully published during the latest
+    // real publish) and the depublished record count (all records depublished since last publish).
+    final int publishedRecordCount = lastExecutablePublishPlugin == null ? 0 :
+            lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
+                    - lastExecutablePublishPlugin.getExecutionProgress().getErrors();
+    final int depublishedRecordCount;
+    if (datasetCurrentlyDepublished) {
+      depublishedRecordCount = publishedRecordCount;
+    } else if (depublishHappenedAfterLatestExecutablePublish) {
+      depublishedRecordCount = (int) depublishRecordIdDao
+              .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
+    } else {
+      depublishedRecordCount = 0;
+    }
+
+    // Set the last publish information
+    executionInfo.setLastPublishedRecords(publishedRecordCount);
+    if (Objects.nonNull(lastPublishPlugin)) {
+      executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
+      final boolean recordsAvailable =
+              !datasetCurrentlyDepublished && publishedRecordCount > depublishedRecordCount;
+      executionInfo.setLastPublishedRecordsReadyForViewing(recordsAvailable &&
+              !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin,
+                      date));
+    }
+
+    // Set the last depublished information.
+    executionInfo.setLastDepublishedRecords(depublishedRecordCount);
+    if (Objects.nonNull(lastExecutableDepublishPlugin)) {
+      executionInfo.setLastDepublishedDate(lastExecutableDepublishPlugin.getFinishedDate());
+    }
+
+    // Set the publication status.
     final PublicationStatus status;
     if (datasetCurrentlyDepublished) {
       status = PublicationStatus.DEPUBLISHED;
@@ -746,23 +762,6 @@ public class OrchestratorService {
       status = null;
     }
     executionInfo.setPublicationStatus(status);
-
-    // Set the current depublished record count (all records depublished since last publish).
-    if (depublishHappenedAfterLatestExecutablePublish) {
-      final int depublishedRecordCount;
-      if (datasetCurrentlyDepublished) {
-        depublishedRecordCount = executionInfo.getLastPublishedRecords();
-      } else {
-        depublishedRecordCount = (int) depublishRecordIdDao
-            .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
-      }
-      executionInfo.setLastDepublishedRecords(depublishedRecordCount);
-    }
-
-    // Set the last depublished date.
-    if (Objects.nonNull(lastExecutableDepublishPlugin)) {
-      executionInfo.setLastDepublishedDate(lastExecutableDepublishPlugin.getFinishedDate());
-    }
   }
 
   private boolean isPreviewOrPublishReadyForViewing(MetisPlugin<?> plugin, Date now) {
