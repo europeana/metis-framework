@@ -75,11 +75,11 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
   // TODO: 08/01/2021 Remove this when DpsClient is updated and doesn't throw MessageBodyProviderNotFoundException anymore
   static {
-    final ConcurrentHashMap<Class<?>, String> unmodifiable_MapWithNetworkExecptions = new ConcurrentHashMap<>(
+    final ConcurrentHashMap<Class<?>, String> unmodifiableMapWithNetworkExceptions = new ConcurrentHashMap<>(
         UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS);
-    unmodifiable_MapWithNetworkExecptions.put(MessageBodyProviderNotFoundException.class, "");
+    unmodifiableMapWithNetworkExceptions.put(MessageBodyProviderNotFoundException.class, "");
     UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE = Collections
-        .unmodifiableMap(unmodifiable_MapWithNetworkExecptions);
+        .unmodifiableMap(unmodifiableMapWithNetworkExceptions);
   }
 
   WorkflowExecutor(WorkflowExecution workflowExecution, PersistenceProvider persistenceProvider,
