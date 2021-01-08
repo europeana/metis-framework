@@ -214,6 +214,8 @@ public class QueueConsumer extends DefaultConsumer {
    */
   public void close() {
     threadPool.shutdown();
+    //Interrupt running threads
+    threadPool.shutdownNow();
   }
 
   int getThreadsCounter() {

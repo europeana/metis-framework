@@ -1,8 +1,20 @@
 ---
 applications:
-- name: metis-core-rest-test
-  memory: 2048M
-  instances: 1
-  host: metis-core-rest-test
-  path: target/metis-core-rest-1.0-SNAPSHOT.war
-  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
+  - path: target/metis-core-rest-3-SNAPSHOT.war
+    name: metis-core-rest-test
+    host: metis-core-rest-test
+    stack: cflinuxfs3
+    buildpack: https://github.com/cloudfoundry/java-buildpack
+    timeout: 180
+    memory: 2048M
+    instances: 1
+    services:
+      - metis-core-test-mongo-compose
+      - metis-core-test-redis-compose
+      - metis-core-test-rabbitmq-compose
+      - log-drainer
+      - europeana-elastic-logstash
+      - europeana-elastic-apm
+    env:
+      JAVA_OPTS: '-Delastic.apm.service_name=metis-core-rest-test -Delastic.apm.application_packages=eu.europeana'
+      JBP_CONFIG_OPEN_JDK_JRE: '{ "jre": { version: 11.+ } }'

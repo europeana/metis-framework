@@ -249,7 +249,7 @@ public final class ExternalRequestUtil {
     return m == null || m.isEmpty();
   }
 
-  private static Throwable getCause(Throwable e) {
+  public static Throwable getCause(Throwable e) {
     Throwable cause;
     Throwable result = e;
 

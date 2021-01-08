@@ -47,13 +47,13 @@ import org.slf4j.LoggerFactory;
  */
 public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolean>> {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final String EXECUTION_ERROR_PREFIX = "Execution of external task presented with an error. ";
   private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
   private static final String POSTPROCESS_ERROR_PREFIX = "An error occurred while post-processing the external task. ";
   private static final String TRIGGER_ERROR_PREFIX = "An error occurred while triggering the external task. ";
   private static final String DETAILED_EXCEPTION_FORMAT = "%s%nDetailed exception:%s";
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   protected static final int MAX_CANCEL_OR_MONITOR_FAILURES = 10;
 
   private final SemaphoresPerPluginManager semaphoresPerPluginManager;
@@ -110,10 +110,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         // A plugin was not allowed to run because of no slot space
         // Increase priority for this execution
         workflowExecution.setWorkflowPriority(workflowExecution.getWorkflowPriority() + 1);
-        LOGGER
-            .info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to "
-                    + "run(priority increased)",
-                workflowExecution.getId());
+        LOGGER.info("workflowExecution: {} - Stop workflow execution a plugin was not allowed to "
+            + "run(priority increased)", workflowExecution.getId());
       } else {
         // If the workflow finished successfully, we record this.
         workflowExecution.setFinishedDate(finishDate);
@@ -355,26 +353,37 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
-        LOGGER.warn(String
-            .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
-                workflowExecution.getId(), plugin.getPluginType()), e);
-        if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
-            UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)) {
-          // Set plugin to FAILED and return immediately
-          plugin.setFinishedDate(null);
-          plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-          plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
-              ExceptionUtils.getStackTrace(e)));
+        final Throwable cause = ExternalRequestUtil.getCause(e);
+        if (cause instanceof IllegalStateException) {
+          //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
+          // internally closing down without our consent even if we would have a synchronized close
+          // implemented. This catch gives us a little more assurance of avoiding an execution
+          // being marked as failed.
+          LOGGER.debug("Application is probably shutting down at the moment and dpsClient has "
+              + "closed without our consent, so we are ignoring this exception.", e);
           return;
-        }
-        consecutiveCancelOrMonitorFailures++;
-        LOGGER.warn(String.format(
-            "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "
-                + "consecutive times. After exceeding %s retries, pending status will be set",
-            workflowExecution.getId(), plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
-            MAX_CANCEL_OR_MONITOR_FAILURES), e);
-        if (consecutiveCancelOrMonitorFailures >= MAX_CANCEL_OR_MONITOR_FAILURES) {
-          plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
+        } else {
+          LOGGER.warn(String
+              .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
+                  workflowExecution.getId(), plugin.getPluginType()), e);
+          if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
+              UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)) {
+            // Set plugin to FAILED and return immediately
+            plugin.setFinishedDate(null);
+            plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+            plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
+                ExceptionUtils.getStackTrace(e)));
+            return;
+          }
+          consecutiveCancelOrMonitorFailures++;
+          LOGGER.warn(String.format(
+              "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "
+                  + "consecutive times. After exceeding %s retries, pending status will be set",
+              workflowExecution.getId(), plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
+              MAX_CANCEL_OR_MONITOR_FAILURES), e);
+          if (consecutiveCancelOrMonitorFailures >= MAX_CANCEL_OR_MONITOR_FAILURES) {
+            plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
+          }
         }
       } finally {
         Date updatedDate = new Date();
