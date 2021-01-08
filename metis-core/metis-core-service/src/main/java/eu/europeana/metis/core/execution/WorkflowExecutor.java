@@ -20,9 +20,12 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -31,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +70,17 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   private final String ecloudProvider;
   private final String metisCoreBaseUrl;
   private WorkflowExecution workflowExecution;
+
+  private static final Map<Class<?>, String> UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE;
+
+  // TODO: 08/01/2021 Remove this when DpsClient is updated and doesn't throw MessageBodyProviderNotFoundException anymore
+  static {
+    final ConcurrentHashMap<Class<?>, String> unmodifiable_MapWithNetworkExecptions = new ConcurrentHashMap<>(
+        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS);
+    unmodifiable_MapWithNetworkExecptions.put(MessageBodyProviderNotFoundException.class, "");
+    UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE = Collections
+        .unmodifiableMap(unmodifiable_MapWithNetworkExecptions);
+  }
 
   WorkflowExecutor(WorkflowExecution workflowExecution, PersistenceProvider persistenceProvider,
       WorkflowExecutionSettings workflowExecutionSettings) {
@@ -367,7 +382,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
               .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
                   workflowExecution.getId(), plugin.getPluginType()), e);
           if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
-              UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)) {
+              UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE, e)) {
             // Set plugin to FAILED and return immediately
             plugin.setFinishedDate(null);
             plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
