@@ -270,6 +270,10 @@ class ThumbnailGenerator {
     final String colorResultFormat = "\n" + contentMarker + "\n%c\n" + contentMarker;
     command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
         colormapFile, "-format", colorResultFormat, "histogram:info:"));
+
+    // To suppress warnings that can come up. This flag needs
+    // to be at the beginning of the command to work
+    command.add(1, "-quiet");
     return command;
   }
 
