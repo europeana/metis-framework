@@ -20,12 +20,9 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -70,17 +67,6 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   private final String ecloudProvider;
   private final String metisCoreBaseUrl;
   private WorkflowExecution workflowExecution;
-
-  private static final Map<Class<?>, String> UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE;
-
-  // TODO: 08/01/2021 Remove this when DpsClient is updated and doesn't throw MessageBodyProviderNotFoundException anymore
-  static {
-    final ConcurrentHashMap<Class<?>, String> unmodifiableMapWithNetworkExceptions = new ConcurrentHashMap<>(
-        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS);
-    unmodifiableMapWithNetworkExceptions.put(MessageBodyProviderNotFoundException.class, "");
-    UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE = Collections
-        .unmodifiableMap(unmodifiableMapWithNetworkExceptions);
-  }
 
   WorkflowExecutor(WorkflowExecution workflowExecution, PersistenceProvider persistenceProvider,
       WorkflowExecutionSettings workflowExecutionSettings) {
@@ -368,7 +354,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
-        final Throwable cause = ExternalRequestUtil.getCause(e);
+        final Throwable cause = ExternalRequestUtil.getRootCause(e);
         if (cause instanceof IllegalStateException) {
           //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
           // internally closing down without our consent even if we would have a synchronized close
@@ -377,28 +363,30 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
           LOGGER.debug("Application is probably shutting down at the moment and dpsClient has "
               + "closed without our consent, so we are ignoring this exception.", e);
           return;
-        } else {
-          LOGGER.warn(String
-              .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
-                  workflowExecution.getId(), plugin.getPluginType()), e);
-          if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
-              UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS_AND_UNREADABLE_MESSAGE, e)) {
-            // Set plugin to FAILED and return immediately
-            plugin.setFinishedDate(null);
-            plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-            plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
-                ExceptionUtils.getStackTrace(e)));
-            return;
-          }
-          consecutiveCancelOrMonitorFailures++;
-          LOGGER.warn(String.format(
-              "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "
-                  + "consecutive times. After exceeding %s retries, pending status will be set",
-              workflowExecution.getId(), plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
-              MAX_CANCEL_OR_MONITOR_FAILURES), e);
-          if (consecutiveCancelOrMonitorFailures >= MAX_CANCEL_OR_MONITOR_FAILURES) {
-            plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
-          }
+        }
+        LOGGER.warn(String
+            .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
+                workflowExecution.getId(), plugin.getPluginType()), e);
+        // TODO: 08/01/2021 Remove the check on MessageBodyProviderNotFoundException when
+        //  DpsClient is updated and doesn't throw it anymore
+        if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
+            UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)
+            && !(cause instanceof MessageBodyProviderNotFoundException)) {
+          // Set plugin to FAILED and return immediately
+          plugin.setFinishedDate(null);
+          plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+          plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
+              ExceptionUtils.getStackTrace(e)));
+          return;
+        }
+        consecutiveCancelOrMonitorFailures++;
+        LOGGER.warn(String.format(
+            "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "
+                + "consecutive times. After exceeding %s retries, pending status will be set",
+            workflowExecution.getId(), plugin.getPluginType(), consecutiveCancelOrMonitorFailures,
+            MAX_CANCEL_OR_MONITOR_FAILURES), e);
+        if (consecutiveCancelOrMonitorFailures >= MAX_CANCEL_OR_MONITOR_FAILURES) {
+          plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
         }
       } finally {
         Date updatedDate = new Date();

@@ -213,7 +213,6 @@ public class QueueConsumer extends DefaultConsumer {
    * Close resources
    */
   public void close() {
-    threadPool.shutdown();
     //Interrupt running threads
     threadPool.shutdownNow();
   }

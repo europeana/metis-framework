@@ -227,7 +227,7 @@ public final class ExternalRequestUtil {
    */
   public static boolean doesExceptionCauseMatchAnyOfProvidedExceptions(
       Map<Class<?>, String> exceptionStringMap, Exception e) {
-    Throwable cause = getCause(e);
+    Throwable cause = getRootCause(e);
     final Predicate<Entry<Class<?>, String>> sameInstanceAndMessageMatches = entry ->
         entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue()) || cause
             .getMessage().toLowerCase(Locale.US).contains(entry.getValue().toLowerCase(Locale.US)));
@@ -249,7 +249,12 @@ public final class ExternalRequestUtil {
     return m == null || m.isEmpty();
   }
 
-  public static Throwable getCause(Throwable e) {
+  /**
+   * Get root cause of a provided throwable
+   * @param e the throwable
+   * @return the root cause of the exception
+   */
+  public static Throwable getRootCause(Throwable e) {
     Throwable cause;
     Throwable result = e;
 
