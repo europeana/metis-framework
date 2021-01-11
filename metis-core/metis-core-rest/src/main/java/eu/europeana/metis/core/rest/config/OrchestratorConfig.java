@@ -29,9 +29,6 @@ import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.service.WorkflowExecutionFactory;
 import eu.europeana.metis.exception.GenericMetisException;
-import io.netty.util.ThreadDeathWatcher;
-import io.netty.util.concurrent.FastThreadLocal;
-import io.netty.util.internal.InternalThreadLocalMap;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -71,8 +68,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class OrchestratorConfig implements WebMvcConfigurer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorConfig.class);
-
-  private static final int WAITING_TIME_FOR_THREAD_DEATH = 2;
 
   private final ConfigurationPropertiesHolder propertiesHolder;
   private SchedulerExecutor schedulerExecutor;
@@ -356,15 +351,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       if (redissonClient != null && !redissonClient.isShuttingDown()) {
         redissonClient.shutdown();
       }
-      FastThreadLocal.removeAll();
-      FastThreadLocal.destroy();
-      InternalThreadLocalMap.remove();
-      InternalThreadLocalMap.destroy();
-      ThreadDeathWatcher.awaitInactivity(WAITING_TIME_FOR_THREAD_DEATH, TimeUnit.SECONDS);
     } catch (IOException | TimeoutException e) {
-      throw new GenericMetisException("Could not shutdown resources properly.", e);
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
       throw new GenericMetisException("Could not shutdown resources properly.", e);
     }
   }
