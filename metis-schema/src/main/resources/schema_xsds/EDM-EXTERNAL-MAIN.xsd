@@ -53,7 +53,7 @@
           PORT: generic (no port) | fi | il | nl
           -->
           <pattern
-            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd|by-nd-nc)/1[.]0/(fi|il|nl)?$"/>
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd|by-nd-nc)/1[.]0/(fi/|il/|nl/)?$"/>
 
           <!--
           CC VERSION 2.0 LICENSES
@@ -62,7 +62,7 @@
           PORT: generic (no port) | au | at | be | br | ca | cl | hr | uk | fr | de | it | jp | nl | pl | kr | es | tw
           -->
           <pattern
-            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]0/(au|at|be|br|ca|cl|hr|uk|fr|de|it|jp|nl|pl|kr|es|tw)?$"/>
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]0/(au/|at/|be/|br/|ca/|cl/|hr/|uk/|fr/|de/|it/|jp/|nl/|pl/|kr/|es/|tw/)?$"/>
 
           <!--
           CC VERSION 2.1 LICENSES
@@ -71,7 +71,7 @@
           PORT: au | es | jp
           -->
           <pattern
-            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]1/(au|es|jp)$"/>
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]1/(au/|es/|jp/)$"/>
 
           <!--
           CC VERSION 2.5 LICENSES
@@ -80,7 +80,7 @@
           PORT: generic (no port) | ar | au | br | bg | ca | cn | co | hr | dk | hu | in | il | it | mk | my | mt | mx | nl | pe | pl | pt | scotland | si | za | es | se | ch | tw
           -->
           <pattern
-            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]5/(ar|au|br|bg|ca|cn|co|hr|dk|hu|in|il|it|mk|my|mt|mx|nl|pe|pl|pt|scotland|si|za|es|se|ch|tw)?$"/>
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]5/(ar/|au/|br/|bg/|ca/|cn/|co/|hr/|dk/|hu/|in/|il/|it/|mk/|my/|mt/|mx/|nl/|pe/|pl/|pt/|scotland/|si/|za/|es/|se/|ch/|tw/)?$"/>
 
           <!--
           CC VERSION 3.0 LICENSES
@@ -89,7 +89,7 @@
           PORT: generic (no port) | au | at | br | cl | cn | cr | hr | cz | ec | eg | ee | fr | de | gr | gt | hk | igo | ie | it | lu | nl | nz | no | ph | pl | pt | pr | ro | rs | sg | za | es | ch | tw | th | ug | us | ve | vn
           -->
           <pattern
-            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/3[.]0/(au|at|br|cl|cn|cr|hr|cz|ec|eg|ee|fr|de|gr|gt|hk|igo|ie|it|lu|nl|nz|no|ph|pl|pt|pr|ro|rs|sg|za|es|ch|tw|th|ug|us|ve|vn)?$"/>
+            value="^http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/3[.]0/(au/|at/|br/|cl/|cn/|cr/|hr/|cz/|ec/|eg/|ee/|fr/|de/|gr/|gt/|hk/|igo/|ie/|it/|lu/|nl/|nz/|no/|ph/|pl/|pt/|pr/|ro/|rs/|sg/|za/|es/|ch/|tw/|th/|ug/|us/|ve/|vn/)?$"/>
 
           <!--
           CC VERSION 4.0 LICENSES
