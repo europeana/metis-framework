@@ -1,7 +1,9 @@
 package eu.europeana.metis.authentication.user;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.Date;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,9 +16,9 @@ class MetisUserAccessTokenTest {
   void testEmptyMetisUserAccessTokenConstructor() {
     final MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
 
-    Assertions.assertNull(metisUserAccessToken.getEmail());
-    Assertions.assertNull(metisUserAccessToken.getAccessToken());
-    Assertions.assertNull(metisUserAccessToken.getTimestamp());
+    assertNull(metisUserAccessToken.getEmail());
+    assertNull(metisUserAccessToken.getAccessToken());
+    assertNull(metisUserAccessToken.getTimestamp());
   }
 
   @Test
@@ -25,9 +27,9 @@ class MetisUserAccessTokenTest {
     final MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken("example@email.com",
         "AccessToken", timestampDate);
 
-    Assertions.assertEquals("example@email.com", metisUserAccessToken.getEmail());
-    Assertions.assertEquals("AccessToken", metisUserAccessToken.getAccessToken());
-    Assertions.assertEquals(timestampDate, metisUserAccessToken.getTimestamp());
+    assertEquals("example@email.com", metisUserAccessToken.getEmail());
+    assertEquals("AccessToken", metisUserAccessToken.getAccessToken());
+    assertEquals(timestampDate, metisUserAccessToken.getTimestamp());
   }
 
   @Test
@@ -38,9 +40,9 @@ class MetisUserAccessTokenTest {
     metisUserAccessToken.setEmail("example@email.com");
     metisUserAccessToken.setAccessToken("AccessToken");
     metisUserAccessToken.setTimestamp(timestampDate);
-    Assertions.assertEquals("example@email.com", metisUserAccessToken.getEmail());
-    Assertions.assertEquals("AccessToken", metisUserAccessToken.getAccessToken());
-    Assertions.assertEquals(timestampDate, metisUserAccessToken.getTimestamp());
+    assertEquals("example@email.com", metisUserAccessToken.getEmail());
+    assertEquals("AccessToken", metisUserAccessToken.getAccessToken());
+    assertEquals(timestampDate, metisUserAccessToken.getTimestamp());
   }
 
 }

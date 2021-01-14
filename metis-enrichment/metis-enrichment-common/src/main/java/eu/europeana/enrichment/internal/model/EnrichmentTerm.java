@@ -10,6 +10,7 @@ import dev.morphia.annotations.Indexes;
 import eu.europeana.enrichment.api.external.model.LabelInfo;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -21,19 +22,15 @@ import org.bson.types.ObjectId;
  * @since 2020-08-04
  */
 @Entity
-@Indexes({
-    @Index(fields = {@Field("created")}),
-    @Index(fields = {@Field("updated")}),
+@Indexes({@Index(fields = {@Field("created")}), @Index(fields = {@Field("updated")}),
     @Index(fields = {@Field("entityType")}),
     @Index(fields = {@Field("enrichmentEntity.about"), @Field("entityType")}),
     @Index(fields = {@Field("enrichmentEntity.owlSameAs"), @Field("entityType")}),
     @Index(fields = {@Field("labelInfos.lowerCaseLabel"), @Field("labelInfos.lang"),
-        @Field("entityType")}),
-    @Index(fields = {@Field("created"), @Field("entityType")}),
+        @Field("entityType")}), @Index(fields = {@Field("created"), @Field("entityType")}),
     @Index(fields = {@Field("updated"), @Field("entityType")}),
     @Index(fields = {@Field("enrichmentEntity.about")}, options = @IndexOptions(unique = true)),
-    @Index(fields = {@Field("enrichmentEntity.owlSameAs")})
-})
+    @Index(fields = {@Field("enrichmentEntity.owlSameAs")})})
 public class EnrichmentTerm {
 
   @Id
@@ -45,7 +42,7 @@ public class EnrichmentTerm {
   private Date updated;
   private EntityType entityType;
   private AbstractEnrichmentEntity enrichmentEntity;
-  private List<LabelInfo> labelInfos;
+  private List<LabelInfo> labelInfos = new ArrayList<>();
 
   public EnrichmentTerm() {
     // Required for json serialization
@@ -68,11 +65,11 @@ public class EnrichmentTerm {
   }
 
   public List<LabelInfo> getLabelInfos() {
-    return labelInfos;
+    return new ArrayList<>(labelInfos);
   }
 
   public void setLabelInfos(List<LabelInfo> labelInfos) {
-    this.labelInfos = labelInfos;
+    this.labelInfos = labelInfos == null ? new ArrayList<>() : new ArrayList<>(labelInfos);
   }
 
   public ObjectId getId() {
@@ -92,19 +89,19 @@ public class EnrichmentTerm {
   }
 
   public Date getUpdated() {
-    return updated;
+    return updated == null ? null : new Date(updated.getTime());
   }
 
   public void setUpdated(Date updated) {
-    this.updated = updated;
+    this.updated = updated == null ? null : new Date(updated.getTime());
   }
 
   public Date getCreated() {
-    return created;
+    return created == null ? null : new Date(created.getTime());
   }
 
   public void setCreated(Date created) {
-    this.created = created;
+    this.created = created == null ? null : new Date(created.getTime());
   }
 
 }

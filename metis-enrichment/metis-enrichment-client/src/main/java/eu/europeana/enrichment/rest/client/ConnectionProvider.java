@@ -7,27 +7,24 @@ import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Subclasses of this class contain settings for connections.
+ * Contains settings for creation of {@link RestTemplate}s.
  */
-public abstract class AbstractConnectionProvider {
+public class ConnectionProvider {
 
   /**
    * The default value of the maximum amount of time, in milliseconds, we wait for a connection to a
-   * resource before timing out. It's currently set to {@value AbstractConnectionProvider#DEFAULT_CONNECT_TIMEOUT}
-   * milliseconds.
+   * resource before timing out.
    */
   public static final int DEFAULT_CONNECT_TIMEOUT = 10_000;
 
   /**
    * The default value of the maximum amount of time, in milliseconds, we wait for the response
-   * before timing out. It's currently set to {@value AbstractConnectionProvider#DEFAULT_RESPONSE_TIMEOUT}
-   * milliseconds.
+   * before timing out.
    */
   public static final int DEFAULT_RESPONSE_TIMEOUT = 60_000;
 
   /**
-   * The default value of the batch size with which we query the enrichment service. It's currently
-   * set to {@value AbstractConnectionProvider#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
+   * The default value of the batch size with which we query the enrichment service.
    */
   public static final int DEFAULT_BATCH_SIZE_ENRICHMENT = 20;
 
@@ -37,7 +34,7 @@ public abstract class AbstractConnectionProvider {
 
   /**
    * Set the maximum amount of time, in milliseconds, we wait for a connection before timing out.
-   * The default (when not calling this method) is {@value AbstractConnectionProvider#DEFAULT_CONNECT_TIMEOUT}
+   * The default (when not calling this method) is {@value ConnectionProvider#DEFAULT_CONNECT_TIMEOUT}
    * milliseconds.
    *
    * @param connectTimeout The maximum amount of time, in milliseconds, we wait for a connection
@@ -49,7 +46,7 @@ public abstract class AbstractConnectionProvider {
 
   /**
    * Set the maximum amount of time, in milliseconds, we wait for the response. The default (when
-   * not calling this method is {@value AbstractConnectionProvider#DEFAULT_RESPONSE_TIMEOUT}
+   * not calling this method is {@value ConnectionProvider#DEFAULT_RESPONSE_TIMEOUT}
    * milliseconds.
    *
    * @param responseTimeout The maximum amount of time, in milliseconds, we wait for the response
@@ -61,7 +58,7 @@ public abstract class AbstractConnectionProvider {
 
   /**
    * Set the batch size with which we query the enrichment service. The default (when not calling
-   * this method) is {@value AbstractConnectionProvider#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
+   * this method) is {@value ConnectionProvider#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
    *
    * @param batchSizeEnrichment The batch size. Must be strictly positive.
    */

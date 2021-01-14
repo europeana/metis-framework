@@ -1,10 +1,6 @@
 package eu.europeana.metis.core.dao;
 
-import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
-import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_NAME;
-import static eu.europeana.metis.core.common.DaoFieldNames.DATA_PROVIDER;
-import static eu.europeana.metis.core.common.DaoFieldNames.ID;
-import static eu.europeana.metis.core.common.DaoFieldNames.PROVIDER;
+import static eu.europeana.metis.core.common.DaoFieldNames.*;
 import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
@@ -329,7 +325,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     final UpdateOperator updateOperator = UpdateOperators
         .set("sequence", datasetIdSequence.getSequence());
 
-    retryableExternalRequestForNetworkExceptions(() -> updateQuery.update(updateOperator).execute());
+    retryableExternalRequestForNetworkExceptions(
+        () -> updateQuery.update(updateOperator).execute());
     return datasetIdSequence.getSequence();
   }
 
@@ -342,7 +339,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @param dataset the Dataset object to check
    * @return the ECloud dataset identifier
    * @throws ExternalTaskException if an error occurred during the creation of the dataset
-   *                               identifier on ECloud
+   * identifier on ECloud
    */
   public String checkAndCreateDatasetInEcloud(Dataset dataset) throws ExternalTaskException {
     if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()

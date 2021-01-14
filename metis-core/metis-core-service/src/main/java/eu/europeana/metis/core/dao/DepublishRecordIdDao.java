@@ -86,8 +86,7 @@ public class DepublishRecordIdDao {
       findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
       final Set<String> existing;
       existing = getListOfQueryRetryable(query, findOptions).stream()
-          .map(DepublishRecordId::getRecordId)
-          .collect(Collectors.toSet());
+          .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
 
       // Return the other ones: the record IDs not found in the database.
       return recordIds.stream().filter(recordId -> !existing.contains(recordId))
@@ -218,8 +217,7 @@ public class DepublishRecordIdDao {
    * @return A (possibly empty) list of depublish record ids.
    */
   public List<DepublishRecordIdView> getDepublishRecordIds(String datasetId, int page,
-      DepublishRecordIdSortField sortField, SortDirection sortDirection,
-      String searchQuery) {
+      DepublishRecordIdSortField sortField, SortDirection sortDirection, String searchQuery) {
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, null,
         searchQuery);
 
@@ -253,8 +251,7 @@ public class DepublishRecordIdDao {
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus) throws BadContentException {
     return getAllDepublishRecordIdsWithStatus(datasetId, sortField, sortDirection,
-        depublicationStatus,
-        Collections.emptySet());
+        depublicationStatus, Collections.emptySet());
   }
 
 
@@ -280,7 +277,7 @@ public class DepublishRecordIdDao {
     if (!CollectionUtils.isEmpty(recordIds) && (recordIds.size()
         > maxDepublishRecordIdsPerDataset)) {
       throw new BadContentException(
-          "Can't remove these records: this would violate the maximum number of records per dataset.");
+          "RecordIds set is too big and violates the maximum number of records per dataset");
     }
 
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId,
@@ -342,9 +339,9 @@ public class DepublishRecordIdDao {
           "DepublicationStatus cannot be null and datasetId cannot be empty");
     } else if (depublicationStatus == DepublicationStatus.DEPUBLISHED && Objects
         .isNull(depublicationDate)) {
-      throw new IllegalArgumentException(String.format(
-          "DepublicationDate cannot be null if depublicationStatus == %s ",
-          DepublicationStatus.DEPUBLISHED.name()));
+      throw new IllegalArgumentException(String
+          .format("DepublicationDate cannot be null if depublicationStatus == %s ",
+              DepublicationStatus.DEPUBLISHED.name()));
     }
 
     // If we have a specific record list, make sure that missing records are added.

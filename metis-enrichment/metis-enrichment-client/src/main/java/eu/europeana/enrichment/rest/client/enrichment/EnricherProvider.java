@@ -2,7 +2,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
-import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
+import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.net.MalformedURLException;
@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * implementation for the functionality represented by {@link RecordParser} and/or {@link
  * EntityResolver}. </p>
  */
-public class EnricherProvider extends AbstractConnectionProvider {
+public class EnricherProvider extends ConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherProvider.class);
 

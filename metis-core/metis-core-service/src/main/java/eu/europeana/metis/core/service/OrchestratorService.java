@@ -722,15 +722,15 @@ public class OrchestratorService {
 
     // Compute the current published record count (records successfully published during the latest
     // real publish) and the depublished record count (all records depublished since last publish).
-    final int publishedRecordCount = lastExecutablePublishPlugin == null ? 0 :
-            lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
-                    - lastExecutablePublishPlugin.getExecutionProgress().getErrors();
+    final int publishedRecordCount = lastExecutablePublishPlugin == null ? 0
+        : (lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
+            - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
     final int depublishedRecordCount;
     if (datasetCurrentlyDepublished) {
       depublishedRecordCount = publishedRecordCount;
     } else if (depublishHappenedAfterLatestExecutablePublish) {
       depublishedRecordCount = (int) depublishRecordIdDao
-              .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
+          .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
     } else {
       depublishedRecordCount = 0;
     }
@@ -740,10 +740,10 @@ public class OrchestratorService {
     if (Objects.nonNull(lastPublishPlugin)) {
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       final boolean recordsAvailable =
-              !datasetCurrentlyDepublished && publishedRecordCount > depublishedRecordCount;
-      executionInfo.setLastPublishedRecordsReadyForViewing(recordsAvailable &&
-              !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin,
-                      date));
+          !datasetCurrentlyDepublished && publishedRecordCount > depublishedRecordCount;
+      executionInfo.setLastPublishedRecordsReadyForViewing(
+          recordsAvailable && !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(
+              lastPublishPlugin, date));
     }
 
     // Set the last depublished information.

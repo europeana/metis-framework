@@ -168,7 +168,7 @@ public class WorkflowUtils {
   }
 
   private static void validateAndTrimHarvestParameters(
-      List<AbstractExecutablePluginMetadata> enabledPlugins)
+      Iterable<AbstractExecutablePluginMetadata> enabledPlugins)
       throws BadContentException {
     for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
       if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
