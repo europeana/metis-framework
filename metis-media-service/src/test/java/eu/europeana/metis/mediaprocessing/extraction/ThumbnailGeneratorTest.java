@@ -364,7 +364,7 @@ class ThumbnailGeneratorTest {
         .createThumbnailGenerationCommand(input, false, file, contentMarker);
 
     // Verify
-    final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
+    final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, "-quiet", file.getPath() + "[0]",
         "-format", contentMarker + "\n%w\n%h\n%[colorspace]\n" + contentMarker + "\n", "-write", "info:", "(", "+clone",
         "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
         "-thumbnail", size2 + "x", "-write", prefix2 + thumbnail2.getTempFileForThumbnail().toString(),
@@ -377,7 +377,7 @@ class ThumbnailGeneratorTest {
         .createThumbnailGenerationCommand(input, true, file, contentMarker);
 
     // Verify
-    final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
+    final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, "-quiet", file.getPath() + "[0]",
         "-format", contentMarker + "\n%w\n%h\n%[colorspace]\n" + contentMarker + "\n", "-write", "info:",
         "-background", "white", "-alpha", "remove", "(", "+clone",
         "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
