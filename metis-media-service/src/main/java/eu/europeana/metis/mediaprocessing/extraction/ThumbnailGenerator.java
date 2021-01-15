@@ -247,8 +247,11 @@ class ThumbnailGenerator {
 
     // Compile the command
     final String commandResultFormat = contentMarker + COMMAND_RESULT_FORMAT + contentMarker + "\n";
-    final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
-        "-format", commandResultFormat, "-write", "info:"));
+
+    // To suppress warnings that can come up, we use the flag `-quiet'.
+    // This flag needs to be at the beginning of the command to work
+    final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, "-quiet",
+        content.getPath() + "[0]", "-format", commandResultFormat, "-write", "info:"));
     if (removeAlpha) {
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
@@ -271,9 +274,6 @@ class ThumbnailGenerator {
     command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
         colormapFile, "-format", colorResultFormat, "histogram:info:"));
 
-    // To suppress warnings that can come up. This flag needs
-    // to be at the beginning of the command to work
-    command.add(1, "-quiet");
     return command;
   }
 
