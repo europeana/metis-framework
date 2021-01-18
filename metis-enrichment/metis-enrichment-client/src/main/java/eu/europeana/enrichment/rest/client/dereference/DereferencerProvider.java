@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.rest.client.AbstractConnectionProvider;
+import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
@@ -14,12 +14,12 @@ import org.slf4j.LoggerFactory;
  * Instances of this object can set up {@link Dereferencer} instances. It has connection settings
  * that will apply both to the dereference and enrichment endpoints that it needs.
  */
-public class DereferencerProvider extends AbstractConnectionProvider {
+public class DereferencerProvider extends ConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerProvider.class);
 
-  private String dereferenceUrl = null;
-  private String enrichmentUrl = null;
+  private String dereferenceUrl;
+  private String enrichmentUrl;
 
   /**
    * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
@@ -48,6 +48,8 @@ public class DereferencerProvider extends AbstractConnectionProvider {
    *
    * @return An instance.
    * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
+   * @throws DereferenceException if the enrichment url is wrong and therefore the dereferencer
+   * was not successfully created
    */
   public Dereferencer create() throws DereferenceException {
 

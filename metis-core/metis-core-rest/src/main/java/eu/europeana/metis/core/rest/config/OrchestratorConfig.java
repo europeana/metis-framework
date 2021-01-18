@@ -1,9 +1,6 @@
 package eu.europeana.metis.core.rest.config;
 
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.impl.ForgivingExceptionHandler;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
@@ -15,7 +12,6 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowUtils;
-import eu.europeana.metis.core.execution.QueueConsumer;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.SemaphoresPerPluginManager;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
@@ -28,17 +24,10 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.service.WorkflowExecutionFactory;
-import eu.europeana.metis.exception.GenericMetisException;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
@@ -72,11 +61,6 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   private final ConfigurationPropertiesHolder propertiesHolder;
   private SchedulerExecutor schedulerExecutor;
   private WorkflowExecutionMonitor workflowExecutionMonitor;
-  private QueueConsumer queueConsumer;
-
-  private Connection connection;
-  private Channel publisherChannel;
-  private Channel consumerChannel;
   private RedissonClient redissonClient;
 
   /**
@@ -87,51 +71,6 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Autowired
   public OrchestratorConfig(ConfigurationPropertiesHolder propertiesHolder) {
     this.propertiesHolder = propertiesHolder;
-  }
-
-  @Bean
-  Connection getConnection()
-      throws KeyManagementException, NoSuchAlgorithmException, IOException, TimeoutException {
-    ConnectionFactory connectionFactory = new ConnectionFactory();
-    connectionFactory.setHost(propertiesHolder.getRabbitmqHost());
-    connectionFactory.setPort(propertiesHolder.getRabbitmqPort());
-    connectionFactory.setVirtualHost(
-        StringUtils.isNotBlank(propertiesHolder.getRabbitmqVirtualHost()) ? propertiesHolder
-            .getRabbitmqVirtualHost() : "/");
-    connectionFactory.setUsername(propertiesHolder.getRabbitmqUsername());
-    connectionFactory.setPassword(propertiesHolder.getRabbitmqPassword());
-    connectionFactory.setAutomaticRecoveryEnabled(true);
-    if (propertiesHolder.isRabbitmqEnableSSL()) {
-      connectionFactory.useSslProtocol();
-    }
-    //Does not close the channel if an unhandled exception occurred
-    //Can happen in QueueConsumer and it's safe to not handle the execution, it will be picked up
-    //again from the failsafe Executor.
-    connectionFactory.setExceptionHandler(new ForgivingExceptionHandler());
-    connection = connectionFactory.newConnection();
-    return connection;
-  }
-
-  @Bean(name = "rabbitmqPublisherChannel")
-  Channel getRabbitmqPublisherChannel(Connection connection) throws IOException {
-    publisherChannel = connection.createChannel();
-    setupChannelProperties(publisherChannel);
-    return publisherChannel;
-  }
-
-  @Bean(name = "rabbitmqConsumerChannel")
-  Channel getRabbitmqConsumerChannel(Connection connection) throws IOException {
-    consumerChannel = connection.createChannel();
-    setupChannelProperties(consumerChannel);
-    return consumerChannel;
-  }
-
-  private void setupChannelProperties(Channel channel) throws IOException {
-    Map<String, Object> args = new ConcurrentHashMap<>();
-    args.put("x-max-priority",
-        propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
-    //Second boolean durable to false
-    channel.queueDeclare(propertiesHolder.getRabbitmqQueueName(), false, false, false, args);
   }
 
   @Bean
@@ -295,16 +234,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     return schedulerExecutor;
   }
 
-  @Bean
-  public QueueConsumer getQueueConsumer(WorkflowExecutorManager workflowExecutionManager,
-      WorkflowExecutionMonitor workflowExecutionMonitor,
-      @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel) throws IOException {
-    queueConsumer = new QueueConsumer(rabbitmqConsumerChannel,
-        propertiesHolder.getRabbitmqQueueName(), workflowExecutionManager, workflowExecutionManager,
-        workflowExecutionMonitor);
-    return queueConsumer;
-  }
-
+  /**
+   * Failsafe periodic thread.
+   * <p>It will find stale executions and will re-submit them in the distributed queue.</p>
+   */
   @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}")
   public void runFailsafeExecutor() {
     LOGGER.info("Failsafe task started (runs every {} milliseconds).",
@@ -313,6 +246,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     LOGGER.info("Failsafe task finished.");
   }
 
+  /**
+   * Scheduling periodic thread.
+   * <p>Checks if scheduled workflows are valid for starting and sends them to the distributed
+   * queue.</p>
+   */
   @Scheduled(fixedDelayString = "${periodic.scheduler.check.in.millisecs}", initialDelayString = "${periodic.scheduler.check.in.millisecs}")
   public void runSchedulingExecutor() {
     LOGGER.info("Scheduler task started (runs every {} milliseconds).",
@@ -321,38 +259,14 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     LOGGER.info("Scheduler task finished.");
   }
 
-  @Scheduled(fixedDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}", initialDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}")
-  public void runQueueConsumerCleanup() throws InterruptedException {
-    LOGGER.debug("Queue consumer cleanup started (runs every {} milliseconds).",
-        propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInMillisecs());
-    this.queueConsumer.checkAndCleanCompletionService();
-    LOGGER.debug("Queue consumer cleanup finished.");
-  }
-
+  /**
+   * Close resources
+   */
   @PreDestroy
-  public void close() throws GenericMetisException {
-    try {
-      // Shut down RabbitMQ
-      if (publisherChannel != null && publisherChannel.isOpen()) {
-        publisherChannel.close();
-      }
-      if (consumerChannel != null && consumerChannel.isOpen()) {
-        consumerChannel.close();
-      }
-      if (connection != null && connection.isOpen()) {
-        connection.close();
-      }
-      // Shutdown the queue consumer
-      if (queueConsumer != null) {
-        queueConsumer.close();
-      }
-
-      // Shut down Redisson
-      if (redissonClient != null && !redissonClient.isShuttingDown()) {
-        redissonClient.shutdown();
-      }
-    } catch (IOException | TimeoutException e) {
-      throw new GenericMetisException("Could not shutdown resources properly.", e);
+  public void close() {
+    // Shut down Redisson
+    if (redissonClient != null && !redissonClient.isShuttingDown()) {
+      redissonClient.shutdown();
     }
   }
 }

@@ -36,20 +36,31 @@ import org.slf4j.LoggerFactory;
 public class PersistentEntityResolver implements EntityResolver {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PersistentEntityResolver.class);
-  private static final Set<String> ALL_2CODE_LANGUAGES = new HashSet<>();
-  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES = new HashMap<>();
+  private static final Set<String> ALL_2CODE_LANGUAGES;
+  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES;
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
+  public static final int THREE_CHARACTER_LANGUAGE_LENGTH = 3;
+  public static final int TWO_CHARACTER_LANGUAGE_LENGTH = 2;
 
   static {
+    HashSet<String> all2CodeLanguages = new HashSet<>();
+    Map<String, String> all3CodeLanguages = new HashMap<>();
     Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
-      ALL_2CODE_LANGUAGES.add(locale.getLanguage());
-      ALL_3CODE_TO_2CODE_LANGUAGES.put(locale.getISO3Language(), locale.getLanguage());
+      all2CodeLanguages.add(locale.getLanguage());
+      all3CodeLanguages.put(locale.getISO3Language(), locale.getLanguage());
     });
+    ALL_2CODE_LANGUAGES = Collections.unmodifiableSet(all2CodeLanguages);
+    ALL_3CODE_TO_2CODE_LANGUAGES = Collections.unmodifiableMap(all3CodeLanguages);
   }
 
   private final EnrichmentDao enrichmentDao;
 
+  /**
+   * Constructor with the persistence dao parameter.
+   *
+   * @param enrichmentDao the enrichment persistence dao
+   */
   public PersistentEntityResolver(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
   }
@@ -73,7 +84,8 @@ public class PersistentEntityResolver implements EntityResolver {
     for (T value : referenceTerms) {
       try {
         List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(List.of(
-            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, value.getReference().toString())));
+            new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD,
+                value.getReference().toString())));
         if (!foundEnrichmentBases.isEmpty()) {
           result.put(value, foundEnrichmentBases.get(0));
         }
@@ -85,23 +97,15 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   @Override
-  public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
+  public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(
+      Set<T> referenceTerms) {
     final Map<T, List<EnrichmentBase>> result = new HashMap<>();
 
-    for(T referenceTerm: referenceTerms){
+    for (T referenceTerm : referenceTerms) {
       try {
         final Set<EntityType> entityTypes = referenceTerm.getCandidateTypes();
-        final List<EnrichmentBase> foundEnrichmentBases;
-        if (CollectionUtils.isEmpty(entityTypes)) {
-          foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(
-                  referenceTerm.getReference().toString(), null);
-        } else {
-          foundEnrichmentBases = new ArrayList<>();
-          for (EntityType entityType : entityTypes) {
-            foundEnrichmentBases.addAll(searchBasesFirstAboutThenOwlSameAs(
-                    referenceTerm.getReference().toString(), entityType));
-          }
-        }
+        final List<EnrichmentBase> foundEnrichmentBases = getEnrichmentBases(referenceTerm,
+            entityTypes);
 
         if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
           result.put(referenceTerm, foundEnrichmentBases);
@@ -114,6 +118,23 @@ public class PersistentEntityResolver implements EntityResolver {
     return result;
   }
 
+  private <T extends ReferenceTerm> List<EnrichmentBase> getEnrichmentBases(T referenceTerm,
+      Set<EntityType> entityTypes) {
+    final List<EnrichmentBase> foundEnrichmentBases;
+    if (CollectionUtils.isEmpty(entityTypes)) {
+      foundEnrichmentBases = searchBasesFirstAboutThenOwlSameAs(
+          referenceTerm.getReference().toString(), null);
+    } else {
+      foundEnrichmentBases = new ArrayList<>();
+      for (EntityType entityType : entityTypes) {
+        foundEnrichmentBases.addAll(
+            searchBasesFirstAboutThenOwlSameAs(referenceTerm.getReference().toString(),
+                entityType));
+      }
+    }
+    return foundEnrichmentBases;
+  }
+
   private <T extends SearchTerm> void findEnrichmentEntitiesBySearchTerm(
       Map<T, List<EnrichmentBase>> searchTermListMap, T searchTerm) {
     final String value = searchTerm.getTextValue().toLowerCase(Locale.US);
@@ -122,23 +143,21 @@ public class PersistentEntityResolver implements EntityResolver {
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
       final String inputValueLanguage = searchTerm.getLanguage();
       final String language;
-      if (inputValueLanguage != null && inputValueLanguage.length() == 3) {
+      if (inputValueLanguage != null
+          && inputValueLanguage.length() == THREE_CHARACTER_LANGUAGE_LENGTH) {
         language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage);
-      } else if (inputValueLanguage != null && inputValueLanguage.length() == 2) {
-        language =
-            ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage
-                : null;
+      } else if (inputValueLanguage != null
+          && inputValueLanguage.length() == TWO_CHARACTER_LANGUAGE_LENGTH) {
+        language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
       } else {
         language = null;
       }
 
       if (CollectionUtils.isEmpty(entityTypes)) {
-        searchTermListMap
-            .put(searchTerm, findEnrichmentTerms(null, value, language));
+        searchTermListMap.put(searchTerm, findEnrichmentTerms(null, value, language));
       } else {
         for (EntityType entityType : entityTypes) {
-          searchTermListMap.put(
-              searchTerm, findEnrichmentTerms(entityType, value, language));
+          searchTermListMap.put(searchTerm, findEnrichmentTerms(entityType, value, language));
         }
       }
     }
@@ -226,7 +245,7 @@ public class PersistentEntityResolver implements EntityResolver {
   }
 
   private List<EnrichmentBase> getEnrichmentTermsAndConvert(
-          List<Pair<String, String>> fieldNamesAndValues) {
+      List<Pair<String, String>> fieldNamesAndValues) {
     final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
     return Converter.convert(enrichmentTerms);
   }

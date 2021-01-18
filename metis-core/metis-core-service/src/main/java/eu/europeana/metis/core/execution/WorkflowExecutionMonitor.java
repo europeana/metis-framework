@@ -197,17 +197,9 @@ public class WorkflowExecutionMonitor {
       if (workflowExecution != null) {
         claimed = mayClaimExecution(workflowExecution);
         if (claimed) {
-          //Update dates
-          final Date now = new Date();
-          workflowExecution.setUpdatedDate(now);
-          if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
-            workflowExecution.setStartedDate(now);
-            workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-          }
-          workflowExecutionDao.updateMonitorInformation(workflowExecution);
+          updateClaimedExecution(workflowExecution);
         }
       }
-
 
     } catch (RuntimeException e) {
       LOGGER.warn("Exception thrown while claiming workflow execution.", e);
@@ -216,6 +208,17 @@ public class WorkflowExecutionMonitor {
       lock.unlock();
     }
     return new ImmutablePair<>(workflowExecution, claimed);
+  }
+
+  private void updateClaimedExecution(WorkflowExecution workflowExecution) {
+    //Update dates
+    final Date now = new Date();
+    workflowExecution.setUpdatedDate(now);
+    if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
+      workflowExecution.setStartedDate(now);
+      workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+    }
+    workflowExecutionDao.updateMonitorInformation(workflowExecution);
   }
 
   /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */

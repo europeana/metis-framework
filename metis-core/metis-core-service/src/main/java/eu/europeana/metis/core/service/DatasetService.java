@@ -32,6 +32,7 @@ import eu.europeana.metis.transformation.service.XsltTransformer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
@@ -510,7 +511,7 @@ public class DatasetService {
     return transformRecords(dataset, records, xsltUrl);
   }
 
-  private List<Record> transformRecords(Dataset dataset, List<Record> records, String xsltUrl)
+  private List<Record> transformRecords(Dataset dataset, Collection<Record> records, String xsltUrl)
       throws XsltSetupException {
 
     // Set up transformer.

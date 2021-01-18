@@ -369,11 +369,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       pluginTypesFilters.add(Filters.eq(pluginTypeField, pluginType));
     }
     final Filter collectedFilters;
-    if (!pluginTypesFilters.isEmpty()) {
+    if (pluginTypesFilters.isEmpty()) {
+      collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter);
+    } else {
       final Filter pluginTypeOrFilter = Filters.or(pluginTypesFilters.toArray(Filter[]::new));
       collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter, pluginTypeOrFilter);
-    } else {
-      collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter);
     }
 
     // Query: unwind and match again so that we know that all conditions apply to the same plugin.

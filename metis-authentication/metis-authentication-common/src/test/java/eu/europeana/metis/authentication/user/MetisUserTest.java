@@ -1,7 +1,11 @@
 package eu.europeana.metis.authentication.user;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Date;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,19 +18,19 @@ class MetisUserTest {
   void testEmptyMetisUserConstructor() {
     final MetisUser metisUser = new MetisUser();
 
-    Assertions.assertNull(metisUser.getUserId());
-    Assertions.assertNull(metisUser.getEmail());
-    Assertions.assertNull(metisUser.getFirstName());
-    Assertions.assertNull(metisUser.getLastName());
-    Assertions.assertNull(metisUser.getOrganizationId());
-    Assertions.assertNull(metisUser.getOrganizationName());
-    Assertions.assertNull(metisUser.getAccountRole());
-    Assertions.assertNull(metisUser.getCountry());
-    Assertions.assertFalse(metisUser.isNetworkMember());
-    Assertions.assertFalse(metisUser.isMetisUserFlag());
-    Assertions.assertNull(metisUser.getCreatedDate());
-    Assertions.assertNull(metisUser.getUpdatedDate());
-    Assertions.assertNull(metisUser.getMetisUserAccessToken());
+    assertNull(metisUser.getUserId());
+    assertNull(metisUser.getEmail());
+    assertNull(metisUser.getFirstName());
+    assertNull(metisUser.getLastName());
+    assertNull(metisUser.getOrganizationId());
+    assertNull(metisUser.getOrganizationName());
+    assertNull(metisUser.getAccountRole());
+    assertNull(metisUser.getCountry());
+    assertFalse(metisUser.isNetworkMember());
+    assertFalse(metisUser.isMetisUserFlag());
+    assertNull(metisUser.getCreatedDate());
+    assertNull(metisUser.getUpdatedDate());
+    assertNull(metisUser.getMetisUserAccessToken());
   }
 
   @Test
@@ -54,23 +58,23 @@ class MetisUserTest {
     metisUserModel.setMetisUserAccessToken(accessToken);
     final MetisUser metisUser = new MetisUser(metisUserModel);
 
-    Assertions.assertEquals("UserId", metisUser.getUserId());
-    Assertions.assertEquals(email, metisUser.getEmail());
-    Assertions.assertEquals("FirstName", metisUser.getFirstName());
-    Assertions.assertEquals("LastName", metisUser.getLastName());
-    Assertions.assertEquals("OrganizationId", metisUser.getOrganizationId());
-    Assertions.assertEquals("OrganizationName", metisUser.getOrganizationName());
-    Assertions.assertEquals(AccountRole.EUROPEANA_DATA_OFFICER, metisUser.getAccountRole());
-    Assertions.assertEquals("Country", metisUser.getCountry());
-    Assertions.assertTrue(metisUser.isNetworkMember());
-    Assertions.assertTrue(metisUser.isMetisUserFlag());
-    Assertions.assertEquals(createdDate, metisUser.getCreatedDate());
-    Assertions.assertEquals(updatedDate, metisUser.getUpdatedDate());
+    assertEquals("UserId", metisUser.getUserId());
+    assertEquals(email, metisUser.getEmail());
+    assertEquals("FirstName", metisUser.getFirstName());
+    assertEquals("LastName", metisUser.getLastName());
+    assertEquals("OrganizationId", metisUser.getOrganizationId());
+    assertEquals("OrganizationName", metisUser.getOrganizationName());
+    assertEquals(AccountRole.EUROPEANA_DATA_OFFICER, metisUser.getAccountRole());
+    assertEquals("Country", metisUser.getCountry());
+    assertTrue(metisUser.isNetworkMember());
+    assertTrue(metisUser.isMetisUserFlag());
+    assertEquals(createdDate, metisUser.getCreatedDate());
+    assertEquals(updatedDate, metisUser.getUpdatedDate());
 
-    Assertions.assertEquals(email, metisUser.getMetisUserAccessToken().getEmail());
-    Assertions.assertEquals(accessToken.getAccessToken(),
+    assertEquals(email, metisUser.getMetisUserAccessToken().getEmail());
+    assertEquals(accessToken.getAccessToken(),
         metisUser.getMetisUserAccessToken().getAccessToken());
-    Assertions.assertEquals(accessToken.getTimestamp(),
+    assertEquals(accessToken.getTimestamp(),
         metisUser.getMetisUserAccessToken().getTimestamp());
 
   }

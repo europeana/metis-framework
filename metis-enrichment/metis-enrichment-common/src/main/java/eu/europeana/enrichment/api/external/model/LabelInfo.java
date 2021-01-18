@@ -2,6 +2,7 @@ package eu.europeana.enrichment.api.external.model;
 
 import dev.morphia.annotations.Embedded;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,13 +19,19 @@ import java.util.List;
 public class LabelInfo {
 
   private String lang;
-  private List<String> lowerCaseLabel;
+  private List<String> lowerCaseLabel = new ArrayList<>();
 
   public LabelInfo() {
   }
 
+  /**
+   * Constructor with all parameters
+   * @param lowerCaseLabel the lower case label list
+   * @param lang the language of the labels
+   */
   public LabelInfo(List<String> lowerCaseLabel, String lang) {
-    this.lowerCaseLabel = lowerCaseLabel;
+    this.lowerCaseLabel =
+        lowerCaseLabel == null ? new ArrayList<>() : new ArrayList<>(lowerCaseLabel);
     this.lang = lang;
   }
 
@@ -37,10 +44,11 @@ public class LabelInfo {
   }
 
   public List<String> getLowerCaseLabel() {
-    return lowerCaseLabel;
+    return new ArrayList<>(lowerCaseLabel);
   }
 
   public void setLowerCaseLabel(List<String> lowerCaseLabel) {
-    this.lowerCaseLabel = lowerCaseLabel;
+    this.lowerCaseLabel =
+        lowerCaseLabel == null ? new ArrayList<>() : new ArrayList<>(lowerCaseLabel);
   }
 }

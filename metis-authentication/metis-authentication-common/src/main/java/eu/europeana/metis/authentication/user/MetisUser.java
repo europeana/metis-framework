@@ -26,20 +26,24 @@ public class MetisUser {
     //Required for json serialization
   }
 
-  public MetisUser(MetisUserModel record) {
-    this.userId = record.getUserId();
-    this.email = record.getEmail();
-    this.firstName = record.getFirstName();
-    this.lastName = record.getLastName();
-    this.organizationId = record.getOrganizationId();
-    this.organizationName = record.getOrganizationName();
-    this.accountRole = record.getAccountRole();
-    this.country = record.getCountry();
-    this.networkMember = record.isNetworkMember();
-    this.metisUserFlag = record.isMetisUserFlag();
-    this.createdDate = record.getCreatedDate();
-    this.updatedDate = record.getUpdatedDate();
-    this.metisUserAccessToken = record.getMetisUserAccessToken();
+  /**
+   * Constructor that converts a {@link MetisUserModel} class to a MetisUser.
+   * @param metisUserModel the metis user model class
+   */
+  public MetisUser(MetisUserModel metisUserModel) {
+    this.userId = metisUserModel.getUserId();
+    this.email = metisUserModel.getEmail();
+    this.firstName = metisUserModel.getFirstName();
+    this.lastName = metisUserModel.getLastName();
+    this.organizationId = metisUserModel.getOrganizationId();
+    this.organizationName = metisUserModel.getOrganizationName();
+    this.accountRole = metisUserModel.getAccountRole();
+    this.country = metisUserModel.getCountry();
+    this.networkMember = metisUserModel.isNetworkMember();
+    this.metisUserFlag = metisUserModel.isMetisUserFlag();
+    this.createdDate = metisUserModel.getCreatedDate();
+    this.updatedDate = metisUserModel.getUpdatedDate();
+    this.metisUserAccessToken = metisUserModel.getMetisUserAccessToken();
   }
 
   public String getUserId() {
