@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.utils;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
@@ -193,5 +194,28 @@ public class EnrichmentUtilsTest {
     EuropeanaAggregationType aggregationTypeResult = TEST_RDF.getEuropeanaAggregationList().get(0);
 
     assertTrue(Integer.parseInt(aggregationTypeResult.getCompleteness().getString()) > 0);
+  }
+
+  @Test
+  void testSetAdditionalDataEmptyProxies() {
+    RDF newRdf = new RDF();
+    RDF toCompare = new RDF();
+    ProxyType emptyEuropeanaProxy = new ProxyType();
+    ProxyType emptyProviderProxy = new ProxyType();
+    EuropeanaAggregationType emptyAggregation = new EuropeanaAggregationType();
+
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
+    proxyList.add(emptyEuropeanaProxy);
+    proxyList.add(emptyProviderProxy);
+
+    newRdf.setEuropeanaAggregationList(Collections.singletonList(emptyAggregation));
+    newRdf.setProxyList(proxyList);
+    toCompare.setEuropeanaAggregationList(Collections.singletonList(emptyAggregation));
+    toCompare.setProxyList(proxyList);
+
+    EnrichmentUtils.setAdditionalData(newRdf);
+
+    assertArrayEquals(newRdf.getProxyList().toArray(), toCompare.getProxyList().toArray());
+    assertEquals(newRdf.getEuropeanaAggregationList().get(0), toCompare.getEuropeanaAggregationList().get(0));
   }
 }
