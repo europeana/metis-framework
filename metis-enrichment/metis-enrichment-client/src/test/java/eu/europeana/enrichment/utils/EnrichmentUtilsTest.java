@@ -97,11 +97,11 @@ public class EnrichmentUtilsTest {
         .filter(x -> x.getEuropeanaProxy().isEuropeanaProxy())
         .collect(Collectors.toList()).get(0);
 
-    assertEquals(proxyResult.getYearList().size(), 4);
-    assertEquals(proxyResult.getYearList().get(0).getString(), "1990");
-    assertEquals(proxyResult.getYearList().get(1).getString(), "1991");
-    assertEquals(proxyResult.getYearList().get(2).getString(), "1992");
-    assertEquals(proxyResult.getYearList().get(3).getString(), "1993");
+    assertEquals(4, proxyResult.getYearList().size());
+    assertEquals("1990", proxyResult.getYearList().get(0).getString());
+    assertEquals("1991", proxyResult.getYearList().get(1).getString());
+    assertEquals("1992", proxyResult.getYearList().get(2).getString());
+    assertEquals("1993", proxyResult.getYearList().get(3).getString());
 
   }
 
@@ -136,8 +136,8 @@ public class EnrichmentUtilsTest {
         .filter(x -> x.getEuropeanaProxy().isEuropeanaProxy())
         .collect(Collectors.toList()).get(0);
 
-    assertEquals(proxyResult.getYearList().size(), 1);
-    assertEquals(proxyResult.getYearList().get(0).getString(), "1990");
+    assertEquals(1, proxyResult.getYearList().size());
+    assertEquals("1990", proxyResult.getYearList().get(0).getString());
 
   }
 
@@ -154,7 +154,7 @@ public class EnrichmentUtilsTest {
 
     EuropeanaAggregationType aggregationTypeResult = TEST_RDF.getEuropeanaAggregationList().get(0);
 
-    assertEquals(aggregationTypeResult.getCompleteness().getString(), "0");
+    assertEquals("0", aggregationTypeResult.getCompleteness().getString());
   }
 
   @Test
@@ -215,7 +215,7 @@ public class EnrichmentUtilsTest {
 
     EnrichmentUtils.setAdditionalData(newRdf);
 
-    assertArrayEquals(newRdf.getProxyList().toArray(), toCompare.getProxyList().toArray());
-    assertEquals(newRdf.getEuropeanaAggregationList().get(0), toCompare.getEuropeanaAggregationList().get(0));
+    assertArrayEquals(toCompare.getProxyList().toArray(), newRdf.getProxyList().toArray());
+    assertEquals(toCompare.getEuropeanaAggregationList().get(0), newRdf.getEuropeanaAggregationList().get(0));
   }
 }
