@@ -1,0 +1,34 @@
+{
+  "_id" : ObjectId("5677ce8ee4b07b69911b3b8c"),
+  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
+  "entityType" : "TIMESPAN",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity",
+    "about" : "http://semium.org/time/1114",
+    "prefLabel" : {
+      "def" : [
+        "1114"
+      ]
+    },
+    "begin" : {
+      "def" : [
+        "Thu Jan 01 01:00:00 CET 1114"
+      ]
+    },
+    "end" : {
+      "def" : [
+        "Thu Dec 31 01:00:00 CET 1114"
+      ]
+    },
+    "isPartOf" : "http://semium.org/time/11xx_1_third"
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "def",
+      "lowerCaseLabel" : [
+        "1114"
+      ]
+    }
+  ]
+}

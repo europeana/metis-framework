@@ -1,0 +1,1230 @@
+{
+  "_id" : ObjectId("577fa33ca5606ed338bfb5dc"),
+  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
+  "entityType" : "PLACE",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity",
+    "about" : "http://data.europeana.eu/place/base/11",
+    "prefLabel" : {
+      "" : [
+        "Kingdom of Tonga"
+      ],
+      "hi" : [
+        "टोंगा"
+      ],
+      "ps" : [
+        "ټونګا"
+      ],
+      "pt" : [
+        "Tonga"
+      ],
+      "hr" : [
+        "Tonga"
+      ],
+      "hu" : [
+        "Tonga",
+        "Tongai"
+      ],
+      "hy" : [
+        "Տոնգա",
+        "Տոնգերեն"
+      ],
+      "yo" : [
+        "Orílẹ́ède Tonga"
+      ],
+      "ia" : [
+        "tonga"
+      ],
+      "id" : [
+        "Bahasa Tonga",
+        "Tonga"
+      ],
+      "af" : [
+        "Tonga"
+      ],
+      "io" : [
+        "Tonga"
+      ],
+      "is" : [
+        "Tonga"
+      ],
+      "ak" : [
+        "Tonga"
+      ],
+      "it" : [
+        "Tonga"
+      ],
+      "am" : [
+        "ቶንጋ"
+      ],
+      "an" : [
+        "Tonga"
+      ],
+      "zh" : [
+        "東加",
+        "汤加"
+      ],
+      "ar" : [
+        "تونجا",
+        "تونغا"
+      ],
+      "ja" : [
+        "トンガ",
+        "トンガ王国"
+      ],
+      "az" : [
+        "Tonqa"
+      ],
+      "rm" : [
+        "Tonga"
+      ],
+      "zu" : [
+        "i-Tonga"
+      ],
+      "rn" : [
+        "Tonga"
+      ],
+      "ro" : [
+        "Tonga"
+      ],
+      "be" : [
+        "Тангійская"
+      ],
+      "ru" : [
+        "Тонга"
+      ],
+      "rw" : [
+        "Igitonga"
+      ],
+      "bg" : [
+        "Тонга"
+      ],
+      "bm" : [
+        "Tonga"
+      ],
+      "bn" : [
+        "টোঙ্গা"
+      ],
+      "br" : [
+        "Tonga"
+      ],
+      "bs" : [
+        "Tonga"
+      ],
+      "se" : [
+        "Tonga"
+      ],
+      "sg" : [
+        "Tonga"
+      ],
+      "ka" : [
+        "ტონგა"
+      ],
+      "sk" : [
+        "Tonga"
+      ],
+      "sl" : [
+        "Tonga",
+        "Tonganščina"
+      ],
+      "sm" : [
+        "Toga"
+      ],
+      "sn" : [
+        "Tonga"
+      ],
+      "so" : [
+        "Tonga"
+      ],
+      "ca" : [
+        "Tonga"
+      ],
+      "sq" : [
+        "Tonga"
+      ],
+      "ki" : [
+        "Tonga"
+      ],
+      "sr" : [
+        "Тонга"
+      ],
+      "kk" : [
+        "Тонга"
+      ],
+      "kl" : [
+        "Tonga"
+      ],
+      "km" : [
+        "តុងហ្គា",
+        "ថុងហ្គា"
+      ],
+      "sv" : [
+        "Tonga"
+      ],
+      "kn" : [
+        "ಟೊಂಗ"
+      ],
+      "sw" : [
+        "Tonga"
+      ],
+      "ko" : [
+        "통가"
+      ],
+      "ku" : [
+        "تۆنگا"
+      ],
+      "kw" : [
+        "Tonga"
+      ],
+      "ta" : [
+        "டோங்கா",
+        "தொங்கா"
+      ],
+      "cs" : [
+        "Tonga"
+      ],
+      "te" : [
+        "టోంగా"
+      ],
+      "tg" : [
+        "Тонга"
+      ],
+      "th" : [
+        "ตองกา",
+        "ประเทศตองกา",
+        "ภาษาทองก้า"
+      ],
+      "la" : [
+        "Tonga"
+      ],
+      "ti" : [
+        "ቶንጋ"
+      ],
+      "cy" : [
+        "Tonga"
+      ],
+      "tl" : [
+        "Tonga"
+      ],
+      "to" : [
+        "Tonga"
+      ],
+      "lg" : [
+        "Tonga"
+      ],
+      "da" : [
+        "Tonga"
+      ],
+      "li" : [
+        "Tonga"
+      ],
+      "tr" : [
+        "Tonga"
+      ],
+      "de" : [
+        "Tonga"
+      ],
+      "ln" : [
+        "Tonga"
+      ],
+      "lo" : [
+        "ຕອງກາ"
+      ],
+      "ty" : [
+        "To’a"
+      ],
+      "lt" : [
+        "Tonga",
+        "Tongų"
+      ],
+      "lu" : [
+        "Tonga"
+      ],
+      "lv" : [
+        "Tonga",
+        "Tongiešu"
+      ],
+      "ug" : [
+        "تونگا"
+      ],
+      "uk" : [
+        "Тонга",
+        "Тонґа"
+      ],
+      "mg" : [
+        "Tongà"
+      ],
+      "ur" : [
+        "ٹونگا"
+      ],
+      "mk" : [
+        "Тонга",
+        "Тонгански"
+      ],
+      "ml" : [
+        "ടോംഗ"
+      ],
+      "ee" : [
+        "Tonga nutome"
+      ],
+      "mn" : [
+        "Тонга"
+      ],
+      "mr" : [
+        "टोंगा"
+      ],
+      "ms" : [
+        "Bahasa Tonga",
+        "Tonga"
+      ],
+      "mt" : [
+        "Tonga"
+      ],
+      "el" : [
+        "Τόνγκα"
+      ],
+      "en" : [
+        "Tonga"
+      ],
+      "eo" : [
+        "Tonga",
+        "Tongo"
+      ],
+      "my" : [
+        "တွန်ဂါ"
+      ],
+      "es" : [
+        "Tonga"
+      ],
+      "et" : [
+        "Tonga"
+      ],
+      "eu" : [
+        "Tonga"
+      ],
+      "vi" : [
+        "Tonga",
+        "Tông-ga"
+      ],
+      "nb" : [
+        "Tonga"
+      ],
+      "nd" : [
+        "Thonga"
+      ],
+      "ne" : [
+        "टोंगा"
+      ],
+      "vo" : [
+        "Tonguäns"
+      ],
+      "fa" : [
+        "تونگا"
+      ],
+      "nl" : [
+        "Tonga"
+      ],
+      "nn" : [
+        "Tonga"
+      ],
+      "ff" : [
+        "Tonngaa"
+      ],
+      "no" : [
+        "Tonga"
+      ],
+      "fi" : [
+        "Tonga"
+      ],
+      "fo" : [
+        "Tonga"
+      ],
+      "fr" : [
+        "Tonga"
+      ],
+      "oc" : [
+        "Tònga"
+      ],
+      "ga" : [
+        "Tonga"
+      ],
+      "gd" : [
+        "Tonga"
+      ],
+      "or" : [
+        "ଟୋଙ୍ଗା"
+      ],
+      "gl" : [
+        "Tonga"
+      ],
+      "gu" : [
+        "ટોંગા"
+      ],
+      "pa" : [
+        "ਤੋਨ੍ਗ"
+      ],
+      "ha" : [
+        "Tanga"
+      ],
+      "pl" : [
+        "Tonga"
+      ],
+      "he" : [
+        "טונגה"
+      ]
+    },
+    "altLabel" : {
+      "def" : [
+        "Kingdom of Tonga",
+        "TO",
+        "Tonga"
+      ]
+    },
+    "owlSameAs" : [
+      "http://sws.geonames.org/4032283/"
+    ],
+    "latitude" : -20.0,
+    "longitude" : -175.0
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "",
+      "lowerCaseLabel" : [
+        "kingdom of tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hi",
+      "lowerCaseLabel" : [
+        "टोंगा"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ps",
+      "lowerCaseLabel" : [
+        "ټونګا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "def",
+      "lowerCaseLabel" : [
+        "kingdom of tonga",
+        "to",
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pt",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hr",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hu",
+      "lowerCaseLabel" : [
+        "tonga",
+        "tongai"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hy",
+      "lowerCaseLabel" : [
+        "տոնգա",
+        "տոնգերեն"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "yo",
+      "lowerCaseLabel" : [
+        "orílẹ́ède tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ia",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "id",
+      "lowerCaseLabel" : [
+        "bahasa tonga",
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "af",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "io",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ak",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "is",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "it",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "am",
+      "lowerCaseLabel" : [
+        "ቶንጋ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "an",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "zh",
+      "lowerCaseLabel" : [
+        "東加",
+        "汤加"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ar",
+      "lowerCaseLabel" : [
+        "تونجا",
+        "تونغا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ja",
+      "lowerCaseLabel" : [
+        "トンガ",
+        "トンガ王国"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "az",
+      "lowerCaseLabel" : [
+        "tonqa"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "zu",
+      "lowerCaseLabel" : [
+        "i-tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "rm",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "rn",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ro",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ru",
+      "lowerCaseLabel" : [
+        "тонга"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "be",
+      "lowerCaseLabel" : [
+        "тангійская"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bg",
+      "lowerCaseLabel" : [
+        "тонга"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "rw",
+      "lowerCaseLabel" : [
+        "igitonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bm",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bn",
+      "lowerCaseLabel" : [
+        "টোঙ্গা"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "br",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bs",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "se",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sg",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ka",
+      "lowerCaseLabel" : [
+        "ტონგა"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sk",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sl",
+      "lowerCaseLabel" : [
+        "tonga",
+        "tonganščina"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sm",
+      "lowerCaseLabel" : [
+        "toga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sn",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "so",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ki",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sq",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ca",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sr",
+      "lowerCaseLabel" : [
+        "тонга"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kk",
+      "lowerCaseLabel" : [
+        "тонга"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kl",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "km",
+      "lowerCaseLabel" : [
+        "តុងហ្គា",
+        "ថុងហ្គា"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kn",
+      "lowerCaseLabel" : [
+        "ಟೊಂಗ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sv",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ko",
+      "lowerCaseLabel" : [
+        "통가"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sw",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ku",
+      "lowerCaseLabel" : [
+        "تۆنگا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kw",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ta",
+      "lowerCaseLabel" : [
+        "டோங்கா",
+        "தொங்கா"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "cs",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "te",
+      "lowerCaseLabel" : [
+        "టోంగా"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tg",
+      "lowerCaseLabel" : [
+        "тонга"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "th",
+      "lowerCaseLabel" : [
+        "ตองกา",
+        "ประเทศตองกา",
+        "ภาษาทองก้า"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ti",
+      "lowerCaseLabel" : [
+        "ቶንጋ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "la",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "cy",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tl",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lg",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "to",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "li",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "da",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tr",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "de",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ln",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lo",
+      "lowerCaseLabel" : [
+        "ຕອງກາ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ty",
+      "lowerCaseLabel" : [
+        "to’a"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lt",
+      "lowerCaseLabel" : [
+        "tonga",
+        "tongų"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lu",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lv",
+      "lowerCaseLabel" : [
+        "tonga",
+        "tongiešu"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ug",
+      "lowerCaseLabel" : [
+        "تونگا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "uk",
+      "lowerCaseLabel" : [
+        "тонга",
+        "тонґа"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mg",
+      "lowerCaseLabel" : [
+        "tongà"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ur",
+      "lowerCaseLabel" : [
+        "ٹونگا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mk",
+      "lowerCaseLabel" : [
+        "тонга",
+        "тонгански"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ml",
+      "lowerCaseLabel" : [
+        "ടോംഗ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ee",
+      "lowerCaseLabel" : [
+        "tonga nutome"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mn",
+      "lowerCaseLabel" : [
+        "тонга"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mr",
+      "lowerCaseLabel" : [
+        "टोंगा"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ms",
+      "lowerCaseLabel" : [
+        "bahasa tonga",
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "el",
+      "lowerCaseLabel" : [
+        "τόνγκα"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mt",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "eo",
+      "lowerCaseLabel" : [
+        "tonga",
+        "tongo"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "my",
+      "lowerCaseLabel" : [
+        "တွန်ဂါ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "es",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "et",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "eu",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "vi",
+      "lowerCaseLabel" : [
+        "tonga",
+        "tông-ga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nb",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nd",
+      "lowerCaseLabel" : [
+        "thonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ne",
+      "lowerCaseLabel" : [
+        "टोंगा"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "vo",
+      "lowerCaseLabel" : [
+        "tonguäns"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fa",
+      "lowerCaseLabel" : [
+        "تونگا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nl",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ff",
+      "lowerCaseLabel" : [
+        "tonngaa"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nn",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "no",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fi",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fo",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fr",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "oc",
+      "lowerCaseLabel" : [
+        "tònga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ga",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "gd",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "or",
+      "lowerCaseLabel" : [
+        "ଟୋଙ୍ଗା"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "gl",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "gu",
+      "lowerCaseLabel" : [
+        "ટોંગા"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pa",
+      "lowerCaseLabel" : [
+        "ਤੋਨ੍ਗ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ha",
+      "lowerCaseLabel" : [
+        "tanga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pl",
+      "lowerCaseLabel" : [
+        "tonga"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "he",
+      "lowerCaseLabel" : [
+        "טונגה"
+      ]
+    }
+  ]
+}

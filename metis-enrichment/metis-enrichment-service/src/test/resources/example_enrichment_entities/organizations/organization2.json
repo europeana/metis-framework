@@ -1,0 +1,55 @@
+{
+  "_id" : ObjectId("5cc1720c8a35ec35dc059f85"),
+  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
+  "created" : ISODate("2017-12-04T14:17:55.000Z"),
+  "updated" : ISODate("2018-11-19T18:45:34.000Z"),
+  "entityType" : "ORGANIZATION",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity",
+    "about" : "http://data.europeana.eu/organization/1482250000004517544",
+    "prefLabel" : {
+      "en" : [
+        "West Virginia University Libraries"
+      ]
+    },
+    "owlSameAs" : [
+      "http://www.wikidata.org/entity/Q7986926"
+    ],
+    "dcIdentifier" : {
+      "def" : [
+        "1482250000004517544"
+      ]
+    },
+    "edmAcronym" : {
+      "en" : [
+        "WVU"
+      ]
+    },
+    "foafHomepage" : "https://lib.wvu.edu/",
+    "edmEuropeanaRole" : {
+      "en" : [
+        "Data Provider"
+      ]
+    },
+    "edmOrganizationDomain" : {
+      "en" : "GLAM"
+    },
+    "edmCountry" : {
+      "en" : "US"
+    },
+    "address" : {
+      "className" : "eu.europeana.enrichment.internal.model.Address",
+      "about" : "http://data.europeana.eu/organization/1482250000004517544#address",
+      "vcardCountryName" : "United States"
+    }
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "west virginia university libraries"
+      ]
+    }
+  ]
+}

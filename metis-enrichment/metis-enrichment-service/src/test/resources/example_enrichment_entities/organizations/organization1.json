@@ -1,0 +1,216 @@
+{
+  "_id" : ObjectId("5cc171ca8a35ec35dc059eab"),
+  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
+  "created" : ISODate("2016-11-30T08:54:17.000Z"),
+  "updated" : ISODate("2018-11-05T17:53:59.000Z"),
+  "entityType" : "ORGANIZATION",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity",
+    "about" : "http://data.europeana.eu/organization/1482250000001991040",
+    "prefLabel" : {
+      "de" : [
+        "Königliches Belgisches Institut für Naturwissenschaften"
+      ],
+      "pt" : [
+        "Instituto Real Belga de Ciências Naturais"
+      ],
+      "uk" : [
+        "Бельгійський музей природничих наук"
+      ],
+      "ja" : [
+        "ベルギー王立自然史博物館"
+      ],
+      "en" : [
+        "Royal Belgian Institute of Natural Sciences"
+      ],
+      "fr" : [
+        "Institut Royal des Sciences Naturelles de Belgique"
+      ],
+      "pl" : [
+        "Królewski Instytut Nauk Przyrodniczych Belgii"
+      ],
+      "da" : [
+        "Naturhistorisk Museum i Bruxelles"
+      ],
+      "zh" : [
+        "自然科學比利時皇家學院"
+      ],
+      "es" : [
+        "Real Instituto Belga de Ciencias Naturales"
+      ],
+      "nl" : [
+        "Koninklijk Belgisch Instituut voor Natuurwetenschappen"
+      ],
+      "ca" : [
+        "Reial Institut Belga de Ciències Naturals"
+      ]
+    },
+    "altLabel" : {
+      "de" : [
+        "Museum für Naturwissenschaften"
+      ],
+      "en" : [
+        "Museum of Natural Sciences/Royal Belgian Institute of Natural Sciences",
+        "Museum of Natural Sciences",
+        "Museum for Natural Sciences of Belgium"
+      ],
+      "fr" : [
+        "muséum des sciences naturelles de Belgique",
+        "Muséum des sciences naturelles de belgique"
+      ],
+      "nl" : [
+        "Museum voor Natuurwetenschappen",
+        "Koninklijk Belgisch Instituut voor Natuurwetenschappen"
+      ],
+      "zh" : [
+        "國立自然史博物館",
+        "比利時皇家自然科學博物館",
+        "比利時自然科學博物館"
+      ]
+    },
+    "owlSameAs" : [
+      "http://isni.org/isni/0000000121719581",
+      "http://www.wikidata.org/entity/Q222297",
+      "http://data.bnf.fr/ark:/12148/cb11985256w",
+      "http://viaf.org/viaf/141862693",
+      "https://www.freebase.com/m/03z_yk",
+      "http://id.loc.gov/authorities/names/n50056941",
+      "https://g.co/kg/m/03z_yk"
+    ],
+    "foafDepiction" : "http://commons.wikimedia.org/wiki/Special:FilePath/Mod%C3%A8le%20en%20bois.JPG",
+    "dcIdentifier" : {
+      "def" : [
+        "1482250000001991040"
+      ]
+    },
+    "dcDescription" : {
+      "de" : "Museum in Belgien",
+      "ar" : "متحف في بلجيكا",
+      "en" : "natural history museum in Rue Vautier, Brussels",
+      "he" : "מוזיאון בבלגיה",
+      "nl" : "museum in Brussel"
+    },
+    "edmAcronym" : {
+      "fr" : [
+        "IRSNB"
+      ],
+      "nl" : [
+        "K.B.I.N.",
+        "KBIN"
+      ]
+    },
+    "foafHomepage" : "https://www.naturalsciences.be/",
+    "edmEuropeanaRole" : {
+      "en" : [
+        "Data Provider"
+      ]
+    },
+    "edmOrganizationDomain" : {
+      "en" : "GLAM"
+    },
+    "edmCountry" : {
+      "en" : "BE"
+    },
+    "address" : {
+      "className" : "eu.europeana.enrichment.internal.model.Address",
+      "about" : "http://data.europeana.eu/organization/1482250000001991040#address",
+      "vcardCountryName" : "Belgium",
+      "vcardHasGeo" : "geo:50.837055555,4.376166666"
+    }
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "de",
+      "lowerCaseLabel" : [
+        "königliches belgisches institut für naturwissenschaften",
+        "museum für naturwissenschaften"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pt",
+      "lowerCaseLabel" : [
+        "instituto real belga de ciências naturais"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "uk",
+      "lowerCaseLabel" : [
+        "бельгійський музей природничих наук"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ja",
+      "lowerCaseLabel" : [
+        "ベルギー王立自然史博物館"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "royal belgian institute of natural sciences",
+        "museum of natural sciences/royal belgian institute of natural sciences",
+        "museum of natural sciences",
+        "museum for natural sciences of belgium"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pl",
+      "lowerCaseLabel" : [
+        "królewski instytut nauk przyrodniczych belgii"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fr",
+      "lowerCaseLabel" : [
+        "institut royal des sciences naturelles de belgique",
+        "muséum des sciences naturelles de belgique"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "da",
+      "lowerCaseLabel" : [
+        "naturhistorisk museum i bruxelles"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ca",
+      "lowerCaseLabel" : [
+        "reial institut belga de ciències naturals"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nl",
+      "lowerCaseLabel" : [
+        "koninklijk belgisch instituut voor natuurwetenschappen",
+        "museum voor natuurwetenschappen"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "es",
+      "lowerCaseLabel" : [
+        "real instituto belga de ciencias naturales"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "zh",
+      "lowerCaseLabel" : [
+        "自然科學比利時皇家學院",
+        "國立自然史博物館",
+        "比利時皇家自然科學博物館",
+        "比利時自然科學博物館"
+      ]
+    }
+  ]
+}

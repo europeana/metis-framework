@@ -1,0 +1,289 @@
+{
+  "_id" : ObjectId("5677ce8de4b07b69911b1061"),
+  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
+  "entityType" : "CONCEPT",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity",
+    "about" : "http://data.europeana.eu/concept/base/21",
+    "prefLabel" : {
+      "no" : [
+        "Periodikum"
+      ],
+      "de" : [
+        "Periodikum"
+      ],
+      "ru" : [
+        "Периодическое издание"
+      ],
+      "pt" : [
+        "Publicação periódica"
+      ],
+      "en" : [
+        "Periodical literature"
+      ],
+      "hr" : [
+        "Periodične publikacije"
+      ],
+      "it" : [
+        "Periodico"
+      ],
+      "fr" : [
+        "Publication périodique"
+      ],
+      "es" : [
+        "Publicación periódica"
+      ],
+      "cs" : [
+        "Periodikum"
+      ],
+      "ja" : [
+        "逐次刊行物"
+      ],
+      "sk" : [
+        "Periodikum"
+      ],
+      "pl" : [
+        "Periodyk"
+      ],
+      "da" : [
+        "Periodikum"
+      ],
+      "tr" : [
+        "Süreli yayınlar"
+      ],
+      "sr" : [
+        "Periodične publikacije"
+      ]
+    },
+    "note" : {
+      "no" : [
+        "Periodika er publikasjoner som utgis med jevne eller uregelmessige mellomrom med samme tittel fra hefte/samling til hefte/samling. De enkelte hefter er påført nummer, utgivelsesdato eller begge deler. Utgivelsen tar ikke sikte på en avslutning. Periodika omfatter blant annet tidsskrifter, nyhetsbrev, aviser, ukeblader, årbøker og notat-/rapportserier og nettsider."
+      ],
+      "de" : [
+        "Unter Periodikum (Pl. Periodika), auch fortlaufendes Sammelwerk genannt, wird im Bibliothekswesen im Gegensatz zu Monografien ein (in der Regel) regelmäßig erscheinendes Druckwerk bezeichnet. Es handelt sich um den Fachbegriff für Heftreihen, Gazetten, Journale, Magazine, Zeitschriften und Zeitungen."
+      ],
+      "ru" : [
+        "Периодическое издание — издание (обычно печатное), выходящее с заявленной периодичностью."
+      ],
+      "pt" : [
+        "Publicações periódicas, em geral designadas simplesmente como periódicos são publicações em papel ou em meio eletrônico que geralmente são publicadas em intervalos de tempo regulares e pode de assunto específico ou de assuntos vários."
+      ],
+      "en" : [
+        "Periodical literature (also called a periodical publication or simply a periodical) is a published work that appears in a new edition on a regular schedule. The most familiar examples are the newspaper, often published daily, or weekly; or the magazine, typically published weekly, monthly, or as a quarterly. Other examples are newsletters, literary magazines (literary journals), academic journals, and yearbooks. These examples are typically published and referenced by volume and issue. \"Volume\" typically refers to the number of years the publication has been circulated, and \"Issue\" refers to how many times that periodical has been published during that year. For example, the April 2011 publication of a monthly magazine first published in 2002 would be listed as, \"Volume 9, Issue 4.\" (Roman numerals are sometimes used in reference to the Volume number.)Periodicals can be classified into two types: popular and scholarly. The popular periodicals are magazine and newspapers, like Ebony and Esquire. The scholarly periodicals are found in libraries and databases. Examples are The Journal of Psychology and the Journal of Social Work.Trade/Professional journals are also examples of periodicals. They are written for an audience of professionals in the world. As of the early 1990s, there were over 6,000 business, technical, academic, scientific and trade publications in the United States alone.These examples are related to the idea of an indefinitely continuing cycle of production and publication: newspapers plan to continue publishing, not to stop after a predetermined number of editions. A novel, in contrast, might be published in monthly parts, a method revived after the success of The Pickwick Papers by Charles Dickens. This approach is called part-publication, particularly when each part is from a whole work, or a serial, for example in comic books. It flourished in the middle of the nineteenth century, for example with Abraham John Valpy's Delphin Classics, and was not restricted to fiction.The International Standard Serial Number (ISSN) is to periodical publications what the ISBN is to books: a standardized reference number.Postal services often carry periodicals at a preferential rate; for example, Second Class Mail in the United States only applies to publications issued at least thrice per year."
+      ],
+      "hr" : [
+        "Periodične publikacije (eng. periodicals) su neomeđene publikacije koje izlaze u više svezaka radi informiranja javnosti o nekoj tematici. Izlaženje im nije vremenski određeno, začinju se s namjerom da izlaze u beskonačnome broju svezaka, a prestaju izlaziti zbog različitih razloga ( finacijskih, političkih, osobnih ), no nikad zato što se iscrpila građa koja se obrađuje. Svaki svezak periodične publikacije je rad više autora. Pripadnost svakog pojdinačnog sveska određenoj publikaciji vidljiva je u naslovu, sadržaju i vanjskom izgledu. Sami za sebe pojedinačni svesci nemaju samostalno značenje. Periodične publikacije su: novine, časopisi, revije i magazini."
+      ],
+      "it" : [
+        "realtà sovieticaUn periodico è una pubblicazione su supporto cartaceo e/o elettronico (DVD, videocassetta, musicassetta ecc.) che viene resa disponibile a intervalli di tempo regolari."
+      ],
+      "fr" : [
+        "Une publication périodique, ou simplement un périodique, est un titre de presse qui paraît régulièrement.Les périodiques sont généralement imprimés. Cependant, il existe aussi depuis quelques années des périodiques électroniques, à consulter sur Internet, sur un assistant personnel ou sur une liseuse."
+      ],
+      "es" : [
+        "Una publicación periódica es un título de prensa que aparece con regularidad.Los periódicos por lo general están impresos sobre papel. No obstante, desde hace unos años existen periódicos electrónicos (periódicos digitales), que pueden ser accedidos y consultados en Internet, o en soporte PDA, o sobre un lector de documentos electrónicos, y obviamente por extensión del concepto, todos ellos también pueden ser considerados como publicación periódica.El concepto también engloba a lo que se llaman cotidianos o diarios, o sea a las publicaciones periódicas con periodicidad diaria.El periódico es un medio de comunicación, pero también una organización que sintetiza, a través de un trabajo de redacción y edición, informaciones de todo tipo que generan agencias de prensa, periodistas, y otras fuentes de información.El concepto prensa escrita se refiere a publicaciones impresas que se diferencian en función de su periodicidad. Esta periodicidad puede ser diaria (como ya se dijo), pero también puede ser anual (anuario), mensual (caso de muchas revistas especializadas en determinada temática), o semanal (semanario o revista), etc.Este tipo de publicaciones de aparición recurrente en el tiempo, existe casi desde la aparición de la imprenta, constituyéndose en el primer medio de comunicación de masas, y la vía de afirmación del periodismo.La información es la función más destacada de este tipo de publicaciones; la prensa periódica posee, como todo medio de comunicación, las funciones de informar, persuadir, promover, formar opinión, educar, y entretener (habitualmente resumidas en la tríada informar, formar, y entretener). Pero en muchos casos las publicaciones mensuales y anuales también están especializadas en un campo o área determinada."
+      ],
+      "cs" : [
+        "Periodikum či periodická publikace, event. periodická tiskovina je tiskovina, která vychází opakovaně, ať už v pravidelných či nepravidelných intervalech. Jedná se například o noviny s denní periodicitou, týdeníky, obtýdeníky, měsíčníky, ale i o publikace s periodicitou dvakrát či jen jednou (ročenka) do roka. Nepravidelně vycházející tiskoviny jsou označované jako občasníky.Zatímco vyšší periodicita (např. noviny) je typicky svázána s vyšší aktuálností, nižší periodicita bývá známkou odbornějšího zaměření tiskoviny. Periodikum může být určeno širokému publiku (případ novin, společenských časopisů atp.), či publiku více či méně specializovanému (literární časopisy, vědecké časopisy atp.).Nejčastěji bývají v prodeji nejčastěji na novinových stáncích (pro širokou veřejnost), ve specializovaných prodejnách (odborné časopisy), či je lze objednat a platit formou předplatného, v případě obsáhlejších tiskovin s nízkou periodicitou anebo hromadného zaslání více starších čísel případně i na dobírku.Podobně jako knihy (publikace neperiodické) nesou mezinárodní číslo ISBN, používá se pro periodika ISSN (anglicky: International Standard Serial Number, Mezinárodní standardní seriálové číslo)."
+      ],
+      "uk" : [
+        "Часо́пис — друковане періодичне видання у вигляді книжки. Назва будь-якого періодичного видання: газети, журналу тощо.Часто вживається як синонім до слова «журнал»."
+      ],
+      "ja" : [
+        "逐次刊行物（ちくじかんこうぶつ）とは出版物の一種で、同一標題の元に終期を定めずに刊行される分冊刊行物である。代表的な物に雑誌・新聞・年鑑がある。"
+      ],
+      "sk" : [
+        "Periodikum (iné názvy: periodická publikácia, periodická tlačovina, niekedy považované za synonymum s(o súhrnným) označením periodická tlač) je v knižničnej a informačnej vede publikácia, ktorá postupne vychádza v samostatných, obsahovo neidentických častiach, spojených spoločným názvom, priebežným označením, jednotnou úpravou a obsahovým zameraním v pravidelných alebo nepravidelných intervaloch a so zámerom trvalého pokračovania Periodická tlač je podľa tlačového zákona: z roku 2008: noviny, časopisy alebo iná tlač, vydávaná pod rovnakým názvom, s rovnakým obsahovým zameraním a v jednotnej grafickej úprave, najmenej dvakrát v kalendárnom rok. (Dodáva sa, že Tento zákon sa nevzťahuje na (a) Zbierku zákonov Slovenskej republiky, Obchodný vestník a iné úradné vestníky, (b) periodickú tlač určenú výlučne na úradné, služobné alebo prevádzkové účely či inú vnútornú potrebu osoby, ak nie je distribuovaná verejnosti, (c) periodickú tlač osoby určenú výlučne na jej vlastnú propagáciu.) z roku 1966 (teda už neplatného): noviny, časopisy a iné periodické tlačoviny, vydávané najmenej dvakrát ročne pod rovnakým názvom a v úprave typickej pre tento druh tlače. Za periodickú tlač sa však nepovažujú zbierky zákonov, úradné vestníky a ďalej tlačoviny slúžiace výlučne pre úradné, služobné alebo prevádzkové účely štátnych orgánov a organizácií, vedeckých a kultúrnych inštitúcií, hospodárskych, spoločenských a iných organizácií.Kategorizácia UNESCO typologicky delí periodickú tlač podľa periodicity a obsahového zamerania. Toto členenie má ešte tretiu dimenziu, a to je územné pôsobenie."
+      ],
+      "pl" : [
+        "Periodyk (fr. périodique) – czasopismo o regularnej częstotliwości ukazywania się (np. dziennik, tygodnik, miesięcznik, kwartalnik, rocznik). Ze względu na to, że część czasopism wydawana jest regularnie, periodyk jest w praktyce synonimem czasopisma."
+      ],
+      "da" : [
+        "Periodikum (Flertal: periodika) publikation der udkommer i flere på hinanden følgende dele nummereret eller med kronologiske betegnelser. Publikationen er ikke stilet mod en afslutning.Periodika omfatter: aviser – nyheder om aktuelle begivenheder af interesse for en bred læserkreds. Udkommer dateret og/eller nummereret, ofte hyppigere end én gang ugentligt, fx som dagblad. magasiner – ugeblade, søndagstillæg og lignende tidsskrifter fortrinsvis med populariseret indhold tidsskrifter – udkommer sædvanligvis som hæfter nummereret inden for en årgang. årspublikationer – publikation med samme titel og emne, der udgives i opdateret for årligt serier – selvstændige publikationer med hver sin titel, men med en fælles serietitel"
+      ],
+      "tr" : [
+        "Süreli yayınlar belirli aralıklarla yayımlanan dergi, gazete gibi yayınlardır. Türkiye'de 1795'de Fransızlar tarafından basılan ilk dergi Bulletin de Nouvelles'dir. Ertesi yılda 15 günde bir yayımlanan Gazette Française de Constantinople Türkiye'de çıkarılan ilk gazete ünvanını almaktadır ve o da Fransız menşeilidir."
+      ],
+      "sr" : [
+        "Periodične publikacije (engl. periodicals) su publikacije koje izlaze u više svesaka radi informiranja javnosti o nekoj tematici. Izlaženje im nije vremenski određeno. Zasnivaju se s namerom da izlaze u beskonačnom broju svesaka, a prestaju s izlaženjem zbog različitih razloga (finansijskih, političkih, ličnih). Svaka sveska periodične publikacije je rad više autora. Pripadnost svake pojedinačne sveske određenoj publikaciji je vidljiva u naslovu, sadržaju i spoljašnjem izgledu. Periodične publikacije su: novine, časopisi, revije i magazini. Novine su publikacije bez korica koje izlaze periodično. Sadrže tekstove različitih oblika i sadržaja. Prema sadržaju koji objavljuju novine delimo na: informativno-politička, zabavno–revijalna, specijalizovana izdanja. Prve nedeljne novine izašle su u Firenci 1597. Prve dnevne novine bile su Daily Courant (London, 1702.).Časopisi su serijske publikacije s koricama koje izlaze u redovnim vremenskim razmacima. Časopisi, za razliku od novina, imaju manje dimenzije, veći broj stranica i korice. Mogu biti: nedeljni, mesečni, dvomesečni, tromesečni, polugodišnji ili godišnji. Časopisi, kao i novine, mogu biti zabavnog, stručnog, umetničkog ili naučnog sadržaja. Razlikuju se opšti ili popularne časopisi namenjeni najširem krugu čitatelja, i specijalizovani časopisi poput književnih i naučnih časopisa koji su namijenjeni posebnom sloju čitatelja."
+      ]
+    },
+    "owlSameAs" : [
+      "http://vi.dbpedia.org/resource/Tài_liệu_xuất_bản_định_kỳ",
+      "http://sh.dbpedia.org/resource/Periodične_publikacije",
+      "http://no.dbpedia.org/resource/Periodikum",
+      "http://cs.dbpedia.org/resource/Periodikum",
+      "http://fr.dbpedia.org/resource/Publication_périodique",
+      "http://tr.dbpedia.org/resource/Süreli_yayınlar",
+      "http://tg.dbpedia.org/resource/Нашрия",
+      "http://fa.dbpedia.org/resource/نشریه",
+      "http://da.dbpedia.org/resource/Periodikum",
+      "http://it.dbpedia.org/resource/Periodico",
+      "http://ru.dbpedia.org/resource/Периодическое_издание",
+      "http://hr.dbpedia.org/resource/Periodične_publikacije",
+      "http://pl.dbpedia.org/resource/Periodyk",
+      "http://ja.dbpedia.org/resource/逐次刊行物",
+      "http://www.wikidata.org/entity/Q1092563",
+      "http://sr.dbpedia.org/resource/Periodične_publikacije",
+      "http://sk.dbpedia.org/resource/Periodikum",
+      "http://uk.dbpedia.org/resource/Часопис",
+      "http://yago-knowledge.org/resource/Periodical_literature",
+      "http://wikidata.dbpedia.org/resource/Q1092563",
+      "http://th.dbpedia.org/resource/สิ่งพิมพ์รายคาบ",
+      "http://rdf.freebase.com/ns/m.047vlg0",
+      "http://mzn.dbpedia.org/resource/نشریه",
+      "http://de.dbpedia.org/resource/Periodikum",
+      "http://pt.dbpedia.org/resource/Publicação_periódica",
+      "http://es.dbpedia.org/resource/Publicación_periódica",
+      "http://dbpedia.org/resource/Periodical_literature"
+    ],
+    "related" : [
+      "http://dbpedia.org/resource/Category:Comics_terminology",
+      "http://dbpedia.org/resource/Category:Periodicals",
+      "http://dbpedia.org/resource/Category:Publishing_terms"
+    ],
+    "exactMatch" : [
+      "http://vi.dbpedia.org/resource/Tài_liệu_xuất_bản_định_kỳ",
+      "http://sh.dbpedia.org/resource/Periodične_publikacije",
+      "http://no.dbpedia.org/resource/Periodikum",
+      "http://cs.dbpedia.org/resource/Periodikum",
+      "http://fr.dbpedia.org/resource/Publication_périodique",
+      "http://tr.dbpedia.org/resource/Süreli_yayınlar",
+      "http://tg.dbpedia.org/resource/Нашрия",
+      "http://fa.dbpedia.org/resource/نشریه",
+      "http://da.dbpedia.org/resource/Periodikum",
+      "http://it.dbpedia.org/resource/Periodico",
+      "http://ru.dbpedia.org/resource/Периодическое_издание",
+      "http://hr.dbpedia.org/resource/Periodične_publikacije",
+      "http://pl.dbpedia.org/resource/Periodyk",
+      "http://ja.dbpedia.org/resource/逐次刊行物",
+      "http://www.wikidata.org/entity/Q1092563",
+      "http://sr.dbpedia.org/resource/Periodične_publikacije",
+      "http://sk.dbpedia.org/resource/Periodikum",
+      "http://uk.dbpedia.org/resource/Часопис",
+      "http://yago-knowledge.org/resource/Periodical_literature",
+      "http://wikidata.dbpedia.org/resource/Q1092563",
+      "http://th.dbpedia.org/resource/สิ่งพิมพ์รายคาบ",
+      "http://rdf.freebase.com/ns/m.047vlg0",
+      "http://mzn.dbpedia.org/resource/نشریه",
+      "http://de.dbpedia.org/resource/Periodikum",
+      "http://pt.dbpedia.org/resource/Publicação_periódica",
+      "http://es.dbpedia.org/resource/Publicación_periódica",
+      "http://dbpedia.org/resource/Periodical_literature"
+    ]
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "de",
+      "lowerCaseLabel" : [
+        "periodikum"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "no",
+      "lowerCaseLabel" : [
+        "periodikum"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ru",
+      "lowerCaseLabel" : [
+        "периодическое издание"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pt",
+      "lowerCaseLabel" : [
+        "publicação periódica"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "periodical literature"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hr",
+      "lowerCaseLabel" : [
+        "periodične publikacije"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "it",
+      "lowerCaseLabel" : [
+        "periodico"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fr",
+      "lowerCaseLabel" : [
+        "publication périodique"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "es",
+      "lowerCaseLabel" : [
+        "publicación periódica"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "cs",
+      "lowerCaseLabel" : [
+        "periodikum"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ja",
+      "lowerCaseLabel" : [
+        "逐次刊行物"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sk",
+      "lowerCaseLabel" : [
+        "periodikum"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pl",
+      "lowerCaseLabel" : [
+        "periodyk"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "da",
+      "lowerCaseLabel" : [
+        "periodikum"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tr",
+      "lowerCaseLabel" : [
+        "süreli yayınlar"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sr",
+      "lowerCaseLabel" : [
+        "periodične publikacije"
+      ]
+    }
+  ]
+}

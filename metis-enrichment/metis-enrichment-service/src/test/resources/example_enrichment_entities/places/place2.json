@@ -1,0 +1,1240 @@
+{
+  "_id" : ObjectId("577fa33ca5606ed338bfb5fe"),
+  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
+  "entityType" : "PLACE",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity",
+    "about" : "http://data.europeana.eu/place/base/45",
+    "prefLabel" : {
+      "" : [
+        "Libya"
+      ],
+      "hi" : [
+        "लीबिया"
+      ],
+      "ps" : [
+        "لیبیا"
+      ],
+      "pt" : [
+        "Líbia",
+        "Líbia Árabe Jamahiriya"
+      ],
+      "hr" : [
+        "Libija",
+        "Libijska Arapska Džamahirija"
+      ],
+      "hu" : [
+        "Líbia",
+        "Líbiai Arab Jamahiriya"
+      ],
+      "hy" : [
+        "Լիբիա"
+      ],
+      "yo" : [
+        "Orílẹ́ède Libiya"
+      ],
+      "ia" : [
+        "Libya"
+      ],
+      "id" : [
+        "Libia"
+      ],
+      "ig" : [
+        "Libyia"
+      ],
+      "af" : [
+        "Libië"
+      ],
+      "io" : [
+        "Libia"
+      ],
+      "ak" : [
+        "Libya"
+      ],
+      "is" : [
+        "Líbía",
+        "Líbýa"
+      ],
+      "it" : [
+        "Libia",
+        "Libia, Repubblica Araba"
+      ],
+      "am" : [
+        "ሊቢያ"
+      ],
+      "an" : [
+        "Libia"
+      ],
+      "zh" : [
+        "利比亚",
+        "阿拉伯利比亚民众国"
+      ],
+      "ar" : [
+        "Lībiyā",
+        "اَلْجَمَاهِيرِيَّة اَلْعَرَبِيَّة اَللِّيبِيَّة اَلشَّعْبِيَّة اَلإِشْتِرَاكِيَّة",
+        "ليبيا"
+      ],
+      "ja" : [
+        "リビア",
+        "社会主義人民リビア・アラブ国"
+      ],
+      "az" : [
+        "Libya"
+      ],
+      "rm" : [
+        "Libia"
+      ],
+      "zu" : [
+        "i-Libya"
+      ],
+      "rn" : [
+        "Libiya"
+      ],
+      "ro" : [
+        "Libia",
+        "Libia, Jamahiriya Arabă"
+      ],
+      "ru" : [
+        "Ливия"
+      ],
+      "be" : [
+        "Лівійская Арабская Джамахірыя"
+      ],
+      "bg" : [
+        "Либийска Арабска Джамахирия",
+        "Либия"
+      ],
+      "bm" : [
+        "Libi"
+      ],
+      "bn" : [
+        "লিবিয়া",
+        "লিবিয়া"
+      ],
+      "bo" : [
+        "ལི་བི་ཡ།"
+      ],
+      "sa" : [
+        "लिबिया"
+      ],
+      "br" : [
+        "Libia"
+      ],
+      "bs" : [
+        "Libija"
+      ],
+      "se" : [
+        "Libya"
+      ],
+      "sg" : [
+        "Libïi"
+      ],
+      "si" : [
+        "ලිබියාව"
+      ],
+      "ka" : [
+        "ლიბია"
+      ],
+      "sk" : [
+        "Líbya",
+        "Lýbijská arabská džamahírija"
+      ],
+      "sl" : [
+        "Libija",
+        "Libijska arabska Jamahiriya"
+      ],
+      "sn" : [
+        "Libya"
+      ],
+      "so" : [
+        "Liibiya"
+      ],
+      "sq" : [
+        "Libi",
+        "Libia"
+      ],
+      "ki" : [
+        "Libya"
+      ],
+      "ca" : [
+        "Líbia"
+      ],
+      "sr" : [
+        "Либија"
+      ],
+      "kl" : [
+        "Libya"
+      ],
+      "km" : [
+        "លីប៊ី"
+      ],
+      "sv" : [
+        "Libyen"
+      ],
+      "kn" : [
+        "ಲಿಬಿಯಾ"
+      ],
+      "sw" : [
+        "Libya"
+      ],
+      "ko" : [
+        "리비아"
+      ],
+      "ku" : [
+        "Lîbya",
+        "لیبیا"
+      ],
+      "kw" : [
+        "Libi"
+      ],
+      "ta" : [
+        "லிபியா"
+      ],
+      "cs" : [
+        "Libye"
+      ],
+      "te" : [
+        "లిబియా"
+      ],
+      "tg" : [
+        "Либия"
+      ],
+      "th" : [
+        "ประเทศลิเบีย",
+        "ลิเบีย"
+      ],
+      "la" : [
+        "Libya"
+      ],
+      "ti" : [
+        "ሊቢያ"
+      ],
+      "cy" : [
+        "Libia"
+      ],
+      "tl" : [
+        "Libya"
+      ],
+      "lg" : [
+        "Libya"
+      ],
+      "to" : [
+        "Lipia"
+      ],
+      "da" : [
+        "Libyan Arab Jamahiriya",
+        "Libyen"
+      ],
+      "tr" : [
+        "Libya"
+      ],
+      "de" : [
+        "Libyen",
+        "Libysch-Arabische Dschamahirija"
+      ],
+      "ln" : [
+        "Libí"
+      ],
+      "lo" : [
+        "ລິເບຍ"
+      ],
+      "lt" : [
+        "Libija",
+        "Libijos Didžioji Liaudies Socialistinė Arabų Respublika"
+      ],
+      "lu" : [
+        "Libi"
+      ],
+      "lv" : [
+        "Lībija"
+      ],
+      "ug" : [
+        "لىۋىيە"
+      ],
+      "uk" : [
+        "Лівійська Арабська Джамахірія",
+        "Лівія"
+      ],
+      "mg" : [
+        "Libya"
+      ],
+      "ur" : [
+        "لیبیا"
+      ],
+      "mk" : [
+        "Либија"
+      ],
+      "ml" : [
+        "ലിബിയ"
+      ],
+      "ee" : [
+        "Libya nutome"
+      ],
+      "mr" : [
+        "लिबिया"
+      ],
+      "ms" : [
+        "Libya"
+      ],
+      "mt" : [
+        "Libja"
+      ],
+      "el" : [
+        "Λιβυκή Αραβική Τζαμαχιρία",
+        "Λιβύη"
+      ],
+      "en" : [
+        "Great Socialist People’s Libyan Arab Jamahiriya",
+        "Libya"
+      ],
+      "eo" : [
+        "Libio"
+      ],
+      "es" : [
+        "Libia",
+        "Libia, República Árabe"
+      ],
+      "et" : [
+        "Liibüa"
+      ],
+      "eu" : [
+        "Libia"
+      ],
+      "vi" : [
+        "Li-bi",
+        "Libya",
+        "Libyan Arab Jamahiriya"
+      ],
+      "nb" : [
+        "Den sosialistiske arabiske folkerepublikken Libya",
+        "Libya"
+      ],
+      "nd" : [
+        "Libhiya"
+      ],
+      "ne" : [
+        "लिबिया"
+      ],
+      "vo" : [
+        "Lübän"
+      ],
+      "fa" : [
+        "لیبی",
+        "لیبیا"
+      ],
+      "nl" : [
+        "Libische Arabische Republiek",
+        "Libië"
+      ],
+      "ff" : [
+        "Libi"
+      ],
+      "nn" : [
+        "Libya"
+      ],
+      "no" : [
+        "Libya"
+      ],
+      "fi" : [
+        "Libya",
+        "Libyan Arab Jamahiriya"
+      ],
+      "fo" : [
+        "Libya"
+      ],
+      "fr" : [
+        "Jamahiriya arabe libyenne",
+        "Libye"
+      ],
+      "oc" : [
+        "Libia"
+      ],
+      "ga" : [
+        "An Libia"
+      ],
+      "gd" : [
+        "Libia"
+      ],
+      "or" : [
+        "ଲିବିଆ"
+      ],
+      "gl" : [
+        "Libia",
+        "Libia - ليبيا"
+      ],
+      "gu" : [
+        "લિબિયા"
+      ],
+      "ha" : [
+        "Libiya"
+      ],
+      "pl" : [
+        "Libia",
+        "Libijska"
+      ],
+      "he" : [
+        "לוב"
+      ]
+    },
+    "altLabel" : {
+      "def" : [
+        "Al Jamāhīrīyah al ‘Arabīyah al Lībīyah ash Sha‘bīyah al Ishtirākīyah",
+        "Al Jumhūrīyah al ‘Arabīyah al Lībīyah",
+        "LY",
+        "Libia",
+        "Libyan Arab People’s Republic",
+        "Libyan Arab People’s Socialist Republic",
+        "Libyan Arab Popular Socialist Public",
+        "Libyan Arab Republic",
+        "Libyan Jamahiriyah",
+        "Libye",
+        "Lībiyā",
+        "People’s Socialist Libyan Arab Republic",
+        "Socialist People’s Libyan Arab Jamahiriya"
+      ]
+    },
+    "owlSameAs" : [
+      "http://sws.geonames.org/2215636/"
+    ],
+    "latitude" : 28.0,
+    "longitude" : 17.0
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hi",
+      "lowerCaseLabel" : [
+        "लीबिया"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ps",
+      "lowerCaseLabel" : [
+        "لیبیا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "def",
+      "lowerCaseLabel" : [
+        "al jamāhīrīyah al ‘arabīyah al lībīyah ash sha‘bīyah al ishtirākīyah",
+        "al jumhūrīyah al ‘arabīyah al lībīyah",
+        "ly",
+        "libia",
+        "libyan arab people’s republic",
+        "libyan arab people’s socialist republic",
+        "libyan arab popular socialist public",
+        "libyan arab republic",
+        "libyan jamahiriyah",
+        "libye",
+        "lībiyā",
+        "people’s socialist libyan arab republic",
+        "socialist people’s libyan arab jamahiriya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pt",
+      "lowerCaseLabel" : [
+        "líbia",
+        "líbia árabe jamahiriya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hr",
+      "lowerCaseLabel" : [
+        "libija",
+        "libijska arapska džamahirija"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hu",
+      "lowerCaseLabel" : [
+        "líbia",
+        "líbiai arab jamahiriya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hy",
+      "lowerCaseLabel" : [
+        "լիբիա"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "yo",
+      "lowerCaseLabel" : [
+        "orílẹ́ède libiya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ia",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "id",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ig",
+      "lowerCaseLabel" : [
+        "libyia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "af",
+      "lowerCaseLabel" : [
+        "libië"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "io",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "is",
+      "lowerCaseLabel" : [
+        "líbía",
+        "líbýa"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ak",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "it",
+      "lowerCaseLabel" : [
+        "libia",
+        "libia, repubblica araba"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "am",
+      "lowerCaseLabel" : [
+        "ሊቢያ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "an",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "zh",
+      "lowerCaseLabel" : [
+        "利比亚",
+        "阿拉伯利比亚民众国"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ar",
+      "lowerCaseLabel" : [
+        "lībiyā",
+        "اَلْجَمَاهِيرِيَّة اَلْعَرَبِيَّة اَللِّيبِيَّة اَلشَّعْبِيَّة اَلإِشْتِرَاكِيَّة",
+        "ليبيا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ja",
+      "lowerCaseLabel" : [
+        "リビア",
+        "社会主義人民リビア・アラブ国"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "az",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "zu",
+      "lowerCaseLabel" : [
+        "i-libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "rm",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "rn",
+      "lowerCaseLabel" : [
+        "libiya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ro",
+      "lowerCaseLabel" : [
+        "libia",
+        "libia, jamahiriya arabă"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "be",
+      "lowerCaseLabel" : [
+        "лівійская арабская джамахірыя"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ru",
+      "lowerCaseLabel" : [
+        "ливия"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bg",
+      "lowerCaseLabel" : [
+        "либийска арабска джамахирия",
+        "либия"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bm",
+      "lowerCaseLabel" : [
+        "libi"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bn",
+      "lowerCaseLabel" : [
+        "লিবিয়া",
+        "লিবিয়া"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bo",
+      "lowerCaseLabel" : [
+        "ལི་བི་ཡ།"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sa",
+      "lowerCaseLabel" : [
+        "लिबिया"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "br",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bs",
+      "lowerCaseLabel" : [
+        "libija"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "se",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sg",
+      "lowerCaseLabel" : [
+        "libïi"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ka",
+      "lowerCaseLabel" : [
+        "ლიბია"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "si",
+      "lowerCaseLabel" : [
+        "ලිබියාව"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sk",
+      "lowerCaseLabel" : [
+        "líbya",
+        "lýbijská arabská džamahírija"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sl",
+      "lowerCaseLabel" : [
+        "libija",
+        "libijska arabska jamahiriya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sn",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "so",
+      "lowerCaseLabel" : [
+        "liibiya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ca",
+      "lowerCaseLabel" : [
+        "líbia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ki",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sq",
+      "lowerCaseLabel" : [
+        "libi",
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sr",
+      "lowerCaseLabel" : [
+        "либија"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kl",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "km",
+      "lowerCaseLabel" : [
+        "លីប៊ី"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kn",
+      "lowerCaseLabel" : [
+        "ಲಿಬಿಯಾ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sv",
+      "lowerCaseLabel" : [
+        "libyen"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ko",
+      "lowerCaseLabel" : [
+        "리비아"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sw",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ku",
+      "lowerCaseLabel" : [
+        "lîbya",
+        "لیبیا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "kw",
+      "lowerCaseLabel" : [
+        "libi"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ta",
+      "lowerCaseLabel" : [
+        "லிபியா"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "cs",
+      "lowerCaseLabel" : [
+        "libye"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "te",
+      "lowerCaseLabel" : [
+        "లిబియా"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tg",
+      "lowerCaseLabel" : [
+        "либия"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "th",
+      "lowerCaseLabel" : [
+        "ประเทศลิเบีย",
+        "ลิเบีย"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ti",
+      "lowerCaseLabel" : [
+        "ሊቢያ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "la",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "cy",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tl",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "to",
+      "lowerCaseLabel" : [
+        "lipia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lg",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "da",
+      "lowerCaseLabel" : [
+        "libyan arab jamahiriya",
+        "libyen"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "tr",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "de",
+      "lowerCaseLabel" : [
+        "libyen",
+        "libysch-arabische dschamahirija"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ln",
+      "lowerCaseLabel" : [
+        "libí"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lo",
+      "lowerCaseLabel" : [
+        "ລິເບຍ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lt",
+      "lowerCaseLabel" : [
+        "libija",
+        "libijos didžioji liaudies socialistinė arabų respublika"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lu",
+      "lowerCaseLabel" : [
+        "libi"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "lv",
+      "lowerCaseLabel" : [
+        "lībija"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ug",
+      "lowerCaseLabel" : [
+        "لىۋىيە"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "uk",
+      "lowerCaseLabel" : [
+        "лівійська арабська джамахірія",
+        "лівія"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mg",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ur",
+      "lowerCaseLabel" : [
+        "لیبیا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mk",
+      "lowerCaseLabel" : [
+        "либија"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ml",
+      "lowerCaseLabel" : [
+        "ലിബിയ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ee",
+      "lowerCaseLabel" : [
+        "libya nutome"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mr",
+      "lowerCaseLabel" : [
+        "लिबिया"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ms",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "el",
+      "lowerCaseLabel" : [
+        "λιβυκή αραβική τζαμαχιρία",
+        "λιβύη"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "mt",
+      "lowerCaseLabel" : [
+        "libja"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "great socialist people’s libyan arab jamahiriya",
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "eo",
+      "lowerCaseLabel" : [
+        "libio"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "es",
+      "lowerCaseLabel" : [
+        "libia",
+        "libia, república árabe"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "et",
+      "lowerCaseLabel" : [
+        "liibüa"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "eu",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "vi",
+      "lowerCaseLabel" : [
+        "li-bi",
+        "libya",
+        "libyan arab jamahiriya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nb",
+      "lowerCaseLabel" : [
+        "den sosialistiske arabiske folkerepublikken libya",
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nd",
+      "lowerCaseLabel" : [
+        "libhiya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ne",
+      "lowerCaseLabel" : [
+        "लिबिया"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "vo",
+      "lowerCaseLabel" : [
+        "lübän"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fa",
+      "lowerCaseLabel" : [
+        "لیبی",
+        "لیبیا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nl",
+      "lowerCaseLabel" : [
+        "libische arabische republiek",
+        "libië"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nn",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ff",
+      "lowerCaseLabel" : [
+        "libi"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "no",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fi",
+      "lowerCaseLabel" : [
+        "libya",
+        "libyan arab jamahiriya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fo",
+      "lowerCaseLabel" : [
+        "libya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fr",
+      "lowerCaseLabel" : [
+        "jamahiriya arabe libyenne",
+        "libye"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "oc",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ga",
+      "lowerCaseLabel" : [
+        "an libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "gd",
+      "lowerCaseLabel" : [
+        "libia"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "or",
+      "lowerCaseLabel" : [
+        "ଲିବିଆ"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "gl",
+      "lowerCaseLabel" : [
+        "libia",
+        "libia - ليبيا"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "gu",
+      "lowerCaseLabel" : [
+        "લિબિયા"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ha",
+      "lowerCaseLabel" : [
+        "libiya"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pl",
+      "lowerCaseLabel" : [
+        "libia",
+        "libijska"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "he",
+      "lowerCaseLabel" : [
+        "לוב"
+      ]
+    }
+  ]
+}
