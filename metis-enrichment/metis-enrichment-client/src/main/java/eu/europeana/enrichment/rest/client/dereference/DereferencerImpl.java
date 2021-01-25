@@ -79,13 +79,12 @@ public class DereferencerImpl implements Dereferencer {
     for(String id : resourceIds){
       final ReferenceTerm referenceTerm;
       try {
+        // TODO: 25/01/2021 If the id is an invalid url we bypass it. In the future we might want to check each individual link and/or validate it
         referenceTerm = new ReferenceTermImpl(new URL(id), new HashSet<>());
+        referenceTermSet.add(referenceTerm);
       } catch (MalformedURLException e) {
-        LOGGER.debug("There is a problem with the input values");
-        throw new DereferenceException("There was some problem with the input values while dereferencing", e);
+        LOGGER.debug("Invalid enrichment reference found: {}", id);
       }
-
-      referenceTermSet.add(referenceTerm);
     }
 
     final List<EnrichmentBase> result = new ArrayList<>(dereferenceOwnEntities(referenceTermSet));
