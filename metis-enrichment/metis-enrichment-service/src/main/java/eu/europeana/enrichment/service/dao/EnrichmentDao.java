@@ -229,7 +229,7 @@ public class EnrichmentDao {
    *
    * @return the mapper
    */
-  protected Mapper getMapper() {
+  public Mapper getMapper() {
     return datastore.getMapper();
   }
 

@@ -130,6 +130,11 @@
         "0800-12-31"
       ]
     },
+    "dctermsHasPart" : {
+      "def" : [
+        "Has part example"
+      ]
+    },
     "isPartOf" : "http://semium.org/time/AD1xxx",
     "isNextInSequence" : "http://data.europeana.eu/timespan/7"
   },

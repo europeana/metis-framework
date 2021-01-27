@@ -15,7 +15,8 @@
     ],
     "isPartOf" : "http://data.europeana.eu/place/base/80",
     "latitude" : 52.2666702270508,
-    "longitude" : 12.2833299636841
+    "longitude" : 12.2833299636841,
+    "altitude" : 50.0
   },
   "labelInfos" : [
     {

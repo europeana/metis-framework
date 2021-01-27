@@ -1,6 +1,16 @@
 package eu.europeana.enrichment.service.dao;
 
-import static eu.europeana.enrichment.service.dao.EnrichmentObjectUtils.areHashMapsWithListValuesEqual;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.agentTerm1;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customAgentTerm;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.areHashMapsWithListValuesEqual;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.conceptTerm1;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customConceptTerm;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.organizationTerm1;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customOrganizationTerm;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.placeTerm1;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customPlaceTerm;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.timespanTerm1;
+import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customTimespanTerm;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,6 +25,7 @@ import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
+import eu.europeana.enrichment.service.EnrichmentObjectUtils;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.io.IOException;
@@ -26,7 +37,6 @@ import java.util.List;
 import java.util.Optional;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -39,17 +49,6 @@ class EnrichmentDaoTest {
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
   private static EnrichmentDao enrichmentMongoDao;
 
-  private static EnrichmentTerm conceptTerm1;
-  private static EnrichmentTerm timespanTerm1;
-  private static EnrichmentTerm agentTerm1;
-  private static EnrichmentTerm placeTerm1;
-  private static EnrichmentTerm organizationTerm1;
-  private static EnrichmentTerm conceptTerm2;
-  private static EnrichmentTerm timespanTerm2;
-  private static EnrichmentTerm agentTerm2;
-  private static EnrichmentTerm placeTerm2;
-  private static EnrichmentTerm organizationTerm2;
-
   @BeforeAll
   static void prepare() throws IOException {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
@@ -60,30 +59,7 @@ class EnrichmentDaoTest {
         .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     enrichmentMongoDao = new EnrichmentDao(mongoClient, "enrichment-test");
     //One time read all examples terms from files
-    readEnrichmentTermsFromFile();
-  }
-
-  static void readEnrichmentTermsFromFile() throws IOException {
-    conceptTerm1 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_CONCEPTS,
-        "concept1.json");
-    timespanTerm1 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_TIMESPANS,
-        "timespan1.json");
-    agentTerm1 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_AGENTS,
-        "agent1.json");
-    placeTerm1 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_PLACES,
-        "place1.json");
-    organizationTerm1 = getEnrichmentTermFromJsonFile(
-        EnrichmentObjectUtils.SUBDIRECTORY_ORGANIZATIONS, "organization1.json");
-    conceptTerm2 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_CONCEPTS,
-        "concept2.json");
-    timespanTerm2 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_TIMESPANS,
-        "timespan2.json");
-    agentTerm2 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_AGENTS,
-        "agent2.json");
-    placeTerm2 = getEnrichmentTermFromJsonFile(EnrichmentObjectUtils.SUBDIRECTORY_PLACES,
-        "place2.json");
-    organizationTerm2 = getEnrichmentTermFromJsonFile(
-        EnrichmentObjectUtils.SUBDIRECTORY_ORGANIZATIONS, "organization2.json");
+    EnrichmentObjectUtils.readEnrichmentTermsFromFile();
   }
 
   @AfterAll
@@ -109,11 +85,11 @@ class EnrichmentDaoTest {
     assertProvidedWithStoredEnrichmentTerm(placeTerm1, EntityType.PLACE);
     assertProvidedWithStoredEnrichmentTerm(organizationTerm1, EntityType.ORGANIZATION);
 
-    assertProvidedWithStoredEnrichmentTerm(conceptTerm2, EntityType.CONCEPT);
-    assertProvidedWithStoredEnrichmentTerm(timespanTerm2, EntityType.TIMESPAN);
-    assertProvidedWithStoredEnrichmentTerm(agentTerm2, EntityType.AGENT);
-    assertProvidedWithStoredEnrichmentTerm(placeTerm2, EntityType.PLACE);
-    assertProvidedWithStoredEnrichmentTerm(organizationTerm2, EntityType.ORGANIZATION);
+    assertProvidedWithStoredEnrichmentTerm(customConceptTerm, EntityType.CONCEPT);
+    assertProvidedWithStoredEnrichmentTerm(customTimespanTerm, EntityType.TIMESPAN);
+    assertProvidedWithStoredEnrichmentTerm(customAgentTerm, EntityType.AGENT);
+    assertProvidedWithStoredEnrichmentTerm(customPlaceTerm, EntityType.PLACE);
+    assertProvidedWithStoredEnrichmentTerm(customOrganizationTerm, EntityType.ORGANIZATION);
   }
 
   @Test
@@ -195,7 +171,7 @@ class EnrichmentDaoTest {
   void getAllEnrichmentTermsByFields() throws Exception {
     //Search on simple fields
     final Pair<String, String> parameterAbout = new ImmutablePair<>(
-        EnrichmentDao.ENTITY_ABOUT_FIELD, agentTerm2.getEnrichmentEntity().getAbout());
+        EnrichmentDao.ENTITY_ABOUT_FIELD, customAgentTerm.getEnrichmentEntity().getAbout());
     final Pair<String, String> parameterEntityType = new ImmutablePair<>(
         EnrichmentDao.ENTITY_TYPE_FIELD, EntityType.AGENT.name());
     final List<Pair<String, String>> parametersAbout = new ArrayList<>();
@@ -206,7 +182,7 @@ class EnrichmentDaoTest {
     List<EnrichmentTerm> allEnrichmentTermsByFields = enrichmentMongoDao
         .getAllEnrichmentTermsByFields(fieldNameMap);
     assertEquals(1, allEnrichmentTermsByFields.size());
-    assertEnrichmentTerm(agentTerm2, allEnrichmentTermsByFields.get(0), EntityType.AGENT);
+    assertEnrichmentTerm(customAgentTerm, allEnrichmentTermsByFields.get(0), EntityType.AGENT);
 
     //Search also on list field with internal fields
     final List<Pair<String, String>> labelInfosFields = new ArrayList<>();
@@ -215,7 +191,7 @@ class EnrichmentDaoTest {
     fieldNameMap.put(EnrichmentDao.LABEL_INFOS_FIELD, labelInfosFields);
     allEnrichmentTermsByFields = enrichmentMongoDao.getAllEnrichmentTermsByFields(fieldNameMap);
     assertEquals(1, allEnrichmentTermsByFields.size());
-    assertEnrichmentTerm(agentTerm2, allEnrichmentTermsByFields.get(0), EntityType.AGENT);
+    assertEnrichmentTerm(customAgentTerm, allEnrichmentTermsByFields.get(0), EntityType.AGENT);
   }
 
   @Test
@@ -231,7 +207,7 @@ class EnrichmentDaoTest {
     List<EnrichmentTerm> allEnrichmentTermsByFieldsInList = enrichmentMongoDao
         .getAllEnrichmentTermsByFieldsInList(fieldNameList);
     assertEquals(1, allEnrichmentTermsByFieldsInList.size());
-    assertEnrichmentTerm(conceptTerm2, allEnrichmentTermsByFieldsInList.get(0), EntityType.CONCEPT);
+    assertEnrichmentTerm(customConceptTerm, allEnrichmentTermsByFieldsInList.get(0), EntityType.CONCEPT);
 
     //Search for two terms
     owlSameAsValuesList.add("http://www.wikidata.org/entity/Q16211855");
@@ -242,12 +218,12 @@ class EnrichmentDaoTest {
     final Optional<EnrichmentTerm> agentEnrichmentTerm = allEnrichmentTermsByFieldsInList.stream()
         .filter(enrichmentTerm -> enrichmentTerm.getEntityType() == EntityType.AGENT).findFirst();
     assertTrue(agentEnrichmentTerm.isPresent());
-    assertEnrichmentTerm(agentTerm2, agentEnrichmentTerm.get(), EntityType.AGENT);
+    assertEnrichmentTerm(customAgentTerm, agentEnrichmentTerm.get(), EntityType.AGENT);
 
     final Optional<EnrichmentTerm> conceptEnrichmentTerm = allEnrichmentTermsByFieldsInList.stream()
         .filter(enrichmentTerm -> enrichmentTerm.getEntityType() == EntityType.CONCEPT).findFirst();
     assertTrue(conceptEnrichmentTerm.isPresent());
-    assertEnrichmentTerm(conceptTerm2, conceptEnrichmentTerm.get(), EntityType.CONCEPT);
+    assertEnrichmentTerm(customConceptTerm, conceptEnrichmentTerm.get(), EntityType.CONCEPT);
   }
 
   @Test
@@ -264,10 +240,10 @@ class EnrichmentDaoTest {
   void deleteEnrichmentTerms() {
     //Fake the connection between two items
     final String aboutTerm1 = agentTerm1.getEnrichmentEntity().getAbout();
-    final List<String> owlSameAs = agentTerm2.getEnrichmentEntity().getOwlSameAs();
+    final List<String> owlSameAs = customAgentTerm.getEnrichmentEntity().getOwlSameAs();
     owlSameAs.add(aboutTerm1);
-    agentTerm2.getEnrichmentEntity().setOwlSameAs(owlSameAs);
-    enrichmentMongoDao.saveEnrichmentTerm(agentTerm2);
+    customAgentTerm.getEnrichmentEntity().setOwlSameAs(owlSameAs);
+    enrichmentMongoDao.saveEnrichmentTerm(customAgentTerm);
     long totalDocuments = enrichmentMongoDao.count();
     assertEquals(10, totalDocuments);
 
@@ -284,11 +260,11 @@ class EnrichmentDaoTest {
     enrichmentMongoDao.saveEnrichmentTerm(agentTerm1);
     enrichmentMongoDao.saveEnrichmentTerm(placeTerm1);
     enrichmentMongoDao.saveEnrichmentTerm(organizationTerm1);
-    enrichmentMongoDao.saveEnrichmentTerm(conceptTerm2);
-    enrichmentMongoDao.saveEnrichmentTerm(timespanTerm2);
-    enrichmentMongoDao.saveEnrichmentTerm(agentTerm2);
-    enrichmentMongoDao.saveEnrichmentTerm(placeTerm2);
-    enrichmentMongoDao.saveEnrichmentTerm(organizationTerm2);
+    enrichmentMongoDao.saveEnrichmentTerm(customConceptTerm);
+    enrichmentMongoDao.saveEnrichmentTerm(customTimespanTerm);
+    enrichmentMongoDao.saveEnrichmentTerm(customAgentTerm);
+    enrichmentMongoDao.saveEnrichmentTerm(customPlaceTerm);
+    enrichmentMongoDao.saveEnrichmentTerm(customOrganizationTerm);
   }
 
   void assertProvidedWithStoredEnrichmentTerm(EnrichmentTerm enrichmentTerm, EntityType entityType)
@@ -438,11 +414,5 @@ class EnrichmentDaoTest {
     assertEquals(expectedEnrichmentEntity.getIsPartOf(), actualEnrichmentEntity.getIsPartOf());
     assertEquals(expectedEnrichmentEntity.getFoafDepiction(),
         actualEnrichmentEntity.getFoafDepiction());
-  }
-
-  static EnrichmentTerm getEnrichmentTermFromJsonFile(String directory, String filename)
-      throws IOException {
-    final Document conceptTerm = EnrichmentObjectUtils.getDocument(directory + filename);
-    return enrichmentMongoDao.getMapper().fromDocument(EnrichmentTerm.class, conceptTerm);
   }
 }
