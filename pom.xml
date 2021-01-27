@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>metis-schema</module>
     <module>metis-core</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
@@ -21,7 +22,6 @@
     <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
-    <module>metis-schema</module>
   </modules>
 
   <!-- Github connection -->
