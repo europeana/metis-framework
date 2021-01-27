@@ -8,14 +8,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
 /**
- * Converts a {@link Aggregation} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
- * {@link AggregationImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link Aggregation} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link AggregationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class AggregationFieldInput implements Function<Aggregation, AggregationImpl> {
 

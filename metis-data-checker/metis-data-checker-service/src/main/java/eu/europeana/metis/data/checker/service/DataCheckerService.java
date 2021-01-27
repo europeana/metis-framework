@@ -8,7 +8,7 @@ import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
 import eu.europeana.metis.data.checker.service.executor.ValidationTask;
 import eu.europeana.metis.data.checker.service.executor.ValidationTaskFactory;
 import eu.europeana.metis.data.checker.service.executor.ValidationTaskResult;
-import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.data.checker.service.persistence.RecordIndexingService;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -43,21 +43,21 @@ public class DataCheckerService {
   private final ExecutorService executor;
 
   private final String dataCheckerUrl;
-  private final RecordDao dao;
+  private final RecordIndexingService recordIndexingService;
   private final ValidationTaskFactory factory;
 
   /**
    * Constructor for the data checker service
    *
-   * @param dataCheckerServiceConfig The configuration for the data checker servide
-   * @param dao The DAO for records.
+   * @param dataCheckerServiceConfig the configuration for the data checker servide
+   * @param recordIndexingService the service that handles indexing/storage of records
    * @param factory The factory for creating validation tasks.
    */
   @Autowired
-  public DataCheckerService(DataCheckerServiceConfig dataCheckerServiceConfig, RecordDao dao,
+  public DataCheckerService(DataCheckerServiceConfig dataCheckerServiceConfig, RecordIndexingService recordIndexingService,
       ValidationTaskFactory factory) {
     this.dataCheckerUrl = dataCheckerServiceConfig.getDataCheckerUrl();
-    this.dao = dao;
+    this.recordIndexingService = recordIndexingService;
     this.factory = factory;
     this.executor = Executors.newFixedThreadPool(dataCheckerServiceConfig.getThreadCount());
   }
@@ -100,9 +100,8 @@ public class DataCheckerService {
   
   private void commitChanges() throws DataCheckerServiceException {
     try {
-      dao.commit();
+      recordIndexingService.commit();
     } catch (IndexingException e) {
-      LOGGER.error("Updating search engine failed", e);
       throw new DataCheckerServiceException("Updating search engine failed", e);
     }
   }
@@ -119,11 +118,9 @@ public class DataCheckerService {
         taskResults.add(taskResultFuture.get());
       }
     } catch (InterruptedException e) {
-      LOGGER.error("Processing validations interrupted", e);
       Thread.currentThread().interrupt();
       throw new DataCheckerServiceException("Processing validations was interrupted", e);
     } catch (ExecutionException e) {
-      LOGGER.error("Executing validations failed", e);
       throw new DataCheckerServiceException("Executing validations failed", e);
     }
     return taskResults;
@@ -176,7 +173,7 @@ public class DataCheckerService {
    */
   @Scheduled(cron = "00 00 00 * * *")
   public void deleteRecords() throws IOException, SolrServerException, IndexingException {
-    dao.deleteRecordIdsByTimestamp();
+    recordIndexingService.deleteRecordIdsByTimestamp();
   }
 
   @PreDestroy

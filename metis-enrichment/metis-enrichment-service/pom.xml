@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-enrichment-service</artifactId>
   <packaging>jar</packaging>
@@ -15,6 +15,16 @@
   </properties>
   <dependencies>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-enrichment-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-zoho</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
     </dependency>
@@ -23,20 +33,8 @@
       <artifactId>jaxb-runtime</artifactId>
     </dependency>
     <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-enrichment-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${version.spring}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -124,7 +122,6 @@
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
-      <version>${version.xerces}</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
@@ -134,12 +131,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>

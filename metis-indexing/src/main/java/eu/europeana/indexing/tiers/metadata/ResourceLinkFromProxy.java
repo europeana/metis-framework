@@ -1,10 +1,10 @@
 package eu.europeana.indexing.tiers.metadata;
 
-import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
+import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;

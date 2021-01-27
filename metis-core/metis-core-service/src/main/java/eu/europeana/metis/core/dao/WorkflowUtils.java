@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.dao;
 
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
@@ -168,7 +168,7 @@ public class WorkflowUtils {
   }
 
   private static void validateAndTrimHarvestParameters(
-      List<AbstractExecutablePluginMetadata> enabledPlugins)
+      Iterable<AbstractExecutablePluginMetadata> enabledPlugins)
       throws BadContentException {
     for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
       if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {

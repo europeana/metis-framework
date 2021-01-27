@@ -5,7 +5,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
-import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.schema.model.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -247,8 +247,11 @@ class ThumbnailGenerator {
 
     // Compile the command
     final String commandResultFormat = contentMarker + COMMAND_RESULT_FORMAT + contentMarker + "\n";
-    final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
-        "-format", commandResultFormat, "-write", "info:"));
+
+    // To suppress warnings that can come up, we use the flag `-quiet'.
+    // This flag needs to be at the beginning of the command to work
+    final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, "-quiet",
+        content.getPath() + "[0]", "-format", commandResultFormat, "-write", "info:"));
     if (removeAlpha) {
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
@@ -270,6 +273,7 @@ class ThumbnailGenerator {
     final String colorResultFormat = "\n" + contentMarker + "\n%c\n" + contentMarker;
     command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
         colormapFile, "-format", colorResultFormat, "histogram:info:"));
+
     return command;
   }
 

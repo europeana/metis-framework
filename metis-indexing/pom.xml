@@ -4,10 +4,30 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <dependencies>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-mongo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-solr</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
@@ -21,34 +41,17 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>dev.morphia.morphia</groupId>
-          <artifactId>core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <!-- Including the Log4j api (only) to satisfy corelib-storage. -->
-	<dependency>
-	    <groupId>org.apache.logging.log4j</groupId>
-	    <artifactId>log4j-api</artifactId>
-	    <version>${version.log4j}</version>
-	</dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${version.log4j}</version>
+    </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-core</artifactId>
       <version>${version.mongodb.driver.core}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.solr</groupId>
-      <artifactId>solr-solrj</artifactId>
-      <version>${version.solr.solrj}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>jcl-over-slf4j</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -79,11 +82,6 @@
       <artifactId>mockito-core</artifactId>
       <version>${version.mockito.core}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 </project>

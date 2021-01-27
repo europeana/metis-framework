@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,17 +12,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import eu.europeana.enrichment.api.external.ReferenceValue;
+import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.enrichment.service.EnrichmentService;
-import eu.europeana.enrichment.utils.InputValue;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,8 +40,8 @@ public class EnrichmentControllerTest {
   public static void setUp() {
     enrichmentServiceMock = mock(EnrichmentService.class);
 
-    EnrichmentController enrichmentController = new EnrichmentController(enrichmentServiceMock);
-    enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
+    EnrichmentController oldEnrichmentController = new EnrichmentController(enrichmentServiceMock);
+    enrichmentControllerMock = MockMvcBuilders.standaloneSetup(oldEnrichmentController)
         .setControllerAdvice(new RestResponseExceptionHandler())
         .build();
   }
@@ -54,8 +55,9 @@ public class EnrichmentControllerTest {
   public void getByUri_JSON() throws Exception {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
-    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri)).thenReturn(agent);
-    enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
+    ReferenceValue reference = new ReferenceValue(uri, anySet());
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(List.of(agent));
+    enrichmentControllerMock.perform(get("/enrich/entity/equivalence")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is(200))
@@ -70,9 +72,10 @@ public class EnrichmentControllerTest {
 
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
-    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri)).thenReturn(agent);
+    ReferenceValue reference = new ReferenceValue(uri, anySet());
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference)).thenReturn(List.of(agent));
     Map<String, String> namespaceMap = getNamespaceMap();
-    enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
+    enrichmentControllerMock.perform(get("/enrich/entity/equivalence")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_XML_VALUE))
         .andExpect(status().is(200))
@@ -100,21 +103,21 @@ public class EnrichmentControllerTest {
     Map<String, String> namespaceMap = getNamespaceMap();
     Agent agent = getAgent(uri);
 
-    when(enrichmentServiceMock.enrichByInputValueList(anyListOf(InputValue.class)))
-        .thenReturn(Collections.singletonList(new ImmutablePair<>("DC_CONTRIBUTOR", agent)));
+    when(enrichmentServiceMock.enrichByEnrichmentSearchValues(anyListOf(SearchValue.class)))
+        .thenReturn(List.of(new EnrichmentResultBaseWrapper(List.of(agent))));
 
-    enrichmentControllerMock.perform(post("/enrich/input_value_list")
+    enrichmentControllerMock.perform(post("/enrich/entity/search")
         .content(body)
         .accept(MediaType.APPLICATION_XML_VALUE)
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(200))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/@rdf:about", namespaceMap)
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/@rdf:about", namespaceMap)
             .string("http://www.example.com"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap)
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap)
             .string("labelEn"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap)
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap)
             .string("labelNl"))
-        .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
             .string("10-10-10"));
   }
 

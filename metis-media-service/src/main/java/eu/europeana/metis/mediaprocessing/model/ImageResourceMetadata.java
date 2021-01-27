@@ -1,8 +1,8 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
+import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.utils.Orientation;
+import eu.europeana.metis.schema.model.Orientation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

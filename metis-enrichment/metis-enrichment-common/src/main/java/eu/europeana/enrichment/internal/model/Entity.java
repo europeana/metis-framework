@@ -72,8 +72,32 @@ public interface Entity {
    */
   void setFoafDepiction(String foafDepiction);
 
+
   /**
-   * @return the foaf:depiction for cotextual class
+   * @return the owl:sameAs for the entity
+   */
+  List<String> getOwlSameAs();
+
+  /**
+   * sets the owl:sameAs for entity
+   * @param owlSameAs the owl:sameAs
+   */
+  void setOwlSameAs(List<String> owlSameAs);
+
+
+  /**
+   * @return the dcterms:isPartOf
+   */
+  String getIsPartOf();
+
+  /**
+   * Sets the dcterms:isPartOf
+   * @param isPartOf the dcterms:isPartOf
+   */
+  void setIsPartOf(String isPartOf);
+
+  /**
+   * @return the foaf:depiction
    */
   String getFoafDepiction();
 

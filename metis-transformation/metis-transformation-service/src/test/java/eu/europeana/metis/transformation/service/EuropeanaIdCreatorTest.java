@@ -3,8 +3,8 @@ package eu.europeana.metis.transformation.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ProvidedCHOType;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

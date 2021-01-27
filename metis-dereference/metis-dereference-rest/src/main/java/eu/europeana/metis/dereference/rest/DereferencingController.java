@@ -1,10 +1,11 @@
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.DereferenceService;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,8 +13,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -29,8 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @Api("/")
 public class DereferencingController {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingController.class);
 
   private final DereferenceService dereferenceService;
 
@@ -59,10 +56,9 @@ public class DereferencingController {
     try {
       return dereferenceService.dereference(resourceId);
     } catch (RuntimeException | JAXBException | TransformerException e) {
-      LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
-          resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, "")), e);
       throw new DereferenceException(String
-          .format("Dereferencing failed for uri: %s with root cause: %s", resourceId,
+          .format("Dereferencing failed for uri: %s with root cause: %s",
+              resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
               e.getMessage()), e);
     }
   }
@@ -83,8 +79,7 @@ public class DereferencingController {
     for (String resourceId : resourceIds) {
       EnrichmentResultList result = dereference(resourceId);
       if (result != null) {
-        dereferencedEntities.getEnrichmentBaseWrapperList()
-            .addAll(result.getEnrichmentBaseWrapperList());
+        dereferencedEntities = new EnrichmentResultList(result.getEnrichmentBaseResultWrapperList());
       }
     }
     return dereferencedEntities;

@@ -5,13 +5,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 
 /**
- * Converts a {@link EuropeanaAggregationType} from an {@link eu.europeana.corelib.definitions.jibx.RDF}
- * to a {@link EuropeanaAggregationImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link EuropeanaAggregationType} from an {@link eu.europeana.metis.schema.jibx.RDF}
+ * to a {@link EuropeanaAggregationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class EuropeanaAggregationFieldInput
     implements Function<EuropeanaAggregationType, EuropeanaAggregationImpl> {

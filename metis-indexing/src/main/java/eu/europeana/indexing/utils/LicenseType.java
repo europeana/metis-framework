@@ -1,6 +1,6 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.corelib.definitions.jibx.Rights1;
+import eu.europeana.metis.schema.jibx.Rights1;
 import eu.europeana.corelib.web.model.rights.RightReusabilityCategorizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

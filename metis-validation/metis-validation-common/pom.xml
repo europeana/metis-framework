@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-validation-common</artifactId>
 
@@ -17,11 +17,6 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
       <version>${version.swagger.annotations}</version>
-    </dependency>
-    <dependency>
-      <groupId>dev.morphia.morphia</groupId>
-      <artifactId>morphia-core</artifactId>
-      <version>${version.morphia.core}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

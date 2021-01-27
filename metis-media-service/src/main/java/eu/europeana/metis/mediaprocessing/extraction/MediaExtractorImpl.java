@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
+import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
 
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
@@ -11,8 +11,8 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
-import eu.europeana.metis.utils.MediaType;
-import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
+import eu.europeana.metis.schema.model.MediaType;
+import eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -85,12 +85,12 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
   public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
-      int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
-      throws MediaProcessorException {
+          int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
+          throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
-        this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
+            this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
     this.tika = new Tika();

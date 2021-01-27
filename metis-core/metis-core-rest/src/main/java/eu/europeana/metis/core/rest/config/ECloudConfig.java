@@ -4,6 +4,7 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,6 +22,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ECloudConfig implements WebMvcConfigurer {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
+  private DataSetServiceClient dataSetServiceClient;
+  private RecordServiceClient recordServiceClient;
+  private FileServiceClient fileServiceClient;
+  private DpsClient dpsClient;
 
   /**
    * Constructor.
@@ -34,33 +39,53 @@ public class ECloudConfig implements WebMvcConfigurer {
 
   @Bean
   DataSetServiceClient dataSetServiceClient() {
-    return new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
-        propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword(), propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+    dataSetServiceClient = new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
+        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
+        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
+    return dataSetServiceClient;
   }
 
   @Bean
   RecordServiceClient recordServiceClient() {
-    return new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
-        propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword(), propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+    recordServiceClient = new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
+        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
+        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
+    return recordServiceClient;
   }
 
   @Bean
   FileServiceClient fileServiceClient() {
-    return new FileServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
-        propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword(), propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+    fileServiceClient = new FileServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
+        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
+        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
+    return fileServiceClient;
   }
 
   @Bean
   DpsClient dpsClient() {
-    return new DpsClient(propertiesHolder.getEcloudDpsBaseUrl(),
+    dpsClient = new DpsClient(propertiesHolder.getEcloudDpsBaseUrl(),
         propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
         propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
+    return dpsClient;
+  }
+
+  @PreDestroy
+  public void close() {
+    if (dataSetServiceClient != null) {
+      dataSetServiceClient.close();
+    }
+    if (recordServiceClient != null) {
+      recordServiceClient.close();
+    }
+    if (fileServiceClient != null) {
+      fileServiceClient.close();
+    }
+    if (dpsClient != null) {
+      dpsClient.close();
+    }
   }
 }

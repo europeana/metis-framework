@@ -1,12 +1,17 @@
 package eu.europeana.metis.core.rest.config;
 
 import eu.europeana.metis.core.workflow.ValidationProperties;
-import eu.europeana.metis.mongo.MongoProperties;
+import eu.europeana.metis.mongo.connection.MongoProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
+ * Class that is used to read all configuration properties for the application.
+ * <p>
+ * It uses {@link PropertySource} to identify the properties on application startup
+ * </p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-03-13
  */
@@ -29,8 +34,8 @@ public class ConfigurationPropertiesHolder {
   private int periodicFailsafeCheckInMillisecs;
   @Value("${periodic.scheduler.check.in.millisecs}")
   private int periodicSchedulerCheckInMillisecs;
-  @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
-  private int pollingTimeoutForCleaningCompletionServiceInSecs;
+  @Value("${polling.timeout.for.cleaning.completion.service.in.millisecs}")
+  private int pollingTimeoutForCleaningCompletionServiceInMillisecs;
   @Value("${period.of.no.processed.records.change.in.minutes}")
   private int periodOfNoProcessedRecordsChangeInMinutes;
 
@@ -133,7 +138,7 @@ public class ConfigurationPropertiesHolder {
   //Authentication
   @Value("${authentication.baseUrl}")
   private String authenticationBaseUrl;
-  
+
   // CORS
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
@@ -178,8 +183,8 @@ public class ConfigurationPropertiesHolder {
     return periodicSchedulerCheckInMillisecs;
   }
 
-  public int getPollingTimeoutForCleaningCompletionServiceInSecs() {
-    return pollingTimeoutForCleaningCompletionServiceInSecs;
+  public int getPollingTimeoutForCleaningCompletionServiceInMillisecs() {
+    return pollingTimeoutForCleaningCompletionServiceInMillisecs;
   }
 
   public int getPeriodOfNoProcessedRecordsChangeInMinutes() {
@@ -296,9 +301,9 @@ public class ConfigurationPropertiesHolder {
 
   public MongoProperties<IllegalArgumentException> getMongoProperties() {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
-            IllegalArgumentException::new);
+        IllegalArgumentException::new);
     mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
-            mongoPassword, mongoEnableSSL, null);
+        mongoPassword, mongoEnableSSL, null);
     return mongoProperties;
   }
 

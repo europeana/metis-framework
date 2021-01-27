@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -32,6 +32,7 @@ import eu.europeana.metis.transformation.service.XsltTransformer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
@@ -510,7 +511,7 @@ public class DatasetService {
     return transformRecords(dataset, records, xsltUrl);
   }
 
-  private List<Record> transformRecords(Dataset dataset, List<Record> records, String xsltUrl)
+  private List<Record> transformRecords(Dataset dataset, Collection<Record> records, String xsltUrl)
       throws XsltSetupException {
 
     // Set up transformer.
@@ -521,10 +522,8 @@ public class DatasetService {
           dataset.getCountry().getName(), dataset.getLanguage().name());
       europeanIdCreator = new EuropeanaIdCreator();
     } catch (TransformationException e) {
-      LOGGER.info("Transformation setup failed.", e);
       throw new XsltSetupException("Could not setup XSL transformation.", e);
     } catch (EuropeanaIdException e) {
-      LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
       throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED,
           e);
     }

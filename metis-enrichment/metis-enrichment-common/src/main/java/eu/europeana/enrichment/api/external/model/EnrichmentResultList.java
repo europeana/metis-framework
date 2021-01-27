@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,8 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EnrichmentResultList {
 
-  @XmlElement(name = "enrichmentBaseWrapperList", type = EnrichmentBaseWrapper.class)
-  private final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = new ArrayList<>();
+  @XmlElement(namespace = "http://www.europeana.eu/schemas/metis", name = "result", type = EnrichmentResultBaseWrapper.class)
+  private final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = new ArrayList<>();
 
   public EnrichmentResultList() {
   }
@@ -25,13 +24,13 @@ public class EnrichmentResultList {
   /**
    * Constructor with initial {@link EnrichmentBase} list.
    *
-   * @param enrichmentBaseWrapperList the list to initialize the class with
+   * @param enrichmentResultBaseWrappers the list to initialize the class with
    */
-  public EnrichmentResultList(Collection<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
-    this.enrichmentBaseWrapperList.addAll(enrichmentBaseWrapperList);
+  public EnrichmentResultList(List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers) {
+    this.enrichmentResultBaseWrapperList.addAll(enrichmentResultBaseWrappers);
   }
 
-  public List<EnrichmentBaseWrapper> getEnrichmentBaseWrapperList() {
-    return enrichmentBaseWrapperList;
+  public List<EnrichmentResultBaseWrapper> getEnrichmentBaseResultWrapperList() {
+    return new ArrayList<>(enrichmentResultBaseWrapperList);
   }
 }

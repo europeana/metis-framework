@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Contains functionality for converting from an incoming Object to a different one.
@@ -34,11 +35,11 @@ public final class Converter {
   }
 
   public static EnrichmentBase convert(EnrichmentTerm enrichmentTerm) {
-    final EnrichmentBase result;
     final EntityType entityType = enrichmentTerm.getEntityType();
     if (entityType == null) {
       return null;
     }
+    final EnrichmentBase result;
     switch (entityType) {
       case AGENT:
         result = convertAgent((AgentEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
@@ -70,9 +71,16 @@ public final class Converter {
     output.setEndList(convert(timespanEnrichmentEntity.getEnd()));
     output.setHasPartsList(convertPart(timespanEnrichmentEntity.getDctermsHasPart()));
     output.setHiddenLabel(convert(timespanEnrichmentEntity.getHiddenLabel()));
-    output.setIsPartOfList(convertPart(timespanEnrichmentEntity.getIsPartOf()));
     output.setNotes(convert(timespanEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
+
+    if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsPartOf())) {
+      output.setIsPartOf(new Part(timespanEnrichmentEntity.getIsPartOf()));
+    }
+
+    if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsNextInSequence())) {
+      output.setIsNextInSequence(new Part(timespanEnrichmentEntity.getIsNextInSequence()));
+    }
 
     return output;
   }
@@ -109,13 +117,15 @@ public final class Converter {
     output.setAltLabelList(convert(placeEnrichmentEntity.getAltLabel()));
 
     output.setHasPartsList(convertPart(placeEnrichmentEntity.getDcTermsHasPart()));
-    output.setIsPartOfList(convertPart(placeEnrichmentEntity.getIsPartOf()));
     output.setNotes(convert(placeEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
 
-    if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0) &&
-        (placeEnrichmentEntity.getLongitude() != null
-            && placeEnrichmentEntity.getLongitude() != 0)) {
+    if (StringUtils.isNotBlank(placeEnrichmentEntity.getIsPartOf())) {
+      output.setIsPartOf(new Part(placeEnrichmentEntity.getIsPartOf()));
+    }
+    if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0)
+        && (placeEnrichmentEntity.getLongitude() != null
+        && placeEnrichmentEntity.getLongitude() != 0)) {
       output.setLat(placeEnrichmentEntity.getLatitude().toString());
       output.setLon(placeEnrichmentEntity.getLongitude().toString());
     }
@@ -167,11 +177,8 @@ public final class Converter {
     if (map == null) {
       return labels;
     }
-    map.forEach((key, entry) ->
-        entry.stream().map(
-            value -> new Label(key, value)
-        ).forEach(labels::add)
-    );
+    map.forEach(
+        (key, entry) -> entry.stream().map(value -> new Label(key, value)).forEach(labels::add));
     return labels;
   }
 
@@ -180,9 +187,7 @@ public final class Converter {
     if (map == null) {
       return parts;
     }
-    map.forEach((key, entry) ->
-        entry.stream().map(Part::new).forEach(parts::add)
-    );
+    map.forEach((key, entry) -> entry.stream().map(Part::new).forEach(parts::add));
     return parts;
   }
 
@@ -191,12 +196,9 @@ public final class Converter {
     if (map == null) {
       return parts;
     }
-    map.forEach((key, entry) ->
-        entry.stream().map(
-            value ->
-                (isUri(key) ? new LabelResource(key) : new LabelResource(key, value))
-        ).forEach(parts::add)
-    );
+    map.forEach((key, entry) -> entry.stream()
+        .map(value -> (isUri(key) ? new LabelResource(key) : new LabelResource(key, value)))
+        .forEach(parts::add));
     return parts;
   }
 
@@ -207,11 +209,11 @@ public final class Converter {
     return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
   }
 
-  private static List<Part> convertToPartsList(String[] resources) {
+  private static List<Part> convertToPartsList(List<String> resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
-    return Arrays.stream(resources).map(Part::new).collect(Collectors.toList());
+    return resources.stream().map(Part::new).collect(Collectors.toList());
   }
 
   private static boolean isUri(String str) {

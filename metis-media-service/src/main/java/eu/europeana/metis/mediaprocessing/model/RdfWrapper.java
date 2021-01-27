@@ -1,9 +1,9 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

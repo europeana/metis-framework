@@ -1,7 +1,11 @@
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
@@ -45,15 +49,27 @@ public class ScheduleWorkflowController {
     this.authenticationClient = authenticationClient;
   }
 
+  /**
+   * Schedules a provided workflow.
+   *
+   * @param authorization the authorization header with the access token
+   * @param scheduledWorkflow the scheduled workflow information
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset does not exist</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * <li>{@link BadContentException} if some content send was not acceptable</li>
+   * <li>{@link NoWorkflowFoundException} if the workflow for a dataset was not found</li>
+   * <li>{@link ScheduledWorkflowAlreadyExistsException} if a scheduled workflow already exists</li>
+   * </ul>
+   */
   @PostMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void scheduleWorkflowExecution(
-      @RequestHeader("Authorization") String authorization,
-      @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws GenericMetisException {
+  public void scheduleWorkflowExecution(@RequestHeader("Authorization") String authorization,
+      @RequestBody ScheduledWorkflow scheduledWorkflow) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
     if (LOGGER.isInfoEnabled()) {
@@ -64,14 +80,26 @@ public class ScheduleWorkflowController {
     }
   }
 
+  /**
+   * Get a scheduled workflow based on datasets identifier.
+   *
+   * @param authorization the authorization header with the access token
+   * @param datasetId the dataset identifier of which a scheduled workflow is to be retrieved
+   * @return the scheduled workflow
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if user is unauthorized to access the scheduled
+   * workflow</li>
+   * <li>{@link NoDatasetFoundException} if dataset identifier does not exist</li>
+   * </ul>
+   */
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ScheduledWorkflow getScheduledWorkflow(
       @RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId)
-      throws GenericMetisException {
+      @PathVariable("datasetId") String datasetId) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ScheduledWorkflow scheduledWorkflow = scheduleWorkflowService
         .getScheduledWorkflowByDatasetId(metisUser, datasetId);
@@ -107,10 +135,8 @@ public class ScheduleWorkflowController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void updateScheduledWorkflow(
-      @RequestHeader("Authorization") String authorization,
-      @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws GenericMetisException {
+  public void updateScheduledWorkflow(@RequestHeader("Authorization") String authorization,
+      @RequestBody ScheduledWorkflow scheduledWorkflow) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow);
     LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
@@ -121,10 +147,8 @@ public class ScheduleWorkflowController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void deleteScheduledWorkflowExecution(
-      @RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId)
-      throws GenericMetisException {
+  public void deleteScheduledWorkflowExecution(@RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.deleteScheduledWorkflow(metisUser, datasetId);
     if (LOGGER.isInfoEnabled()) {

@@ -1,18 +1,17 @@
 package eu.europeana.metis.transformation.service;
 
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ProvidedCHOType;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.utils.RdfNamespaceContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.XMLConstants;
-import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,15 +38,9 @@ public final class EuropeanaIdCreator {
   private static final int EVALUATE_XPATH_ATTEMPT_COUNT = 20;
   private static final int EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS = 50;
 
-  private static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-  private static final String RDF_NAMESPACE_PREFIX = "rdf";
-
-  private static final String EDM_NAMESPACE_URI = "http://www.europeana.eu/schemas/edm/";
-  private static final String EDM_NAMESPACE_PREFIX = "edm";
-
   private static final String RDF_ABOUT_EXPRESSION =
-      String.format("/%s:RDF/%s:ProvidedCHO[1]/@%s:about", RDF_NAMESPACE_PREFIX,
-          EDM_NAMESPACE_PREFIX, RDF_NAMESPACE_PREFIX);
+      String.format("/%s:RDF/%s:ProvidedCHO[1]/@%s:about", RdfNamespaceContext.RDF_NAMESPACE_PREFIX,
+    		  RdfNamespaceContext.EDM_NAMESPACE_PREFIX, RdfNamespaceContext.RDF_NAMESPACE_PREFIX);
 
   private static final Pattern LEGACY_COLLECTION_ID_PATTERN = Pattern.compile("[a-zA-Z]");
   private static final Pattern LEGACY_RDF_ABOUT_REPLACE_PATTERN = Pattern.compile("[^a-zA-Z0-9_]");
@@ -77,7 +70,7 @@ public final class EuropeanaIdCreator {
     }
 
     final XPath xpath = XPathFactory.newInstance().newXPath();
-    xpath.setNamespaceContext(new RdfNamespaceResolver());
+    xpath.setNamespaceContext(new RdfNamespaceContext());
     try {
       rdfAboutExtractor = xpath.compile(RDF_ABOUT_EXPRESSION);
     } catch (XPathExpressionException e) {
@@ -314,38 +307,5 @@ public final class EuropeanaIdCreator {
 
     // So it is not
     return false;
-  }
-
-  private static final class RdfNamespaceResolver implements NamespaceContext {
-
-    @Override
-    public String getNamespaceURI(String prefix) {
-      if (prefix == null) {
-        throw new IllegalArgumentException();
-      }
-      final String result;
-      switch (prefix) {
-        case RDF_NAMESPACE_PREFIX:
-          result = RDF_NAMESPACE_URI;
-          break;
-        case EDM_NAMESPACE_PREFIX:
-          result = EDM_NAMESPACE_URI;
-          break;
-        default:
-          result = XMLConstants.NULL_NS_URI;
-          break;
-      }
-      return result;
-    }
-
-    @Override
-    public String getPrefix(String uri) {
-      throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Iterator<String> getPrefixes(String uri) {
-      throw new UnsupportedOperationException();
-    }
   }
 }

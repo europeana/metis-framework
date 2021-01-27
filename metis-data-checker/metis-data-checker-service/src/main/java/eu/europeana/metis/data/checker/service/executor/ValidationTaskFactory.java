@@ -8,11 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.data.checker.common.model.DatasetProperties;
 
 /**
- * Created by erikkonijnenburg on 06/07/2017.
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
  */
 @Service
 public class ValidationTaskFactory {

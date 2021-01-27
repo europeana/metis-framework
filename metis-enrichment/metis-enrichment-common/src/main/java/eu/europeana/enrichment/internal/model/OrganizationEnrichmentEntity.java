@@ -2,7 +2,7 @@ package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import eu.europeana.corelib.definitions.edm.entity.Address;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,22 +14,21 @@ import java.util.Map;
 public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
 
   private String rdfType;
-  private Map<String,List<String>> dcIdentifier;
-  private Map<String,String> dcDescription;
-  private Map<String,List<String>> edmAcronym;
+  private Map<String, List<String>> dcIdentifier;
+  private Map<String, String> dcDescription;
+  private Map<String, List<String>> edmAcronym;
 
   private String foafLogo;
   private String foafHomepage;
-  private List<String> foafPhone;
-  private List<String> foafMbox;
+  private List<String> foafPhone = new ArrayList<>();
+  private List<String> foafMbox = new ArrayList<>();
 
-  private Map<String,List<String>> edmEuropeanaRole;
-  private Map<String,String> edmOrganizationDomain;
-  private Map<String,String> edmOrganizationSector;
-  private Map<String,String> edmOrganizationScope;
-  private Map<String,String> edmGeographicLevel;
-  private Map<String,String> edmCountry;
-  private String[] owlSameAs;
+  private Map<String, List<String>> edmEuropeanaRole;
+  private Map<String, String> edmOrganizationDomain;
+  private Map<String, String> edmOrganizationSector;
+  private Map<String, String> edmOrganizationScope;
+  private Map<String, String> edmGeographicLevel;
+  private Map<String, String> edmCountry;
   private Address address;
 
   public Map<String, List<String>> getEdmAcronym() {
@@ -42,12 +41,12 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
 
-  public Map<String,String> getEdmOrganizationScope() {
+  public Map<String, String> getEdmOrganizationScope() {
     return this.edmOrganizationScope;
   }
 
 
-  public void setEdmOrganizationScope(Map<String,String> edmOrganizationScope) {
+  public void setEdmOrganizationScope(Map<String, String> edmOrganizationScope) {
     this.edmOrganizationScope = edmOrganizationScope;
   }
 
@@ -68,7 +67,7 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
 
 
   public void setEdmOrganizationSector(Map<String, String> edmOrganizationSector) {
-    this.edmOrganizationSector= edmOrganizationSector;
+    this.edmOrganizationSector = edmOrganizationSector;
   }
 
 
@@ -92,12 +91,12 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
 
-  public Map<String,List<String>> getEdmEuropeanaRole() {
+  public Map<String, List<String>> getEdmEuropeanaRole() {
     return this.edmEuropeanaRole;
   }
 
 
-  public void setEdmEuropeanaRole(Map<String,List<String>> edmEuropeanaRole) {
+  public void setEdmEuropeanaRole(Map<String, List<String>> edmEuropeanaRole) {
     this.edmEuropeanaRole = edmEuropeanaRole;
   }
 
@@ -127,9 +126,9 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
   }
 
 
-  public void setDcIdentifier(Map<String,List<String>> dcIdentifier) {
+  public void setDcIdentifier(Map<String, List<String>> dcIdentifier) {
 
-    this.dcIdentifier= dcIdentifier;
+    this.dcIdentifier = dcIdentifier;
   }
 
 
@@ -154,30 +153,23 @@ public class OrganizationEnrichmentEntity extends AbstractEnrichmentEntity {
 
 
   public List<String> getFoafPhone() {
-    return foafPhone;
+    return new ArrayList<>(foafPhone);
   }
 
 
   public void setFoafPhone(List<String> foafPhone) {
-    this.foafPhone = foafPhone;
+    this.foafPhone = foafPhone == null ? new ArrayList<>() : new ArrayList<>(foafPhone);
   }
 
 
   public List<String> getFoafMbox() {
-    return foafMbox;
+    return new ArrayList<>(foafMbox);
+
   }
 
 
   public void setFoafMbox(List<String> foafMbox) {
-    this.foafMbox = foafMbox;
-  }
-
-  public String[] getOwlSameAs() {
-    return owlSameAs;
-  }
-
-  public void setOwlSameAs(String[] owlSameAs) {
-    this.owlSameAs = owlSameAs;
+    this.foafMbox = foafMbox == null ? new ArrayList<>() : new ArrayList<>(foafMbox);
   }
 
   public Address getAddress() {

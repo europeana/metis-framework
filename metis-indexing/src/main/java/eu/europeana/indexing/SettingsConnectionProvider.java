@@ -1,18 +1,17 @@
 package eu.europeana.indexing;
 
-import com.mongodb.client.MongoClient;
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
 import com.mongodb.MongoSecurityException;
 import com.mongodb.ServerAddress;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.metis.mongo.MongoClientProvider;
-import eu.europeana.metis.mongo.RecordRedirectDao;
-import eu.europeana.metis.solr.CompoundSolrClient;
-import eu.europeana.metis.solr.SolrClientProvider;
+import eu.europeana.metis.mongo.dao.RecordDao;
+import eu.europeana.metis.mongo.connection.MongoClientProvider;
+import eu.europeana.metis.mongo.dao.RecordRedirectDao;
+import eu.europeana.metis.solr.client.CompoundSolrClient;
+import eu.europeana.metis.solr.connection.SolrClientProvider;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +34,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   private final CompoundSolrClient solrClient;
   private final MongoClient mongoClient;
-  private final EdmMongoServer edmMongoClient;
+  private final RecordDao recordDao;
   private final RecordRedirectDao recordRedirectDao;
 
   /**
@@ -59,7 +58,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     // Create mongo connection.
     try {
       this.mongoClient = createMongoClient(settings);
-      this.edmMongoClient = setUpEdmMongoConnection(settings, this.mongoClient);
+      this.recordDao = setUpEdmMongoConnection(settings, this.mongoClient);
       this.recordRedirectDao = setUpRecordRedirectDaoConnection(settings, this.mongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
@@ -71,7 +70,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   private static MongoClient createMongoClient(IndexingSettings settings)
       throws SetupRelatedIndexingException {
 
-    // Perform logging
+    // Perform logging unecessary
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
           "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
@@ -86,11 +85,11 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
   }
 
-  private static EdmMongoServer setUpEdmMongoConnection(IndexingSettings settings,
+  private static RecordDao setUpEdmMongoConnection(IndexingSettings settings,
       MongoClient client)
       throws SetupRelatedIndexingException {
     try {
-      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), false);
+      return new RecordDao(client, settings.getMongoDatabaseName());
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
@@ -116,8 +115,8 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   @Override
-  public EdmMongoServer getEdmMongoClient() {
-    return edmMongoClient;
+  public RecordDao getRecordDao() {
+    return recordDao;
   }
 
   @Override
@@ -127,7 +126,6 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   @Override
   public void close() throws IOException {
-    edmMongoClient.close();
     mongoClient.close();
     this.solrClient.close();
   }

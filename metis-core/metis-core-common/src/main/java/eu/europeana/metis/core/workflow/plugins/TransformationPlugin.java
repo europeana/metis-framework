@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

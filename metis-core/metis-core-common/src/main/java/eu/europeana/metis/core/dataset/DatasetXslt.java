@@ -3,8 +3,11 @@ package eu.europeana.metis.core.dataset;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import dev.morphia.annotations.Index;
+import dev.morphia.annotations.Indexes;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
 
@@ -14,7 +17,14 @@ import org.bson.types.ObjectId;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-27
  */
+//@formatter:off
 @Entity
+@Indexes({
+    @Index(fields = {@Field("datasetId")}),
+    @Index(fields = {@Field("createdDate")}),
+    @Index(fields = {@Field("datasetId"), @Field("createdDate")})
+})
+//@formatter:on
 public class DatasetXslt {
 
   public static final String DEFAULT_DATASET_ID = "-1";

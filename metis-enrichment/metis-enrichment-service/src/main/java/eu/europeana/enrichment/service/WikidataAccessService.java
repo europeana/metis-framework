@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.EdmOrganization;
@@ -10,6 +9,7 @@ import eu.europeana.enrichment.api.external.model.VcardAddress;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.dao.WikidataAccessDao;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -298,7 +298,7 @@ public class WikidataAccessService {
     String[] sameAs = EntityConverterUtils.mergeStringArrays(
         zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
 
-    //#EA-1418 if dupplicated/redirected, wikidata resource has different URI
+    //#EA-1418 if duplicated/redirected, wikidata resource has different URI
     String wikidataResourceUri = wikidataOrganization.getAbout();
     if (!ArrayUtils.contains(sameAs, wikidataResourceUri)) {
       sameAs = ArrayUtils.add(sameAs, wikidataResourceUri);

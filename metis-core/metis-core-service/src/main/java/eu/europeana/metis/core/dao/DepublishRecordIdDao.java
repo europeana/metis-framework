@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.dao;
 
-import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import dev.morphia.DeleteOptions;
 import dev.morphia.UpdateOptions;
@@ -86,8 +86,7 @@ public class DepublishRecordIdDao {
       findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
       final Set<String> existing;
       existing = getListOfQueryRetryable(query, findOptions).stream()
-          .map(DepublishRecordId::getRecordId)
-          .collect(Collectors.toSet());
+          .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
 
       // Return the other ones: the record IDs not found in the database.
       return recordIds.stream().filter(recordId -> !existing.contains(recordId))
@@ -133,7 +132,7 @@ public class DepublishRecordIdDao {
     return recordIdsToAdd.size();
   }
 
-  private void addRecords(Set<String> recordIdsToAdd, String datasetId,
+  void addRecords(Set<String> recordIdsToAdd, String datasetId,
       DepublicationStatus depublicationStatus, Instant depublicationDate) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
@@ -176,8 +175,7 @@ public class DepublishRecordIdDao {
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
         DepublicationStatus.PENDING_DEPUBLICATION));
 
-    return retryableExternalRequestForNetworkExceptions(
-        () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
+    return deleteRecords(query);
   }
 
   /**
@@ -186,7 +184,7 @@ public class DepublishRecordIdDao {
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records for the given dataset.
    */
-  private long countDepublishRecordIdsForDataset(String datasetId) {
+  long countDepublishRecordIdsForDataset(String datasetId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());
@@ -219,8 +217,7 @@ public class DepublishRecordIdDao {
    * @return A (possibly empty) list of depublish record ids.
    */
   public List<DepublishRecordIdView> getDepublishRecordIds(String datasetId, int page,
-      DepublishRecordIdSortField sortField, SortDirection sortDirection,
-      String searchQuery) {
+      DepublishRecordIdSortField sortField, SortDirection sortDirection, String searchQuery) {
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, null,
         searchQuery);
 
@@ -254,8 +251,7 @@ public class DepublishRecordIdDao {
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus) throws BadContentException {
     return getAllDepublishRecordIdsWithStatus(datasetId, sortField, sortDirection,
-        depublicationStatus,
-        Collections.emptySet());
+        depublicationStatus, Collections.emptySet());
   }
 
 
@@ -281,7 +277,7 @@ public class DepublishRecordIdDao {
     if (!CollectionUtils.isEmpty(recordIds) && (recordIds.size()
         > maxDepublishRecordIdsPerDataset)) {
       throw new BadContentException(
-          "Can't remove these records: this would violate the maximum number of records per dataset.");
+          "RecordIds set is too big and violates the maximum number of records per dataset");
     }
 
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId,
@@ -343,9 +339,9 @@ public class DepublishRecordIdDao {
           "DepublicationStatus cannot be null and datasetId cannot be empty");
     } else if (depublicationStatus == DepublicationStatus.DEPUBLISHED && Objects
         .isNull(depublicationDate)) {
-      throw new IllegalArgumentException(String.format(
-          "DepublicationDate cannot be null if depublicationStatus == %s ",
-          DepublicationStatus.DEPUBLISHED.name()));
+      throw new IllegalArgumentException(String
+          .format("DepublicationDate cannot be null if depublicationStatus == %s ",
+              DepublicationStatus.DEPUBLISHED.name()));
     }
 
     // If we have a specific record list, make sure that missing records are added.
@@ -402,4 +398,10 @@ public class DepublishRecordIdDao {
   public int getPageSize() {
     return pageSize;
   }
+
+  long deleteRecords(Query<DepublishRecordId> query) {
+    return retryableExternalRequestForNetworkExceptions(
+        () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
+  }
+
 }

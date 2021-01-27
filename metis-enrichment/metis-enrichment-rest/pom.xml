@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-enrichment-rest</artifactId>
   <packaging>war</packaging>
@@ -14,10 +14,6 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-web</artifactId>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -53,17 +49,11 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
+      <artifactId>corelib-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>corelib-web</artifactId>
-          <groupId>eu.europeana.corelib</groupId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -123,14 +113,8 @@
       <version>${version.spring}</version>
     </dependency>
     <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${version.spring}</version>
     </dependency>
   </dependencies>
   <build>

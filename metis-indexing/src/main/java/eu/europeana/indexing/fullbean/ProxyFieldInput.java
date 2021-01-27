@@ -1,14 +1,14 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.EdmType;
-import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
-import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.definitions.jibx.Type2;
+import eu.europeana.metis.schema.jibx.EdmType;
+import eu.europeana.metis.schema.jibx.EuropeanaProxy;
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
+import eu.europeana.metis.schema.jibx.IsNextInSequence;
+import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +19,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Converts a {@link ProxyType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
- * {@link ProxyImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link ProxyType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link ProxyImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
 

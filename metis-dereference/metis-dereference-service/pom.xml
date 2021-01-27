@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-dereference</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-dereference-service</artifactId>
   <dependencies>
@@ -85,11 +85,6 @@
           <artifactId>morphia</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

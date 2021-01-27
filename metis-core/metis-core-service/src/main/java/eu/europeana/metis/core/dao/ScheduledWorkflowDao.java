@@ -2,7 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
-import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
 
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.DeleteOptions;
@@ -14,7 +14,7 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;

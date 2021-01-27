@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import eu.europeana.corelib.definitions.jibx.EdmType;
+import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 

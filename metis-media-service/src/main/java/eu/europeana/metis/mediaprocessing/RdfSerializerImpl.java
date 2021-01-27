@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import java.io.ByteArrayOutputStream;
@@ -11,6 +11,9 @@ import org.jibx.runtime.JiBXException;
 
 /**
  * This object implements RDF serialization functionality.
+ *
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
  */
 class RdfSerializerImpl implements RdfSerializer {
 

@@ -1,7 +1,5 @@
 package eu.europeana.indexing.mongo;
 
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
@@ -9,14 +7,20 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
-import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import javax.xml.bind.DatatypeConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Field updater for instances of {@link WebResourceMetaInfoImpl}.
@@ -24,12 +28,12 @@ import java.util.function.Supplier;
 public class WebResourceMetaInfoUpdater
     extends AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation> {
 
-  private static final HashFunction HASH_FUNCTION = Hashing.md5();
+  private static final Logger LOGGER = LoggerFactory.getLogger(WebResourceMetaInfoUpdater.class);
 
   @Override
   protected MongoPropertyUpdater<WebResourceMetaInfoImpl> createPropertyUpdater(
       WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation,
-      Date recordDate, Date recordCreationDate, MongoServer mongoServer) {
+      Date recordDate, Date recordCreationDate, RecordDao mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
         ancestorInformation.getRootAbout());
     final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =
@@ -37,17 +41,23 @@ public class WebResourceMetaInfoUpdater
     return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer, querySupplier, null);
   }
 
-  private static Query<WebResourceMetaInfoImpl> createQuery(MongoServer mongoServer, String id) {
+  private static Query<WebResourceMetaInfoImpl> createQuery(RecordDao mongoServer, String id) {
     return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class)
         .filter(Filters.eq("_id", id));
   }
 
-  // TODO This is code from corelib (eu.europeana.corelib.search.impl.WebMetaInfo). This should be
-  // in a common library?
   private static String generateHashCode(String webResourceId, String recordId) {
-    return HASH_FUNCTION.newHasher().putString(webResourceId, StandardCharsets.UTF_8)
-        .putString("-", StandardCharsets.UTF_8).putString(recordId, StandardCharsets.UTF_8).hash()
-        .toString();
+    MessageDigest md;
+    String generatedHash = null;
+    try {
+      md = MessageDigest.getInstance("MD5");
+      byte[] digest = md.digest((webResourceId + "-" + recordId).getBytes(StandardCharsets.UTF_8));
+      generatedHash = DatatypeConverter.printHexBinary(digest).toLowerCase(Locale.US);
+    } catch (NoSuchAlgorithmException e) {
+      //This shouldn't happen
+      LOGGER.error("Hashing algorithm does not exist", e);
+    }
+    return generatedHash;
   }
 
   @Override

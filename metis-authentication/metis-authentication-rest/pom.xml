@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-authentication</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-authentication-rest</artifactId>
   <packaging>war</packaging>
@@ -41,15 +41,8 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
+      <artifactId>metis-common-utils</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <!--Needs exclusion because of conflict versions of stax2-api-->
-        <exclusion>
-          <groupId>org.apache.solr</groupId>
-          <artifactId>solr-solrj</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

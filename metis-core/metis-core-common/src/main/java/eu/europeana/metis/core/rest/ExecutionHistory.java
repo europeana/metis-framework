@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

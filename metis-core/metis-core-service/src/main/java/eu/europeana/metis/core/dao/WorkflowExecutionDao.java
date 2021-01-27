@@ -11,7 +11,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_TYPE;
 import static eu.europeana.metis.core.common.DaoFieldNames.STARTED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.WORKFLOW_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_ID;
-import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
@@ -49,7 +49,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.mongo.MorphiaUtils;
+import eu.europeana.metis.mongo.utils.MorphiaUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -363,17 +363,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .eq(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName(),
             PluginStatus.FINISHED);
 
-    List<Filter> pluginTypesFilters = new ArrayList<>();
+    List<Filter> pluginTypesFilters = new ArrayList<>(pluginTypes.size());
     final String pluginTypeField = METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName();
     for (PluginType pluginType : pluginTypes) {
       pluginTypesFilters.add(Filters.eq(pluginTypeField, pluginType));
     }
     final Filter collectedFilters;
-    if (!pluginTypesFilters.isEmpty()) {
+    if (pluginTypesFilters.isEmpty()) {
+      collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter);
+    } else {
       final Filter pluginTypeOrFilter = Filters.or(pluginTypesFilters.toArray(Filter[]::new));
       collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter, pluginTypeOrFilter);
-    } else {
-      collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter);
     }
 
     // Query: unwind and match again so that we know that all conditions apply to the same plugin.
@@ -415,7 +415,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param orderField                     the field to be used to sort the results
    * @param ascending                      a boolean value to request the ordering to ascending or
    *                                       descending
-   * @param nextPage                       the nextPage token
+   * @param nextPage                       The first page to be served (zero-based)
+   * @param pageCount                      How many pages are requested - can be null
    * @param ignoreMaxServedExecutionsLimit whether this method is to apply the limit on the number
    *                                       of executions are served. Be careful when setting this to
    *                                       true.
@@ -423,10 +424,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public ResultList<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
       Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField, boolean ascending,
-      int nextPage, boolean ignoreMaxServedExecutionsLimit) {
+      int nextPage, Integer pageCount, boolean ignoreMaxServedExecutionsLimit) {
 
     // Prepare pagination and check that there is something to query
-    final Pagination pagination = createPagination(nextPage, 1, ignoreMaxServedExecutionsLimit);
+    final Pagination pagination = createPagination(nextPage, pageCount, ignoreMaxServedExecutionsLimit);
     if (pagination.getLimit() < 1) {
       return createResultList(Collections.emptyList(), pagination);
     }
@@ -792,82 +793,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     query.disableValidation().filter(Filters.elemMatch(METIS_PLUGINS.getFieldName(),
         Filters.eq(PLUGIN_METADATA.getFieldName() + "." + XSLT_ID.getFieldName(), xsltId)));
     return retryableExternalRequestForNetworkExceptions(query::first);
-  }
-
-  /**
-   * Retrieves all started workflow executions with their start dates of a given dataset.
-   *
-   * @param datasetId The dataset ID for which to do this.
-   * @return A list of pairs with an execution ID and a start date. Is not null, nor are any of the
-   * values null. The list is sorted by date: most recent execution first.
-   */
-  public ResultList<ExecutionIdAndStartedDatePair> getAllExecutionStartDates(String datasetId) {
-
-    // Prepare pagination and check that there is something to query
-    final Pagination pagination = createPagination(0, null, false);
-    if (pagination.getLimit() < 1) {
-      return createResultList(Collections.emptyList(), pagination);
-    }
-
-    // Create aggregation pipeline.
-    final Aggregation<WorkflowExecution> aggregation = morphiaDatastoreProvider.getDatastore()
-        .aggregate(WorkflowExecution.class);
-
-    // Query on those that match the given dataset and that have a started date.
-    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
-    final Filter startedDateFilter = Filters.ne(STARTED_DATE.getFieldName(), null);
-    aggregation.match(Filters.and(datasetIdFilter, startedDateFilter));
-
-    // Sort the results
-    aggregation.sort(Sort.on().descending(STARTED_DATE.getFieldName()));
-
-    // Filter out most of the fields: just the id and the started date remain.
-    aggregation.project(Projection.of()
-        .include("executionId", Expressions.field(ID.getFieldName()))
-        .include(STARTED_DATE.getFieldName()));
-
-    // Set the pagination options
-    aggregation.skip(pagination.getSkip()).limit(pagination.getLimit());
-
-    // Done.
-    final List<ExecutionIdAndStartedDatePair> result = MorphiaUtils
-        .getListOfAggregationRetryable(aggregation,
-            ExecutionIdAndStartedDatePair.class);
-    return createResultList(result, pagination);
-  }
-
-  /**
-   * This object contains a pair consisting of an execution ID and a started date. It is meant to be
-   * a result of aggregate queries, so the field names cannot easily be changed.
-   * <p>Annotation {@link Embedded} required so that morphia can handle the aggregations.</p>
-   */
-  @Embedded
-  public static class ExecutionIdAndStartedDatePair {
-
-    private ObjectId executionId;
-    private Date startedDate;
-
-    public ExecutionIdAndStartedDatePair() {
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param executionId The execution ID.
-     * @param startedDate The started date.
-     */
-    public ExecutionIdAndStartedDatePair(ObjectId executionId, Date startedDate) {
-      this.executionId = executionId;
-      this.startedDate = new Date(startedDate.getTime());
-    }
-
-    public String getExecutionIdAsString() {
-      return executionId.toString();
-    }
-
-    public Date getStartedDate() {
-      return new Date(startedDate.getTime());
-    }
   }
 
   private Pagination createPagination(int firstPage, Integer pageCount,

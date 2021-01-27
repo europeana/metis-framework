@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-core-service</artifactId>
 
@@ -130,11 +130,6 @@
       <groupId>org.redisson</groupId>
       <artifactId>redisson</artifactId>
       <version>${version.redisson}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.jayway.awaitility</groupId>

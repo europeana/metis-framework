@@ -1,6 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -19,6 +19,9 @@ import org.jibx.runtime.JiBXException;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
+ *
+ * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
+ * import should remain.
  *
  * @author jochen
  */

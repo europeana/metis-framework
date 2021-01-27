@@ -11,13 +11,17 @@ import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
+import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
+import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.mongo.MorphiaUtils;
-import eu.europeana.metis.utils.ExternalRequestUtil;
+import eu.europeana.metis.mongo.utils.MorphiaUtils;
+import eu.europeana.metis.network.ExternalRequestUtil;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,11 +41,12 @@ public class EnrichmentDao {
 
   public static final String ID_FIELD = "_id";
   public static final String ENTITY_TYPE_FIELD = "entityType";
-  public static final String CODE_URI_FIELD = "codeUri";
+  public static final String ENTITY_ABOUT_FIELD = "enrichmentEntity.about";
+  public static final String ENTITY_OWL_SAME_AS_FIELD = "enrichmentEntity.owlSameAs";
   private static final String UPDATED_FIELD = "updated";
-  public static final String OWL_SAME_AS_FIELD = "owlSameAs";
-  public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
-  public static final String LANG_FIELD = "labelInfos.lang";
+  public static final String LABEL_INFOS_FIELD = "labelInfos";
+  public static final String LABEL_FIELD = "lowerCaseLabel";
+  public static final String LANG_FIELD = "lang";
 
   /**
    * Parameter constructor.
@@ -68,8 +73,8 @@ public class EnrichmentDao {
    * @return the retrieved enrichment term
    */
   public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
-    return ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(() -> Optional.ofNullable(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> Optional
+        .ofNullable(
             this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
                 .first()));
   }
@@ -84,10 +89,9 @@ public class EnrichmentDao {
    */
   public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
-      final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(this.datastore
-          .find(EnrichmentTerm.class)
-          .filter(Filters.eq(fieldName, fieldValue))
-          .first(new FindOptions().projection().include("_id")));
+      final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(
+          this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
+              .first(new FindOptions().projection().include("_id")));
       return enrichmentTerm.map(EnrichmentTerm::getId);
     });
   }
@@ -97,16 +101,31 @@ public class EnrichmentDao {
    * <p>Convenience method to avoid needless list generation if {@link
    * #getAllEnrichmentTermsByFieldsInList} was used. Order of supplied field pairs matter on the
    * query performance.</p>
+   * <p>It accepts a map that contains a mapping of a field(used for searching in a field that is
+   * a list with internal fields), with the list of pairs of fields inside that key. If we are
+   * searching for fields only and not inside a list with internal fields(not confused with values),
+   * then the key should be null and the corresponding list should contain the field nam and value
+   * pairs.</p>
    *
-   * @param fieldNameAndValues the list of pairs with key being the fieldName and value being the
-   * fieldValue
+   * @param containingListFieldNameAndValues the map of fields and an internal list of pairs with
+   * key being the fieldName and value being the fieldValue.
    * @return the retrieved list of enrichmentTerm
    */
   public List<EnrichmentTerm> getAllEnrichmentTermsByFields(
-      List<Pair<String, String>> fieldNameAndValues) {
+      Map<String, List<Pair<String, String>>> containingListFieldNameAndValues) {
     final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
-    for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
-      query.filter(Filters.eq(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
+    for (Map.Entry<String, List<Pair<String, String>>> entry : containingListFieldNameAndValues
+        .entrySet()) {
+
+      final List<Filter> filters = new ArrayList<>(entry.getValue().size());
+      for (Pair<String, String> fieldNameAndValue : entry.getValue()) {
+        filters.add(Filters.eq(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
+      }
+      if (StringUtils.isNotBlank(entry.getKey())) {
+        query.filter(Filters.elemMatch(entry.getKey(), filters.toArray(Filter[]::new)));
+      } else {
+        query.filter(filters.toArray(Filter[]::new));
+      }
     }
     return MorphiaUtils.getListOfQueryRetryable(query);
   }
@@ -158,41 +177,41 @@ public class EnrichmentDao {
    */
   public String saveEnrichmentTerm(EnrichmentTerm enrichmentTerm) {
     EnrichmentTerm enrichmentTermSaved = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(
-            () -> this.datastore.save(enrichmentTerm));
+        .retryableExternalRequestForNetworkExceptions(() -> this.datastore.save(enrichmentTerm));
     return enrichmentTermSaved == null ? StringUtils.EMPTY : enrichmentTermSaved.getId().toString();
   }
 
   /**
-   * Delete enrichmentTerms that match the provided codeUris.
+   * Delete enrichmentTerms that match the provided entity abouts.
    * <p>Removes entities from the corresponding enrichmentTerm using {@code entityType}.
-   * It also removes entities that match with the provided codeUris with owlSameAs.</p>
+   * It also removes entities that match with the provided entity abouts with owlSameAs.</p>
    *
    * @param entityType the entity type string
-   * @param codeUris the code uri to match
-   * @return a list of all the removed code uris except the provided one
+   * @param entityAbout the entity abouts to match
+   * @return a list of all the removed uris except the provided ones
    */
-  public List<String> deleteEnrichmentTerms(EntityType entityType, List<String> codeUris) {
+  public List<String> deleteEnrichmentTerms(EntityType entityType, List<String> entityAbout) {
     //Remove from EnrichmentTerm
-    deleteEnrichmentTerms(codeUris);
+    deleteEnrichmentTerms(entityAbout);
 
-    //Find all TermLists that have owlSameAs equals with codeUri
+    //Find all TermLists that have owlSameAs equals with entity about
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
         .find(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
-        .filter(Filters.in(OWL_SAME_AS_FIELD, codeUris));
-    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = MorphiaUtils.getListOfQueryRetryable(
-        enrichmentTermsSameAsQuery);
-    final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
-        .map(EnrichmentTerm::getCodeUri)
+        .filter(Filters.in(ENTITY_OWL_SAME_AS_FIELD, entityAbout));
+    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = MorphiaUtils
+        .getListOfQueryRetryable(enrichmentTermsSameAsQuery);
+    final List<String> sameAsUris = enrichmentTermsOwlSameAs.stream()
+        .map(EnrichmentTerm::getEnrichmentEntity).map(AbstractEnrichmentEntity::getAbout)
         .collect(Collectors.toList());
     //Remove from EnrichmentTerm
-    deleteEnrichmentTerms(sameAsCodeUris);
-    return sameAsCodeUris;
+    deleteEnrichmentTerms(sameAsUris);
+    return sameAsUris;
   }
 
-  private void deleteEnrichmentTerms(List<String> codeUri) {
+  private void deleteEnrichmentTerms(List<String> entityAbout) {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
-        () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri))
+        () -> this.datastore.find(EnrichmentTerm.class)
+            .filter(Filters.in(ENTITY_ABOUT_FIELD, entityAbout))
             .delete(new DeleteOptions().multi(true)));
   }
 }

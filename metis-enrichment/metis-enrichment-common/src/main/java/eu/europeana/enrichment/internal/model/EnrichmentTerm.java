@@ -9,7 +9,8 @@ import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.enrichment.api.external.model.LabelInfo;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -21,20 +22,15 @@ import org.bson.types.ObjectId;
  * @since 2020-08-04
  */
 @Entity
-@Indexes({
-    @Index(fields = {@Field("codeUri")}, options = @IndexOptions(unique = true)),
-    @Index(fields = {@Field("owlSameAs")}),
-    @Index(fields = {@Field("created")}),
-    @Index(fields = {@Field("updated")}),
+@Indexes({@Index(fields = {@Field("created")}), @Index(fields = {@Field("updated")}),
     @Index(fields = {@Field("entityType")}),
-    @Index(fields = {@Field("codeUri"), @Field("entityType")}),
-    @Index(fields = {@Field("owlSameAs"), @Field("entityType")}),
+    @Index(fields = {@Field("enrichmentEntity.about"), @Field("entityType")}),
+    @Index(fields = {@Field("enrichmentEntity.owlSameAs"), @Field("entityType")}),
     @Index(fields = {@Field("labelInfos.lowerCaseLabel"), @Field("labelInfos.lang"),
-        @Field("entityType")}),
-    @Index(fields = {@Field("created"), @Field("entityType")}),
+        @Field("entityType")}), @Index(fields = {@Field("created"), @Field("entityType")}),
     @Index(fields = {@Field("updated"), @Field("entityType")}),
-    @Index(fields = {@Field("enrichmentEntity.about")}, options = @IndexOptions(unique = true))
-})
+    @Index(fields = {@Field("enrichmentEntity.about")}, options = @IndexOptions(unique = true)),
+    @Index(fields = {@Field("enrichmentEntity.owlSameAs")})})
 public class EnrichmentTerm {
 
   @Id
@@ -42,13 +38,11 @@ public class EnrichmentTerm {
   private ObjectId id;
 
   private String parent;
-  private String codeUri;
-  private List<String> owlSameAs;
   private Date created;
   private Date updated;
   private EntityType entityType;
   private AbstractEnrichmentEntity enrichmentEntity;
-  private List<LabelInfo> labelInfos;
+  private List<LabelInfo> labelInfos = new ArrayList<>();
 
   public EnrichmentTerm() {
     // Required for json serialization
@@ -71,11 +65,11 @@ public class EnrichmentTerm {
   }
 
   public List<LabelInfo> getLabelInfos() {
-    return labelInfos;
+    return new ArrayList<>(labelInfos);
   }
 
   public void setLabelInfos(List<LabelInfo> labelInfos) {
-    this.labelInfos = labelInfos;
+    this.labelInfos = labelInfos == null ? new ArrayList<>() : new ArrayList<>(labelInfos);
   }
 
   public ObjectId getId() {
@@ -86,14 +80,6 @@ public class EnrichmentTerm {
     this.id = id;
   }
 
-  public String getCodeUri() {
-    return codeUri;
-  }
-
-  public void setCodeUri(String codeUri) {
-    this.codeUri = codeUri;
-  }
-
   public String getParent() {
     return parent;
   }
@@ -102,28 +88,20 @@ public class EnrichmentTerm {
     this.parent = parent;
   }
 
-  public void setOwlSameAs(List<String> owlSameAs) {
-    this.owlSameAs = owlSameAs;
-  }
-
-  public List<String> getOwlSameAs() {
-    return owlSameAs;
-  }
-
   public Date getUpdated() {
-    return updated;
+    return updated == null ? null : new Date(updated.getTime());
   }
 
   public void setUpdated(Date updated) {
-    this.updated = updated;
+    this.updated = updated == null ? null : new Date(updated.getTime());
   }
 
   public Date getCreated() {
-    return created;
+    return created == null ? null : new Date(created.getTime());
   }
 
   public void setCreated(Date created) {
-    this.created = created;
+    this.created = created == null ? null : new Date(created.getTime());
   }
 
 }

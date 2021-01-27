@@ -6,7 +6,7 @@ import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,8 +93,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
-    dataEntries.put(InputDataType.DATASET_URLS, Collections
-        .singletonList(String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+    dataEntries.put(InputDataType.DATASET_URLS, Collections.singletonList(String
+        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBasePluginParameters.getEcloudBaseUrl(),
             ecloudBasePluginParameters.getEcloudProvider(),
             ecloudBasePluginParameters.getEcloudDatasetId())));
@@ -118,8 +119,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       parameters.putAll(extraParameters);
     }
     parameters.put("PROVIDER_ID", ecloudBasePluginParameters.getEcloudProvider());
-    parameters.put("OUTPUT_DATA_SETS",
-        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+    parameters.put("OUTPUT_DATA_SETS", String
+        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBasePluginParameters.getEcloudBaseUrl(),
             ecloudBasePluginParameters.getEcloudProvider(),
             ecloudBasePluginParameters.getEcloudDatasetId()));
@@ -140,13 +141,14 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     parameters.put("REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
     parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
     parameters.put("REVISION_PROVIDER", ecloudBasePluginParameters.getEcloudProvider());
-    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     parameters.put("REVISION_TIMESTAMP",
         dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
     parameters.put("PREVIOUS_TASK_ID", ecloudBasePluginParameters.getPreviousExternalTaskId());
     parameters.put("NEW_REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
-    parameters.put("OUTPUT_DATA_SETS",
-        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+    parameters.put("OUTPUT_DATA_SETS", String
+        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBasePluginParameters.getEcloudBaseUrl(),
             ecloudBasePluginParameters.getEcloudProvider(),
             ecloudBasePluginParameters.getEcloudDatasetId()));
@@ -200,8 +202,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
 
   @Override
   public void execute(String datasetId, DpsClient dpsClient,
-      EcloudBasePluginParameters ecloudBasePluginParameters)
-      throws ExternalTaskException {
+      EcloudBasePluginParameters ecloudBasePluginParameters) throws ExternalTaskException {
     String pluginTypeName = getPluginType().name();
     LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
         ecloudBasePluginParameters.getEcloudDatasetId());
@@ -235,8 +236,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
       dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()),
-          SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
-              ? "Cancelled By System" : "Cancelled By User");
+          SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById) ? "Cancelled By System"
+              : "Cancelled By User");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);
     }

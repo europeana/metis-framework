@@ -4,19 +4,19 @@
   <parent>
     <artifactId>metis-data-checker</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>2.1</version>
+    <version>3</version>
   </parent>
   <artifactId>metis-data-checker-service</artifactId>
 
   <dependencies>
     <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${version.spring}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-edm-definitions</artifactId>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>

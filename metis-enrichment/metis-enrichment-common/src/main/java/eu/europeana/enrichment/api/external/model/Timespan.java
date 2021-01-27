@@ -1,4 +1,3 @@
-
 package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Timespan extends EnrichmentBase {
 
   @XmlElement(name = "isPartOf", namespace = "http://purl.org/dc/terms/")
-  private List<Part> isPartOfList = new ArrayList<>();
+  private Part isPartOf;
   @XmlElement(name = "hasPart", namespace = "http://purl.org/dc/terms/")
   private List<Part> hasPartsList = new ArrayList<>();
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
@@ -27,13 +26,15 @@ public class Timespan extends EnrichmentBase {
   private List<Label> endList = new ArrayList<>();
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> hiddenLabel = new ArrayList<>();
+  @XmlElement(name = "isNextInSequence", namespace = "http://www.europeana.eu/schemas/edm/")
+  private Part isNextInSequence;
 
-  public List<Part> getIsPartOfList() {
-    return unmodifiableListAcceptingNull(isPartOfList);
+  public Part getIsPartOf() {
+    return isPartOf;
   }
 
-  public void setIsPartOfList(List<Part> isPartOfList) {
-    this.isPartOfList = cloneListAcceptingNull(isPartOfList);
+  public void setIsPartOf(Part isPartOf) {
+    this.isPartOf = isPartOf;
   }
 
   public List<Part> getHasPartsList() {
@@ -74,5 +75,13 @@ public class Timespan extends EnrichmentBase {
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
     this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
+  }
+
+  public Part getIsNextInSequence() {
+    return isNextInSequence;
+  }
+
+  public void setIsNextInSequence(Part isNextInSequence) {
+    this.isNextInSequence = isNextInSequence;
   }
 }

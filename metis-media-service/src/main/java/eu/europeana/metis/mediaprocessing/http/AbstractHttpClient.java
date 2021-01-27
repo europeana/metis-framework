@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+
+import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -49,7 +50,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private final PoolingHttpClientConnectionManager connectionManager;
   private final CloseableHttpClient client;
   private final ScheduledExecutorService connectionCleaningSchedule = Executors
-      .newScheduledThreadPool(1);
+          .newScheduledThreadPool(1);
 
   private final int requestTimeout;
 
@@ -63,7 +64,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * by then). In milliseconds.
    */
   AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
-      int requestTimeout) {
+          int requestTimeout) {
 
     // Set the request config settings
     final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
@@ -77,12 +78,12 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
     // Build the client.
     client = HttpClients.custom().setDefaultRequestConfig(requestConfig)
-        .setConnectionManager(connectionManager).build();
+            .setConnectionManager(connectionManager).build();
 
     // Start the cleaning thread.
     connectionCleaningSchedule.scheduleWithFixedDelay(() -> cleanConnections(connectionManager),
-        CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS, CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS,
-        TimeUnit.SECONDS);
+            CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS, CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS,
+            TimeUnit.SECONDS);
   }
 
   private void cleanConnections(PoolingHttpClientConnectionManager connectionManager) {
@@ -138,14 +139,14 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
               .orElse(null);
       final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)
-          .filter(size -> size >= 0).orElse(null);
+              .filter(size -> size >= 0).orElse(null);
       final RedirectLocations redirectUris = context.getRedirectLocations();
       final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
               : redirectUris.get(redirectUris.size() - 1);
 
       // Process the result.
       final ContentRetriever content = responseEntity == null ?
-          ContentRetriever.forEmptyContent() : responseEntity::getContent;
+              ContentRetriever.forEmptyContent() : responseEntity::getContent;
       return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
 
     } catch (URISyntaxException e) {
@@ -199,7 +200,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @throws IOException In case a connection or other IO problem occurred.
    */
   protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType, Long fileSize,
-      ContentRetriever contentRetriever) throws IOException;
+          ContentRetriever contentRetriever) throws IOException;
 
   @Override
   public void close() throws IOException {

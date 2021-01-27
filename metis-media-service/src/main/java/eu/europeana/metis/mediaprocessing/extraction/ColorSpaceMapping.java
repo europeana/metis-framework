@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
+import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import java.util.Arrays;
 
