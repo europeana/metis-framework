@@ -15,7 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 public class EnrichmentObjectUtils {
 
-  private static final EnrichmentDao enrichmentMongoDao;
+  private final EnrichmentDao enrichmentMongoDao;
 
   public static final String DIRECTORY_WITH_EXAMPLES = "example_enrichment_entities/";
   public static final String SUBDIRECTORY_AGENTS = "agents/";
@@ -24,18 +24,18 @@ public class EnrichmentObjectUtils {
   public static final String SUBDIRECTORY_TIMESPANS = "timespans/";
   public static final String SUBDIRECTORY_ORGANIZATIONS = "organizations/";
 
-  public static EnrichmentTerm conceptTerm1;
-  public static EnrichmentTerm timespanTerm1;
-  public static EnrichmentTerm agentTerm1;
-  public static EnrichmentTerm placeTerm1;
-  public static EnrichmentTerm organizationTerm1;
-  public static EnrichmentTerm customConceptTerm;
-  public static EnrichmentTerm customTimespanTerm;
-  public static EnrichmentTerm customAgentTerm;
-  public static EnrichmentTerm customPlaceTerm;
-  public static EnrichmentTerm customOrganizationTerm;
+  public EnrichmentTerm conceptTerm1;
+  public EnrichmentTerm timespanTerm1;
+  public EnrichmentTerm agentTerm1;
+  public EnrichmentTerm placeTerm1;
+  public EnrichmentTerm organizationTerm1;
+  public EnrichmentTerm customConceptTerm;
+  public EnrichmentTerm customTimespanTerm;
+  public EnrichmentTerm customAgentTerm;
+  public EnrichmentTerm customPlaceTerm;
+  public EnrichmentTerm customOrganizationTerm;
 
-  static {
+  public EnrichmentObjectUtils() {
     EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
@@ -87,7 +87,7 @@ public class EnrichmentObjectUtils {
     return first.equals(second);
   }
 
-  public static void readEnrichmentTermsFromFile() throws IOException {
+  public void readEnrichmentTermsFromFile() throws IOException {
     conceptTerm1 = getEnrichmentTermFromJsonFile(SUBDIRECTORY_CONCEPTS, "concept1.json");
     timespanTerm1 = getEnrichmentTermFromJsonFile(SUBDIRECTORY_TIMESPANS, "timespan1.json");
     agentTerm1 = getEnrichmentTermFromJsonFile(SUBDIRECTORY_AGENTS, "agent1.json");
@@ -102,7 +102,7 @@ public class EnrichmentObjectUtils {
         "custom_organization.json");
   }
 
-  static EnrichmentTerm getEnrichmentTermFromJsonFile(String directory, String filename)
+  private EnrichmentTerm getEnrichmentTermFromJsonFile(String directory, String filename)
       throws IOException {
     final Document conceptTerm = getDocument(directory + filename);
     return enrichmentMongoDao.getMapper().fromDocument(EnrichmentTerm.class, conceptTerm);

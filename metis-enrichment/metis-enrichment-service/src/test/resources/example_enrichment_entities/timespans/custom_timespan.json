@@ -1,6 +1,4 @@
 {
-  "_id" : ObjectId("5fa03d7cd96ff950f119e449"),
-  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
   "entityType" : "TIMESPAN",
   "enrichmentEntity" : {
     "className" : "eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity",

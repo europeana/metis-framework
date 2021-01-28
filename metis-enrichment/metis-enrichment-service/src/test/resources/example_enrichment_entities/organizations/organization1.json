@@ -1,12 +1,10 @@
 {
-  "_id" : ObjectId("5cc171ca8a35ec35dc059eab"),
-  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
   "created" : ISODate("2016-11-30T08:54:17.000Z"),
   "updated" : ISODate("2018-11-05T17:53:59.000Z"),
   "entityType" : "ORGANIZATION",
   "enrichmentEntity" : {
     "className" : "eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity",
-    "about" : "http://data.europeana.eu/organization/1482250000001991040",
+    "about" : "http://data.europeana.eu/organization/1482250000001991040_custom",
     "prefLabel" : {
       "de" : [
         "Königliches Belgisches Institut für Naturwissenschaften"

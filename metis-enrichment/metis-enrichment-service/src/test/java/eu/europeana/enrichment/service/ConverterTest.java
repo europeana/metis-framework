@@ -1,16 +1,7 @@
 package eu.europeana.enrichment.service;
 
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.agentTerm1;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customAgentTerm;
 import static eu.europeana.enrichment.service.EnrichmentObjectUtils.areHashMapsWithListValuesEqual;
 import static eu.europeana.enrichment.service.EnrichmentObjectUtils.areListsEqual;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.conceptTerm1;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customConceptTerm;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customPlaceTerm;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.customTimespanTerm;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.organizationTerm1;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.placeTerm1;
-import static eu.europeana.enrichment.service.EnrichmentObjectUtils.timespanTerm1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,13 +32,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class ConverterTest {
 
+  private static EnrichmentObjectUtils enrichmentObjectUtils;
+
+  @BeforeAll
+  static void prepare() {
+    enrichmentObjectUtils = new EnrichmentObjectUtils();
+  }
+
   @Test
   void convert() throws BadContentException {
-    final List<EnrichmentTerm> enrichmentTerms = List.of(customAgentTerm, customConceptTerm);
+    final List<EnrichmentTerm> enrichmentTerms = List
+        .of(enrichmentObjectUtils.customAgentTerm, enrichmentObjectUtils.customConceptTerm);
     final List<EnrichmentBase> enrichmentBases = Converter.convert(enrichmentTerms);
 
     final Agent agent = enrichmentBases.stream().filter(Agent.class::isInstance).findFirst()
@@ -55,49 +55,56 @@ public class ConverterTest {
     final Concept concept = enrichmentBases.stream().filter(Concept.class::isInstance).findFirst()
         .map(Concept.class::cast).orElse(null);
 
-    assertConversion(customAgentTerm.getEnrichmentEntity(), agent, customAgentTerm.getEntityType());
-    assertConversion(customConceptTerm.getEnrichmentEntity(), concept,
-        customConceptTerm.getEntityType());
+    assertConversion(enrichmentObjectUtils.customAgentTerm.getEnrichmentEntity(), agent,
+        enrichmentObjectUtils.customAgentTerm.getEntityType());
+    assertConversion(enrichmentObjectUtils.customConceptTerm.getEnrichmentEntity(), concept,
+        enrichmentObjectUtils.customConceptTerm.getEntityType());
   }
 
   @Test
   void convertAgent() throws Exception {
-    Agent agent = (Agent) Converter.convert(agentTerm1);
-    assertConversion(agentTerm1.getEnrichmentEntity(), agent, agentTerm1.getEntityType());
+    Agent agent = (Agent) Converter.convert(enrichmentObjectUtils.agentTerm1);
+    assertConversion(enrichmentObjectUtils.agentTerm1.getEnrichmentEntity(), agent,
+        enrichmentObjectUtils.agentTerm1.getEntityType());
 
-    Agent custom_agent = (Agent) Converter.convert(customAgentTerm);
-    assertConversion(customAgentTerm.getEnrichmentEntity(), custom_agent,
-        customAgentTerm.getEntityType());
+    Agent custom_agent = (Agent) Converter.convert(enrichmentObjectUtils.customAgentTerm);
+    assertConversion(enrichmentObjectUtils.customAgentTerm.getEnrichmentEntity(), custom_agent,
+        enrichmentObjectUtils.customAgentTerm.getEntityType());
   }
 
   @Test
   void convertConcept() throws Exception {
-    final Concept concept = (Concept) Converter.convert(conceptTerm1);
-    assertConversion(conceptTerm1.getEnrichmentEntity(), concept, conceptTerm1.getEntityType());
+    final Concept concept = (Concept) Converter.convert(enrichmentObjectUtils.conceptTerm1);
+    assertConversion(enrichmentObjectUtils.conceptTerm1.getEnrichmentEntity(), concept,
+        enrichmentObjectUtils.conceptTerm1.getEntityType());
 
-    final Concept customConcept = (Concept) Converter.convert(customConceptTerm);
-    assertConversion(customConceptTerm.getEnrichmentEntity(), customConcept,
-        customConceptTerm.getEntityType());
+    final Concept customConcept = (Concept) Converter
+        .convert(enrichmentObjectUtils.customConceptTerm);
+    assertConversion(enrichmentObjectUtils.customConceptTerm.getEnrichmentEntity(), customConcept,
+        enrichmentObjectUtils.customConceptTerm.getEntityType());
   }
 
   @Test
   void convertTimespan() throws Exception {
-    Timespan timespan = (Timespan) Converter.convert(timespanTerm1);
-    assertConversion(timespanTerm1.getEnrichmentEntity(), timespan, timespanTerm1.getEntityType());
+    Timespan timespan = (Timespan) Converter.convert(enrichmentObjectUtils.timespanTerm1);
+    assertConversion(enrichmentObjectUtils.timespanTerm1.getEnrichmentEntity(), timespan,
+        enrichmentObjectUtils.timespanTerm1.getEntityType());
 
-    Timespan customTimespan = (Timespan) Converter.convert(customTimespanTerm);
-    assertConversion(customTimespanTerm.getEnrichmentEntity(), customTimespan,
-        customTimespanTerm.getEntityType());
+    Timespan customTimespan = (Timespan) Converter
+        .convert(enrichmentObjectUtils.customTimespanTerm);
+    assertConversion(enrichmentObjectUtils.customTimespanTerm.getEnrichmentEntity(), customTimespan,
+        enrichmentObjectUtils.customTimespanTerm.getEntityType());
   }
 
   @Test
   void convertPlace() throws Exception {
-    final Place place = (Place) Converter.convert(placeTerm1);
-    assertConversion(placeTerm1.getEnrichmentEntity(), place, placeTerm1.getEntityType());
+    final Place place = (Place) Converter.convert(enrichmentObjectUtils.placeTerm1);
+    assertConversion(enrichmentObjectUtils.placeTerm1.getEnrichmentEntity(), place,
+        enrichmentObjectUtils.placeTerm1.getEntityType());
 
-    final Place customPlace = (Place) Converter.convert(customPlaceTerm);
-    assertConversion(customPlaceTerm.getEnrichmentEntity(), customPlace,
-        customPlaceTerm.getEntityType());
+    final Place customPlace = (Place) Converter.convert(enrichmentObjectUtils.customPlaceTerm);
+    assertConversion(enrichmentObjectUtils.customPlaceTerm.getEnrichmentEntity(), customPlace,
+        enrichmentObjectUtils.customPlaceTerm.getEntityType());
   }
 
   @Test
@@ -105,8 +112,8 @@ public class ConverterTest {
     final EnrichmentBase organization = new EnrichmentBase() {
     };
     assertThrows(BadContentException.class,
-        () -> assertConversion(organizationTerm1.getEnrichmentEntity(), organization,
-            organizationTerm1.getEntityType()));
+        () -> assertConversion(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity(),
+            organization, enrichmentObjectUtils.organizationTerm1.getEntityType()));
   }
 
   @Test

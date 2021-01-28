@@ -1,6 +1,4 @@
 {
-  "_id" : ObjectId("5cc1720c8a35ec35dc059f85"),
-  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
   "created" : ISODate("2017-12-04T14:17:55.000Z"),
   "updated" : ISODate("2018-11-19T18:45:34.000Z"),
   "entityType" : "ORGANIZATION",

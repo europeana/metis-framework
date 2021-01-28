@@ -1,6 +1,4 @@
 {
-  "_id" : ObjectId("5677ce8de4b07b69911b1061"),
-  "className" : "eu.europeana.enrichment.internal.model.EnrichmentTerm",
   "entityType" : "CONCEPT",
   "enrichmentEntity" : {
     "className" : "eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity",
