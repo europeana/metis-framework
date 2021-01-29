@@ -156,9 +156,11 @@ public class PersistentEntityResolver implements EntityResolver {
       if (CollectionUtils.isEmpty(entityTypes)) {
         searchTermListMap.put(searchTerm, findEnrichmentTerms(null, value, language));
       } else {
+        final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
         for (EntityType entityType : entityTypes) {
-          searchTermListMap.put(searchTerm, findEnrichmentTerms(entityType, value, language));
+          enrichmentBases.addAll(findEnrichmentTerms(entityType, value, language));
         }
+        searchTermListMap.put(searchTerm, enrichmentBases);
       }
     }
   }
@@ -198,6 +200,7 @@ public class PersistentEntityResolver implements EntityResolver {
 
   private List<EnrichmentTerm> findParentEntities(EnrichmentTerm enrichmentTerm) {
     final Set<String> parentAbouts = new HashSet<>();
+    parentAbouts.add(enrichmentTerm.getEnrichmentEntity().getAbout());
     final List<EnrichmentTerm> parentEntities = new ArrayList<>();
     Predicate<String> isTimespanVeryBroad = parent ->
         enrichmentTerm.getEntityType() == EntityType.TIMESPAN

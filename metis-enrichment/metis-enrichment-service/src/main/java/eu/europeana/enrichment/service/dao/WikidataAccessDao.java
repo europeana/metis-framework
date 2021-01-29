@@ -44,6 +44,7 @@ import org.apache.jena.vocabulary.RDFS;
  * @author GrafR
  * @since 03 April 2018
  */
+@Deprecated
 public class WikidataAccessDao {
 
   public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
@@ -60,6 +61,7 @@ public class WikidataAccessDao {
     }
   }
 
+  @Deprecated
   @FunctionalInterface
   private interface InputStreamCreator {
 

@@ -2,7 +2,7 @@
   "entityType" : "PLACE",
   "enrichmentEntity" : {
     "className" : "eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity",
-    "about" : "http://data.europeana.eu/place/base/123",
+    "about" : "http://data.europeana.eu/place/base/123_custom",
     "prefLabel" : {
       "" : [
         "Burg Ziesar"

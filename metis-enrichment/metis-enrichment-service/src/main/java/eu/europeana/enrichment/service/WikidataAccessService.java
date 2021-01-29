@@ -32,6 +32,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  *
  * @author GrafR
  */
+@Deprecated
 public class WikidataAccessService {
 
   public static final String WIKIDATA_BASE_URL = "http://www.wikidata.org/entity/Q";
