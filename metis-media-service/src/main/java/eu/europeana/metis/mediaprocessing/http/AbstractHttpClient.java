@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-
 import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
 import java.io.ByteArrayInputStream;
@@ -18,11 +17,11 @@ import java.util.concurrent.TimeUnit;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.client5.http.protocol.RedirectLocations;
+import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.util.TimeValue;
@@ -115,15 +114,20 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
-        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
-        httpGet.abort();
+        synchronized (httpGet) {
+          if (!httpGet.isCancelled()) {
+            LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
+            httpGet.cancel();
+          }
+        }
       }
     };
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
     // Execute the request.
-    try (final CloseableHttpResponse responseObject = client.execute(httpGet, context)) {
+    try {
+      final ClassicHttpResponse responseObject = client.execute(httpGet, context);
 
       // Do first analysis
       final HttpEntity responseEntity = performThrowingFunction(responseObject, response -> {
@@ -144,9 +148,11 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
               : redirectUris.get(redirectUris.size() - 1);
 
-      // Process the result.
+      // Obtain the result (check for timeout just in case). Note that we shouldn't close the
+      // request as it always seems to wait for all the data to be downloaded.
       final ContentRetriever content = responseEntity == null ?
-              ContentRetriever.forEmptyContent() : responseEntity::getContent;
+              ContentRetriever.forEmptyContent()
+              : ContentRetriever.forNonCloseableContent(responseEntity::getContent);
       return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
 
     } catch (URISyntaxException e) {
@@ -154,10 +160,10 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Shouldn't really happen.
       throw new IOException("An unexpected exception occurred.", e);
 
-    } catch (IOException e) {
+    } catch (RuntimeException | IOException e) {
 
       // If aborted, provide a nicer message. Otherwise, just rethrow.
-      if (httpGet.isAborted()) {
+      if (httpGet.isCancelled()) {
         throw new IOException("The request was aborted: it exceeded the time limit.", e);
       }
       throw e;
@@ -167,6 +173,14 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Cancel abort trigger
       timer.cancel();
       abortTask.cancel();
+
+      // Cancel the request to stop downloading.
+      synchronized (httpGet) {
+        if (!httpGet.isCancelled()) {
+          LOGGER.debug("Aborting request after result has been obtained: {}.", resourceUlr);
+          httpGet.cancel();
+        }
+      }
     }
   }
 
@@ -224,10 +238,49 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     InputStream getContent() throws IOException;
 
     /**
+     * @return A content retriever for content that should not be closed.
+     */
+    static ContentRetriever forNonCloseableContent(ContentRetriever contentRetriever) {
+      return () -> new UnclosedInputStream(contentRetriever.getContent());
+    }
+
+    /**
      * @return A content retriever for empty content.
      */
     static ContentRetriever forEmptyContent() {
       return () -> new ByteArrayInputStream(new byte[0]);
+    }
+  }
+
+  /**
+   * An implementation of InputStream that can not be closed.
+   */
+  private static class UnclosedInputStream extends InputStream {
+
+    private final InputStream source;
+
+    public UnclosedInputStream(InputStream source) {
+      this.source = source;
+    }
+
+    @Override
+    public int available() throws IOException {
+      return source.available();
+    }
+
+    @Override
+    public int read() throws IOException {
+      return source.read();
+    }
+
+    @Override
+    public int read(byte[] buffer, int offset, int length) throws IOException {
+      return source.read(buffer, offset, length);
+    }
+
+    @Override
+    public void close() {
+      // We avoid closing the input stream.
     }
   }
 }
