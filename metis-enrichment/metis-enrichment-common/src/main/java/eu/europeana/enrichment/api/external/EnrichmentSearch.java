@@ -3,10 +3,12 @@ package eu.europeana.enrichment.api.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.enrichment.utils.EntityType;
 import io.swagger.annotations.ApiModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,6 +36,15 @@ public class EnrichmentSearch {
 
     public EnrichmentSearch() {
       // Required for XML mapping.
+    }
+
+    /**
+     * Constructor with all searchValues.
+     *
+     * @param searchValues the search queries that this value represents
+     */
+    public EnrichmentSearch(SearchValue... searchValues) {
+        this.searchValues = List.copyOf(Set.of(searchValues));
     }
 
     public List<SearchValue> getSearchValues() {

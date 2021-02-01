@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,6 +35,15 @@ public class EnrichmentReference {
 
   public EnrichmentReference() {
     // Required for XML mapping.
+  }
+
+  /**
+   * Constructor with all searchValues.
+   *
+   * @param referenceValues the search queries that this value represents
+   */
+  public EnrichmentReference(ReferenceValue... referenceValues) {
+    this.referenceValues = List.copyOf(Set.of(referenceValues));
   }
 
   public List<ReferenceValue> getReferenceValues() {
