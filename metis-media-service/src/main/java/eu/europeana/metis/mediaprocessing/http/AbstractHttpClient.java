@@ -2,26 +2,27 @@ package eu.europeana.metis.mediaprocessing.http;
 
 import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
-import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.client5.http.protocol.RedirectLocations;
-import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.util.TimeValue;
@@ -30,8 +31,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>
  * This class represents an HTTP request client that can be used to resolve a resource link. This
  * client is thread-safe, but the connection settings are tuned for use by one thread only.
+ * </p>
+ * <p>
+ * <i>Implementation note:</i> We are using Apache's http client, which, at the time of writing,
+ * has some unexpected behavior when it comes to aborted/canceled requests. This client supports not
+ * downloading the entire content (e.g. when we know we don't need it). But if we close the input
+ * stream containing the content, it waits for all IO to finish (which could mean downloading the
+ * entire content anyway). To circumvent this problem, we don't close any of the streams, we just
+ * stop reading from them. Then we cancel the whole request, and only then close all associated
+ * resources.
+ * </p>
  *
  * @param <I> The type of the resource entry (the input object defining the request).
  * @param <R> The type of the resulting/downloaded object (the result of the request).
@@ -115,9 +127,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       @Override
       public void run() {
         synchronized (httpGet) {
-          if (!httpGet.isCancelled()) {
+          if (httpGet.cancel()) {
             LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
-            httpGet.cancel();
           }
         }
       }
@@ -125,9 +136,13 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
+    // We prepare a list of closeables, as we only want to close things after aborting the request.
+    final ArrayList<Closeable> closeables = new ArrayList<>();
+
     // Execute the request.
     try {
-      final ClassicHttpResponse responseObject = client.execute(httpGet, context);
+      final CloseableHttpResponse responseObject = client.execute(httpGet, context);
+      closeables.add(responseObject);
 
       // Do first analysis
       final HttpEntity responseEntity = performThrowingFunction(responseObject, response -> {
@@ -138,6 +153,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
         }
         return response.getEntity();
       });
+      closeables.add(responseEntity);
 
       // Obtain header information.
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
@@ -148,12 +164,11 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
               : redirectUris.get(redirectUris.size() - 1);
 
-      // Obtain the result (check for timeout just in case). Note that we shouldn't close the
-      // request as it always seems to wait for all the data to be downloaded.
-      final ContentRetriever content = responseEntity == null ?
-              ContentRetriever.forEmptyContent()
-              : ContentRetriever.forNonCloseableContent(responseEntity::getContent);
-      return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
+      // Obtain the result (check for timeout just in case).
+      final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(
+              responseEntity == null ? InputStream::nullInputStream : responseEntity::getContent,
+              closeables::add);
+      return createResult(resourceEntry, actualUri, mimeType, fileSize, contentRetriever);
 
     } catch (URISyntaxException e) {
 
@@ -176,11 +191,19 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
       // Cancel the request to stop downloading.
       synchronized (httpGet) {
-        if (!httpGet.isCancelled()) {
-          LOGGER.debug("Aborting request after result has been obtained: {}.", resourceUlr);
-          httpGet.cancel();
+        if (httpGet.cancel()) {
+          LOGGER.debug("Aborting request after all processing is completed: {}.", resourceUlr);
         }
       }
+
+      // Only now can we close the input streams.
+      closeables.forEach(closeable -> {
+        try {
+          closeable.close();
+        } catch (IOException | RuntimeException e) {
+          LOGGER.debug("Closing all resources after all processing is completed.", e);
+        }
+      });
     }
   }
 
@@ -238,17 +261,18 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     InputStream getContent() throws IOException;
 
     /**
-     * @return A content retriever for content that should not be closed.
+     * Create a content retriever for content that should not be closed.
+     * @param contentRetriever A content retriever that can supply the content.
+     * @param contentRetrievedListener Callback for when the content is retrieved.
+     * @return A content retriever.
      */
-    static ContentRetriever forNonCloseableContent(ContentRetriever contentRetriever) {
-      return () -> new UnclosedInputStream(contentRetriever.getContent());
-    }
-
-    /**
-     * @return A content retriever for empty content.
-     */
-    static ContentRetriever forEmptyContent() {
-      return () -> new ByteArrayInputStream(new byte[0]);
+    static ContentRetriever forNonCloseableContent(ContentRetriever contentRetriever,
+            final Consumer<InputStream> contentRetrievedListener) {
+      return () -> {
+        final InputStream content = contentRetriever.getContent();
+        contentRetrievedListener.accept(content);
+        return new UnclosedInputStream(content);
+      };
     }
   }
 
