@@ -272,7 +272,7 @@ public class PersistentEntityResolver implements EntityResolver {
   public OrganizationEnrichmentEntity saveOrganization(
       OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
 
-    final EnrichmentTerm enrichmentTerm = EntityConverterUtils
+    final EnrichmentTerm enrichmentTerm = Converter
         .organizationImplToEnrichmentTerm(organizationEnrichmentEntity, created, updated);
 
     final Optional<ObjectId> objectId = enrichmentDao
