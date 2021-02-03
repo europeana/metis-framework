@@ -52,7 +52,7 @@ public class EnrichmentControllerTest {
   }
 
   @Test
-  public void getByUri_JSON() throws Exception {
+  public void testEquivalenceInputURIInputJSON() throws Exception {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
     ReferenceValue reference = new ReferenceValue(uri, anySet());
@@ -68,7 +68,7 @@ public class EnrichmentControllerTest {
   }
 
   @Test
-  public void getByUri_XML() throws Exception {
+  public void testEquivalenceInputURIInputXML() throws Exception {
 
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
@@ -86,7 +86,70 @@ public class EnrichmentControllerTest {
   }
 
   @Test
-  public void enrich_XML() throws Exception {
+  public void testEquivalenceWithEnrichmentReference() throws Exception {
+
+    String uri = "http://www.example.com";
+    String body = "{\n"
+                      + "  \"references\": [\n"
+                      + "    {\n"
+                      + "      \"entityType\": [\n"
+                      + "        \"AGENT\"\n"
+                      + "      ],\n"
+                      + "      \"reference\": \"AgentName\"\n"
+                      + "    }\n"
+                      + "  ]\n"
+                      + "}";
+
+    Agent agent = getAgent(uri);
+    ReferenceValue reference = new ReferenceValue(uri, anySet());
+    Map<String, String> namespaceMap = getNamespaceMap();
+    when(enrichmentServiceMock.enrichByEquivalenceValues(reference))
+        .thenReturn(List.of(agent));
+    enrichmentControllerMock.perform(post("/enrich/entity/equivalence")
+        .content(body)
+        .accept(MediaType.APPLICATION_XML_VALUE)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(200))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/@rdf:about", namespaceMap)
+            .string("http://www.example.com"))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap)
+            .string("labelEn"))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap)
+            .string("labelNl"))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
+            .string("10-10-10"));;
+
+  }
+
+  @Test
+  public void testEntityId() throws Exception {
+
+    String uri = "http://www.example.com";
+    String body = "[\"http://www.example.com\"]";
+
+    Agent agent = getAgent(uri);
+    ReferenceValue reference = new ReferenceValue(uri, anySet());
+    Map<String, String> namespaceMap = getNamespaceMap();
+    when(enrichmentServiceMock.enrichById(uri))
+        .thenReturn(agent);
+    enrichmentControllerMock.perform(post("/enrich/entity/id")
+        .content(body)
+        .accept(MediaType.APPLICATION_XML_VALUE)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(200))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/@rdf:about", namespaceMap)
+            .string("http://www.example.com"))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap)
+            .string("labelEn"))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap)
+            .string("labelNl"))
+        .andExpect(xpath("metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap)
+            .string("10-10-10"));;
+
+  }
+
+  @Test
+  public void testSearchInputXML() throws Exception {
     String uri = "http://www.example.com";
     String body =
         "{\n"
