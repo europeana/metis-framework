@@ -212,7 +212,7 @@ class EnrichmentDaoTest {
         allEnrichmentTermsByFieldsInList.get(0), EntityType.CONCEPT);
 
     //Search for two terms
-    owlSameAsValuesList.add("http://www.wikidata.org/entity/Q16211855");
+    owlSameAsValuesList.add("http://wikidata.dbpedia.org/resource/Q162530");
     owlSameAsValuesList.add("NonExistentValue");
     allEnrichmentTermsByFieldsInList = enrichmentMongoDao
         .getAllEnrichmentTermsByFieldsInList(fieldNameList);
@@ -220,7 +220,7 @@ class EnrichmentDaoTest {
     final Optional<EnrichmentTerm> agentEnrichmentTerm = allEnrichmentTermsByFieldsInList.stream()
         .filter(enrichmentTerm -> enrichmentTerm.getEntityType() == EntityType.AGENT).findFirst();
     assertTrue(agentEnrichmentTerm.isPresent());
-    assertEnrichmentTerm(enrichmentObjectUtils.customAgentTerm, agentEnrichmentTerm.get(),
+    assertEnrichmentTerm(enrichmentObjectUtils.agentTerm1, agentEnrichmentTerm.get(),
         EntityType.AGENT);
 
     final Optional<EnrichmentTerm> conceptEnrichmentTerm = allEnrichmentTermsByFieldsInList.stream()
@@ -244,8 +244,8 @@ class EnrichmentDaoTest {
   void deleteEnrichmentTerms() {
     //Fake the connection between two items
     final String aboutTerm1 = enrichmentObjectUtils.agentTerm1.getEnrichmentEntity().getAbout();
-    final List<String> owlSameAs = enrichmentObjectUtils.customAgentTerm.getEnrichmentEntity()
-        .getOwlSameAs();
+    final List<String> owlSameAs = Optional.ofNullable(enrichmentObjectUtils.customAgentTerm.getEnrichmentEntity()
+        .getOwlSameAs()).orElse(new ArrayList<>());
     owlSameAs.add(aboutTerm1);
     enrichmentObjectUtils.customAgentTerm.getEnrichmentEntity().setOwlSameAs(owlSameAs);
     enrichmentMongoDao.saveEnrichmentTerm(enrichmentObjectUtils.customAgentTerm);
