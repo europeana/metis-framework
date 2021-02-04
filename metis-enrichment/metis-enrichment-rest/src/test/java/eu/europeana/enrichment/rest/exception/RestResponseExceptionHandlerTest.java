@@ -21,7 +21,7 @@ public class RestResponseExceptionHandlerTest {
   @Test
   void testHandleResponse(){
     HttpServletResponse response = mock(HttpServletResponse.class);
-    EnrichmentException exception = new EnrichmentException(ERROR_MESSAGE);
+    Exception exception = new Exception(ERROR_MESSAGE);
 
     StructuredExceptionWrapper result =
         REST_RESPONSE_EXCEPTION_HANDLER.handleResponse(response, exception);

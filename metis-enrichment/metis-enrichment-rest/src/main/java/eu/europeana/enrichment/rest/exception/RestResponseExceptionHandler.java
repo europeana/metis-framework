@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class RestResponseExceptionHandler {
 
   /**
-   * Handle {@link EnrichmentException}
+   * Handle {@link Exception}
    *
    * @param response the response that should be updated
    * @param exception the exception thrown
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ResponseBody
-  @ExceptionHandler(EnrichmentException.class)
+  @ExceptionHandler(Exception.class)
   public StructuredExceptionWrapper handleResponse(HttpServletResponse response,
-      EnrichmentException exception) {
+      Exception exception) {
     response.setStatus(HttpStatus.BAD_REQUEST.value());
     return new StructuredExceptionWrapper(exception.getMessage());
   }

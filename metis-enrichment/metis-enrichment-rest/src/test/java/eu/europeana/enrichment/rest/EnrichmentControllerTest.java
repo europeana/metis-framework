@@ -39,8 +39,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class EnrichmentControllerTest {
@@ -213,8 +215,8 @@ public class EnrichmentControllerTest {
             .string("labelEn")).andExpect(
         xpath("metis:results/metis:result/edm:Timespan/skos:altLabel[@xml:lang='nl']", namespaceMap)
             .string("labelNl")).andExpect(
-        xpath("metis:results/metis:result/edm:Timespan/dcterms:isPartOf/@rdf:resource", namespaceMap)
-            .string(timespan.getIsPartOf().getResource()));
+        xpath("metis:results/metis:result/edm:Timespan/dcterms:isPartOf/@rdf:resource",
+            namespaceMap).string(timespan.getIsPartOf().getResource()));
   }
 
   @Test
@@ -239,6 +241,17 @@ public class EnrichmentControllerTest {
             .string("labelNl")).andExpect(
         xpath("metis:results/metis:result/edm:Place/dcterms:isPartOf/@rdf:resource", namespaceMap)
             .string(place.getIsPartOf().getResource()));
+  }
+
+  @Test
+  public void testSearchInputXML_Exception() throws Exception {
+    String invalidJson = "{{}";
+    enrichmentControllerMock.perform(
+        post("/enrich/entity/search").content(invalidJson).accept(MediaType.APPLICATION_XML_VALUE)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andDo(MockMvcResultHandlers.print())
+        .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
+        .andExpect(xpath("error").exists());
   }
 
   private String convertToJson(Object object) throws JsonProcessingException {
