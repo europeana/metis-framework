@@ -42,7 +42,6 @@ import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class EnrichmentControllerTest {
@@ -249,7 +248,6 @@ public class EnrichmentControllerTest {
     enrichmentControllerMock.perform(
         post("/enrich/entity/search").content(invalidJson).accept(MediaType.APPLICATION_XML_VALUE)
             .contentType(MediaType.APPLICATION_JSON))
-        .andDo(MockMvcResultHandlers.print())
         .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
         .andExpect(xpath("error").exists());
   }
