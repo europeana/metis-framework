@@ -128,7 +128,6 @@ public class EnrichmentControllerTest {
     String body = "[\"http://www.example.com\"]";
 
     Agent agent = getAgent(uri);
-    ReferenceValue reference = new ReferenceValue(uri, anySet());
     Map<String, String> namespaceMap = getNamespaceMap();
     when(enrichmentServiceMock.enrichById(uri))
         .thenReturn(agent);
