@@ -18,6 +18,10 @@ public class StructuredExceptionWrapper {
   @XmlElement
   private String errorMessage;
 
+  public StructuredExceptionWrapper() {
+    //Requires for (de)serialization
+  }
+
   /**
    * Constructor that is json friendly and is displayed to the client if an exception was thrown.
    *
