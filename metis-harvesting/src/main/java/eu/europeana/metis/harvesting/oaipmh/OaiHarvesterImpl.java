@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Header;
@@ -28,11 +27,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   private final ConnectionClientFactory connectionClientFactory;
 
-  public OaiHarvesterImpl() {
-    this(CloseableHttpOaiClient::new);
-  }
-
-  OaiHarvesterImpl(ConnectionClientFactory connectionClientFactory) {
+  public OaiHarvesterImpl(ConnectionClientFactory connectionClientFactory) {
     this.connectionClientFactory = connectionClientFactory;
   }
 
@@ -99,7 +94,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
   /**
    * Auxiliary interface for harvesting records
    */
-  interface ConnectionClientFactory {
+  public interface ConnectionClientFactory {
 
     /**
      * Construct a connection client based on the supplied information.
@@ -124,7 +119,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
     }
 
     @Override
-    public void forEachFiltered(Consumer<OaiRecordHeader> action, Predicate<OaiRecordHeader> filter)
+    public void forEachFiltered(Predicate<OaiRecordHeader> action, Predicate<OaiRecordHeader> filter)
             throws HarvesterException {
       try {
         while (source.hasNext()) {
@@ -133,7 +128,10 @@ public class OaiHarvesterImpl implements OaiHarvester {
                   nextInput.isDeleted(),
                   Optional.ofNullable(nextInput.getDatestamp()).map(Date::toInstant).orElse(null));
           if (filter.test(nextHeader)) {
-            action.accept(nextHeader);
+            final boolean continueProcessing = action.test(nextHeader);
+            if (!continueProcessing) {
+              break;
+            }
           }
         }
       } catch (RuntimeException e) {

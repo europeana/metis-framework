@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @see org.dspace.xoai.serviceprovider.client.HttpOAIClient
  */
-class CloseableHttpOaiClient implements CloseableOaiClient {
+public class CloseableHttpOaiClient implements CloseableOaiClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CloseableHttpOaiClient.class);
 

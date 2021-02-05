@@ -21,4 +21,12 @@ public class OaiRepository implements Serializable {
   public String getMetadataPrefix() {
     return metadataPrefix;
   }
+
+  @Override
+  public String toString() {
+    return "OaiRepository{" +
+            "repositoryUrl='" + repositoryUrl + '\'' +
+            ", metadataPrefix='" + metadataPrefix + '\'' +
+            '}';
+  }
 }

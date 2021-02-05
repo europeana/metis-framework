@@ -33,4 +33,13 @@ public class OaiHarvest extends OaiRepository {
   public Instant getUntil() {
     return until;
   }
+
+  @Override
+  public String toString() {
+    return "OaiHarvest{" +
+            "setSpec='" + setSpec + '\'' +
+            ", from=" + from +
+            ", until=" + until +
+            "} " + super.toString();
+  }
 }
