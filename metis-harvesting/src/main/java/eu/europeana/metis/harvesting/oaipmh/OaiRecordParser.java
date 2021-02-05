@@ -79,7 +79,7 @@ class OaiRecordParser {
       final ArrayList<NodeInfo> result = (ArrayList<NodeInfo>) metadataExpression
               .evaluate(inputSource, XPathConstants.NODESET);
       return convertToStream(result);
-    } catch (XPathExpressionException | TransformerException e) {
+    } catch (XPathExpressionException | TransformerException | RuntimeException e) {
       throw new HarvesterException("Cannot xpath XML!", e);
     }
   }
