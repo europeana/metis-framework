@@ -20,6 +20,7 @@
     <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
+    <module>metis-harvesting</module>
   </modules>
 
   <!-- Github connection -->
@@ -109,7 +110,6 @@
     <version.ibm.icu4j>67.1</version.ibm.icu4j>
     <version.itextpdf>5.5.13.1</version.itextpdf>
     <version.bouncycastle>1.49</version.bouncycastle>
-    <version.httpclient>4.5.12</version.httpclient>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -426,11 +426,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${version.slf4j}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>${version.httpclient}</version>
     </dependency>
   </dependencies>
 
