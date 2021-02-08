@@ -80,6 +80,8 @@ public class EnrichmentService {
               .getOrDefault(referenceTerm, Collections.emptyList());
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
+      // TODO: 08/02/2021 Maybe change the thrown exception to another type since this is an internal service and not a rest application,
+      //  which also affect the required dependencies during unit tests. Then the dependency org.glassfish.jersey.core:jersey-common can be removed
       throw new BadRequestException("The input values are invalid", e);
     }
   }

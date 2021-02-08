@@ -66,10 +66,10 @@ class EnrichmentServiceTest {
         searchValue.getLanguage(), new HashSet<>(searchValue.getEntityTypes()));
     final EnrichmentBase agentEnrichmentBase = Converter.convert(enrichmentObjectUtils.agentTerm1);
     assertNotNull(agentEnrichmentBase);
-    final Map<SearchTerm, List<EnrichmentBase>> searchTermListHashMap = new HashMap<>();
-    searchTermListHashMap.put(searchTerm, List.of(agentEnrichmentBase));
+    final Map<SearchTerm, List<EnrichmentBase>> mockResultResolveByText = new HashMap<>();
+    mockResultResolveByText.put(searchTerm, List.of(agentEnrichmentBase));
     when(persistentEntityResolver.resolveByText(Set.of(searchTerm)))
-        .thenReturn(searchTermListHashMap);
+        .thenReturn(mockResultResolveByText);
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
         .enrichByEnrichmentSearchValues(List.of(searchValue));
 
@@ -90,10 +90,10 @@ class EnrichmentServiceTest {
         new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
     final EnrichmentBase agentEnrichmentBase = Converter.convert(enrichmentObjectUtils.agentTerm1);
     assertNotNull(agentEnrichmentBase);
-    final Map<ReferenceTerm, List<EnrichmentBase>> referenceTermListHashMap = new HashMap<>();
-    referenceTermListHashMap.put(referenceTerm, List.of(agentEnrichmentBase));
+    final Map<ReferenceTerm, List<EnrichmentBase>> mockResultResolveByUri = new HashMap<>();
+    mockResultResolveByUri.put(referenceTerm, List.of(agentEnrichmentBase));
     when(persistentEntityResolver.resolveByUri(Set.of(referenceTerm)))
-        .thenReturn(referenceTermListHashMap);
+        .thenReturn(mockResultResolveByUri);
     final List<EnrichmentBase> enrichmentBases = enrichmentService
         .enrichByEquivalenceValues(referenceValue);
 
@@ -119,10 +119,10 @@ class EnrichmentServiceTest {
         new HashSet<>());
     final EnrichmentBase agentEnrichmentBase = Converter.convert(enrichmentObjectUtils.agentTerm1);
     assertNotNull(agentEnrichmentBase);
-    final Map<ReferenceTerm, EnrichmentBase> referenceTermListHashMap = new HashMap<>();
-    referenceTermListHashMap.put(referenceTerm, agentEnrichmentBase);
+    final Map<ReferenceTerm, EnrichmentBase> mockResultResolveById = new HashMap<>();
+    mockResultResolveById.put(referenceTerm, agentEnrichmentBase);
     when(persistentEntityResolver.resolveById(Set.of(referenceTerm)))
-        .thenReturn(referenceTermListHashMap);
+        .thenReturn(mockResultResolveById);
     final EnrichmentBase enrichmentBase = enrichmentService.enrichById(entityAbout);
 
     assertNotNull(enrichmentBase);
@@ -160,14 +160,17 @@ class EnrichmentServiceTest {
         .of(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout(),
             enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout());
     when(persistentEntityResolver.findExistingOrganizations(toSearch)).thenReturn(
-        List.of(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout()));
+        List.of(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout(),
+            enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout()));
     final List<String> existingOrganizations = enrichmentService
         .findExistingOrganizations(toSearch);
 
     assertNotNull(existingOrganizations);
-    assertEquals(1, existingOrganizations.size());
-    assertEquals(existingOrganizations.get(0),
-        enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout());
+    assertEquals(2, existingOrganizations.size());
+    assertTrue(existingOrganizations.stream().anyMatch(about -> about
+        .equals(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout())));
+    assertTrue(existingOrganizations.stream().anyMatch(about -> about
+        .equals(enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout())));
   }
 
   @Test
