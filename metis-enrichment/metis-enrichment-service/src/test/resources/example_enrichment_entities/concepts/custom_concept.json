@@ -1,0 +1,496 @@
+{
+  "entityType" : "CONCEPT",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity",
+    "about" : "http://data.europeana.eu/concept/base/50_custom",
+    "prefLabel" : {
+      "no" : [
+        "Postkort"
+      ],
+      "hi" : [
+        "पोस्टकार्ड"
+      ],
+      "de" : [
+        "Postkarte"
+      ],
+      "fi" : [
+        "Postikortti"
+      ],
+      "ru" : [
+        "Почтовая карточка"
+      ],
+      "pt" : [
+        "Cartão-postal"
+      ],
+      "fr" : [
+        "Carte postale"
+      ],
+      "hu" : [
+        "Képes levelezőlap"
+      ],
+      "bs" : [
+        "Dopisnica"
+      ],
+      "ka" : [
+        "საფოსტო ბარათი"
+      ],
+      "uk" : [
+        "Поштова листівка"
+      ],
+      "ca" : [
+        "Postal"
+      ],
+      "sr" : [
+        "Дописница"
+      ],
+      "sv" : [
+        "Vykort"
+      ],
+      "ko" : [
+        "엽서"
+      ],
+      "en" : [
+        "Postcard"
+      ],
+      "is" : [
+        "Póstkort"
+      ],
+      "it" : [
+        "Cartolina postale"
+      ],
+      "zh" : [
+        "明信片"
+      ],
+      "es" : [
+        "Tarjeta postal"
+      ],
+      "et" : [
+        "Postkaart"
+      ],
+      "eu" : [
+        "Postal"
+      ],
+      "cs" : [
+        "Pohlednice"
+      ],
+      "ja" : [
+        "はがき"
+      ],
+      "pl" : [
+        "Kartka pocztowa"
+      ],
+      "ro" : [
+        "Carte poștală"
+      ],
+      "da" : [
+        "Postkort"
+      ],
+      "he" : [
+        "גלויה"
+      ],
+      "nl" : [
+        "Briefkaart"
+      ]
+    },
+    "note" : {
+      "no" : [
+        "Postkort er et kort av papir med avsatt plass til en adresse, en melding og ofte et bildemotiv og som blir sendt i posten. Uttrykket brukes både om ferdig frankerte brevkort og om prospektkort med en illustrasjon på den ene sida."
+      ],
+      "hi" : [
+        "पोस्टकार्ड एक मोटे कागज या पतले गत्ते से बना एक आयताकार टुकड़ा होता है जिसे संदेश लिखने के लिए प्रयोग किया जाता है, साथ ही इसे बिना किसी लिफाफे में बंद किये, डाक द्वारा भेजा भी जा सकता है। अधिकतर देशों में इसका शुल्क एक लिफाफे के (जिस पर डाक टिकट चिपकाई गयी हो) द्वारा भेजे गये एक पत्र की तुलना में कम होता है। पोस्टकार्ड का आविष्कार ऑस्ट्रिया में १८६९ को हुआ था। आस्ट्रिया में यह इतना लोकप्रिय हुआ कि इसकी देखा देखी अन्य देशों ने भी इसे अपनाने में देरी नहीं की। ब्रिटेन ने १८७२ में अपना पहला पोस्टकार्ड जारी किया तो भारत का पहला पोस्टकार्ड 1879 में जारी किया गया। भारत के पहले पोस्टकार्ड की कीमत तीन पैसे रखी गयी थी। साल की पहली तीन तिमाही में ही लगभग 7.5 लाख रुपए के पोस्टकार्ड बेचे गए थे। पहला चित्रित पोस्टकार्ड फ्रांस ने 1889 में जारी किया था और इस पर एफिल टॉवर अंकित था। पोस्टकार्डों के संग्रहण और अध्ययन को अंग्रेजी में डेल्टियोलॉजी कहते हैं।"
+      ],
+      "de" : [
+        "Postkarten sind meist rechteckige Karten, in der Regel aus Karton, die als offen lesbare Mitteilungen per Post verschickt werden. Die Postgebühren sind teilweise immer noch niedriger als für einen Brief. Nachdem in den USA bereits im Jahr 1861 private Karten gesetzlich zugelassen waren, wurden sie postamtlich zum ersten Mal am 1. Oktober 1869 in Österreich-Ungarn mit der Bezeichnung „Correspondenzkarte“ eingeführt. Zunächst konnten Postkarten national und international lediglich auf Basis zweiseitiger Abkommen verschickt werden. Ab 1878 konnten sie in die meisten Länder der Erde international verschickt werden. Eine Ansichtskarte ist eine Postkarte mit einem Bilddruck oder Foto auf der Rückseite. Die Ansichtskarte wird manchmal nicht ganz korrekt als Bildpostkarte bezeichnet, da es zudem eine eigenständige Form der Postkarten mit diesem Namen gibt."
+      ],
+      "fi" : [
+        "Postikortti on pahvinen, useimmiten A6-kokoinen (ISO 216), eli 105 × 148 millimetrin kokoinen kortti, jolla voi lähettää lyhyen tervehdyksen postissa yleensä ilman kirjekuorta; tällöin viesti on muiden nähtävillä. Postikortin laajempaan määritelmään kuuluvat myös kaksiosaiset kortit, jossa viesti kirjoitetaan kortin sisälle ja joka lähetetään kirjekuoressa. Yleensä postikortit ovat suorakulmion muotoisia, mutta muitakin muotoja on.Erityisiä postikorttityyppejä ovat joulukortti, syntymäpäiväkortti ja tervehdyskortti. Maisemapostikortilla voidaan lähettää viesti lomamatkalta. Postikortteja myydään esimerkiksi postitoimistoissa ja kaupoissa, kuten kirjakaupoissa. On olemassa myös paljon erilaisia eri yritysten ja tapahtumien mainospostikortteja."
+      ],
+      "ru" : [
+        "Почто́вая ка́рточка, или пост-ка́рта (от нем. Postkarte), — вид почтового отправления с письменным сообщением, не запечатанное в конверт, а выполненное на специальном стандартном бланке из плотной бумаги или картона. Тариф на пересылку почтовой карточки меньше, чем простого письма; по состоянию на апрель 2014 года, он равняется в России 10,5 рублей."
+      ],
+      "pt" : [
+        "O cartão-postal, bilhete-postal ou simplesmente postal, é uma simplificação da carta. Trata-se de um pequeno retângulo de papelão fino, com a intenção de circular pelo Correio sem envelope, tendo uma das faces destinada ao endereço do destinatário, postagem do selo, mensagem do remetente e na outra alguma imagem.A vantagem dos postais, como também são conhecidos, é o porte de valor inferior ao das cartas comuns e a dispensa do uso do envelope tornava a correspondência mais fácil e mais barata.Os primeiros cartões-postais emitidos (hoje conhecidos como inteiros–postais) eram de monopólio oficial e já vinha selados. Com o decorrer dos anos outros países passaram a autorizar as indústrias a imprimirem cartões-postais para circularem pelos correios depois de serem devidamente selados no valor do porte fixado."
+      ],
+      "fr" : [
+        "La carte postale est un moyen de correspondance écrite qui se présente sous la forme d'un morceau de papier cartonné rectangulaire, de dimensions variables (le format le plus courant est le format A6, soit 10,5 x 14,8 cm), envoyé sans enveloppe, l'adresse et l'affranchissement y étant porté directement, aux côtés du message."
+      ],
+      "hu" : [
+        "Képes levelezőlap vagy képeslap- postai terjesztésű levelezőlap, boríték nélkül is feladható, mérete megszabott, melynek az egyik oldalát vagy annak egy részét illusztráció, kép díszíti. Két kategóriáját különböztetnek meg: postai és magánkiadványokat. A képeslap a postai levelezőlapból fejlődött ki, de előfutárai már korábban megjelentek. Az Osztrák–Magyar Monarchiában 1869. október 1-jén hozták forgalomba az első „levelezési lapot”, amin a „Correspondenz-Karte” feliraton kívül az osztrák és a magyar címer volt látható. Egy hónappal később a német feliratot felváltotta a magyar „Levelezési lap”. Párizsban, 1878. június 1-jén a nemzetközi postakonferencián elfogadták hivatalos postai küldeménynek."
+      ],
+      "bs" : [
+        "Dopisnica je otvorena pošiljka, u pravilu izrađena od tvrdog papira, sa unaprijed otisnutom poštarinom i oznakom \"carte postale\". Dopisnice se šalju otvorene tj. bez omotnice. Dopisnicama se smatraju sve vrste razglednica koje odgovaraju dimenzijama predviđenim za dopisnice, a izdate su od strane pošte"
+      ],
+      "ka" : [
+        "საფოსტო ბარათი, ან ღია ბარათი, როგორც წესი, მართკუთხა სქელი მუყაოს ქაღალდი, რომელიც გამოიყენება წერილისთვის უკონვერტოდ გასაგზავნად. ხელოვნების სამყაროში საფოსტო ბარათი ხელოვნების ნიმუშად შეიძლება იყოს აღქმული; ამ სახის ხელოვნებას საფოსტო ხელოვნება (mail art) ეწოდება. საფოსტო ღია ბარათების შეგროვებასა და შესწავლას დელტოლოგიას უწოდებენ."
+      ],
+      "uk" : [
+        "Пошто́ва листі́вка, а також пошті́вка, листі́вка, пошто́ва ка́ртка — відкритий лист на цупкому прямокутному аркуші паперу, що містить зазвичай адресу, поштову марку та зображення з одного боку і текст повідомлення з іншого.Колекціонування поштових листівок називається Філокартією."
+      ],
+      "ca" : [
+        "La targeta postal anomenada simplement postal és una peça rectangular de cartolina, o cartró fi, preparada per escriure i enviar per el correu tradicional, sense necessitat d'usar un sobre."
+      ],
+      "sr" : [
+        "Дописница је писмена поштанска пошиљка на једном листу мањег формата, с отвореним текстом.Као поштанска карта (без илустрације) дописница се прво појавила 1869. године у Аустроугарској. У међународном промету је призната од 1878.. Поштанска тарифа за дописницу је нижа него за писма. У већини држава штампа се са оштампаном марком. Дописница са плаћеним одговором састоји се од две обичне дописнице спојене по дужини. Дописницама се сматрају све врсте разгледница које одговарају димензијама предвиђеним за дописнице, а издате су од стране поште"
+      ],
+      "sv" : [
+        "Vykort, postkort med en bildsida och plats för adress (och från 1905 även meddelande) på andra sidan. År 1872 infördes i Sverige brevkort utan bild. När de svenska vykorten introducerades ungefär tio år senare blev de därför kallade \"Brefkort med vyer\". Det äldsta kända svenska vykortet skickades lokalt inom Kristinehamn den 9 december 1882, frankerat med ett treöres frimärke. Vid en auktion den 17 mars 1996 slutade budgivningen på detta vykort på 15 000 kronor. Det äldsta kända vykortsmotivet i Sverige är tecknat och visar en förgätmigej-kvist med texten \"Jag gratulerar\". Det skickades från Leufsta Bruk den 27 februari 1884. 1891 började pappersgrossistföretaget Axel Eliasson att sälja Brefkort med olika vyer öfver Stockholm och dess omgifningar samt Göteborg....Företaget var under 1900-talets första hälft landets främsta producent av vykort med sina lokaler på Drottninggatan i Stockholm.1901 expedierades 20,5 miljoner vykort med Svenska postverket, och kulmen i vykortsskickandet nåddes 1904 med 48,7 miljoner postade kort. Från 1905 tillät postverket att adress och hälsning fick rymmas på samma sida, något som gav motivet möjlighet att bli allenarådande på andra sidan.Vanliga motiv:JärnvägsstationerLandskapsscenerNaturmotivBerömda byggnaderDjurSpeciella varianter av vykort är: Julkort Påskkort Gratulationskort Begravningskort VykortsskivaIdag har gamla vykort samlarvärde och de flesta antikvariat har förutom äldre böcker numera även vykort till salu.Jeppe Wikström har gett ut boken Tråkiga vykort."
+      ],
+      "ko" : [
+        "엽서(葉書)는 네모낳게 생긴 굵은 종이 조각이나 얇은 카드판이며 봉투 없이 글을 써서 편지를 보내기 위하여 고안된 것이다. 우표 수집자들은 우표를 붙여야 하는 그림엽서(postcard, 포스트카드)와 우표가 미리 인쇄되어 있는 우편엽서(postal card, 포스털 카드)를 구별한다. 그림엽서는 일반적으로 개별 회사나 개인, 단체가 인쇄하지만 우편엽서는 해당 우편 기관이 발행한다."
+      ],
+      "en" : [
+        "A postcard or post card is a rectangular piece of thick paper or thin cardboard intended for writing and mailing without an envelope. There have been exceptions to this, such as wood postcards, made of thin wood, and copper postcards sold in the Copper Country of the U.S. state of Michigan.In some places, it is possible to send them for a lower fee than for a letter. Stamp collectors distinguish between postcards (which require a stamp) and postal cards (which have the postage pre-printed on them). While a postcard is usually printed by a private company, individual or organization, a postal card is issued by the relevant postal authority. The study and collecting of postcards is termed deltiology."
+      ],
+      "is" : [
+        "Póstkort eða kort (sem áður fyrr var nefnt bréfspjald) er kort sem senda má umslagslaust í pósti. Venjulega er mynd af borgarhluta eða landslagi að framan, eða mynd af einhverju sem gleðja á viðtakandann, en bakhliðin venjulega tvískipt, þ.e. fyrir textann sem sendandi semur sjálfur og hægra megin við textaplássið er pláss fyrir heimilisfang viðtakanda. 2010 komu á markað hjá Íslandspósti Póstkortin mín, þar sem fólk getur sett sína eigin mynd á póstkort."
+      ],
+      "it" : [
+        "La cartolina postale è una cartolina (di solito un cartoncino leggero di forma rettangolare) usata per la corrispondenza tramite posta."
+      ],
+      "zh" : [
+        "明信片，一種專供書寫文字，不必封函，即可交郵局寄遞的郵件。其正面為信封的格式，反面具有信箋的作用。優點是省貼郵票和不用信封，缺點是篇幅小而無隱密性。亦稱為「郵片」。明信片所寫的內容公開，可被他人所看見，內容通常不涉及隱私權之虞，故稱為明信。在某些地方明信片郵資較普通信函資費便宜。依據中華郵政業務說明，一般民眾可自行印製明信片但不得標誌「中華民國郵政」，因此許多人會稱郵局發行之明信片為「郵政明信片」（postal card，帶郵資符），而民間印製者則以泛稱之「明信片」（postcard）指稱。一般在卡片的反面印有图案（风景、绘画、宣传漫画等等），在正面可以贴邮票，写收件人地址和邮件内容。有的明信片上已经印上了邮票，称作邮资明信片。"
+      ],
+      "es" : [
+        "La tarjeta postal ilustrada, llamada simplemente \"postal\", \"tarjeta postal\", o tarjeta de correo, es una pieza rectangular de cartulina, o cartón fino, preparada para escribir y enviar por el correo tradicional, sin necesidad de usar un sobre."
+      ],
+      "et" : [
+        "Postkaart on nelinurkne paksema paberi või papi tükk, mis on mõeldud postiga saatmiseks ilma ümbrikuta.Postkaardi ühel poolel on tavaliselt pilt. Teisele küljele kirjutatakse sõnum, saaja ja saatja aadressid ning kleebitakse postmark.On ka selliseid postkaarte, millele on margi kujutis juba trükitud (tervikasjad). Nende puhul sisaldub margi väärtus postkaardi hinnas. Postkaartide kogumine on filokartia. <span id=\"interwiki-de-ga\" />"
+      ],
+      "eu" : [
+        "Postala edo posta-txartela kartazalik gabe postaz bidaltzeko prestaturik dagoen kartulinazko laukizuzen bat da, alde batetik irudi bat eta beste aldetik idatzi behar den testurako lekua uzten duena."
+      ],
+      "cs" : [
+        "Pohlednice (v běžné řeči pohled) je forma poštovní korespondence, která má z jedné strany vyobrazený propagační materiál a z druhé místo pro psaný vzkaz. Většinou je vyrobená z tenkého tvrdého listu papíru obdélníkového tvaru, ale vyskytují se i ve tvaru kruhu, trojúhelníku, či náročnějších podob.Většinou se využívají jako zaslání formy pozdravu s doprovodným obrázkovým nebo fotografickým materiálem, který má za úkol ilustrovat místo. Ze zadní strany odesílatel vyplňuje z pravidla adresu příjemce na předtištěné řádky, do vyznačeného obdélníku se nalepuje poštovní známka a v levé části bývá přibližně polovička možné plochy pohledu vyhraněna pro písemný vzkaz.Na Internetu jako alternativa této dnes již zastarávající formy komunikace vznikly elektronické pohlednice, které fungují na principu zaslání obrázku s případným doprovodným textem na e-mailovou adresu nebo na mobilní telefon v podobě MMS."
+      ],
+      "ar" : [
+        "البطاقة البريدية هي عبارة عن بطاقة صغيرة نسبياً، تكتب الرسالة أو التحية عليها مباشرة، وترسل عن طريق البريد. غالباً ما تحمل البطاقة البريدية صورة لمعلم سياحي أو فلكلور أو مواضيع مميزة أخرى كالنباتات والأزهار والمتاحف والحرف اليدوية وغيرها."
+      ],
+      "ja" : [
+        "はがき（葉書）とは、手紙の形態の一つ。郵便葉書の略。郵便約款で定められた規格・様式に基づき、郵便料金を示す証票が印刷された通信用紙（官製はがき）及びこれを基準として作られた、切手を貼って出す通信用紙（私製はがき）。宛先と本文を一枚の厚めの紙（サイズは官製はがきで100.0mm×148.0mm）に書いて、封筒に入れずにそのまま送付する。英語ではpostcardまたはpostal card。"
+      ],
+      "pl" : [
+        "Kartka pocztowa (karta pocztowa, pocztówka, widokówka, wcześniej zwana także odkrytką) – najczęściej prostokątna, kartonowa kartka służąca do krótkiej korespondencji, często wysyłana nieopakowana w kopertę. Zazwyczaj jedna ze stron kartki pocztowej podzielona jest na dwa pola: lewe, przeznaczone na treść korespondencji oraz prawe z miejscem na wpisanie adresata i naklejenie znaczka pocztowego. Na odwrocie najczęściej wydrukowany jest obrazek. Kartki pocztowe są przedmiotem pożądania wielu kolekcjonerów, tzw. deltiologów."
+      ],
+      "ro" : [
+        "O carte poștală este o bucată de regulă de hârtie sau de carton în formă dreptunghiulară sau pătrată, suport pentru comunicare sub forma de corespondență deschisă (este expediată fără plic)."
+      ],
+      "da" : [
+        "Postkort er et åbent brevkort af karton, der sendes med posten, og som bærer et billede. Der er desuden plads til skreven tekst, til modtagerens adresse og til et frimærke.De første udenlandske postkort er fra omkring 1870-1880. Det tidligste danske postkort er et gratulationskort sendt i 1883. I bogen \"Fra billedhilsen til postkort\" (udgivet 2007) skelnes der mellem mellem billedhilsner, som er blevet udvekslet i hvert fald siden sidst i 1700-tallet, og egentlige postkort. For at en billedhilsen kan betragtes som et postkort i den tidlige periode (1870'erne og 1880'erne), skal der være tale om et kort med et billede fremstillet i et antal eksemplarer og beregnet til åben postforsendelse med plads til en skreven meddelelse samt en adressering; kortet skal være fremstillet med henblik på salg til publikum."
+      ],
+      "he" : [
+        "גלויה או גלוית דואר היא פיסת נייר עבה או קרטון דק, מלבנית לרוב, המיועדת לכתיבת מסר ומשלוחו באמצעות הדואר ללא צורך במעטפה. לרוב מופיעה תמונה יפה בצדה האחד של הגלויה ומקום לכתיבת מסר קצר בצדה השני. לעתים קרובות, גלויות נמכרות לא רק בסניפי דואר, אלא גם באתרי תיירות פופולריים עם תמונות נוף של האזור.לעתים קרובות, משלוח הגלויה זול יותר ממשלוח המכתב, אם כי העלות בישראל זהה הן למכתבים והן לגלויות (1.55 ש\"ח בתעריפים של תחילת 2008).הגלויה הראשונה הונפקה ב-1869 באוסטרו-הונגריה והן נמצאות בשימוש נרחב עד היום. בארצות הברית הוצגו גלויות לראשונה בתערוכה העולמית של שיקגו (1893) וזמן קצר אחר כך אישרה ממשלת ארצות הברית להדפיס גלויות במחיר סנט אחד (\"גלויות פני\"). בעקבות כך חברת \"Detroit Publishing Company\" ייצרה גלויות פוטוכרום נושאות צילומים ריאליסטיים-למראה בצבעוניותם, בעיקר של נופים עירוניים וטבעיים, העתקי יצירות אמנות ונושאי פולקלור. הגלויות שיוצרו בתהליך זה זכו לתפוצה של מיליונים והמונח \"פוטוכרום\" משמש עד היום באנגלית לאפיון מהותן של גלויות מצולמות.מלבד שימוש בגלויות למשלוח, הן מהוות גם אובייקט לאספנות."
+      ],
+      "nl" : [
+        "Een briefkaart is een meestal rechthoekige kaart, in de regel van dun karton (of dik papier), die als poststuk verzonden kan worden. Een gedeelte van de briefkaart kan worden gebruikt voor het schrijven van mededelingen door de afzender aan de geadresseerde. Een Zuid-Nederlands synoniem voor briefkaart is postkaart."
+      ]
+    },
+    "owlSameAs" : [
+      "http://pl.dbpedia.org/resource/Kartka_pocztowa",
+      "http://ml.dbpedia.org/resource/പോസ്റ്റ്_കാർഡ്",
+      "http://fr.dbpedia.org/resource/Carte_postale",
+      "http://ta.dbpedia.org/resource/அஞ்சலட்டை",
+      "http://de.dbpedia.org/resource/Postkarte",
+      "http://eo.dbpedia.org/resource/Poŝtkarto",
+      "http://ja.dbpedia.org/resource/はがき",
+      "http://zh.dbpedia.org/resource/明信片",
+      "http://ms.dbpedia.org/resource/Poskad",
+      "http://bs.dbpedia.org/resource/Dopisnica",
+      "http://ko.dbpedia.org/resource/엽서",
+      "http://jv.dbpedia.org/resource/Kertu_pos",
+      "http://sv.dbpedia.org/resource/Vykort",
+      "http://he.dbpedia.org/resource/גלויה",
+      "http://th.dbpedia.org/resource/ไปรษณียบัตร",
+      "http://es.dbpedia.org/resource/Tarjeta_postal",
+      "http://ka.dbpedia.org/resource/საფოსტო_ბარათი",
+      "http://cs.dbpedia.org/resource/Pohlednice",
+      "http://vi.dbpedia.org/resource/Bưu_thiếp",
+      "http://sh.dbpedia.org/resource/Razglednica",
+      "http://nl.dbpedia.org/resource/Briefkaart",
+      "http://no.dbpedia.org/resource/Postkort",
+      "http://pt.dbpedia.org/resource/Cartão-postal",
+      "http://te.dbpedia.org/resource/పోస్టుకార్డు",
+      "http://hu.dbpedia.org/resource/Képes_levelezőlap",
+      "http://ru.dbpedia.org/resource/Почтовая_карточка",
+      "http://wikidata.dbpedia.org/resource/Q192425",
+      "http://fa.dbpedia.org/resource/کارت_پستی",
+      "http://is.dbpedia.org/resource/Póstkort",
+      "http://www.wikidata.org/entity/Q192425",
+      "http://it.dbpedia.org/resource/Cartolina_postale",
+      "http://id.dbpedia.org/resource/Kartu_pos",
+      "http://fi.dbpedia.org/resource/Postikortti",
+      "http://wa.dbpedia.org/resource/Cwåte_poståle",
+      "http://hi.dbpedia.org/resource/पोस्टकार्ड",
+      "http://sco.dbpedia.org/resource/Postcard",
+      "http://da.dbpedia.org/resource/Postkort",
+      "http://uk.dbpedia.org/resource/Поштова_листівка",
+      "http://eu.dbpedia.org/resource/Postal",
+      "http://ro.dbpedia.org/resource/Carte_poștală",
+      "http://sr.dbpedia.org/resource/Дописница",
+      "http://rdf.freebase.com/ns/m.0fd4f",
+      "http://ca.dbpedia.org/resource/Postal",
+      "http://et.dbpedia.org/resource/Postkaart",
+      "http://ar.dbpedia.org/resource/بطاقة_بريدية",
+      "http://dbpedia.org/resource/Postcard"
+    ],
+    "related" : [
+      "http://dbpedia.org/resource/Category:Postal_stationery",
+      "http://dbpedia.org/resource/Category:Philatelic_terminology",
+      "http://dbpedia.org/resource/Category:British_culture",
+      "http://dbpedia.org/resource/Category:Postcards",
+      "http://dbpedia.org/resource/Category:British_comedy_and_humour"
+    ],
+    "exactMatch" : [
+      "http://pl.dbpedia.org/resource/Kartka_pocztowa",
+      "http://ml.dbpedia.org/resource/പോസ്റ്റ്_കാർഡ്",
+      "http://fr.dbpedia.org/resource/Carte_postale",
+      "http://ta.dbpedia.org/resource/அஞ்சலட்டை",
+      "http://de.dbpedia.org/resource/Postkarte",
+      "http://eo.dbpedia.org/resource/Poŝtkarto",
+      "http://ja.dbpedia.org/resource/はがき",
+      "http://zh.dbpedia.org/resource/明信片",
+      "http://ms.dbpedia.org/resource/Poskad",
+      "http://bs.dbpedia.org/resource/Dopisnica",
+      "http://ko.dbpedia.org/resource/엽서",
+      "http://jv.dbpedia.org/resource/Kertu_pos",
+      "http://sv.dbpedia.org/resource/Vykort",
+      "http://he.dbpedia.org/resource/גלויה",
+      "http://th.dbpedia.org/resource/ไปรษณียบัตร",
+      "http://es.dbpedia.org/resource/Tarjeta_postal",
+      "http://ka.dbpedia.org/resource/საფოსტო_ბარათი",
+      "http://cs.dbpedia.org/resource/Pohlednice",
+      "http://vi.dbpedia.org/resource/Bưu_thiếp",
+      "http://sh.dbpedia.org/resource/Razglednica",
+      "http://nl.dbpedia.org/resource/Briefkaart",
+      "http://no.dbpedia.org/resource/Postkort",
+      "http://pt.dbpedia.org/resource/Cartão-postal",
+      "http://te.dbpedia.org/resource/పోస్టుకార్డు",
+      "http://hu.dbpedia.org/resource/Képes_levelezőlap",
+      "http://ru.dbpedia.org/resource/Почтовая_карточка",
+      "http://wikidata.dbpedia.org/resource/Q192425",
+      "http://fa.dbpedia.org/resource/کارت_پستی",
+      "http://is.dbpedia.org/resource/Póstkort",
+      "http://www.wikidata.org/entity/Q192425",
+      "http://it.dbpedia.org/resource/Cartolina_postale",
+      "http://id.dbpedia.org/resource/Kartu_pos",
+      "http://fi.dbpedia.org/resource/Postikortti",
+      "http://wa.dbpedia.org/resource/Cwåte_poståle",
+      "http://hi.dbpedia.org/resource/पोस्टकार्ड",
+      "http://sco.dbpedia.org/resource/Postcard",
+      "http://da.dbpedia.org/resource/Postkort",
+      "http://uk.dbpedia.org/resource/Поштова_листівка",
+      "http://eu.dbpedia.org/resource/Postal",
+      "http://ro.dbpedia.org/resource/Carte_poștală",
+      "http://sr.dbpedia.org/resource/Дописница",
+      "http://rdf.freebase.com/ns/m.0fd4f",
+      "http://ca.dbpedia.org/resource/Postal",
+      "http://et.dbpedia.org/resource/Postkaart",
+      "http://ar.dbpedia.org/resource/بطاقة_بريدية",
+      "http://dbpedia.org/resource/Postcard"
+    ]
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "de",
+      "lowerCaseLabel" : [
+        "postkarte"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hi",
+      "lowerCaseLabel" : [
+        "पोस्टकार्ड"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "no",
+      "lowerCaseLabel" : [
+        "postkort"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ru",
+      "lowerCaseLabel" : [
+        "почтовая карточка"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fi",
+      "lowerCaseLabel" : [
+        "postikortti"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pt",
+      "lowerCaseLabel" : [
+        "cartão-postal"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "fr",
+      "lowerCaseLabel" : [
+        "carte postale"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "hu",
+      "lowerCaseLabel" : [
+        "képes levelezőlap"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "bs",
+      "lowerCaseLabel" : [
+        "dopisnica"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "uk",
+      "lowerCaseLabel" : [
+        "поштова листівка"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ka",
+      "lowerCaseLabel" : [
+        "საფოსტო ბარათი"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ca",
+      "lowerCaseLabel" : [
+        "postal"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sr",
+      "lowerCaseLabel" : [
+        "дописница"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "sv",
+      "lowerCaseLabel" : [
+        "vykort"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ko",
+      "lowerCaseLabel" : [
+        "엽서"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "postcard"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "is",
+      "lowerCaseLabel" : [
+        "póstkort"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "it",
+      "lowerCaseLabel" : [
+        "cartolina postale"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "es",
+      "lowerCaseLabel" : [
+        "tarjeta postal"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "zh",
+      "lowerCaseLabel" : [
+        "明信片"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "et",
+      "lowerCaseLabel" : [
+        "postkaart"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "cs",
+      "lowerCaseLabel" : [
+        "pohlednice"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "eu",
+      "lowerCaseLabel" : [
+        "postal"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ja",
+      "lowerCaseLabel" : [
+        "はがき"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "pl",
+      "lowerCaseLabel" : [
+        "kartka pocztowa"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "he",
+      "lowerCaseLabel" : [
+        "גלויה"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "da",
+      "lowerCaseLabel" : [
+        "postkort"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "ro",
+      "lowerCaseLabel" : [
+        "carte poștală"
+      ]
+    },
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "nl",
+      "lowerCaseLabel" : [
+        "briefkaart"
+      ]
+    }
+  ]
+}

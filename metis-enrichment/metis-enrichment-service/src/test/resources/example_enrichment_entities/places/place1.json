@@ -1,0 +1,27 @@
+{
+  "entityType" : "PLACE",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity",
+    "about" : "http://data.europeana.eu/place/base/123",
+    "prefLabel" : {
+      "" : [
+        "Burg Ziesar"
+      ]
+    },
+    "owlSameAs" : [
+      "http://sws.geonames.org/2804278/"
+    ],
+    "isPartOf" : "http://data.europeana.eu/place/base/80",
+    "latitude" : 52.2666702270508,
+    "longitude" : 12.2833299636841
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "",
+      "lowerCaseLabel" : [
+        "burg ziesar"
+      ]
+    }
+  ]
+}

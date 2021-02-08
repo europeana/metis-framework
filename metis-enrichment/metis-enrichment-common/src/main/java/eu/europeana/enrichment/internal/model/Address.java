@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.internal.model;
 
 import dev.morphia.annotations.Embedded;
+import java.util.Objects;
 
 @Embedded
 public class Address {
@@ -67,5 +68,29 @@ public class Address {
 
   public void setVcardHasGeo(String vcardHasGeo) {
     this.vcardHasGeo = vcardHasGeo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Address address = (Address) o;
+    return Objects.equals(about, address.about) && Objects
+        .equals(vcardStreetAddress, address.vcardStreetAddress) && Objects
+        .equals(vcardLocality, address.vcardLocality) && Objects
+        .equals(vcardPostalCode, address.vcardPostalCode) && Objects
+        .equals(vcardCountryName, address.vcardCountryName) && Objects
+        .equals(vcardPostOfficeBox, address.vcardPostOfficeBox) && Objects
+        .equals(vcardHasGeo, address.vcardHasGeo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(about, vcardStreetAddress, vcardLocality, vcardPostalCode, vcardCountryName,
+        vcardPostOfficeBox, vcardHasGeo);
   }
 }

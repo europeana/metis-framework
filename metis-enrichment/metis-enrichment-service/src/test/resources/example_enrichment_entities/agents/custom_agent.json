@@ -1,0 +1,48 @@
+{
+  "entityType" : "AGENT",
+  "enrichmentEntity" : {
+    "className" : "eu.europeana.enrichment.internal.model.AgentEnrichmentEntity",
+    "about" : "http://data.europeana.eu/agent/base/53_custom",
+    "prefLabel" : {
+      "en" : [
+        "Margaret Lee (Singaporean actress)"
+      ]
+    },
+    "altLabel" : {
+      "en" : [
+        "李美玲",
+        "Lǐ Měilíng",
+        "Lee, Margaret",
+        "Margaret Lee"
+      ]
+    },
+    "rdaGr2DateOfBirth" : {
+      "def" : [
+        "1970-05-24"
+      ]
+    },
+    "rdaGr2ProfessionOrOccupation" : {
+      "def" : [
+        "http://dbpedia.org/resource/Actor"
+      ]
+    },
+    "rdaGr2BiographicalInformation" : {
+      "en" : [
+        "Margaret Lee Mui Lin (Chinese: 李美玲; pinyin: Lǐ Měilíng; born 24 May 1970) is a Singaporean actress."
+      ]
+    }
+  },
+  "labelInfos" : [
+    {
+      "className" : "eu.europeana.enrichment.api.external.model.LabelInfo",
+      "lang" : "en",
+      "lowerCaseLabel" : [
+        "margaret lee (singaporean actress)",
+        "李美玲",
+        "lǐ měilíng",
+        "lee, margaret",
+        "margaret lee"
+      ]
+    }
+  ]
+}
