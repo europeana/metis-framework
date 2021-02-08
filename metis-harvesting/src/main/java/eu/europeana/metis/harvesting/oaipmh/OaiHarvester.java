@@ -10,4 +10,6 @@ public interface OaiHarvester {
   InputStream harvestRecord(OaiRepository repository, String oaiIdentifier)
           throws HarvesterException;
 
+  Integer countRecords(OaiHarvest harvest) throws HarvesterException;
+
 }

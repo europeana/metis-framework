@@ -15,7 +15,9 @@ public class TestHelper {
     }
 
     public static String convertToString(InputStream result) throws IOException {
-        return IOUtils.toString(result, StandardCharsets.UTF_8);
+        try (result) {
+            return IOUtils.toString(result, StandardCharsets.UTF_8);
+        }
     }
 
     public static CompareMatcher isSimilarXml(String fileContent) {

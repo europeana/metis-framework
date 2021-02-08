@@ -1,6 +1,7 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.ReportingIteration;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -8,6 +9,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Header;
 import org.dspace.xoai.model.oaipmh.Verb;
@@ -20,10 +27,18 @@ import org.dspace.xoai.serviceprovider.parameters.ListIdentifiersParameters;
 import org.dspace.xoai.serviceprovider.parameters.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 public class OaiHarvesterImpl implements OaiHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OaiHarvesterImpl.class);
+
+  private static final String COMPLETE_LIST_SIZE_XPATH =
+          "/*[local-name()='OAI-PMH']" +
+                  "/*[local-name()='ListIdentifiers']" +
+                  "/*[local-name()='resumptionToken']";
+  public static final String COMPLETE_LIST_SIZE = "completeListSize";
 
   private final ConnectionClientFactory connectionClientFactory;
 
@@ -70,13 +85,13 @@ public class OaiHarvesterImpl implements OaiHarvester {
   @Override
   public InputStream harvestRecord(OaiRepository repository, String oaiIdentifier)
           throws HarvesterException {
-    final GetRecordParameters getRecordParameters = new GetRecordParameters()
+    final GetRecordParameters getRecordParameters = GetRecordParameters.request()
             .withIdentifier(oaiIdentifier).withMetadataFormatPrefix(repository.getMetadataPrefix());
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
             .include(getRecordParameters);
     final String record;
-    try (final CloseableOaiClient client = connectionClientFactory.createConnectionClient(
-            repository.getRepositoryUrl());
+    try (final CloseableOaiClient client = connectionClientFactory
+            .createConnectionClient(repository.getRepositoryUrl());
             final InputStream recordStream = client.execute(parameters)) {
       record = IOUtils.toString(recordStream, StandardCharsets.UTF_8);
     } catch (OAIRequestException | IOException e) {
@@ -89,6 +104,50 @@ public class OaiHarvesterImpl implements OaiHarvester {
       throw new HarvesterException("The record is deleted");
     }
     return recordParser.getRdfRecord();
+  }
+
+  @Override
+  public Integer countRecords(OaiHarvest harvest) throws HarvesterException {
+    final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.ListIdentifiers)
+            .include(prepareListIdentifiersParameters(harvest));
+    try (final CloseableOaiClient client = connectionClientFactory
+            .createConnectionClient(harvest.getRepositoryUrl());
+            final InputStream listIdentifiersResponse = client.execute(parameters)) {
+      return readCompleteListSizeFromXML(listIdentifiersResponse);
+    } catch (OAIRequestException | IOException e) {
+      throw new HarvesterException(String.format(
+              "Problem with counting records for endpoint %1$s because of: %2$s",
+              harvest.getRepositoryUrl(), e.getMessage()), e);
+    }
+  }
+
+  private Integer readCompleteListSizeFromXML(InputStream stream) throws HarvesterException {
+    final InputSource inputSource = new SAXSource(new InputSource(stream)).getInputSource();
+    final XPathExpression expr;
+    try {
+      final XPath xpath = XPathFactory.newInstance().newXPath();
+      expr = xpath.compile(COMPLETE_LIST_SIZE_XPATH);
+    } catch (XPathExpressionException e) {
+      throw new HarvesterException("Cannot compile xpath expression.", e);
+    }
+    try {
+      final Node resumptionTokenNode = (Node) expr.evaluate(inputSource, XPathConstants.NODE);
+      if (resumptionTokenNode != null) {
+        final Node node = resumptionTokenNode.getAttributes().getNamedItem(COMPLETE_LIST_SIZE);
+        if (node != null) {
+          return Integer.parseInt(node.getNodeValue());
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    } catch (NumberFormatException e) {
+      return null;
+    } catch (XPathExpressionException e) {
+      LOGGER.debug("Cannot read completeListSize from OAI response ", e);
+      return null;
+    }
   }
 
   /**
@@ -119,7 +178,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
     }
 
     @Override
-    public void forEachFiltered(Predicate<OaiRecordHeader> action, Predicate<OaiRecordHeader> filter)
+    public void forEachFiltered(ReportingIteration<OaiRecordHeader> action, Predicate<OaiRecordHeader> filter)
             throws HarvesterException {
       try {
         while (source.hasNext()) {
@@ -128,7 +187,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
                   nextInput.isDeleted(),
                   Optional.ofNullable(nextInput.getDatestamp()).map(Date::toInstant).orElse(null));
           if (filter.test(nextHeader)) {
-            final boolean continueProcessing = action.test(nextHeader);
+            final boolean continueProcessing = action.acceptAndContinue(nextHeader);
             if (!continueProcessing) {
               break;
             }
