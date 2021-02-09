@@ -20,13 +20,8 @@ public class CloseableHttpOaiClientTest extends WiremockHelper {
   private static final String PATH = "/content";
   private static final String URL = "http://localhost:8181" + PATH;
 
-  protected static final int TEST_RETRIES = 1;
-  protected static final int TEST_SLEEP_TIME = 2_000; /* = 2sec */
-  private static final int TEST_SOCKET_TIMEOUT = 5_000; /* = 5sec */
-
-  private static final Supplier<CloseableHttpOaiClient> CONNECTION_CLIENT_FACTORY = () ->
-          new CloseableHttpOaiClient(ENDPOINT, null, TEST_RETRIES, TEST_SLEEP_TIME,
-                  TEST_SOCKET_TIMEOUT, TEST_SOCKET_TIMEOUT, TEST_SOCKET_TIMEOUT);
+  private static final Supplier<CloseableHttpOaiClient> CONNECTION_CLIENT_FACTORY = () -> TestHelper.CONNECTION_CLIENT_FACTORY
+          .apply(ENDPOINT);
 
   @Test
   public void shouldReturnACorrectValue() throws HttpException, IOException {
@@ -41,8 +36,8 @@ public class CloseableHttpOaiClientTest extends WiremockHelper {
 
   @Test(expected = HttpException.class)
   public void shouldHandleTimeout() throws HttpException {
-    stubFor(get(urlEqualTo(PATH)).willReturn(
-            responsTimeoutGreaterThanSocketTimeout("FILE CONTENT", TEST_SOCKET_TIMEOUT)));
+    stubFor(get(urlEqualTo(PATH)).willReturn(responsTimeoutGreaterThanSocketTimeout("FILE CONTENT",
+            TestHelper.TEST_SOCKET_TIMEOUT)));
     final Parameters parameters = mock(Parameters.class);
     when(parameters.toUrl(ENDPOINT)).thenReturn(URL);
     try (final CloseableHttpOaiClient client = CONNECTION_CLIENT_FACTORY.get()) {

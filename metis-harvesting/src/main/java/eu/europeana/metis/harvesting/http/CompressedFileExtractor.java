@@ -2,9 +2,10 @@ package eu.europeana.metis.harvesting.http;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,9 +27,9 @@ final class CompressedFileExtractor {
     // This class is not meant to be instantiated.
   }
 
-  public static void extractFile(final String compressedFile, final String destinationFolder)
+  public static void extractFile(final Path compressedFile, final Path destinationFolder)
           throws HarvesterException, IOException {
-    final String extension = FilenameUtils.getExtension(compressedFile);
+    final String extension = FilenameUtils.getExtension(compressedFile.toString());
     final CompressedFileExtension compressingExtension = CompressedFileExtension
             .forExtension(extension);
     if (compressingExtension == null) {
@@ -48,49 +49,49 @@ final class CompressedFileExtractor {
     }
   }
 
-  private static void extractZipFile(final String compressedFilePath,
-          final String destinationFolder) throws IOException, HarvesterException {
-    final List<String> zipFiles = new ArrayList<>();
-    ZipUtil.unpack(new File(compressedFilePath), new File(destinationFolder), name -> {
+  private static void extractZipFile(final Path compressedFile,
+          final Path destinationFolder) throws IOException, HarvesterException {
+    final List<Path> zipFiles = new ArrayList<>();
+    ZipUtil.unpack(compressedFile.toFile(), destinationFolder.toFile(), name -> {
       if (CompressedFileExtension.contains(FilenameUtils.getExtension(name))) {
-        zipFiles.add(destinationFolder + name);
+        zipFiles.add(destinationFolder.resolve(name));
       }
       return name;
     });
-    for (String nestedCompressedFile : zipFiles) {
+    for (Path nestedCompressedFile : zipFiles) {
       extractFile(nestedCompressedFile,
-              FilenameUtils.removeExtension(nestedCompressedFile) + File.separator);
+              Path.of(FilenameUtils.removeExtension(nestedCompressedFile.toString())));
     }
   }
 
-  private static void extractGzFile(final String compressedFile, final String destinationFolder)
+  private static void extractGzFile(final Path compressedFile, final Path destinationFolder)
           throws IOException, HarvesterException {
-    final File destination = new File(destinationFolder);
-    if (FilenameUtils.getName(compressedFile).contains(TAR) || (FilenameUtils
-            .getExtension(compressedFile)).equals(
+    if (FilenameUtils.getName(compressedFile.toString()).contains(TAR) || (FilenameUtils
+            .getExtension(compressedFile.toString())).equals(
             CompressedFileExtension.TGZIP.getExtension())) {
-      final File newDestination = extractTarGzipArchive(compressedFile, destination);
+      final Path newDestination = extractTarGzipArchive(compressedFile, destinationFolder);
       final Iterator<File> files = FileUtils
-              .iterateFiles(newDestination, CompressedFileExtension.getExtensionValues(), true);
+              .iterateFiles(newDestination.toFile(), CompressedFileExtension.getExtensionValues(),
+                      true);
       while (files.hasNext()) {
         final File file = files.next();
-        extractFile(file.getAbsolutePath(), file.getParent() + File.separator);
+        extractFile(Path.of(file.getAbsolutePath()), Path.of(file.getParent() + File.separator));
       }
     } else {
       try (final GzipCompressorInputStream inputStream = new GzipCompressorInputStream(
-              new FileInputStream(compressedFile));
-              final FileOutputStream fileOutputStream = new FileOutputStream(
-                      new File(FilenameUtils.removeExtension(compressedFile)))) {
-        IOUtils.copy(inputStream, fileOutputStream);
+              Files.newInputStream(compressedFile));
+              final OutputStream outputStream = Files.newOutputStream(
+                      Path.of(FilenameUtils.removeExtension(compressedFile.toString())))) {
+        IOUtils.copy(inputStream, outputStream);
       }
     }
   }
 
-  private static File extractTarGzipArchive(String compressedFile, File destination)
+  private static Path extractTarGzipArchive(Path compressedFile, Path destination)
           throws IOException {
     final Archiver archiver = ArchiverFactory.createArchiver(ArchiveFormat.TAR, CompressionType.GZIP);
-    archiver.extract(new File(compressedFile), destination);
-    return new File(destination.getPath() + File.separator + getFileName(compressedFile));
+    archiver.extract(compressedFile.toFile(), destination.toFile());
+    return destination.resolve(getFileName(compressedFile.toString()));
   }
 
   private static String getFileName(String fileLocation) {

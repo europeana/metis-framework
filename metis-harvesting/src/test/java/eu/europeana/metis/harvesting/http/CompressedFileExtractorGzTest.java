@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.oaipmh.OaiHarvesterImpl;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collection;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
@@ -23,7 +23,8 @@ public class CompressedFileExtractorGzTest {
 
   @Test
   public void shouldUnpackTheTarGzFilesRecursively() throws IOException, HarvesterException {
-    CompressedFileExtractor.extractFile(DESTINATION_DIR + FILE_NAME + ".tar.gz", DESTINATION_DIR);
+    CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + ".tar.gz"),
+            Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());
@@ -32,7 +33,8 @@ public class CompressedFileExtractorGzTest {
   @Test
   public void shouldUnpackTheTarGzFilesRecursivelyWithCompressedXMLFiles()
           throws IOException, HarvesterException {
-    CompressedFileExtractor.extractFile(DESTINATION_DIR + FILE_NAME2 + ".tar.gz", DESTINATION_DIR);
+    CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + ".tar.gz"),
+            Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());
@@ -41,7 +43,8 @@ public class CompressedFileExtractorGzTest {
   @Test
   public void shouldUnpackTheTGZFilesRecursivelyWithCompressedXMLFiles()
           throws IOException, HarvesterException {
-    CompressedFileExtractor.extractFile(DESTINATION_DIR + FILE_NAME2 + ".tgz", DESTINATION_DIR);
+    CompressedFileExtractor
+            .extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + ".tgz"), Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());
@@ -50,7 +53,8 @@ public class CompressedFileExtractorGzTest {
   @Test
   public void shouldUnpackTheTarGzFilesRecursivelyWithMixedNestedCompressedFiles()
           throws IOException, HarvesterException {
-    CompressedFileExtractor.extractFile(DESTINATION_DIR + FILE_NAME3 + ".tar.gz", DESTINATION_DIR);
+    CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + ".tar.gz"),
+            Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME3);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());

@@ -3,8 +3,6 @@ package eu.europeana.metis.harvesting.http;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -35,7 +33,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     // Download the archive.
     final Path downloadDirectoryPath = Paths.get(downloadDirectory);
-    final File downloadedFile;
+    final Path downloadedFile;
     try {
       downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
     } catch (IOException e) {
@@ -43,17 +41,16 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     // Extract the archive.
+    final Path extractedDirectory = downloadedFile.toAbsolutePath().getParent();
     try {
-      CompressedFileExtractor.extractFile(downloadedFile.getAbsolutePath(),
-              downloadedFile.getParent() + File.separator);
+      CompressedFileExtractor.extractFile(downloadedFile.toAbsolutePath(), extractedDirectory);
     } catch (IOException e) {
       throw new HarvesterException("Problem extracting archive " + archiveUrl + ".", e);
     }
-    final File extractedDirectory = new File(downloadedFile.getParent());
 
     // correct directory rights
     try {
-      correctDirectoryRights(extractedDirectory.toPath());
+      correctDirectoryRights(extractedDirectory);
     } catch (IOException e) {
       throw new HarvesterException("Problem correcting directory rights.", e);
     }
@@ -62,19 +59,15 @@ public class HttpHarvesterImpl implements HttpHarvester {
     return new FileIterator(extractedDirectory);
   }
 
-  private File downloadFile(String archiveUrl, Path downloadDirectory) throws IOException {
-
-    Path path = Files.createDirectories(downloadDirectory);
-    File file = new File(path.toString(), FilenameUtils.getName(archiveUrl));
-
-    URL url = new URL(archiveUrl);
-    URLConnection conn = url.openConnection();
-
-    try (InputStream inputStream = conn.getInputStream();
-            OutputStream outputStream = new FileOutputStream(file)) {
+  private Path downloadFile(String archiveUrl, Path downloadDirectory) throws IOException {
+    final Path directory = Files.createDirectories(downloadDirectory);
+    final Path file = directory.resolve(FilenameUtils.getName(archiveUrl));
+    final URLConnection conn = new URL(archiveUrl).openConnection();
+    try (final InputStream inputStream = conn.getInputStream();
+            final OutputStream outputStream = Files.newOutputStream(file)) {
       IOUtils.copyLarge(inputStream, outputStream);
-      return file;
     }
+    return file;
   }
 
   /**
@@ -108,9 +101,9 @@ public class HttpHarvesterImpl implements HttpHarvester {
     private static final String MAC_TEMP_FILE = ".DS_Store";
     private static final String MAC_TEMP_FOLDER = "__MACOSX";
 
-    private final File extractedDirectory;
+    private final Path extractedDirectory;
 
-    public FileIterator(File extractedDirectory) {
+    public FileIterator(Path extractedDirectory) {
       this.extractedDirectory = extractedDirectory;
     }
 
@@ -124,7 +117,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     private void forEachInternal(ReportingIteration<Path> action) throws IOException {
-      Files.walkFileTree(Paths.get(extractedDirectory.toURI()), new SimpleFileVisitor<>() {
+      Files.walkFileTree(extractedDirectory, new SimpleFileVisitor<>() {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
           if (file.getFileName().toString().equals(MAC_TEMP_FILE)) {

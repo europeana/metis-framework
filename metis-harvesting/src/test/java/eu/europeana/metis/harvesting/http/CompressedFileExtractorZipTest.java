@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.HarvesterFactory;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collection;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -25,8 +25,8 @@ public class CompressedFileExtractorZipTest {
 
   @Test
   public void shouldUnpackTheZipFilesRecursively() throws IOException, HarvesterException {
-    CompressedFileExtractor
-            .extractFile(DESTINATION_DIR + FILE_NAME + ZIP_EXTENSION, DESTINATION_DIR);
+    CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + ZIP_EXTENSION),
+            Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());
@@ -35,8 +35,8 @@ public class CompressedFileExtractorZipTest {
   @Test
   public void shouldUnpackTheZipFilesWithNestedFoldersRecursively()
           throws IOException, HarvesterException {
-    CompressedFileExtractor
-            .extractFile(DESTINATION_DIR + FILE_NAME2 + ZIP_EXTENSION, DESTINATION_DIR);
+    CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + ZIP_EXTENSION),
+            Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());
@@ -45,8 +45,8 @@ public class CompressedFileExtractorZipTest {
   @Test
   public void shouldUnpackTheZipFilesWithNestedMixedCompressedFiles()
           throws IOException, HarvesterException {
-    CompressedFileExtractor
-            .extractFile(DESTINATION_DIR + FILE_NAME3 + ZIP_EXTENSION, DESTINATION_DIR);
+    CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + ZIP_EXTENSION),
+            Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
     assertNotNull(files);
     assertEquals(XML_FILES_COUNT, files.size());

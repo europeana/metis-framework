@@ -3,7 +3,6 @@ package eu.europeana.metis.harvesting.oaipmh;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.stubbing.Scenario.STARTED;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -22,7 +21,7 @@ public class OaiHarvesterImplTest extends WiremockHelper {
 
   private static final String OAI_PMH_ENDPOINT = "http://localhost:8181/oai-phm/";
 
-  private static final ConnectionClientFactory CONNECTION_CLIENT_FACTORY = CloseableHttpOaiClient::new;
+  private static final ConnectionClientFactory CONNECTION_CLIENT_FACTORY = TestHelper.CONNECTION_CLIENT_FACTORY::apply;
 
   @Test
   public void shouldHarvestRecord() throws IOException, HarvesterException {
