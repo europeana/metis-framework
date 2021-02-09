@@ -14,33 +14,34 @@ import org.junit.Rule;
 
 public abstract class WiremockHelper {
 
-    @Rule
-    public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8181));
+  @Rule
+  public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8181));
 
-    protected static ResponseDefinitionBuilder response200XmlContent(String fileContent) {
-        return aResponse()
-                .withHeader(CONTENT_TYPE, APPLICATION_XML.getMimeType())
-                .withStatus(200)
-                .withBody(fileContent);
-    }
+  protected static ResponseDefinitionBuilder response200XmlContent(String fileContent) {
+    return aResponse()
+            .withHeader(CONTENT_TYPE, APPLICATION_XML.getMimeType())
+            .withStatus(200)
+            .withBody(fileContent);
+  }
 
-    protected static ResponseDefinitionBuilder response404() {
-        return aResponse()
-                .withHeader(CONTENT_TYPE, APPLICATION_XML.getMimeType())
-                .withStatus(404);
-    }
+  protected static ResponseDefinitionBuilder response404() {
+    return aResponse()
+            .withHeader(CONTENT_TYPE, APPLICATION_XML.getMimeType())
+            .withStatus(404);
+  }
 
-    public static String getFileContent(String name) throws IOException {
-        return IOUtils.toString(
-                WiremockHelper.class.getResourceAsStream(name),
-                StandardCharsets.UTF_8);
-    }
+  public static String getFileContent(String name) throws IOException {
+    return IOUtils.toString(
+            WiremockHelper.class.getResourceAsStream(name),
+            StandardCharsets.UTF_8);
+  }
 
-    public static ResponseDefinitionBuilder responsTimeoutGreaterThanSocketTimeout(String fileContent, int timeout) {
-        return  aResponse()
-                .withHeader(CONTENT_TYPE, APPLICATION_XML.getMimeType())
-                .withStatus(200)
-                .withBody(fileContent)
-                .withFixedDelay((int) (1.1 * (double) timeout));
-    }
+  public static ResponseDefinitionBuilder responsTimeoutGreaterThanSocketTimeout(String fileContent,
+          int timeout) {
+    return aResponse()
+            .withHeader(CONTENT_TYPE, APPLICATION_XML.getMimeType())
+            .withStatus(200)
+            .withBody(fileContent)
+            .withFixedDelay((int) (1.1 * (double) timeout));
+  }
 }

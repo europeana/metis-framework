@@ -1,5 +1,7 @@
 package eu.europeana.metis.harvesting;
 
+import eu.europeana.metis.harvesting.http.HttpHarvester;
+import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.harvesting.oaipmh.CloseableHttpOaiClient;
 import eu.europeana.metis.harvesting.oaipmh.OaiHarvester;
 import eu.europeana.metis.harvesting.oaipmh.OaiHarvesterImpl;
@@ -8,6 +10,10 @@ public final class HarvesterFactory {
 
   private HarvesterFactory() {
     // Class not meant to be instantiated.
+  }
+
+  public static HttpHarvester createHttpHarvester() {
+    return new HttpHarvesterImpl();
   }
 
   public static OaiHarvester createOaiHarvester() {

@@ -71,7 +71,7 @@ public class CloseableHttpOaiClientTest extends WiremockHelper {
             .willReturn(response200XmlContent(fileContent)));
     final Parameters parameters = mock(Parameters.class);
     when(parameters.toUrl(ENDPOINT)).thenReturn(URL);
-    try(final CloseableHttpOaiClient client = CONNECTION_CLIENT_FACTORY.get()){
+    try (final CloseableHttpOaiClient client = CONNECTION_CLIENT_FACTORY.get()) {
       assertEquals(fileContent, TestHelper.convertToString(client.execute(parameters)));
     }
   }

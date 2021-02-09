@@ -16,56 +16,57 @@ import org.junit.Test;
 
 public class OaiRecordParserTest {
 
-    private static final Charset ENCODING = StandardCharsets.UTF_8;
+  private static final Charset ENCODING = StandardCharsets.UTF_8;
 
-    @Test
-    public void shouldFilterOaiDcResponse() throws IOException, HarvesterException {
+  @Test
+  public void shouldFilterOaiDcResponse() throws IOException, HarvesterException {
 
-        //given
-        final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
-        final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-        String content = IOUtils.toString(inputStream, ENCODING);
+    //given
+    final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
+    final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
+    String content = IOUtils.toString(inputStream, ENCODING);
 
-        //when
-        final InputStream result = new OaiRecordParser(content).getRdfRecord();
+    //when
+    final InputStream result = new OaiRecordParser(content).getRdfRecord();
 
-        //then
-        final String actual = TestHelper.convertToString(result);
-        assertThat(actual, TestHelper.isSimilarXml(WiremockHelper.getFileContent("/expectedOaiRecord.xml")));
+    //then
+    final String actual = TestHelper.convertToString(result);
+    assertThat(actual,
+            TestHelper.isSimilarXml(WiremockHelper.getFileContent("/expectedOaiRecord.xml")));
+  }
+
+  @Test
+  public void shouldReturnRecordIsDeleted() throws IOException, HarvesterException {
+    //given
+    final String fileContent = WiremockHelper.getFileContent("/deletedOaiRecord.xml");
+    final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
+    String content = IOUtils.toString(inputStream, ENCODING);
+    assertTrue(new OaiRecordParser(content).recordIsDeleted());
+  }
+
+  @Test
+  public void shouldReturnRecordIsNotDeleted() throws IOException, HarvesterException {
+    //given
+    final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
+    final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
+    String content = IOUtils.toString(inputStream, ENCODING);
+    assertFalse(new OaiRecordParser(content).recordIsDeleted());
+  }
+
+  @Test
+  public void shouldThrowExceptionOnEmpty() throws IOException {
+    //given
+    final String fileContent = "";
+    final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
+    String content = IOUtils.toString(inputStream, ENCODING);
+
+    try {
+      //when
+      new OaiRecordParser(content).getRdfRecord();
+      fail();
+    } catch (HarvesterException e) {
+      //then
+      assertThat(e.getMessage(), is("Cannot xpath XML!"));
     }
-
-    @Test
-    public void shouldReturnRecordIsDeleted() throws IOException, HarvesterException {
-        //given
-        final String fileContent = WiremockHelper.getFileContent("/deletedOaiRecord.xml");
-        final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-        String content = IOUtils.toString(inputStream, ENCODING);
-        assertTrue(new OaiRecordParser(content).recordIsDeleted());
-    }
-
-    @Test
-    public void shouldReturnRecordIsNotDeleted() throws IOException, HarvesterException {
-        //given
-        final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
-        final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-        String content = IOUtils.toString(inputStream, ENCODING);
-        assertFalse(new OaiRecordParser(content).recordIsDeleted());
-    }
-
-    @Test
-    public void shouldThrowExceptionOnEmpty() throws IOException {
-        //given
-        final String fileContent = "";
-        final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-        String content = IOUtils.toString(inputStream, ENCODING);
-
-        try {
-            //when
-            new OaiRecordParser(content).getRdfRecord();
-            fail();
-        } catch (HarvesterException e) {
-            //then
-            assertThat(e.getMessage(), is("Cannot xpath XML!"));
-        }
-    }
+  }
 }

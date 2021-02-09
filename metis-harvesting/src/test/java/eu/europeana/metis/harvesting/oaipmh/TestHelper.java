@@ -10,21 +10,21 @@ import org.xmlunit.matchers.CompareMatcher;
 
 public class TestHelper {
 
-    private TestHelper() {
-        throw new UnsupportedOperationException("Pure static class!");
-    }
+  private TestHelper() {
+    throw new UnsupportedOperationException("Pure static class!");
+  }
 
-    public static String convertToString(InputStream result) throws IOException {
-        try (result) {
-            return IOUtils.toString(result, StandardCharsets.UTF_8);
-        }
+  public static String convertToString(InputStream result) throws IOException {
+    try (result) {
+      return IOUtils.toString(result, StandardCharsets.UTF_8);
     }
+  }
 
-    public static CompareMatcher isSimilarXml(String fileContent) {
-        return isSimilarTo(fileContent)
-                .ignoreComments()
-                .ignoreWhitespace()
-                .normalizeWhitespace()
-                .throwComparisonFailure();
-    }
+  public static CompareMatcher isSimilarXml(String fileContent) {
+    return isSimilarTo(fileContent)
+            .ignoreComments()
+            .ignoreWhitespace()
+            .normalizeWhitespace()
+            .throwComparisonFailure();
+  }
 }

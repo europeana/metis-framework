@@ -2,6 +2,7 @@ package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
+import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -187,8 +188,10 @@ public class OaiHarvesterImpl implements OaiHarvester {
                   nextInput.isDeleted(),
                   Optional.ofNullable(nextInput.getDatestamp()).map(Date::toInstant).orElse(null));
           if (filter.test(nextHeader)) {
-            final boolean continueProcessing = action.acceptAndContinue(nextHeader);
-            if (!continueProcessing) {
+            final IterationResult result = action.process(nextHeader);
+            if (result == null) {
+              throw new IllegalArgumentException("Iteration result cannot be null.");
+            } else if (IterationResult.TERMINATE == result) {
               break;
             }
           }
