@@ -2,6 +2,9 @@ package eu.europeana.metis.harvesting.oaipmh;
 
 import java.time.Instant;
 
+/**
+ * Immutable object representing a OAI-PMH harvest request.
+ */
 public class OaiHarvest extends OaiRepository {
 
   private static final long serialVersionUID = -6300664626628834436L;
@@ -10,6 +13,15 @@ public class OaiHarvest extends OaiRepository {
   private final Instant from;
   private final Instant until;
 
+  /**
+   * Constructor.
+   *
+   * @param repositoryUrl The base url of the repository.
+   * @param metadataPrefix The metadata prefix (optional).
+   * @param setSpec The set spec value.
+   * @param from The from value (optional).
+   * @param until The until value (optional).
+   */
   public OaiHarvest(String repositoryUrl, String metadataPrefix, String setSpec,
           Instant from, Instant until) {
     super(repositoryUrl, metadataPrefix);
@@ -18,6 +30,13 @@ public class OaiHarvest extends OaiRepository {
     this.until = until;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param repositoryUrl The base url of the repository.
+   * @param metadataPrefix The metadata prefix (optional).
+   * @param setSpec The set spec value.
+   */
   public OaiHarvest(String repositoryUrl, String metadataPrefix, String setSpec) {
     this(repositoryUrl, metadataPrefix, setSpec, null, null);
   }

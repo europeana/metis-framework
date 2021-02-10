@@ -6,10 +6,27 @@ import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Implementations of this interface provide iterative access to the decompressed results of a HTTP
+ * (compressed archive) harvest. Note: the class does not clean up the downloaded or decompressed
+ * files.
+ */
 public interface HttpRecordIterator {
 
+  /**
+   * Iterate through the decompressed records.
+   *
+   * @param action The iteration action to be executed for each harvested record.
+   * @throws HarvesterException In case something went wrong during the iteration.
+   */
   void forEach(ReportingIteration<Path> action) throws HarvesterException;
 
+  /**
+   * Count the number of decompressed records.
+   *
+   * @return The number of decompressed records.
+   * @throws HarvesterException In case something went wrong during the counting.
+   */
   default int getExpectedRecordCount() throws HarvesterException {
     final AtomicInteger counter = new AtomicInteger(0);
     forEach(path -> {

@@ -17,12 +17,22 @@ import org.rauschig.jarchivelib.ArchiverFactory;
 import org.rauschig.jarchivelib.CompressionType;
 import org.zeroturnaround.zip.ZipUtil;
 
+/**
+ * This class contains functionality to extract archives.
+ */
 final class CompressedFileExtractor {
 
   private CompressedFileExtractor() {
     // This class is not meant to be instantiated.
   }
 
+  /**
+   * Extract a file.
+   *
+   * @param compressedFile The compressed file.
+   * @param destinationFolder The destination folder.
+   * @throws IOException If there was a problem with the extraction.
+   */
   public static void extractFile(final Path compressedFile, final Path destinationFolder)
           throws IOException {
     final CompressedFileExtension compressingExtension = CompressedFileExtension
@@ -63,7 +73,8 @@ final class CompressedFileExtractor {
 
   private static void extractTarGzFile(final Path compressedFile, final Path destinationFolder)
           throws IOException {
-    final Archiver archiver = ArchiverFactory.createArchiver(ArchiveFormat.TAR, CompressionType.GZIP);
+    final Archiver archiver = ArchiverFactory
+            .createArchiver(ArchiveFormat.TAR, CompressionType.GZIP);
     archiver.extract(compressedFile.toFile(), destinationFolder.toFile());
     final Path newDestination = CompressedFileExtension
             .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));

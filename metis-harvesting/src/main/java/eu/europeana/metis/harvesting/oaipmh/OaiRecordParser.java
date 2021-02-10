@@ -24,11 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
-/*
-We are using non-standard XPatch implementation by purpose.
-The standard one contains some static content that sometimes causes the threading issues.
-Exception that we encountered was:
-    javax.xml.xpath.XPathExpressionException: org.xml.sax.SAXException: FWK005 parse may not be called while parsing.
+/**
+ * <p>This class provides functionality for parsing a full OAI-PMH record (including header).</p>
+ * <p>We are using a non-standard XPatch implementation. The standard one contains some
+ * static content that sometimes causes the threading issues. The exception that we encountered and
+ * are now avoiding is:
+ * <code> javax.xml.xpath.XPathExpressionException: org.xml.sax.SAXException: FWK005 parse may
+ * not be called while parsing</code>.</p>
  */
 class OaiRecordParser {
 
@@ -51,6 +53,12 @@ class OaiRecordParser {
 
   private final String oaiRecord;
 
+  /**
+   * Constructor.
+   *
+   * @param oaiRecord The record to parse as a string value.
+   * @throws HarvesterException In case there was a problem with setting up the parser.
+   */
   OaiRecordParser(String oaiRecord) throws HarvesterException {
     this.oaiRecord = oaiRecord;
     try {
@@ -107,7 +115,8 @@ class OaiRecordParser {
     return expr.evaluate(inputSource);
   }
 
-  private InputStream convertToStream(ArrayList<NodeInfo> nodes) throws TransformerException, HarvesterException {
+  private InputStream convertToStream(ArrayList<NodeInfo> nodes)
+          throws TransformerException, HarvesterException {
     final int length = nodes.size();
     if (length < 1) {
       throw new HarvesterException("Empty XML!");

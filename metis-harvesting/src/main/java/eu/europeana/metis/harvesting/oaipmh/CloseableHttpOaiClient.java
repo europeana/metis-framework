@@ -16,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * This is an implementation of {@link org.dspace.xoai.serviceprovider.client.OAIClient} that needs
+ * to be closed.
+ *
  * @see org.dspace.xoai.serviceprovider.client.HttpOAIClient
  */
 public class CloseableHttpOaiClient implements CloseableOaiClient {
@@ -33,20 +36,50 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
   private final int numberOfRetries;
   private final int timeBetweenRetries;
 
+  /**
+   * Constructor.
+   *
+   * @param baseUrl The base URL of the OAI-PMH repository.
+   */
   public CloseableHttpOaiClient(String baseUrl) {
     this(baseUrl, null);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param baseUrl The base URL of the OAI-PMH repository.
+   * @param userAgent The user agent we wish to set for connections.
+   */
   public CloseableHttpOaiClient(String baseUrl, String userAgent) {
     this(baseUrl, userAgent, DEFAULT_NUMBER_OF_RETRIES, DEFAULT_TIME_BETWEEN_RETRIES);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param baseUrl The base URL of the OAI-PMH repository.
+   * @param userAgent The user agent we wish to set for connections.
+   * @param numberOfRetries The number of retries that we apply to connections.
+   * @param timeBetweenRetries The time (in ms) between any connection retry.
+   */
   public CloseableHttpOaiClient(String baseUrl, String userAgent, int numberOfRetries,
           int timeBetweenRetries) {
     this(baseUrl, userAgent, numberOfRetries, timeBetweenRetries, DEFAULT_REQUEST_TIMEOUT,
             DEFAULT_CONNECTION_TIMEOUT, DEFAULT_SOCKET_TIMEOUT);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param baseUrl The base URL of the OAI-PMH repository.
+   * @param userAgent The user agent we wish to set for connections.
+   * @param numberOfRetries The number of retries that we apply to connections.
+   * @param timeBetweenRetries The time (in ms) between any connection retry.
+   * @param requestTimeout The request timeout (in ms) for connections.
+   * @param connectionTimeout The connection timeout (in ms) for connections.
+   * @param socketTimeout The socket timeout (in ms) for connections.
+   */
   public CloseableHttpOaiClient(String baseUrl, String userAgent, int numberOfRetries,
           int timeBetweenRetries, int requestTimeout, int connectionTimeout, int socketTimeout) {
     this.baseUrl = baseUrl;
@@ -95,12 +128,12 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
     // So we have a request and a response. Set up cleaning for both.
     final Runnable closeAction = () -> Stream.<Closeable>of(response, request::releaseConnection)
             .forEach(closeable -> {
-      try {
-        closeable.close();
-      } catch (RuntimeException | IOException e) {
-        LOGGER.warn("Error while cleaning resources.", e);
-      }
-    });
+              try {
+                closeable.close();
+              } catch (RuntimeException | IOException e) {
+                LOGGER.warn("Error while cleaning resources.", e);
+              }
+            });
 
     // If we don't succeed, we clean up and throw an exception.
     if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
@@ -119,7 +152,7 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
     }
   }
 
-  protected void waitForNextRetry() {
+  private void waitForNextRetry() {
     try {
       Thread.sleep(timeBetweenRetries);
     } catch (InterruptedException ie) {
@@ -128,11 +161,21 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
     }
   }
 
+  /**
+   * An implementation of an input stream that wraps around a source input stream but allows
+   * additional closing functionality.
+   */
   private static class HttpOaiClientInputStream extends InputStream {
 
-    final InputStream source;
-    final Runnable afterClosing;
+    private final InputStream source;
+    private final Runnable afterClosing;
 
+    /**
+     * Constructor.
+     *
+     * @param source The source input stream.
+     * @param afterClosing Additional functionality to be performed after the stream is closed.
+     */
     public HttpOaiClientInputStream(InputStream source, Runnable afterClosing) {
       this.source = source;
       this.afterClosing = afterClosing;

@@ -23,6 +23,9 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * An implementation of the {@link HttpHarvester} functionality.
+ */
 public class HttpHarvesterImpl implements HttpHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);

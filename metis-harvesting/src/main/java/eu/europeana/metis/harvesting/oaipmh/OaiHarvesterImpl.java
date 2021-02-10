@@ -31,6 +31,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
+/**
+ * This class provides an implementation of the {@link OaiHarvester} functionality.
+ */
 public class OaiHarvesterImpl implements OaiHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OaiHarvesterImpl.class);
@@ -43,6 +46,11 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   private final ConnectionClientFactory connectionClientFactory;
 
+  /**
+   * Constructor.
+   *
+   * @param connectionClientFactory A factory for connection clients.
+   */
   public OaiHarvesterImpl(ConnectionClientFactory connectionClientFactory) {
     this.connectionClientFactory = connectionClientFactory;
   }
@@ -152,7 +160,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
   }
 
   /**
-   * Auxiliary interface for harvesting records
+   * Implementations of this interface can provide connection clients.
    */
   public interface ConnectionClientFactory {
 
@@ -166,20 +174,28 @@ public class OaiHarvesterImpl implements OaiHarvester {
   }
 
   /**
-   * Iterator for harvesting
+   * Iterator for harvesting. It wraps a source iterator and provides additional closing
+   * functionality for the connection client.
    */
   private static class HeaderIterator implements OaiRecordHeaderIterator {
 
     private final Iterator<Header> source;
     private final CloseableOaiClient oaiClient;
 
+    /**
+     * Constructor.
+     *
+     * @param source The source iterator.
+     * @param oaiClient The client to close when the iterator is closed.
+     */
     public HeaderIterator(Iterator<Header> source, CloseableOaiClient oaiClient) {
       this.source = source;
       this.oaiClient = oaiClient;
     }
 
     @Override
-    public void forEachFiltered(ReportingIteration<OaiRecordHeader> action, Predicate<OaiRecordHeader> filter)
+    public void forEachFiltered(ReportingIteration<OaiRecordHeader> action,
+            Predicate<OaiRecordHeader> filter)
             throws HarvesterException {
       try {
         while (source.hasNext()) {
