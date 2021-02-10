@@ -3,7 +3,6 @@ package eu.europeana.metis.harvesting.http;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,7 +23,7 @@ public class CompressedFileExtractorZipTest {
   public static final String ZIP_EXTENSION = ".zip";
 
   @Test
-  public void shouldUnpackTheZipFilesRecursively() throws IOException, HarvesterException {
+  public void shouldUnpackTheZipFilesRecursively() throws IOException {
     CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + ZIP_EXTENSION),
             Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
@@ -33,8 +32,7 @@ public class CompressedFileExtractorZipTest {
   }
 
   @Test
-  public void shouldUnpackTheZipFilesWithNestedFoldersRecursively()
-          throws IOException, HarvesterException {
+  public void shouldUnpackTheZipFilesWithNestedFoldersRecursively() throws IOException {
     CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + ZIP_EXTENSION),
             Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
@@ -43,8 +41,7 @@ public class CompressedFileExtractorZipTest {
   }
 
   @Test
-  public void shouldUnpackTheZipFilesWithNestedMixedCompressedFiles()
-          throws IOException, HarvesterException {
+  public void shouldUnpackTheZipFilesWithNestedMixedCompressedFiles() throws IOException {
     CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + ZIP_EXTENSION),
             Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);

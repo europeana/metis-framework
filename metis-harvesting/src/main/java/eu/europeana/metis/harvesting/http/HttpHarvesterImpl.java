@@ -123,8 +123,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
           if (file.getFileName().toString().equals(MAC_TEMP_FILE)) {
             return FileVisitResult.CONTINUE;
           }
-          final String extension = FilenameUtils.getExtension(file.toString());
-          if (CompressedFileExtension.contains(extension)) {
+          if (CompressedFileExtension.forPath(file) != null) {
             return FileVisitResult.CONTINUE;
           }
           final IterationResult result = action.process(file);

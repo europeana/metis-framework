@@ -3,7 +3,6 @@ package eu.europeana.metis.harvesting.http;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,7 +21,7 @@ public class CompressedFileExtractorGzTest {
   private final static String XML_TYPE = "xml";
 
   @Test
-  public void shouldUnpackTheTarGzFilesRecursively() throws IOException, HarvesterException {
+  public void shouldUnpackTheTarGzFilesRecursively() throws IOException {
     CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + ".tar.gz"),
             Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME);
@@ -31,8 +30,7 @@ public class CompressedFileExtractorGzTest {
   }
 
   @Test
-  public void shouldUnpackTheTarGzFilesRecursivelyWithCompressedXMLFiles()
-          throws IOException, HarvesterException {
+  public void shouldUnpackTheTarGzFilesRecursivelyWithCompressedXMLFiles() throws IOException {
     CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + ".tar.gz"),
             Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
@@ -41,8 +39,7 @@ public class CompressedFileExtractorGzTest {
   }
 
   @Test
-  public void shouldUnpackTheTGZFilesRecursivelyWithCompressedXMLFiles()
-          throws IOException, HarvesterException {
+  public void shouldUnpackTheTGZFilesRecursivelyWithCompressedXMLFiles() throws IOException {
     CompressedFileExtractor
             .extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + ".tgz"), Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
@@ -51,8 +48,7 @@ public class CompressedFileExtractorGzTest {
   }
 
   @Test
-  public void shouldUnpackTheTarGzFilesRecursivelyWithMixedNestedCompressedFiles()
-          throws IOException, HarvesterException {
+  public void shouldUnpackTheTarGzFilesRecursivelyWithMixedNestedCompressedFiles() throws IOException {
     CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + ".tar.gz"),
             Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME3);
