@@ -61,4 +61,50 @@ public class OaiHarvest extends OaiRepository {
             ", until=" + until +
             "} " + super.toString();
   }
+
+  /**
+   * Builder class for instances of {@link OaiHarvest}.
+   */
+  public static class Builder {
+
+    private String repositoryUrl;
+    private String metadataPrefix;
+    private String setSpec;
+    private Instant from;
+    private Instant until;
+
+    public Builder setRepositoryUrl(String repositoryUrl) {
+      this.repositoryUrl = repositoryUrl;
+      return this;
+    }
+
+    public Builder setMetadataPrefix(String metadataPrefix) {
+      this.metadataPrefix = metadataPrefix;
+      return this;
+    }
+
+    public Builder setSetSpec(String setSpec) {
+      this.setSpec = setSpec;
+      return this;
+    }
+
+    public Builder setFrom(Instant from) {
+      this.from = from;
+      return this;
+    }
+
+    public Builder setUntil(Instant until) {
+      this.until = until;
+      return this;
+    }
+
+    /**
+     * Build.
+     *
+     * @return The instance.
+     */
+    public OaiHarvest createOaiHarvest() {
+      return new OaiHarvest(repositoryUrl, metadataPrefix, setSpec, from, until);
+    }
+  }
 }

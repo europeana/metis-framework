@@ -30,7 +30,7 @@ public final class HarvesterFactory {
    * @return A new instance of an OAI harvester.
    */
   public static OaiHarvester createOaiHarvester() {
-    return new OaiHarvesterImpl(CloseableHttpOaiClient::new);
+    return createOaiHarvester(new HarvestingClientSettings());
   }
 
   /**
@@ -43,24 +43,17 @@ public final class HarvesterFactory {
    */
   public static OaiHarvester createOaiHarvester(String userAgent, int numberOfRetries,
           int timeBetweenRetries) {
-    return new OaiHarvesterImpl(baseUrl ->
-            new CloseableHttpOaiClient(baseUrl, userAgent, numberOfRetries, timeBetweenRetries));
+    return createOaiHarvester(new HarvestingClientSettings().setUserAgent(userAgent)
+            .setNumberOfRetries(numberOfRetries).setTimeBetweenRetries(timeBetweenRetries));
   }
 
   /**
    * Create a harvester for OAI harvesting.
    *
-   * @param userAgent The user agent we wish to set for connections.
-   * @param numberOfRetries The number of retries that we apply to connections.
-   * @param timeBetweenRetries The time (in ms) between any connection retry.
-   * @param requestTimeout The request timeout (in ms) for connections.
-   * @param connectionTimeout The connection timeout (in ms) for connections.
-   * @param socketTimeout The socket timeout (in ms) for connections.
+   * @param settings The client settings to apply.
    * @return A new instance of an OAI harvester.
    */
-  public static OaiHarvester createOaiHarvester(String userAgent, int numberOfRetries,
-          int timeBetweenRetries, int requestTimeout, int connectionTimeout, int socketTimeout) {
-    return new OaiHarvesterImpl(baseUrl -> new CloseableHttpOaiClient(baseUrl, userAgent,
-            numberOfRetries, timeBetweenRetries, requestTimeout, connectionTimeout, socketTimeout));
+  public static OaiHarvester createOaiHarvester(HarvestingClientSettings settings) {
+    return new OaiHarvesterImpl(baseUrl -> new CloseableHttpOaiClient(baseUrl, settings));
   }
 }

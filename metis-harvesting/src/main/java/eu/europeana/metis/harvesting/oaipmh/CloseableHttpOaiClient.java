@@ -1,5 +1,6 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
+import eu.europeana.metis.harvesting.HarvestingClientSettings;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,12 +26,6 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CloseableHttpOaiClient.class);
 
-  private static final int DEFAULT_REQUEST_TIMEOUT = 60_000 /* = 1min */;
-  private static final int DEFAULT_CONNECTION_TIMEOUT = 30_000 /* = 30sec */;
-  private static final int DEFAULT_SOCKET_TIMEOUT = 300_000 /* = 5min */;
-  private static final int DEFAULT_NUMBER_OF_RETRIES = 3;
-  private static final int DEFAULT_TIME_BETWEEN_RETRIES = 5_000 /* = 5sec */;
-
   private final String baseUrl;
   private final CloseableHttpClient httpClient;
   private final int numberOfRetries;
@@ -40,59 +35,20 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
    * Constructor.
    *
    * @param baseUrl The base URL of the OAI-PMH repository.
+   * @param settings The client settings.
    */
-  public CloseableHttpOaiClient(String baseUrl) {
-    this(baseUrl, null);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param baseUrl The base URL of the OAI-PMH repository.
-   * @param userAgent The user agent we wish to set for connections.
-   */
-  public CloseableHttpOaiClient(String baseUrl, String userAgent) {
-    this(baseUrl, userAgent, DEFAULT_NUMBER_OF_RETRIES, DEFAULT_TIME_BETWEEN_RETRIES);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param baseUrl The base URL of the OAI-PMH repository.
-   * @param userAgent The user agent we wish to set for connections.
-   * @param numberOfRetries The number of retries that we apply to connections.
-   * @param timeBetweenRetries The time (in ms) between any connection retry.
-   */
-  public CloseableHttpOaiClient(String baseUrl, String userAgent, int numberOfRetries,
-          int timeBetweenRetries) {
-    this(baseUrl, userAgent, numberOfRetries, timeBetweenRetries, DEFAULT_REQUEST_TIMEOUT,
-            DEFAULT_CONNECTION_TIMEOUT, DEFAULT_SOCKET_TIMEOUT);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param baseUrl The base URL of the OAI-PMH repository.
-   * @param userAgent The user agent we wish to set for connections.
-   * @param numberOfRetries The number of retries that we apply to connections.
-   * @param timeBetweenRetries The time (in ms) between any connection retry.
-   * @param requestTimeout The request timeout (in ms) for connections.
-   * @param connectionTimeout The connection timeout (in ms) for connections.
-   * @param socketTimeout The socket timeout (in ms) for connections.
-   */
-  public CloseableHttpOaiClient(String baseUrl, String userAgent, int numberOfRetries,
-          int timeBetweenRetries, int requestTimeout, int connectionTimeout, int socketTimeout) {
+  public CloseableHttpOaiClient(String baseUrl, HarvestingClientSettings settings) {
     this.baseUrl = baseUrl;
-    this.numberOfRetries = numberOfRetries;
-    this.timeBetweenRetries = timeBetweenRetries;
+    this.numberOfRetries = settings.getNumberOfRetries();
+    this.timeBetweenRetries = settings.getTimeBetweenRetries();
     final RequestConfig requestConfig = RequestConfig.custom()
-            .setConnectTimeout(connectionTimeout)
-            .setSocketTimeout(socketTimeout)
-            .setConnectionRequestTimeout(requestTimeout)
+            .setConnectTimeout(settings.getConnectionTimeout())
+            .setSocketTimeout(settings.getSocketTimeout())
+            .setConnectionRequestTimeout(settings.getRequestTimeout())
             .build();
     this.httpClient = HttpClientBuilder.create()
             .setDefaultRequestConfig(requestConfig)
-            .setUserAgent(userAgent)
+            .setUserAgent(settings.getUserAgent())
             .build();
   }
 
