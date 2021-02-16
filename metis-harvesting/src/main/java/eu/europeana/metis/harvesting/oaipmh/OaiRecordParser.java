@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -18,6 +19,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactoryConfigurationException;
 import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.slf4j.Logger;
@@ -64,12 +66,14 @@ class OaiRecordParser {
     try {
       synchronized (OaiHarvesterImpl.class) {
         if (metadataExpression == null || isDeletedExpression == null) {
-          final XPath xpath = new XPathFactoryImpl().newXPath();
+          final XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
+          xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+          final XPath xpath = xpathFactory.newXPath();
           metadataExpression = xpath.compile(METADATA_XPATH);
           isDeletedExpression = xpath.compile(IS_DELETED_XPATH);
         }
       }
-    } catch (RuntimeException | XPathExpressionException e) {
+    } catch (RuntimeException | XPathExpressionException | XPathFactoryConfigurationException e) {
       LOGGER.error("Exception while compiling the xpath.");
       throw new HarvesterException("Error while compiling the xpath.", e);
     }

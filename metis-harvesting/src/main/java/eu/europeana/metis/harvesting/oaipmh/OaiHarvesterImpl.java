@@ -10,12 +10,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
+import javax.xml.XMLConstants;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
 import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Header;
 import org.dspace.xoai.model.oaipmh.Verb;
@@ -134,9 +136,11 @@ public class OaiHarvesterImpl implements OaiHarvester {
     final InputSource inputSource = new SAXSource(new InputSource(stream)).getInputSource();
     final XPathExpression expr;
     try {
-      final XPath xpath = XPathFactory.newInstance().newXPath();
+      final XPathFactory xpathFactory = XPathFactory.newInstance();
+      xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      final XPath xpath = xpathFactory.newXPath();
       expr = xpath.compile(COMPLETE_LIST_SIZE_XPATH);
-    } catch (XPathExpressionException e) {
+    } catch (XPathExpressionException | XPathFactoryConfigurationException e) {
       throw new HarvesterException("Cannot compile xpath expression.", e);
     }
     try {
