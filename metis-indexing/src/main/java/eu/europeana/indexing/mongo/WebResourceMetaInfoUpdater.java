@@ -7,6 +7,7 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
+import eu.europeana.indexing.mongo.property.MongoObjectManager;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
 import eu.europeana.metis.mongo.dao.RecordDao;
@@ -25,8 +26,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Field updater for instances of {@link WebResourceMetaInfoImpl}.
  */
-public class WebResourceMetaInfoUpdater
-    extends AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation> {
+public class WebResourceMetaInfoUpdater extends
+        AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation> implements
+        MongoObjectManager<WebResourceMetaInfoImpl, WebResourceInformation> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebResourceMetaInfoUpdater.class);
 
@@ -144,5 +146,12 @@ public class WebResourceMetaInfoUpdater
     final Function<I, P> nullablePropertyGetter =
         info -> Optional.ofNullable(info).map(propertyGetter).orElse(null);
     return infoGetter.andThen(nullablePropertyGetter);
+  }
+
+  @Override
+  public void delete(WebResourceInformation ancestorInformation, RecordDao mongoServer) {
+    final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
+            ancestorInformation.getRootAbout());
+    createQuery(mongoServer, hashCode).delete();
   }
 }
