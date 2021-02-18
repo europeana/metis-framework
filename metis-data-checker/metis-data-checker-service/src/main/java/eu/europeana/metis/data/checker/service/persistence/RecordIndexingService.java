@@ -64,7 +64,7 @@ public class RecordIndexingService {
    * @throws IndexingException In case indexing failed.
    */
   public void createRecord(RDF rdf, Date recordDate) throws IndexingException {
-    indexer.indexRdf(rdf, recordDate, false, null, false);
+    indexer.indexRdf(rdf, recordDate, false, null, false, true);
   }
 
   /**
