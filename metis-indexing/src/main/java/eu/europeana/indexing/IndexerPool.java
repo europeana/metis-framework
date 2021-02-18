@@ -91,14 +91,15 @@ public class IndexerPool implements Closeable {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param performRedirects flag that indicates whether redirect should be performed
+   * @param performTierCalculation flag that indicates whether tier calculation should be performed
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects)
-      throws IndexingException {
-    indexRecord(indexer -> indexer
-        .index(record, recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects));
+          List<String> datasetIdsForRedirection, boolean performRedirects,
+          boolean performTierCalculation) throws IndexingException {
+    indexRecord(indexer -> indexer.index(record, recordDate, preserveUpdateAndCreateTimesFromRdf,
+            datasetIdsForRedirection, performRedirects, performTierCalculation));
   }
 
   /**
@@ -111,14 +112,15 @@ public class IndexerPool implements Closeable {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param performRedirects flag that indicates whether redirect should be performed
+   * @param performTierCalculation flag that indicates whether tier calculation should be performed
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects)
-      throws IndexingException {
+          List<String> datasetIdsForRedirection, boolean performRedirects,
+          boolean performTierCalculation) throws IndexingException {
     indexRecord(indexer -> indexer.indexRdf(record, recordDate, preserveUpdateAndCreateTimesFromRdf,
-        datasetIdsForRedirection, performRedirects));
+        datasetIdsForRedirection, performRedirects, performTierCalculation));
   }
 
   private void indexRecord(IndexTask indexTask) throws IndexingException {
