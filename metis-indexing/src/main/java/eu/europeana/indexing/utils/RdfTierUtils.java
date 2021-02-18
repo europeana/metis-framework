@@ -16,11 +16,12 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,9 +32,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class RdfTierUtils {
 
-  private static Map<String, RdfTier> tiersByUri = Collections.unmodifiableMap(
+  private static final Map<String, RdfTier> tiersByUri = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getUri, Function.identity())));
-  private static Map<Enum<? extends Tier>, RdfTier> tiersByValue = Collections.unmodifiableMap(
+  private static final Map<Enum<? extends Tier>, RdfTier> tiersByValue = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getTier, Function.identity())));
 
   private RdfTierUtils() {
@@ -88,10 +89,12 @@ public final class RdfTierUtils {
 
     // Determine if there is something to reference and somewhere to add the reference.
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    final String aggregationAbout = rdfWrapper.getAggregations().stream().filter(Objects::nonNull)
-        .map(Aggregation::getAbout).filter(StringUtils::isNotBlank).findAny()
-        .orElseThrow(() -> new RecordRelatedIndexingException(
-            "Cannot find provider aggregation in record."));
+    final Set<String> aggregationAbouts = rdfWrapper.getAggregations().stream()
+            .filter(Objects::nonNull).map(Aggregation::getAbout).filter(StringUtils::isNotBlank)
+            .collect(Collectors.toSet());
+    if (aggregationAbouts.isEmpty()) {
+      throw new RecordRelatedIndexingException("Cannot find provider aggregation in record.");
+    }
     final EuropeanaAggregationType europeanaAggregation = rdfWrapper.getEuropeanaAggregation()
         .orElseThrow(() -> new RecordRelatedIndexingException(
             "Cannot find Europeana aggregation in record."));
@@ -105,9 +108,11 @@ public final class RdfTierUtils {
     final Created created = new Created();
     created.setString(Instant.now().toString());
     annotation.setCreated(created);
-    final HasTarget hasTarget = new HasTarget();
-    hasTarget.setResource(aggregationAbout);
-    annotation.setHasTargetList(Collections.singletonList(hasTarget));
+    annotation.setHasTargetList(aggregationAbouts.stream().map(about -> {
+      final HasTarget hasTarget = new HasTarget();
+      hasTarget.setResource(about);
+      return hasTarget;
+    }).collect(Collectors.toList()));
     final HasBody hasBody = new HasBody();
     hasBody.setResource(tier.getUri());
     annotation.setHasBody(hasBody);
@@ -124,9 +129,9 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = new HasQualityAnnotation();
     link.setResource(annotation.getAbout());
     final Stream<HasQualityAnnotation> existingLinks = Optional
-        .ofNullable(europeanaAggregation.getHasQualityAnnotationList()).map(List::stream)
-        .orElseGet(Stream::empty)
-        .filter(existingLink -> !link.getResource().equals(existingLink.getResource()));
+            .ofNullable(europeanaAggregation.getHasQualityAnnotationList()).stream()
+            .flatMap(Collection::stream)
+            .filter(existingLink -> !link.getResource().equals(existingLink.getResource()));
     europeanaAggregation.setHasQualityAnnotationList(
         Stream.concat(existingLinks, Stream.of(link)).collect(Collectors.toList()));
   }
