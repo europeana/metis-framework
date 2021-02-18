@@ -625,6 +625,7 @@
     <!--ASSERT -->
     <xsl:choose>
       <xsl:when test="not(edm:europeanaProxy) or edm:europeanaProxy='false'">
+        <xsl:if test="not(ore:lineage)">
         <xsl:choose>
           <xsl:when test="dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial">
           </xsl:when>
@@ -706,8 +707,7 @@
             </svrl:failed-assert>
           </xsl:otherwise>
         </xsl:choose>
-
-
+        </xsl:if>
       </xsl:when>
       <xsl:otherwise>
         <xsl:choose>
