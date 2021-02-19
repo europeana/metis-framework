@@ -1,5 +1,6 @@
 package eu.europeana.metis.harvesting.http;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -80,9 +81,9 @@ final class CompressedFileExtractor {
             .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));
     final Set<Path> nestedCompressedFiles;
     try (Stream<Path> nestedFilesStream = Files.walk(newDestination)) {
-      nestedCompressedFiles = nestedFilesStream
+      nestedCompressedFiles = performFunction(nestedFilesStream, stream -> stream
               .filter(CompressedFileExtension::hasCompressedFileExtension)
-              .collect(Collectors.toSet());
+              .collect(Collectors.toSet()));
     }
     for (Path file : nestedCompressedFiles) {
       extractFile(file, file.getParent());

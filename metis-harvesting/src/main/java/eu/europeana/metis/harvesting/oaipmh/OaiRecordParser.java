@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -55,16 +56,9 @@ class OaiRecordParser {
 
   private final String oaiRecord;
 
-  /**
-   * Constructor.
-   *
-   * @param oaiRecord The record to parse as a string value.
-   * @throws HarvesterException In case there was a problem with setting up the parser.
-   */
-  OaiRecordParser(String oaiRecord) throws HarvesterException {
-    this.oaiRecord = oaiRecord;
+  private static void initializeExpressions() throws HarvesterException {
     try {
-      synchronized (OaiHarvesterImpl.class) {
+      synchronized (OaiRecordParser.class) {
         if (metadataExpression == null || isDeletedExpression == null) {
           final XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
           xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -77,6 +71,17 @@ class OaiRecordParser {
       LOGGER.error("Exception while compiling the xpath.");
       throw new HarvesterException("Error while compiling the xpath.", e);
     }
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param oaiRecord The record to parse as a string value.
+   * @throws HarvesterException In case there was a problem with setting up the parser.
+   */
+  OaiRecordParser(String oaiRecord) throws HarvesterException {
+    initializeExpressions();
+    this.oaiRecord = oaiRecord;
   }
 
   /**
@@ -119,7 +124,7 @@ class OaiRecordParser {
     return expr.evaluate(inputSource);
   }
 
-  private InputStream convertToStream(ArrayList<NodeInfo> nodes)
+  private InputStream convertToStream(List<NodeInfo> nodes)
           throws TransformerException, HarvesterException {
     final int length = nodes.size();
     if (length < 1) {
