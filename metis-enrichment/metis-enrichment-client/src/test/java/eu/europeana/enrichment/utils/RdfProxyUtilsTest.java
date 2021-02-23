@@ -3,15 +3,15 @@ package eu.europeana.enrichment.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.schema.jibx.Coverage;
-import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
-import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.EuropeanaProxy;
+import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -127,25 +127,19 @@ public class RdfProxyUtilsTest {
 
     TEST_RDF.setProxyList(proxyList);
 
-    ProxyType output = RdfProxyUtils.getProviderProxy(TEST_RDF);
-
+    List<ProxyType> output = RdfProxyUtils.getProviderProxies(TEST_RDF);
     assertNotNull(output);
-    assertFalse(output.getEuropeanaProxy().isEuropeanaProxy());
-    assertEquals(proxyProvider, output);
-
+    assertEquals(1, output.size());
+    assertNotNull(output.get(0));
+    assertFalse(output.get(0).getEuropeanaProxy().isEuropeanaProxy());
+    assertEquals(proxyProvider, output.get(0));
   }
 
   @Test
   void testGetProviderProxyWithoutProvider(){
-
     TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
-
-    Exception exception = assertThrows(RuntimeException.class, () -> {
-      RdfProxyUtils.getProviderProxy(TEST_RDF);
-    });
-
-    assertEquals(exception.getMessage(), "Could not find provider proxy.");
-    assertEquals(exception.getClass(), IllegalArgumentException.class);
-
+    List<ProxyType> output = RdfProxyUtils.getProviderProxies(TEST_RDF);
+    assertNotNull(output);
+    assertTrue(output.isEmpty());
   }
 }

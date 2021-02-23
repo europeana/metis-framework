@@ -21,6 +21,7 @@ import eu.europeana.metis.schema.jibx._Object;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -201,12 +202,12 @@ public class EnrichmentUtilsTest {
     RDF newRdf = new RDF();
     RDF toCompare = new RDF();
     ProxyType emptyEuropeanaProxy = new ProxyType();
+    emptyEuropeanaProxy.setEuropeanaProxy(new EuropeanaProxy());
+    emptyEuropeanaProxy.getEuropeanaProxy().setEuropeanaProxy(true);
     ProxyType emptyProviderProxy = new ProxyType();
     EuropeanaAggregationType emptyAggregation = new EuropeanaAggregationType();
 
-    ArrayList<ProxyType> proxyList = new ArrayList<>();
-    proxyList.add(emptyEuropeanaProxy);
-    proxyList.add(emptyProviderProxy);
+    List<ProxyType> proxyList = List.of(emptyEuropeanaProxy, emptyProviderProxy);
 
     newRdf.setEuropeanaAggregationList(Collections.singletonList(emptyAggregation));
     newRdf.setProxyList(proxyList);

@@ -3,6 +3,7 @@ package eu.europeana.enrichment.utils;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Completeness;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.ProxyType;
@@ -52,27 +53,25 @@ public final class EnrichmentUtils {
   public static void setAdditionalData(RDF rdf) {
 
     // Get the provider and europeana proxy
-    final ProxyType providerProxy = rdf.getProxyList().stream()
-        .filter(proxy -> !isEuropeanaProxy(proxy)).findAny().orElse(null);
-    final ProxyType europeanaProxy = rdf.getProxyList().stream()
-        .filter(EnrichmentUtils::isEuropeanaProxy).findAny().orElse(null);
-    if (providerProxy == null || europeanaProxy == null) {
+    final List<ProxyType> providerProxies = RdfProxyUtils.getProviderProxies(rdf);
+    if (providerProxies.isEmpty()) {
       return;
     }
+    final ProxyType europeanaProxy = RdfProxyUtils.getEuropeanaProxy(rdf);
 
     // Calculate completeness first
     EuropeanaAggregationType europeanaAggregation = rdf.getEuropeanaAggregationList().stream()
         .findAny().orElse(null);
     if (europeanaAggregation != null) {
       Completeness completeness = new Completeness();
-      completeness.setString(Integer
-          .toString(computeEuropeanaCompleteness(providerProxy, rdf.getAggregationList().get(0))));
+      completeness.setString(Integer.toString(
+              computeEuropeanaCompleteness(providerProxies, rdf.getAggregationList())));
       europeanaAggregation.setCompleteness(completeness);
     }
 
     // Obtain the date strings from the various proxy fields.
-    final List<String> dateStrings =
-        providerProxy.getChoiceList().stream().map(EnrichmentUtils::getDateFromChoice)
+    final List<String> dateStrings = providerProxies.stream().map(EuropeanaType::getChoiceList)
+            .flatMap(Collection::stream).map(EnrichmentUtils::getDateFromChoice)
             .filter(Objects::nonNull).collect(Collectors.toList());
 
     // Parse them and set them in the europeana proxy.
@@ -103,10 +102,6 @@ public final class EnrichmentUtils {
     return result == null ? null : result.getString();
   }
 
-  private static boolean isEuropeanaProxy(ProxyType proxy) {
-    return proxy.getEuropeanaProxy() != null && proxy.getEuropeanaProxy().isEuropeanaProxy();
-  }
-
   /**
    * Calculates the Europeana Completeness.
    *
@@ -124,25 +119,27 @@ public final class EnrichmentUtils {
    * value of points is 5</li>
    * </ul>
    *
-   * @param providerProxy the provider proxy
-   * @param aggregation the provider aggregation
+   * @param providerProxies the provider proxies
+   * @param providerAggregations the provider aggregations
    * @return the points awarded to the record
    */
-  private static int computeEuropeanaCompleteness(final ProxyType providerProxy,
-      final Aggregation aggregation) {
+  private static int computeEuropeanaCompleteness(final List<ProxyType> providerProxies,
+      final List<Aggregation> providerAggregations) {
+
     List<String> tags = new ArrayList<>();
     List<String> descriptions = new ArrayList<>();
     List<String> titles = new ArrayList<>();
-    List<Choice> choices = providerProxy.getChoiceList();
-    if (choices != null) {
-      Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap = createCollectionsForResourceOrLiteralType(
-          choices, descriptions, titles);
-      addResourceOrLiteralTypeFromMapsToList(uniqueResourceOrLiteralTypeClassesMap, tags);
-    }
 
-    String thumbnailUrl = Optional.ofNullable(aggregation.getObject())
-        .map(ResourceType::getResource)
-        .orElse(null);
+    List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList)
+            .filter(Objects::nonNull).flatMap(Collection::stream).collect(Collectors.toList());
+    Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap = createCollectionsForResourceOrLiteralType(
+        choices, descriptions, titles);
+    addResourceOrLiteralTypeFromMapsToList(uniqueResourceOrLiteralTypeClassesMap, tags);
+
+    final String thumbnailUrl = Optional.ofNullable(providerAggregations).stream()
+            .flatMap(Collection::stream).filter(Objects::nonNull).map(Aggregation::getObject)
+            .filter(Objects::nonNull).map(ResourceType::getResource).filter(Objects::nonNull)
+            .findAny().orElse(null);
 
     return completenessCalculation(thumbnailUrl, titles, descriptions, tags);
   }
@@ -226,8 +223,7 @@ public final class EnrichmentUtils {
   }
 
   private static void addResourceOrLiteralTypeFromMapsToList(
-      final Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap,
-      List<String> tags) {
+      final Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap, List<String> tags) {
     uniqueResourceOrLiteralTypeClassesMap.values().stream().filter(StringUtils::isNotBlank)
         .forEach(tags::add);
   }
