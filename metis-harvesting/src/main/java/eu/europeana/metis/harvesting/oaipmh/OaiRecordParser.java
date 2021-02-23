@@ -94,7 +94,7 @@ class OaiRecordParser {
     try {
       final InputSource inputSource = getInputSource();
       // Note that this is created safely, so this is a false positive by SonarQube.
-      @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
+      @SuppressWarnings("findsecbugs:XXE_XPATH")
       final ArrayList<NodeInfo> result = (ArrayList<NodeInfo>) metadataExpression
               .evaluate(inputSource, XPathConstants.NODESET);
       return convertToStream(result);
@@ -112,7 +112,7 @@ class OaiRecordParser {
   boolean recordIsDeleted() throws HarvesterException {
     try {
       // Note that this is created safely, so this is a false positive by SonarQube.
-      @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
+      @SuppressWarnings("findsecbugs:XXE_XPATH")
       final String result = isDeletedExpression.evaluate(getInputSource());
       return "deleted".equalsIgnoreCase(result);
     } catch (XPathExpressionException e) {
