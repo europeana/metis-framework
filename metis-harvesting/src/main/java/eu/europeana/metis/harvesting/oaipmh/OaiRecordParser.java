@@ -62,6 +62,7 @@ class OaiRecordParser {
         if (metadataExpression == null || isDeletedExpression == null) {
           final XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
           xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+          xpathFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
           final XPath xpath = xpathFactory.newXPath();
           metadataExpression = xpath.compile(METADATA_XPATH);
           isDeletedExpression = xpath.compile(IS_DELETED_XPATH);
@@ -109,7 +110,7 @@ class OaiRecordParser {
    */
   boolean recordIsDeleted() throws HarvesterException {
     try {
-      return "deleted".equalsIgnoreCase(evaluateExpressionAsString(isDeletedExpression));
+      return "deleted".equalsIgnoreCase(isDeletedExpression.evaluate(getInputSource()));
     } catch (XPathExpressionException e) {
       throw new HarvesterException("Cannot xpath XML!", e);
     }
@@ -117,11 +118,6 @@ class OaiRecordParser {
 
   private InputSource getInputSource() {
     return new SAXSource(new InputSource(new StringReader(oaiRecord))).getInputSource();
-  }
-
-  private String evaluateExpressionAsString(XPathExpression expr) throws XPathExpressionException {
-    final InputSource inputSource = getInputSource();
-    return expr.evaluate(inputSource);
   }
 
   private InputStream convertToStream(List<NodeInfo> nodes)

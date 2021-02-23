@@ -71,7 +71,9 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
 
   private InputStream executeOnce(Parameters parameters) throws HttpException {
 
-    // Set up the request and the response.
+    // Set up the request and the response. Note: we are aware that the user can inject parameters
+    // in the provided URL, but that is currently the exact functionality we need to support.
+    @SuppressWarnings("findsecbugs:HTTP_PARAMETER_POLLUTION")
     final HttpGet request = new HttpGet(parameters.toUrl(baseUrl));
     final CloseableHttpResponse response;
     try {

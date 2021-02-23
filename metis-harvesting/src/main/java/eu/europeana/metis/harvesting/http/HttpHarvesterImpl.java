@@ -36,7 +36,9 @@ public class HttpHarvesterImpl implements HttpHarvester {
   public HttpRecordIterator harvestRecords(String archiveUrl, String downloadDirectory)
           throws HarvesterException {
 
-    // Download the archive.
+    // Download the archive. Note that we allow any directory here (even on other file systems),
+    // the calling code is responsible for providing this parameter and should do so properly.
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
     final Path downloadDirectoryPath = Paths.get(downloadDirectory);
     final Path downloadedFile;
     try {
@@ -70,6 +72,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
   private Path downloadFile(String archiveUrl, Path downloadDirectory) throws IOException {
     final Path directory = Files.createDirectories(downloadDirectory);
     final Path file = directory.resolve(FilenameUtils.getName(archiveUrl));
+    // Note: we allow any download URL for http harvesting. This is the functionality we support.
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
     final URLConnection conn = new URL(archiveUrl).openConnection();
     try (final InputStream inputStream = conn.getInputStream();
             final OutputStream outputStream = Files.newOutputStream(file)) {
