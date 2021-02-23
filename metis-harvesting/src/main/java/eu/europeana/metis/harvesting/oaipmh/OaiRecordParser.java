@@ -62,7 +62,6 @@ class OaiRecordParser {
         if (metadataExpression == null || isDeletedExpression == null) {
           final XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
           xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-          xpathFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
           final XPath xpath = xpathFactory.newXPath();
           metadataExpression = xpath.compile(METADATA_XPATH);
           isDeletedExpression = xpath.compile(IS_DELETED_XPATH);
@@ -94,6 +93,8 @@ class OaiRecordParser {
   InputStream getRdfRecord() throws HarvesterException {
     try {
       final InputSource inputSource = getInputSource();
+      // Note that this is created safely, so this is a false positive by SonarQube.
+      @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
       final ArrayList<NodeInfo> result = (ArrayList<NodeInfo>) metadataExpression
               .evaluate(inputSource, XPathConstants.NODESET);
       return convertToStream(result);
@@ -110,7 +111,10 @@ class OaiRecordParser {
    */
   boolean recordIsDeleted() throws HarvesterException {
     try {
-      return "deleted".equalsIgnoreCase(isDeletedExpression.evaluate(getInputSource()));
+      // Note that this is created safely, so this is a false positive by SonarQube.
+      @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
+      final String result = isDeletedExpression.evaluate(getInputSource());
+      return "deleted".equalsIgnoreCase(result);
     } catch (XPathExpressionException e) {
       throw new HarvesterException("Cannot xpath XML!", e);
     }
