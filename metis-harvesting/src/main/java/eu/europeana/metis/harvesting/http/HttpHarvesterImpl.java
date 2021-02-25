@@ -79,6 +79,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
       throw new IOException("This functionality does not support this protocol ("
               + archiveUrl.getProtocol() + ").");
     }
+    // Note: we allow any download URL for http harvesting. This is the functionality we support.
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
     final URLConnection conn = archiveUrl.openConnection();
     try (final InputStream inputStream = conn.getInputStream();
             final OutputStream outputStream = Files.newOutputStream(file)) {
