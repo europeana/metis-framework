@@ -90,6 +90,7 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
     testArrayPropertyUpdate(propertyUpdater, "edmWasPresentAt", ProxyImpl::setEdmWasPresentAt);
     testArrayPropertyUpdate(propertyUpdater, "proxyIn", ProxyImpl::setProxyIn);
     testStringPropertyUpdate(propertyUpdater, "proxyFor", ProxyImpl::setProxyFor);
+    testArrayPropertyUpdate(propertyUpdater, "lineage", ProxyImpl::setLineage);
     testStringPropertyUpdate(propertyUpdater, "edmIsRepresentationOf",
         ProxyImpl::setEdmIsRepresentationOf);
     testObjectPropertyUpdate(propertyUpdater, "europeanaProxy", ProxyImpl::setEuropeanaProxy,
