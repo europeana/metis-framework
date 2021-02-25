@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HttpHarvesterImpl implements HttpHarvester {
 
+  private static final Set<String> SUPPORTED_PROTOCOLS = Set.of("http", "https", "file");
+
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
   @Override
@@ -69,12 +71,15 @@ public class HttpHarvesterImpl implements HttpHarvester {
     return new FileIterator(extractedDirectory);
   }
 
-  private Path downloadFile(String archiveUrl, Path downloadDirectory) throws IOException {
+  private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException {
     final Path directory = Files.createDirectories(downloadDirectory);
-    final Path file = directory.resolve(FilenameUtils.getName(archiveUrl));
-    // Note: we allow any download URL for http harvesting. This is the functionality we support.
-    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
-    final URLConnection conn = new URL(archiveUrl).openConnection();
+    final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
+    final URL archiveUrl = new URL(archiveUrlString);
+    if (!SUPPORTED_PROTOCOLS.contains(archiveUrl.getProtocol())) {
+      throw new IOException("This functionality does not support this protocol ("
+              + archiveUrl.getProtocol() + ").");
+    }
+    final URLConnection conn = archiveUrl.openConnection();
     try (final InputStream inputStream = conn.getInputStream();
             final OutputStream outputStream = Files.newOutputStream(file)) {
       IOUtils.copyLarge(inputStream, outputStream);

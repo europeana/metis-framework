@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
 import javax.xml.XMLConstants;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -43,8 +42,8 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   private static final String COMPLETE_LIST_SIZE_XPATH =
           "/*[local-name()='OAI-PMH']" +
-                  "/*[local-name()='ListIdentifiers']" +
-                  "/*[local-name()='resumptionToken']";
+          "/*[local-name()='ListIdentifiers']" +
+          "/*[local-name()='resumptionToken']";
   public static final String COMPLETE_LIST_SIZE = "completeListSize";
 
   private final ConnectionClientFactory connectionClientFactory;
@@ -145,9 +144,9 @@ public class OaiHarvesterImpl implements OaiHarvester {
     } catch (XPathExpressionException | XPathFactoryConfigurationException e) {
       throw new HarvesterException("Cannot compile xpath expression.", e);
     }
-    final InputSource inputSource = new SAXSource(new InputSource(stream)).getInputSource();
     try {
-      final Node resumptionTokenNode = (Node) expr.evaluate(inputSource, XPathConstants.NODE);
+      final Node resumptionTokenNode = (Node) expr
+              .evaluate(new InputSource(stream), XPathConstants.NODE);
       if (resumptionTokenNode != null) {
         final Node node = resumptionTokenNode.getAttributes().getNamedItem(COMPLETE_LIST_SIZE);
         if (node != null) {
@@ -219,8 +218,8 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   private static class ReportingIterationWrapper implements ReportingIteration<Header> {
 
-    final ReportingIteration<OaiRecordHeader> action;
-    final Predicate<OaiRecordHeader> filter;
+    private final ReportingIteration<OaiRecordHeader> action;
+    private final Predicate<OaiRecordHeader> filter;
 
     public ReportingIterationWrapper(ReportingIteration<OaiRecordHeader> action,
             Predicate<OaiRecordHeader> filter) {
@@ -232,16 +231,11 @@ public class OaiHarvesterImpl implements OaiHarvester {
     public IterationResult process(Header input) {
       final OaiRecordHeader header = new OaiRecordHeader(input.getIdentifier(), input.isDeleted(),
               Optional.ofNullable(input.getDatestamp()).map(Date::toInstant).orElse(null));
-      final IterationResult result;
       if (filter.test(header)) {
-        result = action.process(header);
-        if (result == null) {
-          throw new IllegalArgumentException("Iteration result cannot be null.");
-        }
-      } else {
-        result = IterationResult.CONTINUE;
+        return Optional.ofNullable(action.process(header)).orElseThrow(() ->
+                new IllegalArgumentException("Iteration result cannot be null."));
       }
-      return result;
+      return IterationResult.CONTINUE;
     }
   }
 }
