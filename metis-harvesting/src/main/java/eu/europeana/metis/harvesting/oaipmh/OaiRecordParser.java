@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -55,16 +56,9 @@ class OaiRecordParser {
 
   private final String oaiRecord;
 
-  /**
-   * Constructor.
-   *
-   * @param oaiRecord The record to parse as a string value.
-   * @throws HarvesterException In case there was a problem with setting up the parser.
-   */
-  OaiRecordParser(String oaiRecord) throws HarvesterException {
-    this.oaiRecord = oaiRecord;
+  private static void initializeExpressions() throws HarvesterException {
     try {
-      synchronized (OaiHarvesterImpl.class) {
+      synchronized (OaiRecordParser.class) {
         if (metadataExpression == null || isDeletedExpression == null) {
           final XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
           xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -80,6 +74,17 @@ class OaiRecordParser {
   }
 
   /**
+   * Constructor.
+   *
+   * @param oaiRecord The record to parse as a string value.
+   * @throws HarvesterException In case there was a problem with setting up the parser.
+   */
+  OaiRecordParser(String oaiRecord) throws HarvesterException {
+    initializeExpressions();
+    this.oaiRecord = oaiRecord;
+  }
+
+  /**
    * Obtain the embedded RDF record
    *
    * @return The embedded RDF record as a stream.
@@ -88,6 +93,8 @@ class OaiRecordParser {
   InputStream getRdfRecord() throws HarvesterException {
     try {
       final InputSource inputSource = getInputSource();
+      // Note that this is created safely, so this is a false positive by SonarQube.
+      @SuppressWarnings("findsecbugs:XXE_XPATH")
       final ArrayList<NodeInfo> result = (ArrayList<NodeInfo>) metadataExpression
               .evaluate(inputSource, XPathConstants.NODESET);
       return convertToStream(result);
@@ -104,7 +111,10 @@ class OaiRecordParser {
    */
   boolean recordIsDeleted() throws HarvesterException {
     try {
-      return "deleted".equalsIgnoreCase(evaluateExpressionAsString(isDeletedExpression));
+      // Note that this is created safely, so this is a false positive by SonarQube.
+      @SuppressWarnings("findsecbugs:XXE_XPATH")
+      final String result = isDeletedExpression.evaluate(getInputSource());
+      return "deleted".equalsIgnoreCase(result);
     } catch (XPathExpressionException e) {
       throw new HarvesterException("Cannot xpath XML!", e);
     }
@@ -114,12 +124,7 @@ class OaiRecordParser {
     return new SAXSource(new InputSource(new StringReader(oaiRecord))).getInputSource();
   }
 
-  private String evaluateExpressionAsString(XPathExpression expr) throws XPathExpressionException {
-    final InputSource inputSource = getInputSource();
-    return expr.evaluate(inputSource);
-  }
-
-  private InputStream convertToStream(ArrayList<NodeInfo> nodes)
+  private InputStream convertToStream(List<NodeInfo> nodes)
           throws TransformerException, HarvesterException {
     final int length = nodes.size();
     if (length < 1) {

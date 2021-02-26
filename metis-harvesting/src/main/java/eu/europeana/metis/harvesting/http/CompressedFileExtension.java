@@ -73,14 +73,14 @@ enum CompressedFileExtension {
    */
   public static Path removeExtension(Path file) {
     final CompressedFileExtension extension = forPath(file);
-    if (extension == null) {
+    if (extension == null || file.getFileName() == null) {
       throw new IllegalArgumentException("File " + file + " is not a recognised compressed file.");
     }
     final String fileName = file.getFileName().toString();
     final String newFileName = fileName
             .substring(0, fileName.length() - extension.getExtension().length());
     return Optional.ofNullable(file.getParent()).map(parent -> parent.resolve(newFileName))
-            .orElse(Path.of(newFileName));
+            .orElseGet(()-> Path.of(newFileName));
   }
 
   /**
@@ -90,7 +90,7 @@ enum CompressedFileExtension {
    * @return Whether the file has a supported compressed file extension.
    */
   public static boolean hasCompressedFileExtension(Path file) {
-    return hasCompressedFileExtension(file.getFileName().toString());
+    return file.getFileName() != null && hasCompressedFileExtension(file.getFileName().toString());
   }
 
   /**

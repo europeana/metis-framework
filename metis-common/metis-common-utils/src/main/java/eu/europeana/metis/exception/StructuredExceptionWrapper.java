@@ -19,7 +19,7 @@ public class StructuredExceptionWrapper {
   private String errorMessage;
 
   public StructuredExceptionWrapper() {
-    //Requires for (de)serialization
+    // Required for serialization and deserialization
   }
 
   /**
