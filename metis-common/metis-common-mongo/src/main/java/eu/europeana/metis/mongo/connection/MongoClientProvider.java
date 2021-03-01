@@ -31,6 +31,10 @@ import java.util.function.Supplier;
  * Whether writes should be retried if they fail due to a network error is defaulted to
  * {@value #DEFAULT_RETRY_WRITES}.
  * </li>
+ * <li>
+ * The application name (used among other things for server logging) is defaulted to
+ * {@value #DEFAULT_APPLICATION_NAME}.
+ * </li>
  * </ul>
  * These defaults can be overridden or additional (default) settings can be set upon
  * construction. To facilitate this, this class offers access to the default settings by means of
@@ -43,6 +47,7 @@ public class MongoClientProvider<E extends Exception> {
   private static final ReadPreference DEFAULT_READ_PREFERENCE = ReadPreference.secondaryPreferred();
   private static final int DEFAULT_MAX_CONNECTION_IDLE_MILLIS = 30_000;
   private static final boolean DEFAULT_RETRY_WRITES = false;
+  private static final String DEFAULT_APPLICATION_NAME = "Europeana Application Suite";
 
   private final MongoClientCreator<E> creator;
   private final String authenticationDatabase;
@@ -74,14 +79,15 @@ public class MongoClientProvider<E extends Exception> {
   }
 
   /**
-   * Constructor from a {@link MongoProperties} object. The caller can provide settings that will
-   * override the default settings (i.e. the default settings will not be used).
+   * Constructor from a {@link MongoProperties} object. The caller needs to provide settings that
+   * will be used instead of the default settings.
    *
    * @param properties The properties of the Mongo connection. Note that if the passed properties
-   * object is changed after calling this method, those changes will not be reflected when calling
+   * object is changed after calling this method, those changes will not be reflected when creating
+   * mongo clients.
    * @param clientSettingsBuilder The settings to be applied. The default settings will not be used.
-   * The caller can incorporate the default settings by using an client settings builder obtained
-   * from {@link #getDefaultClientSettingsBuilder()}. {@link #createMongoClient()}.
+   * The caller can however choose to incorporate the default settings as needed by using a client
+   * settings builder obtained from {@link #getDefaultClientSettingsBuilder()} as input.
    * @throws E In case the properties are wrong
    */
   public MongoClientProvider(MongoProperties<E> properties, Builder clientSettingsBuilder)
@@ -101,6 +107,8 @@ public class MongoClientProvider<E extends Exception> {
     if (mongoCredential != null) {
       clientSettingsBuilder.credential(mongoCredential);
     }
+    Optional.ofNullable(properties.getApplicationName())
+            .ifPresent(clientSettingsBuilder::applicationName);
     final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
 
     this.creator = () -> MongoClients.create(mongoClientSettings);
@@ -126,9 +134,11 @@ public class MongoClientProvider<E extends Exception> {
   public static Builder getDefaultClientSettingsBuilder() {
     return MongoClientSettings.builder()
         // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
-        .retryWrites(DEFAULT_RETRY_WRITES).applyToConnectionPoolSettings(builder -> builder
-            .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS, TimeUnit.MILLISECONDS))
-        .readPreference(DEFAULT_READ_PREFERENCE);
+        .retryWrites(DEFAULT_RETRY_WRITES)
+        .applyToConnectionPoolSettings(builder -> builder
+                .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS, TimeUnit.MILLISECONDS))
+        .readPreference(DEFAULT_READ_PREFERENCE)
+        .applicationName(DEFAULT_APPLICATION_NAME);
   }
 
   /**
