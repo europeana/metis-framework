@@ -91,7 +91,7 @@
     <version.json>20190722</version.json>
     <version.powermock>2.0.7</version.powermock>
     <version.mockito.core>3.3.3</version.mockito.core>
-    <version.corelib>2.12.0-SNAPSHOT</version.corelib>
+    <version.corelib>2.12.2-SNAPSHOT</version.corelib>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.commons-fileupload>1.4</version.commons-fileupload>
     <version.morphia.core>2.0.0</version.morphia.core>
@@ -284,17 +284,6 @@
           <exclusion>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>eu.europeana.corelib</groupId>
-        <artifactId>corelib-common-storage</artifactId>
-        <version>${version.corelib}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>*</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
