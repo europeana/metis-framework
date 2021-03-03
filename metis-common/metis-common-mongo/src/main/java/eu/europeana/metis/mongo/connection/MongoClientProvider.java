@@ -107,7 +107,7 @@ public class MongoClientProvider<E extends Exception> {
     if (mongoCredential != null) {
       clientSettingsBuilder.credential(mongoCredential);
     }
-    Optional.ofNullable(properties.getApplicationName())
+    Optional.ofNullable(properties.getApplicationName()).filter(name -> !name.isBlank())
             .ifPresent(clientSettingsBuilder::applicationName);
     final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
 
