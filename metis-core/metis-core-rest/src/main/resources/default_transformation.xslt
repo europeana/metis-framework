@@ -63,6 +63,7 @@
   <xsl:variable name="uri_paggr"       select="f:mintUri($base_url_paggr , $datasetId, $provider_uri)" />
   <xsl:variable name="uri_eaggr"       select="f:mintUri($base_url_eaggr , $datasetId, $provider_uri)" />
 
+  <xsl:variable name="provenance"       select="exists(/rdf:RDF/edm:ProvidedCHO/*/@edm:wasGeneratedBy)" />
 
   <!-- ************************************************ -->
   <!--                   TEMPLATES                      -->
@@ -119,28 +120,30 @@
       </xsl:element>
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="edm:rights"/>
+      <xsl:apply-templates select="edm:intermediateProvider"/>
       <xsl:apply-templates select="edm:ugc"/>
     </xsl:element>
 
-    <!-- Provider Aggregation -->
-    <xsl:element name="ore:Aggregation">
-      <xsl:attribute name="rdf:about" select="$uri_paggr" />
-      <xsl:element name="edm:aggregatedCHO">
-        <xsl:attribute name="rdf:resource" select="$uri_cho" />
+    <!-- Provider (ie. Aggregator) Aggregation -->
+    <xsl:if test="$provenance">
+      <xsl:element name="ore:Aggregation">
+        <xsl:attribute name="rdf:about" select="$uri_paggr" />
+        <xsl:element name="edm:aggregatedCHO">
+          <xsl:attribute name="rdf:resource" select="$uri_cho" />
+        </xsl:element>
+        <xsl:element name="edm:dataProvider">
+          <xsl:copy-of select="edm:provider/@*"/>
+          <xsl:copy-of select="edm:provider/text()"/>
+        </xsl:element>
+        <xsl:apply-templates select="edm:isShownAt"/>
+        <xsl:apply-templates select="edm:isShownBy"/>
+        <xsl:element name="edm:provider">
+          <xsl:copy-of select="edm:provider/@*"/>
+          <xsl:copy-of select="edm:provider/text()"/>
+        </xsl:element>
+        <xsl:apply-templates select="edm:rights"/>
       </xsl:element>
-      <xsl:element name="edm:dataProvider">
-        <xsl:copy-of select="edm:provider/@*"/>
-        <xsl:copy-of select="edm:provider/text()"/>
-      </xsl:element>
-      <xsl:apply-templates select="edm:isShownAt"/>
-      <xsl:apply-templates select="edm:isShownBy"/>
-      <xsl:element name="edm:provider">
-        <xsl:copy-of select="edm:provider/@*"/>
-        <xsl:copy-of select="edm:provider/text()"/>
-      </xsl:element>
-      <xsl:apply-templates select="edm:rights"/>
-      <xsl:apply-templates select="edm:intermediateProvider"/>
-    </xsl:element>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="EuropeanaAggregation">
@@ -167,9 +170,13 @@
       <xsl:with-param name="dp" select="true()"/>
     </xsl:call-template>
 
-    <xsl:call-template name="Proxy">
-      <xsl:with-param name="dp" select="false()"/>
-    </xsl:call-template>
+    <xsl:if test="$provenance">
+
+      <xsl:call-template name="Proxy">
+        <xsl:with-param name="dp" select="false()"/>
+      </xsl:call-template>
+
+    </xsl:if>
 
     <xsl:call-template name="EuropeanaProxy"/>
 
@@ -261,7 +268,9 @@
       <dc:identifier><xsl:value-of select="@rdf:about"/></dc:identifier>
       <edm:europeanaProxy>true</edm:europeanaProxy>
       <ore:lineage rdf:resource="{$uri_dproxy}"/>
-      <ore:lineage rdf:resource="{$uri_pproxy}"/>
+      <xsl:if test="$provenance">
+        <ore:lineage rdf:resource="{$uri_pproxy}"/>
+      </xsl:if>
       <xsl:element name="ore:proxyFor">
         <xsl:attribute name="rdf:resource" select="$uri_cho" />
       </xsl:element>
