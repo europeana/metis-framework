@@ -4,7 +4,7 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
@@ -46,7 +46,7 @@ public class WorkflowExecutionFactory {
   private final DatasetXsltDao datasetXsltDao;
   private final DepublishRecordIdDao depublishRecordIdDao;
   private final WorkflowExecutionDao workflowExecutionDao;
-  private final WorkflowUtils workflowUtils;
+  private final DataEvolutionUtils dataEvolutionUtils;
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
@@ -59,15 +59,15 @@ public class WorkflowExecutionFactory {
    * @param datasetXsltDao the Dao instance to access the dataset xslts
    * @param depublishRecordIdDao The Dao instance to access depublish records.
    * @param workflowExecutionDao the Dao instance to access the workflow executions
-   * @param workflowUtils the utilities class for workflow operations
+   * @param dataEvolutionUtils the utilities class for workflow operations
    */
   public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao,
       DepublishRecordIdDao depublishRecordIdDao, WorkflowExecutionDao workflowExecutionDao,
-      WorkflowUtils workflowUtils) {
+      DataEvolutionUtils dataEvolutionUtils) {
     this.datasetXsltDao = datasetXsltDao;
     this.depublishRecordIdDao = depublishRecordIdDao;
     this.workflowExecutionDao = workflowExecutionDao;
-    this.workflowUtils = workflowUtils;
+    this.dataEvolutionUtils = dataEvolutionUtils;
   }
 
   // Expect the dataset to be synced with eCloud.
@@ -189,7 +189,7 @@ public class WorkflowExecutionFactory {
     // Check if we can find the answer in the workflow itself. Iterate backwards and see what we find.
     for (int i = typesInWorkflowBeforeThisPlugin.size() - 1; i >= 0; i--) {
       final ExecutablePluginType type = typesInWorkflowBeforeThisPlugin.get(i);
-      if (WorkflowUtils.getHarvestPluginGroup().contains(type)) {
+      if (DataEvolutionUtils.getHarvestPluginGroup().contains(type)) {
         // If we find a harvest (occurring after any plugin of this type),
         // we know we need to perform redirects only if there is a non null latest successful plugin or there are datasets to redirect from.
         return latestSuccessfulPlugin != null || !CollectionUtils
@@ -217,8 +217,8 @@ public class WorkflowExecutionFactory {
       // If this plugin's harvest cannot be determined, assume it is not the same (this shouldn't
       // happen as we checked the workflow already). This is a lambda: we wish to evaluate on demand.
       final BooleanSupplier rootDiffersForLatestPlugin = () -> workflowPredecessor == null
-          || !workflowUtils.getRootAncestor(latestSuccessfulPlugin)
-          .equals(workflowUtils.getRootAncestor(workflowPredecessor));
+          || !dataEvolutionUtils.getRootAncestor(latestSuccessfulPlugin)
+          .equals(dataEvolutionUtils.getRootAncestor(workflowPredecessor));
 
       // In either of these situations, we perform a redirect.
       performRedirect =

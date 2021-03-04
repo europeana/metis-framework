@@ -1,30 +1,16 @@
 package eu.europeana.metis.core.dao;
 
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.util.DepublishRecordIdSortField;
-import eu.europeana.metis.core.util.SortDirection;
-import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.GenericMetisException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,13 +26,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.http.client.utils.URIBuilder;
-import org.springframework.util.CollectionUtils;
 
 /**
- * This class is a utility class that can answer questions related to the validation of workflows.
+ * This class is a utility class that can answer questions related to the history and evolution of
+ * the data.
  */
-public class WorkflowUtils {
+public class DataEvolutionUtils {
 
   private static final Set<ExecutablePluginType> HARVEST_PLUGIN_GROUP = Collections.unmodifiableSet(
       EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST, ExecutablePluginType.HTTP_HARVEST));
@@ -61,167 +46,14 @@ public class WorkflowUtils {
       .unmodifiableSet(EnumSet.complementOf(EnumSet.of(ExecutablePluginType.LINK_CHECKING)));
 
   private final WorkflowExecutionDao workflowExecutionDao;
-  private final DepublishRecordIdDao depublishRecordIdDao;
 
   /**
    * Constructor.
    *
    * @param workflowExecutionDao the workflow execution dao
-   * @param depublishRecordIdDao the depublication record id dao
    */
-  public WorkflowUtils(WorkflowExecutionDao workflowExecutionDao,
-      DepublishRecordIdDao depublishRecordIdDao) {
+  public DataEvolutionUtils(WorkflowExecutionDao workflowExecutionDao) {
     this.workflowExecutionDao = workflowExecutionDao;
-    this.depublishRecordIdDao = depublishRecordIdDao;
-  }
-
-  /**
-   * This method validates the workflow plugin sequence. In particular, it checks:
-   * <ol>
-   * <li>That the workflow is not empty and contains plugins with valid types,</li>
-   * <li>That the first plugin is not link checking (except when it is the only plugin),</li>
-   * <li>That no two plugins of the same type occur in the workflow,</li>
-   * <li>That if depublish is enabled no other plugins are allowed in the workflow,</li>
-   * <li>That the first plugin has a valid predecessor plugin in the dataset's history (as defined by
-   * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the
-   * enforced predecessor type, and the root plugin (i.e. harvest) of which is equal to the latest
-   * successful harvest (i.e. no old data should be processed after new data has been introduced),</li>
-   * <li>That all subsequent plugins have a valid predecessor within the workflow (as defined by
-   * {@link #getPredecessorTypes(ExecutablePluginType)}),</li>
-   * <li>That harvesting plugins have valid URL settings.</li>
-   * </ol>
-   *
-   * @param workflow The workflow to validate.
-   * @param enforcedPredecessorType If not null, overrides the predecessor type of the first
-   * plugin.
-   * @return The predecessor of the first plugin. Or null if no predecessor is required.
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link BadContentException} In case the workflow is empty, or contains plugins with
-   * invalid types.</li>
-   * <li>{@link PluginExecutionNotAllowed} in case the plugin sequence as provided is not
-   * allowed.</li>
-   * </ul>
-   */
-  public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
-      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
-
-    // Workflow should have a plugin list.
-    if (workflow.getMetisPluginsMetadata() == null) {
-      throw new BadContentException("Workflow should not be empty.");
-    }
-
-    // Compile the list of enabled plugins.
-    final List<AbstractExecutablePluginMetadata> enabledPlugins = workflow.getMetisPluginsMetadata()
-        .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
-
-    // Workflow should not be empty and all should have a type.
-    if (enabledPlugins.isEmpty()) {
-      throw new BadContentException("Workflow should not be empty.");
-    }
-    if (enabledPlugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-        .anyMatch(Objects::isNull)) {
-      throw new BadContentException(
-          "There are enabled plugins of which the type could not be determined.");
-    }
-
-    // Validate dataset/record depublication
-    validateDepublishPlugin(workflow.getDatasetId(), enabledPlugins);
-
-    // Validate and normalize the harvest parameters of harvest plugins (even if not enabled)
-    validateAndTrimHarvestParameters(enabledPlugins);
-
-    // Check that first plugin is not link checking (except if it is the only plugin)
-    if (enabledPlugins.size() > 1
-        && enabledPlugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-    }
-
-    // Make sure that all enabled plugins (except the first) have a predecessor within the workflow.
-    final EnumSet<ExecutablePluginType> previousTypesInWorkflow = EnumSet
-        .of(enabledPlugins.get(0).getExecutablePluginType());
-    for (int i = 1; i < enabledPlugins.size(); i++) {
-
-      // Find the permissible predecessors
-      final ExecutablePluginType pluginType = enabledPlugins.get(i).getExecutablePluginType();
-      final Set<ExecutablePluginType> permissiblePredecessors = getPredecessorTypes(pluginType);
-
-      // Check if we have the right predecessor plugin types in the workflow
-      final boolean hasNoPredecessor = !permissiblePredecessors.isEmpty() &&
-          permissiblePredecessors.stream().noneMatch(previousTypesInWorkflow::contains);
-      if (hasNoPredecessor) {
-        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-      }
-
-      // Add the plugin type to those we have seen
-      previousTypesInWorkflow.add(pluginType);
-    }
-
-    // We should now have seen all types. Make sure that there are no duplicates
-    if (previousTypesInWorkflow.size() != enabledPlugins.size()) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-    }
-
-    // Check the presence of the predecessor and return it.
-    return computePredecessorPlugin(enabledPlugins.get(0).getExecutablePluginType(),
-        enforcedPredecessorType, workflow.getDatasetId());
-  }
-
-  private static void validateAndTrimHarvestParameters(
-      Iterable<AbstractExecutablePluginMetadata> enabledPlugins)
-      throws BadContentException {
-    for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
-      if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
-        final OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) pluginMetadata;
-        final URI validatedUri = validateUrl(oaipmhMetadata.getUrl());
-        oaipmhMetadata
-            .setUrl(new URIBuilder(validatedUri).removeQuery().setFragment(null).toString());
-        oaipmhMetadata.setMetadataFormat(oaipmhMetadata.getMetadataFormat() == null ? null
-            : oaipmhMetadata.getMetadataFormat().trim());
-        oaipmhMetadata.setSetSpec(
-            oaipmhMetadata.getSetSpec() == null ? null : oaipmhMetadata.getSetSpec().trim());
-      }
-      if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
-        final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
-        httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
-      }
-    }
-  }
-
-  private void validateDepublishPlugin(String datasetId,
-      List<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
-    // If depublish requested, make sure it's the only plugin in the workflow
-    final Optional<DepublishPluginMetadata> depublishPluginMetadata = enabledPlugins.stream()
-        .filter(plugin -> plugin.getExecutablePluginType().toPluginType() == PluginType.DEPUBLISH)
-        .map(plugin -> (DepublishPluginMetadata) plugin).findFirst();
-    if (enabledPlugins.size() > 1 && depublishPluginMetadata.isPresent()) {
-      throw new BadContentException(
-          "If DEPUBLISH plugin enabled, no other enabled plugins are allowed.");
-    }
-
-    // If record depublication requested, check if there are pending record ids in the db
-    if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
-        .isDatasetDepublish()) {
-      final Set<String> pendingDepublicationIds = depublishRecordIdDao
-          .getAllDepublishRecordIdsWithStatus(datasetId,
-              DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-              DepublicationStatus.PENDING_DEPUBLICATION);
-      if (CollectionUtils.isEmpty(pendingDepublicationIds)) {
-        throw new BadContentException(
-            "Record depublication requested but there are no pending depublication record ids in the db");
-      }
-    }
-  }
-
-  private static URI validateUrl(String urlString) throws BadContentException {
-    if (urlString == null) {
-      throw new BadContentException("Harvesting parameters are missing");
-    }
-    try {
-      return new URL(urlString.trim()).toURI();
-    } catch (MalformedURLException | URISyntaxException e) {
-      throw new BadContentException("Harvesting parameters are invalid", e);
-    }
   }
 
   /**
@@ -257,8 +89,7 @@ public class WorkflowUtils {
    * Can be null in case the given type does not require a predecessor.
    */
   public static AbstractExecutablePlugin computePredecessorPlugin(ExecutablePluginType
-      pluginType,
-      WorkflowExecution workflowExecution) {
+      pluginType, WorkflowExecution workflowExecution) {
 
     // If the plugin type does not need a predecessor we are done.
     final Set<ExecutablePluginType> predecessorTypes = getPredecessorTypes(pluginType);
@@ -337,7 +168,7 @@ public class WorkflowUtils {
               .getLatestSuccessfulExecutablePlugin(datasetId,
                       EnumSet.of(ExecutablePluginType.PUBLISH), false);
       final boolean hasAtLeastOneSuccessfulPlugin = Optional.ofNullable(successfulPublish)
-              .filter(WorkflowUtils::pluginHasSuccessfulRecords).isPresent();
+              .filter(DataEvolutionUtils::pluginHasSuccessfulRecords).isPresent();
       if (!hasAtLeastOneSuccessfulPlugin) {
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
@@ -363,7 +194,7 @@ public class WorkflowUtils {
           .stream().map(Collections::singleton).map(
               type -> workflowExecutionDao
                   .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
-          .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords);
+          .filter(Objects::nonNull).filter(DataEvolutionUtils::pluginHasSuccessfulRecords);
 
       // Sort on finished state, so that the root check occurs as little as possible.
       final Stream<PluginWithExecutionId<ExecutablePlugin>> sortedSuccessfulPlugins =
@@ -414,7 +245,7 @@ public class WorkflowUtils {
    * type can be based on. Cannot be null, but can be the empty set in case the plugin type requires
    * no predecessor.
    */
-  private static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
+  static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
     final Set<ExecutablePluginType> predecessorTypes;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:

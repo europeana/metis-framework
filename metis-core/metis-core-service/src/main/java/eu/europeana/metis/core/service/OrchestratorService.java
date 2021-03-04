@@ -11,7 +11,8 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
+import eu.europeana.metis.core.dao.WorkflowValidationUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
@@ -98,7 +99,8 @@ public class OrchestratorService {
       .immutableEnumSet(ExecutablePluginType.LINK_CHECKING, ExecutablePluginType.DEPUBLISH);
 
   private final WorkflowExecutionDao workflowExecutionDao;
-  private final WorkflowUtils workflowUtils;
+  private final WorkflowValidationUtils workflowValidationUtils;
+  private final DataEvolutionUtils dataEvolutionUtils;
   private final WorkflowDao workflowDao;
   private final DatasetDao datasetDao;
   private final WorkflowExecutorManager workflowExecutorManager;
@@ -114,7 +116,8 @@ public class OrchestratorService {
    * @param workflowExecutionFactory the orchestratorHelper instance
    * @param workflowDao the Dao instance to access the Workflow database
    * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
-   * @param workflowUtils The utilities class providing more functionality on top of DAOs.
+   * @param workflowValidationUtils A utilities class providing more functionality on top of DAOs.
+   * @param dataEvolutionUtils A utilities class providing more functionality on top of DAOs.
    * @param datasetDao the Dao instance to access the Dataset database
    * @param workflowExecutorManager the instance that handles the production and consumption of
    * workflowExecutions
@@ -124,14 +127,16 @@ public class OrchestratorService {
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
-      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-      WorkflowUtils workflowUtils, DatasetDao datasetDao,
-      WorkflowExecutorManager workflowExecutorManager, RedissonClient redissonClient,
-      Authorizer authorizer, DepublishRecordIdDao depublishRecordIdDao) {
+          WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
+          WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
+          DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
+          RedissonClient redissonClient, Authorizer authorizer,
+          DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
-    this.workflowUtils = workflowUtils;
+    this.workflowValidationUtils = workflowValidationUtils;
+    this.dataEvolutionUtils = dataEvolutionUtils;
     this.datasetDao = datasetDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.redissonClient = redissonClient;
@@ -170,7 +175,7 @@ public class OrchestratorService {
     }
 
     // Validate the new workflow.
-    workflowUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
+    workflowValidationUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Save the workflow.
     workflowDao.create(workflow);
@@ -209,7 +214,7 @@ public class OrchestratorService {
     }
 
     // Validate the new workflow.
-    workflowUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
+    workflowValidationUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Overwrite the workflow.
     workflow.setId(storedWorkflow.getId());
@@ -371,7 +376,7 @@ public class OrchestratorService {
     }
 
     // Validate the workflow and obtain the predecessor.
-    final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowUtils
+    final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowValidationUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Make sure that eCloud knows tmetisUserhis dataset (needs to happen before we create the workflow).
@@ -484,7 +489,7 @@ public class OrchestratorService {
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
     return Optional.ofNullable(
-        workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
+        dataEvolutionUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
@@ -916,7 +921,7 @@ public class OrchestratorService {
                 pluginType.name(), execution)));
 
     // Compile the version evolution.
-    final Collection<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = workflowUtils
+    final Collection<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = dataEvolutionUtils
         .compileVersionEvolution(targetPlugin, execution);
     final VersionEvolution versionEvolution = new VersionEvolution();
     versionEvolution.setEvolutionSteps(evolutionSteps.stream().map(step -> {

@@ -7,7 +7,7 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -262,7 +262,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       final AbstractExecutablePluginMetadata metadata = executablePlugin.getPluginMetadata();
       if (metadata.getRevisionTimestampPreviousPlugin() == null
           || metadata.getRevisionNamePreviousPlugin() == null) {
-        final AbstractExecutablePlugin predecessor = WorkflowUtils
+        final AbstractExecutablePlugin predecessor = DataEvolutionUtils
             .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
