@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
@@ -46,25 +45,29 @@ public class XsltTransformer {
    * @throws TransformationException In case there was a problem setting up the transformation.
    */
   public XsltTransformer(String xsltUrl) throws TransformationException {
-    this(xsltUrl, null, null, null);
+    this(xsltUrl, null, null, null, null);
   }
 
   /**
    * Constructor.
    *
    * @param xsltUrl The URL of the XSLT file.
+   * @param datasetId the dataset id related to the dataset
    * @param datasetName the dataset name related to the dataset
    * @param edmCountry the Country related to the dataset
    * @param edmLanguage the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the
    * transformation.
    */
-  public XsltTransformer(String xsltUrl, String datasetName, String edmCountry, String edmLanguage)
+  public XsltTransformer(String xsltUrl, String datasetId, String datasetName, String edmCountry, String edmLanguage)
       throws TransformationException {
     try {
       this.transformer = getTemplates(xsltUrl).newTransformer();
     } catch (TransformerConfigurationException | CacheValueSupplierException e) {
       throw new TransformationException(e);
+    }
+    if (StringUtils.isNotBlank(datasetId)) {
+      transformer.setParameter("datasetId", datasetId);
     }
     if (StringUtils.isNotBlank(datasetName)) {
       transformer.setParameter("datasetName", datasetName);
@@ -81,14 +84,12 @@ public class XsltTransformer {
    * Transforms a file using this instance's XSL transformation.
    *
    * @param fileContent The file to be transformed.
-   * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
    */
-  public StringWriter transform(byte[] fileContent,
-      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+  public StringWriter transform(byte[] fileContent) throws TransformationException {
     final StringWriter result = new StringWriter();
-    transform(fileContent, result, europeanaGeneratedIdsMap);
+    transform(fileContent, result);
     return result;
   }
 
@@ -96,15 +97,13 @@ public class XsltTransformer {
    * Transforms a file using this instance's XSL transformation.
    *
    * @param fileContent The file to be transformed.
-   * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
    */
-  public byte[] transformToBytes(byte[] fileContent,
-      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+  public byte[] transformToBytes(byte[] fileContent) throws TransformationException {
     try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
       try (final Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
-        transform(fileContent, writer, europeanaGeneratedIdsMap);
+        transform(fileContent, writer);
       }
       return outputStream.toByteArray();
     } catch (IOException e) {
@@ -112,21 +111,7 @@ public class XsltTransformer {
     }
   }
 
-  public void transform(byte[] fileContent, Writer writer,
-      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
-    if (europeanaGeneratedIdsMap != null) {
-      transformer.setParameter("providedCHOAboutId",
-          europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
-      transformer.setParameter("aggregationAboutId",
-          europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
-      transformer.setParameter("europeanaAggregationAboutId",
-          europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
-      transformer.setParameter("proxyAboutId", europeanaGeneratedIdsMap.getProxyAboutPrefixed());
-      transformer.setParameter("europeanaProxyAboutId",
-          europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
-      transformer.setParameter("dcIdentifier",
-          europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
-    }
+  public void transform(byte[] fileContent, Writer writer) throws TransformationException {
     try (final InputStream contentStream = new ByteArrayInputStream(fileContent)) {
       transformer.transform(new StreamSource(contentStream), new StreamResult(writer));
     } catch (TransformerException | IOException e) {

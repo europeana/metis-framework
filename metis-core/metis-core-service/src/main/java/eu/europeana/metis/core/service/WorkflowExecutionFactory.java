@@ -254,8 +254,7 @@ public class WorkflowExecutionFactory {
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       pluginMetadata.setXsltId(xsltObject.getId().toString());
     }
-    //DatasetName in Transformation should be a concatenation datasetId_datasetName
-    pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
+    pluginMetadata.setDatasetName(dataset.getDatasetName());
     pluginMetadata.setCountry(dataset.getCountry().getName());
     pluginMetadata.setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
   }

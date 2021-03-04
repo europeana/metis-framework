@@ -122,10 +122,10 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     final EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = new EuropeanaIdCreator()
         .constructEuropeanaId(incomingRecord, datasetProperties.getDatasetId());
     final XsltTransformer transformer =
-        validationUtils.createTransformer(datasetProperties.getDatasetName(),
+        validationUtils.createTransformer(datasetProperties.getDatasetId(), datasetProperties.getDatasetName(),
             datasetProperties.getEdmCountry(), datasetProperties.getEdmLanguage());
     return transformer
-        .transform(incomingRecord.getBytes(StandardCharsets.UTF_8), europeanaGeneratedIdsMap)
+        .transform(incomingRecord.getBytes(StandardCharsets.UTF_8))
         .toString();
   }
 

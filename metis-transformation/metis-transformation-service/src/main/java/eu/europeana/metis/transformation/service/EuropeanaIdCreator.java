@@ -31,6 +31,8 @@ import org.xml.sax.SAXException;
  *
  * @author jochen
  */
+// TODO: 04/03/2021 Only used in datachecker. Remove this class when data checker is removed
+@Deprecated
 public final class EuropeanaIdCreator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EuropeanaIdCreator.class);

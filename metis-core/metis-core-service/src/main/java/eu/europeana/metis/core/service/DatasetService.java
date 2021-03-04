@@ -1,14 +1,12 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -24,11 +22,9 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.transformation.service.EuropeanaGeneratedIdsMap;
-import eu.europeana.metis.transformation.service.EuropeanaIdCreator;
-import eu.europeana.metis.transformation.service.EuropeanaIdException;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -516,31 +512,20 @@ public class DatasetService {
 
     // Set up transformer.
     final XsltTransformer transformer;
-    final EuropeanaIdCreator europeanIdCreator;
     try {
-      transformer = new XsltTransformer(xsltUrl, dataset.getDatasetName(),
+      transformer = new XsltTransformer(xsltUrl, dataset.getDatasetId(), dataset.getDatasetName(),
           dataset.getCountry().getName(), dataset.getLanguage().name());
-      europeanIdCreator = new EuropeanaIdCreator();
     } catch (TransformationException e) {
       throw new XsltSetupException("Could not setup XSL transformation.", e);
-    } catch (EuropeanaIdException e) {
-      throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED,
-          e);
     }
 
     // Transform the records.
     return records.stream().map(record -> {
       try {
-        EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = europeanIdCreator
-            .constructEuropeanaId(record.getXmlRecord(), dataset.getDatasetId());
         return new Record(record.getEcloudId(), transformer
-            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8),
-                europeanaGeneratedIdsMap).toString());
+            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8)).toString());
       } catch (TransformationException e) {
         LOGGER.info("Record from list failed transformation", e);
-        return new Record(record.getEcloudId(), e.getMessage());
-      } catch (EuropeanaIdException e) {
-        LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
         return new Record(record.getEcloudId(), e.getMessage());
       }
     }).collect(Collectors.toList());

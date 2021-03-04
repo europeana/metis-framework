@@ -39,8 +39,8 @@ public class ValidationUtils {
     recordIndexingService.createRecord(rdf, recordDate);
   }
 
-  public XsltTransformer createTransformer(String datasetName, String edmCountry,
+  public XsltTransformer createTransformer(String datasetId, String datasetName, String edmCountry,
       String edmLanguage) throws TransformationException {
-    return new XsltTransformer(xsltUrl, datasetName, edmCountry, edmLanguage);
+    return new XsltTransformer(xsltUrl, datasetId, datasetName, edmCountry, edmLanguage);
   }
 }
