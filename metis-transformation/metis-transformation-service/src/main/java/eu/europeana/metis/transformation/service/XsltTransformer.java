@@ -54,12 +54,12 @@ public class XsltTransformer {
    * @param xsltUrl The URL of the XSLT file.
    * @param datasetId the dataset id related to the dataset
    * @param datasetName the dataset name related to the dataset
-   * @param edmCountry the Country related to the dataset
-   * @param edmLanguage the language related to the dataset
+   * @param country the country related to the dataset
+   * @param language the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the
    * transformation.
    */
-  public XsltTransformer(String xsltUrl, String datasetId, String datasetName, String edmCountry, String edmLanguage)
+  public XsltTransformer(String xsltUrl, String datasetId, String datasetName, String country, String language)
       throws TransformationException {
     try {
       this.transformer = getTemplates(xsltUrl).newTransformer();
@@ -72,11 +72,11 @@ public class XsltTransformer {
     if (StringUtils.isNotBlank(datasetName)) {
       transformer.setParameter("datasetName", datasetName);
     }
-    if (StringUtils.isNotBlank(edmLanguage)) {
-      transformer.setParameter("edmLanguage", edmLanguage);
+    if (StringUtils.isNotBlank(language)) {
+      transformer.setParameter("language", language);
     }
-    if (StringUtils.isNotBlank(edmCountry)) {
-      transformer.setParameter("edmCountry", edmCountry);
+    if (StringUtils.isNotBlank(country)) {
+      transformer.setParameter("country", country);
     }
   }
 
