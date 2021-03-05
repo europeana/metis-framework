@@ -9,7 +9,6 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -154,17 +153,17 @@ public class DataEvolutionUtils {
    * null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
-  public PluginWithExecutionId<ExecutablePlugin> computePredecessorPlugin(
+  public PluginWithExecutionId<ExecutablePlugin<?>> computePredecessorPlugin(
       ExecutablePluginType pluginType, ExecutablePluginType enforcedPredecessorType,
       String datasetId) throws PluginExecutionNotAllowed {
 
-    final PluginWithExecutionId<ExecutablePlugin> predecessorPlugin;
+    final PluginWithExecutionId<ExecutablePlugin<?>> predecessorPlugin;
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
 
     if (pluginType == ExecutablePluginType.DEPUBLISH) {
       // If a DEPUBLISH Operation is requested we don't link to the predecessor plugin. However,
       // make sure there at least one successful exists (possibly invalidated by later reindex).
-      final PluginWithExecutionId<ExecutablePlugin> successfulPublish = workflowExecutionDao
+      final PluginWithExecutionId<ExecutablePlugin<?>> successfulPublish = workflowExecutionDao
               .getLatestSuccessfulExecutablePlugin(datasetId,
                       EnumSet.of(ExecutablePluginType.PUBLISH), false);
       final boolean hasAtLeastOneSuccessfulPlugin = Optional.ofNullable(successfulPublish)
@@ -184,27 +183,27 @@ public class DataEvolutionUtils {
           .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
 
       // Find the latest successful harvest to compare with. If none exist, throw exception.
-      final PluginWithExecutionId<ExecutablePlugin> latestHarvest = Optional
+      final PluginWithExecutionId<ExecutablePlugin<?>> latestHarvest = Optional
           .ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
               HARVEST_PLUGIN_GROUP, true)).orElseThrow(
               () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
 
       // Find the latest successful plugin of each type and filter on existence of successful records.
-      final Stream<PluginWithExecutionId<ExecutablePlugin>> latestSuccessfulPlugins = predecessorTypes
+      final Stream<PluginWithExecutionId<ExecutablePlugin<?>>> latestSuccessfulPlugins = predecessorTypes
           .stream().map(Collections::singleton).map(
               type -> workflowExecutionDao
                   .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
           .filter(Objects::nonNull).filter(DataEvolutionUtils::pluginHasSuccessfulRecords);
 
       // Sort on finished state, so that the root check occurs as little as possible.
-      final Stream<PluginWithExecutionId<ExecutablePlugin>> sortedSuccessfulPlugins =
+      final Stream<PluginWithExecutionId<ExecutablePlugin<?>>> sortedSuccessfulPlugins =
           latestSuccessfulPlugins.sorted(Comparator.comparing(
               plugin -> Optional.ofNullable(plugin.getPlugin().getFinishedDate())
                   .orElseGet(() -> new Date(Long.MIN_VALUE)),
               Comparator.reverseOrder()));
 
       // Find the first plugin that satisfies the root check. If none found, throw exception.
-      final Predicate<PluginWithExecutionId<ExecutablePlugin>> rootCheck = plugin -> getRootAncestor(
+      final Predicate<PluginWithExecutionId<ExecutablePlugin<?>>> rootCheck = plugin -> getRootAncestor(
           plugin).equals(latestHarvest);
       predecessorPlugin = sortedSuccessfulPlugins
           .filter(rootCheck).findFirst().orElseThrow(
@@ -214,7 +213,7 @@ public class DataEvolutionUtils {
   }
 
   private static boolean pluginHasSuccessfulRecords(
-      PluginWithExecutionId<ExecutablePlugin> plugin) {
+      PluginWithExecutionId<ExecutablePlugin<?>> plugin) {
     final ExecutionProgress progress = plugin.getPlugin().getExecutionProgress();
     return progress != null && progress.getProcessedRecords() > progress.getErrors();
   }
@@ -226,14 +225,15 @@ public class DataEvolutionUtils {
    * @param plugin The plugin for which to find the root ancestor.
    * @return The root ancestor. Is not null.
    */
-  public PluginWithExecutionId<ExecutablePlugin> getRootAncestor(
-      PluginWithExecutionId<ExecutablePlugin> plugin) {
+  public PluginWithExecutionId<? extends ExecutablePlugin<?>> getRootAncestor(
+      PluginWithExecutionId<ExecutablePlugin<?>> plugin) {
     final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
-    final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
+    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolution =
         compileVersionEvolution(plugin.getPlugin(), execution);
-    return evolution.stream().findFirst()
-        .map(pair -> new PluginWithExecutionId<>(pair.getRight(), pair.getLeft()))
-        .orElse(plugin);
+    if (evolution.isEmpty()) {
+      return plugin;
+    }
+    return new PluginWithExecutionId<>(evolution.get(0).getRight(), evolution.get(0).getLeft());
   }
 
   /**
@@ -291,17 +291,17 @@ public class DataEvolutionUtils {
    * target version.
    *
    * @param targetPlugin The target for compiling the evolution: the result will lead to, but not
-   * inclide, this plugin.
+   * include, this plugin.
    * @param targetPluginExecution The execution in which this target plugin may be found.
    * @return The evolution.
    */
-  public List<Pair<ExecutablePlugin, WorkflowExecution>> compileVersionEvolution(
-      MetisPlugin targetPlugin, WorkflowExecution targetPluginExecution) {
+  public List<Pair<ExecutablePlugin<?>, WorkflowExecution>> compileVersionEvolution(
+      MetisPlugin<?> targetPlugin, WorkflowExecution targetPluginExecution) {
 
     // Loop backwards to find the plugin. Don't add the first plugin to the result list.
-    Pair<MetisPlugin, WorkflowExecution> currentExecutionAndPlugin = new ImmutablePair<>(
+    Pair<MetisPlugin<?>, WorkflowExecution> currentExecutionAndPlugin = new ImmutablePair<>(
         targetPlugin, targetPluginExecution);
-    final ArrayDeque<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = new ArrayDeque<>();
+    final ArrayDeque<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolutionSteps = new ArrayDeque<>();
     while (true) {
 
       // Move to the previous execution: stop when we have none or it is not executable.
@@ -323,23 +323,21 @@ public class DataEvolutionUtils {
     return new ArrayList<>(evolutionSteps);
   }
 
-  Pair<MetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(MetisPlugin plugin,
+  // Not private because of unit tests.
+  Pair<MetisPlugin<?>, WorkflowExecution> getPreviousExecutionAndPlugin(MetisPlugin<?> plugin,
       String datasetId) {
 
     // Check whether we are at the end of the chain.
-    final Date previousPluginTimestamp = plugin.getPluginMetadata()
-        .getRevisionTimestampPreviousPlugin();
-    final PluginType previousPluginType = PluginType.getPluginTypeFromEnumName(
-        plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
-    if (previousPluginTimestamp == null || previousPluginType == null) {
+    final ExecutedMetisPluginId previousPluginId = ExecutedMetisPluginId.forPredecessor(plugin);
+    if (previousPluginId == null) {
       return null;
     }
 
     // Obtain the previous execution and plugin.
     final WorkflowExecution previousExecution = workflowExecutionDao
-        .getByTaskExecution(previousPluginTimestamp, previousPluginType, datasetId);
-    final AbstractMetisPlugin previousPlugin = previousExecution == null ? null
-        : previousExecution.getMetisPluginWithType(previousPluginType).orElse(null);
+        .getByTaskExecution(previousPluginId, datasetId);
+    final AbstractMetisPlugin<?> previousPlugin = previousExecution == null ? null
+        : previousExecution.getMetisPluginWithType(previousPluginId.getPluginType()).orElse(null);
     if (previousExecution == null || previousPlugin == null) {
       return null;
     }

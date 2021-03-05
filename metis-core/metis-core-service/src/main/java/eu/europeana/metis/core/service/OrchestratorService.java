@@ -376,7 +376,7 @@ public class OrchestratorService {
     }
 
     // Validate the workflow and obtain the predecessor.
-    final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowValidationUtils
+    final PluginWithExecutionId<ExecutablePlugin<?>> predecessor = workflowValidationUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Make sure that eCloud knows tmetisUserhis dataset (needs to happen before we create the workflow).
@@ -484,7 +484,7 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+  public ExecutablePlugin<?> getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
@@ -632,28 +632,28 @@ public class OrchestratorService {
   DatasetExecutionInformation getDatasetExecutionInformation(String datasetId) {
 
     // Obtain the relevant parts of the execution history
-    final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(
+    final ExecutablePlugin<?> lastHarvestPlugin = Optional.ofNullable(
         workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final PluginWithExecutionId<MetisPlugin> firstPublishPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> firstPublishPluginWithExecutionId = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final MetisPlugin firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
+    final MetisPlugin<?> firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
         : firstPublishPluginWithExecutionId.getPlugin();
-    final ExecutablePlugin lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin<?> lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final ExecutablePlugin lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin<?> lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final PluginWithExecutionId<MetisPlugin> latestPreviewPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> latestPreviewPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PREVIEW_TYPES);
-    final PluginWithExecutionId<MetisPlugin> latestPublishPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> latestPublishPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final MetisPlugin lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
+    final MetisPlugin<?> lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
         : latestPreviewPluginWithExecutionId.getPlugin();
-    final MetisPlugin lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
+    final MetisPlugin<?> lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
         : latestPublishPluginWithExecutionId.getPlugin();
-    final ExecutablePlugin lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin<?> lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
 
@@ -915,13 +915,13 @@ public class OrchestratorService {
     }
 
     // Find the plugin (workflow step) in question.
-    final AbstractMetisPlugin targetPlugin = execution.getMetisPluginWithType(pluginType)
+    final AbstractMetisPlugin<?> targetPlugin = execution.getMetisPluginWithType(pluginType)
         .orElseThrow(() -> new NoWorkflowExecutionFoundException(String
             .format("No plugin of type %s found for workflowExecution with id: %s",
                 pluginType.name(), execution)));
 
     // Compile the version evolution.
-    final Collection<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = dataEvolutionUtils
+    final Collection<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolutionSteps = dataEvolutionUtils
         .compileVersionEvolution(targetPlugin, execution);
     final VersionEvolution versionEvolution = new VersionEvolution();
     versionEvolution.setEvolutionSteps(evolutionSteps.stream().map(step -> {

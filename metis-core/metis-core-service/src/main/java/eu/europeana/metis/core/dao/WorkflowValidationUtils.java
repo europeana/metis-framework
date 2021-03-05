@@ -77,7 +77,7 @@ public class WorkflowValidationUtils {
    * allowed.</li>
    * </ul>
    */
-  public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
+  public PluginWithExecutionId<ExecutablePlugin<?>> validateWorkflowPlugins(Workflow workflow,
           ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Workflow should have a plugin list.
