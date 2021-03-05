@@ -48,7 +48,7 @@
     <version.jena.iri>3.14.0</version.jena.iri>
     <version.ecloud>4-SNAPSHOT</version.ecloud>
     <version.jedis>3.2.0</version.jedis>
-    <version.redisson>3.12.5</version.redisson>
+    <version.redisson>3.15.1</version.redisson>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
