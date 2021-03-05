@@ -935,6 +935,29 @@ public class OrchestratorService {
     return versionEvolution;
   }
 
+  /**
+   * This method returns whether currently it is permitted/possible to perform incremental
+   * harvesting for the given dataset.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param datasetId The ID of the dataset for which to check.
+   * @return Whether we can perform incremental harvesting for the dataset.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * </ul>
+   */
+  public boolean isIncrementalHarvestingAllowed(MetisUser metisUser, String datasetId)
+          throws GenericMetisException {
+
+    // Check that the user is authorized
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // Do the check.
+    return workflowValidationUtils.isIncrementalHarvestingAllowed(datasetId);
+  }
+
   public int getSolrCommitPeriodInMins() {
     synchronized (this) {
       return solrCommitPeriodInMins;

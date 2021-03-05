@@ -103,7 +103,7 @@ public class WorkflowValidationUtils {
     validateDepublishPlugin(workflow.getDatasetId(), enabledPlugins);
 
     // Validate and normalize the harvest parameters of harvest plugins (even if not enabled)
-    validateAndTrimHarvestParameters(enabledPlugins);
+    validateAndTrimHarvestParameters(workflow.getDatasetId(), enabledPlugins);
 
     // Check that first plugin is not link checking (except if it is the only plugin)
     if (enabledPlugins.size() > 1
@@ -143,9 +143,8 @@ public class WorkflowValidationUtils {
                     enforcedPredecessorType, workflow.getDatasetId());
   }
 
-  private static void validateAndTrimHarvestParameters(
-          Iterable<AbstractExecutablePluginMetadata> enabledPlugins)
-          throws BadContentException {
+  private void validateAndTrimHarvestParameters(String datasetId,
+          Iterable<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
     for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
       if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
         final OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) pluginMetadata;
@@ -156,12 +155,27 @@ public class WorkflowValidationUtils {
                 : oaipmhMetadata.getMetadataFormat().trim());
         oaipmhMetadata.setSetSpec(
                 oaipmhMetadata.getSetSpec() == null ? null : oaipmhMetadata.getSetSpec().trim());
+        if (oaipmhMetadata.isIncrementalHarvest() && !isIncrementalHarvestingAllowed(datasetId)) {
+          throw new BadContentException("Can't perform incremental harvesting for this dataset.");
+        }
       }
       if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
         final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
         httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
       }
     }
+  }
+
+  /**
+   * This method returns whether currently it is permitted/possible to perform incremental
+   * harvesting for the given dataset.
+   *
+   * @param datasetId The ID of the dataset for which to check.
+   * @return Whether we can perform incremental harvesting for the dataset.
+   */
+  public boolean isIncrementalHarvestingAllowed(String datasetId) {
+    // We need to do the entire analysis to make sure that all publish actions are consistent.
+    return !dataEvolutionUtils.getPublishedHarvestIncrements(datasetId).isEmpty();
   }
 
   private void validateDepublishPlugin(String datasetId,

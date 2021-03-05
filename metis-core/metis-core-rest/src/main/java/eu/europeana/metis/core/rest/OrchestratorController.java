@@ -1,7 +1,5 @@
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
@@ -18,6 +16,8 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.Date;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -307,6 +307,46 @@ public class OrchestratorController {
           workflowExecution == null ? "not " : "");
     }
     return workflowExecution;
+  }
+
+  /**
+   * This method returns whether currently it is permitted/possible to perform incremental
+   * harvesting for the given dataset.
+   *
+   * @param authorization the authorization header with the access token
+   * @param datasetId The ID of the dataset for which to check.
+   * @return Whether we can perform incremental harvesting for the dataset.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this task</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_INCREMENTAL, produces = {
+          MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public IncrementalHarvestingAllowedView isIncrementalHarvestingAllowed(
+          @RequestHeader("Authorization") String authorization,
+          @PathVariable("datasetId") String datasetId) throws GenericMetisException {
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return new IncrementalHarvestingAllowedView(
+            orchestratorService.isIncrementalHarvestingAllowed(metisUser, datasetId));
+  }
+
+  static class IncrementalHarvestingAllowedView {
+
+    private final boolean incrementalHarvestingAllowed;
+
+    public IncrementalHarvestingAllowedView(boolean incrementalHarvestingAllowed) {
+      this.incrementalHarvestingAllowed = incrementalHarvestingAllowed;
+    }
+
+    public boolean isIncrementalHarvestingAllowed() {
+      return incrementalHarvestingAllowed;
+    }
   }
 
   /**
