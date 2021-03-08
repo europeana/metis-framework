@@ -102,7 +102,7 @@
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.saxon.he>10.3</version.saxon.he>
     <version.com.zoho.crm.java-sdk>2.0.4</version.com.zoho.crm.java-sdk>
-    <version.solr.solrj>8.5.1</version.solr.solrj>
+    <version.solr.solrj>8.8.1</version.solr.solrj>
     <version.mpd.parser>0.6</version.mpd.parser>
     <version.zip4j>2.7.0</version.zip4j>
     <version.ibm.icu4j>67.1</version.ibm.icu4j>
