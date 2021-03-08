@@ -73,7 +73,7 @@
     <version.commons.io>2.8.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
     <version.apache.httpclient>5.0</version.apache.httpclient>
-    <version.apache.commons-pool2>2.8.0</version.apache.commons-pool2>
+    <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
