@@ -49,7 +49,7 @@
         <dependency>
             <groupId>net.sf.saxon</groupId>
             <artifactId>Saxon-HE</artifactId>
-            <version>10.0</version>
+            <version>${version.saxon.he}</version>
         </dependency>
         <dependency>
             <groupId>org.zeroturnaround</groupId>
