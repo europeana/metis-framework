@@ -952,7 +952,7 @@ public class OrchestratorService {
           throws GenericMetisException {
 
     // Check that the user is authorized
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+  //  authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     // Do the check.
     return workflowValidationUtils.isIncrementalHarvestingAllowed(datasetId);

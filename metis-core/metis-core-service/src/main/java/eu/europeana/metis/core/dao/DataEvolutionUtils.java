@@ -7,6 +7,7 @@ import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
@@ -366,10 +367,10 @@ public class DataEvolutionUtils {
    * </p>
    *
    * @param datasetId The dataset ID for which to obtain the chain.
-   * @return The chain, in the form of plugin-execution pairs that are ordered chronologically. Can
-   * be empty if no such chain exists (i.e. the dataset does not have a published harvest or we find
-   * an index after the last full harvest that did somehow not originate from a harvest). Is never
-   * null.
+   * @return The chain, in the form of plugin-execution pairs that are ordered chronologically. Is
+   * never null, but can be empty if no such chain exists (i.e. the dataset does not have a
+   * published harvest or we find an index after the last full harvest that is invalid or did
+   * somehow not originate from a harvest).
    */
   public List<PluginWithExecutionId<? extends ExecutablePlugin<?>>> getPublishedHarvestIncrements(
           String datasetId) {
@@ -396,6 +397,12 @@ public class DataEvolutionUtils {
     // later harvest). We stop when we find a full harvest (the latest full harvest).
     final Map<ExecutedMetisPluginId, PluginWithExecutionId<? extends ExecutablePlugin<?>>> resultHarvests = new HashMap<>();
     for (Pair<IndexToPublishPlugin, WorkflowExecution> publishOperation : publishOperations) {
+
+      // If the publish is not available, we have detected an anomaly. We are done.
+      if (MetisPlugin.getDataStatus(publishOperation.getLeft()) != DataStatus.VALID &&
+              MetisPlugin.getDataStatus(publishOperation.getLeft()) != DataStatus.DEPRECATED) {
+        return Collections.emptyList();
+      }
 
       // Get the root harvest and add it to the map.
       final PluginWithExecutionId<? extends ExecutablePlugin<?>> rootHarvest = getRootAncestor(
