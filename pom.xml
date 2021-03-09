@@ -88,7 +88,7 @@
     <version.xerces>2.12.1</version.xerces>
     <version.json>20190722</version.json>
     <version.powermock>2.0.9</version.powermock>
-    <version.mockito.core>3.3.3</version.mockito.core>
+    <version.mockito.core>3.8.0</version.mockito.core>
     <version.corelib>2.12.2-SNAPSHOT</version.corelib>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.commons-fileupload>1.4</version.commons-fileupload>
@@ -359,6 +359,12 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${version.junit}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${version.mockito.core}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
