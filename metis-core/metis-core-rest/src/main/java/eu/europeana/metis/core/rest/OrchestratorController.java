@@ -331,7 +331,7 @@ public class OrchestratorController {
   public IncrementalHarvestingAllowedView isIncrementalHarvestingAllowed(
           @RequestHeader("Authorization") String authorization,
           @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    final MetisUser metisUser = null;//authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return new IncrementalHarvestingAllowedView(
             orchestratorService.isIncrementalHarvestingAllowed(metisUser, datasetId));
   }
