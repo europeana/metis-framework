@@ -78,14 +78,19 @@ public class MongoProperties<E extends Exception> {
    * @param password The password. Can be null, in which case no authentication takes place.
    * @param enableSsl Whether to enable SSL connections.
    * @param readPreferenceValue The read preference. Can be null, where then the default applies
+   * @param applicationName
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */
   public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
-      String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
+      String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue,
+      String applicationName)
       throws E {
     setAllProperties(hosts, ports, authenticationDatabase, username, password);
     this.mongoEnableSsl = enableSsl;
     setReadPreferenceValue(readPreferenceValue);
+
+    // Set the application name
+    setApplicationName(applicationName);
   }
 
   /**
