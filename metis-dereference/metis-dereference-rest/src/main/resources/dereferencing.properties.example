@@ -10,5 +10,6 @@ mongo.hosts=
 mongo.port=
 mongo.username=
 mongo.password=
+mongo.application.name=
 entity.db=
 vocabulary.db=
