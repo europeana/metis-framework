@@ -12,6 +12,7 @@ mongo.username=
 mongo.password=
 mongo.db=
 mongo.enableSSL=
+mongo.application.name=
 
 solr.hosts=
 
