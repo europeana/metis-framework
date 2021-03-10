@@ -120,6 +120,8 @@ public class ConfigurationPropertiesHolder {
   private String mongoDb;
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
+  @Value("${mongo.application.name}")
+  private String mongoApplicationName;
 
   //Validation
   @Value("${validation.internal.schema.zip}")
@@ -303,7 +305,7 @@ public class ConfigurationPropertiesHolder {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
     mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
-        mongoPassword, mongoEnableSSL, null);
+        mongoPassword, mongoEnableSSL, null, mongoApplicationName);
     return mongoProperties;
   }
 
