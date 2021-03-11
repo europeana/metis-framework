@@ -87,6 +87,16 @@ public final class IndexingSettings {
   }
 
   /**
+   * Set the application name. Can be null, in which case a default generic application name is
+   * to be used.
+   *
+   * @param applicationName The application name, or null for the default.
+   */
+  public void setMongoApplicationName(String applicationName) {
+    this.mongoProperties.setApplicationName(applicationName);
+  }
+
+  /**
    * Add a Zookeeper host. This method is optional. By default the list is empty, signifying that a
    * direct connection is to be made with Solr (i.e. not via zookeeper). Any value set through
    * {@link #setZookeeperChroot(String)} will be ignored in this case.
