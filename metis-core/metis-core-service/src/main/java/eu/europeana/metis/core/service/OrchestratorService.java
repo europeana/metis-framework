@@ -11,7 +11,8 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
+import eu.europeana.metis.core.dao.WorkflowValidationUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
@@ -98,7 +99,8 @@ public class OrchestratorService {
       .immutableEnumSet(ExecutablePluginType.LINK_CHECKING, ExecutablePluginType.DEPUBLISH);
 
   private final WorkflowExecutionDao workflowExecutionDao;
-  private final WorkflowUtils workflowUtils;
+  private final WorkflowValidationUtils workflowValidationUtils;
+  private final DataEvolutionUtils dataEvolutionUtils;
   private final WorkflowDao workflowDao;
   private final DatasetDao datasetDao;
   private final WorkflowExecutorManager workflowExecutorManager;
@@ -114,7 +116,8 @@ public class OrchestratorService {
    * @param workflowExecutionFactory the orchestratorHelper instance
    * @param workflowDao the Dao instance to access the Workflow database
    * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
-   * @param workflowUtils The utilities class providing more functionality on top of DAOs.
+   * @param workflowValidationUtils A utilities class providing more functionality on top of DAOs.
+   * @param dataEvolutionUtils A utilities class providing more functionality on top of DAOs.
    * @param datasetDao the Dao instance to access the Dataset database
    * @param workflowExecutorManager the instance that handles the production and consumption of
    * workflowExecutions
@@ -124,14 +127,16 @@ public class OrchestratorService {
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
-      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-      WorkflowUtils workflowUtils, DatasetDao datasetDao,
-      WorkflowExecutorManager workflowExecutorManager, RedissonClient redissonClient,
-      Authorizer authorizer, DepublishRecordIdDao depublishRecordIdDao) {
+          WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
+          WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
+          DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
+          RedissonClient redissonClient, Authorizer authorizer,
+          DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
-    this.workflowUtils = workflowUtils;
+    this.workflowValidationUtils = workflowValidationUtils;
+    this.dataEvolutionUtils = dataEvolutionUtils;
     this.datasetDao = datasetDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.redissonClient = redissonClient;
@@ -170,7 +175,7 @@ public class OrchestratorService {
     }
 
     // Validate the new workflow.
-    workflowUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
+    workflowValidationUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Save the workflow.
     workflowDao.create(workflow);
@@ -209,7 +214,7 @@ public class OrchestratorService {
     }
 
     // Validate the new workflow.
-    workflowUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
+    workflowValidationUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Overwrite the workflow.
     workflow.setId(storedWorkflow.getId());
@@ -371,7 +376,7 @@ public class OrchestratorService {
     }
 
     // Validate the workflow and obtain the predecessor.
-    final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowUtils
+    final PluginWithExecutionId<ExecutablePlugin<?>> predecessor = workflowValidationUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Make sure that eCloud knows tmetisUserhis dataset (needs to happen before we create the workflow).
@@ -479,12 +484,12 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+  public ExecutablePlugin<?> getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
     return Optional.ofNullable(
-        workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
+        dataEvolutionUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
@@ -627,28 +632,28 @@ public class OrchestratorService {
   DatasetExecutionInformation getDatasetExecutionInformation(String datasetId) {
 
     // Obtain the relevant parts of the execution history
-    final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(
+    final ExecutablePlugin<?> lastHarvestPlugin = Optional.ofNullable(
         workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final PluginWithExecutionId<MetisPlugin> firstPublishPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> firstPublishPluginWithExecutionId = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final MetisPlugin firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
+    final MetisPlugin<?> firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
         : firstPublishPluginWithExecutionId.getPlugin();
-    final ExecutablePlugin lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin<?> lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final ExecutablePlugin lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin<?> lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final PluginWithExecutionId<MetisPlugin> latestPreviewPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> latestPreviewPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PREVIEW_TYPES);
-    final PluginWithExecutionId<MetisPlugin> latestPublishPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> latestPublishPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final MetisPlugin lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
+    final MetisPlugin<?> lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
         : latestPreviewPluginWithExecutionId.getPlugin();
-    final MetisPlugin lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
+    final MetisPlugin<?> lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
         : latestPublishPluginWithExecutionId.getPlugin();
-    final ExecutablePlugin lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin<?> lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
 
@@ -910,13 +915,13 @@ public class OrchestratorService {
     }
 
     // Find the plugin (workflow step) in question.
-    final AbstractMetisPlugin targetPlugin = execution.getMetisPluginWithType(pluginType)
+    final AbstractMetisPlugin<?> targetPlugin = execution.getMetisPluginWithType(pluginType)
         .orElseThrow(() -> new NoWorkflowExecutionFoundException(String
             .format("No plugin of type %s found for workflowExecution with id: %s",
                 pluginType.name(), execution)));
 
     // Compile the version evolution.
-    final Collection<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = workflowUtils
+    final Collection<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolutionSteps = dataEvolutionUtils
         .compileVersionEvolution(targetPlugin, execution);
     final VersionEvolution versionEvolution = new VersionEvolution();
     versionEvolution.setEvolutionSteps(evolutionSteps.stream().map(step -> {
@@ -928,6 +933,29 @@ public class OrchestratorService {
       return evolutionStep;
     }).collect(Collectors.toList()));
     return versionEvolution;
+  }
+
+  /**
+   * This method returns whether currently it is permitted/possible to perform incremental
+   * harvesting for the given dataset.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param datasetId The ID of the dataset for which to check.
+   * @return Whether we can perform incremental harvesting for the dataset.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * </ul>
+   */
+  public boolean isIncrementalHarvestingAllowed(MetisUser metisUser, String datasetId)
+          throws GenericMetisException {
+
+    // Check that the user is authorized
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // Do the check.
+    return workflowValidationUtils.isIncrementalHarvestingAllowed(datasetId);
   }
 
   public int getSolrCommitPeriodInMins() {

@@ -10,24 +10,26 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.Pagination;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.util.DepublishRecordIdSortField;
-import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
@@ -35,13 +37,16 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -50,8 +55,6 @@ import eu.europeana.metis.core.workflow.plugins.ReindexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.GenericMetisException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -60,7 +63,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
@@ -73,36 +76,34 @@ import org.mockito.Mockito;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-01
  */
-class TestWorkflowUtils {
+class TestDataEvolutionUtils {
 
   private static final String DATASET_ID = Integer.toString(TestObjectFactory.DATASETID);
-  private static WorkflowUtils workflowUtils;
+  private static DataEvolutionUtils dataEvolutionUtils;
   private static WorkflowExecutionDao workflowExecutionDao;
-  private static DepublishRecordIdDao depublishRecordIdDao;
 
   @BeforeAll
   static void prepare() {
     workflowExecutionDao = mock(WorkflowExecutionDao.class);
-    depublishRecordIdDao = mock(DepublishRecordIdDao.class);
-    workflowUtils = spy(new WorkflowUtils(workflowExecutionDao, depublishRecordIdDao));
+    dataEvolutionUtils = spy(new DataEvolutionUtils(workflowExecutionDao));
   }
 
   @AfterEach
   void cleanUp() {
-    reset(workflowUtils, workflowExecutionDao, depublishRecordIdDao);
+    reset(dataEvolutionUtils, workflowExecutionDao);
   }
 
   @Test
   void testComputePredecessorPlugin_HarvestPlugin() throws PluginExecutionNotAllowed {
     assertNull(
-        workflowUtils
+        dataEvolutionUtils
             .computePredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST, null, DATASET_ID));
     assertNull(
-        workflowUtils
+        dataEvolutionUtils
             .computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, null, DATASET_ID));
-    assertNull(workflowUtils.computePredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST,
+    assertNull(dataEvolutionUtils.computePredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST,
         ExecutablePluginType.TRANSFORMATION, DATASET_ID));
-    assertNull(workflowUtils.computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST,
+    assertNull(dataEvolutionUtils.computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST,
         ExecutablePluginType.TRANSFORMATION, DATASET_ID));
     Mockito.verify(workflowExecutionDao, Mockito.never())
         .getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean());
@@ -115,7 +116,7 @@ class TestWorkflowUtils {
     testComputePredecessorPlugin(new OaipmhHarvestPluginMetadata(), Collections.emptySet(), null);
     testComputePredecessorPlugin(new HTTPHarvestPluginMetadata(), Collections.emptySet(), null);
     testComputePredecessorPlugin(new ValidationExternalPluginMetadata(),
-        WorkflowUtils.getHarvestPluginGroup(), null);
+        DataEvolutionUtils.getHarvestPluginGroup(), null);
     testComputePredecessorPlugin(new TransformationPluginMetadata(),
         EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL), null);
     testComputePredecessorPlugin(new ValidationInternalPluginMetadata(),
@@ -133,7 +134,7 @@ class TestWorkflowUtils {
     testComputePredecessorPlugin(new DepublishPluginMetadata(),
         EnumSet.of(ExecutablePluginType.PUBLISH), null);
     testComputePredecessorPlugin(new LinkCheckingPluginMetadata(),
-        WorkflowUtils.getAllExceptLinkGroup(), null);
+        DataEvolutionUtils.getAllExceptLinkGroup(), null);
 
     // Test enforcing a predecessor type.
     testComputePredecessorPlugin(new OaipmhHarvestPluginMetadata(), Collections.emptySet(),
@@ -178,25 +179,25 @@ class TestWorkflowUtils {
     }
     if (predecessorTypes.isEmpty()
             || metadata.getExecutablePluginType() == ExecutablePluginType.DEPUBLISH) {
-      assertNull(workflowUtils
+      assertNull(dataEvolutionUtils
           .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
               DATASET_ID));
     } else {
       assertNotNull(recentPredecessorPlugin);
       when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
-          WorkflowUtils.getHarvestPluginGroup(), true))
+          DataEvolutionUtils.getHarvestPluginGroup(), true))
           .thenReturn(new PluginWithExecutionId<>(rootExecutionId.toString(), rootPlugin));
       when(workflowExecutionDao.getById(predecessorExecutionId.toString()))
           .thenReturn(predecessorExecution);
-      final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
+      final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolution =
           Arrays.asList(ImmutablePair.of(rootPlugin, rootExecution),
               ImmutablePair.of(mock(AbstractExecutablePlugin.class), rootExecution),
               ImmutablePair.of(mock(AbstractExecutablePlugin.class), rootExecution));
-      when(workflowUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
+      when(dataEvolutionUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
           .thenReturn(evolution);
 
       // Test without errors
-      final PluginWithExecutionId<ExecutablePlugin> withoutErrorsResult = workflowUtils
+      final PluginWithExecutionId<ExecutablePlugin<?>> withoutErrorsResult = dataEvolutionUtils
           .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
               DATASET_ID);
       assertSame(recentPredecessorPlugin, withoutErrorsResult.getPlugin());
@@ -206,25 +207,25 @@ class TestWorkflowUtils {
       final AbstractExecutablePlugin otherRootPlugin = mock(AbstractExecutablePlugin.class);
       final String otherRootPluginId = "other root plugin ID";
       when(otherRootPlugin.getId()).thenReturn(otherRootPluginId);
-      when(workflowUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
+      when(dataEvolutionUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
           .thenReturn(
               Collections.singletonList(ImmutablePair.of(otherRootPlugin, rootExecution)));
       assertThrows(PluginExecutionNotAllowed.class,
-          () -> workflowUtils.computePredecessorPlugin(metadata.getExecutablePluginType(),
+          () -> dataEvolutionUtils.computePredecessorPlugin(metadata.getExecutablePluginType(),
               enforcedPluginType, DATASET_ID));
-      when(workflowUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
+      when(dataEvolutionUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
           .thenReturn(Collections.singletonList(ImmutablePair.of(rootPlugin, rootExecution)));
-      assertSame(recentPredecessorPlugin, workflowUtils.computePredecessorPlugin(
+      assertSame(recentPredecessorPlugin, dataEvolutionUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), enforcedPluginType, DATASET_ID).getPlugin());
 
       // Test with errors
       recentPredecessorPlugin.getExecutionProgress().setErrors(1);
-      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
+      assertThrows(PluginExecutionNotAllowed.class, () -> dataEvolutionUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), enforcedPluginType, DATASET_ID));
 
       // Test without progress information
       recentPredecessorPlugin.setExecutionProgress(null);
-      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
+      assertThrows(PluginExecutionNotAllowed.class, () -> dataEvolutionUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), enforcedPluginType, DATASET_ID));
     }
   }
@@ -264,196 +265,18 @@ class TestWorkflowUtils {
 
     // Execute the call expecting a successful result.
     assertSame(lastCandidate,
-        WorkflowUtils
+        DataEvolutionUtils
             .computePredecessorPlugin(ExecutablePluginType.MEDIA_PROCESS, workflowExecution));
 
     // Execute the call for plugin type not requiring predecessor
     assertNull(
-        WorkflowUtils
+        DataEvolutionUtils
             .computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, workflowExecution));
 
     // Execute the call for failed result
     assertThrows(IllegalArgumentException.class,
-        () -> WorkflowUtils
+        () -> DataEvolutionUtils
             .computePredecessorPlugin(ExecutablePluginType.PUBLISH, workflowExecution));
-  }
-
-  @Test
-  void testValidateWorkflowPlugins_testWorkflowComposition() throws GenericMetisException {
-
-    // Create successful predecessor
-    final ExecutablePluginType predecessorType = ExecutablePluginType.OAIPMH_HARVEST;
-    final AbstractExecutablePlugin predecessor =
-        ExecutablePluginFactory.createPlugin(new OaipmhHarvestPluginMetadata());
-    predecessor.setExecutionProgress(new ExecutionProgress());
-    predecessor.getExecutionProgress().setProcessedRecords(1);
-    predecessor.getExecutionProgress().setErrors(0);
-    doReturn(new PluginWithExecutionId<>("", predecessor)).when(workflowUtils)
-        .computePredecessorPlugin(any(), eq(predecessorType), eq(DATASET_ID));
-
-    // Test allowed workflow
-    assertSame(predecessor, workflowUtils.validateWorkflowPlugins(createWorkflow(
-        ExecutablePluginType.OAIPMH_HARVEST), predecessorType).getPlugin());
-    assertSame(predecessor, workflowUtils.validateWorkflowPlugins(createWorkflow(
-        ExecutablePluginType.NORMALIZATION, ExecutablePluginType.ENRICHMENT,
-        ExecutablePluginType.LINK_CHECKING), predecessorType).getPlugin());
-    assertSame(predecessor, workflowUtils.validateWorkflowPlugins(createWorkflow(
-        ExecutablePluginType.ENRICHMENT, ExecutablePluginType.OAIPMH_HARVEST), predecessorType)
-        .getPlugin());
-
-    // Test workflow with empty list
-    assertThrows(BadContentException.class, () -> workflowUtils
-        .validateWorkflowPlugins(createWorkflow(), predecessorType));
-
-    // Test workflow with null list
-    final Workflow workflowWithNullList = new Workflow();
-    workflowWithNullList.setMetisPluginsMetadata(null);
-    assertThrows(BadContentException.class, () -> workflowUtils
-        .validateWorkflowPlugins(workflowWithNullList, predecessorType));
-
-    // Test workflow with plugin with invalid type
-    assertThrows(BadContentException.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.NORMALIZATION, null,
-            ExecutablePluginType.LINK_CHECKING), predecessorType));
-
-    // Test workflow with two plugins, one of which is depublish
-    Workflow workflowDepublishAndOai = new Workflow();
-    workflowDepublishAndOai.setDatasetId(Integer.toString(TestObjectFactory.DATASETID));
-    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata.setEnabled(true);
-    DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
-    depublishPluginMetadata.setEnabled(true);
-    depublishPluginMetadata.setDatasetDepublish(true);
-    List<AbstractExecutablePluginMetadata> abstractMetisPluginMetadata = new ArrayList<>(2);
-    abstractMetisPluginMetadata.add(oaipmhHarvestPluginMetadata);
-    abstractMetisPluginMetadata.add(depublishPluginMetadata);
-    workflowDepublishAndOai.setMetisPluginsMetadata(abstractMetisPluginMetadata);
-    assertThrows(BadContentException.class,
-        () -> workflowUtils.validateWorkflowPlugins(workflowDepublishAndOai, null));
-
-    // Test if workflow contains record depublish that record ids exist
-    Workflow workflowDepublish = new Workflow();
-    workflowDepublish.setDatasetId(Integer.toString(TestObjectFactory.DATASETID));
-    depublishPluginMetadata.setDatasetDepublish(false);
-    abstractMetisPluginMetadata.clear();
-    abstractMetisPluginMetadata.add(depublishPluginMetadata);
-    workflowDepublish.setMetisPluginsMetadata(abstractMetisPluginMetadata);
-    when(depublishRecordIdDao
-        .getAllDepublishRecordIdsWithStatus(workflowDepublish.getDatasetId(),
-            DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-            DepublicationStatus.PENDING_DEPUBLICATION)).thenReturn(Collections.emptySet());
-    assertThrows(BadContentException.class, () -> workflowUtils
-        .validateWorkflowPlugins(workflowDepublish, null));
-
-    // Test workflow starting with link checking.
-    assertSame(predecessor, workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.LINK_CHECKING), predecessorType).getPlugin());
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.LINK_CHECKING, ExecutablePluginType.TRANSFORMATION),
-        predecessorType));
-
-    // Test workflow with gaps
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.ENRICHMENT),
-        predecessorType));
-
-    // Test workflow with duplicate types
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.ENRICHMENT,
-            ExecutablePluginType.ENRICHMENT), predecessorType));
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.LINK_CHECKING,
-            ExecutablePluginType.LINK_CHECKING), predecessorType));
-
-    // Test workflow with disabled plugins: valid before disabling, but invalid after.
-    final Workflow workflowWithDisabledPlugins = createWorkflow(
-        ExecutablePluginType.NORMALIZATION,
-        ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
-    assertSame(predecessor, workflowUtils.validateWorkflowPlugins(workflowWithDisabledPlugins,
-        predecessorType).getPlugin());
-    when(workflowWithDisabledPlugins.getMetisPluginsMetadata().get(1).isEnabled())
-        .thenReturn(false);
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
-        workflowWithDisabledPlugins, predecessorType));
-
-    // Test workflow with bad predecessor
-    doThrow(PluginExecutionNotAllowed.class).when(workflowUtils)
-        .computePredecessorPlugin(any(), eq(predecessorType), eq(DATASET_ID));
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.OAIPMH_HARVEST),
-        predecessorType));
-  }
-
-  private Workflow createWorkflow(ExecutablePluginType... pluginTypes) {
-    final Workflow workflow = new Workflow();
-    workflow.setDatasetId(DATASET_ID);
-    workflow.setMetisPluginsMetadata(Arrays.stream(pluginTypes).map(type -> {
-      final AbstractExecutablePluginMetadata plugin = mock(
-          AbstractExecutablePluginMetadata.class);
-      when(plugin.isEnabled()).thenReturn(true);
-      doReturn(type).when(plugin).getExecutablePluginType();
-      return plugin;
-    }).collect(Collectors.toList()));
-    return workflow;
-  }
-
-  @Test
-  void testValidateWorkflowPlugins_testHarvestingParameters() throws GenericMetisException {
-
-    // Prepare correct url variables
-    final String simpleUrl = "http://test.com/path";
-    final String urlWithFragmentAndQuery = simpleUrl + "#fragment?query=1";
-    final String metadataFormat = "metadataFormatParameter";
-    final String setSpec = "setSpecParameter";
-
-    // Create oai harvesting with all parameters
-    final OaipmhHarvestPluginMetadata oai = new OaipmhHarvestPluginMetadata();
-    oai.setEnabled(true);
-    oai.setUrl(" " + urlWithFragmentAndQuery + " ");
-    oai.setMetadataFormat(" " + metadataFormat + " ");
-    oai.setSetSpec(" " + setSpec + " ");
-
-    // Create http harvesting
-    final HTTPHarvestPluginMetadata http = new HTTPHarvestPluginMetadata();
-    http.setEnabled(true);
-    http.setUrl(" " + urlWithFragmentAndQuery + " ");
-
-    // Create the workflow and execute the method
-    final Workflow workflow = new Workflow();
-    workflow.setMetisPluginsMetadata(Arrays.asList(oai, http));
-    workflowUtils.validateWorkflowPlugins(workflow, null);
-
-    // Test output
-    assertEquals(simpleUrl, oai.getUrl());
-    assertEquals(metadataFormat, oai.getMetadataFormat());
-    assertEquals(setSpec, oai.getSetSpec());
-    assertEquals(urlWithFragmentAndQuery, http.getUrl());
-
-    // Create oai harvesting with only url
-    oai.setUrl(urlWithFragmentAndQuery);
-    oai.setMetadataFormat(null);
-    oai.setSetSpec(null);
-
-    // Create the workflow and execute the method
-    workflow.setMetisPluginsMetadata(Collections.singletonList(oai));
-    workflowUtils.validateWorkflowPlugins(workflow, null);
-
-    // Test output
-    assertEquals(simpleUrl, oai.getUrl());
-    assertNull(oai.getMetadataFormat());
-    assertNull(oai.getSetSpec());
-
-    // Test OAI with invalid URL
-    oai.setUrl("invalid URL");
-    workflow.setMetisPluginsMetadata(Collections.singletonList(oai));
-    assertThrows(BadContentException.class,
-        () -> workflowUtils.validateWorkflowPlugins(workflow, null));
-
-    // Test HTTP with missing URL
-    http.setUrl(null);
-    workflow.setMetisPluginsMetadata(Collections.singletonList(http));
-    assertThrows(BadContentException.class,
-        () -> workflowUtils.validateWorkflowPlugins(workflow, null));
   }
 
   @Test
@@ -466,14 +289,14 @@ class TestWorkflowUtils {
     final AbstractExecutablePlugin plugin3 = mock(AbstractExecutablePlugin.class);
     final WorkflowExecution execution1 = createWorkflowExecution(datasetId, plugin1);
     final WorkflowExecution execution2 = createWorkflowExecution(datasetId, plugin2, plugin3);
-    doReturn(null).when(workflowUtils).getPreviousExecutionAndPlugin(plugin1, datasetId);
-    doReturn(new ImmutablePair<>(plugin1, execution1)).when(workflowUtils)
+    doReturn(null).when(dataEvolutionUtils).getPreviousExecutionAndPlugin(plugin1, datasetId);
+    doReturn(new ImmutablePair<>(plugin1, execution1)).when(dataEvolutionUtils)
         .getPreviousExecutionAndPlugin(plugin2, datasetId);
-    doReturn(new ImmutablePair<>(plugin2, execution2)).when(workflowUtils)
+    doReturn(new ImmutablePair<>(plugin2, execution2)).when(dataEvolutionUtils)
         .getPreviousExecutionAndPlugin(plugin3, datasetId);
 
     // Execute the call to examine all three
-    final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForThree = workflowUtils
+    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> resultForThree = dataEvolutionUtils
         .compileVersionEvolution(plugin3, execution2);
     assertNotNull(resultForThree);
     assertEquals(2, resultForThree.size());
@@ -483,7 +306,7 @@ class TestWorkflowUtils {
     assertSame(execution2, resultForThree.get(1).getRight());
 
     // Execute the call to examine just two
-    final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForTwo = workflowUtils
+    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> resultForTwo = dataEvolutionUtils
         .compileVersionEvolution(plugin2, execution2);
     assertNotNull(resultForTwo);
     assertEquals(1, resultForTwo.size());
@@ -491,13 +314,13 @@ class TestWorkflowUtils {
     assertSame(execution1, resultForThree.get(0).getRight());
 
     // Execute the call to examine just one
-    final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForOne = workflowUtils
+    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> resultForOne = dataEvolutionUtils
         .compileVersionEvolution(plugin1, execution1);
     assertNotNull(resultForOne);
     assertTrue(resultForOne.isEmpty());
   }
 
-  private WorkflowExecution createWorkflowExecution(String datasetId,
+  private static WorkflowExecution createWorkflowExecution(String datasetId,
       AbstractMetisPlugin... plugins) {
     final WorkflowExecution result = new WorkflowExecution();
     result.setId(new ObjectId());
@@ -520,38 +343,38 @@ class TestWorkflowUtils {
         previousPluginTime);
 
     // Test the absence of one or both of the pointers to a previous execution.
-    assertNull(workflowUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
+    assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
         pluginType, null, null), datasetId));
-    assertNull(workflowUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
+    assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
         pluginType, previousPluginType, null), datasetId));
-    assertNull(workflowUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
+    assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
         pluginType, null, previousPluginTime), datasetId));
 
     // Test the absence of the execution despite the presence of the pointers.
     when(workflowExecutionDao
-        .getByTaskExecution(eq(previousPluginTime), eq(previousPluginType), eq(datasetId)))
+        .getByTaskExecution(eq(new ExecutedMetisPluginId(previousPluginTime, previousPluginType)), eq(datasetId)))
         .thenReturn(null);
-    assertNull(workflowUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
+    assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
     when(workflowExecutionDao
-        .getByTaskExecution(eq(previousPluginTime), eq(previousPluginType), eq(datasetId)))
+        .getByTaskExecution(eq(new ExecutedMetisPluginId(previousPluginTime, previousPluginType)), eq(datasetId)))
         .thenReturn(previousExecution);
 
     // Test the absence of the plugin despite the presence of the pointers.
     when(previousExecution.getMetisPluginWithType(eq(previousPluginType))).thenReturn(
         Optional.empty());
-    assertNull(workflowUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
+    assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
     when(previousExecution.getMetisPluginWithType(eq(previousPluginType)))
         .thenReturn(Optional.of(previousPlugin));
 
     // Test the happy flow
-    final Pair<MetisPlugin, WorkflowExecution> result = workflowUtils
+    final Pair<MetisPlugin<?>, WorkflowExecution> result = dataEvolutionUtils
         .getPreviousExecutionAndPlugin(plugin, datasetId);
     assertNotNull(result);
     assertSame(previousExecution, result.getRight());
     assertSame(previousPlugin, result.getLeft());
   }
 
-  private AbstractMetisPlugin createMetisPlugin(PluginType type, PluginType previousType,
+  private static AbstractMetisPlugin createMetisPlugin(PluginType type, PluginType previousType,
       Date previousDate) {
     AbstractMetisPluginMetadata metadata = mock(AbstractMetisPluginMetadata.class);
     when(metadata.getPluginType()).thenReturn(type);
@@ -562,5 +385,163 @@ class TestWorkflowUtils {
     when(result.getPluginType()).thenReturn(type);
     when(result.getPluginMetadata()).thenReturn(metadata);
     return result;
+  }
+
+  @Test
+  void testGetPublishedHarvestIncrements() {
+
+    // Create a bunch of harvest and index plugins and link them
+    final var fullOaiHarvest1 = createOaiHarvestPlugin(new Date(10), false, "A");
+    final var incrementalOaiHarvest2 = createOaiHarvestPlugin(new Date(20), true, "B");
+    final var httpHarvest3 = createExecutableMetisPlugin(ExecutablePluginType.HTTP_HARVEST,
+            new Date(30), HTTPHarvestPlugin.class, HTTPHarvestPluginMetadata.class, "C");
+    final var fullOaiHarvest4 = createOaiHarvestPlugin(new Date(40), false, "D");
+    final var incrementalOaiHarvest5 = createOaiHarvestPlugin(new Date(50), true, "E");
+    final var indexPlugin1 = createIndexToPublish(new Date(11), "F");
+    final var indexPlugin2a = createIndexToPublish(new Date(21), "G");
+    final var indexPlugin2b = createIndexToPublish(new Date(22), "H");
+    final var indexPlugin3a = createIndexToPublish(new Date(31), "I");
+    final var indexPlugin3b = createIndexToPublish(new Date(32), "J");
+    final var indexPlugin4a = createIndexToPublish(new Date(41), "K");
+    final var indexPlugin4b = createIndexToPublish(new Date(42), "L");
+    final var indexPlugin5a = createIndexToPublish(new Date(51), "M");
+    final var indexPlugin5b = createIndexToPublish(new Date(52), "N");
+    doReturn(fullOaiHarvest1).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin1));
+    doReturn(incrementalOaiHarvest2).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin2a));
+    doReturn(incrementalOaiHarvest2).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin2b));
+    doReturn(httpHarvest3).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin3a));
+    doReturn(httpHarvest3).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin3b));
+    doReturn(fullOaiHarvest4).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin4a));
+    doReturn(fullOaiHarvest4).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin4b));
+    doReturn(incrementalOaiHarvest5).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin5a));
+    doReturn(incrementalOaiHarvest5).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin5b));
+
+    // Test happy flow with two OAI harvests. Only last full and last incremented to be returned.
+    final var listOfAllOaiIndex = List.of(indexPlugin5b, indexPlugin5a, indexPlugin4b,
+            indexPlugin4a, indexPlugin2b, indexPlugin2a, indexPlugin1);
+    doReturn(listOfAllOaiIndex).when(dataEvolutionUtils)
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    final var result1 = dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID);
+    assertListSameItems(List.of(fullOaiHarvest4, incrementalOaiHarvest5), result1);
+
+    // Test happy flow with an http harvest
+    final var listOfHttpAndOaiIndex = List.of(indexPlugin5b, indexPlugin5a, indexPlugin3b,
+            indexPlugin3a, indexPlugin2b, indexPlugin2a, indexPlugin1);
+    doReturn(listOfHttpAndOaiIndex).when(dataEvolutionUtils)
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    final var result2 = dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID);
+    assertListSameItems(List.of(httpHarvest3, incrementalOaiHarvest5), result2);
+
+    // Test happy flow with just one full harvest
+    doReturn(List.of(indexPlugin1)).when(dataEvolutionUtils)
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    final var result3 = dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID);
+    assertListSameItems(List.of(fullOaiHarvest1), result3);
+
+    // Test flow with no harvest
+    doReturn(Collections.emptyList()).when(dataEvolutionUtils)
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    assertTrue(dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID).isEmpty());
+
+    // Test flow with only an incremental harvest
+    doReturn(List.of(indexPlugin5b)).when(dataEvolutionUtils)
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    assertTrue(dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID).isEmpty());
+
+    // Test flow with invalid harvests or non-harvests
+    doReturn(List.of(indexPlugin5a, indexPlugin4a, indexPlugin1)).when(dataEvolutionUtils)
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    doReturn(DataStatus.DELETED).when(indexPlugin4a.getPlugin()).getDataStatus();
+    assertTrue(dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID).isEmpty());
+    doReturn(DataStatus.DEPRECATED).when(indexPlugin4a.getPlugin()).getDataStatus();
+    assertListSameItems(List.of(fullOaiHarvest4, incrementalOaiHarvest5),
+            dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID));
+    doReturn(DataStatus.VALID).when(indexPlugin4a.getPlugin()).getDataStatus();
+    assertListSameItems(List.of(fullOaiHarvest4, incrementalOaiHarvest5),
+            dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID));
+    doReturn(indexPlugin4a).when(dataEvolutionUtils).getRootAncestor(same(indexPlugin4a));
+    assertTrue(dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID).isEmpty());
+  }
+
+  private <T> void assertListSameItems(List<T> expected, List<T> actual) {
+    assertListSameItems(expected, actual, Function.identity());
+  }
+
+  private <T, S> void assertListSameItems(List<T> expected, List<S> actual,
+          Function<S, T> extractor) {
+    assertNotNull(expected);
+    assertEquals(expected.size(), actual.size());
+    for (int i = 0; i < expected.size(); i++) {
+      assertSame(expected.get(i), extractor.apply(actual.get(i)));
+    }
+  }
+
+  private static <M extends AbstractExecutablePluginMetadata, T extends AbstractExecutablePlugin<M>>
+  PluginWithExecutionId<T> createExecutableMetisPlugin(ExecutablePluginType type, Date startedDate,
+          Class<T> pluginClass, Class<M> metadataClass, String executionId) {
+    M metadata = mock(metadataClass);
+    doReturn(type).when(metadata).getExecutablePluginType();
+    T result = mock(pluginClass);
+    when(result.getPluginType()).thenReturn(type.toPluginType());
+    when(result.getPluginMetadata()).thenReturn(metadata);
+    when(result.getStartedDate()).thenReturn(startedDate);
+    return new PluginWithExecutionId<>(executionId, result);
+  }
+
+  private static PluginWithExecutionId<IndexToPublishPlugin> createIndexToPublish(Date startedDate,
+          String executionId) {
+    return createExecutableMetisPlugin(ExecutablePluginType.PUBLISH, startedDate,
+            IndexToPublishPlugin.class, IndexToPublishPluginMetadata.class, executionId);
+  }
+
+  private static PluginWithExecutionId<OaipmhHarvestPlugin> createOaiHarvestPlugin(Date startedDate,
+          boolean incremental, String executionId) {
+    final PluginWithExecutionId<OaipmhHarvestPlugin> result = createExecutableMetisPlugin(
+            ExecutablePluginType.OAIPMH_HARVEST, startedDate, OaipmhHarvestPlugin.class,
+            OaipmhHarvestPluginMetadata.class, executionId);
+    when(result.getPlugin().getPluginMetadata().isIncrementalHarvest()).thenReturn(incremental);
+    return result;
+  }
+
+  @Test
+  void testGetPublishOperationsSortedInversely(){
+
+    // Create some objects
+    final var otherPluginA = createOaiHarvestPlugin(new Date(0), false, null).getPlugin();
+    final var indexPluginA = createIndexToPublish(new Date(1), null).getPlugin();
+    final var indexPluginB1 = createIndexToPublish(new Date(2), null).getPlugin();
+    final var indexPluginB2 = createIndexToPublish(new Date(3), null).getPlugin();
+    final var executionA = createWorkflowExecution(DATASET_ID, otherPluginA, indexPluginA);
+    final var executionB = createWorkflowExecution(DATASET_ID, indexPluginB1, indexPluginB2);
+    final var pagination = mock(Pagination.class);
+
+    // Test happy flow
+    final var input = new ResultList<>(List.of(new ExecutionDatasetPair(new Dataset(), executionA),
+            new ExecutionDatasetPair(new Dataset(), executionB)), true);
+    doReturn(pagination).when(workflowExecutionDao).createPagination(0, null, true);
+    doReturn(input).when(workflowExecutionDao)
+            .getWorkflowExecutionsOverview(eq(Set.of(DATASET_ID)), eq(Set.of(PluginStatus.FINISHED)),
+                    eq(Set.of(PluginType.PUBLISH)), isNull(), isNull(), same(pagination));
+    final List<PluginWithExecutionId<IndexToPublishPlugin>> result1 = dataEvolutionUtils
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    assertListSameItems(List.of(indexPluginB2, indexPluginB1, indexPluginA), result1,
+            PluginWithExecutionId::getPlugin);
+
+    // Test happy flow with different order
+    doReturn(new Date(13)).when(indexPluginA).getStartedDate();
+    doReturn(new Date(12)).when(indexPluginB1).getStartedDate();
+    doReturn(new Date(11)).when(indexPluginB2).getStartedDate();
+    final List<PluginWithExecutionId<IndexToPublishPlugin>> result2 = dataEvolutionUtils
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    assertListSameItems(List.of(indexPluginA, indexPluginB1, indexPluginB2), result2,
+            PluginWithExecutionId::getPlugin);
+
+    // Test for no results
+    doReturn(new ResultList<>(Collections.emptyList(), true)).when(workflowExecutionDao)
+            .getWorkflowExecutionsOverview(eq(Set.of(DATASET_ID)), eq(Set.of(PluginStatus.FINISHED)),
+                    eq(Set.of(PluginType.PUBLISH)), isNull(), isNull(), same(pagination));
+    final List<PluginWithExecutionId<IndexToPublishPlugin>> result3 = dataEvolutionUtils
+            .getPublishOperationsSortedInversely(DATASET_ID);
+    assertListSameItems(Collections.emptyList(), result3, PluginWithExecutionId::getPlugin);
   }
 }

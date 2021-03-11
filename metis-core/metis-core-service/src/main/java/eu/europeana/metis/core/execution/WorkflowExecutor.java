@@ -6,8 +6,9 @@ import static java.lang.Thread.currentThread;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -17,7 +18,6 @@ import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
@@ -207,7 +207,6 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
    * @param i the index of the plugin in the list of plugins inside the workflow execution
    * @param plugin the provided plugin to be ran
    * @return true if plugin ran, false if plugin did not run
-   * @throws InterruptedException if an interruption occurred
    */
   private boolean runMetisPluginWithSemaphoreAllocation(int i, AbstractMetisPlugin plugin) {
     // Sanity check
@@ -249,20 +248,21 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
    * It will prepare the plugin, request the external execution and will periodically monitor,
    * update the plugin's progress and at the end finalize the plugin's status and finished date.
    *
-   * @param executablePlugin the plugin to run
+   * @param plugin the plugin to run
    * @param startDateToUse The date that should be used as start date (if the plugin is not already
    * running).
    * @param datasetId The dataset ID.
    */
-  private void runMetisPlugin(AbstractExecutablePlugin<?> executablePlugin, Date startDateToUse,
+  private void runMetisPlugin(AbstractExecutablePlugin<?> plugin, Date startDateToUse,
       String datasetId) {
     try {
       // Compute previous plugin revision information. Only need to look within the workflow: when
       // scheduling the workflow, the previous plugin information is set for the first plugin.
-      final AbstractExecutablePluginMetadata metadata = executablePlugin.getPluginMetadata();
-      if (metadata.getRevisionTimestampPreviousPlugin() == null
-          || metadata.getRevisionNamePreviousPlugin() == null) {
-        final AbstractExecutablePlugin predecessor = WorkflowUtils
+      final AbstractExecutablePluginMetadata metadata = plugin.getPluginMetadata();
+      final ExecutedMetisPluginId executedMetisPluginId = ExecutedMetisPluginId
+              .forPredecessor(plugin);
+      if (executedMetisPluginId == null) {
+        final AbstractExecutablePlugin predecessor = DataEvolutionUtils
             .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
@@ -270,23 +270,22 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       }
 
       // Start execution if it has not already started
-      if (StringUtils.isEmpty(executablePlugin.getExternalTaskId())) {
-        if (executablePlugin.getPluginStatus() == PluginStatus.INQUEUE) {
-          executablePlugin.setStartedDate(startDateToUse);
+      if (StringUtils.isEmpty(plugin.getExternalTaskId())) {
+        if (plugin.getPluginStatus() == PluginStatus.INQUEUE) {
+          plugin.setStartedDate(startDateToUse);
         }
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
             getExternalTaskIdOfPreviousPlugin(metadata), metisCoreBaseUrl);
-        executablePlugin
+        plugin
             .execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
-      LOGGER.warn(String
-          .format("workflowExecutionId: %s, pluginType: %s - Execution of plugin " + "failed",
-              workflowExecution.getId(), executablePlugin.getPluginType()), e);
-      executablePlugin.setFinishedDate(null);
-      executablePlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-      executablePlugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
+      LOGGER.warn(String.format("workflowExecutionId: %s, pluginType: %s - Execution of plugin "
+              + "failed", workflowExecution.getId(), plugin.getPluginType()), e);
+      plugin.setFinishedDate(null);
+      plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+      plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
           ExceptionUtils.getStackTrace(e)));
       return;
     } finally {
@@ -295,26 +294,22 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    periodicCheckingLoop(sleepTime, executablePlugin, datasetId);
+    periodicCheckingLoop(sleepTime, plugin, datasetId);
   }
 
-  private String getExternalTaskIdOfPreviousPlugin(
-      AbstractExecutablePluginMetadata pluginMetadata) {
+  private String getExternalTaskIdOfPreviousPlugin(AbstractExecutablePluginMetadata metadata) {
 
     // Get the previous plugin parameters from the plugin - if there is none, we are done.
-    final PluginType previousPluginType = PluginType
-        .getPluginTypeFromEnumName(pluginMetadata.getRevisionNamePreviousPlugin());
-    final Date previousPluginStartDate = pluginMetadata.getRevisionTimestampPreviousPlugin();
-    if (previousPluginType == null || previousPluginStartDate == null) {
+    final ExecutedMetisPluginId predecessorPlugin = ExecutedMetisPluginId.forPredecessor(metadata);
+    if (predecessorPlugin == null) {
       return null;
     }
 
     // Get the previous plugin based on the parameters.
     final WorkflowExecution previousExecution = workflowExecutionDao
-        .getByTaskExecution(previousPluginStartDate, previousPluginType,
-            workflowExecution.getDatasetId());
+        .getByTaskExecution(predecessorPlugin, workflowExecution.getDatasetId());
     return Optional.ofNullable(previousExecution)
-        .flatMap(execution -> execution.getMetisPluginWithType(previousPluginType))
+        .flatMap(execution -> execution.getMetisPluginWithType(predecessorPlugin.getPluginType()))
         .map(this::expectExecutablePlugin).map(AbstractExecutablePlugin::getExternalTaskId)
         .orElse(null);
   }
