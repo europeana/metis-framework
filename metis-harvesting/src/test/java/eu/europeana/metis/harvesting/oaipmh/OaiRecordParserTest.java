@@ -1,10 +1,10 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class OaiRecordParserTest {
 
@@ -60,13 +60,8 @@ public class OaiRecordParserTest {
     final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
     String content = IOUtils.toString(inputStream, ENCODING);
 
-    try {
-      //when
-      new OaiRecordParser(content).getRdfRecord();
-      fail();
-    } catch (HarvesterException e) {
-      //then
-      assertThat(e.getMessage(), is("Cannot xpath XML!"));
-    }
+    final HarvesterException exception = assertThrows(HarvesterException.class,
+        () -> new OaiRecordParser(content).getRdfRecord());
+    assertThat(exception.getMessage(), is("Cannot xpath XML!"));
   }
 }
