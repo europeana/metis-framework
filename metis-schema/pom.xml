@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>4-SNAPSHOT</version>
+    <version>3.1-sandbox</version>
   </parent>
 
   <artifactId>metis-schema</artifactId>
