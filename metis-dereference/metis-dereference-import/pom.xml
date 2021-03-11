@@ -9,7 +9,7 @@
   <artifactId>metis-dereference-import</artifactId>
   <properties>
     <api.version>3.0.0-M3</api.version>
-    <maven.version>2.0.9</maven.version>
+    <maven.version>2.2.1</maven.version>
   </properties>
   <dependencies>
     <dependency>
