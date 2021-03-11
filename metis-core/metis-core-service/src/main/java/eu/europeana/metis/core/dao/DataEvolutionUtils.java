@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -235,7 +235,7 @@ public class DataEvolutionUtils {
    * @return The root ancestor. Is not null.
    */
   public PluginWithExecutionId<? extends ExecutablePlugin<?>> getRootAncestor(
-      PluginWithExecutionId<ExecutablePlugin<?>> plugin) {
+      PluginWithExecutionId<? extends ExecutablePlugin<?>> plugin) {
     final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
     final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolution =
         compileVersionEvolution(plugin.getPlugin(), execution);
@@ -355,6 +355,30 @@ public class DataEvolutionUtils {
     return new ImmutablePair<>(previousPlugin, previousExecution);
   }
 
+  List<PluginWithExecutionId<IndexToPublishPlugin>> getPublishOperationsSortedInversely(String datasetId) {
+
+    // Get all workflows with finished publish plugins (theoretically we can't quite rely on order).
+    final Pagination pagination = workflowExecutionDao.createPagination(0, null, true);
+    final ResultList<ExecutionDatasetPair> executionsWithPublishOperations = workflowExecutionDao
+            .getWorkflowExecutionsOverview(Set.of(datasetId), Set.of(PluginStatus.FINISHED),
+                    Set.of(PluginType.PUBLISH), null, null, pagination);
+
+    // Extract all (finished) publish plugins inversely sorted by started date (most recent first).
+    final List<PluginWithExecutionId<IndexToPublishPlugin>> publishOperations = new ArrayList<>();
+    executionsWithPublishOperations.getResults().stream().map(ExecutionDatasetPair::getExecution)
+            .forEach(execution -> execution.getMetisPlugins().stream()
+                    .filter(plugin -> plugin instanceof IndexToPublishPlugin)
+                    .map(plugin -> (IndexToPublishPlugin) plugin)
+                    .map(plugin -> new PluginWithExecutionId<>(execution.getId().toString(), plugin))
+                    .forEach(publishOperations::add));
+    final Comparator<PluginWithExecutionId<IndexToPublishPlugin>> comparator = Comparator
+            .comparing(pair -> pair.getPlugin().getStartedDate());
+    publishOperations.sort(comparator.reversed());
+
+    // Done
+    return publishOperations;
+  }
+
   /**
    * <p>
    * This method returns a sequence of published harvest increments. This is a list of successive
@@ -375,39 +399,25 @@ public class DataEvolutionUtils {
   public List<PluginWithExecutionId<? extends ExecutablePlugin<?>>> getPublishedHarvestIncrements(
           String datasetId) {
 
-    // Get all workflows with finished publish plugins (theoretically we can't quite rely on order).
-    final Pagination pagination = workflowExecutionDao.createPagination(0, null, true);
-    final ResultList<ExecutionDatasetPair> executionsWithPublishOperations = workflowExecutionDao
-            .getWorkflowExecutionsOverview(Set.of(datasetId), Set.of(PluginStatus.FINISHED)
-                    , Set.of(PluginType.PUBLISH), null, null, pagination);
-
-    // Extract all (finished) publish plugins inversely sorted by started date (most recent first).
-    final List<Pair<IndexToPublishPlugin, WorkflowExecution>> publishOperations = new ArrayList<>();
-    executionsWithPublishOperations.getResults().stream().map(ExecutionDatasetPair::getExecution)
-            .forEach(execution -> execution.getMetisPlugins().stream()
-                    .filter(plugin -> plugin instanceof IndexToPublishPlugin)
-                    .map(plugin -> (IndexToPublishPlugin) plugin)
-                    .forEach(plugin -> publishOperations.add(new ImmutablePair<>(plugin, execution))));
-    final Comparator<Pair<? extends ExecutablePlugin<?>, WorkflowExecution>> comparator = Comparator
-            .comparing(pair -> pair.getLeft().getStartedDate());
-    publishOperations.sort(comparator.reversed());
+    // Get all publish operations sorted inversely
+    final var allPublishOperations = getPublishOperationsSortedInversely(datasetId);
 
     // Compile a list of all associated harvests (that led to one of these publish operations).
     // Note: we assume that workflows don't cross each other (i.e. an earlier publish cannot have a
     // later harvest). We stop when we find a full harvest (the latest full harvest).
-    final Map<ExecutedMetisPluginId, PluginWithExecutionId<? extends ExecutablePlugin<?>>> resultHarvests = new HashMap<>();
-    for (Pair<IndexToPublishPlugin, WorkflowExecution> publishOperation : publishOperations) {
+    boolean fullHarvestFound = false;
+    final Map<ExecutedMetisPluginId, PluginWithExecutionId<? extends ExecutablePlugin<?>>> resultHarvests = new LinkedHashMap<>();
+    for (PluginWithExecutionId<IndexToPublishPlugin> publishOperation : allPublishOperations) {
 
       // If the publish is not available, we have detected an anomaly. We are done.
-      if (MetisPlugin.getDataStatus(publishOperation.getLeft()) != DataStatus.VALID &&
-              MetisPlugin.getDataStatus(publishOperation.getLeft()) != DataStatus.DEPRECATED) {
+      if (MetisPlugin.getDataStatus(publishOperation.getPlugin()) != DataStatus.VALID &&
+              MetisPlugin.getDataStatus(publishOperation.getPlugin()) != DataStatus.DEPRECATED) {
         return Collections.emptyList();
       }
 
       // Get the root harvest and add it to the map.
       final PluginWithExecutionId<? extends ExecutablePlugin<?>> rootHarvest = getRootAncestor(
-              new PluginWithExecutionId<>(publishOperation.getRight(), publishOperation.getLeft()));
-      resultHarvests.put(ExecutedMetisPluginId.forPlugin(rootHarvest.getPlugin()), rootHarvest);
+              publishOperation);
 
       // If the root harvest is not a harvest, we have detected an anomaly. We are done.
       if (!HARVEST_PLUGIN_GROUP
@@ -415,19 +425,26 @@ public class DataEvolutionUtils {
         return Collections.emptyList();
       }
 
+      // Add the root harvest to the result (overwrite if already there).
+      resultHarvests.put(ExecutedMetisPluginId.forPlugin(rootHarvest.getPlugin()), rootHarvest);
+
       // If the root harvest is a full harvest, we are done.
-      final boolean incrementalHarvest = (rootHarvest.getPlugin() instanceof OaipmhHarvestPlugin)
+      fullHarvestFound = !((rootHarvest.getPlugin() instanceof OaipmhHarvestPlugin)
               && ((OaipmhHarvestPlugin) rootHarvest.getPlugin()).getPluginMetadata()
-              .isIncrementalHarvest();
-      if (!incrementalHarvest) {
+              .isIncrementalHarvest());
+      if (fullHarvestFound) {
         break;
       }
     }
 
-    // Done. Sort and return the harvests in the right order.
-    return resultHarvests.values().stream()
-            .sorted(Comparator.comparing(plugin -> plugin.getPlugin().getStartedDate()))
-            .collect(Collectors.toList());
+    // Done. Sort and return the harvests in the right order (just reversing the result).
+    if (!fullHarvestFound) {
+      return Collections.emptyList();
+    }
+    final List<PluginWithExecutionId<? extends ExecutablePlugin<?>>> result = new ArrayList<>(
+            resultHarvests.values());
+    Collections.reverse(result);
+    return result;
   }
 
   /**

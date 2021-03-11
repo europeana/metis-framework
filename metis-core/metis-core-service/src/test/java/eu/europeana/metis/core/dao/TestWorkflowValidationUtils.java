@@ -1,9 +1,11 @@
 package eu.europeana.metis.core.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
@@ -199,6 +201,7 @@ public class TestWorkflowValidationUtils {
 
     // Create the workflow and execute the method
     final Workflow workflow = new Workflow();
+    workflow.setDatasetId(DATASET_ID);
     workflow.setMetisPluginsMetadata(Arrays.asList(oai, http));
     validationUtils.validateWorkflowPlugins(workflow, null);
 
@@ -233,5 +236,27 @@ public class TestWorkflowValidationUtils {
     workflow.setMetisPluginsMetadata(Collections.singletonList(http));
     assertThrows(BadContentException.class,
             () -> validationUtils.validateWorkflowPlugins(workflow, null));
+
+    // Test incremental OAI
+    oai.setUrl(urlWithFragmentAndQuery);
+    oai.setIncrementalHarvest(true);
+    workflow.setMetisPluginsMetadata(Collections.singletonList(oai));
+    doReturn(true).when(validationUtils).isIncrementalHarvestingAllowed(DATASET_ID);
+    validationUtils.validateWorkflowPlugins(workflow, null);
+    doReturn(false).when(validationUtils).isIncrementalHarvestingAllowed(DATASET_ID);
+    assertThrows(BadContentException.class,
+            () -> validationUtils.validateWorkflowPlugins(workflow, null));
+  }
+
+  @Test
+  void testIsIncrementalHarvestingAllowed() {
+    doReturn(List.of(new PluginWithExecutionId<>((String) null, null)))
+            .when(dataEvolutionUtils).getPublishedHarvestIncrements(DATASET_ID);
+    assertTrue(validationUtils.isIncrementalHarvestingAllowed(DATASET_ID));
+    doReturn(Collections.emptyList()).when(dataEvolutionUtils)
+            .getPublishedHarvestIncrements(DATASET_ID);
+    assertFalse(validationUtils.isIncrementalHarvestingAllowed(DATASET_ID));
+    doReturn(null).when(dataEvolutionUtils).getPublishedHarvestIncrements(DATASET_ID);
+    assertFalse(validationUtils.isIncrementalHarvestingAllowed(DATASET_ID));
   }
 }

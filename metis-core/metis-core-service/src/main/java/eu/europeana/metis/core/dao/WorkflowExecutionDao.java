@@ -480,7 +480,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param toDate         the date to where the results should end. Can be null.
    * @param nextPage       the nextPage token
    * @param pageCount      the number of pages that are requested
-   * @return a list of all the WorkflowExecutions found
+   * @return a list of all the WorkflowExecutions found. Is not null.
    */
   public ResultList<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
       Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate,

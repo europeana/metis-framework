@@ -175,7 +175,7 @@ public class WorkflowValidationUtils {
    */
   public boolean isIncrementalHarvestingAllowed(String datasetId) {
     // We need to do the entire analysis to make sure that all publish actions are consistent.
-    return !dataEvolutionUtils.getPublishedHarvestIncrements(datasetId).isEmpty();
+    return !CollectionUtils.isEmpty(dataEvolutionUtils.getPublishedHarvestIncrements(datasetId));
   }
 
   private void validateDepublishPlugin(String datasetId,

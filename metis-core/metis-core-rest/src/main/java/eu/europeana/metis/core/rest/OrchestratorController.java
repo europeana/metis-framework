@@ -336,19 +336,6 @@ public class OrchestratorController {
             orchestratorService.isIncrementalHarvestingAllowed(metisUser, datasetId));
   }
 
-  static class IncrementalHarvestingAllowedView {
-
-    private final boolean incrementalHarvestingAllowed;
-
-    public IncrementalHarvestingAllowedView(boolean incrementalHarvestingAllowed) {
-      this.incrementalHarvestingAllowed = incrementalHarvestingAllowed;
-    }
-
-    public boolean isIncrementalHarvestingAllowed() {
-      return incrementalHarvestingAllowed;
-    }
-  }
-
   /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
    * there was a previous successful finished plugin that follows a specific order (unless the {@code
