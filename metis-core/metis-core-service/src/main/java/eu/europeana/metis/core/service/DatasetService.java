@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.metis.core.common.TransformationParameters;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -518,8 +519,10 @@ public class DatasetService {
     final XsltTransformer transformer;
     final EuropeanaIdCreator europeanIdCreator;
     try {
-      transformer = new XsltTransformer(xsltUrl, dataset.getDatasetName(),
-          dataset.getCountry().getName(), dataset.getLanguage().name());
+      final TransformationParameters transformationParameters = new TransformationParameters(
+          dataset);
+      transformer = new XsltTransformer(xsltUrl, transformationParameters.getDatasetName(),
+          transformationParameters.getEdmCountry(), transformationParameters.getEdmLanguage());
       europeanIdCreator = new EuropeanaIdCreator();
     } catch (TransformationException e) {
       throw new XsltSetupException("Could not setup XSL transformation.", e);
