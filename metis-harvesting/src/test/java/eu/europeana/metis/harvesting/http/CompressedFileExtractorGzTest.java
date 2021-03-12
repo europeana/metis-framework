@@ -1,15 +1,16 @@
 package eu.europeana.metis.harvesting.http;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collection;
 import org.apache.commons.io.FileUtils;
-import org.junit.AfterClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 
 public class CompressedFileExtractorGzTest {
 
@@ -60,7 +61,7 @@ public class CompressedFileExtractorGzTest {
     return FileUtils.listFiles(new File(folderLocation), new String[]{XML_TYPE}, true);
   }
 
-  @AfterClass
+  @AfterAll
   public static void cleanUp() throws IOException {
     FileUtils.forceDelete(new File(DESTINATION_DIR + FILE_NAME));
     FileUtils.forceDelete(new File(DESTINATION_DIR + FILE_NAME2));

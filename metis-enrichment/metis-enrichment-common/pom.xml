@@ -66,11 +66,6 @@
       <artifactId>swagger-annotations</artifactId>
       <version>${version.swagger.annotations}</version>
     </dependency>
-    <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>${version.jedis}</version>
-    </dependency>
   </dependencies>
 </project>
 

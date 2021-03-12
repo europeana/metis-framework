@@ -40,18 +40,14 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${version.mockito.core}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -70,59 +66,6 @@
       <artifactId>Saxon-HE</artifactId>
       <version>${version.saxon.he}</version>
     </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-sail-nativerdf</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-core</artifactId>
-      <version>${sesame.version}</version>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-rio-rdfxml</artifactId>
-      <version>${sesame.version}</version>
-      <type>jar</type>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-queryalgebra-model</artifactId>
-      <version>${sesame.version}</version>
-
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-queryalgebra-evaluation</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-queryparser-serql</artifactId>
-      <version>${sesame.version}</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-queryparser-sparql</artifactId>
-      <version>${sesame.version}</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-repository-sparql</artifactId>
-      <version>${sesame.version}</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-rio-rdfxml</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
@@ -149,61 +92,6 @@
       <artifactId>de.flapdoodle.embed.mongo</artifactId>
       <version>${version.embedded.mongo}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-sail-memory</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-repository-sail</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-repository-http</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jena</groupId>
-      <artifactId>jena-core</artifactId>
-      <version>${version.jena}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-log4j12</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>log4j</artifactId>
-          <groupId>log4j</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jena</groupId>
-      <artifactId>apache-jena-libs</artifactId>
-      <version>${version.jena}</version>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jena</groupId>
-      <artifactId>jena-arq</artifactId>
-      <version>${version.jena}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-log4j12</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jcl-over-slf4j</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>log4j</artifactId>
-          <groupId>log4j</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 </project>

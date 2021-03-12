@@ -1,15 +1,15 @@
 package eu.europeana.metis.harvesting.http;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Collection;
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class CompressedFileExtractorZipTest {
 
@@ -53,7 +53,7 @@ public class CompressedFileExtractorZipTest {
     return FileUtils.listFiles(new File(folderLocation), new String[]{XML_TYPE}, true);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() throws IOException {
     FileUtils.forceDelete(new File(DESTINATION_DIR + DEFAULT_DESTINATION_NAME));
   }
