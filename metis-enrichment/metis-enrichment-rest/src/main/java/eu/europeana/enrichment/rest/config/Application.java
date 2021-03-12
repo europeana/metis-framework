@@ -55,9 +55,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private int enrichmentMongoPort;
   @Value("${enrichment.mongo.database}")
   private String enrichmentMongoDatabase;
-
-  @Value("${mongo.application.name}")
+  @Value("${enrichment.mongo.application.name}")
   private String mongoApplicationName;
+
   private MongoClient mongoClient;
 
   /**
