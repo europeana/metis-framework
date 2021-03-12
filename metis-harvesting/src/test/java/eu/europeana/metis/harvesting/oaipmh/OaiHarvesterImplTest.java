@@ -23,26 +23,18 @@ import org.junit.jupiter.api.Test;
 
 public class OaiHarvesterImplTest {
 
-  private static int portForWireMock = 9999;
-
-  static {
-    try {
-      portForWireMock = NetworkUtil.getAvailableLocalPort();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  static WireMockServer wireMockServer;
-  static String localhostUrl = "http://127.0.0.1:" + portForWireMock;
-  private static final String OAI_PMH_ENDPOINT = localhostUrl + "/oai-phm/";
-
-  private static final ConnectionClientFactory CONNECTION_CLIENT_FACTORY = TestHelper.CONNECTION_CLIENT_FACTORY::apply;
+  private static WireMockServer WIREMOCK_SERVER;
+  private static String OAI_PMH_ENDPOINT;
+  private static ConnectionClientFactory CONNECTION_CLIENT_FACTORY;
 
   @BeforeAll
-  static void prepare() {
-    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
-    wireMockServer.start();
+  static void prepare() throws IOException {
+    int portForWireMock = NetworkUtil.getAvailableLocalPort();
+    final String localhostUrl = "http://127.0.0.1:" + portForWireMock;
+    OAI_PMH_ENDPOINT = localhostUrl + "/oai-phm/";
+    CONNECTION_CLIENT_FACTORY = TestHelper.CONNECTION_CLIENT_FACTORY::apply;
+    WIREMOCK_SERVER = new WireMockServer(wireMockConfig().port(portForWireMock));
+    WIREMOCK_SERVER.start();
   }
 
   @Test
@@ -50,7 +42,7 @@ public class OaiHarvesterImplTest {
 
     //given
     final String recordId = "mediateka";
-    wireMockServer.stubFor(get(urlEqualTo(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo(
         "/oai-phm/?verb=GetRecord&identifier=" + recordId + "&metadataPrefix=oai_dc")).willReturn(
         WiremockHelper
             .response200XmlContent(WiremockHelper.getFileContent("/sampleOaiRecord.xml"))));
@@ -72,7 +64,7 @@ public class OaiHarvesterImplTest {
 
     //given
     final String recordId = "mediateka";
-    wireMockServer.stubFor(get(urlEqualTo(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo(
         "/oai-phm/?verb=GetRecord&identifier=" + recordId + "&metadataPrefix=oai_dc")).willReturn(
         WiremockHelper
             .response200XmlContent(WiremockHelper.getFileContent("/deletedOaiRecord.xml"))));
@@ -87,7 +79,7 @@ public class OaiHarvesterImplTest {
 
     //given
     final String recordId = "oai:mediateka.centrumzamenhofa.pl:19";
-    wireMockServer.stubFor(get(urlEqualTo(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo(
         "/oai-phm/?verb=GetRecord&identifier=" + URLEncoder.encode(recordId, StandardCharsets.UTF_8)
             + "&metadataPrefix=oai_dc")).willReturn(WiremockHelper.response404()));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
@@ -108,11 +100,11 @@ public class OaiHarvesterImplTest {
     final String set1 = "set1";
     final String set2 = "set2";
 
-    wireMockServer.stubFor(
+    WIREMOCK_SERVER.stubFor(
         get(urlEqualTo("/oai-phm/?verb=ListIdentifiers&set=" + set1 + "&metadataPrefix=" + schema1))
             .willReturn(WiremockHelper
                 .response200XmlContent(WiremockHelper.getFileContent("/oaiListIdentifiers.xml"))));
-    wireMockServer.stubFor(
+    WIREMOCK_SERVER.stubFor(
         get(urlEqualTo("/oai-phm/?verb=ListIdentifiers&set=" + set2 + "&metadataPrefix=" + schema2))
             .willReturn(WiremockHelper
                 .response200XmlContent(WiremockHelper.getFileContent("/oaiListIdentifiers2.xml"))));
@@ -127,7 +119,7 @@ public class OaiHarvesterImplTest {
 
   @Test
   public void shouldReturnNullWhenEmptyCompleteListSize() throws Exception {
-    wireMockServer.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersNoCompleteListSize.xml"))));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
@@ -137,7 +129,7 @@ public class OaiHarvesterImplTest {
 
   @Test
   public void shouldReturnNullWhenIncorrectCompleteListSize() throws Exception {
-    wireMockServer.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersIncorrectCompleteListSize.xml"))));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
@@ -147,7 +139,7 @@ public class OaiHarvesterImplTest {
 
   @Test
   public void shouldReturnNullWhen200ReturnedButErrorInResponse() throws Exception {
-    wireMockServer.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersIncorrectMetadataPrefix.xml"))));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
@@ -157,7 +149,7 @@ public class OaiHarvesterImplTest {
 
   @Test
   public void shouldReturnNullWhenNoResumptionToken() throws Exception {
-    wireMockServer.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersNoResumptionToken.xml"))));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
@@ -167,6 +159,6 @@ public class OaiHarvesterImplTest {
 
   @AfterAll
   static void destroy() {
-    wireMockServer.stop();
+    WIREMOCK_SERVER.stop();
   }
 }

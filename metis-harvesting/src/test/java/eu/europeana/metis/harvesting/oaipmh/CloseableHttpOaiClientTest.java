@@ -21,35 +21,26 @@ import org.junit.jupiter.api.Test;
 
 public class CloseableHttpOaiClientTest {
 
-  private static int portForWireMock = 9999;
-
-  static {
-    try {
-      portForWireMock = NetworkUtil.getAvailableLocalPort();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  static WireMockServer wireMockServer;
-  static String localhostUrl = "http://127.0.0.1:" + portForWireMock;
+  private static WireMockServer WIREMOCK_SERVER;
   private static final String ENDPOINT = "ENDPOINT";
   private static final String PATH = "/content";
-  private static final String URL = localhostUrl + PATH;
-
-  private static final Supplier<CloseableHttpOaiClient> CONNECTION_CLIENT_FACTORY = () -> TestHelper.CONNECTION_CLIENT_FACTORY
-      .apply(ENDPOINT);
+  private static String URL;
+  private static Supplier<CloseableHttpOaiClient> CONNECTION_CLIENT_FACTORY;
 
   @BeforeAll
-  static void prepare() {
-    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
-    wireMockServer.start();
+  static void prepare() throws IOException {
+    int portForWireMock = NetworkUtil.getAvailableLocalPort();
+    final String localhostUrl = "http://127.0.0.1:" + portForWireMock;
+    URL = localhostUrl + PATH;
+    CONNECTION_CLIENT_FACTORY = () -> TestHelper.CONNECTION_CLIENT_FACTORY.apply(ENDPOINT);
+    WIREMOCK_SERVER = new WireMockServer(wireMockConfig().port(portForWireMock));
+    WIREMOCK_SERVER.start();
   }
 
   @Test
   public void shouldReturnACorrectValue() throws HttpException, IOException {
     final String fileContent = "FILE CONTENT";
-    wireMockServer.stubFor(
+    WIREMOCK_SERVER.stubFor(
         get(urlEqualTo(PATH)).willReturn(WiremockHelper.response200XmlContent(fileContent)));
     final Parameters parameters = mock(Parameters.class);
     when(parameters.toUrl(ENDPOINT)).thenReturn(URL);
@@ -60,7 +51,7 @@ public class CloseableHttpOaiClientTest {
 
   @Test
   public void shouldHandleTimeout() throws HttpException {
-    wireMockServer.stubFor(get(urlEqualTo(PATH)).willReturn(WiremockHelper
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo(PATH)).willReturn(WiremockHelper
         .responsTimeoutGreaterThanSocketTimeout("FILE CONTENT", TestHelper.TEST_SOCKET_TIMEOUT)));
     final Parameters parameters = mock(Parameters.class);
     when(parameters.toUrl(ENDPOINT)).thenReturn(URL);
@@ -71,7 +62,7 @@ public class CloseableHttpOaiClientTest {
 
   @Test
   public void shouldRetryAndFail() throws HttpException {
-    wireMockServer.stubFor(get(urlEqualTo(PATH)).willReturn(WiremockHelper.response404()));
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo(PATH)).willReturn(WiremockHelper.response404()));
     final Parameters parameters = mock(Parameters.class);
     when(parameters.toUrl(ENDPOINT)).thenReturn(URL);
     try (final CloseableHttpOaiClient client = CONNECTION_CLIENT_FACTORY.get()) {
@@ -82,10 +73,10 @@ public class CloseableHttpOaiClientTest {
   @Test
   public void shouldRetryAndReturnACorrectValue() throws Exception {
     final String fileContent = "FILE CONTENT";
-    wireMockServer.stubFor(
+    WIREMOCK_SERVER.stubFor(
         get(urlEqualTo(PATH)).inScenario("Retry and success scenario").whenScenarioStateIs(STARTED)
             .willSetStateTo("one time requested").willReturn(WiremockHelper.response404()));
-    wireMockServer.stubFor(get(urlEqualTo(PATH)).inScenario("Retry and success scenario")
+    WIREMOCK_SERVER.stubFor(get(urlEqualTo(PATH)).inScenario("Retry and success scenario")
         .whenScenarioStateIs("one time requested")
         .willReturn(WiremockHelper.response200XmlContent(fileContent)));
     final Parameters parameters = mock(Parameters.class);
@@ -97,6 +88,6 @@ public class CloseableHttpOaiClientTest {
 
   @AfterAll
   static void destroy() {
-    wireMockServer.stop();
+    WIREMOCK_SERVER.stop();
   }
 }
