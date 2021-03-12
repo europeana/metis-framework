@@ -11,7 +11,8 @@ import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
+import eu.europeana.metis.core.dao.WorkflowValidationUtils;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.SemaphoresPerPluginManager;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
@@ -103,23 +104,24 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils, DatasetDao datasetDao,
+      WorkflowExecutionDao workflowExecutionDao, WorkflowValidationUtils workflowValidationUtils,
+      DataEvolutionUtils dataEvolutionUtils, DatasetDao datasetDao,
       WorkflowExecutionFactory workflowExecutionFactory,
       WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer,
       DepublishRecordIdDao depublishRecordIdDao) {
     OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
-        workflowDao, workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager,
-        redissonClient, authorizer, depublishRecordIdDao);
+        workflowDao, workflowExecutionDao, workflowValidationUtils, dataEvolutionUtils, datasetDao,
+        workflowExecutorManager, redissonClient, authorizer, depublishRecordIdDao);
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }
 
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
+      WorkflowExecutionDao workflowExecutionDao, DataEvolutionUtils dataEvolutionUtils,
       DatasetXsltDao datasetXsltDao, DepublishRecordIdDao depublishRecordIdDao) {
     WorkflowExecutionFactory workflowExecutionFactory = new WorkflowExecutionFactory(datasetXsltDao,
-        depublishRecordIdDao, workflowExecutionDao, workflowUtils);
+        depublishRecordIdDao, workflowExecutionDao, dataEvolutionUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
@@ -191,9 +193,14 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao,
-      DepublishRecordIdDao depublishRecordIdDao) {
-    return new WorkflowUtils(workflowExecutionDao, depublishRecordIdDao);
+  DataEvolutionUtils getDataEvolutionUtils(WorkflowExecutionDao workflowExecutionDao) {
+    return new DataEvolutionUtils(workflowExecutionDao);
+  }
+
+  @Bean
+  WorkflowValidationUtils getWorkflowValidationUtils(DataEvolutionUtils dataEvolutionUtils,
+          DepublishRecordIdDao depublishRecordIdDao) {
+    return new WorkflowValidationUtils(depublishRecordIdDao, dataEvolutionUtils);
   }
 
   @Bean

@@ -87,13 +87,13 @@ public final class IndexingSettings {
   }
 
   /**
-   * Set the name of the application. Can be null, where then the default applies
+   * Set the application name. Can be null, in which case a default generic application name is
+   * to be used.
    *
-   * @param mongoApplicationName the read preference value as String
+   * @param applicationName The application name, or null for the default.
    */
-  public void setMongoApplicationName(String mongoApplicationName){
-    if(!mongoApplicationName.isEmpty())
-      this.mongoProperties.setApplicationName(mongoApplicationName);
+  public void setMongoApplicationName(String applicationName) {
+    this.mongoProperties.setApplicationName(applicationName);
   }
 
   /**

@@ -284,7 +284,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *                    values.
    * @return the first plugin found
    */
-  public PluginWithExecutionId<MetisPlugin> getFirstSuccessfulPlugin(String datasetId,
+  public PluginWithExecutionId<MetisPlugin<?>> getFirstSuccessfulPlugin(String datasetId,
       Set<PluginType> pluginTypes) {
     return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true))
         .orElse(null);
@@ -299,7 +299,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *                    values.
    * @return the last plugin found
    */
-  public PluginWithExecutionId<MetisPlugin> getLatestSuccessfulPlugin(String datasetId,
+  public PluginWithExecutionId<MetisPlugin<?>> getLatestSuccessfulPlugin(String datasetId,
       Set<PluginType> pluginTypes) {
     return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false))
         .orElse(null);
@@ -315,7 +315,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public PluginWithExecutionId<ExecutablePlugin> getLatestSuccessfulExecutablePlugin(
+  public PluginWithExecutionId<ExecutablePlugin<?>> getLatestSuccessfulExecutablePlugin(
       String datasetId,
       Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
 
@@ -325,9 +325,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Perform the database query. If nothing found, we are done.
     final Set<PluginType> convertedPluginTypes = pluginTypes.stream()
         .map(ExecutablePluginType::toPluginType).collect(Collectors.toSet());
-    final PluginWithExecutionId<MetisPlugin> uncastResultWrapper =
+    final PluginWithExecutionId<MetisPlugin<?>> uncastResultWrapper =
         getFirstOrLastFinishedPlugin(datasetId, convertedPluginTypes, false);
-    final MetisPlugin uncastResult = Optional.ofNullable(uncastResultWrapper)
+    final MetisPlugin<?> uncastResult = Optional.ofNullable(uncastResultWrapper)
         .map(PluginWithExecutionId::getPlugin).orElse(null);
     if (uncastResult == null) {
       return null;
@@ -339,10 +339,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
           uncastResult.getId(), uncastResult.getPluginType());
       return null;
     }
-    final ExecutablePlugin castResult = (ExecutablePlugin) uncastResult;
+    final ExecutablePlugin<?> castResult = (ExecutablePlugin<?>) uncastResult;
 
     // if necessary, check for the data validity.
-    final PluginWithExecutionId<ExecutablePlugin> result;
+    final PluginWithExecutionId<ExecutablePlugin<?>> result;
     if (limitToValidData && MetisPlugin.getDataStatus(castResult) != DataStatus.VALID) {
       result = null;
     } else {
@@ -351,7 +351,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return result;
   }
 
-  PluginWithExecutionId<MetisPlugin> getFirstOrLastFinishedPlugin(String datasetId,
+  PluginWithExecutionId<MetisPlugin<?>> getFirstOrLastFinishedPlugin(String datasetId,
       Set<PluginType> pluginTypes, boolean firstFinished) {
 
     // Verify the plugin types
@@ -395,11 +395,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Because of the unwind, we know that the plugin we need is always the first one.
     return Optional.ofNullable(metisPluginsIterator).stream().flatMap(Collection::stream)
         .filter(execution -> !execution.getMetisPlugins().isEmpty())
-        .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
+        .map(execution -> new PluginWithExecutionId<MetisPlugin<?>>(execution,
             execution.getMetisPlugins().get(0))).findFirst().orElse(null);
   }
 
-  private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
+  private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum<?>> set) {
     if (set == null || set.isEmpty() || set.stream().anyMatch(Objects::isNull)) {
       throw new IllegalArgumentException();
     }
@@ -464,7 +464,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * Get an overview of all WorkflowExecutions. This returns a list of executions ordered to display
    * an overview. First the ones in queue, then those in progress and then those that are finalized.
-   * They will be sorted by creation date. This method does support pagination. TODO when we migrate
+   * Within these categories they will be sorted by creation date (most recent first). This method
+   * does support pagination.
+   *
+   * TODO when we migrate
    * to mongo 3.4 or later, we can do this easier with new aggregation pipeline stages and
    * operators. The main improvements are 1) to try to map the root to the 'execution' variable so
    * that we don't have to look it up afterwards, and 2) to use $addFields with $switch to add the
@@ -477,16 +480,22 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param toDate         the date to where the results should end. Can be null.
    * @param nextPage       the nextPage token
    * @param pageCount      the number of pages that are requested
-   * @return a list of all the WorkflowExecutions found
+   * @return a list of all the WorkflowExecutions found. Is not null.
    */
   public ResultList<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
       Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate,
       int nextPage, int pageCount) {
+    return getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes, fromDate, toDate,
+            createPagination(nextPage, pageCount, false));
+  }
 
-    return retryableExternalRequestForNetworkExceptions(() -> {
+  ResultList<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate,
+      Pagination pagination) {
+
+      return retryableExternalRequestForNetworkExceptions(() -> {
 
       // Prepare pagination and check that there is something to query
-      final Pagination pagination = createPagination(nextPage, pageCount, false);
       if (pagination.getLimit() < 1) {
         return createResultList(Collections.emptyList(), pagination);
       }
@@ -757,18 +766,16 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * This method retrieves the workflow execution that contains a subtask satisfying the given
    * parameters.
    *
-   * @param startedDate The started date of the subtask.
-   * @param pluginType  The plugin type of the subtask.
+   * @param plugin  The plugin ID representing the subtask.
    * @param datasetId   The dataset ID of the workflow execution.
    * @return The workflow execution.
    */
-  public WorkflowExecution getByTaskExecution(Date startedDate, PluginType pluginType,
-      String datasetId) {
+  public WorkflowExecution getByTaskExecution(ExecutedMetisPluginId plugin, String datasetId) {
 
     // Create subquery to find the correct plugin.
     List<Filter> elemMatchFilters = new ArrayList<>();
-    elemMatchFilters.add(Filters.eq(STARTED_DATE.getFieldName(), startedDate));
-    elemMatchFilters.add(Filters.eq(PLUGIN_TYPE.getFieldName(), pluginType));
+    elemMatchFilters.add(Filters.eq(STARTED_DATE.getFieldName(), plugin.getPluginStartedDate()));
+    elemMatchFilters.add(Filters.eq(PLUGIN_TYPE.getFieldName(), plugin.getPluginType()));
 
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =
@@ -795,7 +802,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return retryableExternalRequestForNetworkExceptions(query::first);
   }
 
-  private Pagination createPagination(int firstPage, Integer pageCount,
+  Pagination createPagination(int firstPage, Integer pageCount,
       boolean ignoreMaxServedExecutionsLimit) {
 
     // Compute the total number (including skipped pages)
@@ -814,13 +821,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return new Pagination(skip, limit, maxRequested);
   }
 
-  private static class Pagination {
+  static class Pagination {
 
     private final int skip;
     private final int limit;
     private final boolean maxRequested;
 
-    Pagination(int skip, int limit, boolean maxRequested) {
+    private Pagination(int skip, int limit, boolean maxRequested) {
       this.skip = skip;
       this.limit = limit;
       this.maxRequested = maxRequested;

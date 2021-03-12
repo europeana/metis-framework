@@ -45,12 +45,12 @@ public final class RestEndpoints {
   //ORCHESTRATION
   public static final String ORCHESTRATOR_WORKFLOWS_DATASETID = "/orchestrator/workflows/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE = "/orchestrator/workflows/{datasetId}/execute";
-  public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetId}/execute/direct";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID = "/orchestrator/workflows/executions/{executionId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY = "/orchestrator/workflows/executions/{executionId}/plugins/data-availability";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID = "/orchestrator/workflows/executions/dataset/{datasetId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_INCREMENTAL = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_incremental";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_plugin";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY = "/orchestrator/workflows/executions/dataset/{datasetId}/history";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION = "/orchestrator/workflows/executions/dataset/{datasetId}/information";
@@ -79,10 +79,6 @@ public final class RestEndpoints {
   /* METIS SCHEMA VALIDATION ENDPOINT */
   public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
   public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";
-  public static final String SCHEMAS_DOWNLOAD_BY_NAME = "/schemas/download/schema/{name}/{version}";
-  public static final String SCHEMAS_MANAGE_BY_NAME = "/schemas/schema/{name}/{version}";
-  public static final String SCHEMAS_UPDATE_BY_NAME = "/schemas/schema/update/{name}/{version}";
-  public static final String SCHEMAS_ALL = "/schemas/all";
 
   /* METIS PREVIEW SERVICE ENDPOINT*/
   public static final String DATA_CHECKER_UPLOAD = "/upload";
