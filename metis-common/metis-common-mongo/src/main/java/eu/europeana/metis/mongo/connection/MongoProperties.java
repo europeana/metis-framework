@@ -84,10 +84,8 @@ public class MongoProperties<E extends Exception> {
   public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
       String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
       throws E {
-    setAllProperties(hosts, ports, authenticationDatabase, username, password);
-    this.mongoEnableSsl = enableSsl;
-    setReadPreferenceValue(readPreferenceValue);
-    setApplicationName("");
+    setAllProperties(hosts, ports, authenticationDatabase, username, password, enableSsl,
+        readPreferenceValue, null);
   }
 
   /**
