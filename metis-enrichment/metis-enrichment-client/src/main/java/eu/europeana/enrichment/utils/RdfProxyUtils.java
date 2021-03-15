@@ -1,10 +1,14 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.SearchTermAggregation;
 import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,16 +36,15 @@ public final class RdfProxyUtils {
    * @param link the about value to link
    * @param linkTypes the types of the link to add in the europeana proxy.
    */
-  public static void appendLinkToEuropeanaProxy(RDF rdf, String link,
-          Set<FieldType> linkTypes) {
+  public static void appendLinkToEuropeanaProxy(RDF rdf, String link, Set<FieldType> linkTypes) {
     final Map<FieldType, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
     final ProxyType europeanaProxy = getEuropeanaProxy(rdf);
     for (FieldType linkType : linkTypes) {
       final boolean alreadyExists = Optional.ofNullable(allProxyLinksPerType.get(linkType))
-              .orElseGet(Collections::emptySet).contains(link);
+          .orElseGet(Collections::emptySet).contains(link);
       if (!alreadyExists) {
         final List<EuropeanaType.Choice> choices = Optional
-                .ofNullable(europeanaProxy.getChoiceList()).orElseGet(ArrayList::new);
+            .ofNullable(europeanaProxy.getChoiceList()).orElseGet(ArrayList::new);
         choices.add(linkType.createChoice(link));
         europeanaProxy.setChoiceList(choices);
       }
@@ -49,22 +52,46 @@ public final class RdfProxyUtils {
     replaceProxy(rdf, europeanaProxy);
   }
 
+  /**
+   * Replace matching aggregation values with their found corresponding links.
+   *
+   * @param rdf the rdf to update
+   * @param link the about value to use
+   * @param searchTermAggregation the aggregation search term to use for finding the matched values
+   */
+  public static void replaceValueWithLinkInAggregation(RDF rdf, String link,
+      SearchTermAggregation searchTermAggregation) {
+    final List<Aggregation> aggregationList = rdf.getAggregationList();
+    for (AggregationFieldType aggregationFieldType : searchTermAggregation
+        .getAggregationFieldTypes()) {
+      aggregationList.stream().map(aggregationFieldType::getResourceOrLiteral).flatMap(List::stream)
+          .filter(resourceOrLiteralType ->
+              resourceOrLiteralType.getString().equals(searchTermAggregation.getTextValue())
+                  && resourceOrLiteralType.getLang().getLang()
+                  .equals(searchTermAggregation.getLanguage())).forEach(resourceOrLiteralType -> {
+        final Resource resource = new Resource();
+        resource.setResource(link);
+        resourceOrLiteralType.setResource(resource);
+      });
+    }
+  }
+
   private static Map<FieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
     final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList()).stream()
-            .flatMap(Collection::stream).filter(Objects::nonNull)
-            .map(ProxyType::getChoiceList).filter(Objects::nonNull).flatMap(List::stream)
-            .filter(Objects::nonNull).collect(Collectors.toList());
+        .flatMap(Collection::stream).filter(Objects::nonNull).map(ProxyType::getChoiceList)
+        .filter(Objects::nonNull).flatMap(List::stream).filter(Objects::nonNull)
+        .collect(Collectors.toList());
     final Map<FieldType, Set<String>> result = new EnumMap<>(FieldType.class);
     for (FieldType linkType : FieldType.values()) {
       final Set<String> links = allChoices.stream().map(linkType::getResourceIfRightChoice)
-              .filter(Objects::nonNull).collect(Collectors.toSet());
+          .filter(Objects::nonNull).collect(Collectors.toSet());
       if (!links.isEmpty()) {
         result.put(linkType, links);
       }
     }
     return result;
   }
-  
+
   /**
    * Retrieve all Provider proxy from the proxy list in the {@link RDF}
    *
@@ -73,8 +100,8 @@ public final class RdfProxyUtils {
    */
   public static List<ProxyType> getProviderProxies(RDF rdf) {
     return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
-            .filter(Objects::nonNull).filter(proxy -> !isEuropeanaProxy(proxy))
-            .collect(Collectors.toList());
+        .filter(Objects::nonNull).filter(proxy -> !isEuropeanaProxy(proxy))
+        .collect(Collectors.toList());
   }
 
   private static boolean isEuropeanaProxy(ProxyType proxy) {
@@ -90,8 +117,8 @@ public final class RdfProxyUtils {
    */
   public static ProxyType getEuropeanaProxy(RDF rdf) {
     return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
-            .filter(Objects::nonNull).filter(RdfProxyUtils::isEuropeanaProxy).findAny()
-            .orElseThrow(() -> new IllegalArgumentException("Could not find Europeana proxy."));
+        .filter(Objects::nonNull).filter(RdfProxyUtils::isEuropeanaProxy).findAny()
+        .orElseThrow(() -> new IllegalArgumentException("Could not find Europeana proxy."));
   }
 
   private static void replaceProxy(RDF rdf, ProxyType europeanaProxy) {

@@ -2,12 +2,14 @@ package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
+import eu.europeana.enrichment.api.external.model.EdmOrganization;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.SearchTermAggregation;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Alt;
@@ -312,7 +314,8 @@ public class EntityMergeEngine {
 
     // isPartOf
     if (timespan.getIsPartOf() != null) {
-      timeSpanType.setIsPartOfList(ItemExtractorUtils.extractParts(List.of(timespan.getIsPartOf()), IsPartOf::new));
+      timeSpanType.setIsPartOfList(
+          ItemExtractorUtils.extractParts(List.of(timespan.getIsPartOf()), IsPartOf::new));
     }
 
     // noteList
@@ -334,15 +337,23 @@ public class EntityMergeEngine {
     return timeSpanType;
   }
 
+  private static AgentType convertOrganizationToAgent(EdmOrganization edmOrganization) {
+    final AgentType agentType = new AgentType();
+    agentType.setAbout(edmOrganization.getAbout());
+    agentType.setPrefLabelList(
+        ItemExtractorUtils.extractLabels(edmOrganization.getPrefLabelList(), PrefLabel::new));
+    return agentType;
+  }
+
   private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
       I inputEntity, Function<I, T> converter, Supplier<List<T>> listGetter,
       Consumer<List<T>> listSetter) {
 
     // Check if Entity already exists in the list. If so, return it. We don't overwrite.
     final T existingEntity = Optional.ofNullable(listGetter.get()).stream()
-            .flatMap(Collection::stream)
-            .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout()))
-            .findAny().orElse(null);
+        .flatMap(Collection::stream)
+        .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
+        .orElse(null);
     if (existingEntity != null) {
       return existingEntity;
     }
@@ -394,5 +405,35 @@ public class EntityMergeEngine {
     for (EnrichmentBase base : enrichmentBaseList) {
       convertAndAddEntity(rdf, base, proxyLinkTypes);
     }
+  }
+
+  /**
+   * Merge entities in a record.
+   *
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @param searchTermAggregation the aggregation search terms
+   */
+  public void mergeAggregationEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      SearchTermAggregation searchTermAggregation) {
+    for (EnrichmentBase base : enrichmentBaseList) {
+      convertAndAddEntity(rdf, base, searchTermAggregation);
+    }
+  }
+
+  private void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
+      SearchTermAggregation searchTermAggregation) {
+
+    // Convert the entity and add it to the RDF.
+    final AboutType entity;
+    if (enrichmentBase instanceof EdmOrganization) {
+      entity = convertAndAddEntity((EdmOrganization) enrichmentBase,
+          EntityMergeEngine::convertOrganizationToAgent, rdf::getAgentList, rdf::setAgentList);
+    } else {
+      throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
+    }
+
+    //Replace matching values in Aggregation
+    RdfProxyUtils.replaceValueWithLinkInAggregation(rdf, entity.getAbout(), searchTermAggregation);
   }
 }

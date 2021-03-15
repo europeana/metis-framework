@@ -1,13 +1,16 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
-import eu.europeana.enrichment.api.internal.FieldType.FieldValue;
+import eu.europeana.enrichment.api.internal.FieldValue;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.SearchTermAggregation;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.utils.RdfProxyUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
@@ -47,11 +50,28 @@ public class MetisRecordParser implements RecordParser {
     final Map<FieldValue, Set<FieldType>> result = new HashMap<>();
     for (FieldType field : FieldType.values()) {
       providerProxies.stream().map(field::extractFieldValuesForEnrichment)
-              .flatMap(Collection::stream)
-              .forEach(value -> result.computeIfAbsent(value, key -> new HashSet<>()).add(field));
+          .flatMap(Collection::stream)
+          .forEach(value -> result.computeIfAbsent(value, key -> new HashSet<>()).add(field));
     }
-    return result.entrySet().stream().map(entry -> new SearchTermContext(entry.getKey().getValue(),
-            entry.getKey().getLanguage(), entry.getValue())).collect(Collectors.toSet());
+    return result.entrySet().stream().map(
+        entry -> new SearchTermContext(entry.getKey().getValue(), entry.getKey().getLanguage(),
+            entry.getValue())).collect(Collectors.toSet());
+  }
+
+  @Override
+  public Set<SearchTermAggregation> parseAggregationSearchTerms(RDF rdf) {
+    //Get Aggregation search terms
+    final List<Aggregation> aggregations = rdf.getAggregationList();
+    final Map<FieldValue, Set<AggregationFieldType>> aggregationResult = new HashMap<>();
+    for (AggregationFieldType aggregationFieldType : AggregationFieldType.values()) {
+      aggregations.stream().map(aggregationFieldType::extractFieldValuesForEnrichment)
+          .flatMap(Collection::stream).forEach(
+          value -> aggregationResult.computeIfAbsent(value, key -> new HashSet<>())
+              .add(aggregationFieldType));
+    }
+    return aggregationResult.entrySet().stream().map(
+        entry -> new SearchTermAggregation(entry.getKey().getValue(), entry.getKey().getLanguage(),
+            entry.getValue())).collect(Collectors.toSet());
   }
 
   @Override
@@ -60,14 +80,14 @@ public class MetisRecordParser implements RecordParser {
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
     final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
-            .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
+        .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
     final Map<String, Set<FieldType>> directReferences = new HashMap<>();
     for (FieldType field : FieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
-              .flatMap(Set::stream).collect(Collectors.toSet());
+          .flatMap(Set::stream).collect(Collectors.toSet());
       for (String directLink : directLinks) {
         directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(FieldType.class))
-                .add(field);
+            .add(field);
       }
     }
 
@@ -77,24 +97,23 @@ public class MetisRecordParser implements RecordParser {
       final Set<FieldType> linkTypes = directReferences.get(contextualClass.getAbout());
       if (linkTypes != null) {
         for (String sameAsLink : getSameAsLinks(contextualClass)) {
-          indirectReferences
-                  .computeIfAbsent(sameAsLink, key -> EnumSet.noneOf(FieldType.class))
-                  .addAll(linkTypes);
+          indirectReferences.computeIfAbsent(sameAsLink, key -> EnumSet.noneOf(FieldType.class))
+              .addAll(linkTypes);
         }
       }
     };
     Optional.ofNullable(rdf.getAgentList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+        .forEach(contextualTypeProcessor);
     Optional.ofNullable(rdf.getConceptList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+        .forEach(contextualTypeProcessor);
     Optional.ofNullable(rdf.getPlaceList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+        .forEach(contextualTypeProcessor);
     Optional.ofNullable(rdf.getTimeSpanList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+        .forEach(contextualTypeProcessor);
 
     // Merge the two maps.
     final Map<String, Set<FieldType>> resultMap = mergeMapInto(directReferences,
-            indirectReferences);
+        indirectReferences);
 
     // Clean up the result: no null values. But objects we already have need to
     // stay: maybe they are matched using a sameAs link.
@@ -120,12 +139,8 @@ public class MetisRecordParser implements RecordParser {
       result = ((AgentType) contextualClass).getSameAList();
     } else if (contextualClass instanceof Concept) {
       result = Optional.ofNullable(((Concept) contextualClass).getChoiceList()).stream()
-              .flatMap(Collection::stream)
-              .filter(Objects::nonNull)
-              .filter(Concept.Choice::ifExactMatch)
-              .map(Concept.Choice::getExactMatch)
-              .filter(Objects::nonNull)
-              .collect(Collectors.toList());
+          .flatMap(Collection::stream).filter(Objects::nonNull).filter(Concept.Choice::ifExactMatch)
+          .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).collect(Collectors.toList());
     } else if (contextualClass instanceof PlaceType) {
       result = ((PlaceType) contextualClass).getSameAList();
     } else if (contextualClass instanceof TimeSpanType) {
@@ -134,8 +149,8 @@ public class MetisRecordParser implements RecordParser {
       result = null;
     }
     return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
-            .filter(Objects::nonNull).map(ResourceType::getResource).filter(StringUtils::isNotBlank)
-            .collect(Collectors.toSet());
+        .filter(Objects::nonNull).map(ResourceType::getResource).filter(StringUtils::isNotBlank)
+        .collect(Collectors.toSet());
   }
 
   private static <T, S> Map<T, Set<S>> mergeMapInto(Map<T, Set<S>> map1, Map<T, Set<S>> map2) {
