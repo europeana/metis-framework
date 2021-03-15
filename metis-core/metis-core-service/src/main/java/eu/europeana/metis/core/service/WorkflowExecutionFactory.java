@@ -1,10 +1,11 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.metis.core.common.TransformationParameters;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
@@ -29,7 +30,6 @@ import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import org.apache.commons.lang3.StringUtils;
@@ -254,10 +254,10 @@ public class WorkflowExecutionFactory {
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       pluginMetadata.setXsltId(xsltObject.getId().toString());
     }
-    //DatasetName in Transformation should be a concatenation datasetId_datasetName
-    pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
-    pluginMetadata.setCountry(dataset.getCountry().getName());
-    pluginMetadata.setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
+    final TransformationParameters transformationParameters = new TransformationParameters(dataset);
+    pluginMetadata.setDatasetName(transformationParameters.getDatasetName());
+    pluginMetadata.setCountry(transformationParameters.getEdmCountry());
+    pluginMetadata.setLanguage(transformationParameters.getEdmLanguage());
   }
 
   private void setupDepublishPluginMetadata(Dataset dataset, DepublishPluginMetadata pluginMetadata)
