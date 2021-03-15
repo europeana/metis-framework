@@ -55,6 +55,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private int enrichmentMongoPort;
   @Value("${enrichment.mongo.database}")
   private String enrichmentMongoDatabase;
+  @Value("${enrichment.mongo.application.name}")
+  private String enrichmentMongoApplicationName;
 
   private MongoClient mongoClient;
 
@@ -92,6 +94,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         IllegalArgumentException::new);
     mongoProperties
         .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
+    mongoProperties.setApplicationName(enrichmentMongoApplicationName);
     mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     return mongoClient;
   }

@@ -40,6 +40,7 @@ mongo.username=
 mongo.password=
 mongo.enableSSL=
 mongo.db=
+mongo.application.name=
 
 #Redis
 redis.host=
