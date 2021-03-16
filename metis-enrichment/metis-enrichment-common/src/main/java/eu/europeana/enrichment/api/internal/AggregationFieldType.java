@@ -3,7 +3,9 @@ package eu.europeana.enrichment.api.internal;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -14,9 +16,9 @@ public enum AggregationFieldType {
   PROVIDER(aggregation -> List.of(aggregation.getProvider()),
       EntityType.ORGANIZATION), DATA_PROVIDER(aggregation -> List.of(aggregation.getDataProvider()),
       EntityType.ORGANIZATION), INTERMEDIATE_PROVIDER(
-      aggregation -> aggregation.getIntermediateProviderList().stream()
-          .map(ResourceOrLiteralType.class::cast).collect(Collectors.toList()),
-      EntityType.ORGANIZATION);
+      aggregation -> Optional.ofNullable(aggregation.getIntermediateProviderList()).stream()
+          .flatMap(Collection::stream).map(ResourceOrLiteralType.class::cast)
+          .collect(Collectors.toList()), EntityType.ORGANIZATION);
 
   private final Function<Aggregation, List<ResourceOrLiteralType>> valueProvider;
   private final EntityType entityType;

@@ -8,6 +8,7 @@ import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Lang;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,6 +73,8 @@ public final class RdfProxyUtils {
         final Resource resource = new Resource();
         resource.setResource(link);
         resourceOrLiteralType.setResource(resource);
+        resourceOrLiteralType.setLang(new Lang());
+        resourceOrLiteralType.setString("");
       });
     }
   }

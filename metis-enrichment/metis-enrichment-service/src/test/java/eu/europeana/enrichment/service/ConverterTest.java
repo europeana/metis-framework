@@ -4,11 +4,11 @@ import static eu.europeana.enrichment.service.EnrichmentObjectUtils.areHashMapsW
 import static eu.europeana.enrichment.service.EnrichmentObjectUtils.areListsEqual;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
+import eu.europeana.enrichment.api.external.model.EdmOrganization;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -16,10 +16,14 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.VcardAddress;
+import eu.europeana.enrichment.api.external.model.VcardAddresses;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.Address;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
@@ -32,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -108,25 +113,22 @@ public class ConverterTest {
   }
 
   @Test
-  void convertOtherObject_returns_null() {
-    final EnrichmentBase organization = new EnrichmentBase() {
-    };
-    assertThrows(BadContentException.class,
-        () -> assertConversion(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity(),
-            organization, enrichmentObjectUtils.organizationTerm1.getEntityType()));
+  void convertOrganization() throws Exception {
+    final EdmOrganization edmOrganization = (EdmOrganization) Converter
+        .convert(enrichmentObjectUtils.organizationTerm1);
+    assertConversion(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity(), edmOrganization,
+        enrichmentObjectUtils.organizationTerm1.getEntityType());
+
+    final EdmOrganization customEdmOrganization = (EdmOrganization) Converter
+        .convert(enrichmentObjectUtils.customOrganizationTerm);
+    assertConversion(enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity(),
+        customEdmOrganization, enrichmentObjectUtils.customOrganizationTerm.getEntityType());
   }
 
   @Test
   void convert_EnrichmentTermWithInvalidType() {
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
     enrichmentTerm.setEntityType(null);
-    assertNull(Converter.convert(enrichmentTerm));
-  }
-
-  @Test
-  void convert_EnrichmentTermNotSupportedType() {
-    final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
     assertNull(Converter.convert(enrichmentTerm));
   }
 
@@ -147,7 +149,8 @@ public class ConverterTest {
         assertPlace((PlaceEnrichmentEntity) expected, (Place) actual);
         break;
       case ORGANIZATION:
-        //Organization not supported for enrichment
+        assertOrganization((OrganizationEnrichmentEntity) expected, (EdmOrganization) actual);
+        break;
       default:
         throw new BadContentException("Invalid entity type value: " + entityType);
     }
@@ -222,6 +225,44 @@ public class ConverterTest {
         actual.getAlt());
   }
 
+  private void assertOrganization(OrganizationEnrichmentEntity expected, EdmOrganization actual) {
+    assertTrue(areListsEqual(expected.getOwlSameAs(),
+        actual.getSameAs().stream().map(Resource::getResource).collect(Collectors.toList())));
+    assertEquals(expected.getEdmCountry().entrySet().iterator().next().getValue(),
+        actual.getCountry());
+
+    assertEquals(
+        Optional.ofNullable(expected.getFoafPhone()).stream().flatMap(List::stream).findFirst()
+            .orElse(null), actual.getPhone());
+    assertEquals(
+        Optional.ofNullable(expected.getFoafMbox()).stream().flatMap(List::stream).findFirst()
+            .orElse(null), actual.getMbox());
+    assertEquals(expected.getFoafHomepage(),
+        Optional.ofNullable(actual.getHomepage()).map(Resource::getResource).orElse(null));
+    assertEquals(expected.getFoafDepiction(),
+        Optional.ofNullable(actual.getDepiction()).map(Resource::getResource).orElse(null));
+    assertLabels(expected.getEdmAcronym(), actual.getAcronyms());
+    assertLabelsMap(expected.getDcDescription(), actual.getDescriptions());
+
+    final Address expectedAddress = expected.getAddress();
+    final VcardAddresses actualAddresses = actual.getHasAddress();
+    if (expectedAddress == null) {
+      assertTrue(actualAddresses == null || CollectionUtils
+          .isEmpty(actualAddresses.getVcardAddressesList()));
+    } else {
+      final List<VcardAddress> vcardAddressesList = actualAddresses.getVcardAddressesList();
+      assertEquals(vcardAddressesList.size(), 1);
+      final VcardAddress actualAddress = vcardAddressesList.get(0);
+      assertEquals(expectedAddress.getVcardCountryName(), actualAddress.getCountryName());
+      assertEquals(expectedAddress.getVcardLocality(), actualAddress.getLocality());
+      assertEquals(expectedAddress.getVcardPostalCode(), actualAddress.getPostalCode());
+      assertEquals(expectedAddress.getVcardPostOfficeBox(), actualAddress.getPostOfficeBox());
+      assertEquals(expectedAddress.getVcardStreetAddress(), actualAddress.getStreetAddress());
+      assertEquals(expectedAddress.getVcardHasGeo(),
+          Optional.ofNullable(actualAddress.getHasGeo()).map(Resource::getResource).orElse(null));
+    }
+  }
+
   void assertAbstractEnrichmentBase(AbstractEnrichmentEntity expected, EnrichmentBase actual) {
     assertEquals(expected.getAbout(), actual.getAbout());
     assertLabels(expected.getAltLabel(), actual.getAltLabelList());
@@ -233,6 +274,10 @@ public class ConverterTest {
     final Map<String, List<String>> labelsMap = actual.stream().collect(Collectors
         .groupingBy(Label::getLang, Collectors.mapping(Label::getValue, Collectors.toList())));
     areHashMapsWithListValuesEqual(expected, labelsMap);
+  }
+
+  void assertLabelsMap(Map<String, String> expected, List<Label> actual) {
+    actual.forEach(label -> assertEquals(expected.get(label.getKey()), label.getValue()));
   }
 
   void assertParts(Map<String, List<String>> expected, List<Part> actual) {
