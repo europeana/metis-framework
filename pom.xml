@@ -67,7 +67,7 @@
     <version.junit>5.7.1</version.junit>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.awaitability>1.7.0</version.awaitability>
-    <version.embedded.mongo>2.2.0</version.embedded.mongo>
+    <version.embedded.mongo>3.0.0</version.embedded.mongo>
     <version.mongodb.driver.core>4.0.2</version.mongodb.driver.core>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.8.0</version.commons.io>
