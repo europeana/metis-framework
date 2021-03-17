@@ -79,11 +79,6 @@
       <artifactId>xercesImpl</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-core</artifactId>
-      <version>${version.mongodb.driver.core}</version>
-    </dependency>
-    <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
     </dependency>
