@@ -4,6 +4,7 @@ import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -13,9 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public enum AggregationFieldType {
 
-  PROVIDER(aggregation -> List.of(aggregation.getProvider()),
-      EntityType.ORGANIZATION), DATA_PROVIDER(aggregation -> List.of(aggregation.getDataProvider()),
-      EntityType.ORGANIZATION), INTERMEDIATE_PROVIDER(
+  PROVIDER(aggregation -> Optional.ofNullable(aggregation.getProvider()).map(List::of)
+      .orElse(Collections.emptyList()).stream().map(ResourceOrLiteralType.class::cast)
+      .collect(Collectors.toList()), EntityType.ORGANIZATION),
+  DATA_PROVIDER(
+      aggregation -> Optional.ofNullable(aggregation.getDataProvider()).map(List::of)
+          .orElse(Collections.emptyList()).stream().map(ResourceOrLiteralType.class::cast)
+          .collect(Collectors.toList()), EntityType.ORGANIZATION),
+  INTERMEDIATE_PROVIDER(
       aggregation -> Optional.ofNullable(aggregation.getIntermediateProviderList()).stream()
           .flatMap(Collection::stream).map(ResourceOrLiteralType.class::cast)
           .collect(Collectors.toList()), EntityType.ORGANIZATION);

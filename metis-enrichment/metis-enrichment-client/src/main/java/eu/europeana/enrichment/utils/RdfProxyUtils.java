@@ -2,12 +2,14 @@ package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermAggregation;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Lang;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
@@ -65,11 +67,11 @@ public final class RdfProxyUtils {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
     for (AggregationFieldType aggregationFieldType : searchTermAggregation
         .getAggregationFieldTypes()) {
+
       aggregationList.stream().map(aggregationFieldType::getResourceOrLiteral).flatMap(List::stream)
-          .filter(resourceOrLiteralType ->
-              resourceOrLiteralType.getString().equals(searchTermAggregation.getTextValue())
-                  && resourceOrLiteralType.getLang().getLang()
-                  .equals(searchTermAggregation.getLanguage())).forEach(resourceOrLiteralType -> {
+          .filter(
+              resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
+                  searchTermAggregation)).forEach(resourceOrLiteralType -> {
         final Resource resource = new Resource();
         resource.setResource(link);
         resourceOrLiteralType.setResource(resource);
@@ -77,6 +79,27 @@ public final class RdfProxyUtils {
         resourceOrLiteralType.setString("");
       });
     }
+  }
+
+  private static boolean resourceOrLiteralAndSearchTermEquality(
+      ResourceOrLiteralType resourceOrLiteralType, SearchTerm searchTerm) {
+
+    boolean areEqual = false;
+    //Check literal values
+    if (resourceOrLiteralType.getString() != null && resourceOrLiteralType.getString()
+        .equals(searchTerm.getTextValue())) {
+      //Check if both languages are blank
+      if ((resourceOrLiteralType.getLang() == null || StringUtils
+          .isBlank(resourceOrLiteralType.getLang().getLang())) && StringUtils
+          .isBlank(searchTerm.getLanguage())) {
+        areEqual = true;
+      } else if (resourceOrLiteralType.getLang() != null
+          && resourceOrLiteralType.getLang().getLang() != null) {
+        //If not blank check language equality
+        areEqual = resourceOrLiteralType.getLang().getLang().equals(searchTerm.getLanguage());
+      }
+    }
+    return areEqual;
   }
 
   private static Map<FieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
