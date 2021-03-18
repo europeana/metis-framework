@@ -25,11 +25,6 @@
       <artifactId>corelib-storage</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-core</artifactId>
-      <version>${version.mongodb.driver.core}</version>
-    </dependency>
-    <dependency>
       <groupId>dev.morphia.morphia</groupId>
       <artifactId>morphia-core</artifactId>
       <version>${version.morphia.core}</version>

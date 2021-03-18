@@ -3,11 +3,11 @@ package eu.europeana.metis.mongo.embedded;
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Defaults;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
 import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
 import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.config.IRuntimeConfig;
+import de.flapdoodle.embed.process.config.RuntimeConfig;
 import de.flapdoodle.embed.process.config.io.ProcessOutput;
 import de.flapdoodle.embed.process.runtime.Network;
 import eu.europeana.metis.network.NetworkUtil;
@@ -39,14 +39,17 @@ public class EmbeddedLocalhostMongo {
     if (mongodExecutable == null) {
       try {
         mongoPort = NetworkUtil.getAvailableLocalPort();
-        IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
-            .defaultsWithLogger(Command.MongoD, LOGGER)
+        RuntimeConfig runtimeConfig = Defaults.runtimeConfigFor(Command.MongoD, LOGGER)
             .processOutput(ProcessOutput.getDefaultInstanceSilent())
             .build();
 
+        MongodConfig mongodConfig = MongodConfig.builder()
+            .version(Version.V4_0_12)
+            .net(new Net(DEFAULT_MONGO_HOST, mongoPort, Network.localhostIsIPv6()))
+            .build();
+
         MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
-        mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_6_5)
-            .net(new Net(DEFAULT_MONGO_HOST, mongoPort, Network.localhostIsIPv6())).build());
+        mongodExecutable = runtime.prepare(mongodConfig);
         mongodExecutable.start();
       } catch (IOException e) {
         LOGGER.error("Exception when starting embedded mongo", e);
