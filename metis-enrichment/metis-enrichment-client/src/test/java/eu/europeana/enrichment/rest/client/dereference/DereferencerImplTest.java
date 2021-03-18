@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anySet;
 import static org.mockito.Mockito.anyString;
@@ -148,7 +147,7 @@ public class DereferencerImplTest {
         .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).filter(Objects::nonNull)
         .flatMap(List::stream).forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
     verify(entityMergeEngine, times(1))
-        .mergeReferencedEntities(any(), eq(expectedMerges), isNull());
+        .mergeReferenceEntities(any(), eq(expectedMerges));
   }
 
   private void verifyDereferenceNullFlow(DereferenceClient dereferenceClient,
@@ -170,7 +169,7 @@ public class DereferencerImplTest {
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
     verify(entityMergeEngine, times(1))
-        .mergeReferencedEntities(any(), eq(Collections.emptyList()), isNull());
-    verify(entityMergeEngine, times(1)).mergeReferencedEntities(any(), any(), isNull());
+        .mergeReferenceEntities(any(), eq(Collections.emptyList()));
+    verify(entityMergeEngine, times(1)).mergeReferenceEntities(any(), any());
   }
 }

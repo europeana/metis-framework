@@ -56,13 +56,13 @@ public class EnricherImpl implements Enricher {
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichedValues != null) {
       for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.entrySet()) {
-        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey());
+        entityMergeEngine.mergeSearchEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
     if (enrichedReferences != null) {
       for (Entry<ReferenceTermContext, List<EnrichmentBase>> entry : enrichedReferences
           .entrySet()) {
-        entityMergeEngine.mergeReferencedEntities(rdf, entry.getValue(), entry.getKey());
+        entityMergeEngine.mergeReferenceEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
 

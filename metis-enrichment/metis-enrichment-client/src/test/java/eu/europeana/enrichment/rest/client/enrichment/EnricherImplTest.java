@@ -145,7 +145,7 @@ public class EnricherImplTest {
     final List<EnrichmentBase> expectedMerges = new ArrayList<>();
     ENRICHMENT_RESULT.forEach((x, y) -> expectedMerges.addAll(y));
     verify(entityMergeEngine, times(ENRICHMENT_RESULT.size()))
-        .mergeEntities(any(), enrichmentResultCaptor.capture(), any(SearchTermContext.class));
+        .mergeSearchEntities(any(), enrichmentResultCaptor.capture(), any(SearchTermContext.class));
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
@@ -172,7 +172,7 @@ public class EnricherImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(0)).mergeReferencedEntities(any(), eq(Collections.emptyList()), any(ReferenceTermContext.class));
-    verify(entityMergeEngine, times(0)).mergeReferencedEntities(any(), any(), any(ReferenceTermContext.class));
+    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), eq(Collections.emptyList()), any(ReferenceTermContext.class));
+    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), any(), any(ReferenceTermContext.class));
   }
 }

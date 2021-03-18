@@ -25,7 +25,7 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/", type = Agent.class),
       @XmlElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/", type = Place.class),
       @XmlElement(name = "Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type = Timespan.class),
-      @XmlElement(name = "Organization", namespace = "http://www.europeana.eu/schemas/edm/", type = EdmOrganization.class)})
+      @XmlElement(name = "Organization", namespace = "http://www.europeana.eu/schemas/edm/", type = Organization.class)})
   private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
   public EnrichmentResultBaseWrapper() {

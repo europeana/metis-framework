@@ -594,7 +594,7 @@ public class EntityMergeEngineTest {
 
     // Perform merge
     RDF rdf = new RDF();
-    new EntityMergeEngine().mergeReferencedEntities(rdf, enrichmentResultBaseWrapperList, null);
+    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null);
 
     // Verify RDF
     verifyRdf(rdf, 0, 0, 3, 0);
@@ -629,7 +629,7 @@ public class EntityMergeEngineTest {
     rdf.setAgentList(null);
     rdf.setConceptList(null);
     rdf.setTimeSpanList(null);
-    new EntityMergeEngine().mergeReferencedEntities(rdf, enrichmentResultBaseWrapperList, null);
+    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null);
 
     // Verify RDF
     verifyRdf(rdf, 2, 2, 0, 1);
@@ -656,6 +656,6 @@ public class EntityMergeEngineTest {
         .collect(Collectors.toList());
     RDF rdf = new RDF();
     assertThrows(IllegalArgumentException.class, () -> new EntityMergeEngine()
-        .mergeReferencedEntities(rdf, enrichmentResultBaseWrapperList, null));
+        .mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
   }
 }

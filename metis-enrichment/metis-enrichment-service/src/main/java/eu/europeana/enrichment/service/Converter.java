@@ -5,7 +5,7 @@ import eu.europeana.enrichment.api.external.model.VcardAddresses;
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.EdmOrganization;
+import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -186,16 +186,17 @@ public final class Converter {
     return output;
   }
 
-  private static EdmOrganization convertOrganization(
+  private static Organization convertOrganization(
       OrganizationEnrichmentEntity organizationEnrichmentEntity) {
-    EdmOrganization output = new EdmOrganization();
+    Organization output = new Organization();
 
     output.setAbout(organizationEnrichmentEntity.getAbout());
     output.setPrefLabelList(convert(organizationEnrichmentEntity.getPrefLabel()));
     output.setAltLabelList(convert(organizationEnrichmentEntity.getAltLabel()));
     output.setNotes(convert(organizationEnrichmentEntity.getNote()));
-    output.setSameAs(
-        convertToResourceList(organizationEnrichmentEntity.getOwlSameAs().toArray(String[]::new)));
+    output.setSameAs(convertToResourceList(
+        organizationEnrichmentEntity.getOwlSameAs() == null ? null
+            : organizationEnrichmentEntity.getOwlSameAs().toArray(String[]::new)));
     if (MapUtils.isNotEmpty(organizationEnrichmentEntity.getEdmCountry())) {
       output.setCountry(
           organizationEnrichmentEntity.getEdmCountry().entrySet().iterator().next().getValue());

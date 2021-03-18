@@ -27,9 +27,9 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Utility class for {@link ProxyType} operations in the {@link RDF}
  */
-public final class RdfProxyUtils {
+public final class RdfEntityUtils {
 
-  private RdfProxyUtils() {
+  private RdfEntityUtils() {
   }
 
   /**
@@ -141,7 +141,7 @@ public final class RdfProxyUtils {
    */
   public static ProxyType getEuropeanaProxy(RDF rdf) {
     return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
-        .filter(Objects::nonNull).filter(RdfProxyUtils::isEuropeanaProxy).findAny()
+        .filter(Objects::nonNull).filter(RdfEntityUtils::isEuropeanaProxy).findAny()
         .orElseThrow(() -> new IllegalArgumentException("Could not find Europeana proxy."));
   }
 

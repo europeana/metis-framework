@@ -7,7 +7,7 @@ import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.utils.RdfProxyUtils;
+import eu.europeana.enrichment.utils.RdfEntityUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -44,7 +44,7 @@ public class MetisRecordParser implements RecordParser {
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
     //Proxy search terms
-    final List<AboutType> providerProxies = RdfProxyUtils.getProviderProxies(rdf).stream()
+    final List<AboutType> providerProxies = RdfEntityUtils.getProviderProxies(rdf).stream()
         .map(AboutType.class::cast).collect(Collectors.toList());
     final Set<SearchTermContext> resultValueSetMap = getFieldValueSet(ProxyFieldType.values(),
         providerProxies);

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class EdmOrganization extends EnrichmentBase {
+public class Organization extends EnrichmentBase {
 
   @XmlElement(name = "country", namespace = "http://www.europeana.eu/schemas/edm/")
   private String country;

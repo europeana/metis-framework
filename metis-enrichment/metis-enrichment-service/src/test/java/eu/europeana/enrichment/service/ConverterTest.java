@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.EdmOrganization;
+import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -114,15 +114,15 @@ public class ConverterTest {
 
   @Test
   void convertOrganization() throws Exception {
-    final EdmOrganization edmOrganization = (EdmOrganization) Converter
+    final Organization organization = (Organization) Converter
         .convert(enrichmentObjectUtils.organizationTerm1);
-    assertConversion(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity(), edmOrganization,
+    assertConversion(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity(), organization,
         enrichmentObjectUtils.organizationTerm1.getEntityType());
 
-    final EdmOrganization customEdmOrganization = (EdmOrganization) Converter
+    final Organization customOrganization = (Organization) Converter
         .convert(enrichmentObjectUtils.customOrganizationTerm);
     assertConversion(enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity(),
-        customEdmOrganization, enrichmentObjectUtils.customOrganizationTerm.getEntityType());
+        customOrganization, enrichmentObjectUtils.customOrganizationTerm.getEntityType());
   }
 
   @Test
@@ -149,7 +149,7 @@ public class ConverterTest {
         assertPlace((PlaceEnrichmentEntity) expected, (Place) actual);
         break;
       case ORGANIZATION:
-        assertOrganization((OrganizationEnrichmentEntity) expected, (EdmOrganization) actual);
+        assertOrganization((OrganizationEnrichmentEntity) expected, (Organization) actual);
         break;
       default:
         throw new BadContentException("Invalid entity type value: " + entityType);
@@ -225,7 +225,7 @@ public class ConverterTest {
         actual.getAlt());
   }
 
-  private void assertOrganization(OrganizationEnrichmentEntity expected, EdmOrganization actual) {
+  private void assertOrganization(OrganizationEnrichmentEntity expected, Organization actual) {
     assertTrue(areListsEqual(expected.getOwlSameAs(),
         actual.getSameAs().stream().map(Resource::getResource).collect(Collectors.toList())));
     assertEquals(expected.getEdmCountry().entrySet().iterator().next().getValue(),

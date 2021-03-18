@@ -20,7 +20,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RdfProxyUtilsTest {
+public class RdfEntityUtilsTest {
 
   private static RDF TEST_RDF ;
   private final static ProxyType PROXY_EUROPEANA = new ProxyType();
@@ -47,7 +47,7 @@ public class RdfProxyUtilsTest {
     Set<ProxyFieldType> linkTypes = new HashSet<>();
     linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
-    RdfProxyUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
+    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
     assertEquals(1, TEST_RDF.getProxyList().get(0).getChoiceList().size());
     assertEquals(link, TEST_RDF.getProxyList().get(0).getChoiceList().get(0).getCoverage().getResource().getResource());
@@ -73,7 +73,7 @@ public class RdfProxyUtilsTest {
     Set<ProxyFieldType> linkTypes = new HashSet<>();
     linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
-    RdfProxyUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
+    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
     assertEquals(2, TEST_RDF.getProxyList().get(0).getChoiceList().size());
     assertEquals("http://differentdummylink.com",
@@ -103,7 +103,7 @@ public class RdfProxyUtilsTest {
     Set<ProxyFieldType> linkTypes = new HashSet<>();
     linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
-    RdfProxyUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
+    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
     assertEquals(1, TEST_RDF.getProxyList().get(0).getChoiceList().size());
     assertEquals(link, TEST_RDF.getProxyList().get(0).getChoiceList().get(0).getCoverage().getResource().getResource());
@@ -127,7 +127,7 @@ public class RdfProxyUtilsTest {
 
     TEST_RDF.setProxyList(proxyList);
 
-    List<ProxyType> output = RdfProxyUtils.getProviderProxies(TEST_RDF);
+    List<ProxyType> output = RdfEntityUtils.getProviderProxies(TEST_RDF);
     assertNotNull(output);
     assertEquals(1, output.size());
     assertNotNull(output.get(0));
@@ -138,7 +138,7 @@ public class RdfProxyUtilsTest {
   @Test
   void testGetProviderProxyWithoutProvider(){
     TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
-    List<ProxyType> output = RdfProxyUtils.getProviderProxies(TEST_RDF);
+    List<ProxyType> output = RdfEntityUtils.getProviderProxies(TEST_RDF);
     assertNotNull(output);
     assertTrue(output.isEmpty());
   }

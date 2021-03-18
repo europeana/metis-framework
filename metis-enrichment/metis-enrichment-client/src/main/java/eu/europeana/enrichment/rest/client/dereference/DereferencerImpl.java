@@ -57,7 +57,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    entityMergeEngine.mergeReferencedEntities(rdf, dereferenceInformation, null);
+    entityMergeEngine.mergeReferenceEntities(rdf, dereferenceInformation);
 
     // Done.
     LOGGER.debug("Dereference completed.");
