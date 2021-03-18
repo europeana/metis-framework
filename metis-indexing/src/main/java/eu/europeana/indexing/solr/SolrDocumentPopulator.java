@@ -21,6 +21,7 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -85,7 +86,7 @@ public class SolrDocumentPopulator {
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
     new AggregationSolrCreator(licenses).addToDocument(document,
-        fullBean.getAggregations().get(0));
+        getDataProviderAggregations(fullBean).get(0)); //TODO
     new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
         .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
@@ -158,5 +159,22 @@ public class SolrDocumentPopulator {
     for (Integer code : valueCodes) {
       document.addField(EdmLabel.FACET_VALUE_CODES.toString(), code);
     }
+  }
+
+  private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean){
+
+    List<String> proxyInResult = fullBean.getProxies()
+        .stream()
+        .filter(x -> !x.isEuropeanaProxy() && x.getLineage().length == 0)
+        .map(ProxyImpl::getProxyIn)
+        .map(Arrays::asList)
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
+
+    return fullBean.getAggregations()
+        .stream()
+        .filter(x -> proxyInResult.contains(x.getAbout()))
+        .collect(Collectors.toList());
+
   }
 }
