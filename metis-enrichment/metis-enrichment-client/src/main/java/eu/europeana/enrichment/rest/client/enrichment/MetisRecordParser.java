@@ -3,17 +3,15 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.FieldValue;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
-import eu.europeana.enrichment.api.internal.SearchTermAggregation;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.utils.RdfProxyUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
-import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
-import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
@@ -21,7 +19,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -46,31 +43,28 @@ public class MetisRecordParser implements RecordParser {
 
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
-    final List<ProxyType> providerProxies = RdfProxyUtils.getProviderProxies(rdf);
-    final Map<FieldValue, Set<FieldType>> result = new HashMap<>();
-    for (FieldType field : FieldType.values()) {
-      providerProxies.stream().map(field::extractFieldValuesForEnrichment)
-          .flatMap(Collection::stream)
-          .forEach(value -> result.computeIfAbsent(value, key -> new HashSet<>()).add(field));
-    }
-    return result.entrySet().stream().map(
-        entry -> new SearchTermContext(entry.getKey().getValue(), entry.getKey().getLanguage(),
-            entry.getValue())).collect(Collectors.toSet());
+    //Proxy search terms
+    final List<AboutType> providerProxies = RdfProxyUtils.getProviderProxies(rdf).stream()
+        .map(AboutType.class::cast).collect(Collectors.toList());
+    final Set<SearchTermContext> resultValueSetMap = getFieldValueSet(ProxyFieldType.values(),
+        providerProxies);
+    final List<AboutType> aggregations = rdf.getAggregationList().stream()
+        .map(AboutType.class::cast).collect(Collectors.toList());
+    resultValueSetMap.addAll(getFieldValueSet(AggregationFieldType.values(), aggregations));
+    return resultValueSetMap;
   }
 
-  @Override
-  public Set<SearchTermAggregation> parseAggregationSearchTerms(RDF rdf) {
-    //Get Aggregation search terms
-    final List<Aggregation> aggregations = rdf.getAggregationList();
-    final Map<FieldValue, Set<AggregationFieldType>> aggregationResult = new HashMap<>();
-    for (AggregationFieldType aggregationFieldType : AggregationFieldType.values()) {
+  private Set<SearchTermContext> getFieldValueSet(FieldType[] values,
+      List<AboutType> aggregations) {
+    final Map<FieldValue, Set<FieldType>> aggregationResult = new HashMap<>();
+    for (FieldType aggregationFieldType : values) {
       aggregations.stream().map(aggregationFieldType::extractFieldValuesForEnrichment)
           .flatMap(Collection::stream).forEach(
           value -> aggregationResult.computeIfAbsent(value, key -> new HashSet<>())
               .add(aggregationFieldType));
     }
     return aggregationResult.entrySet().stream().map(
-        entry -> new SearchTermAggregation(entry.getKey().getValue(), entry.getKey().getLanguage(),
+        entry -> new SearchTermContext(entry.getKey().getValue(), entry.getKey().getLanguage(),
             entry.getValue())).collect(Collectors.toSet());
   }
 
@@ -79,14 +73,14 @@ public class MetisRecordParser implements RecordParser {
 
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
-    final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
+    final List<AboutType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
         .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
     final Map<String, Set<FieldType>> directReferences = new HashMap<>();
-    for (FieldType field : FieldType.values()) {
+    for (FieldType field : ProxyFieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
           .flatMap(Set::stream).collect(Collectors.toSet());
       for (String directLink : directLinks) {
-        directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(FieldType.class))
+        directReferences.computeIfAbsent(directLink, key -> new HashSet<>())
             .add(field);
       }
     }
@@ -97,7 +91,7 @@ public class MetisRecordParser implements RecordParser {
       final Set<FieldType> linkTypes = directReferences.get(contextualClass.getAbout());
       if (linkTypes != null) {
         for (String sameAsLink : getSameAsLinks(contextualClass)) {
-          indirectReferences.computeIfAbsent(sameAsLink, key -> EnumSet.noneOf(FieldType.class))
+          indirectReferences.computeIfAbsent(sameAsLink, key -> new HashSet<>())
               .addAll(linkTypes);
         }
       }

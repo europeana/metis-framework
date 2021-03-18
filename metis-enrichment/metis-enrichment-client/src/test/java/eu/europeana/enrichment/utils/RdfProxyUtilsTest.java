@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.EuropeanaProxy;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
@@ -44,8 +44,8 @@ public class RdfProxyUtilsTest {
     TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
 
     String link = "http://dummylink.com";
-    Set<FieldType> linkTypes = new HashSet<>();
-    linkTypes.add(FieldType.DC_COVERAGE);
+    Set<ProxyFieldType> linkTypes = new HashSet<>();
+    linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
     RdfProxyUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
@@ -70,8 +70,8 @@ public class RdfProxyUtilsTest {
     TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
 
     String link = "http://dummylink.com";
-    Set<FieldType> linkTypes = new HashSet<>();
-    linkTypes.add(FieldType.DC_COVERAGE);
+    Set<ProxyFieldType> linkTypes = new HashSet<>();
+    linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
     RdfProxyUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
@@ -100,8 +100,8 @@ public class RdfProxyUtilsTest {
 
     TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
 
-    Set<FieldType> linkTypes = new HashSet<>();
-    linkTypes.add(FieldType.DC_COVERAGE);
+    Set<ProxyFieldType> linkTypes = new HashSet<>();
+    linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
     RdfProxyUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 

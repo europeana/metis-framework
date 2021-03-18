@@ -8,8 +8,10 @@ import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
-import eu.europeana.enrichment.api.internal.SearchTermAggregation;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Alt;
@@ -54,12 +56,14 @@ import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -368,7 +372,7 @@ public class EntityMergeEngine {
   }
 
   private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-      Set<FieldType> proxyLinkTypes) {
+      Set<FieldType> fieldTypes) {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;
@@ -389,40 +393,14 @@ public class EntityMergeEngine {
     }
 
     // Append it to the europeana proxy if needed, regardless of whether entity is new or existing.
-    if (!CollectionUtils.isEmpty(proxyLinkTypes)) {
-      RdfProxyUtils.appendLinkToEuropeanaProxy(rdf, entity.getAbout(), proxyLinkTypes);
+    if (!CollectionUtils.isEmpty(fieldTypes)) {
+      RdfProxyUtils.appendLinkToEuropeanaProxy(rdf, entity.getAbout(),
+          fieldTypes.stream().map(ProxyFieldType.class::cast).collect(Collectors.toSet()));
     }
   }
 
-  /**
-   * Merge entities in a record.
-   *
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
-   */
-  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      Set<FieldType> proxyLinkTypes) {
-    for (EnrichmentBase base : enrichmentBaseList) {
-      convertAndAddEntity(rdf, base, proxyLinkTypes);
-    }
-  }
-
-  /**
-   * Merge entities in a record.
-   *
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
-   * @param searchTermAggregation the aggregation search terms
-   */
-  public void mergeAggregationEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      SearchTermAggregation searchTermAggregation) {
-    for (EnrichmentBase base : enrichmentBaseList) {
-      convertAndAddEntity(rdf, base, searchTermAggregation);
-    }
-  }
-
-  private void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-      SearchTermAggregation searchTermAggregation) {
+  private void convertAndAddEntityAggregation(RDF rdf, EnrichmentBase enrichmentBase,
+      SearchTermContext searchTermContext) {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;
@@ -434,6 +412,47 @@ public class EntityMergeEngine {
     }
 
     //Replace matching values in Aggregation
-    RdfProxyUtils.replaceValueWithLinkInAggregation(rdf, entity.getAbout(), searchTermAggregation);
+    RdfProxyUtils.replaceValueWithLinkInAggregation(rdf, entity.getAbout(), searchTermContext);
+  }
+
+  /**
+   * Merge entities in a record.
+   *
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @param searchTermContext the search term context
+   */
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      SearchTermContext searchTermContext) {
+    for (EnrichmentBase base : enrichmentBaseList) {
+      if (isFieldType(searchTermContext.getFieldTypes())) {
+        convertAndAddEntity(rdf, base, searchTermContext.getFieldTypes());
+      } else {
+        convertAndAddEntityAggregation(rdf, base, searchTermContext);
+      }
+    }
+  }
+
+  /**
+   * Merge entities in a record.
+   *
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @param referenceTermContext the reference term context
+   */
+  public void mergeReferencedEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      ReferenceTermContext referenceTermContext) {
+    for (EnrichmentBase base : enrichmentBaseList) {
+      convertAndAddEntity(rdf, base,
+          Optional.ofNullable(referenceTermContext).map(ReferenceTermContext::getFieldTypes)
+              .orElse(Collections.emptySet()));
+    }
+  }
+
+  private static boolean isFieldType(Set<FieldType> set) {
+    if (set == null || set.isEmpty()) {
+      throw new IllegalArgumentException("List must not be empty");
+    }
+    return set.stream().findFirst().orElse(null) instanceof ProxyFieldType;
   }
 }

@@ -15,9 +15,9 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
 
   private final Set<FieldType> fieldTypes;
 
-  public ReferenceTermContext(URL reference, Set<FieldType> fieldTypes) {
+  public ReferenceTermContext(URL reference, Set<FieldType> proxyFieldTypes) {
     super(reference);
-    this.fieldTypes = Set.copyOf(fieldTypes);
+    this.fieldTypes = Set.copyOf(proxyFieldTypes);
   }
 
   @Override

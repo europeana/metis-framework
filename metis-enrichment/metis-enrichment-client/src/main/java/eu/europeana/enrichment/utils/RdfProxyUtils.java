@@ -1,9 +1,9 @@
 package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
-import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermAggregation;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
@@ -39,10 +39,10 @@ public final class RdfProxyUtils {
    * @param link the about value to link
    * @param linkTypes the types of the link to add in the europeana proxy.
    */
-  public static void appendLinkToEuropeanaProxy(RDF rdf, String link, Set<FieldType> linkTypes) {
-    final Map<FieldType, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
+  public static void appendLinkToEuropeanaProxy(RDF rdf, String link, Set<ProxyFieldType> linkTypes) {
+    final Map<ProxyFieldType, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
     final ProxyType europeanaProxy = getEuropeanaProxy(rdf);
-    for (FieldType linkType : linkTypes) {
+    for (ProxyFieldType linkType : linkTypes) {
       final boolean alreadyExists = Optional.ofNullable(allProxyLinksPerType.get(linkType))
           .orElseGet(Collections::emptySet).contains(link);
       if (!alreadyExists) {
@@ -63,15 +63,13 @@ public final class RdfProxyUtils {
    * @param searchTermAggregation the aggregation search term to use for finding the matched values
    */
   public static void replaceValueWithLinkInAggregation(RDF rdf, String link,
-      SearchTermAggregation searchTermAggregation) {
+      SearchTermContext searchTermAggregation) {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
-    for (AggregationFieldType aggregationFieldType : searchTermAggregation
-        .getAggregationFieldTypes()) {
-
-      aggregationList.stream().map(aggregationFieldType::getResourceOrLiteral).flatMap(List::stream)
-          .filter(
-              resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
-                  searchTermAggregation)).forEach(resourceOrLiteralType -> {
+    for (AggregationFieldType aggregationFieldType : searchTermAggregation.getFieldTypes().stream()
+        .map(AggregationFieldType.class::cast).collect(Collectors.toList())) {
+      aggregationList.stream().flatMap(aggregationFieldType::extractFields).filter(
+          resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
+              searchTermAggregation)).forEach(resourceOrLiteralType -> {
         final Resource resource = new Resource();
         resource.setResource(link);
         resourceOrLiteralType.setResource(resource);
@@ -102,13 +100,13 @@ public final class RdfProxyUtils {
     return areEqual;
   }
 
-  private static Map<FieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
+  private static Map<ProxyFieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
     final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList()).stream()
         .flatMap(Collection::stream).filter(Objects::nonNull).map(ProxyType::getChoiceList)
         .filter(Objects::nonNull).flatMap(List::stream).filter(Objects::nonNull)
         .collect(Collectors.toList());
-    final Map<FieldType, Set<String>> result = new EnumMap<>(FieldType.class);
-    for (FieldType linkType : FieldType.values()) {
+    final Map<ProxyFieldType, Set<String>> result = new EnumMap<>(ProxyFieldType.class);
+    for (ProxyFieldType linkType : ProxyFieldType.values()) {
       final Set<String> links = allChoices.stream().map(linkType::getResourceIfRightChoice)
           .filter(Objects::nonNull).collect(Collectors.toSet());
       if (!links.isEmpty()) {

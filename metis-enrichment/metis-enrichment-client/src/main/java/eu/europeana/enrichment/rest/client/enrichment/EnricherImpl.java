@@ -6,7 +6,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
-import eu.europeana.enrichment.api.internal.SearchTermAggregation;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
@@ -45,15 +44,11 @@ public class EnricherImpl implements Enricher {
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
     final Set<SearchTermContext> searchTerms = recordParser.parseSearchTerms(rdf);
-    final Set<SearchTermAggregation> aggregationSearchTerms = recordParser
-        .parseAggregationSearchTerms(rdf);
     final Set<ReferenceTermContext> references = recordParser.parseReferences(rdf);
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = enrichValues(searchTerms);
-    final Map<SearchTermAggregation, List<EnrichmentBase>> enrichedAggregationValues = enrichAggregationValues(
-        aggregationSearchTerms);
     final Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = enrichReferences(
         references);
 
@@ -61,19 +56,13 @@ public class EnricherImpl implements Enricher {
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichedValues != null) {
       for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.entrySet()) {
-        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey().getFieldTypes());
-      }
-    }
-    if (enrichedAggregationValues != null) {
-      for (Entry<SearchTermAggregation, List<EnrichmentBase>> entry : enrichedAggregationValues
-          .entrySet()) {
-        entityMergeEngine.mergeAggregationEntities(rdf, entry.getValue(), entry.getKey());
+        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
     if (enrichedReferences != null) {
       for (Entry<ReferenceTermContext, List<EnrichmentBase>> entry : enrichedReferences
           .entrySet()) {
-        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey().getFieldTypes());
+        entityMergeEngine.mergeReferencedEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
 
@@ -88,20 +77,6 @@ public class EnricherImpl implements Enricher {
   @Override
   public Map<SearchTermContext, List<EnrichmentBase>> enrichValues(
       Set<SearchTermContext> searchTerms) throws EnrichmentException {
-    if (CollectionUtils.isEmpty(searchTerms)) {
-      return Collections.emptyMap();
-    }
-    try {
-      return retryableExternalRequestForNetworkExceptions(
-          () -> entityResolver.resolveByText(Set.copyOf(searchTerms)));
-    } catch (RuntimeException e) {
-      throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
-    }
-  }
-
-  @Override
-  public Map<SearchTermAggregation, List<EnrichmentBase>> enrichAggregationValues(
-      Set<SearchTermAggregation> searchTerms) throws EnrichmentException {
     if (CollectionUtils.isEmpty(searchTerms)) {
       return Collections.emptyMap();
     }

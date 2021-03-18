@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anySet;
 import static org.mockito.Mockito.anyString;
@@ -10,19 +11,19 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermImpl;
-import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
-import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermImpl;
+import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,8 +38,8 @@ import org.junit.jupiter.api.Test;
 
 public class DereferencerImplTest {
 
-  private static final String[] DEREFERENCE_EXTRACT_RESULT =
-      {"http://example.com/about", "http://example.com/concept", "http://example.com/place"};
+  private static final String[] DEREFERENCE_EXTRACT_RESULT = {"http://example.com/about",
+      "http://example.com/concept", "http://example.com/place"};
 
   private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
@@ -56,17 +57,14 @@ public class DereferencerImplTest {
     timeSpan1.setAbout("timespan1");
     final Timespan timeSpan2 = new Timespan();
     timeSpan2.setAbout("timespan2");
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList1 =
-        EnrichmentResultBaseWrapper
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList1 = EnrichmentResultBaseWrapper
         .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));
-    final EnrichmentResultList dereferenceResult1 =
-        new EnrichmentResultList(enrichmentResultBaseWrapperList1);
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList2 =
-        EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(
-            List.of(Arrays.asList(timeSpan1, timeSpan2, null)));
-    final EnrichmentResultList dereferenceResult2 =
-        new EnrichmentResultList(enrichmentResultBaseWrapperList2);
+    final EnrichmentResultList dereferenceResult1 = new EnrichmentResultList(
+        enrichmentResultBaseWrapperList1);
+    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList2 = EnrichmentResultBaseWrapper
+        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(timeSpan1, timeSpan2, null)));
+    final EnrichmentResultList dereferenceResult2 = new EnrichmentResultList(
+        enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
 
     SearchTerm searchTerm1 = new SearchTermImpl("value1", "en", Set.of(EntityType.PLACE));
@@ -94,8 +92,7 @@ public class DereferencerImplTest {
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet()))
-        .when(dereferencer)
-        .extractReferencesForDereferencing(any());
+        .when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
     dereferencer.dereference(inputRdf);
@@ -115,7 +112,8 @@ public class DereferencerImplTest {
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
     // Create dereferencer.
-    final Dereferencer dereferencer = spy(new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
+    final Dereferencer dereferencer = spy(
+        new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
         .extractReferencesForDereferencing(any());
 
@@ -129,8 +127,7 @@ public class DereferencerImplTest {
 
 
   private void verifyDereferenceHappyFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer,
-      RDF inputRdf) {
+      Dereferencer dereferencer, RDF inputRdf) {
 
     // Extracting values for dereferencing
     verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
@@ -148,11 +145,10 @@ public class DereferencerImplTest {
   private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) {
     final List<EnrichmentBase> expectedMerges = new ArrayList<>();
     DEREFERENCE_RESULT.stream().filter(Objects::nonNull)
-            .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
-            .filter(Objects::nonNull).flatMap(List::stream)
-            .forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
-    verify(entityMergeEngine, times(1)).mergeEntities(any(),
-        eq(expectedMerges), anySet());
+        .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).filter(Objects::nonNull)
+        .flatMap(List::stream).forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
+    verify(entityMergeEngine, times(1))
+        .mergeReferencedEntities(any(), eq(expectedMerges), isNull());
   }
 
   private void verifyDereferenceNullFlow(DereferenceClient dereferenceClient,
@@ -163,8 +159,8 @@ public class DereferencerImplTest {
     verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
 
     // Actually dereferencing: don't use the null values.
-    final Set<String> dereferenceUrls = Arrays.stream(new String[0])
-        .filter(Objects::nonNull).collect(Collectors.toSet());
+    final Set<String> dereferenceUrls = Arrays.stream(new String[0]).filter(Objects::nonNull)
+        .collect(Collectors.toSet());
     verify(dereferenceClient, times(dereferenceUrls.size())).dereference(anyString());
     for (String dereferenceUrl : dereferenceUrls) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
@@ -173,7 +169,8 @@ public class DereferencerImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(1)).mergeEntities(any(), eq(Collections.emptyList()), anySet());
-    verify(entityMergeEngine, times(1)).mergeEntities(any(), any(), anySet());
+    verify(entityMergeEngine, times(1))
+        .mergeReferencedEntities(any(), eq(Collections.emptyList()), isNull());
+    verify(entityMergeEngine, times(1)).mergeReferencedEntities(any(), any(), isNull());
   }
 }

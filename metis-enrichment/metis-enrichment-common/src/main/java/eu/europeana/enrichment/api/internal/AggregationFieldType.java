@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import java.util.Collection;
@@ -10,17 +11,19 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-public enum AggregationFieldType {
+public enum AggregationFieldType implements FieldType {
 
   PROVIDER(aggregation -> Optional.ofNullable(aggregation.getProvider()).map(List::of)
       .orElse(Collections.emptyList()).stream().map(ResourceOrLiteralType.class::cast)
       .collect(Collectors.toList()), EntityType.ORGANIZATION),
-  DATA_PROVIDER(
-      aggregation -> Optional.ofNullable(aggregation.getDataProvider()).map(List::of)
-          .orElse(Collections.emptyList()).stream().map(ResourceOrLiteralType.class::cast)
-          .collect(Collectors.toList()), EntityType.ORGANIZATION),
+
+  DATA_PROVIDER(aggregation -> Optional.ofNullable(aggregation.getDataProvider()).map(List::of)
+      .orElse(Collections.emptyList()).stream().map(ResourceOrLiteralType.class::cast)
+      .collect(Collectors.toList()), EntityType.ORGANIZATION),
+
   INTERMEDIATE_PROVIDER(
       aggregation -> Optional.ofNullable(aggregation.getIntermediateProviderList()).stream()
           .flatMap(Collection::stream).map(ResourceOrLiteralType.class::cast)
@@ -35,38 +38,30 @@ public enum AggregationFieldType {
     this.entityType = entityType;
   }
 
-  /**
-   * @return the entity type associated to this field - it is not null.
-   */
+  @Override
   public EntityType getEntityType() {
     return entityType;
   }
 
-  /**
-   * Get the values for the specific field from aggregation.
-   *
-   * @param aggregation the aggregation to use
-   * @return the list of values
-   */
-  public List<ResourceOrLiteralType> getResourceOrLiteral(Aggregation aggregation) {
-    return valueProvider.apply(aggregation);
+
+  @Override
+  public Stream<? extends ResourceOrLiteralType> extractFields(AboutType aggregation) {
+    return valueProvider.apply((Aggregation) aggregation).stream();
   }
 
-  /**
-   * Extract the field values set from aggregation.
-   * <p>It gets the values for the specific field and creates a set of {@link FieldValue}s</p>
-   *
-   * @param aggregation the aggregation to use
-   * @return the set of field values
-   */
-  public Set<FieldValue> extractFieldValuesForEnrichment(Aggregation aggregation) {
-    return getResourceOrLiteral(aggregation).stream()
-        .filter(content -> StringUtils.isNotEmpty(content.getString())).map(this::convert)
-        .collect(Collectors.toSet());
+  @Override
+  public Set<FieldValue> extractFieldValuesForEnrichment(AboutType aggregation) {
+    return extractFields(aggregation).filter(content -> StringUtils.isNotEmpty(content.getString()))
+        .map(this::convert).collect(Collectors.toSet());
   }
 
-  private FieldValue convert(ResourceOrLiteralType content) {
-    final String language = content.getLang() == null ? null : content.getLang().getLang();
-    return new FieldValue(content.getString(), language);
+  @Override
+  public Set<String> extractFieldLinksForEnrichment(AboutType proxy) {
+    return Collections.emptySet();
+  }
+
+  @Override
+  public AggregationFieldType[] getValues() {
+    return AggregationFieldType.values();
   }
 }

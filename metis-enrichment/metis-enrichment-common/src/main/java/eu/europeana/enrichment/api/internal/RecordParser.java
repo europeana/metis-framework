@@ -18,14 +18,6 @@ public interface RecordParser {
   Set<SearchTermContext> parseSearchTerms(RDF rdf);
 
   /**
-   * This method parses records to obtain search terms for enrichment, related to aggregation.
-   *
-   * @param rdf The record.
-   * @return The search terms. It is recommended to return one object per term-language combination.
-   */
-  Set<SearchTermAggregation> parseAggregationSearchTerms(RDF rdf);
-
-  /**
    * This method parses records to obtain references for enrichment.
    *
    * @param rdf The record.
