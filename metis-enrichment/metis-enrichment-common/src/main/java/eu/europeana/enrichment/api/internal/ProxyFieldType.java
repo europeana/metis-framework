@@ -127,11 +127,6 @@ public enum ProxyFieldType implements FieldType {
     return entityType;
   }
 
-  @Override
-  public ProxyFieldType[] getValues() {
-    return ProxyFieldType.values();
-  }
-
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
 
     protected final Predicate<Choice> choiceChecker;

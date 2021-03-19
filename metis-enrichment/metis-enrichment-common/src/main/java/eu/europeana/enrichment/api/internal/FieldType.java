@@ -9,13 +9,6 @@ import java.util.stream.Stream;
 public interface FieldType {
 
   /**
-   * Get all the values of this type.
-   * <p>This is a convenience method to get values from an implementing enum</p>
-   * @return the values
-   */
-  Object[] getValues();
-
-  /**
    * @return the entity type associated to this field - it is not null.
    */
   EntityType getEntityType();

@@ -46,24 +46,24 @@ public class MetisRecordParser implements RecordParser {
     //Proxy search terms
     final List<AboutType> providerProxies = RdfEntityUtils.getProviderProxies(rdf).stream()
         .map(AboutType.class::cast).collect(Collectors.toList());
-    final Set<SearchTermContext> resultValueSetMap = getFieldValueSet(ProxyFieldType.values(),
+    final Set<SearchTermContext> resultSearchTermsSet = getFieldValueSet(ProxyFieldType.values(),
         providerProxies);
     final List<AboutType> aggregations = rdf.getAggregationList().stream()
         .map(AboutType.class::cast).collect(Collectors.toList());
-    resultValueSetMap.addAll(getFieldValueSet(AggregationFieldType.values(), aggregations));
-    return resultValueSetMap;
+    resultSearchTermsSet.addAll(getFieldValueSet(AggregationFieldType.values(), aggregations));
+    return resultSearchTermsSet;
   }
 
-  private Set<SearchTermContext> getFieldValueSet(FieldType[] values,
-      List<AboutType> aggregations) {
-    final Map<FieldValue, Set<FieldType>> aggregationResult = new HashMap<>();
-    for (FieldType aggregationFieldType : values) {
-      aggregations.stream().map(aggregationFieldType::extractFieldValuesForEnrichment)
+  private Set<SearchTermContext> getFieldValueSet(FieldType[] fieldTypes,
+      List<AboutType> aboutTypes) {
+    final Map<FieldValue, Set<FieldType>> fieldValueFieldTypesMap = new HashMap<>();
+    for (FieldType fieldType : fieldTypes) {
+      aboutTypes.stream().map(fieldType::extractFieldValuesForEnrichment)
           .flatMap(Collection::stream).forEach(
-          value -> aggregationResult.computeIfAbsent(value, key -> new HashSet<>())
-              .add(aggregationFieldType));
+          value -> fieldValueFieldTypesMap.computeIfAbsent(value, key -> new HashSet<>())
+              .add(fieldType));
     }
-    return aggregationResult.entrySet().stream().map(
+    return fieldValueFieldTypesMap.entrySet().stream().map(
         entry -> new SearchTermContext(entry.getKey().getValue(), entry.getKey().getLanguage(),
             entry.getValue())).collect(Collectors.toSet());
   }

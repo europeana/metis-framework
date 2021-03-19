@@ -59,9 +59,4 @@ public enum AggregationFieldType implements FieldType {
   public Set<String> extractFieldLinksForEnrichment(AboutType proxy) {
     return Collections.emptySet();
   }
-
-  @Override
-  public AggregationFieldType[] getValues() {
-    return AggregationFieldType.values();
-  }
 }
