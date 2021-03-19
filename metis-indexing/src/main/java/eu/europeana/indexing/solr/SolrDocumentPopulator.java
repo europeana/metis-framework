@@ -86,7 +86,7 @@ public class SolrDocumentPopulator {
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
     new AggregationSolrCreator(licenses).addToDocument(document,
-        getDataProviderAggregations(fullBean).get(0)); //TODO
+        getDataProviderAggregations(fullBean).get(0));
     new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
         .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
