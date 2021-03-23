@@ -616,10 +616,10 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<CountryModel> getDatasetsCountries(
+  public List<CountryView> getDatasetsCountries(
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return Arrays.stream(Country.values()).map(CountryModel::new).collect(Collectors.toList());
+    return Arrays.stream(Country.values()).map(CountryView::new).collect(Collectors.toList());
   }
 
   /**
@@ -638,10 +638,10 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<LanguageModel> getDatasetsLanguages(
+  public List<LanguageView> getDatasetsLanguages(
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return Language.getLanguageListSortedByName().stream().map(LanguageModel::new)
+    return Language.getLanguageListSortedByName().stream().map(LanguageView::new)
         .collect(Collectors.toList());
   }
 
@@ -688,7 +688,7 @@ public class DatasetController {
     return responseListWrapper;
   }
 
-  private static class CountryModel {
+  private static class CountryView {
 
     @JsonProperty("enum")
     private final String enumName;
@@ -697,21 +697,21 @@ public class DatasetController {
     @JsonProperty
     private final String isoCode;
 
-    CountryModel(Country country) {
+    CountryView(Country country) {
       this.enumName = country.name();
       this.name = country.getName();
       this.isoCode = country.getIsoCode();
     }
   }
 
-  private static class LanguageModel {
+  private static class LanguageView {
 
     @JsonProperty("enum")
     private final String enumName;
     @JsonProperty
     private final String name;
 
-    LanguageModel(Language language) {
+    LanguageView(Language language) {
       this.enumName = language.name();
       this.name = language.getName();
     }
