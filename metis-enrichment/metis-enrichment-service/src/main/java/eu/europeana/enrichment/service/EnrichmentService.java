@@ -20,13 +20,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.ws.rs.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Contains functionality for accessing entities from the enrichment database using {@link
@@ -82,8 +79,6 @@ public class EnrichmentService {
               .getOrDefault(referenceTerm, Collections.emptyList());
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
-      // TODO: 08/02/2021 Maybe change the thrown exception to another type since this is an internal service and not a rest application,
-      //  which also affect the required dependencies during unit tests. Then the dependency org.glassfish.jersey.core:jersey-common can be removed
       throw new IllegalArgumentException("The input values are invalid", e);
     }
   }

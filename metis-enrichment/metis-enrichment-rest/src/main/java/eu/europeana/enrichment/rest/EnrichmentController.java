@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Enrichment REST API
@@ -60,7 +62,7 @@ public class EnrichmentController {
   public EnrichmentResultList search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
     return new EnrichmentResultList(enrichmentService
-            .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()));
+        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()));
   }
 
   /**
@@ -76,8 +78,13 @@ public class EnrichmentController {
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase equivalence(@ApiParam("uri") @RequestParam("uri") String uri) {
-    List<EnrichmentBase> result =  enrichmentService
-        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
+    List<EnrichmentBase> result;
+    try {
+      result = enrichmentService
+          .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+    }
     return result.stream().findFirst().orElse(null);
     //TODO 07-12-2020: For this case it is expected only one as a result, but we should handle this better in the future
   }
@@ -118,11 +125,16 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList entityId(@RequestBody List<String> uris) {
     // TODO: 17/11/2020 Support for xml input. Requires a wrapper class with a field of the list of uris
-    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = uris.stream()
-        .map(enrichmentService::enrichById)
-        .map(result -> Optional.ofNullable(result).map(List::of).orElseGet(Collections::emptyList))
-        .map(EnrichmentResultBaseWrapper::new)
-        .collect(Collectors.toList());
+    final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers;
+    try {
+      enrichmentBaseWrappers = uris.stream()
+          .map(enrichmentService::enrichById)
+          .map(result -> Optional.ofNullable(result).map(List::of).orElseGet(Collections::emptyList))
+          .map(EnrichmentResultBaseWrapper::new)
+          .collect(Collectors.toList());
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+    }
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 }

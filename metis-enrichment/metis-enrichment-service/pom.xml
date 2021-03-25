@@ -54,13 +54,6 @@
       <artifactId>hamcrest-all</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--Required for BadRequestException in EnrichmentServiceTest, can be removed if the exception thrown is changed-->
-    <dependency>
-      <groupId>org.glassfish.jersey.core</groupId>
-      <artifactId>jersey-common</artifactId>
-      <version>2.22.2</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
