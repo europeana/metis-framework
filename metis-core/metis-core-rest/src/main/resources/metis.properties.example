@@ -6,6 +6,8 @@ dps.read.timeout.in.millisecs=
 failsafe.margin.of.inactivity.in.secs=
 periodic.failsafe.check.in.millisecs=
 periodic.scheduler.check.in.millisecs=
+redisson.connection.pool.size=
+redisson.connect.timeout.in.millisecs=
 redisson.lock.watchdog.timeout.in.secs=
 polling.timeout.for.cleaning.completion.service.in.millisecs=
 #If a task passed this cap the task will be cancelled

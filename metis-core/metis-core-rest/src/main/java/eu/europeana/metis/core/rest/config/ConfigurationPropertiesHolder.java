@@ -52,8 +52,12 @@ public class ConfigurationPropertiesHolder {
   private boolean redisEnableSSL;
   @Value("${redis.enable.custom.truststore}")
   private boolean redisEnableCustomTruststore;
+  @Value("${redisson.connection.pool.size}")
+  private int redissonConnectionPoolSize;
   @Value("${redisson.lock.watchdog.timeout.in.secs}")
   private int redissonLockWatchdogTimeoutInSecs;
+  @Value("${redisson.connect.timeout.in.millisecs}")
+  private int redissonConnectTimeoutInMillisecs;
 
   //RabbitMq
   @Value("${rabbitmq.host}")
@@ -219,8 +223,16 @@ public class ConfigurationPropertiesHolder {
     return redisEnableCustomTruststore;
   }
 
+  public int getRedissonConnectionPoolSize() {
+    return redissonConnectionPoolSize;
+  }
+
   public int getRedissonLockWatchdogTimeoutInSecs() {
     return redissonLockWatchdogTimeoutInSecs;
+  }
+
+  public int getRedissonConnectTimeoutInMillisecs() {
+    return redissonConnectTimeoutInMillisecs;
   }
 
   public String getRabbitmqHost() {

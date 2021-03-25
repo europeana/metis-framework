@@ -99,6 +99,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     if (StringUtils.isNotEmpty(propertiesHolder.getRedisPassword())) {
       singleServerConfig.setPassword(propertiesHolder.getRedisPassword());
     }
+
+    singleServerConfig.setConnectionPoolSize(propertiesHolder.getRedissonConnectionPoolSize())
+        .setConnectionMinimumIdleSize(propertiesHolder.getRedissonConnectionPoolSize())
+        .setConnectTimeout(propertiesHolder.getRedissonConnectTimeoutInMillisecs());
     config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(propertiesHolder
         .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
