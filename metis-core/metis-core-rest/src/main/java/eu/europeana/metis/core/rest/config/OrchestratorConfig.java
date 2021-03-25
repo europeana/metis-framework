@@ -93,6 +93,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
           .format("redis://%s:%s", propertiesHolder.getRedisHost(),
               propertiesHolder.getRedisPort()));
     }
+    if (StringUtils.isNotEmpty(propertiesHolder.getRedisUsername())) {
+      singleServerConfig.setUsername(propertiesHolder.getRedisUsername());
+    }
     if (StringUtils.isNotEmpty(propertiesHolder.getRedisPassword())) {
       singleServerConfig.setPassword(propertiesHolder.getRedisPassword());
     }
@@ -199,7 +202,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   WorkflowValidationUtils getWorkflowValidationUtils(DataEvolutionUtils dataEvolutionUtils,
-          DepublishRecordIdDao depublishRecordIdDao) {
+      DepublishRecordIdDao depublishRecordIdDao) {
     return new WorkflowValidationUtils(depublishRecordIdDao, dataEvolutionUtils);
   }
 

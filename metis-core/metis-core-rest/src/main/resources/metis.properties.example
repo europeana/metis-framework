@@ -45,6 +45,7 @@ mongo.application.name=
 #Redis
 redis.host=
 redis.port=0
+redis.username=
 redis.password=
 redis.enableSSL=
 #True if a custom certificate is used in the truststore defined above

@@ -44,6 +44,8 @@ public class ConfigurationPropertiesHolder {
   private String redisHost;
   @Value("${redis.port}")
   private int redisPort;
+  @Value("${redis.username}")
+  private String redisUsername;
   @Value("${redis.password}")
   private String redisPassword;
   @Value("${redis.enableSSL}")
@@ -199,6 +201,10 @@ public class ConfigurationPropertiesHolder {
 
   public int getRedisPort() {
     return redisPort;
+  }
+
+  public String getRedisUsername() {
+    return redisUsername;
   }
 
   public String getRedisPassword() {
