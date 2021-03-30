@@ -76,6 +76,8 @@ public class ConfigurationPropertiesHolder {
   private int rabbitmqHighestPriority;
   @Value("${rabbitmq.enableSSL}")
   private boolean rabbitmqEnableSSL;
+  @Value("${rabbitmq.enable.custom.truststore}")
+  private boolean rabbitmqEnableCustomTruststore;
 
   // Metis core configuration
   @Value("${metis.core.baseUrl}")
@@ -257,6 +259,10 @@ public class ConfigurationPropertiesHolder {
 
   public boolean isRabbitmqEnableSSL() {
     return rabbitmqEnableSSL;
+  }
+
+  public boolean isRabbitmqEnableCustomTruststore() {
+    return rabbitmqEnableCustomTruststore;
   }
 
   public String getRabbitmqQueueName() {

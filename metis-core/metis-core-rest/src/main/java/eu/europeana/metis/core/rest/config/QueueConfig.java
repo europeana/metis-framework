@@ -9,12 +9,19 @@ import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +60,7 @@ public class QueueConfig implements WebMvcConfigurer {
 
   @Bean
   Connection getConnection()
-      throws KeyManagementException, NoSuchAlgorithmException, IOException, TimeoutException {
+      throws KeyManagementException, NoSuchAlgorithmException, IOException, TimeoutException, KeyStoreException, CertificateException {
     ConnectionFactory connectionFactory = new ConnectionFactory();
     connectionFactory.setHost(propertiesHolder.getRabbitmqHost());
     connectionFactory.setPort(propertiesHolder.getRabbitmqPort());
@@ -64,7 +71,22 @@ public class QueueConfig implements WebMvcConfigurer {
     connectionFactory.setPassword(propertiesHolder.getRabbitmqPassword());
     connectionFactory.setAutomaticRecoveryEnabled(true);
     if (propertiesHolder.isRabbitmqEnableSSL()) {
-      connectionFactory.useSslProtocol();
+      if (propertiesHolder.isRabbitmqEnableCustomTruststore()) {
+        //Load the ssl context with the provided truststore
+        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+        keyStore.load(Files.newInputStream(Paths.get(propertiesHolder.getTruststorePath())),
+            propertiesHolder.getTruststorePassword().toCharArray());
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory
+            .getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init(keyStore);
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, trustManagerFactory.getTrustManagers(), null);
+        connectionFactory.useSslProtocol(sslContext);
+        LOGGER.info("RabbitMQ enabled SSL WITH certificate verification using custom Truststore");
+      } else {
+        connectionFactory.useSslProtocol();
+        LOGGER.info("RabbitMQ enabled SSL WITHOUT certificate verification");
+      }
     }
     //Does not close the channel if an unhandled exception occurred
     //Can happen in QueueConsumer and it's safe to not handle the execution, it will be picked up

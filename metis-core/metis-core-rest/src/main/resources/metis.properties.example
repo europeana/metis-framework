@@ -33,6 +33,8 @@ rabbitmq.virtual.host=
 rabbitmq.queue.name=
 rabbitmq.highest.priority=
 rabbitmq.enableSSL=
+#True if a custom certificate is used in the truststore defined above
+rabbitmq.enable.custom.truststore=
 
 #Mongo
 mongo.hosts=

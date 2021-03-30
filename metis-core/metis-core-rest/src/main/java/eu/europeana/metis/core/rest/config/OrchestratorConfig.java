@@ -83,15 +83,18 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       singleServerConfig = config.useSingleServer().setAddress(String
           .format("rediss://%s:%s", propertiesHolder.getRedisHost(),
               propertiesHolder.getRedisPort()));
+      LOGGER.info("Redis enabled SSL");
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
         singleServerConfig
             .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
+        LOGGER.info("Redis enabled SSL using custom Truststore");
       }
     } else {
       singleServerConfig = config.useSingleServer().setAddress(String
           .format("redis://%s:%s", propertiesHolder.getRedisHost(),
               propertiesHolder.getRedisPort()));
+      LOGGER.info("Redis disabled SSL");
     }
     if (StringUtils.isNotEmpty(propertiesHolder.getRedisUsername())) {
       singleServerConfig.setUsername(propertiesHolder.getRedisUsername());

@@ -6,11 +6,15 @@ import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible for performing initializing tasks for the application.
  */
 final class ApplicationInitUtils {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationInitUtils.class);
 
   private ApplicationInitUtils() {
   }
@@ -30,6 +34,7 @@ final class ApplicationInitUtils {
       CustomTruststoreAppender
           .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(),
               propertiesHolder.getTruststorePassword());
+      LOGGER.info("Custom truststore appended to default truststore");
     }
 
     // Initialize the socks proxy.
@@ -38,6 +43,7 @@ final class ApplicationInitUtils {
           propertiesHolder
               .getSocksProxyUsername(),
           propertiesHolder.getSocksProxyPassword()).init();
+      LOGGER.info("Socks proxy enabled");
     }
 
     // Initialize the Mongo connection
