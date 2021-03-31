@@ -68,10 +68,10 @@ public class OaipmhHarvestPlugin extends AbstractExecutablePlugin<OaipmhHarvestP
 
     OAIPMHHarvestingDetails oaipmhHarvestingDetails = new OAIPMHHarvestingDetails();
     if (StringUtils.isNotEmpty(metadataFormat)) {
-      oaipmhHarvestingDetails.setSchemas(new HashSet<>(Collections.singletonList(metadataFormat)));
+      oaipmhHarvestingDetails.setSchema(metadataFormat);
     }
     if (StringUtils.isNotEmpty(setSpec)) {
-      oaipmhHarvestingDetails.setSets(new HashSet<>(Collections.singletonList(setSpec)));
+      oaipmhHarvestingDetails.setSet(setSpec);
     }
     oaipmhHarvestingDetails.setDateFrom(fromDate);
     oaipmhHarvestingDetails.setDateUntil(untilDate);
