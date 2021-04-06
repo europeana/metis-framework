@@ -49,6 +49,7 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
     mongoProxy.setProxyFor(
         Optional.ofNullable(proxy.getProxyFor()).map(ResourceType::getResource).orElse(null));
     mongoProxy.setProxyIn(FieldInputUtils.resourceListToArray(proxy.getProxyInList()));
+    mongoProxy.setLineage(FieldInputUtils.resourceListToArray(proxy.getLineageList()));
     mongoProxy.setEdmHasMet(FieldInputUtils.createResourceMapFromList(proxy.getHasMetList()));
     mongoProxy.setYear(FieldInputUtils.createLiteralMapFromList(proxy.getYearList()));
     mongoProxy

@@ -28,6 +28,7 @@ public class MongoProperties<E extends Exception> {
   private MongoCredential mongoCredentials;
   private boolean mongoEnableSsl;
   private ReadPreferenceValue readPreferenceValue;
+  private String applicationName;
 
   /**
    * Constructor.
@@ -39,7 +40,7 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * Setter for all properties.
+   * Setter for multiple properties.
    *
    * @param hosts The hosts. This cannot be null or empty.
    * @param ports The ports. This cannot be null or empty. Must contain either the same number of
@@ -66,7 +67,7 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * Setter for all properties.
+   * Setter for multiple properties.
    *
    * @param hosts The hosts. This cannot be null or empty.
    * @param ports The ports. This cannot be null or empty. Must contain either the same number of
@@ -79,12 +80,37 @@ public class MongoProperties<E extends Exception> {
    * @param readPreferenceValue The read preference. Can be null, where then the default applies
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */
+  @Deprecated
   public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
       String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
+      throws E {
+    setAllProperties(hosts, ports, authenticationDatabase, username, password, enableSsl,
+        readPreferenceValue, null);
+  }
+
+  /**
+   * Setter for multiple properties.
+   *
+   * @param hosts The hosts. This cannot be null or empty.
+   * @param ports The ports. This cannot be null or empty. Must contain either the same number of
+   * elements as the hosts array, or exactly 1 element (which will then apply to all hosts).
+   * @param authenticationDatabase The name of the authentication database. Can be null, in which
+   * case no authentication takes place.
+   * @param username The username. Can be null, in which case no authentication takes place.
+   * @param password The password. Can be null, in which case no authentication takes place.
+   * @param enableSsl Whether to enable SSL connections.
+   * @param readPreferenceValue The read preference. Can be null, where then the default applies
+   * @param applicationName The name of the application. Can be null, where then the default applies
+   * @throws E In case either of the arrays is null, or their lengths don't match.
+   */
+  public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
+      String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue,
+      String applicationName)
       throws E {
     setAllProperties(hosts, ports, authenticationDatabase, username, password);
     this.mongoEnableSsl = enableSsl;
     setReadPreferenceValue(readPreferenceValue);
+    setApplicationName(applicationName);
   }
 
   /**
@@ -137,12 +163,22 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * Set the read preference value. Can be null, where then the default applies
+   * Set the read preference value. Can be null, in which case the default applies.
    *
    * @param readPreferenceValue the read preference value (null for the default).
    */
   public void setReadPreferenceValue(ReadPreferenceValue readPreferenceValue) {
     this.readPreferenceValue = readPreferenceValue;
+  }
+
+  /**
+   * Set the application name. Can be null, in which case a default generic application name is
+   * to be used.
+   *
+   * @param applicationName The application name, or null for the default.
+   */
+  public void setApplicationName(String applicationName) {
+    this.applicationName = applicationName;
   }
 
   private <T> T nonNull(T value, String fieldName) throws E {
@@ -199,12 +235,21 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * This method returns the value of the read preference (or null for the default behavior)
+   * This method returns the value of the read preference (or null for the default behavior).
    *
-   * @return the read preference set
+   * @return The read preference.
    */
   public ReadPreferenceValue getReadPreferenceValue() {
     return readPreferenceValue;
+  }
+
+  /**
+   * This method returns the value of the application name (or null for the default).
+   *
+   * @return The application name.
+   */
+  public String getApplicationName() {
+    return applicationName;
   }
 
   /**

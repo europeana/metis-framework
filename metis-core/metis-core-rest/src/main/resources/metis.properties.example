@@ -6,6 +6,8 @@ dps.read.timeout.in.millisecs=
 failsafe.margin.of.inactivity.in.secs=
 periodic.failsafe.check.in.millisecs=
 periodic.scheduler.check.in.millisecs=
+redisson.connection.pool.size=
+redisson.connect.timeout.in.millisecs=
 redisson.lock.watchdog.timeout.in.secs=
 polling.timeout.for.cleaning.completion.service.in.millisecs=
 #If a task passed this cap the task will be cancelled
@@ -31,6 +33,8 @@ rabbitmq.virtual.host=
 rabbitmq.queue.name=
 rabbitmq.highest.priority=
 rabbitmq.enableSSL=
+#True if a custom certificate is used in the truststore defined above
+rabbitmq.enable.custom.truststore=
 
 #Mongo
 mongo.hosts=
@@ -40,10 +44,12 @@ mongo.username=
 mongo.password=
 mongo.enableSSL=
 mongo.db=
+mongo.application.name=
 
 #Redis
 redis.host=
 redis.port=0
+redis.username=
 redis.password=
 redis.enableSSL=
 #True if a custom certificate is used in the truststore defined above

@@ -1,6 +1,6 @@
 package eu.europeana.metis.authentication.rest.config;
 
-import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performAction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
 
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;

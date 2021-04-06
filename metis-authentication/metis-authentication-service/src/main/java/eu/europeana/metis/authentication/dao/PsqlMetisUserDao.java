@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.dao;
 
-import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performAction;
-import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;

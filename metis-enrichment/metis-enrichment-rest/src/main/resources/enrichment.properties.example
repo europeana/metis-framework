@@ -9,3 +9,4 @@ socks.proxy.password=
 enrichment.mongo.host=
 enrichment.mongo.database=
 enrichment.mongo.port=
+enrichment.mongo.application.name=

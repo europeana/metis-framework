@@ -1,5 +1,6 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
@@ -11,7 +12,6 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
 import javax.xml.XMLConstants;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -42,8 +42,8 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   private static final String COMPLETE_LIST_SIZE_XPATH =
           "/*[local-name()='OAI-PMH']" +
-                  "/*[local-name()='ListIdentifiers']" +
-                  "/*[local-name()='resumptionToken']";
+          "/*[local-name()='ListIdentifiers']" +
+          "/*[local-name()='resumptionToken']";
   public static final String COMPLETE_LIST_SIZE = "completeListSize";
 
   private final ConnectionClientFactory connectionClientFactory;
@@ -101,9 +101,10 @@ public class OaiHarvesterImpl implements OaiHarvester {
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
             .include(getRecordParameters);
     final String record;
-    try (final CloseableOaiClient client = connectionClientFactory
+    try (final CloseableOaiClient oaiClient = connectionClientFactory
             .createConnectionClient(repository.getRepositoryUrl());
-            final InputStream recordStream = client.execute(parameters)) {
+            final InputStream recordStream = performThrowingFunction(oaiClient,
+                    client -> client.execute(parameters))) {
       record = IOUtils.toString(recordStream, StandardCharsets.UTF_8);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(
@@ -121,9 +122,10 @@ public class OaiHarvesterImpl implements OaiHarvester {
   public Integer countRecords(OaiHarvest harvest) throws HarvesterException {
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.ListIdentifiers)
             .include(prepareListIdentifiersParameters(harvest));
-    try (final CloseableOaiClient client = connectionClientFactory
+    try (final CloseableOaiClient oaiClient = connectionClientFactory
             .createConnectionClient(harvest.getRepositoryUrl());
-            final InputStream listIdentifiersResponse = client.execute(parameters)) {
+            final InputStream listIdentifiersResponse = performThrowingFunction(oaiClient,
+                    client -> client.execute(parameters))) {
       return readCompleteListSizeFromXML(listIdentifiersResponse);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(
@@ -133,7 +135,6 @@ public class OaiHarvesterImpl implements OaiHarvester {
   }
 
   private Integer readCompleteListSizeFromXML(InputStream stream) throws HarvesterException {
-    final InputSource inputSource = new SAXSource(new InputSource(stream)).getInputSource();
     final XPathExpression expr;
     try {
       final XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -144,23 +145,18 @@ public class OaiHarvesterImpl implements OaiHarvester {
       throw new HarvesterException("Cannot compile xpath expression.", e);
     }
     try {
-      final Node resumptionTokenNode = (Node) expr.evaluate(inputSource, XPathConstants.NODE);
+      final Node resumptionTokenNode = (Node) expr
+              .evaluate(new InputSource(stream), XPathConstants.NODE);
       if (resumptionTokenNode != null) {
         final Node node = resumptionTokenNode.getAttributes().getNamedItem(COMPLETE_LIST_SIZE);
         if (node != null) {
-          return Integer.parseInt(node.getNodeValue());
-        } else {
-          return null;
+          return Integer.valueOf(node.getNodeValue());
         }
-      } else {
-        return null;
       }
-    } catch (NumberFormatException e) {
-      return null;
-    } catch (XPathExpressionException e) {
+    } catch (NumberFormatException | XPathExpressionException e) {
       LOGGER.debug("Cannot read completeListSize from OAI response ", e);
-      return null;
     }
+    return null;
   }
 
   /**
@@ -198,22 +194,15 @@ public class OaiHarvesterImpl implements OaiHarvester {
     }
 
     @Override
-    public void forEachFiltered(ReportingIteration<OaiRecordHeader> action,
-            Predicate<OaiRecordHeader> filter)
-            throws HarvesterException {
+    public void forEachFiltered(final ReportingIteration<OaiRecordHeader> action,
+            final Predicate<OaiRecordHeader> filter) throws HarvesterException {
+      final ReportingIterationWrapper singleIteration = new ReportingIterationWrapper(action,
+              filter);
       try {
         while (source.hasNext()) {
-          final Header nextInput = source.next();
-          final OaiRecordHeader nextHeader = new OaiRecordHeader(nextInput.getIdentifier(),
-                  nextInput.isDeleted(),
-                  Optional.ofNullable(nextInput.getDatestamp()).map(Date::toInstant).orElse(null));
-          if (filter.test(nextHeader)) {
-            final IterationResult result = action.process(nextHeader);
-            if (result == null) {
-              throw new IllegalArgumentException("Iteration result cannot be null.");
-            } else if (IterationResult.TERMINATE == result) {
-              break;
-            }
+          final IterationResult result = singleIteration.process(source.next());
+          if (IterationResult.TERMINATE == result) {
+            break;
           }
         }
       } catch (RuntimeException e) {
@@ -224,6 +213,29 @@ public class OaiHarvesterImpl implements OaiHarvester {
     @Override
     public void close() throws IOException {
       this.oaiClient.close();
+    }
+  }
+
+  private static class ReportingIterationWrapper implements ReportingIteration<Header> {
+
+    private final ReportingIteration<OaiRecordHeader> action;
+    private final Predicate<OaiRecordHeader> filter;
+
+    public ReportingIterationWrapper(ReportingIteration<OaiRecordHeader> action,
+            Predicate<OaiRecordHeader> filter) {
+      this.action = action;
+      this.filter = filter;
+    }
+
+    @Override
+    public IterationResult process(Header input) {
+      final OaiRecordHeader header = new OaiRecordHeader(input.getIdentifier(), input.isDeleted(),
+              Optional.ofNullable(input.getDatestamp()).map(Date::toInstant).orElse(null));
+      if (filter.test(header)) {
+        return Optional.ofNullable(action.process(header)).orElseThrow(() ->
+                new IllegalArgumentException("Iteration result cannot be null."));
+      }
+      return IterationResult.CONTINUE;
     }
   }
 }

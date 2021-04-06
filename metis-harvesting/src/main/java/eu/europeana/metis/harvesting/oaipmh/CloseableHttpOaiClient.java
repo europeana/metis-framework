@@ -4,7 +4,7 @@ import eu.europeana.metis.harvesting.HarvestingClientSettings;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.stream.Stream;
+import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -71,7 +71,9 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
 
   private InputStream executeOnce(Parameters parameters) throws HttpException {
 
-    // Set up the request and the response.
+    // Set up the request and the response. Note: we are aware that the user can inject parameters
+    // in the provided URL, but that is currently the exact functionality we need to support.
+    @SuppressWarnings("findsecbugs:HTTP_PARAMETER_POLLUTION")
     final HttpGet request = new HttpGet(parameters.toUrl(baseUrl));
     final CloseableHttpResponse response;
     try {
@@ -81,29 +83,18 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
       throw new HttpException(e);
     }
 
-    // So we have a request and a response. Set up cleaning for both.
-    final Runnable closeAction = () -> Stream.<Closeable>of(response, request::releaseConnection)
-            .forEach(closeable -> {
-              try {
-                closeable.close();
-              } catch (RuntimeException | IOException e) {
-                LOGGER.warn("Error while cleaning resources.", e);
-              }
-            });
-
     // If we don't succeed, we clean up and throw an exception.
     if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-      closeAction.run();
-      throw new HttpException(
-              "Error querying service. Returned HTTP Status Code: "
-                      + response.getStatusLine().getStatusCode());
+      closeSilently(request, response);
+      throw new HttpException("Error querying service. Returned HTTP Status Code: "
+              + response.getStatusLine().getStatusCode());
     }
 
     // So we have success. We return the content.
     try {
-      return new HttpOaiClientInputStream(response.getEntity().getContent(), closeAction);
+      return new HttpOaiClientInputStream(response.getEntity().getContent(), request, response);
     } catch (RuntimeException | IOException e) {
-      closeAction.run();
+      closeSilently(request, response);
       throw new HttpException(e);
     }
   }
@@ -117,6 +108,16 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
     }
   }
 
+  private static void closeSilently(HttpGet request, CloseableHttpResponse response) {
+    List.<Closeable>of(response, request::releaseConnection).forEach(closeable -> {
+      try {
+        closeable.close();
+      } catch (RuntimeException | IOException e) {
+        LOGGER.warn("Error while cleaning resources.", e);
+      }
+    });
+  }
+
   /**
    * An implementation of an input stream that wraps around a source input stream but allows
    * additional closing functionality.
@@ -124,17 +125,21 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
   private static class HttpOaiClientInputStream extends InputStream {
 
     private final InputStream source;
-    private final Runnable afterClosing;
+    private final HttpGet request;
+    private final CloseableHttpResponse response;
 
     /**
      * Constructor.
      *
      * @param source The source input stream.
-     * @param afterClosing Additional functionality to be performed after the stream is closed.
+     * @param request The request - to be closed when the stream is closed.
+     * @param response The response - to be closed when the stream is closed.
      */
-    public HttpOaiClientInputStream(InputStream source, Runnable afterClosing) {
+    public HttpOaiClientInputStream(InputStream source, HttpGet request,
+            CloseableHttpResponse response) {
       this.source = source;
-      this.afterClosing = afterClosing;
+      this.request = request;
+      this.response = response;
     }
 
     @Override
@@ -157,7 +162,7 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
       try {
         source.close();
       } finally {
-        afterClosing.run();
+        closeSilently(request, response);
       }
     }
   }

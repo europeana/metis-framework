@@ -43,10 +43,11 @@ public class MetisRecordParser implements RecordParser {
 
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
-    final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
+    final List<ProxyType> providerProxies = RdfProxyUtils.getProviderProxies(rdf);
     final Map<FieldValue, Set<FieldType>> result = new HashMap<>();
     for (FieldType field : FieldType.values()) {
-      field.extractFieldValuesForEnrichment(providerProxy)
+      providerProxies.stream().map(field::extractFieldValuesForEnrichment)
+              .flatMap(Collection::stream)
               .forEach(value -> result.computeIfAbsent(value, key -> new HashSet<>()).add(field));
     }
     return result.entrySet().stream().map(entry -> new SearchTermContext(entry.getKey().getValue(),

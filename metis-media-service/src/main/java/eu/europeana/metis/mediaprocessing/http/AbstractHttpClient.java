@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import static eu.europeana.metis.network.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
 import java.io.Closeable;
 import java.io.IOException;

@@ -11,6 +11,11 @@
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-network</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -18,11 +23,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-core</artifactId>
-      <version>${version.mongodb.driver.core}</version>
     </dependency>
     <dependency>
       <groupId>dev.morphia.morphia</groupId>

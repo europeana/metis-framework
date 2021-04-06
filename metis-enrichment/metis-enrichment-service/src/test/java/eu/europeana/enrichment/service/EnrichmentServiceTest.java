@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import javax.ws.rs.BadRequestException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,9 +106,9 @@ class EnrichmentServiceTest {
   void enrichByEquivalenceValues_throwsException() {
     final ReferenceValue referenceValue = new ReferenceValue("invalidUrl",
         Set.of(EntityType.AGENT, EntityType.TIMESPAN));
-    final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+    final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
         () -> enrichmentService.enrichByEquivalenceValues(referenceValue));
-    assertEquals(MalformedURLException.class, badRequestException.getCause().getClass());
+    assertEquals(MalformedURLException.class, illegalArgumentException.getCause().getClass());
   }
 
   @Test
@@ -133,9 +132,9 @@ class EnrichmentServiceTest {
   @Test
   void enrichById_throwsException() {
     final String entityAbout = "InvalidUrl";
-    final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+    final IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
         () -> enrichmentService.enrichById(entityAbout));
-    assertEquals(MalformedURLException.class, badRequestException.getCause().getClass());
+    assertEquals(MalformedURLException.class, illegalArgumentException.getCause().getClass());
   }
 
   @Test

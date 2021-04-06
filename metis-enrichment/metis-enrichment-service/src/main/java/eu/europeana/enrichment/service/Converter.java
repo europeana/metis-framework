@@ -175,7 +175,7 @@ public final class Converter {
     return output;
   }
 
-  public static EnrichmentTerm organizationImplToEnrichmentTerm(
+  static EnrichmentTerm organizationImplToEnrichmentTerm(
       OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
     enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);

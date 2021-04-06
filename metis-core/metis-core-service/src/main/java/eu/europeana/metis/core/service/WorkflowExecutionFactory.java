@@ -1,10 +1,11 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.metis.core.common.TransformationParameters;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
@@ -29,7 +30,6 @@ import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +46,7 @@ public class WorkflowExecutionFactory {
   private final DatasetXsltDao datasetXsltDao;
   private final DepublishRecordIdDao depublishRecordIdDao;
   private final WorkflowExecutionDao workflowExecutionDao;
-  private final WorkflowUtils workflowUtils;
+  private final DataEvolutionUtils dataEvolutionUtils;
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
@@ -59,25 +59,25 @@ public class WorkflowExecutionFactory {
    * @param datasetXsltDao the Dao instance to access the dataset xslts
    * @param depublishRecordIdDao The Dao instance to access depublish records.
    * @param workflowExecutionDao the Dao instance to access the workflow executions
-   * @param workflowUtils the utilities class for workflow operations
+   * @param dataEvolutionUtils the utilities class for workflow operations
    */
   public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao,
       DepublishRecordIdDao depublishRecordIdDao, WorkflowExecutionDao workflowExecutionDao,
-      WorkflowUtils workflowUtils) {
+      DataEvolutionUtils dataEvolutionUtils) {
     this.datasetXsltDao = datasetXsltDao;
     this.depublishRecordIdDao = depublishRecordIdDao;
     this.workflowExecutionDao = workflowExecutionDao;
-    this.workflowUtils = workflowUtils;
+    this.dataEvolutionUtils = dataEvolutionUtils;
   }
 
   // Expect the dataset to be synced with eCloud.
   // Does not save the workflow execution.
   WorkflowExecution createWorkflowExecution(Workflow workflow, Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin> predecessor, int priority)
+      PluginWithExecutionId<ExecutablePlugin<?>> predecessor, int priority)
       throws BadContentException {
 
     // Create the plugins
-    final List<AbstractExecutablePlugin> workflowPlugins = new ArrayList<>();
+    final List<AbstractExecutablePlugin<?>> workflowPlugins = new ArrayList<>();
     final List<ExecutablePluginType> typesInWorkflow = new ArrayList<>();
     for (AbstractExecutablePluginMetadata pluginMetadata : workflow.getMetisPluginsMetadata()) {
       if (pluginMetadata.isEnabled()) {
@@ -97,8 +97,8 @@ public class WorkflowExecutionFactory {
     return new WorkflowExecution(dataset, workflowPlugins, priority);
   }
 
-  private AbstractExecutablePlugin createWorkflowExecutionPlugin(Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
+  private AbstractExecutablePlugin<?> createWorkflowExecutionPlugin(Dataset dataset,
+      PluginWithExecutionId<ExecutablePlugin<?>> workflowPredecessor,
       AbstractExecutablePluginMetadata pluginMetadata,
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) throws BadContentException {
 
@@ -177,19 +177,19 @@ public class WorkflowExecutionFactory {
    * @return Whether to apply redirection as part of this plugin.
    */
   private boolean shouldRedirectsBePerformed(Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
+      PluginWithExecutionId<ExecutablePlugin<?>> workflowPredecessor,
       ExecutablePluginType executablePluginType,
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
 
     // Get some history from the database: find the latest successful plugin of the same type.
-    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulPlugin = workflowExecutionDao
+    final PluginWithExecutionId<ExecutablePlugin<?>> latestSuccessfulPlugin = workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
             EnumSet.of(executablePluginType), true);
 
     // Check if we can find the answer in the workflow itself. Iterate backwards and see what we find.
     for (int i = typesInWorkflowBeforeThisPlugin.size() - 1; i >= 0; i--) {
       final ExecutablePluginType type = typesInWorkflowBeforeThisPlugin.get(i);
-      if (WorkflowUtils.getHarvestPluginGroup().contains(type)) {
+      if (DataEvolutionUtils.getHarvestPluginGroup().contains(type)) {
         // If we find a harvest (occurring after any plugin of this type),
         // we know we need to perform redirects only if there is a non null latest successful plugin or there are datasets to redirect from.
         return latestSuccessfulPlugin != null || !CollectionUtils
@@ -217,8 +217,8 @@ public class WorkflowExecutionFactory {
       // If this plugin's harvest cannot be determined, assume it is not the same (this shouldn't
       // happen as we checked the workflow already). This is a lambda: we wish to evaluate on demand.
       final BooleanSupplier rootDiffersForLatestPlugin = () -> workflowPredecessor == null
-          || !workflowUtils.getRootAncestor(latestSuccessfulPlugin)
-          .equals(workflowUtils.getRootAncestor(workflowPredecessor));
+          || !dataEvolutionUtils.getRootAncestor(latestSuccessfulPlugin)
+          .equals(dataEvolutionUtils.getRootAncestor(workflowPredecessor));
 
       // In either of these situations, we perform a redirect.
       performRedirect =
@@ -254,10 +254,10 @@ public class WorkflowExecutionFactory {
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       pluginMetadata.setXsltId(xsltObject.getId().toString());
     }
-    //DatasetName in Transformation should be a concatenation datasetId_datasetName
-    pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
-    pluginMetadata.setCountry(dataset.getCountry().getName());
-    pluginMetadata.setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
+    final TransformationParameters transformationParameters = new TransformationParameters(dataset);
+    pluginMetadata.setDatasetName(transformationParameters.getDatasetName());
+    pluginMetadata.setCountry(transformationParameters.getEdmCountry());
+    pluginMetadata.setLanguage(transformationParameters.getEdmLanguage());
   }
 
   private void setupDepublishPluginMetadata(Dataset dataset, DepublishPluginMetadata pluginMetadata)
