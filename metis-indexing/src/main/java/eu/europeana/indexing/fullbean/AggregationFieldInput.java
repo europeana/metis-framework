@@ -12,10 +12,11 @@ import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
- * Converts a {@link Aggregation} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
- * {@link AggregationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
+ * Converts a {@link Aggregation} from an {@link eu.europeana.metis.schema.jibx.RDF} to a {@link
+ * AggregationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class AggregationFieldInput implements Function<Aggregation, AggregationImpl> {
 
@@ -26,10 +27,11 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
   }
 
   private static String processResource(List<WebResourceImpl> webResources, ResourceType resource) {
-    String resourceString =
-        Optional.ofNullable(resource).map(ResourceType::getResource).map(String::trim).orElse(null);
-    boolean addWebResource = resourceString != null && webResources.stream()
-        .map(WebResourceImpl::getAbout).noneMatch(about -> about.equals(resourceString));
+    String resourceString = Optional.ofNullable(resource).map(ResourceType::getResource)
+        .map(String::trim).orElse(null);
+    boolean addWebResource =
+        resourceString != null && CollectionUtils.isNotEmpty(webResources) && webResources.stream()
+            .map(WebResourceImpl::getAbout).noneMatch(about -> about.equals(resourceString));
     if (addWebResource) {
       WebResourceImpl webResource = new WebResourceImpl();
       webResource.setAbout(resourceString);
@@ -45,8 +47,8 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
     final List<WebResourceImpl> webResources = new ArrayList<>(webResourcesSupplier.get());
 
     mongoAggregation.setAbout(aggregation.getAbout());
-    Map<String, List<String>> dp =
-        FieldInputUtils.createResourceOrLiteralMapFromString(aggregation.getDataProvider());
+    Map<String, List<String>> dp = FieldInputUtils
+        .createResourceOrLiteralMapFromString(aggregation.getDataProvider());
     mongoAggregation.setEdmDataProvider(dp);
     if (aggregation.getIntermediateProviderList() != null) {
       Map<String, List<String>> providers = FieldInputUtils
@@ -58,11 +60,11 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
     mongoAggregation.setEdmIsShownBy(processResource(webResources, aggregation.getIsShownBy()));
     mongoAggregation.setEdmObject(processResource(webResources, aggregation.getObject()));
 
-    Map<String, List<String>> prov =
-        FieldInputUtils.createResourceOrLiteralMapFromString(aggregation.getProvider());
+    Map<String, List<String>> prov = FieldInputUtils
+        .createResourceOrLiteralMapFromString(aggregation.getProvider());
     mongoAggregation.setEdmProvider(prov);
-    Map<String, List<String>> rights =
-        FieldInputUtils.createResourceMapFromString(aggregation.getRights());
+    Map<String, List<String>> rights = FieldInputUtils
+        .createResourceMapFromString(aggregation.getRights());
     mongoAggregation.setEdmRights(rights);
 
     if (aggregation.getUgc() == null) {
@@ -77,8 +79,8 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
         .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setAggregatedCHO(agCHO);
 
-    Map<String, List<String>> rights1 =
-        FieldInputUtils.createResourceOrLiteralMapFromList(aggregation.getRightList());
+    Map<String, List<String>> rights1 = FieldInputUtils
+        .createResourceOrLiteralMapFromList(aggregation.getRightList());
     mongoAggregation.setDcRights(rights1);
 
     if (aggregation.getHasViewList() == null) {

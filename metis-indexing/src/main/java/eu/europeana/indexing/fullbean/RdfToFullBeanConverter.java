@@ -1,5 +1,17 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.edm.entity.Aggregation;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.AggregationImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.jibx.Created;
+import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.Modified;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -11,15 +23,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-import eu.europeana.metis.schema.jibx.Created;
-import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
-import eu.europeana.metis.schema.jibx.LiteralType;
-import eu.europeana.metis.schema.jibx.Modified;
-import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.metis.schema.jibx.WebResourceType;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.utils.RdfWrapper;
+import java.util.stream.Stream;
 
 /**
  * This class converts instances of {@link RDF} to instances of {@link FullBeanImpl}.
@@ -41,11 +45,10 @@ public class RdfToFullBeanConverter {
     fullBean.setAbout(record.getAbout());
 
     // Set list properties.
-    fullBean.setProvidedCHOs(
-        convertList(record.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
+    fullBean
+        .setProvidedCHOs(convertList(record.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
     fullBean.setProxies(convertList(record.getProxies(), new ProxyFieldInput(), false));
-    fullBean.setAggregations(convertList(record.getAggregations(),
-        new AggregationFieldInput(new WebResourcesExtractor(record)), false));
+    fullBean.setAggregations(convertAggregations(record));
     fullBean.setConcepts(convertList(record.getConcepts(), new ConceptFieldInput(), false));
     fullBean.setPlaces(convertList(record.getPlaces(), new PlaceFieldInput(), false));
     fullBean.setTimespans(convertList(record.getTimeSpans(), new TimespanFieldInput(), false));
@@ -63,13 +66,42 @@ public class RdfToFullBeanConverter {
         europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
         .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
-    fullBean.setTimestampCreated(europeanaAggregation.map(EuropeanaAggregationType::getCreated)
-        .map(Created::getString).map(RdfToFullBeanConverter::convertToDate).orElse(null));
-    fullBean.setTimestampUpdated(europeanaAggregation.map(EuropeanaAggregationType::getModified)
-        .map(Modified::getString).map(RdfToFullBeanConverter::convertToDate).orElse(null));
+    fullBean.setTimestampCreated(
+        europeanaAggregation.map(EuropeanaAggregationType::getCreated).map(Created::getString)
+            .map(RdfToFullBeanConverter::convertToDate).orElse(null));
+    fullBean.setTimestampUpdated(
+        europeanaAggregation.map(EuropeanaAggregationType::getModified).map(Modified::getString)
+            .map(RdfToFullBeanConverter::convertToDate).orElse(null));
 
     // Done.
     return fullBean;
+  }
+
+  private List<Aggregation> convertAggregations(RdfWrapper record) {
+    final Supplier<List<WebResourceImpl>> webResourcesExtractor = new WebResourcesExtractor(record);
+    //Convert the provider aggregations
+    final List<AggregationImpl> providerAggregations = convertList(record.getProviderAggregations(),
+        new AggregationFieldInput(webResourcesExtractor), false);
+
+    //Compute the referenced web resources of the provider aggregation
+    final List<String> providerWebResourceReferences = Optional.ofNullable(providerAggregations)
+        .orElse(Collections.emptyList()).stream().map(AggregationImpl::getWebResources)
+        .flatMap(List::stream).map(WebResource::getAbout).collect(Collectors.toList());
+
+    //Create supplier for the web resources of the aggregator aggregation
+    final Supplier<List<WebResourceImpl>> aggregatorAggregationWebResources = () -> webResourcesExtractor
+        .get().stream().filter(
+            webResourceImpl -> !providerWebResourceReferences.contains(webResourceImpl.getAbout()))
+        .collect(Collectors.toList());
+
+    //Convert the aggregator aggregations
+    final List<AggregationImpl> aggregatorAggregations = convertList(
+        record.getAggregatorAggregations(),
+        new AggregationFieldInput(aggregatorAggregationWebResources), false);
+
+    //Combine aggregation lists
+    return Stream.of(providerAggregations, aggregatorAggregations).map(Aggregation.class::cast)
+        .collect(Collectors.toList());
   }
 
   private static Date convertToDate(String dateString) {
@@ -97,9 +129,9 @@ public class RdfToFullBeanConverter {
     @Override
     public List<WebResourceImpl> get() {
       if (webResources == null) {
-        final Collection<WebResourceType> webResourcesBeforeConversion =
-            record.getWebResources().stream().collect(Collectors.toMap(WebResourceType::getAbout,
-                UnaryOperator.identity(), (first, second) -> first)).values();
+        final Collection<WebResourceType> webResourcesBeforeConversion = record.getWebResources()
+            .stream().collect(Collectors.toMap(WebResourceType::getAbout, UnaryOperator.identity(),
+                (first, second) -> first)).values();
         if (webResourcesBeforeConversion.isEmpty()) {
           webResources = Collections.emptyList();
         } else {
