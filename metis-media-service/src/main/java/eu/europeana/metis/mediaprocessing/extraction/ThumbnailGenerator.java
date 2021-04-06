@@ -368,6 +368,8 @@ class ThumbnailGenerator {
   private static String md5Hex(String s) throws MediaExtractionException {
     try {
       byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
+      // Note: we have no choice but to use MD5, this is agreed upon with the API implementation.
+      @SuppressWarnings("findsecbugs:WEAK_MESSAGE_DIGEST_MD5")
       byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
       return String.format("%032x", new BigInteger(1, md5bytes));
     } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {

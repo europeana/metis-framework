@@ -9,6 +9,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.KeyManagementException;
@@ -74,8 +75,10 @@ public class QueueConfig implements WebMvcConfigurer {
       if (propertiesHolder.isRabbitmqEnableCustomTruststore()) {
         //Load the ssl context with the provided truststore
         KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        keyStore.load(Files.newInputStream(Paths.get(propertiesHolder.getTruststorePath())),
-            propertiesHolder.getTruststorePassword().toCharArray());
+        try (final InputStream inputStream = Files
+                .newInputStream(Paths.get(propertiesHolder.getTruststorePath()))) {
+          keyStore.load(inputStream, propertiesHolder.getTruststorePassword().toCharArray());
+        }
         TrustManagerFactory trustManagerFactory = TrustManagerFactory
             .getInstance(TrustManagerFactory.getDefaultAlgorithm());
         trustManagerFactory.init(keyStore);

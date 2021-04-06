@@ -29,7 +29,7 @@ public class ExecutedMetisPluginId {
    * @param plugin The pluign for which to create the ID.
    * @return The ID of this plugin, or null if this plugin has not been started yet.
    */
-  public static ExecutedMetisPluginId forPlugin(MetisPlugin<?> plugin) {
+  public static ExecutedMetisPluginId forPlugin(MetisPlugin plugin) {
     final Date startedDate = plugin.getStartedDate();
     if (startedDate == null) {
       return null;
@@ -43,7 +43,7 @@ public class ExecutedMetisPluginId {
    * @param plugin The plugin for which to extract the predecessor ID.
    * @return The ID of the predecessor, or null if no predecessor defined.
    */
-  public static ExecutedMetisPluginId forPredecessor(MetisPlugin<?> plugin) {
+  public static ExecutedMetisPluginId forPredecessor(MetisPlugin plugin) {
     return forPredecessor(plugin.getPluginMetadata());
   }
 

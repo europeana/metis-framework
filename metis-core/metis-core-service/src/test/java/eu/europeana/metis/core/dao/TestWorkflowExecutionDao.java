@@ -265,14 +265,14 @@ class TestWorkflowExecutionDao {
     final String executionFirstId = workflowExecutionDao.create(workflowExecutionFirst);
     final String executionSecondId = workflowExecutionDao.create(workflowExecutionSecond);
 
-    PluginWithExecutionId<MetisPlugin<?>> latestFinishedWorkflowExecution = workflowExecutionDao
+    PluginWithExecutionId<MetisPlugin> latestFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     assertEquals(latestFinishedWorkflowExecution.getPlugin().getFinishedDate(),
         workflowExecutionSecond.getMetisPlugins().get(0).getFinishedDate());
     assertEquals(executionSecondId, latestFinishedWorkflowExecution.getExecutionId());
 
-    PluginWithExecutionId<MetisPlugin<?>> firstFinishedWorkflowExecution = workflowExecutionDao
+    PluginWithExecutionId<MetisPlugin> firstFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), true);
     assertEquals(firstFinishedWorkflowExecution.getPlugin().getFinishedDate(),
@@ -282,7 +282,7 @@ class TestWorkflowExecutionDao {
 
   @Test
   void getFirstOrLastFinishedPlugin_isNull() {
-    PluginWithExecutionId<MetisPlugin<?>> latestFinishedWorkflowExecution = workflowExecutionDao
+    PluginWithExecutionId<MetisPlugin> latestFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     assertNull(latestFinishedWorkflowExecution);

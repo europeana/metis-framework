@@ -32,7 +32,7 @@ import java.util.Date;
 })
 @Embedded
 public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata> implements
-    MetisPlugin<M> {
+    MetisPlugin {
 
   protected PluginType pluginType;
   private String id;
@@ -82,7 +82,6 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return id;
   }
 
-  @Override
   public void setId(String id) {
     this.id = id;
   }
@@ -97,7 +96,6 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return dataStatus;
   }
 
-  @Override
   public void setDataStatus(DataStatus dataStatus) {
     this.dataStatus = dataStatus;
   }
@@ -107,7 +105,6 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return pluginMetadata;
   }
 
-  @Override
   public void setPluginMetadata(M pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
   }
@@ -117,7 +114,9 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return startedDate == null ? null : new Date(startedDate.getTime());
   }
 
-  @Override
+  /**
+   * @param startedDate {@link Date}
+   */
   public void setStartedDate(Date startedDate) {
     this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
   }
@@ -127,7 +126,9 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
-  @Override
+  /**
+   * @param updatedDate {@link Date}
+   */
   public void setUpdatedDate(Date updatedDate) {
     this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
@@ -137,7 +138,9 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
-  @Override
+  /**
+   * @param finishedDate {@link Date}
+   */
   public void setFinishedDate(Date finishedDate) {
     this.finishedDate = finishedDate == null ? null : new Date(finishedDate.getTime());
   }
@@ -147,12 +150,18 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return pluginStatus;
   }
 
-  @Override
+  /**
+   * @param pluginStatus {@link PluginStatus}
+   */
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
   }
 
-  @Override
+  /**
+   * This method sets the plugin status and also clears the fail message.
+   *
+   * @param pluginStatus {@link PluginStatus}
+   */
   public void setPluginStatusAndResetFailMessage(PluginStatus pluginStatus) {
     setPluginStatus(pluginStatus);
     setFailMessage(null);
@@ -163,7 +172,6 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     return failMessage;
   }
 
-  @Override
   public void setFailMessage(String failMessage) {
     this.failMessage = failMessage;
   }

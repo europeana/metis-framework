@@ -73,7 +73,7 @@ public class WorkflowExecutionFactory {
   // Expect the dataset to be synced with eCloud.
   // Does not save the workflow execution.
   WorkflowExecution createWorkflowExecution(Workflow workflow, Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin<?>> predecessor, int priority)
+      PluginWithExecutionId<ExecutablePlugin> predecessor, int priority)
       throws BadContentException {
 
     // Create the plugins
@@ -98,7 +98,7 @@ public class WorkflowExecutionFactory {
   }
 
   private AbstractExecutablePlugin<?> createWorkflowExecutionPlugin(Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin<?>> workflowPredecessor,
+      PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
       AbstractExecutablePluginMetadata pluginMetadata,
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) throws BadContentException {
 
@@ -177,12 +177,12 @@ public class WorkflowExecutionFactory {
    * @return Whether to apply redirection as part of this plugin.
    */
   private boolean shouldRedirectsBePerformed(Dataset dataset,
-      PluginWithExecutionId<ExecutablePlugin<?>> workflowPredecessor,
+      PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
       ExecutablePluginType executablePluginType,
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
 
     // Get some history from the database: find the latest successful plugin of the same type.
-    final PluginWithExecutionId<ExecutablePlugin<?>> latestSuccessfulPlugin = workflowExecutionDao
+    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulPlugin = workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
             EnumSet.of(executablePluginType), true);
 

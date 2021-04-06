@@ -683,7 +683,7 @@ public class DatasetService {
     }
 
     return datasets.stream().map(dataset -> {
-          final PluginWithExecutionId<ExecutablePlugin<?>> latestSuccessfulExecutablePlugin = workflowExecutionDao
+          final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulExecutablePlugin = workflowExecutionDao
               .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
                   EnumSet.allOf(ExecutablePluginType.class), false);
           final DatasetSearchView datasetSearchView = new DatasetSearchView();

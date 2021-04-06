@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
@@ -262,7 +263,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       final ExecutedMetisPluginId executedMetisPluginId = ExecutedMetisPluginId
               .forPredecessor(plugin);
       if (executedMetisPluginId == null) {
-        final AbstractExecutablePlugin predecessor = DataEvolutionUtils
+        final ExecutablePlugin predecessor = DataEvolutionUtils
             .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
