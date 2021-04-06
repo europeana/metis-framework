@@ -6,8 +6,6 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import java.io.Closeable;
 import java.time.Duration;
-import java.util.Date;
-import java.util.List;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
@@ -87,19 +85,11 @@ public class IndexerPool implements Closeable {
    * </p>
    *
    * @param record The record to index (can be parsed to RDF).
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates whether redirect should be performed
-   * @param performTierCalculation flag that indicates whether tier calculation should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
-  public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-          List<String> datasetIdsForRedirection, boolean performRedirects,
-          boolean performTierCalculation) throws IndexingException {
-    indexRecord(indexer -> indexer.index(record, recordDate, preserveUpdateAndCreateTimesFromRdf,
-            datasetIdsForRedirection, performRedirects, performTierCalculation));
+  public void index(String record, IndexingProperties indexingProperties) throws IndexingException {
+    indexRecord(indexer -> indexer.index(record, indexingProperties));
   }
 
   /**
@@ -108,19 +98,11 @@ public class IndexerPool implements Closeable {
    * </p>
    *
    * @param record The record to index.
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates whether redirect should be performed
-   * @param performTierCalculation flag that indicates whether tier calculation should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
-  public void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-          List<String> datasetIdsForRedirection, boolean performRedirects,
-          boolean performTierCalculation) throws IndexingException {
-    indexRecord(indexer -> indexer.indexRdf(record, recordDate, preserveUpdateAndCreateTimesFromRdf,
-        datasetIdsForRedirection, performRedirects, performTierCalculation));
+  public void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException {
+    indexRecord(indexer -> indexer.indexRdf(record, indexingProperties));
   }
 
   private void indexRecord(IndexTask indexTask) throws IndexingException {
