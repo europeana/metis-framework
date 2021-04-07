@@ -79,7 +79,7 @@ public class RdfToFullBeanConverter {
 
   private List<Aggregation> convertAggregations(RdfWrapper record) {
     //The record web resources is reduced every time one of it's web resources gets referenced
-    final List<WebResourceImpl> recordWebResources = new WebResourcesExtractor(record).get();
+    final List<WebResourceImpl> recordWebResources = new ArrayList<>(new WebResourcesExtractor(record).get());
     //The reference list is being extended every time a new web resource is referenced from an aggregator
     final List<WebResourceImpl> referencedWebResources = new ArrayList<>(recordWebResources.size());
     //Convert the provider aggregations
