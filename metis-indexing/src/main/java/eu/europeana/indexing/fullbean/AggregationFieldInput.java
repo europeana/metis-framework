@@ -1,5 +1,9 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.solr.entity.AggregationImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -7,11 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import eu.europeana.metis.schema.jibx.Aggregation;
-import eu.europeana.metis.schema.jibx.ResourceType;
-import eu.europeana.corelib.solr.entity.AggregationImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 
 /**
@@ -20,22 +20,36 @@ import org.apache.commons.collections.CollectionUtils;
  */
 final class AggregationFieldInput implements Function<Aggregation, AggregationImpl> {
 
-  private final Supplier<List<WebResourceImpl>> webResourcesSupplier;
+  private final List<WebResourceImpl> recordWebResources;
+  private final List<WebResourceImpl> referencedWebResources;
 
-  AggregationFieldInput(Supplier<List<WebResourceImpl>> webResourcesSupplier) {
-    this.webResourcesSupplier = webResourcesSupplier;
+  AggregationFieldInput(final List<WebResourceImpl> recordWebResources,
+      List<WebResourceImpl> referencedWebResources) {
+    this.recordWebResources = recordWebResources;
+    this.referencedWebResources = referencedWebResources;
   }
 
-  private static String processResource(List<WebResourceImpl> webResources, ResourceType resource) {
+  private String processResource(List<WebResourceImpl> aggregationWebResources,
+      ResourceType resource) {
     String resourceString = Optional.ofNullable(resource).map(ResourceType::getResource)
         .map(String::trim).orElse(null);
-    boolean addWebResource =
-        resourceString != null && CollectionUtils.isNotEmpty(webResources) && webResources.stream()
-            .map(WebResourceImpl::getAbout).noneMatch(about -> about.equals(resourceString));
-    if (addWebResource) {
-      WebResourceImpl webResource = new WebResourceImpl();
-      webResource.setAbout(resourceString);
-      webResources.add(webResource);
+    final boolean isNotAlreadyReferenced = referencedWebResources.stream().map(WebResourceImpl::getAbout)
+        .noneMatch(about -> about.equals(resourceString));
+    if (resourceString != null && isNotAlreadyReferenced) {
+      final List<WebResourceImpl> matchingWebResources = recordWebResources.stream()
+          .filter(webResource -> webResource.getAbout().equals(resourceString))
+          .collect(Collectors.toList());
+
+      if (CollectionUtils.isNotEmpty(matchingWebResources)) {
+        aggregationWebResources.addAll(matchingWebResources);
+        referencedWebResources.addAll(matchingWebResources);
+        recordWebResources.removeAll(matchingWebResources);
+      } else {
+        WebResourceImpl webResource = new WebResourceImpl();
+        webResource.setAbout(resourceString);
+        aggregationWebResources.add(webResource);
+        referencedWebResources.add(webResource);
+      }
     }
     return resourceString;
   }
@@ -44,7 +58,7 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
   public AggregationImpl apply(Aggregation aggregation) {
 
     AggregationImpl mongoAggregation = new AggregationImpl();
-    final List<WebResourceImpl> webResources = new ArrayList<>(webResourcesSupplier.get());
+    final List<WebResourceImpl> webResources = new ArrayList<>();
 
     mongoAggregation.setAbout(aggregation.getAbout());
     Map<String, List<String>> dp = FieldInputUtils

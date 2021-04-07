@@ -1,7 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
-import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
@@ -14,6 +13,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -78,26 +78,28 @@ public class RdfToFullBeanConverter {
   }
 
   private List<Aggregation> convertAggregations(RdfWrapper record) {
-    final Supplier<List<WebResourceImpl>> webResourcesExtractor = new WebResourcesExtractor(record);
+    //The record web resources is reduced every time one of it's web resources gets referenced
+    final List<WebResourceImpl> recordWebResources = new WebResourcesExtractor(record).get();
+    //The reference list is being extended every time a new web resource is referenced from an aggregator
+    final List<WebResourceImpl> referencedWebResources = new ArrayList<>(recordWebResources.size());
     //Convert the provider aggregations
     final List<AggregationImpl> providerAggregations = convertList(record.getProviderAggregations(),
-        new AggregationFieldInput(webResourcesExtractor), false);
-
-    //Compute the referenced web resources of the provider aggregation
-    final List<String> providerWebResourceReferences = Optional.ofNullable(providerAggregations)
-        .orElse(Collections.emptyList()).stream().map(AggregationImpl::getWebResources)
-        .flatMap(List::stream).map(WebResource::getAbout).collect(Collectors.toList());
-
-    //Create supplier for the web resources of the aggregator aggregation
-    final Supplier<List<WebResourceImpl>> aggregatorAggregationWebResources = () -> webResourcesExtractor
-        .get().stream().filter(
-            webResourceImpl -> !providerWebResourceReferences.contains(webResourceImpl.getAbout()))
-        .collect(Collectors.toList());
+        new AggregationFieldInput(recordWebResources, referencedWebResources), false);
 
     //Convert the aggregator aggregations
     final List<AggregationImpl> aggregatorAggregations = convertList(
         record.getAggregatorAggregations(),
-        new AggregationFieldInput(aggregatorAggregationWebResources), false);
+        new AggregationFieldInput(recordWebResources, referencedWebResources), false);
+
+    //We choose to add leftovers on the first provider aggregation
+    final AggregationImpl firstProviderAggregation = Optional.ofNullable(providerAggregations)
+        .stream().flatMap(List::stream).findFirst().orElse(null);
+    if (firstProviderAggregation != null) {
+      final List<WebResourceImpl> providerAggregationWebResources = firstProviderAggregation
+          .getWebResources().stream().map(WebResourceImpl.class::cast).collect(Collectors.toList());
+      providerAggregationWebResources.addAll(recordWebResources);
+      firstProviderAggregation.setWebResources(providerAggregationWebResources);
+    }
 
     //Combine aggregation lists
     return Stream.of(providerAggregations, aggregatorAggregations).map(Aggregation.class::cast)

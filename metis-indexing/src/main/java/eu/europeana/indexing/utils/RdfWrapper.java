@@ -169,7 +169,11 @@ public class RdfWrapper {
   }
 
   /**
-   * Extract provider aggregations
+   * Extract provider aggregations.
+   * <p>To find provider aggregations we first find the {@link ProxyType}s of the record that has
+   * an <b>EMPTY</b> {@link ProxyType#getLineageList()}. From those we return any aggregation, in
+   * the record, that its about value matches any value in the {@link
+   * ProxyType#getProxyInList()}.</p>
    *
    * @return the list of aggregations
    */
@@ -178,19 +182,22 @@ public class RdfWrapper {
   }
 
   /**
-   * Extract aggregator aggregations
+   * Extract aggregator aggregations.
+   * <p>To find aggregator aggregations we first find the {@link ProxyType}s of the record that
+   * has a <b>NON EMPTY</b> {@link ProxyType#getLineageList()}. From those we return any
+   * aggregation, in the record, that its about value matches any value in the {@link
+   * ProxyType#getProxyInList()}.</p>
    *
    * @return the list of aggregations
    */
   public List<Aggregation> getAggregatorAggregations() {
-    return getAggregations(proxyType -> !CollectionUtils.isEmpty(proxyType.getLineageList()));
+    return getAggregations(proxyType -> CollectionUtils.isNotEmpty(proxyType.getLineageList()));
   }
 
   private List<Aggregation> getAggregations(Predicate<? super ProxyType> proxyTypePredicate) {
-    final List<String> proxyInList = record.getProxyList().stream().filter(
-        proxyType -> proxyType.getEuropeanaProxy() == null || !proxyType.getEuropeanaProxy()
-            .isEuropeanaProxy()).filter(proxyTypePredicate).map(ProxyType::getProxyInList)
-        .flatMap(List::stream).map(ProxyIn::getResource).collect(Collectors.toList());
+    final Set<String> proxyInList = getProviderProxies().stream().filter(proxyTypePredicate)
+        .map(ProxyType::getProxyInList).flatMap(List::stream).map(ProxyIn::getResource)
+        .collect(Collectors.toSet());
 
     return record.getAggregationList().stream()
         .filter(aggregation -> proxyInList.contains(aggregation.getAbout()))
