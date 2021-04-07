@@ -18,6 +18,7 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.Indexer;
 import eu.europeana.indexing.IndexerFactory;
+import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -64,7 +65,7 @@ public class RecordIndexingService {
    * @throws IndexingException In case indexing failed.
    */
   public void createRecord(RDF rdf, Date recordDate) throws IndexingException {
-    indexer.indexRdf(rdf, recordDate, false, null, false);
+    indexer.indexRdf(rdf, new IndexingProperties(recordDate, false, null, false, true));
   }
 
   /**

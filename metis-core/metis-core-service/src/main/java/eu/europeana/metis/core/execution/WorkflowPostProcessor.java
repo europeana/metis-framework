@@ -48,7 +48,7 @@ public class WorkflowPostProcessor {
 
   /**
    * Constructor.
-   *  @param depublishRecordIdDao The DAO for depublished records.
+   * @param depublishRecordIdDao The DAO for depublished records.
    * @param datasetDao The DAO for datasets
    * @param workflowExecutionDao The DAO for workflow executions.
    * @param dpsClient the dps client
