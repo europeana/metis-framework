@@ -13,12 +13,14 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -79,17 +81,20 @@ public class RdfToFullBeanConverter {
 
   private List<Aggregation> convertAggregations(RdfWrapper record) {
     //The record web resources is reduced every time one of it's web resources gets referenced
-    final List<WebResourceImpl> recordWebResources = new ArrayList<>(new WebResourcesExtractor(record).get());
+    //We only keep the first web resource out of duplicate web resources with the same about value
+    final Map<String, WebResourceImpl> recordWebResourcesMap = new WebResourcesExtractor(record)
+        .get().stream().collect(Collectors.toMap(WebResourceImpl::getAbout, Function.identity(),
+            (existing, replacement) -> existing));
     //The reference list is being extended every time a new web resource is referenced from an aggregator
-    final List<WebResourceImpl> referencedWebResources = new ArrayList<>(recordWebResources.size());
-    //Convert the provider aggregations
+    final Set<String> referencedWebResourceAbouts = new HashSet<>(recordWebResourcesMap.size());
+    //We first convert the provider aggregations because we want this aggregator to get first get matches of web resources
     final List<AggregationImpl> providerAggregations = convertList(record.getProviderAggregations(),
-        new AggregationFieldInput(recordWebResources, referencedWebResources), false);
+        new AggregationFieldInput(recordWebResourcesMap, referencedWebResourceAbouts), false);
 
     //Convert the aggregator aggregations
     final List<AggregationImpl> aggregatorAggregations = convertList(
         record.getAggregatorAggregations(),
-        new AggregationFieldInput(recordWebResources, referencedWebResources), false);
+        new AggregationFieldInput(recordWebResourcesMap, referencedWebResourceAbouts), false);
 
     //We choose to add leftovers on the first provider aggregation
     final AggregationImpl firstProviderAggregation = Optional.ofNullable(providerAggregations)
@@ -97,7 +102,7 @@ public class RdfToFullBeanConverter {
     if (firstProviderAggregation != null) {
       final List<WebResourceImpl> providerAggregationWebResources = firstProviderAggregation
           .getWebResources().stream().map(WebResourceImpl.class::cast).collect(Collectors.toList());
-      providerAggregationWebResources.addAll(recordWebResources);
+      providerAggregationWebResources.addAll(recordWebResourcesMap.values());
       firstProviderAggregation.setWebResources(providerAggregationWebResources);
     }
 

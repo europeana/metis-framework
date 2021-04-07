@@ -10,9 +10,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.apache.commons.collections.CollectionUtils;
 
 /**
  * Converts a {@link Aggregation} from an {@link eu.europeana.metis.schema.jibx.RDF} to a {@link
@@ -20,35 +19,31 @@ import org.apache.commons.collections.CollectionUtils;
  */
 final class AggregationFieldInput implements Function<Aggregation, AggregationImpl> {
 
-  private final List<WebResourceImpl> recordWebResources;
-  private final List<WebResourceImpl> referencedWebResources;
+  private final Map<String, WebResourceImpl> recordWebResourcesMap;
+  private final Set<String> referencedWebResourceAbouts;
 
-  AggregationFieldInput(final List<WebResourceImpl> recordWebResources,
-      List<WebResourceImpl> referencedWebResources) {
-    this.recordWebResources = recordWebResources;
-    this.referencedWebResources = referencedWebResources;
+  AggregationFieldInput(final Map<String, WebResourceImpl> recordWebResourcesMap,
+      Set<String> referencedWebResourceAbouts) {
+    this.recordWebResourcesMap = recordWebResourcesMap;
+    this.referencedWebResourceAbouts = referencedWebResourceAbouts;
   }
 
   private String processResource(List<WebResourceImpl> aggregationWebResources,
       ResourceType resource) {
     String resourceString = Optional.ofNullable(resource).map(ResourceType::getResource)
         .map(String::trim).orElse(null);
-    final boolean isNotAlreadyReferenced = referencedWebResources.stream().map(WebResourceImpl::getAbout)
-        .noneMatch(about -> about.equals(resourceString));
-    if (resourceString != null && isNotAlreadyReferenced) {
-      final List<WebResourceImpl> matchingWebResources = recordWebResources.stream()
-          .filter(webResource -> webResource.getAbout().equals(resourceString))
-          .collect(Collectors.toList());
+    if (resourceString != null && !referencedWebResourceAbouts.contains(resourceString)) {
+      final WebResourceImpl matchingWebResource = recordWebResourcesMap.get(resourceString);
 
-      if (CollectionUtils.isNotEmpty(matchingWebResources)) {
-        aggregationWebResources.addAll(matchingWebResources);
-        referencedWebResources.addAll(matchingWebResources);
-        recordWebResources.removeAll(matchingWebResources);
+      if (matchingWebResource != null) {
+        aggregationWebResources.add(matchingWebResource);
+        referencedWebResourceAbouts.add(matchingWebResource.getAbout());
+        recordWebResourcesMap.remove(matchingWebResource.getAbout());
       } else {
         WebResourceImpl webResource = new WebResourceImpl();
         webResource.setAbout(resourceString);
         aggregationWebResources.add(webResource);
-        referencedWebResources.add(webResource);
+        referencedWebResourceAbouts.add(webResource.getAbout());
       }
     }
     return resourceString;
