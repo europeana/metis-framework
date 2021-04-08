@@ -54,8 +54,8 @@ public class SchedulerExecutor {
    */
   public void performScheduling() {
     RLock lock = redissonClient.getFairLock(SCHEDULER_LOCK);
-    lock.lock();
     try {
+      lock.lock();
       final LocalDateTime thisExecutionTime = LocalDateTime.now();
       LOGGER.info("Date range checking lowerbound: {}, upperBound:{}", this.lastExecutionTime,
           thisExecutionTime);

@@ -103,9 +103,9 @@ public class WorkflowExecutionMonitor {
    */
   public void performFailsafe() {
     RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
-    // Lock for the duration of this scheduled task
-    lock.lock();
     try {
+      // Lock for the duration of this scheduled task
+      lock.lock();
       // Update the execution times. This way we always have the latest values.
       final List<WorkflowExecution> allRunningWorkflowExecutions = updateCurrentRunningExecutions();
 
