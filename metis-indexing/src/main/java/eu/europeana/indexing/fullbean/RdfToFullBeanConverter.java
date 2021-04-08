@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -107,8 +108,8 @@ public class RdfToFullBeanConverter {
     }
 
     //Combine aggregation lists
-    return Stream.of(providerAggregations, aggregatorAggregations).map(Aggregation.class::cast)
-        .collect(Collectors.toList());
+    return Stream.of(providerAggregations, aggregatorAggregations).filter(Objects::nonNull)
+        .flatMap(List::stream).map(Aggregation.class::cast).collect(Collectors.toList());
   }
 
   private static Date convertToDate(String dateString) {
