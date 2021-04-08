@@ -27,9 +27,9 @@ public class SchedulerExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerExecutor.class);
 
-  private final RLock lock;
   private final OrchestratorService orchestratorService;
   private final ScheduleWorkflowService scheduleWorkflowService;
+  private final RedissonClient redissonClient;
   private static final String SCHEDULER_LOCK = "schedulerLock";
   private LocalDateTime lastExecutionTime = LocalDateTime.now();
 
@@ -44,7 +44,7 @@ public class SchedulerExecutor {
       ScheduleWorkflowService scheduleWorkflowService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
     this.scheduleWorkflowService = scheduleWorkflowService;
-    this.lock = redissonClient.getFairLock(SCHEDULER_LOCK);
+    this.redissonClient = redissonClient;
   }
 
   /**
@@ -53,8 +53,9 @@ public class SchedulerExecutor {
    * periodically.
    */
   public void performScheduling() {
+    RLock lock = redissonClient.getFairLock(SCHEDULER_LOCK);
+    lock.lock();
     try {
-      lock.lock();
       final LocalDateTime thisExecutionTime = LocalDateTime.now();
       LOGGER.info("Date range checking lowerbound: {}, upperBound:{}", this.lastExecutionTime,
           thisExecutionTime);
