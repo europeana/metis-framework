@@ -247,7 +247,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     if(metisPlugins != null) {
       this.metisPlugins = new ArrayList<>(metisPlugins);
     } else {
-      this.metisPlugins = new ArrayList<>();
+      this.metisPlugins = null;
     }
   }
 

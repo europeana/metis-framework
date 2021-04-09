@@ -64,7 +64,7 @@ public class Workflow implements HasMongoObjectId {
     if(metisPluginsMetadata != null ) {
       this.metisPluginsMetadata = new ArrayList<>(metisPluginsMetadata);
     } else {
-      this.metisPluginsMetadata = new ArrayList<>();
+      this.metisPluginsMetadata = null;
     }
   }
 }
