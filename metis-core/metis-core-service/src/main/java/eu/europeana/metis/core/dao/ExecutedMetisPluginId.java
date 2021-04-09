@@ -16,7 +16,7 @@ public class ExecutedMetisPluginId {
   private final PluginType pluginType;
 
   ExecutedMetisPluginId(Date pluginStartedDate, PluginType pluginType) {
-    this.pluginStartedDate = pluginStartedDate;
+    this.pluginStartedDate = pluginStartedDate != null ? new Date(pluginStartedDate.getTime()) : null;
     this.pluginType = pluginType;
     if (this.pluginStartedDate == null || this.pluginType == null) {
       throw new IllegalArgumentException();
@@ -64,7 +64,7 @@ public class ExecutedMetisPluginId {
   }
 
   public Date getPluginStartedDate() {
-    return pluginStartedDate;
+    return pluginStartedDate != null ? new Date(pluginStartedDate.getTime()) : null;
   }
 
   public PluginType getPluginType() {

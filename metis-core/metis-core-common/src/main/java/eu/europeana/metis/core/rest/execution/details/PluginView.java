@@ -75,15 +75,15 @@ public class PluginView {
   }
 
   public Date getStartedDate() {
-    return startedDate;
+    return startedDate != null ? new Date(startedDate.getTime()) : null;
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return updatedDate != null ? new Date(updatedDate.getTime()) : null;
   }
 
   public Date getFinishedDate() {
-    return finishedDate;
+    return finishedDate != null ? new Date(finishedDate.getTime()) : null;
   }
 
   public String getExternalTaskId() {

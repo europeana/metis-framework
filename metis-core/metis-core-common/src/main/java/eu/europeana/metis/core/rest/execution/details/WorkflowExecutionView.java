@@ -5,6 +5,7 @@ import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -92,22 +93,22 @@ public class WorkflowExecutionView {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return createdDate != null ? new Date(createdDate.getTime()) : null;
   }
 
   public Date getStartedDate() {
-    return startedDate;
+    return startedDate != null ? new Date(startedDate.getTime()) : null;
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return updatedDate != null ? new Date(updatedDate.getTime()) : null;
   }
 
   public Date getFinishedDate() {
-    return finishedDate;
+    return finishedDate != null ? new Date(finishedDate.getTime()) : null;
   }
 
   public List<PluginView> getMetisPlugins() {
-    return metisPlugins;
+    return metisPlugins != null ? new ArrayList<>(metisPlugins) : null;
   }
 }
