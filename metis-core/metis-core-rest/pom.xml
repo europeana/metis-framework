@@ -25,6 +25,10 @@
       <version>${version.corelib}</version>
       <exclusions>
         <exclusion>
+          <groupId>eu.europeana.corelib</groupId>
+          <artifactId>corelib-definitions</artifactId>
+        </exclusion>
+        <exclusion>
           <artifactId>wstx-asl</artifactId>
           <groupId>org.codehaus.woodstox</groupId>
         </exclusion>
