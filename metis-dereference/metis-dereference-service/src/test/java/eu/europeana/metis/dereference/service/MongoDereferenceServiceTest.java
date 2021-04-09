@@ -12,7 +12,7 @@ import static org.mockito.Mockito.spy;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
@@ -35,7 +36,7 @@ class MongoDereferenceServiceTest {
 
   private MongoDereferenceService service;
   private Datastore vocabularyDaoDatastore;
-  private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+  private final EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
   @BeforeEach
   void prepare() {
@@ -86,23 +87,18 @@ class MongoDereferenceServiceTest {
         .computeEnrichmentBaseVocabularyPair(entityId);
 
     // Test the method
-    final EnrichmentResultList result = service.dereference(entityId);
+    final List<EnrichmentBase> result = service.dereference(entityId);
     assertNotNull(result);
-    assertNotNull(result.getEnrichmentBaseResultWrapperList());
-    assertEquals(1, result.getEnrichmentBaseResultWrapperList().size());
-    assertNotNull(result.getEnrichmentBaseResultWrapperList().get(0));
-    assertSame(place,
-        result.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
+    assertEquals(1, result.size());
+    assertSame(place, result.get(0));
 
     // Test null argument
     assertThrows(IllegalArgumentException.class, () -> service.dereference(null));
 
     // Test absent object
     doReturn(null).when(service).computeEnrichmentBaseVocabularyPair(entityId);
-    final EnrichmentResultList emptyResult = service.dereference(entityId);
+    final List<EnrichmentBase> emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
-    assertNotNull(emptyResult.getEnrichmentBaseResultWrapperList());
-    assertTrue(
-        emptyResult.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().isEmpty());
+    assertTrue(emptyResult.isEmpty());
   }
 }
