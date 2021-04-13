@@ -59,6 +59,12 @@ public class ConfigurationPropertiesHolder {
   private int redissonLockWatchdogTimeoutInSecs;
   @Value("${redisson.connect.timeout.in.millisecs}")
   private int redissonConnectTimeoutInMillisecs;
+  @Value("${redisson.dns.monitor.interval.in.millisecs}")
+  private int redissonDnsMonitorIntervalInMillisecs;
+  @Value("${redisson.idle.connection.timeout.in.millisecs}")
+  private int redissonIdleConnectionTimeoutInMillisecs;
+  @Value("${redisson.retry.attempts}")
+  private int redissonRetryAttempts;
 
   //RabbitMq
   @Value("${rabbitmq.host}")
@@ -236,6 +242,18 @@ public class ConfigurationPropertiesHolder {
 
   public int getRedissonConnectTimeoutInMillisecs() {
     return redissonConnectTimeoutInMillisecs;
+  }
+
+  public int getRedissonDnsMonitorIntervalInMillisecs() {
+    return redissonDnsMonitorIntervalInMillisecs;
+  }
+
+  public int getRedissonIdleConnectionTimeoutInMillisecs() {
+    return redissonIdleConnectionTimeoutInMillisecs;
+  }
+
+  public int getRedissonRetryAttempts() {
+    return redissonRetryAttempts;
   }
 
   public String getRabbitmqHost() {

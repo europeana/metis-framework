@@ -6,9 +6,6 @@ dps.read.timeout.in.millisecs=
 failsafe.margin.of.inactivity.in.secs=
 periodic.failsafe.check.in.millisecs=
 periodic.scheduler.check.in.millisecs=
-redisson.connection.pool.size=
-redisson.connect.timeout.in.millisecs=
-redisson.lock.watchdog.timeout.in.secs=
 polling.timeout.for.cleaning.completion.service.in.millisecs=
 #If a task passed this cap the task will be cancelled
 period.of.no.processed.records.change.in.minutes=
@@ -54,6 +51,13 @@ redis.password=
 redis.enableSSL=
 #True if a custom certificate is used in the truststore defined above
 redis.enable.custom.truststore=
+redisson.connection.pool.size=
+redisson.connect.timeout.in.millisecs=
+redisson.lock.watchdog.timeout.in.secs=
+#Setting to -1 disables DNS monitoring
+redisson.dns.monitor.interval.in.millisecs=
+redisson.idle.connection.timeout.in.millisecs=
+redisson.retry.attempts=
 
 solr.commit.period.in.mins=
 

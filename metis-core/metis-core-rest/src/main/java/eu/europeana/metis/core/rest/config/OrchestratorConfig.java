@@ -105,7 +105,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
     singleServerConfig.setConnectionPoolSize(propertiesHolder.getRedissonConnectionPoolSize())
         .setConnectionMinimumIdleSize(propertiesHolder.getRedissonConnectionPoolSize())
-        .setConnectTimeout(propertiesHolder.getRedissonConnectTimeoutInMillisecs());
+        .setConnectTimeout(propertiesHolder.getRedissonConnectTimeoutInMillisecs())
+        .setDnsMonitoringInterval(propertiesHolder.getRedissonDnsMonitorIntervalInMillisecs())
+        .setIdleConnectionTimeout(propertiesHolder.getRedissonIdleConnectionTimeoutInMillisecs())
+        .setRetryAttempts(propertiesHolder.getRedissonRetryAttempts());
     config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(propertiesHolder
         .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
