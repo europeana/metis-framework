@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -83,5 +84,23 @@ public class ReferenceValue {
   public void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
     //Remove duplicates from list after unmarshal
     entityTypes = new ArrayList<>(new HashSet<>(entityTypes));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ReferenceValue that = (ReferenceValue) o;
+    return Objects.equals(reference, that.reference) && Objects
+        .equals(entityTypes, that.entityTypes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(reference, entityTypes);
   }
 }

@@ -88,6 +88,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String mongoDb;
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
+  @Value("${mongo.application.name}")
+  private String mongoApplicationName;
 
   @Value("${solr.hosts}")
   private String[] solrHosts;
@@ -133,7 +135,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
     // Set the Mongo properties
     settings.getMongoProperties().setAllProperties(mongoHosts, mongoPorts,
-            mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL, null);
+            mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL, null,
+        mongoApplicationName);
     settings.setMongoDatabaseName(mongoDb);
 
     // Set Solr properties

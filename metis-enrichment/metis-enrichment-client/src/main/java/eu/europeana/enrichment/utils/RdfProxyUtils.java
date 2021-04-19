@@ -6,6 +6,7 @@ import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -50,8 +50,8 @@ public final class RdfProxyUtils {
   }
 
   private static Map<FieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
-    final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList())
-            .map(List::stream).orElseGet(Stream::empty).filter(Objects::nonNull)
+    final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList()).stream()
+            .flatMap(Collection::stream).filter(Objects::nonNull)
             .map(ProxyType::getChoiceList).filter(Objects::nonNull).flatMap(List::stream)
             .filter(Objects::nonNull).collect(Collectors.toList());
     final Map<FieldType, Set<String>> result = new EnumMap<>(FieldType.class);
@@ -66,29 +66,32 @@ public final class RdfProxyUtils {
   }
   
   /**
-   * Retrieve the Provider proxy from the proxy list in the {@link RDF}
+   * Retrieve all Provider proxy from the proxy list in the {@link RDF}
    *
    * @param rdf the rdf used to search for the proxy
-   * @return the Provider proxy
+   * @return the Provider proxy list. Could be empty, but is not null.
    */
-  public static ProxyType getProviderProxy(RDF rdf) {
-    for (ProxyType proxyType : rdf.getProxyList()) {
-      if (proxyType.getEuropeanaProxy() == null
-          || !proxyType.getEuropeanaProxy().isEuropeanaProxy()) {
-        return proxyType;
-      }
-    }
-    throw new IllegalArgumentException("Could not find provider proxy.");
+  public static List<ProxyType> getProviderProxies(RDF rdf) {
+    return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
+            .filter(Objects::nonNull).filter(proxy -> !isEuropeanaProxy(proxy))
+            .collect(Collectors.toList());
   }
 
-  private static ProxyType getEuropeanaProxy(RDF rdf) {
-    for (ProxyType proxyType : rdf.getProxyList()) {
-      if (proxyType.getEuropeanaProxy() != null
-          && proxyType.getEuropeanaProxy().isEuropeanaProxy()) {
-        return proxyType;
-      }
-    }
-    throw new IllegalArgumentException("Could not find Europeana proxy.");
+  private static boolean isEuropeanaProxy(ProxyType proxy) {
+    return proxy.getEuropeanaProxy() != null && proxy.getEuropeanaProxy().isEuropeanaProxy();
+  }
+
+  /**
+   * Retrieve the Europeana proxy from the proxy list in the {@link RDF}
+   *
+   * @param rdf the rdf used to search for the proxy
+   * @return the Europeana proxy. Is not null.
+   * @throws IllegalArgumentException in case the RDF does not have a Europeana proxy.
+   */
+  public static ProxyType getEuropeanaProxy(RDF rdf) {
+    return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
+            .filter(Objects::nonNull).filter(RdfProxyUtils::isEuropeanaProxy).findAny()
+            .orElseThrow(() -> new IllegalArgumentException("Could not find Europeana proxy."));
   }
 
   private static void replaceProxy(RDF rdf, ProxyType europeanaProxy) {

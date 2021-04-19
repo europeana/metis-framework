@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-authentication</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>3</version>
+    <version>4</version>
   </parent>
   <artifactId>metis-authentication-rest</artifactId>
   <packaging>war</packaging>
@@ -67,13 +67,10 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${version.mockito.core}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -89,7 +86,6 @@
     <dependency>
       <groupId>com.jayway.jsonpath</groupId>
       <artifactId>json-path</artifactId>
-      <version>${version.json.path}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-data-checker</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>3</version>
+    <version>4</version>
   </parent>
   <artifactId>metis-data-checker-service</artifactId>
 
@@ -26,12 +26,6 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-data-checker-common</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb</groupId>
-          <artifactId>mongodb-driver-core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -51,18 +45,14 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${version.mockito.core}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

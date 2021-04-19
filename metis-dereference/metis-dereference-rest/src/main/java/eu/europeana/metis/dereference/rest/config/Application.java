@@ -58,6 +58,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String mongoUsername;
   @Value("${mongo.password}")
   private String mongoPassword;
+  @Value("${mongo.application.name}")
+  private String mongoApplicationName;
   @Value("${entity.db}")
   private String entityDb;
   @Value("${vocabulary.db}")
@@ -83,6 +85,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
     mongoProperties.setMongoHosts(mongoHosts, mongoPorts);
+    mongoProperties.setApplicationName(mongoApplicationName);
     mongoClientEntity = new MongoClientProvider<>(mongoProperties).createMongoClient();
     mongoClientVocabulary = new MongoClientProvider<>(mongoProperties).createMongoClient();
   }

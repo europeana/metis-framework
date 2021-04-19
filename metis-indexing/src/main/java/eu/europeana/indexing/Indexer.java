@@ -31,16 +31,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param record The record to index.
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects)
-      throws IndexingException;
+  void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -52,15 +46,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param records The records to index.
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void indexRdfs(List<RDF> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects) throws IndexingException;
+  void indexRdfs(List<RDF> records, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -72,16 +61,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param record The record to index (can be parsed to RDF).
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects)
-      throws IndexingException;
+  void index(String record, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -93,15 +76,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param records The records to index (can be parsed to RDF).
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(List<String> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects) throws IndexingException;
+  void index(List<String> records, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -113,16 +91,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param record The record to index (can be parsed to RDF).
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
-   * @param performRedirects flag that indicates if redirect should be performed
+   * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(InputStream record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-          List<String> datasetIdsForRedirection, boolean performRedirects)
-          throws IndexingException;
+  void index(InputStream record, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,

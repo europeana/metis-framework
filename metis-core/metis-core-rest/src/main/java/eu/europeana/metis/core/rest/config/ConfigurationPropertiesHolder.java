@@ -2,6 +2,7 @@ package eu.europeana.metis.core.rest.config;
 
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -44,14 +45,26 @@ public class ConfigurationPropertiesHolder {
   private String redisHost;
   @Value("${redis.port}")
   private int redisPort;
+  @Value("${redis.username}")
+  private String redisUsername;
   @Value("${redis.password}")
   private String redisPassword;
   @Value("${redis.enableSSL}")
   private boolean redisEnableSSL;
   @Value("${redis.enable.custom.truststore}")
   private boolean redisEnableCustomTruststore;
+  @Value("${redisson.connection.pool.size}")
+  private int redissonConnectionPoolSize;
   @Value("${redisson.lock.watchdog.timeout.in.secs}")
   private int redissonLockWatchdogTimeoutInSecs;
+  @Value("${redisson.connect.timeout.in.millisecs}")
+  private int redissonConnectTimeoutInMillisecs;
+  @Value("${redisson.dns.monitor.interval.in.millisecs}")
+  private int redissonDnsMonitorIntervalInMillisecs;
+  @Value("${redisson.idle.connection.timeout.in.millisecs}")
+  private int redissonIdleConnectionTimeoutInMillisecs;
+  @Value("${redisson.retry.attempts}")
+  private int redissonRetryAttempts;
 
   //RabbitMq
   @Value("${rabbitmq.host}")
@@ -70,6 +83,8 @@ public class ConfigurationPropertiesHolder {
   private int rabbitmqHighestPriority;
   @Value("${rabbitmq.enableSSL}")
   private boolean rabbitmqEnableSSL;
+  @Value("${rabbitmq.enable.custom.truststore}")
+  private boolean rabbitmqEnableCustomTruststore;
 
   // Metis core configuration
   @Value("${metis.core.baseUrl}")
@@ -120,6 +135,8 @@ public class ConfigurationPropertiesHolder {
   private String mongoDb;
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
+  @Value("${mongo.application.name}")
+  private String mongoApplicationName;
 
   //Validation
   @Value("${validation.internal.schema.zip}")
@@ -199,6 +216,10 @@ public class ConfigurationPropertiesHolder {
     return redisPort;
   }
 
+  public String getRedisUsername() {
+    return redisUsername;
+  }
+
   public String getRedisPassword() {
     return redisPassword;
   }
@@ -211,8 +232,28 @@ public class ConfigurationPropertiesHolder {
     return redisEnableCustomTruststore;
   }
 
+  public int getRedissonConnectionPoolSize() {
+    return redissonConnectionPoolSize;
+  }
+
   public int getRedissonLockWatchdogTimeoutInSecs() {
     return redissonLockWatchdogTimeoutInSecs;
+  }
+
+  public int getRedissonConnectTimeoutInMillisecs() {
+    return redissonConnectTimeoutInMillisecs;
+  }
+
+  public int getRedissonDnsMonitorIntervalInMillisecs() {
+    return redissonDnsMonitorIntervalInMillisecs;
+  }
+
+  public int getRedissonIdleConnectionTimeoutInMillisecs() {
+    return redissonIdleConnectionTimeoutInMillisecs;
+  }
+
+  public int getRedissonRetryAttempts() {
+    return redissonRetryAttempts;
   }
 
   public String getRabbitmqHost() {
@@ -237,6 +278,10 @@ public class ConfigurationPropertiesHolder {
 
   public boolean isRabbitmqEnableSSL() {
     return rabbitmqEnableSSL;
+  }
+
+  public boolean isRabbitmqEnableCustomTruststore() {
+    return rabbitmqEnableCustomTruststore;
   }
 
   public String getRabbitmqQueueName() {
@@ -303,7 +348,7 @@ public class ConfigurationPropertiesHolder {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
     mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
-        mongoPassword, mongoEnableSSL, null);
+        mongoPassword, mongoEnableSSL, ReadPreferenceValue.PRIMARY_PREFERRED, mongoApplicationName);
     return mongoProperties;
   }
 

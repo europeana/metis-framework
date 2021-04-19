@@ -12,13 +12,16 @@ import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 
@@ -170,6 +173,17 @@ public final class Converter {
     output.setSameAs(convertToPartsList(agentEntityEnrichment.getOwlSameAs()));
 
     return output;
+  }
+
+  static EnrichmentTerm organizationImplToEnrichmentTerm(
+      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
+    final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
+    enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);
+    enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
+    enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
+    enrichmentTerm.setUpdated(updated);
+
+    return enrichmentTerm;
   }
 
   private static List<Label> convert(Map<String, List<String>> map) {

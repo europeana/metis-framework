@@ -94,8 +94,11 @@ class AudioVideoProcessor implements MediaProcessor {
     final String output;
     output = commandExecutor.execute(Collections.singletonList(command), true, message ->
             new MediaProcessorException("Error while looking for ffprobe tools: " + message));
-    if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
-      throw new MediaProcessorException("ffprobe 2.x/3.x not found");
+    int indexVersion = output.lastIndexOf("version ") + "version ".length();
+    int version = Character.isDigit(output.charAt(indexVersion)) ?
+        Integer.parseInt(String.valueOf(output.charAt(indexVersion))) : 0;
+    if (!(version >= 2 && version < 5)) {
+      throw new MediaProcessorException("ffprobe version " + version + ".x not found");
     }
 
     // So it is installed and available.

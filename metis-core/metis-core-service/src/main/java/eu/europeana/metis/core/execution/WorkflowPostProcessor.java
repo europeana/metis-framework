@@ -48,7 +48,7 @@ public class WorkflowPostProcessor {
 
   /**
    * Constructor.
-   *  @param depublishRecordIdDao The DAO for depublished records.
+   * @param depublishRecordIdDao The DAO for depublished records.
    * @param datasetDao The DAO for datasets
    * @param workflowExecutionDao The DAO for workflow executions.
    * @param dpsClient the dps client
@@ -101,7 +101,7 @@ public class WorkflowPostProcessor {
             DepublicationStatus.PENDING_DEPUBLICATION, null);
 
     // Find latest PUBLISH Type Plugin and set dataStatus to DELETED.
-    final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin<?>> latestSuccessfulPlugin = workflowExecutionDao
             .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);
     if (Objects.nonNull(latestSuccessfulPlugin) && Objects
             .nonNull(latestSuccessfulPlugin.getPlugin())) {

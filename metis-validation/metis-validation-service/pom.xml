@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>3</version>
+    <version>4</version>
   </parent>
   <artifactId>metis-validation-service</artifactId>
   <dependencies>
@@ -50,12 +50,10 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

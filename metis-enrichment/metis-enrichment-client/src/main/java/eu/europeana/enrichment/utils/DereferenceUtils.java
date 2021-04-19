@@ -11,7 +11,6 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.WebResourceType;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -47,8 +46,7 @@ public final class DereferenceUtils {
     extractValues(rdf.getPlaceList(), item -> dereferencePlace(item, result));
     extractValues(rdf.getTimeSpanList(), item -> dereferenceTimespan(item, result));
     extractValues(rdf.getWebResourceList(), item -> dereferenceWebResource(item, result));
-    extractValues(Collections.singletonList(RdfProxyUtils.getProviderProxy(rdf)),
-        item -> dereferenceProxy(item, result));
+    extractValues(RdfProxyUtils.getProviderProxies(rdf), item -> dereferenceProxy(item, result));
 
     // Clean up the result: no null values and no objects that we already have.
     result.remove(null);

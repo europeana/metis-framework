@@ -5,13 +5,14 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
+import eu.europeana.metis.core.dao.WorkflowValidationUtils;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.SemaphoresPerPluginManager;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
@@ -82,19 +83,32 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       singleServerConfig = config.useSingleServer().setAddress(String
           .format("rediss://%s:%s", propertiesHolder.getRedisHost(),
               propertiesHolder.getRedisPort()));
+      LOGGER.info("Redis enabled SSL");
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
         singleServerConfig
             .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
+        LOGGER.info("Redis enabled SSL using custom Truststore");
       }
     } else {
       singleServerConfig = config.useSingleServer().setAddress(String
           .format("redis://%s:%s", propertiesHolder.getRedisHost(),
               propertiesHolder.getRedisPort()));
+      LOGGER.info("Redis disabled SSL");
+    }
+    if (StringUtils.isNotEmpty(propertiesHolder.getRedisUsername())) {
+      singleServerConfig.setUsername(propertiesHolder.getRedisUsername());
     }
     if (StringUtils.isNotEmpty(propertiesHolder.getRedisPassword())) {
       singleServerConfig.setPassword(propertiesHolder.getRedisPassword());
     }
+
+    singleServerConfig.setConnectionPoolSize(propertiesHolder.getRedissonConnectionPoolSize())
+        .setConnectionMinimumIdleSize(propertiesHolder.getRedissonConnectionPoolSize())
+        .setConnectTimeout(propertiesHolder.getRedissonConnectTimeoutInMillisecs())
+        .setDnsMonitoringInterval(propertiesHolder.getRedissonDnsMonitorIntervalInMillisecs())
+        .setIdleConnectionTimeout(propertiesHolder.getRedissonIdleConnectionTimeoutInMillisecs())
+        .setRetryAttempts(propertiesHolder.getRedissonRetryAttempts());
     config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(propertiesHolder
         .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
@@ -103,23 +117,24 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils, DatasetDao datasetDao,
+      WorkflowExecutionDao workflowExecutionDao, WorkflowValidationUtils workflowValidationUtils,
+      DataEvolutionUtils dataEvolutionUtils, DatasetDao datasetDao,
       WorkflowExecutionFactory workflowExecutionFactory,
       WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer,
       DepublishRecordIdDao depublishRecordIdDao) {
     OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
-        workflowDao, workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager,
-        redissonClient, authorizer, depublishRecordIdDao);
+        workflowDao, workflowExecutionDao, workflowValidationUtils, dataEvolutionUtils, datasetDao,
+        workflowExecutorManager, redissonClient, authorizer, depublishRecordIdDao);
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }
 
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
+      WorkflowExecutionDao workflowExecutionDao, DataEvolutionUtils dataEvolutionUtils,
       DatasetXsltDao datasetXsltDao, DepublishRecordIdDao depublishRecordIdDao) {
     WorkflowExecutionFactory workflowExecutionFactory = new WorkflowExecutionFactory(datasetXsltDao,
-        depublishRecordIdDao, workflowExecutionDao, workflowUtils);
+        depublishRecordIdDao, workflowExecutionDao, dataEvolutionUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
@@ -191,9 +206,14 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao,
+  DataEvolutionUtils getDataEvolutionUtils(WorkflowExecutionDao workflowExecutionDao) {
+    return new DataEvolutionUtils(workflowExecutionDao);
+  }
+
+  @Bean
+  WorkflowValidationUtils getWorkflowValidationUtils(DataEvolutionUtils dataEvolutionUtils,
       DepublishRecordIdDao depublishRecordIdDao) {
-    return new WorkflowUtils(workflowExecutionDao, depublishRecordIdDao);
+    return new WorkflowValidationUtils(depublishRecordIdDao, dataEvolutionUtils);
   }
 
   @Bean

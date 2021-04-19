@@ -266,12 +266,14 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   @Override
   public void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
       Function<T, WebResourceInformation> ancestorInfoGetter,
-      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier) {
+      Supplier<MongoObjectManager<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier) {
     final WebResourceMetaInfo entity = Optional.of(updated).map(getter).orElse(null);
     final WebResourceInformation ancestorInformation = ancestorInfoGetter.apply(updated);
-    if (entity != null) {
-      updaterSupplier.get()
-          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, null, null, mongoServer);
+    if (entity == null) {
+      updaterSupplier.get().delete(ancestorInformation, mongoServer);
+    } else {
+      updaterSupplier.get().update((WebResourceMetaInfoImpl) entity, ancestorInformation,
+              null, null, mongoServer);
     }
   }
 

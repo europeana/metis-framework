@@ -1,6 +1,5 @@
 package eu.europeana.metis.data.checker.service;
 
-import com.google.common.base.Strings;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
 import eu.europeana.metis.data.checker.common.model.DatasetProperties;
@@ -25,6 +24,7 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.PreDestroy;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,7 +139,7 @@ public class DataCheckerService {
     final List<String> succeededResults;
     if (includeRecordIds) {
       succeededResults = taskResults.stream().filter(ValidationTaskResult::isSuccess)
-          .map(ValidationTaskResult::getRecordId).filter(record -> !Strings.isNullOrEmpty(record))
+          .map(ValidationTaskResult::getRecordId).filter(StringUtils::isNotBlank)
           .collect(Collectors.toList());
     } else {
       succeededResults = null;

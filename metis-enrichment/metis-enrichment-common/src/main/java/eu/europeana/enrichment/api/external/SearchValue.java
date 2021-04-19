@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -35,9 +36,11 @@ public class SearchValue {
   /**
    * Internally duplicates are removed when value is set or unmarshalled.
    */
+  //TODO: 26-02-2021 We initialized the List to fix the bug MET-3245. A error message would show
+  //TODO: when this field was missing. This is not the best fix and we should figure out another solution
   @XmlElement(name = "entityType")
   @JsonProperty("entityType")
-  private List<EntityType> entityTypes;
+  private List<EntityType> entityTypes = new ArrayList<>();
 
   public SearchValue() {
     // Required for XML (un)marshalling.
@@ -86,8 +89,8 @@ public class SearchValue {
   }
 
   /**
-   * This method is <b>REQUIRED</b> so that after unmarshalling the list contents of {@code entityTypes}
-   * are cleaned to remove any duplicates.
+   * This method is <b>REQUIRED</b> so that after unmarshalling the list contents of {@code
+   * entityTypes} are cleaned to remove any duplicates.
    *
    * @param unmarshaller the unmarshaller
    * @param parent the parent
@@ -95,5 +98,23 @@ public class SearchValue {
   public void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
     //Remove duplicates from list after unmarshal
     entityTypes = new ArrayList<>(new HashSet<>(entityTypes));
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SearchValue that = (SearchValue) o;
+    return Objects.equals(value, that.value) && Objects.equals(language, that.language) && Objects
+        .equals(entityTypes, that.entityTypes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value, language, entityTypes);
   }
 }

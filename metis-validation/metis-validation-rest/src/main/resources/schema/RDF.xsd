@@ -8,7 +8,7 @@
 	OR CONDITIONS OF ANY KIND, either express or implied. See the Licence for 
 	the specific language governing permissions and limitations under the Licence. -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
 	targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	elementFormDefault="qualified">
 	<annotation>
@@ -20,6 +20,7 @@
 
 	<import namespace="http://www.w3.org/XML/1998/namespace"
 		schemaLocation="xml.xsd" />
+	<import namespace="http://www.europeana.eu/schemas/edm/" schemaLocation="EDM-COMMON-MAIN.xsd" />
 
 	<element name="type" type="rdf:ResourceType">
 
@@ -139,6 +140,8 @@
 		<simpleContent>
 			<extension base="string">
 				<attribute ref="xml:lang" use="optional" />
+				<attribute ref="edm:wasGeneratedBy" use="optional" />
+				<attribute ref="edm:confidenceLevel" use="optional" />
 			</extension>
 		</simpleContent>
 	</complexType>
@@ -180,6 +183,8 @@
 			<extension base="string">
 				<attribute ref="xml:lang" use="optional" />
 				<attribute ref="rdf:resource" use="optional" />
+				<attribute ref="edm:wasGeneratedBy" use="optional" />
+				<attribute ref="edm:confidenceLevel" use="optional" />
 			</extension>
 		</simpleContent>
 	</complexType>

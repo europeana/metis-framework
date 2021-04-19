@@ -41,7 +41,7 @@ public class WorkflowExecutionMonitor {
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final Duration failsafeLeniency;
-  private final RLock lock;
+  private final RedissonClient redissonClient;
 
   /**
    * The currently running executions.
@@ -62,7 +62,7 @@ public class WorkflowExecutionMonitor {
     this.failsafeLeniency = failsafeLeniency;
     this.workflowExecutionDao = workflowExecutionDao;
     this.workflowExecutorManager = workflowExecutorManager;
-    this.lock = redissonClient.getFairLock(FAILSAFE_LOCK);
+    this.redissonClient = redissonClient;
   }
 
   /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */
@@ -102,11 +102,10 @@ public class WorkflowExecutionMonitor {
    * to run periodically.
    */
   public void performFailsafe() {
+    RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
     try {
-
       // Lock for the duration of this scheduled task
       lock.lock();
-
       // Update the execution times. This way we always have the latest values.
       final List<WorkflowExecution> allRunningWorkflowExecutions = updateCurrentRunningExecutions();
 
@@ -187,10 +186,10 @@ public class WorkflowExecutionMonitor {
 
     WorkflowExecution workflowExecution;
     boolean claimed = false;
+    RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
+    // Lock for the duration of this request
+    lock.lock();
     try {
-      // Lock for the duration of this request
-      lock.lock();
-
       // Retrieve the most current version of the execution.
       workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 

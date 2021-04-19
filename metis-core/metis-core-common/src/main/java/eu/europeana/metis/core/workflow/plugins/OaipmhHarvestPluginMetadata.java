@@ -16,6 +16,7 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
   private String url;
   private String metadataFormat;
   private String setSpec;
+  private boolean incrementalHarvest; // Default: false (i.e. full harvest)
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date fromDate;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
@@ -51,6 +52,14 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
 
   public void setSetSpec(String setSpec) {
     this.setSpec = setSpec;
+  }
+
+  public void setIncrementalHarvest(boolean incrementalHarvest) {
+    this.incrementalHarvest = incrementalHarvest;
+  }
+
+  public boolean isIncrementalHarvest() {
+    return incrementalHarvest;
   }
 
   public Date getFromDate() {

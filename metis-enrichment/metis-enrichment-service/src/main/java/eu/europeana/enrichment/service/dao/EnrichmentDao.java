@@ -72,7 +72,7 @@ public class EnrichmentDao {
    * @param fieldValue the field value
    * @return the retrieved enrichment term
    */
-  public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
+  public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, Object fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> Optional
         .ofNullable(
             this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
@@ -87,7 +87,7 @@ public class EnrichmentDao {
    * @param fieldValue the field value
    * @return the retrieved enrichment term object id if present
    */
-  public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, String fieldValue) {
+  public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, Object fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(
           this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
@@ -104,7 +104,7 @@ public class EnrichmentDao {
    * <p>It accepts a map that contains a mapping of a field(used for searching in a field that is
    * a list with internal fields), with the list of pairs of fields inside that key. If we are
    * searching for fields only and not inside a list with internal fields(not confused with values),
-   * then the key should be null and the corresponding list should contain the field nam and value
+   * then the key should be null and the corresponding list should contain the field name and value
    * pairs.</p>
    *
    * @param containingListFieldNameAndValues the map of fields and an internal list of pairs with
@@ -213,5 +213,30 @@ public class EnrichmentDao {
         () -> this.datastore.find(EnrichmentTerm.class)
             .filter(Filters.in(ENTITY_ABOUT_FIELD, entityAbout))
             .delete(new DeleteOptions().multi(true)));
+  }
+
+  /**
+   * Get the total number of documents
+   *
+   * @return the total number of documents
+   */
+  protected long count() {
+    return datastore.find(EnrichmentTerm.class).count();
+  }
+
+  /**
+   * Get the connected mapper
+   *
+   * @return the mapper
+   */
+  public Mapper getMapper() {
+    return datastore.getMapper();
+  }
+
+  /**
+   * Purge the database
+   */
+  protected void purgeDatabase() {
+    datastore.find(EnrichmentTerm.class).delete(new DeleteOptions().multi(true));
   }
 }

@@ -223,12 +223,12 @@ public interface MongoPropertyUpdater<T> {
    *
    * @param getter The getter that obtains the property value from the object.
    * @param ancestorInfoGetter The parent entity's info to be used for updating the meta info.
-   * @param updaterSupplier A supplier for the updater that may be used to update the referenced
+   * @param updaterSupplier A supplier for the manager that may be used to manage the referenced
    * objects.
    */
   void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
       Function<T, WebResourceInformation> ancestorInfoGetter,
-      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier);
+      Supplier<MongoObjectManager<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier);
 
   /**
    * <p>

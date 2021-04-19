@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>3</version>
+    <version>4</version>
   </parent>
   <artifactId>metis-validation-rest</artifactId>
   <packaging>war</packaging>
@@ -56,12 +56,10 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -71,8 +69,6 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${version.mockito.core}</version>
-      <scope>test</scope>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
@@ -153,16 +149,6 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-mongo</artifactId>
       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-common-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
   <build>
