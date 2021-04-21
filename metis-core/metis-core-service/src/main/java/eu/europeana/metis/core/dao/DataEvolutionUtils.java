@@ -254,7 +254,7 @@ public class DataEvolutionUtils {
    * type can be based on. Cannot be null, but can be the empty set in case the plugin type requires
    * no predecessor.
    */
-  static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
+  public static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
     final Set<ExecutablePluginType> predecessorTypes;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:
