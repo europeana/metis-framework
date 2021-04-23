@@ -22,6 +22,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -156,10 +157,11 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     boolean didPluginRun = true;
     boolean continueNextPlugin = true;
+    List<AbstractMetisPlugin> metisPlugins = workflowExecution.getMetisPlugins();
     // One by one start the plugins of the workflow
     for (int i = firstPluginPositionToStart;
-        i < workflowExecution.getMetisPlugins().size() && continueNextPlugin; i++) {
-      final AbstractMetisPlugin plugin = workflowExecution.getMetisPlugins().get(i);
+        i < metisPlugins.size() && continueNextPlugin; i++) {
+      final AbstractMetisPlugin plugin = metisPlugins.get(i);
 
       //Run plugin if available space
       didPluginRun = runMetisPluginWithSemaphoreAllocation(i, plugin);
@@ -170,8 +172,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     }
 
     // Compute the finished date
-    final AbstractMetisPlugin lastPlugin = workflowExecution.getMetisPlugins()
-        .get(workflowExecution.getMetisPlugins().size() - 1);
+    final AbstractMetisPlugin lastPlugin = metisPlugins.get(metisPlugins.size() - 1);
     final Date finishDate;
     if (lastPlugin.getPluginStatus() == PluginStatus.FINISHED) {
       finishDate = lastPlugin.getFinishedDate();
@@ -183,8 +184,9 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
   private int getFirstPluginPositionToStart() {
     int firstPluginPositionToStart = 0;
-    for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
-      AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
+    List<AbstractMetisPlugin> metisPlugins = workflowExecution.getMetisPlugins();
+    for (int i = 0; i < metisPlugins.size(); i++) {
+      AbstractMetisPlugin metisPlugin = metisPlugins.get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
           || metisPlugin.getPluginStatus() == PluginStatus.CLEANING

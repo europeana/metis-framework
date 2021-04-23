@@ -80,12 +80,12 @@ public class ExecutedMetisPluginId {
       return false;
     }
     final ExecutedMetisPluginId that = (ExecutedMetisPluginId) o;
-    return Objects.equals(getPluginStartedDate(), that.getPluginStartedDate()) &&
+    return Objects.equals(pluginStartedDate, that.getPluginStartedDate()) &&
             getPluginType() == that.getPluginType();
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getPluginStartedDate(), getPluginType());
+    return Objects.hash(pluginStartedDate, getPluginType());
   }
 }
