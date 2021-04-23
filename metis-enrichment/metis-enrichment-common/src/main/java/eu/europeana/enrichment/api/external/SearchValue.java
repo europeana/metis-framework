@@ -36,11 +36,9 @@ public class SearchValue {
   /**
    * Internally duplicates are removed when value is set or unmarshalled.
    */
-  //TODO: 26-02-2021 We initialized the List to fix the bug MET-3245. A error message would show
-  //TODO: when this field was missing. This is not the best fix and we should figure out another solution
   @XmlElement(name = "entityType")
   @JsonProperty("entityType")
-  private List<EntityType> entityTypes = new ArrayList<>();
+  private List<EntityType> entityTypes;
 
   public SearchValue() {
     // Required for XML (un)marshalling.
@@ -97,7 +95,8 @@ public class SearchValue {
    */
   public void afterUnmarshal(Unmarshaller unmarshaller, Object parent) {
     //Remove duplicates from list after unmarshal
-    entityTypes = new ArrayList<>(new HashSet<>(entityTypes));
+    entityTypes =  entityTypes == null ? Collections.emptyList() :
+        new ArrayList<>(new HashSet<>(entityTypes));
   }
 
   @Override
