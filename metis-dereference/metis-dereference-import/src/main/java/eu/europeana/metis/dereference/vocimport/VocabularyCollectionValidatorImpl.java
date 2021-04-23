@@ -9,6 +9,7 @@ import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabulary
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
@@ -165,7 +166,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     final String exampleContent;
     try {
       exampleContent = new RdfRetriever().retrieve(example, suffix);
-    } catch (IOException e) {
+    } catch (IOException | URISyntaxException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
               readableMetadataLocation, "could not be retrieved", e);
       processTestError(message, lenientOnExampleRetrievalFailures, warningReceiver, e);

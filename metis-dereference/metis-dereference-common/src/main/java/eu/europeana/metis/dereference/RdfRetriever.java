@@ -2,6 +2,7 @@ package eu.europeana.metis.dereference;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -32,12 +33,15 @@ public class RdfRetriever {
    * @return The original entity containing a string representation of the remote entity. This
    * method does not return null.
    * @throws IOException In case there was an issue retrieving the resource.
+   * @throws URISyntaxException In case the provided resource ID - suffix combination does not form
+   * a valid URI.
    */
-  public String retrieve(String resourceId, String suffix) throws IOException {
+  public String retrieve(String resourceId, String suffix) throws IOException, URISyntaxException {
     return retrieveFromSource(resourceId, suffix == null ? "" : suffix);
   }
 
-  private static String retrieveFromSource(String resourceId, String suffix) throws IOException {
+  private static String retrieveFromSource(String resourceId, String suffix)
+          throws IOException, URISyntaxException {
 
     // Check the input
     if (resourceId == null) {
@@ -52,7 +56,7 @@ public class RdfRetriever {
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     try {
       final HttpClient httpClient = HttpClient.newBuilder().executor(executor).build();
-      httpResponse = httpConnection(httpClient, URI.create(resourceId + suffix));
+      httpResponse = httpConnection(httpClient, new URI(resourceId + suffix));
     } finally {
       executor.shutdownNow();
     }
