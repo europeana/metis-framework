@@ -82,12 +82,14 @@ public class WorkflowValidationUtils {
           ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Workflow should have a plugin list.
-    if (workflow.getMetisPluginsMetadata() == null) {
+    List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
+
+    if (metisPluginsMetadata == null) {
       throw new BadContentException("Workflow should not be empty.");
     }
 
     // Compile the list of enabled plugins.
-    final List<AbstractExecutablePluginMetadata> enabledPlugins = workflow.getMetisPluginsMetadata()
+    final List<AbstractExecutablePluginMetadata> enabledPlugins = metisPluginsMetadata
             .stream().filter(ExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
 
     // Workflow should not be empty and all should have a type.
