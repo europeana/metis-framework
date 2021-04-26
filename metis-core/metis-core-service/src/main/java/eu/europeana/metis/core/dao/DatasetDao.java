@@ -69,7 +69,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return the {@link ObjectId} as String
    */
   @Override
-  public String create(Dataset dataset) {
+  public Dataset create(String datasetId) {
     final ObjectId objectId = Optional.ofNullable(dataset.getId()).orElseGet(ObjectId::new);
     dataset.setId(objectId);
     Dataset datasetSaved = retryableExternalRequestForNetworkExceptions(

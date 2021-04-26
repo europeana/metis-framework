@@ -141,7 +141,7 @@ public class DatasetService {
       int nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();
       dataset.setDatasetId(Integer.toString(nextInSequenceDatasetId));
       verifyReferencesToOldDatasetIds(dataset);
-      datasetObjectId = datasetDao.getById(datasetDao.create(dataset));
+      datasetObjectId = datasetDao.create(dataset.getId().toString());
     } finally {
       lock.unlock();
     }
