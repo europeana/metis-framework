@@ -69,7 +69,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return the {@link ObjectId} as String
    */
   @Override
-  public Dataset create(String datasetId) {
+  public Dataset create(Dataset dataset) {
     final ObjectId objectId = Optional.ofNullable(dataset.getId()).orElseGet(ObjectId::new);
     dataset.setId(objectId);
     Dataset datasetSaved = retryableExternalRequestForNetworkExceptions(
@@ -77,7 +77,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetSaved == null ? null : datasetSaved.getId().toString();
+    return datasetSaved;
   }
 
   /**

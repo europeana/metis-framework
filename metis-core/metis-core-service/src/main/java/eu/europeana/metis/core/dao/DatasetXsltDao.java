@@ -43,13 +43,13 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   }
 
   @Override
-  public String create(DatasetXslt datasetXslt) {
+  public DatasetXslt create(DatasetXslt datasetXslt) {
     final ObjectId objectId = Optional.ofNullable(datasetXslt.getId()).orElseGet(ObjectId::new);
     datasetXslt.setId(objectId);
     DatasetXslt datasetSaved = retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().save(datasetXslt));
     LOGGER.debug("DatasetXslt for datasetId: '{}'created in Mongo", datasetXslt.getDatasetId());
-    return datasetSaved == null ? null : datasetSaved.getId().toString();
+    return datasetSaved;
   }
 
   @Override
