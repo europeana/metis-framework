@@ -16,7 +16,7 @@ public class ExecutedMetisPluginId {
   private final PluginType pluginType;
 
   ExecutedMetisPluginId(Date pluginStartedDate, PluginType pluginType) {
-    this.pluginStartedDate = pluginStartedDate;
+    this.pluginStartedDate = pluginStartedDate != null ? new Date(pluginStartedDate.getTime()) : null;
     this.pluginType = pluginType;
     if (this.pluginStartedDate == null || this.pluginType == null) {
       throw new IllegalArgumentException();
@@ -29,7 +29,7 @@ public class ExecutedMetisPluginId {
    * @param plugin The pluign for which to create the ID.
    * @return The ID of this plugin, or null if this plugin has not been started yet.
    */
-  public static ExecutedMetisPluginId forPlugin(MetisPlugin<?> plugin) {
+  public static ExecutedMetisPluginId forPlugin(MetisPlugin plugin) {
     final Date startedDate = plugin.getStartedDate();
     if (startedDate == null) {
       return null;
@@ -43,7 +43,7 @@ public class ExecutedMetisPluginId {
    * @param plugin The plugin for which to extract the predecessor ID.
    * @return The ID of the predecessor, or null if no predecessor defined.
    */
-  public static ExecutedMetisPluginId forPredecessor(MetisPlugin<?> plugin) {
+  public static ExecutedMetisPluginId forPredecessor(MetisPlugin plugin) {
     return forPredecessor(plugin.getPluginMetadata());
   }
 
@@ -64,7 +64,7 @@ public class ExecutedMetisPluginId {
   }
 
   public Date getPluginStartedDate() {
-    return pluginStartedDate;
+    return pluginStartedDate != null ? new Date(pluginStartedDate.getTime()) : null;
   }
 
   public PluginType getPluginType() {
@@ -80,12 +80,12 @@ public class ExecutedMetisPluginId {
       return false;
     }
     final ExecutedMetisPluginId that = (ExecutedMetisPluginId) o;
-    return Objects.equals(getPluginStartedDate(), that.getPluginStartedDate()) &&
+    return Objects.equals(pluginStartedDate, that.getPluginStartedDate()) &&
             getPluginType() == that.getPluginType();
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getPluginStartedDate(), getPluginType());
+    return Objects.hash(pluginStartedDate, getPluginType());
   }
 }

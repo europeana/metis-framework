@@ -6,10 +6,16 @@ import eu.europeana.metis.exception.ExternalTaskException;
 
 /**
  * This interface represents plugins that are executable by Metis.
- *
- * @param <M> The type of the plugin metadata that this plugin represents.
  */
-public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends MetisPlugin<M> {
+public interface ExecutablePlugin extends MetisPlugin {
+
+  /**
+   * The metadata corresponding to this plugin.
+   *
+   * @return {@link ExecutablePluginMetadata}
+   */
+  @Override
+  ExecutablePluginMetadata getPluginMetadata();
 
   /**
    * @return String representation of the external task identifier of the execution
@@ -17,21 +23,11 @@ public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends Me
   String getExternalTaskId();
 
   /**
-   * @param externalTaskId String representation of the external task identifier of the execution
-   */
-  void setExternalTaskId(String externalTaskId);
-
-  /**
    * Progress information of the execution of the plugin
    *
    * @return {@link ExecutionProgress}
    */
   ExecutionProgress getExecutionProgress();
-
-  /**
-   * @param executionProgress {@link ExecutionProgress} of the external execution
-   */
-  void setExecutionProgress(ExecutionProgress executionProgress);
 
   /**
    * It is required as an abstract method to have proper serialization on the api level.
@@ -63,7 +59,7 @@ public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends Me
    * the task.
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  AbstractExecutablePlugin.MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException;
+  MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException;
 
   /**
    * Request a cancel call to the external execution.

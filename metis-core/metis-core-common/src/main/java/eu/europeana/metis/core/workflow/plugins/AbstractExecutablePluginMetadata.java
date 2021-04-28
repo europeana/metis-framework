@@ -22,7 +22,6 @@ public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPlug
     return enabled;
   }
 
-  @Override
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
   }

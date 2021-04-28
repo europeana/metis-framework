@@ -61,10 +61,10 @@ public final class ExternalRequestUtil {
    * @param supplierThrowingException the respective supplierThrowingException encapsulating the
    * external request
    * @return the expected object as a result of the external request
-   * @throws Exception any exception that the supplier could throw
+   * @throws E any exception that the supplier could throw
    */
-  public static <R> R retryableExternalRequest(
-      SupplierThrowingException<R> supplierThrowingException) throws Exception {
+  public static <R, E extends Exception> R retryableExternalRequest(
+      SupplierThrowingException<R, E> supplierThrowingException) throws E {
     return retryableExternalRequest(supplierThrowingException, null, -1, -1);
   }
 
@@ -81,11 +81,11 @@ public final class ExternalRequestUtil {
    * @param exceptionStringMap the map that contains all the type of exceptions to match with a
    * message to check, if any. If message is null or empty, all messages will match
    * @return the expected object as a result of the external request
-   * @throws Exception any exception that the supplier could throw
+   * @throws E any exception that the supplier could throw
    */
-  public static <R> R retryableExternalRequest(
-      SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<?>, String> exceptionStringMap) throws Exception {
+  public static <R, E extends Exception> R retryableExternalRequest(
+      SupplierThrowingException<R, E> supplierThrowingException,
+      Map<Class<?>, String> exceptionStringMap) throws E {
     return retryableExternalRequest(supplierThrowingException, exceptionStringMap, -1, -1);
   }
 
@@ -104,12 +104,12 @@ public final class ExternalRequestUtil {
    * @param periodBetweenRetriesInMillis the amount of period spend sleeping in between two retries,
    * if set to -1, the default value will be set
    * @return the expected object as a result of the external request
-   * @throws Exception any exception that the supplier could throw
+   * @throws E any exception that the supplier could throw
    */
-  public static <R> R retryableExternalRequest(
-      SupplierThrowingException<R> supplierThrowingException,
+  public static <R, E extends Exception> R retryableExternalRequest(
+      SupplierThrowingException<R, E> supplierThrowingException,
       Map<Class<?>, String> exceptionStringMap, int maxRetries, int periodBetweenRetriesInMillis)
-      throws Exception {
+      throws E {
     maxRetries =
         maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
     periodBetweenRetriesInMillis =
@@ -119,9 +119,13 @@ public final class ExternalRequestUtil {
     do {
       try {
         return supplierThrowingException.get();
-      } catch (Exception e) {
+      } catch (RuntimeException e) {
         doWhenExceptionCaught(e, exceptionStringMap, retriesCounter, maxRetries,
-            periodBetweenRetriesInMillis);
+                periodBetweenRetriesInMillis);
+      } catch (Exception e) {
+        final E castException = (E) e; // Exception must be of given type
+        doWhenExceptionCaught(castException, exceptionStringMap, retriesCounter, maxRetries,
+                periodBetweenRetriesInMillis);
       }
     } while (true);
   }
@@ -159,29 +163,13 @@ public final class ExternalRequestUtil {
   public static <R> R retryableExternalRequestForRuntimeExceptions(Supplier<R> supplier,
       Map<Class<?>, String> runtimeExceptionStringMap, int maxRetries,
       int periodBetweenRetriesInMillis) {
-    maxRetries =
-        maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
-    periodBetweenRetriesInMillis =
-        periodBetweenRetriesInMillis < 0 ? SLEEP_TIMEOUT : periodBetweenRetriesInMillis;
-    AtomicInteger retriesCounter = new AtomicInteger(0);
-
-    do {
-      try {
-        return supplier.get();
-      } catch (RuntimeException e) {
-        try {
-          doWhenExceptionCaught(e, runtimeExceptionStringMap, retriesCounter, maxRetries,
-              periodBetweenRetriesInMillis);
-        } catch (Exception exception) {
-          throw (RuntimeException) exception; //It's supposed to be a RuntimeException
-        }
-      }
-    } while (true);
+    return retryableExternalRequest(supplier::get, runtimeExceptionStringMap, maxRetries,
+            periodBetweenRetriesInMillis);
   }
 
-  private static <R> R doWhenExceptionCaught(Exception e, Map<Class<?>, String> exceptionStringMap,
-      AtomicInteger retriesCounter, int maxRetries, int periodBetweenRetriesInMillis)
-      throws Exception {
+  private static <E extends Exception> void doWhenExceptionCaught(E e,
+          Map<Class<?>, String> exceptionStringMap,
+          AtomicInteger retriesCounter, int maxRetries, int periodBetweenRetriesInMillis) throws E {
     retriesCounter.incrementAndGet();
     //Check if exception matches any exception from the map that is provided
     final boolean causeMatches = doesExceptionCauseMatchAnyOfProvidedExceptions(exceptionStringMap,
@@ -201,9 +189,7 @@ public final class ExternalRequestUtil {
     } catch (InterruptedException ex) {
       LOGGER.warn("Thread was interrupted while waiting for retry.", ex);
       Thread.currentThread().interrupt();
-      return null;
     }
-    return null;
   }
 
   /**
@@ -270,14 +256,14 @@ public final class ExternalRequestUtil {
    * @param <T> the result of the supplier
    */
   @FunctionalInterface
-  public interface SupplierThrowingException<T> {
+  public interface SupplierThrowingException<T, E extends Exception> {
 
     /**
      * Gets a result.
      *
      * @return a result
-     * @throws Exception any exception that the supplier could throw
+     * @throws E any exception that the supplier could throw
      */
-    T get() throws Exception;
+    T get() throws E;
   }
 }

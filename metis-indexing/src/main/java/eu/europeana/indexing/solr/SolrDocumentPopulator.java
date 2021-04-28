@@ -163,12 +163,12 @@ public class SolrDocumentPopulator {
     }
   }
 
-  private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean){
+  private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean) {
 
     List<String> proxyInResult = fullBean.getProxies()
         .stream()
         .filter(not(ProxyImpl::isEuropeanaProxy))
-        .filter(x -> ArrayUtils.isEmpty(x.getLineage()))
+        .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage()))
         .map(ProxyImpl::getProxyIn)
         .map(Arrays::asList)
         .flatMap(List::stream)

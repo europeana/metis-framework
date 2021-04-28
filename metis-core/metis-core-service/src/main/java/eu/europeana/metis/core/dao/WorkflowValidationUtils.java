@@ -8,6 +8,7 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
@@ -77,17 +78,19 @@ public class WorkflowValidationUtils {
    * allowed.</li>
    * </ul>
    */
-  public PluginWithExecutionId<ExecutablePlugin<?>> validateWorkflowPlugins(Workflow workflow,
+  public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
           ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Workflow should have a plugin list.
-    if (workflow.getMetisPluginsMetadata() == null) {
+    List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
+
+    if (metisPluginsMetadata == null) {
       throw new BadContentException("Workflow should not be empty.");
     }
 
     // Compile the list of enabled plugins.
-    final List<AbstractExecutablePluginMetadata> enabledPlugins = workflow.getMetisPluginsMetadata()
-            .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
+    final List<AbstractExecutablePluginMetadata> enabledPlugins = metisPluginsMetadata
+            .stream().filter(ExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
 
     // Workflow should not be empty and all should have a type.
     if (enabledPlugins.isEmpty()) {

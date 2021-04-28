@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * @param <M> The type of the plugin metadata that this plugin represents.
  */
 public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePluginMetadata> extends
-    AbstractMetisPlugin<M> implements ExecutablePlugin<M> {
+    AbstractMetisPlugin<M> implements ExecutablePlugin {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExecutablePlugin.class);
 
@@ -68,7 +68,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     return this.externalTaskId;
   }
 
-  @Override
+  /**
+   * @param externalTaskId String representation of the external task identifier of the execution
+   */
   public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
@@ -78,7 +80,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     return this.executionProgress;
   }
 
-  @Override
+  /**
+   * @param executionProgress {@link ExecutionProgress} of the external execution
+   */
   public void setExecutionProgress(ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
   }

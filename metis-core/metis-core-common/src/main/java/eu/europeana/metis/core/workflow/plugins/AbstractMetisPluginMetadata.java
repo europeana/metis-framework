@@ -44,7 +44,6 @@ public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata
     return revisionNamePreviousPlugin;
   }
 
-  @Override
   public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
     this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
   }
@@ -55,14 +54,17 @@ public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  @Override
   public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  @Override
-  public void setPreviousRevisionInformation(ExecutablePlugin<?> predecessor) {
+  /**
+   * For the current plugin, setup the source/previous revision information.
+   *
+   * @param predecessor the predecessor plugin that the current plugin is based on. Is not null.
+   */
+  public void setPreviousRevisionInformation(ExecutablePlugin predecessor) {
     this.setRevisionNamePreviousPlugin(predecessor.getPluginType().name());
     this.setRevisionTimestampPreviousPlugin(predecessor.getStartedDate());
   }

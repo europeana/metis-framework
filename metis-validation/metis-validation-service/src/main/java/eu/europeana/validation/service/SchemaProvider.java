@@ -202,8 +202,8 @@ public class SchemaProvider {
       throws SchemaProviderException, IOException {
     if (entry.isDirectory()) {
       // We chose were to store the downloaded files.
-      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") final boolean couldCreateDir = new File(
-          downloadedFile.getParent(), entry.getName()).mkdir();
+      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
+      final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
       if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
       }

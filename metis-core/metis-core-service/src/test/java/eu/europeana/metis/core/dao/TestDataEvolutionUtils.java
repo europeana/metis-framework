@@ -189,7 +189,7 @@ class TestDataEvolutionUtils {
           .thenReturn(new PluginWithExecutionId<>(rootExecutionId.toString(), rootPlugin));
       when(workflowExecutionDao.getById(predecessorExecutionId.toString()))
           .thenReturn(predecessorExecution);
-      final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolution =
+      final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
           Arrays.asList(ImmutablePair.of(rootPlugin, rootExecution),
               ImmutablePair.of(mock(AbstractExecutablePlugin.class), rootExecution),
               ImmutablePair.of(mock(AbstractExecutablePlugin.class), rootExecution));
@@ -197,7 +197,7 @@ class TestDataEvolutionUtils {
           .thenReturn(evolution);
 
       // Test without errors
-      final PluginWithExecutionId<ExecutablePlugin<?>> withoutErrorsResult = dataEvolutionUtils
+      final PluginWithExecutionId<ExecutablePlugin> withoutErrorsResult = dataEvolutionUtils
           .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
               DATASET_ID);
       assertSame(recentPredecessorPlugin, withoutErrorsResult.getPlugin());
@@ -296,7 +296,7 @@ class TestDataEvolutionUtils {
         .getPreviousExecutionAndPlugin(plugin3, datasetId);
 
     // Execute the call to examine all three
-    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> resultForThree = dataEvolutionUtils
+    final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForThree = dataEvolutionUtils
         .compileVersionEvolution(plugin3, execution2);
     assertNotNull(resultForThree);
     assertEquals(2, resultForThree.size());
@@ -306,7 +306,7 @@ class TestDataEvolutionUtils {
     assertSame(execution2, resultForThree.get(1).getRight());
 
     // Execute the call to examine just two
-    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> resultForTwo = dataEvolutionUtils
+    final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForTwo = dataEvolutionUtils
         .compileVersionEvolution(plugin2, execution2);
     assertNotNull(resultForTwo);
     assertEquals(1, resultForTwo.size());
@@ -314,7 +314,7 @@ class TestDataEvolutionUtils {
     assertSame(execution1, resultForThree.get(0).getRight());
 
     // Execute the call to examine just one
-    final List<Pair<ExecutablePlugin<?>, WorkflowExecution>> resultForOne = dataEvolutionUtils
+    final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForOne = dataEvolutionUtils
         .compileVersionEvolution(plugin1, execution1);
     assertNotNull(resultForOne);
     assertTrue(resultForOne.isEmpty());
@@ -367,7 +367,7 @@ class TestDataEvolutionUtils {
         .thenReturn(Optional.of(previousPlugin));
 
     // Test the happy flow
-    final Pair<MetisPlugin<?>, WorkflowExecution> result = dataEvolutionUtils
+    final Pair<MetisPlugin, WorkflowExecution> result = dataEvolutionUtils
         .getPreviousExecutionAndPlugin(plugin, datasetId);
     assertNotNull(result);
     assertSame(previousExecution, result.getRight());
@@ -463,8 +463,10 @@ class TestDataEvolutionUtils {
     assertTrue(dataEvolutionUtils.getPublishedHarvestIncrements(DATASET_ID).isEmpty());
   }
 
-  private <T> void assertListSameItems(List<T> expected, List<T> actual) {
-    assertListSameItems(expected, actual, Function.identity());
+  private <T extends MetisPlugin> void assertListSameItems(
+          List<PluginWithExecutionId<? extends T>> expected,
+          List<PluginWithExecutionId<T>> actual) {
+    assertListSameItems(expected, actual, item -> item);
   }
 
   private <T, S> void assertListSameItems(List<T> expected, List<S> actual,

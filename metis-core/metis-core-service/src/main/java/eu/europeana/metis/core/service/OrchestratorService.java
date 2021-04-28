@@ -376,7 +376,7 @@ public class OrchestratorService {
     }
 
     // Validate the workflow and obtain the predecessor.
-    final PluginWithExecutionId<ExecutablePlugin<?>> predecessor = workflowValidationUtils
+    final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowValidationUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Make sure that eCloud knows tmetisUserhis dataset (needs to happen before we create the workflow).
@@ -484,7 +484,7 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ExecutablePlugin<?> getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+  public ExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
@@ -632,28 +632,28 @@ public class OrchestratorService {
   DatasetExecutionInformation getDatasetExecutionInformation(String datasetId) {
 
     // Obtain the relevant parts of the execution history
-    final ExecutablePlugin<?> lastHarvestPlugin = Optional.ofNullable(
+    final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(
         workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final PluginWithExecutionId<MetisPlugin<?>> firstPublishPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin> firstPublishPluginWithExecutionId = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final MetisPlugin<?> firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
+    final MetisPlugin firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
         : firstPublishPluginWithExecutionId.getPlugin();
-    final ExecutablePlugin<?> lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final ExecutablePlugin<?> lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final PluginWithExecutionId<MetisPlugin<?>> latestPreviewPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin> latestPreviewPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PREVIEW_TYPES);
-    final PluginWithExecutionId<MetisPlugin<?>> latestPublishPluginWithExecutionId = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin> latestPublishPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final MetisPlugin<?> lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
+    final MetisPlugin lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
         : latestPreviewPluginWithExecutionId.getPlugin();
-    final MetisPlugin<?> lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
+    final MetisPlugin lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
         : latestPublishPluginWithExecutionId.getPlugin();
-    final ExecutablePlugin<?> lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
+    final ExecutablePlugin lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
 
@@ -687,7 +687,7 @@ public class OrchestratorService {
   }
 
   private void setPreviewInformation(DatasetExecutionInformation executionInfo,
-      ExecutablePlugin<?> lastExecutablePreviewPlugin, MetisPlugin<?> lastPreviewPlugin,
+      ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
       boolean isPreviewCleaningOrRunning, Date date) {
     // Set the last preview information
     if (Objects.nonNull(lastPreviewPlugin)) {
@@ -704,8 +704,8 @@ public class OrchestratorService {
   }
 
   private void setPublishInformation(DatasetExecutionInformation executionInfo,
-      MetisPlugin<?> firstPublishPlugin, ExecutablePlugin<?> lastExecutablePublishPlugin,
-      MetisPlugin<?> lastPublishPlugin, ExecutablePlugin<?> lastExecutableDepublishPlugin,
+      MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
+      MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
       boolean isPublishCleaningOrRunning, Date date, String datasetId) {
 
     // Set the first publication information
@@ -769,9 +769,9 @@ public class OrchestratorService {
     executionInfo.setPublicationStatus(status);
   }
 
-  private boolean isPreviewOrPublishReadyForViewing(MetisPlugin<?> plugin, Date now) {
+  private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {
     final boolean dataIsValid = !(plugin instanceof ExecutablePlugin)
-        || MetisPlugin.getDataStatus((ExecutablePlugin<?>) plugin) == DataStatus.VALID;
+        || MetisPlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
     final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() < DateUtils
         .calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
     return dataIsValid && enoughTimeHasPassed;
@@ -863,20 +863,20 @@ public class OrchestratorService {
     return result;
   }
 
-  private static PluginWithDataAvailability convert(MetisPlugin<?> plugin) {
+  private static PluginWithDataAvailability convert(MetisPlugin plugin) {
     final PluginWithDataAvailability result = new PluginWithDataAvailability();
     result.setCanDisplayRawXml(true); // If this method is called, it is known that it can display.
     result.setPluginType(plugin.getPluginType());
     return result;
   }
 
-  private static boolean canDisplayRawXml(MetisPlugin<?> plugin) {
+  private static boolean canDisplayRawXml(MetisPlugin plugin) {
     final boolean result;
     if (plugin instanceof ExecutablePlugin) {
       final boolean dataIsValid =
-          MetisPlugin.getDataStatus(((ExecutablePlugin<?>) plugin)) == DataStatus.VALID;
-      final ExecutionProgress progress = ((ExecutablePlugin<?>) plugin).getExecutionProgress();
-      final boolean pluginHasBlacklistedType = Optional.of(((ExecutablePlugin<?>) plugin))
+          MetisPlugin.getDataStatus(((ExecutablePlugin) plugin)) == DataStatus.VALID;
+      final ExecutionProgress progress = ((ExecutablePlugin) plugin).getExecutionProgress();
+      final boolean pluginHasBlacklistedType = Optional.of(((ExecutablePlugin) plugin))
           .map(ExecutablePlugin::getPluginMetadata)
           .map(ExecutablePluginMetadata::getExecutablePluginType)
           .map(NO_XML_PREVIEW_TYPES::contains).orElse(Boolean.TRUE);
@@ -921,12 +921,12 @@ public class OrchestratorService {
                 pluginType.name(), execution)));
 
     // Compile the version evolution.
-    final Collection<Pair<ExecutablePlugin<?>, WorkflowExecution>> evolutionSteps = dataEvolutionUtils
+    final Collection<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = dataEvolutionUtils
         .compileVersionEvolution(targetPlugin, execution);
     final VersionEvolution versionEvolution = new VersionEvolution();
     versionEvolution.setEvolutionSteps(evolutionSteps.stream().map(step -> {
       final VersionEvolutionStep evolutionStep = new VersionEvolutionStep();
-      final ExecutablePlugin<?> plugin = step.getLeft();
+      final ExecutablePlugin plugin = step.getLeft();
       evolutionStep.setWorkflowExecutionId(step.getRight().getId().toString());
       evolutionStep.setPluginType(plugin.getPluginMetadata().getExecutablePluginType());
       evolutionStep.setFinishedTime(plugin.getFinishedDate());

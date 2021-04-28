@@ -244,7 +244,11 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public void setMetisPlugins(List<AbstractMetisPlugin> metisPlugins) {
-    this.metisPlugins = metisPlugins;
+    if(metisPlugins != null) {
+      this.metisPlugins = new ArrayList<>(metisPlugins);
+    } else {
+      this.metisPlugins = null;
+    }
   }
 
   @Override

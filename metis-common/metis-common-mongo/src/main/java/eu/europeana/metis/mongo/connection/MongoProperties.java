@@ -78,28 +78,6 @@ public class MongoProperties<E extends Exception> {
    * @param password The password. Can be null, in which case no authentication takes place.
    * @param enableSsl Whether to enable SSL connections.
    * @param readPreferenceValue The read preference. Can be null, where then the default applies
-   * @throws E In case either of the arrays is null, or their lengths don't match.
-   */
-  @Deprecated
-  public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
-      String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
-      throws E {
-    setAllProperties(hosts, ports, authenticationDatabase, username, password, enableSsl,
-        readPreferenceValue, null);
-  }
-
-  /**
-   * Setter for multiple properties.
-   *
-   * @param hosts The hosts. This cannot be null or empty.
-   * @param ports The ports. This cannot be null or empty. Must contain either the same number of
-   * elements as the hosts array, or exactly 1 element (which will then apply to all hosts).
-   * @param authenticationDatabase The name of the authentication database. Can be null, in which
-   * case no authentication takes place.
-   * @param username The username. Can be null, in which case no authentication takes place.
-   * @param password The password. Can be null, in which case no authentication takes place.
-   * @param enableSsl Whether to enable SSL connections.
-   * @param readPreferenceValue The read preference. Can be null, where then the default applies
    * @param applicationName The name of the application. Can be null, where then the default applies
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */

@@ -20,10 +20,11 @@ import org.slf4j.LoggerFactory;
  */
 public class EmbeddedLocalhostMongo {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedLocalhostMongo.class);
+
   private static final String DEFAULT_MONGO_HOST = "127.0.0.1";
   private MongodExecutable mongodExecutable;
   private int mongoPort;
-  private static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedLocalhostMongo.class);
 
   /**
    * Constructor for default object for localhost mongo
