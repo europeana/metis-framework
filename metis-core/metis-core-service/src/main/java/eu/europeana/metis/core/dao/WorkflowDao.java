@@ -38,13 +38,13 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   }
 
   @Override
-  public String create(Workflow workflow) {
+  public Workflow create(Workflow workflow) {
     final ObjectId objectId = Optional.ofNullable(workflow.getId()).orElseGet(ObjectId::new);
     workflow.setId(objectId);
     final Workflow workflowSaved = ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
-    return workflowSaved == null ? null : workflowSaved.getId().toString();
+    return workflowSaved;
   }
 
 
