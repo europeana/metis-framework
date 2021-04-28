@@ -464,19 +464,19 @@ class TestDatasetService {
   void getDatasetXsltByXsltId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
+    when(datasetXsltDao.create(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
 
     DatasetXslt datasetXsltByDatasetId = datasetService
-        .getDatasetXsltByXsltId(TestObjectFactory.XSLTID);
+        .getDatasetXsltByXsltId(TestObjectFactory.XSLTID.getId().toString());
     assertEquals(datasetXslt.getXslt(), datasetXsltByDatasetId.getXslt());
     assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
   }
 
   @Test
   void getDatasetXsltByXsltIdNoXsltFoundException() {
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
+    when(datasetXsltDao.create(TestObjectFactory.XSLTID)).thenReturn(null);
     assertThrows(NoXsltFoundException.class,
-        () -> datasetService.getDatasetXsltByXsltId(TestObjectFactory.XSLTID));
+        () -> datasetService.getDatasetXsltByXsltId(TestObjectFactory.XSLTID.getId().toString()));
   }
 
   @Test
@@ -486,7 +486,7 @@ class TestDatasetService {
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
     datasetXslt.setDatasetId("-1");
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
+    when(datasetXsltDao.create(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
     DatasetXslt defaultDatasetXslt = datasetService
         .createDefaultXslt(metisUser, datasetXslt.getXslt());
     assertEquals(datasetXslt.getDatasetId(), defaultDatasetXslt.getDatasetId());
@@ -517,7 +517,7 @@ class TestDatasetService {
 
   @Test
   void getLatestDefaultXsltNoXsltFoundException() {
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
+    when(datasetXsltDao.create(TestObjectFactory.XSLTID)).thenReturn(null);
     assertThrows(NoXsltFoundException.class, () -> datasetService.getLatestDefaultXslt());
   }
 

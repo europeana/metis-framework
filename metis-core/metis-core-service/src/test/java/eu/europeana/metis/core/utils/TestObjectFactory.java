@@ -48,7 +48,7 @@ import org.bson.types.ObjectId;
 public class TestObjectFactory {
 
   public static final int DATASETID = 100;
-  public static final String XSLTID = "5a9821af34f04b794dcf63df";
+  public static final DatasetXslt XSLTID = new DatasetXslt("5a9821af34f04b794dcf63df");
   public static final String EXECUTIONID = "5a5dc67ba458bb00083d49e3";
   public static final String DATASETNAME = "datasetName";
   public static final String EMAIL = "user.metis@europeana.eu";
