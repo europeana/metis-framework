@@ -120,8 +120,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   private void setAllQualifiedPluginsToCancelled() {
-    List<AbstractMetisPlugin> metisPlugins = this.getMetisPlugins();
-    for (AbstractMetisPlugin metisPlugin : metisPlugins) {
+    for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
           || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
@@ -129,7 +128,6 @@ public class WorkflowExecution implements HasMongoObjectId {
         metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
       }
     }
-    this.setMetisPlugins(metisPlugins);
   }
 
   /**
@@ -242,7 +240,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public List<AbstractMetisPlugin> getMetisPlugins() {
-    return metisPlugins != null ? new ArrayList<>(metisPlugins) : null;
+    return metisPlugins;
   }
 
   public void setMetisPlugins(List<AbstractMetisPlugin> metisPlugins) {
