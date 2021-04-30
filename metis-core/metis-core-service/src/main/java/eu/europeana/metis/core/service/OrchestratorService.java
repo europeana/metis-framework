@@ -408,7 +408,7 @@ public class OrchestratorService {
         workflowExecution.setStartedBy(metisUser.getUserId());
       }
       workflowExecution.setCreatedDate(new Date());
-      objectId = workflowExecutionDao.create(workflowExecution);
+      objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     } finally {
       executionDatasetIdLock.unlock();
     }

@@ -51,7 +51,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   }
 
   @Override
-  public String create(ScheduledWorkflow scheduledWorkflow) {
+  public ScheduledWorkflow create(ScheduledWorkflow scheduledWorkflow) {
     final ObjectId objectId = Optional.ofNullable(scheduledWorkflow.getId())
         .orElseGet(ObjectId::new);
     scheduledWorkflow.setId(objectId);
@@ -60,7 +60,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
         scheduledWorkflow.getDatasetId());
-    return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
+    return scheduledWorkflowSaved;
   }
 
   @Override

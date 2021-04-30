@@ -141,7 +141,7 @@ public class DatasetService {
       int nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();
       dataset.setDatasetId(Integer.toString(nextInSequenceDatasetId));
       verifyReferencesToOldDatasetIds(dataset);
-      datasetObjectId = datasetDao.getById(datasetDao.create(dataset));
+      datasetObjectId = datasetDao.create(dataset);
     } finally {
       lock.unlock();
     }
@@ -203,8 +203,8 @@ public class DatasetService {
       dataset.setXsltId(storedDataset.getXsltId());
     } else {
       cleanDatasetXslt(storedDataset.getXsltId());
-      dataset.setXsltId(new ObjectId(
-          datasetXsltDao.create(new DatasetXslt(dataset.getDatasetId(), xsltString))));
+      dataset.setXsltId(
+          datasetXsltDao.create(new DatasetXslt(dataset.getDatasetId(), xsltString)).getId());
     }
 
     // Update the dataset
@@ -397,7 +397,7 @@ public class DatasetService {
       if (latestDefaultXslt != null) {
         cleanDatasetXslt(latestDefaultXslt.getId());
       }
-      datasetXslt = datasetXsltDao.getById(datasetXsltDao.create(new DatasetXslt(xsltString)));
+      datasetXslt = datasetXsltDao.create(new DatasetXslt(xsltString));
     }
     return datasetXslt;
   }

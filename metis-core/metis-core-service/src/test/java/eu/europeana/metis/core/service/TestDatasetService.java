@@ -140,7 +140,7 @@ class TestDatasetService {
     ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
     verify(datasetDao, times(1)).
         create(datasetArgumentCaptor.capture());
-    verify(datasetDao, times(1)).getById(null);
+    verify(datasetDao, times(1)).create(any(Dataset.class));
     assertEquals(dataset.getDatasetName(), datasetArgumentCaptor.getValue().getDatasetName());
     assertEquals(metisUser.getUserId(), datasetArgumentCaptor.getValue().getCreatedByUserId());
     assertEquals(metisUser.getOrganizationId(),
@@ -187,7 +187,7 @@ class TestDatasetService {
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
         .thenReturn(storedDataset);
-    when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
+    when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.DATASET_XSLT);
     datasetService.updateDataset(metisUser, dataset,
         TestObjectFactory.createXslt(TestObjectFactory.createDataset(dataset.getDatasetName()))
             .getXslt());
@@ -217,7 +217,7 @@ class TestDatasetService {
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
         .thenReturn(storedDataset);
-    when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
+    when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.DATASET_XSLT);
     datasetService.updateDataset(metisUser, dataset, null);
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
@@ -464,19 +464,19 @@ class TestDatasetService {
   void getDatasetXsltByXsltId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
+    when(datasetXsltDao.getById(TestObjectFactory.DATASET_XSLT.getId().toString())).thenReturn(datasetXslt);
 
     DatasetXslt datasetXsltByDatasetId = datasetService
-        .getDatasetXsltByXsltId(TestObjectFactory.XSLTID);
+        .getDatasetXsltByXsltId(TestObjectFactory.DATASET_XSLT.getId().toString());
     assertEquals(datasetXslt.getXslt(), datasetXsltByDatasetId.getXslt());
     assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
   }
 
   @Test
   void getDatasetXsltByXsltIdNoXsltFoundException() {
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
+    when(datasetXsltDao.getById(TestObjectFactory.DATASET_XSLT.getId().toString())).thenReturn(null);
     assertThrows(NoXsltFoundException.class,
-        () -> datasetService.getDatasetXsltByXsltId(TestObjectFactory.XSLTID));
+        () -> datasetService.getDatasetXsltByXsltId(TestObjectFactory.DATASET_XSLT.getId().toString()));
   }
 
   @Test
@@ -485,8 +485,7 @@ class TestDatasetService {
     DatasetXslt datasetXslt = TestObjectFactory
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
     datasetXslt.setDatasetId("-1");
-    when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
+    when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(datasetXslt);
     DatasetXslt defaultDatasetXslt = datasetService
         .createDefaultXslt(metisUser, datasetXslt.getXslt());
     assertEquals(datasetXslt.getDatasetId(), defaultDatasetXslt.getDatasetId());
@@ -517,7 +516,7 @@ class TestDatasetService {
 
   @Test
   void getLatestDefaultXsltNoXsltFoundException() {
-    when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
+    when(datasetXsltDao.create(TestObjectFactory.DATASET_XSLT)).thenReturn(null);
     assertThrows(NoXsltFoundException.class, () -> datasetService.getLatestDefaultXslt());
   }
 

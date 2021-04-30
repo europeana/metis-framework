@@ -115,7 +115,7 @@ class TestDatasetDao {
 
   @Test
   void testDelete() {
-    String key = datasetDao.create(dataset);
+    String key = datasetDao.create(dataset).getId().toString();
     Dataset storedDataset = datasetDao.getById(key);
     assertTrue(datasetDao.delete(storedDataset));
     assertNull(datasetDao.getById(key));
@@ -123,7 +123,7 @@ class TestDatasetDao {
 
   @Test
   void testDeleteByDatasetId() {
-    String key = datasetDao.create(dataset);
+    String key = datasetDao.create(dataset).getId().toString();
     Dataset storedDataset = datasetDao.getById(key);
     assertTrue(datasetDao.deleteByDatasetId(storedDataset.getDatasetId()));
     assertNull(datasetDao.getById(key));
@@ -131,21 +131,21 @@ class TestDatasetDao {
 
   @Test
   void testGetByDatasetName() {
-    Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
+    Dataset createdDataset = datasetDao.create(dataset);
     Dataset storedDataset = datasetDao.getDatasetByDatasetName(createdDataset.getDatasetName());
     assertEquals(createdDataset.getDatasetId(), storedDataset.getDatasetId());
   }
 
   @Test
   void testGetByDatasetId() {
-    Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
+    Dataset createdDataset = datasetDao.create(dataset);
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(createdDataset.getDatasetId());
     assertEquals(createdDataset.getDatasetName(), storedDataset.getDatasetName());
   }
 
   @Test
   void getDatasetByOrganizationIdAndDatasetName() {
-    Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
+    Dataset createdDataset = datasetDao.create(dataset);
     Dataset storedDataset = datasetDao
         .getDatasetByOrganizationIdAndDatasetName(createdDataset.getOrganizationId(),
             createdDataset.getDatasetName());
@@ -154,7 +154,7 @@ class TestDatasetDao {
 
   @Test
   void testExistsDatasetByDatasetName() {
-    Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
+    Dataset createdDataset = datasetDao.create(dataset);
     assertTrue(datasetDao.existsDatasetByDatasetName(createdDataset.getDatasetName()));
     datasetDao.deleteByDatasetId(createdDataset.getDatasetId());
     assertFalse(datasetDao.existsDatasetByDatasetName(createdDataset.getDatasetName()));

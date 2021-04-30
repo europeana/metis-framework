@@ -346,13 +346,15 @@ class TestOrchestratorService {
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
+    ObjectId objectId = new ObjectId();
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    datasetXslt.setId(TestObjectFactory.DATASET_XSLT.getId());
     when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(datasetXslt);
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(workflowExecutionTest);
     doNothing().when(rlock).unlock();
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
 
     // Add the workflow
     orchestratorService
@@ -410,14 +412,17 @@ class TestOrchestratorService {
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
+    ObjectId objectId = new ObjectId();
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    datasetXslt.setId(TestObjectFactory.DATASET_XSLT.getId());
     dataset.setXsltId(datasetXslt.getId());
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
     when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class)))
+        .thenReturn(workflowExecutionTest);
     doNothing().when(rlock).unlock();
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
@@ -437,9 +442,11 @@ class TestOrchestratorService {
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    ObjectId objectId = new ObjectId();
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(workflowExecutionTest);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
@@ -467,10 +474,12 @@ class TestOrchestratorService {
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    ObjectId objectId = new ObjectId();
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(workflowExecutionTest);
     doNothing().when(rlock).unlock();
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
@@ -503,9 +512,11 @@ class TestOrchestratorService {
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    ObjectId objectId = new ObjectId();
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(workflowExecutionTest);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
@@ -525,10 +536,12 @@ class TestOrchestratorService {
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    ObjectId objectId = new ObjectId();
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(workflowExecutionTest);
     doNothing().when(rlock).unlock();
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
@@ -546,9 +559,11 @@ class TestOrchestratorService {
         .thenReturn(UUID.randomUUID().toString());
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    ObjectId objectId = new ObjectId();
+    WorkflowExecution workflowExecutionTest = new WorkflowExecution(dataset, new ArrayList<>(), 0);
+    workflowExecutionTest.setId(objectId);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(workflowExecutionTest);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId.toString(), 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }

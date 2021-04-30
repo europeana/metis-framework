@@ -15,7 +15,7 @@ public interface MetisDao<T, S> {
    * @param t the class to be stored
    * @return a value when the method finishes, can be different than the one stored.
    */
-  S create(T t);
+  T create(T t);
 
   /**
    * Update an entry in the database.

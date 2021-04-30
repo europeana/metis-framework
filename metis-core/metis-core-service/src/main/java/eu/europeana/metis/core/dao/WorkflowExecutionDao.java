@@ -97,7 +97,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   @Override
-  public String create(WorkflowExecution workflowExecution) {
+  public WorkflowExecution create(WorkflowExecution workflowExecution) {
     final ObjectId objectId = Optional.ofNullable(workflowExecution.getId())
         .orElseGet(ObjectId::new);
     workflowExecution.setId(objectId);
@@ -105,7 +105,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         () -> morphiaDatastoreProvider.getDatastore().save(workflowExecution));
     LOGGER.debug("WorkflowExecution for datasetId '{}' created in Mongo",
         workflowExecution.getDatasetId());
-    return workflowExecutionSaved == null ? null : workflowExecutionSaved.getId().toString();
+    return workflowExecutionSaved;
   }
 
   @Override
