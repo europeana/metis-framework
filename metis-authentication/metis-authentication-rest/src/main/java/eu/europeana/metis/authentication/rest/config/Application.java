@@ -139,9 +139,12 @@ public class Application implements WebMvcConfigurer {
   @Bean
   public ZohoAccessClient getZohoAccessClient() throws ZohoException {
     final MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler();
-    return new ZohoAccessClient(metisZohoOAuthPSQLHandler,
+    final ZohoAccessClient zohoAccessClient = new ZohoAccessClient(metisZohoOAuthPSQLHandler,
         zohoCurrentUserEmail, zohoClientId, zohoClientSecret, zohoInitialGrantToken,
         zohoRedirectUri);
+    //Make a call to zoho so that the grant token will generate the first pair of access/refresh tokens
+    zohoAccessClient.getZohoRecordContactByEmail("");
+    return zohoAccessClient;
   }
 
   @Bean

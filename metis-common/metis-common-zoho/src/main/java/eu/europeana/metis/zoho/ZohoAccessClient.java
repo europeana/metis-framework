@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-12-06
  */
-public final class ZohoAccessClient {
+public class ZohoAccessClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ZohoAccessClient.class);
   private static final int ITEMS_PER_PAGE = 200;
@@ -53,21 +53,24 @@ public final class ZohoAccessClient {
    *
    * <p>
    * It will try to initialize the connection with the Zoho service. Uses the grant token for the
-   * initial setup to generate the access and refresh tokens. If the grant token was already used
-   * once before, it will try to use the refresh token that should be present in the token store,
-   * and if it's not present an exception would be thrown.
+   * initial setup with {@link Initializer#initialize(UserSignature, Environment, Token, TokenStore,
+   * SDKConfig, String)}. This process does <b>NOT</b> generate any refresh/access tokens. A call to
+   * one of the methods that accesses Zoho should be used after creation of an instance of this
+   * class to generate refresh/access tokens using the provided grant token(grant tokens have a very
+   * short TTL that is imposed when the grant token is requested from the Zoho api console web
+   * page). If the grant token was already used once before, then an extra call is not required and
+   * the refresh and/or access tokens should be already present in the token store.
    * </p>
    *
-   * @param tokenStore the tocken store to be used
+   * @param tokenStore the token store to be used
    * @param zohoEmail the zoho email
    * @param clientId the zoho client id
    * @param clientSecret the zoho client secret
    * @param grandToken the zoho initial grant token
    * @param redirectUrl the registered zoho redirect url
-   * @throws ZohoException if something when wrong during zoho initialization
    */
   public ZohoAccessClient(TokenStore tokenStore, String zohoEmail, String clientId,
-      String clientSecret, String grandToken, String redirectUrl) throws ZohoException {
+      String clientSecret, String grandToken, String redirectUrl) {
     try {
       UserSignature userSignature = new UserSignature(zohoEmail);
       Token token = new OAuthToken(clientId, clientSecret, grandToken, TokenType.GRANT,
@@ -79,8 +82,6 @@ public final class ZohoAccessClient {
       //Does not generate any tokens, we'll need to execute a command to do so
       Initializer
           .initialize(userSignature, environment, token, tokenStore, sdkConfig, resourcePath);
-      //Make a call to zoho so that the grant token will generate the first pair of access/refresh tokens
-      this.getZohoRecordContactByEmail("");
     } catch (SDKException e) {
       LOGGER.warn("Exception during initialize", e);
     }
@@ -312,7 +313,7 @@ public final class ZohoAccessClient {
    * @param m the map
    * @return true if null or empty, false otherwise
    */
-  public static boolean isNullOrEmpty(final Map<?, ?> m) {
+  private static boolean isNullOrEmpty(final Map<?, ?> m) {
     return m == null || m.isEmpty();
   }
 }
