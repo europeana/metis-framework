@@ -17,7 +17,8 @@ public final class ZohoConstants {
   //Fields
   //Accounts is the equivalent to Organizations
   public static final String ID_FIELD = "id";
-  public static final String ACCOUNT_NAME_FIELD = "Account_Name"; //This is the organization Name in Zoho
+  public static final String ACCOUNT_NAME_FIELD = "Account_Name"; //This is the organization field name in Zoho
+  public static final String NAME_FIELD = "name"; // This is the name of the organization under the Account_Name
   public static final String FIRST_NAME_FIELD = "First_Name";
   public static final String LAST_NAME_FIELD = "Last_Name";
   public static final String EMAIL_FIELD = "Email";

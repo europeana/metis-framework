@@ -1,5 +1,9 @@
 package eu.europeana.metis.zoho;
 
+import com.zoho.crm.api.util.Choice;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.json.JSONObject;
 
 /**
@@ -22,8 +26,31 @@ public final class ZohoUtils {
    */
   public static String stringFieldSupplier(Object object) {
     if (!JSONObject.NULL.equals(object)) {
-      return object.toString();
+      if (object instanceof Choice<?>) {
+        return ((Choice<?>) object).getValue().toString();
+      } else {
+        return object.toString();
+      }
     }
     return null;
+  }
+
+  /**
+   * Method that would check if the object provided is of type {@link JSONObject.Null} and will
+   * return a correct representation of {@link List} with {@link String} items or empty list.
+   *
+   * @param object the object to be checked
+   * @return the List of strings representation of the object or empty list
+   */
+  public static List<String> stringListSupplier(Object object) {
+    if (!JSONObject.NULL.equals(object)) {
+      if (object instanceof List<?>) {
+        if (((List<?>) object).get(0) instanceof Choice<?>) {
+          return ((List<Choice<?>>) object).stream().map(Choice::getValue)
+              .map(String.class::cast).collect(Collectors.toList());
+        }
+      }
+    }
+    return Collections.emptyList();
   }
 }

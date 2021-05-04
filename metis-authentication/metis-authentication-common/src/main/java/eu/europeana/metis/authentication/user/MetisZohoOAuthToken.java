@@ -1,6 +1,7 @@
 package eu.europeana.metis.authentication.user;
 
-import com.zoho.oauth.contract.ZohoOAuthTokens;
+import com.zoho.api.authenticator.OAuthToken;
+import com.zoho.api.authenticator.OAuthToken.TokenType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -45,19 +46,13 @@ public class MetisZohoOAuthToken {
     this.expiryTime = expiryTime;
   }
 
-  /**
-   * Converts the current Metis object to the {@link ZohoOAuthTokens} object.
-   *
-   * @return the token represented as object of the Zoho library
-   */
-  public ZohoOAuthTokens convertToZohoOAuthTokens() {
-    ZohoOAuthTokens zohoOAuthTokens = new ZohoOAuthTokens();
-    zohoOAuthTokens.setUserMailId(this.userIdentifier);
-    zohoOAuthTokens.setAccessToken(this.accessToken);
-    zohoOAuthTokens.setRefreshToken(this.refreshToken);
-    zohoOAuthTokens.setExpiryTime(this.expiryTime);
+  public OAuthToken convertToZohoOAuthToken(String clientId, String clientSecret) {
+    OAuthToken oAuthToken = new OAuthToken(clientId, clientSecret, this.refreshToken, TokenType.REFRESH);
+    oAuthToken.setUserMail(this.userIdentifier);
+    oAuthToken.setAccessToken(this.accessToken);
+    oAuthToken.setExpiresIn(this.expiryTime.toString());
 
-    return zohoOAuthTokens;
+    return oAuthToken;
   }
 
   public String getUserIdentifier() {

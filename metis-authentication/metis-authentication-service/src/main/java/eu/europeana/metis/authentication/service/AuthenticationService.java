@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.service;
 
-import com.zoho.crm.library.crud.ZCRMRecord;
-import eu.europeana.metis.utils.CommonStringValues;
+import com.zoho.crm.api.exception.SDKException;
+import com.zoho.crm.api.record.Record;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
@@ -9,21 +9,21 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
-import eu.europeana.metis.zoho.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.zoho.OrganizationRole;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoConstants;
-import eu.europeana.metis.zoho.ZohoException;
+import eu.europeana.metis.zoho.ZohoUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -130,19 +130,19 @@ public class AuthenticationService {
 
   private MetisUserModel constructMetisUserFromZoho(String email) throws GenericMetisException {
     //Get user from zoho
-    final Optional<ZCRMRecord> zcrmRecordContact;
+    final Optional<Record> zohoRecord;
     try {
-      zcrmRecordContact = zohoAccessClient.getZcrmRecordContactByEmail(email);
-    } catch (ZohoException e) {
+      zohoRecord = zohoAccessClient.getZohoRecordContactByEmail(email);
+    } catch (SDKException e) {
       throw new GenericMetisException("Could not retrieve Zoho user", e);
     }
-    if (zcrmRecordContact.isEmpty()) {
+    if (zohoRecord.isEmpty()) {
       throw new NoUserFoundException("User was not found in Zoho");
     }
 
     //Construct User
     MetisUserModel metisUser = ZohoMetisUserUtils
-        .checkZohoFieldsAndPopulateMetisUser(zcrmRecordContact.get());
+        .checkZohoFieldsAndPopulateMetisUser(zohoRecord.get());
 
     if (StringUtils.isBlank(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
@@ -158,19 +158,18 @@ public class AuthenticationService {
   }
 
   private void checkMetisUserOrganizationRole(MetisUserModel metisUser) throws BadContentException {
-    final Optional<ZCRMRecord> zcrmRecordOrganization;
+    final Optional<Record> recordOrganization;
     try {
-      zcrmRecordOrganization = zohoAccessClient
-          .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
-    } catch (ZohoException e) {
+      recordOrganization = zohoAccessClient
+          .getZohoRecordOrganizationByName(metisUser.getOrganizationName());
+    } catch (SDKException e) {
       throw new BadContentException("Could not retrieve Zoho organization", e);
     }
-    if (zcrmRecordOrganization.isEmpty()) {
+    if (recordOrganization.isEmpty()) {
       throw new BadContentException("Organization Role from Zoho is empty");
     }
-    final HashMap<String, Object> propertiesMap = zcrmRecordOrganization.get().getData();
-    final List<String> organizationRoleStringList = (List<String>) propertiesMap
-        .get(ZohoConstants.ORGANIZATION_ROLE_FIELD);
+    final List<String> organizationRoleStringList = ZohoUtils.stringListSupplier(
+        recordOrganization.get().getKeyValue(ZohoConstants.ORGANIZATION_ROLE_FIELD));
 
     OrganizationRole organizationRole = null;
     for (String organizationRoleString : organizationRoleStringList) {

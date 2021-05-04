@@ -11,22 +11,22 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.zoho.crm.library.crud.ZCRMRecord;
+import com.zoho.crm.api.exception.SDKException;
+import com.zoho.crm.api.record.Record;
+import com.zoho.crm.api.util.Choice;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.exception.GenericMetisException;
-import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.zoho.ZohoException;
+import eu.europeana.metis.zoho.ZohoAccessClient;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -68,12 +68,11 @@ class AuthenticationServiceTest {
   void registerUser() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
 
-    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zcrmRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of((ZCRMRecord) zcrmRecordContactWithAccountInTheFields
-            .getFieldValue("Account_Name")));
+    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
+    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
+        .thenReturn(Optional.of(getZohoRecordAccount()));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).createMetisUser(any(MetisUserModel.class));
   }
@@ -90,8 +89,8 @@ class AuthenticationServiceTest {
   @Test
   void registerUserFailsOnZohoUserRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenThrow(new ZohoException("Exception"));
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenThrow(new SDKException("500", "Exception"));
     assertThrows(GenericMetisException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
@@ -99,21 +98,19 @@ class AuthenticationServiceTest {
   @Test
   void registerUserDoesNotExistInZoho() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString())).thenReturn(Optional.empty());
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString())).thenReturn(Optional.empty());
     assertThrows(NoUserFoundException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
   @Test
   void registerUserParsingUserFromZohoNoOrganizationNameProvided() throws Exception {
-    final ZCRMRecord zcrmRecordContactWithAccountInTheFieldsNoOrganizationName = getZCRMRecordContactWithAccountInTheFieldsNoOrganizationName();
+    final Record zohoRecordContactWithAccountInTheFieldsNoOrganizationName = getZohoRecordContactWithAccountInTheFieldsNoOrganizationName();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zcrmRecordContactWithAccountInTheFieldsNoOrganizationName));
-    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(
-            (ZCRMRecord) zcrmRecordContactWithAccountInTheFieldsNoOrganizationName
-                .getFieldValue("Account_Name")));
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFieldsNoOrganizationName));
+    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
+        .thenReturn(Optional.of(getZohoRecordAccountNoOrganizationName()));
     assertThrows(BadContentException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
 
@@ -122,9 +119,9 @@ class AuthenticationServiceTest {
   @Test
   void registerUserFailsOnZohoOrganizationRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(getZCRMRecordContactWithAccountInTheFields()));
-    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenReturn(Optional.of(getZohoRecordContactWithAccountInTheFields()));
+    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
         .thenReturn(Optional.empty());
     assertThrows(BadContentException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
@@ -132,31 +129,29 @@ class AuthenticationServiceTest {
 
   @Test
   void updateUserFromZoho() throws Exception {
-    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
 
     MetisUserModel metisUser = new MetisUserModel();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zcrmRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of((ZCRMRecord) zcrmRecordContactWithAccountInTheFields
-            .getFieldValue("Account_Name")));
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
+    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
+        .thenReturn(Optional.of(getZohoRecordAccount()));
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUser(any(MetisUserModel.class));
   }
 
   @Test
   void updateUserFromZohoAnAdminStaysAdmin() throws Exception {
-    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
 
     MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zcrmRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(
-            (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name")));
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
+    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
+        .thenReturn(Optional.of(getZohoRecordAccount()));
     ArgumentCaptor<MetisUserModel> metisUserArgumentCaptor = ArgumentCaptor
         .forClass(MetisUserModel.class);
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
@@ -450,14 +445,13 @@ class AuthenticationServiceTest {
   }
 
   private MetisUserModel registerAndCaptureMetisUser() throws Exception {
-    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
 
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zcrmRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(
-            (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name")));
+    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
+        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
+    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
+        .thenReturn(Optional.of(getZohoRecordAccount()));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     ArgumentCaptor<MetisUserModel> metisUserArgumentCaptor = ArgumentCaptor
         .forClass(MetisUserModel.class);
@@ -465,41 +459,48 @@ class AuthenticationServiceTest {
     return metisUserArgumentCaptor.getValue();
   }
 
-  private static ZCRMRecord getZCRMRecordContactWithAccountInTheFieldsNoOrganizationName() {
-    final ZCRMRecord zcrmRecordContact = getZCRMRecordContact();
-    zcrmRecordContact.setFieldValue("Account_Name", getZCRMRecordAccountNoOrganizationName());
-    return zcrmRecordContact;
+  private static Record getZohoRecordContactWithAccountInTheFieldsNoOrganizationName() {
+    return getZohoRecordContact(false);
   }
 
-  private static ZCRMRecord getZCRMRecordContactWithAccountInTheFields() {
-    final ZCRMRecord zcrmRecordContact = getZCRMRecordContact();
-    zcrmRecordContact.setFieldValue("Account_Name", getZCRMRecordAccount());
-    return zcrmRecordContact;
+  private static Record getZohoRecordContactWithAccountInTheFields() {
+    return getZohoRecordContact(true);
   }
 
-  private static ZCRMRecord getZCRMRecordContact() {
-    final ZCRMRecord zcrmRecordContact = new ZCRMRecord("Contacts");
-    zcrmRecordContact.setEntityId(1482250000004168044L);
-    zcrmRecordContact.setFieldValue("Pick_List_3", "EUROPEANA_DATA_OFFICER");
-    zcrmRecordContact.setFieldValue("Metis_user", true);
+  private static Record getZohoRecordContact(boolean setAccountName) {
+    final Record zohoRecordContact = new Record();
+    zohoRecordContact.setId(1482250000004168044L);
+    zohoRecordContact.addKeyValue("Pick_List_3", "EUROPEANA_DATA_OFFICER");
+    zohoRecordContact.addKeyValue("Metis_user", true);
 
-    return zcrmRecordContact;
+    final Record accountRecord = new Record();
+    accountRecord.setId(1482250000004168050L);
+    if (setAccountName) {
+      accountRecord.addKeyValue("name", "Europeana Foundation");
+    }
+    zohoRecordContact.addKeyValue("Account_Name", accountRecord);
+
+    return zohoRecordContact;
   }
 
-
-  private static ZCRMRecord getZCRMRecordAccount() {
-    final ZCRMRecord zcrmRecordAccount = new ZCRMRecord("Accounts");
-    zcrmRecordAccount.setEntityId(1482250000004168050L);
-    zcrmRecordAccount.setLookupLabel("Europeana Foundation");
-    zcrmRecordAccount.setFieldValue("Organisation_Role2", Collections.singletonList("Aggregator"));
-
-    return zcrmRecordAccount;
+  private static Record getZohoRecordAccount() {
+    return getZohoRecordAccount(true);
   }
 
-  private static ZCRMRecord getZCRMRecordAccountNoOrganizationName() {
-    final ZCRMRecord zcrmRecordAccount = getZCRMRecordAccount();
-    zcrmRecordAccount.setLookupLabel(null);
+  private static Record getZohoRecordAccountNoOrganizationName() {
+    return getZohoRecordAccount(false);
+  }
 
-    return zcrmRecordAccount;
+  private static Record getZohoRecordAccount(boolean setLookupName) {
+    final Record zohoRecordAccount = new Record();
+    zohoRecordAccount.setId(1482250000004168050L);
+    List<Choice<String>> choices = new ArrayList<>();
+    choices.add(new Choice<>("Aggregator"));
+    zohoRecordAccount.addKeyValue("Organisation_Role2", choices);
+    if (setLookupName) {
+      zohoRecordAccount.addKeyValue("Account_Name", "Europeana Foundation");
+    }
+
+    return zohoRecordAccount;
   }
 }

@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.rest.config;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
 
-import com.zoho.oauth.common.ZohoOAuthException;
+import com.zoho.crm.api.exception.SDKException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
@@ -108,8 +106,8 @@ public class Application implements WebMvcConfigurer {
     //Execute sql and create tables if needed
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.configure();
-    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-        configuration.getProperties()).build();
+    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+        .applySettings(configuration.getProperties()).build();
     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
@@ -121,7 +119,9 @@ public class Application implements WebMvcConfigurer {
       sessionFactory.close();
     }
     //Initialize Zoho handler
-    MetisZohoOAuthPSQLHandler.initializeWithRefreshToken(zohoCurrentUserEmail, zohoRefreshToken);
+    MetisZohoOAuthPSQLHandler
+        .initializeWithRefreshToken(zohoCurrentUserEmail, zohoRefreshToken, zohoClientId,
+            zohoClientSecret);
   }
 
   @Override
@@ -145,17 +145,10 @@ public class Application implements WebMvcConfigurer {
   }
 
   @Bean
-  public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
-    Map<String, String> zcrmConfigurations = new HashMap<>();
-    zcrmConfigurations.put("minLogLevel", zohoMinLogLevel);
-    zcrmConfigurations.put("currentUserEmail", zohoCurrentUserEmail);
-    zcrmConfigurations.put("client_id", zohoClientId);
-    zcrmConfigurations.put("client_secret", zohoClientSecret);
-    zcrmConfigurations.put("redirect_uri", zohoRedirectUri);
-    zcrmConfigurations.put("persistence_handler_class", zohoPersistenceHandlerClass);
-    zcrmConfigurations.put("accessType", zohoAccessType);
-    zcrmConfigurations.put("apiBaseUrl", zohoApiBaseUrl);
-    return new ZohoAccessClient(zohoInitialGrantToken, zcrmConfigurations);
+  public ZohoAccessClient getZohoAccessClient() throws SDKException {
+    final MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler();
+    return new ZohoAccessClient(metisZohoOAuthPSQLHandler, zohoCurrentUserEmail, zohoClientId,
+        zohoClientSecret, zohoInitialGrantToken, zohoRedirectUri);
   }
 
   @Bean
@@ -164,8 +157,8 @@ public class Application implements WebMvcConfigurer {
     configuration.addAnnotatedClass(MetisUserModel.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
     configuration.configure();
-    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-        configuration.getProperties()).build();
+    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+        .applySettings(configuration.getProperties()).build();
     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     return sessionFactory;
   }
