@@ -71,8 +71,6 @@ public class Application implements WebMvcConfigurer {
   private String zohoInitialGrantToken;
   @Value("${zoho.refresh.token}")
   private String zohoRefreshToken;
-  @Value("${zoho.min.log.level}")
-  private String zohoMinLogLevel;
   @Value("${zoho.current.user.email}")
   private String zohoCurrentUserEmail;
   @Value("${zoho.client.id}")
@@ -81,12 +79,6 @@ public class Application implements WebMvcConfigurer {
   private String zohoClientSecret;
   @Value("${zoho.redirect.uri}")
   private String zohoRedirectUri;
-  @Value("${zoho.persistence.handler.class}")
-  private String zohoPersistenceHandlerClass;
-  @Value("${zoho.api.base.url}")
-  private String zohoApiBaseUrl;
-  @Value("${zoho.access.type}")
-  private String zohoAccessType;
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;

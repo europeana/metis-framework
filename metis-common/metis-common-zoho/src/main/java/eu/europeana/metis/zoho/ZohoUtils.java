@@ -43,13 +43,10 @@ public final class ZohoUtils {
    * @return the List of strings representation of the object or empty list
    */
   public static List<String> stringListSupplier(Object object) {
-    if (!JSONObject.NULL.equals(object)) {
-      if (object instanceof List<?>) {
-        if (((List<?>) object).get(0) instanceof Choice<?>) {
-          return ((List<Choice<?>>) object).stream().map(Choice::getValue)
-              .map(String.class::cast).collect(Collectors.toList());
-        }
-      }
+    if (!JSONObject.NULL.equals(object) && object instanceof List<?> && ((List<?>) object)
+        .get(0) instanceof Choice<?>) {
+      return ((List<Choice<?>>) object).stream().map(Choice::getValue).map(String.class::cast)
+          .collect(Collectors.toList());
     }
     return Collections.emptyList();
   }

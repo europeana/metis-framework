@@ -46,6 +46,13 @@ public class MetisZohoOAuthToken {
     this.expiryTime = expiryTime;
   }
 
+  /**
+   * Converts the current Metis object to the {@link OAuthToken} object.
+   *
+   * @param clientId the client id
+   * @param clientSecret the client secret
+   * @return the token represented as object of the Zoho library
+   */
   public OAuthToken convertToZohoOAuthToken(String clientId, String clientSecret) {
     OAuthToken oAuthToken = new OAuthToken(clientId, clientSecret, this.refreshToken, TokenType.REFRESH);
     oAuthToken.setUserMail(this.userIdentifier);

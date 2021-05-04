@@ -51,6 +51,13 @@ public final class ZohoAccessClient {
   /**
    * Constructor with all parameters.
    *
+   * <p>
+   * It will try to initialize the connection with the Zoho service. Uses the grant token for the
+   * initial setup to generate the access and refresh tokens. If the grant token was already used
+   * once before, it will try to use the refresh token that should be present in the token store,
+   * and if it's not present an exception would be thrown.
+   * </p>
+   *
    * @param tokenStore the tocken store to be used
    * @param zohoEmail the zoho email
    * @param clientId the zoho client id
@@ -69,6 +76,7 @@ public final class ZohoAccessClient {
           .setPickListValidation(true).build();
       Environment environment = USDataCenter.PRODUCTION;
       String resourcePath = SystemUtils.getUserHome().getAbsolutePath();
+      //Does not generate any tokens, we'll need to execute a command to do so
       Initializer
           .initialize(userSignature, environment, token, tokenStore, sdkConfig, resourcePath);
       //Make a call to zoho so that the grant token will generate the first pair of access/refresh tokens
