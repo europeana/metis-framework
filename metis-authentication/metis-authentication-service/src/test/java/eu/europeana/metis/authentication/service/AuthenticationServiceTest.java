@@ -11,7 +11,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.zoho.crm.api.exception.SDKException;
 import com.zoho.crm.api.record.Record;
 import com.zoho.crm.api.util.Choice;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
@@ -26,6 +25,7 @@ import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
+import eu.europeana.metis.zoho.ZohoException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,7 +90,7 @@ class AuthenticationServiceTest {
   void registerUserFailsOnZohoUserRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenThrow(new SDKException("500", "Exception"));
+        .thenThrow(new ZohoException("Exception"));
     assertThrows(GenericMetisException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }

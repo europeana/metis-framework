@@ -1,6 +1,5 @@
 package eu.europeana.metis.authentication.service;
 
-import com.zoho.crm.api.exception.SDKException;
 import com.zoho.crm.api.record.Record;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -18,6 +17,7 @@ import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.zoho.OrganizationRole;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoConstants;
+import eu.europeana.metis.zoho.ZohoException;
 import eu.europeana.metis.zoho.ZohoUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -133,7 +133,7 @@ public class AuthenticationService {
     final Optional<Record> zohoRecord;
     try {
       zohoRecord = zohoAccessClient.getZohoRecordContactByEmail(email);
-    } catch (SDKException e) {
+    } catch (ZohoException e) {
       throw new GenericMetisException("Could not retrieve Zoho user", e);
     }
     if (zohoRecord.isEmpty()) {
@@ -162,7 +162,7 @@ public class AuthenticationService {
     try {
       recordOrganization = zohoAccessClient
           .getZohoRecordOrganizationByName(metisUser.getOrganizationName());
-    } catch (SDKException e) {
+    } catch (ZohoException e) {
       throw new BadContentException("Could not retrieve Zoho organization", e);
     }
     if (recordOrganization.isEmpty()) {

@@ -7,8 +7,8 @@ import com.zoho.api.authenticator.OAuthToken;
 import com.zoho.api.authenticator.Token;
 import com.zoho.api.authenticator.store.TokenStore;
 import com.zoho.crm.api.UserSignature;
-import com.zoho.crm.api.exception.SDKException;
 import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
@@ -25,7 +25,7 @@ import org.springframework.lang.Nullable;
 /**
  * Metis specific psql handler for persisting Zoho related oauth tokes.
  * <p>Use the static method {@link MetisZohoOAuthPSQLHandler#initializeWithRefreshToken(String,
- * String)} if a refresh token needs to be injected in the database, before any other
+ * String, String, String)} if a refresh token needs to be injected in the database, before any other
  * operation.</p>
  * <p>Uses a single {@link SessionFactory} for all instances.
  * This class is used from zoho libraries internally. Make sure to call {@link
@@ -58,6 +58,8 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
    *
    * @param userEmailId the user email.
    * @param refreshToken the refresh token.
+   * @param clientId the client id
+   * @param clientSecret the client secret
    */
   public static void initializeWithRefreshToken(@Nullable String userEmailId,
       @Nullable String refreshToken, String clientId, String clientSecret) {
@@ -141,11 +143,11 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
   public List<Token> getTokens() {
     //Nothing to do, not used method
     LOGGER.warn("Returning null, this method is not supported");
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
-  public void deleteTokens() throws SDKException {
+  public void deleteTokens() {
     //Nothing to do, not used method
     LOGGER.warn("Did nothing, this method is not supported");
   }

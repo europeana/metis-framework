@@ -2,7 +2,6 @@ package eu.europeana.metis.authentication.rest.config;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
 
-import com.zoho.crm.api.exception.SDKException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -11,6 +10,7 @@ import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
+import eu.europeana.metis.zoho.ZohoException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -145,10 +145,11 @@ public class Application implements WebMvcConfigurer {
   }
 
   @Bean
-  public ZohoAccessClient getZohoAccessClient() throws SDKException {
+  public ZohoAccessClient getZohoAccessClient() throws ZohoException {
     final MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler();
-    return new ZohoAccessClient(metisZohoOAuthPSQLHandler, zohoCurrentUserEmail, zohoClientId,
-        zohoClientSecret, zohoInitialGrantToken, zohoRedirectUri);
+    return new ZohoAccessClient(metisZohoOAuthPSQLHandler,
+        zohoCurrentUserEmail, zohoClientId, zohoClientSecret, zohoInitialGrantToken,
+        zohoRedirectUri);
   }
 
   @Bean
