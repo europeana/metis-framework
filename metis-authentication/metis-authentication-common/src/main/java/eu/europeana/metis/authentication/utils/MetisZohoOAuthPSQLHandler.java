@@ -3,10 +3,13 @@ package eu.europeana.metis.authentication.utils;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
-import com.zoho.oauth.client.ZohoPersistenceHandler;
-import com.zoho.oauth.common.ZohoOAuthException;
-import com.zoho.oauth.contract.ZohoOAuthTokens;
+import com.zoho.api.authenticator.OAuthToken;
+import com.zoho.api.authenticator.Token;
+import com.zoho.api.authenticator.store.TokenStore;
+import com.zoho.crm.api.UserSignature;
 import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
+import java.util.Collections;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,7 +25,7 @@ import org.springframework.lang.Nullable;
 /**
  * Metis specific psql handler for persisting Zoho related oauth tokes.
  * <p>Use the static method {@link MetisZohoOAuthPSQLHandler#initializeWithRefreshToken(String,
- * String)} if a refresh token needs to be injected in the database, before any other
+ * String, String, String)} if a refresh token needs to be injected in the database, before any other
  * operation.</p>
  * <p>Uses a single {@link SessionFactory} for all instances.
  * This class is used from zoho libraries internally. Make sure to call {@link
@@ -32,18 +35,20 @@ import org.springframework.lang.Nullable;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-20
  */
-public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
+public class MetisZohoOAuthPSQLHandler implements TokenStore {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MetisZohoOAuthPSQLHandler.class);
   private static final String USER_IDENTIFIER_STRING = "userIdentifier";
   private static final SessionFactory sessionFactory;
+  private static String clientId;
+  private static String clientSecret;
 
   static {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
     configuration.configure();
-    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-        configuration.getProperties()).build();
+    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+        .applySettings(configuration.getProperties()).build();
     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
   }
 
@@ -53,9 +58,13 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
    *
    * @param userEmailId the user email.
    * @param refreshToken the refresh token.
+   * @param clientId the client id
+   * @param clientSecret the client secret
    */
   public static void initializeWithRefreshToken(@Nullable String userEmailId,
-      @Nullable String refreshToken) {
+      @Nullable String refreshToken, String clientId, String clientSecret) {
+    MetisZohoOAuthPSQLHandler.clientId = clientId;
+    MetisZohoOAuthPSQLHandler.clientSecret = clientSecret;
     if (StringUtils.isNotBlank(userEmailId) && StringUtils.isNotBlank(refreshToken)) {
       final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(userEmailId,
           StringUtils.EMPTY, refreshToken, 0L);
@@ -70,11 +79,37 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
     }
   }
 
+
   @Override
-  public void saveOAuthData(ZohoOAuthTokens zohoOAuthTokens) throws Exception {
+  public Token getToken(UserSignature userSignature, Token token) {
+    final MetisZohoOAuthToken metisZohoOAuthToken;
+    try (Session dbSession = sessionFactory.openSession()) {
+      metisZohoOAuthToken = performThrowingFunction(dbSession, session -> {
+        Transaction tx = session.beginTransaction();
+        Query<?> query = session.createQuery(String
+            .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+                USER_IDENTIFIER_STRING));
+        query.setParameter(USER_IDENTIFIER_STRING, userSignature.getEmail());
+        if (query.list().isEmpty()) {
+          return null;
+        }
+        final MetisZohoOAuthToken foundToken = (MetisZohoOAuthToken) query.list().get(0);
+        String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
+        commitTransaction(tx, potentialErrorMessage);
+        return foundToken;
+      });
+    }
+    return metisZohoOAuthToken == null ? null : metisZohoOAuthToken
+        .convertToZohoOAuthToken(MetisZohoOAuthPSQLHandler.clientId,
+            MetisZohoOAuthPSQLHandler.clientSecret);
+  }
+
+  @Override
+  public void saveToken(UserSignature userSignature, Token token) {
+    OAuthToken oAuthToken = (OAuthToken) token;
     final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(
-        zohoOAuthTokens.getUserMailId(), zohoOAuthTokens.getAccessToken(),
-        zohoOAuthTokens.getRefreshToken(), zohoOAuthTokens.getExpiryTime());
+        userSignature.getEmail(), oAuthToken.getAccessToken(), oAuthToken.getRefreshToken(),
+        Long.parseLong(oAuthToken.getExpiresIn()));
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
         Transaction tx = session.beginTransaction();
@@ -86,42 +121,35 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
   }
 
   @Override
-  public ZohoOAuthTokens getOAuthTokens(String userIdentifier) throws Exception {
-    final MetisZohoOAuthToken metisZohoOAuthToken;
-    try (Session dbSession = sessionFactory.openSession()) {
-      metisZohoOAuthToken = performThrowingFunction(dbSession, session -> {
-        Transaction tx = session.beginTransaction();
-        Query<?> query = session.createQuery(String
-                        .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-                                USER_IDENTIFIER_STRING));
-        query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-        if (query.list().isEmpty()) {
-          throw new ZohoOAuthException("Given User not found in persistence.");
-        }
-        final MetisZohoOAuthToken token = (MetisZohoOAuthToken) query.list().get(0);
-        String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
-        commitTransaction(tx, potentialErrorMessage);
-        return token;
-      });
-    }
-    return metisZohoOAuthToken == null ? null : metisZohoOAuthToken.convertToZohoOAuthTokens();
-  }
-
-  @Override
-  public void deleteOAuthTokens(String userIdentifier) {
+  public void deleteToken(Token token) {
+    String userIdentifier = ((OAuthToken)token).getUserMail();
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
         Transaction tx = session.beginTransaction();
-        Query<?> deleteQuery = session.createQuery(
-                String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-                        USER_IDENTIFIER_STRING));
+        Query<?> deleteQuery = session.createQuery(String
+            .format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+                USER_IDENTIFIER_STRING));
         deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
         int i = deleteQuery.executeUpdate();
         String potentialErrorMessage = "Exception while deleting zoho oauth user tokens";
         commitTransaction(tx, potentialErrorMessage);
-        LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
+        LOGGER
+            .info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
       });
     }
+  }
+
+  @Override
+  public List<Token> getTokens() {
+    //Nothing to do, not used method
+    LOGGER.warn("Returning null, this method is not supported");
+    return Collections.emptyList();
+  }
+
+  @Override
+  public void deleteTokens() {
+    //Nothing to do, not used method
+    LOGGER.warn("Did nothing, this method is not supported");
   }
 
   /**
