@@ -356,15 +356,15 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         // TODO: 14/05/2021 We might want to remove this or find a better way to handle the shutdown of metis-core because, it seems that this occurred during an execution of a plugin and therefore the plugin went out of the loop.
         // The next plugin was tried but was marked FAILED because the previous plugin didn't finish and it automatically marked the previous plugin CANCELLED
         // which shouldn't happen.(The plugin was still in progress in ecloud)
-        if (cause instanceof IllegalStateException) {
-          //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
-          // internally closing down without our consent even if we would have a synchronized close
-          // implemented. This catch gives us a little more assurance of avoiding an execution
-          // being marked as failed.
-          LOGGER.warn("Application is probably shutting down at the moment and dpsClient has "
-              + "closed without our consent, so we are ignoring this exception.", e);
-          return;
-        }
+//        if (cause instanceof IllegalStateException) {
+//          //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
+//          // internally closing down without our consent even if we would have a synchronized close
+//          // implemented. This catch gives us a little more assurance of avoiding an execution
+//          // being marked as failed.
+//          LOGGER.warn("Application is probably shutting down at the moment and dpsClient has "
+//              + "closed without our consent, so we are ignoring this exception.", e);
+//          return;
+//        }
         LOGGER.warn(String
             .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
                 workflowExecution.getId(), plugin.getPluginType()), e);
@@ -372,7 +372,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         //  DpsClient is updated and doesn't throw it anymore
         if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
             UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)
-            && !(cause instanceof MessageBodyProviderNotFoundException)) {
+            && !(cause instanceof MessageBodyProviderNotFoundException) && !(cause instanceof IllegalStateException)) {
           // Set plugin to FAILED and return immediately
           plugin.setFinishedDate(null);
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
