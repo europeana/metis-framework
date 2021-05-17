@@ -1,7 +1,6 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.HarvesterException;
-import java.io.InputStream;
 
 /**
  * Implementations of this interface provide OAI-PMH harvesting access.
@@ -22,10 +21,10 @@ public interface OaiHarvester {
    *
    * @param repository The repository from where to harvest.
    * @param oaiIdentifier The OAI-PMH identifier of the record to harvest.
-   * @return An input stream containing the record. The caller needs to close it after use.
+   * @return The record.
    * @throws HarvesterException In case something went wrong.
    */
-  InputStream harvestRecord(OaiRepository repository, String oaiIdentifier)
+  OaiRecord harvestRecord(OaiRepository repository, String oaiIdentifier)
           throws HarvesterException;
 
   /**

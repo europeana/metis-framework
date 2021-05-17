@@ -1,13 +1,15 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
+import com.lyncode.xml.XmlReader;
+import com.lyncode.xml.exceptions.XmlReaderException;
+import com.lyncode.xml.matchers.XmlEventMatchers;
 import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
 import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -23,6 +25,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.xpath.XPathFactoryImpl;
+import org.dspace.xoai.serviceprovider.parsers.HeaderParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -45,26 +48,25 @@ class OaiRecordParser {
           "/*[local-name()='metadata']" +
           "/child::*";
 
-  private static final String IS_DELETED_XPATH = "string(/*[local-name()='OAI-PMH']" +
+  private static final String HEADER_XPATH = "/*[local-name()='OAI-PMH']" +
           "/*[local-name()='GetRecord']" +
           "/*[local-name()='record']" +
-          "/*[local-name()='header']" +
-          "/@status)";
+          "/*[local-name()='header']";
 
   private static XPathExpression metadataExpression;
-  private static XPathExpression isDeletedExpression;
+  private static XPathExpression headerExpression;
 
-  private final String oaiRecord;
+  private final byte[] oaiRecord;
 
   private static void initializeExpressions() throws HarvesterException {
     try {
       synchronized (OaiRecordParser.class) {
-        if (metadataExpression == null || isDeletedExpression == null) {
+        if (metadataExpression == null || headerExpression == null) {
           final XPathFactoryImpl xpathFactory = new XPathFactoryImpl();
           xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
           final XPath xpath = xpathFactory.newXPath();
           metadataExpression = xpath.compile(METADATA_XPATH);
-          isDeletedExpression = xpath.compile(IS_DELETED_XPATH);
+          headerExpression = xpath.compile(HEADER_XPATH);
         }
       }
     } catch (RuntimeException | XPathExpressionException | XPathFactoryConfigurationException e) {
@@ -79,58 +81,48 @@ class OaiRecordParser {
    * @param oaiRecord The record to parse as a string value.
    * @throws HarvesterException In case there was a problem with setting up the parser.
    */
-  OaiRecordParser(String oaiRecord) throws HarvesterException {
+  OaiRecordParser(byte[] oaiRecord) throws HarvesterException {
     initializeExpressions();
     this.oaiRecord = oaiRecord;
   }
 
   /**
-   * Obtain the embedded RDF record
+   * Obtain the embedded (RDF) record with it's OAI header.
    *
-   * @return The embedded RDF record as a stream.
+   * @return The record along with the OAI header.
    * @throws HarvesterException in case there is a problem with the expression.
    */
-  InputStream getRdfRecord() throws HarvesterException {
+  OaiRecord getOaiRecord() throws HarvesterException {
     try {
-      final InputSource inputSource = getInputSource();
-      // Note that this is created safely, so this is a false positive by SonarQube.
-      @SuppressWarnings("findsecbugs:XXE_XPATH")
-      final ArrayList<NodeInfo> result = (ArrayList<NodeInfo>) metadataExpression
-              .evaluate(inputSource, XPathConstants.NODESET);
-      return convertToStream(result);
-    } catch (XPathExpressionException | TransformerException | RuntimeException e) {
+      final byte[] headerBytes = getAsBytes(headerExpression);
+      if (headerBytes.length == 0) {
+        throw new HarvesterException("Empty record header!");
+      }
+      final XmlReader xmlReader = new XmlReader(new ByteArrayInputStream(headerBytes))
+              .next(XmlEventMatchers.anElement());
+      final OaiRecordHeader header = OaiRecordHeader.convert(new HeaderParser().parse(xmlReader));
+      final byte[] record = getAsBytes(metadataExpression);
+      if (record.length == 0 && !header.isDeleted()) {
+        throw new HarvesterException("Empty (non-deleted) record!");
+      }
+      return new OaiRecord(header, record);
+    } catch (XPathExpressionException | TransformerException | RuntimeException | XmlReaderException e) {
       throw new HarvesterException("Cannot xpath XML!", e);
     }
   }
 
-  /**
-   * Find whether the record is marked as deleted.
-   *
-   * @return whether the method is marked as deleted.
-   * @throws HarvesterException in case there is a problem with the expression.
-   */
-  boolean recordIsDeleted() throws HarvesterException {
-    try {
-      // Note that this is created safely, so this is a false positive by SonarQube.
-      @SuppressWarnings("findsecbugs:XXE_XPATH")
-      final String result = isDeletedExpression.evaluate(getInputSource());
-      return "deleted".equalsIgnoreCase(result);
-    } catch (XPathExpressionException e) {
-      throw new HarvesterException("Cannot xpath XML!", e);
-    }
-  }
-
-  private InputSource getInputSource() {
-    return new SAXSource(new InputSource(new StringReader(oaiRecord))).getInputSource();
-  }
-
-  private InputStream convertToStream(List<NodeInfo> nodes)
-          throws TransformerException, HarvesterException {
+  private byte[] getAsBytes(XPathExpression xPathExpression)
+          throws TransformerException, HarvesterException, XPathExpressionException {
+    final InputSource inputSource = new SAXSource(new InputSource(
+            new StringReader(new String(oaiRecord, StandardCharsets.UTF_8)))).getInputSource();
+    // Note that this is created safely, so this is a false positive by SonarQube.
+    @SuppressWarnings("findsecbugs:XXE_XPATH")
+    final ArrayList<NodeInfo> nodes = (ArrayList<NodeInfo>) xPathExpression
+            .evaluate(inputSource, XPathConstants.NODESET);
     final int length = nodes.size();
     if (length < 1) {
-      throw new HarvesterException("Empty XML!");
+      return new byte[0];
     } else if (length > 1) {
-
       throw new HarvesterException("More than one XML!");
     }
     try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
@@ -141,7 +133,7 @@ class OaiRecordParser {
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(nodes.get(0), outputTarget);
 
-      return new ByteArrayInputStream(outputStream.toByteArray());
+      return outputStream.toByteArray();
     } catch (IOException e) {
       // Cannot really happen.
       throw new HarvesterException("Unexpected exception", e);
