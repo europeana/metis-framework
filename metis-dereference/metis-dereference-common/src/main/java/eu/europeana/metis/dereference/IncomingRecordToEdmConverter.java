@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import net.sf.saxon.BasicTransformerFactory;
 
 /**
  * Convert an incoming record to EDM.
@@ -47,7 +48,8 @@ public class IncomingRecordToEdmConverter {
    */
   public IncomingRecordToEdmConverter(String xslt) throws TransformerException {
     final Source xsltSource = new StreamSource(new StringReader(xslt));
-    final TransformerFactory factory = TransformerFactory.newInstance();
+    // Ensure that the Saxon library is used by choosing the right transformer factory.
+    final TransformerFactory factory = new BasicTransformerFactory();
     factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
     this.template = factory.newTemplates(xsltSource);
   }
