@@ -30,7 +30,7 @@ public class OaiRecordParserTest {
     byte[] content = IOUtils.toByteArray(inputStream);
 
     //when
-    final OaiRecord result = new OaiRecordParser(content).getOaiRecord();
+    final OaiRecord result = new OaiRecordParser().parseOaiRecord(content);
 
     //then
     assertEquals("oai:mediateka.centrumzamenhofa.pl:19", result.getHeader().getOaiIdentifier());
@@ -51,7 +51,7 @@ public class OaiRecordParserTest {
     byte[] content = IOUtils.toByteArray(inputStream);
 
     //when
-    final OaiRecord result = new OaiRecordParser(content).getOaiRecord();
+    final OaiRecord result = new OaiRecordParser().parseOaiRecord(content);
 
     //then
     assertTrue(result.getHeader().isDeleted());
@@ -70,7 +70,7 @@ public class OaiRecordParserTest {
 
     //then
     final HarvesterException exception = assertThrows(HarvesterException.class,
-        () -> new OaiRecordParser(content).getOaiRecord().getRecord());
+        () -> new OaiRecordParser().parseOaiRecord(content).getRecord());
     assertThat(exception.getMessage(), is("Cannot xpath XML!"));
   }
 }

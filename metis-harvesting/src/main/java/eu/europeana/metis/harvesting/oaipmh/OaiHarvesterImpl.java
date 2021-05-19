@@ -110,7 +110,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
               "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
               oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
     }
-    return new OaiRecordParser(record).getOaiRecord();
+    return new OaiRecordParser().parseOaiRecord(record);
   }
 
   @Override

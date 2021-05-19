@@ -3,6 +3,7 @@ package eu.europeana.metis.harvesting.oaipmh;
 import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.function.Supplier;
 
 /**
  * This is a immutable class representing an (OAI-embedded) record along with it's OAI header.
@@ -16,11 +17,11 @@ public class OaiRecord {
    * Constructor.
    *
    * @param header The OAI header of the record.
-   * @param record The record itself (the embedded record).
+   * @param recordSupplier A supplier for the record (as byte array).
    */
-  public OaiRecord(OaiRecordHeader header, byte[] record) {
+  public OaiRecord(OaiRecordHeader header, Supplier<byte[]> recordSupplier) {
     this.header = header;
-    this.record = record;
+    this.record = this.header.isDeleted() ? new byte[0] : recordSupplier.get();
   }
 
   public OaiRecordHeader getHeader() {
