@@ -5,6 +5,7 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
@@ -79,7 +80,8 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    retryableExternalRequestForNetworkExceptions(() -> datastore.find(Vocabulary.class).delete());
+    retryableExternalRequestForNetworkExceptions(
+            () -> datastore.find(Vocabulary.class).delete(new DeleteOptions().multi(true)));
     vocabularies.forEach(vocabulary -> vocabulary.setId(new ObjectId()));
     retryableExternalRequestForNetworkExceptions(() -> datastore.save(vocabularies));
   }
