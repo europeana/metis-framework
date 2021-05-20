@@ -6,6 +6,7 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
@@ -15,7 +16,6 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -29,7 +29,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang.StringUtils;
@@ -257,11 +256,8 @@ public class MongoDereferenceService implements DereferenceService {
     if (entityXml == null || entityVocabulary == null) {
       result = null;
     } else {
-      final StringReader reader = new StringReader(entityXml);
-      final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
-      final EnrichmentBase resource = (EnrichmentBase) context.createUnmarshaller()
-          .unmarshal(reader);
-      result = new ImmutablePair<>(resource, entityVocabulary);
+      result = new ImmutablePair<>(EnrichmentBaseConverter.convertToEnrichmentBase(entityXml),
+              entityVocabulary);
     }
     return result;
   }
