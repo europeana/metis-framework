@@ -2,6 +2,7 @@ package eu.europeana.metis.harvesting.oaipmh;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
@@ -19,38 +22,43 @@ public class OaiRecordParserTest {
   private static final Charset ENCODING = StandardCharsets.UTF_8;
 
   @Test
-  public void shouldFilterOaiDcResponse() throws IOException, HarvesterException {
+  public void happyFlowExtantRecords() throws IOException, HarvesterException {
 
     //given
     final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
     final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-    String content = IOUtils.toString(inputStream, ENCODING);
+    byte[] content = IOUtils.toByteArray(inputStream);
 
     //when
-    final InputStream result = new OaiRecordParser(content).getRdfRecord();
+    final OaiRecord result = new OaiRecordParser().parseOaiRecord(content);
 
     //then
-    final String actual = TestHelper.convertToString(result);
+    assertEquals("oai:mediateka.centrumzamenhofa.pl:19", result.getHeader().getOaiIdentifier());
+    assertEquals(LocalDateTime.of(1981, 7, 1, 0, 0).toInstant(ZoneOffset.UTC),
+            result.getHeader().getDatestamp());
+    assertFalse(result.getHeader().isDeleted());
+    final String actual = TestHelper.convertToString(result.getRecord());
     assertThat(actual,
             TestHelper.isSimilarXml(WiremockHelper.getFileContent("/expectedOaiRecord.xml")));
   }
 
   @Test
-  public void shouldReturnRecordIsDeleted() throws IOException, HarvesterException {
+  public void happyFlowDeletedRecords() throws IOException, HarvesterException {
+
     //given
     final String fileContent = WiremockHelper.getFileContent("/deletedOaiRecord.xml");
     final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-    String content = IOUtils.toString(inputStream, ENCODING);
-    assertTrue(new OaiRecordParser(content).recordIsDeleted());
-  }
+    byte[] content = IOUtils.toByteArray(inputStream);
 
-  @Test
-  public void shouldReturnRecordIsNotDeleted() throws IOException, HarvesterException {
-    //given
-    final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
-    final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-    String content = IOUtils.toString(inputStream, ENCODING);
-    assertFalse(new OaiRecordParser(content).recordIsDeleted());
+    //when
+    final OaiRecord result = new OaiRecordParser().parseOaiRecord(content);
+
+    //then
+    assertTrue(result.getHeader().isDeleted());
+    assertEquals("oai:mediateka.centrumzamenhofa.pl:20", result.getHeader().getOaiIdentifier());
+    assertEquals(LocalDateTime.of(2020, 2, 2, 12, 21).toInstant(ZoneOffset.UTC),
+            result.getHeader().getDatestamp());
+    assertThrows(HarvesterException.class, result::getRecord);
   }
 
   @Test
@@ -58,10 +66,11 @@ public class OaiRecordParserTest {
     //given
     final String fileContent = "";
     final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
-    String content = IOUtils.toString(inputStream, ENCODING);
+    byte[] content = IOUtils.toByteArray(inputStream);
 
+    //then
     final HarvesterException exception = assertThrows(HarvesterException.class,
-        () -> new OaiRecordParser(content).getRdfRecord());
+        () -> new OaiRecordParser().parseOaiRecord(content).getRecord());
     assertThat(exception.getMessage(), is("Cannot xpath XML!"));
   }
 }
