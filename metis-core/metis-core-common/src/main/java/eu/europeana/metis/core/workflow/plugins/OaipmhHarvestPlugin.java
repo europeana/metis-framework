@@ -50,14 +50,8 @@ public class OaipmhHarvestPlugin extends AbstractExecutablePlugin<OaipmhHarvestP
   @Override
   DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
     String targetUrl = getPluginMetadata().getUrl();
-    boolean useDefaultIdentifiers = getPluginMetadata().isUseDefaultIdentifiers();
-    String identifierPrefixRemoval = getPluginMetadata().getIdentifierPrefixRemoval();
     Map<String, String> parameters = new HashMap<>();
     parameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
-    parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));
-    if (useDefaultIdentifiers && !StringUtils.isBlank(identifierPrefixRemoval)) {
-      parameters.put(PluginParameterKeys.MIGRATION_IDENTIFIER_PREFIX, identifierPrefixRemoval);
-    }
     DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
 
     String setSpec = getPluginMetadata().getSetSpec();

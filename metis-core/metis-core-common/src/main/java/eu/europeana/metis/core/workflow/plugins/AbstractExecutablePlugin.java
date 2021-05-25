@@ -7,9 +7,9 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.PluginParameterKeys;
 import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -181,19 +180,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
             String.join(",", datasetIdsToRedirectFrom));
     extraParameters.put(PluginParameterKeys.PERFORM_REDIRECTS, String.valueOf(performRedirects));
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
-  }
-
-  @Deprecated
-  Map<String, String> createParametersForHostConnectionLimits(
-      Map<String, Integer> connectionLimitToDomains) {
-    Map<String, String> parameters = new HashMap<>();
-    if (connectionLimitToDomains != null) {
-      connectionLimitToDomains.entrySet().stream()
-          .filter(entry -> !StringUtils.isBlank(entry.getKey()) && entry.getValue() != null)
-          .forEach(entry -> parameters
-              .put("host.limit." + entry.getKey(), Integer.toString(entry.getValue())));
-    }
-    return parameters;
   }
 
   Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath,
