@@ -45,5 +45,4 @@ public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPlu
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters,
         createParametersForHostConnectionLimits(connectionLimitToDomains));
   }
-
 }

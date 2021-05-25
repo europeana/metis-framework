@@ -5,6 +5,7 @@ import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
+import eu.europeana.cloud.service.dps.PluginParameterKeys;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.workflow.SystemId;
@@ -122,13 +123,14 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
-    parameters.put("PROVIDER_ID", ecloudBasePluginParameters.getEcloudProvider());
-    parameters.put("OUTPUT_DATA_SETS", String
+    parameters.put(PluginParameterKeys.PROVIDER_ID, ecloudBasePluginParameters.getEcloudProvider());
+    parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
         .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBasePluginParameters.getEcloudBaseUrl(),
             ecloudBasePluginParameters.getEcloudProvider(),
             ecloudBasePluginParameters.getEcloudDatasetId()));
-    parameters.put("NEW_REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
+    parameters
+            .put(PluginParameterKeys.NEW_REPRESENTATION_NAME, MetisPlugin.getRepresentationName());
     dpsTask.setParameters(parameters);
 
     dpsTask.setOutputRevision(
@@ -142,16 +144,20 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
-    parameters.put("REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
-    parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
-    parameters.put("REVISION_PROVIDER", ecloudBasePluginParameters.getEcloudProvider());
+    parameters.put(PluginParameterKeys.REPRESENTATION_NAME, MetisPlugin.getRepresentationName());
+    parameters.put(PluginParameterKeys.REVISION_NAME,
+            getPluginMetadata().getRevisionNamePreviousPlugin());
+    parameters.put(PluginParameterKeys.REVISION_PROVIDER,
+            ecloudBasePluginParameters.getEcloudProvider());
     DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
     dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-    parameters.put("REVISION_TIMESTAMP",
-        dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
-    parameters.put("PREVIOUS_TASK_ID", ecloudBasePluginParameters.getPreviousExternalTaskId());
-    parameters.put("NEW_REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
-    parameters.put("OUTPUT_DATA_SETS", String
+    parameters.put(PluginParameterKeys.REVISION_TIMESTAMP,
+            dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
+    parameters.put(PluginParameterKeys.PREVIOUS_TASK_ID,
+            ecloudBasePluginParameters.getPreviousExternalTaskId());
+    parameters
+            .put(PluginParameterKeys.NEW_REPRESENTATION_NAME, MetisPlugin.getRepresentationName());
+    parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
         .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBasePluginParameters.getEcloudBaseUrl(),
             ecloudBasePluginParameters.getEcloudProvider(),
@@ -163,17 +169,21 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       String datasetId, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
       List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
     Map<String, String> extraParameters = new HashMap<>();
-    extraParameters.put("METIS_DATASET_ID", datasetId);
-    extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
-    extraParameters.put("USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
+    extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
+    extraParameters.put(PluginParameterKeys.METIS_TARGET_INDEXING_DATABASE, targetDatabase);
+    extraParameters.put(PluginParameterKeys.METIS_USE_ALT_INDEXING_ENV,
+            String.valueOf(useAlternativeIndexingEnvironment));
     DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
-    extraParameters.put("RECORD_DATE", dateFormat.format(getStartedDate()));
-    extraParameters.put("PRESERVE_TIMESTAMPS", String.valueOf(preserveTimestamps));
-    extraParameters.put("DATASET_IDS_TO_REDIRECT_FROM", String.join(",", datasetIdsToRedirectFrom));
-    extraParameters.put("PERFORM_REDIRECTS", String.valueOf(performRedirects));
+    extraParameters.put(PluginParameterKeys.METIS_RECORD_DATE, dateFormat.format(getStartedDate()));
+    extraParameters
+            .put(PluginParameterKeys.METIS_PRESERVE_TIMESTAMPS, String.valueOf(preserveTimestamps));
+    extraParameters.put(PluginParameterKeys.DATASET_IDS_TO_REDIRECT_FROM,
+            String.join(",", datasetIdsToRedirectFrom));
+    extraParameters.put(PluginParameterKeys.PERFORM_REDIRECTS, String.valueOf(performRedirects));
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 
+  @Deprecated
   Map<String, String> createParametersForHostConnectionLimits(
       Map<String, Integer> connectionLimitToDomains) {
     Map<String, String> parameters = new HashMap<>();
@@ -189,9 +199,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath,
       String schematronRootPath) {
     Map<String, String> extraParameters = new HashMap<>();
-    extraParameters.put("SCHEMA_NAME", urlOfSchemasZip);
-    extraParameters.put("ROOT_LOCATION", schemaRootPath);
-    extraParameters.put("SCHEMATRON_LOCATION", schematronRootPath);
+    extraParameters.put(PluginParameterKeys.SCHEMA_NAME, urlOfSchemasZip);
+    extraParameters.put(PluginParameterKeys.ROOT_LOCATION, schemaRootPath);
+    extraParameters.put(PluginParameterKeys.SCHEMATRON_LOCATION, schematronRootPath);
     return extraParameters;
   }
 
