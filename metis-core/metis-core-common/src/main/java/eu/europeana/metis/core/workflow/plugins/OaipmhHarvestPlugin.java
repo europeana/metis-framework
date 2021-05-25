@@ -52,7 +52,8 @@ public class OaipmhHarvestPlugin extends AbstractExecutablePlugin<OaipmhHarvestP
     String targetUrl = getPluginMetadata().getUrl();
     Map<String, String> parameters = new HashMap<>();
     parameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
-    DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
+    DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters,
+            targetUrl, getPluginMetadata().isIncrementalHarvest());
 
     String setSpec = getPluginMetadata().getSetSpec();
     String metadataFormat = getPluginMetadata().getMetadataFormat();

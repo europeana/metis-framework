@@ -111,7 +111,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForHarvestPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
-      Map<String, String> extraParameters, String targetUrl) {
+      Map<String, String> extraParameters, String targetUrl, boolean incrementalProcessing) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -122,6 +122,12 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
+
+    if (incrementalProcessing) {
+      parameters
+              .put(PluginParameterKeys.INCREMENTAL_HARVEST, String.valueOf(incrementalProcessing));
+    }
+
     parameters.put(PluginParameterKeys.PROVIDER_ID, ecloudBasePluginParameters.getEcloudProvider());
     parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
         .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,

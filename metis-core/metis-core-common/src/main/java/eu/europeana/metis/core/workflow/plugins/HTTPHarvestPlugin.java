@@ -46,6 +46,6 @@ public class HTTPHarvestPlugin extends AbstractExecutablePlugin<HTTPHarvestPlugi
     String targetUrl = getPluginMetadata().getUrl();
     Map<String, String> parameters = new HashMap<>();
     parameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
-    return createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
+    return createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl, false);
   }
 }
