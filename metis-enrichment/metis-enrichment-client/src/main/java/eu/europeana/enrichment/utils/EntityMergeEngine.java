@@ -5,9 +5,9 @@ import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkI
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
@@ -343,12 +343,13 @@ public class EntityMergeEngine {
     return timeSpanType;
   }
 
-  private static AgentType convertOrganizationToAgent(Organization organization) {
-    final AgentType agentType = new AgentType();
-    agentType.setAbout(organization.getAbout());
-    agentType.setPrefLabelList(
+  private static eu.europeana.metis.schema.jibx.Organization convertOrganization(
+      Organization organization) {
+    final eu.europeana.metis.schema.jibx.Organization organizationType = new eu.europeana.metis.schema.jibx.Organization();
+    organizationType.setAbout(organization.getAbout());
+    organizationType.setPrefLabelList(
         ItemExtractorUtils.extractLabels(organization.getPrefLabelList(), PrefLabel::new));
-    return agentType;
+    return organizationType;
   }
 
   private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
@@ -391,7 +392,8 @@ public class EntityMergeEngine {
           rdf::getTimeSpanList, rdf::setTimeSpanList);
     } else if (enrichmentBase instanceof Organization) {
       entity = convertAndAddEntity((Organization) enrichmentBase,
-          EntityMergeEngine::convertOrganizationToAgent, rdf::getAgentList, rdf::setAgentList);
+          EntityMergeEngine::convertOrganization, rdf::getOrganizationList,
+          rdf::setOrganizationList);
     } else {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
