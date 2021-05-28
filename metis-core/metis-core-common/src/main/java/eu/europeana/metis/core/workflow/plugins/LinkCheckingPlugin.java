@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.cloud.service.dps.PluginParameterKeys;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,11 +41,11 @@ public class LinkCheckingPlugin extends AbstractExecutablePlugin<LinkCheckingPlu
 
   @Override
   DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
-    final Map<String, String> extraParameters = createParametersForHostConnectionLimits(
-        getPluginMetadata().getConnectionLimitToDomains());
+    final Map<String, String> extraParameters = new HashMap<>();
     if (Boolean.TRUE.equals(getPluginMetadata().getPerformSampling())
         && getPluginMetadata().getSampleSize() != null) {
-      extraParameters.put("SAMPLE_SIZE", getPluginMetadata().getSampleSize().toString());
+      extraParameters
+              .put(PluginParameterKeys.SAMPLE_SIZE, getPluginMetadata().getSampleSize().toString());
     }
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }

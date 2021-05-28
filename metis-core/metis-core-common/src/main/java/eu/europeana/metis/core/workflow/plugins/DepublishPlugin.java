@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.cloud.service.dps.PluginParameterKeys;
 import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +53,9 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
         .isUseAlternativeIndexingEnvironment();
 
     Map<String, String> extraParameters = new HashMap<>();
-    extraParameters.put("METIS_DATASET_ID", datasetId);
-    extraParameters.put("USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
+    extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
+    extraParameters.put(PluginParameterKeys.METIS_USE_ALT_INDEXING_ENV,
+            String.valueOf(useAlternativeIndexingEnvironment));
     //Do set the records ids parameter only if record ids depublication enabled and there are record ids
     if (!getPluginMetadata().isDatasetDepublish()) {
       if (CollectionUtils.isEmpty(getPluginMetadata().getRecordIdsToDepublish())) {
@@ -62,7 +64,7 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
       } else {
         final String recordIdList = String.join(",", DepublishRecordIdUtils
                 .composeFullRecordIds(datasetId, getPluginMetadata().getRecordIdsToDepublish()));
-        extraParameters.put("RECORD_IDS_TO_DEPUBLISH", recordIdList);
+        extraParameters.put(PluginParameterKeys.RECORD_IDS_TO_DEPUBLISH, recordIdList);
       }
     }
     DpsTask dpsTask = new DpsTask();
