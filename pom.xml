@@ -9,12 +9,12 @@
 
   <modules>
     <module>metis-schema</module>
+    <module>metis-common</module>
     <module>metis-core</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
     <module>metis-validation</module>
     <module>metis-enrichment</module>
-    <module>metis-common</module>
     <module>metis-data-checker</module>
     <module>metis-normalization</module>
     <module>metis-media-service</module>
@@ -91,7 +91,7 @@
     <version.corelib>2.12.2-SNAPSHOT</version.corelib>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.morphia.core>2.1.4</version.morphia.core>
+    <version.morphia.core>2.2.1</version.morphia.core>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
     <version.spring.security>5.3.2.RELEASE</version.spring.security>
@@ -295,8 +295,16 @@
             <artifactId>core</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>dev.morphia.morphia</groupId>
+            <artifactId>morphia-core</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-driver-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-core</artifactId>
           </exclusion>
           <exclusion>
             <artifactId>junit</artifactId>

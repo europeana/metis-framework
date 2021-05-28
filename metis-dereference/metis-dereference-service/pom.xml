@@ -15,12 +15,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
