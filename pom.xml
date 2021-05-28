@@ -69,7 +69,7 @@
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>3.0.0</version.embedded.mongo>
     <version.javax.persistence>1.0.2</version.javax.persistence>
-    <version.commons.io>2.8.0</version.commons.io>
+    <version.commons.io>2.9.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
     <version.apache.httpclient>5.0</version.apache.httpclient>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
