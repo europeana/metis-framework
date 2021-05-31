@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.AgentType;
@@ -180,6 +181,17 @@ public class EntityMergeEngineTest {
     return agent;
   }
 
+  private static Organization createOrganization() {
+    Organization organization = new Organization();
+
+    organization.setAbout("aboutO1");
+    Label label1 = new Label("LangA1", "labelA1");
+    Label label2 = new Label("labelA2");
+    organization.setPrefLabelList(Arrays.asList(label1, label2));
+
+    return organization;
+  }
+
   private static Agent createAgentWithNullValues() {
     Agent agent = new Agent();
     agent.setAbout("aboutA2");
@@ -350,6 +362,16 @@ public class EntityMergeEngineTest {
     assertTrue(copy.getHasPartList().isEmpty());
     assertTrue(copy.getIsPartOfList().isEmpty());
     assertTrue(copy.getNameList().isEmpty());
+  }
+
+  private void verifyOrganization(Organization original, eu.europeana.metis.schema.jibx.Organization copy) {
+    assertNotNull(copy);
+    verifyString(original.getAbout(), copy.getAbout(), true);
+    verifyList(original.getPrefLabelList(), copy.getPrefLabelList(), this::verifyLabel);
+    verifyList(original.getAcronyms(), copy.getAcronymList(), this::verifyLabel);
+    assertNull(copy.getHomepage());
+    assertNull(copy.getLogo());
+
   }
 
   private void verifyConcept(Concept original, eu.europeana.metis.schema.jibx.Concept copy) {
@@ -530,7 +552,7 @@ public class EntityMergeEngineTest {
   }
 
   private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount,
-      int timeSpanCount) {
+      int timeSpanCount, int organizationCount) {
 
     // Four main lists.
     if (agentCount == 0) {
@@ -557,6 +579,12 @@ public class EntityMergeEngineTest {
       assertNotNull(rdf.getTimeSpanList());
       assertEquals(timeSpanCount, rdf.getTimeSpanList().size());
     }
+    if (organizationCount == 0) {
+      assertTrue(CollectionUtils.isEmpty(rdf.getOrganizationList()));
+    } else {
+      assertNotNull(rdf.getOrganizationList());
+      assertEquals(organizationCount, rdf.getOrganizationList().size());
+    }
 
     // Other lists should be empty.
     assertNotNull(rdf.getAggregationList());
@@ -572,7 +600,6 @@ public class EntityMergeEngineTest {
     assertEquals(0, rdf.getDatasetList().size());
     assertEquals(0, rdf.getEuropeanaAggregationList().size());
     assertEquals(0, rdf.getLicenseList().size());
-    assertEquals(0, rdf.getOrganizationList().size());
     assertEquals(0, rdf.getProvidedCHOList().size());
     assertEquals(0, rdf.getProxyList().size());
     assertEquals(0, rdf.getServiceList().size());
@@ -594,10 +621,10 @@ public class EntityMergeEngineTest {
 
     // Perform merge
     RDF rdf = new RDF();
-    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet());
+    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null);
 
     // Verify RDF
-    verifyRdf(rdf, 0, 0, 3, 0);
+    verifyRdf(rdf, 0, 0, 3, 0, 0);
 
     // Verify content
     verifyPlace((Place) inputList.get(0), rdf.getPlaceList().get(0));
@@ -618,6 +645,7 @@ public class EntityMergeEngineTest {
     inputList.add(createTimeSpan());
     inputList.add(createAgentWithNullValues());
     inputList.add(createConceptWithNullValues());
+    inputList.add(createOrganization());
     final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
         .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
         .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
@@ -629,10 +657,11 @@ public class EntityMergeEngineTest {
     rdf.setAgentList(null);
     rdf.setConceptList(null);
     rdf.setTimeSpanList(null);
-    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet());
+    rdf.setOrganizationList(null);
+    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null);
 
     // Verify RDF
-    verifyRdf(rdf, 2, 2, 0, 1);
+    verifyRdf(rdf, 2, 2, 0, 1, 1);
 
     // Verify content
     verifyAgent((Agent) inputList.get(0), rdf.getAgentList().get(0));
@@ -640,6 +669,7 @@ public class EntityMergeEngineTest {
     verifyTimespan((Timespan) inputList.get(2), rdf.getTimeSpanList().get(0));
     verifyAgent((Agent) inputList.get(3), rdf.getAgentList().get(1));
     verifyConcept((Concept) inputList.get(4), rdf.getConceptList().get(1));
+    verifyOrganization((Organization) inputList.get(5), rdf.getOrganizationList().get(0));
 
     // Convert RDF to string as extra test that everything is OK.
     RdfConversionUtils.convertRdfToString(rdf);
@@ -656,6 +686,6 @@ public class EntityMergeEngineTest {
         .collect(Collectors.toList());
     RDF rdf = new RDF();
     assertThrows(IllegalArgumentException.class, () -> new EntityMergeEngine()
-        .mergeEntities(rdf, enrichmentResultBaseWrapperList, Collections.emptySet()));
+        .mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
   }
 }

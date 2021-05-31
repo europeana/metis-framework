@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -82,7 +82,7 @@ class PersistentEntityResolverTest {
   @Test
   void resolveByText_WithTwoLetterLanguageAndFieldType() {
     final SearchTermContext searchTerm = new SearchTermContext("Clarence Williams", "pl",
-        Set.of(FieldType.DC_CREATOR, FieldType.DCTERMS_ISSUED));
+        Set.of(ProxyFieldType.DC_CREATOR, ProxyFieldType.DCTERMS_ISSUED));
     assertResolveByText(searchTerm, enrichmentObjectUtils.agentTerm1);
   }
 

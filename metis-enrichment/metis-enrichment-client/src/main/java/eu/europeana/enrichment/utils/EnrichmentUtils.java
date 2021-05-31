@@ -53,11 +53,11 @@ public final class EnrichmentUtils {
   public static void setAdditionalData(RDF rdf) {
 
     // Get the provider and europeana proxy
-    final List<ProxyType> providerProxies = RdfProxyUtils.getProviderProxies(rdf);
+    final List<ProxyType> providerProxies = RdfEntityUtils.getProviderProxies(rdf);
     if (providerProxies.isEmpty()) {
       return;
     }
-    final ProxyType europeanaProxy = RdfProxyUtils.getEuropeanaProxy(rdf);
+    final ProxyType europeanaProxy = RdfEntityUtils.getEuropeanaProxy(rdf);
 
     // Calculate completeness first
     EuropeanaAggregationType europeanaAggregation = rdf.getEuropeanaAggregationList().stream()

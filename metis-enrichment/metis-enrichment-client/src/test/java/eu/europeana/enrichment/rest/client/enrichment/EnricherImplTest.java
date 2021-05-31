@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
@@ -14,8 +13,9 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
@@ -52,22 +52,22 @@ public class EnricherImplTest {
     place2.setAbout("place2");
 
     SearchTerm searchTerm1 = new SearchTermContext("value1", "en",
-        Set.of(FieldType.DC_CREATOR));
+        Set.of(ProxyFieldType.DC_CREATOR));
     SearchTerm searchTerm2 = new SearchTermContext("value2", null,
-        Set.of(FieldType.DC_SUBJECT));
+        Set.of(ProxyFieldType.DC_SUBJECT));
     SearchTerm searchTerm3 = new SearchTermContext("value3", "pt",
-        Set.of(FieldType.DCTERMS_SPATIAL));
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
 
     ENRICHMENT_RESULT = new HashMap<>();
     ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
     ENRICHMENT_RESULT.put(searchTerm2, Collections.emptyList());
     ENRICHMENT_RESULT.put(searchTerm3, List.of(place2));
     ENRICHMENT_EXTRACT_RESULT
-            .add(new SearchTermContext("value1", "en", Set.of(FieldType.DC_CREATOR)));
+            .add(new SearchTermContext("value1", "en", Set.of(ProxyFieldType.DC_CREATOR)));
     ENRICHMENT_EXTRACT_RESULT
-            .add(new SearchTermContext("value2", null, Set.of(FieldType.DC_SUBJECT)));
+            .add(new SearchTermContext("value2", null, Set.of(ProxyFieldType.DC_SUBJECT)));
     ENRICHMENT_EXTRACT_RESULT
-            .add(new SearchTermContext("value3", "pt", Set.of(FieldType.DCTERMS_SPATIAL)));
+            .add(new SearchTermContext("value3", "pt", Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
   }
 
   @Test
@@ -145,7 +145,7 @@ public class EnricherImplTest {
     final List<EnrichmentBase> expectedMerges = new ArrayList<>();
     ENRICHMENT_RESULT.forEach((x, y) -> expectedMerges.addAll(y));
     verify(entityMergeEngine, times(ENRICHMENT_RESULT.size()))
-        .mergeEntities(any(), enrichmentResultCaptor.capture(), anySet());
+        .mergeSearchEntities(any(), enrichmentResultCaptor.capture(), any(SearchTermContext.class));
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
@@ -172,7 +172,7 @@ public class EnricherImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()), any());
-    verify(entityMergeEngine, times(0)).mergeEntities(any(), any(), any());
+    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), eq(Collections.emptyList()), any(ReferenceTermContext.class));
+    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), any(), any(ReferenceTermContext.class));
   }
 }

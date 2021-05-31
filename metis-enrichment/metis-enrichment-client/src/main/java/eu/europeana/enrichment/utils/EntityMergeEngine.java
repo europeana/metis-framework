@@ -1,13 +1,21 @@
 package eu.europeana.enrichment.utils;
 
+import static eu.europeana.enrichment.utils.RdfEntityUtils.appendLinkToEuropeanaProxy;
+import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkInAggregation;
+
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Alt;
@@ -58,7 +66,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import org.springframework.util.CollectionUtils;
+import java.util.stream.Collectors;
 
 /**
  * Class that contains logic for converting class entity types and/or merging entities to {@link
@@ -312,7 +320,8 @@ public class EntityMergeEngine {
 
     // isPartOf
     if (timespan.getIsPartOf() != null) {
-      timeSpanType.setIsPartOfList(ItemExtractorUtils.extractParts(List.of(timespan.getIsPartOf()), IsPartOf::new));
+      timeSpanType.setIsPartOfList(
+          ItemExtractorUtils.extractParts(List.of(timespan.getIsPartOf()), IsPartOf::new));
     }
 
     // noteList
@@ -334,15 +343,24 @@ public class EntityMergeEngine {
     return timeSpanType;
   }
 
+  private static eu.europeana.metis.schema.jibx.Organization convertOrganization(
+      Organization organization) {
+    final eu.europeana.metis.schema.jibx.Organization organizationType = new eu.europeana.metis.schema.jibx.Organization();
+    organizationType.setAbout(organization.getAbout());
+    organizationType.setPrefLabelList(
+        ItemExtractorUtils.extractLabels(organization.getPrefLabelList(), PrefLabel::new));
+    return organizationType;
+  }
+
   private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
       I inputEntity, Function<I, T> converter, Supplier<List<T>> listGetter,
       Consumer<List<T>> listSetter) {
 
     // Check if Entity already exists in the list. If so, return it. We don't overwrite.
     final T existingEntity = Optional.ofNullable(listGetter.get()).stream()
-            .flatMap(Collection::stream)
-            .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout()))
-            .findAny().orElse(null);
+        .flatMap(Collection::stream)
+        .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
+        .orElse(null);
     if (existingEntity != null) {
       return existingEntity;
     }
@@ -356,8 +374,7 @@ public class EntityMergeEngine {
     return convertedEntity;
   }
 
-  private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-      Set<FieldType> proxyLinkTypes) {
+  private static AboutType convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase) {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;
@@ -373,14 +390,15 @@ public class EntityMergeEngine {
     } else if (enrichmentBase instanceof Timespan) {
       entity = convertAndAddEntity((Timespan) enrichmentBase, EntityMergeEngine::convertTimeSpan,
           rdf::getTimeSpanList, rdf::setTimeSpanList);
+    } else if (enrichmentBase instanceof Organization) {
+      entity = convertAndAddEntity((Organization) enrichmentBase,
+          EntityMergeEngine::convertOrganization, rdf::getOrganizationList,
+          rdf::setOrganizationList);
     } else {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
 
-    // Append it to the europeana proxy if needed, regardless of whether entity is new or existing.
-    if (!CollectionUtils.isEmpty(proxyLinkTypes)) {
-      RdfProxyUtils.appendLinkToEuropeanaProxy(rdf, entity.getAbout(), proxyLinkTypes);
-    }
+    return entity;
   }
 
   /**
@@ -388,11 +406,69 @@ public class EntityMergeEngine {
    *
    * @param rdf The RDF to enrich
    * @param enrichmentBaseList The information to append
+   * @param searchTermContext the search term context
    */
-  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      Set<FieldType> proxyLinkTypes) {
+  public void mergeSearchEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      SearchTermContext searchTermContext) {
     for (EnrichmentBase base : enrichmentBaseList) {
-      convertAndAddEntity(rdf, base, proxyLinkTypes);
+      final AboutType aboutType = convertAndAddEntity(rdf, base);
+      if (isProxyFieldType(searchTermContext.getFieldTypes())) {
+        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
+            searchTermContext.getFieldTypes().stream().map(ProxyFieldType.class::cast)
+                .collect(Collectors.toSet()));
+      } else {
+        //Replace matching values in Aggregation
+        replaceValueWithLinkInAggregation(rdf, aboutType.getAbout(), searchTermContext);
+      }
     }
+  }
+
+  /**
+   * Merge entities in a record.
+   * <p>This method is when enrichment is performed where we <b>do</b> want to add the generated
+   * links to the europeana proxy</p>
+   *
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @param referenceTermContext the reference term context
+   */
+  public void mergeReferenceEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      ReferenceTermContext referenceTermContext) {
+    for (EnrichmentBase base : enrichmentBaseList) {
+      final AboutType aboutType = convertAndAddEntity(rdf, base);
+      if (referenceTermContext != null) {
+        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
+            referenceTermContext.getProxyFieldTypes().stream().map(ProxyFieldType.class::cast)
+                .collect(Collectors.toSet()));
+      }
+    }
+  }
+
+  /**
+   * Merge entities in a record.
+   * <p>This method is when dereference is performed where we do not want to add the generated
+   * links to the europeana proxy</p>
+   *
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   */
+  public void mergeReferenceEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
+    mergeReferenceEntities(rdf, enrichmentBaseList, null);
+  }
+
+  private static <T extends FieldType<? extends AboutType>> boolean isProxyFieldType(Set<T> set) {
+    //This shouldn't happen normally
+    if (set == null || set.isEmpty()) {
+      throw new IllegalArgumentException("Set cannot be empty");
+    }
+    final boolean allProxyFieldTypes = set.stream().allMatch(ProxyFieldType.class::isInstance);
+    final boolean allAggregationFieldTypes = set.stream()
+        .allMatch(AggregationFieldType.class::isInstance);
+
+    if (!allProxyFieldTypes && !allAggregationFieldTypes) {
+      throw new IllegalArgumentException("Invalid set");
+    }
+
+    return allProxyFieldTypes;
   }
 }
