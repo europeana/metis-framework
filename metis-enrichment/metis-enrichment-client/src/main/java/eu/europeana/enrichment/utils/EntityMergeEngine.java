@@ -438,7 +438,7 @@ public class EntityMergeEngine {
       final AboutType aboutType = convertAndAddEntity(rdf, base);
       if (referenceTermContext != null) {
         appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
-            referenceTermContext.getFieldTypes().stream().map(ProxyFieldType.class::cast)
+            referenceTermContext.getProxyFieldTypes().stream().map(ProxyFieldType.class::cast)
                 .collect(Collectors.toSet()));
       }
     }

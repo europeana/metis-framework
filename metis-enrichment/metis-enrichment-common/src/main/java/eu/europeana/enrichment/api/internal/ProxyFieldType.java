@@ -78,14 +78,6 @@ public enum ProxyFieldType implements FieldType {
     this.entityType = entityType;
   }
 
-  @Override
-  public final Set<FieldValue> extractFieldValuesForEnrichment(AboutType proxy) {
-    return extractFields(proxy)
-        .filter(content -> StringUtils.isNotEmpty(content.getString())).map(this::convert)
-        .collect(Collectors.toSet());
-  }
-
-  @Override
   public final Set<String> extractFieldLinksForEnrichment(AboutType proxy) {
     return extractFields(proxy).map(ResourceOrLiteralType::getResource).filter(Objects::nonNull)
         .map(Resource::getResource).filter(StringUtils::isNotBlank).collect(Collectors.toSet());

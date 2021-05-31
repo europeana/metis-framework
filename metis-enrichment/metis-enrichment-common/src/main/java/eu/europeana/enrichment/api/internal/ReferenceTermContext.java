@@ -13,20 +13,20 @@ import java.util.stream.Collectors;
  */
 public class ReferenceTermContext extends AbstractReferenceTerm {
 
-  private final Set<FieldType> fieldTypes;
+  private final Set<ProxyFieldType> proxyFieldTypes;
 
-  public ReferenceTermContext(URL reference, Set<FieldType> proxyFieldTypes) {
+  public ReferenceTermContext(URL reference, Set<ProxyFieldType> proxyFieldTypes) {
     super(reference);
-    this.fieldTypes = Set.copyOf(proxyFieldTypes);
+    this.proxyFieldTypes = Set.copyOf(proxyFieldTypes);
   }
 
   @Override
   public Set<EntityType> getCandidateTypes() {
-    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
+    return proxyFieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
   }
 
-  public Set<FieldType> getFieldTypes() {
-    return Collections.unmodifiableSet(fieldTypes);
+  public Set<FieldType> getProxyFieldTypes() {
+    return Collections.unmodifiableSet(proxyFieldTypes);
   }
 
   @Override
@@ -38,12 +38,12 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
       return false;
     }
     final ReferenceTermContext that = (ReferenceTermContext) o;
-    return Objects.equals(getFieldTypes(), that.getFieldTypes()) && Objects
+    return Objects.equals(getProxyFieldTypes(), that.getProxyFieldTypes()) && Objects
             .equals(getReference(), that.getReference());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getFieldTypes(), getReference());
+    return Objects.hash(getProxyFieldTypes(), getReference());
   }
 }

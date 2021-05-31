@@ -12,6 +12,7 @@ import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
@@ -44,18 +45,15 @@ public class MetisRecordParser implements RecordParser {
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
     //Proxy search terms
-    final List<AboutType> providerProxies = RdfEntityUtils.getProviderProxies(rdf).stream()
-        .map(AboutType.class::cast).collect(Collectors.toList());
     final Set<SearchTermContext> resultSearchTermsSet = getFieldValueSet(ProxyFieldType.values(),
-        providerProxies);
-    final List<AboutType> aggregations = rdf.getAggregationList().stream()
-        .map(AboutType.class::cast).collect(Collectors.toList());
-    resultSearchTermsSet.addAll(getFieldValueSet(AggregationFieldType.values(), aggregations));
+        RdfEntityUtils.getProviderProxies(rdf));
+    resultSearchTermsSet
+        .addAll(getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList()));
     return resultSearchTermsSet;
   }
 
-  private Set<SearchTermContext> getFieldValueSet(FieldType[] fieldTypes,
-      List<AboutType> aboutTypes) {
+  private <T extends AboutType> Set<SearchTermContext> getFieldValueSet(FieldType[] fieldTypes,
+      List<T> aboutTypes) {
     final Map<FieldValue, Set<FieldType>> fieldValueFieldTypesMap = new HashMap<>();
     for (FieldType fieldType : fieldTypes) {
       aboutTypes.stream().map(fieldType::extractFieldValuesForEnrichment)
@@ -73,26 +71,27 @@ public class MetisRecordParser implements RecordParser {
 
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
-    final List<AboutType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
+    final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
         .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
-    final Map<String, Set<FieldType>> directReferences = new HashMap<>();
-    for (FieldType field : ProxyFieldType.values()) {
+    final Map<String, Set<ProxyFieldType>> directReferences = new HashMap<>();
+    for (ProxyFieldType field : ProxyFieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
           .flatMap(Set::stream).collect(Collectors.toSet());
       for (String directLink : directLinks) {
-        directReferences.computeIfAbsent(directLink, key -> new HashSet<>())
-            .add(field);
+        directReferences.computeIfAbsent(directLink, key -> new HashSet<>()).add(field);
       }
     }
 
     // Get all sameAs links from the directly referenced contextual entities.
-    final Map<String, Set<FieldType>> indirectReferences = new HashMap<>();
+    final Map<String, Set<ProxyFieldType>> indirectReferences = new HashMap<>();
     final Consumer<AboutType> contextualTypeProcessor = contextualClass -> {
-      final Set<FieldType> linkTypes = directReferences.get(contextualClass.getAbout());
-      if (linkTypes != null) {
+      final Set<ProxyFieldType> linkTypes = Optional
+          .ofNullable(directReferences.get(contextualClass.getAbout()))
+          .orElseGet(Collections::emptySet).stream().map(ProxyFieldType.class::cast)
+          .collect(Collectors.toSet());
+      if (!linkTypes.isEmpty()) {
         for (String sameAsLink : getSameAsLinks(contextualClass)) {
-          indirectReferences.computeIfAbsent(sameAsLink, key -> new HashSet<>())
-              .addAll(linkTypes);
+          indirectReferences.computeIfAbsent(sameAsLink, key -> new HashSet<>()).addAll(linkTypes);
         }
       }
     };
@@ -106,7 +105,7 @@ public class MetisRecordParser implements RecordParser {
         .forEach(contextualTypeProcessor);
 
     // Merge the two maps.
-    final Map<String, Set<FieldType>> resultMap = mergeMapInto(directReferences,
+    final Map<String, Set<ProxyFieldType>> resultMap = mergeMapInto(directReferences,
         indirectReferences);
 
     // Clean up the result: no null values. But objects we already have need to
@@ -115,7 +114,7 @@ public class MetisRecordParser implements RecordParser {
 
     // Convert and done
     final Set<ReferenceTermContext> result = new HashSet<>();
-    for (Map.Entry<String, Set<FieldType>> entry : resultMap.entrySet()) {
+    for (Map.Entry<String, Set<ProxyFieldType>> entry : resultMap.entrySet()) {
       ReferenceTermContext value;
       try {
         value = new ReferenceTermContext(new URL(entry.getKey()), entry.getValue());
