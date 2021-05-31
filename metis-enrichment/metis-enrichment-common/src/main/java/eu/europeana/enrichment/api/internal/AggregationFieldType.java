@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import java.util.Collections;
@@ -10,7 +9,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public enum AggregationFieldType implements FieldType {
+public enum AggregationFieldType implements FieldType<Aggregation> {
 
   PROVIDER(aggregation -> Optional.ofNullable(aggregation.getProvider()).map(List::of)
       .orElse(Collections.emptyList()), EntityType.ORGANIZATION),
@@ -36,9 +35,8 @@ public enum AggregationFieldType implements FieldType {
     return entityType;
   }
 
-
   @Override
-  public Stream<? extends ResourceOrLiteralType> extractFields(AboutType aggregation) {
-    return valueProvider.apply((Aggregation) aggregation).stream();
+  public Stream<? extends ResourceOrLiteralType> extractFields(Aggregation aggregation) {
+    return valueProvider.apply(aggregation).stream();
   }
 }

@@ -22,10 +22,10 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
 
   @Override
   public Set<EntityType> getCandidateTypes() {
-    return proxyFieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
+    return proxyFieldTypes.stream().map(ProxyFieldType::getEntityType).collect(Collectors.toSet());
   }
 
-  public Set<FieldType> getProxyFieldTypes() {
+  public Set<ProxyFieldType> getProxyFieldTypes() {
     return Collections.unmodifiableSet(proxyFieldTypes);
   }
 
@@ -39,7 +39,7 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
     }
     final ReferenceTermContext that = (ReferenceTermContext) o;
     return Objects.equals(getProxyFieldTypes(), that.getProxyFieldTypes()) && Objects
-            .equals(getReference(), that.getReference());
+        .equals(getReference(), that.getReference());
   }
 
   @Override

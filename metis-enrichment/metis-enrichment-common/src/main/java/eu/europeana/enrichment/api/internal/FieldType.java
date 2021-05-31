@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-public interface FieldType {
+public interface FieldType<T extends AboutType> {
 
   /**
    * @return the entity type associated to this field - it is not null.
@@ -22,7 +22,7 @@ public interface FieldType {
    * @param aboutType the about type to use
    * @return the set of field values
    */
-  default <T extends AboutType> Set<FieldValue> extractFieldValuesForEnrichment(T aboutType) {
+  default Set<FieldValue> extractFieldValuesForEnrichment(T aboutType) {
     return extractFields(aboutType).filter(content -> StringUtils.isNotEmpty(content.getString()))
         .map(FieldType::convert).collect(Collectors.toSet());
   }
@@ -33,7 +33,7 @@ public interface FieldType {
    * @param aboutType the about type to use
    * @return the stream of values
    */
-  <T extends AboutType> Stream<? extends ResourceOrLiteralType> extractFields(T aboutType);
+  Stream<? extends ResourceOrLiteralType> extractFields(T aboutType);
 
   /**
    * Convert a {@link ResourceOrLiteralType} to a {@link FieldValue}

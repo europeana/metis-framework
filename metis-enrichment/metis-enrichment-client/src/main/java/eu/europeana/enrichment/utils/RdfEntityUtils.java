@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -65,8 +66,8 @@ public final class RdfEntityUtils {
   public static void replaceValueWithLinkInAggregation(RDF rdf, String link,
       SearchTermContext searchTermAggregation) {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
-    for (FieldType aggregationFieldType : searchTermAggregation.getFieldTypes()) {
-      aggregationList.stream().flatMap(aggregationFieldType::extractFields).filter(
+    for (FieldType<? extends AboutType> aggregationFieldType : searchTermAggregation.getFieldTypes()) {
+      aggregationList.stream().flatMap(((AggregationFieldType)aggregationFieldType)::extractFields).filter(
           resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
               searchTermAggregation)).forEach(resourceOrLiteralType -> {
         final Resource resource = new Resource();

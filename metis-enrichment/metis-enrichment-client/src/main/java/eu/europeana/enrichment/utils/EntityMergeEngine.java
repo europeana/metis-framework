@@ -456,7 +456,7 @@ public class EntityMergeEngine {
     mergeReferenceEntities(rdf, enrichmentBaseList, null);
   }
 
-  private static <T extends FieldType> boolean isProxyFieldType(Set<T> set) {
+  private static <T extends FieldType<? extends AboutType>> boolean isProxyFieldType(Set<T> set) {
     //This shouldn't happen normally
     if (set == null || set.isEmpty()) {
       throw new IllegalArgumentException("Set cannot be empty");

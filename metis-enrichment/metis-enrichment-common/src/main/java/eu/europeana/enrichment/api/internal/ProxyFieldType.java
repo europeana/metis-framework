@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.Created;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-public enum ProxyFieldType implements FieldType {
+public enum ProxyFieldType implements FieldType<ProxyType> {
 
   DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
       EntityType.AGENT),
@@ -78,16 +77,16 @@ public enum ProxyFieldType implements FieldType {
     this.entityType = entityType;
   }
 
-  public final Set<String> extractFieldLinksForEnrichment(AboutType proxy) {
+  public final Set<String> extractFieldLinksForEnrichment(ProxyType proxy) {
     return extractFields(proxy).map(ResourceOrLiteralType::getResource).filter(Objects::nonNull)
         .map(Resource::getResource).filter(StringUtils::isNotBlank).collect(Collectors.toSet());
   }
 
   @Override
-  public Stream<? extends ResourceOrLiteralType> extractFields(AboutType proxy) {
-    return Optional.ofNullable(((ProxyType) proxy).getChoiceList()).stream()
-        .flatMap(Collection::stream).filter(choiceContentHandler.choiceChecker)
-        .map(choiceContentHandler.contentGetter).filter(Objects::nonNull);
+  public Stream<? extends ResourceOrLiteralType> extractFields(ProxyType proxy) {
+    return Optional.ofNullable(proxy.getChoiceList()).stream().flatMap(Collection::stream)
+        .filter(choiceContentHandler.choiceChecker).map(choiceContentHandler.contentGetter)
+        .filter(Objects::nonNull);
   }
 
   /**
