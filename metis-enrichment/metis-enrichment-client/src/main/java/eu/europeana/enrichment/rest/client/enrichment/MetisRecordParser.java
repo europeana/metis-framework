@@ -52,10 +52,10 @@ public class MetisRecordParser implements RecordParser {
     return resultSearchTermsSet;
   }
 
-  private <T extends AboutType> Set<SearchTermContext> getFieldValueSet(FieldType[] fieldTypes,
+  private <T extends AboutType> Set<SearchTermContext> getFieldValueSet(FieldType<T>[] fieldTypes,
       List<T> aboutTypes) {
-    final Map<FieldValue, Set<FieldType>> fieldValueFieldTypesMap = new HashMap<>();
-    for (FieldType fieldType : fieldTypes) {
+    final Map<FieldValue, Set<FieldType<T>>> fieldValueFieldTypesMap = new HashMap<>();
+    for (FieldType<T> fieldType : fieldTypes) {
       aboutTypes.stream().map(fieldType::extractFieldValuesForEnrichment)
           .flatMap(Collection::stream).forEach(
           value -> fieldValueFieldTypesMap.computeIfAbsent(value, key -> new HashSet<>())
@@ -87,8 +87,7 @@ public class MetisRecordParser implements RecordParser {
     final Consumer<AboutType> contextualTypeProcessor = contextualClass -> {
       final Set<ProxyFieldType> linkTypes = Optional
           .ofNullable(directReferences.get(contextualClass.getAbout()))
-          .orElseGet(Collections::emptySet).stream().map(ProxyFieldType.class::cast)
-          .collect(Collectors.toSet());
+          .orElseGet(Collections::emptySet);
       if (!linkTypes.isEmpty()) {
         for (String sameAsLink : getSameAsLinks(contextualClass)) {
           indirectReferences.computeIfAbsent(sameAsLink, key -> new HashSet<>()).addAll(linkTypes);
