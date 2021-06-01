@@ -12,14 +12,14 @@ import java.util.stream.Stream;
 public enum AggregationFieldType implements FieldType<Aggregation> {
 
   PROVIDER(aggregation -> Optional.ofNullable(aggregation.getProvider()).map(List::of)
-      .orElse(Collections.emptyList()), EntityType.ORGANIZATION),
+      .orElseGet(Collections::emptyList), EntityType.ORGANIZATION),
 
   DATA_PROVIDER(aggregation -> Optional.ofNullable(aggregation.getDataProvider()).map(List::of)
-      .orElse(Collections.emptyList()), EntityType.ORGANIZATION),
+      .orElseGet(Collections::emptyList), EntityType.ORGANIZATION),
 
   INTERMEDIATE_PROVIDER(
       aggregation -> Optional.ofNullable(aggregation.getIntermediateProviderList())
-          .orElse(Collections.emptyList()), EntityType.ORGANIZATION);
+          .orElseGet(Collections::emptyList), EntityType.ORGANIZATION);
 
   private final Function<Aggregation, List<? extends ResourceOrLiteralType>> valueProvider;
   private final EntityType entityType;
