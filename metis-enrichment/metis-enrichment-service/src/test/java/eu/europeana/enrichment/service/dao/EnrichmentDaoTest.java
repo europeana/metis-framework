@@ -344,7 +344,7 @@ class EnrichmentDaoTest {
     assertTrue(areHashMapsWithListValuesEqual(expected.getBegin(), actual.getBegin()));
     assertTrue(areHashMapsWithListValuesEqual(expected.getEnd(), actual.getEnd()));
     assertArrayEquals(expected.getEdmWasPresentAt(), actual.getEdmWasPresentAt());
-    assertTrue(areHashMapsWithListValuesEqual(expected.getEdmHasMet(), actual.getEdmHasMet()));
+    assertArrayEquals(expected.getEdmHasMet(), actual.getEdmHasMet());
     assertTrue(
         areHashMapsWithListValuesEqual(expected.getEdmIsRelatedTo(), actual.getEdmIsRelatedTo()));
     assertTrue(areHashMapsWithListValuesEqual(expected.getFoafName(), actual.getFoafName()));

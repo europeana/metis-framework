@@ -8,7 +8,7 @@ import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
@@ -63,22 +63,22 @@ public final class Converter {
     return result;
   }
 
-  private static Timespan convertTimespan(TimespanEnrichmentEntity timespanEnrichmentEntity) {
+  private static TimeSpan convertTimespan(TimespanEnrichmentEntity timespanEnrichmentEntity) {
 
-    Timespan output = new Timespan();
+    TimeSpan output = new TimeSpan();
 
     output.setAbout(timespanEnrichmentEntity.getAbout());
     output.setPrefLabelList(convert(timespanEnrichmentEntity.getPrefLabel()));
     output.setAltLabelList(convert(timespanEnrichmentEntity.getAltLabel()));
-    output.setBeginList(convert(timespanEnrichmentEntity.getBegin()));
-    output.setEndList(convert(timespanEnrichmentEntity.getEnd()));
-    output.setHasPartsList(convertPart(timespanEnrichmentEntity.getDctermsHasPart()));
+    output.setBegin(convert(timespanEnrichmentEntity.getBegin()).get(0));
+    output.setEnd(convert(timespanEnrichmentEntity.getEnd()).get(0));
+    output.setHasPartsList(convertResourceOrLiteral(timespanEnrichmentEntity.getDctermsHasPart()));
     output.setHiddenLabel(convert(timespanEnrichmentEntity.getHiddenLabel()));
     output.setNotes(convert(timespanEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
 
     if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsPartOf())) {
-      output.setIsPartOf(new Part(timespanEnrichmentEntity.getIsPartOf()));
+      output.setIsPartOf(List.of(new LabelResource(timespanEnrichmentEntity.getIsPartOf())));
     }
 
     if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsNextInSequence())) {
@@ -119,12 +119,12 @@ public final class Converter {
     output.setPrefLabelList(convert(placeEnrichmentEntity.getPrefLabel()));
     output.setAltLabelList(convert(placeEnrichmentEntity.getAltLabel()));
 
-    output.setHasPartsList(convertPart(placeEnrichmentEntity.getDcTermsHasPart()));
+    output.setHasPartsList(convertResourceOrLiteral(placeEnrichmentEntity.getDcTermsHasPart()));
     output.setNotes(convert(placeEnrichmentEntity.getNote()));
     output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
 
     if (StringUtils.isNotBlank(placeEnrichmentEntity.getIsPartOf())) {
-      output.setIsPartOf(new Part(placeEnrichmentEntity.getIsPartOf()));
+      output.setIsPartOf(List.of(new LabelResource(placeEnrichmentEntity.getIsPartOf())));
     }
     if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0)
         && (placeEnrichmentEntity.getLongitude() != null
@@ -154,9 +154,9 @@ public final class Converter {
     output.setEndList(convert(agentEntityEnrichment.getEnd()));
 
     output.setIdentifier(convert(agentEntityEnrichment.getDcIdentifier()));
-    output.setHasMet(convert(agentEntityEnrichment.getEdmHasMet()));
-    output.setBiographicaInformation(
-        convert(agentEntityEnrichment.getRdaGr2BiographicalInformation()));
+    output.setHasMet(convertToResourceList(agentEntityEnrichment.getEdmHasMet()));
+    output.setBiographicalInformation(
+        convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2BiographicalInformation()));
     output.setPlaceOfBirth(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfBirth()));
     output.setPlaceOfDeath(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfDeath()));
     output.setDateOfBirth(convert(agentEntityEnrichment.getRdaGr2DateOfBirth()));
@@ -194,15 +194,6 @@ public final class Converter {
     map.forEach(
         (key, entry) -> entry.stream().map(value -> new Label(key, value)).forEach(labels::add));
     return labels;
-  }
-
-  private static List<Part> convertPart(Map<String, List<String>> map) {
-    List<Part> parts = new ArrayList<>();
-    if (map == null) {
-      return parts;
-    }
-    map.forEach((key, entry) -> entry.stream().map(Part::new).forEach(parts::add));
-    return parts;
   }
 
   private static List<LabelResource> convertResourceOrLiteral(Map<String, List<String>> map) {

@@ -25,9 +25,9 @@ public class Agent extends EnrichmentBase {
   @XmlElement(name = "identifier", namespace = "http://purl.org/dc/elements/1.1/")
   private List<Label> identifier = new ArrayList<>();
   @XmlElement(name = "hasMet", namespace = "http://www.europeana.eu/schemas/edm/")
-  private List<Label> hasMet = new ArrayList<>();
-  @XmlElement(name = "biographicaInformation", namespace = "http://rdvocab.info/ElementsGr2/")
-  private List<Label> biographicaInformation = new ArrayList<>();
+  private List<Resource> hasMet = new ArrayList<>();
+  @XmlElement(name = "biographicalInformation", namespace = "http://rdvocab.info/ElementsGr2/")
+  private List<LabelResource> biographicalInformation = new ArrayList<>();
   @XmlElement(name = "placeOfBirth", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<LabelResource> placeOfBirth = new ArrayList<>();
   @XmlElement(name = "placeOfDeath", namespace = "http://rdvocab.info/ElementsGr2/")
@@ -46,8 +46,9 @@ public class Agent extends EnrichmentBase {
   private List<LabelResource> professionOrOccupation = new ArrayList<>();
   @XmlElement(name = "date", namespace = "http://purl.org/dc/elements/1.1/")
   private List<LabelResource> date = new ArrayList<>();
-  @XmlElement(name = "isRelatedTo", namespace = "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+  @XmlElement(name = "isRelatedTo", namespace = "http://www.europeana.eu/schemas/edm/")
   private List<LabelResource> isRelatedTo = new ArrayList<>();
+  // Note: this property is not part of the EDM Agent type.
   @XmlElement(name = "wasPresentAt", namespace = "http://www.europeana.eu/schemas/edm/")
   private List<Resource> wasPresentAt = new ArrayList<>();
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
@@ -93,20 +94,20 @@ public class Agent extends EnrichmentBase {
     this.identifier = cloneListAcceptingNull(identifier);
   }
 
-  public List<Label> getHasMet() {
+  public List<Resource> getHasMet() {
     return unmodifiableListAcceptingNull(hasMet);
   }
 
-  public void setHasMet(List<Label> hasMet) {
+  public void setHasMet(List<Resource> hasMet) {
     this.hasMet = cloneListAcceptingNull(hasMet);
   }
 
-  public List<Label> getBiographicaInformation() {
-    return unmodifiableListAcceptingNull(biographicaInformation);
+  public List<LabelResource> getBiographicalInformation() {
+    return unmodifiableListAcceptingNull(biographicalInformation);
   }
 
-  public void setBiographicaInformation(List<Label> biographicaInformation) {
-    this.biographicaInformation = cloneListAcceptingNull(biographicaInformation);
+  public void setBiographicalInformation(List<LabelResource> biographicalInformation) {
+    this.biographicalInformation = cloneListAcceptingNull(biographicalInformation);
   }
 
   public List<LabelResource> getPlaceOfBirth() {

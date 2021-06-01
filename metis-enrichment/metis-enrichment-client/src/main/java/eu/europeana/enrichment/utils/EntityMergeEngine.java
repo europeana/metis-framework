@@ -3,10 +3,9 @@ package eu.europeana.enrichment.utils;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
@@ -85,13 +84,13 @@ public class EntityMergeEngine {
         .setAltLabelList(ItemExtractorUtils.extractLabels(place.getAltLabelList(), AltLabel::new));
 
     // hasPartList
-    placeType
-        .setHasPartList(ItemExtractorUtils.extractParts(place.getHasPartsList(), HasPart::new));
+    placeType.setHasPartList(
+            ItemExtractorUtils.extractLabelResources(place.getHasPartsList(), HasPart::new));
 
     // isPartOf
     if (place.getIsPartOf() != null) {
       placeType.setIsPartOfList(
-          ItemExtractorUtils.extractParts(List.of(place.getIsPartOf()), IsPartOf::new));
+              ItemExtractorUtils.extractLabelResources(place.getIsPartOf(), IsPartOf::new));
     }
 
     // lat
@@ -116,8 +115,7 @@ public class EntityMergeEngine {
         ItemExtractorUtils.extractLabels(place.getPrefLabelList(), PrefLabel::new));
 
     // sameAsList
-    placeType.setSameAList(
-        ItemExtractorUtils.extractAsResources(place.getSameAs(), SameAs::new, Part::getResource));
+    placeType.setSameAList(ItemExtractorUtils.extractResources(place.getSameAs(), SameAs::new));
 
     // isNextInSequence: not available
 
@@ -141,8 +139,8 @@ public class EntityMergeEngine {
 
     // biographicalInformation
     agentType.setBiographicalInformationList(ItemExtractorUtils
-        .extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(),
-            BiographicalInformation::new));
+            .extractLabelResources(agent.getBiographicalInformation(),
+                    BiographicalInformation::new));
     agentType.setProfessionOrOccupationList(ItemExtractorUtils
         .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
@@ -180,8 +178,7 @@ public class EntityMergeEngine {
     agentType.setGender(ItemExtractorUtils.extractFirstLabel(agent.getGender(), Gender::new));
 
     // hasMetList
-    agentType.setHasMetList(
-        ItemExtractorUtils.extractAsResources(agent.getHasMet(), HasMet::new, Label::getValue));
+    agentType.setHasMetList(ItemExtractorUtils.extractResources(agent.getHasMet(), HasMet::new));
 
     // hasPartList: not available
 
@@ -209,8 +206,7 @@ public class EntityMergeEngine {
         .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
     // sameAsList
-    agentType.setSameAList(
-        ItemExtractorUtils.extractAsResources(agent.getSameAs(), SameAs::new, Part::getResource));
+    agentType.setSameAList(ItemExtractorUtils.extractResources(agent.getSameAs(), SameAs::new));
 
     return agentType;
   }
@@ -281,7 +277,7 @@ public class EntityMergeEngine {
     return concept;
   }
 
-  private static TimeSpanType convertTimeSpan(Timespan timespan) {
+  private static TimeSpanType convertTimeSpan(TimeSpan timespan) {
 
     TimeSpanType timeSpanType = new TimeSpanType();
 
@@ -293,15 +289,14 @@ public class EntityMergeEngine {
         ItemExtractorUtils.extractLabels(timespan.getAltLabelList(), AltLabel::new));
 
     // begin
-    timeSpanType
-        .setBegin(ItemExtractorUtils.extractFirstLabel(timespan.getBeginList(), Begin::new));
+    timeSpanType.setBegin(ItemExtractorUtils.extractLabel(timespan.getBegin(), Begin::new));
 
     // end
-    timeSpanType.setEnd(ItemExtractorUtils.extractFirstLabel(timespan.getEndList(), End::new));
+    timeSpanType.setEnd(ItemExtractorUtils.extractLabel(timespan.getEnd(), End::new));
 
     // hasPartList
-    timeSpanType
-        .setHasPartList(ItemExtractorUtils.extractParts(timespan.getHasPartsList(), HasPart::new));
+    timeSpanType.setHasPartList(
+            ItemExtractorUtils.extractLabelResources(timespan.getHasPartsList(), HasPart::new));
 
     // isNextInSequence
     if (timespan.getIsNextInSequence() != null) {
@@ -312,7 +307,8 @@ public class EntityMergeEngine {
 
     // isPartOf
     if (timespan.getIsPartOf() != null) {
-      timeSpanType.setIsPartOfList(ItemExtractorUtils.extractParts(List.of(timespan.getIsPartOf()), IsPartOf::new));
+      timeSpanType.setIsPartOfList(
+              ItemExtractorUtils.extractLabelResources(timespan.getIsPartOf(), IsPartOf::new));
     }
 
     // noteList
@@ -323,8 +319,8 @@ public class EntityMergeEngine {
         ItemExtractorUtils.extractLabels(timespan.getPrefLabelList(), PrefLabel::new));
 
     // sameAsList
-    timeSpanType.setSameAList(ItemExtractorUtils
-        .extractAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
+    timeSpanType
+            .setSameAList(ItemExtractorUtils.extractResources(timespan.getSameAs(), SameAs::new));
 
     // hiddenLabelList
     timeSpanType.setHiddenLabelList(
@@ -370,8 +366,8 @@ public class EntityMergeEngine {
     } else if (enrichmentBase instanceof Concept) {
       entity = convertAndAddEntity((Concept) enrichmentBase, EntityMergeEngine::convertConcept,
           rdf::getConceptList, rdf::setConceptList);
-    } else if (enrichmentBase instanceof Timespan) {
-      entity = convertAndAddEntity((Timespan) enrichmentBase, EntityMergeEngine::convertTimeSpan,
+    } else if (enrichmentBase instanceof TimeSpan) {
+      entity = convertAndAddEntity((TimeSpan) enrichmentBase, EntityMergeEngine::convertTimeSpan,
           rdf::getTimeSpanList, rdf::setTimeSpanList);
     } else {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
