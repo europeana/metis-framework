@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(namespace = "http://xmlns.com/foaf/0.1/", name = "Organization")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class EdmOrganization extends Agent {
+public class Organization extends Agent {
 
   @XmlElement(name = "country", namespace = "http://www.europeana.eu/schemas/edm/")
   private String country;

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlTransient
-@XmlSeeAlso({Agent.class, Concept.class, Place.class, TimeSpan.class})
+@XmlSeeAlso({Agent.class, Concept.class, Place.class, TimeSpan.class, Organization.class})
 public abstract class EnrichmentBase {
 
   @XmlElement(name = "altLabel", namespace = "http://www.w3.org/2004/02/skos/core#")

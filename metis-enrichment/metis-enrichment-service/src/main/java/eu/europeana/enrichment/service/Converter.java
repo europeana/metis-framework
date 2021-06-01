@@ -1,7 +1,11 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.enrichment.api.external.model.VcardAddress;
+import eu.europeana.enrichment.api.external.model.VcardAddresses;
+
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
+import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -9,6 +13,7 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
+import eu.europeana.enrichment.internal.model.Address;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
@@ -23,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -55,6 +62,10 @@ public final class Converter {
         break;
       case TIMESPAN:
         result = convertTimespan((TimespanEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
+        break;
+      case ORGANIZATION:
+        result = convertOrganization(
+            (OrganizationEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       default:
         result = null;
@@ -175,6 +186,48 @@ public final class Converter {
     return output;
   }
 
+  private static Organization convertOrganization(
+      OrganizationEnrichmentEntity organizationEnrichmentEntity) {
+    Organization output = new Organization();
+
+    output.setAbout(organizationEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(organizationEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(organizationEnrichmentEntity.getAltLabel()));
+    output.setNotes(convert(organizationEnrichmentEntity.getNote()));
+    output.setSameAs(convertToResourceList(
+        organizationEnrichmentEntity.getOwlSameAs() == null ? null
+            : organizationEnrichmentEntity.getOwlSameAs().toArray(String[]::new)));
+    if (MapUtils.isNotEmpty(organizationEnrichmentEntity.getEdmCountry())) {
+      output.setCountry(
+          organizationEnrichmentEntity.getEdmCountry().entrySet().iterator().next().getValue());
+    }
+    if (CollectionUtils.isNotEmpty(organizationEnrichmentEntity.getFoafPhone())) {
+      output.setPhone(organizationEnrichmentEntity.getFoafPhone().get(0));
+    }
+    if (CollectionUtils.isNotEmpty(organizationEnrichmentEntity.getFoafMbox())) {
+      output.setMbox(organizationEnrichmentEntity.getFoafMbox().get(0));
+    }
+    output.setHomepage(new Resource(organizationEnrichmentEntity.getFoafHomepage()));
+    output.setLogo(new Resource(organizationEnrichmentEntity.getFoafLogo()));
+    output.setDepiction(new Resource(organizationEnrichmentEntity.getFoafDepiction()));
+    output.setAcronyms(convert(organizationEnrichmentEntity.getEdmAcronym()));
+    output.setDescriptions(convertMapToLabels(organizationEnrichmentEntity.getDcDescription()));
+
+    final Address address = organizationEnrichmentEntity.getAddress();
+    final VcardAddress vcardAddress = new VcardAddress();
+    vcardAddress.setCountryName(address.getVcardCountryName());
+    vcardAddress.setLocality(address.getVcardLocality());
+    vcardAddress.setPostalCode(address.getVcardPostalCode());
+    vcardAddress.setPostOfficeBox(address.getVcardPostOfficeBox());
+    vcardAddress.setStreetAddress(address.getVcardStreetAddress());
+    vcardAddress.setHasGeo(new Resource(address.getVcardHasGeo()));
+    final VcardAddresses vcardAddresses = new VcardAddresses();
+    vcardAddresses.setVcardAddressesList(List.of(vcardAddress));
+    output.setHasAddress(vcardAddresses);
+
+    return output;
+  }
+
   static EnrichmentTerm organizationImplToEnrichmentTerm(
       OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
@@ -193,6 +246,15 @@ public final class Converter {
     }
     map.forEach(
         (key, entry) -> entry.stream().map(value -> new Label(key, value)).forEach(labels::add));
+    return labels;
+  }
+
+  private static List<Label> convertMapToLabels(Map<String, String> map) {
+    List<Label> labels = new ArrayList<>();
+    if (map == null) {
+      return labels;
+    }
+    map.forEach((key, value) -> labels.add(new Label(key, value)));
     return labels;
   }
 

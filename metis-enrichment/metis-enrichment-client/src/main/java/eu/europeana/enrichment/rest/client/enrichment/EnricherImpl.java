@@ -32,7 +32,7 @@ public class EnricherImpl implements Enricher {
   private final EntityMergeEngine entityMergeEngine;
 
   public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver,
-          EntityMergeEngine entityMergeEngine) {
+      EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.entityResolver = entityResolver;
     this.entityMergeEngine = entityMergeEngine;
@@ -50,19 +50,19 @@ public class EnricherImpl implements Enricher {
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = enrichValues(searchTerms);
     final Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = enrichReferences(
-            references);
+        references);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichedValues != null) {
       for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.entrySet()) {
-        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey().getFieldTypes());
+        entityMergeEngine.mergeSearchEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
     if (enrichedReferences != null) {
       for (Entry<ReferenceTermContext, List<EnrichmentBase>> entry : enrichedReferences
-              .entrySet()) {
-        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey().getFieldTypes());
+          .entrySet()) {
+        entityMergeEngine.mergeReferenceEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
 
@@ -76,7 +76,7 @@ public class EnricherImpl implements Enricher {
 
   @Override
   public Map<SearchTermContext, List<EnrichmentBase>> enrichValues(
-          Set<SearchTermContext> searchTerms) throws EnrichmentException {
+      Set<SearchTermContext> searchTerms) throws EnrichmentException {
     if (CollectionUtils.isEmpty(searchTerms)) {
       return Collections.emptyMap();
     }
@@ -90,7 +90,7 @@ public class EnricherImpl implements Enricher {
 
   @Override
   public Map<ReferenceTermContext, List<EnrichmentBase>> enrichReferences(
-          Set<ReferenceTermContext> references) throws EnrichmentException {
+      Set<ReferenceTermContext> references) throws EnrichmentException {
     if (CollectionUtils.isEmpty(references)) {
       return Collections.emptyMap();
     }
