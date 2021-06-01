@@ -18,6 +18,7 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.external.model.VcardAddress;
 import eu.europeana.enrichment.api.external.model.VcardAddresses;
+import eu.europeana.enrichment.api.external.model.WebResource;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.Address;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
@@ -229,7 +230,7 @@ public class ConverterTest {
 
   private void assertOrganization(OrganizationEnrichmentEntity expected, Organization actual) {
     assertTrue(areListsEqual(expected.getOwlSameAs(),
-        actual.getSameAs().stream().map(Resource::getResource).collect(Collectors.toList())));
+        actual.getSameAs().stream().map(WebResource::getResourceUri).collect(Collectors.toList())));
     assertEquals(expected.getEdmCountry().entrySet().iterator().next().getValue(),
         actual.getCountry());
 
@@ -253,7 +254,7 @@ public class ConverterTest {
           .isEmpty(actualAddresses.getVcardAddressesList()));
     } else {
       final List<VcardAddress> vcardAddressesList = actualAddresses.getVcardAddressesList();
-      assertEquals(vcardAddressesList.size(), 1);
+      assertEquals(1, vcardAddressesList.size());
       final VcardAddress actualAddress = vcardAddressesList.get(0);
       assertEquals(expectedAddress.getVcardCountryName(), actualAddress.getCountryName());
       assertEquals(expectedAddress.getVcardLocality(), actualAddress.getLocality());
@@ -279,7 +280,7 @@ public class ConverterTest {
   }
 
   void assertLabelsMap(Map<String, String> expected, List<Label> actual) {
-    actual.forEach(label -> assertEquals(expected.get(label.getKey()), label.getValue()));
+    actual.forEach(label -> assertEquals(expected.get(label.getLang()), label.getValue()));
   }
 
   void assertLabelResources(Map<String, List<String>> expected, List<LabelResource> actual) {

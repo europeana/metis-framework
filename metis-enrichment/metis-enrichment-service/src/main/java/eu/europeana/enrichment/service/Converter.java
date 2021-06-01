@@ -194,9 +194,7 @@ public final class Converter {
     output.setPrefLabelList(convert(organizationEnrichmentEntity.getPrefLabel()));
     output.setAltLabelList(convert(organizationEnrichmentEntity.getAltLabel()));
     output.setNotes(convert(organizationEnrichmentEntity.getNote()));
-    output.setSameAs(convertToResourceList(
-        organizationEnrichmentEntity.getOwlSameAs() == null ? null
-            : organizationEnrichmentEntity.getOwlSameAs().toArray(String[]::new)));
+    output.setSameAs(convertToPartsList(organizationEnrichmentEntity.getOwlSameAs()));
     if (MapUtils.isNotEmpty(organizationEnrichmentEntity.getEdmCountry())) {
       output.setCountry(
           organizationEnrichmentEntity.getEdmCountry().entrySet().iterator().next().getValue());

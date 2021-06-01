@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(namespace = "http://xmlns.com/foaf/0.1/", name = "Organization")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Organization extends Agent {
+public class Organization extends AbstractAgent {
 
   @XmlElement(name = "country", namespace = "http://www.europeana.eu/schemas/edm/")
   private String country;
@@ -24,7 +24,7 @@ public class Organization extends Agent {
   @XmlElement(name = "homepage", namespace = "http://xmlns.com/foaf/0.1/")
   private Resource homepage;
 
-  // Note: this property is not part of the FOAF Organization type.
+  // Note: this property is not part of the FOAF Organization type according to metis-schema.
   @XmlElement(name = "description", namespace = "http://purl.org/dc/elements/1.1/")
   private List<Label> descriptions = new ArrayList<>();
   
@@ -34,19 +34,19 @@ public class Organization extends Agent {
   @XmlElement(name = "logo", namespace = "http://xmlns.com/foaf/0.1/")
   private Resource logo;
 
-  // Note: this property is not part of the FOAF Organization type.
+  // Note: this property is not part of the FOAF Organization type according to metis-schema.
   @XmlElement(name = "depiction", namespace = "http://xmlns.com/foaf/0.1/")
   private Resource depiction;
 
-  // Note: this property is not part of the FOAF Organization type.
+  // Note: this property is not part of the FOAF Organization type according to metis-schema.
   @XmlElement(name = "phone", namespace = "http://xmlns.com/foaf/0.1/")
   private String phone;
 
-  // Note: this property is not part of the FOAF Organization type.
+  // Note: this property is not part of the FOAF Organization type according to metis-schema.
   @XmlElement(name = "mbox", namespace = "http://xmlns.com/foaf/0.1/")
   private String mbox;
 
-  // Note: this property is not part of the FOAF Organization type.
+  // Note: this property is not part of the FOAF Organization type according to metis-schema.
   @XmlElement(name = "hasAddress", namespace = "http://www.w3.org/2006/vcard/ns#")
   private VcardAddresses hasAddress;
   
