@@ -94,8 +94,8 @@
     <version.morphia.core>2.2.1</version.morphia.core>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
-    <version.spring.security>5.3.2.RELEASE</version.spring.security>
-    <version.spring>5.2.6.RELEASE</version.spring>
+    <version.spring.security>5.5.0</version.spring.security>
+    <version.spring>5.3.7</version.spring>
     <version.spring.test>${version.spring}</version.spring.test>
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.beans>${version.spring}</version.spring.beans>
@@ -144,12 +144,20 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-schema</artifactId>
+          </exclusion>
+          <exclusion>
             <artifactId>object-storage</artifactId>
             <groupId>eu.europeana</groupId>
           </exclusion>
           <exclusion>
             <groupId>stax</groupId>
             <artifactId>stax-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>wstx-asl</artifactId>
           </exclusion>
           <exclusion>
             <groupId>de.flapdoodle.embed</groupId>
