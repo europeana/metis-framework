@@ -13,7 +13,7 @@ import java.util.function.Function;
  *
  * TODO JV Check on this issue and make sure to deprecate this class when the issue is fixed.
  */
-public class SonarqubeNullcheckAvoidanceUtils {
+public final class SonarqubeNullcheckAvoidanceUtils {
 
   private SonarqubeNullcheckAvoidanceUtils() {
   }
