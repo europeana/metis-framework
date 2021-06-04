@@ -21,11 +21,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EnrichmentResultBaseWrapper {
 
   @XmlElements(value = {
+      @XmlElement(name = "Organization", namespace = "http://xmlns.com/foaf/0.1/", type = Organization.class),
       @XmlElement(name = "Concept", namespace = "http://www.w3.org/2004/02/skos/core#", type = Concept.class),
       @XmlElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/", type = Agent.class),
       @XmlElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/", type = Place.class),
-      @XmlElement(name = "Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type = Timespan.class),
-      @XmlElement(name = "Organization", namespace = "http://xmlns.com/foaf/0.1/", type = Organization.class)})
+      @XmlElement(name = "TimeSpan", namespace = "http://www.europeana.eu/schemas/edm/", type = TimeSpan.class)})
   private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
   public EnrichmentResultBaseWrapper() {

@@ -15,7 +15,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
@@ -52,9 +52,9 @@ public class DereferencerImplTest {
     place1.setAbout("place1");
     final Place place2 = new Place();
     place2.setAbout("place2");
-    final Timespan timeSpan1 = new Timespan();
+    final TimeSpan timeSpan1 = new TimeSpan();
     timeSpan1.setAbout("timespan1");
-    final Timespan timeSpan2 = new Timespan();
+    final TimeSpan timeSpan2 = new TimeSpan();
     timeSpan2.setAbout("timespan2");
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList1 = EnrichmentResultBaseWrapper
         .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));

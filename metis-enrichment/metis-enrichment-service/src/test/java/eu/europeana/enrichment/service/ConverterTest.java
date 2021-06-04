@@ -15,9 +15,10 @@ import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.external.model.VcardAddress;
 import eu.europeana.enrichment.api.external.model.VcardAddresses;
+import eu.europeana.enrichment.api.external.model.WebResource;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.Address;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
@@ -30,8 +31,8 @@ import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -91,11 +92,11 @@ public class ConverterTest {
 
   @Test
   void convertTimespan() throws Exception {
-    Timespan timespan = (Timespan) Converter.convert(enrichmentObjectUtils.timespanTerm1);
+    TimeSpan timespan = (TimeSpan) Converter.convert(enrichmentObjectUtils.timespanTerm1);
     assertConversion(enrichmentObjectUtils.timespanTerm1.getEnrichmentEntity(), timespan,
         enrichmentObjectUtils.timespanTerm1.getEntityType());
 
-    Timespan customTimespan = (Timespan) Converter
+    TimeSpan customTimespan = (TimeSpan) Converter
         .convert(enrichmentObjectUtils.customTimespanTerm);
     assertConversion(enrichmentObjectUtils.customTimespanTerm.getEnrichmentEntity(), customTimespan,
         enrichmentObjectUtils.customTimespanTerm.getEntityType());
@@ -140,7 +141,7 @@ public class ConverterTest {
         assertConcept((ConceptEnrichmentEntity) expected, (Concept) actual);
         break;
       case TIMESPAN:
-        assertTimespan((TimespanEnrichmentEntity) expected, (Timespan) actual);
+        assertTimespan((TimespanEnrichmentEntity) expected, (TimeSpan) actual);
         break;
       case AGENT:
         assertAgent((AgentEnrichmentEntity) expected, (Agent) actual);
@@ -163,8 +164,8 @@ public class ConverterTest {
     assertLabels(expected.getBegin(), actual.getBeginList());
     assertLabels(expected.getEnd(), actual.getEndList());
     assertLabels(expected.getDcIdentifier(), actual.getIdentifier());
-    assertLabels(expected.getEdmHasMet(), actual.getHasMet());
-    assertLabels(expected.getRdaGr2BiographicalInformation(), actual.getBiographicaInformation());
+    assertResources(expected.getEdmHasMet(), actual.getHasMet());
+    assertLabelResources(expected.getRdaGr2BiographicalInformation(), actual.getBiographicalInformation());
     assertLabelResources(expected.getRdaGr2PlaceOfBirth(), actual.getPlaceOfBirth());
     assertLabelResources(expected.getRdaGr2PlaceOfDeath(), actual.getPlaceOfDeath());
     assertLabels(expected.getRdaGr2DateOfBirth(), actual.getDateOfBirth());
@@ -183,15 +184,16 @@ public class ConverterTest {
         actual.getSameAs().stream().map(Part::getResource).collect(Collectors.toList())));
   }
 
-  private void assertTimespan(TimespanEnrichmentEntity expected, Timespan actual) {
+  private void assertTimespan(TimespanEnrichmentEntity expected, TimeSpan actual) {
     assertEquals(expected.getIsPartOf(),
-        Optional.ofNullable(actual.getIsPartOf()).map(Part::getResource).orElse(null));
-    assertParts(expected.getDctermsHasPart(), actual.getHasPartsList());
+        Optional.ofNullable(actual.getIsPartOf()).stream().flatMap(Collection::stream)
+                .map(LabelResource::getResource).findFirst().orElse(null));
+    assertLabelResources(expected.getDctermsHasPart(), actual.getHasPartsList());
     final List<String> actualOwlSameAs = actual.getSameAs() == null ? null
         : actual.getSameAs().stream().map(Part::getResource).collect(Collectors.toList());
     assertTrue(areListsEqual(expected.getOwlSameAs(), actualOwlSameAs));
-    assertLabels(expected.getBegin(), actual.getBeginList());
-    assertLabels(expected.getEnd(), actual.getEndList());
+    assertLabels(expected.getBegin(), List.of(actual.getBegin()));
+    assertLabels(expected.getEnd(), List.of(actual.getEnd()));
     assertLabels(expected.getHiddenLabel(), actual.getHiddenLabel());
     assertEquals(expected.getIsNextInSequence(),
         Optional.ofNullable(actual.getIsNextInSequence()).map(Part::getResource).orElse(null));
@@ -213,8 +215,9 @@ public class ConverterTest {
 
   private void assertPlace(PlaceEnrichmentEntity expected, Place actual) {
     assertEquals(expected.getIsPartOf(),
-        Optional.ofNullable(actual.getIsPartOf()).map(Part::getResource).orElse(null));
-    assertParts(expected.getDcTermsHasPart(), actual.getHasPartsList());
+        Optional.ofNullable(actual.getIsPartOf()).stream().flatMap(Collection::stream)
+                .map(LabelResource::getResource).findFirst().orElse(null));
+    assertLabelResources(expected.getDcTermsHasPart(), actual.getHasPartsList());
     assertTrue(areListsEqual(expected.getOwlSameAs(),
         actual.getSameAs().stream().map(Part::getResource).collect(Collectors.toList())));
     assertEquals(Optional.ofNullable(expected.getLatitude()).map(Object::toString).orElse(null),
@@ -227,7 +230,7 @@ public class ConverterTest {
 
   private void assertOrganization(OrganizationEnrichmentEntity expected, Organization actual) {
     assertTrue(areListsEqual(expected.getOwlSameAs(),
-        actual.getSameAs().stream().map(Resource::getResource).collect(Collectors.toList())));
+        actual.getSameAs().stream().map(WebResource::getResourceUri).collect(Collectors.toList())));
     assertEquals(expected.getEdmCountry().entrySet().iterator().next().getValue(),
         actual.getCountry());
 
@@ -251,7 +254,7 @@ public class ConverterTest {
           .isEmpty(actualAddresses.getVcardAddressesList()));
     } else {
       final List<VcardAddress> vcardAddressesList = actualAddresses.getVcardAddressesList();
-      assertEquals(vcardAddressesList.size(), 1);
+      assertEquals(1, vcardAddressesList.size());
       final VcardAddress actualAddress = vcardAddressesList.get(0);
       assertEquals(expectedAddress.getVcardCountryName(), actualAddress.getCountryName());
       assertEquals(expectedAddress.getVcardLocality(), actualAddress.getLocality());
@@ -277,13 +280,7 @@ public class ConverterTest {
   }
 
   void assertLabelsMap(Map<String, String> expected, List<Label> actual) {
-    actual.forEach(label -> assertEquals(expected.get(label.getKey()), label.getValue()));
-  }
-
-  void assertParts(Map<String, List<String>> expected, List<Part> actual) {
-    final Map<String, List<String>> partsMap = new HashMap<>();
-    partsMap.put("def", actual.stream().map(Part::getResource).collect(Collectors.toList()));
-    areHashMapsWithListValuesEqual(expected, partsMap);
+    actual.forEach(label -> assertEquals(expected.get(label.getLang()), label.getValue()));
   }
 
   void assertLabelResources(Map<String, List<String>> expected, List<LabelResource> actual) {

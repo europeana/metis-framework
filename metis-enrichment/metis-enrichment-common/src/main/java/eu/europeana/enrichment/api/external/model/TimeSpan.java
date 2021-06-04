@@ -8,40 +8,40 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Timespan model class.
+ * TimeSpan model class.
  */
-@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Timespan")
+@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "TimeSpan")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Timespan extends EnrichmentBase {
+public class TimeSpan extends EnrichmentBase {
 
   @XmlElement(name = "isPartOf", namespace = "http://purl.org/dc/terms/")
-  private Part isPartOf;
+  private List<LabelResource> isPartOf;
   @XmlElement(name = "hasPart", namespace = "http://purl.org/dc/terms/")
-  private List<Part> hasPartsList = new ArrayList<>();
+  private List<LabelResource> hasPartsList = new ArrayList<>();
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
   private List<Part> sameAs = new ArrayList<>();
   @XmlElement(name = "begin", namespace = "http://www.europeana.eu/schemas/edm/")
-  private List<Label> beginList = new ArrayList<>();
+  private Label begin;
   @XmlElement(name = "end", namespace = "http://www.europeana.eu/schemas/edm/")
-  private List<Label> endList = new ArrayList<>();
+  private Label end;
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> hiddenLabel = new ArrayList<>();
   @XmlElement(name = "isNextInSequence", namespace = "http://www.europeana.eu/schemas/edm/")
   private Part isNextInSequence;
 
-  public Part getIsPartOf() {
-    return isPartOf;
+  public List<LabelResource> getIsPartOf() {
+    return unmodifiableListAcceptingNull(isPartOf);
   }
 
-  public void setIsPartOf(Part isPartOf) {
-    this.isPartOf = isPartOf;
+  public void setIsPartOf(List<LabelResource> isPartOf) {
+    this.isPartOf = cloneListAcceptingNull(isPartOf);
   }
 
-  public List<Part> getHasPartsList() {
+  public List<LabelResource> getHasPartsList() {
     return unmodifiableListAcceptingNull(hasPartsList);
   }
 
-  public void setHasPartsList(List<Part> hasPartsList) {
+  public void setHasPartsList(List<LabelResource> hasPartsList) {
     this.hasPartsList = cloneListAcceptingNull(hasPartsList);
   }
 
@@ -53,20 +53,20 @@ public class Timespan extends EnrichmentBase {
     this.sameAs = cloneListAcceptingNull(sameAs);
   }
 
-  public List<Label> getBeginList() {
-    return unmodifiableListAcceptingNull(beginList);
+  public Label getBegin() {
+    return begin;
   }
 
-  public void setBeginList(List<Label> beginList) {
-    this.beginList = cloneListAcceptingNull(beginList);
+  public void setBegin(Label begin) {
+    this.begin = begin;
   }
 
-  public List<Label> getEndList() {
-    return unmodifiableListAcceptingNull(endList);
+  public Label getEnd() {
+    return end;
   }
 
-  public void setEndList(List<Label> endList) {
-    this.endList = cloneListAcceptingNull(endList);
+  public void setEnd(Label end) {
+    this.end = end;
   }
 
   public List<Label> getHiddenLabel() {

@@ -2,10 +2,10 @@ package eu.europeana.metis.dereference.service;
 
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.ProcessedEntity;
@@ -151,12 +151,12 @@ public class MongoDereferenceService implements DereferenceService {
     final Stream<String> resourceIdStream;
     if (resource instanceof Concept) {
       resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
-    } else if (resource instanceof Timespan) {
-      resourceIdStream = Optional.ofNullable(((Timespan) resource).getIsPartOf())
-          .map(Part::getResource).stream();
+    } else if (resource instanceof TimeSpan) {
+      resourceIdStream = Optional.ofNullable(((TimeSpan) resource).getIsPartOf()).stream()
+              .flatMap(List::stream).map(LabelResource::getResource);
     } else if (resource instanceof Place) {
-      resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf())
-          .map(Part::getResource).stream();
+      resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf()).stream()
+              .flatMap(Collection::stream).map(LabelResource::getResource);
     } else {
       resourceIdStream = Stream.empty();
     }

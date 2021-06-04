@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Interface representing entity classes (Agent, Place, Timespan, Concept)
+ * Interface representing entity classes (Agent, Place, TimeSpan, Concept)
  *
  * @author Simon Tzanakis
  * @since 2020-08-31

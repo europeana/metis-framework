@@ -13,6 +13,9 @@ import java.util.Objects;
  * fields in lower case per language.
  * </p>
  *
+ * TODO JV This class should be moved to the package eu.europeana.enrichment.internal.model
+ * This is not so easy, as it is used in the enrichment entity database.
+ *
  * @author Simon Tzanakis
  * @since 2020-08-04
  */

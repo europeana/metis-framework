@@ -15,9 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Place extends EnrichmentBase {
 
   @XmlElement(name = "isPartOf", namespace = "http://purl.org/dc/terms/")
-  private Part isPartOf;
+  private List<LabelResource> isPartOf;
   @XmlElement(name = "hasPart", namespace = "http://purl.org/dc/terms/")
-  private List<Part> hasPartsList = new ArrayList<>();
+  private List<LabelResource> hasPartsList = new ArrayList<>();
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
   private List<Part> sameAs = new ArrayList<>();
 
@@ -28,19 +28,19 @@ public class Place extends EnrichmentBase {
   @XmlElement(name = "alt", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String alt;
 
-  public Part getIsPartOf() {
-    return isPartOf;
+  public List<LabelResource> getIsPartOf() {
+    return unmodifiableListAcceptingNull(isPartOf);
   }
 
-  public void setIsPartOf(Part isPartOf) {
-    this.isPartOf = isPartOf;
+  public void setIsPartOf(List<LabelResource> isPartOf) {
+    this.isPartOf = cloneListAcceptingNull(isPartOf);
   }
 
-  public List<Part> getHasPartsList() {
+  public List<LabelResource> getHasPartsList() {
     return unmodifiableListAcceptingNull(hasPartsList);
   }
 
-  public void setHasPartsList(List<Part> hasPartsList) {
+  public void setHasPartsList(List<LabelResource> hasPartsList) {
     this.hasPartsList = cloneListAcceptingNull(hasPartsList);
   }
 

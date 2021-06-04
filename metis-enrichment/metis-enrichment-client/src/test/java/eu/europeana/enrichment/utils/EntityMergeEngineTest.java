@@ -6,7 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.Concept;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Organization;
+import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.AgentType;
@@ -20,16 +30,6 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.LabelResource;
-import eu.europeana.enrichment.api.external.model.Part;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,26 +52,26 @@ public class EntityMergeEngineTest {
 
     Label label1 = new Label("labelP1");
     Label label2 = new Label("langP2", "labelP2");
-    place.setAltLabelList(Arrays.asList(label1, label2));
+    place.setAltLabelList(List.of(label1, label2));
 
-    Part part1 = new Part("partP1");
-    place.setHasPartsList(Arrays.asList(part1));
+    LabelResource part1 = new LabelResource("partP1");
+    place.setHasPartsList(List.of(part1));
 
-    Part part2 = new Part("partP2");
-    place.setIsPartOf(part2);
+    LabelResource part2 = new LabelResource("partP2");
+    place.setIsPartOf(List.of(part2));
 
     place.setLat("12.34");
     place.setLon("43.21");
 
     Label label3 = new Label("labelP3");
-    place.setNotes(Arrays.asList(label3));
+    place.setNotes(List.of(label3));
 
     Label label4 = new Label("langP4", "labelP4");
-    place.setPrefLabelList(Arrays.asList(label4));
+    place.setPrefLabelList(List.of(label4));
 
     Part part3 = new Part("partP3");
     Part part4 = new Part("partP4");
-    place.setSameAs(Arrays.asList(part3, part4));
+    place.setSameAs(List.of(part3, part4));
 
     return place;
   }
@@ -80,9 +80,9 @@ public class EntityMergeEngineTest {
     Place place = new Place();
     place.setAbout("aboutP1");
     place.setAltLabelList(Arrays.asList(new Label[]{null}));
-    place.setHasPartsList(Arrays.asList(new Part[]{}));
+    place.setHasPartsList(Collections.emptyList());
     place.setIsPartOf(null);
-    place.setNotes(Arrays.asList(new Label()));
+    place.setNotes(List.of(new Label()));
     place.setPrefLabelList(null);
     return place;
   }
@@ -90,8 +90,8 @@ public class EntityMergeEngineTest {
   private static Place createSecondPlaceWithNullValues() {
     Place place = new Place();
     place.setAbout("aboutP2");
-    place.setHasPartsList(Arrays.asList(new Part()));
-    place.setIsPartOf(new Part(""));
+    place.setHasPartsList(List.of(new LabelResource()));
+    place.setIsPartOf(List.of(new LabelResource("")));
     return place;
   }
 
@@ -101,29 +101,29 @@ public class EntityMergeEngineTest {
     agent.setAbout("aboutA1");
 
     Label label1 = new Label("LangA1", "labelA1");
-    agent.setAltLabelList(Arrays.asList(label1));
+    agent.setAltLabelList(List.of(label1));
 
     Label label2 = new Label("labelA2");
-    agent.setBeginList(Arrays.asList(label2));
+    agent.setBeginList(List.of(label2));
 
-    Label label3 = new Label("labelA3");
-    Label label4 = new Label("labelA4");
-    agent.setBiographicaInformation(Arrays.asList(label3, label4));
+    LabelResource label3 = new LabelResource("labelA3");
+    LabelResource label4 = new LabelResource("labelA4");
+    agent.setBiographicalInformation(List.of(label3, label4));
 
     LabelResource labelResource1 = new LabelResource("LangA1", "labelResourceA1");
     labelResource1.setResource("resource1");
-    agent.setDate(Arrays.asList(labelResource1));
+    agent.setDate(List.of(labelResource1));
 
     LabelResource labelResource5 = new LabelResource("labelResourceA5");
     labelResource5.setResource("resource5");
-    agent.setPlaceOfBirth(Arrays.asList(labelResource5));
+    agent.setPlaceOfBirth(List.of(labelResource5));
 
     LabelResource labelResource6 = new LabelResource("labelResourceA6");
     labelResource6.setResource("resource6");
-    agent.setPlaceOfDeath(Arrays.asList(labelResource6));
+    agent.setPlaceOfDeath(List.of(labelResource6));
 
     Label label5 = new Label("LangA5", "labelA5");
-    agent.setDateOfBirth(Arrays.asList(label5));
+    agent.setDateOfBirth(List.of(label5));
 
     Label label6 = new Label("labelA6");
     Label label19 = new Label("labelA19");
@@ -133,50 +133,50 @@ public class EntityMergeEngineTest {
     agent.setDateOfEstablishment(Arrays.asList(null, label7));
 
     Label label8 = new Label("labelA8");
-    agent.setDateOfTermination(Arrays.asList(label8));
+    agent.setDateOfTermination(List.of(label8));
 
     Label label9 = new Label("labelA9");
-    agent.setEndList(Arrays.asList(label9));
+    agent.setEndList(List.of(label9));
 
     Label label18 = new Label("labelA18");
-    agent.setFoafName(Arrays.asList(label18));
+    agent.setFoafName(List.of(label18));
 
     Label label10 = new Label("labelA10");
-    agent.setGender(Arrays.asList(label10));
+    agent.setGender(List.of(label10));
 
-    Label label11 = new Label("labelA11");
-    agent.setHasMet(Arrays.asList(label11));
+    Resource label11 = new Resource("labelA11");
+    agent.setHasMet(List.of(label11));
 
     Label label12 = new Label("LangA12", "labelA12");
     Label label13 = new Label("LangA13", "labelA13");
-    agent.setHiddenLabel(Arrays.asList(label12, label13));
+    agent.setHiddenLabel(List.of(label12, label13));
 
     Label label14 = new Label("labelA14");
-    agent.setIdentifier(Arrays.asList(label14));
+    agent.setIdentifier(List.of(label14));
 
     LabelResource labelResource2 = new LabelResource("labelResourceA2");
     labelResource1.setResource("resource2");
     LabelResource labelResource3 = new LabelResource("resource3");
-    agent.setIsRelatedTo(Arrays.asList(labelResource2, labelResource3));
+    agent.setIsRelatedTo(List.of(labelResource2, labelResource3));
 
     Label label15 = new Label("labelA15");
     Label label20 = new Label("labelA20");
-    agent.setNotes(Arrays.asList(label15, label20));
+    agent.setNotes(List.of(label15, label20));
 
     Label label16 = new Label("LangA16", "labelA16");
     Label label17 = new Label("labelA17");
-    agent.setPrefLabelList(Arrays.asList(label16, label17));
+    agent.setPrefLabelList(List.of(label16, label17));
 
     LabelResource labelResource4 = new LabelResource();
-    agent.setProfessionOrOccupation(Arrays.asList(labelResource4));
+    agent.setProfessionOrOccupation(List.of(labelResource4));
 
     Part part1 = new Part("partP1");
     Part part2 = new Part();
-    agent.setSameAs(Arrays.asList(part1, part2));
+    agent.setSameAs(List.of(part1, part2));
 
     Resource resource1 = new Resource("resource1");
     Resource resource2 = new Resource();
-    agent.setWasPresentAt(Arrays.asList(resource1, resource2));
+    agent.setWasPresentAt(List.of(resource1, resource2));
 
     return agent;
   }
@@ -195,7 +195,7 @@ public class EntityMergeEngineTest {
   private static Agent createAgentWithNullValues() {
     Agent agent = new Agent();
     agent.setAbout("aboutA2");
-    agent.setDate(Arrays.asList(new LabelResource()));
+    agent.setDate(List.of(new LabelResource()));
     agent.setDateOfBirth(Arrays.asList(null, new Label()));
     agent.setDateOfDeath(Arrays.asList(new Label(), null));
     agent.setDateOfEstablishment(Arrays.asList(new Label[]{null}));
@@ -210,23 +210,23 @@ public class EntityMergeEngineTest {
 
     Label label1 = new Label("LangC1", "labelC1");
     Label label2 = new Label("labelC2");
-    concept.setAltLabelList(Arrays.asList(label1, label2));
+    concept.setAltLabelList(List.of(label1, label2));
 
     Resource resouce1 = new Resource("resourceC1");
     Resource resouce2 = new Resource("resourceC2");
-    concept.setBroader(Arrays.asList(resouce1, resouce2));
+    concept.setBroader(List.of(resouce1, resouce2));
 
     Resource resouce3 = new Resource("resourceC3");
     Resource resouce4 = new Resource("resourceC4");
-    concept.setBroadMatch(Arrays.asList(resouce3, resouce4));
+    concept.setBroadMatch(List.of(resouce3, resouce4));
 
     Resource resouce5 = new Resource("resourceC5");
     Resource resouce6 = new Resource("resourceC6");
-    concept.setCloseMatch(Arrays.asList(resouce5, resouce6));
+    concept.setCloseMatch(List.of(resouce5, resouce6));
 
     Resource resouce7 = new Resource("resourceC7");
     Resource resouce8 = new Resource("resourceC8");
-    concept.setExactMatch(Arrays.asList(resouce7, resouce8));
+    concept.setExactMatch(List.of(resouce7, resouce8));
 
     Label label3 = new Label("labelC3");
     Label label4 = new Label("labelC4");
@@ -234,25 +234,25 @@ public class EntityMergeEngineTest {
 
     Resource resouce9 = new Resource("resourceC9");
     Resource resouce10 = new Resource("resourceC10");
-    concept.setInScheme(Arrays.asList(resouce9, resouce10));
+    concept.setInScheme(List.of(resouce9, resouce10));
 
     Resource resouce11 = new Resource("resourceC11");
     Resource resouce21 = new Resource("resourceC21");
-    concept.setNarrower(Arrays.asList(resouce11, resouce21));
+    concept.setNarrower(List.of(resouce11, resouce21));
 
     Resource resouce12 = new Resource("resourceC12");
     Resource resouce22 = new Resource("resourceC22");
-    concept.setNarrowMatch(Arrays.asList(resouce12, resouce22));
+    concept.setNarrowMatch(List.of(resouce12, resouce22));
 
     Label label7 = new Label("labelC7");
     Label label8 = new Label("labelC8");
-    concept.setNotation(Arrays.asList(label7, label8));
+    concept.setNotation(List.of(label7, label8));
 
     Label label5 = new Label("labelC5");
-    concept.setNotes(Arrays.asList(label5));
+    concept.setNotes(List.of(label5));
 
     Label label6 = new Label("labelC6");
-    concept.setPrefLabelList(Arrays.asList(label6));
+    concept.setPrefLabelList(List.of(label6));
 
     Resource resouce14 = new Resource("resourceC14");
     Resource resouce24 = new Resource("resourceC24");
@@ -260,7 +260,7 @@ public class EntityMergeEngineTest {
 
     Resource resouce15 = new Resource("resourceC15");
     Resource resouce25 = new Resource("resourceC25");
-    concept.setRelatedMatch(Arrays.asList(resouce15, resouce25));
+    concept.setRelatedMatch(List.of(resouce15, resouce25));
 
     return concept;
   }
@@ -268,50 +268,49 @@ public class EntityMergeEngineTest {
   private static Concept createConceptWithNullValues() {
     Concept concept = new Concept();
     concept.setAbout("aboutC2");
-    concept.setBroader(Arrays.asList(new Resource()));
+    concept.setBroader(List.of(new Resource()));
     concept.setBroadMatch(Arrays.asList(null, new Resource()));
     concept.setNarrower(Arrays.asList(new Resource(), null));
     concept.setNarrowMatch(Arrays.asList(new Resource[]{null}));
-    concept.setRelated(Arrays.asList(new Resource[]{}));
+    concept.setRelated(List.of(new Resource[]{}));
     concept.setRelatedMatch(null);
     return concept;
   }
 
-  private static Timespan createTimeSpan() {
-    Timespan timespan = new Timespan();
+  private static TimeSpan createTimeSpan() {
+    TimeSpan timespan = new TimeSpan();
 
     timespan.setAbout("aboutT1");
 
     Label label1 = new Label("labelT1");
     Label label2 = new Label("langT2", "labelT2");
-    timespan.setAltLabelList(Arrays.asList(label1, label2));
+    timespan.setAltLabelList(List.of(label1, label2));
 
     Label label5 = new Label("labelT5");
-    Label label9 = new Label("labelT9");
-    timespan.setBeginList(Arrays.asList(null, label5, label9));
+    timespan.setBegin(label5);
 
     Label label6 = new Label("labelT6");
-    timespan.setEndList(Arrays.asList(null, label6, null));
+    timespan.setEnd(label6);
 
-    Part part1 = new Part("partT1");
-    timespan.setHasPartsList(Arrays.asList(part1));
+    LabelResource part1 = new LabelResource("partT1");
+    timespan.setHasPartsList(List.of(part1));
 
-    Part part2 = new Part("partT2");
-    timespan.setIsPartOf(part2);
+    LabelResource part2 = new LabelResource("partT2");
+    timespan.setIsPartOf(List.of(part2));
 
     Label label7 = new Label("LangT7", "labelT7");
     Label label8 = new Label("LangT8", "labelT8");
-    timespan.setHiddenLabel(Arrays.asList(label7, label8));
+    timespan.setHiddenLabel(List.of(label7, label8));
 
     Label label3 = new Label("labelT3");
-    timespan.setNotes(Arrays.asList(label3));
+    timespan.setNotes(List.of(label3));
 
     Label label4 = new Label("langT4", "labelT4");
-    timespan.setPrefLabelList(Arrays.asList(label4));
+    timespan.setPrefLabelList(List.of(label4));
 
     Part part3 = new Part("partT3");
     Part part4 = new Part("partT4");
-    timespan.setSameAs(Arrays.asList(part3, part4));
+    timespan.setSameAs(List.of(part3, part4));
 
     return timespan;
   }
@@ -321,9 +320,9 @@ public class EntityMergeEngineTest {
     verifyString(original.getAbout(), copy.getAbout(), true);
     verifyFloat(original.getAlt(), copy.getAlt(), Alt::getAlt);
     verifyList(original.getAltLabelList(), copy.getAltLabelList(), this::verifyLabel);
-    verifyList(original.getHasPartsList(), copy.getHasPartList(), this::verifyPart);
+    verifyList(original.getHasPartsList(), copy.getHasPartList(), this::verifyLabelResource);
     if (original.getIsPartOf() != null) {
-      verifyList(List.of(original.getIsPartOf()), copy.getIsPartOfList(), this::verifyPart);
+      verifyList(original.getIsPartOf(), copy.getIsPartOfList(), this::verifyLabelResource);
     }
     verifyFloat(original.getLat(), copy.getLat(), Lat::getLat);
     verifyFloat(original.getLon(), copy.getLong(), _Long::getLong);
@@ -338,8 +337,8 @@ public class EntityMergeEngineTest {
     verifyString(original.getAbout(), copy.getAbout(), true);
     verifyList(original.getAltLabelList(), copy.getAltLabelList(), this::verifyLabel);
     verifyFirstListItem(original.getBeginList(), copy.getBegin(), this::verifyLabel);
-    verifyList(original.getBiographicaInformation(), copy.getBiographicalInformationList(),
-        this::verifyLabel);
+    verifyList(original.getBiographicalInformation(), copy.getBiographicalInformationList(),
+        this::verifyLabelResource);
     verifyList(original.getDate(), copy.getDateList(), this::verifyLabelResource);
     verifyList(original.getPlaceOfBirth(), copy.getPlaceOfBirthList(), this::verifyLabelResource);
     verifyList(original.getPlaceOfDeath(), copy.getPlaceOfDeathList(), this::verifyLabelResource);
@@ -351,7 +350,7 @@ public class EntityMergeEngineTest {
         this::verifyLabel);
     verifyFirstListItem(original.getEndList(), copy.getEnd(), this::verifyLabel);
     verifyFirstListItem(original.getGender(), copy.getGender(), this::verifyLabel);
-    verifyList(original.getHasMet(), copy.getHasMetList(), this::verifyLabel);
+    verifyList(original.getHasMet(), copy.getHasMetList(), this::verifyResource);
     verifyList(original.getIdentifier(), copy.getIdentifierList(), this::verifyLabel);
     verifyList(original.getIsRelatedTo(), copy.getIsRelatedToList(), this::verifyLabelResource);
     verifyList(original.getNotes(), copy.getNoteList(), this::verifyLabel);
@@ -408,14 +407,14 @@ public class EntityMergeEngineTest {
     assertEquals(0, copy.getChoiceList().size() - choicesCount);
   }
 
-  private void verifyTimespan(Timespan original, TimeSpanType copy) {
+  private void verifyTimespan(TimeSpan original, TimeSpanType copy) {
     assertNotNull(copy);
     verifyString(original.getAbout(), copy.getAbout(), true);
     verifyList(original.getAltLabelList(), copy.getAltLabelList(), this::verifyLabel);
-    verifyFirstListItem(original.getBeginList(), copy.getBegin(), this::verifyLabel);
-    verifyFirstListItem(original.getEndList(), copy.getEnd(), this::verifyLabel);
-    verifyList(original.getHasPartsList(), copy.getHasPartList(), this::verifyPart);
-    verifyList(List.of(original.getIsPartOf()), copy.getIsPartOfList(), this::verifyPart);
+    verifyLabel(original.getBegin(), copy.getBegin());
+    verifyLabel(original.getEnd(), copy.getEnd());
+    verifyList(original.getHasPartsList(), copy.getHasPartList(), this::verifyLabelResource);
+    verifyList(original.getIsPartOf(), copy.getIsPartOfList(), this::verifyLabelResource);
     verifyList(original.getNotes(), copy.getNoteList(), this::verifyLabel);
     verifyList(original.getPrefLabelList(), copy.getPrefLabelList(), this::verifyLabel);
     verifyList(original.getHiddenLabel(), copy.getHiddenLabelList(), this::verifyLabel);
@@ -487,20 +486,6 @@ public class EntityMergeEngineTest {
     verifyString(original.getValue(), copy.getString(), false);
   }
 
-  private void verifyLabel(Label original, ResourceOrLiteralType copy) {
-    if (original.getLang() != null) {
-      assertNotNull(copy.getLang());
-      verifyString(original.getLang(), copy.getLang().getLang(), false);
-    } else {
-      assertNull(copy.getLang());
-    }
-    verifyString(original.getValue(), copy.getString(), false);
-  }
-
-  private void verifyLabel(Label original, ResourceType copy) {
-    verifyString(original.getValue(), copy.getResource(), false);
-  }
-
   private void verifyResource(Resource original, ResourceType copy) {
     verifyString(original.getResource(), copy.getResource(), false);
   }
@@ -519,18 +504,6 @@ public class EntityMergeEngineTest {
       assertNull(copy.getResource());
     }
     verifyString(original.getValue(), copy.getString(), false);
-  }
-
-  private void verifyPart(Part original, ResourceOrLiteralType copy) {
-    // The lang and the string must be empty.
-    assertNull(copy.getLang());
-    if (original.getResource() != null) {
-      assertNotNull(copy.getResource());
-      verifyString(original.getResource(), copy.getResource().getResource(), false);
-    } else {
-      assertNull(copy.getResource());
-    }
-    assertEquals("", copy.getString());
   }
 
   private void verifyPart(Part original, ResourceType copy) {
@@ -666,7 +639,7 @@ public class EntityMergeEngineTest {
     // Verify content
     verifyAgent((Agent) inputList.get(0), rdf.getAgentList().get(0));
     verifyConcept((Concept) inputList.get(1), rdf.getConceptList().get(0));
-    verifyTimespan((Timespan) inputList.get(2), rdf.getTimeSpanList().get(0));
+    verifyTimespan((TimeSpan) inputList.get(2), rdf.getTimeSpanList().get(0));
     verifyAgent((Agent) inputList.get(3), rdf.getAgentList().get(1));
     verifyConcept((Concept) inputList.get(4), rdf.getConceptList().get(1));
     verifyOrganization((Organization) inputList.get(5), rdf.getOrganizationList().get(0));
