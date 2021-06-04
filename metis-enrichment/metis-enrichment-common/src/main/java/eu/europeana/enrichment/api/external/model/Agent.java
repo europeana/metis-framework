@@ -9,6 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Agent")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Agent extends AbstractAgent {
+public class Agent extends AgentBase {
 
 }

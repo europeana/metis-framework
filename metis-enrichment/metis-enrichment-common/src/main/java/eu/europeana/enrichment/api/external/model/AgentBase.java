@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlTransient
 @XmlSeeAlso({Agent.class, Organization.class})
-public class AbstractAgent extends EnrichmentBase {
+public abstract class AgentBase extends EnrichmentBase {
 
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> hiddenLabel = new ArrayList<>();
