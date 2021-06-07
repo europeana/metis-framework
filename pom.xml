@@ -85,7 +85,7 @@
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
     <version.jackson>2.12.3</version.jackson>
     <version.xerces>2.12.1</version.xerces>
-    <version.json>20201115</version.json>
+    <version.json>20210307</version.json>
     <version.powermock>2.0.9</version.powermock>
     <version.mockito.core>3.8.0</version.mockito.core>
     <version.corelib>2.12.2-SNAPSHOT</version.corelib>
