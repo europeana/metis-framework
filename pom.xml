@@ -103,7 +103,7 @@
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
     <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.mpd.parser>0.9</version.mpd.parser>
-    <version.zip4j>2.7.0</version.zip4j>
+    <version.zip4j>2.8.0</version.zip4j>
     <version.ibm.icu4j>67.1</version.ibm.icu4j>
     <version.itextpdf>5.5.13.2</version.itextpdf>
     <version.bouncycastle>1.49</version.bouncycastle>
