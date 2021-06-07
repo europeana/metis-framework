@@ -106,7 +106,7 @@
     <version.zip4j>2.8.0</version.zip4j>
     <version.ibm.icu4j>69.1</version.ibm.icu4j>
     <version.itextpdf>5.5.13.2</version.itextpdf>
-    <version.bouncycastle>1.49</version.bouncycastle>
+    <version.bouncycastle>1.68</version.bouncycastle>
     <version.tika.core>1.26</version.tika.core>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
