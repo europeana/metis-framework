@@ -85,6 +85,7 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
     final MetisZohoOAuthToken metisZohoOAuthToken;
     try (Session dbSession = sessionFactory.openSession()) {
       metisZohoOAuthToken = performThrowingFunction(dbSession, session -> {
+        Transaction tx = session.beginTransaction();
         Query<?> query = session.createQuery(String
             .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
                 USER_IDENTIFIER_STRING));
@@ -94,7 +95,6 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
         }
         final MetisZohoOAuthToken foundToken = (MetisZohoOAuthToken) query.list().get(0);
         String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
-        Transaction tx = session.beginTransaction();
         commitTransaction(tx, potentialErrorMessage);
         return foundToken;
       });
