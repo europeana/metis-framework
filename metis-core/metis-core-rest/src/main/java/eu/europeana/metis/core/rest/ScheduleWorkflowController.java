@@ -118,11 +118,12 @@ public class ScheduleWorkflowController {
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     responseListWrapper.setResultsAndLastPage(scheduleWorkflowService
             .getAllScheduledWorkflows(metisUser, ScheduleFrequence.NULL, nextPage),
         scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);

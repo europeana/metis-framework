@@ -109,7 +109,7 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
     OAuthToken oAuthToken = (OAuthToken) token;
     final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(
         userSignature.getEmail(), oAuthToken.getAccessToken(), oAuthToken.getRefreshToken(),
-        Long.parseLong(oAuthToken.getExpiresIn()));
+        Long.valueOf(oAuthToken.getExpiresIn()));
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
         Transaction tx = session.beginTransaction();
