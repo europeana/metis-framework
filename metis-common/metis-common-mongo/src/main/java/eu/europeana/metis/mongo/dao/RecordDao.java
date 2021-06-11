@@ -4,9 +4,11 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.aggregation.experimental.stages.Projection;
 import dev.morphia.mapping.Mapper;
 import dev.morphia.mapping.MappingException;
 import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
@@ -27,9 +29,9 @@ import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.corelib.web.exception.EuropeanaException;
 import eu.europeana.corelib.web.exception.ProblemType;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,14 +104,20 @@ public class RecordDao {
    * @return the matched full bean
    * @throws EuropeanaException if anything when wrong with the request
    */
-  public FullBean getFullBean(String id) throws EuropeanaException {
+  public FullBean getFullBean(String id, boolean isDefault) throws EuropeanaException {
     try {
+      FullBeanImpl result;
       long start = 0;
       if (LOGGER.isDebugEnabled()) {
         start = System.currentTimeMillis();
       }
-      FullBeanImpl result = datastore.find(FullBeanImpl.class).filter(Filters.eq("about", id))
-          .first();
+      if(isDefault) {
+        result = trySomethingElse(id);
+      } else {
+         result = datastore.find(FullBeanImpl.class).filter(Filters.eq("about", id))
+                .first();
+      }
+
       LOGGER.debug("Mongo query find fullbean {} finished in {} ms", id,
           (System.currentTimeMillis() - start));
       return result;
@@ -121,6 +129,32 @@ public class RecordDao {
         throw new MongoRuntimeException(ProblemType.MONGO_UNREACHABLE, re);
       }
     }
+  }
+
+  /** Fetch Full bean using Aggregation pipeline and projection
+   *
+   * @param id
+   * @return
+   */
+  private FullBeanImpl trySomethingElse(String id) {
+    FullBeanImpl result = null;
+    Projection projectionExclude = Projection.of().exclude("timestampUpdated")
+            .exclude("europeanaCollectionName").exclude("timestampCreated").
+            exclude("places").exclude("timespans")
+            .exclude("agents.prefLabel").exclude("agents.rdaGr2BiographicalInformation")
+            .exclude("aggregations.edmIsShownAt").exclude("aggregations.edmIsShownBy");
+
+
+    MorphiaCursor<FullBeanImpl> cursor = datastore.aggregate(FullBeanImpl.class)
+            .match(Filters.eq("about", id))
+            .project(projectionExclude).execute(FullBeanImpl.class);
+
+    if(cursor != null && cursor.hasNext()){
+      result = cursor.toList().get(0);
+    }
+
+    System.out.println(result.toString());
+    return result;
   }
 
   /**
