@@ -27,7 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -102,7 +102,7 @@ public class ValidationController {
   @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
   public ValidationResultList batchValidate(
       @ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-      @ApiParam(value = "file") @RequestParam("file") MultipartFile providedZipFile)
+      @ApiParam(value = "file") @RequestPart("file") MultipartFile providedZipFile)
       throws ServerException, BatchValidationException {
 
     if (!schemaProvider.isPredefined(targetSchema)) {

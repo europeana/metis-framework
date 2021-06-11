@@ -23,12 +23,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>eu.europeana.metis</groupId>
-          <artifactId>metis-schema</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <!-- This dependency is included to ensure that the dependency above refers to the right version. -->
     <dependency>

@@ -13,6 +13,7 @@ import eu.europeana.validation.client.ValidationClient;
 import java.io.IOException;
 import java.net.URI;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executors;
@@ -170,7 +171,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "swagger-ui.html");
+    registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
   @Override
@@ -180,10 +181,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/swagger-ui/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+        .resourceChain(false);
   }
 
   @Bean(name = "datasetIdGenerator")
@@ -253,7 +253,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         "v1",
         "API TOS",
         contact,
-        "EUPL Licence v1.1",
-        "");
+        "EUPL Licence v1.2",
+        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }

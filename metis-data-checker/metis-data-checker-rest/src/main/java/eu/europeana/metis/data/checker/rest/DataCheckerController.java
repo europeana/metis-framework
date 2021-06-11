@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,7 +71,7 @@ public class DataCheckerController {
       @ApiResponse(code = 400, message = "", response = StructuredExceptionWrapper.class),
       @ApiResponse(code = 422, message = "", response = ValidationResultList.class)
   })
-  public ExtendedValidationResult createRecords(@ApiParam @RequestParam("file") MultipartFile file,
+  public ExtendedValidationResult createRecords(@ApiParam @RequestPart("file") MultipartFile file,
       @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal", defaultValue = "true") boolean edmExternal,
       @ApiParam(name = "datasetName") @RequestParam(value = "datasetName", required = false) String datasetName,
       @ApiParam(name = "edmCountry") @RequestParam(value = "edmCountry", required = false) String edmCountry,

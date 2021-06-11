@@ -5,6 +5,7 @@ import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.PredefinedSchemasGenerator;
 import eu.europeana.validation.service.SchemaProvider;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
@@ -73,7 +74,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "swagger-ui.html");
+    registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
   @Bean(name = "validationProperties")
@@ -92,10 +93,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/swagger-ui/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+        .resourceChain(false);
   }
 
     /**
@@ -153,8 +153,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         "v1",
         "API TOS",
         new Contact("Europeana","europeana.eu","development@europeana.eu"),
-        "EUPL Licence v1.1",
-        ""
-    );
+        "EUPL Licence v1.2",
+        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }
