@@ -6,7 +6,6 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.solr.facet.FacetEncoder;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
@@ -26,9 +25,7 @@ import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +39,6 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
-import org.springframework.util.CollectionUtils;
 
 /**
  * This class provides functionality to populate Solr documents. Both methods in this class should
@@ -87,18 +83,6 @@ public class SolrDocumentPopulator {
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
         .filter(hasAcceptableTarget).collect(
             Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
-
-    //Gather organization uris and the pref values
-    final List<OrganizationImpl> organizations = fullBean.getOrganizations();
-    final Map<String, List<String>> organizationsUriLiterals = new HashMap<>();
-    organizations.forEach(organization -> {
-      List<String> labels = organization.getPrefLabel().get("en");
-      if (CollectionUtils.isEmpty(labels)) {
-        labels = organization.getPrefLabel().values().stream().findFirst()
-            .orElse(Collections.emptyList());
-      }
-      organizationsUriLiterals.put(organization.getAbout(), labels);
-    });
 
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
