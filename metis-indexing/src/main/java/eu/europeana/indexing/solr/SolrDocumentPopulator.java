@@ -6,6 +6,7 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.solr.facet.FacetEncoder;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
@@ -25,7 +26,9 @@ import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +42,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
+import org.springframework.util.CollectionUtils;
 
 /**
  * This class provides functionality to populate Solr documents. Both methods in this class should
@@ -72,8 +76,8 @@ public class SolrDocumentPopulator {
 
     // Gather the quality annotations.
     final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations()).stream()
-        .flatMap(Collection::stream).filter(Objects::nonNull)
-        .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
+        .flatMap(Collection::stream).filter(Objects::nonNull).map(AggregationImpl::getAbout)
+        .filter(Objects::nonNull).collect(Collectors.toSet());
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
         .ofNullable(annotation.getTarget()).stream().flatMap(Arrays::stream)
         .anyMatch(acceptableTargets::contains);
@@ -81,14 +85,25 @@ public class SolrDocumentPopulator {
         .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElseGet(Stream::empty)
         .filter(Objects::nonNull)
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
-        .filter(hasAcceptableTarget)
-        .collect(
+        .filter(hasAcceptableTarget).collect(
             Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
+
+    //Gather organization uris and the pref values
+    final List<OrganizationImpl> organizations = fullBean.getOrganizations();
+    final Map<String, List<String>> organizationsUriLiterals = new HashMap<>();
+    organizations.forEach(organization -> {
+      List<String> labels = organization.getPrefLabel().get("en");
+      if (CollectionUtils.isEmpty(labels)) {
+        labels = organization.getPrefLabel().values().stream().findFirst()
+            .orElse(Collections.emptyList());
+      }
+      organizationsUriLiterals.put(organization.getAbout(), labels);
+    });
 
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
-    new AggregationSolrCreator(licenses).addToDocument(document,
-        getDataProviderAggregations(fullBean).get(0));
+    new AggregationSolrCreator(licenses, fullBean.getOrganizations())
+        .addToDocument(document, getDataProviderAggregations(fullBean).get(0));
     new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
         .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
@@ -106,8 +121,8 @@ public class SolrDocumentPopulator {
         .addAllToDocument(document, fullBean.getLicenses());
 
     // Add the top-level properties.
-    document.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(),
-        fullBean.getEuropeanaCompleteness());
+    document
+        .addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(), fullBean.getEuropeanaCompleteness());
     document.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
         fullBean.getEuropeanaCollectionName()[0]);
     document.addField(EdmLabel.TIMESTAMP_CREATED.toString(), fullBean.getTimestampCreated());
@@ -165,18 +180,12 @@ public class SolrDocumentPopulator {
 
   private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean) {
 
-    List<String> proxyInResult = fullBean.getProxies()
-        .stream()
+    List<String> proxyInResult = fullBean.getProxies().stream()
         .filter(not(ProxyImpl::isEuropeanaProxy))
-        .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage()))
-        .map(ProxyImpl::getProxyIn)
-        .map(Arrays::asList)
-        .flatMap(List::stream)
-        .collect(Collectors.toList());
+        .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
+        .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
 
-    return fullBean.getAggregations()
-        .stream()
-        .filter(x -> proxyInResult.contains(x.getAbout()))
+    return fullBean.getAggregations().stream().filter(x -> proxyInResult.contains(x.getAbout()))
         .collect(Collectors.toList());
 
   }

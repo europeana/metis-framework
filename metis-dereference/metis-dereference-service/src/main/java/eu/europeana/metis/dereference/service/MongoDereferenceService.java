@@ -31,7 +31,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;

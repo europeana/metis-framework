@@ -19,6 +19,7 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.ConceptSchemeImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.EventImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.corelib.solr.entity.PhysicalThingImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
@@ -75,6 +76,7 @@ public class RecordDao {
     mapper.map(ProvidedCHOImpl.class);
     mapper.map(AgentImpl.class);
     mapper.map(AggregationImpl.class);
+    mapper.map(OrganizationImpl.class);
     mapper.map(ConceptImpl.class);
     mapper.map(ProxyImpl.class);
     mapper.map(PlaceImpl.class);

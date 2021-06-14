@@ -95,6 +95,8 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
         fullBean -> null, new ProvidedChoUpdater());
     propertyUpdater.updateReferencedEntities("aggregations", FullBeanImpl::getAggregations,
         FullBeanUpdater::createRootAbout, new AggregationUpdater());
+    propertyUpdater.updateReferencedEntities("organizations", FullBeanImpl::getOrganizations,
+        FullBeanUpdater::createRootAbout, new OrganizationUpdater());
     propertyUpdater.updateReferencedEntity("europeanaAggregation",
         FullBeanUpdater::getEuropeanaAggregationFromFullBean, FullBeanUpdater::createRootAbout,
         new EuropeanaAggregationUpdater());
