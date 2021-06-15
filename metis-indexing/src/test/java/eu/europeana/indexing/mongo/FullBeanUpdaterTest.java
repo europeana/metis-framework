@@ -88,7 +88,7 @@ class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
         FullBeanImpl::setAggregations, RootAboutWrapper.class, AggregationImpl::new);
     this.<Organization, RootAboutWrapper>testReferencedEntitiesPropertyUpdate(propertyUpdater,
         "organizations",
-        FullBeanImpl::setOrganizations, RootAboutWrapper.class, OrganizationImpl::new);
+        FullBeanImpl::setOrganizations, null, OrganizationImpl::new);
     this.<EuropeanaAggregation, RootAboutWrapper>testReferencedEntityPropertyUpdate(propertyUpdater,
         "europeanaAggregation", FullBeanImpl::setEuropeanaAggregation, RootAboutWrapper.class,
         EuropeanaAggregationImpl::new);
