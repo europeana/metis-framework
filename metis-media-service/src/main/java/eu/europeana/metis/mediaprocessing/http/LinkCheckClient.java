@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import eu.europeana.metis.network.AbstractHttpClient;
 import java.net.URI;
 
 /**
@@ -28,7 +29,7 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
   }
 
   @Override
-  protected Void createResult(String resourceEntry, URI actualUri, String mimeType, Long fileSize,
+  protected Void createResult(String providedLink, URI actualUri, String mimeType, Long fileSize,
       ContentRetriever contentRetriever) {
     return null;
   }
