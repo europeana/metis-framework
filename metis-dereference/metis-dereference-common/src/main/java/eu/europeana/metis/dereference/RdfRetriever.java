@@ -14,9 +14,9 @@ import org.apache.commons.lang3.StringUtils;
 public class RdfRetriever {
 
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
-  private static final int CONNECT_TIMEOUT = 10;
-  private static final int RESPONSE_TIMEOUT = 20;
-  private static final int REQUEST_TIMEOUT = 60;
+  private static final int CONNECT_TIMEOUT = 10_000;
+  private static final int RESPONSE_TIMEOUT = 20_000;
+  private static final int REQUEST_TIMEOUT = 60_000;
 
   /**
    * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
