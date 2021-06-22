@@ -41,4 +41,10 @@ public interface Enricher {
    */
   Map<ReferenceTermContext, List<EnrichmentBase>> enrichReferences(
       Set<ReferenceTermContext> references) throws EnrichmentException;
+
+  /**
+   * Cleanups/Removes enrichment entities from a previous enrichment.
+   * @param rdf the RDF to be processed
+   */
+  void cleanupPreviousEnrichmentEntities(RDF rdf);
 }
