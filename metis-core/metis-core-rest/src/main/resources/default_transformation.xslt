@@ -416,9 +416,15 @@
   </xsl:template>
   <xsl:template match="*">
     <xsl:element name="{name()}">
-      <xsl:copy-of select="@rdf:resource"/>
-      <xsl:copy-of select="@xml:lang"/>
-      <xsl:copy-of select="@rdf:datatype"/>
+      <xsl:choose>
+        <xsl:when test="@rdf:resource">
+          <xsl:copy-of select="@rdf:resource"/>
+        </xsl:when>
+        <xsl:otherwise>
+		      <xsl:copy-of select="@xml:lang"/>
+		      <xsl:copy-of select="@rdf:datatype"/>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="node()"/>
     </xsl:element>
   </xsl:template>
