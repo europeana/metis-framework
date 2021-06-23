@@ -421,11 +421,11 @@
           <xsl:copy-of select="@rdf:resource"/>
         </xsl:when>
         <xsl:otherwise>
-		      <xsl:copy-of select="@xml:lang"/>
-		      <xsl:copy-of select="@rdf:datatype"/>
+          <xsl:copy-of select="@xml:lang"/>
+          <xsl:copy-of select="@rdf:datatype"/>
+          <xsl:apply-templates select="node()"/>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="node()"/>
     </xsl:element>
   </xsl:template>
   <!-- ************************************************ -->
