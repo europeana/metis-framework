@@ -4,18 +4,25 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.enrichment.utils.RdfEntityUtils;
+import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +33,8 @@ import org.slf4j.LoggerFactory;
 public class EnricherImpl implements Enricher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
+  private static final Pattern europeanaLinkPattern = Pattern
+      .compile("^https?://data.europeana.eu.*$");
 
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
@@ -100,5 +109,16 @@ public class EnricherImpl implements Enricher {
     } catch (RuntimeException e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }
+  }
+
+  @Override
+  public void cleanupPreviousEnrichmentEntities(RDF rdf) {
+    final ProxyType europeanaProxy = RdfEntityUtils.getEuropeanaProxy(rdf);
+    //Find the correct links
+    final Set<String> europeanaLinks = Arrays.stream(ProxyFieldType.values())
+        .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
+        .flatMap(Collection::stream).filter(europeanaLinkPattern.asPredicate())
+        .collect(Collectors.toSet());
+    RdfEntityUtils.removeMatchingEntities(rdf, europeanaLinks);
   }
 }

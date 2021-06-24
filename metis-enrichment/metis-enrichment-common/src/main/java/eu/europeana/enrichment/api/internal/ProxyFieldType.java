@@ -90,6 +90,29 @@ public enum ProxyFieldType implements FieldType<ProxyType> {
   }
 
   /**
+   * Remove {@link Choice} fields from the proxy that match the provided link.
+   *
+   * @param proxy the proxy to be checked
+   * @param link the link to be matched
+   */
+  public void removeMatchingFields(ProxyType proxy, String link) {
+    proxy.getChoiceList().removeIf(choice -> doesChoiceMatchLink(choice, link));
+  }
+
+  private boolean doesChoiceMatchLink(Choice choice, String link) {
+    boolean result = false;
+    if (choiceContentHandler.choiceChecker.test(choice)) {
+      final ResourceOrLiteralType resourceOrLiteralType = choiceContentHandler.contentGetter
+          .apply(choice);
+      if (resourceOrLiteralType != null && resourceOrLiteralType.getResource() != null && link
+          .equals(resourceOrLiteralType.getResource().getResource())) {
+        result = true;
+      }
+    }
+    return result;
+  }
+
+  /**
    * Create a field appendable on a Europeana Proxy during enrichment for semantic linking
    *
    * @param about The rdf:about of the Class to append on the specified field

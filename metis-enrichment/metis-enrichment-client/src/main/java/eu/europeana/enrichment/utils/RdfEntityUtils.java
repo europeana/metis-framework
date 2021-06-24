@@ -14,6 +14,7 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Lang;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -22,6 +23,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
@@ -40,7 +43,8 @@ public final class RdfEntityUtils {
    * @param link the about value to link
    * @param linkTypes the types of the link to add in the europeana proxy.
    */
-  public static void appendLinkToEuropeanaProxy(RDF rdf, String link, Set<ProxyFieldType> linkTypes) {
+  public static void appendLinkToEuropeanaProxy(RDF rdf, String link,
+      Set<ProxyFieldType> linkTypes) {
     final Map<ProxyFieldType, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
     final ProxyType europeanaProxy = getEuropeanaProxy(rdf);
     for (ProxyFieldType linkType : linkTypes) {
@@ -66,10 +70,12 @@ public final class RdfEntityUtils {
   public static void replaceValueWithLinkInAggregation(RDF rdf, String link,
       SearchTermContext searchTermAggregation) {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
-    for (FieldType<? extends AboutType> aggregationFieldType : searchTermAggregation.getFieldTypes()) {
-      aggregationList.stream().flatMap(((AggregationFieldType)aggregationFieldType)::extractFields).filter(
-          resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
-              searchTermAggregation)).forEach(resourceOrLiteralType -> {
+    for (FieldType<? extends AboutType> aggregationFieldType : searchTermAggregation
+        .getFieldTypes()) {
+      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
+          .filter(
+              resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
+                  searchTermAggregation)).forEach(resourceOrLiteralType -> {
         final Resource resource = new Resource();
         resource.setResource(link);
         resourceOrLiteralType.setResource(resource);
@@ -143,6 +149,36 @@ public final class RdfEntityUtils {
     return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
         .filter(Objects::nonNull).filter(RdfEntityUtils::isEuropeanaProxy).findAny()
         .orElseThrow(() -> new IllegalArgumentException("Could not find Europeana proxy."));
+  }
+
+  /**
+   * Remove matching entities and their European Proxy link.
+   *
+   * @param rdf the RDF to be processed
+   * @param links the links to be matched
+   */
+  public static void removeMatchingEntities(RDF rdf, Collection<String> links) {
+    removeEntitiesByType(links, rdf::getAgentList, rdf::setAgentList);
+    removeEntitiesByType(links, rdf::getConceptList, rdf::setConceptList);
+    removeEntitiesByType(links, rdf::getPlaceList, rdf::setPlaceList);
+    removeEntitiesByType(links, rdf::getTimeSpanList, rdf::setTimeSpanList);
+    removeEntitiesByType(links, rdf::getOrganizationList, rdf::setOrganizationList);
+
+    //Remove matching fields from the europeana proxy
+    final ProxyType europeanaProxy = getEuropeanaProxy(rdf);
+    for (String europeanaLink : links) {
+      Arrays.stream(ProxyFieldType.values()).forEach(
+          proxyFieldType -> proxyFieldType.removeMatchingFields(europeanaProxy, europeanaLink));
+    }
+  }
+
+  private static <T extends AboutType> void removeEntitiesByType(Collection<String> links,
+      Supplier<List<T>> listGetter, Consumer<List<T>> listSetter) {
+    for (String link : links) {
+      final List<T> list = Optional.ofNullable(listGetter.get()).orElseGet(Collections::emptyList);
+      list.removeIf(item -> item.getAbout().equals(link));
+      listSetter.accept(list);
+    }
   }
 
   private static void replaceProxy(RDF rdf, ProxyType europeanaProxy) {

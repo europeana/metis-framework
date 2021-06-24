@@ -43,7 +43,6 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (enricher != null) {
       supportedModes.add(Mode.ENRICHMENT);
     }
-
   }
 
   @Override
@@ -152,6 +151,11 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Done
     LOGGER.debug("Processing complete.");
     return rdf;
+  }
+
+  @Override
+  public void cleanupPreviousEnrichmentEntities(RDF rdf) {
+    enricher.cleanupPreviousEnrichmentEntities(rdf);
   }
 
   private String convertRdfToStringForLogging(final RDF rdf) {
