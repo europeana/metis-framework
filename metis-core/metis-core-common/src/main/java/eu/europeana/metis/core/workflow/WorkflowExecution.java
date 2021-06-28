@@ -124,7 +124,8 @@ public class WorkflowExecution implements HasMongoObjectId {
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
           || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
-          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING
+          || metisPlugin.getPluginStatus() == PluginStatus.IDENTIFYING_DELETED_RECORDS) {
         metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
       }
     }

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  * @since 2017-05-26
  */
 public enum PluginStatus {
-  INQUEUE, CLEANING, RUNNING, FINISHED, CANCELLED, FAILED, PENDING;
+  INQUEUE, CLEANING, RUNNING, FINISHED, CANCELLED, FAILED, PENDING, IDENTIFYING_DELETED_RECORDS;
 
   /**
    * Lookup of a {@link PluginStatus} enum from a provided enum String representation of the enum

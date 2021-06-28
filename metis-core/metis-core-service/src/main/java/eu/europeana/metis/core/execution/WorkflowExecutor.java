@@ -190,7 +190,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
           || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
-          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING
+          || metisPlugin.getPluginStatus() == PluginStatus.IDENTIFYING_DELETED_RECORDS) {
         firstPluginPositionToStart = i;
         break;
       }
@@ -345,6 +346,11 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         plugin.setPluginStatusAndResetFailMessage(
             monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
                 ? PluginStatus.CLEANING : PluginStatus.RUNNING);
+        //TODO: What is this method for? Is it here where I add this detail?
+        plugin.setPluginStatusAndResetFailMessage(
+            monitorResult.getTaskState() == TaskState.POST_PROCESSING
+                ? PluginStatus.IDENTIFYING_DELETED_RECORDS : PluginStatus.RUNNING);
+
       } catch (InterruptedException e) {
         LOGGER.warn(String.format(
             "workflowExecutionId: %s, pluginType: %s - Thread was interrupted during monitoring of external task",
