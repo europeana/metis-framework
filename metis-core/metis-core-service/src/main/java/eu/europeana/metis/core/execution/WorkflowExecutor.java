@@ -348,7 +348,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
                 ? PluginStatus.CLEANING : PluginStatus.RUNNING);
         //TODO: What is this method for? Is it here where I add this detail?
         plugin.setPluginStatusAndResetFailMessage(
-            monitorResult.getTaskState() == TaskState.POST_PROCESSING
+            monitorResult.getTaskState() == TaskState.IN_POST_PROCESSING
                 ? PluginStatus.IDENTIFYING_DELETED_RECORDS : PluginStatus.RUNNING);
 
       } catch (InterruptedException e) {
