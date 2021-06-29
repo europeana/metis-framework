@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -141,6 +142,12 @@ class IndexerImpl implements Indexer {
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
     return this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout);
+  }
+
+  @Override
+  public boolean removeWithEuropeanaId(String europeanaId)
+      throws IndexerRelatedIndexingException {
+    return this.connectionProvider.getIndexedRecordAccess().removeRecordWithEuropeanaId(europeanaId);
   }
 
   @Override

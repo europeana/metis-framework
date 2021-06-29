@@ -18,6 +18,7 @@ import java.util.TimeZone;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
+import org.bson.types.ObjectId;
 
 /**
  * This class provides functionality for accessing records that are already indexed from the Mongo
@@ -54,6 +55,20 @@ public class IndexedRecordAccess {
     final Query<FullBeanImpl> query = mongoServer.getDatastore().find(FullBeanImpl.class);
     query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
     return query.count();
+  }
+
+  public boolean removeRecordWithEuropeanaId(String europeanaId)
+      throws IndexerRelatedIndexingException {
+
+    final Datastore datastore = mongoServer.getDatastore();
+    final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class)
+        .filter(Filters.eq(EdmLabel.EUROPEANA_ID.toString(), europeanaId)).first();
+
+    if (recordToDelete == null) {
+      throw new IndexerRelatedIndexingException("No such record with europeana id'" + europeanaId + "' exists.");
+    }
+
+    return removeRecord(recordToDelete.getAbout());
   }
 
   /**
