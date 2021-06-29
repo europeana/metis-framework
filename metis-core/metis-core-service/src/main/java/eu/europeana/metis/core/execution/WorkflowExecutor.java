@@ -346,7 +346,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         plugin.setPluginStatusAndResetFailMessage(
             monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
                 ? PluginStatus.CLEANING : PluginStatus.RUNNING);
-        //TODO: What is this method for? Is it here where I add this detail?
+
         plugin.setPluginStatusAndResetFailMessage(
             monitorResult.getTaskState() == TaskState.IN_POST_PROCESSING
                 ? PluginStatus.IDENTIFYING_DELETED_RECORDS : PluginStatus.RUNNING);
