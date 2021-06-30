@@ -136,8 +136,6 @@ public interface Indexer extends Closeable {
    */
   boolean remove(String rdfAbout) throws IndexingException;
 
-  boolean removeWithEuropeanaId(String europeanaId) throws IndexerRelatedIndexingException;
-
   /**
    * <p>
    * Removes all records that belong to a given dataset. This method also removes the associated

@@ -145,12 +145,6 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public boolean removeWithEuropeanaId(String europeanaId)
-      throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordAccess().removeRecordWithEuropeanaId(europeanaId);
-  }
-
-  @Override
   public int removeAll(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
     // TODO: 8/26/20 Update removeAll method to return long instead of int, it will affect clients

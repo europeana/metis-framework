@@ -57,20 +57,6 @@ public class IndexedRecordAccess {
     return query.count();
   }
 
-  public boolean removeRecordWithEuropeanaId(String europeanaId)
-      throws IndexerRelatedIndexingException {
-
-    final Datastore datastore = mongoServer.getDatastore();
-    final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class)
-        .filter(Filters.eq(EdmLabel.EUROPEANA_ID.toString(), europeanaId)).first();
-
-    if (recordToDelete == null) {
-      throw new IndexerRelatedIndexingException("No such record with europeana id'" + europeanaId + "' exists.");
-    }
-
-    return removeRecord(recordToDelete.getAbout());
-  }
-
   /**
    * Removes the record with the given rdf:about value. Also removes any associated entities (i.e.
    * those entities that are always part of only one record and the removal of which can not

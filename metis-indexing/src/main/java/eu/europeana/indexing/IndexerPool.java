@@ -115,17 +115,6 @@ public class IndexerPool implements Closeable {
     indexRecord(indexer -> indexer.remove(record));
   }
 
-  /**
-   * This method removes a single record using the europeanaId field,
-   * using a free indexer in the pool
-   *
-   * @param europeanaId The record to be removed
-   * @throws IndexingException
-   */
-  public void removeWithEuropeanaId(String europeanaId) throws IndexingException {
-    indexRecord(indexer -> indexer.removeWithEuropeanaId(europeanaId));
-  }
-
   private void indexRecord(IndexTask indexTask) throws IndexingException {
 
     // Obtain indexer from the pool.
