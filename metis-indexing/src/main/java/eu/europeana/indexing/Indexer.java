@@ -1,13 +1,11 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
-import org.bson.types.ObjectId;
 
 /**
  * <p>

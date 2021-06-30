@@ -18,7 +18,6 @@ import java.util.TimeZone;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
-import org.bson.types.ObjectId;
 
 /**
  * This class provides functionality for accessing records that are already indexed from the Mongo

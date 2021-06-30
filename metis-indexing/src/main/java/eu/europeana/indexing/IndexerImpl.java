@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
