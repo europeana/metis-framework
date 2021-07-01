@@ -55,8 +55,9 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
         .concat(providerPair.getLeft().stream(), intermediatePair.getLeft().stream())
         .toArray(String[]::new);
 
-    //Single value, contains provider uri(in practice the list provided has one value)
-    SolrPropertyUtils.addValue(doc, EdmLabel.DATA_PROVIDER, dataProviderPair.getLeft().get(0));
+    //Single value, contains provider uri(in practice the list provided has one or no value)
+    dataProviderPair.getLeft().stream().findFirst()
+        .ifPresent(uri -> SolrPropertyUtils.addValue(doc, EdmLabel.DATA_PROVIDER, uri));
     //Multivalued, contains provider and intermediate uris
     SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER, combinedProviderAndIntermediateUris);
 
@@ -105,8 +106,8 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
     return new ImmutablePair<>(uriList, literalsMap);
   }
 
-  private void extractUris(Map<String, List<String>> urisLiteralsMap,
-      List<String> uriList, Map<String, List<String>> literalsMap) {
+  private void extractUris(Map<String, List<String>> urisLiteralsMap, List<String> uriList,
+      Map<String, List<String>> literalsMap) {
     for (Map.Entry<String, List<String>> entry : urisLiteralsMap.entrySet()) {
       final List<String> literals = new ArrayList<>();
       for (String value : entry.getValue()) {
@@ -127,8 +128,7 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
   private void extendWithOrganizationLiterals(Map<String, List<String>> literalsMap) {
     for (OrganizationImpl organizationImpl : organizationMap.values()) {
       for (Map.Entry<String, List<String>> entry : organizationImpl.getPrefLabel().entrySet()) {
-        final List<String> literals = literalsMap
-            .getOrDefault(entry.getKey(), new ArrayList<>());
+        final List<String> literals = literalsMap.getOrDefault(entry.getKey(), new ArrayList<>());
         literals.addAll(entry.getValue());
         //Replace the list in the map and make sure duplicates were not introduced per key
         literalsMap.put(entry.getKey(), new ArrayList<>(new HashSet<>(literals)));
