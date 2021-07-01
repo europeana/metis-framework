@@ -15,6 +15,7 @@ import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.Identifier;
 import eu.europeana.metis.schema.jibx.IsShownBy;
 import eu.europeana.metis.schema.jibx.License;
+import eu.europeana.metis.schema.jibx.Organization;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyIn;
@@ -375,6 +376,16 @@ public class RdfWrapper {
    */
   public List<AgentType> getAgents() {
     return getFilteredPropertyList(record.getAgentList());
+  }
+
+  /**
+   * Obtains the list of organization from an RDF record. This will filter the objects: it only returns
+   * those with a non-blank about value.
+   *
+   * @return The organizations. Is not null, but could be empty.
+   */
+  public List<Organization> getOrganizations() {
+    return getFilteredPropertyList(record.getOrganizationList());
   }
 
   /**

@@ -47,6 +47,7 @@
   <properties>
     <version.jena.iri>4.1.0</version.jena.iri>
     <version.ecloud>5-SNAPSHOT</version.ecloud>
+    <version.corelib>2.14.1-SNAPSHOT</version.corelib>
     <version.redisson>3.15.5</version.redisson>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
@@ -88,7 +89,6 @@
     <version.json>20210307</version.json>
     <version.powermock>2.0.9</version.powermock>
     <version.mockito.core>3.10.0</version.mockito.core>
-    <version.corelib>2.12.2-SNAPSHOT</version.corelib>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.commons-fileupload>1.4</version.commons-fileupload>
     <version.morphia.core>2.2.1</version.morphia.core>

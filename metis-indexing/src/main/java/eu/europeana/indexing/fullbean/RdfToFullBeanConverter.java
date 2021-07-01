@@ -56,6 +56,7 @@ public class RdfToFullBeanConverter {
     fullBean.setPlaces(convertList(record.getPlaces(), new PlaceFieldInput(), false));
     fullBean.setTimespans(convertList(record.getTimeSpans(), new TimespanFieldInput(), false));
     fullBean.setAgents(convertList(record.getAgents(), new AgentFieldInput(), false));
+    fullBean.setOrganizations(convertList(record.getOrganizations(), new OrganizationFieldInput(), false));
     fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), false));
     fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
     fullBean.setQualityAnnotations(
