@@ -47,7 +47,7 @@
   <properties>
     <version.jena.iri>4.1.0</version.jena.iri>
     <version.ecloud>5-SNAPSHOT</version.ecloud>
-    <version.corelib>2.13.3-SNAPSHOT</version.corelib>
+    <version.corelib>2.14.1-SNAPSHOT</version.corelib>
     <version.redisson>3.15.5</version.redisson>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
