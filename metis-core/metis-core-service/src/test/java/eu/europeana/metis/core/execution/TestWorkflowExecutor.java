@@ -118,7 +118,7 @@ class TestWorkflowExecutor {
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
 
     InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
-    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(4))
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(2))
         .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
     inOrderForPlugin.verify(oaipmhHarvestPlugin)
         .setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
@@ -206,7 +206,7 @@ class TestWorkflowExecutor {
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
 
     InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
-    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(4))
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(2))
         .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
     inOrderForPlugin.verify(oaipmhHarvestPlugin)
         .setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
@@ -305,7 +305,7 @@ class TestWorkflowExecutor {
     InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
     inOrderForPlugin.verify(oaipmhHarvestPlugin, times(1))
         .setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
-    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(4))
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(2))
         .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
     inOrderForPlugin.verify(oaipmhHarvestPlugin, times(1))
         .setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
