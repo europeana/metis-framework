@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing.http;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
+import eu.europeana.metis.network.AbstractHttpClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -105,16 +106,16 @@ public class ResourceDownloadClient extends
   }
 
   @Override
-  protected Resource createResult(Pair<RdfResourceEntry, DownloadMode> input, URI actualUri,
+  protected Resource createResult(Pair<RdfResourceEntry, DownloadMode> providedLink, URI actualUri,
       String mimeType, Long fileSize, ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
-    final RdfResourceEntry resourceEntry = input.getLeft();
+    final RdfResourceEntry resourceEntry = providedLink.getLeft();
     final Resource resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
 
     // In case we are expecting a file, we download it.
-    final boolean fullDownload = input.getRight() == DownloadMode.ALWAYS
-        || (input.getRight() == DownloadMode.MIME_TYPE && shouldDownloadMimetype.test(mimeType));
+    final boolean fullDownload = providedLink.getRight() == DownloadMode.ALWAYS
+        || (providedLink.getRight() == DownloadMode.MIME_TYPE && shouldDownloadMimetype.test(mimeType));
     try {
       if (fullDownload) {
         LOGGER.debug("Starting download of resource: {}", resourceEntry.getResourceUrl());
@@ -122,7 +123,7 @@ public class ResourceDownloadClient extends
         LOGGER.debug("Finished download of resource: {}", resourceEntry.getResourceUrl());
       } else {
         LOGGER.debug("Download mode {} and media type {} - choosing not to download resource: {}",
-            input.getRight(), mimeType, resourceEntry.getResourceUrl());
+            providedLink.getRight(), mimeType, resourceEntry.getResourceUrl());
         resource.markAsNoContent();
       }
     } catch (IOException | RuntimeException e) {

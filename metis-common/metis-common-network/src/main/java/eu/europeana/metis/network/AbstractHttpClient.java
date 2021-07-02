@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.http;
+package eu.europeana.metis.network;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * This class represents an HTTP request client that can be used to resolve a resource link. This
+ * This class represents an HTTP request client that can be used to resolve a link. This
  * client is thread-safe, but the connection settings are tuned for use by one thread only.
  * </p>
  * <p>
@@ -45,10 +47,10 @@ import org.slf4j.LoggerFactory;
  * resources.
  * </p>
  *
- * @param <I> The type of the resource entry (the input object defining the request).
+ * @param <I> The type of the link (the input object defining the request).
  * @param <R> The type of the resulting/downloaded object (the result of the request).
  */
-abstract class AbstractHttpClient<I, R> implements Closeable {
+public abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpClient.class);
 
@@ -74,7 +76,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
    * by then). In milliseconds.
    */
-  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
+  protected AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
           int requestTimeout) {
 
     // Set the request config settings
@@ -110,16 +112,32 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * This method resolves a resource link and returns the result. Note: this method is not meant to
    * be overridden/extended by subclasses.
    *
-   * @param resourceEntry The entry (resource link) to resolve.
+   * @param link The link to resolve.
    * @return The resulting/downloaded object.
    * @throws IOException In case a connection or other IO problem occurred (including an HTTP status
    * other than 2xx).
    */
-  public R download(I resourceEntry) throws IOException {
+  public R download(I link) throws IOException {
+    return download(link, Collections.emptyMap());
+  }
+
+  /**
+   * This method resolves a resource link and returns the result. Note: this method is not meant to
+   * be overridden/extended by subclasses.
+   *
+   * @param link The link to resolve.
+   * @param requestHeaders The request headers to set. This is a map, mapping the header names to
+   * the (full) header values.
+   * @return The resulting/downloaded object.
+   * @throws IOException In case a connection or other IO problem occurred (including an HTTP status
+   * other than 2xx).
+   */
+  public R download(I link, Map<String, String> requestHeaders) throws IOException {
 
     // Set up the connection.
-    final String resourceUlr = getResourceUrl(resourceEntry);
+    final String resourceUlr = getResourceUrl(link);
     final HttpGet httpGet = new HttpGet(resourceUlr);
+    requestHeaders.forEach(httpGet::setHeader);
     final HttpClientContext context = HttpClientContext.create();
 
     // Set up the abort trigger
@@ -168,7 +186,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(
               responseEntity == null ? InputStream::nullInputStream : responseEntity::getContent,
               closeables::add);
-      return createResult(resourceEntry, actualUri, mimeType, fileSize, contentRetriever);
+      return createResult(link, actualUri, mimeType, fileSize, contentRetriever);
 
     } catch (URISyntaxException e) {
 
@@ -223,9 +241,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * This method creates the resulting object from the downloaded data. Subclasses must implement
    * this method.
    *
-   * @param resourceEntry The resource for which the request was sent.
+   * @param providedLink The link for which the request was sent.
    * @param actualUri The actual URI where the resource was found (could be different from the
-   * resource link after redirections).
+   * provided link after redirections).
    * @param mimeType The type of the resulting object, as returned by the response. Is null if no
    * mime type was provided.
    * @param fileSize The file size of the resulting object, as returned by the response. Is null if
@@ -236,7 +254,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @return The resulting object.
    * @throws IOException In case a connection or other IO problem occurred.
    */
-  protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType, Long fileSize,
+  protected abstract R createResult(I providedLink, URI actualUri, String mimeType, Long fileSize,
           ContentRetriever contentRetriever) throws IOException;
 
   @Override
