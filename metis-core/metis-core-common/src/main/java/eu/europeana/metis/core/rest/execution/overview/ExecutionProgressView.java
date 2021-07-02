@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 public class ExecutionProgressView {
 
   private static final Set<PluginStatus> EXECUTING_STATUS_SET = Stream
-      .of(PluginStatus.RUNNING, PluginStatus.CLEANING, PluginStatus.PENDING)
-      .collect(Collectors.toSet());
+      .of(PluginStatus.RUNNING, PluginStatus.CLEANING, PluginStatus.PENDING,
+          PluginStatus.IDENTIFYING_DELETED_RECORDS).collect(Collectors.toSet());
   private static final Set<PluginStatus> FINISHED_STATUS_SET = Stream
       .of(PluginStatus.FINISHED, PluginStatus.FAILED, PluginStatus.CANCELLED)
       .collect(Collectors.toSet());

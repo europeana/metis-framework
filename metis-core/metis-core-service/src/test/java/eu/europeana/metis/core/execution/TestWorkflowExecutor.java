@@ -122,7 +122,7 @@ class TestWorkflowExecutor {
         .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
     inOrderForPlugin.verify(oaipmhHarvestPlugin)
         .setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
-    verify(oaipmhHarvestPlugin, atMost(3)).setPluginStatusAndResetFailMessage(any());
+    verify(oaipmhHarvestPlugin, atMost(5)).setPluginStatusAndResetFailMessage(any());
     verify(oaipmhHarvestPlugin, never()).setFailMessage(anyString());
   }
 
@@ -210,7 +210,7 @@ class TestWorkflowExecutor {
         .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
     inOrderForPlugin.verify(oaipmhHarvestPlugin)
         .setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-    verify(oaipmhHarvestPlugin, atMost(3)).setPluginStatusAndResetFailMessage(any());
+    verify(oaipmhHarvestPlugin, atMost(5)).setPluginStatusAndResetFailMessage(any());
     verify(oaipmhHarvestPlugin).setFailMessage(notNull());
     verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
@@ -309,7 +309,7 @@ class TestWorkflowExecutor {
         .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
     inOrderForPlugin.verify(oaipmhHarvestPlugin, times(1))
         .setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
-    verify(oaipmhHarvestPlugin, atMost(4)).setPluginStatusAndResetFailMessage(any());
+    verify(oaipmhHarvestPlugin, atMost(6)).setPluginStatusAndResetFailMessage(any());
     verify(oaipmhHarvestPlugin, never()).setFailMessage(anyString());
   }
 
