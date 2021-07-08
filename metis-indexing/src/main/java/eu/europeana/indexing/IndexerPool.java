@@ -133,6 +133,10 @@ public class IndexerPool implements Closeable {
     } catch (IndexerRelatedIndexingException e) {
       invalidateAndSwallowException(indexer);
       throw e;
+    } catch (IndexingException e) {
+      //If any other indexing exception occurs we want to return the indexer to the pool
+      pool.returnObject(indexer);
+      throw e;
     }
 
     // Return indexer to the pool if it has not been invalidated.
