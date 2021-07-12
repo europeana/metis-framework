@@ -294,7 +294,7 @@ class AudioVideoProcessor implements MediaProcessor {
         final Integer sampleRate = findInt("sample_rate", candidates);
         final Integer sampleSize = findInt("bits_per_sample", candidates);
         final String codecName = findString("codec_name", candidates);
-        metadata = new AudioResourceMetadata(detectedMimeType, resource.getResourceUrl(),
+        metadata = new AudioResourceMetadata(toAudio(detectedMimeType), resource.getResourceUrl(),
             fileSize, duration, bitRate, channels, sampleRate, sampleSize, codecName);
       } else {
         throw new MediaExtractionException("No media streams");
@@ -307,6 +307,16 @@ class AudioVideoProcessor implements MediaProcessor {
       LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(response, "\n"), e);
       throw new MediaExtractionException("File seems to be corrupted", e);
     }
+  }
+
+  /**
+   * This method converts a video mime type to audio if it turns out that there is no video stream.
+   *
+   * @param detectedMimeType The detected mime type (can be video or audio).
+   * @return The resulting mime type (can be video if we don't know of a good audio equivalent).
+   */
+  private static String toAudio(String detectedMimeType) {
+    return detectedMimeType.split(";")[0].equals("video/mp4") ? "audio/mp4" : detectedMimeType;
   }
 
   private Double calculateFrameRate(String frameRateString) {
