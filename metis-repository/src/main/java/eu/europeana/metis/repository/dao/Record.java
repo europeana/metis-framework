@@ -18,10 +18,9 @@ import org.bson.types.ObjectId;
  */
 @Entity
 @Indexes({
-        @Index(fields = {@Field("datasetId"),
-                @Field("recordId")}, options = @IndexOptions(unique = true)),
         @Index(fields = {@Field("datasetId")}),
-        @Index(fields = {@Field("recordId")})
+        @Index(fields = {@Field("recordId")}, options = @IndexOptions(unique = true)),
+        @Index(fields = {@Field("datasetId"), @Field("recordId")})
 })
 public class Record {
 
