@@ -21,6 +21,7 @@
     <module>metis-authentication</module>
     <module>metis-transformation</module>
     <module>metis-harvesting</module>
+    <module>metis-repository</module>
   </modules>
 
   <!-- Github connection -->

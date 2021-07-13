@@ -78,14 +78,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    int[] mongoPorts = new int[mongoHosts.length];
-    for (int i = 0; i < mongoHosts.length; i++) {
-      mongoPorts[i] = mongoPort;
-    }
-
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
-    mongoProperties.setMongoHosts(mongoHosts, mongoPorts);
+    mongoProperties.setMongoHosts(mongoHosts, new int[]{mongoPort});
     mongoProperties.setApplicationName(mongoApplicationName);
     mongoClientEntity = new MongoClientProvider<>(mongoProperties).createMongoClient();
     mongoClientVocabulary = new MongoClientProvider<>(mongoProperties).createMongoClient();
