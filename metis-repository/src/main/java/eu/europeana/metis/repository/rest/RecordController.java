@@ -13,6 +13,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,7 +55,7 @@ public class RecordController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the record")})
   public Record createRecord(@RequestParam("recordId") String recordId,
       @RequestParam("datasetId") String datasetId, @RequestParam("dateStamp") Date dateStamp,
-      @RequestParam("edmRecord") String edmRecord) {
+      @RequestBody String edmRecord) {
 
     Record recordToSave = new Record(recordId, datasetId, dateStamp, edmRecord);
     return recordDao.createRecord(recordToSave);
