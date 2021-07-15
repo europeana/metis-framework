@@ -109,7 +109,7 @@ public class IndexerPool implements Closeable {
    * This method removes a single record, using a free indexer in the pool
    *
    * @param record The record to be removed
-   * @throws IndexingException
+   * @throws IndexingException In case something went wrong.
    */
   public void remove(String record) throws IndexingException {
     indexRecord(indexer -> indexer.remove(record));
