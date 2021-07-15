@@ -6,8 +6,11 @@ import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.network.ExternalRequestUtil;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +49,7 @@ public class RecordDao {
     Optional<Record> recordFound = datastore.find(Record.class).stream()
         .filter(x -> x.getRecordId().equals(record.getRecordId())).findFirst();
 
-    if(recordFound.isPresent()) {
+    if (recordFound.isPresent()) {
       record.setId(recordFound.get().getId());
     } else {
       final ObjectId objectId = Optional.ofNullable(record.getId()).orElseGet(ObjectId::new);
@@ -57,5 +60,10 @@ public class RecordDao {
     LOGGER.info("Record for datasetId '{}' created in Mongo", record.getDatasetId());
 
     return recordSaved;
+  }
+
+  public List<Record> getAllRecordsFromDataset(String datasetId) {
+    return datastore.find(Record.class).stream().filter(x -> x.getDatasetId().equals(datasetId))
+        .collect(Collectors.toList());
   }
 }

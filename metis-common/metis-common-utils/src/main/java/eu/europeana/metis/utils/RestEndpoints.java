@@ -85,6 +85,7 @@ public final class RestEndpoints {
 
   /* METIS REPOSITORY ENDPOINTS */
   public static final String ADD_RECORD_TO_DATABASE = "/repository/add/record";
+  public static final String GET_RECORDS_DATABASE = "/repository/get/{dataset}/records";
 
   private RestEndpoints() {
   }
