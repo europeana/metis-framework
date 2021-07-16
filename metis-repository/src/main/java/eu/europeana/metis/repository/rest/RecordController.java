@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller for record management.
  */
 @RestController
-@RequestMapping("records")
 @Tags(@Tag(name = RecordController.CONTROLLER_TAG_NAME,
         description = "Controller providing access to record management functionality."))
 @Api(tags = RecordController.CONTROLLER_TAG_NAME)

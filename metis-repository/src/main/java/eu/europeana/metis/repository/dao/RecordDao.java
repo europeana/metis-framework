@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 public class RecordDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RecordDao.class);
+  private static final String RECORD_ID_FIELD = "recordId";
 
   private final Datastore datastore;
 
@@ -46,15 +47,11 @@ public class RecordDao {
    */
   public Record createRecord(Record record) {
 
-    Optional<Record> recordFound = datastore.find(Record.class).stream()
-        .filter(x -> x.getRecordId().equals(record.getRecordId())).findFirst();
+    Optional<Record> recordFound = datastore.find(Record.class)
+        .filter(Filters.eq(RECORD_ID_FIELD, record.getRecordId())).stream().findFirst();
 
-    if (recordFound.isPresent()) {
-      record.setId(recordFound.get().getId());
-    } else {
-      final ObjectId objectId = Optional.ofNullable(record.getId()).orElseGet(ObjectId::new);
-      record.setId(objectId);
-    }
+    recordFound.ifPresent(value -> record.setId(value.getId()));
+
     final Record recordSaved = ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> datastore.save(record));
     LOGGER.info("Record for datasetId '{}' created in Mongo", record.getDatasetId());
