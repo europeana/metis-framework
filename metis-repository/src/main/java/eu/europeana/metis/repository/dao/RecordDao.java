@@ -22,6 +22,7 @@ public class RecordDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RecordDao.class);
   private static final String RECORD_ID_FIELD = "recordId";
+  private static final String DATASET_ID_FIELD = "datasetId";
 
   private final Datastore datastore;
 
@@ -59,8 +60,14 @@ public class RecordDao {
     return recordSaved;
   }
 
+  /**
+   * Creates  list of records that belong to the given dataset id
+   *
+   * @param datasetId - The id of the dataset the records belong to
+   * @return A List of records that are part of the dataset with datasetId
+   */
   public List<Record> getAllRecordsFromDataset(String datasetId) {
-    return datastore.find(Record.class).stream().filter(x -> x.getDatasetId().equals(datasetId))
+    return datastore.find(Record.class).filter(Filters.eq(DATASET_ID_FIELD, datasetId)).stream()
         .collect(Collectors.toList());
   }
 }
