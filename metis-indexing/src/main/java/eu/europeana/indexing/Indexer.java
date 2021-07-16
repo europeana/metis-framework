@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -170,6 +171,22 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case something went wrong.
    */
   int removeAll(String datasetId, Date maxRecordDate) throws IndexingException;
+
+  /**
+   * <p>This method returns the record IDs of all records belonging to a dataset. For details of
+   * the
+   * implementation and application of selection criteria see {@link #removeAll(String, Date)} as
+   * this method should work analogously. The method can therefore be used for instance to determine
+   * which records would be removed.</p>
+   * <p>Note that in case of problems, this would manifest when resolving the stream. Hence this
+   * method does not declare throwing an exception.</p>
+   *
+   * @param datasetId The ID of the dataset to clear. Is not null.
+   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
+   * would be removed. If null is provided then all records from that dataset will be removed.
+   * @return A stream with record IDs.
+   */
+  Stream<String> getRecordIds(String datasetId, Date maxRecordDate);
 
   /**
    * Counts the records in a given dataset. The criteria of whether a record belongs to a certain

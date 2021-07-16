@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import dev.morphia.Datastore;
 import dev.morphia.DeleteOptions;
+import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.mongo.dao.RecordDao;
@@ -13,8 +14,13 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Spliterators;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
@@ -26,6 +32,7 @@ import org.apache.solr.client.solrj.util.ClientUtils;
  */
 public class IndexedRecordAccess {
 
+  private static final String ID_FIELD = "_id";
   private static final String ABOUT_FIELD = "about";
 
   private final RecordDao mongoServer;
@@ -130,6 +137,25 @@ public class IndexedRecordAccess {
     return mongoCount;
   }
 
+  /**
+   * Return all record IDs that belong to the given dataset. For implementation details see {@link
+   * #removeDataset(String, Date)} as the selection is to be performed analogously.
+   *
+   * @param datasetId The ID of the dataset to clear. Is not null.
+   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
+   * would be removed. If null is provided then all records from that dataset will be removed.
+   * @return The record IDs in a stream.
+   */
+  public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) {
+    final FindOptions findOptions = new FindOptions()
+            .projection().exclude(ID_FIELD)
+            .projection().include(ABOUT_FIELD);
+    final Iterator<FullBeanImpl> resultIterator = createMongoQuery(datasetId, maxRecordDate)
+            .iterator(findOptions);
+    return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resultIterator, 0), false)
+            .map(FullBeanImpl::getAbout);
+  }
+
   private void removeDatasetFromSolr(String datasetId, Date maxRecordDate)
       throws SolrServerException, IOException {
     final StringBuilder solrQuery = new StringBuilder();
@@ -149,12 +175,18 @@ public class IndexedRecordAccess {
   }
 
   private long removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
+    return createMongoQuery(datasetId, maxRecordDate).delete(new DeleteOptions().multi(true))
+            .getDeletedCount();
+  }
+
+  private Query<FullBeanImpl> createMongoQuery(String datasetId, Date maxRecordDate) {
+    final Pattern pattern = Pattern.compile("^" + Pattern.quote(getRecordIdPrefix(datasetId)));
     final Query<FullBeanImpl> query = mongoServer.getDatastore().find(FullBeanImpl.class);
-    query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
+    query.filter(Filters.regex(ABOUT_FIELD).pattern(pattern));
     if (maxRecordDate != null) {
       query.filter(Filters.lt("timestampUpdated", maxRecordDate));
     }
-    return query.delete(new DeleteOptions().multi(true)).getDeletedCount();
+    return query;
   }
 
   private static String getRecordIdPrefix(String datasetId) {
