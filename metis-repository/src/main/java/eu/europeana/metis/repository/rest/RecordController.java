@@ -47,7 +47,7 @@ public class RecordController {
    * @return The record just saved in the database
    */
   @PostMapping(value = RestEndpoints.ADD_RECORD_TO_DATABASE, consumes = {
-      MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
+      MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "The given record is put into the database", response = Record.class)
