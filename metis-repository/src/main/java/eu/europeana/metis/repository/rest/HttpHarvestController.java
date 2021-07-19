@@ -51,8 +51,7 @@ public class HttpHarvestController {
    * It creates a zip of records that belong to dataset with datasetId
    * @return A zip of records
    */
-  @GetMapping(value = RestEndpoints.GET_RECORDS_DATABASE, consumes = {
-      MediaType.APPLICATION_XML_VALUE}, produces = "application/zip")
+  @GetMapping(value = RestEndpoints.GET_RECORDS_DATABASE, produces = "application/zip")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public byte[] getDatasetRecords(@PathVariable("dataset") String dataset,
