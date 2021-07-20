@@ -8,6 +8,7 @@ import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.network.ExternalRequestUtil;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -66,5 +67,25 @@ public class RecordDao {
    */
   public Stream<Record> getAllRecordsFromDataset(String datasetId) {
     return datastore.find(Record.class).filter(Filters.eq(DATASET_ID_FIELD, datasetId)).stream();
+  }
+
+  /**
+   * Returns a record with the given record id
+   *
+   * @param recordId - The unique id of the record
+   * @return The record found
+   */
+  public Record getRecord(String recordId){
+     Optional<Record> recordFound= datastore.find(Record.class)
+        .filter(Filters.eq(RECORD_ID_FIELD, recordId))
+        .stream()
+        .findFirst();
+
+     if(recordFound.isPresent()) {
+       return recordFound.get();
+     } else {
+       LOGGER.error("There is no such record with id " + recordId + ".");
+       throw new NoSuchElementException("There is no such record with id " + recordId + ".");
+     }
   }
 }
