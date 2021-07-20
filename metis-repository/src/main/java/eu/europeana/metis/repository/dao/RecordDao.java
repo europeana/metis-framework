@@ -8,10 +8,8 @@ import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.network.ExternalRequestUtil;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import org.bson.types.ObjectId;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,10 +62,9 @@ public class RecordDao {
    * Creates  list of records that belong to the given dataset id
    *
    * @param datasetId - The id of the dataset the records belong to
-   * @return A List of records that are part of the dataset with datasetId
+   * @return A stream of records that are part of the dataset with datasetId
    */
-  public List<Record> getAllRecordsFromDataset(String datasetId) {
-    return datastore.find(Record.class).filter(Filters.eq(DATASET_ID_FIELD, datasetId)).stream()
-        .collect(Collectors.toList());
+  public Stream<Record> getAllRecordsFromDataset(String datasetId) {
+    return datastore.find(Record.class).filter(Filters.eq(DATASET_ID_FIELD, datasetId)).stream();
   }
 }
