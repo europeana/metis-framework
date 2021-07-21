@@ -6,13 +6,16 @@ import static java.lang.Thread.currentThread;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
+import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractIndexPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
@@ -274,6 +277,16 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         }
       }
 
+      // Compute base harvesting plugin information. We can't do this when creating the workflow
+      // execution: the harvest might be part of this very workflow.
+      if (DataEvolutionUtils.getIndexPluginGroup()
+              .contains(plugin.getPluginMetadata().getExecutablePluginType())) {
+        final PluginWithExecutionId<ExecutablePlugin> rootAncestor = new DataEvolutionUtils(
+                workflowExecutionDao).getRootAncestor(
+                new PluginWithExecutionId<>(workflowExecution, plugin));
+        setHarvestParametersToIndexingPlugin(plugin, rootAncestor.getPlugin());
+      }
+
       // Start execution if it has not already started
       if (StringUtils.isEmpty(plugin.getExternalTaskId())) {
         if (plugin.getPluginStatus() == PluginStatus.INQUEUE) {
@@ -300,6 +313,32 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
     periodicCheckingLoop(sleepTime, plugin, datasetId);
+  }
+
+  private void setHarvestParametersToIndexingPlugin(ExecutablePlugin indexingPlugin,
+          ExecutablePlugin harvestPlugin) {
+
+    // Check the harvesting types
+    if (DataEvolutionUtils.getHarvestPluginGroup()
+            .contains(harvestPlugin.getPluginMetadata().getExecutablePluginType())) {
+      throw new IllegalStateException(String.format(
+              "workflowExecutionId: %s, pluginId: %s - Found plugin root that is not a harvesting plugin.",
+              workflowExecution.getId(), indexingPlugin.getId()));
+    }
+
+    // get the information from the harvesting plugin.
+    final boolean incrementalHarvest =
+            (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
+                    && ((AbstractHarvestPluginMetadata) harvestPlugin.getPluginMetadata())
+                    .isIncrementalHarvest();
+    final Date harvestDate = harvestPlugin.getStartedDate();
+
+    // Set the information to the indexing plugin.
+    if (indexingPlugin.getPluginMetadata() instanceof AbstractIndexPluginMetadata) {
+      final var metadata = (AbstractIndexPluginMetadata) indexingPlugin.getPluginMetadata();
+      metadata.setIncrementalIndexing(incrementalHarvest);
+      metadata.setHarvestDate(harvestDate);
+    }
   }
 
   private String getExternalTaskIdOfPreviousPlugin(AbstractExecutablePluginMetadata metadata) {

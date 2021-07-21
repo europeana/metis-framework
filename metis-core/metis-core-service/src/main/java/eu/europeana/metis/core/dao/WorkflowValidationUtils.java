@@ -6,6 +6,7 @@ import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
@@ -158,13 +159,16 @@ public class WorkflowValidationUtils {
                 : oaipmhMetadata.getMetadataFormat().trim());
         oaipmhMetadata.setSetSpec(
                 oaipmhMetadata.getSetSpec() == null ? null : oaipmhMetadata.getSetSpec().trim());
-        if (oaipmhMetadata.isIncrementalHarvest() && !isIncrementalHarvestingAllowed(datasetId)) {
-          throw new BadContentException("Can't perform incremental harvesting for this dataset.");
-        }
       }
       if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
         final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
         httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
+      }
+      if (pluginMetadata instanceof AbstractHarvestPluginMetadata) {
+        final var harvestMetadata = (AbstractHarvestPluginMetadata) pluginMetadata;
+        if (harvestMetadata.isIncrementalHarvest() && !isIncrementalHarvestingAllowed(datasetId)) {
+          throw new BadContentException("Can't perform incremental harvesting for this dataset.");
+        }
       }
     }
   }
