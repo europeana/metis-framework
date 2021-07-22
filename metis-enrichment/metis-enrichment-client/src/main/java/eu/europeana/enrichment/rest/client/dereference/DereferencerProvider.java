@@ -59,6 +59,15 @@ public class DereferencerProvider extends ConnectionProvider {
           "Dereferencing must be enabled.");
     }
 
+    // Do some logging.
+    if (dereferenceUrl == null) {
+      LOGGER.warn("Creating dereferencer for Europeana entities only.");
+    } else if (enrichmentUrl == null) {
+      LOGGER.warn("Creating dereferencer for non-Europeana entities only.");
+    } else {
+      LOGGER.info("Creating dereferencer for both Europeana and non-Europeana entities.");
+    }
+
     // Create the dereference client if needed
     final DereferenceClient dereferenceClient;
     if (StringUtils.isNotBlank(dereferenceUrl)) {
