@@ -10,13 +10,18 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.Date;
+import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Controller for record management.
@@ -28,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecordController {
 
   public static final String CONTROLLER_TAG_NAME = "RecordController";
+  private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
 
   private RecordDao recordDao;
 
@@ -50,13 +56,20 @@ public class RecordController {
       MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "The given record is put into the database", response = Record.class)
-  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the record")})
+  @ApiResponses(value = {@ApiResponse(code = 500, message = "Error processing the record")})
   public Record createRecord(@RequestParam("recordId") String recordId,
-      @RequestParam("datasetId") String datasetId, @RequestParam("dateStamp") Date dateStamp,
+      @RequestParam("datasetId") String datasetId,
+      @RequestParam(name = "dateStamp", required = false) Date dateStamp,
       @RequestBody String edmRecord) {
+    try {
+      final Record recordToSave = new Record(recordId, datasetId,
+              Objects.requireNonNullElseGet(dateStamp, Date::new), edmRecord);
+      return recordDao.createRecord(recordToSave);
+    } catch (RuntimeException e) {
 
-    Record recordToSave = new Record(recordId, datasetId, dateStamp, edmRecord);
-    return recordDao.createRecord(recordToSave);
+      // Report any problems (also for individual records) as 500 code.
+      LOGGER.warn("There was problems while zipping the records.", e);
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+    }
   }
-
 }

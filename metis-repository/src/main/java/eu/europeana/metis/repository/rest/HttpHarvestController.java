@@ -4,27 +4,29 @@ import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Controller for HTTP harvesting.
@@ -53,41 +55,48 @@ public class HttpHarvestController {
   @GetMapping(value = RestEndpoints.GET_RECORDS_DATABASE, produces = "application/zip")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public byte[] getDatasetRecords(@PathVariable("dataset") String dataset,
-      HttpServletResponse response) {
+  @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis.")
+  @ApiResponses(value = {@ApiResponse(code = 404, message = "No records for this dataset."),
+          @ApiResponse(code = 500, message = "Error obtaining the records.")})
+  public ResponseEntity<byte[]> getDatasetRecords(@PathVariable("dataset") String dataset) {
 
-    Stream<Record> recordList = recordDao.getAllRecordsFromDataset(dataset);
-
-    //setting headers
-    response.addHeader("Content-Disposition", "attachment; filename=\"result.zip\"");
-
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(byteArrayOutputStream);
-    ZipOutputStream zipOutputStream = new ZipOutputStream(bufferedOutputStream);
-
-    recordList.forEach(record -> {
-      try {
-        zipOutputStream.putNextEntry(new ZipEntry(record.getRecordId() + ".xml"));
-        InputStream recordToBeWritten = new ByteArrayInputStream(record.getEdmRecord().getBytes());
-        IOUtils.copy(recordToBeWritten, zipOutputStream);
-        recordToBeWritten.close();
-        zipOutputStream.closeEntry();
-      } catch (IOException e) {
-        LOGGER.error("There was a problem while preparing the records to be zipped.");
-      }
-    });
-
-    try {
+    // Create zip file in memory (and keep track on whether there are any records).
+    final AtomicBoolean recordsFound = new AtomicBoolean(false);
+    final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
+      final Stream<Record> recordList = recordDao.getAllRecordsFromDataset(dataset);
+      recordList.forEach(record -> {
+        addRecordToZipFile(record, zipOutputStream);
+        recordsFound.set(true);
+      });
       zipOutputStream.finish();
       zipOutputStream.flush();
-      zipOutputStream.close();
-      bufferedOutputStream.close();
-      byteArrayOutputStream.close();
-    } catch (IOException e) {
-      LOGGER.warn("There was problems while zipping the records.");
+    } catch (RuntimeException | IOException e) {
+
+      // Report any problems (also for individual records) as 500 code.
+      LOGGER.warn("There was problems while zipping the records.", e);
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
     }
 
-    return byteArrayOutputStream.toByteArray();
+    // If there are no records found, we return a 404 code.
+    if (!recordsFound.get()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No records found for this dataset.");
+    }
+
+    // Return bytes as zip file.
+    return ResponseEntity.ok()
+            .header("Content-Disposition", "attachment; filename=\"result.zip\"")
+            .body(byteArrayOutputStream.toByteArray());
   }
 
+  private static void addRecordToZipFile(Record record, ZipOutputStream zipOutputStream) {
+    try {
+      zipOutputStream.putNextEntry(new ZipEntry(record.getRecordId() + ".xml"));
+      zipOutputStream.write(record.getEdmRecord().getBytes(StandardCharsets.UTF_8));
+      zipOutputStream.closeEntry();
+    } catch (IOException e) {
+      throw new IllegalStateException(
+              "There was a problem while preparing the records to be zipped.", e);
+    }
+  }
 }

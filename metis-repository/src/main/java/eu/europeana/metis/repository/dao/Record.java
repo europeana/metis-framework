@@ -33,6 +33,10 @@ public class Record {
   private Date dateStamp;
   private String edmRecord;
 
+  public Record() {
+    // Empty constructor required for Morphia.
+  }
+
   public Record(String recordId, String datasetId, Date dateStamp, String edmRecord) {
     this.recordId = recordId;
     this.datasetId = datasetId;
