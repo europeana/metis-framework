@@ -247,14 +247,14 @@ public class ZohoAccessClient {
           new IllegalArgumentException(
               String.format("Provided page: %s, and pageSize: %s", page, pageSize)));
     }
-    int start = ((page - 1) * pageSize) + 1;
+//    int start = ((page - 1) * pageSize) + 1;
 
     try {
       APIResponse<ResponseHandler> response;
       RecordOperations recordOperations = new RecordOperations();
       ParameterMap paramInstance = new ParameterMap();
       if (isNullOrEmpty(searchCriteria)) {//No searchCriteria available
-        paramInstance.add(GetRecordsParam.PAGE, start);
+        paramInstance.add(GetRecordsParam.PAGE, page);
         paramInstance.add(GetRecordsParam.PER_PAGE, pageSize);
         HeaderMap headerInstance = new HeaderMap();
         headerInstance.add(GetRecordsHeader.IF_MODIFIED_SINCE, modifiedDate);
@@ -262,16 +262,22 @@ public class ZohoAccessClient {
             .getRecords(ZohoConstants.ACCOUNTS_MODULE_NAME, paramInstance, headerInstance);
 
       } else {
-        paramInstance.add(SearchRecordsParam.PAGE, start);
+        paramInstance.add(SearchRecordsParam.PAGE, page);
         paramInstance.add(SearchRecordsParam.PER_PAGE, pageSize);
         paramInstance.add(SearchRecordsParam.CRITERIA,
             createZohoCriteriaString(searchCriteria, criteriaOperator));
+//        HeaderMap headerInstance = new HeaderMap();
+//        headerInstance.add(GetRecordsHeader.IF_MODIFIED_SINCE, modifiedDate);
+//        
         response = recordOperations
             .searchRecords(ZohoConstants.ACCOUNTS_MODULE_NAME, paramInstance);
       }
+      if(response.getStatusCode() != 200) {
+    	  throw new ZohoException("Zoho access error! Status code: "+response.getStatusCode()+" Cannot get organization list page: " + page + " pageSize :" + pageSize);
+      }
       return getZohoRecords(response);
     } catch (SDKException e) {
-      throw new ZohoException("Cannot get organization list from: " + start + " rows :" + pageSize,
+      throw new ZohoException("Cannot get organization list page: " + page + " pageSize :" + pageSize,
           e);
     }
   }
