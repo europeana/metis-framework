@@ -50,6 +50,7 @@ public class HttpHarvestController {
   /**
    * It creates a zip of records that belong to dataset with datasetId
    *
+   * @param dataset The dataset ID of which to create a zipfile.
    * @return A zip of records
    */
   @GetMapping(value = RestEndpoints.GET_RECORDS_DATABASE, produces = "application/zip")
