@@ -124,7 +124,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       parameters.putAll(extraParameters);
     }
 
+    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     parameters.put(PluginParameterKeys.INCREMENTAL_HARVEST, String.valueOf(incrementalProcessing));
+    parameters.put(PluginParameterKeys.HARVEST_DATE, dateFormat.format(getStartedDate()));
     parameters.put(PluginParameterKeys.PROVIDER_ID, ecloudBasePluginParameters.getEcloudProvider());
     parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
         .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
