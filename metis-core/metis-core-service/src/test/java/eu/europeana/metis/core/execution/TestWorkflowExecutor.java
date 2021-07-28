@@ -94,6 +94,7 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
     doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -182,6 +183,7 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
     doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -274,6 +276,7 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
     final ExternalTaskException exception = new ExternalTaskException("Some error",
@@ -331,6 +334,7 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -365,13 +369,12 @@ class TestWorkflowExecutor {
   void callExecutionInRUNNINGState() throws ExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
-    ExecutionProgress processedExecutionProgress = new ExecutionProgress();
-    processedExecutionProgress.setStatus(TaskState.PROCESSED);
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.spy(OaipmhHarvestPlugin.class);
     oaipmhHarvestPlugin.setPluginStatus(PluginStatus.FINISHED);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
     oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    oaipmhHarvestPlugin.setStartedDate(new Date());
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
 
@@ -379,7 +382,7 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
-    workflowExecution.setStartedDate(new Date());
+    workflowExecution.setStartedDate(oaipmhHarvestPlugin.getStartedDate());
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -391,7 +394,7 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
-        .thenReturn(new MonitorResult(processedExecutionProgress.getStatus(), null));
+        .thenReturn(new MonitorResult(TaskState.PROCESSED, null));
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
