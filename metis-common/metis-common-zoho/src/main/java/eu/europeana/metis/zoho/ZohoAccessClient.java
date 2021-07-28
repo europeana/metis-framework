@@ -25,6 +25,7 @@ import com.zoho.crm.api.record.ResponseHandler;
 import com.zoho.crm.api.record.ResponseWrapper;
 import com.zoho.crm.api.util.APIResponse;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -266,16 +267,19 @@ public class ZohoAccessClient {
         paramInstance.add(SearchRecordsParam.PER_PAGE, pageSize);
         paramInstance.add(SearchRecordsParam.CRITERIA,
             createZohoCriteriaString(searchCriteria, criteriaOperator));
-//        HeaderMap headerInstance = new HeaderMap();
-//        headerInstance.add(GetRecordsHeader.IF_MODIFIED_SINCE, modifiedDate);
-//        
+        
         response = recordOperations
             .searchRecords(ZohoConstants.ACCOUNTS_MODULE_NAME, paramInstance);
       }
-      if(response.getStatusCode() != 200) {
+      
+      if(response.getStatusCode() == 200) {
+    	  return getZohoRecords(response);  
+      }else if(response.getStatusCode() == 204) {
+    	  return new ArrayList<Record>();
+      } else {
     	  throw new ZohoException("Zoho access error! Status code: "+response.getStatusCode()+" Cannot get organization list page: " + page + " pageSize :" + pageSize);
       }
-      return getZohoRecords(response);
+      
     } catch (SDKException e) {
       throw new ZohoException("Cannot get organization list page: " + page + " pageSize :" + pageSize,
           e);
