@@ -274,6 +274,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
+          // Save so that we can use it below to find the root ancestor.
+          workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
         }
       }
 
@@ -319,7 +321,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
           ExecutablePlugin harvestPlugin) {
 
     // Check the harvesting types
-    if (DataEvolutionUtils.getHarvestPluginGroup()
+    if (!DataEvolutionUtils.getHarvestPluginGroup()
             .contains(harvestPlugin.getPluginMetadata().getExecutablePluginType())) {
       throw new IllegalStateException(String.format(
               "workflowExecutionId: %s, pluginId: %s - Found plugin root that is not a harvesting plugin.",
