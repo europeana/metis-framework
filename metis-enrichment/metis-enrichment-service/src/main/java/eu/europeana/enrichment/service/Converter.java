@@ -4,6 +4,7 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.LabelInfo;
 import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.Part;
@@ -12,6 +13,7 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.external.model.VcardAddress;
 import eu.europeana.enrichment.api.external.model.VcardAddresses;
+import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.Address;
 import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
@@ -23,10 +25,13 @@ import eu.europeana.enrichment.utils.EntityType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -233,9 +238,33 @@ public final class Converter {
     enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
     enrichmentTerm.setUpdated(updated);
 
+    //generate LabelInfos
+    final Map<String, List<String>> combinedLabels = new HashMap<>();
+    copyToCombinedLabels(combinedLabels, organizationEnrichmentEntity.getPrefLabel());
+    copyToCombinedLabels(combinedLabels, organizationEnrichmentEntity.getAltLabel());
+    copyToCombinedLabels(combinedLabels, organizationEnrichmentEntity.getEdmAcronym());
+    
+    List<LabelInfo> labelInfos = combinedLabels.entrySet().stream()
+    .map(entry -> new LabelInfo(entry.getValue(), entry.getKey())).collect(Collectors.toList());
+    
+    enrichmentTerm.setLabelInfos(labelInfos);
+  
     return enrichmentTerm;
   }
 
+	  private static void copyToCombinedLabels(Map<String, List<String>> combinedLabels,
+	      Map<String, List<String>> prefLabel) {
+	    if (prefLabel != null) {
+	      prefLabel.forEach((key, value) -> {
+	        value = value.stream().map(String::toLowerCase).collect(Collectors.toList());
+	        combinedLabels.merge(key, value,
+	            (v1, v2) -> Stream.of(v1, v2).flatMap(List::stream).distinct()
+	                .collect(Collectors.toList()));
+	      });
+	    }
+	  }
+  
+  
   private static List<Label> convert(Map<String, List<String>> map) {
     List<Label> labels = new ArrayList<>();
     if (map == null) {
