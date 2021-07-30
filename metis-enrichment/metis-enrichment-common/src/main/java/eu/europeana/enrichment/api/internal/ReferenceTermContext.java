@@ -38,12 +38,14 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
       return false;
     }
     final ReferenceTermContext that = (ReferenceTermContext) o;
+    // Note: avoid using reference URL for equality as it may do a domain name check.
     return Objects.equals(getFieldTypes(), that.getFieldTypes()) && Objects
-            .equals(getReference(), that.getReference());
+            .equals(getReferenceAsString(), that.getReferenceAsString());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getFieldTypes(), getReference());
+    // Note: avoid using reference URL for computing the hash as it may do a domain name check.
+    return Objects.hash(getFieldTypes(), getReferenceAsString());
   }
 }
