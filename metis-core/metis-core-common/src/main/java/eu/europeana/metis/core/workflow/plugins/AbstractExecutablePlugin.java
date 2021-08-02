@@ -13,6 +13,7 @@ import eu.europeana.metis.utils.CommonStringValues;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +124,10 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       parameters.putAll(extraParameters);
     }
 
+    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     parameters.put(PluginParameterKeys.INCREMENTAL_HARVEST, String.valueOf(incrementalProcessing));
+    parameters.put(PluginParameterKeys.HARVEST_DATE, dateFormat.format(getStartedDate()));
     parameters.put(PluginParameterKeys.PROVIDER_ID, ecloudBasePluginParameters.getEcloudProvider());
     parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
         .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
@@ -167,14 +171,19 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
-      String datasetId, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
+      String datasetId, boolean incrementalIndexing, Date harvestDate,
+      boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
       List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
-    Map<String, String> extraParameters = new HashMap<>();
+    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    final Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
+    extraParameters
+            .put(PluginParameterKeys.INCREMENTAL_INDEXING, String.valueOf(incrementalIndexing));
+    extraParameters.put(PluginParameterKeys.HARVEST_DATE, dateFormat.format(harvestDate));
     extraParameters.put(PluginParameterKeys.METIS_TARGET_INDEXING_DATABASE, targetDatabase);
     extraParameters.put(PluginParameterKeys.METIS_USE_ALT_INDEXING_ENV,
             String.valueOf(useAlternativeIndexingEnvironment));
-    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     extraParameters.put(PluginParameterKeys.METIS_RECORD_DATE, dateFormat.format(getStartedDate()));
     extraParameters
             .put(PluginParameterKeys.METIS_PRESERVE_TIMESTAMPS, String.valueOf(preserveTimestamps));

@@ -6,6 +6,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
@@ -13,7 +14,6 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.CommonStringValues;
@@ -429,9 +429,7 @@ public class DataEvolutionUtils {
       resultHarvests.put(ExecutedMetisPluginId.forPlugin(rootHarvest.getPlugin()), rootHarvest);
 
       // If the root harvest is a full harvest, we are done.
-      fullHarvestFound = !((rootHarvest.getPlugin() instanceof OaipmhHarvestPlugin)
-              && ((OaipmhHarvestPlugin) rootHarvest.getPlugin()).getPluginMetadata()
-              .isIncrementalHarvest());
+      fullHarvestFound = !(isIncrementalHarvest(rootHarvest));
       if (fullHarvestFound) {
         break;
       }
@@ -445,6 +443,12 @@ public class DataEvolutionUtils {
             resultHarvests.values());
     Collections.reverse(result);
     return result;
+  }
+
+  private static boolean isIncrementalHarvest(PluginWithExecutionId<ExecutablePlugin> rootHarvest) {
+    return (rootHarvest.getPlugin().getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
+            && ((AbstractHarvestPluginMetadata) rootHarvest.getPlugin().getPluginMetadata())
+            .isIncrementalHarvest();
   }
 
   /**
