@@ -5,15 +5,19 @@ import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.indexing.solr.EdmLabel;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.common.SolrInputDocument;
@@ -26,7 +30,9 @@ import org.apache.solr.common.SolrInputDocument;
 public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> {
 
   private final List<? extends License> licenses;
-  private final Map<String, OrganizationImpl> organizationMap;
+
+  // All organizations in the record. Mapped value is null in the rare absence of preflabels.
+  private final Map<String, Pair<String, String>> organizationPrefLabelMap;
 
   /**
    * Constructor.
@@ -37,18 +43,43 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
   public AggregationSolrCreator(List<? extends License> licenses,
       List<OrganizationImpl> organizations) {
     this.licenses = new ArrayList<>(licenses);
-    this.organizationMap = organizations.stream()
-        .collect(Collectors.toMap(OrganizationImpl::getAbout, Function.identity(), (o1, o2) -> o1));
+    this.organizationPrefLabelMap = organizations.stream()
+            .filter(org -> StringUtils.isNotBlank(org.getAbout()))
+            .collect(Collectors.toMap(OrganizationImpl::getAbout,
+                    AggregationSolrCreator::findPrefLabelForOrganization, (o1, o2) -> o1));
+  }
+
+  private static Pair<String, String> findPrefLabelForOrganization(OrganizationImpl organization) {
+
+    // Try to find an English one first.
+    final List<Pair<String, String>> englishValues = new ArrayList<>(2);
+    Optional.ofNullable(organization.getPrefLabel()).map(labels -> labels.get("en")).stream()
+            .flatMap(List::stream).filter(Objects::nonNull).findFirst()
+            .ifPresent(value -> englishValues.add(new ImmutablePair<>("en", value)));
+    Optional.ofNullable(organization.getPrefLabel()).map(labels -> labels.get("eng")).stream()
+            .flatMap(List::stream).filter(Objects::nonNull).findFirst()
+            .ifPresent(value -> englishValues.add(new ImmutablePair<>("eng", value)));
+    if (!englishValues.isEmpty()) {
+      return englishValues.get(0);
+    }
+
+    // Otherwise return any value (if available).
+    return Optional.ofNullable(organization.getPrefLabel()).map(Map::entrySet).stream()
+            .flatMap(Collection::stream)
+            .filter(Objects::nonNull).filter(entry -> entry.getValue() != null)
+            .flatMap(entry -> entry.getValue().stream().filter(StringUtils::isNotBlank)
+                    .map(value -> new ImmutablePair<>(entry.getKey(), value)))
+            .findFirst().orElse(null);
   }
 
   @Override
   public void addToDocument(SolrInputDocument doc, Aggregation aggregation) {
     //Extract organization uris
-    final Pair<List<String>, Map<String, List<String>>> dataProviderPair = splitUrisFromLiterals(
+    final Pair<Set<String>, Map<String, List<String>>> dataProviderPair = extractUrisAndLiterals(
         aggregation.getEdmDataProvider());
-    final Pair<List<String>, Map<String, List<String>>> providerPair = splitUrisFromLiterals(
+    final Pair<Set<String>, Map<String, List<String>>> providerPair = extractUrisAndLiterals(
         aggregation.getEdmProvider());
-    final Pair<List<String>, Map<String, List<String>>> intermediatePair = splitUrisFromLiterals(
+    final Pair<Set<String>, Map<String, List<String>>> intermediatePair = extractUrisAndLiterals(
         aggregation.getEdmIntermediateProvider());
 
     final String[] combinedProviderAndIntermediateUris = Stream
@@ -90,48 +121,45 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
     new WebResourceSolrCreator(licenses).addAllToDocument(doc, aggregation.getWebResources());
   }
 
-  private Pair<List<String>, Map<String, List<String>>> splitUrisFromLiterals(
+  private Pair<Set<String>, Map<String, List<String>>> extractUrisAndLiterals(
       final Map<String, List<String>> urisLiteralsMap) {
-    final List<String> uriList = new ArrayList<>();
+    final Set<String> organizationUris = new HashSet<>();
     final Map<String, List<String>> literalsMap = new HashMap<>();
 
     if (MapUtils.isNotEmpty(urisLiteralsMap)) {
-      extractUris(urisLiteralsMap, uriList, literalsMap);
+      splitOrganizationUrisFromLiterals(urisLiteralsMap, organizationUris, literalsMap);
 
       //Extend map with organization pref labels
-      if (CollectionUtils.isNotEmpty(uriList)) {
-        extendWithOrganizationLiterals(literalsMap);
+      if (CollectionUtils.isNotEmpty(organizationUris)) {
+        addOrganizationPrefLabelsToLiterals(organizationUris, literalsMap);
       }
     }
-    return new ImmutablePair<>(uriList, literalsMap);
+    return new ImmutablePair<>(organizationUris, literalsMap);
   }
 
-  private void extractUris(Map<String, List<String>> urisLiteralsMap, List<String> uriList,
-      Map<String, List<String>> literalsMap) {
+  private void splitOrganizationUrisFromLiterals(Map<String, List<String>> urisLiteralsMap,
+          Set<String> organizationUris, Map<String, List<String>> literalsMap) {
     for (Map.Entry<String, List<String>> entry : urisLiteralsMap.entrySet()) {
       final List<String> literals = new ArrayList<>();
       for (String value : entry.getValue()) {
-        if (organizationMap.containsKey(value)) {
-          uriList.add(value);
+        if (organizationPrefLabelMap.containsKey(value)) {
+          organizationUris.add(value);
         } else {
           literals.add(value);
         }
       }
-      literalsMap.put(entry.getKey(), literals);
-    }
-    //Remove "def" key if it's empty
-    if (CollectionUtils.isEmpty(literalsMap.get("def"))) {
-      literalsMap.remove("def");
+      if (!literals.isEmpty()) {
+        literalsMap.put(entry.getKey(), literals);
+      }
     }
   }
 
-  private void extendWithOrganizationLiterals(Map<String, List<String>> literalsMap) {
-    for (OrganizationImpl organizationImpl : organizationMap.values()) {
-      for (Map.Entry<String, List<String>> entry : organizationImpl.getPrefLabel().entrySet()) {
-        final List<String> literals = literalsMap.getOrDefault(entry.getKey(), new ArrayList<>());
-        literals.addAll(entry.getValue());
-        //Replace the list in the map and make sure duplicates were not introduced per key
-        literalsMap.put(entry.getKey(), new ArrayList<>(new HashSet<>(literals)));
+  private void addOrganizationPrefLabelsToLiterals(Set<String> organizationUris,
+          Map<String, List<String>> literalsMap) {
+    for (String organizationUri : organizationUris) {
+      final Pair<String, String> entry = organizationPrefLabelMap.get(organizationUri);
+      if (entry != null) {
+        literalsMap.computeIfAbsent(entry.getKey(), key -> new ArrayList<>()).add(entry.getValue());
       }
     }
   }
