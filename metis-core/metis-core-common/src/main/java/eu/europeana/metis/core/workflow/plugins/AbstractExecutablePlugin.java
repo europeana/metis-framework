@@ -124,7 +124,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       parameters.putAll(extraParameters);
     }
 
-    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     parameters.put(PluginParameterKeys.INCREMENTAL_HARVEST, String.valueOf(incrementalProcessing));
     parameters.put(PluginParameterKeys.HARVEST_DATE, dateFormat.format(getStartedDate()));
     parameters.put(PluginParameterKeys.PROVIDER_ID, ecloudBasePluginParameters.getEcloudProvider());
@@ -173,7 +174,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       String datasetId, boolean incrementalIndexing, Date harvestDate,
       boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
       List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
-    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+    final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     final Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
     extraParameters
