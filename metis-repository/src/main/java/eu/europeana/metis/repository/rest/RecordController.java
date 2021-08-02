@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,8 @@ public class RecordController {
 
   /**
    * Save a single record into the database
+   *
+   * TODO The swagger console does not pick up the @ApiParam settings.
    *
    * @param recordId - A unique record id
    * @param datasetId - The id of the dataset which the record belongs to
@@ -112,7 +115,8 @@ public class RecordController {
     try (final InputStream inputStream = recordsZipFile.getInputStream()) {
       new HttpHarvesterImpl().harvestRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
         final byte[] content = entry.getEntryContent().readAllBytes();
-        saveRecord(entry.getEntryName(), new String(content, StandardCharsets.UTF_8), result);
+        final String recordId = FilenameUtils.getBaseName(entry.getEntryName());
+        saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result);
       });
     } catch (IOException | HarvesterException | RuntimeException e) {
 

@@ -45,7 +45,8 @@ public interface HttpHarvester {
   interface ArchiveEntry {
 
     /**
-     * @return The name of the entry. This is the file name (so excluding the path).
+     * @return The name of the entry. This is the file name (including extension, excluding the
+     * path).
      */
     String getEntryName();
 

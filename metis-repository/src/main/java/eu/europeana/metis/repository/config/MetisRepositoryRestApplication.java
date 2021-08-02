@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -78,6 +80,11 @@ public class MetisRepositoryRestApplication implements WebMvcConfigurer, Initial
                     properties.getMongoPassword(), properties.isMongoEnableSsl(),
                     ReadPreferenceValue.PRIMARY_PREFERRED, properties.getMongoApplicationName());
     mongoClientForEntities = new MongoClientProvider<>(mongoProperties).createMongoClient();
+  }
+
+  @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
+  public StandardServletMultipartResolver getMultipartResolver() {
+    return new StandardServletMultipartResolver();
   }
 
   @Override
