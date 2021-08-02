@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 /**
  * Collection of supported file compressions.
  */
-enum CompressedFileExtension {
+public enum CompressedFileExtension {
 
   /**
    * ZIP files.

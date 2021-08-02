@@ -5,6 +5,7 @@ import eu.europeana.metis.repository.dao.RecordDao;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,7 +51,7 @@ public class HttpHarvestController {
   /**
    * It creates a zip of records that belong to dataset with datasetId
    *
-   * @param dataset The dataset ID of which to create a zipfile.
+   * @param datasetId The dataset ID of which to create a zipfile.
    * @return A zip of records
    */
   @GetMapping(value = RestEndpoints.GET_RECORDS_DATABASE, produces = "application/zip")
@@ -59,13 +60,14 @@ public class HttpHarvestController {
   @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "No records for this dataset."),
           @ApiResponse(code = 500, message = "Error obtaining the records.")})
-  public ResponseEntity<byte[]> getDatasetRecords(@PathVariable("dataset") String dataset) {
+  public ResponseEntity<byte[]> getDatasetRecords(
+          @ApiParam(value = "Dataset ID (new or existing)", required = true) @PathVariable("dataset") String datasetId) {
 
     // Create zip file in memory (and keep track on whether there are any records).
     final AtomicBoolean recordsFound = new AtomicBoolean(false);
     final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-      final Stream<Record> recordList = recordDao.getAllRecordsFromDataset(dataset);
+      final Stream<Record> recordList = recordDao.getAllRecordsFromDataset(datasetId);
       recordList.forEach(record -> {
         addRecordToZipFile(record, zipOutputStream);
         recordsFound.set(true);

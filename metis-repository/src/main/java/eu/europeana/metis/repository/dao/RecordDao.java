@@ -42,20 +42,20 @@ public class RecordDao {
    * Create record in the database
    *
    * @param record - The record to be saved in the database
-   * @return The record just saved in the database
+   * @return Whether the record was inserted (true) or updated (false).
    */
-  public Record createRecord(Record record) {
+  public boolean createRecord(Record record) {
 
     Optional<Record> recordFound = datastore.find(Record.class)
         .filter(Filters.eq(RECORD_ID_FIELD, record.getRecordId())).stream().findFirst();
 
     recordFound.ifPresent(value -> record.setId(value.getId()));
 
-    final Record recordSaved = ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
+    ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> datastore.save(record));
     LOGGER.info("Record for datasetId '{}' created in Mongo", record.getDatasetId());
 
-    return recordSaved;
+    return recordFound.isEmpty();
   }
 
   /**
