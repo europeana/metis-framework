@@ -248,7 +248,6 @@ public class ZohoAccessClient {
           new IllegalArgumentException(
               String.format("Provided page: %s, and pageSize: %s", page, pageSize)));
     }
-//    int start = ((page - 1) * pageSize) + 1;
 
     try {
       APIResponse<ResponseHandler> response;
