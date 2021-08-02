@@ -25,7 +25,6 @@ import com.zoho.crm.api.record.ResponseHandler;
 import com.zoho.crm.api.record.ResponseWrapper;
 import com.zoho.crm.api.util.APIResponse;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +36,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 /**
  * Class that contains methods related to communication with the Zoho service.
@@ -138,7 +138,7 @@ public class ZohoAccessClient {
   }
 
   private List<Record> getZohoRecords(APIResponse<ResponseHandler> response) {
-    if (response != null && response.isExpected()) {
+    if (response != null && !isEmptyContent(response) && response.isExpected()) {
       //Get the object from response
       ResponseHandler responseHandler = response.getObject();
       if (responseHandler instanceof ResponseWrapper) {
@@ -147,6 +147,11 @@ public class ZohoAccessClient {
       }
     }
     return Collections.emptyList();
+  }
+
+  private boolean isEmptyContent(APIResponse<ResponseHandler> response) {
+    return Arrays.asList(HttpStatus.NO_CONTENT.value(), HttpStatus.NOT_MODIFIED.value())
+        .contains(response.getStatusCode());
   }
 
   private List<DeletedRecord> getZohoDeletedRecords(APIResponse<DeletedRecordsHandler> response) {
@@ -266,22 +271,14 @@ public class ZohoAccessClient {
         paramInstance.add(SearchRecordsParam.PER_PAGE, pageSize);
         paramInstance.add(SearchRecordsParam.CRITERIA,
             createZohoCriteriaString(searchCriteria, criteriaOperator));
-        
+
         response = recordOperations
             .searchRecords(ZohoConstants.ACCOUNTS_MODULE_NAME, paramInstance);
       }
-      
-      if(response.getStatusCode() == 200) {
-    	  return getZohoRecords(response);  
-      }else if(response.getStatusCode() == 204) {
-    	  return new ArrayList<Record>();
-      } else {
-    	  throw new ZohoException("Zoho access error! Status code: "+response.getStatusCode()+" Cannot get organization list page: " + page + " pageSize :" + pageSize);
-      }
-      
+      return getZohoRecords(response);
     } catch (SDKException e) {
-      throw new ZohoException("Cannot get organization list page: " + page + " pageSize :" + pageSize,
-          e);
+      throw new ZohoException(
+          "Cannot get organization list page: " + page + " pageSize :" + pageSize, e);
     }
   }
 
