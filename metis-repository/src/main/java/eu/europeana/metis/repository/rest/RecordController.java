@@ -63,8 +63,6 @@ public class RecordController {
   /**
    * Save a single record into the database
    *
-   * TODO The swagger console does not pick up the @ApiParam settings.
-   *
    * @param recordId - A unique record id
    * @param datasetId - The id of the dataset which the record belongs to
    * @param dateStamp - Last time the record was updated. It can also be the date of creation
@@ -75,7 +73,7 @@ public class RecordController {
           MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "The given record is put into the database", response = Record.class)
+  @ApiOperation(value = "The given record is put into the database")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the record")})
   public InsertionResult saveRecord(
@@ -93,6 +91,8 @@ public class RecordController {
   /**
    * Save multiple records into the database
    *
+   * TODO The swagger console does not pick up the @ApiParam settings.
+   *
    * @param datasetId - The id of the dataset which the record belongs to
    * @param dateStamp - Last time the record was updated. It can also be the date of creation
    * @param recordsZipFile - The records themselves in a zip file.
@@ -102,7 +102,7 @@ public class RecordController {
           MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "The given records are put into the database", response = Record.class)
+  @ApiOperation(value = "The given records are put into the database")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the file archive")})
   public InsertionResult saveRecords(

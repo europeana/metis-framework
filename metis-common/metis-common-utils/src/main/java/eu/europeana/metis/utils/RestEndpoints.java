@@ -87,7 +87,7 @@ public final class RestEndpoints {
   public static final String SAVE_RECORD_TO_DATABASE = "/repository/save/record";
   public static final String SAVE_RECORDS_TO_DATABASE = "/repository/save/records";
   public static final String GET_RECORDS_DATABASE = "/repository/get/{dataset}/records";
-  public static final String GET_RECORD_OAI = "/repository/get/record";
+  public static final String OAI_ENDPOINT = "/repository/oai";
 
   private RestEndpoints() {
   }

@@ -110,6 +110,7 @@
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.tika.core>1.26</version.tika.core>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
+    <version.dspace.oai>4.2.0</version.dspace.oai>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -447,6 +448,21 @@
           <exclusion>
             <artifactId>xml-apis</artifactId>
             <groupId>xml-apis</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.dspace</groupId>
+        <artifactId>xoai-service-provider</artifactId>
+        <version>${version.dspace.oai}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>*</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
