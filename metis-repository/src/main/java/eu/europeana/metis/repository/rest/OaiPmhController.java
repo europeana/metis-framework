@@ -66,7 +66,7 @@ public class OaiPmhController {
           @ApiResponse(code = 500, message = "Error processing the request")})
   public String oaiPmh(
           @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @QueryParam("verb") String verb,
-          @ApiParam(value = "The set (required for ListIdentifiers)") @QueryParam("set") String setSpec,
+          @ApiParam(value = "The set (required for ListIdentifiers)") @QueryParam("set") String set,
           @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @QueryParam("metadataPrefix") String metadataPrefix,
           @ApiParam(value = "The record identifier (required for GetRecord)") @QueryParam("identifier") String identifier) {
 
@@ -79,7 +79,7 @@ public class OaiPmhController {
     // Check the verb and delegate
     final Verb verbResult;
     if ("ListIdentifiers".equals(verb)) {
-      verbResult = listIdentifiers(setSpec);
+      verbResult = listIdentifiers(set);
     } else if ("GetRecord".equals(verb)) {
       verbResult = getRecord(identifier);
     } else {
