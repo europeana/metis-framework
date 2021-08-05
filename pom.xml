@@ -464,6 +464,11 @@
             <groupId>commons-logging</groupId>
             <artifactId>*</artifactId>
           </exclusion>
+          <!-- Tomcat tries to set a SAX feature not supported by this SAX parser. -->
+          <exclusion>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>woodstox-core-asl</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
     </dependencies>
