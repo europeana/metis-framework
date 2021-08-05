@@ -1,6 +1,7 @@
 package eu.europeana.metis.repository.config;
 
 import com.mongodb.client.MongoClient;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
@@ -61,6 +62,12 @@ public class MetisRepositoryRestApplication implements WebMvcConfigurer, Initial
 
   @Override
   public void afterPropertiesSet() throws TrustStoreConfigurationException {
+
+    // Set the SOCKS proxy
+    if (properties.isSocksProxyEnabled()) {
+      new SocksProxy(properties.getSocksProxyHost(), properties.getSocksProxyPort(),
+              properties.getSocksProxyUsername(), properties.getSocksProxyPassword()).init();
+    }
 
     // Set the truststore.
     LOGGER.info("Append default truststore with custom truststore");
