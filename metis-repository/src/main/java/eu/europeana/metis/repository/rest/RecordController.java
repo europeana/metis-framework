@@ -32,6 +32,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -106,9 +107,9 @@ public class RecordController {
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the file archive")})
   public InsertionResult saveRecords(
-          @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
-          @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false) Date dateStamp,
-          @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestParam MultipartFile recordsZipFile) {
+          @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestPart("datasetId") String datasetId,
+          @ApiParam(value = "Date stamp (in ISO format)") @RequestPart(name = "dateStamp", required = false) Date dateStamp,
+          @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestPart MultipartFile recordsZipFile) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
             Objects.requireNonNullElseGet(dateStamp, Date::new));
