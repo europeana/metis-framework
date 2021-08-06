@@ -83,6 +83,12 @@ public final class RestEndpoints {
   /* METIS PREVIEW SERVICE ENDPOINT*/
   public static final String DATA_CHECKER_UPLOAD = "/upload";
 
+  /* METIS REPOSITORY ENDPOINTS */
+  public static final String SAVE_RECORD_TO_DATABASE = "/repository/save/record";
+  public static final String SAVE_RECORDS_TO_DATABASE = "/repository/save/records";
+  public static final String GET_RECORDS_DATABASE = "/repository/get/{dataset}/records";
+  public static final String OAI_ENDPOINT = "/repository/oai";
+
   private RestEndpoints() {
   }
 

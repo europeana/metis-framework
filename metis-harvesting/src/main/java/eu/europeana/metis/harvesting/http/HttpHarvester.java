@@ -1,6 +1,9 @@
 package eu.europeana.metis.harvesting.http;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.function.Consumer;
 
 /**
  * Implementations of this interface provide the functionality to harvest from HTTP (compressed
@@ -22,4 +25,34 @@ public interface HttpHarvester {
   HttpRecordIterator harvestRecords(String archiveUrl, String downloadDirectory)
           throws HarvesterException;
 
+  /**
+   * Harvest from HTTP (compressed archive). This is a convenience method for {@link
+   * #harvestRecords(String, String)} that copies the input stream to a temporary file (in the
+   * system's temporary directory) first. An attempt will be made to remove the temporary file
+   * before this method returns.
+   *
+   * @param inputStream The input stream containing the compressed archive.
+   * @param compressedFileType The type of the archive.
+   * @param action The action to be performed.
+   * @throws HarvesterException In case there was an issue during the harvest.
+   */
+  void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
+          Consumer<ArchiveEntry> action) throws HarvesterException;
+
+  /**
+   * An object representing an entry in a file archive.
+   */
+  interface ArchiveEntry {
+
+    /**
+     * @return The name of the entry. This is the file name (including extension, excluding the
+     * path).
+     */
+    String getEntryName();
+
+    /**
+     * @return The content of the entry (in memory).
+     */
+    ByteArrayInputStream getEntryContent();
+  }
 }
