@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 /**
  * Class that contains methods related to communication with the Zoho service.
@@ -137,7 +138,7 @@ public class ZohoAccessClient {
   }
 
   private List<Record> getZohoRecords(APIResponse<ResponseHandler> response) {
-    if (response != null && response.isExpected()) {
+    if (response != null && !isEmptyContent(response) && response.isExpected()) {
       //Get the object from response
       ResponseHandler responseHandler = response.getObject();
       if (responseHandler instanceof ResponseWrapper) {
@@ -146,6 +147,11 @@ public class ZohoAccessClient {
       }
     }
     return Collections.emptyList();
+  }
+
+  private boolean isEmptyContent(APIResponse<ResponseHandler> response) {
+    return Arrays.asList(HttpStatus.NO_CONTENT.value(), HttpStatus.NOT_MODIFIED.value())
+        .contains(response.getStatusCode());
   }
 
   private List<DeletedRecord> getZohoDeletedRecords(APIResponse<DeletedRecordsHandler> response) {
@@ -247,14 +253,13 @@ public class ZohoAccessClient {
           new IllegalArgumentException(
               String.format("Provided page: %s, and pageSize: %s", page, pageSize)));
     }
-    int start = ((page - 1) * pageSize) + 1;
 
     try {
       APIResponse<ResponseHandler> response;
       RecordOperations recordOperations = new RecordOperations();
       ParameterMap paramInstance = new ParameterMap();
       if (isNullOrEmpty(searchCriteria)) {//No searchCriteria available
-        paramInstance.add(GetRecordsParam.PAGE, start);
+        paramInstance.add(GetRecordsParam.PAGE, page);
         paramInstance.add(GetRecordsParam.PER_PAGE, pageSize);
         HeaderMap headerInstance = new HeaderMap();
         headerInstance.add(GetRecordsHeader.IF_MODIFIED_SINCE, modifiedDate);
@@ -262,17 +267,18 @@ public class ZohoAccessClient {
             .getRecords(ZohoConstants.ACCOUNTS_MODULE_NAME, paramInstance, headerInstance);
 
       } else {
-        paramInstance.add(SearchRecordsParam.PAGE, start);
+        paramInstance.add(SearchRecordsParam.PAGE, page);
         paramInstance.add(SearchRecordsParam.PER_PAGE, pageSize);
         paramInstance.add(SearchRecordsParam.CRITERIA,
             createZohoCriteriaString(searchCriteria, criteriaOperator));
+
         response = recordOperations
             .searchRecords(ZohoConstants.ACCOUNTS_MODULE_NAME, paramInstance);
       }
       return getZohoRecords(response);
     } catch (SDKException e) {
-      throw new ZohoException("Cannot get organization list from: " + start + " rows :" + pageSize,
-          e);
+      throw new ZohoException(
+          "Cannot get organization list page: " + page + " pageSize :" + pageSize, e);
     }
   }
 
