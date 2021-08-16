@@ -58,9 +58,7 @@ public class IndexedRecordAccess {
    * @return The number of records encountered for the given dataset.
    */
   public long countRecords(String datasetId) {
-    final Query<FullBeanImpl> query = mongoServer.getDatastore().find(FullBeanImpl.class);
-    query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
-    return query.count();
+    return countRecords(datasetId, null);
   }
 
   /**
@@ -119,8 +117,8 @@ public class IndexedRecordAccess {
    * taken out of the equation.</p>
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
-   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
-   * would be removed. If null is provided then all records from that dataset will be removed.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be removed. If null is provided then all records from that dataset will be removed.
    * @return The number of records that were removed.
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
@@ -141,9 +139,9 @@ public class IndexedRecordAccess {
    * Return all record IDs that belong to the given dataset. For implementation details see {@link
    * #removeDataset(String, Date)} as the selection is to be performed analogously.
    *
-   * @param datasetId The ID of the dataset to clear. Is not null.
-   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
-   * would be removed. If null is provided then all records from that dataset will be removed.
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be included. If null is provided then all records from that dataset are included.
    * @return The record IDs in a stream.
    */
   public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) {
@@ -154,6 +152,19 @@ public class IndexedRecordAccess {
             .iterator(findOptions);
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resultIterator, 0), false)
             .map(FullBeanImpl::getAbout);
+  }
+
+  /**
+   * Count all records that belong to the given dataset. For implementation details see {@link
+   * #removeDataset(String, Date)} as the selection is to be performed analogously.
+   *
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be counted. If null is provided then all records from that dataset will be counted.
+   * @return The record IDs in a stream.
+   */
+  public long countRecords(String datasetId, Date maxRecordDate) {
+    return createMongoQuery(datasetId, maxRecordDate).count();
   }
 
   private void removeDatasetFromSolr(String datasetId, Date maxRecordDate)

@@ -165,8 +165,8 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
-   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
-   * would be removed. If null is provided then all records from that dataset will be removed.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be removed. If null is provided then all records from that dataset will be removed.
    * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.
    */
@@ -181,12 +181,25 @@ public interface Indexer extends Closeable {
    * <p>Note that in case of problems, this would manifest when resolving the stream. Hence this
    * method does not declare throwing an exception.</p>
    *
-   * @param datasetId The ID of the dataset to clear. Is not null.
-   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
-   * would be removed. If null is provided then all records from that dataset will be removed.
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be returned. If null is provided then all records from that dataset will be returned.
    * @return A stream with record IDs.
    */
   Stream<String> getRecordIds(String datasetId, Date maxRecordDate);
+
+  /**
+   * Counts the records in a given dataset. For details of the
+   * implementation and application of selection criteria see {@link #removeAll(String, Date)} as
+   * this method should work analogously. The method can therefore be used for instance to determine
+   * how many records would be removed.
+   *
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be counted. If null is provided then all records from that dataset will be counted.
+   * @return A stream with record IDs.
+   */
+  long countRecords(String datasetId, Date maxRecordDate);
 
   /**
    * Counts the records in a given dataset. The criteria of whether a record belongs to a certain

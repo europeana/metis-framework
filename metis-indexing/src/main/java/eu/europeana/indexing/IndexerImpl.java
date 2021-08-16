@@ -158,6 +158,11 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
+  public long countRecords(String datasetId, Date maxRecordDate) {
+    return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId, maxRecordDate);
+  }
+
+  @Override
   public long countRecords(String datasetId) {
     return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId);
   }
