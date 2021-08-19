@@ -55,6 +55,16 @@
             <version>${version.jackson}</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+        <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-common-utils</artifactId>
             <version>${project.version}</version>

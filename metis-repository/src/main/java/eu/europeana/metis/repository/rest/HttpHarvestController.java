@@ -54,7 +54,7 @@ public class HttpHarvestController {
    * @param datasetId The dataset ID of which to create a zipfile.
    * @return A zip of records
    */
-  @GetMapping(value = RestEndpoints.GET_RECORDS_DATABASE, produces = "application/zip")
+  @GetMapping(value = RestEndpoints.REPOSITORY_HTTP_ENDPOINT, produces = "application/zip")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis.")

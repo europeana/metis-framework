@@ -57,7 +57,8 @@ public class OaiPmhController {
     this.recordDao = recordDao;
   }
 
-  @GetMapping(value = RestEndpoints.OAI_ENDPOINT, produces = {MediaType.APPLICATION_XML_VALUE})
+  @GetMapping(value = RestEndpoints.REPOSITORY_OAI_ENDPOINT,
+      produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiOperation(value = "OAI endpoint (supporting only the ListIdentifiers and GetRecord verbs)")
@@ -88,7 +89,7 @@ public class OaiPmhController {
 
     // Compile the result
     final OAIPMH result = new OAIPMH().withVerb(verbResult).withResponseDate(new Date())
-            .withRequest(new Request(RestEndpoints.OAI_ENDPOINT).withVerbType(verbResult.getType()));
+            .withRequest(new Request(RestEndpoints.REPOSITORY_OAI_ENDPOINT).withVerbType(verbResult.getType()));
     try {
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       final WriterContext context = new WriterContext(Granularity.Day, new SimpleResumptionTokenFormat());
@@ -134,7 +135,7 @@ public class OaiPmhController {
   }
 
   private static Header createHeader(Record record) {
-    return new Header().withDatestamp(record.getDateStamp())
+    return new Header().withDatestamp(Date.from(record.getDateStamp()))
             .withSetSpec(record.getDatasetId()).withIdentifier(record.getRecordId());
   }
 }
