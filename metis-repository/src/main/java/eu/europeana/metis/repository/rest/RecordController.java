@@ -78,7 +78,8 @@ public class RecordController {
   @ResponseBody
   @ApiOperation(value = "The given record is put into the database. If the record ID already "
       + "exists, the record is overwritten. Note that record IDs are normalized to contain "
-      + "only the characters a-z, A-Z, 0-9 and `_`.")
+      + "only the characters a-z, A-Z, 0-9 and `_`. But contrary to the batch upload method, they "
+      + "are NOT prefixed by the dataset ID.")
  @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the record")})
   public InsertionResult saveRecord(
@@ -108,9 +109,10 @@ public class RecordController {
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "The given records are put into the database. If a record ID (i.e. a file "
-      + "name without the extension) already exists, the record is overwritten. Note that record IDs "
-      + "are normalized to contain only the characters a-z, A-Z, 0-9 and `_`.")
+  @ApiOperation(value = "The given records are put into the database. The record IDs are computed to "
+      + "be the file name (without the extension) prefixed by the dataset ID. If a record ID already "
+      + "exists, the record is overwritten. Note that record IDs are normalized to contain only the "
+      + "characters a-z, A-Z, 0-9 and `_`.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the file archive")})
   public InsertionResult saveRecords(
@@ -123,7 +125,7 @@ public class RecordController {
     try (final InputStream inputStream = recordsZipFile.getInputStream()) {
       new HttpHarvesterImpl().harvestRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
         final byte[] content = entry.getEntryContent().readAllBytes();
-        final String recordId = FilenameUtils.getBaseName(entry.getEntryName());
+        final String recordId = datasetId + FilenameUtils.getBaseName(entry.getEntryName());
         saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result);
       });
     } catch (IOException | HarvesterException | RuntimeException e) {

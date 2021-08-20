@@ -86,7 +86,7 @@ public final class RestEndpoints {
   /* METIS REPOSITORY ENDPOINTS */
   public static final String REPOSITORY_RECORDS_RECORD_ID = "/repository/records/{recordId}";
   public static final String REPOSITORY_RECORDS = "/repository/records";
-  public static final String REPOSITORY_HTTP_ENDPOINT = "/repository/zip/{dataset}";
+  public static final String REPOSITORY_HTTP_ENDPOINT_ZIP = "/repository/zip/{dataset}.zip";
   public static final String REPOSITORY_OAI_ENDPOINT = "/repository/oai";
 
   private RestEndpoints() {
