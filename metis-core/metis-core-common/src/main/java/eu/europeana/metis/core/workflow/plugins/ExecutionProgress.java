@@ -25,10 +25,11 @@ public class ExecutionProgress {
    * @param taskInfo {@link TaskInfo}
    */
   void copyExternalTaskInformation(TaskInfo taskInfo) {
-    expectedRecords = taskInfo.getExpectedSize();
-    processedRecords = taskInfo.getProcessedElementCount();
-    progressPercentage = taskInfo.getProcessedPercentage();
-    errors = taskInfo.getErrors();
+    expectedRecords = taskInfo.getExpectedRecordsNumber();
+    processedRecords = taskInfo.getProcessedRecordsCount() + taskInfo.getIgnoredRecordsCount()
+        + taskInfo.getDeletedRecordsCount();
+    progressPercentage = Math.round(100f * this.processedRecords / this.expectedRecords);
+    errors = taskInfo.getProcessedErrorsCount() + taskInfo.getDeletedErrorsCount();
     status = taskInfo.getState();
   }
 

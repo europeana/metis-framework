@@ -239,7 +239,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     }
     LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
     getExecutionProgress().copyExternalTaskInformation(taskInfo);
-    return new MonitorResult(taskInfo.getState(), taskInfo.getInfo());
+    return new MonitorResult(taskInfo.getState(), taskInfo.getStateDescription());
   }
 
   @Override
