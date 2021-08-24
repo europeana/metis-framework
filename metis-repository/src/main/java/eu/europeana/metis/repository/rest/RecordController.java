@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -80,17 +81,18 @@ public class RecordController {
       + "exists, the record is overwritten. Note that record IDs are normalized to contain "
       + "only the characters a-z, A-Z, 0-9 and `_`. But contrary to the batch upload method, they "
       + "are NOT prefixed by the dataset ID.")
- @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
-          @ApiResponse(code = 500, message = "Error processing the record")})
+  @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
+      @ApiResponse(code = 500, message = "Error processing the record")})
   public InsertionResult saveRecord(
-          @ApiParam(value = "Record ID (new or existing)", required = true) @PathVariable("recordId") String recordId,
-          @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
-          @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-          @ApiParam(value = "The actual (EDM/RDF) record", required = true) @RequestBody String edmRecord) {
+      @ApiParam(value = "Record ID (new or existing)", required = true) @PathVariable("recordId") String recordId,
+      @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
+      @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
+      @ApiParam(value = "Whether the record is to be marked as deleted", required = true) @RequestParam("markAsDeleted") boolean markAsDeleted,
+      @ApiParam(value = "The actual (EDM/RDF) record", required = true) @RequestBody String edmRecord) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
-            Objects.requireNonNullElseGet(dateStamp, Instant::now));
-    saveRecord(recordId, edmRecord, result);
+        Objects.requireNonNullElseGet(dateStamp, Instant::now));
+    saveRecord(recordId, edmRecord, result, markAsDeleted);
     return result;
   }
 
@@ -109,10 +111,10 @@ public class RecordController {
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "The given records are put into the database. The record IDs are computed to "
-      + "be the file name (without the extension) prefixed by the dataset ID. If a record ID already "
-      + "exists, the record is overwritten. Note that record IDs are normalized to contain only the "
-      + "characters a-z, A-Z, 0-9 and `_`.")
+  @ApiOperation(value = "The given records are put into the database as non-deleted records. The "
+      + "record IDs are computed to be the file name (without the extension) prefixed by the "
+      + "dataset ID. If a record ID already exists, the record is overwritten. Note that record "
+      + "IDs are normalized to contain only the characters a-z, A-Z, 0-9 and `_`.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the file archive")})
   public InsertionResult saveRecords(
@@ -125,8 +127,8 @@ public class RecordController {
     try (final InputStream inputStream = recordsZipFile.getInputStream()) {
       new HttpHarvesterImpl().harvestRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
         final byte[] content = entry.getEntryContent().readAllBytes();
-        final String recordId = datasetId + FilenameUtils.getBaseName(entry.getEntryName());
-        saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result);
+        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getEntryName());
+        saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result, false);
       });
     } catch (IOException | HarvesterException | RuntimeException e) {
 
@@ -137,11 +139,40 @@ public class RecordController {
     return result;
   }
 
-  private void saveRecord(String providedRecordId, String edmRecord, InsertionResult result) {
+  /**
+   * Update record header (metadata information) of the record given by the record ID.
+   *
+   * @param recordId  - A unique record id
+   * @param datasetId - The id of the dataset which the record belongs to
+   * @param dateStamp - Last time the record was updated. It can also be the date of creation
+   * @return a summary of the performed actions.
+   */
+  @PutMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER,
+      produces = {MediaType.APPLICATION_JSON_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiOperation(value = "The header fields of the given record is updated.")
+  @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or unknown record ID"),
+      @ApiResponse(code = 500, message = "Error processing the record")})
+  public InsertionResult updateRecordHeader(
+      @ApiParam(value = "Record ID (existing)", required = true) @PathVariable("recordId") String recordId,
+      @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
+      @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
+      @ApiParam(value = "Whether the record is to be marked as deleted", required = true) @RequestParam("markAsDeleted") boolean markAsDeleted) {
+    final Record record = recordDao.getRecord(recordId);
+    if (record == null) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+          "No record found for this identifier.");
+    }
+    return saveRecord(recordId, datasetId, dateStamp, markAsDeleted, record.getEdmRecord());
+  }
+
+  private void saveRecord(String providedRecordId, String edmRecord, InsertionResult result,
+      boolean markedAsDeleted) {
     final String recordId = normalizeRecordId(providedRecordId);
     try {
       final Record recordToSave = new Record(recordId, result.getDatasetId(), result.getDateStamp(),
-              edmRecord);
+          markedAsDeleted, edmRecord);
       if (recordDao.createRecord(recordToSave)) {
         result.addInsertedRecord(recordId);
       } else {
@@ -165,18 +196,19 @@ public class RecordController {
   public RecordView getRecord(
       @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
     final Record record = recordDao.getRecord(recordId);
-    if (record==null){
+    if (record == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND,
           "No record found for this identifier.");
     }
     return new RecordView(record.getRecordId(), record.getDatasetId(), record.getDateStamp(),
-        record.getEdmRecord());
+        record.isDeleted(), record.getEdmRecord());
   }
 
   @DeleteMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "The record is deleted from the database.")
+  @ApiOperation(value = "The record is deleted from the database. Note: this is not the same as "
+      + "marking a record as deleted.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Record ID is invalid or unknown"),
       @ApiResponse(code = 500, message = "Error processing the request")})
   public void deleteRecord(

@@ -31,16 +31,19 @@ public class Record {
   private String recordId;
   private String datasetId;
   private Instant dateStamp;
+  private boolean deleted = false;
   private String edmRecord;
 
   public Record() {
     // Empty constructor required for Morphia.
   }
 
-  public Record(String recordId, String datasetId, Instant dateStamp, String edmRecord) {
+  public Record(String recordId, String datasetId, Instant dateStamp, boolean deleted,
+      String edmRecord) {
     this.recordId = recordId;
     this.datasetId = datasetId;
     this.dateStamp = dateStamp;
+    this.deleted = deleted;
     this.edmRecord = edmRecord;
   }
 
@@ -74,6 +77,14 @@ public class Record {
 
   public void setDateStamp(Instant dateStamp) {
     this.dateStamp = dateStamp;
+  }
+
+  public boolean isDeleted() {
+    return deleted;
+  }
+
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
   }
 
   public String getEdmRecord() {

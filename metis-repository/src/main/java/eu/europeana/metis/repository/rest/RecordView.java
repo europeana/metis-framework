@@ -10,14 +10,17 @@ public class RecordView {
   private final String datasetId;
   @JsonSerialize(using = InstantSerializer.class)
   private final Instant dateStamp;
+  private final boolean markedAsDeleted;
   @JsonRawValue
   private final String edmRecord;
 
-  public RecordView(String recordId, String datasetId, Instant dateStamp, String edmRecord) {
+  public RecordView(String recordId, String datasetId, Instant dateStamp, boolean markedAsDeleted,
+      String edmRecord) {
     this.recordId = recordId;
     this.datasetId = datasetId;
     this.dateStamp = dateStamp;
     this.edmRecord = edmRecord;
+    this.markedAsDeleted = markedAsDeleted;
   }
 
   public String getRecordId() {
@@ -30,6 +33,10 @@ public class RecordView {
 
   public Instant getDateStamp() {
     return dateStamp;
+  }
+
+  public boolean isMarkedAsDeleted() {
+    return markedAsDeleted;
   }
 
   public String getEdmRecord() {

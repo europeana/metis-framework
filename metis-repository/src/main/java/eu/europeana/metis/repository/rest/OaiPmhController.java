@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dspace.xoai.model.oaipmh.GetRecord;
 import org.dspace.xoai.model.oaipmh.Granularity;
 import org.dspace.xoai.model.oaipmh.Header;
+import org.dspace.xoai.model.oaipmh.Header.Status;
 import org.dspace.xoai.model.oaipmh.ListIdentifiers;
 import org.dspace.xoai.model.oaipmh.Metadata;
 import org.dspace.xoai.model.oaipmh.OAIPMH;
@@ -135,7 +136,11 @@ public class OaiPmhController {
   }
 
   private static Header createHeader(Record record) {
-    return new Header().withDatestamp(Date.from(record.getDateStamp()))
-            .withSetSpec(record.getDatasetId()).withIdentifier(record.getRecordId());
+    final Header result = new Header().withDatestamp(Date.from(record.getDateStamp()))
+        .withSetSpec(record.getDatasetId()).withIdentifier(record.getRecordId());
+    if (record.isDeleted()) {
+      result.withStatus(Status.DELETED);
+    }
+    return result;
   }
 }

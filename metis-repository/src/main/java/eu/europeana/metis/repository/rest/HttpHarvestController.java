@@ -57,7 +57,8 @@ public class HttpHarvestController {
   @GetMapping(value = RestEndpoints.REPOSITORY_HTTP_ENDPOINT_ZIP, produces = "application/zip")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis.")
+  @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis. Records "
+      + "that are marked as deleted will be excluded from the resulting zip file.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "No records for this dataset."),
           @ApiResponse(code = 500, message = "Error obtaining the records.")})
   public ResponseEntity<byte[]> getDatasetRecords(
@@ -69,8 +70,10 @@ public class HttpHarvestController {
     try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
       final Stream<Record> recordList = recordDao.getAllRecordsFromDataset(datasetId);
       recordList.forEach(record -> {
-        addRecordToZipFile(record, zipOutputStream);
-        recordsFound.set(true);
+        if (!record.isDeleted()) {
+          addRecordToZipFile(record, zipOutputStream);
+          recordsFound.set(true);
+        }
       });
       zipOutputStream.finish();
       zipOutputStream.flush();
