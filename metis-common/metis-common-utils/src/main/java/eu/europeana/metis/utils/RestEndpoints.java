@@ -84,10 +84,11 @@ public final class RestEndpoints {
   public static final String DATA_CHECKER_UPLOAD = "/upload";
 
   /* METIS REPOSITORY ENDPOINTS */
-  public static final String SAVE_RECORD_TO_DATABASE = "/repository/save/record";
-  public static final String SAVE_RECORDS_TO_DATABASE = "/repository/save/records";
-  public static final String GET_RECORDS_DATABASE = "/repository/get/{dataset}/records";
-  public static final String OAI_ENDPOINT = "/repository/oai";
+  public static final String REPOSITORY_RECORDS = "/repository/records";
+  public static final String REPOSITORY_RECORDS_RECORD_ID = "/repository/records/{recordId}";
+  public static final String REPOSITORY_RECORDS_RECORD_ID_HEADER = "/repository/records/{recordId}/header";
+  public static final String REPOSITORY_HTTP_ENDPOINT_ZIP = "/repository/zip/{dataset}.zip";
+  public static final String REPOSITORY_OAI_ENDPOINT = "/repository/oai";
 
   private RestEndpoints() {
   }

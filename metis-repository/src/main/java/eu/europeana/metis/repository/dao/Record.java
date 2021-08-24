@@ -8,7 +8,7 @@ import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
-import java.util.Date;
+import java.time.Instant;
 import org.bson.types.ObjectId;
 
 /**
@@ -30,17 +30,20 @@ public class Record {
 
   private String recordId;
   private String datasetId;
-  private Date dateStamp;
+  private Instant dateStamp;
+  private boolean deleted = false;
   private String edmRecord;
 
   public Record() {
     // Empty constructor required for Morphia.
   }
 
-  public Record(String recordId, String datasetId, Date dateStamp, String edmRecord) {
+  public Record(String recordId, String datasetId, Instant dateStamp, boolean deleted,
+      String edmRecord) {
     this.recordId = recordId;
     this.datasetId = datasetId;
     this.dateStamp = dateStamp;
+    this.deleted = deleted;
     this.edmRecord = edmRecord;
   }
 
@@ -68,12 +71,20 @@ public class Record {
     this.datasetId = datasetId;
   }
 
-  public Date getDateStamp() {
+  public Instant getDateStamp() {
     return dateStamp;
   }
 
-  public void setDateStamp(Date dateStamp) {
+  public void setDateStamp(Instant dateStamp) {
     this.dateStamp = dateStamp;
+  }
+
+  public boolean isDeleted() {
+    return deleted;
+  }
+
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
   }
 
   public String getEdmRecord() {

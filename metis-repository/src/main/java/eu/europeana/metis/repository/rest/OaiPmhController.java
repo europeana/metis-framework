@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dspace.xoai.model.oaipmh.GetRecord;
 import org.dspace.xoai.model.oaipmh.Granularity;
 import org.dspace.xoai.model.oaipmh.Header;
+import org.dspace.xoai.model.oaipmh.Header.Status;
 import org.dspace.xoai.model.oaipmh.ListIdentifiers;
 import org.dspace.xoai.model.oaipmh.Metadata;
 import org.dspace.xoai.model.oaipmh.OAIPMH;
@@ -57,7 +58,8 @@ public class OaiPmhController {
     this.recordDao = recordDao;
   }
 
-  @GetMapping(value = RestEndpoints.OAI_ENDPOINT, produces = {MediaType.APPLICATION_XML_VALUE})
+  @GetMapping(value = RestEndpoints.REPOSITORY_OAI_ENDPOINT,
+      produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiOperation(value = "OAI endpoint (supporting only the ListIdentifiers and GetRecord verbs)")
@@ -88,7 +90,7 @@ public class OaiPmhController {
 
     // Compile the result
     final OAIPMH result = new OAIPMH().withVerb(verbResult).withResponseDate(new Date())
-            .withRequest(new Request(RestEndpoints.OAI_ENDPOINT).withVerbType(verbResult.getType()));
+            .withRequest(new Request(RestEndpoints.REPOSITORY_OAI_ENDPOINT).withVerbType(verbResult.getType()));
     try {
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       final WriterContext context = new WriterContext(Granularity.Day, new SimpleResumptionTokenFormat());
@@ -134,7 +136,11 @@ public class OaiPmhController {
   }
 
   private static Header createHeader(Record record) {
-    return new Header().withDatestamp(record.getDateStamp())
-            .withSetSpec(record.getDatasetId()).withIdentifier(record.getRecordId());
+    final Header result = new Header().withDatestamp(Date.from(record.getDateStamp()))
+        .withSetSpec(record.getDatasetId()).withIdentifier(record.getRecordId());
+    if (record.isDeleted()) {
+      result.withStatus(Status.DELETED);
+    }
+    return result;
   }
 }

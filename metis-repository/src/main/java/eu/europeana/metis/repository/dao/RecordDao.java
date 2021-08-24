@@ -39,7 +39,7 @@ public class RecordDao {
   }
 
   /**
-   * Create record in the database
+   * Create record in the database.
    *
    * @param record - The record to be saved in the database
    * @return Whether the record was inserted (true) or updated (false).
@@ -59,7 +59,7 @@ public class RecordDao {
   }
 
   /**
-   * Creates  list of records that belong to the given dataset id
+   * Creates list of records that belong to the given dataset ID.
    *
    * @param datasetId - The id of the dataset the records belong to
    * @return A stream of records that are part of the dataset with datasetId
@@ -69,22 +69,36 @@ public class RecordDao {
   }
 
   /**
-   * Returns a record with the given record id
+   * Returns a record with the given record ID.
    *
-   * @param recordId - The unique id of the record
+   * @param recordId - The unique ID of the record
    * @return The record found
    */
-  public Record getRecord(String recordId){
-     Optional<Record> recordFound= datastore.find(Record.class)
+  public Record getRecord(String recordId) {
+    Optional<Record> recordFound = datastore.find(Record.class)
         .filter(Filters.eq(RECORD_ID_FIELD, recordId))
         .stream()
         .findFirst();
 
-     if(recordFound.isPresent()) {
-       return recordFound.get();
-     } else {
-       LOGGER.warn("There is no such record with id " + recordId + ".");
-       return null;
-     }
+    if (recordFound.isPresent()) {
+      return recordFound.get();
+    } else {
+      LOGGER.warn("There is no such record with id " + recordId + ".");
+      return null;
+    }
+  }
+
+  /**
+   * Deletes a record with the given record ID.
+   * @param recordId The unique ID of the record to delete.
+   * @return whether the record was deleted (i.e. whether the record existed).
+   */
+  public boolean deleteRecord(String recordId) {
+    final boolean isDeleted = datastore.find(Record.class)
+        .filter(Filters.eq(RECORD_ID_FIELD, recordId)).delete().getDeletedCount() > 0;
+    if (!isDeleted) {
+      LOGGER.warn("There is no such record with id " + recordId + ".");
+    }
+    return isDeleted;
   }
 }
