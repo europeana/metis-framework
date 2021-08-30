@@ -238,8 +238,41 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
       throw new ExternalTaskException("Requesting task progress failed", e);
     }
     LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
-    getExecutionProgress().copyExternalTaskInformation(taskInfo);
+    updateExecutionProgress(taskInfo);
     return new MonitorResult(taskInfo.getState(), taskInfo.getStateDescription());
+  }
+
+  /**
+   * Update this object's {@link ExecutionProgress} based on the received {@link TaskInfo}.
+   *
+   * @param taskInfo {@link TaskInfo}
+   */
+  void updateExecutionProgress(TaskInfo taskInfo) {
+
+    // Calculate the various counts.
+    int expectedRecordCount = taskInfo.getExpectedRecordsNumber();
+    int processedRecordCount = taskInfo.getProcessedRecordsCount() +
+        taskInfo.getIgnoredRecordsCount() + taskInfo.getDeletedRecordsCount();
+    int deletedRecordCount = taskInfo.getDeletedRecordsCount();
+    int errorCount = taskInfo.getProcessedErrorsCount() + taskInfo.getDeletedErrorsCount();
+    int ignoredCount = taskInfo.getIgnoredRecordsCount();
+
+    // If this is an incremental harvest, the post-processed records count as processed and deleted.
+    if (getPluginMetadata() instanceof AbstractHarvestPluginMetadata
+        && ((AbstractHarvestPluginMetadata) this.getPluginMetadata()).isIncrementalHarvest()) {
+      expectedRecordCount += taskInfo.getExpectedPostProcessedRecordsNumber();
+      processedRecordCount += taskInfo.getPostProcessedRecordsCount();
+      deletedRecordCount += taskInfo.getPostProcessedRecordsCount();
+    }
+
+    // Update the execution progress.
+    getExecutionProgress().setExpectedRecords(expectedRecordCount);
+    getExecutionProgress().setProcessedRecords(processedRecordCount);
+    getExecutionProgress().setDeletedRecords(deletedRecordCount);
+    getExecutionProgress().setIgnoredRecords(ignoredCount);
+    getExecutionProgress().setErrors(errorCount);
+    getExecutionProgress().recalculateProgressPercentage();
+    getExecutionProgress().setStatus(taskInfo.getState());
   }
 
   @Override
