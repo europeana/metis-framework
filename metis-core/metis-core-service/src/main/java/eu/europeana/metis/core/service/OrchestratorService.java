@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
@@ -11,7 +12,6 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
-import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.WorkflowValidationUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
@@ -36,6 +36,8 @@ import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
@@ -127,11 +129,11 @@ public class OrchestratorService {
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
-          WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-          WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
-          DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
-          RedissonClient redissonClient, Authorizer authorizer,
-          DepublishRecordIdDao depublishRecordIdDao) {
+      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
+      WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
+      DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
+      RedissonClient redissonClient, Authorizer authorizer,
+      DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
@@ -536,12 +538,35 @@ public class OrchestratorService {
 
     // Compile and return the result.
     final List<WorkflowExecutionView> convertedData = data.getResults().stream().map(
-        execution -> new WorkflowExecutionView(execution, OrchestratorService::canDisplayRawXml))
-        .collect(Collectors.toList());
+        execution -> new WorkflowExecutionView(execution, isIncremental(execution),
+            OrchestratorService::canDisplayRawXml)).collect(Collectors.toList());
     final ResponseListWrapper<WorkflowExecutionView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(convertedData, getWorkflowExecutionsPerRequest(), nextPage,
         data.isMaxResultCountReached());
     return result;
+  }
+
+  /**
+   * Checks if a workflow execution is an incremental one based on root ancestor information
+   * @param workflowExecution the workflow execution to check
+   * @return true if incremental, false otherwise
+   */
+  private boolean isIncremental(WorkflowExecution workflowExecution) {
+    final ExecutablePlugin harvestPlugin = new DataEvolutionUtils(workflowExecutionDao)
+        .getRootAncestor(new PluginWithExecutionId<>(workflowExecution,
+            ((AbstractExecutablePlugin<?>) workflowExecution.getMetisPlugins().get(0))))
+        .getPlugin();
+
+    // Check the harvesting types
+    if (!DataEvolutionUtils.getHarvestPluginGroup()
+        .contains(harvestPlugin.getPluginMetadata().getExecutablePluginType())) {
+      throw new IllegalStateException(String.format(
+          "workflowExecutionId: %s, pluginId: %s - Found plugin root that is not a harvesting plugin.",
+          workflowExecution.getId(), harvestPlugin.getId()));
+    }
+    return (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
+        && ((AbstractHarvestPluginMetadata) harvestPlugin.getPluginMetadata())
+        .isIncrementalHarvest();
   }
 
   /**
@@ -949,7 +974,7 @@ public class OrchestratorService {
    * </ul>
    */
   public boolean isIncrementalHarvestingAllowed(MetisUser metisUser, String datasetId)
-          throws GenericMetisException {
+      throws GenericMetisException {
 
     // Check that the user is authorized
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);

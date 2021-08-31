@@ -1,10 +1,11 @@
 package eu.europeana.metis.core.rest.execution.details;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eu.europeana.metis.utils.CommonStringValues;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,16 +34,16 @@ public class WorkflowExecutionView {
   private final Date updatedDate;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private final Date finishedDate;
+  private final boolean isIncremental;
   private final List<PluginView> metisPlugins;
 
   /**
    * Constructor.
-   *
-   * @param execution The execution for which to construct this view.
+   *  @param execution The execution for which to construct this view.
+   * @param isIncremental Defines if a workflow execution is an incremental one.
    * @param canDisplayRawXml A predicate that can decide whether a plugin has results to display.
    */
-  public WorkflowExecutionView(WorkflowExecution execution,
-          Predicate<AbstractMetisPlugin<?>> canDisplayRawXml) {
+  public WorkflowExecutionView(WorkflowExecution execution, boolean isIncremental, Predicate<AbstractMetisPlugin<?>> canDisplayRawXml) {
     this.id = execution.getId().toString();
     this.datasetId = execution.getDatasetId();
     this.workflowStatus = execution.getWorkflowStatus();
@@ -55,6 +56,7 @@ public class WorkflowExecutionView {
     this.startedDate = execution.getStartedDate();
     this.updatedDate = execution.getUpdatedDate();
     this.finishedDate = execution.getFinishedDate();
+    this.isIncremental = isIncremental;
     this.metisPlugins = execution.getMetisPlugins().stream()
             .map(plugin -> new PluginView(plugin, canDisplayRawXml.test(plugin)))
             .collect(Collectors.toList());
@@ -106,6 +108,11 @@ public class WorkflowExecutionView {
 
   public Date getFinishedDate() {
     return finishedDate != null ? new Date(finishedDate.getTime()) : null;
+  }
+
+  @JsonProperty("isIncremental")
+  public boolean isIncremental() {
+    return isIncremental;
   }
 
   public List<PluginView> getMetisPlugins() {
