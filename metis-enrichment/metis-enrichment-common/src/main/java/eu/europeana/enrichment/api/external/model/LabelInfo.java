@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author Simon Tzanakis
  * @since 2020-08-04
  */
-@Embedded
+@Entity
 public class LabelInfo {
 
   private String lang;

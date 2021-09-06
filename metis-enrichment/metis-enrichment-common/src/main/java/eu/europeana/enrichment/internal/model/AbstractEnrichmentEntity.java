@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.morphia.annotations.Embedded;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * @author Simon Tzanakis
  * @since 2020-08-31
  */
-@Embedded
+@dev.morphia.annotations.Entity
 public abstract class AbstractEnrichmentEntity implements Entity {
 
   private String about;
