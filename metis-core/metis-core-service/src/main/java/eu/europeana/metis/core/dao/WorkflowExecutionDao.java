@@ -29,6 +29,7 @@ import dev.morphia.aggregation.experimental.stages.Projection;
 import dev.morphia.aggregation.experimental.stages.Sort;
 import dev.morphia.aggregation.experimental.stages.Unwind;
 import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filter;
@@ -623,9 +624,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * This object contains a pair consisting of a dataset and an execution. It is meant to be a
    * result of aggregate queries, so the field names cannot easily be changed.
-   * <p>Annotation {@link Embedded} required so that morphia can handle the aggregations.</p>
+   * <p>Annotation {@link Entity} required so that morphia can handle the aggregations.</p>
    */
-  @Embedded
+  @Entity
   public static class ExecutionDatasetPair {
 
     private Dataset dataset;

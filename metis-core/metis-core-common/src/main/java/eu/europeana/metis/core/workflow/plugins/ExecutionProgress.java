@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import eu.europeana.cloud.common.model.dps.TaskState;
 
 /**
@@ -9,7 +9,7 @@ import eu.europeana.cloud.common.model.dps.TaskState;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@Embedded
+@Entity
 public class ExecutionProgress {
 
   // The total number of expected records (including errors, ignored and deleted records).

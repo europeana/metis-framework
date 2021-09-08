@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.util.Date;
 
@@ -29,7 +29,7 @@ import java.util.Date;
     @JsonSubTypes.Type(value = IndexToPreviewPluginMetadata.class, name = "PREVIEW"),
     @JsonSubTypes.Type(value = IndexToPublishPluginMetadata.class, name = "PUBLISH")
 })
-@Embedded
+@Entity
 public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata {
 
   private String revisionNamePreviousPlugin;
