@@ -118,9 +118,9 @@ public class RecordController {
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
           @ApiResponse(code = 500, message = "Error processing the file archive")})
   public InsertionResult saveRecords(
-          @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestPart("datasetId") String datasetId,
-          @ApiParam(value = "Date stamp (in ISO format)") @RequestPart(name = "dateStamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-          @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestPart MultipartFile recordsZipFile) {
+          @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
+          @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
+          @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestParam MultipartFile recordsZipFile) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
             Objects.requireNonNullElseGet(dateStamp, Instant::now));
