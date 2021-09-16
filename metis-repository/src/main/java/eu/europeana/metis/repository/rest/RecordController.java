@@ -120,7 +120,7 @@ public class RecordController {
   public InsertionResult saveRecords(
           @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
           @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-          @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestParam MultipartFile recordsZipFile) {
+          @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestPart MultipartFile recordsZipFile) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
             Objects.requireNonNullElseGet(dateStamp, Instant::now));
