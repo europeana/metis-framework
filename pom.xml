@@ -164,6 +164,10 @@
             <artifactId>wstx-asl</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>de.flapdoodle.embed</groupId>
             <artifactId>de.flapdoodle.embed.mongo</artifactId>
           </exclusion>
@@ -344,6 +348,10 @@
           <exclusion>
             <artifactId>solr-solrj</artifactId>
             <groupId>org.apache.solr</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.apache.logging.log4j</groupId>
