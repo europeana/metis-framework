@@ -8,7 +8,6 @@ import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.common.response.CloudTagsResponse;
-import eu.europeana.cloud.common.response.ResultSlice;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
@@ -284,14 +283,15 @@ public class ProxiesService {
   }
 
   /**
-   * Get a list with record contents from the external resource based on an workflow execution and
+   * Get a list with record contents from the external resource based on a workflow execution and
    * {@link PluginType}.
    *
    * @param metisUser the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param nextPage the string representation of the next page which is provided from the response
-   * and can be used to get the next page of results
+   * and can be used to get the next page of results.
+   * TODO The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
    * @param numberOfRecords the number of records per response
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
@@ -321,13 +321,10 @@ public class ProxiesService {
     final String revisionName = executionAndPlugin.getRight().getPluginType().name();
     final String revisionTimestamp = pluginDateFormatForEcloud
         .format(executionAndPlugin.getRight().getStartedDate());
-    final ResultSlice<CloudTagsResponse> resultSlice;
-    final String nextPageAfterResponse;
+    final List<CloudTagsResponse> revisionsWithDeletedFlagSetToFalse;
     try {
-      resultSlice = ecloudDataSetServiceClient
-          .getDataSetRevisionsChunk(ecloudProvider, datasetId, representationName, revisionName,
-              ecloudProvider, revisionTimestamp, nextPage, numberOfRecords);
-      nextPageAfterResponse = resultSlice.getNextSlice();
+      revisionsWithDeletedFlagSetToFalse = ecloudDataSetServiceClient.getRevisionsWithDeletedFlagSetToFalse(
+          ecloudProvider, datasetId, representationName, revisionName, ecloudProvider, revisionTimestamp, numberOfRecords);
     } catch (MCSException e) {
       throw new ExternalTaskException(String.format(
           "Getting record list with file content failed. workflowExecutionId: %s, pluginType: %s",
@@ -335,13 +332,13 @@ public class ProxiesService {
     }
 
     // Get the records themselves.
-    final List<Record> records = new ArrayList<>(resultSlice.getResults().size());
-    for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
+    final List<Record> records = new ArrayList<>(revisionsWithDeletedFlagSetToFalse.size());
+    for (CloudTagsResponse cloudTagsResponse : revisionsWithDeletedFlagSetToFalse) {
       records.add(getRecord(executionAndPlugin.getRight(), cloudTagsResponse.getCloudId()));
     }
 
     // Compile the result.
-    return new PaginatedRecordsResponse(records, nextPageAfterResponse);
+    return new PaginatedRecordsResponse(records, null);
   }
 
   /**
