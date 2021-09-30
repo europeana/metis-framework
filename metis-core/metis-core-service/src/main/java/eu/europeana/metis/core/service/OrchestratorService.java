@@ -755,6 +755,8 @@ public class OrchestratorService {
     final int publishedRecordCount = lastExecutablePublishPlugin == null ? 0
         : (lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
             - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
+    final Boolean lastPublishHasDeletedRecords = Optional.ofNullable(lastExecutablePublishPlugin)
+        .map(plugin -> plugin.getExecutionProgress().getDeletedRecords() > 0).orElse(false);
     final int depublishedRecordCount;
     if (datasetCurrentlyDepublished) {
       depublishedRecordCount = publishedRecordCount;
@@ -770,7 +772,7 @@ public class OrchestratorService {
     if (Objects.nonNull(lastPublishPlugin)) {
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       final boolean recordsAvailable =
-          !datasetCurrentlyDepublished && publishedRecordCount > depublishedRecordCount;
+          !datasetCurrentlyDepublished && (publishedRecordCount > depublishedRecordCount || lastPublishHasDeletedRecords);
       executionInfo.setLastPublishedRecordsReadyForViewing(
           recordsAvailable && !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(
               lastPublishPlugin, date));
