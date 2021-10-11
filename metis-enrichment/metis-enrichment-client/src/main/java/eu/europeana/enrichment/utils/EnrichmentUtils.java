@@ -53,11 +53,11 @@ public final class EnrichmentUtils {
   public static void setAdditionalData(RDF rdf) {
 
     // Get the provider and europeana proxy
-    final List<ProxyType> providerProxies = RdfProxyUtils.getProviderProxies(rdf);
+    final List<ProxyType> providerProxies = RdfEntityUtils.getProviderProxies(rdf);
     if (providerProxies.isEmpty()) {
       return;
     }
-    final ProxyType europeanaProxy = RdfProxyUtils.getEuropeanaProxy(rdf);
+    final ProxyType europeanaProxy = RdfEntityUtils.getEuropeanaProxy(rdf);
 
     // Calculate completeness first
     EuropeanaAggregationType europeanaAggregation = rdf.getEuropeanaAggregationList().stream()
@@ -71,8 +71,9 @@ public final class EnrichmentUtils {
 
     // Obtain the date strings from the various proxy fields.
     final List<String> dateStrings = providerProxies.stream().map(EuropeanaType::getChoiceList)
-            .flatMap(Collection::stream).map(EnrichmentUtils::getDateFromChoice)
-            .filter(Objects::nonNull).collect(Collectors.toList());
+            .filter(Objects::nonNull).flatMap(Collection::stream)
+            .map(EnrichmentUtils::getDateFromChoice).filter(Objects::nonNull)
+            .collect(Collectors.toList());
 
     // Parse them and set them in the europeana proxy.
     final List<Year> yearList = new YearParser().parse(dateStrings).stream()

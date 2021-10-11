@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.schema.jibx.AboutType;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -12,9 +13,10 @@ import java.util.stream.Collectors;
  */
 public class SearchTermContext extends AbstractSearchTerm {
 
-  private final Set<FieldType> fieldTypes;
+  private final Set<FieldType<? extends AboutType>> fieldTypes;
 
-  public SearchTermContext(String textValue, String language, Set<FieldType> fieldTypes) {
+  public <T extends AboutType> SearchTermContext(String textValue, String language,
+      Set<FieldType<T>> fieldTypes) {
     super(textValue, language);
     this.fieldTypes = Set.copyOf(fieldTypes);
   }
@@ -24,7 +26,7 @@ public class SearchTermContext extends AbstractSearchTerm {
     return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
   }
 
-  public Set<FieldType> getFieldTypes() {
+  public Set<FieldType<? extends AboutType>> getFieldTypes() {
     return Collections.unmodifiableSet(fieldTypes);
   }
 
@@ -37,9 +39,9 @@ public class SearchTermContext extends AbstractSearchTerm {
       return false;
     }
     final SearchTermContext that = (SearchTermContext) o;
-    return Objects.equals(getTextValue(), that.getTextValue()) &&
-            Objects.equals(getLanguage(), that.getLanguage()) &&
-            Objects.equals(getFieldTypes(), that.getFieldTypes());
+    return Objects.equals(getTextValue(), that.getTextValue()) && Objects
+        .equals(getLanguage(), that.getLanguage()) && Objects
+        .equals(getFieldTypes(), that.getFieldTypes());
   }
 
   @Override

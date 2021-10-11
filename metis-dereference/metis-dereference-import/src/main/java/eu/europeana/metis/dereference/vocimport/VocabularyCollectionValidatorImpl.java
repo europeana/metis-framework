@@ -1,26 +1,21 @@
 package eu.europeana.metis.dereference.vocimport;
 
+import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabularyTrie;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
-import org.xml.sax.SAXException;
 
 public class VocabularyCollectionValidatorImpl implements VocabularyCollectionValidator {
 
@@ -165,7 +160,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     final String exampleContent;
     try {
       exampleContent = new RdfRetriever().retrieve(example, suffix);
-    } catch (IOException e) {
+    } catch (IOException | URISyntaxException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
               readableMetadataLocation, "could not be retrieved", e);
       processTestError(message, lenientOnExampleRetrievalFailures, warningReceiver, e);
@@ -197,33 +192,12 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     // Check whether the example yielded valid XML
     if (StringUtils.isNotBlank(result)) {
       try {
-        isValidXml(result);
-      } catch (IOException | SAXException e) {
+        EnrichmentBaseConverter.convertToEnrichmentBase(result);
+      } catch (JAXBException e) {
         final String message = getTestErrorMessage(example, isCounterExample,
                 readableMetadataLocation, "did not yield a valid XML", e);
         throw new VocabularyImportException(message, e);
       }
-    }
-  }
-
-  private void isValidXml(String result) throws IOException, SAXException {
-
-    // Create document builder
-    final DocumentBuilder documentBuilder;
-    try {
-      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-      factory.setNamespaceAware(true);
-      documentBuilder = factory.newDocumentBuilder();
-    } catch (ParserConfigurationException e) {
-      throw new IllegalStateException("Problems setting up XML reader (this should not happen).", e);
-    }
-
-    // Parse the input.
-    try (InputStream inputStream = new ByteArrayInputStream(
-            result.getBytes(StandardCharsets.UTF_8))) {
-      documentBuilder.parse(inputStream);
     }
   }
 

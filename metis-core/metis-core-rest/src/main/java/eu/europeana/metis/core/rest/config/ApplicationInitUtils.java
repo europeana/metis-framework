@@ -5,7 +5,7 @@ import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

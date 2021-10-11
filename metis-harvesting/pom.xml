@@ -4,7 +4,7 @@
     <parent>
         <artifactId>metis-framework</artifactId>
         <groupId>eu.europeana.metis</groupId>
-        <version>4</version>
+        <version>5</version>
     </parent>
     <artifactId>metis-harvesting</artifactId>
 
@@ -37,17 +37,6 @@
         <dependency>
             <groupId>org.dspace</groupId>
             <artifactId>xoai-service-provider</artifactId>
-            <version>4.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>

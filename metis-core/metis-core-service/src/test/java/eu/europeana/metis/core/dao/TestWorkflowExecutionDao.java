@@ -102,7 +102,7 @@ class TestWorkflowExecutionDao {
   void createUserWorkflowExecution() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     assertNotNull(objectId);
   }
 
@@ -127,7 +127,7 @@ class TestWorkflowExecutionDao {
         .createWorkflowExecutionObject();
     assertEquals(PluginStatus.INQUEUE,
         workflowExecution.getMetisPlugins().get(0).getPluginStatus());
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     workflowExecution.getMetisPlugins().get(0).setPluginStatus(PluginStatus.RUNNING);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     WorkflowExecution updatedWorkflowExecution = workflowExecutionDao.getById(objectId);
@@ -143,7 +143,7 @@ class TestWorkflowExecutionDao {
     workflowExecution.setCreatedDate(createdDate);
     assertEquals(PluginStatus.INQUEUE,
         workflowExecution.getMetisPlugins().get(0).getPluginStatus());
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     Date startedDate = new Date();
     workflowExecution.setStartedDate(startedDate);
@@ -171,7 +171,7 @@ class TestWorkflowExecutionDao {
   void testSetCancellingState() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     workflowExecutionDao.setCancellingState(workflowExecution, null);
     WorkflowExecution cancellingWorkflowExecution = workflowExecutionDao
         .getById(objectId);
@@ -185,7 +185,7 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     assertFalse(workflowExecution.isCancelling());
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
         .getById(objectId);
     assertEquals(workflowExecution.getCreatedDate(),
@@ -228,7 +228,7 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     assertEquals(objectId, workflowExecutionDao
         .existsAndNotCompleted(workflowExecution.getDatasetId()));
   }
@@ -262,17 +262,17 @@ class TestWorkflowExecutionDao {
       workflowExecutionSecond.getMetisPlugins().get(i).setPluginStatus(PluginStatus.FINISHED);
     }
 
-    final String executionFirstId = workflowExecutionDao.create(workflowExecutionFirst);
-    final String executionSecondId = workflowExecutionDao.create(workflowExecutionSecond);
+    final String executionFirstId = workflowExecutionDao.create(workflowExecutionFirst).getId().toString();
+    final String executionSecondId = workflowExecutionDao.create(workflowExecutionSecond).getId().toString();
 
-    PluginWithExecutionId<MetisPlugin<?>> latestFinishedWorkflowExecution = workflowExecutionDao
+    PluginWithExecutionId<MetisPlugin> latestFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     assertEquals(latestFinishedWorkflowExecution.getPlugin().getFinishedDate(),
         workflowExecutionSecond.getMetisPlugins().get(0).getFinishedDate());
     assertEquals(executionSecondId, latestFinishedWorkflowExecution.getExecutionId());
 
-    PluginWithExecutionId<MetisPlugin<?>> firstFinishedWorkflowExecution = workflowExecutionDao
+    PluginWithExecutionId<MetisPlugin> firstFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), true);
     assertEquals(firstFinishedWorkflowExecution.getPlugin().getFinishedDate(),
@@ -282,7 +282,7 @@ class TestWorkflowExecutionDao {
 
   @Test
   void getFirstOrLastFinishedPlugin_isNull() {
-    PluginWithExecutionId<MetisPlugin<?>> latestFinishedWorkflowExecution = workflowExecutionDao
+    PluginWithExecutionId<MetisPlugin> latestFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     assertNull(latestFinishedWorkflowExecution);
@@ -458,7 +458,7 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     WorkflowExecution runningWorkflowExecution = workflowExecutionDao
         .getById(workflowExecution.getId().toString());
     assertEquals(objectId, runningWorkflowExecution.getId().toString());
@@ -543,7 +543,7 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     assertTrue(workflowExecutionDao.isCancelled(new ObjectId(objectId)));
   }
 
@@ -552,7 +552,7 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     workflowExecution.setCancelling(true);
-    String objectId = workflowExecutionDao.create(workflowExecution);
+    String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     assertTrue(workflowExecutionDao.isCancelling(new ObjectId(objectId)));
   }
 
@@ -571,7 +571,7 @@ class TestWorkflowExecutionDao {
     final WorkflowExecution finishedOld = TestObjectFactory.createWorkflowExecutionObject();
     finishedOld.setWorkflowStatus(WorkflowStatus.FINISHED);
     finishedOld.setCreatedDate(new Date(2));
-    final String finishedOldId = workflowExecutionDao.create(finishedOld);
+    final String finishedOldId = workflowExecutionDao.create(finishedOld).getId().toString();
 
     final WorkflowExecution cancelledOld = TestObjectFactory.createWorkflowExecutionObject();
     cancelledOld.setWorkflowStatus(WorkflowStatus.CANCELLED);
@@ -582,37 +582,37 @@ class TestWorkflowExecutionDao {
       metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
       metisPlugin.setStartedDate(startedDateOfCancelledPlugin);
     });
-    final String cancelledOldId = workflowExecutionDao.create(cancelledOld);
+    final String cancelledOldId = workflowExecutionDao.create(cancelledOld).getId().toString();
 
     final WorkflowExecution failedOld = TestObjectFactory.createWorkflowExecutionObject();
     failedOld.setWorkflowStatus(WorkflowStatus.FAILED);
     failedOld.setCreatedDate(new Date(0));
-    final String failedOldId = workflowExecutionDao.create(failedOld);
+    final String failedOldId = workflowExecutionDao.create(failedOld).getId().toString();
 
     final WorkflowExecution finishedNew = TestObjectFactory.createWorkflowExecutionObject();
     finishedNew.setWorkflowStatus(WorkflowStatus.FINISHED);
     finishedNew.setCreatedDate(new Date(1000));
-    final String finishedNewId = workflowExecutionDao.create(finishedNew);
+    final String finishedNewId = workflowExecutionDao.create(finishedNew).getId().toString();
 
     final WorkflowExecution runningOld = TestObjectFactory.createWorkflowExecutionObject();
     runningOld.setWorkflowStatus(WorkflowStatus.RUNNING);
     runningOld.setCreatedDate(new Date(0));
-    final String runningOldId = workflowExecutionDao.create(runningOld);
+    final String runningOldId = workflowExecutionDao.create(runningOld).getId().toString();
 
     final WorkflowExecution runningNew = TestObjectFactory.createWorkflowExecutionObject();
     runningNew.setWorkflowStatus(WorkflowStatus.RUNNING);
     runningNew.setCreatedDate(new Date(1000));
-    final String runningNewId = workflowExecutionDao.create(runningNew);
+    final String runningNewId = workflowExecutionDao.create(runningNew).getId().toString();
 
     final WorkflowExecution queuedOld = TestObjectFactory.createWorkflowExecutionObject();
     queuedOld.setWorkflowStatus(WorkflowStatus.INQUEUE);
     queuedOld.setCreatedDate(new Date(0));
-    final String queuedOldId = workflowExecutionDao.create(queuedOld);
+    final String queuedOldId = workflowExecutionDao.create(queuedOld).getId().toString();
 
     final WorkflowExecution queuedNew = TestObjectFactory.createWorkflowExecutionObject();
     queuedNew.setWorkflowStatus(WorkflowStatus.INQUEUE);
     queuedNew.setCreatedDate(new Date(1000));
-    final String queuedNewId = workflowExecutionDao.create(queuedNew);
+    final String queuedNewId = workflowExecutionDao.create(queuedNew).getId().toString();
 
     // Expected order
     final List<String> expectedOrder = Arrays

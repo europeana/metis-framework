@@ -16,6 +16,7 @@ public interface Enricher {
 
   /**
    * Performs the enrichment procedure on a RDF
+   *
    * @param rdf The RDF to be processed
    * @throws EnrichmentException In case that something unexpected happened.
    */
@@ -23,6 +24,7 @@ public interface Enricher {
 
   /**
    * Retrieves information to enrich the RDF using extracted values
+   *
    * @param searchTerms The values extracted to enrich the RDF
    * @return For each search term a list with entities retrieved.
    * @throws EnrichmentException In case that something unexpected happened.
@@ -32,10 +34,17 @@ public interface Enricher {
 
   /**
    * Retrieves information to enrich the RDF using extracted references
+   *
    * @param references The references extracted to enrich the RDF
    * @return For each reference a list with entities retrieved.
    * @throws EnrichmentException In case that something unexpected happened.
    */
   Map<ReferenceTermContext, List<EnrichmentBase>> enrichReferences(
-          Set<ReferenceTermContext> references) throws EnrichmentException;
+      Set<ReferenceTermContext> references) throws EnrichmentException;
+
+  /**
+   * Cleanups/Removes enrichment entities from a previous enrichment.
+   * @param rdf the RDF to be processed
+   */
+  void cleanupPreviousEnrichmentEntities(RDF rdf);
 }

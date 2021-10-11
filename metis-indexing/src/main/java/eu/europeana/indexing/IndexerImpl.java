@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,6 +150,16 @@ class IndexerImpl implements Indexer {
     // TODO: 8/26/20 Update removeAll method to return long instead of int, it will affect clients
     return Math.toIntExact(
         this.connectionProvider.getIndexedRecordAccess().removeDataset(datasetId, maxRecordDate));
+  }
+
+  @Override
+  public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) {
+    return this.connectionProvider.getIndexedRecordAccess().getRecordIds(datasetId, maxRecordDate);
+  }
+
+  @Override
+  public long countRecords(String datasetId, Date maxRecordDate) {
+    return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId, maxRecordDate);
   }
 
   @Override

@@ -24,6 +24,8 @@ public enum EdmLabel {
   FACET_VALUE_CODES("facet_tags"),
   
   // Provider Aggregation Fields
+  PROVIDER("provider"),
+  DATA_PROVIDER("dataProvider"),
   PROVIDER_AGGREGATION_EDM_DATA_PROVIDER("provider_aggregation_edm_dataProvider"), 
   PROVIDER_AGGREGATION_EDM_HASVIEW("provider_aggregation_edm_hasView"),
   PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY("provider_aggregation_edm_isShownBy"), 

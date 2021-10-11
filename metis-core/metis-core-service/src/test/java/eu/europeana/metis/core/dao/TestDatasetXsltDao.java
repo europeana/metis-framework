@@ -59,7 +59,7 @@ class TestDatasetXsltDao {
 
   @Test
   void testCreateRetrieveXslt() {
-    String xsltId = datasetXsltDao.create(datasetXslt);
+    String xsltId = datasetXsltDao.create(datasetXslt).getId().toString();
     DatasetXslt storedDatasetXslt = datasetXsltDao.getById(xsltId);
     assertEquals(datasetXslt.getDatasetId(), storedDatasetXslt.getDatasetId());
     assertEquals(datasetXslt.getXslt(), storedDatasetXslt.getXslt());
@@ -77,7 +77,7 @@ class TestDatasetXsltDao {
 
   @Test
   void testDeleteXslt() {
-    String xsltId = datasetXsltDao.create(datasetXslt);
+    String xsltId = datasetXsltDao.create(datasetXslt).getId().toString();
     DatasetXslt storedDatasetXslt = datasetXsltDao.getById(xsltId);
     datasetXsltDao.delete(storedDatasetXslt);
     storedDatasetXslt = datasetXsltDao.getById(xsltId);
@@ -86,9 +86,9 @@ class TestDatasetXsltDao {
 
   @Test
   void testDeleteAllByDatasetId() {
-    String xsltId1 = datasetXsltDao.create(datasetXslt);
-    String xsltId2 = datasetXsltDao.create(datasetXslt);
-    String xsltId3 = datasetXsltDao.create(datasetXslt);
+    String xsltId1 = datasetXsltDao.create(datasetXslt).getId().toString();
+    String xsltId2 = datasetXsltDao.create(datasetXslt).getId().toString();
+    String xsltId3 = datasetXsltDao.create(datasetXslt).getId().toString();
     assertTrue(datasetXsltDao.deleteAllByDatasetId(datasetXslt.getDatasetId()));
     assertNull(datasetXsltDao.getById(xsltId1));
     assertNull(datasetXsltDao.getById(xsltId2));
@@ -107,7 +107,7 @@ class TestDatasetXsltDao {
 
     datasetXsltDao.create(datasetXslt1);
     datasetXsltDao.create(datasetXslt2);
-    String xsltId3 = datasetXsltDao.create(datasetXslt3);
+    String xsltId3 = datasetXsltDao.create(datasetXslt3).getId().toString();
     DatasetXslt latestDatasetXsltForDatasetId = datasetXsltDao
         .getLatestXsltForDatasetId(datasetXslt3.getDatasetId());
     assertEquals(xsltId3, latestDatasetXsltForDatasetId.getId().toString());

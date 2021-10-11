@@ -9,8 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferenceService;
@@ -45,11 +43,8 @@ class DereferencingControllerTest {
 
   @Test
   void dereferenceGet_outputXML() throws Exception {
-    List<EnrichmentResultBaseWrapper> wrapperList = new ArrayList<>();
-    wrapperList.add(new EnrichmentResultBaseWrapper(
-        Collections.singletonList(getAgent("http://www.example.com"))));
-    EnrichmentResultList list = new EnrichmentResultList(wrapperList);
-    when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(list);
+    when(dereferenceServiceMock.dereference("http://www.example.com"))
+            .thenReturn(Collections.singletonList(getAgent("http://www.example.com")));
 
     dereferencingControllerMock.perform(
         get("/dereference/?uri=http://www.example.com").accept(MediaType.APPLICATION_XML_VALUE))
@@ -67,11 +62,8 @@ class DereferencingControllerTest {
 
   @Test
   void dereferencePost_outputXML() throws Exception {
-    List<EnrichmentResultBaseWrapper> wrapperList = new ArrayList<>();
-    wrapperList.add(new EnrichmentResultBaseWrapper(
-        Collections.singletonList(getAgent("http://www.example.com"))));
-    EnrichmentResultList list = new EnrichmentResultList(wrapperList);
-    when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(list);
+    when(dereferenceServiceMock.dereference("http://www.example.com"))
+            .thenReturn(Collections.singletonList(getAgent("http://www.example.com")));
 
     dereferencingControllerMock.perform(post("/dereference").accept(MediaType.APPLICATION_XML_VALUE)
         .contentType(MediaType.APPLICATION_JSON).content("[ \"http://www.example.com\" ]"))

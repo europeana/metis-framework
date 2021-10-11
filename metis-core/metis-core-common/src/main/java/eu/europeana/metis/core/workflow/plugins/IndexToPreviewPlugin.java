@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
-import java.util.List;
 
 /**
  * Index to Preview Plugin.
@@ -45,12 +44,12 @@ public class IndexToPreviewPlugin extends AbstractExecutablePlugin<IndexToPrevie
   @Override
   public DpsTask prepareDpsTask(String datasetId,
       EcloudBasePluginParameters ecloudBasePluginParameters) {
-    boolean useAlternativeIndexingEnvironment = getPluginMetadata()
-        .isUseAlternativeIndexingEnvironment();
-    boolean preserveTimestamps = getPluginMetadata().isPreserveTimestamps();
-    final List<String> datasetIdsToRedirectFrom = getPluginMetadata().getDatasetIdsToRedirectFrom();
-    final boolean performRedirects = getPluginMetadata().isPerformRedirects();
     return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
-        useAlternativeIndexingEnvironment, preserveTimestamps, datasetIdsToRedirectFrom, performRedirects,"PREVIEW");
+            getPluginMetadata().isIncrementalIndexing(),
+            getPluginMetadata().getHarvestDate(),
+            getPluginMetadata().isUseAlternativeIndexingEnvironment(),
+            getPluginMetadata().isPreserveTimestamps(),
+            getPluginMetadata().getDatasetIdsToRedirectFrom(),
+            getPluginMetadata().isPerformRedirects(), "PREVIEW");
   }
 }

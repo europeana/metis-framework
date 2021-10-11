@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>4</version>
+    <version>5</version>
   </parent>
   <artifactId>metis-authentication</artifactId>
   <packaging>pom</packaging>
@@ -16,11 +16,6 @@
   </modules>
 
   <dependencies>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>${version.spring}</version>
-    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>

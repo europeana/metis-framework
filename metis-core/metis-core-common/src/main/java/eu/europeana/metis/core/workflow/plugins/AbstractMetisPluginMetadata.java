@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.util.Date;
 
@@ -29,7 +29,7 @@ import java.util.Date;
     @JsonSubTypes.Type(value = IndexToPreviewPluginMetadata.class, name = "PREVIEW"),
     @JsonSubTypes.Type(value = IndexToPublishPluginMetadata.class, name = "PUBLISH")
 })
-@Embedded
+@Entity
 public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata {
 
   private String revisionNamePreviousPlugin;
@@ -44,7 +44,6 @@ public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata
     return revisionNamePreviousPlugin;
   }
 
-  @Override
   public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
     this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
   }
@@ -55,14 +54,17 @@ public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  @Override
   public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  @Override
-  public void setPreviousRevisionInformation(ExecutablePlugin<?> predecessor) {
+  /**
+   * For the current plugin, setup the source/previous revision information.
+   *
+   * @param predecessor the predecessor plugin that the current plugin is based on. Is not null.
+   */
+  public void setPreviousRevisionInformation(ExecutablePlugin predecessor) {
     this.setRevisionNamePreviousPlugin(predecessor.getPluginType().name());
     this.setRevisionTimestampPreviousPlugin(predecessor.getStartedDate());
   }

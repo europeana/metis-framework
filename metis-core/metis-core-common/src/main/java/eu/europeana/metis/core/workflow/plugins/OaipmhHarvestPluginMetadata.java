@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadata {
+public class OaipmhHarvestPluginMetadata extends AbstractHarvestPluginMetadata {
 
   private static final ExecutablePluginType PLUGIN_TYPE = ExecutablePluginType.OAIPMH_HARVEST;
   private String url;
@@ -21,8 +21,6 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
   private Date fromDate;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date untilDate;
-  //Default false. If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
-  private boolean useDefaultIdentifiers;
   //If useDefaultIdentifiers == true then this is the prefix to be trimmed from the OAI Header Identifier
   private String identifierPrefixRemoval;
 
@@ -58,6 +56,7 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
     this.incrementalHarvest = incrementalHarvest;
   }
 
+  @Override
   public boolean isIncrementalHarvest() {
     return incrementalHarvest;
   }
@@ -68,14 +67,6 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
 
   public void setFromDate(Date fromDate) {
     this.fromDate = fromDate == null ? null : new Date(fromDate.getTime());
-  }
-
-  public boolean isUseDefaultIdentifiers() {
-    return useDefaultIdentifiers;
-  }
-
-  public void setUseDefaultIdentifiers(boolean useDefaultIdentifiers) {
-    this.useDefaultIdentifiers = useDefaultIdentifiers;
   }
 
   public String getIdentifierPrefixRemoval() {

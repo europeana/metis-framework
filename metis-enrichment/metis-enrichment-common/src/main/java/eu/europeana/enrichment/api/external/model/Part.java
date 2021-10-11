@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * Part model class. Basically encapsulating a resource field.
+ *
+ * TODO the definition is identical to that of Resource. This object (and the super interface)
+ * should be decommissioned.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Part implements WebResource {

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>4</version>
+    <version>5</version>
   </parent>
   <artifactId>metis-common-mongo</artifactId>
 
@@ -19,10 +19,16 @@
       <artifactId>metis-common-network</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!--    This dependency is a temporary one, until the morphia classes are moved to metis-->
+    <!-- This dependency is a temporary one, until the morphia classes are moved to metis -->
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+    </dependency>
+    <!-- This dependency is included to ensure that the dependency above refers to the right version. -->
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-schema</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>dev.morphia.morphia</groupId>

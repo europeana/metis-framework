@@ -22,10 +22,10 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.utils.EntityType;
@@ -196,7 +196,7 @@ public class EnrichmentControllerTest {
 
   @Test
   public void testSearchInputXML_Timespan() throws Exception {
-    final Timespan timespan = getTimespan();
+    final TimeSpan timespan = getTimespan();
     final EnrichmentSearch enrichmentSearch = new EnrichmentSearch();
     final SearchValue searchValue = new SearchValue("value", null, EntityType.TIMESPAN);
     enrichmentSearch.setSearchValues(List.of(searchValue));
@@ -208,14 +208,14 @@ public class EnrichmentControllerTest {
     enrichmentControllerMock.perform(
         post("/enrich/entity/search").content(requestJson).accept(MediaType.APPLICATION_XML_VALUE)
             .contentType(MediaType.APPLICATION_JSON)).andExpect(status().is(200)).andExpect(
-        xpath("metis:results/metis:result/edm:Timespan/@rdf:about", namespaceMap)
+        xpath("metis:results/metis:result/edm:TimeSpan/@rdf:about", namespaceMap)
             .string(timespan.getAbout())).andExpect(
-        xpath("metis:results/metis:result/edm:Timespan/skos:altLabel[@xml:lang='en']", namespaceMap)
+        xpath("metis:results/metis:result/edm:TimeSpan/skos:altLabel[@xml:lang='en']", namespaceMap)
             .string("labelEn")).andExpect(
-        xpath("metis:results/metis:result/edm:Timespan/skos:altLabel[@xml:lang='nl']", namespaceMap)
+        xpath("metis:results/metis:result/edm:TimeSpan/skos:altLabel[@xml:lang='nl']", namespaceMap)
             .string("labelNl")).andExpect(
-        xpath("metis:results/metis:result/edm:Timespan/dcterms:isPartOf/@rdf:resource",
-            namespaceMap).string(timespan.getIsPartOf().getResource()));
+        xpath("metis:results/metis:result/edm:TimeSpan/dcterms:isPartOf/@rdf:resource",
+            namespaceMap).string(timespan.getIsPartOf().get(0).getResource()));
   }
 
   @Test
@@ -239,7 +239,7 @@ public class EnrichmentControllerTest {
         xpath("metis:results/metis:result/edm:Place/skos:altLabel[@xml:lang='nl']", namespaceMap)
             .string("labelNl")).andExpect(
         xpath("metis:results/metis:result/edm:Place/dcterms:isPartOf/@rdf:resource", namespaceMap)
-            .string(place.getIsPartOf().getResource()));
+            .string(place.getIsPartOf().get(0).getResource()));
   }
 
   @Test
@@ -286,8 +286,8 @@ public class EnrichmentControllerTest {
     return concept;
   }
 
-  private Timespan getTimespan() {
-    final Timespan timespan = new Timespan();
+  private TimeSpan getTimespan() {
+    final TimeSpan timespan = new TimeSpan();
     timespan.setAbout("http://timespan.org");
 
     List<Label> altLabels = new ArrayList<>();
@@ -295,7 +295,7 @@ public class EnrichmentControllerTest {
     altLabels.add(new Label("nl", "labelNl"));
 
     timespan.setAltLabelList(altLabels);
-    timespan.setIsPartOf(new Part("http://timespan_is_part.org"));
+    timespan.setIsPartOf(List.of(new LabelResource("http://timespan_is_part.org")));
 
     return timespan;
   }
@@ -309,7 +309,7 @@ public class EnrichmentControllerTest {
     altLabels.add(new Label("nl", "labelNl"));
 
     place.setAltLabelList(altLabels);
-    place.setIsPartOf(new Part("http://place_is_part.org"));
+    place.setIsPartOf(List.of(new LabelResource("http://place_is_part.org")));
 
     return place;
   }

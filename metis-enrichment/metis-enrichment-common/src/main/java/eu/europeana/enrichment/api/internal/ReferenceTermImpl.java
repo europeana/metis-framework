@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * This class is a complete but minimal implementation of {@link ReferenceTerm}.
  */
-public class ReferenceTermImpl extends AbstractReferenceTerm{
+public class ReferenceTermImpl extends AbstractReferenceTerm {
 
   private final Set<EntityType> entityTypes;
 
@@ -32,12 +32,14 @@ public class ReferenceTermImpl extends AbstractReferenceTerm{
       return false;
     }
     final ReferenceTermImpl that = (ReferenceTermImpl) o;
+    // Note: avoid using reference URL for equality as it may do a domain name check.
     return Objects.equals(getCandidateTypes(), that.getCandidateTypes()) && Objects
-            .equals(getReference(), that.getReference());
+            .equals(getReferenceAsString(), that.getReferenceAsString());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getCandidateTypes(), getReference());
+    // Note: avoid using reference URL for computing the hash as it may do a domain name check.
+    return Objects.hash(getCandidateTypes(), getReferenceAsString());
   }
 }

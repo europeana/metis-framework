@@ -50,7 +50,7 @@ public class OaiHarvesterImplTest {
 
     //when
     final InputStream result = harvester
-        .harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId);
+        .harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId).getRecord();
 
     //then
     final String actual = TestHelper.convertToString(result);
@@ -60,7 +60,7 @@ public class OaiHarvesterImplTest {
 
 
   @Test
-  public void shouldHandleDeletedRecords() throws IOException, HarvesterException {
+  public void shouldHandleDeletedRecords() throws IOException {
 
     //given
     final String recordId = "mediateka";
@@ -70,8 +70,8 @@ public class OaiHarvesterImplTest {
             .response200XmlContent(WiremockHelper.getFileContent("/deletedOaiRecord.xml"))));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
 
-    assertThrows(HarvesterException.class,
-        () -> harvester.harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId));
+    assertThrows(HarvesterException.class, () -> harvester.harvestRecord(new OaiRepository(
+            OAI_PMH_ENDPOINT, "oai_dc"), recordId).getRecord());
   }
 
   @Test

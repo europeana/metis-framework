@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-dereference</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>4</version>
+    <version>5</version>
   </parent>
   <artifactId>metis-dereference-service</artifactId>
   <dependencies>
@@ -15,12 +15,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -45,8 +39,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${version.spring}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>

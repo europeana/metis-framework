@@ -1,9 +1,9 @@
 package eu.europeana.enrichment.internal.model;
 
-import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import java.util.Objects;
 
-@Embedded
+@Entity
 public class Address {
 
   private String about;

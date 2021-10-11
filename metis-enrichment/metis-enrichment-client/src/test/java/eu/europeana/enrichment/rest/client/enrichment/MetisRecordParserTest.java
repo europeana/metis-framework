@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.enrichment.api.external.SearchValue;
-import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
@@ -27,11 +25,8 @@ import eu.europeana.metis.schema.jibx.Subject;
 import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 public class MetisRecordParserTest {

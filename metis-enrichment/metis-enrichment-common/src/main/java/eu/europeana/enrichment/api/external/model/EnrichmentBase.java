@@ -12,11 +12,11 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Contains fields to be inherited by other subclasses e.g.
- * {@link Agent}, {@link Concept}, {@link Place}, {@link Timespan}
+ * {@link Agent}, {@link Concept}, {@link Place}, {@link TimeSpan}
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlTransient
-@XmlSeeAlso({Agent.class, Concept.class, Place.class, Timespan.class})
+@XmlSeeAlso({Agent.class, Concept.class, Place.class, TimeSpan.class, Organization.class})
 public abstract class EnrichmentBase {
 
   @XmlElement(name = "altLabel", namespace = "http://www.w3.org/2004/02/skos/core#")

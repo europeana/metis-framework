@@ -90,83 +90,6 @@ public class ItemExtractorUtilsTest {
   }
 
   @Test
-  void testExtractLabelsToResourceOrLiteralList(){
-
-    List<Label> labels = new ArrayList<>();
-    Label label1 = new Label("lang1", "value1");
-    Label label2 = new Label("lang2", "value2");
-    Label label3 = new Label("lang3", "value3");
-    labels.add(label1);
-    labels.add(label2);
-    labels.add(label3);
-
-    List<ResourceOrLiteralType> output =
-        ItemExtractorUtils.extractLabelsToResourceOrLiteralList(labels, ResourceOrLiteralType::new);
-
-    for(Label label: labels){
-      List<ResourceOrLiteralType> result = output.stream().filter(x -> x.getString().equals(label.getValue())).collect(
-          Collectors.toList());
-
-      assertEquals(1, result.size());
-      assertEquals(label.getLang(), result.get(0).getLang().getLang());
-      assertNull(result.get(0).getResource());
-    }
-
-  }
-
-  @Test
-  void testExtractParts(){
-
-    List<Part> parts = new ArrayList<>();
-    Part part1 = new Part("resource1");
-    Part part2 = new Part("resource2");
-    Part part3 = new Part("resource3");
-    parts.add(part1);
-    parts.add(part2);
-    parts.add(part3);
-
-    List<ResourceOrLiteralType> output =
-        ItemExtractorUtils.extractParts(parts, ResourceOrLiteralType::new);
-
-    for(Part part: parts){
-      List<ResourceOrLiteralType> result = output
-          .stream()
-          .filter(x -> x.getResource().getResource().equals(part.getResource()))
-          .collect(Collectors.toList());
-
-      assertEquals(1, result.size());
-      assertNull(result.get(0).getLang());
-      assertTrue(StringUtils.isBlank(result.get(0).getString()));
-    }
-
-  }
-
-  @Test
-  void testExtractAsResources(){
-
-    List<String> stringList = new ArrayList<>();
-    String string1 = "resource1";
-    String string2 = "resource2";
-    String string3 = "resource3";
-    stringList.add(string1);
-    stringList.add(string2);
-    stringList.add(string3);
-
-    List<ResourceType> output =
-        ItemExtractorUtils.extractAsResources(stringList, ResourceType::new, String::toUpperCase);
-
-    for(String string: stringList) {
-      List<ResourceType> result = output
-          .stream()
-          .filter(x -> x.getResource().equals(string.toUpperCase()))
-          .collect(Collectors.toList());
-
-      assertEquals(1, result.size());
-    }
-
-  }
-
-  @Test
   void testExtractResources(){
 
     List<Resource> resources = new ArrayList<>();
@@ -285,20 +208,6 @@ public class ItemExtractorUtilsTest {
     assertNotNull(output);
     assertEquals("", output.getString());
     assertNull(output.getLang());
-
-  }
-
-  @Test
-  void testExtractLabelToResourceOrLiteral(){
-
-    Label label = new Label("lang1", "value1");
-
-    ResourceOrLiteralType output =
-        ItemExtractorUtils.extractLabelToResourceOrLiteral(label, ResourceOrLiteralType::new);
-
-    assertNotNull(output);
-    assertEquals("value1", output.getString());
-    assertEquals("lang1", output.getLang().getLang());
 
   }
 

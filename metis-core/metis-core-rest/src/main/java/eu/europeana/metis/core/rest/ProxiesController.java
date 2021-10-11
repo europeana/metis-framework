@@ -252,7 +252,8 @@ public class ProxiesController {
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
    * @param nextPage the string representation of the next page which is provided from the response
-   * and can be used to get the next page of results
+   * and can be used to get the next page of results.
+   * TODO The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>

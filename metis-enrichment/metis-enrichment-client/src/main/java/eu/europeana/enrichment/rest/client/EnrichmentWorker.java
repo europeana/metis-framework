@@ -102,4 +102,9 @@ public interface EnrichmentWorker {
    */
   RDF process(final RDF rdf, Set<Mode> modes) throws EnrichmentException, DereferenceException;
 
+  /**
+   * Cleanups/Removes enrichment entities from a previous enrichment.
+   * @param rdf the RDF to be processed
+   */
+  void cleanupPreviousEnrichmentEntities(RDF rdf);
 }

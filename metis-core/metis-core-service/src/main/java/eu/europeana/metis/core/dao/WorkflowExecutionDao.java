@@ -29,6 +29,7 @@ import dev.morphia.aggregation.experimental.stages.Projection;
 import dev.morphia.aggregation.experimental.stages.Sort;
 import dev.morphia.aggregation.experimental.stages.Unwind;
 import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filter;
@@ -97,7 +98,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   @Override
-  public String create(WorkflowExecution workflowExecution) {
+  public WorkflowExecution create(WorkflowExecution workflowExecution) {
     final ObjectId objectId = Optional.ofNullable(workflowExecution.getId())
         .orElseGet(ObjectId::new);
     workflowExecution.setId(objectId);
@@ -105,7 +106,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         () -> morphiaDatastoreProvider.getDatastore().save(workflowExecution));
     LOGGER.debug("WorkflowExecution for datasetId '{}' created in Mongo",
         workflowExecution.getDatasetId());
-    return workflowExecutionSaved == null ? null : workflowExecutionSaved.getId().toString();
+    return workflowExecutionSaved;
   }
 
   @Override
@@ -284,7 +285,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *                    values.
    * @return the first plugin found
    */
-  public PluginWithExecutionId<MetisPlugin<?>> getFirstSuccessfulPlugin(String datasetId,
+  public PluginWithExecutionId<MetisPlugin> getFirstSuccessfulPlugin(String datasetId,
       Set<PluginType> pluginTypes) {
     return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true))
         .orElse(null);
@@ -299,7 +300,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *                    values.
    * @return the last plugin found
    */
-  public PluginWithExecutionId<MetisPlugin<?>> getLatestSuccessfulPlugin(String datasetId,
+  public PluginWithExecutionId<MetisPlugin> getLatestSuccessfulPlugin(String datasetId,
       Set<PluginType> pluginTypes) {
     return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false))
         .orElse(null);
@@ -315,7 +316,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public PluginWithExecutionId<ExecutablePlugin<?>> getLatestSuccessfulExecutablePlugin(
+  public PluginWithExecutionId<ExecutablePlugin> getLatestSuccessfulExecutablePlugin(
       String datasetId,
       Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
 
@@ -325,9 +326,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Perform the database query. If nothing found, we are done.
     final Set<PluginType> convertedPluginTypes = pluginTypes.stream()
         .map(ExecutablePluginType::toPluginType).collect(Collectors.toSet());
-    final PluginWithExecutionId<MetisPlugin<?>> uncastResultWrapper =
+    final PluginWithExecutionId<MetisPlugin> uncastResultWrapper =
         getFirstOrLastFinishedPlugin(datasetId, convertedPluginTypes, false);
-    final MetisPlugin<?> uncastResult = Optional.ofNullable(uncastResultWrapper)
+    final MetisPlugin uncastResult = Optional.ofNullable(uncastResultWrapper)
         .map(PluginWithExecutionId::getPlugin).orElse(null);
     if (uncastResult == null) {
       return null;
@@ -339,10 +340,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
           uncastResult.getId(), uncastResult.getPluginType());
       return null;
     }
-    final ExecutablePlugin<?> castResult = (ExecutablePlugin<?>) uncastResult;
+    final ExecutablePlugin castResult = (ExecutablePlugin) uncastResult;
 
     // if necessary, check for the data validity.
-    final PluginWithExecutionId<ExecutablePlugin<?>> result;
+    final PluginWithExecutionId<ExecutablePlugin> result;
     if (limitToValidData && MetisPlugin.getDataStatus(castResult) != DataStatus.VALID) {
       result = null;
     } else {
@@ -351,7 +352,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return result;
   }
 
-  PluginWithExecutionId<MetisPlugin<?>> getFirstOrLastFinishedPlugin(String datasetId,
+  PluginWithExecutionId<MetisPlugin> getFirstOrLastFinishedPlugin(String datasetId,
       Set<PluginType> pluginTypes, boolean firstFinished) {
 
     // Verify the plugin types
@@ -395,7 +396,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Because of the unwind, we know that the plugin we need is always the first one.
     return Optional.ofNullable(metisPluginsIterator).stream().flatMap(Collection::stream)
         .filter(execution -> !execution.getMetisPlugins().isEmpty())
-        .map(execution -> new PluginWithExecutionId<MetisPlugin<?>>(execution,
+        .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
             execution.getMetisPlugins().get(0))).findFirst().orElse(null);
   }
 
@@ -623,9 +624,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * This object contains a pair consisting of a dataset and an execution. It is meant to be a
    * result of aggregate queries, so the field names cannot easily be changed.
-   * <p>Annotation {@link Embedded} required so that morphia can handle the aggregations.</p>
+   * <p>Annotation {@link Entity} required so that morphia can handle the aggregations.</p>
    */
-  @Embedded
+  @Entity
   public static class ExecutionDatasetPair {
 
     private Dataset dataset;

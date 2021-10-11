@@ -2,10 +2,9 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.OAIPMHHarvestingDetails;
-import java.util.Collections;
+import eu.europeana.cloud.service.dps.PluginParameterKeys;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
@@ -51,15 +50,10 @@ public class OaipmhHarvestPlugin extends AbstractExecutablePlugin<OaipmhHarvestP
   @Override
   DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
     String targetUrl = getPluginMetadata().getUrl();
-    boolean useDefaultIdentifiers = getPluginMetadata().isUseDefaultIdentifiers();
-    String identifierPrefixRemoval = getPluginMetadata().getIdentifierPrefixRemoval();
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("METIS_DATASET_ID", datasetId);
-    parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));
-    if (useDefaultIdentifiers && !StringUtils.isBlank(identifierPrefixRemoval)) {
-      parameters.put("MIGRATION_IDENTIFIER_PREFIX", identifierPrefixRemoval);
-    }
-    DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
+    parameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
+    DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters,
+            targetUrl, getPluginMetadata().isIncrementalHarvest());
 
     String setSpec = getPluginMetadata().getSetSpec();
     String metadataFormat = getPluginMetadata().getMetadataFormat();

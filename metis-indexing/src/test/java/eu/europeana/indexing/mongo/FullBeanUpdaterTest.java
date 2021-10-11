@@ -12,6 +12,7 @@ import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.definitions.edm.entity.Concept;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.License;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.definitions.edm.entity.Place;
 import eu.europeana.corelib.definitions.edm.entity.ProvidedCHO;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
@@ -24,6 +25,7 @@ import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
@@ -84,6 +86,9 @@ class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
     this.<Aggregation, RootAboutWrapper>testReferencedEntitiesPropertyUpdate(propertyUpdater,
         "aggregations",
         FullBeanImpl::setAggregations, RootAboutWrapper.class, AggregationImpl::new);
+    this.<Organization, RootAboutWrapper>testReferencedEntitiesPropertyUpdate(propertyUpdater,
+        "organizations",
+        FullBeanImpl::setOrganizations, null, OrganizationImpl::new);
     this.<EuropeanaAggregation, RootAboutWrapper>testReferencedEntityPropertyUpdate(propertyUpdater,
         "europeanaAggregation", FullBeanImpl::setEuropeanaAggregation, RootAboutWrapper.class,
         EuropeanaAggregationImpl::new);

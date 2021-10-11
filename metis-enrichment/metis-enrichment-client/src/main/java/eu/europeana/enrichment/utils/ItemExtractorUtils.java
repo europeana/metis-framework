@@ -1,15 +1,15 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.LabelResource;
+import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.WebResource;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Concept.Choice;
 import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.LabelResource;
-import eu.europeana.enrichment.api.external.model.Part;
-import eu.europeana.enrichment.api.external.model.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,27 +49,10 @@ public final class ItemExtractorUtils {
     return extractItems(sourceList, label -> extractLabel(label, newInstanceProvider));
   }
 
-  static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(
-      List<Label> sourceList,
-      Supplier<T> newInstanceProvider) {
+  static <T extends ResourceType> List<T> extractResources(List<? extends WebResource> sourceList,
+          Supplier<T> newInstanceProvider) {
     return extractItems(sourceList,
-        label -> extractLabelToResourceOrLiteral(label, newInstanceProvider));
-  }
-
-  static <T extends ResourceOrLiteralType> List<T> extractParts(List<Part> sourceList,
-      Supplier<T> newInstanceProvider) {
-    return extractItems(sourceList, part -> extractPart(part, newInstanceProvider));
-  }
-
-  static <S, T extends ResourceType> List<T> extractAsResources(List<S> sourceList,
-      Supplier<T> newInstanceProvider, Function<S, String> resourceProvider) {
-    return extractItems(sourceList,
-        item -> extractAsResource(item, newInstanceProvider, resourceProvider));
-  }
-
-  static <T extends ResourceType> List<T> extractResources(List<Resource> sourceList,
-      Supplier<T> newInstanceProvider) {
-    return extractAsResources(sourceList, newInstanceProvider, Resource::getResource);
+            item -> extractAsResource(item, newInstanceProvider, WebResource::getResourceUri));
   }
 
   static <T extends ResourceOrLiteralType> List<T> extractLabelResources(
@@ -94,18 +77,6 @@ public final class ItemExtractorUtils {
     final T result = newInstanceProvider.get();
     if (label.getLang() != null) {
       final LiteralType.Lang lang = new LiteralType.Lang();
-      lang.setLang(label.getLang());
-      result.setLang(lang);
-    }
-    result.setString(label.getValue() == null ? "" : label.getValue());
-    return result;
-  }
-
-  static <T extends ResourceOrLiteralType> T extractLabelToResourceOrLiteral(Label label,
-      Supplier<T> newInstanceProvider) {
-    final T result = newInstanceProvider.get();
-    if (label.getLang() != null) {
-      final ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
       lang.setLang(label.getLang());
       result.setLang(lang);
     }

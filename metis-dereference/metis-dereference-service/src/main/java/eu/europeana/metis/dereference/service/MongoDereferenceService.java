@@ -2,12 +2,11 @@ package eu.europeana.metis.dereference.service;
 
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.TimeSpan;
+import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
@@ -17,7 +16,7 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import java.io.IOException;
-import java.io.StringReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,10 +29,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
@@ -81,7 +79,7 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   @Override
-  public EnrichmentResultList dereference(String resourceId)
+  public List<EnrichmentBase> dereference(String resourceId)
       throws TransformerException, JAXBException, URISyntaxException {
 
     // Sanity check
@@ -90,13 +88,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Perform the actual dereferencing.
-    final Collection<EnrichmentBase> resultList = dereferenceResource(resourceId);
-
-    // Prepare the result: empty if we didn't find an entity.
-    final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(
-            Collections.singletonList(new ArrayList<>(resultList)));
-    return new EnrichmentResultList(enrichmentResultBaseWrappers);
+    return new ArrayList<>(dereferenceResource(resourceId));
   }
 
   /**
@@ -114,7 +106,7 @@ public class MongoDereferenceService implements DereferenceService {
    * </p>
    *
    * @param resourceId The resource to dereference.
-   * @return A collection of dereferenced resources.
+   * @return A collection of dereferenced resources. Is not null, but could be empty.
    */
   private Collection<EnrichmentBase> dereferenceResource(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
@@ -159,12 +151,12 @@ public class MongoDereferenceService implements DereferenceService {
     final Stream<String> resourceIdStream;
     if (resource instanceof Concept) {
       resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
-    } else if (resource instanceof Timespan) {
-      resourceIdStream = Optional.ofNullable(((Timespan) resource).getIsPartOf())
-          .map(Part::getResource).stream();
+    } else if (resource instanceof TimeSpan) {
+      resourceIdStream = Optional.ofNullable(((TimeSpan) resource).getIsPartOf()).stream()
+              .flatMap(List::stream).map(LabelResource::getResource);
     } else if (resource instanceof Place) {
-      resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf())
-          .map(Part::getResource).stream();
+      resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf()).stream()
+              .flatMap(Collection::stream).map(LabelResource::getResource);
     } else {
       resourceIdStream = Stream.empty();
     }
@@ -180,7 +172,6 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Try to get the entity and its vocabulary from the cache.
     final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
-
     final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
         cachedEntity);
 
@@ -265,11 +256,8 @@ public class MongoDereferenceService implements DereferenceService {
     if (entityXml == null || entityVocabulary == null) {
       result = null;
     } else {
-      final StringReader reader = new StringReader(entityXml);
-      final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
-      final EnrichmentBase resource = (EnrichmentBase) context.createUnmarshaller()
-          .unmarshal(reader);
-      result = new ImmutablePair<>(resource, entityVocabulary);
+      result = new ImmutablePair<>(EnrichmentBaseConverter.convertToEnrichmentBase(entityXml),
+              entityVocabulary);
     }
     return result;
   }
@@ -310,19 +298,27 @@ public class MongoDereferenceService implements DereferenceService {
     return entityVocabularyPair;
   }
 
-  private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates) {
+  private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
+          throws URISyntaxException {
+
+    // Check the input (check the resource ID for URI syntax).
     if (candidates.isEmpty()) {
       return null;
     }
+    new URI(resourceId);
+
+    // Compute the result (a URI syntax issue is considered a problem with the suffix).
     final String originalEntity = candidates.getVocabulariesSuffixes().stream().map(suffix -> {
       try {
         return retriever.retrieve(resourceId, suffix);
-      } catch (IOException e) {
+      } catch (IOException | URISyntaxException e) {
         LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
         LOGGER.debug("Problem retrieving resource.", e);
         return null;
       }
     }).filter(Objects::nonNull).findAny().orElse(null);
+
+    // Evaluate the result.
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
     }

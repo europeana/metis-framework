@@ -20,6 +20,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -88,7 +89,7 @@ class TestScheduleWorkflowService {
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(null);
     when(scheduledWorkflowDao.create(scheduledWorkflow))
-        .thenReturn(new ObjectId().toString());
+        .thenReturn(new ScheduledWorkflow(null, datasetId, null, 0));
     scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
     verifyNoMoreInteractions(authorizer);

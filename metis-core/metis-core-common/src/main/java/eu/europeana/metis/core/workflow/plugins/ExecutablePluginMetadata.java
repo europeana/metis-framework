@@ -9,6 +9,4 @@ public interface ExecutablePluginMetadata extends MetisPluginMetadata {
 
   boolean isEnabled();
 
-  void setEnabled(boolean enabled);
-
 }

@@ -33,7 +33,7 @@ public class Concept extends EnrichmentBase {
   private List<Resource> narrowMatch;
   @XmlElement(name = "related", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> related;
-  @XmlElement(name = "related", namespace = "http://www.w3.org/2004/02/skos/core#")
+  @XmlElement(name = "relatedMatch", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> relatedMatch;
 
   /**

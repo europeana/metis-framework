@@ -8,6 +8,7 @@ import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+import java.util.Collections;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,15 +73,14 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "swagger-ui.html");
+    registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/swagger-ui/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+        .resourceChain(false);
   }
 
   @Bean
@@ -148,8 +148,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         "v1",
         "API TOS",
         contact,
-        "EUPL Licence v1.1",
-        ""
-    );
+        "EUPL Licence v1.2",
+        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }

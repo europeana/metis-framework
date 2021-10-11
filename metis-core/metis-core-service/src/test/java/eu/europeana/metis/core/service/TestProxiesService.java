@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -21,10 +20,39 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.File;
+import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.common.model.dps.NodeReport;
+import eu.europeana.cloud.common.model.dps.StatisticsReport;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.cloud.common.response.CloudTagsResponse;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.rest.ListOfIds;
+import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
+import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.RecordsResponse;
+import eu.europeana.metis.core.rest.stats.NodePathStatistics;
+import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.Topology;
+import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.GenericMetisException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -45,36 +73,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.common.model.File;
-import eu.europeana.cloud.common.model.Representation;
-import eu.europeana.cloud.common.model.dps.NodeReport;
-import eu.europeana.cloud.common.model.dps.StatisticsReport;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.cloud.common.response.CloudTagsResponse;
-import eu.europeana.cloud.common.response.ResultSlice;
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.mcs.driver.FileServiceClient;
-import eu.europeana.cloud.mcs.driver.RecordServiceClient;
-import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.cloud.service.mcs.exception.MCSException;
-import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
-import eu.europeana.metis.core.rest.ListOfIds;
-import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
-import eu.europeana.metis.core.rest.Record;
-import eu.europeana.metis.core.rest.RecordsResponse;
-import eu.europeana.metis.core.rest.stats.NodePathStatistics;
-import eu.europeana.metis.core.rest.stats.RecordStatistics;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.Topology;
-import eu.europeana.metis.exception.ExternalTaskException;
-import eu.europeana.metis.exception.GenericMetisException;
-import eu.europeana.metis.exception.UserUnauthorizedException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -324,14 +322,12 @@ class TestProxiesService {
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(execution);
 
     // Mock getting the records from eCloud.
-    final ResultSlice<CloudTagsResponse> resultSlice = new ResultSlice<>();
     final String ecloudId = "ECLOUDID1";
     final CloudTagsResponse cloudTagsResponse = new CloudTagsResponse(ecloudId, false, false,
         false);
-    resultSlice.setResults(Collections.singletonList(cloudTagsResponse));
     when(ecloudDataSetServiceClient
-        .getDataSetRevisionsChunk(anyString(), anyString(), anyString(), anyString(), anyString(),
-            anyString(), isNull(), anyInt())).thenReturn(resultSlice);
+        .getRevisionsWithDeletedFlagSetToFalse(anyString(), anyString(), anyString(), anyString(), anyString(),
+            anyString(), anyInt())).thenReturn(Collections.singletonList(cloudTagsResponse));
 
     // Mock obtaining the actual record.
     final Record record = new Record(ecloudId, "test content");
@@ -392,8 +388,8 @@ class TestProxiesService {
 
     // Mock ecloud client method.
     when(ecloudDataSetServiceClient
-        .getDataSetRevisionsChunk(anyString(), anyString(), anyString(), anyString(),
-            anyString(), anyString(), isNull(), anyInt()))
+        .getRevisionsWithDeletedFlagSetToFalse(anyString(), anyString(), anyString(), anyString(),
+            anyString(), anyString(), anyInt()))
         .thenThrow(new MCSException("Chunk cannot be retrieved"));
 
     // Check exception.

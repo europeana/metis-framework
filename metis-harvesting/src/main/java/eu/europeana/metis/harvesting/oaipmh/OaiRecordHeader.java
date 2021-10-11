@@ -2,6 +2,9 @@ package eu.europeana.metis.harvesting.oaipmh;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Date;
+import java.util.Optional;
+import org.dspace.xoai.model.oaipmh.Header;
 
 /**
  * This is a immutable class representing an OAI-PMH record header.
@@ -24,6 +27,17 @@ public class OaiRecordHeader implements Serializable {
     this.oaiIdentifier = oaiIdentifier;
     this.isDeleted = isDeleted;
     this.datestamp = datestamp;
+  }
+
+  /**
+   * Convert from a library object.
+   *
+   * @param header The library object from which to convert.
+   * @return An instance.
+   */
+  static OaiRecordHeader convert(Header header) {
+    return new OaiRecordHeader(header.getIdentifier(), header.isDeleted(),
+            Optional.ofNullable(header.getDatestamp()).map(Date::toInstant).orElse(null));
   }
 
   public String getOaiIdentifier() {

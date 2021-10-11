@@ -4,30 +4,31 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>4</version>
+  <version>5</version>
   <packaging>pom</packaging>
 
   <modules>
     <module>metis-schema</module>
+    <module>metis-common</module>
     <module>metis-core</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
     <module>metis-validation</module>
     <module>metis-enrichment</module>
-    <module>metis-common</module>
     <module>metis-data-checker</module>
     <module>metis-normalization</module>
     <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
     <module>metis-harvesting</module>
+    <module>metis-repository</module>
   </modules>
 
   <!-- Github connection -->
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v4</tag>
+    <tag>v5</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -45,9 +46,10 @@
   </distributionManagement>
 
   <properties>
-    <version.jena.iri>3.17.0</version.jena.iri>
-    <version.ecloud>4-SNAPSHOT</version.ecloud>
-    <version.redisson>3.15.1</version.redisson>
+    <version.jena.iri>4.1.0</version.jena.iri>
+    <version.ecloud>5-SNAPSHOT</version.ecloud>
+    <version.corelib>2.14.1-SNAPSHOT</version.corelib>
+    <version.redisson>3.15.5</version.redisson>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
@@ -56,58 +58,60 @@
     <version.json.path>2.5.0</version.json.path>
     <version.hamcrest>1.3</version.hamcrest>
     <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
-    <version.rabbitmq>5.11.0</version.rabbitmq>
+    <version.rabbitmq>5.12.0</version.rabbitmq>
 
     <!-- These two versions are interdependent. -->
     <version.slf4j>1.7.30</version.slf4j>
     <version.jul.to.slf4j>1.7.30</version.jul.to.slf4j>
-    <version.log4j>2.13.2</version.log4j>
+    <version.log4j>2.14.1</version.log4j>
 
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
-    <version.junit>5.7.1</version.junit>
+    <version.junit>5.7.2</version.junit>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>3.0.0</version.embedded.mongo>
     <version.javax.persistence>1.0.2</version.javax.persistence>
-    <version.commons.io>2.8.0</version.commons.io>
+    <version.commons.io>2.9.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
-    <version.apache.httpclient>5.0</version.apache.httpclient>
+    <version.apache.httpclient>5.1</version.apache.httpclient>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
-    <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
+    <version.javax.ws.rs.api>2.1.1</version.javax.ws.rs.api>
     <version.jaxb.api>2.3.1</version.jaxb.api>
     <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
     <version.javax.annotation>1.3.2</version.javax.annotation>
-    <version.hibernate.core>5.4.29.Final</version.hibernate.core>
-    <version.postgresql>42.2.19</version.postgresql>
-    <version.swagger>2.6.1</version.swagger>
-    <version.swagger.annotations>1.5.10</version.swagger.annotations>
-    <version.jackson>2.12.2</version.jackson>
+    <version.hibernate.core>5.4.32.Final</version.hibernate.core>
+    <version.c3p0>0.9.1.2</version.c3p0>
+    <version.postgresql>42.2.20</version.postgresql>
+    <version.swagger>3.0.0</version.swagger>
+    <version.swagger.annotations>1.6.2</version.swagger.annotations>
+    <version.jackson>2.12.3</version.jackson>
     <version.xerces>2.12.1</version.xerces>
-    <version.json>20201115</version.json>
+    <version.json>20210307</version.json>
     <version.powermock>2.0.9</version.powermock>
-    <version.mockito.core>3.8.0</version.mockito.core>
-    <version.corelib>2.12.2-SNAPSHOT</version.corelib>
+    <version.mockito.core>3.10.0</version.mockito.core>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.morphia.core>2.1.4</version.morphia.core>
+    <version.morphia.core>2.2.1</version.morphia.core>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
-    <version.spring.security>5.3.2.RELEASE</version.spring.security>
-    <version.spring>5.2.6.RELEASE</version.spring>
+    <version.spring.security>5.5.0</version.spring.security>
+    <version.spring>5.3.7</version.spring>
     <version.spring.test>${version.spring}</version.spring.test>
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.beans>${version.spring}</version.spring.beans>
-    <version.saxon.he>10.3</version.saxon.he>
-    <version.com.zoho.crm.java-sdk>2.0.4</version.com.zoho.crm.java-sdk>
-    <version.solr.solrj>8.8.1</version.solr.solrj>
+    <version.saxon.he>10.5</version.saxon.he>
+    <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
+    <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.mpd.parser>0.9</version.mpd.parser>
-    <version.zip4j>2.7.0</version.zip4j>
-    <version.ibm.icu4j>67.1</version.ibm.icu4j>
+    <version.zip4j>2.8.0</version.zip4j>
+    <version.ibm.icu4j>69.1</version.ibm.icu4j>
     <version.itextpdf>5.5.13.2</version.itextpdf>
-    <version.bouncycastle>1.49</version.bouncycastle>
+    <version.bouncycastle>1.68</version.bouncycastle>
+    <version.tika.core>1.26</version.tika.core>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
+    <version.dspace.oai>4.2.0</version.dspace.oai>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -144,12 +148,24 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-schema</artifactId>
+          </exclusion>
+          <exclusion>
             <artifactId>object-storage</artifactId>
             <groupId>eu.europeana</groupId>
           </exclusion>
           <exclusion>
             <groupId>stax</groupId>
             <artifactId>stax-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>wstx-asl</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
           </exclusion>
           <exclusion>
             <groupId>de.flapdoodle.embed</groupId>
@@ -295,8 +311,16 @@
             <artifactId>core</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>dev.morphia.morphia</groupId>
+            <artifactId>morphia-core</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-driver-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-core</artifactId>
           </exclusion>
           <exclusion>
             <artifactId>junit</artifactId>
@@ -324,6 +348,10 @@
           <exclusion>
             <artifactId>solr-solrj</artifactId>
             <groupId>org.apache.solr</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.apache.logging.log4j</groupId>
@@ -429,6 +457,30 @@
           <exclusion>
             <artifactId>xml-apis</artifactId>
             <groupId>xml-apis</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.dspace</groupId>
+        <artifactId>xoai-service-provider</artifactId>
+        <version>${version.dspace.oai}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+          <!-- Tomcat tries to set a SAX feature not supported by this SAX parser. -->
+          <exclusion>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>woodstox-core-asl</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>wstx-asl</artifactId>
           </exclusion>
         </exclusions>
       </dependency>

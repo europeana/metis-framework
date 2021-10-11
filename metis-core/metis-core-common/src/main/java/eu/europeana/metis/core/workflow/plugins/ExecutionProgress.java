@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import dev.morphia.annotations.Embedded;
-import eu.europeana.cloud.common.model.dps.TaskInfo;
+import dev.morphia.annotations.Entity;
 import eu.europeana.cloud.common.model.dps.TaskState;
 
 /**
@@ -10,27 +9,29 @@ import eu.europeana.cloud.common.model.dps.TaskState;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@Embedded
+@Entity
 public class ExecutionProgress {
 
+  // The total number of expected records excluding deleted records.
   private int expectedRecords;
-  private int processedRecords;
-  private int progressPercentage;
-  private int errors;
-  private TaskState status;
 
-  /**
-   * Copy information from {@link TaskInfo} to {@link ExecutionProgress}
-   *
-   * @param taskInfo {@link TaskInfo}
-   */
-  void copyExternalTaskInformation(TaskInfo taskInfo) {
-    expectedRecords = taskInfo.getExpectedSize();
-    processedRecords = taskInfo.getProcessedElementCount();
-    progressPercentage = taskInfo.getProcessedPercentage();
-    errors = taskInfo.getErrors();
-    status = taskInfo.getState();
-  }
+  // The total number of records processed so far excluding deleted records and including ignored records if applicable.
+  private int processedRecords;
+
+  // The percentage: the division of the actual and expected number of processed records.
+  private int progressPercentage;
+
+  // The number of processed records so far that are to be ignored for follow-up tasks.
+  private int ignoredRecords = 0;
+
+  // The number of deleted records processed so far.
+  private int deletedRecords = 0;
+
+  // The number of errors encountered so far.
+  private int errors;
+
+  // The current state of the task.
+  private TaskState status;
 
   public int getExpectedRecords() {
     return expectedRecords;
@@ -56,6 +57,22 @@ public class ExecutionProgress {
     this.progressPercentage = progressPercentage;
   }
 
+  public int getIgnoredRecords() {
+    return ignoredRecords;
+  }
+
+  public void setIgnoredRecords(int ignoredRecords) {
+    this.ignoredRecords = ignoredRecords;
+  }
+
+  public int getDeletedRecords() {
+    return deletedRecords;
+  }
+
+  public void setDeletedRecords(int deletedRecords) {
+    this.deletedRecords = deletedRecords;
+  }
+
   public int getErrors() {
     return errors;
   }
@@ -70,5 +87,10 @@ public class ExecutionProgress {
 
   public void setStatus(TaskState status) {
     this.status = status;
+  }
+
+  public void recalculateProgressPercentage() {
+    this.progressPercentage = this.expectedRecords == 0 ? 0
+        : Math.round(100f * (this.processedRecords + this.deletedRecords)/ (this.expectedRecords + this.deletedRecords));
   }
 }

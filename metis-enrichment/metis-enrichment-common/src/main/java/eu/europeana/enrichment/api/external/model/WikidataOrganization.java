@@ -18,13 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class WikidataOrganization {
 
   @XmlElement(name = "Organization", namespace = "http://xmlns.com/foaf/0.1/")
-  private EdmOrganization organization;
+  private Organization organization;
 
-  public EdmOrganization getOrganization() {
+  public Organization getOrganization() {
     return organization;
   }
 
-  public void setOrganization(EdmOrganization organization) {
+  public void setOrganization(Organization organization) {
     this.organization = organization;
   }
  

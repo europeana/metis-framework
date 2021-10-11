@@ -105,6 +105,16 @@ public class IndexerPool implements Closeable {
     indexRecord(indexer -> indexer.indexRdf(record, indexingProperties));
   }
 
+  /**
+   * This method removes a single record, using a free indexer in the pool
+   *
+   * @param record The record to be removed
+   * @throws IndexingException In case something went wrong.
+   */
+  public void remove(String record) throws IndexingException {
+    indexRecord(indexer -> indexer.remove(record));
+  }
+
   private void indexRecord(IndexTask indexTask) throws IndexingException {
 
     // Obtain indexer from the pool.
@@ -122,6 +132,10 @@ public class IndexerPool implements Closeable {
       indexTask.performTask(indexer);
     } catch (IndexerRelatedIndexingException e) {
       invalidateAndSwallowException(indexer);
+      throw e;
+    } catch (IndexingException e) {
+      //If any other indexing exception occurs we want to return the indexer to the pool
+      pool.returnObject(indexer);
       throw e;
     }
 

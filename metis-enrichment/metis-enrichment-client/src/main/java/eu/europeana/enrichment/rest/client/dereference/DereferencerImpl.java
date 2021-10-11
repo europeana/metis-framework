@@ -38,6 +38,14 @@ public class DereferencerImpl implements Dereferencer {
   private final EntityResolver remoteEntityResolver;
   private final DereferenceClient dereferenceClient;
 
+  /**
+   * Constructor.
+   *
+   * @param entityMergeEngine The entity merge engine. Cannot be null.
+   * @param remoteEntityResolver Remove entity resolver: can be null if we only dereference own
+   * entities.
+   * @param dereferenceClient Dereference client. Can be null if we don't dereference own entities.
+   */
   public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityResolver remoteEntityResolver,
           DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
@@ -57,7 +65,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    entityMergeEngine.mergeEntities(rdf, dereferenceInformation, Collections.emptySet());
+    entityMergeEngine.mergeReferenceEntities(rdf, dereferenceInformation);
 
     // Done.
     LOGGER.debug("Dereference completed.");
@@ -105,6 +113,9 @@ public class DereferencerImpl implements Dereferencer {
 
   private List<EnrichmentBase> dereferenceOwnEntities(Set<ReferenceTerm> resourceIds)
       throws DereferenceException {
+    if (remoteEntityResolver == null) {
+      return Collections.emptyList();
+    }
     try {
       return new ArrayList<>(retryableExternalRequestForNetworkExceptions(
           () -> remoteEntityResolver.resolveById(resourceIds)).values());
@@ -117,6 +128,11 @@ public class DereferencerImpl implements Dereferencer {
 
   private List<EnrichmentBase> dereferenceExternalEntity(String resourceId)
       throws DereferenceException {
+
+    // Check that there is something to do.
+    if (dereferenceClient == null) {
+      return Collections.emptyList();
+    }
 
     // Perform the dereferencing.
     EnrichmentResultList result;

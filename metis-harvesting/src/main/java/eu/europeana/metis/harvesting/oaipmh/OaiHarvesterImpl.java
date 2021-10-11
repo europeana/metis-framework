@@ -6,7 +6,6 @@ import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
@@ -94,28 +93,24 @@ public class OaiHarvesterImpl implements OaiHarvester {
   }
 
   @Override
-  public InputStream harvestRecord(OaiRepository repository, String oaiIdentifier)
+  public OaiRecord harvestRecord(OaiRepository repository, String oaiIdentifier)
           throws HarvesterException {
     final GetRecordParameters getRecordParameters = GetRecordParameters.request()
             .withIdentifier(oaiIdentifier).withMetadataFormatPrefix(repository.getMetadataPrefix());
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
             .include(getRecordParameters);
-    final String record;
+    final byte[] record;
     try (final CloseableOaiClient oaiClient = connectionClientFactory
             .createConnectionClient(repository.getRepositoryUrl());
             final InputStream recordStream = performThrowingFunction(oaiClient,
                     client -> client.execute(parameters))) {
-      record = IOUtils.toString(recordStream, StandardCharsets.UTF_8);
+      record = IOUtils.toByteArray(recordStream);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(
               "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
               oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
     }
-    final OaiRecordParser recordParser = new OaiRecordParser(record);
-    if (recordParser.recordIsDeleted()) {
-      throw new HarvesterException("The record is deleted");
-    }
-    return recordParser.getRdfRecord();
+    return new OaiRecordParser().parseOaiRecord(record);
   }
 
   @Override
@@ -229,8 +224,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
     @Override
     public IterationResult process(Header input) {
-      final OaiRecordHeader header = new OaiRecordHeader(input.getIdentifier(), input.isDeleted(),
-              Optional.ofNullable(input.getDatestamp()).map(Date::toInstant).orElse(null));
+      final OaiRecordHeader header = OaiRecordHeader.convert(input);
       if (filter.test(header)) {
         return Optional.ofNullable(action.process(header)).orElseThrow(() ->
                 new IllegalArgumentException("Iteration result cannot be null."));

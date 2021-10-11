@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>4</version>
+    <version>5</version>
   </parent>
   <artifactId>metis-enrichment-client</artifactId>
   <packaging>jar</packaging>

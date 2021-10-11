@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.internal.model;
 
+import dev.morphia.annotations.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.morphia.annotations.Embedded;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +12,8 @@ import java.util.Map;
  * @author Simon Tzanakis
  * @since 2020-08-31
  */
-@Embedded
-public abstract class AbstractEnrichmentEntity implements Entity {
+@Entity
+public abstract class AbstractEnrichmentEntity implements eu.europeana.enrichment.internal.model.Entity {
 
   private String about;
   private Map<String, List<String>> prefLabel;

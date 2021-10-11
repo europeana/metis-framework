@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,13 @@ import java.util.Objects;
  * fields in lower case per language.
  * </p>
  *
+ * TODO JV This class should be moved to the package eu.europeana.enrichment.internal.model
+ * This is not so easy, as it is used in the enrichment entity database.
+ *
  * @author Simon Tzanakis
  * @since 2020-08-04
  */
-@Embedded
+@Entity
 public class LabelInfo {
 
   private String lang;

@@ -17,7 +17,7 @@ public class AgentEnrichmentEntity extends AbstractEnrichmentEntity {
   private Map<String, List<String>> end;
 
   private String[] edmWasPresentAt;
-  private Map<String, List<String>> edmHasMet;
+  private String[] edmHasMet;
   private Map<String, List<String>> edmIsRelatedTo;
   private Map<String, List<String>> foafName;
   private Map<String, List<String>> dcDate;
@@ -58,11 +58,11 @@ public class AgentEnrichmentEntity extends AbstractEnrichmentEntity {
         : null);
   }
 
-  public void setEdmHasMet(Map<String, List<String>> edmHasMet) {
-    this.edmHasMet = edmHasMet;
+  public void setEdmHasMet(String[] edmHasMet) {
+    this.edmHasMet = edmHasMet == null ? null : edmHasMet.clone();
   }
 
-  public Map<String, List<String>> getEdmHasMet() {
+  public String[] getEdmHasMet() {
     return this.edmHasMet;
   }
 

@@ -6,21 +6,27 @@ import static java.lang.Thread.currentThread;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
+import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractIndexPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
@@ -155,10 +161,11 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     boolean didPluginRun = true;
     boolean continueNextPlugin = true;
+    List<AbstractMetisPlugin> metisPlugins = workflowExecution.getMetisPlugins();
     // One by one start the plugins of the workflow
     for (int i = firstPluginPositionToStart;
-        i < workflowExecution.getMetisPlugins().size() && continueNextPlugin; i++) {
-      final AbstractMetisPlugin plugin = workflowExecution.getMetisPlugins().get(i);
+        i < metisPlugins.size() && continueNextPlugin; i++) {
+      final AbstractMetisPlugin plugin = metisPlugins.get(i);
 
       //Run plugin if available space
       didPluginRun = runMetisPluginWithSemaphoreAllocation(i, plugin);
@@ -169,8 +176,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     }
 
     // Compute the finished date
-    final AbstractMetisPlugin lastPlugin = workflowExecution.getMetisPlugins()
-        .get(workflowExecution.getMetisPlugins().size() - 1);
+    final AbstractMetisPlugin lastPlugin = metisPlugins.get(metisPlugins.size() - 1);
     final Date finishDate;
     if (lastPlugin.getPluginStatus() == PluginStatus.FINISHED) {
       finishDate = lastPlugin.getFinishedDate();
@@ -182,12 +188,14 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
   private int getFirstPluginPositionToStart() {
     int firstPluginPositionToStart = 0;
-    for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
-      AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
+    List<AbstractMetisPlugin> metisPlugins = workflowExecution.getMetisPlugins();
+    for (int i = 0; i < metisPlugins.size(); i++) {
+      AbstractMetisPlugin metisPlugin = metisPlugins.get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
           || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
-          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING
+          || metisPlugin.getPluginStatus() == PluginStatus.IDENTIFYING_DELETED_RECORDS) {
         firstPluginPositionToStart = i;
         break;
       }
@@ -260,13 +268,25 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       // scheduling the workflow, the previous plugin information is set for the first plugin.
       final AbstractExecutablePluginMetadata metadata = plugin.getPluginMetadata();
       final ExecutedMetisPluginId executedMetisPluginId = ExecutedMetisPluginId
-              .forPredecessor(plugin);
+          .forPredecessor(plugin);
       if (executedMetisPluginId == null) {
-        final AbstractExecutablePlugin predecessor = DataEvolutionUtils
+        final ExecutablePlugin predecessor = DataEvolutionUtils
             .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
+          // Save so that we can use it below to find the root ancestor.
+          workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
         }
+      }
+
+      // Compute base harvesting plugin information. We can't do this when creating the workflow
+      // execution: the harvest might be part of this very workflow.
+      if (DataEvolutionUtils.getIndexPluginGroup()
+              .contains(plugin.getPluginMetadata().getExecutablePluginType())) {
+        final PluginWithExecutionId<ExecutablePlugin> rootAncestor = new DataEvolutionUtils(
+                workflowExecutionDao).getRootAncestor(
+                new PluginWithExecutionId<>(workflowExecution, plugin));
+        setHarvestParametersToIndexingPlugin(plugin, rootAncestor.getPlugin());
       }
 
       // Start execution if it has not already started
@@ -282,7 +302,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
       }
     } catch (ExternalTaskException | RuntimeException e) {
       LOGGER.warn(String.format("workflowExecutionId: %s, pluginType: %s - Execution of plugin "
-              + "failed", workflowExecution.getId(), plugin.getPluginType()), e);
+          + "failed", workflowExecution.getId(), plugin.getPluginType()), e);
       plugin.setFinishedDate(null);
       plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
       plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
@@ -295,6 +315,32 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
     periodicCheckingLoop(sleepTime, plugin, datasetId);
+  }
+
+  private void setHarvestParametersToIndexingPlugin(ExecutablePlugin indexingPlugin,
+          ExecutablePlugin harvestPlugin) {
+
+    // Check the harvesting types
+    if (!DataEvolutionUtils.getHarvestPluginGroup()
+            .contains(harvestPlugin.getPluginMetadata().getExecutablePluginType())) {
+      throw new IllegalStateException(String.format(
+              "workflowExecutionId: %s, pluginId: %s - Found plugin root that is not a harvesting plugin.",
+              workflowExecution.getId(), indexingPlugin.getId()));
+    }
+
+    // get the information from the harvesting plugin.
+    final boolean incrementalHarvest =
+            (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
+                    && ((AbstractHarvestPluginMetadata) harvestPlugin.getPluginMetadata())
+                    .isIncrementalHarvest();
+    final Date harvestDate = harvestPlugin.getStartedDate();
+
+    // Set the information to the indexing plugin.
+    if (indexingPlugin.getPluginMetadata() instanceof AbstractIndexPluginMetadata) {
+      final var metadata = (AbstractIndexPluginMetadata) indexingPlugin.getPluginMetadata();
+      metadata.setIncrementalIndexing(incrementalHarvest);
+      metadata.setHarvestDate(harvestDate);
+    }
   }
 
   private String getExternalTaskIdOfPreviousPlugin(AbstractExecutablePluginMetadata metadata) {
@@ -339,9 +385,18 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             checkPointDateOfProcessedRecordsPeriodInMillis);
         monitorResult = plugin.monitor(dpsClient);
         consecutiveCancelOrMonitorFailures = 0;
-        plugin.setPluginStatusAndResetFailMessage(
-            monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
-                ? PluginStatus.CLEANING : PluginStatus.RUNNING);
+
+        if (monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO ||
+            isIndexingInPostProcessing(monitorResult, plugin)) {
+          plugin.setPluginStatusAndResetFailMessage(PluginStatus.CLEANING);
+
+        } else if (isHarvestingInPostProcessing(monitorResult, plugin)) {
+          plugin.setPluginStatusAndResetFailMessage(PluginStatus.IDENTIFYING_DELETED_RECORDS);
+
+        } else {
+          plugin.setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
+        }
+
       } catch (InterruptedException e) {
         LOGGER.warn(String.format(
             "workflowExecutionId: %s, pluginType: %s - Thread was interrupted during monitoring of external task",
@@ -350,15 +405,18 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         return;
       } catch (ExternalTaskException e) {
         final Throwable cause = ExternalRequestUtil.getRootCause(e);
-        if (cause instanceof IllegalStateException) {
-          //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
-          // internally closing down without our consent even if we would have a synchronized close
-          // implemented. This catch gives us a little more assurance of avoiding an execution
-          // being marked as failed.
-          LOGGER.debug("Application is probably shutting down at the moment and dpsClient has "
-              + "closed without our consent, so we are ignoring this exception.", e);
-          return;
-        }
+        // TODO: 14/05/2021 We might want to remove this or find a better way to handle the shutdown of metis-core because, it seems that this occurred during an execution of a plugin and therefore the plugin went out of the loop.
+        // The next plugin was tried but was marked FAILED because the previous plugin didn't finish and it automatically marked the previous plugin CANCELLED
+        // which shouldn't happen.(The plugin was still in progress in ecloud)
+//        if (cause instanceof IllegalStateException) {
+//          //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
+//          // internally closing down without our consent even if we would have a synchronized close
+//          // implemented. This catch gives us a little more assurance of avoiding an execution
+//          // being marked as failed.
+//          LOGGER.warn("Application is probably shutting down at the moment and dpsClient has "
+//              + "closed without our consent, so we are ignoring this exception.", e);
+//          return;
+//        }
         LOGGER.warn(String
             .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
                 workflowExecution.getId(), plugin.getPluginType()), e);
@@ -366,7 +424,8 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         //  DpsClient is updated and doesn't throw it anymore
         if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
             UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)
-            && !(cause instanceof MessageBodyProviderNotFoundException)) {
+            && !(cause instanceof MessageBodyProviderNotFoundException)
+            && !(cause instanceof IllegalStateException)) {
           // Set plugin to FAILED and return immediately
           plugin.setFinishedDate(null);
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
@@ -398,6 +457,20 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     // Set the status of the task.
     preparePluginStateAndFinishedDate(plugin, monitorResult);
+  }
+
+  private boolean isIndexingInPostProcessing(MonitorResult monitor,
+      AbstractExecutablePlugin plugin) {
+    return monitor.getTaskState() == TaskState.IN_POST_PROCESSING &&
+        (plugin.getPluginType() == PluginType.REINDEX_TO_PREVIEW ||
+            plugin.getPluginType() == PluginType.REINDEX_TO_PUBLISH);
+  }
+
+  private boolean isHarvestingInPostProcessing(MonitorResult monitor,
+      AbstractExecutablePlugin plugin) {
+    return monitor.getTaskState() == TaskState.IN_POST_PROCESSING &&
+        (plugin.getPluginType() == PluginType.HTTP_HARVEST ||
+            plugin.getPluginType() == PluginType.OAIPMH_HARVEST);
   }
 
   private void sendExternalCancelCallIfNeeded(AtomicBoolean externalCancelCallSent,

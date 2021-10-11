@@ -63,7 +63,7 @@ class TestScheduledWorkflowDao {
   void createScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
-    String objectId = scheduledWorkflowDao.create(scheduledWorkflow);
+    String objectId = scheduledWorkflowDao.create(scheduledWorkflow).getId().toString();
     assertNotNull(objectId);
   }
 
@@ -86,7 +86,7 @@ class TestScheduledWorkflowDao {
   void getById() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
-    String objectId = scheduledWorkflowDao.create(scheduledWorkflow);
+    String objectId = scheduledWorkflowDao.create(scheduledWorkflow).getId().toString();
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getById(objectId);
     assertEquals(scheduledWorkflow.getDatasetId(),

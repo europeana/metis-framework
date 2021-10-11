@@ -5,6 +5,7 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import com.mongodb.DuplicateKeyException;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
@@ -74,6 +75,6 @@ public class ProcessedEntityDao {
    */
   public void purgeAll() {
     retryableExternalRequestForNetworkExceptions(
-        () -> datastore.find(ProcessedEntity.class).delete());
+        () -> datastore.find(ProcessedEntity.class).delete(new DeleteOptions().multi(true)));
   }
 }

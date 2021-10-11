@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>4</version>
+    <version>5</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <dependencies>
@@ -31,12 +31,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>dev.morphia.morphia</groupId>
-          <artifactId>core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>

@@ -57,7 +57,7 @@ class TestWorkflowDao {
   @Test
   void createUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    String objectId = workflowDao.create(workflow);
+    String objectId = workflowDao.create(workflow).getId().toString();
     assertNotNull(objectId);
   }
 
@@ -75,7 +75,7 @@ class TestWorkflowDao {
   @Test
   void getById() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    String objectId = workflowDao.create(workflow);
+    String objectId = workflowDao.create(workflow).getId().toString();
     Workflow retrievedWorkflow = workflowDao.getById(objectId);
     assertEquals(workflow.getDatasetId(), retrievedWorkflow.getDatasetId());
 

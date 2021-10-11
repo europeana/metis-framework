@@ -136,7 +136,7 @@ public class TestObjectFactory {
    */
   public static List<WorkflowExecutionView> createListOfWorkflowExecutions(int size) {
     return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
-            .map(execution -> new WorkflowExecutionView(execution, plugin -> true))
+            .map(execution -> new WorkflowExecutionView(execution, false, plugin -> true))
             .collect(Collectors.toList());
   }
 

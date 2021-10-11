@@ -9,11 +9,7 @@ allowed.cors.hosts=
 #It's retrieved when registering the application on Zoho. It's one use only and every subsequent use shouldn't impact the application
 zoho.initial.grant.token=
 zoho.refresh.token=
-zoho.min.log.level=
 zoho.current.user.email=
 zoho.client.id=
 zoho.client.secret=
 zoho.redirect.uri=
-zoho.persistence.handler.class=
-zoho.api.base.url=
-zoho.access.type=

@@ -1,8 +1,5 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Media Process Plugin Metadata.
  *
@@ -12,7 +9,6 @@ import java.util.Map;
 public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.MEDIA_PROCESS;
-  private Map<String, Integer> connectionLimitToDomains = new HashMap<>();
 
   public MediaProcessPluginMetadata() {
     //Required for json serialization
@@ -21,14 +17,5 @@ public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata
   @Override
   public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
-  }
-
-  public Map<String, Integer> getConnectionLimitToDomains() {
-    return connectionLimitToDomains;
-  }
-
-  public void setConnectionLimitToDomains(
-      Map<String, Integer> connectionLimitToDomains) {
-    this.connectionLimitToDomains = connectionLimitToDomains;
   }
 }

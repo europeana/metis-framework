@@ -6,6 +6,7 @@ import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+import java.util.Collections;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,14 +78,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    int[] mongoPorts = new int[mongoHosts.length];
-    for (int i = 0; i < mongoHosts.length; i++) {
-      mongoPorts[i] = mongoPort;
-    }
-
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
-    mongoProperties.setMongoHosts(mongoHosts, mongoPorts);
+    mongoProperties.setMongoHosts(mongoHosts, new int[]{mongoPort});
     mongoProperties.setApplicationName(mongoApplicationName);
     mongoClientEntity = new MongoClientProvider<>(mongoProperties).createMongoClient();
     mongoClientVocabulary = new MongoClientProvider<>(mongoProperties).createMongoClient();
@@ -92,15 +88,14 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/swagger-ui/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+        .resourceChain(false);
   }
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "swagger-ui.html");
+    registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
   MongoClient getEntityMongoClient() {
@@ -157,8 +152,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         "v1",
         "API TOS",
         new Contact("development", "europeana.eu", "development@europeana.eu"),
-        "EUPL Licence v1.1",
-        ""
-    );
+        "EUPL Licence v1.2",
+        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }

@@ -5,6 +5,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,11 +18,18 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +41,55 @@ public class HttpHarvesterImpl implements HttpHarvester {
   private static final Set<String> SUPPORTED_PROTOCOLS = Set.of("http", "https", "file");
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
+
+  @Override
+  public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
+          Consumer<ArchiveEntry> action) throws HarvesterException {
+
+    Path tempDir = null;
+    try {
+
+      // Save the zip file in a temporary directory (and close the input stream).
+      final String prefix = UUID.randomUUID().toString();
+      final Path tempFile;
+      try {
+        tempDir = Files.createTempDirectory(prefix);
+        tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
+        FileUtils.copyInputStreamToFile(inputStream, tempFile.toFile());
+      } catch (IOException e) {
+        throw new HarvesterException("Problem saving archive.", e);
+      }
+
+      // Now perform the harvesting - go by each file.
+      final HttpRecordIterator iterator = harvestRecords(tempFile);
+      List<Pair<Path, Exception>> exception = new ArrayList<>(1);
+      iterator.forEach(path -> {
+        try (InputStream content = Files.newInputStream(path)) {
+          action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
+                  new ByteArrayInputStream(IOUtils.toByteArray(content))));
+          return IterationResult.CONTINUE;
+        } catch (IOException | RuntimeException e) {
+          exception.add(new ImmutablePair<>(path, e));
+          return IterationResult.TERMINATE;
+        }
+      });
+      if (!exception.isEmpty()) {
+        throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
+                exception.get(0).getValue());
+      }
+
+    } finally {
+
+      // Finally, attempt to delete the files.
+      if (tempDir != null) {
+        try {
+          FileUtils.deleteDirectory(tempDir.toFile());
+        } catch (IOException e) {
+          LOGGER.warn("Could not delete temporary directory.", e);
+        }
+      }
+    }
+  }
 
   @Override
   public HttpRecordIterator harvestRecords(String archiveUrl, String downloadDirectory)
@@ -49,15 +106,21 @@ public class HttpHarvesterImpl implements HttpHarvester {
       throw new HarvesterException("Problem downloading archive " + archiveUrl + ".", e);
     }
 
+    // Perform the harvesting
+    return harvestRecords(downloadedFile);
+  }
+
+  private HttpRecordIterator harvestRecords(Path archiveFile) throws HarvesterException {
+
     // Extract the archive.
-    final Path extractedDirectory = downloadedFile.toAbsolutePath().getParent();
+    final Path extractedDirectory = archiveFile.toAbsolutePath().getParent();
     if (extractedDirectory == null) {
       throw new IllegalStateException("Downloaded file should have a parent.");
     }
     try {
-      CompressedFileExtractor.extractFile(downloadedFile.toAbsolutePath(), extractedDirectory);
+      CompressedFileExtractor.extractFile(archiveFile.toAbsolutePath(), extractedDirectory);
     } catch (IOException e) {
-      throw new HarvesterException("Problem extracting archive " + archiveUrl + ".", e);
+      throw new HarvesterException("Problem extracting archive.", e);
     }
 
     // correct directory rights
@@ -173,6 +236,27 @@ public class HttpHarvesterImpl implements HttpHarvester {
         return FileVisitResult.SKIP_SUBTREE;
       }
       return FileVisitResult.CONTINUE;
+    }
+  }
+
+  private static class ArchiveEntryImpl implements ArchiveEntry {
+
+    final String entryName;
+    final ByteArrayInputStream entryContent;
+
+    public ArchiveEntryImpl(String entryName, ByteArrayInputStream entryContent) {
+      this.entryName = entryName;
+      this.entryContent = entryContent;
+    }
+
+    @Override
+    public String getEntryName() {
+      return entryName;
+    }
+
+    @Override
+    public ByteArrayInputStream getEntryContent() {
+      return entryContent;
     }
   }
 }

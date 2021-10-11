@@ -72,8 +72,8 @@ public class SolrDocumentPopulator {
 
     // Gather the quality annotations.
     final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations()).stream()
-        .flatMap(Collection::stream).filter(Objects::nonNull)
-        .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
+        .flatMap(Collection::stream).filter(Objects::nonNull).map(AggregationImpl::getAbout)
+        .filter(Objects::nonNull).collect(Collectors.toSet());
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
         .ofNullable(annotation.getTarget()).stream().flatMap(Arrays::stream)
         .anyMatch(acceptableTargets::contains);
@@ -81,14 +81,13 @@ public class SolrDocumentPopulator {
         .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElseGet(Stream::empty)
         .filter(Objects::nonNull)
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
-        .filter(hasAcceptableTarget)
-        .collect(
+        .filter(hasAcceptableTarget).collect(
             Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
 
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
-    new AggregationSolrCreator(licenses).addToDocument(document,
-        getDataProviderAggregations(fullBean).get(0));
+    new AggregationSolrCreator(licenses, fullBean.getOrganizations())
+        .addToDocument(document, getDataProviderAggregations(fullBean).get(0));
     new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
         .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
@@ -106,8 +105,8 @@ public class SolrDocumentPopulator {
         .addAllToDocument(document, fullBean.getLicenses());
 
     // Add the top-level properties.
-    document.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(),
-        fullBean.getEuropeanaCompleteness());
+    document
+        .addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(), fullBean.getEuropeanaCompleteness());
     document.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
         fullBean.getEuropeanaCollectionName()[0]);
     document.addField(EdmLabel.TIMESTAMP_CREATED.toString(), fullBean.getTimestampCreated());
@@ -163,20 +162,14 @@ public class SolrDocumentPopulator {
     }
   }
 
-  private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean){
+  private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean) {
 
-    List<String> proxyInResult = fullBean.getProxies()
-        .stream()
+    List<String> proxyInResult = fullBean.getProxies().stream()
         .filter(not(ProxyImpl::isEuropeanaProxy))
-        .filter(x -> ArrayUtils.isEmpty(x.getLineage()))
-        .map(ProxyImpl::getProxyIn)
-        .map(Arrays::asList)
-        .flatMap(List::stream)
-        .collect(Collectors.toList());
+        .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
+        .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
 
-    return fullBean.getAggregations()
-        .stream()
-        .filter(x -> proxyInResult.contains(x.getAbout()))
+    return fullBean.getAggregations().stream().filter(x -> proxyInResult.contains(x.getAbout()))
         .collect(Collectors.toList());
 
   }

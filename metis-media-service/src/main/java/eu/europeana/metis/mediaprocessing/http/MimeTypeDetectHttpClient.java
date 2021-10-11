@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import eu.europeana.metis.network.AbstractHttpClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,7 +40,7 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
   }
 
   @Override
-  protected String createResult(URL resourceEntry, URI actualUri, String mimeType, Long fileSize,
+  protected String createResult(URL providedLink, URI actualUri, String mimeType, Long fileSize,
           ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
       final Metadata metadata = new Metadata();

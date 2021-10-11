@@ -2,17 +2,14 @@ package eu.europeana.metis.authentication.utils;
 
 import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
 
-import com.zoho.crm.library.crud.ZCRMRecord;
+import com.zoho.crm.api.record.Record;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.zoho.ZohoConstants;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
+import java.sql.Date;
 import java.util.List;
-import java.util.Locale;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -28,53 +25,44 @@ public final class ZohoMetisUserUtils {
   }
 
   /**
-   * Checks fields from an incoming {@link ZCRMRecord} object(Contact Zoho) and returns a new user
+   * Checks fields from an incoming {@link Record} object(Contact Zoho) and returns a new user
    * with the relevant fields populated.
    *
-   * @param zcrmRecord the object coming from Zoho
+   * @param record the object coming from Zoho
    * @return the metis user with its fields populated
    * @throws BadContentException if a problem occurs during parsing of the fields
    */
-  public static MetisUserModel checkZohoFieldsAndPopulateMetisUser(ZCRMRecord zcrmRecord)
+  public static MetisUserModel checkZohoFieldsAndPopulateMetisUser(Record record)
       throws BadContentException {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
-    HashMap<String, Object> zohoFields = zcrmRecord.getData();
 
     final MetisUserModel metisUser = new MetisUserModel();
 
-    metisUser.setUserId(Long.toString(zcrmRecord.getEntityId()));
-    metisUser.setFirstName(stringFieldSupplier(zohoFields.get(ZohoConstants.FIRST_NAME_FIELD)));
-    metisUser.setLastName(stringFieldSupplier(zohoFields.get(ZohoConstants.LAST_NAME_FIELD)));
-    metisUser.setEmail(stringFieldSupplier(zohoFields.get(ZohoConstants.EMAIL_FIELD)));
-    try {
-      metisUser.setCreatedDate(zcrmRecord.getCreatedTime() == null ? null
-          : dateFormat.parse(zcrmRecord.getCreatedTime()));
-      metisUser.setUpdatedDate(zcrmRecord.getModifiedTime() == null ? null
-          : dateFormat.parse(zcrmRecord.getModifiedTime()));
-    } catch (ParseException ex) {
-      throw new BadContentException("Created or updated date could not be parsed.", ex);
-    }
-    metisUser.setCountry(stringFieldSupplier(zohoFields.get(ZohoConstants.USER_COUNTRY_FIELD)));
-    final List<String> participationLevel = (List<String>) (zohoFields
-        .get(ZohoConstants.PARTICIPATION_LEVEL_FIELD));
+    metisUser.setUserId(Long.toString(record.getId()));
+    metisUser.setFirstName(stringFieldSupplier(record.getKeyValue(ZohoConstants.FIRST_NAME_FIELD)));
+    metisUser.setLastName(stringFieldSupplier(record.getKeyValue(ZohoConstants.LAST_NAME_FIELD)));
+    metisUser.setEmail(stringFieldSupplier(record.getKeyValue(ZohoConstants.EMAIL_FIELD)));
+    metisUser.setCreatedDate(
+        record.getCreatedTime() == null ? null : Date.from(record.getCreatedTime().toInstant()));
+    metisUser.setUpdatedDate(
+        record.getModifiedTime() == null ? null : Date.from(record.getModifiedTime().toInstant()));
+    metisUser.setCountry(stringFieldSupplier(record.getKeyValue(ZohoConstants.USER_COUNTRY_FIELD)));
+    final List<String> participationLevel = (List<String>) (record.getKeyValue(ZohoConstants.PARTICIPATION_LEVEL_FIELD));
     if (!CollectionUtils.isEmpty(participationLevel) && participationLevel
         .contains("Network Association Member")) {
       metisUser.setNetworkMember(true);
     }
-    if (zohoFields.get(ZohoConstants.METIS_USER_FIELD) != null) {
-      metisUser.setMetisUserFlag((Boolean) zohoFields.get(ZohoConstants.METIS_USER_FIELD));
+    if (record.getKeyValue(ZohoConstants.METIS_USER_FIELD) != null) {
+      metisUser.setMetisUserFlag((Boolean) record.getKeyValue(ZohoConstants.METIS_USER_FIELD));
     }
 
-    metisUser.setAccountRole(AccountRole
-        .getAccountRoleFromEnumName(
-            stringFieldSupplier(zohoFields.get(ZohoConstants.ACCOUNT_ROLE_FIELD))));
+    metisUser.setAccountRole(AccountRole.getAccountRoleFromEnumName(
+        stringFieldSupplier(record.getKeyValue(ZohoConstants.ACCOUNT_ROLE_FIELD))));
     if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
       throw new BadContentException("Account Role in Zoho is not valid");
     }
-    final ZCRMRecord accountName = (ZCRMRecord) zohoFields
-        .get(ZohoConstants.ACCOUNT_NAME_FIELD);
-    metisUser.setOrganizationId(Long.toString(accountName.getEntityId()));
-    metisUser.setOrganizationName(accountName.getLookupLabel());
+    final Record accountName = (Record) record.getKeyValue(ZohoConstants.ACCOUNT_NAME_FIELD);
+    metisUser.setOrganizationId(Long.toString(accountName.getId()));
+    metisUser.setOrganizationName(stringFieldSupplier(accountName.getKeyValue(ZohoConstants.NAME_FIELD)));
 
     return metisUser;
   }

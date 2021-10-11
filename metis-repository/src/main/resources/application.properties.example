@@ -1,0 +1,20 @@
+#Socks Proxy
+socks.proxy.enabled=false
+socks.proxy.host=
+socks.proxy.port=
+socks.proxy.username=
+socks.proxy.password=
+
+#Mongo
+mongo.hosts=
+mongo.port=
+mongo.authentication.db=
+mongo.username=
+mongo.password=
+mongo.enable.ssl=
+mongo.application.name=
+mongo.record.db=
+
+#Truststore
+truststore.path=
+truststore.password=
