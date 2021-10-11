@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>eu.europeana.metis</groupId>
-    <version>5</version>
+    <version>6-SNAPSHOT</version>
     <artifactId>metis-framework</artifactId>
   </parent>
 
