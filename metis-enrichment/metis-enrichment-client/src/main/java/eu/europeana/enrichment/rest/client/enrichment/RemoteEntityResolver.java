@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ID;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_SEARCH;
@@ -148,7 +149,9 @@ public class RemoteEntityResolver implements EntityResolver {
     // Send the request.
     final EnrichmentResultList enrichmentResultList;
     try {
-      enrichmentResultList = template.postForObject(uri, httpEntity, EnrichmentResultList.class);
+       enrichmentResultList = retryableExternalRequestForNetworkExceptions(
+                () -> template.postForObject(uri, httpEntity, EnrichmentResultList.class));
+
     } catch (RestClientException e) {
       throw new UnknownException("Enrichment client POST call failed: " + uri + ".", e);
     }
