@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 public class CompressedFileExtractorZipTest {
 
-  private final static String DESTINATION_DIR = "src"+File.separator+"test"+File.separator+"resources"+File.separator+"__files/";
+  private final static String DESTINATION_DIR = 
+          "src"+File.separator+"test"+File.separator+"resources"+File.separator+"__files"+File.separator;
   private final static int XML_FILES_COUNT = 13;
   private final static String FILE_NAME = "zipFileWithNestedZipFiles";
   private final static String FILE_NAME2 = "zipFileWithNestedFolders";
