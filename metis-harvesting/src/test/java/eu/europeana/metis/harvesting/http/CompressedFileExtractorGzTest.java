@@ -14,8 +14,7 @@ import org.junit.jupiter.api.Test;
 
 public class CompressedFileExtractorGzTest {
 
-  private final static String DESTINATION_DIR = 
-          "src"+File.separator+"test"+File.separator+"resources"+File.separator+"__files"+File.separator;
+  private final static String DESTINATION_DIR = String.format("src%1$stest%1$sresources%1$s__files%1$s", File.separator);
   private final static int XML_FILES_COUNT = 13;
   private final static String FILE_NAME = "gzFile";
   private final static String FILE_NAME2 = "gzFileWithCompressedGZFiles";
