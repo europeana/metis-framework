@@ -117,8 +117,7 @@ public class DereferencerImpl implements Dereferencer {
       return Collections.emptyList();
     }
     try {
-      return new ArrayList<>(retryableExternalRequestForNetworkExceptions(
-          () -> remoteEntityResolver.resolveById(resourceIds)).values());
+      return new ArrayList<>(remoteEntityResolver.resolveById(resourceIds).values());
     } catch (Exception e) {
       throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
           e);
