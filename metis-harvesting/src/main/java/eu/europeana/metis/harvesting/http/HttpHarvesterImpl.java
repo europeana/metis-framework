@@ -134,7 +134,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     return new FileIterator(extractedDirectory);
   }
 
-  public Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException {
+  private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException {
     final Path directory = Files.createDirectories(downloadDirectory);
     final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
     final URL archiveUrl = new URL(archiveUrlString);
