@@ -204,10 +204,10 @@ public class DataEvolutionUtils {
     return predecessorPlugin;
   }
 
-  private static boolean pluginHasSuccessfulRecords(PluginWithExecutionId<ExecutablePlugin> plugin) {
+  private static Boolean pluginHasSuccessfulRecords(PluginWithExecutionId<ExecutablePlugin> plugin) {
     final ExecutionProgress executionProgress = plugin.getPlugin().getExecutionProgress();
     return Optional.ofNullable(executionProgress)
-        .map(progress -> progress.getProcessedRecords() > progress.getErrors() || progress.getDeletedRecords() > 0).orElse(false);
+        .map(progress -> progress.getProcessedRecords() > progress.getErrors() || progress.getDeletedRecords() > 0).orElse(Boolean.FALSE);
   }
 
   /**

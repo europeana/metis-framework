@@ -762,7 +762,7 @@ public class OrchestratorService {
         : (lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
             - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
     final Boolean lastPublishHasDeletedRecords = Optional.ofNullable(lastExecutablePublishPlugin)
-        .map(plugin -> plugin.getExecutionProgress().getDeletedRecords() > 0).orElse(false);
+        .map(plugin -> plugin.getExecutionProgress().getDeletedRecords() > 0).orElse(Boolean.FALSE);
     final int depublishedRecordCount;
     if (datasetCurrentlyDepublished) {
       depublishedRecordCount = publishedRecordCount;
