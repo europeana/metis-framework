@@ -557,6 +557,12 @@ public class OrchestratorService {
             ((AbstractExecutablePlugin<?>) workflowExecution.getMetisPlugins().get(0))))
         .getPlugin();
 
+    // Note: depublication can also be a root ancestor.
+    if (harvestPlugin.getPluginMetadata().getExecutablePluginType()
+        == ExecutablePluginType.DEPUBLISH) {
+      return false;
+    }
+
     // Check the harvesting types
     if (!DataEvolutionUtils.getHarvestPluginGroup()
         .contains(harvestPlugin.getPluginMetadata().getExecutablePluginType())) {
