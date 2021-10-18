@@ -91,6 +91,7 @@ public class DereferencingController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
+  @SuppressWarnings("findsecbugs:BRPI_BACKPORT_REUSE_PUBLIC_IDENTIFIERS")
   public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
     return new EnrichmentResultList(resourceIds.stream().map(resourceId -> {
       try {
