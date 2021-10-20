@@ -552,12 +552,18 @@ public class OrchestratorService {
    * @return true if incremental, false otherwise
    */
   private boolean isIncremental(WorkflowExecution workflowExecution) {
+    final AbstractMetisPlugin<?> firstPluginInList = workflowExecution.getMetisPlugins().get(0);
+    // Non-executable plugins are not to be checked
+    if (!(firstPluginInList instanceof AbstractExecutablePlugin)) {
+      return false;
+    }
+
     final ExecutablePlugin harvestPlugin = new DataEvolutionUtils(workflowExecutionDao)
         .getRootAncestor(new PluginWithExecutionId<>(workflowExecution,
-            ((AbstractExecutablePlugin<?>) workflowExecution.getMetisPlugins().get(0))))
+            ((AbstractExecutablePlugin<?>) firstPluginInList)))
         .getPlugin();
 
-    // Note: depublication can also be a root ancestor.
+    // depublication can also be a root ancestor.
     if (harvestPlugin.getPluginMetadata().getExecutablePluginType()
         == ExecutablePluginType.DEPUBLISH) {
       return false;
