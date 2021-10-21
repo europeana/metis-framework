@@ -232,7 +232,9 @@ public class SchemaProvider {
   }
 
   private boolean rootFileExists(File unzippedSchemaLocation, String rootFileLocation) {
-    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") // This method is used to verify if root file exists, it shouldn't cause any issues if file does not exist
+    // The parameter unzippedSchemaLocation is a location chosen by the software and the new File
+    // is handling the lookup for child for rootFileLocation parameter, therefore we can trust that this is safe
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
     File rootFile = new File(unzippedSchemaLocation, rootFileLocation);
     return rootFile.exists();
   }
