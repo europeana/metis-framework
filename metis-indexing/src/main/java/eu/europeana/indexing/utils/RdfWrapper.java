@@ -118,7 +118,7 @@ public class RdfWrapper {
   }
 
   public List<Choice> getProviderProxiesChoices() {
-    return getProviderProxies().stream().map(EuropeanaType::getChoiceList)
+    return getProviderProxies().stream().map(EuropeanaType::getChoiceList).filter(Objects::nonNull)
         .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
