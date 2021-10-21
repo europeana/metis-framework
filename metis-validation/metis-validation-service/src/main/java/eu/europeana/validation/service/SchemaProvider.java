@@ -198,18 +198,16 @@ public class SchemaProvider {
     }
   }
 
+  // We chose where to store the downloaded files.
+  @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
   private void handleZipEntry(File downloadedFile, ZipFile zip, ZipEntry entry)
       throws SchemaProviderException, IOException {
     if (entry.isDirectory()) {
-      // We chose where to store the downloaded files.
-      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
       final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
       if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
       }
     } else {
-      // We chose where to store the downloaded files.
-      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
       InputStream zipStream = zip.getInputStream(entry);
       FileUtils.copyInputStreamToFile(zipStream,
           new File(downloadedFile.getParent(), entry.getName()));
