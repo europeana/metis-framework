@@ -198,11 +198,11 @@ public class SchemaProvider {
     }
   }
 
+  // We chose where to store the downloaded files.
+  @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
   private void handleZipEntry(File downloadedFile, ZipFile zip, ZipEntry entry)
       throws SchemaProviderException, IOException {
     if (entry.isDirectory()) {
-      // We chose were to store the downloaded files.
-      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
       final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
       if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
@@ -232,6 +232,9 @@ public class SchemaProvider {
   }
 
   private boolean rootFileExists(File unzippedSchemaLocation, String rootFileLocation) {
+    // The parameter unzippedSchemaLocation is a location chosen by the software and the new File
+    // is handling the lookup for child for rootFileLocation parameter, therefore we can trust that this is safe
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
     File rootFile = new File(unzippedSchemaLocation, rootFileLocation);
     return rootFile.exists();
   }

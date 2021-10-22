@@ -46,6 +46,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
           Consumer<ArchiveEntry> action) throws HarvesterException {
 
+    // We chose where to store the temporary file.
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
     Path tempDir = null;
     try {
 

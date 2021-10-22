@@ -91,6 +91,6 @@ public class ExecutionProgress {
 
   public void recalculateProgressPercentage() {
     this.progressPercentage = this.expectedRecords == 0 ? 0
-        : Math.round(100f * (this.processedRecords + this.deletedRecords)/ (this.expectedRecords + this.deletedRecords));
+        : (int) Math.round(100.0 * (this.processedRecords + this.deletedRecords)/ (this.expectedRecords + this.deletedRecords));
   }
 }

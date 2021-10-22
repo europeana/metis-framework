@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.rest;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -12,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.bind.JAXBException;
@@ -97,7 +97,7 @@ public class DereferencingController {
         return dereferenceInternal(resourceId);
       } catch (URISyntaxException e) {
         LOGGER.info(generateExceptionMessage(resourceId, e), e);
-        return Collections.emptyList();
+        return Collections.EMPTY_LIST;
       }
     }).map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList()));
   }
