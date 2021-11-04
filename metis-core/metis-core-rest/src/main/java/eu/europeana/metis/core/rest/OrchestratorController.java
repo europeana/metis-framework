@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
@@ -97,8 +97,8 @@ public class OrchestratorController {
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestBody Workflow workflow)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.createWorkflow(metisUser, datasetId, workflow, enforcedPredecessorType);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    orchestratorService.createWorkflow(metisUserView, datasetId, workflow, enforcedPredecessorType);
   }
 
   /**
@@ -129,8 +129,8 @@ public class OrchestratorController {
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestBody Workflow workflow) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.updateWorkflow(metisUser, datasetId, workflow, enforcedPredecessorType);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    orchestratorService.updateWorkflow(metisUserView, datasetId, workflow, enforcedPredecessorType);
   }
 
   /**
@@ -152,8 +152,8 @@ public class OrchestratorController {
   public void deleteWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.deleteWorkflow(metisUser, datasetId);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    orchestratorService.deleteWorkflow(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Workflow with datasetId '{}' deleted",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -181,8 +181,8 @@ public class OrchestratorController {
   public Workflow getWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    Workflow workflow = orchestratorService.getWorkflow(metisUser, datasetId);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    Workflow workflow = orchestratorService.getWorkflow(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Workflow with datasetId '{}' found",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -234,9 +234,9 @@ public class OrchestratorController {
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, null, enforcedPredecessorType,
+        .addWorkflowInQueueOfWorkflowExecutions(metisUserView, datasetId, null, enforcedPredecessorType,
             priority);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("WorkflowExecution for datasetId '{}' added to queue",
@@ -269,8 +269,8 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("executionId") String executionId)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.cancelWorkflowExecution(metisUser, executionId);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    orchestratorService.cancelWorkflowExecution(metisUserView, executionId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("WorkflowExecution for executionId '{}' is cancelling",
           executionId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -298,9 +298,9 @@ public class OrchestratorController {
   public WorkflowExecution getWorkflowExecutionByExecutionId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("executionId") String executionId) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
-        .getWorkflowExecutionByExecutionId(metisUser, executionId);
+        .getWorkflowExecutionByExecutionId(metisUserView, executionId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("WorkflowExecution with executionId '{}' {}found.",
           executionId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
@@ -331,9 +331,9 @@ public class OrchestratorController {
   public IncrementalHarvestingAllowedView isIncrementalHarvestingAllowed(
           @RequestHeader("Authorization") String authorization,
           @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return new IncrementalHarvestingAllowedView(
-            orchestratorService.isIncrementalHarvestingAllowed(metisUser, datasetId));
+            orchestratorService.isIncrementalHarvestingAllowed(metisUserView, datasetId));
   }
 
   /**
@@ -368,9 +368,9 @@ public class OrchestratorController {
       @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     MetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUserView, datasetId,
             pluginType, enforcedPredecessorType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
       LOGGER.info("PluginType allowed by default");
@@ -406,8 +406,8 @@ public class OrchestratorController {
       LOGGER.debug("Requesting dataset execution information for datasetId: {}",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return orchestratorService.getDatasetExecutionInformation(metisUser, datasetId);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService.getDatasetExecutionInformation(metisUserView, datasetId);
   }
 
   /**
@@ -444,9 +444,9 @@ public class OrchestratorController {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final ResponseListWrapper<WorkflowExecutionView> result =
-        orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
+        orchestratorService.getAllWorkflowExecutions(metisUserView, datasetId, workflowStatuses,
             orderField, ascending, nextPage);
     logPaging(result, nextPage);
     return result;
@@ -484,9 +484,9 @@ public class OrchestratorController {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final ResponseListWrapper<WorkflowExecutionView> result =
-        orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
+        orchestratorService.getAllWorkflowExecutions(metisUserView, null, workflowStatuses, orderField,
             ascending, nextPage);
     logPaging(result, nextPage);
     return result;
@@ -531,9 +531,9 @@ public class OrchestratorController {
     if (pageCount < 1) {
       throw new BadContentException(CommonStringValues.PAGE_COUNT_CANNOT_BE_ZERO_OR_NEGATIVE);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final ResponseListWrapper<ExecutionAndDatasetView> result =
-        orchestratorService.getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes,
+        orchestratorService.getWorkflowExecutionsOverview(metisUserView, pluginStatuses, pluginTypes,
             fromDate, toDate, nextPage, pageCount);
     logPaging(result, nextPage);
     return result;
@@ -569,8 +569,8 @@ public class OrchestratorController {
       LOGGER.debug("Requesting dataset execution history for datasetId: {}",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return orchestratorService.getDatasetExecutionHistory(metisUser, datasetId);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService.getDatasetExecutionHistory(metisUserView, datasetId);
   }
 
   /**
@@ -599,8 +599,8 @@ public class OrchestratorController {
       final String logSanitizedExecutionId = executionId.replaceAll("[\r\n]", "");
       LOGGER.debug("Requesting plugins with data availability for executionId: {}", logSanitizedExecutionId);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return orchestratorService.getExecutablePluginsWithDataAvailability(metisUser, executionId);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService.getExecutablePluginsWithDataAvailability(metisUserView, executionId);
   }
 
   /**
@@ -628,8 +628,8 @@ public class OrchestratorController {
       @PathVariable("workflowExecutionId") String workflowExecutionId,
       @PathVariable("pluginType") PluginType pluginType
   ) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return orchestratorService
-        .getRecordEvolutionForVersion(metisUser, workflowExecutionId, pluginType);
+        .getRecordEvolutionForVersion(metisUserView, workflowExecutionId, pluginType);
   }
 }

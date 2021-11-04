@@ -3,7 +3,7 @@ package eu.europeana.metis.core.rest;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
@@ -80,9 +80,9 @@ public class DepublishRecordIdController {
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
-        .addRecordIdsToBeDepublished(metisUser, datasetId, recordIdsInSeparateLines);
+        .addRecordIdsToBeDepublished(metisUserView, datasetId, recordIdsInSeparateLines);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
           CRLF_PATTERN.matcher(datasetId).replaceAll(""));
@@ -136,9 +136,9 @@ public class DepublishRecordIdController {
   public void deletePendingRecordIds(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final Long removedRecordIds = depublishRecordIdService
-        .deletePendingRecordIds(metisUser, datasetId, recordIdsInSeparateLines);
+        .deletePendingRecordIds(metisUserView, datasetId, recordIdsInSeparateLines);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("{} Depublish record ids removed from database with datasetId: {}",
           removedRecordIds, CRLF_PATTERN.matcher(datasetId).replaceAll(""));
@@ -173,11 +173,11 @@ public class DepublishRecordIdController {
       @RequestParam(value = "sortAscending", defaultValue = "" + true) boolean sortAscending,
       @RequestParam(value = "searchQuery", required = false) String searchQuery
   ) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    final var recordIds = depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId, page,
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final var recordIds = depublishRecordIdService.getDepublishRecordIds(metisUserView, datasetId, page,
         sortField == null ? DepublishRecordIdSortField.RECORD_ID : sortField,
         sortAscending ? SortDirection.ASCENDING : SortDirection.DESCENDING, searchQuery);
-    final var canDepublish = depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
+    final var canDepublish = depublishRecordIdService.canTriggerDepublication(metisUserView, datasetId);
     return new DepublicationInfoView(recordIds, canDepublish);
   }
 
@@ -223,9 +223,9 @@ public class DepublishRecordIdController {
       @RequestParam(value = "priority", defaultValue = "0") int priority,
       @RequestBody(required = false) String recordIdsInSeparateLines)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return depublishRecordIdService
-        .createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId,
+        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId,
             datasetDepublish, priority, recordIdsInSeparateLines);
   }
 }

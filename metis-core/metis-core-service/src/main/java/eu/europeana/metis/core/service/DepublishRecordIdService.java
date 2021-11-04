@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
@@ -52,7 +52,7 @@ public class DepublishRecordIdService {
   /**
    * Adds a list of record ids to be depublished for the dataset.
    *
-   * @param metisUser The user performing this operation.
+   * @param metisUserView The user performing this operation.
    * @param datasetId The ID of the dataset to which the depublished records belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
    * @return How many of the passed records were in fact added. This counter is not thread-safe: if
@@ -65,11 +65,11 @@ public class DepublishRecordIdService {
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
    */
-  public int addRecordIdsToBeDepublished(MetisUser metisUser, String datasetId,
+  public int addRecordIdsToBeDepublished(MetisUserView metisUserView, String datasetId,
       String recordIdsInSeparateLines) throws GenericMetisException {
 
     // Authorize.
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
 
     // Check and normalize the record IDs.
     final Set<String> normalizedRecordIds = checkAndNormalizeRecordIds(datasetId,
@@ -84,7 +84,7 @@ public class DepublishRecordIdService {
    * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
    * state will be removed.
    *
-   * @param metisUser The user performing this operation.
+   * @param metisUserView The user performing this operation.
    * @param datasetId The ID of the dataset to which the depublish record ids belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
    * @return The number or record ids that were removed.
@@ -95,11 +95,11 @@ public class DepublishRecordIdService {
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
    */
-  public Long deletePendingRecordIds(MetisUser metisUser, String datasetId,
+  public Long deletePendingRecordIds(MetisUserView metisUserView, String datasetId,
       String recordIdsInSeparateLines) throws GenericMetisException {
 
     // Authorize.
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
 
     // Check and normalize the record IDs (Just in case).
     final Set<String> normalizedRecordIds = checkAndNormalizeRecordIds(datasetId,
@@ -113,7 +113,7 @@ public class DepublishRecordIdService {
    * Retrieve the list of depublish record ids for a specific dataset.
    * <p>Ids are retrieved regardless of their status</p>
    *
-   * @param metisUser The user performing this operation. Cannot be null.
+   * @param metisUserView The user performing this operation. Cannot be null.
    * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
    * @param page The page to retrieve. Cannot be null.
    * @param sortField The field on which to sort. Cannot be null.
@@ -126,12 +126,13 @@ public class DepublishRecordIdService {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * </ul>
    */
-  public ResponseListWrapper<DepublishRecordIdView> getDepublishRecordIds(MetisUser metisUser,
+  public ResponseListWrapper<DepublishRecordIdView> getDepublishRecordIds(
+      MetisUserView metisUserView,
       String datasetId, int page, DepublishRecordIdSortField sortField,
       SortDirection sortDirection, String searchQuery) throws GenericMetisException {
 
     // Authorize.
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
 
     // Get the page of records
     final List<DepublishRecordIdView> records = depublishRecordIdDao
@@ -151,7 +152,7 @@ public class DepublishRecordIdService {
    * {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
    * will be attempted for depublication.</p>
    *
-   * @param metisUser The user performing this operation. Cannot be null.
+   * @param metisUserView The user performing this operation. Cannot be null.
    * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
    * @param datasetDepublish true for dataset depublication, false for record depublication
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
@@ -176,11 +177,12 @@ public class DepublishRecordIdService {
    * happen since ids are UUIDs</li>
    * </ul>
    */
-  public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(MetisUser metisUser,
+  public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(
+      MetisUserView metisUserView,
       String datasetId, boolean datasetDepublish, int priority, String recordIdsInSeparateLines)
       throws GenericMetisException {
     // Authorize.
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
 
     //Prepare depublish workflow, do not save in the database. Only create workflow execution
     final Workflow workflow = new Workflow();
@@ -197,7 +199,7 @@ public class DepublishRecordIdService {
     workflow.setMetisPluginsMetadata(Collections.singletonList(depublishPluginMetadata));
 
     return orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, workflow, null, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUserView, datasetId, workflow, null, priority);
   }
 
   /**
@@ -214,7 +216,7 @@ public class DepublishRecordIdService {
    *   </li>
    * </ul>
    *
-   * @param metisUser The user performing this operation. Cannot be null.
+   * @param metisUserView The user performing this operation. Cannot be null.
    * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
    * @return Whether a depublication can be triggered.
    * @throws GenericMetisException which can be one of:
@@ -225,11 +227,11 @@ public class DepublishRecordIdService {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  public boolean canTriggerDepublication(MetisUser metisUser, String datasetId)
+  public boolean canTriggerDepublication(MetisUserView metisUserView, String datasetId)
       throws GenericMetisException {
 
     // Authorize.
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
 
     // Compute the result.
     final boolean result;

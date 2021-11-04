@@ -6,7 +6,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -34,22 +34,22 @@ class TestAuthorizer {
     return dataset;
   }
 
-  private static MetisUser createUser(AccountRole accountRole) {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    doReturn(accountRole).when(metisUser).getAccountRole();
-    return metisUser;
+  private static MetisUserView createUser(AccountRole accountRole) {
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    doReturn(accountRole).when(metisUserView).getAccountRole();
+    return metisUserView;
   }
 
-  private static MetisUser createUserForDataset(AccountRole accountRole, Dataset dataset) {
-    final MetisUser metisUser = createUser(accountRole);
-    doReturn(dataset.getOrganizationId()).when(metisUser).getOrganizationId();
-    return metisUser;
+  private static MetisUserView createUserForDataset(AccountRole accountRole, Dataset dataset) {
+    final MetisUserView metisUserView = createUser(accountRole);
+    doReturn(dataset.getOrganizationId()).when(metisUserView).getOrganizationId();
+    return metisUserView;
   }
 
-  private static MetisUser createUserNotForDataset(AccountRole accountRole, Dataset dataset) {
-    final MetisUser metisUser = createUser(accountRole);
-    doReturn("not_" + dataset.getOrganizationId()).when(metisUser).getOrganizationId();
-    return metisUser;
+  private static MetisUserView createUserNotForDataset(AccountRole accountRole, Dataset dataset) {
+    final MetisUserView metisUserView = createUser(accountRole);
+    doReturn("not_" + dataset.getOrganizationId()).when(metisUserView).getOrganizationId();
+    return metisUserView;
   }
 
   private static void expectUnauthorizedException(TestAction action)
@@ -178,7 +178,7 @@ class TestAuthorizer {
   }
 
   private interface ExistingDatasetAuthorizer<T> {
-    Dataset authorize(MetisUser metisUser, T property)
+    Dataset authorize(MetisUserView metisUserView, T property)
         throws UserUnauthorizedException, NoDatasetFoundException;
   }
 }

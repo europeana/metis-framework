@@ -5,7 +5,7 @@ import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.rest.stats.NodePathStatistics;
 import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.service.ProxiesService;
@@ -94,8 +94,8 @@ public class ProxiesController {
           topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
           externalTaskId, from, to);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.getExternalTaskLogs(metisUser, topologyName, externalTaskId, from, to);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getExternalTaskLogs(metisUserView, topologyName, externalTaskId, from, to);
   }
 
   /**
@@ -128,9 +128,9 @@ public class ProxiesController {
           topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
           externalTaskId);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Collections.singletonMap("existsExternalTaskReport",
-        proxiesService.existsExternalTaskReport(metisUser, topologyName, externalTaskId));
+        proxiesService.existsExternalTaskReport(metisUserView, topologyName, externalTaskId));
   }
 
   /**
@@ -166,9 +166,9 @@ public class ProxiesController {
           topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
           externalTaskId);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return proxiesService
-        .getExternalTaskReport(metisUser, topologyName, externalTaskId, idsPerError);
+        .getExternalTaskReport(metisUserView, topologyName, externalTaskId, idsPerError);
   }
 
   /**
@@ -201,8 +201,8 @@ public class ProxiesController {
           topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
           externalTaskId);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.getExternalTaskStatistics(metisUser, topologyName, externalTaskId);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getExternalTaskStatistics(metisUserView, topologyName, externalTaskId);
   }
 
   /**
@@ -239,9 +239,9 @@ public class ProxiesController {
           topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
           externalTaskId);
     }
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return proxiesService
-        .getAdditionalNodeStatistics(metisUser, topologyName, externalTaskId, nodePath);
+        .getAdditionalNodeStatistics(metisUserView, topologyName, externalTaskId, nodePath);
   }
 
   /**
@@ -275,9 +275,9 @@ public class ProxiesController {
       @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestParam(value = "nextPage", required = false) String nextPage
   ) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, workflowExecutionId, pluginType,
+        .getListOfFileContentsFromPluginExecution(metisUserView, workflowExecutionId, pluginType,
             StringUtils.isEmpty(nextPage) ? null : nextPage, NUMBER_OF_RECORDS);
   }
 
@@ -311,8 +311,8 @@ public class ProxiesController {
       @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestBody ListOfIds ecloudIds
   ) throws GenericMetisException {
-    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.getListOfFileContentsFromPluginExecution(metisUser, workflowExecutionId,
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getListOfFileContentsFromPluginExecution(metisUserView, workflowExecutionId,
         pluginType, ecloudIds);
   }
 }

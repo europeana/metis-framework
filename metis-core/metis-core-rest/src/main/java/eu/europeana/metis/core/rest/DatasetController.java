@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -89,9 +89,9 @@ public class DatasetController {
       @RequestBody Dataset dataset)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Dataset createdDataset = datasetService.createDataset(metisUser, dataset);
+    Dataset createdDataset = datasetService.createDataset(metisUserView, dataset);
     LOGGER.info("Dataset with datasetId: {}, datasetName: {} and organizationId {} created",
         createdDataset.getDatasetId(), createdDataset.getDatasetName(),
         createdDataset.getOrganizationId());
@@ -123,10 +123,10 @@ public class DatasetController {
       @RequestBody DatasetXsltStringWrapper datasetXsltStringWrapper)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     datasetService
-        .updateDataset(metisUser, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
+        .updateDataset(metisUserView, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
             .getXslt());
     LOGGER.info("Dataset with datasetId {} updated",
         datasetXsltStringWrapper.getDataset().getDatasetId());
@@ -150,9 +150,9 @@ public class DatasetController {
       @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
+    datasetService.deleteDatasetByDatasetId(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Dataset with datasetId '{}' deleted",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -180,9 +180,9 @@ public class DatasetController {
       @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUser, datasetId);
+    Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Dataset with datasetId '{}' found",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -211,9 +211,9 @@ public class DatasetController {
   public DatasetXslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    DatasetXslt datasetXslt = datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
+    DatasetXslt datasetXslt = datasetService.getDatasetXsltByDatasetId(metisUserView, datasetId);
     LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId,
         datasetXslt.getId());
     return datasetXslt;
@@ -272,8 +272,8 @@ public class DatasetController {
       @RequestBody String xsltString)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    DatasetXslt defaultDatasetXslt = datasetService.createDefaultXslt(metisUser, xsltString);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    DatasetXslt defaultDatasetXslt = datasetService.createDefaultXslt(metisUserView, xsltString);
     LOGGER.info("New default xslt created with xsltId: {}", defaultDatasetXslt.getId());
     return defaultDatasetXslt;
   }
@@ -335,8 +335,8 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestBody List<Record> records) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return datasetService.transformRecordsUsingLatestDatasetXslt(metisUser, datasetId, records);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return datasetService.transformRecordsUsingLatestDatasetXslt(metisUserView, datasetId, records);
   }
 
   /**
@@ -372,8 +372,8 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestBody List<Record> records) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return datasetService.transformRecordsUsingLatestDefaultXslt(metisUser, datasetId, records);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return datasetService.transformRecordsUsingLatestDefaultXslt(metisUserView, datasetId, records);
   }
 
   /**
@@ -397,9 +397,9 @@ public class DatasetController {
       @PathVariable("datasetName") String datasetName)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Dataset dataset = datasetService.getDatasetByDatasetName(metisUser, datasetName);
+    Dataset dataset = datasetService.getDatasetByDatasetName(metisUserView, datasetName);
     LOGGER.info("Dataset with datasetName '{}' found", dataset.getDatasetName());
     return dataset;
   }
@@ -431,12 +431,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage),
+            datasetService.getAllDatasetsByProvider(metisUserView, provider, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -470,13 +470,13 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
             datasetService
-                .getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage),
+                .getAllDatasetsByIntermediateProvider(metisUserView, intermediateProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -510,12 +510,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage),
+            datasetService.getAllDatasetsByDataProvider(metisUserView, dataProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -549,12 +549,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage),
+            datasetService.getAllDatasetsByOrganizationId(metisUserView, organizationId, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -588,12 +588,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage),
+            datasetService.getAllDatasetsByOrganizationName(metisUserView, organizationName, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -677,11 +677,11 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    final MetisUser metisUser = authenticationClient
+    final MetisUserView metisUserView = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<DatasetSearchView> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
-        datasetService.searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage),
+        datasetService.searchDatasetsBasedOnSearchString(metisUserView, searchString, nextPage),
         datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED, responseListWrapper.getListSize(),
         nextPage);

@@ -33,7 +33,7 @@ import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.rest.ListOfIds;
@@ -119,7 +119,7 @@ class TestProxiesService {
 
   @Test
   void getExternalTaskLogs() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
 
     when(dpsClient
@@ -128,10 +128,10 @@ class TestProxiesService {
             1, 100)).thenReturn(listOfSubTaskInfo);
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    proxiesService.getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+    proxiesService.getExternalTaskLogs(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
         EXTERNAL_TASK_ID, 1, 100);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     assertEquals(2, listOfSubTaskInfo.size());
     assertNull(listOfSubTaskInfo.get(0).getAdditionalInformations());
@@ -140,39 +140,39 @@ class TestProxiesService {
 
   @Test
   void getExternalTaskLogs_NoExecutionException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskLogs(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             EXTERNAL_TASK_ID, 1, 100));
   }
 
   @Test
   void getExternalTaskLogs_ExternalTaskException() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(dpsClient
         .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
             EXTERNAL_TASK_ID, 1, 100)).thenThrow(new DpsException());
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     assertThrows(ExternalTaskException.class, () -> proxiesService
-        .getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskLogs(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             EXTERNAL_TASK_ID, 1, 100));
   }
 
   @Test
   void existsExternalTaskReport() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
 
     when(dpsClient.checkIfErrorReportExists(Topology.OAIPMH_HARVEST.getTopologyName(),
         TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(true);
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
 
-    final boolean existsExternalTaskReport = proxiesService.existsExternalTaskReport(metisUser,
+    final boolean existsExternalTaskReport = proxiesService.existsExternalTaskReport(metisUserView,
         Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     assertTrue(existsExternalTaskReport);
@@ -180,7 +180,7 @@ class TestProxiesService {
 
   @Test
   void getExternalTaskReport() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
     TaskErrorsInfo taskErrorsInfoWithIdentifiers = TestObjectFactory
         .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(0).getErrorType(),
@@ -193,10 +193,10 @@ class TestProxiesService {
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
 
-    TaskErrorsInfo externalTaskReport = proxiesService.getExternalTaskReport(metisUser,
+    TaskErrorsInfo externalTaskReport = proxiesService.getExternalTaskReport(metisUserView,
         Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID, 10);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     assertEquals(1, externalTaskReport.getErrors().size());
@@ -205,16 +205,16 @@ class TestProxiesService {
 
   @Test
   void getExternalTaskReport_NoExecutionException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getExternalTaskReport(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskReport(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, 10));
   }
 
   @Test
   void getExternalTaskReport_ExternalTaskException() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(dpsClient
         .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, null, 10))
@@ -222,13 +222,13 @@ class TestProxiesService {
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     assertThrows(ExternalTaskException.class, () -> proxiesService
-        .getExternalTaskReport(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskReport(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, 10));
   }
 
   @Test
   void getExternalTaskStatistics() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
     when(dpsClient.getTaskStatisticsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
         TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
@@ -236,38 +236,38 @@ class TestProxiesService {
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     final RecordStatistics recordStatistics = new RecordStatistics();
     when(proxiesHelper.compileRecordStatistics(taskStatistics)).thenReturn(recordStatistics);
-    final RecordStatistics result = proxiesService.getExternalTaskStatistics(metisUser,
+    final RecordStatistics result = proxiesService.getExternalTaskStatistics(metisUserView,
             Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     assertSame(recordStatistics, result);
   }
 
   @Test
   void getExternalTaskStatistics_NoExecutionException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskStatistics(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID));
   }
 
   @Test
   void getExternalTaskStatistics_ExternalTaskException() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(dpsClient.getTaskStatisticsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
         TestObjectFactory.EXTERNAL_TASK_ID)).thenThrow(new DpsException());
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     assertThrows(ExternalTaskException.class, () -> proxiesService
-        .getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskStatistics(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID));
   }
 
   @Test
   void getAdditionalNodeStatistics() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String nodePath = "node path";
     final List<NodeReport> nodeReportList = new ArrayList<>();
     when(dpsClient.getElementReport(Topology.OAIPMH_HARVEST.getTopologyName(),
@@ -277,33 +277,33 @@ class TestProxiesService {
     final NodePathStatistics nodePathStatistics = new NodePathStatistics();
     when(proxiesHelper.compileNodePathStatistics(nodePath, nodeReportList)).thenReturn(nodePathStatistics);
     final NodePathStatistics result = proxiesService
-        .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getAdditionalNodeStatistics(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, nodePath);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     assertSame(nodePathStatistics, result);
   }
 
   @Test
   void getAdditionalNodeStatistics_NoExecutionException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getAdditionalNodeStatistics(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, "node path"));
   }
 
   @Test
   void getAdditionalNodeStatistics_ExternalTaskException() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String nodePath = "node path";
     when(dpsClient.getElementReport(Topology.OAIPMH_HARVEST.getTopologyName(),
         TestObjectFactory.EXTERNAL_TASK_ID, nodePath)).thenThrow(new DpsException());
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     assertThrows(ExternalTaskException.class, () -> proxiesService
-        .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        .getAdditionalNodeStatistics(metisUserView, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, nodePath));
   }
 
@@ -311,13 +311,13 @@ class TestProxiesService {
   void getListOfFileContentsFromPluginExecution() throws Exception {
 
     // Create execution and plugin
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final WorkflowExecution execution = TestObjectFactory.createWorkflowExecutionObject();
     execution.getMetisPlugins()
         .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
     final AbstractExecutablePlugin<?> plugin = getUsedAndUnusedPluginType(execution).getLeft();
     doReturn(new ImmutablePair<>(execution, plugin)).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID,
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType());
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(execution);
 
@@ -335,7 +335,7 @@ class TestProxiesService {
 
     // Execute the call.
     PaginatedRecordsResponse listOfFileContentsFromPluginExecution = proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), null, 5);
     assertEquals(record.getXmlRecord(),
         listOfFileContentsFromPluginExecution.getRecords().get(0).getXmlRecord());
@@ -346,26 +346,26 @@ class TestProxiesService {
   void getListOfFileContentsFromPluginExecution_ExceptionOfDataAvailability() throws GenericMetisException {
 
     // If there is no execution
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final ExecutablePluginType pluginType = ExecutablePluginType.OAIPMH_HARVEST;
     doThrow(NoWorkflowExecutionFoundException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, null, 5));
 
     // If the user has no rights
     doThrow(UserUnauthorizedException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(UserUnauthorizedException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, null, 5));
 
     // If the execution does not have the plugin an empty result should be returned.
     doReturn(null).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     final PaginatedRecordsResponse result = proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, null, 5);
     assertNotNull(result);
     assertNotNull(result.getRecords());
@@ -377,13 +377,13 @@ class TestProxiesService {
   void getListOfFileContentsFromPluginExecution_ExceptionRequestingRevisions() throws Exception {
 
     // Create execution and plugin and mock relevant method getting them.
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final WorkflowExecution execution = TestObjectFactory.createWorkflowExecutionObject();
     execution.getMetisPlugins()
         .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
     final AbstractExecutablePlugin<?> plugin = getUsedAndUnusedPluginType(execution).getLeft();
     doReturn(new ImmutablePair<>(execution, plugin)).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID,
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType());
 
     // Mock ecloud client method.
@@ -394,7 +394,7 @@ class TestProxiesService {
 
     // Check exception.
     assertThrows(ExternalTaskException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), null, 5));
   }
 
@@ -402,13 +402,13 @@ class TestProxiesService {
   void testGetListOfFileContentsFromPluginExecution() throws GenericMetisException {
 
     // Create execution and plugin and mock relevant method getting them.
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final WorkflowExecution execution = TestObjectFactory.createWorkflowExecutionObject();
     execution.getMetisPlugins()
         .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
     final AbstractExecutablePlugin<?> plugin = getUsedAndUnusedPluginType(execution).getLeft();
     doReturn(new ImmutablePair<>(execution, plugin)).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID,
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType());
 
     // Create the test records and the list of IDs.
@@ -427,7 +427,7 @@ class TestProxiesService {
     final ListOfIds input = new ListOfIds();
     input.setIds(idList);
     final RecordsResponse result = proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), input);
 
     // Verify that the result contains the record in the right order
@@ -440,7 +440,7 @@ class TestProxiesService {
     // Check that the call also works for an empty list
     input.setIds(Collections.emptyList());
     final RecordsResponse emptyResult = proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), input);
     assertNotNull(emptyResult);
     assertNotNull(emptyResult.getRecords());
@@ -451,7 +451,7 @@ class TestProxiesService {
     doThrow(ExternalTaskException.class).when(proxiesService)
         .getRecord(plugin, record3.getEcloudId());
     assertThrows(ExternalTaskException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), input));
   }
 
@@ -459,26 +459,26 @@ class TestProxiesService {
   void testGetListOfFileContentsFromPluginExecution_ExceptionOfDataAvailability() throws GenericMetisException {
 
     // If there is no execution
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final ExecutablePluginType pluginType = ExecutablePluginType.OAIPMH_HARVEST;
     doThrow(NoWorkflowExecutionFoundException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, new ListOfIds()));
 
     // If the user has no rights
     doThrow(UserUnauthorizedException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(UserUnauthorizedException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, new ListOfIds()));
 
     // If the execution does not have the plugin an empty result should be returned.
     doReturn(null).when(proxiesService)
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, new ListOfIds()));
   }
 
@@ -493,14 +493,14 @@ class TestProxiesService {
     final AbstractExecutablePlugin<?> plugin = pluginAndUnusedType.getLeft();
 
     // Create a user and mock the dependency methods.
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(execution);
     doReturn(null).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUser, execution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
 
     // Test happy flow with result
     final Pair<WorkflowExecution, AbstractExecutablePlugin> result = proxiesService
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID,
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType());
     assertNotNull(result);
     assertEquals(execution, result.getLeft());
@@ -508,28 +508,28 @@ class TestProxiesService {
     assertSame(plugin, result.getRight());
     assertTrue(execution.getMetisPlugins().contains(result.getRight()));
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, execution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     // Test happy flow without result
     assertNull(proxiesService
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID, unusedPluginType));
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, unusedPluginType));
 
     // Test execution not found
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(null);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID,
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType()));
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(execution);
 
     // Test unauthorized exception
-    when(authorizer.authorizeReadExistingDatasetById(metisUser, execution.getDatasetId()))
+    when(authorizer.authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId()))
         .thenThrow(UserUnauthorizedException.class);
     assertThrows(UserUnauthorizedException.class, () -> proxiesService
-        .getExecutionAndPlugin(metisUser, TestObjectFactory.EXECUTIONID,
+        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType()));
     doReturn(null).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUser, execution.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
   }
 
   @Test

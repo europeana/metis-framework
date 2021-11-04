@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.network.NetworkUtil;
 import java.io.IOException;
@@ -59,7 +59,7 @@ class TestAuthenticationClient {
             .withHeader("Content-Type", "application/json")
             .withBodyFile("MetisUser.json")));
 
-    MetisUser userByAccessTokenInHeader = authenticationClient
+    MetisUserView userByAccessTokenInHeader = authenticationClient
         .getUserByAccessTokenInHeader("Bearer vq6V1YJIOfLC0pSTeb1plANiopyVlwrx");
     assertNotNull(userByAccessTokenInHeader);
   }

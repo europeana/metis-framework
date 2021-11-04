@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -20,7 +20,6 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -67,18 +66,18 @@ class TestScheduleWorkflowService {
   @Test
   void getScheduledWorkflowByDatasetId()
       throws UserUnauthorizedException, NoDatasetFoundException {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    scheduleWorkflowService.getScheduledWorkflowByDatasetId(metisUser, datasetId);
+    scheduleWorkflowService.getScheduledWorkflowByDatasetId(metisUserView, datasetId);
     verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetId(anyString());
     verifyNoMoreInteractions(scheduledWorkflowDao);
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void scheduleWorkflow() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -90,36 +89,38 @@ class TestScheduleWorkflowService {
         .thenReturn(null);
     when(scheduledWorkflowDao.create(scheduledWorkflow))
         .thenReturn(new ScheduledWorkflow(null, datasetId, null, 0));
-    scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
+    scheduleWorkflowService.scheduleWorkflow(metisUserView, scheduledWorkflow);
+    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void scheduleWorkflow_NoDatasetFoundException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(datasetId)).thenReturn(null);
-    assertThrows(NoDatasetFoundException.class, () -> scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(NoDatasetFoundException.class, () -> scheduleWorkflowService.scheduleWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void scheduleWorkflow_NoWorkflowFoundException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(datasetDao.getDatasetByDatasetId(datasetId)).thenReturn(dataset);
     when(workflowDao.getWorkflow(datasetId)).thenReturn(null);
-    assertThrows(NoWorkflowFoundException.class, () -> scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(NoWorkflowFoundException.class, () -> scheduleWorkflowService.scheduleWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void scheduleWorkflow_ScheduledWorkflowAlreadyExistsException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -129,12 +130,13 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(new ObjectId().toString());
-    assertThrows(ScheduledWorkflowAlreadyExistsException.class, () -> scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(ScheduledWorkflowAlreadyExistsException.class, () -> scheduleWorkflowService.scheduleWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void scheduleUserWorkflow_BadContentException_nullPointerDate() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -145,12 +147,13 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(null);
-    assertThrows(BadContentException.class, () -> scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(BadContentException.class, () -> scheduleWorkflowService.scheduleWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void scheduleWorkflow_BadContentException_NULLScheduleFrequence() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -161,12 +164,13 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(null);
-    assertThrows(BadContentException.class, () -> scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(BadContentException.class, () -> scheduleWorkflowService.scheduleWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void scheduleWorkflow_BadContentException_nullScheduleFrequence() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -177,16 +181,17 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(null);
-    assertThrows(BadContentException.class, () -> scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(BadContentException.class, () -> scheduleWorkflowService.scheduleWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void getAllScheduledWorkflows() throws UserUnauthorizedException {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    scheduleWorkflowService.getAllScheduledWorkflows(metisUser, ScheduleFrequence.ONCE, 0);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    scheduleWorkflowService.getAllScheduledWorkflows(metisUserView, ScheduleFrequence.ONCE, 0);
     verify(scheduledWorkflowDao, times(1)).getAllScheduledWorkflows(any(ScheduleFrequence.class),
         anyInt());
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
   }
 
@@ -202,7 +207,7 @@ class TestScheduleWorkflowService {
 
   @Test
   void updateScheduledWorkflow() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -213,24 +218,25 @@ class TestScheduleWorkflowService {
         .thenReturn(new ObjectId().toString());
     when(scheduledWorkflowDao.update(scheduledWorkflow))
         .thenReturn(new ObjectId().toString());
-    scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow);
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
+    scheduleWorkflowService.updateScheduledWorkflow(metisUserView, scheduledWorkflow);
+    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void updateScheduledUserWorkflow_NoUserWorkflowFoundException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     when(workflowDao.getWorkflow(datasetId)).thenReturn(null);
-    assertThrows(NoWorkflowFoundException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(NoWorkflowFoundException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void updateScheduledWorkflow_NoScheduledWorkflowFoundException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -239,12 +245,13 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(null);
-    assertThrows(NoScheduledWorkflowFoundException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(NoScheduledWorkflowFoundException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void updateScheduledWorkflow_BadContentException_nullPointerDate() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -254,12 +261,13 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(new ObjectId().toString());
-    assertThrows(BadContentException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(BadContentException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void updateScheduledWorkflow_BadContentException_NULLScheduleFrequence() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -269,12 +277,13 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(new ObjectId().toString());
-    assertThrows(BadContentException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(BadContentException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void updateScheduledWorkflow_BadContentException_nullScheduleFrequence() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
@@ -284,16 +293,17 @@ class TestScheduleWorkflowService {
     when(workflowDao.getWorkflow(datasetId)).thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(datasetId))
         .thenReturn(new ObjectId().toString());
-    assertThrows(BadContentException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow));
+    assertThrows(BadContentException.class, () -> scheduleWorkflowService.updateScheduledWorkflow(
+        metisUserView, scheduledWorkflow));
   }
 
   @Test
   void deleteScheduledWorkflow() throws UserUnauthorizedException, NoDatasetFoundException {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    scheduleWorkflowService.deleteScheduledWorkflow(metisUser, datasetId);
+    scheduleWorkflowService.deleteScheduledWorkflow(metisUserView, datasetId);
     verify(scheduledWorkflowDao, times(1)).deleteScheduledWorkflow(anyString());
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verifyNoMoreInteractions(authorizer);
   }
 
