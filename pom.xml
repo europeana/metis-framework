@@ -82,7 +82,6 @@
     <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
     <version.javax.annotation>1.3.2</version.javax.annotation>
     <version.hibernate.core>5.4.32.Final</version.hibernate.core>
-    <version.c3p0>0.9.1.2</version.c3p0>
     <version.postgresql>42.2.20</version.postgresql>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
