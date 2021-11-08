@@ -2,7 +2,7 @@ package eu.europeana.metis.core.service;
 
 import com.google.common.collect.Sets;
 import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -150,7 +150,7 @@ public class OrchestratorService {
    * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
    * plugins. If plugins are disabled, they (their settings) are still saved.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the identifier of the dataset for which the workflow should be created
    * @param workflow the workflow with the plugins requested
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
@@ -163,11 +163,11 @@ public class OrchestratorService {
    * <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
    * </ul>
    */
-  public void createWorkflow(MetisUser metisUser, String datasetId, Workflow workflow,
+  public void createWorkflow(MetisUserView metisUserView, String datasetId, Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     workflow.setDatasetId(datasetId);
 
     // Check that the workflow does not yet exist.
@@ -188,7 +188,7 @@ public class OrchestratorService {
    * the requested plugins. If plugins are disabled, they (their settings) are still saved. Any
    * settings in plugins that are not sent in the request are removed.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the identifier of the dataset for which the workflow should be updated
    * @param workflow the workflow with the plugins requested
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
@@ -201,11 +201,11 @@ public class OrchestratorService {
    * <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
    * </ul>
    */
-  public void updateWorkflow(MetisUser metisUser, String datasetId, Workflow workflow,
+  public void updateWorkflow(MetisUserView metisUserView, String datasetId, Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     workflow.setDatasetId(datasetId);
 
     // Get the current workflow in the database. If it doesn't exist, throw exception.
@@ -226,7 +226,7 @@ public class OrchestratorService {
   /**
    * Deletes a workflow.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier that corresponds to the workflow to be deleted
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -234,15 +234,15 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public void deleteWorkflow(MetisUser metisUser, String datasetId) throws GenericMetisException {
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+  public void deleteWorkflow(MetisUserView metisUserView, String datasetId) throws GenericMetisException {
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     workflowDao.deleteWorkflow(datasetId);
   }
 
   /**
    * Get a workflow for a dataset identifier.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier
    * @return the Workflow object
    * @throws GenericMetisException which can be one of:
@@ -251,15 +251,15 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public Workflow getWorkflow(MetisUser metisUser, String datasetId) throws GenericMetisException {
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+  public Workflow getWorkflow(MetisUserView metisUserView, String datasetId) throws GenericMetisException {
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return workflowDao.getWorkflow(datasetId);
   }
 
   /**
    * Get a WorkflowExecution using an execution identifier.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param executionId the execution identifier
    * @return the WorkflowExecution object
    * @throws GenericMetisException which can be one of:
@@ -268,11 +268,11 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public WorkflowExecution getWorkflowExecutionByExecutionId(MetisUser metisUser,
+  public WorkflowExecution getWorkflowExecutionByExecutionId(MetisUserView metisUserView,
       String executionId) throws GenericMetisException {
     final WorkflowExecution result = workflowExecutionDao.getById(executionId);
     if (result != null) {
-      authorizer.authorizeReadExistingDatasetById(metisUser, result.getDatasetId());
+      authorizer.authorizeReadExistingDatasetById(metisUserView, result.getDatasetId());
     }
     return result;
   }
@@ -329,7 +329,7 @@ public class OrchestratorService {
    * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier for which the execution will take place
    * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
    * the db
@@ -352,18 +352,18 @@ public class OrchestratorService {
    * execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
    * </ul>
    */
-  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUserView metisUserView,
       String datasetId, @Nullable Workflow workflowProvided,
       @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
       throws GenericMetisException {
-    final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
-        enforcedPredecessorType, priority, metisUser);
+        enforcedPredecessorType, priority, metisUserView);
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
       @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType,
-      int priority, MetisUser metisUser) throws GenericMetisException {
+      int priority, MetisUserView metisUserView) throws GenericMetisException {
 
     // Get the workflow or use the one provided.
     final Workflow workflow;
@@ -404,10 +404,10 @@ public class OrchestratorService {
                 storedWorkflowExecutionId));
       }
       workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-      if (metisUser == null || metisUser.getUserId() == null) {
+      if (metisUserView == null || metisUserView.getUserId() == null) {
         workflowExecution.setStartedBy(SystemId.STARTED_BY_SYSTEM.name());
       } else {
-        workflowExecution.setStartedBy(metisUser.getUserId());
+        workflowExecution.setStartedBy(metisUserView.getUserId());
       }
       workflowExecution.setCreatedDate(new Date());
       objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
@@ -427,7 +427,7 @@ public class OrchestratorService {
    * Request to cancel a workflow execution. The execution will go into a cancelling state until
    * it's properly {@link WorkflowStatus#CANCELLED} from the system
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param executionId the execution identifier of the execution to cancel
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -436,17 +436,17 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public void cancelWorkflowExecution(MetisUser metisUser, String executionId)
+  public void cancelWorkflowExecution(MetisUserView metisUserView, String executionId)
       throws GenericMetisException {
 
     WorkflowExecution workflowExecution = workflowExecutionDao.getById(executionId);
     if (workflowExecution != null) {
-      authorizer.authorizeWriteExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+      authorizer.authorizeWriteExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
     }
     if (workflowExecution != null && (
         workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
             || workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE)) {
-      workflowExecutionDao.setCancellingState(workflowExecution, metisUser);
+      workflowExecutionDao.setCancellingState(workflowExecution, metisUserView);
       LOGGER.info("Cancelling user workflow execution with id: {}", workflowExecution.getId());
     } else {
       throw new NoWorkflowExecutionFoundException(String
@@ -471,7 +471,7 @@ public class OrchestratorService {
    * {@code enforcedPredecessorType} is used) and that has the latest successful harvest plugin as
    * an ancestor.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier of which the executions are based on
    * @param pluginType the pluginType to be checked for allowance of execution
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
@@ -487,9 +487,9 @@ public class OrchestratorService {
    * </ul>
    */
   public ExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
+      MetisUserView metisUserView, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return Optional.ofNullable(
         dataEvolutionUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
@@ -498,7 +498,7 @@ public class OrchestratorService {
   /**
    * Get all WorkflowExecutions paged.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier filter, can be null to get all datasets
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
@@ -512,21 +512,22 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutions(MetisUser metisUser,
+  public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutions(
+      MetisUserView metisUserView,
       String datasetId, Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField,
       boolean ascending, int nextPage) throws GenericMetisException {
 
     // Authorize
     if (datasetId == null) {
-      authorizer.authorizeReadAllDatasets(metisUser);
+      authorizer.authorizeReadAllDatasets(metisUserView);
     } else {
-      authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+      authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     }
 
     // Determine the dataset IDs to filter on.
     final Set<String> datasetIds;
     if (datasetId == null) {
-      datasetIds = getDatasetIdsToFilterOn(metisUser);
+      datasetIds = getDatasetIdsToFilterOn(metisUserView);
     } else {
       datasetIds = Collections.singleton(datasetId);
     }
@@ -586,7 +587,7 @@ public class OrchestratorService {
    * overview. First the ones in queue, then those in progress and then those that are finalized.
    * They will be sorted by creation date. This method does support pagination.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param pluginStatuses the plugin statuses to filter. Can be null.
    * @param pluginTypes the plugin types to filter. Can be null.
    * @param fromDate the date from where the results should start. Can be null.
@@ -601,10 +602,10 @@ public class OrchestratorService {
    * </ul>
    */
   public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
-      MetisUser metisUser, Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes,
+      MetisUserView metisUserView, Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes,
       Date fromDate, Date toDate, int nextPage, int pageCount) throws GenericMetisException {
-    authorizer.authorizeReadAllDatasets(metisUser);
-    final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUserView);
+    final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUserView);
     final ResultList<ExecutionDatasetPair> resultList;
     if (datasetIds == null || !datasetIds.isEmpty()) {
       //Match results filtering using specified dataset ids or without dataset id filter if it's null
@@ -634,15 +635,15 @@ public class OrchestratorService {
    * </ul>
    * </p>
    *
-   * @param metisUser the user to use for getting the owned dataset ids
+   * @param metisUserView the user to use for getting the owned dataset ids
    * @return a set of dataset ids
    */
-  private Set<String> getDatasetIdsToFilterOn(MetisUser metisUser) {
+  private Set<String> getDatasetIdsToFilterOn(MetisUserView metisUserView) {
     final Set<String> datasetIds;
-    if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
+    if (metisUserView.getAccountRole() == AccountRole.METIS_ADMIN) {
       datasetIds = null;
     } else {
-      datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
+      datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUserView.getOrganizationId()).stream()
           .map(Dataset::getDatasetId).collect(Collectors.toSet());
     }
     return datasetIds;
@@ -651,7 +652,7 @@ public class OrchestratorService {
   /**
    * Retrieve dataset level information of past executions {@link DatasetExecutionInformation}
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier to generate the information for
    * @return the structured class containing all the execution information
    * @throws GenericMetisException which can be one of:
@@ -660,9 +661,9 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public DatasetExecutionInformation getDatasetExecutionInformation(MetisUser metisUser,
+  public DatasetExecutionInformation getDatasetExecutionInformation(MetisUserView metisUserView,
       String datasetId) throws GenericMetisException {
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return getDatasetExecutionInformation(datasetId);
   }
 
@@ -828,7 +829,7 @@ public class OrchestratorService {
   /**
    * Retrieve dataset level history of past executions {@link DatasetExecutionInformation}
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier to generate the history for
    * @return the structured class containing all the execution history, ordered by date descending.
    * @throws GenericMetisException which can be one of:
@@ -837,11 +838,11 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ExecutionHistory getDatasetExecutionHistory(MetisUser metisUser, String datasetId)
+  public ExecutionHistory getDatasetExecutionHistory(MetisUserView metisUserView, String datasetId)
       throws GenericMetisException {
 
     // Check that the user is authorized
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
 
     // Get the executions from the database
     final ResultList<WorkflowExecution> allExecutions = workflowExecutionDao
@@ -870,7 +871,7 @@ public class OrchestratorService {
    * Retrieve a list of plugins with data availability {@link PluginsWithDataAvailability} for a
    * given workflow execution.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param executionId the identifier of the execution for which to get the plugins
    * @return the structured class containing all the execution history, ordered by date descending.
    * @throws GenericMetisException which can be one of:
@@ -881,11 +882,12 @@ public class OrchestratorService {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(MetisUser metisUser,
+  public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(
+      MetisUserView metisUserView,
       String executionId) throws GenericMetisException {
 
     // Get the execution and do the authorization check.
-    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
+    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUserView, executionId);
     if (execution == null) {
       throw new NoWorkflowExecutionFoundException(
           String.format("No workflow execution found for workflowExecutionId: %s", executionId));
@@ -931,7 +933,7 @@ public class OrchestratorService {
    * Get the evolution of the records from when they were first imported until (and excluding) the
    * specified version.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param executionId The ID of the workflow exection in which the version is created.
    * @param pluginType The step within the workflow execution that created the version.
    * @return The record evolution.
@@ -943,11 +945,11 @@ public class OrchestratorService {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  public VersionEvolution getRecordEvolutionForVersion(MetisUser metisUser, String executionId,
+  public VersionEvolution getRecordEvolutionForVersion(MetisUserView metisUserView, String executionId,
       PluginType pluginType) throws GenericMetisException {
 
     // Get the execution and do the authorization check.
-    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
+    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUserView, executionId);
     if (execution == null) {
       throw new NoWorkflowExecutionFoundException(
           String.format("No workflow execution found for workflowExecutionId: %s", executionId));
@@ -978,7 +980,7 @@ public class OrchestratorService {
    * This method returns whether currently it is permitted/possible to perform incremental
    * harvesting for the given dataset.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUserView the user wishing to perform this operation
    * @param datasetId The ID of the dataset for which to check.
    * @return Whether we can perform incremental harvesting for the dataset.
    * @throws GenericMetisException which can be one of:
@@ -987,11 +989,11 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public boolean isIncrementalHarvestingAllowed(MetisUser metisUser, String datasetId)
+  public boolean isIncrementalHarvestingAllowed(MetisUserView metisUserView, String datasetId)
       throws GenericMetisException {
 
     // Check that the user is authorized
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
 
     // Do the check.
     return workflowValidationUtils.isIncrementalHarvestingAllowed(datasetId);

@@ -33,7 +33,7 @@ import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.rest.stats.AttributeStatistics;
@@ -68,9 +68,9 @@ class TestProxiesController {
 
   @Test
   void getExternalTaskLogs() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     int from = 1;
     int to = 100;
@@ -78,7 +78,7 @@ class TestProxiesController {
     for (SubTaskInfo subTaskInfo : listOfSubTaskInfo) {
       subTaskInfo.setAdditionalInformations(null);
     }
-    when(proxiesService.getExternalTaskLogs(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+    when(proxiesService.getExternalTaskLogs(metisUserView, TestObjectFactory.TOPOLOGY_NAME,
         TestObjectFactory.EXTERNAL_TASK_ID, from, to)).thenReturn(listOfSubTaskInfo);
 
     proxiesControllerMock.perform(
@@ -96,11 +96,11 @@ class TestProxiesController {
 
   @Test
   void existsExternalTaskReport() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
-    when(proxiesService.existsExternalTaskReport(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+    when(proxiesService.existsExternalTaskReport(metisUserView, TestObjectFactory.TOPOLOGY_NAME,
         TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(true);
 
     proxiesControllerMock.perform(
@@ -115,9 +115,9 @@ class TestProxiesController {
 
   @Test
   void getExternalTaskReport() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
     for (SubTaskInfo subTaskInfo : listOfSubTaskInfo) {
@@ -125,7 +125,7 @@ class TestProxiesController {
     }
 
     TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithIdentifiers(2);
-    when(proxiesService.getExternalTaskReport(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+    when(proxiesService.getExternalTaskReport(metisUserView, TestObjectFactory.TOPOLOGY_NAME,
         TestObjectFactory.EXTERNAL_TASK_ID, 10)).thenReturn(taskErrorsInfo);
 
     proxiesControllerMock.perform(
@@ -148,9 +148,9 @@ class TestProxiesController {
   void getExternalTaskStatistics() throws Exception {
     
     // Create user and set authentication.
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     // Create response object.
     final NodeValueStatistics nodeValue = new NodeValueStatistics();
@@ -165,7 +165,7 @@ class TestProxiesController {
     record.setNodePathStatistics(Collections.singletonList(nodePath));
     
     // Make the call and verify the result.
-    when(proxiesService.getExternalTaskStatistics(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+    when(proxiesService.getExternalTaskStatistics(metisUserView, TestObjectFactory.TOPOLOGY_NAME,
         TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(record);
     proxiesControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
@@ -186,9 +186,9 @@ class TestProxiesController {
   void getExternalTaskNodeStatistics() throws Exception {
 
     // Create user and set authentication.
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     // Create response object.
     final AttributeStatistics attribute1 = new AttributeStatistics();
@@ -208,7 +208,7 @@ class TestProxiesController {
     nodePath.setNodeValueStatistics(Collections.singletonList(nodeValue));
 
     // Mock the proxiesService instance.
-    when(proxiesService.getAdditionalNodeStatistics(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+    when(proxiesService.getAdditionalNodeStatistics(metisUserView, TestObjectFactory.TOPOLOGY_NAME,
         TestObjectFactory.EXTERNAL_TASK_ID, nodePath.getxPath())).thenReturn(nodePath);
 
     // Make the call and verify the result.
@@ -233,9 +233,9 @@ class TestProxiesController {
 
   @Test
   void getListOfFileContentsFromPluginExecution() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     ArrayList<Record> records = new ArrayList<>();
     Record record1 = new Record("ECLOUDID1",
@@ -246,7 +246,7 @@ class TestProxiesController {
     records.add(record2);
     PaginatedRecordsResponse recordsResponse = new PaginatedRecordsResponse(records, null);
 
-    when(proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
+    when(proxiesService.getListOfFileContentsFromPluginExecution(metisUserView,
         TestObjectFactory.EXECUTIONID, ExecutablePluginType.TRANSFORMATION, null, 5))
         .thenReturn(recordsResponse);
 
@@ -268,9 +268,9 @@ class TestProxiesController {
   void testGetRecordEvolutionForVersion() throws Exception {
 
     // Get the user
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     // Create nonempty ID list and result list.
     final Record record1 = new Record("ID 1", "content 1");
@@ -285,7 +285,7 @@ class TestProxiesController {
       final ListOfIds input = invocation.getArgument(3);
       assertEquals(expectedInput, input.getIds());
       return output;
-    }).when(proxiesService).getListOfFileContentsFromPluginExecution(same(metisUser),
+    }).when(proxiesService).getListOfFileContentsFromPluginExecution(same(metisUserView),
         eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any());
     proxiesControllerMock
         .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
@@ -307,7 +307,7 @@ class TestProxiesController {
       final ListOfIds input = invocation.getArgument(3);
       assertTrue(input.getIds().isEmpty());
       return emptyOutput;
-    }).when(proxiesService).getListOfFileContentsFromPluginExecution(same(metisUser),
+    }).when(proxiesService).getListOfFileContentsFromPluginExecution(same(metisUserView),
         eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any());
     proxiesControllerMock
         .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
@@ -329,7 +329,7 @@ class TestProxiesController {
         .andExpect(jsonPath("$.records", hasSize(0)));
 
     // Test for bad input
-    when(proxiesService.getListOfFileContentsFromPluginExecution(same(metisUser),
+    when(proxiesService.getListOfFileContentsFromPluginExecution(same(metisUserView),
         eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any()))
         .thenThrow(new NoWorkflowExecutionFoundException(""));
     proxiesControllerMock
@@ -343,7 +343,7 @@ class TestProxiesController {
 
     // Test for unauthorized user
     doThrow(new UserUnauthorizedException("")).when(proxiesService)
-        .getListOfFileContentsFromPluginExecution(same(metisUser),
+        .getListOfFileContentsFromPluginExecution(same(metisUserView),
             eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any());
     proxiesControllerMock
         .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)

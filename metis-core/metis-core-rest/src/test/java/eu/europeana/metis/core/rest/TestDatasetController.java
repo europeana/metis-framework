@@ -27,7 +27,7 @@ import com.jayway.jsonpath.JsonPath;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -88,19 +88,19 @@ class TestDatasetController {
     reset(authenticationClient);
   }
 
-  private static MetisUser getUserWithAccountRole(AccountRole accountRole) {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    doReturn(accountRole).when(metisUser).getAccountRole();
-    return metisUser;
+  private static MetisUserView getUserWithAccountRole(AccountRole accountRole) {
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    doReturn(accountRole).when(metisUserView).getAccountRole();
+    return metisUserView;
   }
 
   @Test
   void createDataset() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.createDataset(any(MetisUser.class), any(Dataset.class)))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.createDataset(any(MetisUserView.class), any(Dataset.class)))
         .thenReturn(dataset);
 
     datasetControllerMock.perform(post("/datasets")
@@ -111,7 +111,7 @@ class TestDatasetController {
         .andExpect(status().is(201))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)));
-    verify(datasetServiceMock, times(1)).createDataset(any(MetisUser.class), any(Dataset.class));
+    verify(datasetServiceMock, times(1)).createDataset(any(MetisUserView.class), any(Dataset.class));
   }
 
   @Test
@@ -128,18 +128,18 @@ class TestDatasetController {
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
-    verify(datasetServiceMock, times(0)).createDataset(any(MetisUser.class), any(Dataset.class));
+    verify(datasetServiceMock, times(0)).createDataset(any(MetisUserView.class), any(Dataset.class));
   }
 
   @Test
   void createDataset_DatasetAlreadyExistsException_Returns409() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new DatasetAlreadyExistsException("Conflict"))
-        .when(datasetServiceMock).createDataset(any(MetisUser.class), any(Dataset.class));
+        .when(datasetServiceMock).createDataset(any(MetisUserView.class), any(Dataset.class));
 
     datasetControllerMock.perform(post("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -152,12 +152,12 @@ class TestDatasetController {
 
   @Test
   void updateDataset_withValidData_Returns204() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON)
@@ -167,7 +167,7 @@ class TestDatasetController {
         .andExpect(content().string(""));
 
     verify(datasetServiceMock, times(1))
-        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
+        .updateDataset(any(MetisUserView.class), any(Dataset.class), anyString());
   }
 
   @Test
@@ -184,19 +184,19 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
+        .updateDataset(any(MetisUserView.class), any(Dataset.class), anyString());
   }
 
   @Test
   void updateDataset_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new NoDatasetFoundException("Does not exist")).when(datasetServiceMock)
-        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
+        .updateDataset(any(MetisUserView.class), any(Dataset.class), anyString());
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON)
@@ -206,19 +206,19 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
 
     verify(datasetServiceMock, times(1))
-        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
+        .updateDataset(any(MetisUserView.class), any(Dataset.class), anyString());
   }
 
   @Test
   void updateDataset_BadContentException_Returns406() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
-        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
+        .updateDataset(any(MetisUserView.class), any(Dataset.class), anyString());
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON)
@@ -228,14 +228,14 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
 
     verify(datasetServiceMock, times(1))
-        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
+        .updateDataset(any(MetisUserView.class), any(Dataset.class), anyString());
   }
 
   @Test
   void deleteDataset() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     datasetControllerMock.perform(
         delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -248,7 +248,7 @@ class TestDatasetController {
     ArgumentCaptor<String> datasetIdArgumentCaptor = ArgumentCaptor.forClass(String.class);
 
     verify(datasetServiceMock, times(1))
-        .deleteDatasetByDatasetId(any(MetisUser.class), datasetIdArgumentCaptor.capture());
+        .deleteDatasetByDatasetId(any(MetisUserView.class), datasetIdArgumentCaptor.capture());
 
     assertEquals(Integer.toString(TestObjectFactory.DATASETID), datasetIdArgumentCaptor.getValue());
   }
@@ -266,16 +266,16 @@ class TestDatasetController {
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
     verify(datasetServiceMock, times(0))
-        .deleteDatasetByDatasetId(any(MetisUser.class), anyString());
+        .deleteDatasetByDatasetId(any(MetisUserView.class), anyString());
   }
 
   @Test
   void deleteDataset_BadContentException_Returns406() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
-        .deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+        .deleteDatasetByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID));
     datasetControllerMock.perform(
         delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -289,13 +289,13 @@ class TestDatasetController {
 
   @Test
   void getByDatasetId() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(datasetServiceMock
-        .getDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(dataset);
     datasetControllerMock
         .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
@@ -309,7 +309,7 @@ class TestDatasetController {
 
     ArgumentCaptor<String> datasetIdArgumentCaptor = ArgumentCaptor.forClass(String.class);
     verify(datasetServiceMock, times(1))
-        .getDatasetByDatasetId(any(MetisUser.class), datasetIdArgumentCaptor.capture());
+        .getDatasetByDatasetId(any(MetisUserView.class), datasetIdArgumentCaptor.capture());
     assertEquals(Integer.toString(TestObjectFactory.DATASETID), datasetIdArgumentCaptor.getValue());
   }
 
@@ -327,16 +327,16 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getDatasetByDatasetId(any(MetisUser.class), anyString());
+        .getDatasetByDatasetId(any(MetisUserView.class), anyString());
   }
 
   @Test
   void getByDatasetId_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(datasetServiceMock
-        .getDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenThrow(new NoDatasetFoundException("Does not exist"));
     datasetControllerMock
         .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
@@ -350,15 +350,15 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetId() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(datasetServiceMock
-        .getDatasetXsltByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetXsltByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(xsltObject);
     datasetControllerMock
         .perform(
@@ -373,18 +373,18 @@ class TestDatasetController {
 
     ArgumentCaptor<String> datasetIdArgumentCaptor = ArgumentCaptor.forClass(String.class);
     verify(datasetServiceMock, times(1))
-        .getDatasetXsltByDatasetId(any(MetisUser.class), datasetIdArgumentCaptor.capture());
+        .getDatasetXsltByDatasetId(any(MetisUserView.class), datasetIdArgumentCaptor.capture());
     assertEquals(Integer.toString(TestObjectFactory.DATASETID), datasetIdArgumentCaptor.getValue());
   }
 
   @Test
   void getDatasetXsltByDatasetId_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(datasetServiceMock
-        .getDatasetXsltByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetXsltByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenThrow(new NoDatasetFoundException("Does not exist"));
     datasetControllerMock
         .perform(
@@ -399,12 +399,12 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetId_noXsltFound_Returns404() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(datasetServiceMock
-        .getDatasetXsltByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetXsltByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenThrow(new NoXsltFoundException("Does not exist"));
     datasetControllerMock
         .perform(
@@ -419,7 +419,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetIdInvalidUser() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -427,7 +427,7 @@ class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     when(datasetServiceMock
-        .getDatasetXsltByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetXsltByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(xsltObject);
     datasetControllerMock
         .perform(
@@ -440,7 +440,7 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getDatasetXsltByDatasetId(any(MetisUser.class), anyString());
+        .getDatasetXsltByDatasetId(any(MetisUserView.class), anyString());
   }
 
   @Test
@@ -484,16 +484,16 @@ class TestDatasetController {
 
   @Test
   void createDefaultXslt() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.METIS_ADMIN);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.METIS_ADMIN);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
     xsltObject.setId(new ObjectId(TestObjectFactory.XSLTID));
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
-    when(datasetServiceMock.createDefaultXslt(any(MetisUser.class), anyString()))
+    when(datasetServiceMock.createDefaultXslt(any(MetisUserView.class), anyString()))
         .thenReturn(xsltObject);
     datasetControllerMock
         .perform(post("/datasets/xslt/default", TestObjectFactory.XSLTID)
@@ -508,16 +508,16 @@ class TestDatasetController {
 
   @Test
   void createDefaultXslt_Unauthorized() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
     xsltObject.setId(new ObjectId(TestObjectFactory.XSLTID));
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
-    when(datasetServiceMock.createDefaultXslt(any(MetisUser.class), anyString()))
+    when(datasetServiceMock.createDefaultXslt(any(MetisUserView.class), anyString()))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     datasetControllerMock
         .perform(post("/datasets/xslt/default", TestObjectFactory.XSLTID)
@@ -561,12 +561,12 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDatasetXslt() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
     when(datasetServiceMock
-        .transformRecordsUsingLatestDatasetXslt(any(MetisUser.class), anyString(), anyList()))
+        .transformRecordsUsingLatestDatasetXslt(any(MetisUserView.class), anyString(), anyList()))
         .thenReturn(listOfRecords);
     datasetControllerMock
         .perform(post("/datasets/{datasetId}/xslt/transform",
@@ -596,12 +596,12 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDefaultXslt() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
     when(datasetServiceMock
-        .transformRecordsUsingLatestDefaultXslt(any(MetisUser.class), anyString(), anyList()))
+        .transformRecordsUsingLatestDefaultXslt(any(MetisUserView.class), anyString(), anyList()))
         .thenReturn(listOfRecords);
     datasetControllerMock
         .perform(post("/datasets/{datasetId}/xslt/transform/default",
@@ -631,12 +631,12 @@ class TestDatasetController {
 
   @Test
   void getByDatasetName() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.getDatasetByDatasetName(metisUserView, TestObjectFactory.DATASETNAME))
         .thenReturn(dataset);
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
@@ -650,7 +650,7 @@ class TestDatasetController {
 
     ArgumentCaptor<String> datasetNameArgumentCaptor = ArgumentCaptor.forClass(String.class);
     verify(datasetServiceMock, times(1))
-        .getDatasetByDatasetName(any(MetisUser.class), datasetNameArgumentCaptor.capture());
+        .getDatasetByDatasetName(any(MetisUserView.class), datasetNameArgumentCaptor.capture());
     assertEquals(TestObjectFactory.DATASETNAME, datasetNameArgumentCaptor.getValue());
   }
 
@@ -668,16 +668,16 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getDatasetByDatasetName(any(MetisUser.class), anyString());
+        .getDatasetByDatasetName(any(MetisUserView.class), anyString());
   }
 
 
   @Test
   void getByDatasetName_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.getDatasetByDatasetName(metisUserView, TestObjectFactory.DATASETNAME))
         .thenThrow(new NoDatasetFoundException("Does not exist"));
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
@@ -691,12 +691,12 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByProvider() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByProvider(metisUser, "myProvider", 3))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.getAllDatasetsByProvider(metisUserView, "myProvider", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -716,7 +716,7 @@ class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByProvider(any(MetisUser.class), provider.capture(), page.capture());
+        .getAllDatasetsByProvider(any(MetisUserView.class), provider.capture(), page.capture());
 
     assertEquals("myProvider", provider.getValue());
     assertEquals(3, page.getValue().intValue());
@@ -747,18 +747,18 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByProvider(any(MetisUser.class), anyString(), anyInt());
+        .getAllDatasetsByProvider(any(MetisUserView.class), anyString(), anyInt());
   }
 
   @Test
   void getAllDatasetsByIntermediateProvider() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(datasetServiceMock
-        .getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", 3))
+        .getAllDatasetsByIntermediateProvider(metisUserView, "myIntermediateProvider", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -778,7 +778,7 @@ class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(),
+        .getAllDatasetsByIntermediateProvider(any(MetisUserView.class), provider.capture(),
             page.capture());
 
     assertEquals("myIntermediateProvider", provider.getValue());
@@ -810,17 +810,17 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), anyString(), anyInt());
+        .getAllDatasetsByIntermediateProvider(any(MetisUserView.class), anyString(), anyInt());
   }
 
   @Test
   void getAllDatasetsByDataProvider() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByDataProvider(metisUser, "myDataProvider", 3))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.getAllDatasetsByDataProvider(metisUserView, "myDataProvider", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -840,7 +840,7 @@ class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByDataProvider(any(MetisUser.class), provider.capture(), page.capture());
+        .getAllDatasetsByDataProvider(any(MetisUserView.class), provider.capture(), page.capture());
 
     assertEquals("myDataProvider", provider.getValue());
     assertEquals(3, page.getValue().intValue());
@@ -871,17 +871,17 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByDataProvider(any(MetisUser.class), anyString(), anyInt());
+        .getAllDatasetsByDataProvider(any(MetisUserView.class), anyString(), anyInt());
   }
 
   @Test
   void getAllDatasetsByOrganizationId() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByOrganizationId(metisUser, "myOrganizationId", 3))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.getAllDatasetsByOrganizationId(metisUserView, "myOrganizationId", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -901,7 +901,7 @@ class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByOrganizationId(any(MetisUser.class), provider.capture(), page.capture());
+        .getAllDatasetsByOrganizationId(any(MetisUserView.class), provider.capture(), page.capture());
 
     assertEquals("myOrganizationId", provider.getValue());
     assertEquals(3, page.getValue().intValue());
@@ -932,17 +932,17 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByOrganizationId(any(MetisUser.class), anyString(), anyInt());
+        .getAllDatasetsByOrganizationId(any(MetisUserView.class), anyString(), anyInt());
   }
 
   @Test
   void getAllDatasetsByOrganizationName() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByOrganizationName(metisUser, "myOrganizationName", 3))
+        .thenReturn(metisUserView);
+    when(datasetServiceMock.getAllDatasetsByOrganizationName(metisUserView, "myOrganizationName", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -962,7 +962,7 @@ class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByOrganizationName(any(MetisUser.class), provider.capture(), page.capture());
+        .getAllDatasetsByOrganizationName(any(MetisUserView.class), provider.capture(), page.capture());
 
     assertEquals("myOrganizationName", provider.getValue());
     assertEquals(3, page.getValue().intValue());
@@ -993,14 +993,14 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyInt());
+        .getAllDatasetsByOrganizationName(any(MetisUserView.class), anyString(), anyInt());
   }
 
   @Test
   void getDatasetsCountries() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/countries")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -1036,10 +1036,10 @@ class TestDatasetController {
 
   @Test
   void getDatasetsLanguages() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(
         authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/languages")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -1076,11 +1076,11 @@ class TestDatasetController {
 
   @Test
   void getDatasetSearch() throws Exception {
-    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUserView metisUserView = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
-    when(datasetServiceMock.searchDatasetsBasedOnSearchString(metisUser, "test", 3))
+    when(datasetServiceMock.searchDatasetsBasedOnSearchString(metisUserView, "test", 3))
         .thenReturn(getDatasetSearchViews());
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -1101,7 +1101,7 @@ class TestDatasetController {
     ArgumentCaptor<String> searchString = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
-        .searchDatasetsBasedOnSearchString(any(MetisUser.class), searchString.capture(), page.capture());
+        .searchDatasetsBasedOnSearchString(any(MetisUserView.class), searchString.capture(), page.capture());
 
     assertEquals("test", searchString.getValue());
     assertEquals(3, page.getValue().intValue());

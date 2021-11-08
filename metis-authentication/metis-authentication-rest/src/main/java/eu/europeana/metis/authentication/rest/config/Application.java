@@ -5,7 +5,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performA
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
-import eu.europeana.metis.authentication.user.MetisUserModel;
+import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
@@ -150,7 +150,7 @@ public class Application implements WebMvcConfigurer {
   @Bean
   public SessionFactory getSessionFactory() {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-    configuration.addAnnotatedClass(MetisUserModel.class);
+    configuration.addAnnotatedClass(MetisUser.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
     configuration.configure();
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

@@ -4,8 +4,8 @@ import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
 
 import com.zoho.crm.api.record.Record;
 import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.zoho.ZohoConstants;
 import java.sql.Date;
@@ -13,7 +13,7 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Class that contains utility methods for interaction between Zoho Contacts and {@link MetisUser}
+ * Class that contains utility methods for interaction between Zoho Contacts and {@link MetisUserView}
  * objects.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -32,10 +32,10 @@ public final class ZohoMetisUserUtils {
    * @return the metis user with its fields populated
    * @throws BadContentException if a problem occurs during parsing of the fields
    */
-  public static MetisUserModel checkZohoFieldsAndPopulateMetisUser(Record record)
+  public static MetisUser checkZohoFieldsAndPopulateMetisUser(Record record)
       throws BadContentException {
 
-    final MetisUserModel metisUser = new MetisUserModel();
+    final MetisUser metisUser = new MetisUser();
 
     metisUser.setUserId(Long.toString(record.getId()));
     metisUser.setFirstName(stringFieldSupplier(record.getKeyValue(ZohoConstants.FIRST_NAME_FIELD)));

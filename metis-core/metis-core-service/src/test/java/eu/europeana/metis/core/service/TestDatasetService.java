@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
@@ -129,70 +129,71 @@ class TestDatasetService {
 
   @Test
   void testCreateDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(DATASET_CREATION_LOCK)).thenReturn(rlock);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(null);
     when(datasetDao.findNextInSequenceDatasetId()).thenReturn(1);
-    datasetService.createDataset(metisUser, dataset);
+    datasetService.createDataset(metisUserView, dataset);
     ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
     verify(datasetDao, times(1)).
         create(datasetArgumentCaptor.capture());
     verify(datasetDao, times(1)).create(any(Dataset.class));
     assertEquals(dataset.getDatasetName(), datasetArgumentCaptor.getValue().getDatasetName());
-    assertEquals(metisUser.getUserId(), datasetArgumentCaptor.getValue().getCreatedByUserId());
-    assertEquals(metisUser.getOrganizationId(),
+    assertEquals(metisUserView.getUserId(), datasetArgumentCaptor.getValue().getCreatedByUserId());
+    assertEquals(metisUserView.getOrganizationId(),
         datasetArgumentCaptor.getValue().getOrganizationId());
-    assertEquals(metisUser.getOrganizationName(),
+    assertEquals(metisUserView.getOrganizationName(),
         datasetArgumentCaptor.getValue().getOrganizationName());
-    verify(authorizer, times(1)).authorizeWriteNewDataset(metisUser);
+    verify(authorizer, times(1)).authorizeWriteNewDataset(metisUserView);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void testCreateDatasetUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeWriteNewDataset(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeWriteNewDataset(
+        metisUserView);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.createDataset(metisUser, dataset));
+        () -> datasetService.createDataset(metisUserView, dataset));
     verify(datasetDao, times(0)).create(dataset);
   }
 
   @Test
   void testCreateDatasetAlreadyExists() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(DATASET_CREATION_LOCK)).thenReturn(rlock);
-    when(datasetDao.getDatasetByOrganizationIdAndDatasetName(metisUser.getOrganizationId(),
+    when(datasetDao.getDatasetByOrganizationIdAndDatasetName(metisUserView.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(dataset);
     expectException(DatasetAlreadyExistsException.class,
-        () -> datasetService.createDataset(metisUser, dataset));
+        () -> datasetService.createDataset(metisUserView, dataset));
     verify(datasetDao, times(0)).create(any(Dataset.class));
     verify(datasetDao, times(0)).getById(null);
   }
 
   @Test
   void testUpdateDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
     Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     storedDataset.setUpdatedDate(new Date(-1000));
-    storedDataset.setOrganizationId(metisUser.getOrganizationId());
+    storedDataset.setOrganizationId(metisUserView.getOrganizationId());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(storedDataset);
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.DATASET_XSLT);
-    datasetService.updateDataset(metisUser, dataset,
+    datasetService.updateDataset(metisUserView, dataset,
         TestObjectFactory.createXslt(TestObjectFactory.createDataset(dataset.getDatasetName()))
             .getXslt());
     verify(authorizer, times(1))
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
@@ -208,19 +209,19 @@ class TestDatasetService {
 
   @Test
   void testUpdateDatasetNonNullXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
     Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     storedDataset.setUpdatedDate(new Date(-1000));
-    storedDataset.setOrganizationId(metisUser.getOrganizationId());
+    storedDataset.setOrganizationId(metisUserView.getOrganizationId());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(storedDataset);
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.DATASET_XSLT);
-    datasetService.updateDataset(metisUser, dataset, null);
+    datasetService.updateDataset(metisUserView, dataset, null);
     verify(authorizer, times(1))
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
@@ -235,66 +236,66 @@ class TestDatasetService {
 
   @Test
   void testUpdateDatasetUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     doThrow(UserUnauthorizedException.class).when(authorizer)
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.updateDataset(metisUser, dataset, null));
+        () -> datasetService.updateDataset(metisUserView, dataset, null));
     verify(datasetDao, times(0)).update(dataset);
   }
 
   @Test
   void testUpdateDatasetDatasetAlreadyExistsException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
     Dataset storedDataset = TestObjectFactory
         .createDataset(String.format("%s%s", TestObjectFactory.DATASETNAME, 10));
-    storedDataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    storedDataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(storedDataset);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(new Dataset());
     assertThrows(DatasetAlreadyExistsException.class,
-        () -> datasetService.updateDataset(metisUser, dataset, null));
+        () -> datasetService.updateDataset(metisUserView, dataset, null));
   }
 
   @Test
   void testUpdateDatasetDatasetExecutionIsActive() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn("ObjectId");
     assertThrows(BadContentException.class,
-        () -> datasetService.updateDataset(metisUser, dataset, null));
+        () -> datasetService.updateDataset(metisUserView, dataset, null));
   }
 
   @Test
   void testUpdateDatasetNoDatasetFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     doThrow(UserUnauthorizedException.class).when(authorizer)
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     assertThrows(UserUnauthorizedException.class,
-        () -> datasetService.updateDataset(metisUser, dataset, null));
+        () -> datasetService.updateDataset(metisUserView, dataset, null));
   }
 
   @Test
   void testDeleteDatasetByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(null);
     datasetService
-        .deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+        .deleteDatasetByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID));
     verify(authorizer, times(1))
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     verify(datasetDao, times(1)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
     verify(workflowExecutionDao, times(1))
@@ -305,124 +306,124 @@ class TestDatasetService {
 
   @Test
   void testDeleteDatasetByDatasetIdUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     doThrow(UserUnauthorizedException.class).when(authorizer)
-        .authorizeWriteExistingDatasetById(metisUser, datasetId);
+        .authorizeWriteExistingDatasetById(metisUserView, datasetId);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.deleteDatasetByDatasetId(metisUser, datasetId));
+        () -> datasetService.deleteDatasetByDatasetId(metisUserView, datasetId));
     verify(datasetDao, times(0)).deleteByDatasetId(datasetId);
   }
 
   @Test
   void testDeleteDatasetByDatasetIdNoDatasetFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     doThrow(NoDatasetFoundException.class).when(authorizer)
-        .authorizeWriteExistingDatasetById(metisUser, datasetId);
+        .authorizeWriteExistingDatasetById(metisUserView, datasetId);
     expectException(NoDatasetFoundException.class,
-        () -> datasetService.deleteDatasetByDatasetId(metisUser, datasetId));
+        () -> datasetService.deleteDatasetByDatasetId(metisUserView, datasetId));
     verify(datasetDao, times(0)).deleteByDatasetId(datasetId);
   }
 
   @Test
   void testDeleteDatasetDatasetExecutionIsActive() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn("ObjectId");
     assertThrows(BadContentException.class, () -> datasetService
-        .deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)));
+        .deleteDatasetByDatasetId(metisUserView, Integer.toString(TestObjectFactory.DATASETID)));
   }
 
   @Test
   void testGetDatasetByDatasetName() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeReadExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeReadExistingDatasetByName(metisUserView, TestObjectFactory.DATASETNAME))
         .thenReturn(dataset);
     Dataset returnedDataset = datasetService
-        .getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
+        .getDatasetByDatasetName(metisUserView, TestObjectFactory.DATASETNAME);
     assertNotNull(returnedDataset);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
+        .authorizeReadExistingDatasetByName(metisUserView, TestObjectFactory.DATASETNAME);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void testGetDatasetByDatasetNameUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     doThrow(UserUnauthorizedException.class).when(authorizer)
-        .authorizeReadExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
+        .authorizeReadExistingDatasetByName(metisUserView, TestObjectFactory.DATASETNAME);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME));
+        () -> datasetService.getDatasetByDatasetName(metisUserView, TestObjectFactory.DATASETNAME));
     verify(datasetDao, times(0)).getDatasetByDatasetName(TestObjectFactory.DATASETNAME);
   }
 
   @Test
   void testGetDatasetByDatasetNameNoDatasetFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     doThrow(NoDatasetFoundException.class).when(authorizer)
-        .authorizeReadExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
+        .authorizeReadExistingDatasetByName(metisUserView, TestObjectFactory.DATASETNAME);
     assertThrows(NoDatasetFoundException.class,
-        () -> datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME));
+        () -> datasetService.getDatasetByDatasetName(metisUserView, TestObjectFactory.DATASETNAME));
   }
 
   @Test
   void testGetDatasetByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeReadExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     Dataset returnedDataset =
-        datasetService.getDatasetByDatasetId(metisUser, dataset.getDatasetId());
+        datasetService.getDatasetByDatasetId(metisUserView, dataset.getDatasetId());
     assertNotNull(returnedDataset);
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void testGetDatasetByDatasetIdUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     doThrow(UserUnauthorizedException.class).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUser, datasetId);
+        .authorizeReadExistingDatasetById(metisUserView, datasetId);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.getDatasetByDatasetId(metisUser, datasetId));
+        () -> datasetService.getDatasetByDatasetId(metisUserView, datasetId));
     verify(datasetDao, times(0)).getDatasetByDatasetId(datasetId);
   }
 
   @Test
   void testGetDatasetByDatasetIdNoDatasetFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     doThrow(NoDatasetFoundException.class).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUser, datasetId);
+        .authorizeReadExistingDatasetById(metisUserView, datasetId);
     assertThrows(NoDatasetFoundException.class,
-        () -> datasetService.getDatasetByDatasetId(metisUser, datasetId));
+        () -> datasetService.getDatasetByDatasetId(metisUserView, datasetId));
   }
 
   @Test
   void getDatasetXsltByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
     dataset.setXsltId(new ObjectId());
-    when(authorizer.authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId()))
+    when(authorizer.authorizeReadExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
 
     DatasetXslt datasetXsltByDatasetId = datasetService
-        .getDatasetXsltByDatasetId(metisUser, dataset.getDatasetId());
+        .getDatasetXsltByDatasetId(metisUserView, dataset.getDatasetId());
     verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeReadExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     assertEquals(datasetXslt.getXslt(), datasetXsltByDatasetId.getXslt());
     assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
@@ -430,34 +431,34 @@ class TestDatasetService {
 
   @Test
   void getDatasetXsltByDatasetIdUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     doThrow(UserUnauthorizedException.class).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUser, datasetId);
+        .authorizeReadExistingDatasetById(metisUserView, datasetId);
     assertThrows(UserUnauthorizedException.class,
-        () -> datasetService.getDatasetXsltByDatasetId(metisUser, datasetId));
+        () -> datasetService.getDatasetXsltByDatasetId(metisUserView, datasetId));
   }
 
   @Test
   void getDatasetXsltByDatasetIdNoXsltFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeReadExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     when(datasetXsltDao.getById(anyString())).thenReturn(null);
     assertThrows(NoXsltFoundException.class,
-        () -> datasetService.getDatasetXsltByDatasetId(metisUser, dataset.getDatasetId()));
+        () -> datasetService.getDatasetXsltByDatasetId(metisUserView, dataset.getDatasetId()));
   }
 
   @Test
   void getDatasetXsltByDatasetIdNoDatasetFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     doThrow(NoDatasetFoundException.class).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUser, datasetId);
+        .authorizeReadExistingDatasetById(metisUserView, datasetId);
     assertThrows(NoDatasetFoundException.class,
-        () -> datasetService.getDatasetXsltByDatasetId(metisUser, datasetId));
+        () -> datasetService.getDatasetXsltByDatasetId(metisUserView, datasetId));
   }
 
   @Test
@@ -481,26 +482,27 @@ class TestDatasetService {
 
   @Test
   void createDefaultXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     DatasetXslt datasetXslt = TestObjectFactory
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
     datasetXslt.setDatasetId("-1");
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(datasetXslt);
     DatasetXslt defaultDatasetXslt = datasetService
-        .createDefaultXslt(metisUser, datasetXslt.getXslt());
+        .createDefaultXslt(metisUserView, datasetXslt.getXslt());
     assertEquals(datasetXslt.getDatasetId(), defaultDatasetXslt.getDatasetId());
-    verify(authorizer, times(1)).authorizeWriteDefaultXslt(metisUser);
+    verify(authorizer, times(1)).authorizeWriteDefaultXslt(metisUserView);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void createDefaultXsltUserUnauthorizedException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     DatasetXslt datasetXslt = TestObjectFactory
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeWriteDefaultXslt(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeWriteDefaultXslt(
+        metisUserView);
     assertThrows(UserUnauthorizedException.class,
-        () -> datasetService.createDefaultXslt(metisUser, datasetXslt.getXslt()));
+        () -> datasetService.createDefaultXslt(metisUserView, datasetXslt.getXslt()));
   }
 
   @Test
@@ -522,10 +524,10 @@ class TestDatasetService {
 
   @Test
   void transformRecordsUsingLatestDefaultXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(datasetXslt);
@@ -542,9 +544,9 @@ class TestDatasetService {
             .withBody(datasetXslt.getXslt())));
 
     List<Record> records = datasetService
-        .transformRecordsUsingLatestDefaultXslt(metisUser, dataset.getDatasetId(), listOfRecords);
+        .transformRecordsUsingLatestDefaultXslt(metisUserView, dataset.getDatasetId(), listOfRecords);
     verify(authorizer, times(1))
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -561,23 +563,23 @@ class TestDatasetService {
 
   @Test
   void transformRecordsUsingLatestDefaultXslt_NoXsltFoundException() {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(null);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(1);
     assertThrows(NoXsltFoundException.class, () -> datasetService
-        .transformRecordsUsingLatestDefaultXslt(metisUser, dataset.getDatasetId(), listOfRecords));
+        .transformRecordsUsingLatestDefaultXslt(metisUserView, dataset.getDatasetId(), listOfRecords));
   }
 
   @Test
   void transformRecordsUsingLatestDatasetXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
     dataset.setXsltId(new ObjectId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
@@ -593,9 +595,9 @@ class TestDatasetService {
             .withBody(datasetXslt.getXslt())));
 
     List<Record> records = datasetService
-        .transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(), listOfRecords);
+        .transformRecordsUsingLatestDatasetXslt(metisUserView, dataset.getDatasetId(), listOfRecords);
     verify(authorizer, times(1))
-        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+        .authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -610,62 +612,64 @@ class TestDatasetService {
 
   @Test
   void transformRecordsUsingLatestDatasetXslt_NoXsltFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+    dataset.setOrganizationId(metisUserView.getOrganizationId());
+    when(authorizer.authorizeWriteExistingDatasetById(metisUserView, dataset.getDatasetId()))
         .thenReturn(dataset);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(1);
     assertThrows(NoXsltFoundException.class, () -> datasetService
-        .transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(), listOfRecords));
+        .transformRecordsUsingLatestDatasetXslt(metisUserView, dataset.getDatasetId(), listOfRecords));
   }
 
   @Test
   void testGetAllDatasetsByProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
     int nextPage = 1;
     when(datasetDao.getAllDatasetsByProvider(provider, nextPage)).thenReturn(list);
-    List<Dataset> retList = datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    List<Dataset> retList = datasetService.getAllDatasetsByProvider(metisUserView, provider, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
     assertSame(list, retList);
   }
 
   @Test
   void testGetAllDatasetsByProviderUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String provider = "myProvider";
     int nextPage = 1;
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(
+        metisUserView);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage));
+        () -> datasetService.getAllDatasetsByProvider(metisUserView, provider, nextPage));
     verify(datasetDao, times(0)).getAllDatasetsByProvider(provider, nextPage);
   }
 
   @Test
   void testGetAllDatasetsByIntermidiateProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
     int nextPage = 1;
     when(datasetDao.getAllDatasetsByIntermediateProvider(provider, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
-        .getAllDatasetsByIntermediateProvider(metisUser, provider, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        .getAllDatasetsByIntermediateProvider(metisUserView, provider, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
     assertSame(list, retList);
   }
 
   @Test
   void testGetAllDatasetsByIntermidiateProviderUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String intermediateProvider = "myProvider";
     int nextPage = 1;
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(
+        metisUserView);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider,
+        () -> datasetService.getAllDatasetsByIntermediateProvider(metisUserView, intermediateProvider,
             nextPage));
     verify(datasetDao, times(0)).getAllDatasetsByIntermediateProvider(intermediateProvider,
         nextPage);
@@ -673,115 +677,119 @@ class TestDatasetService {
 
   @Test
   void testGetAllDatasetsByDataProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
     int nextPage = 1;
     when(datasetDao.getAllDatasetsByDataProvider(provider, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
-        .getAllDatasetsByDataProvider(metisUser, provider, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        .getAllDatasetsByDataProvider(metisUserView, provider, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
     assertSame(list, retList);
   }
 
   @Test
   void testGetAllDatasetsByDataProviderUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String dataProvider = "myProvider";
     int nextPage = 1;
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(
+        metisUserView);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage));
+        () -> datasetService.getAllDatasetsByDataProvider(metisUserView, dataProvider, nextPage));
     verify(datasetDao, times(0)).getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
 
   @Test
   void testGetAllDatasetsByOrganizationId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<Dataset> list = new ArrayList<>();
     String organizationId = "organizationId";
     int nextPage = 1;
     when(datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
-        .getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        .getAllDatasetsByOrganizationId(metisUserView, organizationId, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
     assertSame(list, retList);
   }
 
   @Test
   void testGetAllDatasetsByOrganizationIdUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String organizationId = "organizationId";
     int nextPage = 1;
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(
+        metisUserView);
     expectException(UserUnauthorizedException.class,
-        () -> datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage));
+        () -> datasetService.getAllDatasetsByOrganizationId(metisUserView, organizationId, nextPage));
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
   @Test
   void testGetAllDatasetsByOrganizationName() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<Dataset> list = new ArrayList<>();
     String organizationName = "organizationName";
     int nextPage = 1;
     when(datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage))
         .thenReturn(list);
     List<Dataset> retList = datasetService
-        .getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        .getAllDatasetsByOrganizationName(metisUserView, organizationName, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
     assertSame(list, retList);
   }
 
   @Test
   void testGetAllDatasetsByOrganizationNameUnauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String organizationName = "organizationName";
     int nextPage = 1;
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(
+        metisUserView);
     expectException(UserUnauthorizedException.class, () -> datasetService
-        .getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage));
+        .getAllDatasetsByOrganizationName(metisUserView, organizationName, nextPage));
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationName(organizationName, nextPage);
   }
 
   @Test
   void testSearchDatasetsBasedOnSearchString() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<Dataset> list = new ArrayList<>();
     String searchString = "test 0";
     int nextPage = 1;
     when(datasetDao.searchDatasetsBasedOnSearchString(Collections.singletonList("0"),
         Collections.singletonList("0"), nextPage)).thenReturn(list);
     List<DatasetSearchView> retList = datasetService
-        .searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        .searchDatasetsBasedOnSearchString(metisUserView, searchString, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
     assertEquals(list.size(), retList.size());
   }
 
   @Test
   void testSearchDatasetsBasedOnSearchString_BadContentException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String searchString = "";
     int nextPage = 1;
     expectException(BadContentException.class,
-        () -> datasetService.searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage));
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        () -> datasetService.searchDatasetsBasedOnSearchString(metisUserView, searchString, nextPage));
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
   }
 
   @Test
   void testSearchDatasetsBasedOnSearchString_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String searchString = "";
     int nextPage = 1;
-    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(
+        metisUserView);
     expectException(UserUnauthorizedException.class, () -> datasetService
-        .searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage));
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+        .searchDatasetsBasedOnSearchString(metisUserView, searchString, nextPage));
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
   }
 
