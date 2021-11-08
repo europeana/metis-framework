@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class MetisUserTest {
 
   @Test
-  void testEmptyMetisUserModelConstructor() {
+  void testEmptyMetisUserConstructor() {
     final MetisUser metisUser = new MetisUser();
 
     assertNull(metisUser.getUserId());
@@ -35,7 +35,7 @@ class MetisUserTest {
   }
 
   @Test
-  void testMetisUserModelConstructor() {
+  void testMetisUserConstructor() {
     final String email = "example@email.com";
     final Date timestampDate = new Date();
     final MetisUserAccessToken accessToken = new MetisUserAccessToken(email, "accessToken",
