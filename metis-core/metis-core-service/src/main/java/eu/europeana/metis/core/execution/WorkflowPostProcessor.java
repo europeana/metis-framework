@@ -4,6 +4,8 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
@@ -15,9 +17,11 @@ import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractIndexPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
+import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
@@ -48,13 +52,14 @@ public class WorkflowPostProcessor {
 
   /**
    * Constructor.
+   *
    * @param depublishRecordIdDao The DAO for depublished records.
    * @param datasetDao The DAO for datasets
    * @param workflowExecutionDao The DAO for workflow executions.
    * @param dpsClient the dps client
    */
   public WorkflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
-      DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
+                               DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
     this.depublishRecordIdDao = depublishRecordIdDao;
     this.datasetDao = datasetDao;
     this.workflowExecutionDao = workflowExecutionDao;
@@ -68,22 +73,32 @@ public class WorkflowPostProcessor {
    * @param datasetId The dataset ID to which the plugin belongs.
    */
   void performPluginPostProcessing(AbstractExecutablePlugin<?> plugin, String datasetId)
-          throws DpsException {
+      throws DpsException {
 
     final PluginType pluginType = plugin.getPluginType();
     LOGGER.info("Starting postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
-    //Reset depublish status if index to PUBLISH
-    if (pluginType == PluginType.PUBLISH) {
-      publishPostProcess(datasetId);
+    if (plugin instanceof AbstractIndexPlugin) {
+      indexPostProcess((AbstractIndexPlugin<?>) plugin, datasetId);
     } else if (pluginType == PluginType.DEPUBLISH) {
       depublishPostProcess((DepublishPlugin) plugin, datasetId);
     }
     LOGGER.info("Finished postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
   }
 
-  private void publishPostProcess(String datasetId) {
-    depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-        DepublicationStatus.PENDING_DEPUBLICATION, null);
+  private void indexPostProcess(AbstractIndexPlugin<?> plugin, String datasetId) throws DpsException {
+    TargetIndexingEnvironment targetIndexingEnvironment =
+        plugin.getPluginMetadata().isUseAlternativeIndexingEnvironment() ? TargetIndexingEnvironment.ALTERNATIVE
+            : TargetIndexingEnvironment.DEFAULT;
+    TargetIndexingDatabase targetIndexingDatabase =
+        plugin.getPluginMetadata().getPluginType().name().equalsIgnoreCase(TargetIndexingDatabase.PREVIEW.name())
+            ? TargetIndexingDatabase.PREVIEW : TargetIndexingDatabase.PUBLISH;
+    plugin.setTotalDatabaseRecords(
+        (int) dpsClient.getTotalDatabaseRecords(datasetId, targetIndexingDatabase, targetIndexingEnvironment));
+    if (plugin instanceof IndexToPublishPlugin) {
+      //Reset depublish status if index to PUBLISH
+      depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
+          DepublicationStatus.PENDING_DEPUBLICATION, null);
+    }
   }
 
   private void depublishPostProcess(DepublishPlugin plugin, String datasetId) throws DpsException {
@@ -94,21 +109,21 @@ public class WorkflowPostProcessor {
     }
   }
 
-  private void depublishDatasetPostProcess(String datasetId){
+  private void depublishDatasetPostProcess(String datasetId) {
 
     // Set all depublished records back to PENDING.
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-            DepublicationStatus.PENDING_DEPUBLICATION, null);
+        DepublicationStatus.PENDING_DEPUBLICATION, null);
 
     // Find latest PUBLISH Type Plugin and set dataStatus to DELETED.
     final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
-            .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);
+        .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);
     if (Objects.nonNull(latestSuccessfulPlugin) && Objects
-            .nonNull(latestSuccessfulPlugin.getPlugin())) {
+        .nonNull(latestSuccessfulPlugin.getPlugin())) {
       final WorkflowExecution workflowExecutionToUpdate = workflowExecutionDao
-              .getById(latestSuccessfulPlugin.getExecutionId());
+          .getById(latestSuccessfulPlugin.getExecutionId());
       final Optional<AbstractMetisPlugin> metisPluginWithType = workflowExecutionToUpdate
-              .getMetisPluginWithType(latestSuccessfulPlugin.getPlugin().getPluginType());
+          .getMetisPluginWithType(latestSuccessfulPlugin.getPlugin().getPluginType());
       if (metisPluginWithType.isPresent()) {
         metisPluginWithType.get().setDataStatus(DataStatus.DELETED);
         workflowExecutionDao.updateWorkflowPlugins(workflowExecutionToUpdate);
@@ -122,7 +137,7 @@ public class WorkflowPostProcessor {
   }
 
   private void depublishRecordPostProcess(DepublishPlugin depublishPlugin, String datasetId)
-          throws DpsException {
+      throws DpsException {
 
     // Retrieve the successfully depublished records.
     final long externalTaskId = Long.parseLong(depublishPlugin.getExternalTaskId());
@@ -130,20 +145,20 @@ public class WorkflowPostProcessor {
     List<SubTaskInfo> subTasksBatch;
     do {
       subTasksBatch = dpsClient.getDetailedTaskReportBetweenChunks(
-              depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
-              subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE);
+          depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
+          subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE);
       subTasks.addAll(subTasksBatch);
     } while (subTasksBatch.size() == ECLOUD_REQUEST_BATCH_SIZE);
 
     // Mark the records as DEPUBLISHED.
     final Map<String, Set<String>> successfulRecords = subTasks.stream()
-            .filter(subTask -> subTask.getRecordState() == RecordState.SUCCESS)
-            .map(SubTaskInfo::getResource).map(DepublishRecordIdUtils::decomposeFullRecordId)
-            .collect(Collectors.groupingBy(Pair::getLeft,
-                    Collectors.mapping(Pair::getRight, Collectors.toSet())));
+        .filter(subTask -> subTask.getRecordState() == RecordState.SUCCESS)
+        .map(SubTaskInfo::getResource).map(DepublishRecordIdUtils::decomposeFullRecordId)
+        .collect(Collectors.groupingBy(Pair::getLeft,
+            Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
-            depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
-                    DepublicationStatus.DEPUBLISHED, new Date()));
+        depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
+            DepublicationStatus.DEPUBLISHED, new Date()));
 
     // Set publication fitness to PARTIALLY FIT (if not set to the more severe UNFIT).
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
