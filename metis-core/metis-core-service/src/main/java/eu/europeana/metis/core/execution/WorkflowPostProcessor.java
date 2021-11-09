@@ -4,8 +4,6 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
-import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
@@ -85,27 +83,35 @@ public class WorkflowPostProcessor {
     LOGGER.info("Finished postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
   }
 
-  private void indexPostProcess(AbstractIndexPlugin<?> plugin, String datasetId) throws DpsException {
-    TargetIndexingEnvironment targetIndexingEnvironment =
-        plugin.getPluginMetadata().isUseAlternativeIndexingEnvironment() ? TargetIndexingEnvironment.ALTERNATIVE
-            : TargetIndexingEnvironment.DEFAULT;
-    TargetIndexingDatabase targetIndexingDatabase =
-        plugin.getPluginMetadata().getPluginType().name().equalsIgnoreCase(TargetIndexingDatabase.PREVIEW.name())
-            ? TargetIndexingDatabase.PREVIEW : TargetIndexingDatabase.PUBLISH;
-    plugin.setTotalDatabaseRecords(
-        (int) dpsClient.getTotalDatabaseRecords(datasetId, targetIndexingDatabase, targetIndexingEnvironment));
-    if (plugin instanceof IndexToPublishPlugin) {
+  /**
+   * Performs post processing for indexing plugins
+   *
+   * @param indexPlugin the index plugin
+   * @param datasetId the dataset id
+   * @throws DpsException if communication with ecloud dps failed
+   */
+  private void indexPostProcess(AbstractIndexPlugin<?> indexPlugin, String datasetId) throws DpsException {
+    indexPlugin.setTotalDatabaseRecords(
+        (int) dpsClient.getTotalDatabaseRecords(datasetId, indexPlugin.getTargetIndexingDatabase(), indexPlugin.getTargetIndexingEnvironment()));
+    if (indexPlugin instanceof IndexToPublishPlugin) {
       //Reset depublish status if index to PUBLISH
       depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
           DepublicationStatus.PENDING_DEPUBLICATION, null);
     }
   }
 
-  private void depublishPostProcess(DepublishPlugin plugin, String datasetId) throws DpsException {
-    if (plugin.getPluginMetadata().isDatasetDepublish()) {
+  /**
+   * Performs post processing for depublish plugins
+   *
+   * @param depublishPlugin the depublish plugin
+   * @param datasetId the dataset id
+   * @throws DpsException if communication with ecloud dps failed
+   */
+  private void depublishPostProcess(DepublishPlugin depublishPlugin, String datasetId) throws DpsException {
+    if (depublishPlugin.getPluginMetadata().isDatasetDepublish()) {
       depublishDatasetPostProcess(datasetId);
     } else {
-      depublishRecordPostProcess(plugin, datasetId);
+      depublishRecordPostProcess(depublishPlugin, datasetId);
     }
   }
 

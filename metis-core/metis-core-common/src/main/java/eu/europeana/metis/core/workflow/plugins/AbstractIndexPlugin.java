@@ -1,7 +1,14 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 
+/**
+ * Represents an index plugin.
+ *
+ * @param <M> the type of the plugin metadata in the plugin
+ */
 public abstract class AbstractIndexPlugin<M extends AbstractIndexPluginMetadata> extends AbstractExecutablePlugin<M> {
 
   protected final String topologyName = Topology.INDEX.getTopologyName();
@@ -40,7 +47,7 @@ public abstract class AbstractIndexPlugin<M extends AbstractIndexPluginMetadata>
         getPluginMetadata().isUseAlternativeIndexingEnvironment(),
         getPluginMetadata().isPreserveTimestamps(),
         getPluginMetadata().getDatasetIdsToRedirectFrom(),
-        getPluginMetadata().isPerformRedirects(), getPluginType().name());
+        getPluginMetadata().isPerformRedirects(), getTargetIndexingDatabase().name());
   }
 
   public int getTotalDatabaseRecords() {
@@ -49,5 +56,22 @@ public abstract class AbstractIndexPlugin<M extends AbstractIndexPluginMetadata>
 
   public void setTotalDatabaseRecords(int totalDatabaseRecords) {
     this.totalDatabaseRecords = totalDatabaseRecords;
+  }
+
+  /**
+   * Get the target indexing database.
+   *
+   * @return the target indexing database
+   */
+  public abstract TargetIndexingDatabase getTargetIndexingDatabase();
+
+  /**
+   * Get the target indexing environment.
+   *
+   * @return the target indexing environment
+   */
+  public TargetIndexingEnvironment getTargetIndexingEnvironment() {
+    return getPluginMetadata().isUseAlternativeIndexingEnvironment() ? TargetIndexingEnvironment.ALTERNATIVE
+            : TargetIndexingEnvironment.DEFAULT;
   }
 }

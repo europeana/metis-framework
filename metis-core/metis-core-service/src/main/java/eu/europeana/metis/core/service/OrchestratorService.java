@@ -63,7 +63,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
@@ -820,9 +820,8 @@ public class OrchestratorService {
     executionInfo.setPublicationStatus(status);
   }
 
-  private boolean computeRecordCountsAndCheckDeletedRecords(ExecutablePlugin executablePlugin,
-                                                            Consumer<Integer> lastRecordsSetter,
-                                                            Consumer<Integer> totalRecordsSetter) {
+  private boolean computeRecordCountsAndCheckDeletedRecords(ExecutablePlugin executablePlugin, IntConsumer lastRecordsSetter,
+                                                            IntConsumer totalRecordsSetter) {
     int recordCount = 0;
     int totalRecordCount = 0;
     boolean hasDeletedRecords = false;

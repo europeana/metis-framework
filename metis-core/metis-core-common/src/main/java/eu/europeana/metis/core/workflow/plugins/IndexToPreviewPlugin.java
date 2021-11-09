@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
+
 /**
  * Index to Preview Plugin.
  *
@@ -25,5 +27,9 @@ public class IndexToPreviewPlugin extends AbstractIndexPlugin<IndexToPreviewPlug
    */
   IndexToPreviewPlugin(IndexToPreviewPluginMetadata pluginMetadata) {
     super(PluginType.PREVIEW, pluginMetadata);
+  }
+
+  public TargetIndexingDatabase getTargetIndexingDatabase() {
+    return TargetIndexingDatabase.PREVIEW;
   }
 }

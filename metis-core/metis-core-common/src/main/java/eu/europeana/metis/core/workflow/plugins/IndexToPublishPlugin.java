@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
+
 /**
  * Index to Publish Plugin.
  *
@@ -9,8 +11,7 @@ package eu.europeana.metis.core.workflow.plugins;
 public class IndexToPublishPlugin extends AbstractIndexPlugin<IndexToPublishPluginMetadata> {
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
-   * plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
   IndexToPublishPlugin() {
     //Required for json serialization
@@ -25,5 +26,9 @@ public class IndexToPublishPlugin extends AbstractIndexPlugin<IndexToPublishPlug
    */
   IndexToPublishPlugin(IndexToPublishPluginMetadata pluginMetadata) {
     super(PluginType.PUBLISH, pluginMetadata);
+  }
+
+  public TargetIndexingDatabase getTargetIndexingDatabase() {
+    return TargetIndexingDatabase.PUBLISH;
   }
 }
