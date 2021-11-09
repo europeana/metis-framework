@@ -38,6 +38,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractIndexPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
@@ -62,6 +63,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
@@ -121,19 +123,18 @@ public class OrchestratorService {
    * @param workflowValidationUtils A utilities class providing more functionality on top of DAOs.
    * @param dataEvolutionUtils A utilities class providing more functionality on top of DAOs.
    * @param datasetDao the Dao instance to access the Dataset database
-   * @param workflowExecutorManager the instance that handles the production and consumption of
-   * workflowExecutions
+   * @param workflowExecutorManager the instance that handles the production and consumption of workflowExecutions
    * @param redissonClient the instance of Redisson library that handles distributed locks
    * @param authorizer the authorizer
    * @param depublishRecordIdDao the Dao instance to access the DepublishRecordId database
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
-      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-      WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
-      DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
-      RedissonClient redissonClient, Authorizer authorizer,
-      DepublishRecordIdDao depublishRecordIdDao) {
+                             WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
+                             WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
+                             DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
+                             RedissonClient redissonClient, Authorizer authorizer,
+                             DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
@@ -147,8 +148,8 @@ public class OrchestratorService {
   }
 
   /**
-   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
-   * plugins. If plugins are disabled, they (their settings) are still saved.
+   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested plugins. If plugins are disabled,
+   * they (their settings) are still saved.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param datasetId the identifier of the dataset for which the workflow should be created
@@ -164,7 +165,7 @@ public class OrchestratorService {
    * </ul>
    */
   public void createWorkflow(MetisUserView metisUserView, String datasetId, Workflow workflow,
-      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
+                             ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
     authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
@@ -184,9 +185,9 @@ public class OrchestratorService {
   }
 
   /**
-   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains
-   * the requested plugins. If plugins are disabled, they (their settings) are still saved. Any
-   * settings in plugins that are not sent in the request are removed.
+   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains the requested plugins. If
+   * plugins are disabled, they (their settings) are still saved. Any settings in plugins that are not sent in the request are
+   * removed.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param datasetId the identifier of the dataset for which the workflow should be updated
@@ -202,7 +203,7 @@ public class OrchestratorService {
    * </ul>
    */
   public void updateWorkflow(MetisUserView metisUserView, String datasetId, Workflow workflow,
-      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
+                             ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
     authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
@@ -269,7 +270,7 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution getWorkflowExecutionByExecutionId(MetisUserView metisUserView,
-      String executionId) throws GenericMetisException {
+                                                             String executionId) throws GenericMetisException {
     final WorkflowExecution result = workflowExecutionDao.getById(executionId);
     if (result != null) {
       authorizer.authorizeReadExistingDatasetById(metisUserView, result.getDatasetId());
@@ -279,20 +280,17 @@ public class OrchestratorService {
 
   /**
    * <p> Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates
-   * the status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database
-   * and also it's identifier goes into the distributed queue of WorkflowExecutions. The source data
-   * for the first plugin in the workflow can be controlled, if required, from the {@code
-   * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
+   * the status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and also it's identifier goes
+   * into the distributed queue of WorkflowExecutions. The source data for the first plugin in the workflow can be controlled, if
+   * required, from the {@code enforcedPredecessorType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data. </p>
    * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be
    * called from a scheduled task. </p>
    *
    * @param datasetId the dataset identifier for which the execution will take place
-   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
-   * the db
+   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
-   * highest
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -322,20 +320,17 @@ public class OrchestratorService {
   }
 
   /**
-   * Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the
-   * status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and
-   * also it's identifier goes into the distributed queue of WorkflowExecutions. The source data for
-   * the first plugin in the workflow can be controlled, if required, from the {@code
-   * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
-   * parameter, will be used as the source data.
+   * Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the status of the WorkflowExecution
+   * to {@link WorkflowStatus#INQUEUE}, adds it to the database and also it's identifier goes into the distributed queue of
+   * WorkflowExecutions. The source data for the first plugin in the workflow can be controlled, if required, from the {@code
+   * enforcedPredecessorType}, which means that the last valid plugin that is provided with that parameter, will be used as the
+   * source data.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier for which the execution will take place
-   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
-   * the db
+   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
-   * highest
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -353,8 +348,9 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUserView metisUserView,
-      String datasetId, @Nullable Workflow workflowProvided,
-      @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
+                                                                  String datasetId, @Nullable Workflow workflowProvided,
+                                                                  @Nullable ExecutablePluginType enforcedPredecessorType,
+                                                                  int priority)
       throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
@@ -362,8 +358,10 @@ public class OrchestratorService {
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
-      @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType,
-      int priority, MetisUserView metisUserView) throws GenericMetisException {
+                                                                   @Nullable Workflow workflowProvided,
+                                                                   @Nullable ExecutablePluginType enforcedPredecessorType,
+                                                                   int priority, MetisUserView metisUserView)
+      throws GenericMetisException {
 
     // Get the workflow or use the one provided.
     final Workflow workflow;
@@ -424,8 +422,8 @@ public class OrchestratorService {
   }
 
   /**
-   * Request to cancel a workflow execution. The execution will go into a cancelling state until
-   * it's properly {@link WorkflowStatus#CANCELLED} from the system
+   * Request to cancel a workflow execution. The execution will go into a cancelling state until it's properly {@link
+   * WorkflowStatus#CANCELLED} from the system
    *
    * @param metisUserView the user wishing to perform this operation
    * @param executionId the execution identifier of the execution to cancel
@@ -456,8 +454,7 @@ public class OrchestratorService {
   }
 
   /**
-   * The number of WorkflowExecutions that would be returned if a get all request would be
-   * performed.
+   * The number of WorkflowExecutions that would be returned if a get all request would be performed.
    *
    * @return the number representing the size during a get all request
    */
@@ -466,18 +463,16 @@ public class OrchestratorService {
   }
 
   /**
-   * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
-   * there was a previous successful finished plugin that follows a specific order (unless the
-   * {@code enforcedPredecessorType} is used) and that has the latest successful harvest plugin as
-   * an ancestor.
+   * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if there was a previous
+   * successful finished plugin that follows a specific order (unless the {@code enforcedPredecessorType} is used) and that has
+   * the latest successful harvest plugin as an ancestor.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param datasetId the dataset identifier of which the executions are based on
    * @param pluginType the pluginType to be checked for allowance of execution
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can
-   * be null if the {@code pluginType} is the first one in the total order of executions e.g. One of
-   * the harvesting plugins.
+   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can be null if the {@code
+   * pluginType} is the first one in the total order of executions e.g. One of the harvesting plugins.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link PluginExecutionNotAllowed} if the no plugin was found so the {@code pluginType}
@@ -491,7 +486,7 @@ public class OrchestratorService {
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return Optional.ofNullable(
-        dataEvolutionUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
+            dataEvolutionUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
@@ -504,8 +499,8 @@ public class OrchestratorService {
    * @param orderField the field to be used to sort the results
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
-   * @return A list of all the WorkflowExecutions found. If the user is not admin, the list is
-   * filtered to only show those executions that are in the user's organization.
+   * @return A list of all the WorkflowExecutions found. If the user is not admin, the list is filtered to only show those
+   * executions that are in the user's organization.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
@@ -549,6 +544,7 @@ public class OrchestratorService {
 
   /**
    * Checks if a workflow execution is an incremental one based on root ancestor information
+   *
    * @param workflowExecution the workflow execution to check
    * @return true if incremental, false otherwise
    */
@@ -583,9 +579,9 @@ public class OrchestratorService {
   }
 
   /**
-   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an
-   * overview. First the ones in queue, then those in progress and then those that are finalized.
-   * They will be sorted by creation date. This method does support pagination.
+   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an overview. First the ones in
+   * queue, then those in progress and then those that are finalized. They will be sorted by creation date. This method does
+   * support pagination.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param pluginStatuses the plugin statuses to filter. Can be null.
@@ -662,7 +658,7 @@ public class OrchestratorService {
    * </ul>
    */
   public DatasetExecutionInformation getDatasetExecutionInformation(MetisUserView metisUserView,
-      String datasetId) throws GenericMetisException {
+                                                                    String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return getDatasetExecutionInformation(datasetId);
   }
@@ -671,17 +667,17 @@ public class OrchestratorService {
 
     // Obtain the relevant parts of the execution history
     final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(
-        workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
+            workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
     final PluginWithExecutionId<MetisPlugin> firstPublishPluginWithExecutionId = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
     final MetisPlugin firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
         : firstPublishPluginWithExecutionId.getPlugin();
     final ExecutablePlugin lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false))
+            .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
     final ExecutablePlugin lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false))
+            .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
     final PluginWithExecutionId<MetisPlugin> latestPreviewPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PREVIEW_TYPES);
@@ -692,7 +688,7 @@ public class OrchestratorService {
     final MetisPlugin lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
         : latestPublishPluginWithExecutionId.getPlugin();
     final ExecutablePlugin lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
+            .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
 
     // Obtain the relevant current executions
@@ -725,26 +721,35 @@ public class OrchestratorService {
   }
 
   private void setPreviewInformation(DatasetExecutionInformation executionInfo,
-      ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
-      boolean isPreviewCleaningOrRunning, Date date) {
-    // Set the last preview information
+                                     ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
+                                     boolean isPreviewCleaningOrRunning, Date date) {
+
+    boolean lastPreviewHasDeletedRecords = computeRecordCountsAndCheckDeletedRecords(lastExecutablePreviewPlugin,
+        executionInfo::setLastPreviewRecords, executionInfo::setTotalPreviewRecords);
+
+    //Compute more general information of the plugin
     if (Objects.nonNull(lastPreviewPlugin)) {
       executionInfo.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
-      executionInfo.setLastPreviewRecordsReadyForViewing(
+      //Check if we have information about the total records
+      final boolean recordsAvailable;
+      if (executionInfo.getTotalPreviewRecords() > 0) {
+        recordsAvailable = true;
+      } else if (executionInfo.getTotalPreviewRecords() == 0) {
+        recordsAvailable = false;
+      } else {
+        recordsAvailable = executionInfo.getLastPreviewRecords() > 0 || lastPreviewHasDeletedRecords;
+      }
+
+      executionInfo.setLastPreviewRecordsReadyForViewing(recordsAvailable &&
           !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin,
-              date));
-    }
-    if (Objects.nonNull(lastExecutablePreviewPlugin)) {
-      executionInfo.setLastPreviewRecords(
-          lastExecutablePreviewPlugin.getExecutionProgress().getProcessedRecords()
-              - lastExecutablePreviewPlugin.getExecutionProgress().getErrors());
+          date));
     }
   }
 
   private void setPublishInformation(DatasetExecutionInformation executionInfo,
-      MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
-      MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
-      boolean isPublishCleaningOrRunning, Date date, String datasetId) {
+                                     MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
+                                     MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
+                                     boolean isPublishCleaningOrRunning, Date date, String datasetId) {
 
     // Set the first publication information
     executionInfo.setFirstPublishedDate(
@@ -763,16 +768,13 @@ public class OrchestratorService {
         && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
         .isDatasetDepublish();
 
-    // Compute the current published record count (records successfully published during the latest
-    // real publish) and the depublished record count (all records depublished since last publish).
-    final int publishedRecordCount = lastExecutablePublishPlugin == null ? 0
-        : (lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
-            - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
-    final Boolean lastPublishHasDeletedRecords = Optional.ofNullable(lastExecutablePublishPlugin)
-        .map(plugin -> plugin.getExecutionProgress().getDeletedRecords() > 0).orElse(Boolean.FALSE);
+    boolean lastPublishHasDeletedRecords = computeRecordCountsAndCheckDeletedRecords(lastExecutablePublishPlugin,
+        executionInfo::setLastPublishedRecords, executionInfo::setTotalPublishedRecords);
+
+    //Compute depublish count
     final int depublishedRecordCount;
     if (datasetCurrentlyDepublished) {
-      depublishedRecordCount = publishedRecordCount;
+      depublishedRecordCount = executionInfo.getLastPublishedRecords();
     } else if (depublishHappenedAfterLatestExecutablePublish) {
       depublishedRecordCount = (int) depublishRecordIdDao
           .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
@@ -780,12 +782,21 @@ public class OrchestratorService {
       depublishedRecordCount = 0;
     }
 
-    // Set the last publish information
-    executionInfo.setLastPublishedRecords(publishedRecordCount);
+    //Compute more general information of the plugin
     if (Objects.nonNull(lastPublishPlugin)) {
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
-      final boolean recordsAvailable =
-          !datasetCurrentlyDepublished && (publishedRecordCount > depublishedRecordCount || lastPublishHasDeletedRecords);
+
+      //Check if we have information about the total records
+      final boolean recordsAvailable;
+      if (executionInfo.getTotalPublishedRecords() > 0) {
+        recordsAvailable = true;
+      } else if (executionInfo.getTotalPublishedRecords() == 0) {
+        recordsAvailable = false;
+      } else {
+        recordsAvailable =
+            !datasetCurrentlyDepublished && (executionInfo.getLastPublishedRecords() > depublishedRecordCount
+                || lastPublishHasDeletedRecords);
+      }
       executionInfo.setLastPublishedRecordsReadyForViewing(
           recordsAvailable && !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(
               lastPublishPlugin, date));
@@ -809,6 +820,23 @@ public class OrchestratorService {
     executionInfo.setPublicationStatus(status);
   }
 
+  private boolean computeRecordCountsAndCheckDeletedRecords(ExecutablePlugin executablePlugin,
+                                                            Consumer<Integer> lastRecordsSetter,
+                                                            Consumer<Integer> totalRecordsSetter) {
+    int recordCount = 0;
+    int totalRecordCount = 0;
+    boolean hasDeletedRecords = false;
+    if (Objects.nonNull(executablePlugin)) {
+      recordCount = executablePlugin.getExecutionProgress().getProcessedRecords()
+          - executablePlugin.getExecutionProgress().getErrors();
+      totalRecordCount = ((AbstractIndexPlugin<?>) executablePlugin).getTotalDatabaseRecords();
+      hasDeletedRecords = executablePlugin.getExecutionProgress().getDeletedRecords() > 0;
+    }
+    lastRecordsSetter.accept(recordCount);
+    totalRecordsSetter.accept(totalRecordCount);
+    return hasDeletedRecords;
+  }
+
   private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {
     final boolean dataIsValid = !(plugin instanceof ExecutablePlugin)
         || MetisPlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
@@ -818,7 +846,7 @@ public class OrchestratorService {
   }
 
   private boolean isPluginInWorkflowCleaningOrRunning(WorkflowExecution runningOrInQueueExecution,
-      Set<PluginType> pluginTypes) {
+                                                      Set<PluginType> pluginTypes) {
     return runningOrInQueueExecution != null && runningOrInQueueExecution.getMetisPlugins().stream()
         .filter(metisPlugin -> pluginTypes.contains(metisPlugin.getPluginType()))
         .map(AbstractMetisPlugin::getPluginStatus).anyMatch(
@@ -851,7 +879,7 @@ public class OrchestratorService {
 
     // Filter the executions.
     final List<Execution> executions = allExecutions.getResults().stream().filter(
-        entry -> entry.getMetisPlugins().stream().anyMatch(OrchestratorService::canDisplayRawXml))
+            entry -> entry.getMetisPlugins().stream().anyMatch(OrchestratorService::canDisplayRawXml))
         .map(OrchestratorService::convert).collect(Collectors.toList());
 
     // Done
@@ -868,8 +896,7 @@ public class OrchestratorService {
   }
 
   /**
-   * Retrieve a list of plugins with data availability {@link PluginsWithDataAvailability} for a
-   * given workflow execution.
+   * Retrieve a list of plugins with data availability {@link PluginsWithDataAvailability} for a given workflow execution.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param executionId the identifier of the execution for which to get the plugins
@@ -930,8 +957,7 @@ public class OrchestratorService {
   }
 
   /**
-   * Get the evolution of the records from when they were first imported until (and excluding) the
-   * specified version.
+   * Get the evolution of the records from when they were first imported until (and excluding) the specified version.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param executionId The ID of the workflow exection in which the version is created.
@@ -946,7 +972,7 @@ public class OrchestratorService {
    * </ul>
    */
   public VersionEvolution getRecordEvolutionForVersion(MetisUserView metisUserView, String executionId,
-      PluginType pluginType) throws GenericMetisException {
+                                                       PluginType pluginType) throws GenericMetisException {
 
     // Get the execution and do the authorization check.
     final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUserView, executionId);
@@ -977,8 +1003,7 @@ public class OrchestratorService {
   }
 
   /**
-   * This method returns whether currently it is permitted/possible to perform incremental
-   * harvesting for the given dataset.
+   * This method returns whether currently it is permitted/possible to perform incremental harvesting for the given dataset.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param datasetId The ID of the dataset for which to check.
