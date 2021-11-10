@@ -317,7 +317,7 @@ public class RdfWrapper {
   private Set<String> getUrlsOfType(WebResourceLinkType type) {
     return getAggregations().stream().map(type::getResourcesOfType).filter(Objects::nonNull)
         .flatMap(List::stream).filter(Objects::nonNull).map(ResourceType::getResource)
-        .filter(org.apache.commons.lang.StringUtils::isNotBlank).collect(Collectors.toSet());
+        .filter(StringUtils::isNotBlank).collect(Collectors.toSet());
   }
 
   /**
