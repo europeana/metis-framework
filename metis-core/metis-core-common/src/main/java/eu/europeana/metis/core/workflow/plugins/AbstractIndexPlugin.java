@@ -12,7 +12,7 @@ import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 public abstract class AbstractIndexPlugin<M extends AbstractIndexPluginMetadata> extends AbstractExecutablePlugin<M> {
 
   protected final String topologyName = Topology.INDEX.getTopologyName();
-  // TODO: 01/11/2021 If we want to fix that we should do an update of the database
+  // TODO: 01/11/2021 The correct values should be updated with a script for the latest preview and publish executions, during release
   //Initialize with negative for past executions
   private int totalDatabaseRecords = -1;
 

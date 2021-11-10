@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.execution;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
@@ -91,8 +93,10 @@ public class WorkflowPostProcessor {
    * @throws DpsException if communication with ecloud dps failed
    */
   private void indexPostProcess(AbstractIndexPlugin<?> indexPlugin, String datasetId) throws DpsException {
-    indexPlugin.setTotalDatabaseRecords(
-        (int) dpsClient.getTotalDatabaseRecords(datasetId, indexPlugin.getTargetIndexingDatabase(), indexPlugin.getTargetIndexingEnvironment()));
+    final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptions(() ->
+        (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, indexPlugin.getTargetIndexingDatabase(),
+            indexPlugin.getTargetIndexingEnvironment()));
+    indexPlugin.setTotalDatabaseRecords(databaseTotalRecords);
     if (indexPlugin instanceof IndexToPublishPlugin) {
       //Reset depublish status if index to PUBLISH
       depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
@@ -142,17 +146,16 @@ public class WorkflowPostProcessor {
     datasetDao.update(dataset);
   }
 
-  private void depublishRecordPostProcess(DepublishPlugin depublishPlugin, String datasetId)
-      throws DpsException {
+  private void depublishRecordPostProcess(DepublishPlugin depublishPlugin, String datasetId) throws DpsException {
 
     // Retrieve the successfully depublished records.
     final long externalTaskId = Long.parseLong(depublishPlugin.getExternalTaskId());
     final List<SubTaskInfo> subTasks = new ArrayList<>();
     List<SubTaskInfo> subTasksBatch;
     do {
-      subTasksBatch = dpsClient.getDetailedTaskReportBetweenChunks(
+      subTasksBatch = retryableExternalRequestForNetworkExceptions(() -> dpsClient.getDetailedTaskReportBetweenChunks(
           depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
-          subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE);
+          subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE));
       subTasks.addAll(subTasksBatch);
     } while (subTasksBatch.size() == ECLOUD_REQUEST_BATCH_SIZE);
 

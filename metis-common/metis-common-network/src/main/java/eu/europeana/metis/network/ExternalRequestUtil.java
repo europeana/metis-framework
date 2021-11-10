@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ServiceUnavailableException;
 import org.apache.commons.lang3.StringUtils;
@@ -105,6 +104,8 @@ public final class ExternalRequestUtil {
    * if set to -1, the default value will be set
    * @return the expected object as a result of the external request
    * @throws E any exception that the supplier could throw
+   * @param <R> the return type
+   * @param <E> the exception type
    */
   public static <R, E extends Exception> R retryableExternalRequest(
       SupplierThrowingException<R, E> supplierThrowingException,
@@ -122,12 +123,13 @@ public final class ExternalRequestUtil {
       } catch (RuntimeException e) {
         doWhenExceptionCaught(e, exceptionStringMap, retriesCounter, maxRetries,
                 periodBetweenRetriesInMillis);
-      } catch (Exception e) {
+      } catch (@SuppressWarnings("java:S2221") Exception e) {
         final E castException = (E) e; // Exception must be of given type
         doWhenExceptionCaught(castException, exceptionStringMap, retriesCounter, maxRetries,
                 periodBetweenRetriesInMillis);
       }
     } while (true);
+
   }
 
   /**
@@ -139,8 +141,11 @@ public final class ExternalRequestUtil {
    * @param supplier the respective supplier encapsulating the external request a message to check,
    * if any. If message is null or empty, all messages will match
    * @return the expected object as a result of the external request
+   * @param <R> the return type
+   * @param <E> the exception type
+   * @throws E any exception that the supplier could throw
    */
-  public static <R> R retryableExternalRequestForNetworkExceptions(Supplier<R> supplier) {
+  public static <R, E extends Exception> R retryableExternalRequestForNetworkExceptions(SupplierThrowingException<R, E> supplier) throws E{
     return retryableExternalRequestForRuntimeExceptions(supplier,
         UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, -1, -1);
   }
@@ -159,11 +164,14 @@ public final class ExternalRequestUtil {
    * @param periodBetweenRetriesInMillis the amount of period spend sleeping in between two retries,
    * if set to -1, the default value will be set
    * @return the expected object as a result of the external request
+   * @param <R> the return type
+   * @param <E> the exception type
+   * @throws E any exception that the supplier could throw
    */
-  public static <R> R retryableExternalRequestForRuntimeExceptions(Supplier<R> supplier,
+  public static <R, E extends Exception> R retryableExternalRequestForRuntimeExceptions(SupplierThrowingException<R, E> supplier,
       Map<Class<?>, String> runtimeExceptionStringMap, int maxRetries,
-      int periodBetweenRetriesInMillis) {
-    return retryableExternalRequest(supplier::get, runtimeExceptionStringMap, maxRetries,
+      int periodBetweenRetriesInMillis) throws E{
+    return retryableExternalRequest(supplier, runtimeExceptionStringMap, maxRetries,
             periodBetweenRetriesInMillis);
   }
 
@@ -254,6 +262,7 @@ public final class ExternalRequestUtil {
    * A Supplier that throws {@link Exception}
    *
    * @param <T> the result of the supplier
+   * @param <E> the exception type
    */
   @FunctionalInterface
   public interface SupplierThrowingException<T, E extends Exception> {
