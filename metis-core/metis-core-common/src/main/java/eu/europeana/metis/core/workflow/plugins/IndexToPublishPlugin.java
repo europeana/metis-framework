@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
 
 /**
  * Index to Publish Plugin.
@@ -8,13 +8,10 @@ import eu.europeana.cloud.service.dps.DpsTask;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-03
  */
-public class IndexToPublishPlugin extends AbstractExecutablePlugin<IndexToPublishPluginMetadata> {
-
-  private final String topologyName = Topology.INDEX.getTopologyName();
+public class IndexToPublishPlugin extends AbstractIndexPlugin<IndexToPublishPluginMetadata> {
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
-   * plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
   IndexToPublishPlugin() {
     //Required for json serialization
@@ -31,25 +28,7 @@ public class IndexToPublishPlugin extends AbstractExecutablePlugin<IndexToPublis
     super(PluginType.PUBLISH, pluginMetadata);
   }
 
-  /**
-   * Required for json serialization.
-   *
-   * @return the String representation of the topology
-   */
-  @Override
-  public String getTopologyName() {
-    return topologyName;
-  }
-
-  @Override
-  public DpsTask prepareDpsTask(String datasetId,
-      EcloudBasePluginParameters ecloudBasePluginParameters) {
-    return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
-            getPluginMetadata().isIncrementalIndexing(),
-            getPluginMetadata().getHarvestDate(),
-            getPluginMetadata().isUseAlternativeIndexingEnvironment(),
-            getPluginMetadata().isPreserveTimestamps(),
-            getPluginMetadata().getDatasetIdsToRedirectFrom(),
-            getPluginMetadata().isPerformRedirects(),"PUBLISH");
+  public TargetIndexingDatabase getTargetIndexingDatabase() {
+    return TargetIndexingDatabase.PUBLISH;
   }
 }
