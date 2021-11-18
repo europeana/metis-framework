@@ -10,6 +10,7 @@ import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.exceptions.InvalidIndexPluginException;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -466,8 +467,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             plugin.getPluginType() == PluginType.REINDEX_TO_PUBLISH);
   }
 
-  private boolean isHarvestingInPostProcessing(MonitorResult monitor,
-      AbstractExecutablePlugin plugin) {
+  private boolean isHarvestingInPostProcessing(MonitorResult monitor, AbstractExecutablePlugin plugin) {
     return monitor.getTaskState() == TaskState.IN_POST_PROCESSING &&
         (plugin.getPluginType() == PluginType.HTTP_HARVEST ||
             plugin.getPluginType() == PluginType.OAIPMH_HARVEST);
@@ -491,7 +491,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     if (monitorResult.getTaskState() == TaskState.PROCESSED) {
       try {
         this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
-      } catch (DpsException | RuntimeException e) {
+      } catch (DpsException | InvalidIndexPluginException | RuntimeException e) {
         processingAppliedOrNotRequired = false;
         LOGGER.warn("Problem occurred during Metis post-processing.", e);
         plugin.setFinishedDate(null);
