@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.execution;
 
-import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.RecordState;
@@ -93,7 +93,7 @@ public class WorkflowPostProcessor {
    * @throws DpsException if communication with ecloud dps failed
    */
   private void indexPostProcess(AbstractIndexPlugin<?> indexPlugin, String datasetId) throws DpsException {
-    final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptions(() ->
+    final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptionsThrowing(() ->
         (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, indexPlugin.getTargetIndexingDatabase(),
             indexPlugin.getTargetIndexingEnvironment()));
     indexPlugin.setTotalDatabaseRecords(databaseTotalRecords);
@@ -153,7 +153,7 @@ public class WorkflowPostProcessor {
     final List<SubTaskInfo> subTasks = new ArrayList<>();
     List<SubTaskInfo> subTasksBatch;
     do {
-      subTasksBatch = retryableExternalRequestForNetworkExceptions(() -> dpsClient.getDetailedTaskReportBetweenChunks(
+      subTasksBatch = retryableExternalRequestForNetworkExceptionsThrowing(() -> dpsClient.getDetailedTaskReportBetweenChunks(
           depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
           subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE));
       subTasks.addAll(subTasksBatch);

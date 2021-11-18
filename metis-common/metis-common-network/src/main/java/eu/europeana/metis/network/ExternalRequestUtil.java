@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ServiceUnavailableException;
 import org.apache.commons.lang3.StringUtils;
@@ -142,10 +143,26 @@ public final class ExternalRequestUtil {
    * if any. If message is null or empty, all messages will match
    * @return the expected object as a result of the external request
    * @param <R> the return type
+   */
+  public static <R> R retryableExternalRequestForNetworkExceptions(Supplier<R> supplier) {
+    return retryableExternalRequestForRuntimeExceptions(supplier::get,
+        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, -1, -1);
+  }
+
+  /**
+   * Retries a request to an external service like a database. This method is meant to be called
+   * when request throws a {@link Exception} that contains a cause of one of the keys in the
+   * {@link #UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS} Map. Default values for maximum retries
+   * {@link * #MAX_RETRIES} and period between retries {@link #SLEEP_TIMEOUT} will be used.
+   *
+   * @param supplier the respective supplier encapsulating the external request a message to check,
+   * if any. If message is null or empty, all messages will match
+   * @return the expected object as a result of the external request
+   * @param <R> the return type
    * @param <E> the exception type
    * @throws E any exception that the supplier could throw
    */
-  public static <R, E extends Exception> R retryableExternalRequestForNetworkExceptions(SupplierThrowingException<R, E> supplier) throws E{
+  public static <R, E extends Exception> R retryableExternalRequestForNetworkExceptionsThrowing(SupplierThrowingException<R, E> supplier) throws E{
     return retryableExternalRequestForRuntimeExceptions(supplier,
         UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, -1, -1);
   }
