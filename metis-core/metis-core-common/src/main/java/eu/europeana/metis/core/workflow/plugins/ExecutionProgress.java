@@ -33,6 +33,10 @@ public class ExecutionProgress {
   // The current state of the task.
   private TaskState status;
 
+  // TODO: 01/11/2021 The correct values should be updated with a script for the latest preview and publish executions, during release
+  // The total records in the database, not used to capture progress but the final result(post process check)
+  private int totalDatabaseRecords = -1;
+
   public int getExpectedRecords() {
     return expectedRecords;
   }
@@ -87,6 +91,14 @@ public class ExecutionProgress {
 
   public void setStatus(TaskState status) {
     this.status = status;
+  }
+
+  public int getTotalDatabaseRecords() {
+    return totalDatabaseRecords;
+  }
+
+  public void setTotalDatabaseRecords(int totalDatabaseRecords) {
+    this.totalDatabaseRecords = totalDatabaseRecords;
   }
 
   public void recalculateProgressPercentage() {

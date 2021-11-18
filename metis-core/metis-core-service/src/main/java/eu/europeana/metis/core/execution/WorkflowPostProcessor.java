@@ -6,6 +6,8 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
+import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
@@ -14,13 +16,14 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
+import eu.europeana.metis.core.exceptions.InvalidIndexPluginException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractIndexPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
+import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -59,7 +62,7 @@ public class WorkflowPostProcessor {
    * @param dpsClient the dps client
    */
   public WorkflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
-                               DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
+      DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
     this.depublishRecordIdDao = depublishRecordIdDao;
     this.datasetDao = datasetDao;
     this.workflowExecutionDao = workflowExecutionDao;
@@ -73,12 +76,12 @@ public class WorkflowPostProcessor {
    * @param datasetId The dataset ID to which the plugin belongs.
    */
   void performPluginPostProcessing(AbstractExecutablePlugin<?> plugin, String datasetId)
-      throws DpsException {
+      throws DpsException, InvalidIndexPluginException {
 
     final PluginType pluginType = plugin.getPluginType();
     LOGGER.info("Starting postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
-    if (plugin instanceof AbstractIndexPlugin) {
-      indexPostProcess((AbstractIndexPlugin<?>) plugin, datasetId);
+    if (pluginType == PluginType.PREVIEW || pluginType == PluginType.PUBLISH) {
+      indexPostProcess(plugin, datasetId);
     } else if (pluginType == PluginType.DEPUBLISH) {
       depublishPostProcess((DepublishPlugin) plugin, datasetId);
     }
@@ -86,22 +89,32 @@ public class WorkflowPostProcessor {
   }
 
   /**
-   * Performs post processing for indexing plugins
+   * Performs post-processing for indexing plugins
    *
    * @param indexPlugin the index plugin
    * @param datasetId the dataset id
    * @throws DpsException if communication with ecloud dps failed
    */
-  private void indexPostProcess(AbstractIndexPlugin<?> indexPlugin, String datasetId) throws DpsException {
-    final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptionsThrowing(() ->
-        (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, indexPlugin.getTargetIndexingDatabase(),
-            indexPlugin.getTargetIndexingEnvironment()));
-    indexPlugin.setTotalDatabaseRecords(databaseTotalRecords);
-    if (indexPlugin instanceof IndexToPublishPlugin) {
-      //Reset depublish status if index to PUBLISH
+  private void indexPostProcess(AbstractExecutablePlugin<?> indexPlugin, String datasetId)
+      throws DpsException, InvalidIndexPluginException {
+    TargetIndexingDatabase targetIndexingDatabase;
+    TargetIndexingEnvironment targetIndexingEnvironment;
+    if (indexPlugin instanceof IndexToPreviewPlugin) {
+      targetIndexingDatabase = ((IndexToPreviewPlugin) indexPlugin).getTargetIndexingDatabase();
+      targetIndexingEnvironment = ((IndexToPreviewPlugin) indexPlugin).getTargetIndexingEnvironment();
+    } else if (indexPlugin instanceof IndexToPublishPlugin) {
+      targetIndexingDatabase = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase();
+      targetIndexingEnvironment = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingEnvironment();
+      //Reset depublish status
       depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
           DepublicationStatus.PENDING_DEPUBLICATION, null);
+    } else {
+      throw new InvalidIndexPluginException("Plugin is not of the types supported");
     }
+    final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptionsThrowing(() ->
+        (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, targetIndexingDatabase,
+            targetIndexingEnvironment));
+    indexPlugin.getExecutionProgress().setTotalDatabaseRecords(databaseTotalRecords);
   }
 
   /**

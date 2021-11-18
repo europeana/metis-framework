@@ -38,7 +38,6 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.AbstractIndexPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
@@ -130,11 +129,11 @@ public class OrchestratorService {
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
-                             WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-                             WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
-                             DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
-                             RedissonClient redissonClient, Authorizer authorizer,
-                             DepublishRecordIdDao depublishRecordIdDao) {
+      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
+      WorkflowValidationUtils workflowValidationUtils, DataEvolutionUtils dataEvolutionUtils,
+      DatasetDao datasetDao, WorkflowExecutorManager workflowExecutorManager,
+      RedissonClient redissonClient, Authorizer authorizer,
+      DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
@@ -165,7 +164,7 @@ public class OrchestratorService {
    * </ul>
    */
   public void createWorkflow(MetisUserView metisUserView, String datasetId, Workflow workflow,
-                             ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
+      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
     authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
@@ -203,7 +202,7 @@ public class OrchestratorService {
    * </ul>
    */
   public void updateWorkflow(MetisUserView metisUserView, String datasetId, Workflow workflow,
-                             ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
+      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
     authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
@@ -270,7 +269,7 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution getWorkflowExecutionByExecutionId(MetisUserView metisUserView,
-                                                             String executionId) throws GenericMetisException {
+      String executionId) throws GenericMetisException {
     final WorkflowExecution result = workflowExecutionDao.getById(executionId);
     if (result != null) {
       authorizer.authorizeReadExistingDatasetById(metisUserView, result.getDatasetId());
@@ -348,9 +347,9 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUserView metisUserView,
-                                                                  String datasetId, @Nullable Workflow workflowProvided,
-                                                                  @Nullable ExecutablePluginType enforcedPredecessorType,
-                                                                  int priority)
+      String datasetId, @Nullable Workflow workflowProvided,
+      @Nullable ExecutablePluginType enforcedPredecessorType,
+      int priority)
       throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
@@ -358,9 +357,9 @@ public class OrchestratorService {
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
-                                                                   @Nullable Workflow workflowProvided,
-                                                                   @Nullable ExecutablePluginType enforcedPredecessorType,
-                                                                   int priority, MetisUserView metisUserView)
+      @Nullable Workflow workflowProvided,
+      @Nullable ExecutablePluginType enforcedPredecessorType,
+      int priority, MetisUserView metisUserView)
       throws GenericMetisException {
 
     // Get the workflow or use the one provided.
@@ -658,7 +657,7 @@ public class OrchestratorService {
    * </ul>
    */
   public DatasetExecutionInformation getDatasetExecutionInformation(MetisUserView metisUserView,
-                                                                    String datasetId) throws GenericMetisException {
+      String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return getDatasetExecutionInformation(datasetId);
   }
@@ -721,8 +720,8 @@ public class OrchestratorService {
   }
 
   private void setPreviewInformation(DatasetExecutionInformation executionInfo,
-                                     ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
-                                     boolean isPreviewCleaningOrRunning, Date date) {
+      ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
+      boolean isPreviewCleaningOrRunning, Date date) {
 
     boolean lastPreviewHasDeletedRecords = computeRecordCountsAndCheckDeletedRecords(lastExecutablePreviewPlugin,
         executionInfo::setLastPreviewRecords, executionInfo::setTotalPreviewRecords);
@@ -747,9 +746,9 @@ public class OrchestratorService {
   }
 
   private void setPublishInformation(DatasetExecutionInformation executionInfo,
-                                     MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
-                                     MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
-                                     boolean isPublishCleaningOrRunning, Date date, String datasetId) {
+      MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
+      MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
+      boolean isPublishCleaningOrRunning, Date date, String datasetId) {
 
     // Set the first publication information
     executionInfo.setFirstPublishedDate(
@@ -821,14 +820,14 @@ public class OrchestratorService {
   }
 
   private boolean computeRecordCountsAndCheckDeletedRecords(ExecutablePlugin executablePlugin, IntConsumer lastRecordsSetter,
-                                                            IntConsumer totalRecordsSetter) {
+      IntConsumer totalRecordsSetter) {
     int recordCount = 0;
-    int totalRecordCount = 0;
+    int totalRecordCount = -1;
     boolean hasDeletedRecords = false;
     if (Objects.nonNull(executablePlugin)) {
       recordCount = executablePlugin.getExecutionProgress().getProcessedRecords()
           - executablePlugin.getExecutionProgress().getErrors();
-      totalRecordCount = ((AbstractIndexPlugin<?>) executablePlugin).getTotalDatabaseRecords();
+      totalRecordCount = executablePlugin.getExecutionProgress().getTotalDatabaseRecords();
       hasDeletedRecords = executablePlugin.getExecutionProgress().getDeletedRecords() > 0;
     }
     lastRecordsSetter.accept(recordCount);
@@ -845,7 +844,7 @@ public class OrchestratorService {
   }
 
   private boolean isPluginInWorkflowCleaningOrRunning(WorkflowExecution runningOrInQueueExecution,
-                                                      Set<PluginType> pluginTypes) {
+      Set<PluginType> pluginTypes) {
     return runningOrInQueueExecution != null && runningOrInQueueExecution.getMetisPlugins().stream()
         .filter(metisPlugin -> pluginTypes.contains(metisPlugin.getPluginType()))
         .map(AbstractMetisPlugin::getPluginStatus).anyMatch(
@@ -971,7 +970,7 @@ public class OrchestratorService {
    * </ul>
    */
   public VersionEvolution getRecordEvolutionForVersion(MetisUserView metisUserView, String executionId,
-                                                       PluginType pluginType) throws GenericMetisException {
+      PluginType pluginType) throws GenericMetisException {
 
     // Get the execution and do the authorization check.
     final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUserView, executionId);

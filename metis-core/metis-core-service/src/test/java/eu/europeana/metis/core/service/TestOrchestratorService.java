@@ -59,7 +59,6 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.AbstractIndexPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
@@ -856,14 +855,14 @@ class TestOrchestratorService {
 
 
     // Create preview plugin
-    AbstractIndexPlugin<IndexToPreviewPluginMetadata> previewPlugin = (AbstractIndexPlugin<IndexToPreviewPluginMetadata>) ExecutablePluginFactory
+    AbstractExecutablePlugin<IndexToPreviewPluginMetadata> previewPlugin = ExecutablePluginFactory
         .createPlugin(new IndexToPreviewPluginMetadata());
     previewPlugin.setFinishedDate(longEnoughToBeValidDate);
     previewPlugin.setDataStatus(null); // Is default status, means valid.
     previewPlugin.setExecutionProgress(executionProgress);
 
     // Create second publish plugin
-    AbstractIndexPlugin<IndexToPublishPluginMetadata> lastPublishPlugin = (AbstractIndexPlugin<IndexToPublishPluginMetadata>) ExecutablePluginFactory
+    AbstractExecutablePlugin<IndexToPublishPluginMetadata> lastPublishPlugin = ExecutablePluginFactory
         .createPlugin(new IndexToPublishPluginMetadata());
     lastPublishPlugin.setFinishedDate(notLongEnoughToBeValidDate);
     lastPublishPlugin.setDataStatus(null); // Is default status, means valid.
@@ -871,19 +870,19 @@ class TestOrchestratorService {
 
     boolean enableRunningPublish = true;
     getDatasetExecutionInformation(previewPlugin, lastPublishPlugin, enableRunningPublish, true, false);
-    previewPlugin.setTotalDatabaseRecords(100);
-    lastPublishPlugin.setTotalDatabaseRecords(100);
+    previewPlugin.getExecutionProgress().setTotalDatabaseRecords(100);
+    lastPublishPlugin.getExecutionProgress().setTotalDatabaseRecords(100);
     lastPublishPlugin.setFinishedDate(longEnoughToBeValidDate);
     enableRunningPublish = false;
     getDatasetExecutionInformation(previewPlugin, lastPublishPlugin, enableRunningPublish, true, true);
-    previewPlugin.setTotalDatabaseRecords(0);
-    lastPublishPlugin.setTotalDatabaseRecords(0);
+    previewPlugin.getExecutionProgress().setTotalDatabaseRecords(0);
+    lastPublishPlugin.getExecutionProgress().setTotalDatabaseRecords(0);
     getDatasetExecutionInformation(previewPlugin, lastPublishPlugin, enableRunningPublish, false, false);
   }
 
   private void getDatasetExecutionInformation(
-      AbstractIndexPlugin<IndexToPreviewPluginMetadata> previewPlugin,
-      AbstractIndexPlugin<IndexToPublishPluginMetadata> lastPublishPlugin, boolean enableRunningPublish,
+      AbstractExecutablePlugin<IndexToPreviewPluginMetadata> previewPlugin,
+      AbstractExecutablePlugin<IndexToPublishPluginMetadata> lastPublishPlugin, boolean enableRunningPublish,
       boolean previewReadyForViewing,
       boolean publishReadyForViewing) throws GenericMetisException {
     ExecutionProgress executionProgress = getExecutionProgress(100, 20);
