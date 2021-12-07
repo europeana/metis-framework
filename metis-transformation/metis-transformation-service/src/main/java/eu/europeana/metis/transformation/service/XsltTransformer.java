@@ -51,12 +51,44 @@ public class XsltTransformer {
   /**
    * Constructor.
    *
-   * @param xsltUrl The URL of the XSLT file.
+   * @param xsltStream  The InputStream of the XSLT file.
    * @param datasetName the dataset name related to the dataset
-   * @param edmCountry the Country related to the dataset
+   * @param edmCountry  the Country related to the dataset
    * @param edmLanguage the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the
-   * transformation.
+   *                                 transformation.
+   */
+
+  public XsltTransformer(InputStream xsltStream, String datasetName, String edmCountry,
+      String edmLanguage)
+      throws TransformationException {
+
+    final TransformerFactory transformerFactory = new TransformerFactoryImpl();
+    try {
+      this.transformer = transformerFactory.newTransformer(new StreamSource(xsltStream));
+    } catch (TransformerConfigurationException e) {
+      throw new TransformationException(e);
+    }
+    if (StringUtils.isNotBlank(datasetName)) {
+      transformer.setParameter("datasetName", datasetName);
+    }
+    if (StringUtils.isNotBlank(edmLanguage)) {
+      transformer.setParameter("edmLanguage", edmLanguage);
+    }
+    if (StringUtils.isNotBlank(edmCountry)) {
+      transformer.setParameter("edmCountry", edmCountry);
+    }
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param xsltUrl     The URL of the XSLT file.
+   * @param datasetName the dataset name related to the dataset
+   * @param edmCountry  the Country related to the dataset
+   * @param edmLanguage the language related to the dataset
+   * @throws TransformationException In case there was a problem with setting up the
+   *                                 transformation.
    */
   public XsltTransformer(String xsltUrl, String datasetName, String edmCountry, String edmLanguage)
       throws TransformationException {
@@ -79,7 +111,7 @@ public class XsltTransformer {
   /**
    * Transforms a file using this instance's XSL transformation.
    *
-   * @param fileContent The file to be transformed.
+   * @param fileContent              The file to be transformed.
    * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
@@ -94,7 +126,7 @@ public class XsltTransformer {
   /**
    * Transforms a file using this instance's XSL transformation.
    *
-   * @param fileContent The file to be transformed.
+   * @param fileContent              The file to be transformed.
    * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
@@ -152,7 +184,7 @@ public class XsltTransformer {
       return transformerFactory.newTemplates(new StreamSource(xsltStream));
     } catch (IOException | TransformerConfigurationException e) {
       throw new CacheValueSupplierException(e);
-    } catch (InterruptedException e){
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
       throw new CacheValueSupplierException(e);
     }
@@ -183,7 +215,7 @@ public class XsltTransformer {
    * Clean up the internal XSLT cache by calling {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
    *
    * @param since The interval length of the period we want to check (which ends now). A negative
-   * duration cleans everything.
+   *              duration cleans everything.
    */
   public static void removeItemsNotAccessedSince(Duration since) {
     TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
