@@ -35,7 +35,6 @@ public class XsltTransformer {
       new CacheWithExpirationTime<>();
 
   private static final HttpClient httpClient = HttpClient.newBuilder().build();
-  private static final TransformerFactory transformerFactory = new TransformerFactoryImpl();
   private final Transformer transformer;
 
   /**
@@ -49,23 +48,35 @@ public class XsltTransformer {
   }
 
   /**
+   * Constructor in the case that no value of the datasetId field needs to be set.
+   *
+   * @param xsltUrl         The URL of the XSLT file.
+   * @param xsltInputStream a inputStream of the XSLT file.
+   * @throws TransformationException In case there was a problem setting up the transformation.
+   */
+  public XsltTransformer(String xsltUrl, InputStream xsltInputStream) throws TransformationException {
+
+    this(xsltUrl, xsltInputStream, null, null, null);
+  }
+
+
+  /**
    * Constructor.
    *
-   * @param xsltBytes  a byte array of the XSLT file.
-   * @param datasetName the dataset name related to the dataset
-   * @param edmCountry  the Country related to the dataset
-   * @param edmLanguage the language related to the dataset
+   * @param xsltUrl         The URL of the XSLT file.
+   * @param xsltInputStream a inputStream of the XSLT file.
+   * @param datasetName     the dataset name related to the dataset
+   * @param edmCountry      the Country related to the dataset
+   * @param edmLanguage     the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the
    *                                 transformation.
    */
 
-  public XsltTransformer(byte[] xsltBytes, String datasetName, String edmCountry,
-      String edmLanguage)
-      throws TransformationException {
-
+  public XsltTransformer(String xsltUrl, InputStream xsltInputStream, String datasetName,
+      String edmCountry, String edmLanguage) throws TransformationException {
     try {
-      this.transformer = getTemplates(xsltBytes).newTransformer();
-    } catch (TransformerConfigurationException |  CacheValueSupplierException e) {
+      transformer = getTemplatesFromUrlOrStream(xsltUrl, xsltInputStream).newTransformer();
+    } catch (TransformerConfigurationException | CacheValueSupplierException e) {
       throw new TransformationException(e);
     }
     setTransformerParameters(datasetName, edmCountry, edmLanguage);
@@ -88,23 +99,32 @@ public class XsltTransformer {
     } catch (TransformerConfigurationException | CacheValueSupplierException e) {
       throw new TransformationException(e);
     }
-    setTransformerParameters(datasetName, edmCountry,edmLanguage);
+    setTransformerParameters(datasetName, edmCountry, edmLanguage);
   }
 
   private static Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
 
-  private static Templates getTemplates(byte[] xsltBytes) throws CacheValueSupplierException {
-    return TEMPLATES_CACHE.getFromCache("", () -> createTemplatesFromBytes(xsltBytes));
+  private static Templates getTemplatesFromUrlOrStream(String xsltUrl,
+      InputStream xsltInputStream) throws CacheValueSupplierException {
+    Templates templates;
+    try {
+      templates = TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
+    } catch (CacheValueSupplierException e) {
+      templates = TEMPLATES_CACHE.getFromCache(xsltUrl,
+          () -> createTemplatesFromInputStream(xsltInputStream));
+    }
+    return templates;
   }
 
-  private static Templates createTemplatesFromBytes(byte[] xsltBytes)
+  private static Templates createTemplatesFromInputStream(InputStream xsltInputStream)
       throws CacheValueSupplierException {
 
     // We know where the xslt files are coming from, we consider them safe.
     try {
-      return transformerFactory.newTemplates(new StreamSource(new ByteArrayInputStream(xsltBytes)));
+      TransformerFactory transformerFactory = new TransformerFactoryImpl();
+      return transformerFactory.newTemplates(new StreamSource(xsltInputStream));
     } catch (TransformerConfigurationException e) {
       throw new CacheValueSupplierException(e);
     }
@@ -123,6 +143,7 @@ public class XsltTransformer {
     // We know where the xslt files are coming from, we consider them safe.
     try (final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
         .body()) {
+      TransformerFactory transformerFactory = new TransformerFactoryImpl();
       return transformerFactory.newTemplates(new StreamSource(xsltStream));
     } catch (IOException | TransformerConfigurationException e) {
       throw new CacheValueSupplierException(e);
@@ -163,7 +184,7 @@ public class XsltTransformer {
     TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
   }
 
-  private void setTransformerParameters(String datasetName, String edmCountry, String edmLanguage ){
+  private void setTransformerParameters(String datasetName, String edmCountry, String edmLanguage) {
 
     if (StringUtils.isNotBlank(datasetName)) {
       transformer.setParameter("datasetName", datasetName);
