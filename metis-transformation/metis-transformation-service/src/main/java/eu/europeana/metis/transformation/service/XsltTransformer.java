@@ -64,7 +64,7 @@ public class XsltTransformer {
       throws TransformationException {
 
     try {
-      this.transformer = getTemplates(new String(xsltBytes)).newTransformer();
+      this.transformer = getTemplates(xsltBytes).newTransformer();
     } catch (TransformerConfigurationException |  CacheValueSupplierException e) {
       throw new TransformationException(e);
     }
@@ -94,6 +94,23 @@ public class XsltTransformer {
   private static Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
+
+  private static Templates getTemplates(byte[] xsltBytes) throws CacheValueSupplierException {
+    return TEMPLATES_CACHE.getFromCache("", () -> createTemplatesFromBytes(xsltBytes));
+  }
+
+  private static Templates createTemplatesFromBytes(byte[] xsltBytes)
+      throws CacheValueSupplierException {
+
+    // We know where the xslt files are coming from, we consider them safe.
+    try {
+      return transformerFactory.newTemplates(new StreamSource(new ByteArrayInputStream(xsltBytes)));
+    } catch (TransformerConfigurationException e) {
+      throw new CacheValueSupplierException(e);
+    }
+
+  }
+
 
   private static Templates createTemplatesFromUrl(String xsltUrl)
       throws CacheValueSupplierException {
