@@ -54,7 +54,8 @@ public class XsltTransformer {
    * @param xsltInputStream a inputStream of the XSLT file.
    * @throws TransformationException In case there was a problem setting up the transformation.
    */
-  public XsltTransformer(String xsltUrl, InputStream xsltInputStream) throws TransformationException {
+  public XsltTransformer(String xsltUrl, InputStream xsltInputStream)
+      throws TransformationException {
 
     this(xsltUrl, xsltInputStream, null, null, null);
   }
@@ -106,6 +107,8 @@ public class XsltTransformer {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
 
+  // Default behavior is to create templates from URL, in case of exception
+  // templates are created from InputStream
   private static Templates getTemplatesFromUrlOrStream(String xsltUrl,
       InputStream xsltInputStream) throws CacheValueSupplierException {
     Templates templates;
