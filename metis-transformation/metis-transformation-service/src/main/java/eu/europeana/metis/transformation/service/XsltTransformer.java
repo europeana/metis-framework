@@ -25,9 +25,8 @@ import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * This class performs XSL transforms (XSLT). Instances of this class are <b>not thread-safe</b>.
- * For each thread a new instance needs to be created, but, due to the caching mechanism of the XSLT
- * compilation, this operation is not very expensive.
+ * This class performs XSL transforms (XSLT). Instances of this class are <b>not thread-safe</b>. For each thread a new instance
+ * needs to be created, but, due to the caching mechanism of the XSLT compilation, this operation is not very expensive.
  */
 public class XsltTransformer {
 
@@ -50,13 +49,12 @@ public class XsltTransformer {
   /**
    * Constructor in the case that no value of the datasetId field needs to be set.
    *
-   * @param xsltUrl         The URL of the XSLT file.
+   * @param xsltUrl The URL of the XSLT file.
    * @param xsltInputStream a inputStream of the XSLT file.
    * @throws TransformationException In case there was a problem setting up the transformation.
    */
   public XsltTransformer(String xsltUrl, InputStream xsltInputStream)
       throws TransformationException {
-
     this(xsltUrl, xsltInputStream, null, null, null);
   }
 
@@ -64,19 +62,18 @@ public class XsltTransformer {
   /**
    * Constructor.
    *
-   * @param xsltUrl         The URL of the XSLT file.
+   * @param xsltKey The URI of the XSLT file or a plain value usable as a cache key.
    * @param xsltInputStream a inputStream of the XSLT file.
-   * @param datasetName     the dataset name related to the dataset
-   * @param edmCountry      the Country related to the dataset
-   * @param edmLanguage     the language related to the dataset
-   * @throws TransformationException In case there was a problem with setting up the
-   *                                 transformation.
+   * @param datasetName the dataset name related to the dataset
+   * @param edmCountry the Country related to the dataset
+   * @param edmLanguage the language related to the dataset
+   * @throws TransformationException In case there was a problem with setting up the transformation.
    */
 
-  public XsltTransformer(String xsltUrl, InputStream xsltInputStream, String datasetName,
+  public XsltTransformer(String xsltKey, InputStream xsltInputStream, String datasetName,
       String edmCountry, String edmLanguage) throws TransformationException {
     try {
-      transformer = getTemplatesFromUrlOrStream(xsltUrl, xsltInputStream).newTransformer();
+      transformer = getTemplatesFromUrlOrStream(xsltKey, xsltInputStream).newTransformer();
     } catch (TransformerConfigurationException | CacheValueSupplierException e) {
       throw new TransformationException(e);
     }
@@ -86,12 +83,11 @@ public class XsltTransformer {
   /**
    * Constructor.
    *
-   * @param xsltUrl     The URL of the XSLT file.
+   * @param xsltUrl The URL of the XSLT file.
    * @param datasetName the dataset name related to the dataset
-   * @param edmCountry  the Country related to the dataset
+   * @param edmCountry the Country related to the dataset
    * @param edmLanguage the language related to the dataset
-   * @throws TransformationException In case there was a problem with setting up the
-   *                                 transformation.
+   * @throws TransformationException In case there was a problem with setting up the transformation.
    */
   public XsltTransformer(String xsltUrl, String datasetName, String edmCountry, String edmLanguage)
       throws TransformationException {
@@ -107,15 +103,20 @@ public class XsltTransformer {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
 
-  // Default behavior is to create templates from URL, in case of exception
-  // templates are created from InputStream
-  private static Templates getTemplatesFromUrlOrStream(String xsltUrl,
+  /**
+   *
+   * @param xsltKey the xslt key which can be a URI or plain value string
+   * @param xsltInputStream the xslt input stream in case xslt key fails to be retrieved as a URI
+   * @return the templates
+   * @throws CacheValueSupplierException if the input stream reading fails as well
+   */
+  private static Templates getTemplatesFromUrlOrStream(String xsltKey,
       InputStream xsltInputStream) throws CacheValueSupplierException {
     Templates templates;
     try {
-      templates = TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
-    } catch (CacheValueSupplierException e) {
-      templates = TEMPLATES_CACHE.getFromCache(xsltUrl,
+      templates = TEMPLATES_CACHE.getFromCache(xsltKey, () -> createTemplatesFromUrl(xsltKey));
+    } catch (CacheValueSupplierException | NullPointerException | IllegalArgumentException e) {
+      templates = TEMPLATES_CACHE.getFromCache(xsltKey,
           () -> createTemplatesFromInputStream(xsltInputStream));
     }
     return templates;
@@ -123,17 +124,13 @@ public class XsltTransformer {
 
   private static Templates createTemplatesFromInputStream(InputStream xsltInputStream)
       throws CacheValueSupplierException {
-
-    // We know where the xslt files are coming from, we consider them safe.
     try {
       TransformerFactory transformerFactory = new TransformerFactoryImpl();
       return transformerFactory.newTemplates(new StreamSource(xsltInputStream));
     } catch (TransformerConfigurationException e) {
       throw new CacheValueSupplierException(e);
     }
-
   }
-
 
   private static Templates createTemplatesFromUrl(String xsltUrl)
       throws CacheValueSupplierException {
@@ -158,8 +155,7 @@ public class XsltTransformer {
   }
 
   /**
-   * Set a new expiration time for the internal XSLT cache by calling {@link
-   * CacheWithExpirationTime#setExpirationTime(Duration)}.
+   * Set a new expiration time for the internal XSLT cache by calling {@link CacheWithExpirationTime#setExpirationTime(Duration)}.
    *
    * @param expirationTime The new expiration time.
    */
@@ -168,8 +164,7 @@ public class XsltTransformer {
   }
 
   /**
-   * Set a new leniency mode for the internal XSLT cache by calling {@link
-   * CacheWithExpirationTime#setLenientWithReloads(boolean)}.
+   * Set a new leniency mode for the internal XSLT cache by calling {@link CacheWithExpirationTime#setLenientWithReloads(boolean)}.
    *
    * @param lenientWithReloads The new leniency mode.
    */
@@ -180,8 +175,7 @@ public class XsltTransformer {
   /**
    * Clean up the internal XSLT cache by calling {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
    *
-   * @param since The interval length of the period we want to check (which ends now). A negative
-   *              duration cleans everything.
+   * @param since The interval length of the period we want to check (which ends now). A negative duration cleans everything.
    */
   public static void removeItemsNotAccessedSince(Duration since) {
     TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
@@ -203,7 +197,7 @@ public class XsltTransformer {
   /**
    * Transforms a file using this instance's XSL transformation.
    *
-   * @param fileContent              The file to be transformed.
+   * @param fileContent The file to be transformed.
    * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
@@ -218,7 +212,7 @@ public class XsltTransformer {
   /**
    * Transforms a file using this instance's XSL transformation.
    *
-   * @param fileContent              The file to be transformed.
+   * @param fileContent The file to be transformed.
    * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
