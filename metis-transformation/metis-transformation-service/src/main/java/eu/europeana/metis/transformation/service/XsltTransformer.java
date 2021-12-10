@@ -35,7 +35,6 @@ public class XsltTransformer {
       new CacheWithExpirationTime<>();
 
   private static final HttpClient httpClient = HttpClient.newBuilder().build();
-
   private final Transformer transformer;
 
   /**
@@ -49,14 +48,50 @@ public class XsltTransformer {
   }
 
   /**
+   * Constructor in the case that no value of the datasetId field needs to be set.
+   *
+   * @param xsltUrl         The URL of the XSLT file.
+   * @param xsltInputStream a inputStream of the XSLT file.
+   * @throws TransformationException In case there was a problem setting up the transformation.
+   */
+  public XsltTransformer(String xsltUrl, InputStream xsltInputStream)
+      throws TransformationException {
+
+    this(xsltUrl, xsltInputStream, null, null, null);
+  }
+
+
+  /**
    * Constructor.
    *
-   * @param xsltUrl The URL of the XSLT file.
+   * @param xsltUrl         The URL of the XSLT file.
+   * @param xsltInputStream a inputStream of the XSLT file.
+   * @param datasetName     the dataset name related to the dataset
+   * @param edmCountry      the Country related to the dataset
+   * @param edmLanguage     the language related to the dataset
+   * @throws TransformationException In case there was a problem with setting up the
+   *                                 transformation.
+   */
+
+  public XsltTransformer(String xsltUrl, InputStream xsltInputStream, String datasetName,
+      String edmCountry, String edmLanguage) throws TransformationException {
+    try {
+      transformer = getTemplatesFromUrlOrStream(xsltUrl, xsltInputStream).newTransformer();
+    } catch (TransformerConfigurationException | CacheValueSupplierException e) {
+      throw new TransformationException(e);
+    }
+    setTransformerParameters(datasetName, edmCountry, edmLanguage);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param xsltUrl     The URL of the XSLT file.
    * @param datasetName the dataset name related to the dataset
-   * @param edmCountry the Country related to the dataset
+   * @param edmCountry  the Country related to the dataset
    * @param edmLanguage the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the
-   * transformation.
+   *                                 transformation.
    */
   public XsltTransformer(String xsltUrl, String datasetName, String edmCountry, String edmLanguage)
       throws TransformationException {
@@ -65,6 +100,95 @@ public class XsltTransformer {
     } catch (TransformerConfigurationException | CacheValueSupplierException e) {
       throw new TransformationException(e);
     }
+    setTransformerParameters(datasetName, edmCountry, edmLanguage);
+  }
+
+  private static Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
+    return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
+  }
+
+  // Default behavior is to create templates from URL, in case of exception
+  // templates are created from InputStream
+  private static Templates getTemplatesFromUrlOrStream(String xsltUrl,
+      InputStream xsltInputStream) throws CacheValueSupplierException {
+    Templates templates;
+    try {
+      templates = TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
+    } catch (CacheValueSupplierException e) {
+      templates = TEMPLATES_CACHE.getFromCache(xsltUrl,
+          () -> createTemplatesFromInputStream(xsltInputStream));
+    }
+    return templates;
+  }
+
+  private static Templates createTemplatesFromInputStream(InputStream xsltInputStream)
+      throws CacheValueSupplierException {
+
+    // We know where the xslt files are coming from, we consider them safe.
+    try {
+      TransformerFactory transformerFactory = new TransformerFactoryImpl();
+      return transformerFactory.newTemplates(new StreamSource(xsltInputStream));
+    } catch (TransformerConfigurationException e) {
+      throw new CacheValueSupplierException(e);
+    }
+
+  }
+
+
+  private static Templates createTemplatesFromUrl(String xsltUrl)
+      throws CacheValueSupplierException {
+
+    HttpRequest httpRequest = HttpRequest.newBuilder()
+        .GET()
+        .uri(URI.create(xsltUrl))
+        .build();
+
+    // We know where the xslt files are coming from, we consider them safe.
+    try (final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
+        .body()) {
+      TransformerFactory transformerFactory = new TransformerFactoryImpl();
+      return transformerFactory.newTemplates(new StreamSource(xsltStream));
+    } catch (IOException | TransformerConfigurationException e) {
+      throw new CacheValueSupplierException(e);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new CacheValueSupplierException(e);
+    }
+
+  }
+
+  /**
+   * Set a new expiration time for the internal XSLT cache by calling {@link
+   * CacheWithExpirationTime#setExpirationTime(Duration)}.
+   *
+   * @param expirationTime The new expiration time.
+   */
+  public static void setExpirationTime(Duration expirationTime) {
+    TEMPLATES_CACHE.setExpirationTime(expirationTime);
+  }
+
+  /**
+   * Set a new leniency mode for the internal XSLT cache by calling {@link
+   * CacheWithExpirationTime#setLenientWithReloads(boolean)}.
+   *
+   * @param lenientWithReloads The new leniency mode.
+   */
+  public static void setLenientWithReloads(boolean lenientWithReloads) {
+    TEMPLATES_CACHE.setLenientWithReloads(lenientWithReloads);
+  }
+
+  /**
+   * Clean up the internal XSLT cache by calling {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
+   *
+   * @param since The interval length of the period we want to check (which ends now). A negative
+   *              duration cleans everything.
+   */
+  public static void removeItemsNotAccessedSince(Duration since) {
+    TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
+  }
+
+  private void setTransformerParameters(String datasetName, String edmCountry, String edmLanguage) {
+
     if (StringUtils.isNotBlank(datasetName)) {
       transformer.setParameter("datasetName", datasetName);
     }
@@ -79,7 +203,7 @@ public class XsltTransformer {
   /**
    * Transforms a file using this instance's XSL transformation.
    *
-   * @param fileContent The file to be transformed.
+   * @param fileContent              The file to be transformed.
    * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
@@ -94,7 +218,7 @@ public class XsltTransformer {
   /**
    * Transforms a file using this instance's XSL transformation.
    *
-   * @param fileContent The file to be transformed.
+   * @param fileContent              The file to be transformed.
    * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
@@ -131,61 +255,5 @@ public class XsltTransformer {
     } catch (TransformerException | IOException e) {
       throw new TransformationException(e);
     }
-  }
-
-  private static Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
-    return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
-  }
-
-  private static Templates createTemplatesFromUrl(String xsltUrl)
-      throws CacheValueSupplierException {
-
-    HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .uri(URI.create(xsltUrl))
-        .build();
-
-    final TransformerFactory transformerFactory = new TransformerFactoryImpl();
-    // We know where the xslt files are coming from, we consider them safe.
-    try (final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
-        .body()) {
-      return transformerFactory.newTemplates(new StreamSource(xsltStream));
-    } catch (IOException | TransformerConfigurationException e) {
-      throw new CacheValueSupplierException(e);
-    } catch (InterruptedException e){
-      Thread.currentThread().interrupt();
-      throw new CacheValueSupplierException(e);
-    }
-
-  }
-
-  /**
-   * Set a new expiration time for the internal XSLT cache by calling {@link
-   * CacheWithExpirationTime#setExpirationTime(Duration)}.
-   *
-   * @param expirationTime The new expiration time.
-   */
-  public static void setExpirationTime(Duration expirationTime) {
-    TEMPLATES_CACHE.setExpirationTime(expirationTime);
-  }
-
-  /**
-   * Set a new leniency mode for the internal XSLT cache by calling {@link
-   * CacheWithExpirationTime#setLenientWithReloads(boolean)}.
-   *
-   * @param lenientWithReloads The new leniency mode.
-   */
-  public static void setLenientWithReloads(boolean lenientWithReloads) {
-    TEMPLATES_CACHE.setLenientWithReloads(lenientWithReloads);
-  }
-
-  /**
-   * Clean up the internal XSLT cache by calling {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
-   *
-   * @param since The interval length of the period we want to check (which ends now). A negative
-   * duration cleans everything.
-   */
-  public static void removeItemsNotAccessedSince(Duration since) {
-    TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
   }
 }
