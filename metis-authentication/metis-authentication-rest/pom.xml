@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-authentication</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>5</version>
+    <version>5.1</version>
   </parent>
   <artifactId>metis-authentication-rest</artifactId>
   <packaging>war</packaging>
