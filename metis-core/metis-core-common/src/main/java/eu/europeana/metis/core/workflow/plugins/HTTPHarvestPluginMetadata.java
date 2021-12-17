@@ -12,14 +12,10 @@ public class HTTPHarvestPluginMetadata extends AbstractHarvestPluginMetadata {
   private String url;
   private String user;
   private String password;
+  private boolean incrementalHarvest; // Default: false (i.e. full harvest)
 
   public HTTPHarvestPluginMetadata() {
     //Required for json serialization
-  }
-
-  @Override
-  public boolean isIncrementalHarvest() {
-    return false;
   }
 
   public String getUrl() {
@@ -44,6 +40,15 @@ public class HTTPHarvestPluginMetadata extends AbstractHarvestPluginMetadata {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  @Override
+  public boolean isIncrementalHarvest() {
+    return incrementalHarvest;
+  }
+
+  public void setIncrementalHarvest(boolean incrementalHarvest) {
+    this.incrementalHarvest = incrementalHarvest;
   }
 
   @Override

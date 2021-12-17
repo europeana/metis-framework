@@ -246,6 +246,16 @@ public class TestWorkflowValidationUtils {
     doReturn(false).when(validationUtils).isIncrementalHarvestingAllowed(DATASET_ID);
     assertThrows(BadContentException.class,
             () -> validationUtils.validateWorkflowPlugins(workflow, null));
+
+    // Test incremental HTTP
+    http.setUrl(urlWithFragmentAndQuery);
+    http.setIncrementalHarvest(true);
+    workflow.setMetisPluginsMetadata(Collections.singletonList(http));
+    doReturn(true).when(validationUtils).isIncrementalHarvestingAllowed(DATASET_ID);
+    validationUtils.validateWorkflowPlugins(workflow, null);
+    doReturn(false).when(validationUtils).isIncrementalHarvestingAllowed(DATASET_ID);
+    assertThrows(BadContentException.class,
+        () -> validationUtils.validateWorkflowPlugins(workflow, null));
   }
 
   @Test
