@@ -48,7 +48,7 @@ public class ValidationInternalPlugin extends
     String urlOfSchemasZip = getPluginMetadata().getUrlOfSchemasZip();
     String schemaRootPath = getPluginMetadata().getSchemaRootPath();
     String schematronRootPath = getPluginMetadata().getSchematronRootPath();
-    Map<String, String> extraParameters = createParametersForValidation(urlOfSchemasZip,
+    Map<String, String> extraParameters = createParametersForValidationInternal(urlOfSchemasZip,
         schemaRootPath, schematronRootPath);
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
