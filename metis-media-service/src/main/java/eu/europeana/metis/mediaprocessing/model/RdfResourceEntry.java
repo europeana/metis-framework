@@ -44,4 +44,9 @@ public class RdfResourceEntry implements Serializable {
   public Set<UrlType> getUrlTypes() {
     return Collections.unmodifiableSet(urlTypes);
   }
+
+  @Override
+  public String toString() {
+    return "RdfResourceEntry{resourceUrl='" + resourceUrl + '\'' + ", urlTypes=" + urlTypes + '}';
+  }
 }
