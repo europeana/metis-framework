@@ -40,6 +40,14 @@ public interface HttpHarvester {
           Consumer<ArchiveEntry> action) throws HarvesterException;
 
   /**
+   * Method to set up the maximum number of iterations through records during harvesting.
+   * If there is none, the harvesting iterate through all records.
+   *
+   * @param maxOfIterations The maximum number of iterations
+   */
+  void setMaxNumberOfIterations(int maxOfIterations);
+
+  /**
    * An object representing an entry in a file archive.
    */
   interface ArchiveEntry {
