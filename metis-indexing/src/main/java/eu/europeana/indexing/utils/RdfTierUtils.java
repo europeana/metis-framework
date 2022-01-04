@@ -1,5 +1,11 @@
 package eu.europeana.indexing.utils;
 
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.metis.schema.jibx.AggregatedCHO;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Created;
@@ -9,13 +15,8 @@ import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
 import eu.europeana.metis.schema.jibx.HasTarget;
 import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.Tier;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -36,6 +37,8 @@ public final class RdfTierUtils {
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getUri, Function.identity())));
   private static final Map<Enum<? extends Tier>, RdfTier> tiersByValue = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getTier, Function.identity())));
+  private static final Map<RdfTier, SolrTier> tiersToSolrTiers = Collections.unmodifiableMap(
+      Stream.of(SolrTier.values()).collect(Collectors.toMap(SolrTier::getTier, Function.identity())));
 
   private RdfTierUtils() {
   }
@@ -54,8 +57,22 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Set the given tier value in the given {@link RDF} record. This will replace all existing
-   * content tier values that apply to this record.
+   * Find solr tier represented by the corresponding rdfTier
+   *
+   * @param rdfTier the rdf tier
+   * @return the solr tier
+   */
+  public static SolrTier getSolrTier(RdfTier rdfTier) {
+    return tiersToSolrTiers.get(rdfTier);
+  }
+
+  public static RdfTier getTierByURI(String uri) {
+    return Arrays.stream(RdfTier.values()).filter(rdfTier -> rdfTier.getUri().equals(uri)).findFirst().orElse(null);
+  }
+
+  /**
+   * Set the given tier value in the given {@link RDF} record. This will replace all existing content tier values that apply to
+   * this record.
    *
    * @param rdf The record.
    * @param contentTier The content tier value to add.
@@ -66,8 +83,8 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Set the given tier value in the given {@link RDF} record. This will replace all existing
-   * metadata tier values that apply to this record.
+   * Set the given tier value in the given {@link RDF} record. This will replace all existing metadata tier values that apply to
+   * this record.
    *
    * @param rdf The record.
    * @param metadataTier The metadata tier value to add.
@@ -90,8 +107,8 @@ public final class RdfTierUtils {
     // Determine if there is something to reference and somewhere to add the reference.
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
     final Set<String> aggregationAbouts = rdfWrapper.getAggregations().stream()
-            .filter(Objects::nonNull).map(Aggregation::getAbout).filter(StringUtils::isNotBlank)
-            .collect(Collectors.toSet());
+        .filter(Objects::nonNull).map(Aggregation::getAbout).filter(StringUtils::isNotBlank)
+        .collect(Collectors.toSet());
     if (aggregationAbouts.isEmpty()) {
       throw new RecordRelatedIndexingException("Cannot find provider aggregation in record.");
     }
@@ -129,9 +146,9 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = new HasQualityAnnotation();
     link.setResource(annotation.getAbout());
     final Stream<HasQualityAnnotation> existingLinks = Optional
-            .ofNullable(europeanaAggregation.getHasQualityAnnotationList()).stream()
-            .flatMap(Collection::stream)
-            .filter(existingLink -> !link.getResource().equals(existingLink.getResource()));
+        .ofNullable(europeanaAggregation.getHasQualityAnnotationList()).stream()
+        .flatMap(Collection::stream)
+        .filter(existingLink -> !link.getResource().equals(existingLink.getResource()));
     europeanaAggregation.setHasQualityAnnotationList(
         Stream.concat(existingLinks, Stream.of(link)).collect(Collectors.toList()));
   }
