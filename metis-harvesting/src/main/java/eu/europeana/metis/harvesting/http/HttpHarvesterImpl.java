@@ -43,7 +43,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
-  private static int maxNumberOfIterations = 0;
+  private int maxNumberOfIterations = 0;
 
   @Override
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
@@ -104,7 +104,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   @Override
   public void setMaxNumberOfIterations(int maxOfIterations) {
-    HttpHarvesterImpl.maxNumberOfIterations = maxOfIterations;
+    this.maxNumberOfIterations = maxOfIterations;
   }
 
   @Override
