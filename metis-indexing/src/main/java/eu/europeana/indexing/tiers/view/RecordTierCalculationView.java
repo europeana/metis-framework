@@ -1,12 +1,12 @@
 package eu.europeana.indexing.tiers.view;
 
-public class RecordTierCalculationDto {
+public class RecordTierCalculationView {
 
   private RecordTierCalculationSummary recordTierCalculationSummary;
   private ContentTierBreakdown contentTierBreakdown;
   private MetadataTierBreakdown metadataTierBreakdown;
 
-  public RecordTierCalculationDto() {
+  public RecordTierCalculationView() {
   }
 
   public RecordTierCalculationSummary getRecordTierCalculationSummary() {

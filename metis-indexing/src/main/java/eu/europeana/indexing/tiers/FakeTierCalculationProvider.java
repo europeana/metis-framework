@@ -1,5 +1,14 @@
-package eu.europeana.indexing.tiers.view;
+package eu.europeana.indexing.tiers;
 
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
+import eu.europeana.indexing.tiers.view.ContextualClasses;
+import eu.europeana.indexing.tiers.view.EnablingElements;
+import eu.europeana.indexing.tiers.view.LanguageBreakdown;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
+import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
+import eu.europeana.indexing.tiers.view.ProcessingError;
+import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
+import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.SolrTier;
 import eu.europeana.metis.schema.model.MediaType;
@@ -12,7 +21,7 @@ public class FakeTierCalculationProvider {
   private FakeTierCalculationProvider() {
   }
 
-  public static RecordTierCalculationDto getFakeObject() {
+  public static RecordTierCalculationView getFakeObject() {
 
     final RecordTierCalculationSummary recordTierCalculationSummary = new RecordTierCalculationSummary();
     recordTierCalculationSummary.setEuropeanaRecordId("europeanaRecordId");
@@ -67,7 +76,7 @@ public class FakeTierCalculationProvider {
     contextualClasses.setMetadataTier(SolrTier.METADATA_TIER_C.getTierValue());
     metadataTierBreakdown.setContextualClasses(contextualClasses);
 
-    final RecordTierCalculationDto recordTierCalculationDto = new RecordTierCalculationDto();
+    final RecordTierCalculationView recordTierCalculationDto = new RecordTierCalculationView();
     recordTierCalculationDto.setRecordTierCalculationSummary(recordTierCalculationSummary);
     recordTierCalculationDto.setContentTierBreakdown(contentTierBreakdown);
     recordTierCalculationDto.setMetadataTierBreakdown(metadataTierBreakdown);
