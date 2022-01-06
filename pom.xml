@@ -36,12 +36,12 @@
     <repository>
       <id>artifactory.eanadev.org</id>
       <name>artifactory.eanadev.org-releases</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+      <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
     </repository>
     <snapshotRepository>
       <id>artifactory.eanadev.org</id>
       <name>artifactory.eanadev.org-snapshots</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+      <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -498,7 +498,7 @@
     <repository>
       <id>libs-release</id>
       <name>libs-release</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-release</url>
+      <url>https://artifactory.eanadev.org/artifactory/libs-release</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -509,7 +509,7 @@
     <repository>
       <id>libs-snapshot</id>
       <name>libs-snapshot</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
+      <url>https://artifactory.eanadev.org/artifactory/libs-snapshot</url>
       <releases>
         <enabled>false</enabled>
       </releases>
