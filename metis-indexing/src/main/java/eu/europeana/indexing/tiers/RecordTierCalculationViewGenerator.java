@@ -22,12 +22,15 @@ public class RecordTierCalculationViewGenerator {
   private final String providerId;
   private final String stringRdf;
   private final String portalRecordLink;
+  private final String providerRecordLink;
 
-  public RecordTierCalculationViewGenerator(String europeanaId, String providerId, String stringRdf, String portalRecordLink) {
+  public RecordTierCalculationViewGenerator(String europeanaId, String providerId, String stringRdf, String portalRecordLink,
+      String providerRecordLink) {
     this.europeanaId = europeanaId;
     this.providerId = providerId;
     this.stringRdf = stringRdf;
     this.portalRecordLink = portalRecordLink;
+    this.providerRecordLink = providerRecordLink;
   }
 
   public RecordTierCalculationView generate() {
@@ -43,7 +46,7 @@ public class RecordTierCalculationViewGenerator {
     recordTierCalculationSummary.setContentTier(tierValues.getContentTier());
     recordTierCalculationSummary.setMetadataTier(tierValues.getMetadataTier());
     recordTierCalculationSummary.setPortalRecordLink(portalRecordLink);
-    recordTierCalculationSummary.setHarvestedRecordLink("https://example.com"); // We need a proxy controller for this
+    recordTierCalculationSummary.setHarvestedRecordLink(providerRecordLink);
 
     return recordTierCalculationView;
   }
