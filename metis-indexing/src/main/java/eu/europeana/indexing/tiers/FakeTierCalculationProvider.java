@@ -28,7 +28,7 @@ public class FakeTierCalculationProvider {
     recordTierCalculationSummary.setProviderRecordId("providerRecordId");
     recordTierCalculationSummary.setContentTier(SolrTier.CONTENT_TIER_4.getTierValue());
     recordTierCalculationSummary.setMetadataTier(SolrTier.METADATA_TIER_C.getTierValue());
-    recordTierCalculationSummary.setPortalLink("https://example.com");
+    recordTierCalculationSummary.setPortalRecordLink("https://example.com");
     recordTierCalculationSummary.setHarvestedRecordLink("https://example.com");
 
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown();

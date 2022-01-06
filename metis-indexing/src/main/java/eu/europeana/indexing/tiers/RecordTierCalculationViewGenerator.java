@@ -21,11 +21,13 @@ public class RecordTierCalculationViewGenerator {
   private final String europeanaId;
   private final String providerId;
   private final String stringRdf;
+  private final String portalRecordLink;
 
-  public RecordTierCalculationViewGenerator(String europeanaId, String providerId, String stringRdf) {
+  public RecordTierCalculationViewGenerator(String europeanaId, String providerId, String stringRdf, String portalRecordLink) {
     this.europeanaId = europeanaId;
     this.providerId = providerId;
     this.stringRdf = stringRdf;
+    this.portalRecordLink = portalRecordLink;
   }
 
   public RecordTierCalculationView generate() {
@@ -36,11 +38,11 @@ public class RecordTierCalculationViewGenerator {
 
     //Update only the summary which is what we need for now
     // TODO: 04/01/2022 Update the remaining values
-    recordTierCalculationSummary.setEuropeanaRecordId(europeanaId); // Here use XmlRecordProcessorServiceImpl
+    recordTierCalculationSummary.setEuropeanaRecordId(europeanaId);
     recordTierCalculationSummary.setProviderRecordId(providerId);
     recordTierCalculationSummary.setContentTier(tierValues.getContentTier());
     recordTierCalculationSummary.setMetadataTier(tierValues.getMetadataTier());
-    recordTierCalculationSummary.setPortalLink("https://example.com"); // We need the root link from the configuration
+    recordTierCalculationSummary.setPortalRecordLink(portalRecordLink);
     recordTierCalculationSummary.setHarvestedRecordLink("https://example.com"); // We need a proxy controller for this
 
     return recordTierCalculationView;
