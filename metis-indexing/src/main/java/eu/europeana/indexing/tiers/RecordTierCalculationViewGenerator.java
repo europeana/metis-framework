@@ -51,7 +51,7 @@ public class RecordTierCalculationViewGenerator {
     return recordTierCalculationView;
   }
 
-  private TierValues calculateTierValues(String xml) {
+  private static TierValues calculateTierValues(String xml) {
     final RDF rdf;
     try {
       // Perform the tier classification
