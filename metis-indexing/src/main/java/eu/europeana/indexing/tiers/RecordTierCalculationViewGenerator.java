@@ -16,6 +16,9 @@ import eu.europeana.metis.schema.jibx.RDF;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Generator of tier statistics view {@link RecordTierCalculationView}
+ */
 public class RecordTierCalculationViewGenerator {
 
   private final String europeanaId;
@@ -24,6 +27,14 @@ public class RecordTierCalculationViewGenerator {
   private final String portalRecordLink;
   private final String providerRecordLink;
 
+  /**
+   * Parameter constructor
+   * @param europeanaId the europeana id
+   * @param providerId the provider id
+   * @param stringRdf the rdf in string representation
+   * @param portalRecordLink the portal record link
+   * @param providerRecordLink the provider record link
+   */
   public RecordTierCalculationViewGenerator(String europeanaId, String providerId, String stringRdf, String portalRecordLink,
       String providerRecordLink) {
     this.europeanaId = europeanaId;
@@ -33,6 +44,10 @@ public class RecordTierCalculationViewGenerator {
     this.providerRecordLink = providerRecordLink;
   }
 
+  /**
+   * Generates the {@link RecordTierCalculationView} for the current object and its parameters
+   * @return the record tier calculation view
+   */
   public RecordTierCalculationView generate() {
     //Create an object that has predefined "fake" values
     RecordTierCalculationView recordTierCalculationView = FakeTierCalculationProvider.getFakeObject();
@@ -40,7 +55,7 @@ public class RecordTierCalculationViewGenerator {
     final TierValues tierValues = calculateTierValues(stringRdf);
 
     //Update only the summary which is what we need for now
-    // TODO: 04/01/2022 Update the remaining values
+    // TODO: 04/01/2022 Update the remaining values with the upcoming tickets MET-4157 and MET-4158
     recordTierCalculationSummary.setEuropeanaRecordId(europeanaId);
     recordTierCalculationSummary.setProviderRecordId(providerId);
     recordTierCalculationSummary.setContentTier(tierValues.getContentTier());

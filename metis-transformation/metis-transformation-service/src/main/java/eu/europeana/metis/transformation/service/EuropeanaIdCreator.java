@@ -89,7 +89,8 @@ public final class EuropeanaIdCreator {
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(RDF rdf, String datasetId)
       throws EuropeanaIdException {
-    return constructEuropeanaIdInternal(extractRdfAboutFromRdf(rdf), datasetId);
+    final String rdfAbout = extractRdfAboutFromRdf(rdf);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, constructEuropeanaIdString(rdfAbout, datasetId));
   }
 
   /**
@@ -104,7 +105,8 @@ public final class EuropeanaIdCreator {
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(String rdfString, String datasetId)
       throws EuropeanaIdException {
-    return constructEuropeanaIdInternal(extractRdfAboutFromRdfString(rdfString), datasetId);
+    final String rdfAbout = extractRdfAboutFromRdfString(rdfString);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, constructEuropeanaIdString(rdfAbout, datasetId));
   }
 
   /**
@@ -119,10 +121,7 @@ public final class EuropeanaIdCreator {
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(InputStream inputStream, String datasetId)
       throws EuropeanaIdException {
-    return constructEuropeanaIdInternal(extractRdfAboutFromInputStream(inputStream), datasetId);
-  }
-
-  private EuropeanaGeneratedIdsMap constructEuropeanaIdInternal(String rdfAbout, String datasetId) {
+    final String rdfAbout = extractRdfAboutFromInputStream(inputStream);
     return new EuropeanaGeneratedIdsMap(rdfAbout, constructEuropeanaIdString(rdfAbout, datasetId));
   }
 

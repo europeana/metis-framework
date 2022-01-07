@@ -16,7 +16,6 @@ import eu.europeana.metis.schema.jibx.HasTarget;
 import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -64,10 +63,6 @@ public final class RdfTierUtils {
    */
   public static SolrTier getSolrTier(RdfTier rdfTier) {
     return tiersToSolrTiers.get(rdfTier);
-  }
-
-  public static RdfTier getTierByURI(String uri) {
-    return Arrays.stream(RdfTier.values()).filter(rdfTier -> rdfTier.getUri().equals(uri)).findFirst().orElse(null);
   }
 
   /**

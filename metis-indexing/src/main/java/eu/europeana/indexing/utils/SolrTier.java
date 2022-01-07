@@ -2,6 +2,10 @@ package eu.europeana.indexing.utils;
 
 import eu.europeana.indexing.solr.EdmLabel;
 
+/**
+ * Enum containing a mapping of {@link RdfTier}, {@link EdmLabel}(Specifically the two values {@link EdmLabel#METADATA_TIER} and
+ * {@link EdmLabel#CONTENT_TIER}) and a String representation of those, to be used in solr documents.
+ */
 public enum SolrTier {
 
   METADATA_TIER_0(RdfTier.METADATA_TIER_0, EdmLabel.METADATA_TIER, "0"),

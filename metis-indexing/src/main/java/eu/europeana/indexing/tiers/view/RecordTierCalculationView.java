@@ -1,13 +1,14 @@
 package eu.europeana.indexing.tiers.view;
 
+/**
+ * Class containing a view of a tier calculation.
+ */
 public class RecordTierCalculationView {
 
   private RecordTierCalculationSummary recordTierCalculationSummary;
+  // TODO: 07/01/2022 Add test on the sub-trees for the below two fields with the upcoming tickets MET-4157 and MET-4158
   private ContentTierBreakdown contentTierBreakdown;
   private MetadataTierBreakdown metadataTierBreakdown;
-
-  public RecordTierCalculationView() {
-  }
 
   public RecordTierCalculationSummary getRecordTierCalculationSummary() {
     return recordTierCalculationSummary;
