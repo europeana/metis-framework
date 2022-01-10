@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/europeana/metis-framework.svg?branch=develop)](https://travis-ci.org/europeana/metis-framework)
+[![Java CI with Maven](https://github.com/europeana/metis-framework/actions/workflows/maven.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/maven.yml)
 [![Coverage Status](https://coveralls.io/repos/github/europeana/metis-framework/badge.svg?branch=develop)](https://coveralls.io/github/europeana/metis-framework?branch=develop)
 
 **Metis Services repository**
