@@ -1,11 +1,13 @@
 package eu.europeana.indexing.tiers.view;
 
+import eu.europeana.indexing.tiers.model.Tier;
+
 public class RecordTierCalculationSummary {
 
   private String europeanaRecordId;
   private String providerRecordId;
-  private String contentTier;
-  private String metadataTier;
+  private Tier contentTier;
+  private Tier metadataTier;
   private String portalRecordLink;
   private String harvestedRecordLink;
 
@@ -28,19 +30,19 @@ public class RecordTierCalculationSummary {
     this.providerRecordId = providerRecordId;
   }
 
-  public String getContentTier() {
+  public Tier getContentTier() {
     return contentTier;
   }
 
-  public void setContentTier(String contentTier) {
+  public void setContentTier(Tier contentTier) {
     this.contentTier = contentTier;
   }
 
-  public String getMetadataTier() {
+  public Tier getMetadataTier() {
     return metadataTier;
   }
 
-  public void setMetadataTier(String metadataTier) {
+  public void setMetadataTier(Tier metadataTier) {
     this.metadataTier = metadataTier;
   }
 

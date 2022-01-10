@@ -1,5 +1,6 @@
 package eu.europeana.indexing.tiers.view;
 
+import eu.europeana.indexing.tiers.model.Tier;
 import java.util.List;
 
 public class ContextualClasses {
@@ -7,7 +8,7 @@ public class ContextualClasses {
   private int completeContextualResources;
   private int distinctClassesOfCompleteContextualResources;
   private List<String> distinctClassesList;
-  private String metadataTier;
+  private Tier metadataTier;
 
   public ContextualClasses() {
   }
@@ -36,11 +37,11 @@ public class ContextualClasses {
     this.distinctClassesList = distinctClassesList;
   }
 
-  public String getMetadataTier() {
+  public Tier getMetadataTier() {
     return metadataTier;
   }
 
-  public void setMetadataTier(String metadataTier) {
+  public void setMetadataTier(Tier metadataTier) {
     this.metadataTier = metadataTier;
   }
 }

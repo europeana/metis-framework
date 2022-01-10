@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.indexing.exception.TierCalculationException;
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
-import eu.europeana.indexing.utils.SolrTier;
 import eu.europeana.indexing.utils.TestUtils;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -22,8 +24,8 @@ class RecordTierCalculationViewGeneratorTest {
         Paths.get("europeana_record_with_technical_metadata.xml").toFile().toString());
     final String europeanaId = "europeanaId";
     final String providerId = "providerId";
-    final String contentTier = SolrTier.CONTENT_TIER_2.getTierValue();
-    final String metadataTier = SolrTier.METADATA_TIER_B.getTierValue();
+    final Tier contentTier = MediaTier.T2;
+    final Tier metadataTier = MetadataTier.TB;
     final String providerRecordLink = "https://example-record-link.com";
     final String portalRecordLink = "https://example-portal-record-link.com";
     final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator = new RecordTierCalculationViewGenerator(

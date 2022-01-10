@@ -12,9 +12,9 @@ public class CombinedClassifierTest {
 
   @Test
   void testEmptyClassifier() {
-    assertThrows(IllegalArgumentException.class, () -> new CombinedClassifier<Tier>(null));
+    assertThrows(IllegalArgumentException.class, () -> new CombinedClassifier<>(null));
     assertThrows(IllegalArgumentException.class,
-        () -> new CombinedClassifier<Tier>(Collections.emptyList()));
+        () -> new CombinedClassifier<>(Collections.emptyList()));
   }
 
   @Test
@@ -24,9 +24,9 @@ public class CombinedClassifierTest {
     final RdfWrapper testEntity = mock(RdfWrapper.class);
 
     // The tiers
-    final Tier lowTier = () -> 1;
-    final Tier middleTier = () -> 2;
-    final Tier highTier = () -> 3;
+    final Tier lowTier = MetadataTier.T0;
+    final Tier middleTier = MetadataTier.TA;
+    final Tier highTier = MetadataTier.TC;
 
     // The classifiers
     final TierClassifier<Tier> lowClassifier = entity -> lowTier;

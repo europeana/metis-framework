@@ -1,5 +1,6 @@
 package eu.europeana.indexing.tiers.view;
 
+import eu.europeana.indexing.tiers.model.Tier;
 import java.util.List;
 
 public class EnablingElements {
@@ -8,7 +9,7 @@ public class EnablingElements {
   private List<String> distinctEnablingElementsList;
   private int metadataGroups;
   private List<String> metadataGroupsList;
-  private String metadataTier;
+  private Tier metadataTier;
 
   public EnablingElements() {
   }
@@ -45,11 +46,11 @@ public class EnablingElements {
     this.metadataGroupsList = metadataGroupsList;
   }
 
-  public String getMetadataTier() {
+  public Tier getMetadataTier() {
     return metadataTier;
   }
 
-  public void setMetadataTier(String metadataTier) {
+  public void setMetadataTier(Tier metadataTier) {
     this.metadataTier = metadataTier;
   }
 }

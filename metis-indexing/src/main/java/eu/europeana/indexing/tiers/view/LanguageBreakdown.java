@@ -1,15 +1,16 @@
 package eu.europeana.indexing.tiers.view;
 
+import eu.europeana.indexing.tiers.model.Tier;
 import java.util.List;
 
 public class LanguageBreakdown {
 
   private int potentialLanguageQualifiedElements;
   private int actualLanguageQualifiedElements;
-  private int actualLanguageQualifiedElementsPercentage;
+  private float actualLanguageQualifiedElementsPercentage;
   private int actualLanguageUnqualifiedElements;
   private List<String> actualLanguageUnqualifiedElementsList;
-  private String metadataTier;
+  private Tier metadataTier;
 
   public LanguageBreakdown() {
   }
@@ -30,11 +31,11 @@ public class LanguageBreakdown {
     this.actualLanguageQualifiedElements = actualLanguageQualifiedElements;
   }
 
-  public int getActualLanguageQualifiedElementsPercentage() {
+  public float getActualLanguageQualifiedElementsPercentage() {
     return actualLanguageQualifiedElementsPercentage;
   }
 
-  public void setActualLanguageQualifiedElementsPercentage(int actualLanguageQualifiedElementsPercentage) {
+  public void setActualLanguageQualifiedElementsPercentage(float actualLanguageQualifiedElementsPercentage) {
     this.actualLanguageQualifiedElementsPercentage = actualLanguageQualifiedElementsPercentage;
   }
 
@@ -54,11 +55,11 @@ public class LanguageBreakdown {
     this.actualLanguageUnqualifiedElementsList = actualLanguageUnqualifiedElementsList;
   }
 
-  public String getMetadataTier() {
+  public Tier getMetadataTier() {
     return metadataTier;
   }
 
-  public void setMetadataTier(String metadataTier) {
+  public void setMetadataTier(Tier metadataTier) {
     this.metadataTier = metadataTier;
   }
 }

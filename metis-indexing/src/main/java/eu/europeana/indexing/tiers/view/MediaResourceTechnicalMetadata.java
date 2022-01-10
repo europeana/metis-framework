@@ -9,7 +9,7 @@ public class MediaResourceTechnicalMetadata {
   private String elementLinkType;
   private String imageResolution;
   private String verticalResolution;
-  private LicenseType licenceType;
+  private LicenseType licenseType;
 
   public MediaResourceTechnicalMetadata() {
   }
@@ -54,11 +54,11 @@ public class MediaResourceTechnicalMetadata {
     this.verticalResolution = verticalResolution;
   }
 
-  public LicenseType getLicenceType() {
-    return licenceType;
+  public LicenseType getLicenseType() {
+    return licenseType;
   }
 
-  public void setLicenceType(LicenseType licenceType) {
-    this.licenceType = licenceType;
+  public void setLicenseType(LicenseType licenseType) {
+    this.licenseType = licenseType;
   }
 }

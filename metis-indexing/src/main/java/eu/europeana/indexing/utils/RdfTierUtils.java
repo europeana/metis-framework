@@ -34,10 +34,8 @@ public final class RdfTierUtils {
 
   private static final Map<String, RdfTier> tiersByUri = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getUri, Function.identity())));
-  private static final Map<Enum<? extends Tier>, RdfTier> tiersByValue = Collections.unmodifiableMap(
+  private static final Map<Tier, RdfTier> tiersByValue = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getTier, Function.identity())));
-  private static final Map<RdfTier, SolrTier> tiersToSolrTiers = Collections.unmodifiableMap(
-      Stream.of(SolrTier.values()).collect(Collectors.toMap(SolrTier::getTier, Function.identity())));
 
   private RdfTierUtils() {
   }
@@ -53,16 +51,6 @@ public final class RdfTierUtils {
     return Optional.ofNullable(annotation)
         .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getBody)
         .map(tiersByUri::get).orElse(null);
-  }
-
-  /**
-   * Find solr tier represented by the corresponding rdfTier
-   *
-   * @param rdfTier the rdf tier
-   * @return the solr tier
-   */
-  public static SolrTier getSolrTier(RdfTier rdfTier) {
-    return tiersToSolrTiers.get(rdfTier);
   }
 
   /**
@@ -89,14 +77,14 @@ public final class RdfTierUtils {
     setTierInternal(rdf, metadataTier);
   }
 
-  private static void setTierInternal(RDF rdf, Enum<? extends Tier> value)
+  private static void setTierInternal(RDF rdf, Tier tier)
       throws IndexingException {
 
     // Get the right instance of RdfTier.
-    final RdfTier tier = tiersByValue.get(value);
-    if (tier == null) {
+    final RdfTier rdfTier = tiersByValue.get(tier);
+    if (rdfTier == null) {
       throw new SetupRelatedIndexingException("Cannot find settings for tier value "
-          + value.getDeclaringClass().getName() + "." + value.name());
+          + tier.getClass());
     }
 
     // Determine if there is something to reference and somewhere to add the reference.
@@ -126,9 +114,9 @@ public final class RdfTierUtils {
       return hasTarget;
     }).collect(Collectors.toList()));
     final HasBody hasBody = new HasBody();
-    hasBody.setResource(tier.getUri());
+    hasBody.setResource(rdfTier.getUri());
     annotation.setHasBody(hasBody);
-    annotation.setAbout(annotationAboutBase + tier.getAboutSuffix());
+    annotation.setAbout(annotationAboutBase + rdfTier.getAboutSuffix());
 
     // Add the annotation (remove all annotations with the same about)
     final Stream<QualityAnnotation> existingAnnotations = rdfWrapper.getQualityAnnotations()

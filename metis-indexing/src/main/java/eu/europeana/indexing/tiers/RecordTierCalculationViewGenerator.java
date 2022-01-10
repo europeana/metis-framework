@@ -4,12 +4,14 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.TierCalculationException;
 import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.solr.EdmLabel;
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
+import eu.europeana.indexing.utils.RdfTier;
 import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.SolrTier;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -77,13 +79,12 @@ public class RecordTierCalculationViewGenerator {
 
       final RdfToFullBeanConverter fullBeanConverter = new RdfToFullBeanConverter();
       final FullBeanImpl fullBean = fullBeanConverter.convertRdfToFullBean(rdfWrapper);
-      final List<SolrTier> solrTiers = fullBean.getQualityAnnotations().stream().map(RdfTierUtils::getTier)
-          .map(RdfTierUtils::getSolrTier).collect(
+      final List<RdfTier> rdfTiers = fullBean.getQualityAnnotations().stream().map(RdfTierUtils::getTier).collect(
               Collectors.toList());
-      final String contentTier = solrTiers.stream().filter(solrTier -> solrTier.getTierLabel() == EdmLabel.CONTENT_TIER)
-          .findFirst().map(SolrTier::getTierValue).orElse(null);
-      final String metadataTier = solrTiers.stream().filter(solrTier -> solrTier.getTierLabel() == EdmLabel.METADATA_TIER)
-          .findFirst().map(SolrTier::getTierValue).orElse(null);
+      final Tier contentTier = rdfTiers.stream().filter(rdfTier -> rdfTier.getTier() instanceof MediaTier)
+          .findFirst().map(RdfTier::getTier).orElse(null);
+      final Tier metadataTier = rdfTiers.stream().filter(rdfTier -> rdfTier.getTier() instanceof MetadataTier)
+          .findFirst().map(RdfTier::getTier).orElse(null);
       return new TierValues(contentTier, metadataTier);
     } catch (SerializationException | IndexingException e) {
       throw new TierCalculationException("Error during calculation of tiers", e);
@@ -92,19 +93,19 @@ public class RecordTierCalculationViewGenerator {
 
   static class TierValues {
 
-    private final String contentTier;
-    private final String metadataTier;
+    private final Tier contentTier;
+    private final Tier metadataTier;
 
-    public TierValues(String contentTier, String metadataTier) {
+    public TierValues(Tier contentTier, Tier metadataTier) {
       this.contentTier = contentTier;
       this.metadataTier = metadataTier;
     }
 
-    public String getContentTier() {
+    public Tier getContentTier() {
       return contentTier;
     }
 
-    public String getMetadataTier() {
+    public Tier getMetadataTier() {
       return metadataTier;
     }
   }

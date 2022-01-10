@@ -2,6 +2,9 @@ package eu.europeana.indexing.tiers.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.Tier;
 import org.junit.jupiter.api.Test;
 
 class RecordTierCalculationSummaryTest {
@@ -19,8 +22,8 @@ class RecordTierCalculationSummaryTest {
 
     final String europeanaId = "europeanaId";
     final String providerId = "providerId";
-    final String contentTier = "4";
-    final String metadataTier = "A";
+    final Tier contentTier = MediaTier.T4;
+    final Tier metadataTier = MetadataTier.TA;
     final String portalRecordLink = "https://example-portal-record-link.org";
     final String harvestedRecordLink = "https://example-harvest-record-link.org";
     recordTierCalculationSummary.setEuropeanaRecordId(europeanaId);

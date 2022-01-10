@@ -15,8 +15,8 @@ public class QualityAnnotationSolrCreator implements PropertySolrCreator<Quality
 
   @Override
   public void addToDocument(SolrInputDocument doc, QualityAnnotation qualityAnnotation) {
-    Optional.of(qualityAnnotation).map(RdfTierUtils::getTier).map(RdfTierUtils::getSolrTier).ifPresent(
-        tier -> SolrPropertyUtils.addValue(doc, tier.getTierLabel(), tier.getTierValue())
+    Optional.of(qualityAnnotation).map(RdfTierUtils::getTier).ifPresent(
+        tier -> SolrPropertyUtils.addValue(doc, tier.getEdmLabel(), tier.getTier().toString())
     );
   }
 }
