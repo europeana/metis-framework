@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class PropertySolrCreatorTest {
 
   @Test
-  public void testaddAllToDocument() {
+  public void testAddAllToDocument() {
 
     // Create property creator that does nothing
     final PropertySolrCreator<PlaceImpl> creator = spy(new PropertySolrCreator<PlaceImpl>() {
