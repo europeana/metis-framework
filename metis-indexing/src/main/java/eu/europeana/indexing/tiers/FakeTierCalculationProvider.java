@@ -1,5 +1,6 @@
 package eu.europeana.indexing.tiers;
 
+import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
@@ -55,13 +56,9 @@ public class FakeTierCalculationProvider {
     contentTierBreakdown.setProcessingErrorsList(List.of(processingError1, processingError2));
 
     final MetadataTierBreakdown metadataTierBreakdown = new MetadataTierBreakdown();
-    final LanguageBreakdown languageBreakdown = new LanguageBreakdown();
-    languageBreakdown.setPotentialLanguageQualifiedElements(42);
-    languageBreakdown.setActualLanguageQualifiedElements(34);
-    languageBreakdown.setActualLanguageQualifiedElementsPercentage(81F);
-    languageBreakdown.setActualLanguageUnqualifiedElements(8);
-    languageBreakdown.setActualLanguageUnqualifiedElementsList(List.of("dc:creator", "edm:currentLocation"));
-    languageBreakdown.setMetadataTier(MetadataTier.TC);
+    final LanguageBreakdown languageBreakdown = new LanguageBreakdown(42,
+        List.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()),
+        MetadataTier.TC);
     metadataTierBreakdown.setLanguageBreakdown(languageBreakdown);
     final EnablingElements enablingElements = new EnablingElements();
     enablingElements.setDistinctEnablingElements(7);
@@ -77,12 +74,8 @@ public class FakeTierCalculationProvider {
     contextualClasses.setMetadataTier(MetadataTier.TC);
     metadataTierBreakdown.setContextualClasses(contextualClasses);
 
-    final RecordTierCalculationView recordTierCalculationDto = new RecordTierCalculationView();
-    recordTierCalculationDto.setRecordTierCalculationSummary(recordTierCalculationSummary);
-    recordTierCalculationDto.setContentTierBreakdown(contentTierBreakdown);
-    recordTierCalculationDto.setMetadataTierBreakdown(metadataTierBreakdown);
-
-    return recordTierCalculationDto;
+    return new RecordTierCalculationView(recordTierCalculationSummary,
+        contentTierBreakdown, metadataTierBreakdown);
   }
 
 }

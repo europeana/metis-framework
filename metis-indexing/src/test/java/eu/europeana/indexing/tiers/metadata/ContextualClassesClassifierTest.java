@@ -7,6 +7,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Begin;
 import eu.europeana.metis.schema.jibx.Broader;
@@ -34,8 +36,6 @@ import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.SameAs;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,11 +45,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
-class ContextualClassClassifierTest {
+class ContextualClassesClassifierTest {
 
   @Test
   void testHasProperty() {
-    final ContextualClassClassifier classifier = new ContextualClassClassifier();
+    final ContextualClassesClassifier classifier = new ContextualClassesClassifier();
 
     // Test for literals
     assertFalse(classifier.hasProperty((LiteralType) null));
@@ -93,7 +93,7 @@ class ContextualClassClassifierTest {
 
   @Test
   void testHasLiteralProperty() {
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
 
     // Test with null or empty list
     assertFalse(classifier.hasLiteralProperty(null));
@@ -112,7 +112,7 @@ class ContextualClassClassifierTest {
 
   @Test
   void testHasResourceOrLiteralProperty() {
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
 
     // Test with null or empty list
     assertFalse(classifier.hasResourceOrLiteralProperty(null));
@@ -133,7 +133,7 @@ class ContextualClassClassifierTest {
   void testEntityQualifiesForAgent() {
 
     // Create objects
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final AgentType agent = new AgentType();
     final List<PrefLabel> prefLabelList = new ArrayList<>();
     final Begin begin = new Begin();
@@ -224,7 +224,7 @@ class ContextualClassClassifierTest {
   void testEntityQualifiesForConcept() {
 
     // Create objects
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final Concept concept = new Concept();
     final PrefLabel prefLabel = new PrefLabel();
     final Note note = new Note();
@@ -314,7 +314,7 @@ class ContextualClassClassifierTest {
   void testEntityQualifiesForPlace() {
 
     // Create objects
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final PlaceType place = new PlaceType();
     final List<PrefLabel> prefLabelList = new ArrayList<>();
 
@@ -358,7 +358,7 @@ class ContextualClassClassifierTest {
   void testEntityQualifiesForTimeSpan() {
 
     // Create objects
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final TimeSpanType timeSpan = new TimeSpanType();
     final Begin begin = new Begin();
     final End end = new End();
@@ -390,7 +390,7 @@ class ContextualClassClassifierTest {
   void countQualifyingContextualClassTypes() {
 
     // Create mocks of the classifier and test empty object.
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final RdfWrapper entity = mock(RdfWrapper.class);
     assertEquals(0, classifier.countQualifyingContextualClassTypes(entity));
 
@@ -468,19 +468,19 @@ class ContextualClassClassifierTest {
   void testClassify() {
 
     // Create mocks
-    final ContextualClassClassifier classifier = spy(new ContextualClassClassifier());
+    final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final RdfWrapper entity = mock(RdfWrapper.class);
 
     // Test for all values
     doReturn(0).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TA,classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
     doReturn(1).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TB,classifier.classify(entity));
+    assertEquals(MetadataTier.TB, classifier.classify(entity).getTier());
     doReturn(2).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC,classifier.classify(entity));
+    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
     doReturn(3).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC,classifier.classify(entity));
+    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
     doReturn(4).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC,classifier.classify(entity));
+    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
   }
 }

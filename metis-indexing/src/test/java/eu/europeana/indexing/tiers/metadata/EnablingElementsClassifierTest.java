@@ -9,6 +9,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
+import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier.EnablingElementInventory;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -19,10 +23,6 @@ import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
-import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier.EnablingElementInventory;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,29 +49,29 @@ class EnablingElementsClassifierTest {
     // Zero groups/elements
     doReturn(0).when(inventory).getElementTypeCount();
     doReturn(0).when(inventory).getGroupTypeCount();
-    assertEquals(MetadataTier.T0, classifier.classify(entity));
+    assertEquals(MetadataTier.T0, classifier.classify(entity).getTier());
 
     // One group, various element counts
     doReturn(1).when(inventory).getGroupTypeCount();
     doReturn(1).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
     doReturn(2).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
     doReturn(3).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
     doReturn(4).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
 
     // Two groups, various element counts
     doReturn(2).when(inventory).getGroupTypeCount();
     doReturn(1).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
     doReturn(2).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
     doReturn(3).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TB, classifier.classify(entity));
+    assertEquals(MetadataTier.TB, classifier.classify(entity).getTier());
     doReturn(4).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TC, classifier.classify(entity));
+    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
   }
 
   @Test

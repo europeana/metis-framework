@@ -31,9 +31,13 @@ import org.apache.commons.lang3.StringUtils;
  * It is then able to return for how many of the known property types a language qualification is
  * present.
  */
-class LanguageTagStatistics {
+public class LanguageTagStatistics {
 
-  enum PropertyType {
+  private final Set<String> contextualClassesWithLanguage = new HashSet<>();
+  private final EnumSet<PropertyType> qualifiedProperties = EnumSet.noneOf(PropertyType.class);
+  private final EnumSet<PropertyType> qualifiedPropertiesWithLanguage = EnumSet.noneOf(PropertyType.class);
+
+  public enum PropertyType {
     DC_COVERAGE,
     DC_DESCRIPTION,
     DC_FORMAT,
@@ -58,11 +62,6 @@ class LanguageTagStatistics {
     EDM_IS_RELATED_TO
   }
 
-  private final Set<String> contextualClassesWithLanguage = new HashSet<>();
-  private final EnumSet<PropertyType> allAddedProperties = EnumSet.noneOf(PropertyType.class);
-  private final EnumSet<PropertyType> addedPropertiesWithLanguage = EnumSet
-      .noneOf(PropertyType.class);
-
   /**
    * Constructor.
    *
@@ -78,21 +77,21 @@ class LanguageTagStatistics {
     getStream(places).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
         .forEach(contextualClassesWithLanguage::add);
     getStream(timeSpans).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-        .forEach(contextualClassesWithLanguage::add);
+                        .forEach(contextualClassesWithLanguage::add);
     getStream(concepts).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-        .forEach(contextualClassesWithLanguage::add);
+                       .forEach(contextualClassesWithLanguage::add);
   }
 
   Set<String> getContextualClassesWithLanguage() {
     return Collections.unmodifiableSet(contextualClassesWithLanguage);
   }
 
-  Set<PropertyType> getAllAddedProperties() {
-    return Collections.unmodifiableSet(allAddedProperties);
+  Set<PropertyType> getQualifiedProperties() {
+    return Collections.unmodifiableSet(qualifiedProperties);
   }
 
-  Set<PropertyType> getAddedPropertiesWithLanguage() {
-    return Collections.unmodifiableSet(addedPropertiesWithLanguage);
+  Set<PropertyType> getQualifiedPropertiesWithLanguage() {
+    return Collections.unmodifiableSet(qualifiedPropertiesWithLanguage);
   }
 
   boolean containsContextualClass(String about) {
@@ -137,10 +136,10 @@ class LanguageTagStatistics {
       return;
     }
     if (StringUtils.isNotBlank(property.getString())) {
+      qualifiedProperties.add(type);
       // If the literal has a value, check whether the language is not empty.
-      allAddedProperties.add(type);
       if (property.getLang() != null && StringUtils.isNotBlank(property.getLang().getLang())) {
-        addedPropertiesWithLanguage.add(type);
+        qualifiedPropertiesWithLanguage.add(type);
       }
     }
   }
@@ -161,18 +160,18 @@ class LanguageTagStatistics {
       return;
     }
     if (StringUtils.isNotBlank(property.getString())) {
+      qualifiedProperties.add(type);
       // If the property has a value, check whether the language is not empty.
-      allAddedProperties.add(type);
       if (property.getLang() != null && StringUtils.isNotBlank(property.getLang().getLang())) {
-        addedPropertiesWithLanguage.add(type);
+        qualifiedPropertiesWithLanguage.add(type);
       }
     }
     if (property.getResource() != null && StringUtils
         .isNotBlank(property.getResource().getResource())) {
+      qualifiedProperties.add(type);
       // If the property has a resource link, check whether the link is a contextual class.
-      allAddedProperties.add(type);
       if (containsContextualClass(property.getResource().getResource())) {
-        addedPropertiesWithLanguage.add(type);
+        qualifiedPropertiesWithLanguage.add(type);
       }
     }
   }
@@ -271,17 +270,16 @@ class LanguageTagStatistics {
   }
 
   /**
-   * Computes for how many of the known property types a language qualification is present. This is
-   * returned as a ratio (i.e. a fraction of the total number of known property types). If no
-   * properties were added, this method returns 0.
+   * Computes for how many of the known property types a language qualification is present. This is returned as a ratio (i.e. a
+   * fraction of the total number of known property types). If no properties were added, this method returns 0.
    *
    * @return The ratio.
    */
-  double getPropertyWithLanguageRatio() {
-    final Set<PropertyType> addedProperties = getAllAddedProperties();
+  double getPropertiesWithLanguageRatio() {
+    final Set<PropertyType> addedProperties = getQualifiedProperties();
     if (addedProperties.isEmpty()) {
       return 0;
     }
-    return ((double) getAddedPropertiesWithLanguage().size()) / addedProperties.size();
+    return ((double) getQualifiedPropertiesWithLanguage().size()) / addedProperties.size();
   }
 }

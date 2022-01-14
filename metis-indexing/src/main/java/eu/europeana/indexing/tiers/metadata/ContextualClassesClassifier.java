@@ -1,5 +1,9 @@
 package eu.europeana.indexing.tiers.metadata;
 
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.view.ContextualClasses;
+import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -13,9 +17,6 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
-import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -27,34 +28,33 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Classifier for contextual class completeness.
  */
-public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
+public class ContextualClassesClassifier implements TierClassifier<MetadataTier, ContextualClasses> {
 
   @Override
-  public MetadataTier classify(RdfWrapper entity) {
+  public TierClassification<MetadataTier, ContextualClasses> classify(RdfWrapper entity) {
 
     // Count the contextual class type occurrences of qualifying contextual classes.
     final int contextualClassCount = countQualifyingContextualClassTypes(entity);
 
     // perform classification
-    final MetadataTier result;
+    final MetadataTier metadataTier;
     if (contextualClassCount > 1) {
-      result = MetadataTier.TC;
+      metadataTier = MetadataTier.TC;
     } else if (contextualClassCount == 1) {
-      result = MetadataTier.TB;
+      metadataTier = MetadataTier.TB;
     } else {
-      result = MetadataTier.TA;
+      metadataTier = MetadataTier.TA;
     }
 
-    // Done
-    return result;
+    return new TierClassification<>(metadataTier, new ContextualClasses());
   }
 
   int countQualifyingContextualClassTypes(RdfWrapper entity) {
 
     // Get all the entity references from the provider proxies.
     final Set<String> referencedEntities = entity.getProviderProxies().stream()
-        .map(ContextualClassClassifier::getResourceLinks).flatMap(Set::stream)
-        .collect(Collectors.toSet());
+                                                 .map(ContextualClassesClassifier::getResourceLinks).flatMap(Set::stream)
+                                                 .collect(Collectors.toSet());
 
     // Count the entity types that are referenced and that qualify according to the criteria.
     int contextualClassCount = 0;

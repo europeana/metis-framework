@@ -1,11 +1,12 @@
 package eu.europeana.indexing.tiers.metadata;
 
-import eu.europeana.metis.schema.jibx.AboutType;
-import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.view.EnablingElements;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.ProxyType;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Classifier for counting enabling elements.
  */
-public class EnablingElementsClassifier implements TierClassifier<MetadataTier> {
+public class EnablingElementsClassifier implements TierClassifier<MetadataTier, EnablingElements> {
 
 
   private static final int MIN_ELEMENTS_TIER_A = 1;
@@ -27,7 +28,7 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier> 
   private static final int MIN_GROUPS_TIER_C = 2;
 
   @Override
-  public MetadataTier classify(RdfWrapper entity) {
+  public TierClassification<MetadataTier, EnablingElements> classify(RdfWrapper entity) {
 
     // Perform the element inventory
     final EnablingElementInventory inventory = performEnablingElementInventory(entity);
@@ -35,19 +36,18 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier> 
     final int groupTypeCount = inventory.getGroupTypeCount();
 
     // Compute the tier.
-    final MetadataTier tier;
+    final MetadataTier metadataTier;
     if (groupTypeCount >= MIN_GROUPS_TIER_C && elementTypeCount >= MIN_ELEMENTS_TIER_C) {
-      tier = MetadataTier.TC;
+      metadataTier = MetadataTier.TC;
     } else if (groupTypeCount >= MIN_GROUPS_TIER_B && elementTypeCount >= MIN_ELEMENTS_TIER_B) {
-      tier = MetadataTier.TB;
+      metadataTier = MetadataTier.TB;
     } else if (groupTypeCount >= MIN_GROUPS_TIER_A && elementTypeCount >= MIN_ELEMENTS_TIER_A) {
-      tier = MetadataTier.TA;
+      metadataTier = MetadataTier.TA;
     } else {
-      tier = MetadataTier.T0;
+      metadataTier = MetadataTier.T0;
     }
 
-    // Done
-    return tier;
+    return new TierClassification<>(metadataTier, new EnablingElements());
   }
 
   EnablingElementInventory performEnablingElementInventory(RdfWrapper entity) {

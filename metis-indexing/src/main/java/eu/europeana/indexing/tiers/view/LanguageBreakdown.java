@@ -1,65 +1,52 @@
 package eu.europeana.indexing.tiers.view;
 
+import static org.apache.commons.lang3.Validate.isTrue;
+
 import eu.europeana.indexing.tiers.model.Tier;
 import java.util.List;
 
 public class LanguageBreakdown {
 
-  private int potentialLanguageQualifiedElements;
-  private int actualLanguageQualifiedElements;
-  private float actualLanguageQualifiedElementsPercentage;
-  private int actualLanguageUnqualifiedElements;
-  private List<String> actualLanguageUnqualifiedElementsList;
-  private Tier metadataTier;
+  private final int qualifiedElements;
+  private final int qualifiedElementsWithLanguage;
+  private final float qualifiedElementsWithLanguagePercentage;
+  private final int qualifiedElementsWithoutLanguage;
+  private final List<String> qualifiedElementsWithoutLanguageList;
+  private final Tier metadataTier;
 
-  public LanguageBreakdown() {
+  public LanguageBreakdown(int qualifiedElements, List<String> qualifiedElementsWithoutLanguageList, Tier metadataTier) {
+    //Sanity check
+    isTrue(qualifiedElements >= qualifiedElementsWithoutLanguageList.size());
+    this.qualifiedElements = qualifiedElements;
+    this.qualifiedElementsWithLanguage = qualifiedElements - qualifiedElementsWithoutLanguageList.size();
+    this.qualifiedElementsWithLanguagePercentage =
+        qualifiedElements == 0 ? 0 : (float) qualifiedElementsWithLanguage * 100 / qualifiedElements;
+    this.qualifiedElementsWithoutLanguage = qualifiedElementsWithoutLanguageList.size();
+    this.qualifiedElementsWithoutLanguageList = qualifiedElementsWithoutLanguageList;
+    this.metadataTier = metadataTier;
   }
 
-  public int getPotentialLanguageQualifiedElements() {
-    return potentialLanguageQualifiedElements;
+  public int getQualifiedElements() {
+    return qualifiedElements;
   }
 
-  public void setPotentialLanguageQualifiedElements(int potentialLanguageQualifiedElements) {
-    this.potentialLanguageQualifiedElements = potentialLanguageQualifiedElements;
+  public int getQualifiedElementsWithLanguage() {
+    return qualifiedElementsWithLanguage;
   }
 
-  public int getActualLanguageQualifiedElements() {
-    return actualLanguageQualifiedElements;
+  public float getQualifiedElementsWithLanguagePercentage() {
+    return qualifiedElementsWithLanguagePercentage;
   }
 
-  public void setActualLanguageQualifiedElements(int actualLanguageQualifiedElements) {
-    this.actualLanguageQualifiedElements = actualLanguageQualifiedElements;
+  public int getQualifiedElementsWithoutLanguage() {
+    return qualifiedElementsWithoutLanguage;
   }
 
-  public float getActualLanguageQualifiedElementsPercentage() {
-    return actualLanguageQualifiedElementsPercentage;
-  }
-
-  public void setActualLanguageQualifiedElementsPercentage(float actualLanguageQualifiedElementsPercentage) {
-    this.actualLanguageQualifiedElementsPercentage = actualLanguageQualifiedElementsPercentage;
-  }
-
-  public int getActualLanguageUnqualifiedElements() {
-    return actualLanguageUnqualifiedElements;
-  }
-
-  public void setActualLanguageUnqualifiedElements(int actualLanguageUnqualifiedElements) {
-    this.actualLanguageUnqualifiedElements = actualLanguageUnqualifiedElements;
-  }
-
-  public List<String> getActualLanguageUnqualifiedElementsList() {
-    return actualLanguageUnqualifiedElementsList;
-  }
-
-  public void setActualLanguageUnqualifiedElementsList(List<String> actualLanguageUnqualifiedElementsList) {
-    this.actualLanguageUnqualifiedElementsList = actualLanguageUnqualifiedElementsList;
+  public List<String> getQualifiedElementsWithoutLanguageList() {
+    return qualifiedElementsWithoutLanguageList;
   }
 
   public Tier getMetadataTier() {
     return metadataTier;
-  }
-
-  public void setMetadataTier(Tier metadataTier) {
-    this.metadataTier = metadataTier;
   }
 }
