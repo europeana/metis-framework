@@ -1,56 +1,51 @@
 package eu.europeana.indexing.tiers.view;
 
 import eu.europeana.indexing.tiers.model.Tier;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EnablingElements {
 
-  private int distinctEnablingElements;
-  private List<String> distinctEnablingElementsList;
-  private int metadataGroups;
-  private List<String> metadataGroupsList;
-  private Tier metadataTier;
+  private final List<String> distinctEnablingElementsList;
+  private final int distinctEnablingElements;
+  private final List<String> metadataGroupsList;
+  private final int metadataGroups;
+  private final Tier metadataTier;
 
-  public EnablingElements() {
+  public EnablingElements(List<String> distinctEnablingElementsList, List<String> metadataGroupsList,
+      Tier metadataTier) {
+    this.distinctEnablingElementsList = Optional.ofNullable(distinctEnablingElementsList)
+                                                .stream()
+                                                .flatMap(Collection::stream)
+                                                .collect(Collectors.toUnmodifiableList());
+    distinctEnablingElements = this.distinctEnablingElementsList.size();
+    this.metadataGroupsList = Optional.ofNullable(metadataGroupsList)
+                                      .stream()
+                                      .flatMap(Collection::stream)
+                                      .collect(Collectors.toUnmodifiableList());
+    metadataGroups = this.metadataGroupsList.size();
+    this.metadataTier = metadataTier;
   }
 
   public int getDistinctEnablingElements() {
     return distinctEnablingElements;
   }
 
-  public void setDistinctEnablingElements(int distinctEnablingElements) {
-    this.distinctEnablingElements = distinctEnablingElements;
-  }
-
   public List<String> getDistinctEnablingElementsList() {
     return distinctEnablingElementsList;
-  }
-
-  public void setDistinctEnablingElementsList(List<String> distinctEnablingElementsList) {
-    this.distinctEnablingElementsList = distinctEnablingElementsList;
   }
 
   public int getMetadataGroups() {
     return metadataGroups;
   }
 
-  public void setMetadataGroups(int metadataGroups) {
-    this.metadataGroups = metadataGroups;
-  }
-
   public List<String> getMetadataGroupsList() {
     return metadataGroupsList;
   }
 
-  public void setMetadataGroupsList(List<String> metadataGroupsList) {
-    this.metadataGroupsList = metadataGroupsList;
-  }
-
   public Tier getMetadataTier() {
     return metadataTier;
-  }
-
-  public void setMetadataTier(Tier metadataTier) {
-    this.metadataTier = metadataTier;
   }
 }

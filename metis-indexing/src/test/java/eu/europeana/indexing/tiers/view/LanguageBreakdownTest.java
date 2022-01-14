@@ -1,6 +1,7 @@
 package eu.europeana.indexing.tiers.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
@@ -14,6 +15,8 @@ class LanguageBreakdownTest {
     final List<String> qualifiedElementsWithoutLanguage = List.of(PropertyType.DC_COVERAGE.name(),
         PropertyType.DC_DESCRIPTION.name());
     final MetadataTier metadataTier = MetadataTier.TC;
+    assertThrows(IllegalArgumentException.class, () -> new LanguageBreakdown(0, qualifiedElementsWithoutLanguage, metadataTier));
+
     final LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, qualifiedElementsWithoutLanguage, metadataTier);
     assertEquals(2, languageBreakdown.getQualifiedElements());
     assertEquals(0, languageBreakdown.getQualifiedElementsWithLanguage());

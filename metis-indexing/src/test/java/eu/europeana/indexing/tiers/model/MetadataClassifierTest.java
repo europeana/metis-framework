@@ -15,6 +15,7 @@ import eu.europeana.indexing.tiers.view.EnablingElements;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +42,8 @@ public class MetadataClassifierTest {
     when(languageClassifier.classify(testEntity)).thenReturn(new TierClassification<>(lowTier, new LanguageBreakdown(2,
         List.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()), lowTier)));
     when(enablingElementsClassifier.classify(testEntity)).thenReturn(
-        new TierClassification<>(middleTier, new EnablingElements()));
+        new TierClassification<>(middleTier,
+            new EnablingElements(Collections.emptyList(), Collections.emptyList(), MetadataTier.TC)));
     when(contextualClassesClassifier.classify(testEntity)).thenReturn(
         new TierClassification<>(highTier, new ContextualClasses()));
 

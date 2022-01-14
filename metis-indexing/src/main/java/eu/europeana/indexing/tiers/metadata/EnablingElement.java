@@ -87,6 +87,7 @@ public enum EnablingElement {
     final Predicate<ProxyType> hasLiteralOrLink = proxy -> Stream
         .concat(property.getLinkAndValueGetter().getValues(proxy),
             property.getLinkAndValueGetter().getLinks(proxy)).findAny().isPresent();
+
     this.elementGroupDetector = (proxies, objectTypesByUri) ->
         proxies.stream().anyMatch(hasLiteralOrLink) ? Collections.singleton(fixedGroup)
             : Collections.emptySet();
@@ -105,6 +106,7 @@ public enum EnablingElement {
       final BiPredicate<String, EnablingElementGroup> urlHasGroup = (url, group) -> Optional
           .ofNullable(objectTypesByUri.apply(url)).map(Set::stream).orElseGet(Stream::empty)
           .anyMatch(group.contextualClass::isAssignableFrom);
+
       return proxies.stream().flatMap(proxy -> property.getLinkAndValueGetter().getLinks(proxy))
           .flatMap(url -> candidateGroups.stream().filter(group -> urlHasGroup.test(url, group)))
           .collect(Collectors.toSet());

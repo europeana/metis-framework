@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Classifier for counting enabling elements.
  */
 public class EnablingElementsClassifier implements TierClassifier<MetadataTier, EnablingElements> {
-
 
   private static final int MIN_ELEMENTS_TIER_A = 1;
   private static final int MIN_ELEMENTS_TIER_B = 3;
@@ -32,10 +32,22 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
 
     // Perform the element inventory
     final EnablingElementInventory inventory = performEnablingElementInventory(entity);
-    final int elementTypeCount = inventory.getElementTypeCount();
-    final int groupTypeCount = inventory.getGroupTypeCount();
 
-    // Compute the tier.
+    final MetadataTier metadataTier = calculateMetadataTier(inventory);
+    final List<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::name)
+                                                               .collect(Collectors.toList());
+    final List<String> metadataGroupsList = inventory.getGroups().stream().map(EnablingElementGroup::name)
+                                                     .collect(Collectors.toList());
+    final EnablingElements enablingElements = new EnablingElements(distinctEnablingElementsList, metadataGroupsList,
+        metadataTier);
+
+    return new TierClassification<>(metadataTier, enablingElements);
+  }
+
+  @NotNull
+  private MetadataTier calculateMetadataTier(EnablingElementInventory inventory) {
+    final int elementTypeCount = inventory.getElements().size();
+    final int groupTypeCount = inventory.getGroups().size();
     final MetadataTier metadataTier;
     if (groupTypeCount >= MIN_GROUPS_TIER_C && elementTypeCount >= MIN_ELEMENTS_TIER_C) {
       metadataTier = MetadataTier.TC;
@@ -46,8 +58,26 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
     } else {
       metadataTier = MetadataTier.T0;
     }
+    return metadataTier;
+  }
 
-    return new TierClassification<>(metadataTier, new EnablingElements());
+  static class EnablingElementInventory {
+
+    final Set<EnablingElement> elements;
+    final Set<EnablingElementGroup> groups;
+
+    EnablingElementInventory(Set<EnablingElement> elements, Set<EnablingElementGroup> groups) {
+      this.elements = elements;
+      this.groups = groups;
+    }
+
+    public Set<EnablingElement> getElements() {
+      return elements;
+    }
+
+    public Set<EnablingElementGroup> getGroups() {
+      return groups;
+    }
   }
 
   EnablingElementInventory performEnablingElementInventory(RdfWrapper entity) {
@@ -59,6 +89,7 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
     // Go by all the enabling elements and match them.
     final Set<EnablingElement> elements = EnumSet.noneOf(EnablingElement.class);
     final Set<EnablingElementGroup> groups = EnumSet.noneOf(EnablingElementGroup.class);
+
     for (EnablingElement element : EnablingElement.values()) {
       final Set<EnablingElementGroup> groupsToAdd = analyzeForElement(element,
           entity.getProviderProxies(), contextualObjectMap);
@@ -68,8 +99,12 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
       }
     }
 
-    // Done
-    return new EnablingElementInventory(elements.size(), groups.size());
+    return new EnablingElementInventory(elements, groups);
+  }
+
+  Set<EnablingElementGroup> analyzeForElement(EnablingElement element, List<ProxyType> proxies,
+      Map<String, Set<Class<? extends AboutType>>> contextualObjectMap) {
+    return element.analyze(proxies, contextualObjectMap);
   }
 
   Map<String, Set<Class<? extends AboutType>>> createContextualObjectMap(RdfWrapper entity) {
@@ -83,30 +118,6 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
     // Group them into a map by about value.
     // Note: no need to check for lists or objects being null or about values being blank.
     return contextualObjects.stream().collect(Collectors.groupingBy(AboutType::getAbout,
-            Collectors.mapping(AboutType::getClass, Collectors.toSet())));
-  }
-
-  Set<EnablingElementGroup> analyzeForElement(EnablingElement element, List<ProxyType> proxies,
-      Map<String, Set<Class<? extends AboutType>>> contextualObjectMap) {
-    return element.analyze(proxies, contextualObjectMap);
-  }
-
-  static class EnablingElementInventory {
-
-    private final int elementTypeCount;
-    private final int groupTypeCount;
-
-    EnablingElementInventory(int elementTypeCount, int groupTypeCount) {
-      this.elementTypeCount = elementTypeCount;
-      this.groupTypeCount = groupTypeCount;
-    }
-
-    int getElementTypeCount() {
-      return elementTypeCount;
-    }
-
-    int getGroupTypeCount() {
-      return groupTypeCount;
-    }
+        Collectors.mapping(AboutType::getClass, Collectors.toSet())));
   }
 }

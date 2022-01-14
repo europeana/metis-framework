@@ -1,5 +1,7 @@
 package eu.europeana.indexing.tiers;
 
+import eu.europeana.indexing.tiers.metadata.EnablingElement;
+import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
@@ -60,12 +62,9 @@ public class FakeTierCalculationProvider {
         List.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()),
         MetadataTier.TC);
     metadataTierBreakdown.setLanguageBreakdown(languageBreakdown);
-    final EnablingElements enablingElements = new EnablingElements();
-    enablingElements.setDistinctEnablingElements(7);
-    enablingElements.setDistinctEnablingElementsList(List.of("dc:creator", "edm:currentLocation"));
-    enablingElements.setMetadataGroups(2);
-    enablingElements.setMetadataGroupsList(List.of("Agent, Place"));
-    enablingElements.setMetadataTier(MetadataTier.TC);
+    final EnablingElements enablingElements = new EnablingElements(
+        List.of(EnablingElement.DC_CREATOR.name(), EnablingElement.EDM_CURRENT_LOCATION.name()),
+        List.of(EnablingElementGroup.PERSONAL.name(), EnablingElementGroup.GEOGRAPHICAL.name()), MetadataTier.TC);
     metadataTierBreakdown.setEnablingElements(enablingElements);
     final ContextualClasses contextualClasses = new ContextualClasses();
     contextualClasses.setCompleteContextualResources(5);
