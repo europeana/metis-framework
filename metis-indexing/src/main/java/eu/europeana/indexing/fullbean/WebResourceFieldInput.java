@@ -1,6 +1,12 @@
 package eu.europeana.indexing.fullbean;
 
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
+import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.metis.schema.jibx.CodecName;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.DoubleType;
@@ -14,15 +20,10 @@ import eu.europeana.metis.schema.jibx.NonNegativeIntegerType;
 import eu.europeana.metis.schema.jibx.OrientationType;
 import eu.europeana.metis.schema.jibx.Type1;
 import eu.europeana.metis.schema.jibx.WebResourceType;
-import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
-import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
-import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
-import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
-import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.schema.model.Orientation;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -193,16 +194,18 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setWidth(convertToInteger(source.getWidth()));
 
     metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
-        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue).orElse(null));
+                                   .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue).orElse(null));
 
-    final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
-        .map(List::stream).orElseGet(Stream::empty);
+    final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList()).stream()
+                                                       .flatMap(Collection::stream);
     final String[] targetColors = sourceColors.filter(Objects::nonNull)
-        .map(HexBinaryType::getString).filter(StringUtils::isNotBlank).toArray(String[]::new);
+                                              .map(HexBinaryType::getString).filter(StringUtils::isNotBlank)
+                                              .toArray(String[]::new);
     metaInfo.setColorPalette(targetColors.length == 0 ? null : targetColors);
 
     final Orientation sourceOrientation = Optional.ofNullable(source.getOrientation())
-        .map(OrientationType::getString).map(Orientation::getFromNameCaseInsensitive).orElse(null);
+                                                  .map(OrientationType::getString).map(Orientation::getFromNameCaseInsensitive)
+                                                  .orElse(null);
     final ImageOrientation targetOrientation;
     if (sourceOrientation == Orientation.LANDSCAPE) {
       targetOrientation = ImageOrientation.LANDSCAPE;

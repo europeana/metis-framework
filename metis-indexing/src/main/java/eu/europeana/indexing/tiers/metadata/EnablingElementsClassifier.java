@@ -2,13 +2,14 @@ package eu.europeana.indexing.tiers.metadata;
 
 import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
-import eu.europeana.indexing.tiers.view.EnablingElements;
+import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
+import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Classifier for counting enabling elements.
  */
-public class EnablingElementsClassifier implements TierClassifier<MetadataTier, EnablingElements> {
+public class EnablingElementsClassifier implements TierClassifierBreakdown<EnablingElementsBreakdown> {
 
   private static final int MIN_ELEMENTS_TIER_A = 1;
   private static final int MIN_ELEMENTS_TIER_B = 3;
@@ -28,7 +29,7 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
   private static final int MIN_GROUPS_TIER_C = 2;
 
   @Override
-  public TierClassification<MetadataTier, EnablingElements> classify(RdfWrapper entity) {
+  public EnablingElementsBreakdown classifyBreakdown(RdfWrapper entity) {
 
     // Perform the element inventory
     final EnablingElementInventory inventory = performEnablingElementInventory(entity);
@@ -38,10 +39,10 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
                                                                .collect(Collectors.toList());
     final List<String> metadataGroupsList = inventory.getGroups().stream().map(EnablingElementGroup::name)
                                                      .collect(Collectors.toList());
-    final EnablingElements enablingElements = new EnablingElements(distinctEnablingElementsList, metadataGroupsList,
-        metadataTier);
 
-    return new TierClassification<>(metadataTier, enablingElements);
+    return new EnablingElementsBreakdown(distinctEnablingElementsList,
+        metadataGroupsList,
+        metadataTier);
   }
 
   @NotNull
@@ -63,20 +64,20 @@ public class EnablingElementsClassifier implements TierClassifier<MetadataTier, 
 
   static class EnablingElementInventory {
 
-    final Set<EnablingElement> elements;
-    final Set<EnablingElementGroup> groups;
+    private final Set<EnablingElement> elements;
+    private final Set<EnablingElementGroup> groups;
 
     EnablingElementInventory(Set<EnablingElement> elements, Set<EnablingElementGroup> groups) {
-      this.elements = elements;
-      this.groups = groups;
+      this.elements = elements == null ? new HashSet<>() : new HashSet<>(elements);
+      this.groups = groups == null ? new HashSet<>() : new HashSet<>(groups);
     }
 
     public Set<EnablingElement> getElements() {
-      return elements;
+      return new HashSet<>(elements);
     }
 
     public Set<EnablingElementGroup> getGroups() {
-      return groups;
+      return new HashSet<>(groups);
     }
   }
 

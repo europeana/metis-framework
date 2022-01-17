@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
+import eu.europeana.corelib.solr.entity.ProxyImpl;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.Alternative;
 import eu.europeana.metis.schema.jibx.ConformsTo;
 import eu.europeana.metis.schema.jibx.Contributor;
@@ -53,8 +55,6 @@ import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.metis.schema.jibx.Type;
 import eu.europeana.metis.schema.jibx.Type2;
-import eu.europeana.metis.mongo.dao.RecordDao;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -83,7 +83,7 @@ class ProxyFieldInputTest {
     ProxyImpl mongoProxy = new ProxyFieldInput().apply(proxy);
     mongoServerMock.getDatastore().save(mongoProxy);
     assertEquals(proxy.getAbout(), mongoProxy.getAbout());
-    assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType().toString());
+    assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType());
     assertEquals(proxy.getIsNextInSequenceList().size(),
         mongoProxy.getEdmIsNextInSequence().length);
     // @TODO: Add actual content checking here

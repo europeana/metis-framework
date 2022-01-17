@@ -3,6 +3,7 @@ package eu.europeana.indexing.tiers.metadata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Created;
@@ -22,9 +23,9 @@ import eu.europeana.metis.schema.jibx.Spatial;
 import eu.europeana.metis.schema.jibx.Subject;
 import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
-import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -36,7 +37,6 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 class EnablingElementTest {
@@ -173,7 +173,7 @@ class EnablingElementTest {
     // Do the testing on the links.
     final BiConsumer<ProxyType, List<T>> objectSetter = (proxy, values) -> {
       proxy.setChoiceList(new ArrayList<>());
-      Optional.ofNullable(values).map(List::stream).orElse(Stream.empty()).forEach(value -> {
+      Optional.ofNullable(values).stream().flatMap(Collection::stream).forEach(value -> {
         final Choice choice = new Choice();
         proxy.getChoiceList().add(choice);
         setter.accept(choice, value);

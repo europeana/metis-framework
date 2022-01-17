@@ -3,27 +3,42 @@ package eu.europeana.indexing.tiers.view;
 import static org.apache.commons.lang3.Validate.isTrue;
 
 import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.model.TierProvider;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LanguageBreakdown {
+/**
+ * The language breakdown
+ */
+public class LanguageBreakdown implements TierProvider<Tier> {
 
   private final int qualifiedElements;
   private final int qualifiedElementsWithLanguage;
   private final float qualifiedElementsWithLanguagePercentage;
   private final int qualifiedElementsWithoutLanguage;
   private final List<String> qualifiedElementsWithoutLanguageList;
-  private final Tier metadataTier;
+  private final Tier tier;
 
-  public LanguageBreakdown(int qualifiedElements, List<String> qualifiedElementsWithoutLanguageList, Tier metadataTier) {
+  /**
+   * Constructor with required parameters.
+   *
+   * @param qualifiedElements the qualified elementes
+   * @param qualifiedElementsWithoutLanguageList the qualified elements that do not contain a language
+   * @param tier the tier for the breakdown
+   */
+  @SuppressWarnings("java:S2164") // We don't need double precision here
+  public LanguageBreakdown(int qualifiedElements, List<String> qualifiedElementsWithoutLanguageList, Tier tier) {
+    this.qualifiedElementsWithoutLanguageList =
+        qualifiedElementsWithoutLanguageList == null ? new ArrayList<>() : new ArrayList<>(qualifiedElementsWithoutLanguageList);
+
     //Sanity check
-    isTrue(qualifiedElements >= qualifiedElementsWithoutLanguageList.size());
+    isTrue(qualifiedElements >= this.qualifiedElementsWithoutLanguageList.size());
     this.qualifiedElements = qualifiedElements;
-    this.qualifiedElementsWithLanguage = qualifiedElements - qualifiedElementsWithoutLanguageList.size();
+    this.qualifiedElementsWithLanguage = qualifiedElements - this.qualifiedElementsWithoutLanguageList.size();
     this.qualifiedElementsWithLanguagePercentage =
-        qualifiedElements == 0 ? 0 : (float) qualifiedElementsWithLanguage * 100 / qualifiedElements;
-    this.qualifiedElementsWithoutLanguage = qualifiedElementsWithoutLanguageList.size();
-    this.qualifiedElementsWithoutLanguageList = qualifiedElementsWithoutLanguageList;
-    this.metadataTier = metadataTier;
+        (qualifiedElements == 0) ? 0F : ((qualifiedElementsWithLanguage * 100F) / qualifiedElements);
+    this.qualifiedElementsWithoutLanguage = this.qualifiedElementsWithoutLanguageList.size();
+    this.tier = tier;
   }
 
   public int getQualifiedElements() {
@@ -43,10 +58,11 @@ public class LanguageBreakdown {
   }
 
   public List<String> getQualifiedElementsWithoutLanguageList() {
-    return qualifiedElementsWithoutLanguageList;
+    return new ArrayList<>(qualifiedElementsWithoutLanguageList);
   }
 
-  public Tier getMetadataTier() {
-    return metadataTier;
+  @Override
+  public Tier getTier() {
+    return tier;
   }
 }

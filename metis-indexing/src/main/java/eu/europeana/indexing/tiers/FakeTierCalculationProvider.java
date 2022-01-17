@@ -6,8 +6,8 @@ import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
-import eu.europeana.indexing.tiers.view.ContextualClasses;
-import eu.europeana.indexing.tiers.view.EnablingElements;
+import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
+import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
@@ -59,18 +59,17 @@ public class FakeTierCalculationProvider {
     processingError2.setErrorCode(500);
     contentTierBreakdown.setProcessingErrorsList(List.of(processingError1, processingError2));
 
-    final MetadataTierBreakdown metadataTierBreakdown = new MetadataTierBreakdown();
     final LanguageBreakdown languageBreakdown = new LanguageBreakdown(42,
         List.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()),
         MetadataTier.TC);
-    metadataTierBreakdown.setLanguageBreakdown(languageBreakdown);
-    final EnablingElements enablingElements = new EnablingElements(
+    final EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(
         List.of(EnablingElement.DC_CREATOR.name(), EnablingElement.EDM_CURRENT_LOCATION.name()),
         List.of(EnablingElementGroup.PERSONAL.name(), EnablingElementGroup.GEOGRAPHICAL.name()), MetadataTier.TC);
-    metadataTierBreakdown.setEnablingElements(enablingElements);
-    final ContextualClasses contextualClasses = new ContextualClasses(5,
+    final ContextualClassesBreakdown contextualClassesBreakdown = new ContextualClassesBreakdown(5,
         List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), MetadataTier.TC);
-    metadataTierBreakdown.setContextualClasses(contextualClasses);
+
+    final MetadataTierBreakdown metadataTierBreakdown = new MetadataTierBreakdown(languageBreakdown, enablingElementsBreakdown,
+        contextualClassesBreakdown);
 
     return new RecordTierCalculationView(recordTierCalculationSummary,
         contentTierBreakdown, metadataTierBreakdown);

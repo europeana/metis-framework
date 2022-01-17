@@ -2,7 +2,7 @@ package eu.europeana.indexing.tiers.metadata;
 
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.ProxyType;
@@ -17,20 +17,20 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Classifier for language tag completeness.
  */
-public class LanguageClassifier implements TierClassifier<MetadataTier, LanguageBreakdown> {
+public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreakdown> {
 
   private static final float MIN_RATE_FOR_T1 = 0.25F;
   private static final float MIN_RATE_FOR_T2 = 0.5F;
   private static final float MIN_RATE_FOR_T3 = 0.75F;
 
   private static <T> Set<T> differenceOfSets(final Set<T> setOne, final Set<T> setTwo) {
-    Set<T> result = new HashSet<T>(setOne);
+    Set<T> result = new HashSet<>(setOne);
     result.removeIf(setTwo::contains);
     return result;
   }
 
   @Override
-  public TierClassification<MetadataTier, LanguageBreakdown> classify(RdfWrapper entity) {
+  public LanguageBreakdown classifyBreakdown(RdfWrapper entity) {
 
     final LanguageTagStatistics languageTagStatistics = createLanguageTagStatistics(entity);
     final Set<PropertyType> qualifiedProperties = languageTagStatistics.getQualifiedProperties();
@@ -39,10 +39,9 @@ public class LanguageClassifier implements TierClassifier<MetadataTier, Language
         qualifiedPropertiesWithLanguage);
 
     final MetadataTier metadataTier = calculateMetadataTier(languageTagStatistics.getPropertiesWithLanguageRatio());
-    final LanguageBreakdown languageBreakdown = new LanguageBreakdown(qualifiedProperties.size(),
-        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::name).collect(Collectors.toList()), metadataTier);
 
-    return new TierClassification<>(metadataTier, languageBreakdown);
+    return new LanguageBreakdown(qualifiedProperties.size(),
+        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::name).collect(Collectors.toList()), metadataTier);
   }
 
   @NotNull

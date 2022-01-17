@@ -104,7 +104,7 @@ public enum EnablingElement {
   EnablingElement(ResourceLinkFromProxy property, Set<EnablingElementGroup> candidateGroups) {
     this.elementGroupDetector = (proxies, objectTypesByUri) -> {
       final BiPredicate<String, EnablingElementGroup> urlHasGroup = (url, group) -> Optional
-          .ofNullable(objectTypesByUri.apply(url)).map(Set::stream).orElseGet(Stream::empty)
+          .ofNullable(objectTypesByUri.apply(url)).stream().flatMap(Collection::stream)
           .anyMatch(group.contextualClass::isAssignableFrom);
 
       return proxies.stream().flatMap(proxy -> property.getLinkAndValueGetter().getLinks(proxy))

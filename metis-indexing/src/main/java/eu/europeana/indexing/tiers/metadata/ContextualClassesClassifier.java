@@ -1,8 +1,8 @@
 package eu.europeana.indexing.tiers.metadata;
 
 import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
-import eu.europeana.indexing.tiers.view.ContextualClasses;
+import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
+import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Classifier for contextual class completeness.
  */
-public class ContextualClassesClassifier implements TierClassifier<MetadataTier, ContextualClasses> {
+public class ContextualClassesClassifier implements TierClassifierBreakdown<ContextualClassesBreakdown> {
 
   private static Set<String> getResourceLinks(ProxyType proxy) {
     return Stream.of(ResourceLinkFromProxy.values())
@@ -45,7 +45,7 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
   }
 
   @Override
-  public TierClassification<MetadataTier, ContextualClasses> classify(RdfWrapper entity) {
+  public ContextualClassesBreakdown classifyBreakdown(RdfWrapper entity) {
 
     // Count the contextual class type occurrences of qualifying contextual classes.
     final ContextualClassesStatistics contextualClassesStatistics = countQualifyingContextualClassTypes(entity);
@@ -60,9 +60,8 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
       metadataTier = MetadataTier.TA;
     }
 
-    return new TierClassification<>(metadataTier,
-        new ContextualClasses(contextualClassesStatistics.getCompleteContextualResources(),
-            new ArrayList<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier));
+    return new ContextualClassesBreakdown(contextualClassesStatistics.getCompleteContextualResources(),
+        new ArrayList<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier);
   }
 
   static class ContextualClassesStatistics {
@@ -72,7 +71,7 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
 
     ContextualClassesStatistics(int completeContextualResources, Set<String> distinctClassesSet) {
       this.completeContextualResources = completeContextualResources;
-      this.distinctClassesSet = distinctClassesSet;
+      this.distinctClassesSet = distinctClassesSet == null ? new HashSet<>() : new HashSet<>(distinctClassesSet);
     }
 
     public int getCompleteContextualResources() {
@@ -80,7 +79,7 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
     }
 
     public Set<String> getDistinctClassesSet() {
-      return distinctClassesSet;
+      return new HashSet<>(distinctClassesSet);
     }
   }
 

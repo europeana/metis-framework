@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
-class ContextualClassesClassifierTest {
+class ContextualClassesBreakdownClassifierTest {
 
   @Test
   void testHasProperty() {
@@ -476,14 +476,14 @@ class ContextualClassesClassifierTest {
     // Test for all values
     final Set<String> distinctClassesSet = Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
     doReturn(new ContextualClassesStatistics(0, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
     doReturn(new ContextualClassesStatistics(1, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TB, classifier.classify(entity).getTier());
+    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getTier());
     doReturn(new ContextualClassesStatistics(2, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
     doReturn(new ContextualClassesStatistics(3, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
     doReturn(new ContextualClassesStatistics(4, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
   }
 }

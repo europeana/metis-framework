@@ -3,8 +3,8 @@ package eu.europeana.indexing.tiers.model;
 import eu.europeana.indexing.tiers.metadata.ContextualClassesClassifier;
 import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier;
 import eu.europeana.indexing.tiers.metadata.LanguageClassifier;
-import eu.europeana.indexing.tiers.view.ContextualClasses;
-import eu.europeana.indexing.tiers.view.EnablingElements;
+import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
+import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
@@ -15,14 +15,20 @@ import java.util.stream.Stream;
  * This tier classifier combines various classifiers. When asked to classify a record, it calls all the containing classifiers and
  * awards the record the minimum of the resulting tiers.
  *
- * @param <T> The type of the tier that this classifier returns.
  */
-public class MetadataClassifier implements TierClassifier<MetadataTier, MetadataTierBreakdown> {
+public class MetadataClassifier implements TierClassifier<Tier, MetadataTierBreakdown> {
 
   private final LanguageClassifier languageClassifier;
   private final EnablingElementsClassifier enablingElementsClassifier;
   private final ContextualClassesClassifier contextualClassesClassifier;
 
+  /**
+   * Constructor with required parameters.
+   *
+   * @param languageClassifier the language classifier
+   * @param enablingElementsClassifier the enabling elements classifier
+   * @param contextualClassesClassifier the contextual classes classifier
+   */
   public MetadataClassifier(LanguageClassifier languageClassifier,
       EnablingElementsClassifier enablingElementsClassifier,
       ContextualClassesClassifier contextualClassesClassifier) {
@@ -35,22 +41,21 @@ public class MetadataClassifier implements TierClassifier<MetadataTier, Metadata
   }
 
   @Override
-  public TierClassification<MetadataTier, MetadataTierBreakdown> classify(RdfWrapper entity) {
-    final TierClassification<MetadataTier, LanguageBreakdown> languageBreakdownTierClassification = languageClassifier.classify(
+  public TierClassification<Tier, MetadataTierBreakdown> classify(RdfWrapper entity) {
+    final LanguageBreakdown languageBreakdownTierClassification = languageClassifier.classifyBreakdown(
         entity);
-    final TierClassification<MetadataTier, EnablingElements> enablingElementsTierClassification = enablingElementsClassifier.classify(
+    final EnablingElementsBreakdown enablingElementsTierClassification = enablingElementsClassifier.classifyBreakdown(
         entity);
-    final TierClassification<MetadataTier, ContextualClasses> contextualClassesTierClassification = contextualClassesClassifier.classify(
+    final ContextualClassesBreakdown contextualClassesTierClassification = contextualClassesClassifier.classifyBreakdown(
         entity);
 
-    final MetadataTierBreakdown metadataTierBreakdown = new MetadataTierBreakdown();
-    metadataTierBreakdown.setLanguageBreakdown(languageBreakdownTierClassification.getClassification());
-    metadataTierBreakdown.setEnablingElements(enablingElementsTierClassification.getClassification());
-    metadataTierBreakdown.setContextualClasses(contextualClassesTierClassification.getClassification());
+    final MetadataTierBreakdown metadataTierBreakdown = new MetadataTierBreakdown(
+        languageBreakdownTierClassification, enablingElementsTierClassification,
+        contextualClassesTierClassification);
 
-    MetadataTier metadataTier = Stream.of(languageBreakdownTierClassification.getTier(),
-                                          enablingElementsTierClassification.getTier(), contextualClassesTierClassification.getTier()).reduce(Tier::min)
-                                      .orElseThrow(IllegalStateException::new);
+    Tier metadataTier = Stream.of(languageBreakdownTierClassification.getTier(),
+                                  enablingElementsTierClassification.getTier(), contextualClassesTierClassification.getTier()).reduce(Tier::min)
+                              .orElseThrow(IllegalStateException::new);
 
     return new TierClassification<>(metadataTier, metadataTierBreakdown);
   }

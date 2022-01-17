@@ -11,6 +11,13 @@ public class RecordTierCalculationView {
   // TODO: 14/01/2022 Make this final when implemented
   private ContentTierBreakdown contentTierBreakdown;
 
+  /**
+   * Constructor with required parameters.
+   *
+   * @param recordTierCalculationSummary the record tier calculation summary
+   * @param contentTierBreakdown the content tier breakdown
+   * @param metadataTierBreakdown the metadata tier breakdown
+   */
   public RecordTierCalculationView(RecordTierCalculationSummary recordTierCalculationSummary,
       ContentTierBreakdown contentTierBreakdown, MetadataTierBreakdown metadataTierBreakdown) {
     this.recordTierCalculationSummary = recordTierCalculationSummary;
