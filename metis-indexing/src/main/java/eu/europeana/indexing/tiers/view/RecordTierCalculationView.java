@@ -5,34 +5,40 @@ package eu.europeana.indexing.tiers.view;
  */
 public class RecordTierCalculationView {
 
-  private RecordTierCalculationSummary recordTierCalculationSummary;
+  private final RecordTierCalculationSummary recordTierCalculationSummary;
+  private final MetadataTierBreakdown metadataTierBreakdown;
   // TODO: 07/01/2022 Add test on the sub-trees for the below two fields with the upcoming tickets MET-4157 and MET-4158
+  // TODO: 14/01/2022 Make this final when implemented
   private ContentTierBreakdown contentTierBreakdown;
-  private MetadataTierBreakdown metadataTierBreakdown;
 
-  public RecordTierCalculationSummary getRecordTierCalculationSummary() {
-    return recordTierCalculationSummary;
-  }
-
-  public void setRecordTierCalculationSummary(
-      RecordTierCalculationSummary recordTierCalculationSummary) {
+  /**
+   * Constructor with required parameters.
+   *
+   * @param recordTierCalculationSummary the record tier calculation summary
+   * @param contentTierBreakdown the content tier breakdown
+   * @param metadataTierBreakdown the metadata tier breakdown
+   */
+  public RecordTierCalculationView(RecordTierCalculationSummary recordTierCalculationSummary,
+      ContentTierBreakdown contentTierBreakdown, MetadataTierBreakdown metadataTierBreakdown) {
     this.recordTierCalculationSummary = recordTierCalculationSummary;
-  }
-
-  public ContentTierBreakdown getContentTierBreakdown() {
-    return contentTierBreakdown;
+    this.contentTierBreakdown = contentTierBreakdown;
+    this.metadataTierBreakdown = metadataTierBreakdown;
   }
 
   public void setContentTierBreakdown(ContentTierBreakdown contentTierBreakdown) {
     this.contentTierBreakdown = contentTierBreakdown;
   }
 
-  public MetadataTierBreakdown getMetadataTierBreakdown() {
-    return metadataTierBreakdown;
+  public RecordTierCalculationSummary getRecordTierCalculationSummary() {
+    return recordTierCalculationSummary;
   }
 
-  public void setMetadataTierBreakdown(MetadataTierBreakdown metadataTierBreakdown) {
-    this.metadataTierBreakdown = metadataTierBreakdown;
+  public ContentTierBreakdown getContentTierBreakdown() {
+    return contentTierBreakdown;
+  }
+
+  public MetadataTierBreakdown getMetadataTierBreakdown() {
+    return metadataTierBreakdown;
   }
 }
 

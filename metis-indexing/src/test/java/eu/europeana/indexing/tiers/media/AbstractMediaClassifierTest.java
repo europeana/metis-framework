@@ -7,17 +7,18 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
+
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.utils.LicenseType;
+import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.indexing.utils.WebResourceLinkType;
+import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.utils.LicenseType;
-import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.WebResourceLinkType;
-import eu.europeana.indexing.utils.WebResourceWrapper;
 
 class AbstractMediaClassifierTest {
 
@@ -84,21 +85,21 @@ class AbstractMediaClassifierTest {
     // Test for all resources
     doReturn(Arrays.asList(resource1, resource2, resource3)).when(entity).getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_BY));
-    assertEquals(highTier, classifier.classify(entity));
+    assertEquals(highTier, classifier.classify(entity).getTier());
     
     // Test for one resource
     doReturn(Collections.singletonList(resource3)).when(entity).getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_BY));
-    assertEquals(lowTier, classifier.classify(entity));
+    assertEquals(lowTier, classifier.classify(entity).getTier());
     
     // Test for no resource
     doReturn(Collections.emptyList()).when(entity).getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_BY));
-    assertEquals(emptyTier, classifier.classify(entity));
+    assertEquals(emptyTier, classifier.classify(entity).getTier());
     
     // Test pre-classification
     doReturn(preClassifyTier).when(classifier).preClassifyEntity(entity);
-    assertEquals(preClassifyTier, classifier.classify(entity));
+    assertEquals(preClassifyTier, classifier.classify(entity).getTier());
   }
   
   @Test

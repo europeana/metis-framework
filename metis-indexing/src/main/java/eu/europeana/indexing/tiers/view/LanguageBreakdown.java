@@ -1,65 +1,68 @@
 package eu.europeana.indexing.tiers.view;
 
+import static org.apache.commons.lang3.Validate.isTrue;
+
 import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.model.TierProvider;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LanguageBreakdown {
+/**
+ * The language breakdown
+ */
+public class LanguageBreakdown implements TierProvider<Tier> {
 
-  private int potentialLanguageQualifiedElements;
-  private int actualLanguageQualifiedElements;
-  private float actualLanguageQualifiedElementsPercentage;
-  private int actualLanguageUnqualifiedElements;
-  private List<String> actualLanguageUnqualifiedElementsList;
-  private Tier metadataTier;
+  private final int qualifiedElements;
+  private final int qualifiedElementsWithLanguage;
+  private final float qualifiedElementsWithLanguagePercentage;
+  private final int qualifiedElementsWithoutLanguage;
+  private final List<String> qualifiedElementsWithoutLanguageList;
+  private final Tier tier;
 
-  public LanguageBreakdown() {
+  /**
+   * Constructor with required parameters.
+   *
+   * @param qualifiedElements the qualified elementes
+   * @param qualifiedElementsWithoutLanguageList the qualified elements that do not contain a language
+   * @param tier the tier for the breakdown
+   */
+  @SuppressWarnings("java:S2164") // We don't need double precision here
+  public LanguageBreakdown(int qualifiedElements, List<String> qualifiedElementsWithoutLanguageList, Tier tier) {
+    this.qualifiedElementsWithoutLanguageList =
+        qualifiedElementsWithoutLanguageList == null ? new ArrayList<>() : new ArrayList<>(qualifiedElementsWithoutLanguageList);
+
+    //Sanity check
+    isTrue(qualifiedElements >= this.qualifiedElementsWithoutLanguageList.size());
+    this.qualifiedElements = qualifiedElements;
+    this.qualifiedElementsWithLanguage = qualifiedElements - this.qualifiedElementsWithoutLanguageList.size();
+    this.qualifiedElementsWithLanguagePercentage =
+        (qualifiedElements == 0) ? 0F : ((qualifiedElementsWithLanguage * 100F) / qualifiedElements);
+    this.qualifiedElementsWithoutLanguage = this.qualifiedElementsWithoutLanguageList.size();
+    this.tier = tier;
   }
 
-  public int getPotentialLanguageQualifiedElements() {
-    return potentialLanguageQualifiedElements;
+  public int getQualifiedElements() {
+    return qualifiedElements;
   }
 
-  public void setPotentialLanguageQualifiedElements(int potentialLanguageQualifiedElements) {
-    this.potentialLanguageQualifiedElements = potentialLanguageQualifiedElements;
+  public int getQualifiedElementsWithLanguage() {
+    return qualifiedElementsWithLanguage;
   }
 
-  public int getActualLanguageQualifiedElements() {
-    return actualLanguageQualifiedElements;
+  public float getQualifiedElementsWithLanguagePercentage() {
+    return qualifiedElementsWithLanguagePercentage;
   }
 
-  public void setActualLanguageQualifiedElements(int actualLanguageQualifiedElements) {
-    this.actualLanguageQualifiedElements = actualLanguageQualifiedElements;
+  public int getQualifiedElementsWithoutLanguage() {
+    return qualifiedElementsWithoutLanguage;
   }
 
-  public float getActualLanguageQualifiedElementsPercentage() {
-    return actualLanguageQualifiedElementsPercentage;
+  public List<String> getQualifiedElementsWithoutLanguageList() {
+    return new ArrayList<>(qualifiedElementsWithoutLanguageList);
   }
 
-  public void setActualLanguageQualifiedElementsPercentage(float actualLanguageQualifiedElementsPercentage) {
-    this.actualLanguageQualifiedElementsPercentage = actualLanguageQualifiedElementsPercentage;
-  }
-
-  public int getActualLanguageUnqualifiedElements() {
-    return actualLanguageUnqualifiedElements;
-  }
-
-  public void setActualLanguageUnqualifiedElements(int actualLanguageUnqualifiedElements) {
-    this.actualLanguageUnqualifiedElements = actualLanguageUnqualifiedElements;
-  }
-
-  public List<String> getActualLanguageUnqualifiedElementsList() {
-    return actualLanguageUnqualifiedElementsList;
-  }
-
-  public void setActualLanguageUnqualifiedElementsList(List<String> actualLanguageUnqualifiedElementsList) {
-    this.actualLanguageUnqualifiedElementsList = actualLanguageUnqualifiedElementsList;
-  }
-
-  public Tier getMetadataTier() {
-    return metadataTier;
-  }
-
-  public void setMetadataTier(Tier metadataTier) {
-    this.metadataTier = metadataTier;
+  @Override
+  public Tier getTier() {
+    return tier;
   }
 }

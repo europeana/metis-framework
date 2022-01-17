@@ -9,6 +9,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
+import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier.EnablingElementInventory;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -19,10 +23,6 @@ import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
-import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier.EnablingElementInventory;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,9 +33,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-class EnablingElementsClassifierTest {
+class EnablingElementsBreakdownClassifierTest {
 
   @Test
   void testClassify() {
@@ -47,31 +48,35 @@ class EnablingElementsClassifierTest {
     doReturn(inventory).when(classifier).performEnablingElementInventory(entity);
 
     // Zero groups/elements
-    doReturn(0).when(inventory).getElementTypeCount();
-    doReturn(0).when(inventory).getGroupTypeCount();
-    assertEquals(MetadataTier.T0, classifier.classify(entity));
+    doReturn(Collections.emptySet()).when(inventory).getElements();
+    doReturn(Collections.emptySet()).when(inventory).getGroups();
+    assertEquals(MetadataTier.T0, classifier.classifyBreakdown(entity).getTier());
 
     // One group, various element counts
-    doReturn(1).when(inventory).getGroupTypeCount();
-    doReturn(1).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(2).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(3).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(4).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
+    doReturn(Set.of(EnablingElementGroup.PERSONAL)).when(inventory).getGroups();
+    doReturn(Set.of(EnablingElement.DC_TYPE)).when(inventory).getElements();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED)).when(inventory).getElements();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED)).when(inventory)
+                                                                                                              .getElements();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED,
+        EnablingElement.EDM_HAS_MET)).when(inventory).getElements();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
 
     // Two groups, various element counts
-    doReturn(2).when(inventory).getGroupTypeCount();
-    doReturn(1).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(2).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(3).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TB, classifier.classify(entity));
-    doReturn(4).when(inventory).getElementTypeCount();
-    assertEquals(MetadataTier.TC, classifier.classify(entity));
+    doReturn(Set.of(EnablingElementGroup.PERSONAL, EnablingElementGroup.CONCEPTUAL)).when(inventory).getGroups();
+    doReturn(Set.of(EnablingElement.DC_TYPE)).when(inventory).getElements();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED)).when(inventory).getElements();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED)).when(inventory)
+                                                                                                              .getElements();
+    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getTier());
+    doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED,
+        EnablingElement.EDM_HAS_MET)).when(inventory).getElements();
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
   }
 
   @Test
@@ -87,25 +92,29 @@ class EnablingElementsClassifierTest {
 
     // Set behavior of analyze result
     doReturn(Collections.emptySet()).when(classifier)
-        .analyzeForElement(any(), same(providerProxies), same(contextualObjectMap));
+                                    .analyzeForElement(any(), same(providerProxies), same(contextualObjectMap));
     doReturn(new HashSet<>(
         Arrays.asList(EnablingElementGroup.PERSONAL, EnablingElementGroup.CONCEPTUAL)))
         .when(classifier).analyzeForElement(eq(EnablingElement.DCTERMS_ISSUED),
-        same(providerProxies), same(contextualObjectMap));
+            same(providerProxies), same(contextualObjectMap));
     doReturn(Collections.singleton(EnablingElementGroup.PERSONAL))
         .when(classifier).analyzeForElement(eq(EnablingElement.DCTERMS_CREATED),
-        same(providerProxies), same(contextualObjectMap));
+            same(providerProxies), same(contextualObjectMap));
     doReturn(Collections.singleton(EnablingElementGroup.PERSONAL))
         .when(classifier).analyzeForElement(eq(EnablingElement.EDM_HAS_MET), same(providerProxies),
-        same(contextualObjectMap));
+            same(contextualObjectMap));
     doReturn(Collections.singleton(EnablingElementGroup.TEMPORAL))
         .when(classifier).analyzeForElement(eq(EnablingElement.DC_SUBJECT), same(providerProxies),
-        same(contextualObjectMap));
+            same(contextualObjectMap));
 
     // Make the call and verify
     final EnablingElementInventory result = classifier.performEnablingElementInventory(entity);
-    assertEquals(3, result.getGroupTypeCount());
-    assertEquals(4, result.getElementTypeCount());
+    assertTrue(CollectionUtils.isEqualCollection(
+        Set.of(EnablingElementGroup.PERSONAL, EnablingElementGroup.CONCEPTUAL, EnablingElementGroup.TEMPORAL),
+        result.getGroups()));
+    assertTrue(CollectionUtils.isEqualCollection(
+        Set.of(EnablingElement.DC_SUBJECT, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED,
+            EnablingElement.EDM_HAS_MET), result.getElements()));
   }
 
 
@@ -165,7 +174,7 @@ class EnablingElementsClassifierTest {
     final String link = "link";
     final Map<String, Set<Class<? extends AboutType>>> contextualObjectMap = Collections
         .singletonMap(link, EnumSet.allOf(EnablingElementGroup.class).stream()
-            .map(EnablingElementGroup::getContextualClass).collect(Collectors.toSet()));
+                                   .map(EnablingElementGroup::getContextualClass).collect(Collectors.toSet()));
 
     // Create proxy with Created and a HasMet.
     final Created created = new Created();

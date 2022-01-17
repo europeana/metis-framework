@@ -4,7 +4,6 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.metis.schema.jibx.AggregatedCHO;
 import eu.europeana.metis.schema.jibx.Aggregation;
@@ -70,11 +69,11 @@ public final class RdfTierUtils {
    * this record.
    *
    * @param rdf The record.
-   * @param metadataTier The metadata tier value to add.
+   * @param tier The metadata tier value to add.
    * @throws IndexingException In case no tier value could be added to the record.
    */
-  public static void setTier(RDF rdf, MetadataTier metadataTier) throws IndexingException {
-    setTierInternal(rdf, metadataTier);
+  public static void setTier(RDF rdf, Tier tier) throws IndexingException {
+    setTierInternal(rdf, tier);
   }
 
   private static void setTierInternal(RDF rdf, Tier tier)

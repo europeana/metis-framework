@@ -1,5 +1,9 @@
 package eu.europeana.indexing.tiers.metadata;
 
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
+import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
+import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -13,9 +17,8 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
-import eu.europeana.indexing.utils.RdfWrapper;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -27,64 +30,87 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Classifier for contextual class completeness.
  */
-public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
-
-  @Override
-  public MetadataTier classify(RdfWrapper entity) {
-
-    // Count the contextual class type occurrences of qualifying contextual classes.
-    final int contextualClassCount = countQualifyingContextualClassTypes(entity);
-
-    // perform classification
-    final MetadataTier result;
-    if (contextualClassCount > 1) {
-      result = MetadataTier.TC;
-    } else if (contextualClassCount == 1) {
-      result = MetadataTier.TB;
-    } else {
-      result = MetadataTier.TA;
-    }
-
-    // Done
-    return result;
-  }
-
-  int countQualifyingContextualClassTypes(RdfWrapper entity) {
-
-    // Get all the entity references from the provider proxies.
-    final Set<String> referencedEntities = entity.getProviderProxies().stream()
-        .map(ContextualClassClassifier::getResourceLinks).flatMap(Set::stream)
-        .collect(Collectors.toSet());
-
-    // Count the entity types that are referenced and that qualify according to the criteria.
-    int contextualClassCount = 0;
-    if (hasQualifiedEntities(entity.getAgents(), referencedEntities, this::entityQualifies)) {
-      contextualClassCount++;
-    }
-    if (hasQualifiedEntities(entity.getConcepts(), referencedEntities, this::entityQualifies)) {
-      contextualClassCount++;
-    }
-    if (hasQualifiedEntities(entity.getPlaces(), referencedEntities, this::entityQualifies)) {
-      contextualClassCount++;
-    }
-    if (hasQualifiedEntities(entity.getTimeSpans(), referencedEntities, this::entityQualifies)) {
-      contextualClassCount++;
-    }
-
-    // Done
-    return contextualClassCount;
-  }
+public class ContextualClassesClassifier implements TierClassifierBreakdown<ContextualClassesBreakdown> {
 
   private static Set<String> getResourceLinks(ProxyType proxy) {
     return Stream.of(ResourceLinkFromProxy.values())
-        .map(ResourceLinkFromProxy::getLinkAndValueGetter)
-        .flatMap(link -> link.getLinks(proxy)).collect(Collectors.toSet());
+                 .map(ResourceLinkFromProxy::getLinkAndValueGetter)
+                 .flatMap(link -> link.getLinks(proxy)).collect(Collectors.toSet());
   }
 
   private static <T extends AboutType> boolean hasQualifiedEntities(List<T> entities,
       Set<String> referencedEntities, Predicate<T> entityQualifier) {
     return entities.stream().filter(entity -> referencedEntities.contains(entity.getAbout()))
-        .anyMatch(entityQualifier);
+                   .anyMatch(entityQualifier);
+  }
+
+  @Override
+  public ContextualClassesBreakdown classifyBreakdown(RdfWrapper entity) {
+
+    // Count the contextual class type occurrences of qualifying contextual classes.
+    final ContextualClassesStatistics contextualClassesStatistics = countQualifyingContextualClassTypes(entity);
+
+    // perform classification
+    final MetadataTier metadataTier;
+    if (contextualClassesStatistics.getCompleteContextualResources() > 1) {
+      metadataTier = MetadataTier.TC;
+    } else if (contextualClassesStatistics.getCompleteContextualResources() == 1) {
+      metadataTier = MetadataTier.TB;
+    } else {
+      metadataTier = MetadataTier.TA;
+    }
+
+    return new ContextualClassesBreakdown(contextualClassesStatistics.getCompleteContextualResources(),
+        new ArrayList<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier);
+  }
+
+  static class ContextualClassesStatistics {
+
+    private final int completeContextualResources;
+    private final Set<String> distinctClassesSet;
+
+    ContextualClassesStatistics(int completeContextualResources, Set<String> distinctClassesSet) {
+      this.completeContextualResources = completeContextualResources;
+      this.distinctClassesSet = distinctClassesSet == null ? new HashSet<>() : new HashSet<>(distinctClassesSet);
+    }
+
+    public int getCompleteContextualResources() {
+      return completeContextualResources;
+    }
+
+    public Set<String> getDistinctClassesSet() {
+      return new HashSet<>(distinctClassesSet);
+    }
+  }
+
+  ContextualClassesStatistics countQualifyingContextualClassTypes(RdfWrapper entity) {
+
+    // Get all the entity references from the provider proxies.
+    final Set<String> referencedEntities = entity.getProviderProxies().stream()
+                                                 .map(ContextualClassesClassifier::getResourceLinks).flatMap(Set::stream)
+                                                 .collect(Collectors.toSet());
+
+    // Count the entity types that are referenced and that qualify according to the criteria.
+    int contextualClassCount = 0;
+    final Set<String> uniqueClasses = new HashSet<>();
+    if (hasQualifiedEntities(entity.getAgents(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+      uniqueClasses.add(AgentType.class.getSimpleName());
+    }
+    if (hasQualifiedEntities(entity.getConcepts(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+      uniqueClasses.add(Concept.class.getSimpleName());
+    }
+    if (hasQualifiedEntities(entity.getPlaces(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+      uniqueClasses.add(PlaceType.class.getSimpleName());
+    }
+    if (hasQualifiedEntities(entity.getTimeSpans(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+      uniqueClasses.add(TimeSpanType.class.getSimpleName());
+    }
+
+    return new ContextualClassesStatistics(contextualClassCount, uniqueClasses);
   }
 
   boolean entityQualifies(AgentType agent) {
@@ -103,9 +129,9 @@ public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
       return false;
     }
     final boolean hasPrefLabel = concept.getChoiceList().stream().filter(Choice::ifPrefLabel)
-        .map(Choice::getPrefLabel).anyMatch(this::hasProperty);
+                                        .map(Choice::getPrefLabel).anyMatch(this::hasProperty);
     final boolean hasRelationOrNote = concept.getChoiceList().stream()
-        .anyMatch(this::hasRelationOrNote);
+                                             .anyMatch(this::hasRelationOrNote);
     return hasPrefLabel && hasRelationOrNote;
   }
 
@@ -139,9 +165,9 @@ public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
   boolean hasProperty(ResourceOrLiteralType resourceOrLiteral) {
     final Optional<ResourceOrLiteralType> property = Optional.ofNullable(resourceOrLiteral);
     final boolean hasLiteral = property.map(ResourceOrLiteralType::getString)
-        .filter(StringUtils::isNotBlank).isPresent();
+                                       .filter(StringUtils::isNotBlank).isPresent();
     final boolean hasResource = property.map(ResourceOrLiteralType::getResource)
-        .map(Resource::getResource).filter(StringUtils::isNotBlank).isPresent();
+                                        .map(Resource::getResource).filter(StringUtils::isNotBlank).isPresent();
     return hasLiteral || hasResource;
   }
 

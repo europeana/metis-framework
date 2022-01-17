@@ -1,29 +1,29 @@
 package eu.europeana.indexing.tiers.media;
 
-import java.util.EnumSet;
-import java.util.List;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import java.util.EnumSet;
+import java.util.List;
 
 /**
- * This is the superclass of all classifiers for specific media types. Classification happens both
- * for the entity as a whole and on individual web resources. This class provides methods for both
- * cases so that subclasses can implement them.
+ * This is the superclass of all classifiers for specific media types. Classification happens both for the entity as a whole and
+ * on individual web resources. This class provides methods for both cases so that subclasses can implement them.
  */
-public abstract class AbstractMediaClassifier implements TierClassifier<MediaTier> {
+public abstract class AbstractMediaClassifier implements TierClassifier<MediaTier, ContentTierBreakdown> {
 
   @Override
-  public final MediaTier classify(RdfWrapper entity) {
+  public final TierClassification<MediaTier, ContentTierBreakdown> classify(RdfWrapper entity) {
 
     // Look at the entity as a whole: we may classify without considering the web resources.
     final MediaTier entityTier = preClassifyEntity(entity);
     if (entityTier != null) {
-      return entityTier;
+      return new TierClassification<>(entityTier, null);
     }
 
     // Find candidate web resources and determine whether there is a landing page.
@@ -32,21 +32,21 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     final boolean hasLandingPage = entity.hasLandingPage();
 
     // Compute the media tier based on whether it has suitable web resources.
-    final MediaTier result;
+    final MediaTier mediaTier;
     if (webResources.isEmpty()) {
-      result = classifyEntityWithoutWebResources(entity, hasLandingPage);
+      mediaTier = classifyEntityWithoutWebResources(entity, hasLandingPage);
     } else {
 
       // Go by all web resources. Return the maximum tier encountered.
       final boolean hasEmbeddableMedia = EmbeddableMedia.hasEmbeddableMedia(entity);
       final LicenseType entityLicense = entity.getLicenseType();
-      result = webResources.stream()
-          .map(resource -> classifyWebResource(resource, entityLicense, hasLandingPage,
-              hasEmbeddableMedia)).reduce(MediaTier.T0, Tier::max);
+      mediaTier = webResources.stream()
+                              .map(resource -> classifyWebResource(resource, entityLicense, hasLandingPage,
+                                  hasEmbeddableMedia)).reduce(MediaTier.T0, Tier::max);
     }
 
-    // Done
-    return result;
+    // TODO: 14/01/2022 To fill in with next ticket
+    return new TierClassification<>(mediaTier, new ContentTierBreakdown());
   }
 
   /**

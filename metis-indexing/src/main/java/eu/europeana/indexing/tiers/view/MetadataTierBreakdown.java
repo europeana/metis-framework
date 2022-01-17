@@ -1,35 +1,38 @@
 package eu.europeana.indexing.tiers.view;
 
+/**
+ * The metadata tier breakdown
+ */
 public class MetadataTierBreakdown {
 
-  private LanguageBreakdown languageBreakdown;
-  private EnablingElements enablingElements;
-  private ContextualClasses contextualClasses;
+  private final LanguageBreakdown languageBreakdown;
+  private final EnablingElementsBreakdown enablingElementsBreakdown;
+  private final ContextualClassesBreakdown contextualClassesBreakdown;
 
-  public MetadataTierBreakdown() {
+  /**
+   * Constructor with required parameters.
+   *
+   * @param languageBreakdown the language breakdown
+   * @param enablingElementsBreakdown the enabling elements breakdown
+   * @param contextualClassesBreakdown teh contextual classes breakdown
+   */
+  public MetadataTierBreakdown(LanguageBreakdown languageBreakdown,
+      EnablingElementsBreakdown enablingElementsBreakdown,
+      ContextualClassesBreakdown contextualClassesBreakdown) {
+    this.languageBreakdown = languageBreakdown;
+    this.enablingElementsBreakdown = enablingElementsBreakdown;
+    this.contextualClassesBreakdown = contextualClassesBreakdown;
   }
 
   public LanguageBreakdown getLanguageBreakdown() {
     return languageBreakdown;
   }
 
-  public void setLanguageBreakdown(LanguageBreakdown languageBreakdown) {
-    this.languageBreakdown = languageBreakdown;
+  public EnablingElementsBreakdown getEnablingElements() {
+    return enablingElementsBreakdown;
   }
 
-  public EnablingElements getEnablingElements() {
-    return enablingElements;
-  }
-
-  public void setEnablingElements(EnablingElements enablingElements) {
-    this.enablingElements = enablingElements;
-  }
-
-  public ContextualClasses getContextualClasses() {
-    return contextualClasses;
-  }
-
-  public void setContextualClasses(ContextualClasses contextualClasses) {
-    this.contextualClasses = contextualClasses;
+  public ContextualClassesBreakdown getContextualClasses() {
+    return contextualClassesBreakdown;
   }
 }
