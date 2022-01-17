@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - 'develop'
-    types: [ opened, synchronize, reopened, ready_for_review, converted_to_draft ]
+    types: [ opened, reopened, ready_for_review, converted_to_draft ]
 
 jobs:
   build:
