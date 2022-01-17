@@ -22,10 +22,10 @@ class EnablingElementsBreakdownTest {
 
     EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(null, null,
         metadataTier);
-    assertEquals(0, enablingElementsBreakdown.getDistinctEnablingElementsList().size());
-    assertEquals(0, enablingElementsBreakdown.getDistinctEnablingElements());
-    assertEquals(0, enablingElementsBreakdown.getMetadataGroups());
-    assertEquals(0, enablingElementsBreakdown.getMetadataGroupsList().size());
+    assertEquals(1, enablingElementsBreakdown.getDistinctEnablingElementsList().size());
+    assertEquals(1, enablingElementsBreakdown.getDistinctEnablingElements());
+    assertEquals(1, enablingElementsBreakdown.getMetadataGroups());
+    assertEquals(1, enablingElementsBreakdown.getMetadataGroupsList().size());
 
     enablingElementsBreakdown = new EnablingElementsBreakdown(distinctEnablingElementsList, metadataGroupsList,
         metadataTier);
