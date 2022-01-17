@@ -1,47 +1,41 @@
 package eu.europeana.indexing.tiers.view;
 
 import eu.europeana.indexing.tiers.model.Tier;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ContextualClasses {
 
-  private int completeContextualResources;
-  private int distinctClassesOfCompleteContextualResources;
-  private List<String> distinctClassesList;
-  private Tier metadataTier;
+  private final int completeContextualResources;
+  private final int distinctClassesOfCompleteContextualResources;
+  private final List<String> distinctClassesList;
+  private final Tier metadataTier;
 
-  public ContextualClasses() {
+  public ContextualClasses(int completeContextualResources, List<String> distinctClassesList, Tier metadataTier) {
+    this.completeContextualResources = completeContextualResources;
+    this.distinctClassesList = Optional.ofNullable(distinctClassesList)
+                                       .stream()
+                                       .flatMap(Collection::stream)
+                                       .collect(Collectors.toUnmodifiableList());
+    this.distinctClassesOfCompleteContextualResources = this.distinctClassesList.size();
+    this.metadataTier = metadataTier;
   }
 
   public int getCompleteContextualResources() {
     return completeContextualResources;
   }
 
-  public void setCompleteContextualResources(int completeContextualResources) {
-    this.completeContextualResources = completeContextualResources;
-  }
-
   public int getDistinctClassesOfCompleteContextualResources() {
     return distinctClassesOfCompleteContextualResources;
-  }
-
-  public void setDistinctClassesOfCompleteContextualResources(int distinctClassesOfCompleteContextualResources) {
-    this.distinctClassesOfCompleteContextualResources = distinctClassesOfCompleteContextualResources;
   }
 
   public List<String> getDistinctClassesList() {
     return distinctClassesList;
   }
 
-  public void setDistinctClassesList(List<String> distinctClassesList) {
-    this.distinctClassesList = distinctClassesList;
-  }
-
   public Tier getMetadataTier() {
     return metadataTier;
-  }
-
-  public void setMetadataTier(Tier metadataTier) {
-    this.metadataTier = metadataTier;
   }
 }

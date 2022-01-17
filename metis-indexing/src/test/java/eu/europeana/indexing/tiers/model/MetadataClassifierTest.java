@@ -15,6 +15,8 @@ import eu.europeana.indexing.tiers.view.EnablingElements;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -45,7 +47,8 @@ public class MetadataClassifierTest {
         new TierClassification<>(middleTier,
             new EnablingElements(Collections.emptyList(), Collections.emptyList(), MetadataTier.TC)));
     when(contextualClassesClassifier.classify(testEntity)).thenReturn(
-        new TierClassification<>(highTier, new ContextualClasses()));
+        new TierClassification<>(highTier, new ContextualClasses(5,
+            List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), MetadataTier.TC)));
 
     final TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification = new MetadataClassifier(
         languageClassifier,

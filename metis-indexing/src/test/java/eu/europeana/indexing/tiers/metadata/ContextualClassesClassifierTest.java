@@ -7,6 +7,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+import eu.europeana.indexing.tiers.metadata.ContextualClassesClassifier.ContextualClassesStatistics;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.AgentType;
@@ -41,6 +42,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
@@ -392,7 +394,7 @@ class ContextualClassesClassifierTest {
     // Create mocks of the classifier and test empty object.
     final ContextualClassesClassifier classifier = spy(new ContextualClassesClassifier());
     final RdfWrapper entity = mock(RdfWrapper.class);
-    assertEquals(0, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(0, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
 
     // Create the contextual objects.
     final List<AgentType> agents = Collections.singletonList(new AgentType());
@@ -430,10 +432,10 @@ class ContextualClassesClassifierTest {
     proxies.get(1).getSameAList().get(2).setResource(absentTimespanAbout);
     assertEquals(new HashSet<>(Arrays.asList(agentAbout, conceptAbout, linkedPlaceAbout)),
         ResourceLinkFromProxy.SAME_AS.getLinkAndValueGetter().getLinks(proxies.get(0))
-            .collect(Collectors.toSet()));
+                                     .collect(Collectors.toSet()));
     assertEquals(new HashSet<>(Arrays.asList(agentAbout, existingTimespanAbout, absentTimespanAbout)),
         ResourceLinkFromProxy.SAME_AS.getLinkAndValueGetter().getLinks(proxies.get(1))
-            .collect(Collectors.toSet()));
+                                     .collect(Collectors.toSet()));
 
     // Do the tests for no qualifying entities (except the unlinked one).
     doReturn(false).when(classifier).entityQualifies(agents.get(0));
@@ -441,27 +443,27 @@ class ContextualClassesClassifierTest {
     doReturn(false).when(classifier).entityQualifies(places.get(0));
     doReturn(true).when(classifier).entityQualifies(places.get(1));
     doReturn(false).when(classifier).entityQualifies(timeSpans.get(0));
-    assertEquals(0, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(0, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
 
     // Make some of them qualifying and do the tests again.
     doReturn(true).when(classifier).entityQualifies(agents.get(0));
-    assertEquals(1, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(1, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
     doReturn(true).when(classifier).entityQualifies(concepts.get(0));
-    assertEquals(2, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(2, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
     doReturn(true).when(classifier).entityQualifies(places.get(0));
-    assertEquals(3, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(3, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
     doReturn(true).when(classifier).entityQualifies(timeSpans.get(0));
-    assertEquals(4, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(4, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
 
     // Make some of them non-qualifying and do the tests again.
     doReturn(false).when(classifier).entityQualifies(agents.get(0));
-    assertEquals(3, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(3, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
     doReturn(false).when(classifier).entityQualifies(concepts.get(0));
-    assertEquals(2, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(2, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
     doReturn(false).when(classifier).entityQualifies(places.get(0));
-    assertEquals(1, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(1, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
     doReturn(false).when(classifier).entityQualifies(timeSpans.get(0));
-    assertEquals(0, classifier.countQualifyingContextualClassTypes(entity));
+    assertEquals(0, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
   }
 
   @Test
@@ -472,15 +474,16 @@ class ContextualClassesClassifierTest {
     final RdfWrapper entity = mock(RdfWrapper.class);
 
     // Test for all values
-    doReturn(0).when(classifier).countQualifyingContextualClassTypes(entity);
+    final Set<String> distinctClassesSet = Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
+    doReturn(new ContextualClassesStatistics(0, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
     assertEquals(MetadataTier.TA, classifier.classify(entity).getTier());
-    doReturn(1).when(classifier).countQualifyingContextualClassTypes(entity);
+    doReturn(new ContextualClassesStatistics(1, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
     assertEquals(MetadataTier.TB, classifier.classify(entity).getTier());
-    doReturn(2).when(classifier).countQualifyingContextualClassTypes(entity);
+    doReturn(new ContextualClassesStatistics(2, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
     assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
-    doReturn(3).when(classifier).countQualifyingContextualClassTypes(entity);
+    doReturn(new ContextualClassesStatistics(3, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
     assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
-    doReturn(4).when(classifier).countQualifyingContextualClassTypes(entity);
+    doReturn(new ContextualClassesStatistics(4, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
     assertEquals(MetadataTier.TC, classifier.classify(entity).getTier());
   }
 }

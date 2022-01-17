@@ -17,6 +17,8 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -30,26 +32,59 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ContextualClassesClassifier implements TierClassifier<MetadataTier, ContextualClasses> {
 
+  private static Set<String> getResourceLinks(ProxyType proxy) {
+    return Stream.of(ResourceLinkFromProxy.values())
+                 .map(ResourceLinkFromProxy::getLinkAndValueGetter)
+                 .flatMap(link -> link.getLinks(proxy)).collect(Collectors.toSet());
+  }
+
+  private static <T extends AboutType> boolean hasQualifiedEntities(List<T> entities,
+      Set<String> referencedEntities, Predicate<T> entityQualifier) {
+    return entities.stream().filter(entity -> referencedEntities.contains(entity.getAbout()))
+                   .anyMatch(entityQualifier);
+  }
+
   @Override
   public TierClassification<MetadataTier, ContextualClasses> classify(RdfWrapper entity) {
 
     // Count the contextual class type occurrences of qualifying contextual classes.
-    final int contextualClassCount = countQualifyingContextualClassTypes(entity);
+    final ContextualClassesStatistics contextualClassesStatistics = countQualifyingContextualClassTypes(entity);
 
     // perform classification
     final MetadataTier metadataTier;
-    if (contextualClassCount > 1) {
+    if (contextualClassesStatistics.getCompleteContextualResources() > 1) {
       metadataTier = MetadataTier.TC;
-    } else if (contextualClassCount == 1) {
+    } else if (contextualClassesStatistics.getCompleteContextualResources() == 1) {
       metadataTier = MetadataTier.TB;
     } else {
       metadataTier = MetadataTier.TA;
     }
 
-    return new TierClassification<>(metadataTier, new ContextualClasses());
+    return new TierClassification<>(metadataTier,
+        new ContextualClasses(contextualClassesStatistics.getCompleteContextualResources(),
+            new ArrayList<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier));
   }
 
-  int countQualifyingContextualClassTypes(RdfWrapper entity) {
+  static class ContextualClassesStatistics {
+
+    private final int completeContextualResources;
+    private final Set<String> distinctClassesSet;
+
+    ContextualClassesStatistics(int completeContextualResources, Set<String> distinctClassesSet) {
+      this.completeContextualResources = completeContextualResources;
+      this.distinctClassesSet = distinctClassesSet;
+    }
+
+    public int getCompleteContextualResources() {
+      return completeContextualResources;
+    }
+
+    public Set<String> getDistinctClassesSet() {
+      return distinctClassesSet;
+    }
+  }
+
+  ContextualClassesStatistics countQualifyingContextualClassTypes(RdfWrapper entity) {
 
     // Get all the entity references from the provider proxies.
     final Set<String> referencedEntities = entity.getProviderProxies().stream()
@@ -58,33 +93,25 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
 
     // Count the entity types that are referenced and that qualify according to the criteria.
     int contextualClassCount = 0;
+    final Set<String> uniqueClasses = new HashSet<>();
     if (hasQualifiedEntities(entity.getAgents(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
+      uniqueClasses.add(AgentType.class.getSimpleName());
     }
     if (hasQualifiedEntities(entity.getConcepts(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
+      uniqueClasses.add(Concept.class.getSimpleName());
     }
     if (hasQualifiedEntities(entity.getPlaces(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
+      uniqueClasses.add(PlaceType.class.getSimpleName());
     }
     if (hasQualifiedEntities(entity.getTimeSpans(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
+      uniqueClasses.add(TimeSpanType.class.getSimpleName());
     }
 
-    // Done
-    return contextualClassCount;
-  }
-
-  private static Set<String> getResourceLinks(ProxyType proxy) {
-    return Stream.of(ResourceLinkFromProxy.values())
-        .map(ResourceLinkFromProxy::getLinkAndValueGetter)
-        .flatMap(link -> link.getLinks(proxy)).collect(Collectors.toSet());
-  }
-
-  private static <T extends AboutType> boolean hasQualifiedEntities(List<T> entities,
-      Set<String> referencedEntities, Predicate<T> entityQualifier) {
-    return entities.stream().filter(entity -> referencedEntities.contains(entity.getAbout()))
-        .anyMatch(entityQualifier);
+    return new ContextualClassesStatistics(contextualClassCount, uniqueClasses);
   }
 
   boolean entityQualifies(AgentType agent) {
@@ -103,9 +130,9 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
       return false;
     }
     final boolean hasPrefLabel = concept.getChoiceList().stream().filter(Choice::ifPrefLabel)
-        .map(Choice::getPrefLabel).anyMatch(this::hasProperty);
+                                        .map(Choice::getPrefLabel).anyMatch(this::hasProperty);
     final boolean hasRelationOrNote = concept.getChoiceList().stream()
-        .anyMatch(this::hasRelationOrNote);
+                                             .anyMatch(this::hasRelationOrNote);
     return hasPrefLabel && hasRelationOrNote;
   }
 
@@ -139,9 +166,9 @@ public class ContextualClassesClassifier implements TierClassifier<MetadataTier,
   boolean hasProperty(ResourceOrLiteralType resourceOrLiteral) {
     final Optional<ResourceOrLiteralType> property = Optional.ofNullable(resourceOrLiteral);
     final boolean hasLiteral = property.map(ResourceOrLiteralType::getString)
-        .filter(StringUtils::isNotBlank).isPresent();
+                                       .filter(StringUtils::isNotBlank).isPresent();
     final boolean hasResource = property.map(ResourceOrLiteralType::getResource)
-        .map(Resource::getResource).filter(StringUtils::isNotBlank).isPresent();
+                                        .map(Resource::getResource).filter(StringUtils::isNotBlank).isPresent();
     return hasLiteral || hasResource;
   }
 

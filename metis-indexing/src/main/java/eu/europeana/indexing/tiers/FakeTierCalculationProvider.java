@@ -15,6 +15,8 @@ import eu.europeana.indexing.tiers.view.ProcessingError;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
 import eu.europeana.indexing.utils.LicenseType;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Collections;
 import java.util.List;
@@ -66,11 +68,8 @@ public class FakeTierCalculationProvider {
         List.of(EnablingElement.DC_CREATOR.name(), EnablingElement.EDM_CURRENT_LOCATION.name()),
         List.of(EnablingElementGroup.PERSONAL.name(), EnablingElementGroup.GEOGRAPHICAL.name()), MetadataTier.TC);
     metadataTierBreakdown.setEnablingElements(enablingElements);
-    final ContextualClasses contextualClasses = new ContextualClasses();
-    contextualClasses.setCompleteContextualResources(5);
-    contextualClasses.setDistinctClassesOfCompleteContextualResources(2);
-    contextualClasses.setDistinctClassesList(List.of("edm:TimeSpan", "edm:Place"));
-    contextualClasses.setMetadataTier(MetadataTier.TC);
+    final ContextualClasses contextualClasses = new ContextualClasses(5,
+        List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), MetadataTier.TC);
     metadataTierBreakdown.setContextualClasses(contextualClasses);
 
     return new RecordTierCalculationView(recordTierCalculationSummary,
