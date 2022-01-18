@@ -30,6 +30,9 @@ jobs:
           org.jacoco:jacoco-maven-plugin:prepare-agent
           verify
           org.jacoco:jacoco-maven-plugin:report
+      - name: Sonar analyze with Maven
+        run: >
+          mvn --batch-mode
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.organization=europeana
           -Dsonar.projectKey=europeana_metis-framework
