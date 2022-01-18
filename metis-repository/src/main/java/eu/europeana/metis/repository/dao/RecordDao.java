@@ -43,20 +43,21 @@ public class RecordDao {
   /**
    * Create record in the database.
    *
-   * @param record - The record to be saved in the database
+   * @param providedRecord - The record to be saved in the database
    * @return Whether the record was inserted (true) or updated (false).
    */
-  public boolean createRecord(Record record) {
+  public boolean createRecord(Record providedRecord) {
 
     Optional<Record> recordFound = datastore.find(Record.class)
-                                            .filter(Filters.eq(RECORD_ID_FIELD, record.getRecordId())).stream().findFirst();
+                                            .filter(Filters.eq(RECORD_ID_FIELD, providedRecord.getRecordId())).stream()
+                                            .findFirst();
 
-    recordFound.ifPresent(value -> record.setId(value.getId()));
+    recordFound.ifPresent(value -> providedRecord.setId(value.getId()));
 
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
-        () -> datastore.save(record));
+        () -> datastore.save(providedRecord));
     LOGGER.info("Record for datasetId '{}' created in Mongo",
-        CRLF_PATTERN.matcher(record.getDatasetId()).replaceAll(""));
+        CRLF_PATTERN.matcher(providedRecord.getDatasetId()).replaceAll(""));
 
     return recordFound.isEmpty();
   }
@@ -86,7 +87,9 @@ public class RecordDao {
     if (recordFound.isPresent()) {
       return recordFound.get();
     } else {
-      LOGGER.warn("There is no such record with id {}.", CRLF_PATTERN.matcher(recordId).replaceAll(""));
+      if (LOGGER.isWarnEnabled()) {
+        LOGGER.warn("There is no such record with id {}.", CRLF_PATTERN.matcher(recordId).replaceAll(""));
+      }
       return null;
     }
   }
@@ -101,7 +104,7 @@ public class RecordDao {
     final boolean isDeleted = datastore.find(Record.class)
                                        .filter(Filters.eq(RECORD_ID_FIELD, recordId)).delete().getDeletedCount() > 0;
     if (!isDeleted) {
-      LOGGER.warn("There is no such record with id " + recordId + ".");
+      LOGGER.warn("There is no such record with id {}.", recordId);
     }
     return isDeleted;
   }

@@ -317,7 +317,7 @@ public class MongoDereferenceService implements DereferenceService {
     }).filter(Objects::nonNull).findAny().orElse(null);
 
     // Evaluate the result.
-    if (originalEntity == null) {
+    if (originalEntity == null && LOGGER.isInfoEnabled()) {
       LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
     }
     return originalEntity;
@@ -329,7 +329,7 @@ public class MongoDereferenceService implements DereferenceService {
     final String result;
     try {
       result = converter.convert(originalEntity, resourceId);
-      if (result == null) {
+      if (result == null && LOGGER.isInfoEnabled()) {
         LOGGER.info("Could not transform entity {} as it results is an empty XML.",
             CRLF_PATTERN.matcher(resourceId).replaceAll(""));
       }

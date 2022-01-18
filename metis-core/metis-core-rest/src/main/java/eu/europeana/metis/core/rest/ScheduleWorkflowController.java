@@ -142,8 +142,10 @@ public class ScheduleWorkflowController {
       @RequestBody ScheduledWorkflow scheduledWorkflow) throws GenericMetisException {
     MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.updateScheduledWorkflow(metisUserView, scheduledWorkflow);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
-        CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
   }
 
   @DeleteMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, produces = {

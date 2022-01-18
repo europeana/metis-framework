@@ -54,13 +54,15 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   @Override
   public ScheduledWorkflow create(ScheduledWorkflow scheduledWorkflow) {
     final ObjectId objectId = Optional.ofNullable(scheduledWorkflow.getId())
-        .orElseGet(ObjectId::new);
+                                      .orElseGet(ObjectId::new);
     scheduledWorkflow.setId(objectId);
     ScheduledWorkflow scheduledWorkflowSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
-    LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
-        CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
     return scheduledWorkflowSaved;
   }
 
@@ -69,8 +71,10 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     ScheduledWorkflow scheduledWorkflowSaved =
         ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
-    LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
-        CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
     return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 

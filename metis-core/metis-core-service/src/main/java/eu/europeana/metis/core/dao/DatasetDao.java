@@ -78,11 +78,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     dataset.setId(objectId);
     Dataset datasetSaved = retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().save(dataset));
-    LOGGER.debug(
-        "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
-        CRLF_PATTERN.matcher(dataset.getDatasetId()).replaceAll(""),
-        CRLF_PATTERN.matcher(dataset.getDatasetName()).replaceAll(""),
-        CRLF_PATTERN.matcher(dataset.getOrganizationId()).replaceAll(""));
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug(
+          "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
+          CRLF_PATTERN.matcher(dataset.getDatasetId()).replaceAll(""),
+          CRLF_PATTERN.matcher(dataset.getDatasetName()).replaceAll(""),
+          CRLF_PATTERN.matcher(dataset.getOrganizationId()).replaceAll(""));
+    }
     return datasetSaved;
   }
 
@@ -96,11 +98,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public String update(Dataset dataset) {
     Dataset datasetSaved = retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().save(dataset));
-    LOGGER.debug(
-        "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
-        CRLF_PATTERN.matcher(dataset.getDatasetId()).replaceAll(""),
-        CRLF_PATTERN.matcher(dataset.getDatasetName()).replaceAll(""),
-        CRLF_PATTERN.matcher(dataset.getOrganizationId()).replaceAll(""));
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug(
+          "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
+          CRLF_PATTERN.matcher(dataset.getDatasetId()).replaceAll(""),
+          CRLF_PATTERN.matcher(dataset.getDatasetName()).replaceAll(""),
+          CRLF_PATTERN.matcher(dataset.getOrganizationId()).replaceAll(""));
+    }
     return datasetSaved == null ? null : datasetSaved.getId().toString();
   }
 

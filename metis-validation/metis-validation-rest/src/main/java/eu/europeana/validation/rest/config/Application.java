@@ -103,6 +103,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
      * @return commonsMultipartResolver after setting the defaultEncoding and maxUploadSize to handle file upload
      */
   @Bean
+  @SuppressWarnings("java:S5693") //commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE) - Safe for provided size
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
     commonsMultipartResolver.setDefaultEncoding("utf-8");
