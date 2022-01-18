@@ -17,12 +17,12 @@ import java.time.ZoneOffset;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
-public class OaiRecordParserTest {
+class OaiRecordParserTest {
 
   private static final Charset ENCODING = StandardCharsets.UTF_8;
 
   @Test
-  public void happyFlowExtantRecords() throws IOException, HarvesterException {
+  void happyFlowExtantRecords() throws IOException, HarvesterException {
 
     //given
     final String fileContent = WiremockHelper.getFileContent("/sampleOaiRecord.xml");
@@ -35,15 +35,15 @@ public class OaiRecordParserTest {
     //then
     assertEquals("oai:mediateka.centrumzamenhofa.pl:19", result.getHeader().getOaiIdentifier());
     assertEquals(LocalDateTime.of(1981, 7, 1, 0, 0).toInstant(ZoneOffset.UTC),
-            result.getHeader().getDatestamp());
+        result.getHeader().getDatestamp());
     assertFalse(result.getHeader().isDeleted());
     final String actual = TestHelper.convertToString(result.getRecord());
     assertThat(actual,
-            TestHelper.isSimilarXml(WiremockHelper.getFileContent("/expectedOaiRecord.xml")));
+        TestHelper.isSimilarXml(WiremockHelper.getFileContent("/expectedOaiRecord.xml")));
   }
 
   @Test
-  public void happyFlowDeletedRecords() throws IOException, HarvesterException {
+  void happyFlowDeletedRecords() throws IOException, HarvesterException {
 
     //given
     final String fileContent = WiremockHelper.getFileContent("/deletedOaiRecord.xml");
@@ -57,20 +57,20 @@ public class OaiRecordParserTest {
     assertTrue(result.getHeader().isDeleted());
     assertEquals("oai:mediateka.centrumzamenhofa.pl:20", result.getHeader().getOaiIdentifier());
     assertEquals(LocalDateTime.of(2020, 2, 2, 12, 21).toInstant(ZoneOffset.UTC),
-            result.getHeader().getDatestamp());
+        result.getHeader().getDatestamp());
     assertThrows(HarvesterException.class, result::getRecord);
   }
 
   @Test
-  public void shouldThrowExceptionOnEmpty() throws IOException {
+  void shouldThrowExceptionOnEmpty() throws Exception {
     //given
     final String fileContent = "";
     final InputStream inputStream = IOUtils.toInputStream(fileContent, ENCODING);
     byte[] content = IOUtils.toByteArray(inputStream);
 
-    //then
+    final OaiRecordParser oaiRecordParser = new OaiRecordParser();
     final HarvesterException exception = assertThrows(HarvesterException.class,
-        () -> new OaiRecordParser().parseOaiRecord(content).getRecord());
+        () -> oaiRecordParser.parseOaiRecord(content));
     assertThat(exception.getMessage(), is("Cannot xpath XML!"));
   }
 }

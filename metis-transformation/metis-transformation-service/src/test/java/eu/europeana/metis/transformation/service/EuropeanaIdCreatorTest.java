@@ -34,8 +34,8 @@ class EuropeanaIdCreatorTest {
 
   private static String createRdfString(String... ids) {
     final String providedChos = Stream.of(ids)
-        .map(id -> id == null ? "" : String.format(RDF_ABOUT_SKELETON, id))
-        .map(about -> String.format(PROVIDED_CHO_SKELETON, about)).collect(Collectors.joining());
+                                      .map(id -> id == null ? "" : String.format(RDF_ABOUT_SKELETON, id))
+                                      .map(about -> String.format(PROVIDED_CHO_SKELETON, about)).collect(Collectors.joining());
     return String.format(RDF_SKELETON, providedChos);
   }
 
@@ -89,32 +89,41 @@ class EuropeanaIdCreatorTest {
   }
 
   @Test
-  public void testRdfIdCreationWithoutCho() {
-    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdf(), DATASET_ID));
+  public void testRdfIdCreationWithoutCho() throws Exception {
+    final EuropeanaIdCreator europeanaIdCreator = new EuropeanaIdCreator();
+    assertThrows(EuropeanaIdException.class, () -> europeanaIdCreator.constructEuropeanaId(createRdf(), DATASET_ID));
   }
 
   @Test
-  public void testRdfIdCreationWithoutAbout() {
-    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdf(null, RECORD_ID), DATASET_ID));
+  public void testRdfIdCreationWithoutAbout() throws Exception {
+    final EuropeanaIdCreator europeanaIdCreator = new EuropeanaIdCreator();
+    assertThrows(EuropeanaIdException.class,
+        () -> europeanaIdCreator.constructEuropeanaId(createRdf(null, RECORD_ID), DATASET_ID));
   }
 
   @Test
-  public void testRdfIdCreationWithEmptyAbout() {
-    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdf("", RECORD_ID), DATASET_ID));
+  public void testRdfIdCreationWithEmptyAbout() throws Exception {
+    final EuropeanaIdCreator europeanaIdCreator = new EuropeanaIdCreator();
+    assertThrows(EuropeanaIdException.class, () -> europeanaIdCreator.constructEuropeanaId(createRdf("", RECORD_ID), DATASET_ID));
   }
 
   @Test
-  public void testRdfStringIdCreationWithoutCho() {
-    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdfString(), DATASET_ID));
+  public void testRdfStringIdCreationWithoutCho() throws Exception {
+    final EuropeanaIdCreator europeanaIdCreator = new EuropeanaIdCreator();
+    assertThrows(EuropeanaIdException.class, () -> europeanaIdCreator.constructEuropeanaId(createRdfString(), DATASET_ID));
   }
 
   @Test
-  public void testRdfStringIdCreationWithoutAbout() {
-    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdfString(null, RECORD_ID), DATASET_ID));
+  public void testRdfStringIdCreationWithoutAbout() throws Exception {
+    final EuropeanaIdCreator europeanaIdCreator = new EuropeanaIdCreator();
+    assertThrows(EuropeanaIdException.class,
+        () -> europeanaIdCreator.constructEuropeanaId(createRdfString(null, RECORD_ID), DATASET_ID));
   }
 
   @Test
-  public void testRdfStringIdCreationWithEmptyAbout() {
-    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdfString("", RECORD_ID), DATASET_ID));
+  public void testRdfStringIdCreationWithEmptyAbout() throws Exception {
+    final EuropeanaIdCreator europeanaIdCreator = new EuropeanaIdCreator();
+    assertThrows(EuropeanaIdException.class,
+        () -> europeanaIdCreator.constructEuropeanaId(createRdfString("", RECORD_ID), DATASET_ID));
   }
 }

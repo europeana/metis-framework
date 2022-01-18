@@ -21,10 +21,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
-public class XsltTransformerTest {
+class XsltTransformerTest {
 
   @Test
-  public void shouldTransformGivenFile()
+  void shouldTransformGivenFile()
       throws TransformationException, IOException, ParserConfigurationException, SAXException {
     URL xsltFile = getClass().getClassLoader().getResource("sample_xslt.xslt");
     byte[] fileToTransform = readFile("xmlForTesting.xml");
@@ -43,7 +43,7 @@ public class XsltTransformerTest {
   }
 
   @Test
-  public void shouldTransformGivenFileWithInjection() throws IOException, TransformationException {
+  void shouldTransformGivenFileWithInjection() throws IOException, TransformationException {
     URL xsltFile = getClass().getClassLoader().getResource("inject_node.xslt");
     byte[] fileToTransform = readFile("xmlForTestingParamInjection.xml");
     StringWriter wr = new XsltTransformer(xsltFile.toString(), xsltFile.openStream(), "sample",
@@ -56,12 +56,11 @@ public class XsltTransformerTest {
   }
 
   @Test
-  public void shouldFailForMalformedFile() throws IOException {
+  void shouldFailForMalformedFile() throws Exception {
     URL xsltFile = getClass().getClassLoader().getResource("inject_node.xslt");
     byte[] fileToTransform = readFile("malformedFile.xml");
-    assertThrows(TransformationException.class,
-        () -> new XsltTransformer(xsltFile.toString(), xsltFile.openStream(), "sample", null, null)
-            .transform(fileToTransform, null));
+    final XsltTransformer xsltTransformer = new XsltTransformer(xsltFile.toString(), xsltFile.openStream(), "sample", null, null);
+    assertThrows(TransformationException.class, () -> xsltTransformer.transform(fileToTransform, null));
   }
 
   private byte[] readFile(String fileName) throws IOException {
