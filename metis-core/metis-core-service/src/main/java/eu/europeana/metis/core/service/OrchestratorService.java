@@ -54,6 +54,8 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -111,20 +113,21 @@ public class OrchestratorService {
   private final DepublishRecordIdDao depublishRecordIdDao;
   private int solrCommitPeriodInMins; // Use getter and setter for this field!
 
-  /**
-   * Constructor with all the required parameters
-   *
-   * @param workflowExecutionFactory the orchestratorHelper instance
-   * @param workflowDao the Dao instance to access the Workflow database
-   * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
-   * @param workflowValidationUtils A utilities class providing more functionality on top of DAOs.
-   * @param dataEvolutionUtils A utilities class providing more functionality on top of DAOs.
-   * @param datasetDao the Dao instance to access the Dataset database
-   * @param workflowExecutorManager the instance that handles the production and consumption of workflowExecutions
-   * @param redissonClient the instance of Redisson library that handles distributed locks
-   * @param authorizer the authorizer
-   * @param depublishRecordIdDao the Dao instance to access the DepublishRecordId database
-   */
+  //
+  //  /**
+  //   * Constructor with all the required parameters
+  //   *
+  //   * @param workflowExecutionFactory the orchestratorHelper instance
+  //   * @param workflowDao the Dao instance to access the Workflow database
+  //   * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
+  //   * @param workflowValidationUtils A utilities class providing more functionality on top of DAOs.
+  //   * @param dataEvolutionUtils A utilities class providing more functionality on top of DAOs.
+  //   * @param datasetDao the Dao instance to access the Dataset database
+  //   * @param workflowExecutorManager the instance that handles the production and consumption of workflowExecutions
+  //   * @param redissonClient the instance of Redisson library that handles distributed locks
+  //   * @param authorizer the authorizer
+  //   * @param depublishRecordIdDao the Dao instance to access the DepublishRecordId database
+  //   */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
       WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
@@ -876,6 +879,7 @@ public class OrchestratorService {
       MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
       boolean isPublishCleaningOrRunning, Date date, String datasetId) {
 
+
     // Set the first publication information
     executionInfo.setFirstPublishedDate(
         firstPublishPlugin == null ? null : firstPublishPlugin.getFinishedDate());
@@ -911,6 +915,11 @@ public class OrchestratorService {
     if (Objects.nonNull(lastPublishPlugin)) {
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
 
+      try {
+        final MessageDigest md = MessageDigest.getInstance("MD5");
+      } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+      }
       //Check if we have information about the total records
       final boolean recordsAvailable;
       if (executionInfo.getTotalPublishedRecords() > 0) {
