@@ -1,5 +1,7 @@
 package eu.europeana.metis.dereference.service;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -93,16 +95,13 @@ public class MongoDereferenceService implements DereferenceService {
 
   /**
    * <p>
-   * This method dereferences a resource. If the resource's vocabulary specifies a positive
-   * iteration count, this method also repeatedly retrieves the 'broader' resources and returns
-   * those as well.
+   * This method dereferences a resource. If the resource's vocabulary specifies a positive iteration count, this method also
+   * repeatedly retrieves the 'broader' resources and returns those as well.
    * </p>
    * <p>
-   * A resource has references to its 'broader' resources (see {@link
-   * #extractBroaderResources(EnrichmentBase, Set)}). As such, the resources form a directed graph
-   * and the iteration count is the distance from the requested resource. This method performs a
-   * breadth-first search through this graph to retrieve all resources within a certain distance
-   * from the requested resource.
+   * A resource has references to its 'broader' resources (see {@link #extractBroaderResources(EnrichmentBase, Set)}). As such,
+   * the resources form a directed graph and the iteration count is the distance from the requested resource. This method performs
+   * a breadth-first search through this graph to retrieve all resources within a certain distance from the requested resource.
    * </p>
    *
    * @param resourceId The resource to dereference.
@@ -153,10 +152,10 @@ public class MongoDereferenceService implements DereferenceService {
       resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
     } else if (resource instanceof TimeSpan) {
       resourceIdStream = Optional.ofNullable(((TimeSpan) resource).getIsPartOf()).stream()
-              .flatMap(List::stream).map(LabelResource::getResource);
+                                 .flatMap(List::stream).map(LabelResource::getResource);
     } else if (resource instanceof Place) {
       resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf()).stream()
-              .flatMap(Collection::stream).map(LabelResource::getResource);
+                                 .flatMap(Collection::stream).map(LabelResource::getResource);
     } else {
       resourceIdStream = Stream.empty();
     }
@@ -206,8 +205,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @param cachedEntity the cached entity object
    * @return a pair with the computed values
    * @throws URISyntaxException if the resource identifier url is invalid
-   * @throws TransformerException if an exception occurred during transformation of the original
-   * entity
+   * @throws TransformerException if an exception occurred during transformation of the original entity
    */
   private Pair<String, Vocabulary> computeEntityVocabularyPair(String resourceId,
       ProcessedEntity cachedEntity) throws URISyntaxException, TransformerException {
@@ -241,7 +239,7 @@ public class MongoDereferenceService implements DereferenceService {
     final String entityXml = transformedEntityAndVocabularyPair.getLeft();
     final Vocabulary vocabulary = transformedEntityAndVocabularyPair.getRight();
     final String vocabularyIdString = Optional.ofNullable(vocabulary).map(Vocabulary::getId)
-        .map(ObjectId::toString).orElse(null);
+                                              .map(ObjectId::toString).orElse(null);
     //Save entity
     ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
     entityToCache.setResourceId(resourceId);
@@ -257,7 +255,7 @@ public class MongoDereferenceService implements DereferenceService {
       result = null;
     } else {
       result = new ImmutablePair<>(EnrichmentBaseConverter.convertToEnrichmentBase(entityXml),
-              entityVocabulary);
+          entityVocabulary);
     }
     return result;
   }
@@ -299,7 +297,7 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
-          throws URISyntaxException {
+      throws URISyntaxException {
 
     // Check the input (check the resource ID for URI syntax).
     if (candidates.isEmpty()) {
@@ -320,7 +318,7 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Evaluate the result.
     if (originalEntity == null) {
-      LOGGER.info("No entity XML for uri {}", resourceId);
+      LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
     }
     return originalEntity;
   }
@@ -332,7 +330,8 @@ public class MongoDereferenceService implements DereferenceService {
     try {
       result = converter.convert(originalEntity, resourceId);
       if (result == null) {
-        LOGGER.info("Could not transform entity {} as it results is an empty XML.", resourceId);
+        LOGGER.info("Could not transform entity {} as it results is an empty XML.",
+            CRLF_PATTERN.matcher(resourceId).replaceAll(""));
       }
     } catch (TransformerException e) {
       LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());

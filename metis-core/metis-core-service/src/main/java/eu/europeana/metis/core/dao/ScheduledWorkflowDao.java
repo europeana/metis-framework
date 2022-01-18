@@ -3,6 +3,7 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.DeleteOptions;
@@ -59,7 +60,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
-        scheduledWorkflow.getDatasetId());
+        CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
     return scheduledWorkflowSaved;
   }
 
@@ -69,7 +70,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
-        scheduledWorkflow.getDatasetId());
+        CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
     return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 
