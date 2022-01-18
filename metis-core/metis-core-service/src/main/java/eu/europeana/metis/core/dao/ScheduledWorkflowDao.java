@@ -3,6 +3,7 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.DeleteOptions;
@@ -53,13 +54,15 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   @Override
   public ScheduledWorkflow create(ScheduledWorkflow scheduledWorkflow) {
     final ObjectId objectId = Optional.ofNullable(scheduledWorkflow.getId())
-        .orElseGet(ObjectId::new);
+                                      .orElseGet(ObjectId::new);
     scheduledWorkflow.setId(objectId);
     ScheduledWorkflow scheduledWorkflowSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
-    LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
-        scheduledWorkflow.getDatasetId());
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
     return scheduledWorkflowSaved;
   }
 
@@ -68,8 +71,10 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     ScheduledWorkflow scheduledWorkflowSaved =
         ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
-    LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
-        scheduledWorkflow.getDatasetId());
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
     return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class OaiHarvesterImplTest {
+class OaiHarvesterImplTest {
 
   private static WireMockServer WIREMOCK_SERVER;
   private static String OAI_PMH_ENDPOINT;
@@ -38,7 +38,7 @@ public class OaiHarvesterImplTest {
   }
 
   @Test
-  public void shouldHarvestRecord() throws IOException, HarvesterException {
+  void shouldHarvestRecord() throws IOException, HarvesterException {
 
     //given
     final String recordId = "mediateka";
@@ -60,7 +60,7 @@ public class OaiHarvesterImplTest {
 
 
   @Test
-  public void shouldHandleDeletedRecords() throws IOException {
+  void shouldHandleDeletedRecords() throws Exception {
 
     //given
     final String recordId = "mediateka";
@@ -70,12 +70,12 @@ public class OaiHarvesterImplTest {
             .response200XmlContent(WiremockHelper.getFileContent("/deletedOaiRecord.xml"))));
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
 
-    assertThrows(HarvesterException.class, () -> harvester.harvestRecord(new OaiRepository(
-            OAI_PMH_ENDPOINT, "oai_dc"), recordId).getRecord());
+    final OaiRecord oaiRecord = harvester.harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId);
+    assertThrows(HarvesterException.class, oaiRecord::getRecord);
   }
 
   @Test
-  public void shouldThrowExceptionHarvestedRecordNotFound() {
+  void shouldThrowExceptionHarvestedRecordNotFound() {
 
     //given
     final String recordId = "oai:mediateka.centrumzamenhofa.pl:19";
@@ -93,7 +93,7 @@ public class OaiHarvesterImplTest {
   }
 
   @Test
-  public void shouldGetCorrectCompleteListSize() throws Exception {
+  void shouldGetCorrectCompleteListSize() throws Exception {
 
     final String schema1 = "schema1";
     final String schema2 = "schema2";
@@ -118,7 +118,7 @@ public class OaiHarvesterImplTest {
   }
 
   @Test
-  public void shouldReturnNullWhenEmptyCompleteListSize() throws Exception {
+  void shouldReturnNullWhenEmptyCompleteListSize() throws Exception {
     WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersNoCompleteListSize.xml"))));
@@ -128,7 +128,7 @@ public class OaiHarvesterImplTest {
   }
 
   @Test
-  public void shouldReturnNullWhenIncorrectCompleteListSize() throws Exception {
+  void shouldReturnNullWhenIncorrectCompleteListSize() throws Exception {
     WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersIncorrectCompleteListSize.xml"))));
@@ -138,7 +138,7 @@ public class OaiHarvesterImplTest {
   }
 
   @Test
-  public void shouldReturnNullWhen200ReturnedButErrorInResponse() throws Exception {
+  void shouldReturnNullWhen200ReturnedButErrorInResponse() throws Exception {
     WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersIncorrectMetadataPrefix.xml"))));
@@ -148,7 +148,7 @@ public class OaiHarvesterImplTest {
   }
 
   @Test
-  public void shouldReturnNullWhenNoResumptionToken() throws Exception {
+  void shouldReturnNullWhenNoResumptionToken() throws Exception {
     WIREMOCK_SERVER.stubFor(get(urlEqualTo("/oai-phm/?verb=ListIdentifiers")).willReturn(
         WiremockHelper.response200XmlContent(
             WiremockHelper.getFileContent("/oaiListIdentifiersNoResumptionToken.xml"))));

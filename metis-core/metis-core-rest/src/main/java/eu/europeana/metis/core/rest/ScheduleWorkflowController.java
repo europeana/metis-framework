@@ -1,18 +1,20 @@
 package eu.europeana.metis.core.rest;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
-import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -76,7 +78,7 @@ public class ScheduleWorkflowController {
       LOGGER.info(
           "ScheduledWorkflowExecution for datasetId '{}', pointerDate at '{}', scheduled '{}'",
           scheduledWorkflow.getDatasetId(), scheduledWorkflow.getPointerDate(),
-          scheduledWorkflow.getScheduleFrequence().name());
+          CRLF_PATTERN.matcher(scheduledWorkflow.getScheduleFrequence().name()).replaceAll(""));
     }
   }
 
@@ -140,8 +142,10 @@ public class ScheduleWorkflowController {
       @RequestBody ScheduledWorkflow scheduledWorkflow) throws GenericMetisException {
     MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.updateScheduledWorkflow(metisUserView, scheduledWorkflow);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
-        scheduledWorkflow.getDatasetId());
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
   }
 
   @DeleteMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, produces = {

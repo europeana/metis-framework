@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.rest;
 
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
@@ -14,8 +14,8 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
-import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +43,6 @@ public class AuthenticationController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
   private static final String ACTION_NOT_ALLOWED_FOR_USER = "Action not allowed";
-  private static final Pattern CRLF_PATTERN = Pattern
-      .compile(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX);
 
   private final AuthenticationService authenticationService;
 
