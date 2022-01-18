@@ -56,8 +56,10 @@ public class RecordDao {
 
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> datastore.save(providedRecord));
-    LOGGER.info("Record for datasetId '{}' created in Mongo",
-        CRLF_PATTERN.matcher(providedRecord.getDatasetId()).replaceAll(""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Record for datasetId '{}' created in Mongo",
+          CRLF_PATTERN.matcher(providedRecord.getDatasetId()).replaceAll(""));
+    }
 
     return recordFound.isEmpty();
   }

@@ -70,7 +70,7 @@ public final class VocabularyCandidates {
     }
 
     // Log and done.
-    if (candidates.isEmpty()) {
+    if (candidates.isEmpty() && (LOGGER.isInfoEnabled())) {
       LOGGER.info("No vocabularies found for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
     }
     if (candidates.size() > 1 && LOGGER.isWarnEnabled()) {

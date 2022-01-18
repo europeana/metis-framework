@@ -129,8 +129,10 @@ public class DatasetController {
     datasetService
         .updateDataset(metisUserView, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
             .getXslt());
-    LOGGER.info("Dataset with datasetId {} updated",
-        CRLF_PATTERN.matcher(datasetXsltStringWrapper.getDataset().getDatasetId()).replaceAll(""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Dataset with datasetId {} updated",
+          CRLF_PATTERN.matcher(datasetXsltStringWrapper.getDataset().getDatasetId()).replaceAll(""));
+    }
   }
 
   /**
