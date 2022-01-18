@@ -1,5 +1,5 @@
-[![Java CI with Maven](https://github.com/europeana/metis-framework/actions/workflows/maven.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/maven.yml)
-[![Coverage Status](https://coveralls.io/repos/github/europeana/metis-framework/badge.svg?branch=develop)](https://coveralls.io/github/europeana/metis-framework?branch=develop)
+[![CI](https://github.com/europeana/metis-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/ci.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)
 
 ## Metis Services repository
 
