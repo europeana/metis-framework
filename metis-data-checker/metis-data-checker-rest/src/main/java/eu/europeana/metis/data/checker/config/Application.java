@@ -136,7 +136,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
     // Set the Mongo properties
     settings.getMongoProperties().setAllProperties(mongoHosts, mongoPorts,
-            mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL, null,
+        mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL, null,
         mongoApplicationName);
     settings.setMongoDatabaseName(mongoDb);
 
@@ -182,8 +182,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/swagger-ui/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-        .resourceChain(false);
+            .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+            .resourceChain(false);
   }
 
   @Bean(name = "datasetIdGenerator")
@@ -215,7 +215,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
     commonsMultipartResolver.setDefaultEncoding("utf-8");
-    commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
+    commonsMultipartResolver.setMaxUploadSize(
+        MAX_UPLOAD_SIZE); //NOSONAR Acknowledged. This is okay, module will be deprecated soon.
     return commonsMultipartResolver;
   }
 
@@ -227,7 +228,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*")).build().apiInfo(apiInfo());
+                                                  .paths(PathSelectors.regex("/.*")).build().apiInfo(apiInfo());
   }
 
   @Bean
