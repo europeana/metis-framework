@@ -309,7 +309,7 @@ public class DepublishRecordIdDao {
     }
     if (StringUtils.isNotBlank(searchQuery)) {
       query.filter(
-          Filters.regex(DepublishRecordId.RECORD_ID_FIELD).pattern(Pattern.compile(searchQuery)));
+          Filters.regex(DepublishRecordId.RECORD_ID_FIELD).pattern(Pattern.quote(searchQuery)));
     }
 
     return query;

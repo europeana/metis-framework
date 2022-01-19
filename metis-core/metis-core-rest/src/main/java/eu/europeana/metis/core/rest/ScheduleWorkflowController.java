@@ -77,7 +77,7 @@ public class ScheduleWorkflowController {
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
           "ScheduledWorkflowExecution for datasetId '{}', pointerDate at '{}', scheduled '{}'",
-          scheduledWorkflow.getDatasetId(), scheduledWorkflow.getPointerDate(),
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()), scheduledWorkflow.getPointerDate(),
           CRLF_PATTERN.matcher(scheduledWorkflow.getScheduleFrequence().name()).replaceAll(""));
     }
   }

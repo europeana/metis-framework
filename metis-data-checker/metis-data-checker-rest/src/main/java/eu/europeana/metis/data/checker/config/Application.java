@@ -60,8 +60,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Application implements WebMvcConfigurer, InitializingBean {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-
-  private static final int MAX_UPLOAD_SIZE = 50_000_000;
+  private static final int MAX_UPLOAD_SIZE_IN_MB = 5 * 1024 * 1024; // 5 MB
 
   // Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -212,11 +211,10 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  @SuppressWarnings("java:S5693") //commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE) - Safe for provided size
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
     commonsMultipartResolver.setDefaultEncoding("utf-8");
-    commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
+    commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE_IN_MB);
     return commonsMultipartResolver;
   }
 
