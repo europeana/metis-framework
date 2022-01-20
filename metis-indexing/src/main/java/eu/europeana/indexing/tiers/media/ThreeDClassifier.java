@@ -3,6 +3,7 @@ package eu.europeana.indexing.tiers.media;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.schema.model.MediaType;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -30,5 +31,10 @@ class ThreeDClassifier extends AbstractMediaClassifier {
 
     // T2-T4 if there is a mime type (any whatsoever), T0 otherwise.
     return StringUtils.isNotBlank(webResource.getMimeType()) ? MediaTier.T4 : MediaTier.T0;
+  }
+
+  @Override
+  MediaType getMediaType() {
+    return MediaType.THREE_D;
   }
 }

@@ -51,5 +51,10 @@ class ImageClassifier extends AbstractMediaClassifier {
     }
     return result;
   }
+
+  @Override
+  MediaType getMediaType() {
+    return MediaType.IMAGE;
+  }
 }
 

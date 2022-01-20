@@ -46,4 +46,9 @@ class VideoClassifier extends AbstractMediaClassifier {
     // Done.
     return result;
   }
+
+  @Override
+  MediaType getMediaType() {
+    return MediaType.VIDEO;
+  }
 }

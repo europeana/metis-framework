@@ -1,5 +1,6 @@
 package eu.europeana.metis.schema.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 /**
@@ -12,35 +13,52 @@ public enum MediaType {
   /**
    * Audio
    **/
-  AUDIO,
+  AUDIO("AUDIO"),
 
   /**
    * Video
    **/
-  VIDEO,
+  VIDEO("VIDEO"),
 
   /**
    * Text (including PDFs)
    **/
-  TEXT,
+  TEXT("TEXT"),
 
   /**
    * Graphical
    **/
-  IMAGE,
+  IMAGE("IMAGE"),
 
   /**
-   * Media that is not of any of the other kinds.
+   * 3D
+   */
+  THREE_D("3D"),
+
+  /**
+   * Media that is not any of the other kinds.
    **/
-  OTHER;
+  OTHER("OTHER");
+
 
   private static final String[] SUPPORTED_APPLICATION_TYPES_AS_TEXT = new String[]{
       "application/xml", "application/rtf", "application/epub", "application/pdf",
       "application/xhtml+xml"};
 
+  private final String stringRepresentation;
+
+  MediaType(String stringRepresentation) {
+    this.stringRepresentation = stringRepresentation;
+  }
+
+  @Override
+  @JsonValue
+  public String toString() {
+    return stringRepresentation;
+  }
+
   /**
-   * Obtains the media type of a given mime type. This method accepts media types with subtypes
-   * and/or parameters.
+   * Obtains the media type of a given mime type. This method accepts media types with subtypes and/or parameters.
    *
    * @param mediaType The media type.
    * @return The media type to which the mime type belongs.

@@ -6,9 +6,7 @@ import java.util.List;
 
 public class ContentTierBreakdown {
 
-  // TODO: 22/12/2021 3D is not supported EdmType contains is but we should avoid using jibx. Check if we can add it in metis
   private MediaType recordType;
-  // TODO: 22/12/2021 CLOSED not supported. We should add it in metis
   private LicenseType licenseType;
   private boolean thumbnailAvailable;
   private boolean landingPageAvailable;

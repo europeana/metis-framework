@@ -41,4 +41,9 @@ class AudioClassifier extends AbstractMediaClassifier {
     // Done.
     return result;
   }
+
+  @Override
+  MediaType getMediaType() {
+    return MediaType.AUDIO;
+  }
 }

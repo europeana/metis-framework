@@ -210,7 +210,7 @@ public class RdfWrapper {
    */
   public LicenseType getLicenseType() {
     return getAggregations().stream().map(Aggregation::getRights).filter(Objects::nonNull)
-        .map(LicenseType::getLicenseType).filter(Objects::nonNull).findAny().orElse(null);
+                            .map(LicenseType::getLicenseType).filter(Objects::nonNull).findAny().orElse(LicenseType.CLOSED);
   }
 
   /**
@@ -354,9 +354,8 @@ public class RdfWrapper {
   }
 
   /**
-   * An entity is considered to have thumbnails if if and only if edm:EuropeanaAggregation/edm:preview
-   * is filled and the associated edm:webResource exists with technical metadata (i.e.
-   * ebucore:hasMimetype is set to a non-empty value)
+   * An entity is considered to have thumbnails if and only if edm:EuropeanaAggregation/edm:preview is filled and the associated
+   * edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set to a non-empty value)
    *
    * @return Whether the entity has thumbnails.
    */

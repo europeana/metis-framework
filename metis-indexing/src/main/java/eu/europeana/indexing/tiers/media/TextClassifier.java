@@ -53,4 +53,9 @@ class TextClassifier extends AbstractMediaClassifier {
     }
     return result;
   }
+
+  @Override
+  MediaType getMediaType() {
+    return MediaType.TEXT;
+  }
 }
