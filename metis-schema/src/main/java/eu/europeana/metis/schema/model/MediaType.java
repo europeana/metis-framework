@@ -58,22 +58,22 @@ public enum MediaType {
   }
 
   /**
-   * Obtains the media type of a given mime type. This method accepts media types with subtypes and/or parameters.
+   * Obtains the media type of a given mime type. This method accepts mime types with subtypes and/or parameters.
    *
-   * @param mediaType The media type.
+   * @param mimeType The media type.
    * @return The media type to which the mime type belongs.
    */
-  public static MediaType getMediaType(String mediaType) {
+  public static MediaType getMediaType(String mimeType) {
     final MediaType result;
-    if (mediaType == null) {
+    if (mimeType == null) {
       result = OTHER;
-    } else if (mediaType.startsWith("image/")) {
+    } else if (mimeType.startsWith("image/")) {
       result = IMAGE;
-    } else if (mediaType.startsWith("audio/")) {
+    } else if (mimeType.startsWith("audio/")) {
       result = AUDIO;
-    } else if (mediaType.startsWith("video/") || mediaType.startsWith("application/dash+xml")) {
+    } else if (mimeType.startsWith("video/") || mimeType.startsWith("application/dash+xml")) {
       result = VIDEO;
-    } else if (mediaType.startsWith("text/") || isApplicationMediaRepresentingText(mediaType)) {
+    } else if (mimeType.startsWith("text/") || isApplicationMediaRepresentingText(mimeType)) {
       result = TEXT;
     } else {
       result = OTHER;

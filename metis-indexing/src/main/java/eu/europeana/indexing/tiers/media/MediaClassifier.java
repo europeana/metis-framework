@@ -5,6 +5,7 @@ import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.EdmType;
+import java.util.Collections;
 
 /**
  * Classifier for the media tier.
@@ -48,8 +49,10 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
   @Override
   public TierClassification<MediaTier, ContentTierBreakdown> classify(RdfWrapper entity) {
     final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier = getDeferredClassifier(entity.getEdmType());
+    // TODO: 20/01/2022 Is this initialized correctly?
     if (deferredClassifier == null) {
-      return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown());
+      return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown(null, null, false,
+          false, false, Collections.emptyList()));
     }
     return deferredClassifier.classify(entity);
   }

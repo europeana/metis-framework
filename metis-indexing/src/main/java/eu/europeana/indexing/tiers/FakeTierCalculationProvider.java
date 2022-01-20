@@ -10,16 +10,19 @@ import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
 import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.tiers.view.ProcessingError;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
 import eu.europeana.indexing.utils.LicenseType;
+import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 // TODO: 22/12/2021 Remove this when actual implementation ready
 public class FakeTierCalculationProvider {
@@ -37,20 +40,22 @@ public class FakeTierCalculationProvider {
     recordTierCalculationSummary.setPortalRecordLink("https://example.com");
     recordTierCalculationSummary.setHarvestedRecordLink("https://example.com");
 
-    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown();
-    contentTierBreakdown.setRecordType(MediaType.AUDIO);
-    contentTierBreakdown.setLicenseType(LicenseType.OPEN);
-    contentTierBreakdown.setThumbnailAvailable(true);
-    contentTierBreakdown.setLandingPageAvailable(true);
-    contentTierBreakdown.setEmbeddableMediaAvailable(true);
-    final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata = new MediaResourceTechnicalMetadata();
-    mediaResourceTechnicalMetadata.setResourceUrl("https://example.com");
-    mediaResourceTechnicalMetadata.setMediaType("image/jpeg");
-    mediaResourceTechnicalMetadata.setElementLinkType("edm:isShownBy");
-    mediaResourceTechnicalMetadata.setImageResolution("91.12 megapixel");
-    mediaResourceTechnicalMetadata.setVerticalResolution("480 pixels");
-    mediaResourceTechnicalMetadata.setLicenseType(LicenseType.RESTRICTED);
-    contentTierBreakdown.setMediaResourceTechnicalMetadataList(Collections.singletonList(mediaResourceTechnicalMetadata));
+    final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata =
+        new MediaResourceTechnicalMetadataBuilder().setResourceUrl("https://example.com")
+                                                   .setMediaType(MediaType.getMediaType("image/jpeg"))
+                                                   .setMimeType("image/jpeg")
+                                                   .setElementLinkTypes(Set.of(WebResourceLinkType.IS_SHOWN_AT))
+                                                   .setImageResolution(
+                                                       100_000L).setImageResolutionTier(MediaTier.T1)
+                                                   .setVerticalResolution(0L)
+                                                   .setVerticalResolutionTier(null)
+                                                   .setLicenseType(
+                                                       LicenseType.RESTRICTED)
+                                                   .setMediaTier(
+                                                       MediaTier.T1)
+                                                   .createMediaResourceTechnicalMetadata();
+    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,
+        true, true, Collections.singletonList(mediaResourceTechnicalMetadata));
     final ProcessingError processingError1 = new ProcessingError();
     processingError1.setErrorMessage("Error1");
     processingError1.setErrorCode(404);

@@ -1,6 +1,7 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -27,7 +28,7 @@ class ThreeDClassifier extends AbstractMediaClassifier {
 
   @Override
   MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia) {
+      boolean hasEmbeddableMedia, MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder) {
 
     // T2-T4 if there is a mime type (any whatsoever), T0 otherwise.
     return StringUtils.isNotBlank(webResource.getMimeType()) ? MediaTier.T4 : MediaTier.T0;

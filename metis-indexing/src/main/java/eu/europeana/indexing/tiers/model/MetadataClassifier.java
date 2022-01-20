@@ -1,5 +1,7 @@
 package eu.europeana.indexing.tiers.model;
 
+import static java.util.Objects.requireNonNull;
+
 import eu.europeana.indexing.tiers.metadata.ContextualClassesClassifier;
 import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier;
 import eu.europeana.indexing.tiers.metadata.LanguageClassifier;
@@ -8,7 +10,6 @@ import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -32,9 +33,9 @@ public class MetadataClassifier implements TierClassifier<Tier, MetadataTierBrea
   public MetadataClassifier(LanguageClassifier languageClassifier,
       EnablingElementsClassifier enablingElementsClassifier,
       ContextualClassesClassifier contextualClassesClassifier) {
-    Objects.requireNonNull(languageClassifier, "Language classifier cannot be null");
-    Objects.requireNonNull(enablingElementsClassifier, "Enabling elements classifier cannot be null");
-    Objects.requireNonNull(contextualClassesClassifier, "Contextual classes classifier cannot be null");
+    requireNonNull(languageClassifier, "Language classifier cannot be null");
+    requireNonNull(enablingElementsClassifier, "Enabling elements classifier cannot be null");
+    requireNonNull(contextualClassesClassifier, "Contextual classes classifier cannot be null");
     this.languageClassifier = languageClassifier;
     this.enablingElementsClassifier = enablingElementsClassifier;
     this.contextualClassesClassifier = contextualClassesClassifier;

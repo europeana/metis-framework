@@ -70,15 +70,8 @@ public class RecordTierCalculationViewGenerator {
       recordTierCalculationSummary.setPortalRecordLink(portalRecordLink);
       recordTierCalculationSummary.setHarvestedRecordLink(providerRecordLink);
 
-      final RecordTierCalculationView recordTierCalculationView = new RecordTierCalculationView(recordTierCalculationSummary,
-          mediaTierClassification.getClassification(), metadataTierClassification.getClassification());
-
-      // TODO: 04/01/2022 Update the remaining values with the upcoming tickets MET-4157 and MET-4158
-      //Create an object that has predefined "fake" values
-      RecordTierCalculationView fakeView = FakeTierCalculationProvider.getFakeObject();
-      recordTierCalculationView.setContentTierBreakdown(fakeView.getContentTierBreakdown());
-
-      return recordTierCalculationView;
+      return new RecordTierCalculationView(recordTierCalculationSummary, mediaTierClassification.getClassification(),
+          metadataTierClassification.getClassification());
     } catch (SerializationException e) {
       throw new TierCalculationException("Error during calculation of tiers", e);
     }

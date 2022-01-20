@@ -4,13 +4,18 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
+import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This is the superclass of all classifiers for specific media types. Classification happens both for the entity as a whole and
@@ -39,25 +44,25 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     // Compute the media tier based on whether it has suitable web resources.
     final MediaTier mediaTier;
+    List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList = new LinkedList<>();
     if (webResources.isEmpty()) {
       mediaTier = classifyEntityWithoutWebResources(entity, hasLandingPage);
     } else {
-      mediaTier = webResources.stream().map(
-                                  resource -> classifyWebResourceAndLicense(resource, entityLicenseType, hasLandingPage, hasEmbeddableMedia))
-                              .reduce(MediaTier.T0, Tier::max);
+      final List<MediaResourceTechnicalMetadata> descendingMediaResourceTechnicalMetadata =
+          webResources.stream().map(
+                          resource -> classifyWebResourceAndLicense(resource, entityLicenseType, hasLandingPage, hasEmbeddableMedia))
+                      .sorted(Comparator.comparing(MediaResourceTechnicalMetadata::getMediaTier, Tier.getComparator().reversed()))
+                      .collect(Collectors.toList());
+      //Get the highest value or else default
+      mediaTier = descendingMediaResourceTechnicalMetadata.stream().map(MediaResourceTechnicalMetadata::getMediaTier).findFirst()
+                                                          .orElse(MediaTier.T0);
+      mediaResourceTechnicalMetadataList = descendingMediaResourceTechnicalMetadata;
     }
 
-    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown();
-    contentTierBreakdown.setRecordType(getMediaType());
-    contentTierBreakdown.setLicenseType(entityLicenseType);
-    contentTierBreakdown.setThumbnailAvailable(hasThumbnails);
-    contentTierBreakdown.setLandingPageAvailable(hasLandingPage);
-    contentTierBreakdown.setEmbeddableMediaAvailable(hasEmbeddableMedia);
-    //    contentTierBreakdown.setMediaResourceTechnicalMetadataList(Lists.newArrayList());
-    //    contentTierBreakdown.setProcessingErrorsList(Lists.newArrayList());
-
-    // TODO: 14/01/2022 To fill in with next ticket
-    return new TierClassification<>(mediaTier, new ContentTierBreakdown());
+    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(getMediaType(), entityLicenseType, hasThumbnails,
+        hasLandingPage, hasEmbeddableMedia, mediaResourceTechnicalMetadataList);
+    // TODO: 20/01/2022 Allow for content tier to set errorrs further down in sandbox for example
+    return new TierClassification<>(mediaTier, contentTierBreakdown);
   }
 
   public static class MediaTierWithLicense {
@@ -87,17 +92,31 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
    * @param webResource The web resource.
    * @param entityLicense The license type that holds for the entity. If the web resource also has a license, the most permissive
    * of the two will hold for the tier calculation.
-   * @param hasEmbeddableMedia Whether the entity has embeddable media.
    * @param hasLandingPage Whether the entity has a landing page.
+   * @param hasEmbeddableMedia Whether the entity has embeddable media.
    * @return The classification.
    */
-  MediaTier classifyWebResourceAndLicense(WebResourceWrapper webResource, LicenseType entityLicense,
+  MediaResourceTechnicalMetadata classifyWebResourceAndLicense(WebResourceWrapper webResource, LicenseType entityLicense,
       boolean hasLandingPage, boolean hasEmbeddableMedia) {
+
+    final MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder = new MediaResourceTechnicalMetadataBuilder();
+
     // Perform the classification on the basis of the media.
-    final MediaTier resourceTier = classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia);
+    final MediaTier resourceTier = classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+        mediaResourceTechnicalMetadataBuilder);
     final LicenseType maxLicense = LicenseType.getLicenseBinaryOperator().apply(entityLicense, webResource.getLicenseType());
     // Lower the media tier if forced by the license - find the minimum of the two.
-    return Tier.min(resourceTier, maxLicense.getMediaTier());
+    final MediaTier mediaTier = Tier.min(resourceTier, maxLicense.getMediaTier());
+
+    //Set common fields
+    mediaResourceTechnicalMetadataBuilder.setResourceUrl(webResource.getAbout())
+                                         .setMediaType(webResource.getMediaType())
+                                         .setMimeType(webResource.getMimeType())
+                                         .setElementLinkTypes(webResource.getLinkTypes())
+                                         .setLicenseType(webResource.getLicenseType())
+                                         .setMediaTier(mediaTier);
+
+    return mediaResourceTechnicalMetadataBuilder.createMediaResourceTechnicalMetadata();
   }
 
   /**
@@ -131,7 +150,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
    * @return The classification.
    */
   abstract MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia);
+      boolean hasEmbeddableMedia, MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder);
 
   abstract MediaType getMediaType();
 }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -74,12 +75,15 @@ class VideoClassifierTest {
     doReturn(height).when(webResource).getHeight();
     doReturn(MediaType.VIDEO).when(webResource).getMediaType();
     assertEquals(expectedTierForVideoType,
-        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia));
+        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+            new MediaResourceTechnicalMetadataBuilder()));
     doReturn(MediaType.OTHER).when(webResource).getMediaType();
     assertEquals(expectedTierForOtherType,
-        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia));
+        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+            new MediaResourceTechnicalMetadataBuilder()));
     doReturn(null).when(webResource).getMediaType();
     assertEquals(expectedTierForOtherType,
-        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia));
+        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+            new MediaResourceTechnicalMetadataBuilder()));
   }
 }

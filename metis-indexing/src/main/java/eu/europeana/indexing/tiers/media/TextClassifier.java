@@ -1,6 +1,7 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -30,7 +31,7 @@ class TextClassifier extends AbstractMediaClassifier {
 
   @Override
   MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia) {
+      boolean hasEmbeddableMedia, MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder) {
 
     // Check mime type.
     final String mimeType = webResource.getMimeType();
@@ -41,17 +42,22 @@ class TextClassifier extends AbstractMediaClassifier {
     final long resolution = hasImageMimeType ? webResource.getSize() : 0;
 
     // Check resolution.
-    final MediaTier result;
+    final MediaTier mediaTier;
     if (hasPdfMimeType || resolution >= RESOLUTION_LARGE) {
-      result = MediaTier.T4;
+      mediaTier = MediaTier.T4;
     } else if (resolution >= RESOLUTION_MEDIUM) {
-      result = MediaTier.T2;
+      mediaTier = MediaTier.T2;
     } else if (hasLandingPage || resolution >= RESOLUTION_SMALL) {
-      result = MediaTier.T1;
+      mediaTier = MediaTier.T1;
     } else {
-      result = MediaTier.T0;
+      mediaTier = MediaTier.T0;
     }
-    return result;
+
+    //Extend builder
+    mediaResourceTechnicalMetadataBuilder.setImageResolution(webResource.getSize())
+                                         .setImageResolutionTier(mediaTier);
+
+    return mediaTier;
   }
 
   @Override

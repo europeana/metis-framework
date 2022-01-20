@@ -66,7 +66,7 @@ public enum LicenseType implements Comparable<LicenseType> {
     } else {
       LOGGER.warn("Impossible combination of open and restricted counts: {} and {} respectively.",
           open, restricted);
-      result = null;
+      result = CLOSED;
     }
 
     // Done.
