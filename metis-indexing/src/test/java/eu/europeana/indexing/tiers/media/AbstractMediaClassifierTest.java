@@ -1,6 +1,7 @@
 //package eu.europeana.indexing.tiers.media;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.mockito.ArgumentMatchers.any;
 //import static org.mockito.ArgumentMatchers.anyBoolean;
 //import static org.mockito.ArgumentMatchers.eq;
 //import static org.mockito.Mockito.doReturn;
@@ -9,6 +10,7 @@
 //import static org.mockito.Mockito.spy;
 //
 //import eu.europeana.indexing.tiers.model.MediaTier;
+//import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
 //import eu.europeana.indexing.utils.LicenseType;
 //import eu.europeana.indexing.utils.RdfWrapper;
 //import eu.europeana.indexing.utils.WebResourceLinkType;
@@ -134,34 +136,35 @@
 //    final boolean hasLandingPage = true;
 //    final boolean hasEmbeddableMedia = false;
 //    final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
+////    final ResolutionTierPreInitializationBuilder resolutionTierPreInitializationBuilder = mock(ResolutionTierPreInitializationBuilder.class);
 //    doReturn(tierWithOpenLicense).when(classifier).classifyWebResource(webResource, hasLandingPage,
-//        hasEmbeddableMedia);
+//        hasEmbeddableMedia, any(ResolutionTierPreInitializationBuilder.class));
 //
-//    // In case the web resource has no license type.
-//    doReturn(null).when(webResource).getLicenseType();
+//    // In case the web resource has closed license type.
+//    doReturn(LicenseType.CLOSED).when(webResource).getLicenseType();
 //    assertEquals(tierWithoutLicense,
-//        classifier.classifyWebResource(webResource, null, hasLandingPage, hasEmbeddableMedia).getTier());
-//    assertEquals(tierWithRestrictedLicense, classifier.classifyWebResource(webResource,
-//        LicenseType.RESTRICTED, hasLandingPage, hasEmbeddableMedia).getTier());
-//    assertEquals(tierWithOpenLicense, classifier.classifyWebResource(webResource, LicenseType.OPEN,
+//        classifier.classifyWebResourceAndLicense(webResource, hasLandingPage, hasEmbeddableMedia, resolutionTierPreInitializationBuilder));
+//    assertEquals(tierWithRestrictedLicense, classifier.classifyWebResourceAndLicense(webResource,
+//        LicenseType.RESTRICTED, hasLandingPage, hasEmbeddableMedia, resolutionTierPreInitializationBuilder));
+//    assertEquals(tierWithOpenLicense, classifier.classifyWebResourceAndLicense(webResource, LicenseType.OPEN,
 //        hasLandingPage, hasEmbeddableMedia).getTier());
 //
-//    // In case the web resource has a restricted license type.
-//    doReturn(LicenseType.RESTRICTED).when(webResource).getLicenseType();
-//    assertEquals(tierWithRestrictedLicense,
-//        classifier.classifyWebResource(webResource, null, hasLandingPage, hasEmbeddableMedia).getTier());
-//    assertEquals(tierWithRestrictedLicense, classifier.classifyWebResource(webResource,
-//        LicenseType.RESTRICTED, hasLandingPage, hasEmbeddableMedia).getTier());
-//    assertEquals(tierWithOpenLicense, classifier.classifyWebResource(webResource, LicenseType.OPEN,
-//        hasLandingPage, hasEmbeddableMedia).getTier());
-//
-//    // In case the web resource has an open license type.
-//    doReturn(LicenseType.OPEN).when(webResource).getLicenseType();
-//    assertEquals(tierWithOpenLicense,
-//        classifier.classifyWebResource(webResource, null, hasLandingPage, hasEmbeddableMedia).getTier());
-//    assertEquals(tierWithOpenLicense, classifier.classifyWebResource(webResource,
-//        LicenseType.RESTRICTED, hasLandingPage, hasEmbeddableMedia).getTier());
-//    assertEquals(tierWithOpenLicense, classifier.classifyWebResource(webResource, LicenseType.OPEN,
-//        hasLandingPage, hasEmbeddableMedia).getTier());
+////    // In case the web resource has a restricted license type.
+////    doReturn(LicenseType.RESTRICTED).when(webResource).getLicenseType();
+////    assertEquals(tierWithRestrictedLicense,
+////        classifier.classifyWebResourceAndLicense(webResource, null, hasLandingPage, hasEmbeddableMedia).getTier());
+////    assertEquals(tierWithRestrictedLicense, classifier.classifyWebResourceAndLicense(webResource,
+////        LicenseType.RESTRICTED, hasLandingPage, hasEmbeddableMedia).getTier());
+////    assertEquals(tierWithOpenLicense, classifier.classifyWebResourceAndLicense(webResource, LicenseType.OPEN,
+////        hasLandingPage, hasEmbeddableMedia).getTier());
+////
+////    // In case the web resource has an open license type.
+////    doReturn(LicenseType.OPEN).when(webResource).getLicenseType();
+////    assertEquals(tierWithOpenLicense,
+////        classifier.classifyWebResourceAndLicense(webResource, null, hasLandingPage, hasEmbeddableMedia).getTier());
+////    assertEquals(tierWithOpenLicense, classifier.classifyWebResourceAndLicense(webResource,
+////        LicenseType.RESTRICTED, hasLandingPage, hasEmbeddableMedia).getTier());
+////    assertEquals(tierWithOpenLicense, classifier.classifyWebResourceAndLicense(webResource, LicenseType.OPEN,
+////        hasLandingPage, hasEmbeddableMedia).getTier());
 //  }
 //}

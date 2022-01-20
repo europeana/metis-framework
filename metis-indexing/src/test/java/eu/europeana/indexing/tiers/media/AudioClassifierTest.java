@@ -8,6 +8,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -63,12 +64,15 @@ class AudioClassifierTest {
     final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
     doReturn(MediaType.AUDIO).when(webResource).getMediaType();
     assertEquals(MediaTier.T4,
-        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia));
+        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+            new ResolutionTierPreInitializationBuilder()));
     doReturn(MediaType.OTHER).when(webResource).getMediaType();
     assertEquals(expectedTierForOtherType,
-        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia));
+        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+            new ResolutionTierPreInitializationBuilder()));
     doReturn(null).when(webResource).getMediaType();
     assertEquals(expectedTierForOtherType,
-        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia));
+        classifier.classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
+            new ResolutionTierPreInitializationBuilder()));
   }
 }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -61,9 +62,13 @@ class ThreeDClassifierTest {
   private void testClassifyWebResource(String mimeType, MediaTier expectedTier) {
     final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
     doReturn(mimeType).when(webResource).getMimeType();
-    assertEquals(expectedTier, classifier.classifyWebResource(webResource, false, false));
-    assertEquals(expectedTier, classifier.classifyWebResource(webResource, true, false));
-    assertEquals(expectedTier, classifier.classifyWebResource(webResource, false, true));
-    assertEquals(expectedTier, classifier.classifyWebResource(webResource, true, true));
+    assertEquals(expectedTier,
+        classifier.classifyWebResource(webResource, false, false, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(expectedTier,
+        classifier.classifyWebResource(webResource, true, false, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(expectedTier,
+        classifier.classifyWebResource(webResource, false, true, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(expectedTier,
+        classifier.classifyWebResource(webResource, true, true, new ResolutionTierPreInitializationBuilder()));
   }
 }

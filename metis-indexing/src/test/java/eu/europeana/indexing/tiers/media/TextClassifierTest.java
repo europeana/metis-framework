@@ -9,6 +9,7 @@ import static org.mockito.Mockito.spy;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -96,9 +97,13 @@ class TextClassifierTest {
 
   private void testClassifyWebResource(WebResourceWrapper webResource,
       MediaTier tierWithLandingPage, MediaTier tierWithoutLandingPage) {
-    assertEquals(tierWithoutLandingPage, classifier.classifyWebResource(webResource, false, false));
-    assertEquals(tierWithLandingPage, classifier.classifyWebResource(webResource, true, false));
-    assertEquals(tierWithoutLandingPage, classifier.classifyWebResource(webResource, false, true));
-    assertEquals(tierWithLandingPage, classifier.classifyWebResource(webResource, true, true));
+    assertEquals(tierWithoutLandingPage,
+        classifier.classifyWebResource(webResource, false, false, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(tierWithLandingPage,
+        classifier.classifyWebResource(webResource, true, false, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(tierWithoutLandingPage,
+        classifier.classifyWebResource(webResource, false, true, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(tierWithLandingPage,
+        classifier.classifyWebResource(webResource, true, true, new ResolutionTierPreInitializationBuilder()));
   }
 }

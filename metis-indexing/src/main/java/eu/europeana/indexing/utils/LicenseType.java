@@ -40,7 +40,7 @@ public enum LicenseType implements Comparable<LicenseType> {
    * Retrieves the license corresponding to the given url.
    *
    * @param rights The url denoting the license.
-   * @return The license. Is null if not found to be {@link #OPEN} or {@link #RESTRICTED}.
+   * @return The license. Is {@link #CLOSED} if not found to be {@link #OPEN} or {@link #RESTRICTED}.
    */
   public static LicenseType getLicenseType(Rights1 rights) {
 

@@ -2,7 +2,6 @@ package eu.europeana.indexing.tiers.view;
 
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notBlank;
-import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -36,7 +35,7 @@ public class MediaResourceTechnicalMetadata {
     this.resourceUrl = resourceUrl;
     this.mediaType = mediaType;
     this.mimeType = mimeType;
-    this.elementLinkTypes = elementLinkTypes == null ? new HashSet<>() : new HashSet<>(elementLinkTypes);
+    this.elementLinkTypes = elementLinkTypes;
     this.imageResolution = imageResolution;
     this.imageResolutionTier = imageResolutionTier;
     this.verticalResolution = verticalResolution;
@@ -93,10 +92,18 @@ public class MediaResourceTechnicalMetadata {
     private Set<WebResourceLinkType> elementLinkTypes;
     private LicenseType licenseType;
     private MediaTier mediaTier;
-    private Long imageResolution;
-    private MediaTier imageResolutionTier;
-    private Long verticalResolution;
-    private MediaTier verticalResolutionTier;
+    private final Long imageResolution;
+    private final MediaTier imageResolutionTier;
+    private final Long verticalResolution;
+    private final MediaTier verticalResolutionTier;
+
+    private MediaResourceTechnicalMetadataBuilder(Long imageResolution, MediaTier imageResolutionTier, Long verticalResolution,
+        MediaTier verticalResolutionTier) {
+      this.imageResolution = (Objects.isNull(imageResolution) || imageResolution == 0) ? null : imageResolution;
+      this.imageResolutionTier = imageResolutionTier;
+      this.verticalResolution = (Objects.isNull(verticalResolution) || verticalResolution == 0) ? null : verticalResolution;
+      this.verticalResolutionTier = verticalResolutionTier;
+    }
 
     public MediaResourceTechnicalMetadataBuilder setResourceUrl(String resourceUrl) {
       this.resourceUrl = resourceUrl;
@@ -128,40 +135,55 @@ public class MediaResourceTechnicalMetadata {
       return this;
     }
 
-    public MediaResourceTechnicalMetadataBuilder setImageResolution(Long imageResolution) {
-      this.imageResolution = Objects.isNull(imageResolution) || imageResolution == 0 ? null : imageResolution;
-      return this;
-    }
-
-    public MediaResourceTechnicalMetadataBuilder setImageResolutionTier(MediaTier imageResolutionTier) {
-      this.imageResolutionTier = imageResolutionTier;
-      return this;
-    }
-
-    public MediaResourceTechnicalMetadataBuilder setVerticalResolution(Long verticalResolution) {
-      this.verticalResolution = Objects.isNull(verticalResolution) || verticalResolution == 0 ? null : verticalResolution;
-      return this;
-    }
-
-    public MediaResourceTechnicalMetadataBuilder setVerticalResolutionTier(MediaTier verticalResolutionTier) {
-      this.verticalResolutionTier = verticalResolutionTier;
-      return this;
-    }
-
     public MediaResourceTechnicalMetadata createMediaResourceTechnicalMetadata() {
-      //Verify fieds that should not be blank/empty
+      //Verify fields that should not be blank/empty
       notBlank(resourceUrl);
       notNull(mediaType);
-      notEmpty(elementLinkTypes);
+      notNull(elementLinkTypes); //Can be empty but shouldn't be null
+      notNull(licenseType);
       notNull(mediaTier);
-
-      //Both null or only one of the two null
-      isTrue((Objects.isNull(imageResolutionTier) && Objects.isNull(verticalResolutionTier))
-          || (Objects.isNull(imageResolutionTier) || Objects.isNull(verticalResolutionTier)));
 
       return new MediaResourceTechnicalMetadata(resourceUrl, mediaType, mimeType, elementLinkTypes, imageResolution,
           imageResolutionTier, verticalResolution, verticalResolutionTier, licenseType, mediaTier);
 
+    }
+  }
+
+  public static class ResolutionTierPreInitializationBuilder {
+
+    private Long imageResolution;
+    private MediaTier imageResolutionTier;
+    private Long verticalResolution;
+    private MediaTier verticalResolutionTier;
+
+    public ResolutionTierPreInitializationBuilder setImageResolution(Long imageResolution) {
+      this.imageResolution = imageResolution;
+      return this;
+    }
+
+    public ResolutionTierPreInitializationBuilder setImageResolutionTier(MediaTier imageResolutionTier) {
+      this.imageResolutionTier = imageResolutionTier;
+      return this;
+    }
+
+    public ResolutionTierPreInitializationBuilder setVerticalResolution(Long verticalResolution) {
+      this.verticalResolution = verticalResolution;
+      return this;
+    }
+
+    public ResolutionTierPreInitializationBuilder setVerticalResolutionTier(MediaTier verticalResolutionTier) {
+      this.verticalResolutionTier = verticalResolutionTier;
+      return this;
+    }
+
+    public MediaResourceTechnicalMetadataBuilder createMediaResourceTechnicalMetadataBuilder() {
+      //Both null or only one of the two null
+      final boolean areBothTiersNull = Objects.isNull(imageResolutionTier) && Objects.isNull(verticalResolutionTier);
+      final boolean isOneOfTiersNull = Objects.isNull(imageResolutionTier) || Objects.isNull(verticalResolutionTier);
+      isTrue(areBothTiersNull || isOneOfTiersNull);
+
+      return new MediaResourceTechnicalMetadataBuilder(imageResolution, imageResolutionTier, verticalResolution,
+          verticalResolutionTier);
     }
   }
 }

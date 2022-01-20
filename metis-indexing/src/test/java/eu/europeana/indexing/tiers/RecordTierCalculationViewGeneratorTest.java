@@ -28,8 +28,9 @@ class RecordTierCalculationViewGeneratorTest {
     final Tier metadataTier = MetadataTier.TB;
     final String providerRecordLink = "https://example-record-link.com";
     final String portalRecordLink = "https://example-portal-record-link.com";
-    final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator = new RecordTierCalculationViewGenerator(
-        europeanaId, providerId, europeanaRecordString, portalRecordLink, providerRecordLink);
+    final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator =
+        new RecordTierCalculationViewGenerator(
+            europeanaId, providerId, europeanaRecordString, portalRecordLink, providerRecordLink);
 
     final RecordTierCalculationView recordTierCalculationView = recordTierCalculationViewGenerator.generate();
     final RecordTierCalculationSummary recordTierCalculationSummary = recordTierCalculationView.getRecordTierCalculationSummary();
