@@ -7,7 +7,7 @@ import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.metis.schema.jibx.PlaceType;
@@ -33,7 +33,7 @@ class RecordTierCalculationViewTest {
     ContextualClassesBreakdown contextualClassesBreakdown = new ContextualClassesBreakdown(completeContextualResources,
         distinctClassesList, MetadataTier.TC);
 
-    final ResolutionTierMetadataData resolutionTierData = new ResolutionTierPreInitializationBuilder().createResolutionTierData();
+    final ResolutionTierMetadata resolutionTierData = new ResolutionTierMetadataBuilder().build();
     final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata =
         new MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder(resolutionTierData)
             .setResourceUrl("https://example.com")
@@ -42,7 +42,7 @@ class RecordTierCalculationViewTest {
             .setElementLinkTypes(Set.of(WebResourceLinkType.IS_SHOWN_AT))
             .setLicenseType(LicenseType.RESTRICTED)
             .setMediaTier(MediaTier.T1)
-            .createMediaResourceTechnicalMetadata();
+            .build();
 
     final RecordTierCalculationView recordTierCalculationView = new RecordTierCalculationView(new RecordTierCalculationSummary(),
         new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,

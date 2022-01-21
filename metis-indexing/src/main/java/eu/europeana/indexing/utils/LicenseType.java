@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This enum contains licenses for reuse.
  */
-public enum LicenseType implements Comparable<LicenseType> {
+public enum LicenseType {
   /**
    * Closed license.
    */

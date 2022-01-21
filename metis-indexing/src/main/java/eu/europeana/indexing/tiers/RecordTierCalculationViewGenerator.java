@@ -77,8 +77,7 @@ public class RecordTierCalculationViewGenerator {
       recordTierCalculationSummary.setHarvestedRecordLink(providerRecordLink);
 
       final ContentTierBreakdown mediaTierClassificationWithErrors = new ContentTierBreakdown(
-          mediaTierClassification.getClassification(),
-          processingErrors);
+          mediaTierClassification.getClassification(), processingErrors);
 
       return new RecordTierCalculationView(recordTierCalculationSummary, mediaTierClassificationWithErrors,
           metadataTierClassification.getClassification());

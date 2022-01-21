@@ -12,6 +12,9 @@ import eu.europeana.metis.schema.model.MediaType;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class containing media resource technical metadata.
+ */
 @JsonInclude(Include.NON_NULL)
 public final class MediaResourceTechnicalMetadata {
 
@@ -28,17 +31,17 @@ public final class MediaResourceTechnicalMetadata {
 
   private MediaResourceTechnicalMetadata(String resourceUrl, MediaType mediaType, String mimeType,
       Set<WebResourceLinkType> elementLinkTypes, LicenseType licenseType,
-      MediaTier mediaTier, ResolutionTierMetadataData resolutionTierMetadataData) {
+      MediaTier mediaTier, ResolutionTierMetadata resolutionTierMetadata) {
     this.resourceUrl = resourceUrl;
     this.mediaType = mediaType;
     this.mimeType = mimeType;
     this.elementLinkTypes = elementLinkTypes == null ? new HashSet<>() : new HashSet<>(elementLinkTypes);
     this.licenseType = licenseType;
     this.mediaTier = mediaTier;
-    this.imageResolution = resolutionTierMetadataData.getImageResolution();
-    this.imageResolutionTier = resolutionTierMetadataData.getImageResolutionTier();
-    this.verticalResolution = resolutionTierMetadataData.getVerticalResolution();
-    this.verticalResolutionTier = resolutionTierMetadataData.getVerticalResolutionTier();
+    this.imageResolution = resolutionTierMetadata.getImageResolution();
+    this.imageResolutionTier = resolutionTierMetadata.getImageResolutionTier();
+    this.verticalResolution = resolutionTierMetadata.getVerticalResolution();
+    this.verticalResolutionTier = resolutionTierMetadata.getVerticalResolutionTier();
   }
 
   public String getResourceUrl() {
@@ -81,6 +84,9 @@ public final class MediaResourceTechnicalMetadata {
     return verticalResolutionTier;
   }
 
+  /**
+   * Builder for creating {@link MediaResourceTechnicalMetadata}.
+   */
   public static class MediaResourceTechnicalMetadataBuilder {
 
     private String resourceUrl;
@@ -89,10 +95,15 @@ public final class MediaResourceTechnicalMetadata {
     private Set<WebResourceLinkType> elementLinkTypes;
     private LicenseType licenseType;
     private MediaTier mediaTier;
-    private final ResolutionTierMetadataData resolutionTierMetadataData;
+    private final ResolutionTierMetadata resolutionTierMetadata;
 
-    public MediaResourceTechnicalMetadataBuilder(ResolutionTierMetadataData resolutionTierMetadataData) {
-      this.resolutionTierMetadataData = new ResolutionTierMetadataData(resolutionTierMetadataData);
+    /**
+     * Constructor initialized with {@link ResolutionTierMetadata}.
+     *
+     * @param resolutionTierMetadata the resolution tier metadata
+     */
+    public MediaResourceTechnicalMetadataBuilder(ResolutionTierMetadata resolutionTierMetadata) {
+      this.resolutionTierMetadata = new ResolutionTierMetadata(resolutionTierMetadata);
     }
 
     public MediaResourceTechnicalMetadataBuilder setResourceUrl(String resourceUrl) {
@@ -125,7 +136,12 @@ public final class MediaResourceTechnicalMetadata {
       return this;
     }
 
-    public MediaResourceTechnicalMetadata createMediaResourceTechnicalMetadata() {
+    /**
+     * Creates an instance of {@link MediaResourceTechnicalMetadata} by verifying collected parameters.
+     *
+     * @return the media resource technical metadata
+     */
+    public MediaResourceTechnicalMetadata build() {
       //Verify fields that should not be blank/empty
       notBlank(resourceUrl);
       notNull(mediaType);
@@ -134,7 +150,7 @@ public final class MediaResourceTechnicalMetadata {
       notNull(mediaTier);
 
       return new MediaResourceTechnicalMetadata(resourceUrl, mediaType, mimeType, elementLinkTypes, licenseType, mediaTier,
-          resolutionTierMetadataData);
+          resolutionTierMetadata);
 
     }
   }

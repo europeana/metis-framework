@@ -53,15 +53,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class RdfWrapper {
 
-  private final RDF record;
+  private final RDF rdfRecord;
 
   /**
    * Constructor.
    *
-   * @param record The record to wrap.
+   * @param rdfRecord The record to wrap.
    */
-  public RdfWrapper(RDF record) {
-    this.record = record;
+  public RdfWrapper(RDF rdfRecord) {
+    this.rdfRecord = rdfRecord;
   }
 
   /**
@@ -70,8 +70,8 @@ public class RdfWrapper {
    * @return The record's rdf:about (obtained from a providedCHO). Or null if none could be found.
    */
   public String getAbout() {
-    return getFilteredPropertyStream(record.getProvidedCHOList()).map(ProvidedCHOType::getAbout)
-        .findFirst().orElse(null);
+    return getFilteredPropertyStream(rdfRecord.getProvidedCHOList()).map(ProvidedCHOType::getAbout)
+                                                                    .findFirst().orElse(null);
   }
 
   /**
@@ -96,7 +96,7 @@ public class RdfWrapper {
    * @return The Europeana aggregation in a non-null {@link Optional}.
    */
   public Optional<EuropeanaAggregationType> getEuropeanaAggregation() {
-    return getPropertyStream(record.getEuropeanaAggregationList()).findFirst();
+    return getPropertyStream(rdfRecord.getEuropeanaAggregationList()).findFirst();
   }
 
   public List<Identifier> getProviderProxyIdentifiers() {
@@ -133,7 +133,7 @@ public class RdfWrapper {
    * @return The list of provided CHOs. Is not null, but could be empty.
    */
   public List<ProvidedCHOType> getProvidedCHOs() {
-    return getPropertyList(record.getProvidedCHOList());
+    return getPropertyList(rdfRecord.getProvidedCHOList());
   }
 
   /**
@@ -142,7 +142,7 @@ public class RdfWrapper {
    * @return The list of proxies. Is not null, but could be empty.
    */
   public List<ProxyType> getProxies() {
-    return getPropertyList(record.getProxyList());
+    return getPropertyList(rdfRecord.getProxyList());
   }
 
   /**
@@ -166,7 +166,7 @@ public class RdfWrapper {
    * @return The list of aggregations. Is not null, but could be empty.
    */
   public List<Aggregation> getAggregations() {
-    return getPropertyList(record.getAggregationList());
+    return getPropertyList(rdfRecord.getAggregationList());
   }
 
   /**
@@ -195,14 +195,14 @@ public class RdfWrapper {
     return getAggregations(proxyType -> CollectionUtils.isNotEmpty(proxyType.getLineageList()));
   }
 
-  private List<Aggregation> getAggregations(Predicate<? super ProxyType> proxyTypePredicate) {
-    final Set<String> proxyInList = getProviderProxies().stream().filter(proxyTypePredicate)
-        .map(ProxyType::getProxyInList).flatMap(List::stream).map(ProxyIn::getResource)
-        .collect(Collectors.toSet());
-
-    return record.getAggregationList().stream()
-        .filter(aggregation -> proxyInList.contains(aggregation.getAbout()))
-        .collect(Collectors.toList());
+  /**
+   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a
+   * non-blank about value.
+   *
+   * @return The list of web resources. Is not null, but could be empty.
+   */
+  public List<WebResourceType> getWebResources() {
+    return getFilteredPropertyList(rdfRecord.getWebResourceList());
   }
 
   /**
@@ -237,29 +237,6 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those with a non-blank about value.
-   *
-   * @return The list of web resources. Is not null, but could be empty.
-   */
-  public List<WebResourceType> getWebResources() {
-    return getFilteredPropertyList(record.getWebResourceList());
-  }
-
-  /**
-   * This method retrieves all URLs (as {@link String} objects) that the entity contains of the
-   * provided link types. This method does not check whether there is a full web resource object for
-   * the URLs.
-   *
-   * @param types The types to which we limit our search. We only return web resources that have at
-   * least one of the given types. Cannot be null.
-   * @return The URLs. They are not blank or null. The list is not null, but could be empty.
-   */
-  public Set<String> getUrlsOfTypes(Set<WebResourceLinkType> types) {
-    return types.stream().map(this::getUrlsOfType).flatMap(Set::stream).collect(Collectors.toSet());
-  }
-
-  /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it
    * only returns those with a non-blank about value and that have at least one of the given types.
    *
    * @param types The types to which we limit our search. We only return web resources that have at
@@ -269,24 +246,35 @@ public class RdfWrapper {
   public List<WebResourceWrapper> getWebResourceWrappers(Set<WebResourceLinkType> types) {
     final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
         types);
-    return getFilteredPropertyStream(record.getWebResourceList())
+    return getFilteredPropertyStream(rdfRecord.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout())).map(
             webResource -> new WebResourceWrapper(webResource,
                 webResourceUrlsWithTypes.get(webResource.getAbout()))).collect(Collectors.toList());
   }
 
   /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those with a non-blank about value. But contrary to {@link
-   * #getWebResourceWrappers(Set)} it also returns all web resources that have none of the supported
-   * types.
+   * This method retrieves all URLs (as {@link String} objects) that the entity contains of the provided link types. This method
+   * does not check whether there is a full web resource object for the URLs.
+   *
+   * @param types The types to which we limit our search. We only return web resources that have at least one of the given types.
+   * Cannot be null.
+   * @return The URLs. They are not blank or null. The list is not null, but could be empty.
+   */
+  public Set<String> getUrlsOfTypes(Set<WebResourceLinkType> types) {
+    return types.stream().map(this::getUrlsOfType).flatMap(Set::stream).collect(Collectors.toSet());
+  }
+
+  /**
+   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a
+   * non-blank about value. But contrary to {@link #getWebResourceWrappers(Set)} it also returns all web resources that have none
+   * of the supported types.
    *
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceWrapper> getWebResourceWrappers() {
     final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
         Stream.of(WebResourceLinkType.values()).collect(Collectors.toSet()));
-    return getFilteredPropertyStream(record.getWebResourceList()).map(
+    return getFilteredPropertyStream(rdfRecord.getWebResourceList()).map(
         webResource -> new WebResourceWrapper(webResource,
             webResourceUrlsWithTypes.get(webResource.getAbout()))).collect(Collectors.toList());
   }
@@ -302,22 +290,36 @@ public class RdfWrapper {
   public List<WebResourceType> getWebResources(Set<WebResourceLinkType> types) {
     final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
         types);
-    return getFilteredPropertyStream(record.getWebResourceList())
+    return getFilteredPropertyStream(rdfRecord.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
         .collect(Collectors.toList());
   }
 
   /**
-   * This method retrieves all URLs (as {@link String} objects) that this entity contains of the
-   * given link type.
+   * An entity is considered to have thumbnails if and only if edm:EuropeanaAggregation/edm:preview is filled and the associated
+   * edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set to a non-empty value)
+   *
+   * @return Whether the entity has thumbnails.
+   */
+  public boolean hasThumbnails() {
+    final String previewUri = getEuropeanaAggregation().map(EuropeanaAggregationType::getPreview)
+                                                       .map(ResourceType::getResource).filter(StringUtils::isNotBlank)
+                                                       .orElse(null);
+    return previewUri != null && getFilteredPropertyStream(rdfRecord.getWebResourceList())
+        .filter(resource -> previewUri.equals(resource.getAbout()))
+        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
+  }
+
+  /**
+   * This method retrieves all URLs (as {@link String} objects) that this entity contains of the given link type.
    *
    * @param type The link type for which to retrieve the urls.
    * @return The URLs. They are not blank or null. The list is not null, but could be empty.
    */
   private Set<String> getUrlsOfType(WebResourceLinkType type) {
     return getAggregations().stream().map(type::getResourcesOfType).filter(Objects::nonNull)
-        .flatMap(List::stream).filter(Objects::nonNull).map(ResourceType::getResource)
-        .filter(StringUtils::isNotBlank).collect(Collectors.toSet());
+                            .flatMap(List::stream).filter(Objects::nonNull).map(ResourceType::getResource)
+                            .filter(StringUtils::isNotBlank).collect(Collectors.toSet());
   }
 
   /**
@@ -354,27 +356,13 @@ public class RdfWrapper {
   }
 
   /**
-   * An entity is considered to have thumbnails if and only if edm:EuropeanaAggregation/edm:preview is filled and the associated
-   * edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set to a non-empty value)
-   *
-   * @return Whether the entity has thumbnails.
-   */
-  public boolean hasThumbnails() {
-    final String previewUri = getEuropeanaAggregation().map(EuropeanaAggregationType::getPreview)
-        .map(ResourceType::getResource).filter(StringUtils::isNotBlank).orElse(null);
-    return previewUri != null && getFilteredPropertyStream(record.getWebResourceList())
-        .filter(resource -> previewUri.equals(resource.getAbout()))
-        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
-  }
-
-  /**
    * Obtains the list of agents from an RDF record. This will filter the objects: it only returns
    * those with a non-blank about value.
    *
    * @return The agents. Is not null, but could be empty.
    */
   public List<AgentType> getAgents() {
-    return getFilteredPropertyList(record.getAgentList());
+    return getFilteredPropertyList(rdfRecord.getAgentList());
   }
 
   /**
@@ -384,7 +372,7 @@ public class RdfWrapper {
    * @return The organizations. Is not null, but could be empty.
    */
   public List<Organization> getOrganizations() {
-    return getFilteredPropertyList(record.getOrganizationList());
+    return getFilteredPropertyList(rdfRecord.getOrganizationList());
   }
 
   /**
@@ -394,7 +382,7 @@ public class RdfWrapper {
    * @return The concepts. Is not null, but could be empty.
    */
   public List<Concept> getConcepts() {
-    return getFilteredPropertyList(record.getConceptList());
+    return getFilteredPropertyList(rdfRecord.getConceptList());
   }
 
   /**
@@ -404,7 +392,7 @@ public class RdfWrapper {
    * @return The licenses. Is not null, but could be empty.
    */
   public List<License> getLicenses() {
-    return getFilteredPropertyList(record.getLicenseList());
+    return getFilteredPropertyList(rdfRecord.getLicenseList());
   }
 
   /**
@@ -414,7 +402,7 @@ public class RdfWrapper {
    * @return The places. Is not null, but could be empty.
    */
   public List<PlaceType> getPlaces() {
-    return getFilteredPropertyList(record.getPlaceList());
+    return getFilteredPropertyList(rdfRecord.getPlaceList());
   }
 
   /**
@@ -424,7 +412,7 @@ public class RdfWrapper {
    * @return The time spans. Is not null, but could be empty.
    */
   public List<TimeSpanType> getTimeSpans() {
-    return getFilteredPropertyList(record.getTimeSpanList());
+    return getFilteredPropertyList(rdfRecord.getTimeSpanList());
   }
 
   /**
@@ -434,17 +422,28 @@ public class RdfWrapper {
    * @return The services. Is not null, but could be empty.
    */
   public List<Service> getServices() {
-    return getFilteredPropertyList(record.getServiceList());
+    return getFilteredPropertyList(rdfRecord.getServiceList());
   }
 
   /**
-   * Obtain the list of quality annotations from an RDF record. This will filter the objects: it
-   * only returns those with a non-blank about value.
+   * Obtain the list of quality annotations from an RDF record. This will filter the objects: it only returns those with a
+   * non-blank about value.
    *
    * @return The quality annotations. Is not null, but could be empty.
    */
   public List<QualityAnnotation> getQualityAnnotations() {
-    return getFilteredPropertyList(record.getQualityAnnotationList());
+    return getFilteredPropertyList(rdfRecord.getQualityAnnotationList());
+  }
+
+  private List<Aggregation> getAggregations(Predicate<? super ProxyType> proxyTypePredicate) {
+    final Set<String> proxyInList = getProviderProxies().stream().filter(proxyTypePredicate)
+                                                        .map(ProxyType::getProxyInList).flatMap(List::stream)
+                                                        .map(ProxyIn::getResource)
+                                                        .collect(Collectors.toSet());
+
+    return rdfRecord.getAggregationList().stream()
+                    .filter(aggregation -> proxyInList.contains(aggregation.getAbout()))
+                    .collect(Collectors.toList());
   }
 
   private static <T extends AboutType> List<T> getFilteredPropertyList(List<T> propertyList) {
@@ -453,7 +452,7 @@ public class RdfWrapper {
 
   private static <T extends AboutType> Stream<T> getFilteredPropertyStream(List<T> propertyList) {
     return getPropertyStream(propertyList).filter(Objects::nonNull)
-        .filter(resource -> StringUtils.isNotBlank(resource.getAbout()));
+                                          .filter(resource -> StringUtils.isNotBlank(resource.getAbout()));
   }
 
   private static <T extends AboutType> List<T> getPropertyList(List<T> propertyList) {

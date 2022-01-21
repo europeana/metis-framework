@@ -1,8 +1,8 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
-import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -35,8 +35,8 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   }
 
   @Override
-  ResolutionTierMetadataData extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier) {
-    return new ResolutionTierPreInitializationBuilder().createResolutionTierData();
+  ResolutionTierMetadata extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier) {
+    return new ResolutionTierMetadataBuilder().build();
   }
 
   @Override

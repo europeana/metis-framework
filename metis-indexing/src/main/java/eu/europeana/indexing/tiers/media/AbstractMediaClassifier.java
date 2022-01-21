@@ -6,12 +6,13 @@ import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
-import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.LinkedList;
@@ -30,8 +31,8 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     // Look at the entity as a whole: we may classify without considering the web resources.
     final MediaTier entityTier = preClassifyEntity(entity);
     if (entityTier != null) {
-      // TODO: 19/01/2022 Add breakdown properly here
-      return new TierClassification<>(entityTier, null);
+      return new TierClassification<>(entityTier, new ContentTierBreakdown(null, null, false,
+          false, false, Collections.emptyList()));
     }
 
     // Find candidate web resources
@@ -62,27 +63,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(getMediaType(), entityLicenseType, hasThumbnails,
         hasLandingPage, hasEmbeddableMedia, mediaResourceTechnicalMetadataList);
-    // TODO: 20/01/2022 Allow for content tier to set errorrs further down in sandbox for example
     return new TierClassification<>(mediaTier, contentTierBreakdown);
-  }
-
-  public static class MediaTierWithLicense {
-
-    private final MediaTier tier;
-    private final LicenseType licenseType;
-
-    public MediaTierWithLicense(MediaTier tier, LicenseType licenseType) {
-      this.tier = tier;
-      this.licenseType = licenseType;
-    }
-
-    public MediaTier getTier() {
-      return tier;
-    }
-
-    public LicenseType getLicenseType() {
-      return licenseType;
-    }
   }
 
   /**
@@ -107,9 +88,9 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     final MediaTier mediaTier = Tier.min(resourceTier, maxLicense.getMediaTier());
 
     //Verify and prepare builder with resolution initialized data
-    final ResolutionTierMetadataData resolutionTierMetadataData = extractResolutionTierMetadata(webResource, resourceTier);
+    final ResolutionTierMetadata resolutionTierMetadata = extractResolutionTierMetadata(webResource, resourceTier);
     final MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder = new MediaResourceTechnicalMetadataBuilder(
-        resolutionTierMetadataData);
+        resolutionTierMetadata);
 
     //Set common fields
     mediaResourceTechnicalMetadataBuilder.setResourceUrl(webResource.getAbout())
@@ -119,7 +100,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
                                          .setLicenseType(webResource.getLicenseType())
                                          .setMediaTier(mediaTier);
 
-    return mediaResourceTechnicalMetadataBuilder.createMediaResourceTechnicalMetadata();
+    return mediaResourceTechnicalMetadataBuilder.build();
   }
 
   /**
@@ -154,7 +135,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
    */
   abstract MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia);
 
-  abstract ResolutionTierMetadataData extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier);
+  abstract ResolutionTierMetadata extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier);
 
   abstract MediaType getMediaType();
 }

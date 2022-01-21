@@ -14,8 +14,8 @@ import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.tiers.view.ProcessingError;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
-import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
-import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.metis.schema.jibx.PlaceType;
@@ -41,7 +41,7 @@ public class FakeTierCalculationProvider {
     recordTierCalculationSummary.setPortalRecordLink("https://example.com");
     recordTierCalculationSummary.setHarvestedRecordLink("https://example.com");
 
-    final ResolutionTierMetadataData resolutionTierData = new ResolutionTierPreInitializationBuilder().createResolutionTierData();
+    final ResolutionTierMetadata resolutionTierData = new ResolutionTierMetadataBuilder().build();
     final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata =
         new MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder(resolutionTierData)
             .setResourceUrl("https://example.com")
@@ -52,7 +52,7 @@ public class FakeTierCalculationProvider {
                 LicenseType.RESTRICTED)
             .setMediaTier(
                 MediaTier.T1)
-            .createMediaResourceTechnicalMetadata();
+            .build();
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,
         true, true, Collections.singletonList(mediaResourceTechnicalMetadata));
     final ProcessingError processingError1 = new ProcessingError("Error1", "Stacktrace1");

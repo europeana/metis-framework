@@ -49,7 +49,6 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
   @Override
   public TierClassification<MediaTier, ContentTierBreakdown> classify(RdfWrapper entity) {
     final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier = getDeferredClassifier(entity.getEdmType());
-    // TODO: 20/01/2022 Is this initialized correctly?
     if (deferredClassifier == null) {
       return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown(null, null, false,
           false, false, Collections.emptyList()));
