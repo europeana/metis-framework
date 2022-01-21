@@ -1,7 +1,8 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -28,8 +29,7 @@ class VideoClassifier extends AbstractMediaClassifier {
   }
 
   @Override
-  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia, ResolutionTierPreInitializationBuilder resolutionTierPreInitializationBuilder) {
+  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
     // Check mime type.
     final boolean hasVideoMimeType = webResource.getMediaType() == MediaType.VIDEO;
@@ -43,13 +43,16 @@ class VideoClassifier extends AbstractMediaClassifier {
     } else {
       mediaTier = MediaTier.T0;
     }
-    //Extend builder
-    resolutionTierPreInitializationBuilder.setVerticalResolution(webResource.getHeight())
-                                          .setVerticalResolutionTier(mediaTier);
 
-    // Done.
     return mediaTier;
   }
+
+  @Override
+  ResolutionTierMetadataData extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier) {
+    return new ResolutionTierPreInitializationBuilder().setVerticalResolution(webResource.getHeight())
+                                                       .setVerticalResolutionTier(mediaTier).createResolutionTierData();
+  }
+
 
   @Override
   MediaType getMediaType() {

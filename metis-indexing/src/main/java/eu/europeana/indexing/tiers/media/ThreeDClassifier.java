@@ -1,7 +1,8 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -27,11 +28,15 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   }
 
   @Override
-  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia, ResolutionTierPreInitializationBuilder resolutionTierPreInitializationBuilder) {
+  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
     // T2-T4 if there is a mime type (any whatsoever), T0 otherwise.
     return StringUtils.isNotBlank(webResource.getMimeType()) ? MediaTier.T4 : MediaTier.T0;
+  }
+
+  @Override
+  ResolutionTierMetadataData extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier) {
+    return new ResolutionTierPreInitializationBuilder().createResolutionTierData();
   }
 
   @Override

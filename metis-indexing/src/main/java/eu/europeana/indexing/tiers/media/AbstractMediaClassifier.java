@@ -6,7 +6,7 @@ import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
-import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
@@ -101,15 +101,16 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
       boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
     // Perform the classification on the basis of the media.
-    final ResolutionTierPreInitializationBuilder resolutionTierPreInitializationBuilder = new ResolutionTierPreInitializationBuilder();
-    final MediaTier resourceTier = classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia,
-        resolutionTierPreInitializationBuilder);
+    final MediaTier resourceTier = classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia);
     final LicenseType maxLicense = LicenseType.getLicenseBinaryOperator().apply(entityLicense, webResource.getLicenseType());
     // Lower the media tier if forced by the license - find the minimum of the two.
     final MediaTier mediaTier = Tier.min(resourceTier, maxLicense.getMediaTier());
 
     //Verify and prepare builder with resolution initialized data
-    final MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder = resolutionTierPreInitializationBuilder.createMediaResourceTechnicalMetadataBuilder();
+    final ResolutionTierMetadataData resolutionTierMetadataData = extractResolutionTierMetadata(webResource, resourceTier);
+    final MediaResourceTechnicalMetadataBuilder mediaResourceTechnicalMetadataBuilder = new MediaResourceTechnicalMetadataBuilder(
+        resolutionTierMetadataData);
+
     //Set common fields
     mediaResourceTechnicalMetadataBuilder.setResourceUrl(webResource.getAbout())
                                          .setMediaType(webResource.getMediaType())
@@ -151,8 +152,9 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
    * @param hasLandingPage Whether the entity has a landing page.
    * @return The classification.
    */
-  abstract MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia, ResolutionTierPreInitializationBuilder resolutionTierPreInitializationBuilder);
+  abstract MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia);
+
+  abstract ResolutionTierMetadataData extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier);
 
   abstract MediaType getMediaType();
 }

@@ -1,7 +1,8 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -30,8 +31,7 @@ class ImageClassifier extends AbstractMediaClassifier {
   }
 
   @Override
-  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia, ResolutionTierPreInitializationBuilder resolutionTierPreInitializationBuilder) {
+  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
     // Check media type.
     if (webResource.getMediaType() != MediaType.IMAGE) {
@@ -50,11 +50,14 @@ class ImageClassifier extends AbstractMediaClassifier {
     } else {
       mediaTier = MediaTier.T0;
     }
-    //Extend builder
-    resolutionTierPreInitializationBuilder.setImageResolution(webResource.getSize())
-                                          .setImageResolutionTier(mediaTier);
 
     return mediaTier;
+  }
+
+  @Override
+  ResolutionTierMetadataData extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier) {
+    return new ResolutionTierPreInitializationBuilder().setImageResolution(webResource.getSize())
+                                                       .setImageResolutionTier(mediaTier).createResolutionTierData();
   }
 
   @Override

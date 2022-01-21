@@ -10,11 +10,12 @@ import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
 import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
-import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.tiers.view.ProcessingError;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadataData.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.metis.schema.jibx.PlaceType;
@@ -40,21 +41,18 @@ public class FakeTierCalculationProvider {
     recordTierCalculationSummary.setPortalRecordLink("https://example.com");
     recordTierCalculationSummary.setHarvestedRecordLink("https://example.com");
 
+    final ResolutionTierMetadataData resolutionTierData = new ResolutionTierPreInitializationBuilder().createResolutionTierData();
     final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata =
-        new ResolutionTierPreInitializationBuilder().setImageResolution(100_000L)
-                                                    .setImageResolutionTier(MediaTier.T1)
-                                                    .setVerticalResolution(0L)
-                                                    .setVerticalResolutionTier(null)
-                                                    .createMediaResourceTechnicalMetadataBuilder()
-                                                    .setResourceUrl("https://example.com")
-                                                    .setMediaType(MediaType.getMediaType("image/jpeg"))
-                                                    .setMimeType("image/jpeg")
-                                                    .setElementLinkTypes(Set.of(WebResourceLinkType.IS_SHOWN_AT))
-                                                    .setLicenseType(
-                                                        LicenseType.RESTRICTED)
-                                                    .setMediaTier(
-                                                        MediaTier.T1)
-                                                    .createMediaResourceTechnicalMetadata();
+        new MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder(resolutionTierData)
+            .setResourceUrl("https://example.com")
+            .setMediaType(MediaType.getMediaType("image/jpeg"))
+            .setMimeType("image/jpeg")
+            .setElementLinkTypes(Set.of(WebResourceLinkType.IS_SHOWN_AT))
+            .setLicenseType(
+                LicenseType.RESTRICTED)
+            .setMediaTier(
+                MediaTier.T1)
+            .createMediaResourceTechnicalMetadata();
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,
         true, true, Collections.singletonList(mediaResourceTechnicalMetadata));
     final ProcessingError processingError1 = new ProcessingError();

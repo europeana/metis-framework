@@ -8,7 +8,6 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.ResolutionTierPreInitializationBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -82,13 +81,9 @@ class ImageClassifierTest {
   }
 
   private void testClassifyWebResource(WebResourceWrapper webResource, MediaTier expectedTier) {
-    assertEquals(expectedTier,
-        classifier.classifyWebResource(webResource, false, false, new ResolutionTierPreInitializationBuilder()));
-    assertEquals(expectedTier,
-        classifier.classifyWebResource(webResource, true, false, new ResolutionTierPreInitializationBuilder()));
-    assertEquals(expectedTier,
-        classifier.classifyWebResource(webResource, false, true, new ResolutionTierPreInitializationBuilder()));
-    assertEquals(expectedTier,
-        classifier.classifyWebResource(webResource, true, true, new ResolutionTierPreInitializationBuilder()));
+    assertEquals(expectedTier, classifier.classifyWebResource(webResource, false, false));
+    assertEquals(expectedTier, classifier.classifyWebResource(webResource, true, false));
+    assertEquals(expectedTier, classifier.classifyWebResource(webResource, false, true));
+    assertEquals(expectedTier, classifier.classifyWebResource(webResource, true, true));
   }
 }
