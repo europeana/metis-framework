@@ -55,13 +55,10 @@ public class FakeTierCalculationProvider {
             .createMediaResourceTechnicalMetadata();
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,
         true, true, Collections.singletonList(mediaResourceTechnicalMetadata));
-    final ProcessingError processingError1 = new ProcessingError();
-    processingError1.setErrorMessage("Error1");
-    processingError1.setErrorCode(404);
-    final ProcessingError processingError2 = new ProcessingError();
-    processingError2.setErrorMessage("Error2");
-    processingError2.setErrorCode(500);
-    contentTierBreakdown.setProcessingErrorsList(List.of(processingError1, processingError2));
+    final ProcessingError processingError1 = new ProcessingError("Error1", "Stacktrace1");
+    final ProcessingError processingError2 = new ProcessingError("Error2", "Stacktrace2");
+    final ContentTierBreakdown contentTierBreakdownWithErrors = new ContentTierBreakdown(contentTierBreakdown,
+        List.of(processingError1, processingError2));
 
     final LanguageBreakdown languageBreakdown = new LanguageBreakdown(42,
         List.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()),
@@ -76,7 +73,7 @@ public class FakeTierCalculationProvider {
         contextualClassesBreakdown);
 
     return new RecordTierCalculationView(recordTierCalculationSummary,
-        contentTierBreakdown, metadataTierBreakdown);
+        contentTierBreakdownWithErrors, metadataTierBreakdown);
   }
 
 }

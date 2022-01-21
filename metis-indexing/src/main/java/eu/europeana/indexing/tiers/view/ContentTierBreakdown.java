@@ -13,11 +13,24 @@ public class ContentTierBreakdown {
   private final boolean landingPageAvailable;
   private final boolean embeddableMediaAvailable;
   private final List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList;
-  private List<ProcessingError> processingErrorsList;
+  private final List<ProcessingError> processingErrorsList;
 
   public ContentTierBreakdown(MediaType recordType, LicenseType licenseType, boolean thumbnailAvailable,
       boolean landingPageAvailable, boolean embeddableMediaAvailable,
       List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList) {
+    this(recordType, licenseType, thumbnailAvailable, landingPageAvailable, embeddableMediaAvailable,
+        mediaResourceTechnicalMetadataList, null);
+  }
+
+  public ContentTierBreakdown(ContentTierBreakdown contentTierBreakdown, List<ProcessingError> processingErrorsList) {
+    this(contentTierBreakdown.getRecordType(), contentTierBreakdown.getLicenseType(), contentTierBreakdown.isThumbnailAvailable(),
+        contentTierBreakdown.isLandingPageAvailable(), contentTierBreakdown.isEmbeddableMediaAvailable(),
+        contentTierBreakdown.mediaResourceTechnicalMetadataList, processingErrorsList);
+  }
+
+  private ContentTierBreakdown(MediaType recordType, LicenseType licenseType, boolean thumbnailAvailable,
+      boolean landingPageAvailable, boolean embeddableMediaAvailable,
+      List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList, List<ProcessingError> processingErrorsList) {
     this.recordType = recordType;
     this.licenseType = licenseType;
     this.thumbnailAvailable = thumbnailAvailable;
@@ -25,6 +38,7 @@ public class ContentTierBreakdown {
     this.embeddableMediaAvailable = embeddableMediaAvailable;
     this.mediaResourceTechnicalMetadataList =
         mediaResourceTechnicalMetadataList == null ? new ArrayList<>() : new ArrayList<>(mediaResourceTechnicalMetadataList);
+    this.processingErrorsList = processingErrorsList == null ? new ArrayList<>() : new ArrayList<>(processingErrorsList);
   }
 
   public MediaType getRecordType() {
@@ -53,10 +67,6 @@ public class ContentTierBreakdown {
 
   public List<ProcessingError> getProcessingErrorsList() {
     return processingErrorsList;
-  }
-
-  public void setProcessingErrorsList(List<ProcessingError> processingErrorsList) {
-    this.processingErrorsList = processingErrorsList;
   }
 }
 
