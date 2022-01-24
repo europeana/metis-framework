@@ -9,6 +9,7 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.metis.schema.model.MediaType;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -92,7 +93,7 @@ public final class MediaResourceTechnicalMetadata {
     private String resourceUrl;
     private MediaType mediaType;
     private String mimeType;
-    private Set<WebResourceLinkType> elementLinkTypes;
+    private Set<WebResourceLinkType> elementLinkTypes = Collections.emptySet();
     private LicenseType licenseType;
     private MediaTier mediaTier;
     private final ResolutionTierMetadata resolutionTierMetadata;
@@ -122,7 +123,7 @@ public final class MediaResourceTechnicalMetadata {
     }
 
     public MediaResourceTechnicalMetadataBuilder setElementLinkTypes(Set<WebResourceLinkType> elementLinkTypes) {
-      this.elementLinkTypes = elementLinkTypes == null ? new HashSet<>() : new HashSet<>(elementLinkTypes);
+      this.elementLinkTypes = elementLinkTypes == null ? this.elementLinkTypes : new HashSet<>(elementLinkTypes);
       return this;
     }
 
@@ -151,7 +152,6 @@ public final class MediaResourceTechnicalMetadata {
 
       return new MediaResourceTechnicalMetadata(resourceUrl, mediaType, mimeType, elementLinkTypes, licenseType, mediaTier,
           resolutionTierMetadata);
-
     }
   }
 }

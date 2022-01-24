@@ -22,6 +22,13 @@ class MediaTypeTest {
     assertEquals(MediaType.OTHER, MediaType.getMediaType("application/xhtml"));
     assertEquals(MediaType.OTHER, MediaType.getMediaType("unknown_type"));
     assertEquals(MediaType.OTHER, MediaType.getMediaType(null));
+
+    assertEquals("AUDIO", MediaType.AUDIO.toString());
+    assertEquals("VIDEO", MediaType.VIDEO.toString());
+    assertEquals("TEXT", MediaType.TEXT.toString());
+    assertEquals("IMAGE", MediaType.IMAGE.toString());
+    assertEquals("3D", MediaType.THREE_D.toString());
+    assertEquals("OTHER", MediaType.OTHER.toString());
   }
 }
 

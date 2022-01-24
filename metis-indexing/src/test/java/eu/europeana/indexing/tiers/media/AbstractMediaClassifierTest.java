@@ -1,7 +1,6 @@
 package eu.europeana.indexing.tiers.media;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -129,10 +128,10 @@ class AbstractMediaClassifierTest {
     doReturn(Set.of("http://soundcloud.com/")).when(entity).getUrlsOfTypes(Set.of(WebResourceLinkType.IS_SHOWN_BY));
 
     // Create web resources.
-    doReturn(mediaResourceTechnicalMetadata1).when(classifier).classifyWebResourceAndLicense(eq(resource1), eq(entityLicense),
-        eq(hasLandingPage), eq(true));
-    doReturn(mediaResourceTechnicalMetadata2).when(classifier).classifyWebResourceAndLicense(eq(resource2), eq(entityLicense),
-        eq(hasLandingPage), eq(true));
+    doReturn(mediaResourceTechnicalMetadata1).when(classifier)
+                                             .classifyWebResourceAndLicense(resource1, entityLicense, hasLandingPage, true);
+    doReturn(mediaResourceTechnicalMetadata2).when(classifier)
+                                             .classifyWebResourceAndLicense(resource2, entityLicense, hasLandingPage, true);
     assertEquals(MediaTier.T4, classifier.classify(entity).getTier());
   }
 

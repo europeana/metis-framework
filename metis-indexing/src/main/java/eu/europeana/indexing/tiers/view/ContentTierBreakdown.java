@@ -37,7 +37,7 @@ public class ContentTierBreakdown {
 
   /**
    * Constructor with required parameters.
-   * <p>It create a copy of the content tier breakdown extended with the processing errors list.</p>
+   * <p>It creates a copy of the content tier breakdown extended with the processing errors list.</p>
    *
    * @param contentTierBreakdown the content tier breakdown
    * @param processingErrorsList the processing errors list

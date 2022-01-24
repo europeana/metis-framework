@@ -19,14 +19,14 @@ class ImageClassifier extends AbstractMediaClassifier {
   @Override
   MediaTier preClassifyEntity(RdfWrapper entity) {
 
-    // If the entity has no thumbnails, it can only be tier 0.
+    // If the entity has no thumbnails, it can only be tiered 0.
     return entity.hasThumbnails() ? null : MediaTier.T0;
   }
 
   @Override
   MediaTier classifyEntityWithoutWebResources(RdfWrapper entity, boolean hasLandingPage) {
 
-    // A record without suitable web resources has tier 0.
+    // A record without suitable web resources is tier 0.
     return MediaTier.T0;
   }
 

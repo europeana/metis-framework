@@ -5,8 +5,6 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.metis.schema.jibx.Rights1;
 import java.util.Comparator;
 import java.util.function.BinaryOperator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This enum contains licenses for reuse.
@@ -27,7 +25,6 @@ public enum LicenseType {
    */
   OPEN(2, MediaTier.T4);
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(LicenseType.class);
   private final int order;
   private final MediaTier mediaTier;
 
@@ -57,15 +54,11 @@ public enum LicenseType {
 
     // Analyze the results.
     final LicenseType result;
-    if (open == 0 && restricted == 0) {
-      result = CLOSED;
+    if (open == 1 && restricted == 0) {
+      result = OPEN;
     } else if (open == 0 && restricted == 1) {
       result = RESTRICTED;
-    } else if (open == 1 && restricted == 0) {
-      result = OPEN;
     } else {
-      LOGGER.warn("Impossible combination of open and restricted counts: {} and {} respectively.",
-          open, restricted);
       result = CLOSED;
     }
 
