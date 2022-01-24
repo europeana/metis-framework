@@ -42,6 +42,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <artifactId>jackson-annotations</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${version.jackson}</version>
+    </dependency>
     <!-- JIBX dependencies -->
     <dependency>
       <groupId>org.jibx</groupId>

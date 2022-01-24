@@ -46,6 +46,6 @@ public interface Tier {
    * @return The comparator.
    */
   static <T extends Tier> Comparator<T> getComparator() {
-    return Comparator.comparing(T::getLevel);
+    return Comparator.comparingInt(T::getLevel);
   }
 }

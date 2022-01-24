@@ -250,6 +250,6 @@ public class WebResourceWrapper {
    */
   public LicenseType getLicenseType() {
     return Optional.of(webResource).map(WebResourceType::getRights).map(LicenseType::getLicenseType)
-        .orElse(null);
+                   .orElse(LicenseType.CLOSED);
   }
 }

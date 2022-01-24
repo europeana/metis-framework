@@ -7,11 +7,13 @@ import eu.europeana.indexing.exception.TierCalculationException;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.view.ProcessingError;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationSummary;
 import eu.europeana.indexing.tiers.view.RecordTierCalculationView;
 import eu.europeana.indexing.utils.TestUtils;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -28,8 +30,13 @@ class RecordTierCalculationViewGeneratorTest {
     final Tier metadataTier = MetadataTier.TB;
     final String providerRecordLink = "https://example-record-link.com";
     final String portalRecordLink = "https://example-portal-record-link.com";
-    final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator = new RecordTierCalculationViewGenerator(
-        europeanaId, providerId, europeanaRecordString, portalRecordLink, providerRecordLink);
+    final ProcessingError processingError1 = new ProcessingError("Error1", "Stacktrace1");
+    final ProcessingError processingError2 = new ProcessingError("Error2", "Stacktrace2");
+
+    final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator =
+        new RecordTierCalculationViewGenerator(
+            europeanaId, providerId, europeanaRecordString, portalRecordLink, providerRecordLink,
+            List.of(processingError1, processingError2));
 
     final RecordTierCalculationView recordTierCalculationView = recordTierCalculationViewGenerator.generate();
     final RecordTierCalculationSummary recordTierCalculationSummary = recordTierCalculationView.getRecordTierCalculationSummary();
@@ -46,7 +53,7 @@ class RecordTierCalculationViewGeneratorTest {
   @Test
   void generateThrowsTierCalculationException() {
     final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator = Mockito.spy(
-        new RecordTierCalculationViewGenerator("", "", "", "", ""));
+        new RecordTierCalculationViewGenerator("", "", "", "", "", null));
     assertThrows(TierCalculationException.class, recordTierCalculationViewGenerator::generate);
   }
 }

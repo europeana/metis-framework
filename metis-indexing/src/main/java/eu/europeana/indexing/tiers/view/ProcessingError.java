@@ -1,26 +1,29 @@
 package eu.europeana.indexing.tiers.view;
 
+/**
+ * Class containing information about an error.
+ */
 public class ProcessingError {
 
-  private String errorMessage;
-  private int errorCode;
+  private final String errorMessage;
+  private final String stackTrace;
 
-  public ProcessingError() {
+  /**
+   * Constructor with required parameters.
+   *
+   * @param errorMessage the error message
+   * @param stackTrace the stack trace
+   */
+  public ProcessingError(String errorMessage, String stackTrace) {
+    this.errorMessage = errorMessage;
+    this.stackTrace = stackTrace;
   }
 
   public String getErrorMessage() {
     return errorMessage;
   }
 
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public int getErrorCode() {
-    return errorCode;
-  }
-
-  public void setErrorCode(int errorCode) {
-    this.errorCode = errorCode;
+  public String getStackTrace() {
+    return stackTrace;
   }
 }
