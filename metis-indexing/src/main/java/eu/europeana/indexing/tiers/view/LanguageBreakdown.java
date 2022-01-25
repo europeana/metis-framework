@@ -4,8 +4,8 @@ import static org.apache.commons.lang3.Validate.isTrue;
 
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierProvider;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The language breakdown
@@ -15,7 +15,7 @@ public class LanguageBreakdown implements TierProvider<Tier> {
   private final int qualifiedElements;
   private final int qualifiedElementsWithLanguage;
   private final float qualifiedElementsWithLanguagePercentage;
-  private final List<String> qualifiedElementsWithoutLanguageList;
+  private final Set<String> qualifiedElementsWithoutLanguageList;
   private final Tier tier;
 
   /**
@@ -26,9 +26,9 @@ public class LanguageBreakdown implements TierProvider<Tier> {
    * @param tier the tier for the breakdown
    */
   @SuppressWarnings("java:S2164") // We don't need double precision here
-  public LanguageBreakdown(int qualifiedElements, List<String> qualifiedElementsWithoutLanguageList, Tier tier) {
+  public LanguageBreakdown(int qualifiedElements, Set<String> qualifiedElementsWithoutLanguageList, Tier tier) {
     this.qualifiedElementsWithoutLanguageList =
-        qualifiedElementsWithoutLanguageList == null ? new ArrayList<>() : new ArrayList<>(qualifiedElementsWithoutLanguageList);
+        qualifiedElementsWithoutLanguageList == null ? new HashSet<>() : new HashSet<>(qualifiedElementsWithoutLanguageList);
 
     //Sanity check
     isTrue(qualifiedElements >= this.qualifiedElementsWithoutLanguageList.size());
@@ -51,8 +51,8 @@ public class LanguageBreakdown implements TierProvider<Tier> {
     return qualifiedElementsWithLanguagePercentage;
   }
 
-  public List<String> getQualifiedElementsWithoutLanguageList() {
-    return new ArrayList<>(qualifiedElementsWithoutLanguageList);
+  public Set<String> getQualifiedElementsWithoutLanguageList() {
+    return new HashSet<>(qualifiedElementsWithoutLanguageList);
   }
 
   @Override

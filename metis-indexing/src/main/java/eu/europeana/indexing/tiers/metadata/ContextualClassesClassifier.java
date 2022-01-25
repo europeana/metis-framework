@@ -17,7 +17,6 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +60,7 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
     }
 
     return new ContextualClassesBreakdown(contextualClassesStatistics.getCompleteContextualResources(),
-        new ArrayList<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier);
+        new HashSet<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier);
   }
 
   static class ContextualClassesStatistics {

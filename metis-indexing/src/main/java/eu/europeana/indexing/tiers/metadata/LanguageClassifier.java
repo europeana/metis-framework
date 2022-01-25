@@ -41,7 +41,7 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
     final MetadataTier metadataTier = calculateMetadataTier(languageTagStatistics.getPropertiesWithLanguageRatio());
 
     return new LanguageBreakdown(qualifiedProperties.size(),
-        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::name).collect(Collectors.toList()), metadataTier);
+        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::name).collect(Collectors.toSet()), metadataTier);
   }
 
   @NotNull

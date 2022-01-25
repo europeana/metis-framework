@@ -35,14 +35,12 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     final EnablingElementInventory inventory = performEnablingElementInventory(entity);
 
     final MetadataTier metadataTier = calculateMetadataTier(inventory);
-    final List<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::name)
-                                                               .collect(Collectors.toList());
-    final List<String> metadataGroupsList = inventory.getGroups().stream().map(EnablingElementGroup::name)
-                                                     .collect(Collectors.toList());
+    final Set<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::name)
+                                                              .collect(Collectors.toSet());
+    final Set<String> metadataGroupsList = inventory.getGroups().stream().map(EnablingElementGroup::name)
+                                                    .collect(Collectors.toSet());
 
-    return new EnablingElementsBreakdown(distinctEnablingElementsList,
-        metadataGroupsList,
-        metadataTier);
+    return new EnablingElementsBreakdown(distinctEnablingElementsList, metadataGroupsList, metadataTier);
   }
 
   @NotNull

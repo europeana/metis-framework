@@ -7,7 +7,7 @@ import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class MetadataTierBreakdownTest {
@@ -19,12 +19,12 @@ class MetadataTierBreakdownTest {
     assertNull(metadataTierBreakdown.getEnablingElements());
     assertNull(metadataTierBreakdown.getContextualClasses());
 
-    final LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, List.of(PropertyType.DC_COVERAGE.name(),
+    final LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, Set.of(PropertyType.DC_COVERAGE.name(),
         PropertyType.DC_DESCRIPTION.name()), MetadataTier.TC);
     EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(null, null,
         MetadataTier.TC);
     final ContextualClassesBreakdown contextualClassesBreakdown = new ContextualClassesBreakdown(5,
-        List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), MetadataTier.TC);
+        Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), MetadataTier.TC);
 
     metadataTierBreakdown = new MetadataTierBreakdown(languageBreakdown, enablingElementsBreakdown, contextualClassesBreakdown);
     assertNotNull(metadataTierBreakdown.getLanguageBreakdown());

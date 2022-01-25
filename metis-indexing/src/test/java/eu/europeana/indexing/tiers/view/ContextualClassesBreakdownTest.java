@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import java.util.List;
+import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class ContextualClassesBreakdownTest {
     assertEquals(0, contextualClassesBreakdown.getCompleteContextualResources());
     assertEquals(0, contextualClassesBreakdown.getDistinctClassesList().size());
 
-    final List<String> distinctClassesList = List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
+    final Set<String> distinctClassesList = Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
     final int completeContextualResources = 5;
     contextualClassesBreakdown = new ContextualClassesBreakdown(completeContextualResources,
         distinctClassesList, metadataTier);

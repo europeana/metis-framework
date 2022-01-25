@@ -2,8 +2,8 @@ package eu.europeana.indexing.tiers.view;
 
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierProvider;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The contextual classes breakdown
@@ -11,7 +11,7 @@ import java.util.List;
 public class ContextualClassesBreakdown implements TierProvider<Tier> {
 
   private final int completeContextualResources;
-  private final List<String> distinctClassesList;
+  private final Set<String> distinctClassesList;
   private final Tier tier;
 
   /**
@@ -21,9 +21,9 @@ public class ContextualClassesBreakdown implements TierProvider<Tier> {
    * @param distinctClassesList the distinct classes list
    * @param tier the tier for the breakdown
    */
-  public ContextualClassesBreakdown(int completeContextualResources, List<String> distinctClassesList, Tier tier) {
+  public ContextualClassesBreakdown(int completeContextualResources, Set<String> distinctClassesList, Tier tier) {
     this.completeContextualResources = completeContextualResources;
-    this.distinctClassesList = distinctClassesList == null ? new ArrayList<>() : new ArrayList<>(distinctClassesList);
+    this.distinctClassesList = distinctClassesList == null ? new HashSet<>() : new HashSet<>(distinctClassesList);
     this.tier = tier;
   }
 
@@ -31,8 +31,8 @@ public class ContextualClassesBreakdown implements TierProvider<Tier> {
     return completeContextualResources;
   }
 
-  public List<String> getDistinctClassesList() {
-    return new ArrayList<>(distinctClassesList);
+  public Set<String> getDistinctClassesList() {
+    return new HashSet<>(distinctClassesList);
   }
 
   @Override

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import eu.europeana.indexing.tiers.metadata.EnablingElement;
 import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.indexing.tiers.model.MetadataTier;
-import java.util.List;
+import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +14,9 @@ class EnablingElementsBreakdownTest {
 
   @Test
   void objectCreationTest() {
-    final List<String> distinctEnablingElementsList = List.of(EnablingElement.DC_CREATOR.name(),
+    final Set<String> distinctEnablingElementsList = Set.of(EnablingElement.DC_CREATOR.name(),
         EnablingElement.EDM_CURRENT_LOCATION.name());
-    final List<String> metadataGroupsList = List.of(EnablingElementGroup.PERSONAL.name(),
+    final Set<String> metadataGroupsList = Set.of(EnablingElementGroup.PERSONAL.name(),
         EnablingElementGroup.GEOGRAPHICAL.name());
     final MetadataTier metadataTier = MetadataTier.TC;
 

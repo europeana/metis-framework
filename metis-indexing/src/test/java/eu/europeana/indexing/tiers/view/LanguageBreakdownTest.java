@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
-import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class LanguageBreakdownTest {
 
   @Test
   void objectCreationTest() {
-    final List<String> qualifiedElementsWithoutLanguage = List.of(PropertyType.DC_COVERAGE.name(),
+    final Set<String> qualifiedElementsWithoutLanguage = Set.of(PropertyType.DC_COVERAGE.name(),
         PropertyType.DC_DESCRIPTION.name());
     final MetadataTier metadataTier = MetadataTier.TC;
     assertThrows(IllegalArgumentException.class, () -> new LanguageBreakdown(0, qualifiedElementsWithoutLanguage, metadataTier));

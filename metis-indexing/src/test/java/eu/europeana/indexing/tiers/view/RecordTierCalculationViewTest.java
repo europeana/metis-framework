@@ -14,7 +14,6 @@ import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -22,13 +21,13 @@ class RecordTierCalculationViewTest {
 
   @Test
   void objectCreationTest() {
-    final LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, List.of(PropertyType.DC_COVERAGE.name(),
+    final LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, Set.of(PropertyType.DC_COVERAGE.name(),
         PropertyType.DC_DESCRIPTION.name()), MetadataTier.TC);
-    EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(List.of(EnablingElement.DC_CREATOR.name(),
-        EnablingElement.EDM_CURRENT_LOCATION.name()), List.of(EnablingElementGroup.PERSONAL.name(),
+    EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(Set.of(EnablingElement.DC_CREATOR.name(),
+        EnablingElement.EDM_CURRENT_LOCATION.name()), Set.of(EnablingElementGroup.PERSONAL.name(),
         EnablingElementGroup.GEOGRAPHICAL.name()),
         MetadataTier.TC);
-    final List<String> distinctClassesList = List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
+    final Set<String> distinctClassesList = Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
     final int completeContextualResources = 5;
     ContextualClassesBreakdown contextualClassesBreakdown = new ContextualClassesBreakdown(completeContextualResources,
         distinctClassesList, MetadataTier.TC);

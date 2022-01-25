@@ -2,16 +2,16 @@ package eu.europeana.indexing.tiers.view;
 
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierProvider;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The enabling elements breakdown
  */
 public class EnablingElementsBreakdown implements TierProvider<Tier> {
 
-  private final List<String> distinctEnablingElementsList;
-  private final List<String> metadataGroupsList;
+  private final Set<String> distinctEnablingElementsList;
+  private final Set<String> metadataGroupsList;
   private final Tier tier;
 
   /**
@@ -21,20 +21,20 @@ public class EnablingElementsBreakdown implements TierProvider<Tier> {
    * @param metadataGroupsList the metadata groups list
    * @param tier the tier for the breakdown
    */
-  public EnablingElementsBreakdown(List<String> distinctEnablingElementsList, List<String> metadataGroupsList,
+  public EnablingElementsBreakdown(Set<String> distinctEnablingElementsList, Set<String> metadataGroupsList,
       Tier tier) {
     this.distinctEnablingElementsList =
-        distinctEnablingElementsList == null ? new ArrayList<>() : new ArrayList<>(distinctEnablingElementsList);
-    this.metadataGroupsList = metadataGroupsList == null ? new ArrayList<>() : new ArrayList<>(metadataGroupsList);
+        distinctEnablingElementsList == null ? new HashSet<>() : new HashSet<>(distinctEnablingElementsList);
+    this.metadataGroupsList = metadataGroupsList == null ? new HashSet<>() : new HashSet<>(metadataGroupsList);
     this.tier = tier;
   }
 
-  public List<String> getDistinctEnablingElementsList() {
-    return new ArrayList<>(distinctEnablingElementsList);
+  public Set<String> getDistinctEnablingElementsList() {
+    return new HashSet<>(distinctEnablingElementsList);
   }
 
-  public List<String> getMetadataGroupsList() {
-    return new ArrayList<>(metadataGroupsList);
+  public Set<String> getMetadataGroupsList() {
+    return new HashSet<>(metadataGroupsList);
   }
 
   @Override

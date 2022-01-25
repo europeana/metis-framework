@@ -19,7 +19,7 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class MetadataClassifierTest {
@@ -43,12 +43,12 @@ public class MetadataClassifierTest {
     assertThrows(NullPointerException.class, () -> new MetadataClassifier(languageClassifier, enablingElementsClassifier, null));
 
     when(languageClassifier.classifyBreakdown(testEntity)).thenReturn(new LanguageBreakdown(2,
-        List.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()), lowTier));
+        Set.of(PropertyType.DC_COVERAGE.name(), PropertyType.DC_DESCRIPTION.name()), lowTier));
     when(enablingElementsClassifier.classifyBreakdown(testEntity)).thenReturn(
-        new EnablingElementsBreakdown(Collections.emptyList(), Collections.emptyList(), middleTier));
+        new EnablingElementsBreakdown(Collections.emptySet(), Collections.emptySet(), middleTier));
     when(contextualClassesClassifier.classifyBreakdown(testEntity)).thenReturn(
         new ContextualClassesBreakdown(5,
-            List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), highTier));
+            Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), highTier));
 
     final TierClassification<Tier, MetadataTierBreakdown> metadataTierClassification = new MetadataClassifier(
         languageClassifier, enablingElementsClassifier, contextualClassesClassifier).classify(testEntity);
