@@ -9,7 +9,6 @@ public class RecordTierCalculationSummary {
   private Tier contentTier;
   private Tier metadataTier;
   private String portalRecordLink;
-  private String harvestedRecordLink;
 
   public RecordTierCalculationSummary() {
   }
@@ -52,13 +51,5 @@ public class RecordTierCalculationSummary {
 
   public void setPortalRecordLink(String portalRecordLink) {
     this.portalRecordLink = portalRecordLink;
-  }
-
-  public String getHarvestedRecordLink() {
-    return harvestedRecordLink;
-  }
-
-  public void setHarvestedRecordLink(String harvestedRecordLink) {
-    this.harvestedRecordLink = harvestedRecordLink;
   }
 }

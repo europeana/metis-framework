@@ -26,7 +26,6 @@ public class RecordTierCalculationViewGenerator {
   private final String providerId;
   private final String stringRdf;
   private final String portalRecordLink;
-  private final String providerRecordLink;
   private final List<ProcessingError> processingErrors;
 
   /**
@@ -36,16 +35,14 @@ public class RecordTierCalculationViewGenerator {
    * @param providerId the provider id
    * @param stringRdf the rdf in string representation
    * @param portalRecordLink the portal record link
-   * @param providerRecordLink the provider record link
    * @param processingErrors the processing errors for the record if any
    */
   public RecordTierCalculationViewGenerator(String europeanaId, String providerId, String stringRdf, String portalRecordLink,
-      String providerRecordLink, List<ProcessingError> processingErrors) {
+      List<ProcessingError> processingErrors) {
     this.europeanaId = europeanaId;
     this.providerId = providerId;
     this.stringRdf = stringRdf;
     this.portalRecordLink = portalRecordLink;
-    this.providerRecordLink = providerRecordLink;
     this.processingErrors = CollectionUtils.isEmpty(processingErrors) ? new ArrayList<>() : new ArrayList<>(processingErrors);
   }
 
@@ -74,7 +71,6 @@ public class RecordTierCalculationViewGenerator {
       recordTierCalculationSummary.setContentTier(mediaTierClassification.getTier());
       recordTierCalculationSummary.setMetadataTier(metadataTierClassification.getTier());
       recordTierCalculationSummary.setPortalRecordLink(portalRecordLink);
-      recordTierCalculationSummary.setHarvestedRecordLink(providerRecordLink);
 
       final ContentTierBreakdown mediaTierClassificationWithErrors = new ContentTierBreakdown(
           mediaTierClassification.getClassification(), processingErrors);

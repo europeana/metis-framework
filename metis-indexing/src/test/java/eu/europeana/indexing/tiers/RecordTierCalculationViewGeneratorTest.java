@@ -28,14 +28,12 @@ class RecordTierCalculationViewGeneratorTest {
     final String providerId = "providerId";
     final Tier contentTier = MediaTier.T2;
     final Tier metadataTier = MetadataTier.TB;
-    final String providerRecordLink = "https://example-record-link.com";
     final String portalRecordLink = "https://example-portal-record-link.com";
     final ProcessingError processingError1 = new ProcessingError("Error1", "Stacktrace1");
     final ProcessingError processingError2 = new ProcessingError("Error2", "Stacktrace2");
 
     final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator =
-        new RecordTierCalculationViewGenerator(
-            europeanaId, providerId, europeanaRecordString, portalRecordLink, providerRecordLink,
+        new RecordTierCalculationViewGenerator(europeanaId, providerId, europeanaRecordString, portalRecordLink,
             List.of(processingError1, processingError2));
 
     final RecordTierCalculationView recordTierCalculationView = recordTierCalculationViewGenerator.generate();
@@ -45,15 +43,12 @@ class RecordTierCalculationViewGeneratorTest {
     assertEquals(contentTier, recordTierCalculationSummary.getContentTier());
     assertEquals(metadataTier, recordTierCalculationSummary.getMetadataTier());
     assertEquals(portalRecordLink, recordTierCalculationSummary.getPortalRecordLink());
-    assertEquals(providerRecordLink, recordTierCalculationSummary.getHarvestedRecordLink());
-
-    // TODO: 06/01/2022 Further checkups to add here when the rest of implementation is completed
   }
 
   @Test
   void generateThrowsTierCalculationException() {
     final RecordTierCalculationViewGenerator recordTierCalculationViewGenerator = Mockito.spy(
-        new RecordTierCalculationViewGenerator("", "", "", "", "", null));
+        new RecordTierCalculationViewGenerator("", "", "", "", null));
     assertThrows(TierCalculationException.class, recordTierCalculationViewGenerator::generate);
   }
 }
