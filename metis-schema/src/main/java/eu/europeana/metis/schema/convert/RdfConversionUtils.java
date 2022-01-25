@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.IntStream;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
@@ -43,6 +44,19 @@ public final class RdfConversionUtils {
     throw new IllegalStateException("No binding factory available.");
   }
 
+  public static String getQualifiedElementNameForClass(Class<?> objectClass) {
+    final int mappedClassIndex = IntStream.range(0, rdfBindingFactory.getMappedClasses().length).filter(
+                                              i -> rdfBindingFactory.getMappedClasses()[i].equals(objectClass.getCanonicalName()))
+                                          .findFirst().orElseThrow();
+    final String elementNamespace = rdfBindingFactory.getElementNamespaces()[mappedClassIndex];
+    final String elementName = rdfBindingFactory.getElementNames()[mappedClassIndex];
+    final int namespaceIndex = IntStream.range(0, rdfBindingFactory.getNamespaces().length)
+                                        .filter(i -> rdfBindingFactory.getNamespaces()[i].equals(elementNamespace))
+                                        .findFirst().orElseThrow();
+    final String prefix = rdfBindingFactory.getPrefixes()[namespaceIndex];
+    return String.format("%s:%s", prefix, elementName);
+  }
+
   /**
    * Convert an {@link RDF} to a UTF-8 encoded XML
    *
@@ -74,19 +88,20 @@ public final class RdfConversionUtils {
       return out.toByteArray();
     } catch (JiBXException e) {
       throw new SerializationException(
-              "Something went wrong with converting to or from the RDF format.", e);
+          "Something went wrong with converting to or from the RDF format.", e);
     }
   }
 
   /**
    * Convert a UTF-8 encoded XML to {@link RDF}
+   *
    * @param xml the xml string
    * @return the RDF object
    * @throws SerializationException if during unmarshalling there is a failure
    */
   public static RDF convertStringToRdf(String xml) throws SerializationException {
     try (final InputStream inputStream = new ByteArrayInputStream(
-            xml.getBytes(StandardCharsets.UTF_8))) {
+        xml.getBytes(StandardCharsets.UTF_8))) {
       return convertInputStreamToRdf(inputStream);
     } catch (IOException e) {
       throw new SerializationException("Unexpected issue with byte stream.", e);
@@ -95,6 +110,7 @@ public final class RdfConversionUtils {
 
   /**
    * Convert a UTF-8 encoded XML to {@link RDF}
+   *
    * @param inputStream The xml. The stream is not closed.
    * @return the RDF object
    * @throws SerializationException if during unmarshalling there is a failure
@@ -105,7 +121,7 @@ public final class RdfConversionUtils {
       return (RDF) context.unmarshalDocument(inputStream, UTF8);
     } catch (JiBXException e) {
       throw new SerializationException(
-              "Something went wrong with converting to or from the RDF format.", e);
+          "Something went wrong with converting to or from the RDF format.", e);
     }
   }
 }

@@ -5,6 +5,7 @@ import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,7 +42,9 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
     final MetadataTier metadataTier = calculateMetadataTier(languageTagStatistics.getPropertiesWithLanguageRatio());
 
     return new LanguageBreakdown(qualifiedProperties.size(),
-        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::name).collect(Collectors.toSet()), metadataTier);
+        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::getTypedClass)
+                                          .map(RdfConversionUtils::getQualifiedElementNameForClass).collect(Collectors.toSet()),
+        metadataTier);
   }
 
   @NotNull

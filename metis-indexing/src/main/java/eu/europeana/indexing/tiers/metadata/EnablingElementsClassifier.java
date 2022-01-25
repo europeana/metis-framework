@@ -5,6 +5,7 @@ import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
 import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     final EnablingElementInventory inventory = performEnablingElementInventory(entity);
 
     final MetadataTier metadataTier = calculateMetadataTier(inventory);
-    final Set<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::name)
+    final Set<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::getTypedClass)
+                                                              .map(RdfConversionUtils::getQualifiedElementNameForClass)
                                                               .collect(Collectors.toSet());
     final Set<String> metadataGroupsList = inventory.getGroups().stream().map(EnablingElementGroup::name)
                                                     .collect(Collectors.toSet());
