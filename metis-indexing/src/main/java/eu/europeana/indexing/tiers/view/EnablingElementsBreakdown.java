@@ -11,9 +11,7 @@ import java.util.List;
 public class EnablingElementsBreakdown implements TierProvider<Tier> {
 
   private final List<String> distinctEnablingElementsList;
-  private final int distinctEnablingElements;
   private final List<String> metadataGroupsList;
-  private final int metadataGroups;
   private final Tier tier;
 
   /**
@@ -27,22 +25,12 @@ public class EnablingElementsBreakdown implements TierProvider<Tier> {
       Tier tier) {
     this.distinctEnablingElementsList =
         distinctEnablingElementsList == null ? new ArrayList<>() : new ArrayList<>(distinctEnablingElementsList);
-    this.distinctEnablingElements = this.distinctEnablingElementsList.size();
     this.metadataGroupsList = metadataGroupsList == null ? new ArrayList<>() : new ArrayList<>(metadataGroupsList);
-    this.metadataGroups = this.metadataGroupsList.size();
     this.tier = tier;
-  }
-
-  public int getDistinctEnablingElements() {
-    return distinctEnablingElements;
   }
 
   public List<String> getDistinctEnablingElementsList() {
     return new ArrayList<>(distinctEnablingElementsList);
-  }
-
-  public int getMetadataGroups() {
-    return metadataGroups;
   }
 
   public List<String> getMetadataGroupsList() {

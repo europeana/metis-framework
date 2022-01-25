@@ -23,8 +23,6 @@ class EnablingElementsBreakdownTest {
     EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(null, null,
         metadataTier);
     assertEquals(0, enablingElementsBreakdown.getDistinctEnablingElementsList().size());
-    assertEquals(0, enablingElementsBreakdown.getDistinctEnablingElements());
-    assertEquals(0, enablingElementsBreakdown.getMetadataGroups());
     assertEquals(0, enablingElementsBreakdown.getMetadataGroupsList().size());
 
     enablingElementsBreakdown = new EnablingElementsBreakdown(distinctEnablingElementsList, metadataGroupsList,
@@ -32,9 +30,7 @@ class EnablingElementsBreakdownTest {
     assertTrue(
         CollectionUtils.isEqualCollection(distinctEnablingElementsList,
             enablingElementsBreakdown.getDistinctEnablingElementsList()));
-    assertEquals(distinctEnablingElementsList.size(), enablingElementsBreakdown.getDistinctEnablingElements());
     assertTrue(CollectionUtils.isEqualCollection(metadataGroupsList, enablingElementsBreakdown.getMetadataGroupsList()));
-    assertEquals(metadataGroupsList.size(), enablingElementsBreakdown.getMetadataGroups());
     assertEquals(metadataTier, enablingElementsBreakdown.getTier());
   }
 

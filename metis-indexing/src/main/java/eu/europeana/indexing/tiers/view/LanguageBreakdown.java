@@ -15,7 +15,6 @@ public class LanguageBreakdown implements TierProvider<Tier> {
   private final int qualifiedElements;
   private final int qualifiedElementsWithLanguage;
   private final float qualifiedElementsWithLanguagePercentage;
-  private final int qualifiedElementsWithoutLanguage;
   private final List<String> qualifiedElementsWithoutLanguageList;
   private final Tier tier;
 
@@ -37,7 +36,6 @@ public class LanguageBreakdown implements TierProvider<Tier> {
     this.qualifiedElementsWithLanguage = qualifiedElements - this.qualifiedElementsWithoutLanguageList.size();
     this.qualifiedElementsWithLanguagePercentage =
         (qualifiedElements == 0) ? 0F : ((qualifiedElementsWithLanguage * 100F) / qualifiedElements);
-    this.qualifiedElementsWithoutLanguage = this.qualifiedElementsWithoutLanguageList.size();
     this.tier = tier;
   }
 
@@ -51,10 +49,6 @@ public class LanguageBreakdown implements TierProvider<Tier> {
 
   public float getQualifiedElementsWithLanguagePercentage() {
     return qualifiedElementsWithLanguagePercentage;
-  }
-
-  public int getQualifiedElementsWithoutLanguage() {
-    return qualifiedElementsWithoutLanguage;
   }
 
   public List<String> getQualifiedElementsWithoutLanguageList() {

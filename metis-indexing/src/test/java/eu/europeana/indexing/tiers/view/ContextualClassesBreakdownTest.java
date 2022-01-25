@@ -18,7 +18,6 @@ class ContextualClassesBreakdownTest {
 
     ContextualClassesBreakdown contextualClassesBreakdown = new ContextualClassesBreakdown(0, null, metadataTier);
     assertEquals(0, contextualClassesBreakdown.getCompleteContextualResources());
-    assertEquals(0, contextualClassesBreakdown.getDistinctClassesTotal());
     assertEquals(0, contextualClassesBreakdown.getDistinctClassesList().size());
 
     final List<String> distinctClassesList = List.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());

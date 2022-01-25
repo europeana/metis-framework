@@ -11,7 +11,6 @@ import java.util.List;
 public class ContextualClassesBreakdown implements TierProvider<Tier> {
 
   private final int completeContextualResources;
-  private final int distinctClassesTotal;
   private final List<String> distinctClassesList;
   private final Tier tier;
 
@@ -25,16 +24,11 @@ public class ContextualClassesBreakdown implements TierProvider<Tier> {
   public ContextualClassesBreakdown(int completeContextualResources, List<String> distinctClassesList, Tier tier) {
     this.completeContextualResources = completeContextualResources;
     this.distinctClassesList = distinctClassesList == null ? new ArrayList<>() : new ArrayList<>(distinctClassesList);
-    this.distinctClassesTotal = this.distinctClassesList.size();
     this.tier = tier;
   }
 
   public int getCompleteContextualResources() {
     return completeContextualResources;
-  }
-
-  public int getDistinctClassesTotal() {
-    return distinctClassesTotal;
   }
 
   public List<String> getDistinctClassesList() {

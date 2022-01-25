@@ -19,13 +19,11 @@ class LanguageBreakdownTest {
 
     LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, null, metadataTier);
     assertEquals(0, languageBreakdown.getQualifiedElementsWithoutLanguageList().size());
-    assertEquals(0, languageBreakdown.getQualifiedElementsWithoutLanguage());
 
     languageBreakdown = new LanguageBreakdown(2, qualifiedElementsWithoutLanguage, metadataTier);
     assertEquals(2, languageBreakdown.getQualifiedElements());
     assertEquals(0, languageBreakdown.getQualifiedElementsWithLanguage());
     assertEquals(0F, languageBreakdown.getQualifiedElementsWithLanguagePercentage());
-    assertEquals(qualifiedElementsWithoutLanguage.size(), languageBreakdown.getQualifiedElementsWithoutLanguage());
     assertEquals(qualifiedElementsWithoutLanguage, languageBreakdown.getQualifiedElementsWithoutLanguageList());
     assertEquals(metadataTier, languageBreakdown.getTier());
   }
