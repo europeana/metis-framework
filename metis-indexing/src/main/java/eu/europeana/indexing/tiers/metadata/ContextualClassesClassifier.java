@@ -18,6 +18,7 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +99,7 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
 
     // Count the entity types that are referenced and that qualify according to the criteria.
     int contextualClassCount = 0;
-    final Set<ContextualClassGroup> uniqueContextualClasses = new HashSet<>();
+    final Set<ContextualClassGroup> uniqueContextualClasses = EnumSet.noneOf(ContextualClassGroup.class);
     if (hasQualifiedEntities(entity.getAgents(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
       uniqueContextualClasses.add(ContextualClassGroup.PERSONAL);

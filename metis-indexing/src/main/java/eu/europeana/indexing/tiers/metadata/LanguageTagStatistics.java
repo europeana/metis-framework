@@ -43,8 +43,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * This class is able to compute statistics on language usage in an entity. It counts for which of
- * the defined property types a property is present that:
+ * This class is able to compute statistics on language usage in an entity. It counts for which of the defined property types a
+ * property is present that:
  * <ol><li>
  * has a language qualification itself, or,
  * <li>refers to a contextual entity (edm:Place, edm:TimeSpan or skos:concept) that has a language
@@ -59,6 +59,59 @@ public class LanguageTagStatistics {
   private final EnumSet<PropertyType> qualifiedProperties = EnumSet.noneOf(PropertyType.class);
   private final EnumSet<PropertyType> qualifiedPropertiesWithLanguage = EnumSet.noneOf(PropertyType.class);
 
+  /**
+   * Constructor.
+   *
+   * @param places The place objects that may be referenced. Can be null or empty, but can't contain null values.
+   * @param timeSpans The time span objects that may be referenced. Can be null or empty, but can't contain null values.
+   * @param concepts The concept objects that may be referenced. Can be null or empty, but can't contain null values.
+   */
+  LanguageTagStatistics(List<PlaceType> places, List<TimeSpanType> timeSpans,
+      List<Concept> concepts) {
+    getStream(places).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
+                     .forEach(contextualClassesWithLanguage::add);
+    getStream(timeSpans).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
+                        .forEach(contextualClassesWithLanguage::add);
+    getStream(concepts).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
+                       .forEach(contextualClassesWithLanguage::add);
+  }
+
+  private static boolean hasValidLanguage(Concept concept) {
+    return getStream(concept.getChoiceList()).filter(Concept.Choice::ifPrefLabel)
+                                             .map(Concept.Choice::getPrefLabel).anyMatch(LanguageTagStatistics::hasValidLanguage);
+  }
+
+  Set<String> getContextualClassesWithLanguage() {
+    return Collections.unmodifiableSet(contextualClassesWithLanguage);
+  }
+
+  Set<PropertyType> getQualifiedProperties() {
+    return Collections.unmodifiableSet(qualifiedProperties);
+  }
+
+  Set<PropertyType> getQualifiedPropertiesWithLanguage() {
+    return Collections.unmodifiableSet(qualifiedPropertiesWithLanguage);
+  }
+
+  boolean containsContextualClass(String about) {
+    return contextualClassesWithLanguage.contains(about);
+  }
+
+  private static <T> Stream<T> getStream(List<T> list) {
+    return Optional.ofNullable(list).stream().flatMap(Collection::stream);
+  }
+
+  private static boolean hasValidLanguage(PlaceType place) {
+    return getStream(place.getPrefLabelList()).anyMatch(LanguageTagStatistics::hasValidLanguage);
+  }
+
+  private static boolean hasValidLanguage(TimeSpanType timespan) {
+    return getStream(timespan.getPrefLabelList()).anyMatch(LanguageTagStatistics::hasValidLanguage);
+  }
+
+  /**
+   * The property types that can be used for the language tags statistics.
+   */
   public enum PropertyType {
     DC_COVERAGE(Coverage.class),
     DC_DESCRIPTION(Description.class),
@@ -92,59 +145,6 @@ public class LanguageTagStatistics {
     public Class<?> getTypedClass() {
       return typedClass;
     }
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param places The place objects that may be referenced. Can be null or empty, but can't contain
-   * null values.
-   * @param timeSpans The time span objects that may be referenced. Can be null or empty, but can't
-   * contain null values.
-   * @param concepts The concept objects that may be referenced. Can be null or empty, but can't
-   * contain null values.
-   */
-  LanguageTagStatistics(List<PlaceType> places, List<TimeSpanType> timeSpans,
-      List<Concept> concepts) {
-    getStream(places).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-        .forEach(contextualClassesWithLanguage::add);
-    getStream(timeSpans).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-                        .forEach(contextualClassesWithLanguage::add);
-    getStream(concepts).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-                       .forEach(contextualClassesWithLanguage::add);
-  }
-
-  Set<String> getContextualClassesWithLanguage() {
-    return Collections.unmodifiableSet(contextualClassesWithLanguage);
-  }
-
-  Set<PropertyType> getQualifiedProperties() {
-    return Collections.unmodifiableSet(qualifiedProperties);
-  }
-
-  Set<PropertyType> getQualifiedPropertiesWithLanguage() {
-    return Collections.unmodifiableSet(qualifiedPropertiesWithLanguage);
-  }
-
-  boolean containsContextualClass(String about) {
-    return contextualClassesWithLanguage.contains(about);
-  }
-
-  private static <T> Stream<T> getStream(List<T> list) {
-    return Optional.ofNullable(list).stream().flatMap(Collection::stream);
-  }
-
-  private static boolean hasValidLanguage(PlaceType place) {
-    return getStream(place.getPrefLabelList()).anyMatch(LanguageTagStatistics::hasValidLanguage);
-  }
-
-  private static boolean hasValidLanguage(TimeSpanType timespan) {
-    return getStream(timespan.getPrefLabelList()).anyMatch(LanguageTagStatistics::hasValidLanguage);
-  }
-
-  private static boolean hasValidLanguage(Concept concept) {
-    return getStream(concept.getChoiceList()).filter(Concept.Choice::ifPrefLabel)
-        .map(Concept.Choice::getPrefLabel).anyMatch(LanguageTagStatistics::hasValidLanguage);
   }
 
   private static boolean hasValidLanguage(LiteralType literal) {
@@ -229,8 +229,8 @@ public class LanguageTagStatistics {
   /**
    * Adds a property occurrence to the statistics.
    *
-   * @param choice The choice list containing the property value (s). The type of the property is
-   * determined based on which element of the choice is set.
+   * @param choice The choice list containing the property value (s). The type of the property is determined based on which
+   * element of the choice is set.
    */
   void addToStatistics(Choice choice) {
     if (choice == null) {

@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-public class MetadataClassifierTest {
+class MetadataClassifierTest {
 
   @Test
   void testClassify() {
