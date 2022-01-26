@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
@@ -25,6 +31,7 @@ public final class RdfConversionUtils {
   private static final int INDENTATION_SPACE = 2;
   private static final String UTF8 = StandardCharsets.UTF_8.name();
   private static IBindingFactory rdfBindingFactory;
+  private static Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap;
 
   static {
     try {
@@ -32,9 +39,24 @@ public final class RdfConversionUtils {
     } catch (JiBXException e) {
       LOGGER.error("Unable to create binding factory", e);
     }
+    initializeMap();
   }
 
   private RdfConversionUtils() {
+  }
+
+  /**
+   * Get the xml representation of a class that will contain the namespace prefix and the element name. E.g. dc:subject
+   * <p>This class uses the internal static map that should be generated with regards to the RDF jibx classes</p>
+   *
+   * @param objectClass the jibx object class to search for
+   * @return the xml representation
+   */
+  public static String getQualifiedElementNameForClass(Class<?> objectClass) {
+    final RdfXmlElementMetadata rdfXmlElementMetadata = rdfXmlElementMetadataMap.get(objectClass.getCanonicalName());
+    Objects.requireNonNull(rdfXmlElementMetadata,
+        String.format("Element metadata not found for class: %s", objectClass.getCanonicalName()));
+    return String.format("%s:%s", rdfXmlElementMetadata.getPrefix(), rdfXmlElementMetadata.getName());
   }
 
   private static IBindingFactory getRdfBindingFactory() {
@@ -44,17 +66,46 @@ public final class RdfConversionUtils {
     throw new IllegalStateException("No binding factory available.");
   }
 
-  public static String getQualifiedElementNameForClass(Class<?> objectClass) {
-    final int mappedClassIndex = IntStream.range(0, rdfBindingFactory.getMappedClasses().length).filter(
-                                              i -> rdfBindingFactory.getMappedClasses()[i].equals(objectClass.getCanonicalName()))
-                                          .findFirst().orElseThrow();
-    final String elementNamespace = rdfBindingFactory.getElementNamespaces()[mappedClassIndex];
-    final String elementName = rdfBindingFactory.getElementNames()[mappedClassIndex];
-    final int namespaceIndex = IntStream.range(0, rdfBindingFactory.getNamespaces().length)
-                                        .filter(i -> rdfBindingFactory.getNamespaces()[i].equals(elementNamespace))
-                                        .findFirst().orElseThrow();
-    final String prefix = rdfBindingFactory.getPrefixes()[namespaceIndex];
-    return String.format("%s:%s", prefix, elementName);
+  /**
+   * Collect all information that we can get for jibx classes from the {@link IBindingFactory}.
+   */
+  private static void initializeMap() {
+    rdfXmlElementMetadataMap = new HashMap<>();
+    final Pattern complexTypePattern = Pattern.compile("^\\{(.*)}:(.*)$");
+    int bound = rdfBindingFactory.getMappedClasses().length;
+    for (int i = 0; i < bound; i++) {
+      final String simpleName;
+      final String canonicalName;
+      final String elementNamespace;
+      final String elementName;
+      final Matcher matcher = complexTypePattern.matcher(rdfBindingFactory.getMappedClasses()[i]);
+      if (matcher.matches()) {
+        //Complex type search
+        elementNamespace = matcher.group(1);
+        elementName = matcher.group(2);
+        final Pattern canonicalClassNamePattern = Pattern.compile(String.format("^(.*)\\.(%s)$", elementName));
+        canonicalName = Arrays.stream(rdfBindingFactory.getAbstractMappings()).flatMap(Arrays::stream)
+                              .filter(Objects::nonNull)
+                              .filter(input -> canonicalClassNamePattern.matcher(input).matches())
+                              .findFirst().orElse(null);
+      } else {
+        //Simple type search
+        elementNamespace = rdfBindingFactory.getElementNamespaces()[i];
+        elementName = rdfBindingFactory.getElementNames()[i];
+        canonicalName = rdfBindingFactory.getMappedClasses()[i];
+      }
+      if (canonicalName != null) {
+        //Store only if we could find the canonical name properly
+        simpleName = canonicalName.substring(canonicalName.lastIndexOf('.') + 1);
+        final int namespaceIndex = IntStream.range(0, rdfBindingFactory.getNamespaces().length)
+                                            .filter(j -> rdfBindingFactory.getNamespaces()[j].equals(elementNamespace))
+                                            .findFirst().orElseThrow();
+        final String prefix = rdfBindingFactory.getPrefixes()[namespaceIndex];
+        final RdfXmlElementMetadata rdfXmlElementMetadata = new RdfXmlElementMetadata(canonicalName,
+            simpleName, prefix, elementNamespace, elementName);
+        rdfXmlElementMetadataMap.put(rdfXmlElementMetadata.getCanonicalClassName(), rdfXmlElementMetadata);
+      }
+    }
   }
 
   /**
@@ -122,6 +173,44 @@ public final class RdfConversionUtils {
     } catch (JiBXException e) {
       throw new SerializationException(
           "Something went wrong with converting to or from the RDF format.", e);
+    }
+  }
+
+  static class RdfXmlElementMetadata {
+
+    final String canonicalClassName;
+    final String simpleClassName;
+    final String prefix;
+    final String namespace;
+    final String name;
+
+    public RdfXmlElementMetadata(String canonicalClassName, String simpleClassName, String prefix, String namespace,
+        String name) {
+      this.canonicalClassName = canonicalClassName;
+      this.simpleClassName = simpleClassName;
+      this.prefix = prefix;
+      this.namespace = namespace;
+      this.name = name;
+    }
+
+    public String getCanonicalClassName() {
+      return canonicalClassName;
+    }
+
+    public String getSimpleClassName() {
+      return simpleClassName;
+    }
+
+    public String getPrefix() {
+      return prefix;
+    }
+
+    public String getNamespace() {
+      return namespace;
+    }
+
+    public String getName() {
+      return name;
     }
   }
 }

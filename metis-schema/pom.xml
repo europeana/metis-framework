@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>metis-framework</artifactId>
@@ -165,6 +166,7 @@
             </goals>
             <configuration>
               <schemaBindingDirectory>src/main/java</schemaBindingDirectory>
+
               <load>true</load>
               <validate>true</validate>
               <verify>false</verify>
@@ -173,6 +175,33 @@
           </execution>
         </executions>
       </plugin>
+
+      <!--This is added so that test related to Jibx can be run from the IDE.
+      For other modules that need tests on Jibx check the root pom and the plugin build-helper-maven-plugin-->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <outputDirectory>target/test-classes</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>target/classes</directory>
+                  <filtering>false</filtering>
+                  <includes>eu/europeana/metis/schema/jibx/*</includes>
+                </resource>
+              </resources>
+            </configuration>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <id>copy-resources</id>
+            <phase>generate-test-sources</phase>
+          </execution>
+        </executions>
+        <version>${version.maven.resources.plugin}</version>
+      </plugin>
+
     </plugins>
   </build>
 </project>

@@ -1,6 +1,5 @@
 package eu.europeana.indexing.tiers.metadata;
 
-import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
 import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;
@@ -39,7 +38,8 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     final Set<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::getTypedClass)
                                                               .map(RdfConversionUtils::getQualifiedElementNameForClass)
                                                               .collect(Collectors.toSet());
-    final Set<String> metadataGroupsList = inventory.getGroups().stream().map(EnablingElementGroup::name)
+    final Set<String> metadataGroupsList = inventory.getGroups().stream().map(ContextualClassGroup::getContextualClass)
+                                                    .map(RdfConversionUtils::getQualifiedElementNameForClass)
                                                     .collect(Collectors.toSet());
 
     return new EnablingElementsBreakdown(distinctEnablingElementsList, metadataGroupsList, metadataTier);
@@ -65,9 +65,9 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
   static class EnablingElementInventory {
 
     private final Set<EnablingElement> elements;
-    private final Set<EnablingElementGroup> groups;
+    private final Set<ContextualClassGroup> groups;
 
-    EnablingElementInventory(Set<EnablingElement> elements, Set<EnablingElementGroup> groups) {
+    EnablingElementInventory(Set<EnablingElement> elements, Set<ContextualClassGroup> groups) {
       this.elements = elements == null ? new HashSet<>() : new HashSet<>(elements);
       this.groups = groups == null ? new HashSet<>() : new HashSet<>(groups);
     }
@@ -76,7 +76,7 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
       return new HashSet<>(elements);
     }
 
-    public Set<EnablingElementGroup> getGroups() {
+    public Set<ContextualClassGroup> getGroups() {
       return new HashSet<>(groups);
     }
   }
@@ -89,10 +89,10 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
 
     // Go by all the enabling elements and match them.
     final Set<EnablingElement> elements = EnumSet.noneOf(EnablingElement.class);
-    final Set<EnablingElementGroup> groups = EnumSet.noneOf(EnablingElementGroup.class);
+    final Set<ContextualClassGroup> groups = EnumSet.noneOf(ContextualClassGroup.class);
 
     for (EnablingElement element : EnablingElement.values()) {
-      final Set<EnablingElementGroup> groupsToAdd = analyzeForElement(element,
+      final Set<ContextualClassGroup> groupsToAdd = analyzeForElement(element,
           entity.getProviderProxies(), contextualObjectMap);
       if (!groupsToAdd.isEmpty()) {
         elements.add(element);
@@ -103,7 +103,7 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     return new EnablingElementInventory(elements, groups);
   }
 
-  Set<EnablingElementGroup> analyzeForElement(EnablingElement element, List<ProxyType> proxies,
+  Set<ContextualClassGroup> analyzeForElement(EnablingElement element, List<ProxyType> proxies,
       Map<String, Set<Class<? extends AboutType>>> contextualObjectMap) {
     return element.analyze(proxies, contextualObjectMap);
   }

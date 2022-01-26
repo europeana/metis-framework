@@ -474,7 +474,7 @@ class ContextualClassesBreakdownClassifierTest {
     final RdfWrapper entity = mock(RdfWrapper.class);
 
     // Test for all values
-    final Set<String> distinctClassesSet = Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
+    final Set<ContextualClassGroup> distinctClassesSet = Set.of(ContextualClassGroup.TEMPORAL, ContextualClassGroup.GEOGRAPHICAL);
     doReturn(new ContextualClassesStatistics(0, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
     assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
     doReturn(new ContextualClassesStatistics(1, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);

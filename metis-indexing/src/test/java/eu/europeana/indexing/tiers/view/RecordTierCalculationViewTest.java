@@ -2,8 +2,8 @@ package eu.europeana.indexing.tiers.view;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import eu.europeana.indexing.tiers.metadata.ContextualClassGroup;
 import eu.europeana.indexing.tiers.metadata.EnablingElement;
-import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
@@ -24,8 +24,8 @@ class RecordTierCalculationViewTest {
     final LanguageBreakdown languageBreakdown = new LanguageBreakdown(2, Set.of(PropertyType.DC_COVERAGE.name(),
         PropertyType.DC_DESCRIPTION.name()), MetadataTier.TC);
     EnablingElementsBreakdown enablingElementsBreakdown = new EnablingElementsBreakdown(Set.of(EnablingElement.DC_CREATOR.name(),
-        EnablingElement.EDM_CURRENT_LOCATION.name()), Set.of(EnablingElementGroup.PERSONAL.name(),
-        EnablingElementGroup.GEOGRAPHICAL.name()),
+        EnablingElement.EDM_CURRENT_LOCATION.name()), Set.of(ContextualClassGroup.PERSONAL.name(),
+        ContextualClassGroup.GEOGRAPHICAL.name()),
         MetadataTier.TC);
     final Set<String> distinctClassesList = Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName());
     final int completeContextualResources = 5;
