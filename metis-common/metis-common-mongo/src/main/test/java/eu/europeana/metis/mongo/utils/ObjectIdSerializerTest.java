@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for class {@link ObjectIdSerializer}
- *
  */
 class ObjectIdSerializerTest {
 

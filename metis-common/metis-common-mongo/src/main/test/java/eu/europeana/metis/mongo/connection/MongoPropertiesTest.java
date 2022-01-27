@@ -7,12 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import java.net.InetSocketAddress;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link MongoProperties}
- *
  */
 class MongoPropertiesTest {
 
@@ -100,7 +98,7 @@ class MongoPropertiesTest {
 
   private static void assertMongoPropertiesWithoutAuthentication(MongoProperties mongoProperties) throws Exception {
     assertEquals("localhost:8521", mongoProperties.getMongoHosts().get(0).toString());
-    assertNull( mongoProperties.getMongoCredentials());
+    assertNull(mongoProperties.getMongoCredentials());
   }
 
   private static void assertMongoProperties(MongoProperties mongoProperties) throws Exception {
