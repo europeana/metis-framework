@@ -3,7 +3,7 @@ package eu.europeana.indexing.tiers.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
+import eu.europeana.indexing.tiers.metadata.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import java.util.Set;
 import org.junit.jupiter.api.Test;

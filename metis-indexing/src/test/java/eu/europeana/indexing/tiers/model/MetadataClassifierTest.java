@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.indexing.tiers.metadata.ContextualClassesClassifier;
 import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier;
 import eu.europeana.indexing.tiers.metadata.LanguageClassifier;
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
+import eu.europeana.indexing.tiers.metadata.PropertyType;
 import eu.europeana.indexing.tiers.model.TierClassifier.TierClassification;
 import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
 import eu.europeana.indexing.tiers.view.EnablingElementsBreakdown;

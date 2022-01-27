@@ -12,7 +12,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.Concept;

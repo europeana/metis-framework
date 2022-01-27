@@ -1,6 +1,5 @@
 package eu.europeana.indexing.tiers.metadata;
 
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
 import eu.europeana.indexing.tiers.view.LanguageBreakdown;

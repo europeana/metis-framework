@@ -3,7 +3,7 @@ package eu.europeana.indexing.tiers.view;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
+import eu.europeana.indexing.tiers.metadata.PropertyType;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;

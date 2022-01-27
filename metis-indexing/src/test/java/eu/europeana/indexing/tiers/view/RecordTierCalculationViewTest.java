@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import eu.europeana.indexing.tiers.metadata.ContextualClassGroup;
 import eu.europeana.indexing.tiers.metadata.EnablingElement;
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
+import eu.europeana.indexing.tiers.metadata.PropertyType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
