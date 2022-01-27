@@ -53,13 +53,16 @@ class RdfConversionUtilsTest {
   }
 
   @Test
-  void getQualifiedElementNameForClass() {
+  void getQualifiedElementNameForClass_ContextualClasses() {
     //Check contextual classes
     assertEquals("edm:AgentType", RdfConversionUtils.getQualifiedElementNameForClass(AgentType.class));
     assertEquals("edm:TimeSpanType", RdfConversionUtils.getQualifiedElementNameForClass(TimeSpanType.class));
     assertEquals("edm:PlaceType", RdfConversionUtils.getQualifiedElementNameForClass(PlaceType.class));
     assertEquals("skos:Concept", RdfConversionUtils.getQualifiedElementNameForClass(Concept.class));
+  }
 
+  @Test
+  void getQualifiedElementNameForClass_Dc() {
     //Check dc elements
     assertEquals("dc:coverage", RdfConversionUtils.getQualifiedElementNameForClass(Coverage.class));
     assertEquals("dc:description", RdfConversionUtils.getQualifiedElementNameForClass(Description.class));
@@ -70,7 +73,10 @@ class RdfConversionUtilsTest {
     assertEquals("dc:subject", RdfConversionUtils.getQualifiedElementNameForClass(Subject.class));
     assertEquals("dc:title", RdfConversionUtils.getQualifiedElementNameForClass(Title.class));
     assertEquals("dc:type", RdfConversionUtils.getQualifiedElementNameForClass(Type.class));
+  }
 
+  @Test
+  void getQualifiedElementNameForClass_Dcterms() {
     //Check dcterms elements
     assertEquals("dcterms:alternative", RdfConversionUtils.getQualifiedElementNameForClass(Alternative.class));
     assertEquals("dcterms:hasPart", RdfConversionUtils.getQualifiedElementNameForClass(HasPart.class));
@@ -82,7 +88,10 @@ class RdfConversionUtilsTest {
     assertEquals("dcterms:spatial", RdfConversionUtils.getQualifiedElementNameForClass(Spatial.class));
     assertEquals("dcterms:tableOfContents", RdfConversionUtils.getQualifiedElementNameForClass(TableOfContents.class));
     assertEquals("dcterms:temporal", RdfConversionUtils.getQualifiedElementNameForClass(Temporal.class));
+  }
 
+  @Test
+  void getQualifiedElementNameForClass_Edm() {
     //Check edm elements
     assertEquals("edm:currentLocation", RdfConversionUtils.getQualifiedElementNameForClass(CurrentLocation.class));
     assertEquals("edm:hasType", RdfConversionUtils.getQualifiedElementNameForClass(HasType.class));

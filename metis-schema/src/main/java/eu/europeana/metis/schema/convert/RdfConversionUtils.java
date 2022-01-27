@@ -36,6 +36,9 @@ public final class RdfConversionUtils {
     initializeStaticComponents();
   }
 
+  private RdfConversionUtils() {
+  }
+
   /**
    * Convert an {@link RDF} to a UTF-8 encoded XML
    *
@@ -54,9 +57,6 @@ public final class RdfConversionUtils {
       throw new SerializationException(
           "Something went wrong with converting to or from the RDF format.", e);
     }
-  }
-
-  private RdfConversionUtils() {
   }
 
   /**
