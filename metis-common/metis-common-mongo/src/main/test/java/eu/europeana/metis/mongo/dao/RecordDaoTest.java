@@ -47,7 +47,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Unit test for {@link RecordDao}
- *
  */
 class RecordDaoTest {
 
@@ -95,7 +94,9 @@ class RecordDaoTest {
     final Datastore temp = recordDao.getDatastore();
     ReflectionTestUtils.setField(recordDao, "datastore", null);
 
-    assertThrows(EuropeanaException.class, () -> {recordDao.getFullBean("");});
+    assertThrows(EuropeanaException.class, () -> {
+      recordDao.getFullBean("");
+    });
 
     ReflectionTestUtils.setField(recordDao, "datastore", temp);
   }
@@ -104,7 +105,8 @@ class RecordDaoTest {
   void retrieveWebMetaInfosFound() {
     recordDao.getDatastore().save(getWebResourceMetaInfo());
 
-    final Map<String, WebResourceMetaInfoImpl> webResourceMetaInfoMap = recordDao.retrieveWebMetaInfos(List.of("51eec080f582833f264dad08"));
+    final Map<String, WebResourceMetaInfoImpl> webResourceMetaInfoMap = recordDao.retrieveWebMetaInfos(
+        List.of("51eec080f582833f264dad08"));
 
     assertEquals(1, webResourceMetaInfoMap.size());
   }
@@ -113,7 +115,8 @@ class RecordDaoTest {
   void retrieveWebMetaInfosNotFound() {
     recordDao.getDatastore().save(getWebResourceMetaInfo());
 
-    final Map<String, WebResourceMetaInfoImpl> webResourceMetaInfoMap = recordDao.retrieveWebMetaInfos(List.of("51eec080f582833f264dad05"));
+    final Map<String, WebResourceMetaInfoImpl> webResourceMetaInfoMap = recordDao.retrieveWebMetaInfos(
+        List.of("51eec080f582833f264dad05"));
 
     assertEquals(0, webResourceMetaInfoMap.size());
   }
@@ -135,11 +138,23 @@ class RecordDaoTest {
     assertFullBean(getFullBean(), actualBean);
   }
 
+  @Test
+  void createIndexes() {
+    final String mongoHost = embeddedLocalhostMongo.getMongoHost();
+    final int mongoPort = embeddedLocalhostMongo.getMongoPort();
+    final MongoClient mongoClient = MongoClients.create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
+
+    recordDao = new RecordDao(mongoClient, DATABASE_NAME, true);
+
+    assertNotNull(recordDao);
+  }
+
   private static FullBean getFullBean() {
     final FullBeanImpl fullBean = new FullBeanImpl();
     fullBean.setEuropeanaId(new ObjectId("81eec080f582833f364dad08"));
     fullBean.setLanguage(new String[]{"Nederlands", "Vlams", "Duits", "Frans", "Spaans", "Italians", "Duits", "Portuguese"});
-    fullBean.setCountry(new String[]{"Nederland", "België", "Duitsland", "Frankrijk", "Spanje", "Italië", "Switzerland", "Portugal"});
+    fullBean.setCountry(
+        new String[]{"Nederland", "België", "Duitsland", "Frankrijk", "Spanje", "Italië", "Switzerland", "Portugal"});
     fullBean.setYear(new String[]{"2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029"});
     fullBean.setAbout("fullBeanAbout");
     fullBean.setType("TEXT");
@@ -170,9 +185,10 @@ class RecordDaoTest {
 
   private static WebResourceMetaInfo getWebResourceMetaInfo() {
     final AudioMetaInfoImpl audioMetaInfo = new AudioMetaInfoImpl(12, 24, 80L, "audio/wav", "wave", 80L, 2, 24, "raw");
-    final ImageMetaInfoImpl imageMetaInfo = new ImageMetaInfoImpl(256, 256, "image/jpeg", "jpeg", "RGB", 80L, new String[]{"1,1,1"}, ImageOrientation.LANDSCAPE);
-    final VideoMetaInfoImpl videoMetaInfo = new VideoMetaInfoImpl(256, 256, 3600L, "video/mp4",50.00,8194L,"mp4","1080p",8);
-    final TextMetaInfoImpl textMetaInfo = new TextMetaInfoImpl("docx",2048L,600,true,"book");
+    final ImageMetaInfoImpl imageMetaInfo = new ImageMetaInfoImpl(256, 256, "image/jpeg", "jpeg", "RGB", 80L,
+        new String[]{"1,1,1"}, ImageOrientation.LANDSCAPE);
+    final VideoMetaInfoImpl videoMetaInfo = new VideoMetaInfoImpl(256, 256, 3600L, "video/mp4", 50.00, 8194L, "mp4", "1080p", 8);
+    final TextMetaInfoImpl textMetaInfo = new TextMetaInfoImpl("docx", 2048L, 600, true, "book");
     return new WebResourceMetaInfoImpl("51eec080f582833f264dad08", imageMetaInfo, audioMetaInfo, videoMetaInfo, textMetaInfo);
   }
 

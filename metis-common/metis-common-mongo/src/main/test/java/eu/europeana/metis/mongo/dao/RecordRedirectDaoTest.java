@@ -1,14 +1,12 @@
 package eu.europeana.metis.mongo.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
-import dev.morphia.DatastoreImpl;
-import dev.morphia.mapping.MapperOptions;
-import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import eu.europeana.metis.mongo.model.RecordRedirect;
 import java.time.Instant;
@@ -18,13 +16,12 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 /**
  * Unit test for {@link RecordRedirectDao}
- *
  */
 class RecordRedirectDaoTest {
+
   private final static String DATABASE_NAME = "dbTest";
 
   private static RecordRedirectDao recordRedirectDao;
@@ -38,7 +35,7 @@ class RecordRedirectDaoTest {
     final String mongoHost = embeddedLocalhostMongo.getMongoHost();
     final int mongoPort = embeddedLocalhostMongo.getMongoPort();
     final MongoClient mongoClient = MongoClients.create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
-    recordRedirectDao = new RecordRedirectDao(mongoClient,DATABASE_NAME);
+    recordRedirectDao = new RecordRedirectDao(mongoClient, DATABASE_NAME);
   }
 
   @AfterAll
@@ -98,6 +95,17 @@ class RecordRedirectDaoTest {
     final Datastore datastore = recordRedirectDao.getDatastore();
 
     assertNotNull(datastore);
+  }
+
+  @Test
+  void getObjectRecordRedirect() {
+    final RecordRedirect recordRedirect = new RecordRedirect("61eec080f582833f364dad05",
+        "61eec080f582833f364dad02",
+        Date.from(Instant.parse("2022-01-25T16:34:10.00Z")));
+
+    assertEquals("61eec080f582833f364dad05", recordRedirect.getNewId());
+    assertEquals("61eec080f582833f364dad02", recordRedirect.getOldId());
+    assertEquals(Date.from(Instant.parse("2022-01-25T16:34:10.00Z")), recordRedirect.getTimestamp());
   }
 
   private static RecordRedirect getRecordRedirect() {

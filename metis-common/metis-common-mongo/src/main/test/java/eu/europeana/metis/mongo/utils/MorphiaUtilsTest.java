@@ -27,6 +27,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link MorphiaUtils}
+ */
 class MorphiaUtilsTest {
 
   private final static String DATABASE_NAME = "dbTest";
