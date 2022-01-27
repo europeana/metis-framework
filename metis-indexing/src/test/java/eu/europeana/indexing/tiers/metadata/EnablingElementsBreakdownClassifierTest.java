@@ -48,33 +48,33 @@ class EnablingElementsBreakdownClassifierTest {
     // Zero groups/elements
     doReturn(Collections.emptySet()).when(inventory).getElements();
     doReturn(Collections.emptySet()).when(inventory).getGroups();
-    assertEquals(MetadataTier.T0, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.T0, classifier.classifyBreakdown(entity).getMetadataTier());
 
     // One group, various element counts
     doReturn(Set.of(ContextualClassGroup.PERSONAL)).when(inventory).getGroups();
     doReturn(Set.of(EnablingElement.DC_TYPE)).when(inventory).getElements();
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED)).when(inventory).getElements();
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED)).when(inventory)
                                                                                                               .getElements();
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED,
         EnablingElement.EDM_HAS_MET)).when(inventory).getElements();
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
 
     // Two groups, various element counts
     doReturn(Set.of(ContextualClassGroup.PERSONAL, ContextualClassGroup.CONCEPTUAL)).when(inventory).getGroups();
     doReturn(Set.of(EnablingElement.DC_TYPE)).when(inventory).getElements();
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED)).when(inventory).getElements();
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED)).when(inventory)
                                                                                                               .getElements();
-    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(Set.of(EnablingElement.DC_TYPE, EnablingElement.DCTERMS_ISSUED, EnablingElement.DCTERMS_CREATED,
         EnablingElement.EDM_HAS_MET)).when(inventory).getElements();
-    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
   }
 
   @Test

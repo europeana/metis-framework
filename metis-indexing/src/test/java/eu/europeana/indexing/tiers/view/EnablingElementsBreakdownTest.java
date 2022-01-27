@@ -31,7 +31,7 @@ class EnablingElementsBreakdownTest {
         CollectionUtils.isEqualCollection(distinctEnablingElementsList,
             enablingElementsBreakdown.getDistinctEnablingElementsList()));
     assertTrue(CollectionUtils.isEqualCollection(metadataGroupsList, enablingElementsBreakdown.getMetadataGroupsList()));
-    assertEquals(metadataTier, enablingElementsBreakdown.getTier());
+    assertEquals(metadataTier, enablingElementsBreakdown.getMetadataTier());
   }
 
 }

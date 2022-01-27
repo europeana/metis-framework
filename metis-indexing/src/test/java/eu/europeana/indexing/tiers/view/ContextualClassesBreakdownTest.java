@@ -28,7 +28,7 @@ class ContextualClassesBreakdownTest {
     assertEquals(completeContextualResources, contextualClassesBreakdown.getCompleteContextualResources());
     assertEquals(distinctClassesList.size(), contextualClassesBreakdown.getDistinctClassesList().size());
     assertTrue(CollectionUtils.isEqualCollection(distinctClassesList, contextualClassesBreakdown.getDistinctClassesList()));
-    assertEquals(metadataTier, contextualClassesBreakdown.getTier());
+    assertEquals(metadataTier, contextualClassesBreakdown.getMetadataTier());
   }
 
 }

@@ -90,8 +90,6 @@
     <dependency>
       <artifactId>mockito-inline</artifactId>
       <groupId>org.mockito</groupId>
-      <scope>test</scope>
-      <version>${version.mockito.core}</version>
     </dependency>
   </dependencies>
 

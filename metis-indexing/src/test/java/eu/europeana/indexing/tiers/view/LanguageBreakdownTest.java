@@ -25,7 +25,7 @@ class LanguageBreakdownTest {
     assertEquals(0, languageBreakdown.getQualifiedElementsWithLanguage());
     assertEquals(0F, languageBreakdown.getQualifiedElementsWithLanguagePercentage());
     assertEquals(qualifiedElementsWithoutLanguage, languageBreakdown.getQualifiedElementsWithoutLanguageList());
-    assertEquals(metadataTier, languageBreakdown.getTier());
+    assertEquals(metadataTier, languageBreakdown.getMetadataTier());
   }
 
 }

@@ -2,7 +2,7 @@ package eu.europeana.indexing.tiers;
 
 import eu.europeana.indexing.exception.TierCalculationException;
 import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier.TierClassification;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
@@ -63,8 +63,9 @@ public class RecordTierCalculationViewGenerator {
       final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
       final TierClassification<MediaTier, ContentTierBreakdown> mediaTierClassification = ClassifierFactory.getMediaClassifier()
                                                                                                            .classify(rdfWrapper);
-      final TierClassification<Tier, MetadataTierBreakdown> metadataTierClassification = ClassifierFactory.getMetadataClassifier()
-                                                                                                          .classify(rdfWrapper);
+      final TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification = ClassifierFactory.getMetadataClassifier()
+                                                                                                                  .classify(
+                                                                                                                      rdfWrapper);
       RecordTierCalculationSummary recordTierCalculationSummary = new RecordTierCalculationSummary();
       recordTierCalculationSummary.setEuropeanaRecordId(europeanaId);
       recordTierCalculationSummary.setProviderRecordId(providerId);

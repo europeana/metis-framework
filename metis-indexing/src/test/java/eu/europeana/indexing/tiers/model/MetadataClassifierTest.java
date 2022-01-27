@@ -34,9 +34,9 @@ class MetadataClassifierTest {
     final ContextualClassesClassifier contextualClassesClassifier = mock(ContextualClassesClassifier.class);
 
     // The tiers
-    final Tier lowTier = MetadataTier.T0;
-    final Tier middleTier = MetadataTier.TA;
-    final Tier highTier = MetadataTier.TC;
+    final MetadataTier lowTier = MetadataTier.T0;
+    final MetadataTier middleTier = MetadataTier.TA;
+    final MetadataTier highTier = MetadataTier.TC;
 
     assertThrows(NullPointerException.class, () -> new MetadataClassifier(null, null, null));
     assertThrows(NullPointerException.class, () -> new MetadataClassifier(languageClassifier, null, null));
@@ -50,7 +50,7 @@ class MetadataClassifierTest {
         new ContextualClassesBreakdown(5,
             Set.of(TimeSpanType.class.getSimpleName(), PlaceType.class.getSimpleName()), highTier));
 
-    final TierClassification<Tier, MetadataTierBreakdown> metadataTierClassification = new MetadataClassifier(
+    final TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification = new MetadataClassifier(
         languageClassifier, enablingElementsClassifier, contextualClassesClassifier).classify(testEntity);
     assertEquals(lowTier, metadataTierClassification.getTier());
     assertNotNull(metadataTierClassification.getClassification());

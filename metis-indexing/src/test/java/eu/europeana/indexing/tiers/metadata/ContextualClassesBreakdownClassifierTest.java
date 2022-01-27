@@ -476,14 +476,14 @@ class ContextualClassesBreakdownClassifierTest {
     // Test for all values
     final Set<ContextualClassGroup> distinctClassesSet = Set.of(ContextualClassGroup.TEMPORAL, ContextualClassGroup.GEOGRAPHICAL);
     doReturn(new ContextualClassesStatistics(0, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(new ContextualClassesStatistics(1, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(new ContextualClassesStatistics(2, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(new ContextualClassesStatistics(3, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
     doReturn(new ContextualClassesStatistics(4, distinctClassesSet)).when(classifier).countQualifyingContextualClassTypes(entity);
-    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getTier());
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
   }
 }

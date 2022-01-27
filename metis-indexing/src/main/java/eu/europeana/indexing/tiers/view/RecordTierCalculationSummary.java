@@ -1,13 +1,15 @@
 package eu.europeana.indexing.tiers.view;
 
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 
 public class RecordTierCalculationSummary {
 
   private String europeanaRecordId;
   private String providerRecordId;
-  private Tier contentTier;
-  private Tier metadataTier;
+  private MediaTier contentTier;
+  private MetadataTier metadataTier;
   private String portalRecordLink;
 
   public RecordTierCalculationSummary() {
@@ -33,7 +35,7 @@ public class RecordTierCalculationSummary {
     return contentTier;
   }
 
-  public void setContentTier(Tier contentTier) {
+  public void setContentTier(MediaTier contentTier) {
     this.contentTier = contentTier;
   }
 
@@ -41,7 +43,7 @@ public class RecordTierCalculationSummary {
     return metadataTier;
   }
 
-  public void setMetadataTier(Tier metadataTier) {
+  public void setMetadataTier(MetadataTier metadataTier) {
     this.metadataTier = metadataTier;
   }
 
