@@ -1,48 +1,42 @@
 package eu.europeana.indexing.tiers.view;
 
-import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierProvider;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The contextual classes breakdown
  */
-public class ContextualClassesBreakdown implements TierProvider<Tier> {
+public class ContextualClassesBreakdown implements TierProvider<MetadataTier> {
 
   private final int completeContextualResources;
-  private final int distinctClassesTotal;
-  private final List<String> distinctClassesList;
-  private final Tier tier;
+  private final Set<String> distinctClassesList;
+  private final MetadataTier metadataTier;
 
   /**
    * Constructor with required parameters.
    *
    * @param completeContextualResources the complete contextual resources
    * @param distinctClassesList the distinct classes list
-   * @param tier the tier for the breakdown
+   * @param metadataTier the tier for the breakdown
    */
-  public ContextualClassesBreakdown(int completeContextualResources, List<String> distinctClassesList, Tier tier) {
+  public ContextualClassesBreakdown(int completeContextualResources, Set<String> distinctClassesList, MetadataTier metadataTier) {
     this.completeContextualResources = completeContextualResources;
-    this.distinctClassesList = distinctClassesList == null ? new ArrayList<>() : new ArrayList<>(distinctClassesList);
-    this.distinctClassesTotal = this.distinctClassesList.size();
-    this.tier = tier;
+    this.distinctClassesList = distinctClassesList == null ? new HashSet<>() : new HashSet<>(distinctClassesList);
+    this.metadataTier = metadataTier;
   }
 
   public int getCompleteContextualResources() {
     return completeContextualResources;
   }
 
-  public int getDistinctClassesTotal() {
-    return distinctClassesTotal;
-  }
-
-  public List<String> getDistinctClassesList() {
-    return new ArrayList<>(distinctClassesList);
+  public Set<String> getDistinctClassesList() {
+    return new HashSet<>(distinctClassesList);
   }
 
   @Override
-  public Tier getTier() {
-    return tier;
+  public MetadataTier getMetadataTier() {
+    return metadataTier;
   }
 }

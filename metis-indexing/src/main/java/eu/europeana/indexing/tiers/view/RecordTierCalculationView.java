@@ -7,9 +7,7 @@ public class RecordTierCalculationView {
 
   private final RecordTierCalculationSummary recordTierCalculationSummary;
   private final MetadataTierBreakdown metadataTierBreakdown;
-  // TODO: 07/01/2022 Add test on the sub-trees for the below two fields with the upcoming tickets MET-4157 and MET-4158
-  // TODO: 14/01/2022 Make this final when implemented
-  private ContentTierBreakdown contentTierBreakdown;
+  private final ContentTierBreakdown contentTierBreakdown;
 
   /**
    * Constructor with required parameters.
@@ -23,10 +21,6 @@ public class RecordTierCalculationView {
     this.recordTierCalculationSummary = recordTierCalculationSummary;
     this.contentTierBreakdown = contentTierBreakdown;
     this.metadataTierBreakdown = metadataTierBreakdown;
-  }
-
-  public void setContentTierBreakdown(ContentTierBreakdown contentTierBreakdown) {
-    this.contentTierBreakdown = contentTierBreakdown;
   }
 
   public RecordTierCalculationSummary getRecordTierCalculationSummary() {

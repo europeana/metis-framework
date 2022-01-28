@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eu.europeana.metis</groupId>
@@ -46,72 +47,149 @@
   </distributionManagement>
 
   <properties>
-    <version.jena.iri>4.1.0</version.jena.iri>
-    <version.ecloud>6-SNAPSHOT</version.ecloud>
-    <version.corelib>2.14.1-SNAPSHOT</version.corelib>
-    <version.redisson>3.15.5</version.redisson>
-    <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
-    <version.maven.release>2.5.3</version.maven.release>
-    <version.maven.war.plugin>2.3</version.maven.war.plugin>
-    <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
-    <version.json.path>2.5.0</version.json.path>
-    <version.hamcrest>1.3</version.hamcrest>
-    <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
-    <version.rabbitmq>5.12.0</version.rabbitmq>
-
-    <!-- These two versions are interdependent. -->
-    <version.slf4j>1.7.30</version.slf4j>
-    <version.jul.to.slf4j>1.7.30</version.jul.to.slf4j>
-    <version.log4j>2.17.0</version.log4j>
-
-    <version.surefire.plugin>2.22.1</version.surefire.plugin>
-    <version.junit>5.7.2</version.junit>
-    <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
+    <version.apache.httpclient>5.1</version.apache.httpclient>
     <version.awaitability>1.7.0</version.awaitability>
-    <version.embedded.mongo>3.0.0</version.embedded.mongo>
-    <version.javax.persistence>1.0.2</version.javax.persistence>
+    <version.bouncycastle>1.68</version.bouncycastle>
+    <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
+    <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
+    <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
+    <version.commons-fileupload>1.4</version.commons-fileupload>
     <version.commons.io>2.9.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
-    <version.apache.httpclient>5.1</version.apache.httpclient>
-    <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
-    <version.jersey>2.21</version.jersey>
+    <version.commonscompress>1.11</version.commonscompress>
+    <version.corelib>2.15.3</version.corelib>
+
+    <!-- These two versions are interdependent. -->
+    <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
+    <version.dspace.oai>4.2.0</version.dspace.oai>
+    <version.ecloud>6-SNAPSHOT</version.ecloud>
+
+    <version.embedded.mongo>3.0.0</version.embedded.mongo>
+    <version.hamcrest>1.3</version.hamcrest>
+    <version.hibernate.core>5.4.32.Final</version.hibernate.core>
+    <version.ibm.icu4j>69.1</version.ibm.icu4j>
+    <version.itextpdf>5.5.13.2</version.itextpdf>
+    <version.jackson>2.12.3</version.jackson>
+    <version.javax.annotation>1.3.2</version.javax.annotation>
     <version.javax.mail>1.6.0</version.javax.mail>
+    <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.javax.ws.rs.api>2.1.1</version.javax.ws.rs.api>
     <version.jaxb.api>2.3.1</version.jaxb.api>
     <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
-    <version.javax.annotation>1.3.2</version.javax.annotation>
-    <version.hibernate.core>5.4.32.Final</version.hibernate.core>
+    <version.jena.iri>4.1.0</version.jena.iri>
+    <version.jersey>2.21</version.jersey>
+    <version.json>20210307</version.json>
+    <version.json.path>2.5.0</version.json.path>
+    <version.jul.to.slf4j>1.7.30</version.jul.to.slf4j>
+    <version.junit>5.7.2</version.junit>
+    <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
+    <version.log4j>2.17.1</version.log4j>
+    <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
+    <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
+    <version.maven.release>2.5.3</version.maven.release>
+    <version.maven.resources.plugin>3.2.0</version.maven.resources.plugin>
+    <version.maven.war.plugin>2.3</version.maven.war.plugin>
+    <version.mockito.core>3.10.0</version.mockito.core>
+    <version.morphia.core>2.2.1</version.morphia.core>
+    <version.mpd.parser>0.9</version.mpd.parser>
     <version.postgresql>42.2.20</version.postgresql>
+    <version.powermock>2.0.9</version.powermock>
+    <version.rabbitmq>5.12.0</version.rabbitmq>
+    <version.redisson>3.15.5</version.redisson>
+    <version.saxon.he>10.5</version.saxon.he>
+    <version.servlet.api>4.0.1</version.servlet.api>
+    <version.slf4j>1.7.30</version.slf4j>
+    <version.solr.solrj>8.8.2</version.solr.solrj>
+    <version.spring>5.3.7</version.spring>
+    <version.spring.beans>${version.spring}</version.spring.beans>
+    <version.spring.context>${version.spring}</version.spring.context>
+    <version.spring.security>5.5.0</version.spring.security>
+    <version.spring.test>${version.spring}</version.spring.test>
+    <version.surefire.plugin>2.22.1</version.surefire.plugin>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
-    <version.jackson>2.12.3</version.jackson>
-    <version.xerces>2.12.1</version.xerces>
-    <version.json>20210307</version.json>
-    <version.powermock>2.0.9</version.powermock>
-    <version.mockito.core>3.10.0</version.mockito.core>
-    <version.servlet.api>4.0.1</version.servlet.api>
-    <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.morphia.core>2.2.1</version.morphia.core>
-    <version.xsom>20140925</version.xsom>
-    <version.commonscompress>1.11</version.commonscompress>
-    <version.spring.security>5.5.0</version.spring.security>
-    <version.spring>5.3.7</version.spring>
-    <version.spring.test>${version.spring}</version.spring.test>
-    <version.spring.context>${version.spring}</version.spring.context>
-    <version.spring.beans>${version.spring}</version.spring.beans>
-    <version.saxon.he>10.5</version.saxon.he>
-    <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
-    <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.mpd.parser>0.9</version.mpd.parser>
-    <version.zip4j>2.8.0</version.zip4j>
-    <version.ibm.icu4j>69.1</version.ibm.icu4j>
-    <version.itextpdf>5.5.13.2</version.itextpdf>
-    <version.bouncycastle>1.68</version.bouncycastle>
     <version.tika.core>1.26</version.tika.core>
+    <version.xerces>2.12.1</version.xerces>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
-    <version.dspace.oai>4.2.0</version.dspace.oai>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.xsom>20140925</version.xsom>
+    <version.zip4j>2.8.0</version.zip4j>
   </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${version.maven.compiler.plugin}</version>
+          <configuration>
+            <release>11</release>
+          </configuration>
+        </plugin>
+        <!--If you are using Jibx classes in a sub module in the repository and want to be able to run the code or tests from the
+        IDE, this plugin(preconfigured here) should be added to the module! That is because jibx is generating the class bindings
+        inside the target directory and they are not findable from the IDE..
+        Building with maven directly is fine.
+        Other repositories that have as a dependency the metis-schema module are fine, since they are directly dependent on the
+        .jar and those projects do not require the following plugin configuration to work through the IDE.-->
+        <plugin>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <configuration>
+                <sources>
+                  <source>${main.basedir}/metis-schema/target/eu/europeana/metis/schema/jibx</source>
+                </sources>
+              </configuration>
+              <goals>
+                <goal>add-source</goal>
+              </goals>
+              <id>add-source</id>
+              <phase>generate-sources</phase>
+            </execution>
+          </executions>
+          <groupId>org.codehaus.mojo</groupId>
+          <version>${version.build.helper.maven.plugin}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.surefire.plugin}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${version.maven.release}</version>
+      </plugin>
+      <!--Setup highest directory path, so that it can be used as a variable avoiding relative paths-->
+      <plugin>
+        <artifactId>directory-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <property>main.basedir</property>
+            </configuration>
+            <goals>
+              <goal>highest-basedir</goal>
+            </goals>
+            <id>directories</id>
+            <phase>initialize</phase>
+          </execution>
+        </executions>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <version>${version.directory.maven.plugin}</version>
+      </plugin>
+    </plugins>
+  </build>
 
   <dependencyManagement>
     <dependencies>
@@ -391,6 +469,12 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
+        <scope>test</scope>
+        <version>${version.junit}</version>
+      </dependency>
+      <dependency>
+        <artifactId>junit-jupiter-params</artifactId>
+        <groupId>org.junit.jupiter</groupId>
         <version>${version.junit}</version>
         <scope>test</scope>
       </dependency>
@@ -400,6 +484,13 @@
         <version>${version.mockito.core}</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <artifactId>mockito-inline</artifactId>
+        <groupId>org.mockito</groupId>
+        <scope>test</scope>
+        <version>${version.mockito.core}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
@@ -517,35 +608,5 @@
       </snapshots>
     </repository>
   </repositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${version.surefire.plugin}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${version.maven.release}</version>
-      </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${version.maven.compiler.plugin}</version>
-          <configuration>
-            <release>11</release>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 
 </project>

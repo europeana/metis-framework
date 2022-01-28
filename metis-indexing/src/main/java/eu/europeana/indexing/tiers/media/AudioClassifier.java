@@ -1,6 +1,8 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
+import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -25,8 +27,7 @@ class AudioClassifier extends AbstractMediaClassifier {
   }
 
   @Override
-  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage,
-      boolean hasEmbeddableMedia) {
+  MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
     // Check the conditions - the conditions for T2-T4 take precedence over those of T1.
     final MediaTier result;
@@ -40,5 +41,15 @@ class AudioClassifier extends AbstractMediaClassifier {
 
     // Done.
     return result;
+  }
+
+  @Override
+  ResolutionTierMetadata extractResolutionTierMetadata(WebResourceWrapper webResource, MediaTier mediaTier) {
+    return new ResolutionTierMetadataBuilder().build();
+  }
+
+  @Override
+  MediaType getMediaType() {
+    return MediaType.AUDIO;
   }
 }
