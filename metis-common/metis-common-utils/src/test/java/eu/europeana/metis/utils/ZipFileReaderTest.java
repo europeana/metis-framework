@@ -21,6 +21,9 @@ import java.util.zip.ZipFile;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for {@link ZipFileReader}
+ */
 class ZipFileReaderTest {
 
   @Test
