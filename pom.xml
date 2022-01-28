@@ -111,7 +111,7 @@
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
     <version.tika.core>1.26</version.tika.core>
-    <version.xerces>2.12.1</version.xerces>
+    <version.xerces>2.12.2</version.xerces>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
     <version.xsom>20140925</version.xsom>
     <version.zip4j>2.8.0</version.zip4j>
