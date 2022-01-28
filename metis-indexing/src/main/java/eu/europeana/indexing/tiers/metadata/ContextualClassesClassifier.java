@@ -4,6 +4,7 @@ import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifierBreakdown;
 import eu.europeana.indexing.tiers.view.ContextualClassesBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -17,7 +18,7 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx._Long;
-import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -60,16 +61,22 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
       metadataTier = MetadataTier.TA;
     }
 
-    return new ContextualClassesBreakdown(contextualClassesStatistics.getCompleteContextualResources(),
-        new ArrayList<>(contextualClassesStatistics.getDistinctClassesSet()), metadataTier);
+    final Set<String> uniqueContextualClasses = contextualClassesStatistics.getDistinctClassesSet().stream()
+                                                                           .map(ContextualClassGroup::getContextualClass)
+                                                                           .map(
+                                                                               RdfConversionUtils::getQualifiedElementNameForClass)
+                                                                           .collect(Collectors.toSet());
+
+    return new ContextualClassesBreakdown(contextualClassesStatistics.getCompleteContextualResources(), uniqueContextualClasses,
+        metadataTier);
   }
 
   static class ContextualClassesStatistics {
 
     private final int completeContextualResources;
-    private final Set<String> distinctClassesSet;
+    private final Set<ContextualClassGroup> distinctClassesSet;
 
-    ContextualClassesStatistics(int completeContextualResources, Set<String> distinctClassesSet) {
+    ContextualClassesStatistics(int completeContextualResources, Set<ContextualClassGroup> distinctClassesSet) {
       this.completeContextualResources = completeContextualResources;
       this.distinctClassesSet = distinctClassesSet == null ? new HashSet<>() : new HashSet<>(distinctClassesSet);
     }
@@ -78,7 +85,7 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
       return completeContextualResources;
     }
 
-    public Set<String> getDistinctClassesSet() {
+    public Set<ContextualClassGroup> getDistinctClassesSet() {
       return new HashSet<>(distinctClassesSet);
     }
   }
@@ -92,25 +99,25 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
 
     // Count the entity types that are referenced and that qualify according to the criteria.
     int contextualClassCount = 0;
-    final Set<String> uniqueClasses = new HashSet<>();
+    final Set<ContextualClassGroup> uniqueContextualClasses = EnumSet.noneOf(ContextualClassGroup.class);
     if (hasQualifiedEntities(entity.getAgents(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
-      uniqueClasses.add(AgentType.class.getSimpleName());
+      uniqueContextualClasses.add(ContextualClassGroup.PERSONAL);
     }
     if (hasQualifiedEntities(entity.getConcepts(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
-      uniqueClasses.add(Concept.class.getSimpleName());
+      uniqueContextualClasses.add(ContextualClassGroup.CONCEPTUAL);
     }
     if (hasQualifiedEntities(entity.getPlaces(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
-      uniqueClasses.add(PlaceType.class.getSimpleName());
+      uniqueContextualClasses.add(ContextualClassGroup.GEOGRAPHICAL);
     }
     if (hasQualifiedEntities(entity.getTimeSpans(), referencedEntities, this::entityQualifies)) {
       contextualClassCount++;
-      uniqueClasses.add(TimeSpanType.class.getSimpleName());
+      uniqueContextualClasses.add(ContextualClassGroup.TEMPORAL);
     }
 
-    return new ContextualClassesStatistics(contextualClassCount, uniqueClasses);
+    return new ContextualClassesStatistics(contextualClassCount, uniqueContextualClasses);
   }
 
   boolean entityQualifies(AgentType agent) {

@@ -7,7 +7,7 @@ import eu.europeana.indexing.utils.RdfWrapper;
  *
  * @param <S> The breakdown of the tier classification
  */
-public interface TierClassifierBreakdown<S extends TierProvider<Tier>> {
+public interface TierClassifierBreakdown<S extends TierProvider<MetadataTier>> {
 
   /**
    * Analyze an entity to get the breakdown that may contain a tier value

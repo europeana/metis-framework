@@ -10,7 +10,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import eu.europeana.metis.schema.jibx.AltLabel;
 import eu.europeana.metis.schema.jibx.Alternative;
 import eu.europeana.metis.schema.jibx.Concept;

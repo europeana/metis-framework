@@ -12,5 +12,5 @@ public interface TierProvider<T extends Tier> {
    *
    * @return the tier value
    */
-  T getTier();
+  T getMetadataTier();
 }

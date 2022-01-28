@@ -1,56 +1,44 @@
 package eu.europeana.indexing.tiers.view;
 
-import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierProvider;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The enabling elements breakdown
  */
-public class EnablingElementsBreakdown implements TierProvider<Tier> {
+public class EnablingElementsBreakdown implements TierProvider<MetadataTier> {
 
-  private final List<String> distinctEnablingElementsList;
-  private final int distinctEnablingElements;
-  private final List<String> metadataGroupsList;
-  private final int metadataGroups;
-  private final Tier tier;
+  private final Set<String> distinctEnablingElementsList;
+  private final Set<String> metadataGroupsList;
+  private final MetadataTier metadataTier;
 
   /**
    * Constructor with required parameters.
    *
    * @param distinctEnablingElementsList the distinct enabling elements list
    * @param metadataGroupsList the metadata groups list
-   * @param tier the tier for the breakdown
+   * @param metadataTier the tier for the breakdown
    */
-  public EnablingElementsBreakdown(List<String> distinctEnablingElementsList, List<String> metadataGroupsList,
-      Tier tier) {
+  public EnablingElementsBreakdown(Set<String> distinctEnablingElementsList, Set<String> metadataGroupsList,
+      MetadataTier metadataTier) {
     this.distinctEnablingElementsList =
-        distinctEnablingElementsList == null ? new ArrayList<>() : new ArrayList<>(distinctEnablingElementsList);
-    this.distinctEnablingElements = this.distinctEnablingElementsList.size();
-    this.metadataGroupsList = metadataGroupsList == null ? new ArrayList<>() : new ArrayList<>(metadataGroupsList);
-    this.metadataGroups = this.metadataGroupsList.size();
-    this.tier = tier;
+        distinctEnablingElementsList == null ? new HashSet<>() : new HashSet<>(distinctEnablingElementsList);
+    this.metadataGroupsList = metadataGroupsList == null ? new HashSet<>() : new HashSet<>(metadataGroupsList);
+    this.metadataTier = metadataTier;
   }
 
-  public int getDistinctEnablingElements() {
-    return distinctEnablingElements;
+  public Set<String> getDistinctEnablingElementsList() {
+    return new HashSet<>(distinctEnablingElementsList);
   }
 
-  public List<String> getDistinctEnablingElementsList() {
-    return new ArrayList<>(distinctEnablingElementsList);
-  }
-
-  public int getMetadataGroups() {
-    return metadataGroups;
-  }
-
-  public List<String> getMetadataGroupsList() {
-    return new ArrayList<>(metadataGroupsList);
+  public Set<String> getMetadataGroupsList() {
+    return new HashSet<>(metadataGroupsList);
   }
 
   @Override
-  public Tier getTier() {
-    return tier;
+  public MetadataTier getMetadataTier() {
+    return metadataTier;
   }
 }

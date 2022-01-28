@@ -15,9 +15,8 @@ import java.util.stream.Stream;
 /**
  * This tier classifier combines various classifiers. When asked to classify a record, it calls all the containing classifiers and
  * awards the record the minimum of the resulting tiers.
- *
  */
-public class MetadataClassifier implements TierClassifier<Tier, MetadataTierBreakdown> {
+public class MetadataClassifier implements TierClassifier<MetadataTier, MetadataTierBreakdown> {
 
   private final LanguageClassifier languageClassifier;
   private final EnablingElementsClassifier enablingElementsClassifier;
@@ -42,7 +41,7 @@ public class MetadataClassifier implements TierClassifier<Tier, MetadataTierBrea
   }
 
   @Override
-  public TierClassification<Tier, MetadataTierBreakdown> classify(RdfWrapper entity) {
+  public TierClassification<MetadataTier, MetadataTierBreakdown> classify(RdfWrapper entity) {
     final LanguageBreakdown languageBreakdownTierClassification = languageClassifier.classifyBreakdown(
         entity);
     final EnablingElementsBreakdown enablingElementsTierClassification = enablingElementsClassifier.classifyBreakdown(
@@ -54,9 +53,10 @@ public class MetadataClassifier implements TierClassifier<Tier, MetadataTierBrea
         languageBreakdownTierClassification, enablingElementsTierClassification,
         contextualClassesTierClassification);
 
-    Tier metadataTier = Stream.of(languageBreakdownTierClassification.getTier(),
-                                  enablingElementsTierClassification.getTier(), contextualClassesTierClassification.getTier()).reduce(Tier::min)
-                              .orElseThrow(IllegalStateException::new);
+    MetadataTier metadataTier = Stream.of(languageBreakdownTierClassification.getMetadataTier(),
+                                          enablingElementsTierClassification.getMetadataTier(), contextualClassesTierClassification.getMetadataTier())
+                                      .reduce(Tier::min)
+                                      .orElseThrow(IllegalStateException::new);
 
     return new TierClassification<>(metadataTier, metadataTierBreakdown);
   }

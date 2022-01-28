@@ -3,7 +3,6 @@ package eu.europeana.indexing.tiers.metadata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.indexing.tiers.metadata.EnablingElement.EnablingElementGroup;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Contributor;
 import eu.europeana.metis.schema.jibx.Created;
@@ -41,52 +40,20 @@ import org.junit.jupiter.api.Test;
 
 class EnablingElementTest {
 
-  @Test
-  void testAnalyze() {
-    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_CREATED, EnablingElementGroup.TEMPORAL,
-        Created::new, Choice::setCreated);
-    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_ISSUED, EnablingElementGroup.TEMPORAL,
-        Issued::new, Choice::setIssued);
-    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_TEMPORAL, EnablingElementGroup.TEMPORAL,
-        Temporal::new, Choice::setTemporal);
-    testChoiceElementWithFixedGroup(EnablingElement.DC_FORMAT, EnablingElementGroup.CONCEPTUAL,
-        Format::new, Choice::setFormat);
-    testChoiceElementWithFixedGroup(EnablingElement.DC_TYPE, EnablingElementGroup.CONCEPTUAL,
-        Type::new, Choice::setType);
-    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_MEDIUM, EnablingElementGroup.CONCEPTUAL,
-        Medium::new, Choice::setMedium);
-    testChoiceElementWithFixedGroup(EnablingElement.DC_CREATOR, EnablingElementGroup.PERSONAL,
-        Creator::new, Choice::setCreator);
-    testChoiceElementWithFixedGroup(EnablingElement.DC_CONTRIBUTOR, EnablingElementGroup.PERSONAL,
-        Contributor::new, Choice::setContributor);
-    testChoiceElementWithFixedGroup(EnablingElement.DC_PUBLISHER, EnablingElementGroup.PERSONAL,
-        Publisher::new, Choice::setPublisher);
-    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_SPATIAL, EnablingElementGroup.GEOGRAPHICAL,
-        Spatial::new, Choice::setSpatial);
-    testElementWithFixedGroup(EnablingElement.EDM_CURRENT_LOCATION, EnablingElementGroup.GEOGRAPHICAL,
-        CurrentLocation::new, ProxyType::setCurrentLocation);
-    testElementWithCandidateGroups(EnablingElement.EDM_HAS_MET,
-        EnumSet.of(EnablingElementGroup.TEMPORAL, EnablingElementGroup.PERSONAL),
-        HasMet::new, ProxyType::setHasMetList, ResourceType::setResource);
-    testChoiceElementWithCandidateGroups(EnablingElement.DC_SUBJECT, EnumSet
-        .of(EnablingElementGroup.CONCEPTUAL, EnablingElementGroup.PERSONAL,
-            EnablingElementGroup.GEOGRAPHICAL), Subject::new, Choice::setSubject);
-  }
-
   private <T extends ResourceOrLiteralType> void testChoiceElementWithFixedGroup(EnablingElement element,
-      EnablingElementGroup group, Supplier<T> constructor, BiConsumer<Choice, T> setter) {
-    final BiConsumer<ProxyType, T> wrappedSetter = (proxy, value)->{
+      ContextualClassGroup group, Supplier<T> constructor, BiConsumer<Choice, T> setter) {
+    final BiConsumer<ProxyType, T> wrappedSetter = (proxy, value) -> {
       proxy.setChoiceList(new ArrayList<>());
       proxy.getChoiceList().add(new Choice());
       setter.accept(proxy.getChoiceList().get(0), value);
-    } ;
+    };
     testElementWithFixedGroup(element, group, constructor, wrappedSetter);
   }
 
   private <T extends ResourceOrLiteralType> void testElementWithFixedGroup(EnablingElement element,
-      EnablingElementGroup group, Supplier<T> constructor, BiConsumer<ProxyType, T> setter) {
+      ContextualClassGroup group, Supplier<T> constructor, BiConsumer<ProxyType, T> setter) {
 
-    final Set<EnablingElementGroup> groups = Collections.singleton(group);
+    final Set<ContextualClassGroup> groups = Collections.singleton(group);
 
     // Test with empty list
     assertTrue(element.analyze(Collections.emptyList(), Collections.emptyMap()).isEmpty());
@@ -114,18 +81,18 @@ class EnablingElementTest {
   }
 
   private <T > void testElementWithCandidateGroups(
-      EnablingElement element, Set<EnablingElementGroup> candidates, Supplier<T> constructor,
+      EnablingElement element, Set<ContextualClassGroup> candidates, Supplier<T> constructor,
       BiConsumer<ProxyType, List<T>> objectSetter, BiConsumer<T, String> linkSetter) {
 
     // Create link map.
-    final String link1="link 1";
+    final String link1 = "link 1";
     final String link2 = "link 2";
     final String link3 = "link 3";
-    final String link4= "link 4";
-    final Set<EnablingElementGroup> groups1 = EnumSet.noneOf(EnablingElementGroup.class);
-    final Set<EnablingElementGroup> groups2 = EnumSet.of(EnablingElementGroup.TEMPORAL);
-    final Set<EnablingElementGroup> groups3 = EnumSet.of(EnablingElementGroup.CONCEPTUAL);
-    final Set<EnablingElementGroup> groups4 = EnumSet.allOf(EnablingElementGroup.class);
+    final String link4 = "link 4";
+    final Set<ContextualClassGroup> groups1 = EnumSet.noneOf(ContextualClassGroup.class);
+    final Set<ContextualClassGroup> groups2 = EnumSet.of(ContextualClassGroup.TEMPORAL);
+    final Set<ContextualClassGroup> groups3 = EnumSet.of(ContextualClassGroup.CONCEPTUAL);
+    final Set<ContextualClassGroup> groups4 = EnumSet.allOf(ContextualClassGroup.class);
     final Map<String, Set<Class<? extends AboutType>>> typeMap = new HashMap<>();
     typeMap.put(link1, getTypes(groups1));
     typeMap.put(link2, getTypes(groups2));
@@ -152,7 +119,7 @@ class EnablingElementTest {
     // Set multiple links and compare.
     linkSetter.accept(value1, link2);
     linkSetter.accept(value2, link3);
-    final Set<EnablingElementGroup> result = new HashSet<>();
+    final Set<ContextualClassGroup> result = new HashSet<>();
     result.addAll(groups2);
     result.addAll(groups3);
     result.retainAll(candidates);
@@ -167,7 +134,7 @@ class EnablingElementTest {
   }
 
   private <T extends ResourceOrLiteralType> void testChoiceElementWithCandidateGroups(
-      EnablingElement element, Set<EnablingElementGroup> candidates, Supplier<T> constructor,
+      EnablingElement element, Set<ContextualClassGroup> candidates, Supplier<T> constructor,
       BiConsumer<Choice, T> setter) {
 
     // Do the testing on the links.
@@ -188,7 +155,7 @@ class EnablingElementTest {
     // Test literals: they do not create any match (but links still do, proving the setup is correct).
     final String link = "link";
     final Map<String, Set<Class<? extends AboutType>>> typeMap = Collections
-        .singletonMap(link, getTypes(EnumSet.allOf(EnablingElementGroup.class)));
+        .singletonMap(link, getTypes(EnumSet.allOf(ContextualClassGroup.class)));
     final T value = constructor.get();
     value.setString(link);
     final ProxyType proxy = new ProxyType();
@@ -198,7 +165,39 @@ class EnablingElementTest {
     assertEquals(candidates, element.analyze(Collections.singletonList(proxy), typeMap));
   }
 
-  private Set<Class<? extends AboutType>> getTypes(Set<EnablingElementGroup> groups){
-    return groups.stream().map(EnablingElementGroup::getContextualClass).collect(Collectors.toSet());
+  private Set<Class<? extends AboutType>> getTypes(Set<ContextualClassGroup> groups) {
+    return groups.stream().map(ContextualClassGroup::getContextualClass).collect(Collectors.toSet());
+  }
+
+  @Test
+  void testAnalyze() {
+    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_CREATED, ContextualClassGroup.TEMPORAL,
+        Created::new, Choice::setCreated);
+    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_ISSUED, ContextualClassGroup.TEMPORAL,
+        Issued::new, Choice::setIssued);
+    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_TEMPORAL, ContextualClassGroup.TEMPORAL,
+        Temporal::new, Choice::setTemporal);
+    testChoiceElementWithFixedGroup(EnablingElement.DC_FORMAT, ContextualClassGroup.CONCEPTUAL,
+        Format::new, Choice::setFormat);
+    testChoiceElementWithFixedGroup(EnablingElement.DC_TYPE, ContextualClassGroup.CONCEPTUAL,
+        Type::new, Choice::setType);
+    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_MEDIUM, ContextualClassGroup.CONCEPTUAL,
+        Medium::new, Choice::setMedium);
+    testChoiceElementWithFixedGroup(EnablingElement.DC_CREATOR, ContextualClassGroup.PERSONAL,
+        Creator::new, Choice::setCreator);
+    testChoiceElementWithFixedGroup(EnablingElement.DC_CONTRIBUTOR, ContextualClassGroup.PERSONAL,
+        Contributor::new, Choice::setContributor);
+    testChoiceElementWithFixedGroup(EnablingElement.DC_PUBLISHER, ContextualClassGroup.PERSONAL,
+        Publisher::new, Choice::setPublisher);
+    testChoiceElementWithFixedGroup(EnablingElement.DCTERMS_SPATIAL, ContextualClassGroup.GEOGRAPHICAL,
+        Spatial::new, Choice::setSpatial);
+    testElementWithFixedGroup(EnablingElement.EDM_CURRENT_LOCATION, ContextualClassGroup.GEOGRAPHICAL,
+        CurrentLocation::new, ProxyType::setCurrentLocation);
+    testElementWithCandidateGroups(EnablingElement.EDM_HAS_MET,
+        EnumSet.of(ContextualClassGroup.TEMPORAL, ContextualClassGroup.PERSONAL),
+        HasMet::new, ProxyType::setHasMetList, ResourceType::setResource);
+    testChoiceElementWithCandidateGroups(EnablingElement.DC_SUBJECT, EnumSet
+        .of(ContextualClassGroup.CONCEPTUAL, ContextualClassGroup.PERSONAL,
+            ContextualClassGroup.GEOGRAPHICAL), Subject::new, Choice::setSubject);
   }
 }
