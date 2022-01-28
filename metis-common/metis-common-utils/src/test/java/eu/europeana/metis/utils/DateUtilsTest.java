@@ -10,6 +10,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+/**
+ * Unit test for {@link DateUtils}
+ */
 class DateUtilsTest {
 
   private static Stream<Arguments> provideExpectedTimeAndTimeUnits() {
