@@ -67,11 +67,11 @@ class StringHttpClientTest {
   }
 
   @Test
-  void createResultWithException() {
-    assertThrows(IOException.class, () -> {
-      final ContentRetriever contentRetriever = mock(ContentRetriever.class);
-      when(contentRetriever.getContent()).thenThrow(IOException.class);
+  void createResultWithException() throws IOException {
+    final ContentRetriever contentRetriever = mock(ContentRetriever.class);
+    when(contentRetriever.getContent()).thenThrow(IOException.class);
 
+    assertThrows(IOException.class, () -> {
       stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"),
           "text/plain", 7L, contentRetriever);
     });
