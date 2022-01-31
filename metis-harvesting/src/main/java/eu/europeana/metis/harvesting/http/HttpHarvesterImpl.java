@@ -75,7 +75,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
           action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
               new ByteArrayInputStream(IOUtils.toByteArray(content))));
           currentNumberOfIterations.getAndIncrement();
-          if (maxNumberOfIterations > 0 && currentNumberOfIterations.get() >= maxNumberOfIterations) {
+          if (maxNumberOfIterations > 0 && currentNumberOfIterations.get() > maxNumberOfIterations) {
             return IterationResult.TERMINATE;
           }
           return IterationResult.CONTINUE;
