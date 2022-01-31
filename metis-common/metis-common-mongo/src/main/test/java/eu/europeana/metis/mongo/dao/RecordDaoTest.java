@@ -47,6 +47,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Unit test for {@link RecordDao}
+ *
+ * @author Jorge Ortiz
+ * @since 31-01-2022
  */
 class RecordDaoTest {
 

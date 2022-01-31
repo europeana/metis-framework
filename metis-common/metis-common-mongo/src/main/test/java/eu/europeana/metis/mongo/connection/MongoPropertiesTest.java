@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link MongoProperties}
+ *
+ * @author Jorge Ortiz
+ * @since 31-01-2022
  */
 class MongoPropertiesTest {
 

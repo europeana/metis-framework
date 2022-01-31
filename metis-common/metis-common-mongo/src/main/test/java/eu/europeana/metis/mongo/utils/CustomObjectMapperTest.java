@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link CustomObjectMapper} Only verifies that the module that contains ObjectIdSerializable is added.
+ *
+ * @author Jorge Ortiz
+ * @since 31-01-2022
  */
 class CustomObjectMapperTest {
 
