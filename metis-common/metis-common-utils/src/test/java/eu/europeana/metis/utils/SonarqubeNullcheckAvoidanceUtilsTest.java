@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link SonarqubeNullcheckAvoidanceUtils}
+ *
+ * @author Jorge Ortiz
+ * @since 31-01-2022
  */
 class SonarqubeNullcheckAvoidanceUtilsTest {
 

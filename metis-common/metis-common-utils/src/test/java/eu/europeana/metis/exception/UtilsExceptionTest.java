@@ -5,6 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link BadContentException}
+ *               {@link ExternalTaskException}
+ *               {@link GenericMetisException}
+ *               {@link NoUserFoundException}
+ *               {@link UserAlreadyExistsException}
+ *               {@link UserUnauthorizedException}
+ *               {@link StructuredExceptionWrapper}
+ *
+ * @author Jorge Ortiz
+ * @since 31-01-2022
+ */
 class UtilsExceptionTest {
   private UtilsThrower utilsThrower;
   @BeforeEach

@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link MongoClientProvider}
+ *
+ * @author Jorge Ortiz
+ * @since 31-01-2022
  */
 class MongoClientProviderTest {
 
