@@ -197,11 +197,17 @@ public final class ExternalRequestUtil {
           AtomicInteger retriesCounter, int maxRetries, int periodBetweenRetriesInMillis) throws E {
     retriesCounter.incrementAndGet();
     //Check if exception matches any exception from the map that is provided
-    final boolean causeMatches = doesExceptionCauseMatchAnyOfProvidedExceptions(exceptionStringMap,
-        e);
-    //Rethrow the exception if more than maxRetries occurred or the cause doesn't match any expected causes.
-    if (retriesCounter.get() > maxRetries || !causeMatches) {
-      throw e;
+    if(!isNullOrEmpty(exceptionStringMap)) {
+      final boolean causeMatches = doesExceptionCauseMatchAnyOfProvidedExceptions(exceptionStringMap,
+          e);
+      //Rethrow the exception if more than maxRetries occurred or the cause doesn't match any expected causes.
+      if (retriesCounter.get() > maxRetries || !causeMatches) {
+        throw e;
+      }
+    } else {
+      if (retriesCounter.get() > maxRetries) {
+        throw e;
+      }
     }
 
     if (LOGGER.isWarnEnabled()) {
