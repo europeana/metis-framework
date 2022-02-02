@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -597,25 +596,23 @@ class TestProxiesService {
 
     // When the record service client returns an exception or an unexpected list size.
     doReturn(null).when(recordServiceClient)
-                  .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-                      eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                  .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
+                      pluginType.name(), ecloudProvider, dateString);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Collections.emptyList()).when(recordServiceClient)
-                                     .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-                                         eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                                     .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
+                                         pluginType.name(), ecloudProvider, dateString);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
-    doReturn(Arrays.asList(representation, representation)).when(recordServiceClient)
-                                                           .getRepresentationsByRevision(eq(ecloudId),
-                                                               eq(MetisPlugin.getRepresentationName()),
-                                                               eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    doReturn(Arrays.asList(representation, representation)).when(recordServiceClient).getRepresentationsByRevision(ecloudId,
+        MetisPlugin.getRepresentationName(),
+        pluginType.name(), ecloudProvider, dateString);
     proxiesService.getRecord(plugin, ecloudId);
     when(recordServiceClient.getRepresentationsByRevision(anyString(), anyString(),
         anyString(), anyString(), anyString())).thenThrow(MCSException.class);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
-    doReturn(Collections.singletonList(representation)).when(recordServiceClient)
-                                                       .getRepresentationsByRevision(eq(ecloudId),
-                                                           eq(MetisPlugin.getRepresentationName()),
-                                                           eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    doReturn(Collections.singletonList(representation)).when(recordServiceClient).getRepresentationsByRevision(ecloudId,
+        MetisPlugin.getRepresentationName(),
+        pluginType.name(), ecloudProvider, dateString);
     proxiesService.getRecord(plugin, ecloudId);
 
     // When the revision has an unexpected number of files
