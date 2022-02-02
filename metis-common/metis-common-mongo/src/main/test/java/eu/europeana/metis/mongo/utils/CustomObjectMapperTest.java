@@ -20,6 +20,6 @@ class CustomObjectMapperTest {
     customObjectMapper.findAndRegisterModules();
     Set<Object> modules = customObjectMapper.getRegisteredModuleIds();
 
-    assertEquals(4, modules.size());
+    assertEquals(1, modules.size());
   }
 }
