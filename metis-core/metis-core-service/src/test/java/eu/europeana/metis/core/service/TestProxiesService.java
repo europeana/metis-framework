@@ -226,22 +226,23 @@ class TestProxiesService {
             TestObjectFactory.EXTERNAL_TASK_ID, 10));
   }
 
-  @Test
-  void getExternalTaskStatistics() throws Exception {
-    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
-    when(dpsClient.getTaskStatisticsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
-    final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
-    when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    final RecordStatistics recordStatistics = new RecordStatistics();
-    when(proxiesHelper.compileRecordStatistics(taskStatistics)).thenReturn(recordStatistics);
-    final RecordStatistics result = proxiesService.getExternalTaskStatistics(metisUserView,
-            Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
-    verify(authorizer, times(1))
-        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
-    verifyNoMoreInteractions(authorizer);
-    assertSame(recordStatistics, result);
+  private Pair<AbstractExecutablePlugin<?>, ExecutablePluginType> getUsedAndUnusedPluginType(
+      WorkflowExecution execution) {
+    final Set<PluginType> usedPluginTypes = execution.getMetisPlugins().stream()
+                                                     .map(AbstractMetisPlugin::getPluginType).collect(Collectors.toSet());
+    final PluginType usedPluginType = usedPluginTypes.stream().findAny()
+                                                     .orElseThrow(IllegalStateException::new);
+    final Map<PluginType, ExecutablePluginType> executablePluginTypes = Stream
+        .of(ExecutablePluginType.values())
+        .collect(Collectors.toMap(ExecutablePluginType::toPluginType, Function.identity()));
+    final ExecutablePluginType unusedPluginType = Stream.of(PluginType.values())
+                                                        .filter(type -> !usedPluginTypes.contains(type))
+                                                        .map(executablePluginTypes::get).filter(
+            Objects::nonNull).findAny().orElseThrow(IllegalStateException::new);
+    return new ImmutablePair<>(
+        (AbstractExecutablePlugin<?>) execution.getMetisPluginWithType(usedPluginType)
+                                               .filter(plugin -> plugin instanceof AbstractExecutablePlugin)
+                                               .orElseThrow(IllegalStateException::new), unusedPluginType);
   }
 
   @Test
@@ -308,17 +309,35 @@ class TestProxiesService {
   }
 
   @Test
+  void getExternalTaskStatistics() throws Exception {
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
+    when(dpsClient.getTaskStatisticsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
+    final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+    when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
+    final RecordStatistics recordStatistics = new RecordStatistics();
+    when(proxiesHelper.compileRecordStatistics(taskStatistics)).thenReturn(recordStatistics);
+    final RecordStatistics result = proxiesService.getExternalTaskStatistics(metisUserView,
+        Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
+    verify(authorizer, times(1))
+        .authorizeReadExistingDatasetById(metisUserView, workflowExecution.getDatasetId());
+    verifyNoMoreInteractions(authorizer);
+    assertSame(recordStatistics, result);
+  }
+
+  @Test
   void getListOfFileContentsFromPluginExecution() throws Exception {
 
     // Create execution and plugin
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final WorkflowExecution execution = TestObjectFactory.createWorkflowExecutionObject();
     execution.getMetisPlugins()
-        .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
+             .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
     final AbstractExecutablePlugin<?> plugin = getUsedAndUnusedPluginType(execution).getLeft();
     doReturn(new ImmutablePair<>(execution, plugin)).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
-            plugin.getPluginMetadata().getExecutablePluginType());
+                                                    .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
+                                                        plugin.getPluginMetadata().getExecutablePluginType());
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(execution);
 
     // Mock getting the records from eCloud.
@@ -349,21 +368,22 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final ExecutablePluginType pluginType = ExecutablePluginType.OAIPMH_HARVEST;
     doThrow(NoWorkflowExecutionFoundException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
+                                                    .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
+                                                        pluginType);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, null, 5));
 
     // If the user has no rights
     doThrow(UserUnauthorizedException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
+                                            .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(UserUnauthorizedException.class, () -> proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, null, 5));
 
     // If the execution does not have the plugin an empty result should be returned.
     doReturn(null).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
+                  .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     final PaginatedRecordsResponse result = proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, null, 5);
@@ -380,11 +400,11 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final WorkflowExecution execution = TestObjectFactory.createWorkflowExecutionObject();
     execution.getMetisPlugins()
-        .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
+             .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
     final AbstractExecutablePlugin<?> plugin = getUsedAndUnusedPluginType(execution).getLeft();
     doReturn(new ImmutablePair<>(execution, plugin)).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
-            plugin.getPluginMetadata().getExecutablePluginType());
+                                                    .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
+                                                        plugin.getPluginMetadata().getExecutablePluginType());
 
     // Mock ecloud client method.
     when(ecloudDataSetServiceClient
@@ -405,18 +425,18 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final WorkflowExecution execution = TestObjectFactory.createWorkflowExecutionObject();
     execution.getMetisPlugins()
-        .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
+             .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
     final AbstractExecutablePlugin<?> plugin = getUsedAndUnusedPluginType(execution).getLeft();
     doReturn(new ImmutablePair<>(execution, plugin)).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
-            plugin.getPluginMetadata().getExecutablePluginType());
+                                                    .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
+                                                        plugin.getPluginMetadata().getExecutablePluginType());
 
     // Create the test records and the list of IDs.
     final Record record1 = new Record("ID 1", "test content 1");
     final Record record2 = new Record("ID 2", "test content 2");
     final Record record3 = new Record("ID 3", "test content 3");
     final List<String> idList = Stream.of(record1, record2, record3).map(Record::getEcloudId)
-        .collect(Collectors.toList());
+                                      .collect(Collectors.toList());
 
     // Mock the method for getting records
     doReturn(record1).when(proxiesService).getRecord(plugin, record1.getEcloudId());
@@ -433,7 +453,7 @@ class TestProxiesService {
     // Verify that the result contains the record in the right order
     assertNotNull(result);
     assertNotNull(result.getRecords());
-    assertEquals(idList.size(),result.getRecords().size());
+    assertEquals(idList.size(), result.getRecords().size());
     assertEquals(idList,
         result.getRecords().stream().map(Record::getEcloudId).collect(Collectors.toList()));
 
@@ -449,7 +469,7 @@ class TestProxiesService {
 
     // Check that if a record cannot be retrieved, the method fails.
     doThrow(ExternalTaskException.class).when(proxiesService)
-        .getRecord(plugin, record3.getEcloudId());
+                                        .getRecord(plugin, record3.getEcloudId());
     assertThrows(ExternalTaskException.class, () -> proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), input));
@@ -462,21 +482,22 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final ExecutablePluginType pluginType = ExecutablePluginType.OAIPMH_HARVEST;
     doThrow(NoWorkflowExecutionFoundException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
+                                                    .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
+                                                        pluginType);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, new ListOfIds()));
 
     // If the user has no rights
     doThrow(UserUnauthorizedException.class).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
+                                            .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(UserUnauthorizedException.class, () -> proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, new ListOfIds()));
 
     // If the execution does not have the plugin an empty result should be returned.
     doReturn(null).when(proxiesService)
-        .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
+                  .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             pluginType, new ListOfIds()));
@@ -496,7 +517,7 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(execution);
     doReturn(null).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
+                  .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
 
     // Test happy flow with result
     final Pair<WorkflowExecution, AbstractExecutablePlugin> result = proxiesService
@@ -529,7 +550,7 @@ class TestProxiesService {
         .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType()));
     doReturn(null).when(authorizer)
-        .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
+                  .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
   }
 
   @Test
@@ -554,8 +575,9 @@ class TestProxiesService {
     final String dateString = proxiesService.pluginDateFormatForEcloud
         .format(plugin.getStartedDate());
     doReturn(Collections.singletonList(representation)).when(recordServiceClient)
-        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                                                       .getRepresentationsByRevision(ecloudId,
+                                                           MetisPlugin.getRepresentationName(), pluginType.name(), ecloudProvider,
+                                                           dateString);
     final String testContent = "test content";
     when(fileServiceClient.getFile(contentUri))
         .thenReturn(new ByteArrayInputStream(testContent.getBytes(StandardCharsets.UTF_8)));
@@ -575,23 +597,25 @@ class TestProxiesService {
 
     // When the record service client returns an exception or an unexpected list size.
     doReturn(null).when(recordServiceClient)
-        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                  .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+                      eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Collections.emptyList()).when(recordServiceClient)
-        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                                     .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+                                         eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Arrays.asList(representation, representation)).when(recordServiceClient)
-        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                                                           .getRepresentationsByRevision(eq(ecloudId),
+                                                               eq(MetisPlugin.getRepresentationName()),
+                                                               eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
     proxiesService.getRecord(plugin, ecloudId);
     when(recordServiceClient.getRepresentationsByRevision(anyString(), anyString(),
         anyString(), anyString(), anyString())).thenThrow(MCSException.class);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Collections.singletonList(representation)).when(recordServiceClient)
-        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+                                                       .getRepresentationsByRevision(eq(ecloudId),
+                                                           eq(MetisPlugin.getRepresentationName()),
+                                                           eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
     proxiesService.getRecord(plugin, ecloudId);
 
     // When the revision has an unexpected number of files
@@ -603,23 +627,5 @@ class TestProxiesService {
     proxiesService.getRecord(plugin, ecloudId);
     when(representation.getFiles()).thenReturn(Collections.singletonList(file));
     proxiesService.getRecord(plugin, ecloudId);
-  }
-
-  private Pair<AbstractExecutablePlugin<?>, ExecutablePluginType> getUsedAndUnusedPluginType(
-      WorkflowExecution execution) {
-    final Set<PluginType> usedPluginTypes = execution.getMetisPlugins().stream()
-        .map(AbstractMetisPlugin::getPluginType).collect(Collectors.toSet());
-    final PluginType usedPluginType = usedPluginTypes.stream().findAny()
-        .orElseThrow(IllegalStateException::new);
-    final Map<PluginType, ExecutablePluginType> executablePluginTypes = Stream
-        .of(ExecutablePluginType.values())
-        .collect(Collectors.toMap(ExecutablePluginType::toPluginType, Function.identity()));
-    final ExecutablePluginType unusedPluginType = Stream.of(PluginType.values())
-        .filter(type -> !usedPluginTypes.contains(type)).map(executablePluginTypes::get).filter(
-            Objects::nonNull).findAny().orElseThrow(IllegalStateException::new);
-    return new ImmutablePair<>(
-        (AbstractExecutablePlugin<?>) execution.getMetisPluginWithType(usedPluginType)
-            .filter(plugin -> plugin instanceof AbstractExecutablePlugin)
-            .orElseThrow(IllegalStateException::new), unusedPluginType);
   }
 }
