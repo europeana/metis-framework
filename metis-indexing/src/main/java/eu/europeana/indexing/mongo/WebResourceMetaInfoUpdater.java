@@ -52,8 +52,9 @@ public class WebResourceMetaInfoUpdater extends
     String generatedHash = null;
     try {
       // Note: we have no choice but to use MD5, this is agreed upon with the API implementation.
-      @SuppressWarnings("findsecbugs:WEAK_MESSAGE_DIGEST_MD5")
-      final MessageDigest md = MessageDigest.getInstance("MD5");
+      // The data used are not private and are considered safe
+      @SuppressWarnings({"findsecbugs:WEAK_MESSAGE_DIGEST_MD5", "java:S4790"}) final MessageDigest md = MessageDigest.getInstance(
+          "MD5");
       byte[] digest = md.digest((webResourceId + "-" + recordId).getBytes(StandardCharsets.UTF_8));
       generatedHash = DatatypeConverter.printHexBinary(digest).toLowerCase(Locale.US);
     } catch (NoSuchAlgorithmException e) {
