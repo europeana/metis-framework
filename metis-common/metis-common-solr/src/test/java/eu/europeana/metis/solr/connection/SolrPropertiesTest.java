@@ -124,7 +124,7 @@ class SolrPropertiesTest {
 
     solrProperties.setZookeeperTimeoutInSecs(-1);
 
-    assertEquals(null, solrProperties.getZookeeperTimeoutInSecs());
+    assertNull(solrProperties.getZookeeperTimeoutInSecs());
   }
 
   @Test
