@@ -32,6 +32,7 @@ import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.metis.schema.jibx.Type;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.JiBXException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -39,6 +40,7 @@ import org.mockito.Mockito;
 class RdfConversionUtilsTest {
 
   @Test
+  @Disabled
   void initializeRdfConversionUtils() {
     try (MockedStatic<BindingDirectory> bindingDirectoryMockedStatic = Mockito.mockStatic(BindingDirectory.class)) {
       bindingDirectoryMockedStatic.when(() -> BindingDirectory.getFactory(RDF.class)).thenThrow(JiBXException.class);
