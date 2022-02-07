@@ -89,18 +89,20 @@ Otherwise, a new ticket should be created and handled accordingly.
 
 ### Pull Requests
 
-Before creating a Pull Request make sure:
+A "Draft" pull request can be created as a placeholder and to keep track of how your code is being analyzed by the checks in the
+git repository. A "Draft" pull request is a work in progress pull request.  
+Before creating a Pull Request(converting the "Draft" to "Ready for review") make sure:
 
 - The build locally is successful
-- There are unit tests, and they cover all of the new code.
+- There are unit tests, and they cover all new code.
 - Javadoc is complete
 - Code formatting is applied
 - Sanity checks on a local deployment are successful
 
-Once everything is ready, submit a new pull request on github.  
-Wait and verify that all checks on the bottom of the Pull Request are succeeding.  
-If there are conflicts or failed checks identified on the pull request, fix them and commit the changes.   
-When everything is okay, move the corresponding ticket to the review column in our board.
+Once everything is ready, submit a new pull request(or convert the existing "Draft") on github.  
+Wait and verify that all checks on the bottom of the Pull Request are succeeding. When everything is okay, move the corresponding
+ticket to the review column in our board. If there are merge conflicts, do not fix them on the feature branch so that the branch
+remains clean and straightforward for the reviewers. The conflicts can be fixed and tested during the merge of the branch.
 
 ### Code Reviews
 
@@ -108,25 +110,32 @@ When a ticket is ready for code review, the implementors should move the ticket 
 from themselves.  
 Reviewers can then choose the ticket and assign it to themselves. When reviewing code, the reviewer should be objective
 and has to try to verify that all code conforms to best practises and common practises applicable to the team.  
-The reviewer should acknowledge there are different implementation styles from each developer but nonetheless be strict
-when readability, security, performance, tests, documentation or other relative issues are compromised.
+The reviewer should acknowledge there are different implementation styles from each developer but nonetheless be strict when
+readability, security, performance, tests, documentation or other relative issues are compromised.
 
 The review should be drafted from github with the `Start a review` button on the first comment.  
-When writing comments on github, those comments should be descriptive and clearly indicating what the reviewer is meant
-to imply. Once the reviewer is ready, the review can be submitted.  
-If there are comments for potential changes the reviewer should move the corresponding ticket back to `In progress` and
-re-assign the ticket to the implementor.  
+When writing comments on github, those comments should be descriptive and clearly indicating what the reviewer is meant to imply.
+Once the reviewer is ready, the review can be submitted.  
+If there are comments for potential changes the reviewer should move the corresponding ticket back to `In progress` and re-assign
+the ticket to the implementor.  
 Resolving a comment should only be allowed from the commenter(usually the reviewer).
 
-Finally, when the reviewer deems everything is fine on the pull request, the branch can be merged. This can be performed
-on the github pull request page or manually. To do this manually, checkout the destination branch(usually `develop`) and
-execute the merge command with the `--no-ff` parameter:
+Finally, when the reviewer deems everything is fine on the pull request, the branch can be merged.  
+If there are no merge conflicts the reviewer can proceed with merging the brarnch.  
+If though, there are merge conflicts the reviewer can flag the pull request as "approved" instead.   
+The implementor then should take the responsibility of merging the pull request properly.  
+If there is any doubt on fixing the merge conflicts while merging, the implementor should seek advice from a teammate that has
+worked on the relevant changes that were introduced on the destination branch.
+
+The merge can be performed on the github pull request page or manually(especially for conflicts).  
+To do this manually, checkout the destination branch(usually `develop`) and execute the merge command with the `--no-ff`
+parameter:
 
 `git merge --no-ff <branch_to_be_merge>`
 
-The reviewer should also check that the local branch is building before and after merging.  
-If the build succeeds the destination branch can be pushed to the remote repository and the pull request will be
-resolved.
+The merger should check that the local branch is building before and after merging. If there were merge conflicts that were
+resolved during the merge, then a local deployment should be triggered and verified. If the build succeeds the destination branch
+can be pushed to the remote repository and the pull request will be resolved.
 
 The reviewer can now move the ticket ahead in the board and re-assign it to the implementor.
 
