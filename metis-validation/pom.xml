@@ -15,19 +15,6 @@
     <module>metis-validation-service</module>
   </modules>
 
-  <distributionManagement>
-    <repository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-releases</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
-    </repository>
-    <snapshotRepository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-snapshots</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
-  </distributionManagement>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
