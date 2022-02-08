@@ -1,6 +1,7 @@
 package eu.europeana.metis.mongo.connection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -43,7 +44,7 @@ class MongoClientProviderTest {
   void getDefaultClientSettingsBuilder() {
     MongoClientSettings.Builder actual = MongoClientProvider.getDefaultClientSettingsBuilder();
 
-    assertEquals(false, actual.build().getRetryWrites());
+    assertFalse(actual.build().getRetryWrites());
     assertEquals(ReadPreference.secondaryPreferred(), actual.build().getReadPreference());
     assertEquals("Europeana Application Suite", actual.build().getApplicationName());
     assertEquals(30_000, actual.build().getConnectionPoolSettings().getMaxConnectionIdleTime(TimeUnit.MILLISECONDS));
