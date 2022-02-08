@@ -179,6 +179,7 @@
     <version.spring>5.3.7</version.spring>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.spring.context>${version.spring}</version.spring.context>
+    <version.spring.jersey>2.6.3</version.spring.jersey>
     <version.spring.security>5.5.0</version.spring.security>
     <version.spring.test>${version.spring}</version.spring.test>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
