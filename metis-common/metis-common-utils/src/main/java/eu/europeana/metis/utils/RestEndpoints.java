@@ -80,9 +80,6 @@ public final class RestEndpoints {
   public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
   public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";
 
-  /* METIS PREVIEW SERVICE ENDPOINT*/
-  public static final String DATA_CHECKER_UPLOAD = "/upload";
-
   /* METIS REPOSITORY ENDPOINTS */
   public static final String REPOSITORY_RECORDS = "/repository/records";
   public static final String REPOSITORY_RECORDS_RECORD_ID = "/repository/records/{recordId}";
