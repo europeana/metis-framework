@@ -1,91 +1,93 @@
 package eu.europeana.metis.exception;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for {@link BadContentException}
- *               {@link ExternalTaskException}
- *               {@link GenericMetisException}
- *               {@link NoUserFoundException}
- *               {@link UserAlreadyExistsException}
- *               {@link UserUnauthorizedException}
- *               {@link StructuredExceptionWrapper}
+ * Unit test for
+ * {@link BadContentException}
+ * {@link ExternalTaskException}
+ * {@link GenericMetisException}
+ * {@link NoUserFoundException}
+ * {@link UserAlreadyExistsException}
+ * {@link UserUnauthorizedException}
+ * {@link StructuredExceptionWrapper}
  *
  * @author Jorge Ortiz
  * @since 31-01-2022
  */
 class UtilsExceptionTest {
-  private UtilsThrower utilsThrower;
-  @BeforeEach
-  void setup() {
-    utilsThrower = new UtilsThrower();
-  }
 
   @Test
   void testBadContentException() {
-   BadContentException actualException = assertThrows(BadContentException.class, ()-> utilsThrower.throwBadContentException());
-   assertEquals("Bad content", actualException.getMessage());
+    BadContentException actualException = assertThrows(BadContentException.class, UtilsThrower::throwBadContentException);
+    assertEquals("Bad content", actualException.getMessage());
   }
 
   @Test
   void testBadContentExceptionThrowable() {
-    BadContentException actualException = assertThrows(BadContentException.class, ()-> utilsThrower.throwBadContentExceptionThrowable());
+    BadContentException actualException = assertThrows(BadContentException.class,
+        UtilsThrower::throwBadContentExceptionThrowable);
     assertEquals("Bad content throwable", actualException.getMessage());
-    assertEquals( "Cause of bad content", actualException.getCause().getMessage());
+    assertEquals("Cause of bad content", actualException.getCause().getMessage());
   }
 
   @Test
   void testExternalTaskException() {
-    ExternalTaskException actualException = assertThrows(ExternalTaskException.class, ()-> utilsThrower.throwExternalTaskException());
+    ExternalTaskException actualException = assertThrows(ExternalTaskException.class, UtilsThrower::throwExternalTaskException);
     assertEquals("External Task", actualException.getMessage());
   }
 
   @Test
   void testExternalTaskExceptionThrowable() {
-    ExternalTaskException actualException = assertThrows(ExternalTaskException.class, ()-> utilsThrower.throwExternalTaskExceptionThrowable());
+    ExternalTaskException actualException = assertThrows(ExternalTaskException.class,
+        UtilsThrower::throwExternalTaskExceptionThrowable);
     assertEquals("External Task throwable", actualException.getMessage());
-    assertEquals( "Cause of External Task", actualException.getCause().getMessage());
+    assertEquals("Cause of External Task", actualException.getCause().getMessage());
   }
 
   @Test
   void testGenericMetisException() {
-    GenericMetisException actualException = assertThrows(GenericMetisException.class, ()-> utilsThrower.throwGenericMetisException());
+    GenericMetisException actualException = assertThrows(GenericMetisException.class, UtilsThrower::throwGenericMetisException);
     assertEquals("Generic metis", actualException.getMessage());
   }
 
   @Test
   void testGenericMetisExceptionThrowable() {
-    GenericMetisException actualException = assertThrows(GenericMetisException.class, ()-> utilsThrower.throwGenericMetisExceptionThrowable());
+    GenericMetisException actualException = assertThrows(GenericMetisException.class,
+        UtilsThrower::throwGenericMetisExceptionThrowable);
     assertEquals("Generic metis throwable", actualException.getMessage());
-    assertEquals( "Cause of generic metis", actualException.getCause().getMessage());
+    assertEquals("Cause of generic metis", actualException.getCause().getMessage());
   }
 
   @Test
   void testNoUserFoundException() {
-    NoUserFoundException actualException = assertThrows(NoUserFoundException.class, ()-> utilsThrower.throwNoUserFoundException());
+    NoUserFoundException actualException = assertThrows(NoUserFoundException.class, UtilsThrower::throwNoUserFoundException);
     assertEquals("No user found", actualException.getMessage());
   }
 
   @Test
   void testUserAlreadyExistsException() {
-    UserAlreadyExistsException actualException = assertThrows(UserAlreadyExistsException.class, ()-> utilsThrower.throwUserAlreadyExistsException());
+    UserAlreadyExistsException actualException = assertThrows(UserAlreadyExistsException.class,
+        UtilsThrower::throwUserAlreadyExistsException);
     assertEquals("User already exists", actualException.getMessage());
   }
 
   @Test
   void testUserUnauthorizedException() {
-    UserUnauthorizedException actualException = assertThrows(UserUnauthorizedException.class, ()-> utilsThrower.throwUserUnauthorizedException());
+    UserUnauthorizedException actualException = assertThrows(UserUnauthorizedException.class,
+        UtilsThrower::throwUserUnauthorizedException);
     assertEquals("User unauthorized to perform an action", actualException.getMessage());
   }
 
   @Test
   void testUserUnauthorizedExceptionThrowable() {
-    UserUnauthorizedException actualException = assertThrows(UserUnauthorizedException.class, ()-> utilsThrower.throwUserUnauthorizedExceptionThrowable());
+    UserUnauthorizedException actualException = assertThrows(UserUnauthorizedException.class,
+        UtilsThrower::throwUserUnauthorizedExceptionThrowable);
     assertEquals("User unauthorized to perform an action", actualException.getMessage());
-    assertEquals( "Cause of unauthorized", actualException.getCause().getMessage());
+    assertEquals("Cause of unauthorized", actualException.getCause().getMessage());
   }
 
   @Test
@@ -103,45 +105,48 @@ class UtilsExceptionTest {
     assertEquals("Error Message", structuredExceptionWrapper.getErrorMessage());
   }
 
-  private class UtilsThrower {
+  /**
+   * Helper class for {@link UtilsExceptionTest}
+   */
+  private static class UtilsThrower {
 
-    public void throwBadContentException() throws BadContentException {
+    public static void throwBadContentException() throws BadContentException {
       throw new BadContentException("Bad content");
     }
 
-    public void throwBadContentExceptionThrowable() throws BadContentException {
+    public static void throwBadContentExceptionThrowable() throws BadContentException {
       throw new BadContentException("Bad content throwable", new Throwable("Cause of bad content"));
     }
 
-    public void throwExternalTaskException() throws ExternalTaskException {
+    public static void throwExternalTaskException() throws ExternalTaskException {
       throw new ExternalTaskException("External Task");
     }
 
-    public void throwExternalTaskExceptionThrowable() throws ExternalTaskException {
+    public static void throwExternalTaskExceptionThrowable() throws ExternalTaskException {
       throw new ExternalTaskException("External Task throwable", new Throwable("Cause of External Task"));
     }
 
-    public void throwGenericMetisException() throws GenericMetisException {
+    public static void throwGenericMetisException() throws GenericMetisException {
       throw new GenericMetisException("Generic metis");
     }
 
-    public void throwGenericMetisExceptionThrowable() throws GenericMetisException {
+    public static void throwGenericMetisExceptionThrowable() throws GenericMetisException {
       throw new GenericMetisException("Generic metis throwable", new Throwable("Cause of generic metis"));
     }
 
-    public void throwNoUserFoundException() throws NoUserFoundException {
+    public static void throwNoUserFoundException() throws NoUserFoundException {
       throw new NoUserFoundException("No user found");
     }
 
-    public void throwUserAlreadyExistsException() throws UserAlreadyExistsException {
+    public static void throwUserAlreadyExistsException() throws UserAlreadyExistsException {
       throw new UserAlreadyExistsException("User already exists");
     }
 
-    public void throwUserUnauthorizedException() throws UserUnauthorizedException {
+    public static void throwUserUnauthorizedException() throws UserUnauthorizedException {
       throw new UserUnauthorizedException("User unauthorized to perform an action");
     }
 
-    public void throwUserUnauthorizedExceptionThrowable() throws UserUnauthorizedException {
+    public static void throwUserUnauthorizedExceptionThrowable() throws UserUnauthorizedException {
       throw new UserUnauthorizedException("User unauthorized to perform an action", new Throwable("Cause of unauthorized"));
     }
   }
