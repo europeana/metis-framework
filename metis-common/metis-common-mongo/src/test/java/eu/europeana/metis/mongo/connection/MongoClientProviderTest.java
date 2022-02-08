@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.MongoClient;
+import eu.europeana.metis.mongo.connection.MongoClientProvider;
+import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;

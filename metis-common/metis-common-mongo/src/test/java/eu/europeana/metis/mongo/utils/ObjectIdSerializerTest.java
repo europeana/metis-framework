@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;

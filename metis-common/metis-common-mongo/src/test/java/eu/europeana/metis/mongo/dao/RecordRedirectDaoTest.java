@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import eu.europeana.metis.mongo.model.RecordRedirect;
 import java.time.Instant;

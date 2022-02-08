@@ -2,6 +2,7 @@ package eu.europeana.metis.mongo.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import eu.europeana.metis.mongo.utils.CustomObjectMapper;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 

@@ -18,6 +18,8 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import eu.europeana.metis.mongo.model.HasMongoObjectId;
+import eu.europeana.metis.mongo.utils.MorphiaUtils;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import java.util.List;
 import java.util.Objects;
 import org.bson.types.ObjectId;
