@@ -202,15 +202,20 @@ public class SchemaProvider {
   @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
   private void handleZipEntry(File downloadedFile, ZipFile zip, ZipEntry entry)
       throws SchemaProviderException, IOException {
+    //Verify location generated for file first
+    final File fileLocation = new File(downloadedFile.getParent(), entry.getName());
+    if (!fileLocation.getCanonicalPath().startsWith(downloadedFile.getParent())) {
+      throw new IOException("Entry is outside of the target directory");
+    }
+
     if (entry.isDirectory()) {
-      final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
+      final boolean couldCreateDir = fileLocation.mkdir();
       if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
       }
     } else {
       InputStream zipStream = zip.getInputStream(entry);
-      FileUtils.copyInputStreamToFile(zipStream,
-          new File(downloadedFile.getParent(), entry.getName()));
+      FileUtils.copyInputStreamToFile(zipStream, fileLocation);
     }
   }
 

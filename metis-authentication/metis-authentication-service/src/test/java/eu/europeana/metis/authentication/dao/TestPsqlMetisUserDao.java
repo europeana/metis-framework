@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,7 +81,8 @@ class TestPsqlMetisUserDao {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
 
-    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createMetisUser(new MetisUser()));
+    final MetisUser metisUser = new MetisUser();
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createMetisUser(metisUser));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
@@ -107,7 +108,8 @@ class TestPsqlMetisUserDao {
   void updateMetisUserThrowsExceptionOnCommit() {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
-    assertThrows(TransactionException.class, () -> psqlMetisUserDao.updateMetisUser(new MetisUser()));
+    final MetisUser metisUser = new MetisUser();
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.updateMetisUser(metisUser));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).update(any(Object.class));
@@ -179,7 +181,8 @@ class TestPsqlMetisUserDao {
   void createUserAccessTokenThrowsExceptionOnCommit() {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
-    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createUserAccessToken(new MetisUserAccessToken()));
+    final MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createUserAccessToken(metisUserAccessToken));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
