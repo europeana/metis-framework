@@ -51,21 +51,13 @@ class MorphiaUtilsTest {
     final int mongoPort = embeddedLocalhostMongo.getMongoPort();
     final MongoClient mongoClient = MongoClients.create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     datastore = Morphia.createDatastore(mongoClient, DATABASE_NAME);
+    addEntitiesToDatastore();
   }
 
   @AfterAll
   static void tearDown() {
-    embeddedLocalhostMongo.stop();
-  }
-
-  @BeforeEach
-  void setupEntities() {
-    addEntitiesToDatastore();
-  }
-
-  @AfterEach
-  void tearDownEntities() {
     removeEntitiesFromDatastore();
+    embeddedLocalhostMongo.stop();
   }
 
   @Test
@@ -192,7 +184,7 @@ class MorphiaUtilsTest {
         return false;
       }
 
-      DummyEntity that = (DummyEntity) o;
+      final DummyEntity that = (DummyEntity) o;
 
       if (!Objects.equals(id, that.id)) {
         return false;
