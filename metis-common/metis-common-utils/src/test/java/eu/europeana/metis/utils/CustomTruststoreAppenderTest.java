@@ -18,7 +18,7 @@ class CustomTruststoreAppenderTest {
   void appendCustomTrustoreToDefault() {
     assertDoesNotThrow(() ->
         CustomTruststoreAppender.appendCustomTrustoreToDefault(
-            getClass().getClassLoader().getResource("custom.jks").getPath(), "europeana")
+            CustomTruststoreAppenderTest.class.getClassLoader().getResource("custom.jks").getPath(), "europeana")
     );
   }
 
@@ -26,7 +26,7 @@ class CustomTruststoreAppenderTest {
   void appendCustomTrustoreToDefaultException() {
     assertThrows(TrustStoreConfigurationException.class, () ->
         CustomTruststoreAppender.appendCustomTrustoreToDefault(
-            getClass().getClassLoader().getResource("custom.jks").getPath(), "euro")
+            CustomTruststoreAppenderTest.class.getClassLoader().getResource("custom.jks").getPath(), "euro")
     );
   }
 }
