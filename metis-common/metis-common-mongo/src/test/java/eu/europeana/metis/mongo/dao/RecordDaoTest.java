@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -13,6 +15,7 @@ import dev.morphia.Datastore;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
@@ -34,7 +37,7 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.corelib.web.exception.EuropeanaException;
-import eu.europeana.metis.mongo.dao.RecordDao;
+import eu.europeana.corelib.web.exception.ProblemType;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.time.Instant;
 import java.util.Date;
@@ -44,7 +47,6 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Unit test for {@link RecordDao}
@@ -94,15 +96,12 @@ class RecordDaoTest {
   }
 
   @Test
-  void getFullBeanThrowsException() {
-    final Datastore temp = recordDao.getDatastore();
-    ReflectionTestUtils.setField(recordDao, "datastore", null);
+  void getFullBeanThrowsException() throws EuropeanaException {
+    final RecordDao spyRecordDao = spy(recordDao);
 
-    assertThrows(EuropeanaException.class, () -> {
-      recordDao.getFullBean("");
-    });
+    doThrow(new MongoDBException(ProblemType.MONGO_UNREACHABLE)).when(spyRecordDao).getFullBean("");
 
-    ReflectionTestUtils.setField(recordDao, "datastore", temp);
+    assertThrows(EuropeanaException.class, () -> spyRecordDao.getFullBean(""));
   }
 
   @Test
