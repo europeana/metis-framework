@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
@@ -53,7 +55,6 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -164,7 +165,7 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
 
     when(dpsClient.checkIfErrorReportExists(Topology.OAIPMH_HARVEST.getTopologyName(),
-        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(true);
+        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(true).thenThrow(DpsException.class);
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
 
@@ -175,6 +176,10 @@ class TestProxiesService {
     verifyNoMoreInteractions(authorizer);
 
     assertTrue(existsExternalTaskReport);
+
+    assertThrows(ExternalTaskException.class, () -> proxiesService.existsExternalTaskReport(metisUserView,
+        Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID));
+
   }
 
   @Test
@@ -553,7 +558,7 @@ class TestProxiesService {
   }
 
   @Test
-  void testGetRecord() throws MCSException, IOException, ExternalTaskException {
+  void testGetRecord() throws MCSException, ExternalTaskException {
 
     // Create representation
     final Representation representation = mock(Representation.class);
@@ -571,12 +576,11 @@ class TestProxiesService {
     // Configure mocks
     final String ecloudId = "ecloud ID";
     final String ecloudProvider = proxiesService.getEcloudProvider();
-    final String dateString = proxiesService.pluginDateFormatForEcloud
-        .format(plugin.getStartedDate());
+    final Date startedDate = plugin.getStartedDate();
+    final Revision revision = new Revision(pluginType.name(), ecloudProvider, startedDate);
     doReturn(Collections.singletonList(representation)).when(recordServiceClient)
                                                        .getRepresentationsByRevision(ecloudId,
-                                                           MetisPlugin.getRepresentationName(), pluginType.name(), ecloudProvider,
-                                                           dateString);
+                                                           MetisPlugin.getRepresentationName(), revision);
     final String testContent = "test content";
     when(fileServiceClient.getFile(contentUri))
         .thenReturn(new ByteArrayInputStream(testContent.getBytes(StandardCharsets.UTF_8)));
@@ -587,32 +591,23 @@ class TestProxiesService {
     assertEquals(ecloudId, result.getEcloudId());
     assertEquals(testContent, result.getXmlRecord());
 
-    // When the file service client returns an exception
-    when(fileServiceClient.getFile(contentUri)).thenThrow(new IOException("Cannot read file"));
-    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
-    doReturn(new ByteArrayInputStream(testContent.getBytes(StandardCharsets.UTF_8)))
-        .when(fileServiceClient).getFile(contentUri);
-    proxiesService.getRecord(plugin, ecloudId);
-
     // When the record service client returns an exception or an unexpected list size.
     doReturn(null).when(recordServiceClient)
                   .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
-                      pluginType.name(), ecloudProvider, dateString);
+                      revision);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Collections.emptyList()).when(recordServiceClient)
                                      .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
-                                         pluginType.name(), ecloudProvider, dateString);
+                                         revision);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Arrays.asList(representation, representation)).when(recordServiceClient).getRepresentationsByRevision(ecloudId,
-        MetisPlugin.getRepresentationName(),
-        pluginType.name(), ecloudProvider, dateString);
+        MetisPlugin.getRepresentationName(), revision);
     proxiesService.getRecord(plugin, ecloudId);
     when(recordServiceClient.getRepresentationsByRevision(anyString(), anyString(),
-        anyString(), anyString(), anyString())).thenThrow(MCSException.class);
+        any(Revision.class))).thenThrow(MCSException.class);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(Collections.singletonList(representation)).when(recordServiceClient).getRepresentationsByRevision(ecloudId,
-        MetisPlugin.getRepresentationName(),
-        pluginType.name(), ecloudProvider, dateString);
+        MetisPlugin.getRepresentationName(), revision);
     proxiesService.getRecord(plugin, ecloudId);
 
     // When the revision has an unexpected number of files

@@ -3,6 +3,7 @@ package eu.europeana.metis.core.service;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
@@ -140,14 +141,15 @@ public class ProxiesService {
    * @param metisUserView the user wishing to perform this operation
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
-   * @return true if final report available, false if not or ecloud response {@link
-   * javax.ws.rs.core.Response.Status)} is not OK, based on {@link DpsClient#checkIfErrorReportExists}
+   * @return true if final report available, false if not or ecloud response {@link javax.ws.rs.core.Response.Status)} is not OK,
+   * based on {@link DpsClient#checkIfErrorReportExists}
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authorized to perform this task</li>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
    * workflow execution exists for the provided external task identifier</li>
+   * <li>{@link ExternalTaskException} containing {@link DpsException} if an error occurred while checking if the error report exists</li>
    * </ul>
    */
   public boolean existsExternalTaskReport(MetisUserView metisUserView, String topologyName,
@@ -155,12 +157,18 @@ public class ProxiesService {
       throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUserView,
         getDatasetIdFromExternalTaskId(externalTaskId));
-    return dpsClient.checkIfErrorReportExists(topologyName, externalTaskId);
+    try {
+      return dpsClient.checkIfErrorReportExists(topologyName, externalTaskId);
+    } catch (DpsException e) {
+      throw new ExternalTaskException(String.format(
+          "Checking if the error report exists failed. topologyName: %s, externalTaskId: %s",
+          topologyName, externalTaskId), e);
+    }
   }
 
   /**
-   * Get the final report that includes all the errors grouped. The number of ids per error can be
-   * specified through the parameters.
+   * Get the final report that includes all the errors grouped. The number of ids per error can be specified through the
+   * parameters.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param topologyName the topology name of the task
@@ -232,8 +240,8 @@ public class ProxiesService {
   }
 
   /**
-   * Get additional statistics on a node. This method can be used to elaborate on one of the items
-   * returned by {@link #getExternalTaskStatistics(MetisUserView, String, long)}.
+   * Get additional statistics on a node. This method can be used to elaborate on one of the items returned by {@link
+   * #getExternalTaskStatistics(MetisUserView, String, long)}.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param topologyName the topology name of the task
@@ -283,14 +291,13 @@ public class ProxiesService {
   }
 
   /**
-   * Get a list with record contents from the external resource based on a workflow execution and
-   * {@link PluginType}.
+   * Get a list with record contents from the external resource based on a workflow execution and {@link PluginType}.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
-   * @param nextPage the string representation of the next page which is provided from the response
-   * and can be used to get the next page of results.
+   * @param nextPage the string representation of the next page which is provided from the response and can be used to get the
+   * next page of results.
    * TODO The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
    * @param numberOfRecords the number of records per response
    * @return the list of records from the external resource
@@ -343,8 +350,7 @@ public class ProxiesService {
   }
 
   /**
-   * Get a list with record contents from the external resource based on an workflow execution and
-   * {@link PluginType}.
+   * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}.
    *
    * @param metisUserView the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
@@ -411,10 +417,8 @@ public class ProxiesService {
     // Get the representation(s) for the given combination of plugin and record ID.
     final List<Representation> representations;
     try {
-      representations = recordServiceClient
-          .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
-              plugin.getPluginType().name(), ecloudProvider,
-              pluginDateFormatForEcloud.format(plugin.getStartedDate()));
+      final Revision revision = new Revision(plugin.getPluginType().name(), ecloudProvider, plugin.getStartedDate());
+      representations = recordServiceClient.getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(), revision);
     } catch (MCSException e) {
       throw new ExternalTaskException(String.format(
           "Getting record list with file content failed. externalTaskId: %s, pluginType: %s, ecloudId: %s",
