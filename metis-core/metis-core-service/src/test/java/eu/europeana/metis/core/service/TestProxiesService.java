@@ -55,6 +55,8 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -590,6 +592,23 @@ class TestProxiesService {
     assertNotNull(result);
     assertEquals(ecloudId, result.getEcloudId());
     assertEquals(testContent, result.getXmlRecord());
+
+    // When the file service client returns an invalid input stream
+    when(fileServiceClient.getFile(contentUri)).thenReturn(new InputStream() {
+      @Override
+      public int read() throws IOException {
+        throw new IOException("Test generated exception");
+      }
+    });
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+
+    // When the file service client throws exception
+    when(fileServiceClient.getFile(contentUri)).thenThrow(new MCSException());
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+
+    doReturn(new ByteArrayInputStream(testContent.getBytes(StandardCharsets.UTF_8)))
+        .when(fileServiceClient).getFile(contentUri);
+    proxiesService.getRecord(plugin, ecloudId);
 
     // When the record service client returns an exception or an unexpected list size.
     doReturn(null).when(recordServiceClient)
