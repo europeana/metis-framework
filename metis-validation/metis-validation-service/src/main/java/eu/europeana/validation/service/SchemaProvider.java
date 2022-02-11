@@ -204,7 +204,7 @@ public class SchemaProvider {
       throws SchemaProviderException, IOException {
     //Verify location generated for file first
     final File fileLocation = new File(downloadedFile.getParent(), entry.getName());
-    if (!fileLocation.getCanonicalPath().startsWith(downloadedFile.getParent())) {
+    if (!fileLocation.getCanonicalPath().startsWith(downloadedFile.getCanonicalFile().getParent())) {
       throw new IOException("Entry is outside of the target directory");
     }
 
