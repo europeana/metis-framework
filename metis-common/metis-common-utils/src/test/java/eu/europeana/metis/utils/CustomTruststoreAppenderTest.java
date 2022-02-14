@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,18 +17,18 @@ import org.junit.jupiter.api.Test;
 class CustomTruststoreAppenderTest {
 
   @Test
-  void appendCustomTrustoreToDefault() {
+  void appendCustomTrustoreToDefault() throws URISyntaxException {
+    final String customTruststorePath = Paths.get(this.getClass().getClassLoader().getResource("custom.jks").toURI()).toString();
     assertDoesNotThrow(() ->
-        CustomTruststoreAppender.appendCustomTrustoreToDefault(
-            this.getClass().getClassLoader().getResource("custom.jks").getPath(), "europeana")
+        CustomTruststoreAppender.appendCustomTrustoreToDefault(customTruststorePath, "europeana")
     );
   }
 
   @Test
-  void appendCustomTrustoreToDefaultException() {
+  void appendCustomTrustoreToDefaultException() throws URISyntaxException {
+    final String customTruststorePath = Paths.get(this.getClass().getClassLoader().getResource("custom.jks").toURI()).toString();
     assertThrows(TrustStoreConfigurationException.class, () ->
-        CustomTruststoreAppender.appendCustomTrustoreToDefault(
-            this.getClass().getClassLoader().getResource("custom.jks").getPath(), "euro")
+        CustomTruststoreAppender.appendCustomTrustoreToDefault(customTruststorePath, "euro")
     );
   }
 }
