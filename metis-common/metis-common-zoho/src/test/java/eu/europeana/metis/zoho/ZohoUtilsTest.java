@@ -1,10 +1,13 @@
 package eu.europeana.metis.zoho;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.zoho.crm.api.record.Record;
 import com.zoho.crm.api.util.Choice;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -28,15 +31,16 @@ class ZohoUtilsTest {
   @Test
   void stringListSupplier() {
     final Record recordOrganization = new Record();
+    final List expectedChoiceList = List.of("Organization1Role", "Organization2Role");
     recordOrganization.addKeyValue(ZohoConstants.ORGANIZATION_ROLE_FIELD,
-        List.of(new Choice<>("Organization1Role"),
-            new Choice<>("Organization2Role")));
+        expectedChoiceList.stream()
+                          .map(choice -> new Choice<>(choice))
+                          .collect(Collectors.toList()));
 
     final List<String> organizationRoleStringList = ZohoUtils.stringListSupplier(
         recordOrganization.getKeyValue(ZohoConstants.ORGANIZATION_ROLE_FIELD));
 
     assertEquals(2, organizationRoleStringList.size());
-    assertEquals("Organization1Role", organizationRoleStringList.get(0));
-    assertEquals("Organization2Role", organizationRoleStringList.get(1));
+    assertTrue(CollectionUtils.isEqualCollection(expectedChoiceList, organizationRoleStringList));
   }
 }
