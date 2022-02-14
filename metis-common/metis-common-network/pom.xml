@@ -58,15 +58,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-jersey</artifactId>
-      <version>${version.spring.jersey}</version>
-      <exclusions>
-      <exclusion>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-to-slf4j</artifactId>
-      </exclusion>
-      </exclusions>
+      <groupId>org.glassfish.jersey.core</groupId>
+      <artifactId>jersey-common</artifactId>
+      <version>${version.jersey}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -75,5 +69,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>

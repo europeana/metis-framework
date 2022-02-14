@@ -19,6 +19,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.BasicHttpEntity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -66,6 +67,7 @@ class StringHttpClientTest {
     assertEquals("text/plain", actualContent.getContentType());
   }
 
+  @Disabled("TODO: MET-4250 Handle MockMaker in Jenkins")
   @Test
   void createResultWithException() throws IOException {
     final ContentRetriever contentRetriever = mock(ContentRetriever.class);

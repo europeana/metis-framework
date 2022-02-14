@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
@@ -28,6 +29,7 @@ class NetworkUtilTest {
     assertTrue(availableLocalPort > 0);
   }
 
+  @Disabled("TODO: MET-4250 Handle MockMaker in Jenkins")
   @Test
   void getAvailableLocalPortWithException() throws IOException {
     final int BACKLOG = 100;
