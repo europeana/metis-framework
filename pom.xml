@@ -181,6 +181,7 @@
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.security>5.5.0</version.spring.security>
     <version.spring.test>${version.spring}</version.spring.test>
+    <version.spring.jersey>2.6.3</version.spring.jersey>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
