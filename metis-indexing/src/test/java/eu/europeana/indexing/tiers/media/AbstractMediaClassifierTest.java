@@ -20,6 +20,7 @@ import eu.europeana.metis.schema.model.MediaType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
@@ -146,7 +147,7 @@ class AbstractMediaClassifierTest {
     when(webResource.getMediaType()).thenReturn(MediaType.IMAGE);
     when(webResource.getMimeType()).thenReturn("mimeType");
     when(webResource.getLinkTypes()).thenReturn(Set.of(WebResourceLinkType.OBJECT));
-    when(webResource.getLicenseType()).thenReturn(resourceLicenseType);
+    when(webResource.getLicenseType()).thenReturn(Optional.ofNullable(resourceLicenseType));
 
     doReturn(resourceTier).when(classifier).classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia);
     when(classifier.extractResolutionTierMetadata(webResource, resourceTier)).thenReturn(
@@ -157,18 +158,19 @@ class AbstractMediaClassifierTest {
 
   static Stream<Arguments> classifyWebResourceAndLicense() {
     return Stream.of(
-        //Same license tier with resource tier
+        //Same resource license tier and resource tier remains the same
         Arguments.of(LicenseType.OPEN, LicenseType.OPEN, MediaTier.T4, LicenseType.OPEN.getMediaTier()),
         //Low resource tier brings result down
         Arguments.of(LicenseType.OPEN, LicenseType.OPEN, MediaTier.T0, MediaTier.T0),
-        //Low license tier brings result down
-        Arguments.of(LicenseType.CLOSED, LicenseType.CLOSED, MediaTier.T4, LicenseType.CLOSED.getMediaTier()),
-        //Low entity license but high resource license will bring license up. With same resource tier it remains same result
-        Arguments.of(LicenseType.CLOSED, LicenseType.OPEN, MediaTier.T4, LicenseType.OPEN.getMediaTier()),
-        //High entity license but low resource license will bring license up(previous reverse). With same resource tier it remains same result
-        Arguments.of(LicenseType.OPEN, LicenseType.CLOSED, MediaTier.T4, LicenseType.OPEN.getMediaTier()),
-        //High entity license but low resource license will bring license up. With lower resource tier it will go down
-        Arguments.of(LicenseType.OPEN, LicenseType.CLOSED, MediaTier.T2, MediaTier.T2)
+        //Low resource license tier brings result down
+        Arguments.of(LicenseType.OPEN, LicenseType.CLOSED, MediaTier.T4, LicenseType.CLOSED.getMediaTier()),
+
+        //Null resource license. Same entity license tier and resource tier remains the same
+        Arguments.of(LicenseType.OPEN, null, MediaTier.T4, LicenseType.OPEN.getMediaTier()),
+        //Null resource license. Low resource tier brings result down
+        Arguments.of(LicenseType.OPEN, null, MediaTier.T0, MediaTier.T0),
+        //Null resource license. Low resource license tier brings result down
+        Arguments.of(LicenseType.CLOSED, null, MediaTier.T4, LicenseType.CLOSED.getMediaTier())
     );
   }
 
