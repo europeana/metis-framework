@@ -2,6 +2,7 @@ package eu.europeana.metis.network;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -56,6 +57,28 @@ class ExternalRequestUtilTest {
         UNMODIFIABLE_MAP_WITH_TEST_EXCEPTIONS);
 
     assertEquals(maxRetries, actualTest);
+  }
+
+  @Test
+  void testRetryableExternalRequestThrowsExceptionOutOfSpecifiedMap() {
+    assertThrows(RuntimeException.class, () -> {
+      ExternalRequestUtil.retryableExternalRequest(
+          () -> {
+            throw new RuntimeException(new ClassNotFoundException("Class pointer test exception"));
+          },
+          UNMODIFIABLE_MAP_WITH_TEST_EXCEPTIONS);
+    });
+  }
+
+  @Test
+  void testRetryableExternalRequestThrowsException() {
+    assertThrows(RuntimeException.class, () -> {
+      ExternalRequestUtil.retryableExternalRequest(
+          () -> {
+            throw new RuntimeException(new ClassNotFoundException("Class pointer test exception"));
+          },
+          null);
+    });
   }
 
   @Test
