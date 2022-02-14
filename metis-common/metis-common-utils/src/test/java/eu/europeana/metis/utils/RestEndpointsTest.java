@@ -26,7 +26,6 @@ import static eu.europeana.metis.utils.RestEndpoints.DATASETS_PROVIDER;
 import static eu.europeana.metis.utils.RestEndpoints.DATASETS_SEARCH;
 import static eu.europeana.metis.utils.RestEndpoints.DATASETS_XSLT_DEFAULT;
 import static eu.europeana.metis.utils.RestEndpoints.DATASETS_XSLT_XSLTID;
-import static eu.europeana.metis.utils.RestEndpoints.DATA_CHECKER_UPLOAD;
 import static eu.europeana.metis.utils.RestEndpoints.DEPUBLISH_EXECUTE_DATASETID;
 import static eu.europeana.metis.utils.RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID;
 import static eu.europeana.metis.utils.RestEndpoints.DEREFERENCE;
@@ -146,7 +145,6 @@ class RestEndpointsTest {
 
         Arguments.of(SCHEMA_VALIDATE, List.of("schema"), "/schema/validate/schema"),
         Arguments.of(SCHEMA_BATCH_VALIDATE, List.of("schema"), "/schema/validate/batch/schema"),
-        Arguments.of(DATA_CHECKER_UPLOAD, List.of(""), "/upload"),
 
         Arguments.of(REPOSITORY_RECORDS, List.of(""), "/repository/records"),
         Arguments.of(REPOSITORY_RECORDS_RECORD_ID, List.of("recordId"), "/repository/records/recordId"),
