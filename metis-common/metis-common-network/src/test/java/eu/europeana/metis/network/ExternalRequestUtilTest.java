@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ServiceUnavailableException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,6 +39,7 @@ class ExternalRequestUtilTest {
     UtilsThrower.setRetryCount(0);
   }
 
+  @Disabled("TODO: MET-4255 Improve execution time")
   @Test
   void retryableExternalRequest() throws Exception {
     final int maxRetries = (int) ReflectionTestUtils.getField(ExternalRequestUtil.class, "MAX_RETRIES");
@@ -48,6 +50,7 @@ class ExternalRequestUtilTest {
     assertEquals(maxRetries, actualTest);
   }
 
+  @Disabled("TODO: MET-4255 Improve execution time")
   @Test
   void testRetryableExternalRequestWithMap() {
     final int maxRetries = (int) ReflectionTestUtils.getField(ExternalRequestUtil.class, "MAX_RETRIES");
@@ -70,6 +73,7 @@ class ExternalRequestUtilTest {
     });
   }
 
+  @Disabled("TODO: MET-4255 Improve execution time")
   @Test
   void testRetryableExternalRequestThrowsException() {
     assertThrows(RuntimeException.class, () -> {
@@ -91,6 +95,7 @@ class ExternalRequestUtilTest {
     assertEquals(maxRetries, actualTest);
   }
 
+  @Disabled("TODO: MET-4255 Improve execution time")
   @Test
   void retryableExternalRequestForNetworkExceptions() {
     final int maxRetries = (int) ReflectionTestUtils.getField(ExternalRequestUtil.class, "MAX_RETRIES");
@@ -101,7 +106,7 @@ class ExternalRequestUtilTest {
     assertEquals(maxRetries, actualTest);
   }
 
-
+  @Disabled("TODO: MET-4255 Improve execution time")
   @Test
   void retryableExternalRequestForNetworkExceptionsThrowing() throws Exception {
     final int maxRetries = (int) ReflectionTestUtils.getField(ExternalRequestUtil.class, "MAX_RETRIES");
