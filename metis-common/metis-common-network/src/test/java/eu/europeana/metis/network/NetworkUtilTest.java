@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -12,6 +14,7 @@ import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 /**
  * Unit test for {@link NetworkUtil}
@@ -31,6 +34,7 @@ class NetworkUtilTest {
   @Test
   void getAvailableLocalPortWithException() throws IOException {
     final int BACKLOG = 100;
+    openMocks(this);
     try (MockedStatic<SSLServerSocketFactory> sslServerSocketFactory = mockStatic(SSLServerSocketFactory.class)) {
       ServerSocketFactory serverSocketFactory = mock(ServerSocketFactory.class);
       sslServerSocketFactory.when(SSLServerSocketFactory::getDefault).thenReturn(serverSocketFactory);
