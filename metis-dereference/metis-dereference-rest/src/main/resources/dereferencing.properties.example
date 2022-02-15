@@ -13,3 +13,5 @@ mongo.password=
 mongo.application.name=
 entity.db=
 vocabulary.db=
+
+valid.uri.values=

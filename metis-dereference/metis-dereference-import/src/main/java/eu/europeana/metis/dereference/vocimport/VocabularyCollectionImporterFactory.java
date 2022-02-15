@@ -1,6 +1,9 @@
 package eu.europeana.metis.dereference.vocimport;
 
+import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Location;
+import eu.europeana.metis.dereference.vocimport.utils.DereferenceValidationUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -12,6 +15,8 @@ import java.nio.file.Path;
  */
 public class VocabularyCollectionImporterFactory {
 
+  private DereferenceValidationUtils dereferenceValidationUtils = new DereferenceValidationUtils();
+
   /**
    * Create a vocabulary importer for remote web addresses, indicated by instances of {@link URI}.
    * Note that this method can only be used for locations that are also a valid {@link
@@ -20,7 +25,10 @@ public class VocabularyCollectionImporterFactory {
    * @param directoryLocation The location of the directory to import.
    * @return A vocabulary importer.
    */
-  public VocabularyCollectionImporter createImporter(URI directoryLocation) {
+  public VocabularyCollectionImporter createImporter(URI directoryLocation) throws VocabularyImportException {
+    if(!dereferenceValidationUtils.isDirectoryValid(directoryLocation.toString())){
+      throw new VocabularyImportException("The location of the directory to import is not valid.");
+    }
     return new VocabularyCollectionImporterImpl(new UriLocation(directoryLocation));
   }
 
@@ -30,7 +38,10 @@ public class VocabularyCollectionImporterFactory {
    * @param directoryLocation The location of the directory file to import.
    * @return A vocabulary importer.
    */
-  public VocabularyCollectionImporter createImporter(Path directoryLocation) {
+  public VocabularyCollectionImporter createImporter(Path directoryLocation) throws VocabularyImportException {
+    if(!dereferenceValidationUtils.isDirectoryValid(directoryLocation.toString())){
+      throw new VocabularyImportException("The location of the directory to import is not valid.");
+    }
     return createImporter(null, directoryLocation);
   }
 
