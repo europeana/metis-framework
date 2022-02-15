@@ -492,7 +492,11 @@
         <scope>test</scope>
         <version>${version.mockito.core}</version>
       </dependency>
-
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy</artifactId>
+        <version>LATEST</version>
+      </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
