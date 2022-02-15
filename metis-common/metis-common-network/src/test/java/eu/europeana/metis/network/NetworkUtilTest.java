@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 import java.io.IOException;
@@ -13,8 +12,9 @@ import java.net.InetAddress;
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * Unit test for {@link NetworkUtil}
@@ -22,6 +22,7 @@ import org.mockito.Mockito;
  * @author Jorge Ortiz
  * @since 31-01-2022
  */
+@ExtendWith(MockitoExtension.class)
 class NetworkUtilTest {
 
   @Test
