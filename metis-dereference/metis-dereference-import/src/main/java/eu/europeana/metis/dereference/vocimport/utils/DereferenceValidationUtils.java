@@ -24,7 +24,7 @@ public class DereferenceValidationUtils {
 
     /**
      * Constructor of Utils class
-     * @throws VocabularyImportException
+     * @throws VocabularyImportException if an issue occurs while initializing
      */
     public DereferenceValidationUtils() throws VocabularyImportException {
         validDirectoriesValues = Arrays.asList(readProperty());
