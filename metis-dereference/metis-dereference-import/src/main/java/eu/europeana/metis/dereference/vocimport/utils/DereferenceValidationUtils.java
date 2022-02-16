@@ -58,7 +58,7 @@ public class DereferenceValidationUtils {
             throw new VocabularyImportException("A problem occurred while reading properties file", e);
         }
         String propertiesWithoutSpaces = properties.getProperty(PROPERTY_FIELD_NAME).replaceAll("\\s+", "");
-        return propertiesWithoutSpaces.split(",");
+        return StringUtils.isBlank(propertiesWithoutSpaces) ? new String[0] : propertiesWithoutSpaces.split(",");
     }
 
 }
