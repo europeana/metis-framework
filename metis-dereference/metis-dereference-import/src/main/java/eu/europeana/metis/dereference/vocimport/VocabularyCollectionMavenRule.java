@@ -1,6 +1,8 @@
 package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+
+import java.io.IOException;
 import java.nio.file.Path;
 import org.apache.maven.enforcer.rule.api.EnforcerRule;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;
@@ -113,6 +115,7 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
     final Path baseDirectory = project.getBasedir().toPath();
     final Path vocabularyDirectory = baseDirectory.resolve(vocabularyDirectoryFile);
 
+    try {
     // Prepare validation
     final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
             .createImporter(baseDirectory, vocabularyDirectory);
@@ -123,10 +126,10 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
     log.info("Validating vocabulary collection: " + importer.getDirectoryLocation().toString());
 
     // Perform validation
-    try {
+
       validator.validate(vocabulary -> log.info("  Vocabulary found: " + vocabulary.getName()),
               log::warn);
-    } catch (VocabularyImportException e) {
+    } catch (IOException | VocabularyImportException e) {
       log.error(e.getMessage());
       throw new EnforcerRuleException("Vocabulary collection validation failed.", e);
     }

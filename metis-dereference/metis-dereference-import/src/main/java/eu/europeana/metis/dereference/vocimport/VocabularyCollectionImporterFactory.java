@@ -15,7 +15,10 @@ import java.nio.file.Path;
  */
 public class VocabularyCollectionImporterFactory {
 
-  private DereferenceValidationUtils dereferenceValidationUtils = new DereferenceValidationUtils();
+  private final DereferenceValidationUtils dereferenceValidationUtils = new DereferenceValidationUtils();
+
+  public VocabularyCollectionImporterFactory() throws IOException {
+  }
 
   /**
    * Create a vocabulary importer for remote web addresses, indicated by instances of {@link URI}.
