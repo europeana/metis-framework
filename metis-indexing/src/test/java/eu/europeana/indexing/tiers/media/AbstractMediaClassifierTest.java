@@ -170,7 +170,10 @@ class AbstractMediaClassifierTest {
         //Null resource license. Low entity tier brings result down
         Arguments.of(LicenseType.OPEN, null, MediaTier.T0, MediaTier.T0),
         //Null resource license. Low entity license tier brings result down
-        Arguments.of(LicenseType.CLOSED, null, MediaTier.T4, LicenseType.CLOSED.getMediaTier())
+        Arguments.of(LicenseType.CLOSED, null, MediaTier.T4, LicenseType.CLOSED.getMediaTier()),
+
+        //If entity is also null then LicenseType.CLOSED should be chosen without exception thrown
+        Arguments.of(null, null, MediaTier.T4, LicenseType.CLOSED.getMediaTier())
     );
   }
 
