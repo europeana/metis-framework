@@ -12,29 +12,30 @@ import java.util.Properties;
 
 public class DereferenceValidationUtils {
 
+    private static final String PROPERTY_FIELD_NAME = "valid.directories.values";
     private static final String DEREFERENCING_PROPERTIES_LOCATION =
             "metis-dereference/metis-dereference-rest/src/main/resources/dereferencing.properties";
 
-    private final List<String> validUriValues;
+    private final List<String> validDirectoriesValues;
 
     public DereferenceValidationUtils() throws IOException {
-        validUriValues = Arrays.asList(readProperty());
+        validDirectoriesValues = Arrays.asList(readProperty());
     }
 
     public boolean isDirectoryValid(String directoryToEvaluate) {
-        if (CollectionUtils.isEmpty(validUriValues)) {
+        if (CollectionUtils.isEmpty(validDirectoriesValues)) {
             return false;
-        } else if (validUriValues.size() == 1 && StringUtils.equals(validUriValues.get(0), "*")) {
+        } else if (validDirectoriesValues.size() == 1 && StringUtils.equals(validDirectoriesValues.get(0), "*")) {
             return true;
         } else {
-            return validUriValues.stream().anyMatch(directoryToEvaluate::contains);
+            return validDirectoriesValues.stream().anyMatch(directoryToEvaluate::contains);
         }
     }
 
     private String[] readProperty() throws IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream(DEREFERENCING_PROPERTIES_LOCATION));
-        String propertiesWithoutSpaces = properties.getProperty("valid.uri.values").replaceAll("\\s+", "");
+        String propertiesWithoutSpaces = properties.getProperty(PROPERTY_FIELD_NAME).replaceAll("\\s+", "");
         return propertiesWithoutSpaces.split(",");
     }
 
