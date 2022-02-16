@@ -1,5 +1,7 @@
 package eu.europeana.indexing.tiers.media;
 
+import static java.util.Objects.requireNonNullElse;
+
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
@@ -72,8 +74,9 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
    * resource.
    *
    * @param webResource The web resource.
-   * @param entityLicense The license type that holds for the entity. If the web resource also has a license, the most permissive
-   * of the two will hold for the tier calculation.
+   * @param entityLicense The license type that holds for the entity. If the web resource does not have a license, then this
+   * license will be used for the web resource during the tier calculation. If it's null it will be set to {@link
+   * LicenseType#CLOSED}.
    * @param hasLandingPage Whether the entity has a landing page.
    * @param hasEmbeddableMedia Whether the entity has embeddable media.
    * @return The classification.
@@ -83,9 +86,11 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     // Perform the classification on the basis of the media.
     final MediaTier resourceTier = classifyWebResource(webResource, hasLandingPage, hasEmbeddableMedia);
-    final LicenseType maxLicense = LicenseType.getLicenseBinaryOperator().apply(entityLicense, webResource.getLicenseType());
+    // Get web resource license, if not present use entity license for the calculation
+    final LicenseType webResourceLicense = webResource.getLicenseType()
+                                                      .orElse(requireNonNullElse(entityLicense, LicenseType.CLOSED));
     // Lower the media tier if forced by the license - find the minimum of the two.
-    final MediaTier mediaTier = Tier.min(resourceTier, maxLicense.getMediaTier());
+    final MediaTier mediaTier = Tier.min(resourceTier, webResourceLicense.getMediaTier());
 
     //Verify and prepare builder with resolution initialized data
     final ResolutionTierMetadata resolutionTierMetadata = extractResolutionTierMetadata(webResource, resourceTier);
@@ -97,7 +102,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
                                          .setMediaType(webResource.getMediaType())
                                          .setMimeType(webResource.getMimeType())
                                          .setElementLinkTypes(webResource.getLinkTypes())
-                                         .setLicenseType(webResource.getLicenseType())
+                                         .setLicenseType(webResourceLicense)
                                          .setMediaTier(mediaTier);
 
     return mediaResourceTechnicalMetadataBuilder.build();
