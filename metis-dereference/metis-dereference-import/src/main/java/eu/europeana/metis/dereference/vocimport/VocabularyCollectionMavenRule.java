@@ -129,7 +129,7 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
 
       validator.validate(vocabulary -> log.info("  Vocabulary found: " + vocabulary.getName()),
               log::warn);
-    } catch (IOException | VocabularyImportException e) {
+    } catch (VocabularyImportException e) {
       log.error(e.getMessage());
       throw new EnforcerRuleException("Vocabulary collection validation failed.", e);
     }

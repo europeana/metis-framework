@@ -61,7 +61,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
     // All vocabularies are loaded well. Now we replace the vocabularies.
     vocabularyDao.replaceAll(vocabularies);
-    } catch (IOException e) {
+    } catch (VocabularyImportException e) {
       throw new VocabularyImportException("An error as occurred while loading the vocabularies", e);
     }
   }

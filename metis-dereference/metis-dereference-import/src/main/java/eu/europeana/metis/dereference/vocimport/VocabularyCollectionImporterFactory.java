@@ -15,9 +15,14 @@ import java.nio.file.Path;
  */
 public class VocabularyCollectionImporterFactory {
 
-  private final DereferenceValidationUtils dereferenceValidationUtils = new DereferenceValidationUtils();
+  private final DereferenceValidationUtils dereferenceValidationUtils;
 
-  public VocabularyCollectionImporterFactory() throws IOException {
+  /**
+   * Constructor for the factory
+   * @throws VocabularyImportException if there were any issues while initializing the class
+   */
+  public VocabularyCollectionImporterFactory() throws VocabularyImportException {
+    dereferenceValidationUtils = new DereferenceValidationUtils();
   }
 
   /**
@@ -26,6 +31,7 @@ public class VocabularyCollectionImporterFactory {
    * java.net.URL}.
    *
    * @param directoryLocation The location of the directory to import.
+   * @throws VocabularyImportException if a problem occurs when verifying directory
    * @return A vocabulary importer.
    */
   public VocabularyCollectionImporter createImporter(URI directoryLocation) throws VocabularyImportException {
@@ -39,6 +45,7 @@ public class VocabularyCollectionImporterFactory {
    * Create a vocabulary importer for local files, indicated by instances of {@link Path}.
    *
    * @param directoryLocation The location of the directory file to import.
+   * @throws VocabularyImportException if a problem occurs when verifying directory
    * @return A vocabulary importer.
    */
   public VocabularyCollectionImporter createImporter(Path directoryLocation) throws VocabularyImportException {

@@ -1,15 +1,19 @@
 package eu.europeana.metis.dereference.vocimport.utils;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
-
+/**
+ * Utils class focused on validating values used in dereferencing
+ */
 public class DereferenceValidationUtils {
 
     private static final String PROPERTY_FIELD_NAME = "valid.directories.values";
@@ -18,10 +22,19 @@ public class DereferenceValidationUtils {
 
     private final List<String> validDirectoriesValues;
 
-    public DereferenceValidationUtils() throws IOException {
+    /**
+     * Constructor of Utils class
+     * @throws IOException
+     */
+    public DereferenceValidationUtils() throws VocabularyImportException {
         validDirectoriesValues = Arrays.asList(readProperty());
     }
 
+    /**
+     * Method that verifies if the given directory is valid
+     * @param directoryToEvaluate The directory to evaluate as a string
+     * @return True if is valid; False otherwise
+     */
     public boolean isDirectoryValid(String directoryToEvaluate) {
         if (CollectionUtils.isEmpty(validDirectoriesValues)) {
             return false;
@@ -32,9 +45,13 @@ public class DereferenceValidationUtils {
         }
     }
 
-    private String[] readProperty() throws IOException {
+    private String[] readProperty() throws VocabularyImportException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream(DEREFERENCING_PROPERTIES_LOCATION));
+        try (InputStream propertiesFile = new FileInputStream(DEREFERENCING_PROPERTIES_LOCATION)) {
+            properties.load(propertiesFile);
+        } catch (IOException e){
+            throw new VocabularyImportException("A problem occurred while reading properties file", e);
+        }
         String propertiesWithoutSpaces = properties.getProperty(PROPERTY_FIELD_NAME).replaceAll("\\s+", "");
         return propertiesWithoutSpaces.split(",");
     }
