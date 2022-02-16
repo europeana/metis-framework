@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DereferenceValidationUtilsTest {
+class DereferenceValidationUtilsTest {
 
     @Test
     void isDirectoryValid_withValidValues_expectSuccess() throws VocabularyImportException {
