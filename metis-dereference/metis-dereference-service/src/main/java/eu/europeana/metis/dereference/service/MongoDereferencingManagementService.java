@@ -9,7 +9,6 @@ import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidator;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidatorImpl;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,6 @@ package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import org.apache.maven.enforcer.rule.api.EnforcerRule;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;

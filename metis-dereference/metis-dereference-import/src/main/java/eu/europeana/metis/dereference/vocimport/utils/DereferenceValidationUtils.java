@@ -17,16 +17,21 @@ import java.util.Properties;
 public class DereferenceValidationUtils {
 
     private static final String PROPERTY_FIELD_NAME = "valid.directories.values";
-    private static final String DEREFERENCING_PROPERTIES_LOCATION =
+    private String dereferencingPropertiesLocation =
             "metis-dereference/metis-dereference-rest/src/main/resources/dereferencing.properties";
 
     private final List<String> validDirectoriesValues;
 
     /**
      * Constructor of Utils class
-     * @throws IOException
+     * @throws VocabularyImportException
      */
     public DereferenceValidationUtils() throws VocabularyImportException {
+        validDirectoriesValues = Arrays.asList(readProperty());
+    }
+    // This constructor is used for testing purposes
+    DereferenceValidationUtils(String dereferencingPropertiesLocation) throws VocabularyImportException {
+        this.dereferencingPropertiesLocation = dereferencingPropertiesLocation;
         validDirectoriesValues = Arrays.asList(readProperty());
     }
 
@@ -47,7 +52,7 @@ public class DereferenceValidationUtils {
 
     private String[] readProperty() throws VocabularyImportException {
         Properties properties = new Properties();
-        try (InputStream propertiesFile = new FileInputStream(DEREFERENCING_PROPERTIES_LOCATION)) {
+        try (InputStream propertiesFile = new FileInputStream(dereferencingPropertiesLocation)) {
             properties.load(propertiesFile);
         } catch (IOException e){
             throw new VocabularyImportException("A problem occurred while reading properties file", e);
