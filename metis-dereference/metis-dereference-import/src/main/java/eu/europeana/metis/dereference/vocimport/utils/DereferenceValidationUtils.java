@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.vocimport.utils;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -24,7 +24,6 @@ public class DereferenceValidationUtils {
 
     /**
      * Constructor of Utils class
-     * @throws VocabularyImportException if an issue occurs while initializing
      */
     public DereferenceValidationUtils() throws VocabularyImportException {
         validDirectoriesValues = Arrays.asList(readProperty());
@@ -41,13 +40,14 @@ public class DereferenceValidationUtils {
      * @return True if is valid; False otherwise
      */
     public boolean isDirectoryValid(String directoryToEvaluate) {
+        boolean result;
+
         if (CollectionUtils.isEmpty(validDirectoriesValues)) {
-            return false;
-        } else if (validDirectoriesValues.size() == 1 && StringUtils.equals(validDirectoriesValues.get(0), "*")) {
-            return true;
+            result = false;
         } else {
-            return validDirectoriesValues.stream().anyMatch(directoryToEvaluate::contains);
+            result = validDirectoriesValues.stream().anyMatch(directoryToEvaluate::startsWith);
         }
+        return result;
     }
 
     private String[] readProperty() throws VocabularyImportException {
