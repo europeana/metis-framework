@@ -31,6 +31,8 @@ import org.junit.jupiter.api.Test;
 
 public class MetisRecordParserTest {
 
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+
   @Test
   public void testExtractedFieldValuesForEnrichment() {
     RDF rdf = new RDF();
@@ -178,7 +180,7 @@ public class MetisRecordParserTest {
   public void testSetAdditionalData() throws Exception {
     String xml = IOUtils
         .toString(getClass().getClassLoader().getResourceAsStream("sample_completeness.rdf"), "UTF-8");
-    RDF rdf = RdfConversionUtils.convertStringToRdf(xml);
+    RDF rdf = rdfConversionUtils.convertStringToRdf(xml);
     EnrichmentUtils.setAdditionalData(rdf);
     EuropeanaAggregationType europeanaAggregationType = rdf.getEuropeanaAggregationList().stream()
         .findAny().orElse(null);

@@ -33,6 +33,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ContextualClassesClassifier implements TierClassifierBreakdown<ContextualClassesBreakdown> {
 
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+
   private static Set<String> getResourceLinks(ProxyType proxy) {
     return Stream.of(ResourceLinkFromProxy.values())
                  .map(ResourceLinkFromProxy::getLinkAndValueGetter)
@@ -64,7 +66,7 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
     final Set<String> uniqueContextualClasses = contextualClassesStatistics.getDistinctClassesSet().stream()
                                                                            .map(ContextualClassGroup::getContextualClass)
                                                                            .map(
-                                                                               RdfConversionUtils::getQualifiedElementNameForClass)
+                                                                               rdfConversionUtils::getQualifiedElementNameForClass)
                                                                            .collect(Collectors.toSet());
 
     return new ContextualClassesBreakdown(contextualClassesStatistics.getCompleteContextualResources(), uniqueContextualClasses,

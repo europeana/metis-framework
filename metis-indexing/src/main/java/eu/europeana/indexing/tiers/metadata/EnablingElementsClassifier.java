@@ -21,6 +21,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EnablingElementsClassifier implements TierClassifierBreakdown<EnablingElementsBreakdown> {
 
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+
   private static final int MIN_ELEMENTS_TIER_A = 1;
   private static final int MIN_ELEMENTS_TIER_B = 3;
   private static final int MIN_ELEMENTS_TIER_C = 4;
@@ -36,10 +38,10 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
 
     final MetadataTier metadataTier = calculateMetadataTier(inventory);
     final Set<String> distinctEnablingElementsList = inventory.getElements().stream().map(EnablingElement::getTypedClass)
-                                                              .map(RdfConversionUtils::getQualifiedElementNameForClass)
+                                                              .map(rdfConversionUtils::getQualifiedElementNameForClass)
                                                               .collect(Collectors.toSet());
     final Set<String> metadataGroupsList = inventory.getGroups().stream().map(ContextualClassGroup::getContextualClass)
-                                                    .map(RdfConversionUtils::getQualifiedElementNameForClass)
+                                                    .map(rdfConversionUtils::getQualifiedElementNameForClass)
                                                     .collect(Collectors.toSet());
 
     return new EnablingElementsBreakdown(distinctEnablingElementsList, metadataGroupsList, metadataTier);

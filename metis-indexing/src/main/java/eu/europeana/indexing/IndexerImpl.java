@@ -5,6 +5,11 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
+import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -31,6 +36,8 @@ class IndexerImpl implements Indexer {
   private final AbstractConnectionProvider connectionProvider;
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
+  private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
+  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
 
   /**
    * Constructor.
@@ -45,8 +52,8 @@ class IndexerImpl implements Indexer {
    * Constructor for testing purposes.
    *
    * @param connectionProvider The connection provider for this indexer.
-   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter}
-   * used to parse strings to instances of {@link RDF}. Will be called once during every index.
+   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter} used to parse strings to
+   * instances of {@link RDF}. Will be called once during every index.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider,
       IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
@@ -54,8 +61,38 @@ class IndexerImpl implements Indexer {
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
+  @Override
+  public void indexRdfs(List<RDF> records, IndexingProperties indexingProperties)
+      throws IndexingException {
+    indexRecords(records, indexingProperties);
+  }
+
+  @Override
+  public void index(List<String> records, IndexingProperties indexingProperties)
+      throws IndexingException {
+    LOGGER.info("Parsing {} records...", records.size());
+    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    final List<RDF> wrappedRecords = new ArrayList<>(records.size());
+    for (String record : records) {
+      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(record));
+    }
+    indexRecords(wrappedRecords, indexingProperties);
+  }
+
+  @Override
+  public void index(InputStream record, IndexingProperties indexingProperties)
+      throws IndexingException {
+    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    indexRdf(stringToRdfConverter.convertToRdf(record), indexingProperties);
+  }
+
+  @Override
+  public void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException {
+    indexRdfs(List.of(record), indexingProperties);
+  }
+
   private void indexRecords(List<RDF> records, IndexingProperties properties)
-          throws IndexingException {
+      throws IndexingException {
     if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
       throw new SetupRelatedIndexingException(
           "Record redirect dao has not been initialized and performing redirects is requested");
@@ -68,48 +105,14 @@ class IndexerImpl implements Indexer {
       preprocessRecord(record, properties.isPerformTierCalculation());
       if (properties.isPerformRedirects()) {
         publisher.publishWithRedirects(new RdfWrapper(record), properties.getRecordDate(),
-                properties.getDatasetIdsForRedirection());
+            properties.getDatasetIdsForRedirection());
       } else {
         publisher.publish(new RdfWrapper(record), properties.getRecordDate(),
-                properties.getDatasetIdsForRedirection());
+            properties.getDatasetIdsForRedirection());
       }
     }
 
     LOGGER.info("Successfully processed {} records.", records.size());
-  }
-
-  private static void preprocessRecord(RDF rdf, boolean performTierCalculation)
-          throws IndexingException {
-
-    // Perform the tier classification
-    if (performTierCalculation) {
-      final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-      RdfTierUtils.setTier(rdf, ClassifierFactory.getMediaClassifier().classify(rdfWrapper).getTier());
-      RdfTierUtils.setTier(rdf, ClassifierFactory.getMetadataClassifier().classify(rdfWrapper).getTier());
-    }
-  }
-
-  @Override
-  public void indexRdfs(List<RDF> records, IndexingProperties indexingProperties)
-          throws IndexingException {
-    indexRecords(records, indexingProperties);
-  }
-
-  @Override
-  public void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException {
-    indexRdfs(List.of(record), indexingProperties);
-  }
-
-  @Override
-  public void index(List<String> records, IndexingProperties indexingProperties)
-          throws IndexingException {
-    LOGGER.info("Parsing {} records...", records.size());
-    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
-    final List<RDF> wrappedRecords = new ArrayList<>(records.size());
-    for (String record : records) {
-      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(record));
-    }
-    indexRecords(wrappedRecords, indexingProperties);
   }
 
   @Override
@@ -117,11 +120,15 @@ class IndexerImpl implements Indexer {
     index(List.of(record), indexingProperties);
   }
 
-  @Override
-  public void index(InputStream record, IndexingProperties indexingProperties)
-          throws IndexingException {
-    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
-    indexRdf(stringToRdfConverter.convertToRdf(record), indexingProperties);
+  private void preprocessRecord(RDF rdf, boolean performTierCalculation)
+      throws IndexingException {
+
+    // Perform the tier classification
+    if (performTierCalculation) {
+      final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+      RdfTierUtils.setTier(rdf, mediaClassifier.classify(rdfWrapper).getTier());
+      RdfTierUtils.setTier(rdf, metadataClassifier.classify(rdfWrapper).getTier());
+    }
   }
 
   @Override
@@ -168,8 +175,7 @@ class IndexerImpl implements Indexer {
   }
 
   /**
-   * Similar to the Java interface {@link Supplier}, but one that may throw an {@link
-   * IndexerRelatedIndexingException}.
+   * Similar to the Java interface {@link Supplier}, but one that may throw an {@link IndexerRelatedIndexingException}.
    *
    * @param <T> The type of the object to be supplied.
    * @author jochen
@@ -181,8 +187,7 @@ class IndexerImpl implements Indexer {
      * Gets a result.
      *
      * @return A result.
-     * @throws IndexerRelatedIndexingException In case something went wrong while getting the
-     * result.
+     * @throws IndexerRelatedIndexingException In case something went wrong while getting the result.
      */
     T get() throws IndexerRelatedIndexingException;
   }

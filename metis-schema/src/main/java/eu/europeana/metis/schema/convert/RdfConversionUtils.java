@@ -23,20 +23,26 @@ import org.jibx.runtime.JiBXException;
 /**
  * Utility class for converting {@link RDF} to String and vice versa.
  */
-public final class RdfConversionUtils {
+public class RdfConversionUtils {
 
   private static final int INDENTATION_SPACE = 2;
   private static final String UTF8 = StandardCharsets.UTF_8.name();
-  private static IBindingFactory rdfBindingFactory;
-  private static Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap;
+  private final IBindingFactory rdfBindingFactory;
+  private final Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap;
   @SuppressWarnings("java:S5852") //This regex is safe, and it's only meant for internal use without use input
   private static final Pattern complexTypePattern = Pattern.compile("^\\{(.*)}:(.*)$");
 
-  static {
-    initializeStaticComponents();
+  public RdfConversionUtils() {
+    this(RDF.class);
   }
 
-  private RdfConversionUtils() {
+  <T> RdfConversionUtils(Class<T> tClass) {
+    try {
+      rdfBindingFactory = BindingDirectory.getFactory(tClass);
+      rdfXmlElementMetadataMap = initializeRdfXmlElementMetadataMap();
+    } catch (JiBXException e) {
+      throw new IllegalStateException("No binding factory available.", e);
+    }
   }
 
   /**
@@ -46,7 +52,7 @@ public final class RdfConversionUtils {
    * @return An XML string representation of the RDF object
    * @throws SerializationException if during marshalling there is a failure
    */
-  public static byte[] convertRdfToBytes(RDF rdf) throws SerializationException {
+  public byte[] convertRdfToBytes(RDF rdf) throws SerializationException {
     try {
       IMarshallingContext context = rdfBindingFactory.createMarshallingContext();
       context.setIndent(INDENTATION_SPACE);
@@ -66,7 +72,7 @@ public final class RdfConversionUtils {
    * @param objectClass the jibx object class to search for
    * @return the xml representation
    */
-  public static String getQualifiedElementNameForClass(Class<?> objectClass) {
+  public String getQualifiedElementNameForClass(Class<?> objectClass) {
     final RdfXmlElementMetadata rdfXmlElementMetadata = rdfXmlElementMetadataMap.get(objectClass.getCanonicalName());
     Objects.requireNonNull(rdfXmlElementMetadata,
         String.format("Element metadata not found for class: %s", objectClass.getCanonicalName()));
@@ -80,7 +86,7 @@ public final class RdfConversionUtils {
    * @return the RDF object
    * @throws SerializationException if during unmarshalling there is a failure
    */
-  public static RDF convertInputStreamToRdf(InputStream inputStream) throws SerializationException {
+  public RDF convertInputStreamToRdf(InputStream inputStream) throws SerializationException {
     try {
       final IUnmarshallingContext context = rdfBindingFactory.createUnmarshallingContext();
       return (RDF) context.unmarshalDocument(inputStream, UTF8);
@@ -91,33 +97,18 @@ public final class RdfConversionUtils {
   }
 
   /**
-   * Collect all information that we can get for jibx classes from the {@link IBindingFactory}.
+   * Convert an {@link RDF} to a UTF-8 encoded XML
+   *
+   * @param rdf The RDF object to convert
+   * @return An XML string representation of the RDF object
+   * @throws SerializationException if during marshalling there is a failure
    */
-  private static Map<String, RdfXmlElementMetadata> initializeRdfXmlElementMetadataMap() {
-    Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap = new HashMap<>();
-    for (int i = 0; i < rdfBindingFactory.getMappedClasses().length; i++) {
-      final String canonicalName;
-      final String elementNamespace;
-      final String elementName;
-      final Matcher matcher = complexTypePattern.matcher(rdfBindingFactory.getMappedClasses()[i]);
-      if (matcher.matches()) {
-        //Complex type search
-        elementNamespace = matcher.group(1);
-        elementName = matcher.group(2);
-        final Pattern canonicalClassNamePattern = Pattern.compile(String.format("^(.*)\\.(%s)$", elementName));
-        canonicalName = Arrays.stream(rdfBindingFactory.getAbstractMappings()).flatMap(Arrays::stream)
-                              .filter(Objects::nonNull)
-                              .filter(input -> canonicalClassNamePattern.matcher(input).matches())
-                              .findFirst().orElse(null);
-      } else {
-        //Simple type search
-        elementNamespace = rdfBindingFactory.getElementNamespaces()[i];
-        elementName = rdfBindingFactory.getElementNames()[i];
-        canonicalName = rdfBindingFactory.getMappedClasses()[i];
-      }
-      checkAndStoreMetadataInMap(rdfXmlElementMetadataMap, canonicalName, elementNamespace, elementName);
+  public String convertRdfToString(RDF rdf) throws SerializationException {
+    try {
+      return new String(convertRdfToBytes(rdf), UTF8);
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException("Unexpected exception - should not occur.", e);
     }
-    return rdfXmlElementMetadataMap;
   }
 
   static class RdfXmlElementMetadata {
@@ -152,21 +143,52 @@ public final class RdfConversionUtils {
   }
 
   /**
-   * Convert an {@link RDF} to a UTF-8 encoded XML
+   * Convert a UTF-8 encoded XML to {@link RDF}
    *
-   * @param rdf The RDF object to convert
-   * @return An XML string representation of the RDF object
-   * @throws SerializationException if during marshalling there is a failure
+   * @param xml the xml string
+   * @return the RDF object
+   * @throws SerializationException if during unmarshalling there is a failure
    */
-  public static String convertRdfToString(RDF rdf) throws SerializationException {
-    try {
-      return new String(convertRdfToBytes(rdf), UTF8);
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalStateException("Unexpected exception - should not occur.", e);
+  public RDF convertStringToRdf(String xml) throws SerializationException {
+    try (final InputStream inputStream = new ByteArrayInputStream(
+        xml.getBytes(StandardCharsets.UTF_8))) {
+      return convertInputStreamToRdf(inputStream);
+    } catch (IOException e) {
+      throw new SerializationException("Unexpected issue with byte stream.", e);
     }
   }
 
-  private static void checkAndStoreMetadataInMap(final Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap,
+  /**
+   * Collect all information that we can get for jibx classes from the {@link IBindingFactory}.
+   */
+  private Map<String, RdfXmlElementMetadata> initializeRdfXmlElementMetadataMap() {
+    Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap = new HashMap<>();
+    for (int i = 0; i < rdfBindingFactory.getMappedClasses().length; i++) {
+      final String canonicalName;
+      final String elementNamespace;
+      final String elementName;
+      final Matcher matcher = complexTypePattern.matcher(rdfBindingFactory.getMappedClasses()[i]);
+      if (matcher.matches()) {
+        //Complex type search
+        elementNamespace = matcher.group(1);
+        elementName = matcher.group(2);
+        final Pattern canonicalClassNamePattern = Pattern.compile(String.format("^(.*)\\.(%s)$", elementName));
+        canonicalName = Arrays.stream(rdfBindingFactory.getAbstractMappings()).flatMap(Arrays::stream)
+                              .filter(Objects::nonNull)
+                              .filter(input -> canonicalClassNamePattern.matcher(input).matches())
+                              .findFirst().orElse(null);
+      } else {
+        //Simple type search
+        elementNamespace = rdfBindingFactory.getElementNamespaces()[i];
+        elementName = rdfBindingFactory.getElementNames()[i];
+        canonicalName = rdfBindingFactory.getMappedClasses()[i];
+      }
+      checkAndStoreMetadataInMap(rdfXmlElementMetadataMap, canonicalName, elementNamespace, elementName);
+    }
+    return rdfXmlElementMetadataMap;
+  }
+
+  private void checkAndStoreMetadataInMap(final Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap,
       String canonicalName, String elementNamespace, String elementName) {
     //Store only if we could find the canonical name properly
     if (canonicalName != null) {
@@ -177,31 +199,6 @@ public final class RdfConversionUtils {
       final RdfXmlElementMetadata rdfXmlElementMetadata = new RdfXmlElementMetadata(canonicalName, prefix, elementNamespace,
           elementName);
       rdfXmlElementMetadataMap.put(rdfXmlElementMetadata.getCanonicalClassName(), rdfXmlElementMetadata);
-    }
-  }
-
-  /**
-   * Convert a UTF-8 encoded XML to {@link RDF}
-   *
-   * @param xml the xml string
-   * @return the RDF object
-   * @throws SerializationException if during unmarshalling there is a failure
-   */
-  public static RDF convertStringToRdf(String xml) throws SerializationException {
-    try (final InputStream inputStream = new ByteArrayInputStream(
-        xml.getBytes(StandardCharsets.UTF_8))) {
-      return convertInputStreamToRdf(inputStream);
-    } catch (IOException e) {
-      throw new SerializationException("Unexpected issue with byte stream.", e);
-    }
-  }
-
-  static void initializeStaticComponents() {
-    try {
-      rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-      rdfXmlElementMetadataMap = initializeRdfXmlElementMetadataMap();
-    } catch (JiBXException e) {
-      throw new IllegalStateException("No binding factory available.", e);
     }
   }
 }
