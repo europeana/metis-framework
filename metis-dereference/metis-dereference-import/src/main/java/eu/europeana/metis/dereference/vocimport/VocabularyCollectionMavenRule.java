@@ -81,6 +81,11 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
   public VocabularyCollectionMavenRule() {
   }
 
+  /**
+   * Constructor. Used to inject the factory
+   *
+   * @param vocabularyCollectionImporterFactory The vocabulary collection importer factory
+   */
   @Autowired
   public VocabularyCollectionMavenRule(VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory){
     this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;

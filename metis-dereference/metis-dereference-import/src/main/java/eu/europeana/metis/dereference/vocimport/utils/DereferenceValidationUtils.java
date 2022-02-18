@@ -1,15 +1,9 @@
 package eu.europeana.metis.dereference.vocimport.utils;
 
-import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Utils class focused on validating values used in dereferencing
@@ -21,14 +15,11 @@ public class DereferenceValidationUtils {
 
     /**
      * Constructor of Utils class
+     *
+     * @param validDirectories The list of directories that are valid.
      */
     public DereferenceValidationUtils(String[] validDirectories){
         validDirectoriesAsList = Arrays.asList(validDirectories);
-    }
-
-    // This constructor is used for testing purposes
-    DereferenceValidationUtils(String dereferencingPropertiesLocation) throws VocabularyImportException {
-        validDirectoriesAsList = Arrays.asList(readProperty(dereferencingPropertiesLocation));
     }
 
     /**
@@ -45,18 +36,6 @@ public class DereferenceValidationUtils {
             result = validDirectoriesAsList.stream().anyMatch(directoryToEvaluate::startsWith);
         }
         return result;
-    }
-
-    //This method is used for testing purposes
-    private String[] readProperty(String dereferencingPropertiesLocation) throws VocabularyImportException {
-        Properties properties = new Properties();
-        try (InputStream propertiesFile = new FileInputStream(dereferencingPropertiesLocation)) {
-            properties.load(propertiesFile);
-        } catch (IOException e){
-            throw new VocabularyImportException("A problem occurred while reading properties file", e);
-        }
-        String propertiesWithoutSpaces = properties.getProperty(PROPERTY_FIELD_NAME).replaceAll("\\s+", "");
-        return StringUtils.isBlank(propertiesWithoutSpaces) ? new String[0] : propertiesWithoutSpaces.split(",");
     }
 
 }

@@ -19,6 +19,8 @@ public class VocabularyCollectionImporterFactory {
 
   /**
    * Constructor for the factory
+   *
+   * @param dereferenceValidationUtils The utils class used to verify input values
    */
   public VocabularyCollectionImporterFactory(DereferenceValidationUtils dereferenceValidationUtils) {
     this.dereferenceValidationUtils = dereferenceValidationUtils;
