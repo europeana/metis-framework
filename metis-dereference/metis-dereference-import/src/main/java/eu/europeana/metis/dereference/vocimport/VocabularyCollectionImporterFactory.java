@@ -47,13 +47,9 @@ public class VocabularyCollectionImporterFactory {
    * Create a vocabulary importer for local files, indicated by instances of {@link Path}.
    *
    * @param directoryLocation The location of the directory file to import.
-   * @throws VocabularyImportException if a problem occurs when verifying directory
    * @return A vocabulary importer.
    */
-  public VocabularyCollectionImporter createImporter(Path directoryLocation) throws VocabularyImportException {
-    if(isUrlPrefixNotValid(directoryLocation.toString())){
-      throw new VocabularyImportException("The location of the directory to import is not valid.");
-    }
+  public VocabularyCollectionImporter createImporter(Path directoryLocation) {
     return createImporter(null, directoryLocation);
   }
 
