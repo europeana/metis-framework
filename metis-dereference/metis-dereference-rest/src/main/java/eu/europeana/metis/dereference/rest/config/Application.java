@@ -5,9 +5,10 @@ import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
-import eu.europeana.metis.dereference.vocimport.utils.DereferenceValidationUtils;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+
+import java.util.Arrays;
 import java.util.Collections;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
@@ -129,7 +130,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   public VocabularyCollectionImporterFactory getVocabularyCollectionImporterFactory(){
-    return new VocabularyCollectionImporterFactory(new DereferenceValidationUtils(validDirectories));
+    return new VocabularyCollectionImporterFactory(Arrays.asList(validDirectories));
   }
 
   /**

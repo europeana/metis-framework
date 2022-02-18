@@ -10,7 +10,6 @@ import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
-import eu.europeana.metis.dereference.vocimport.utils.DereferenceValidationUtils;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.Collections;
 import java.util.List;

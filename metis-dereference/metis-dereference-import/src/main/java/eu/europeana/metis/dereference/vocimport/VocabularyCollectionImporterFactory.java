@@ -2,28 +2,29 @@ package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Location;
-import eu.europeana.metis.dereference.vocimport.utils.DereferenceValidationUtils;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * This class is the factory for instances of {@link VocabularyCollectionImporter}.
  */
 public class VocabularyCollectionImporterFactory {
 
-  private final DereferenceValidationUtils dereferenceValidationUtils;
+  private final List<String> validDirectoriesAsList;
 
   /**
    * Constructor for the factory
    *
-   * @param dereferenceValidationUtils The utils class used to verify input values
+   * @param validDirectoriesAsList The utils class used to verify input values
    */
-  public VocabularyCollectionImporterFactory(DereferenceValidationUtils dereferenceValidationUtils) {
-    this.dereferenceValidationUtils = dereferenceValidationUtils;
+  public VocabularyCollectionImporterFactory(List<String> validDirectoriesAsList) {
+    this.validDirectoriesAsList = validDirectoriesAsList;
   }
 
   /**
@@ -36,7 +37,7 @@ public class VocabularyCollectionImporterFactory {
    * @return A vocabulary importer.
    */
   public VocabularyCollectionImporter createImporter(URI directoryLocation) throws VocabularyImportException {
-    if(!dereferenceValidationUtils.isDirectoryValid(directoryLocation.toString())){
+    if(!isDirectoryValid(directoryLocation.toString())){
       throw new VocabularyImportException("The location of the directory to import is not valid.");
     }
     return new VocabularyCollectionImporterImpl(new UriLocation(directoryLocation));
@@ -50,7 +51,7 @@ public class VocabularyCollectionImporterFactory {
    * @return A vocabulary importer.
    */
   public VocabularyCollectionImporter createImporter(Path directoryLocation) throws VocabularyImportException {
-    if(!dereferenceValidationUtils.isDirectoryValid(directoryLocation.toString())){
+    if(!isDirectoryValid(directoryLocation.toString())){
       throw new VocabularyImportException("The location of the directory to import is not valid.");
     }
     return createImporter(null, directoryLocation);
@@ -67,6 +68,17 @@ public class VocabularyCollectionImporterFactory {
    */
   public VocabularyCollectionImporter createImporter(Path baseDirectory, Path directoryLocation) {
     return new VocabularyCollectionImporterImpl(new PathLocation(baseDirectory, directoryLocation));
+  }
+
+  private boolean isDirectoryValid(String directoryToEvaluate) {
+    boolean result;
+
+    if (CollectionUtils.isEmpty(validDirectoriesAsList)) {
+      result = false;
+    } else {
+      result = validDirectoriesAsList.stream().anyMatch(directoryToEvaluate::startsWith);
+    }
+    return result;
   }
 
   private static final class UriLocation implements Location {
