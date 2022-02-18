@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class DereferenceValidationUtils {
 
-    private static final String PROPERTY_FIELD_NAME = "valid.directories.values";
     private final List<String> validDirectoriesAsList;
 
     /**
