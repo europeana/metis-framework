@@ -27,18 +27,28 @@ public class RdfConversionUtils {
 
   private static final int INDENTATION_SPACE = 2;
   private static final String UTF8 = StandardCharsets.UTF_8.name();
-  private final IBindingFactory rdfBindingFactory;
-  private final Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap;
   @SuppressWarnings("java:S5852") //This regex is safe, and it's only meant for internal use without use input
   private static final Pattern complexTypePattern = Pattern.compile("^\\{(.*)}:(.*)$");
+  private final IBindingFactory rdfBindingFactory;
+  private final Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap;
 
+  /**
+   * Default constructor
+   */
   public RdfConversionUtils() {
     this(RDF.class);
   }
 
-  <T> RdfConversionUtils(Class<T> tClass) {
+  /**
+   * Constructor supplying class type for the binding factory.
+   * <p>At the current state this is used for assisting testing</p>
+   *
+   * @param classType the class object type
+   * @param <T> the class type
+   */
+  <T> RdfConversionUtils(Class<T> classType) {
     try {
-      rdfBindingFactory = BindingDirectory.getFactory(tClass);
+      rdfBindingFactory = BindingDirectory.getFactory(classType);
       rdfXmlElementMetadataMap = initializeRdfXmlElementMetadataMap();
     } catch (JiBXException e) {
       throw new IllegalStateException("No binding factory available.", e);
@@ -162,7 +172,7 @@ public class RdfConversionUtils {
    * Collect all information that we can get for jibx classes from the {@link IBindingFactory}.
    */
   private Map<String, RdfXmlElementMetadata> initializeRdfXmlElementMetadataMap() {
-    Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap = new HashMap<>();
+    Map<String, RdfXmlElementMetadata> elementMetadataMap = new HashMap<>();
     for (int i = 0; i < rdfBindingFactory.getMappedClasses().length; i++) {
       final String canonicalName;
       final String elementNamespace;
@@ -183,9 +193,9 @@ public class RdfConversionUtils {
         elementName = rdfBindingFactory.getElementNames()[i];
         canonicalName = rdfBindingFactory.getMappedClasses()[i];
       }
-      checkAndStoreMetadataInMap(rdfXmlElementMetadataMap, canonicalName, elementNamespace, elementName);
+      checkAndStoreMetadataInMap(elementMetadataMap, canonicalName, elementNamespace, elementName);
     }
-    return rdfXmlElementMetadataMap;
+    return elementMetadataMap;
   }
 
   private void checkAndStoreMetadataInMap(final Map<String, RdfXmlElementMetadata> rdfXmlElementMetadataMap,

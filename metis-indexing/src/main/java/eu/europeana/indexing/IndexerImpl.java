@@ -52,8 +52,8 @@ class IndexerImpl implements Indexer {
    * Constructor for testing purposes.
    *
    * @param connectionProvider The connection provider for this indexer.
-   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter} used to parse strings to
-   * instances of {@link RDF}. Will be called once during every index.
+   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter} used to convert a string to an
+   * instance of {@link RDF}. Will be called once during every index.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider,
       IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {

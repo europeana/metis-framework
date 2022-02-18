@@ -89,7 +89,7 @@ class AbstractMediaClassifierTest {
     doReturn(Collections.emptyList()).when(entity).getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_BY));
     //Has embeddable media will be true
-    doReturn(Set.of("http://soundcloud.com/")).when(entity).getUrlsOfTypes(Set.of(WebResourceLinkType.IS_SHOWN_BY));
+    doReturn(Set.of("https://soundcloud.com/")).when(entity).getUrlsOfTypes(Set.of(WebResourceLinkType.IS_SHOWN_BY));
     doReturn(MediaTier.T0).when(classifier).classifyEntityWithoutWebResources(entity, hasLandingPage);
     assertEquals(MediaTier.T0, classifier.classify(entity).getTier());
   }
@@ -126,7 +126,7 @@ class AbstractMediaClassifierTest {
     doReturn(entityLicense).when(entity).getLicenseType();
     doReturn(null).when(classifier).preClassifyEntity(entity);
     //Has embeddable media will be true
-    doReturn(Set.of("http://soundcloud.com/")).when(entity).getUrlsOfTypes(Set.of(WebResourceLinkType.IS_SHOWN_BY));
+    doReturn(Set.of("https://soundcloud.com/")).when(entity).getUrlsOfTypes(Set.of(WebResourceLinkType.IS_SHOWN_BY));
 
     // Create web resources.
     doReturn(mediaResourceTechnicalMetadata1).when(classifier)

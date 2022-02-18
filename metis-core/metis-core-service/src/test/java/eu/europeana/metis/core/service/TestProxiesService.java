@@ -564,7 +564,7 @@ class TestProxiesService {
 
     // Create representation
     final Representation representation = mock(Representation.class);
-    final String contentUri = "http://example.com";
+    final String contentUri = "https://example.com";
     final File file = new File();
     file.setContentUri(URI.create(contentUri));
     when(representation.getFiles()).thenReturn(Collections.singletonList(file));

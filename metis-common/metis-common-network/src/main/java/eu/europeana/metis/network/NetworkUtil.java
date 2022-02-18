@@ -30,6 +30,11 @@ public class NetworkUtil {
     return localPort;
   }
 
+  /**
+   * Get a server socket factory.
+   *
+   * @return the server socket factory
+   */
   ServerSocketFactory getServerSocketFactory() {
     return SSLServerSocketFactory.getDefault();
   }
