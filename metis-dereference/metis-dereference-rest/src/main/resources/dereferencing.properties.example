@@ -14,4 +14,4 @@ mongo.application.name=
 entity.db=
 vocabulary.db=
 
-valid.directories.values=
+valid.url.prefixes=

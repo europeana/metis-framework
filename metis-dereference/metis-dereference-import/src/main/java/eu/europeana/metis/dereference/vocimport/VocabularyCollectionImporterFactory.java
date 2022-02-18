@@ -16,15 +16,15 @@ import java.util.List;
  */
 public class VocabularyCollectionImporterFactory {
 
-  private final List<String> validDirectoriesAsList;
+  private final List<String> validUrlPrefixes;
 
   /**
    * Constructor for the factory
    *
-   * @param validDirectoriesAsList The utils class used to verify input values
+   * @param validUrlPrefixes The utils class used to verify input values
    */
-  public VocabularyCollectionImporterFactory(List<String> validDirectoriesAsList) {
-    this.validDirectoriesAsList = validDirectoriesAsList;
+  public VocabularyCollectionImporterFactory(List<String> validUrlPrefixes) {
+    this.validUrlPrefixes = validUrlPrefixes;
   }
 
   /**
@@ -37,7 +37,7 @@ public class VocabularyCollectionImporterFactory {
    * @return A vocabulary importer.
    */
   public VocabularyCollectionImporter createImporter(URI directoryLocation) throws VocabularyImportException {
-    if(!isDirectoryValid(directoryLocation.toString())){
+    if(isUrlPrefixNotValid(directoryLocation.toString())){
       throw new VocabularyImportException("The location of the directory to import is not valid.");
     }
     return new VocabularyCollectionImporterImpl(new UriLocation(directoryLocation));
@@ -51,7 +51,7 @@ public class VocabularyCollectionImporterFactory {
    * @return A vocabulary importer.
    */
   public VocabularyCollectionImporter createImporter(Path directoryLocation) throws VocabularyImportException {
-    if(!isDirectoryValid(directoryLocation.toString())){
+    if(isUrlPrefixNotValid(directoryLocation.toString())){
       throw new VocabularyImportException("The location of the directory to import is not valid.");
     }
     return createImporter(null, directoryLocation);
@@ -70,13 +70,13 @@ public class VocabularyCollectionImporterFactory {
     return new VocabularyCollectionImporterImpl(new PathLocation(baseDirectory, directoryLocation));
   }
 
-  private boolean isDirectoryValid(String directoryToEvaluate) {
+  private boolean isUrlPrefixNotValid(String directoryToEvaluate) {
     boolean result;
 
-    if (CollectionUtils.isEmpty(validDirectoriesAsList)) {
-      result = false;
+    if (CollectionUtils.isEmpty(validUrlPrefixes)) {
+      result = true;
     } else {
-      result = validDirectoriesAsList.stream().anyMatch(directoryToEvaluate::startsWith);
+      result = validUrlPrefixes.stream().noneMatch(directoryToEvaluate::startsWith);
     }
     return result;
   }

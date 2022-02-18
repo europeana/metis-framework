@@ -70,8 +70,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String vocabularyDb;
 
   //Valid directories list
-  @Value("${valid.directories.values}")
-  private String[] validDirectories;
+  @Value("${valid.url.prefixes}")
+  private String[] validUrlPrefixes;
 
   private MongoClient mongoClientEntity;
   private MongoClient mongoClientVocabulary;
@@ -130,7 +130,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   public VocabularyCollectionImporterFactory getVocabularyCollectionImporterFactory(){
-    return new VocabularyCollectionImporterFactory(Arrays.asList(validDirectories));
+    return new VocabularyCollectionImporterFactory(Arrays.asList(validUrlPrefixes));
   }
 
   /**
