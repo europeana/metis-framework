@@ -33,8 +33,8 @@ import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
-import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.network.NetworkUtil;
+import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -62,7 +62,7 @@ class AudioVideoProcessorTest {
 
   static {
     try {
-      portForWireMock = NetworkUtil.getAvailableLocalPort();
+      portForWireMock = new NetworkUtil().getAvailableLocalPort();
     } catch (IOException e) {
       e.printStackTrace();
     }
