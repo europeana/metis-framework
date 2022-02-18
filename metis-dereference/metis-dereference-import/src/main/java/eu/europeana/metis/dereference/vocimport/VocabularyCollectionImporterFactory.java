@@ -19,10 +19,9 @@ public class VocabularyCollectionImporterFactory {
 
   /**
    * Constructor for the factory
-   * @throws VocabularyImportException if there were any issues while initializing the class
    */
-  public VocabularyCollectionImporterFactory() throws VocabularyImportException {
-    dereferenceValidationUtils = new DereferenceValidationUtils();
+  public VocabularyCollectionImporterFactory(DereferenceValidationUtils dereferenceValidationUtils) {
+    this.dereferenceValidationUtils = dereferenceValidationUtils;
   }
 
   /**

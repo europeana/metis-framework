@@ -4,6 +4,8 @@ import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
+import eu.europeana.metis.dereference.vocimport.utils.DereferenceValidationUtils;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import java.util.Collections;
@@ -66,6 +68,10 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${vocabulary.db}")
   private String vocabularyDb;
 
+  //Valid directories list
+  @Value("${valid.directories.values}")
+  private String[] validDirectories;
+
   private MongoClient mongoClientEntity;
   private MongoClient mongoClientVocabulary;
 
@@ -119,6 +125,11 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
+  }
+
+  @Bean
+  public VocabularyCollectionImporterFactory getVocabularyCollectionImporterFactory(){
+    return new VocabularyCollectionImporterFactory(new DereferenceValidationUtils(validDirectories));
   }
 
   /**

@@ -29,11 +29,4 @@ class DereferenceValidationUtilsTest {
         assertFalse(dereferenceValidationUtils.isDirectoryValid("https://randomdirectory"));
     }
 
-    @Test
-    void isDirectoryValid_withStarValue_expectSuccess() throws VocabularyImportException {
-        DereferenceValidationUtils dereferenceValidationUtils = new DereferenceValidationUtils(
-                "src/test/resources/dereferencing-with-star-value.properties");
-        assertTrue(dereferenceValidationUtils.isDirectoryValid("https://randomdirectory"));
-    }
-
 }

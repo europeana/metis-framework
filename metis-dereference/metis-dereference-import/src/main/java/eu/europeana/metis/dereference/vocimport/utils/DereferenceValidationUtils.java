@@ -17,21 +17,18 @@ import java.util.Properties;
 public class DereferenceValidationUtils {
 
     private static final String PROPERTY_FIELD_NAME = "valid.directories.values";
-    private String dereferencingPropertiesLocation =
-            "metis-dereference/metis-dereference-rest/src/main/resources/dereferencing.properties";
-
-    private final List<String> validDirectoriesValues;
+    private final List<String> validDirectoriesAsList;
 
     /**
      * Constructor of Utils class
      */
-    public DereferenceValidationUtils() throws VocabularyImportException {
-        validDirectoriesValues = Arrays.asList(readProperty());
+    public DereferenceValidationUtils(String[] validDirectories){
+        validDirectoriesAsList = Arrays.asList(validDirectories);
     }
+
     // This constructor is used for testing purposes
     DereferenceValidationUtils(String dereferencingPropertiesLocation) throws VocabularyImportException {
-        this.dereferencingPropertiesLocation = dereferencingPropertiesLocation;
-        validDirectoriesValues = Arrays.asList(readProperty());
+        validDirectoriesAsList = Arrays.asList(readProperty(dereferencingPropertiesLocation));
     }
 
     /**
@@ -42,15 +39,16 @@ public class DereferenceValidationUtils {
     public boolean isDirectoryValid(String directoryToEvaluate) {
         boolean result;
 
-        if (CollectionUtils.isEmpty(validDirectoriesValues)) {
+        if (CollectionUtils.isEmpty(validDirectoriesAsList)) {
             result = false;
         } else {
-            result = validDirectoriesValues.stream().anyMatch(directoryToEvaluate::startsWith);
+            result = validDirectoriesAsList.stream().anyMatch(directoryToEvaluate::startsWith);
         }
         return result;
     }
 
-    private String[] readProperty() throws VocabularyImportException {
+    //This method is used for testing purposes
+    private String[] readProperty(String dereferencingPropertiesLocation) throws VocabularyImportException {
         Properties properties = new Properties();
         try (InputStream propertiesFile = new FileInputStream(dereferencingPropertiesLocation)) {
             properties.load(propertiesFile);

@@ -9,6 +9,8 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * This is a Maven-enabled enforcer rule that can be used in a maven project. For an example of how
@@ -45,6 +47,7 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
  * </plugins></build>
  * }</pre>
  */
+@Component
 public class VocabularyCollectionMavenRule implements EnforcerRule {
 
   /**
@@ -70,10 +73,17 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
    */
   private String vocabularyDirectoryFile = null;
 
+  private VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory;
+
   /**
    * No-arguments constructor, required for maven instantiation.
    */
   public VocabularyCollectionMavenRule() {
+  }
+
+  @Autowired
+  public VocabularyCollectionMavenRule(VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory){
+    this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;
   }
 
   /**
@@ -116,7 +126,7 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
 
     try {
     // Prepare validation
-    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
+    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
             .createImporter(baseDirectory, vocabularyDirectory);
     final VocabularyCollectionValidatorImpl validator = new VocabularyCollectionValidatorImpl(
             importer, lenientOnLackOfExamples, lenientOnMappingTestFailures,

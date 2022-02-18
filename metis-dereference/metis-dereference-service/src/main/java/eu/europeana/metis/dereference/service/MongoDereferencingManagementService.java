@@ -23,6 +23,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   private final VocabularyDao vocabularyDao;
   private final ProcessedEntityDao processedEntityDao;
+  private final VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory;
 
   /**
    * Constructor.
@@ -31,9 +32,10 @@ public class MongoDereferencingManagementService implements DereferencingManagem
    */
   @Autowired
   public MongoDereferencingManagementService(VocabularyDao vocabularyDao,
-          ProcessedEntityDao processedEntityDao) {
+          ProcessedEntityDao processedEntityDao, VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory) {
     this.vocabularyDao = vocabularyDao;
     this.processedEntityDao = processedEntityDao;
+    this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;
   }
 
   @Override
@@ -52,7 +54,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
     try {
     // Import and validate the vocabularies
     final List<Vocabulary> vocabularies = new ArrayList<>();
-    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
+    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
             .createImporter(directoryUrl);
     final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
             true, true, true);
