@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,7 +41,6 @@ import org.springframework.web.client.RestTemplate;
  * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from
  * there.
  */
-@Service
 public class RemoteEntityResolver implements EntityResolver {
 
   private final int batchSize;
