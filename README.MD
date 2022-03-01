@@ -1,14 +1,16 @@
-[![Build Status](https://travis-ci.org/europeana/metis-framework.svg?branch=develop)](https://travis-ci.org/europeana/metis-framework)
-[![Coverage Status](https://coveralls.io/repos/github/europeana/metis-framework/badge.svg?branch=develop)](https://coveralls.io/github/europeana/metis-framework?branch=develop)
+[![CI](https://github.com/europeana/metis-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/ci.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)
 
-**Metis Services repository**
-This repository contains the code developed as part of Europeana Metis.
-The software is developed on OpenJDK8 and uses Maven3 as its dependency management system.
-Each module is usually organized in the following manner:
+## Metis Services repository
 
- * *-client: Implements a Java REST client that implements the REST API for each given service
- * *-common: Includes the model of the module along with module-wide utils
- * *-service: Includes persistence connections (databases/caches) and the main functionality of each module
- * *-rest: Includes a REST API for the services. 
- 
-The REST APIs have been tested to work on Apache Tomcat 8.
+This repository contains the code developed as part of Europeana Metis.  
+The software is developed on Java and uses Maven as its dependency management system.
+
+## Technologies
+
+Project created with:
+
+* [Redis](https://redis.io/)
+* [MongoDb](https://www.mongodb.com/)
+* [RabbitMQ](https://www.rabbitmq.com/)
+* [Apache Tomcat](https://tomcat.apache.org/)

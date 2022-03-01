@@ -15,6 +15,7 @@ public class PluginProgressView {
   private final int progressPercentage;
   private final int errors;
   private final TaskState status;
+  private int totalDatabaseRecords;
 
   PluginProgressView(ExecutionProgress progress) {
     this.expectedRecords = progress.getExpectedRecords();
@@ -24,6 +25,7 @@ public class PluginProgressView {
     this.errors = progress.getErrors();
     this.progressPercentage = progress.getProgressPercentage();
     this.status = progress.getStatus();
+    this.totalDatabaseRecords = progress.getTotalDatabaseRecords();
   }
 
   public int getExpectedRecords() {
@@ -52,5 +54,9 @@ public class PluginProgressView {
 
   public TaskState getStatus() {
     return status;
+  }
+
+  public int getTotalDatabaseRecords() {
+    return totalDatabaseRecords;
   }
 }

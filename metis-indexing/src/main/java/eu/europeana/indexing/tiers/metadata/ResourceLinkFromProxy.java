@@ -5,6 +5,7 @@ import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -13,11 +14,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * This enum lists all fields with resource links in {@link ProxyType}, and provides a way to
- * extract them, as well as a literal value that they might have.
+ * This enum lists all fields with resource links in {@link ProxyType}, and provides a way to extract them, as well as a literal
+ * value that they might have.
  */
 public enum ResourceLinkFromProxy {
 
@@ -89,8 +90,10 @@ public enum ResourceLinkFromProxy {
   private static LinkAndValueGetter createResourceLinksGetter(
       Function<ProxyType, List<? extends ResourceType>> linksExtractor) {
     final Function<ProxyType, Stream<String>> getLinks = proxy -> Optional.of(proxy)
-        .map(linksExtractor).orElseGet(Collections::emptyList).stream().filter(Objects::nonNull)
-        .map(ResourceType::getResource).filter(StringUtils::isNotBlank);
+                                                                          .map(linksExtractor).orElseGet(Collections::emptyList)
+                                                                          .stream().filter(Objects::nonNull)
+                                                                          .map(ResourceType::getResource)
+                                                                          .filter(StringUtils::isNotBlank);
     return new LinkAndValueGetter(getLinks, proxy -> Stream.empty());
   }
 
@@ -121,9 +124,9 @@ public enum ResourceLinkFromProxy {
 
   private static <T> Function<ProxyType, List<? extends T>> getPredicatesFromChoice(
       Predicate<Choice> isRightChoice, Function<Choice, T> getPredicateFromChoice) {
-    return proxy -> Optional.of(proxy).map(ProxyType::getChoiceList).map(List::stream)
-        .orElseGet(Stream::empty).filter(Objects::nonNull).filter(isRightChoice)
-        .map(getPredicateFromChoice).filter(Objects::nonNull).collect(Collectors.toList());
+    return proxy -> Optional.of(proxy).map(ProxyType::getChoiceList).stream().flatMap(Collection::stream).filter(Objects::nonNull)
+                            .filter(isRightChoice)
+                            .map(getPredicateFromChoice).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   LinkAndValueGetter getLinkAndValueGetter() {

@@ -246,10 +246,9 @@ public class WebResourceWrapper {
   }
 
   /**
-   * @return The license of this entity.
+   * @return The license of this entity. Can be null if not existent.
    */
-  public LicenseType getLicenseType() {
-    return Optional.of(webResource).map(WebResourceType::getRights).map(LicenseType::getLicenseType)
-        .orElse(null);
+  public Optional<LicenseType> getLicenseType() {
+    return Optional.of(webResource).map(WebResourceType::getRights).map(LicenseType::getLicenseType);
   }
 }

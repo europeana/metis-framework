@@ -17,12 +17,14 @@ public class DatasetExecutionInformation {
   private Date lastPreviewDate;
   private int lastPreviewRecords;
   private boolean lastPreviewRecordsReadyForViewing;
+  private int totalPreviewRecords;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date firstPublishedDate;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date lastPublishedDate;
   private int lastPublishedRecords;
   private boolean lastPublishedRecordsReadyForViewing;
+  private int totalPublishedRecords;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date lastDepublishedDate;
   private int lastDepublishedRecords;
@@ -30,13 +32,6 @@ public class DatasetExecutionInformation {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date lastHarvestedDate;
   private int lastHarvestedRecords;
-
-  /**
-   * The status of the dataset with regards to (de)publication.
-   */
-  public enum PublicationStatus{
-    PUBLISHED, DEPUBLISHED
-  }
 
   public DatasetExecutionInformation() {
     //Required for json serialization
@@ -64,6 +59,14 @@ public class DatasetExecutionInformation {
 
   public void setLastPreviewRecordsReadyForViewing(boolean lastPreviewRecordsReadyForViewing) {
     this.lastPreviewRecordsReadyForViewing = lastPreviewRecordsReadyForViewing;
+  }
+
+  public int getTotalPreviewRecords() {
+    return totalPreviewRecords;
+  }
+
+  public void setTotalPreviewRecords(int totalPreviewRecords) {
+    this.totalPreviewRecords = totalPreviewRecords;
   }
 
   public Date getFirstPublishedDate() {
@@ -98,6 +101,14 @@ public class DatasetExecutionInformation {
 
   public void setLastPublishedRecordsReadyForViewing(boolean lastPublishedRecordsReadyForViewing) {
     this.lastPublishedRecordsReadyForViewing = lastPublishedRecordsReadyForViewing;
+  }
+
+  public int getTotalPublishedRecords() {
+    return totalPublishedRecords;
+  }
+
+  public void setTotalPublishedRecords(int totalPublishedRecords) {
+    this.totalPublishedRecords = totalPublishedRecords;
   }
 
   public Date getLastDepublishedDate() {
@@ -140,5 +151,12 @@ public class DatasetExecutionInformation {
 
   public void setLastHarvestedRecords(int lastHarvestedRecords) {
     this.lastHarvestedRecords = lastHarvestedRecords;
+  }
+
+  /**
+   * The status of the dataset with regards to (de)publication.
+   */
+  public enum PublicationStatus {
+    PUBLISHED, DEPUBLISHED
   }
 }

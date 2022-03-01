@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
@@ -42,10 +43,14 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
+  private int maxNumberOfIterations = 0;
+
   @Override
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
-          Consumer<ArchiveEntry> action) throws HarvesterException {
+      Consumer<ArchiveEntry> action) throws HarvesterException {
 
+    // We chose where to store the temporary file.
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
     Path tempDir = null;
     try {
 
@@ -60,13 +65,19 @@ public class HttpHarvesterImpl implements HttpHarvester {
         throw new HarvesterException("Problem saving archive.", e);
       }
 
+      AtomicInteger currentNumberOfIterations = new AtomicInteger();
+
       // Now perform the harvesting - go by each file.
       final HttpRecordIterator iterator = harvestRecords(tempFile);
       List<Pair<Path, Exception>> exception = new ArrayList<>(1);
       iterator.forEach(path -> {
         try (InputStream content = Files.newInputStream(path)) {
           action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
-                  new ByteArrayInputStream(IOUtils.toByteArray(content))));
+              new ByteArrayInputStream(IOUtils.toByteArray(content))));
+          currentNumberOfIterations.getAndIncrement();
+          if (maxNumberOfIterations > 0 && currentNumberOfIterations.get() > maxNumberOfIterations) {
+            return IterationResult.TERMINATE;
+          }
           return IterationResult.CONTINUE;
         } catch (IOException | RuntimeException e) {
           exception.add(new ImmutablePair<>(path, e));
@@ -75,7 +86,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       });
       if (!exception.isEmpty()) {
         throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
-                exception.get(0).getValue());
+            exception.get(0).getValue());
       }
 
     } finally {
@@ -92,13 +103,18 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   @Override
+  public void setMaxNumberOfIterations(int maxOfIterations) {
+    this.maxNumberOfIterations = maxOfIterations;
+  }
+
+  @Override
   public HttpRecordIterator harvestRecords(String archiveUrl, String downloadDirectory)
-          throws HarvesterException {
+      throws HarvesterException {
 
     // Download the archive. Note that we allow any directory here (even on other file systems),
     // the calling code is responsible for providing this parameter and should do so properly.
-    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-    final Path downloadDirectoryPath = Paths.get(downloadDirectory);
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") final Path downloadDirectoryPath = Paths.get(
+        downloadDirectory);
     final Path downloadedFile;
     try {
       downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
@@ -140,13 +156,12 @@ public class HttpHarvesterImpl implements HttpHarvester {
     final URL archiveUrl = new URL(archiveUrlString);
     if (!SUPPORTED_PROTOCOLS.contains(archiveUrl.getProtocol())) {
       throw new IOException("This functionality does not support this protocol ("
-              + archiveUrl.getProtocol() + ").");
+          + archiveUrl.getProtocol() + ").");
     }
     // Note: we allow any download URL for http harvesting. This is the functionality we support.
-    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
-    final URLConnection conn = archiveUrl.openConnection();
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final URLConnection conn = archiveUrl.openConnection();
     try (final InputStream inputStream = conn.getInputStream();
-            final OutputStream outputStream = Files.newOutputStream(file)) {
+        final OutputStream outputStream = Files.newOutputStream(file)) {
       IOUtils.copyLarge(inputStream, outputStream);
     }
     return file;
@@ -226,7 +241,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
         throw new IllegalArgumentException("Iteration result cannot be null.");
       }
       return IterationResult.TERMINATE == result ? FileVisitResult.TERMINATE
-              : FileVisitResult.CONTINUE;
+          : FileVisitResult.CONTINUE;
     }
 
     @Override

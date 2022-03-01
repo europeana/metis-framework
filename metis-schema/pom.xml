@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>5.1</version>
+    <version>6</version>
   </parent>
 
   <artifactId>metis-schema</artifactId>
@@ -42,6 +42,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <artifactId>jackson-annotations</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${version.jackson}</version>
+    </dependency>
     <!-- JIBX dependencies -->
     <dependency>
       <groupId>org.jibx</groupId>
@@ -80,6 +85,10 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+    </dependency>
+    <dependency>
+      <artifactId>mockito-inline</artifactId>
+      <groupId>org.mockito</groupId>
     </dependency>
   </dependencies>
 
@@ -160,6 +169,7 @@
             </goals>
             <configuration>
               <schemaBindingDirectory>src/main/java</schemaBindingDirectory>
+
               <load>true</load>
               <validate>true</validate>
               <verify>false</verify>
@@ -168,6 +178,33 @@
           </execution>
         </executions>
       </plugin>
+
+      <!--This is added so that test related to Jibx can be run from the IDE.
+      For other modules that need tests on Jibx check the root pom and the plugin build-helper-maven-plugin-->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <outputDirectory>target/test-classes</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>target/classes</directory>
+                  <filtering>false</filtering>
+                  <includes>eu/europeana/metis/schema/jibx/*</includes>
+                </resource>
+              </resources>
+            </configuration>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <id>copy-resources</id>
+            <phase>generate-test-sources</phase>
+          </execution>
+        </executions>
+        <version>${version.maven.resources.plugin}</version>
+      </plugin>
+
     </plugins>
   </build>
 </project>

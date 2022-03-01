@@ -1,5 +1,6 @@
 package eu.europeana.indexing.utils;
 
+import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
@@ -9,44 +10,50 @@ import eu.europeana.indexing.tiers.model.Tier;
  */
 public enum RdfTier {
 
-  METADATA_TIER_0("http://www.europeana.eu/schemas/epf/metadataTier0", MetadataTier.T0),
-  METADATA_TIER_A("http://www.europeana.eu/schemas/epf/metadataTierA", MetadataTier.TA),
-  METADATA_TIER_B("http://www.europeana.eu/schemas/epf/metadataTierB", MetadataTier.TB),
-  METADATA_TIER_C("http://www.europeana.eu/schemas/epf/metadataTierC", MetadataTier.TC),
+  METADATA_TIER_0("http://www.europeana.eu/schemas/epf/metadataTier0", MetadataTier.T0, EdmLabel.METADATA_TIER),
+  METADATA_TIER_A("http://www.europeana.eu/schemas/epf/metadataTierA", MetadataTier.TA, EdmLabel.METADATA_TIER),
+  METADATA_TIER_B("http://www.europeana.eu/schemas/epf/metadataTierB", MetadataTier.TB, EdmLabel.METADATA_TIER),
+  METADATA_TIER_C("http://www.europeana.eu/schemas/epf/metadataTierC", MetadataTier.TC, EdmLabel.METADATA_TIER),
 
-  CONTENT_TIER_0("http://www.europeana.eu/schemas/epf/contentTier0", MediaTier.T0),
-  CONTENT_TIER_1("http://www.europeana.eu/schemas/epf/contentTier1", MediaTier.T1),
-  CONTENT_TIER_2("http://www.europeana.eu/schemas/epf/contentTier2", MediaTier.T2),
-  CONTENT_TIER_3("http://www.europeana.eu/schemas/epf/contentTier3", MediaTier.T3),
-  CONTENT_TIER_4("http://www.europeana.eu/schemas/epf/contentTier4", MediaTier.T4);
+  CONTENT_TIER_0("http://www.europeana.eu/schemas/epf/contentTier0", MediaTier.T0, EdmLabel.CONTENT_TIER),
+  CONTENT_TIER_1("http://www.europeana.eu/schemas/epf/contentTier1", MediaTier.T1, EdmLabel.CONTENT_TIER),
+  CONTENT_TIER_2("http://www.europeana.eu/schemas/epf/contentTier2", MediaTier.T2, EdmLabel.CONTENT_TIER),
+  CONTENT_TIER_3("http://www.europeana.eu/schemas/epf/contentTier3", MediaTier.T3, EdmLabel.CONTENT_TIER),
+  CONTENT_TIER_4("http://www.europeana.eu/schemas/epf/contentTier4", MediaTier.T4, EdmLabel.CONTENT_TIER);
 
   private final String uri;
   private final String aboutSuffix;
-  private final Enum<? extends Tier> tier;
+  private final Tier tier;
+  private final EdmLabel edmLabel;
 
-  RdfTier(String uri, MediaTier tier) {
-    this(uri, "#contentTier", tier);
+  RdfTier(String uri, MediaTier tier, EdmLabel edmLabel) {
+    this(uri, "#contentTier", tier, edmLabel);
   }
 
-  RdfTier(String uri, MetadataTier tier) {
-    this(uri, "#metadataTier", tier);
+  RdfTier(String uri, MetadataTier tier, EdmLabel edmLabel) {
+    this(uri, "#metadataTier", tier, edmLabel);
   }
 
-  RdfTier(String uri, String aboutSuffix, Enum<? extends Tier> tier) {
+  RdfTier(String uri, String aboutSuffix, Tier tier, EdmLabel edmLabel) {
     this.uri = uri;
     this.aboutSuffix = aboutSuffix;
     this.tier = tier;
+    this.edmLabel = edmLabel;
   }
 
   public String getUri() {
     return uri;
   }
 
-  public Enum<? extends Tier> getTier() {
+  public Tier getTier() {
     return tier;
   }
 
   public String getAboutSuffix() {
     return aboutSuffix;
+  }
+
+  public EdmLabel getEdmLabel() {
+    return edmLabel;
   }
 }

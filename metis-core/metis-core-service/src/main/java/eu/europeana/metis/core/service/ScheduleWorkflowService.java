@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -61,22 +61,22 @@ public class ScheduleWorkflowService {
   /**
    * Get a scheduled workflow based on datasets identifier.
    *
-   * @param metisUser the metis user trying to access the scheduled workflow
+   * @param metisUserView the metis user trying to access the scheduled workflow
    * @param datasetId the dataset identifier of which a scheduled workflow is to be retrieved
    * @return the scheduled workflow
    * @throws UserUnauthorizedException if user is unauthorized to access the scheduled workflow
    * @throws NoDatasetFoundException if dataset identifier does not exist
    */
-  public ScheduledWorkflow getScheduledWorkflowByDatasetId(MetisUser metisUser, String datasetId)
+  public ScheduledWorkflow getScheduledWorkflowByDatasetId(MetisUserView metisUserView, String datasetId)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
     return scheduledWorkflowDao.getScheduledWorkflowByDatasetId(datasetId);
   }
 
   /**
    * Schedules a provided workflow.
    *
-   * @param metisUser the user that tries to submit a scheduled workflow
+   * @param metisUserView the user that tries to submit a scheduled workflow
    * @param scheduledWorkflow the scheduled workflow information
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -87,9 +87,9 @@ public class ScheduleWorkflowService {
    * <li>{@link ScheduledWorkflowAlreadyExistsException} if a scheduled workflow already exists</li>
    * </ul>
    */
-  public void scheduleWorkflow(MetisUser metisUser, ScheduledWorkflow scheduledWorkflow)
+  public void scheduleWorkflow(MetisUserView metisUserView, ScheduledWorkflow scheduledWorkflow)
       throws GenericMetisException {
-    authorizer.authorizeWriteExistingDatasetById(metisUser, scheduledWorkflow.getDatasetId());
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, scheduledWorkflow.getDatasetId());
     checkRestrictionsOnScheduleWorkflow(scheduledWorkflow);
     scheduledWorkflowDao.create(scheduledWorkflow);
   }
@@ -100,9 +100,9 @@ public class ScheduleWorkflowService {
     return scheduledWorkflowDao.getAllScheduledWorkflows(scheduleFrequence, nextPage);
   }
 
-  public List<ScheduledWorkflow> getAllScheduledWorkflows(MetisUser metisUser,
+  public List<ScheduledWorkflow> getAllScheduledWorkflows(MetisUserView metisUserView,
       ScheduleFrequence scheduleFrequence, int nextPage) throws UserUnauthorizedException {
-    authorizer.authorizeReadAllDatasets(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUserView);
     return getAllScheduledWorkflowsWithoutAuthorization(scheduleFrequence, nextPage);
   }
 
@@ -124,9 +124,9 @@ public class ScheduleWorkflowService {
     }
   }
 
-  public void updateScheduledWorkflow(MetisUser metisUser, ScheduledWorkflow scheduledWorkflow)
+  public void updateScheduledWorkflow(MetisUserView metisUserView, ScheduledWorkflow scheduledWorkflow)
       throws GenericMetisException {
-    authorizer.authorizeWriteExistingDatasetById(metisUser, scheduledWorkflow.getDatasetId());
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, scheduledWorkflow.getDatasetId());
     String storedId = checkRestrictionsOnScheduledWorkflowUpdate(scheduledWorkflow);
     scheduledWorkflow.setId(new ObjectId(storedId));
     scheduledWorkflowDao.update(scheduledWorkflow);
@@ -166,9 +166,9 @@ public class ScheduleWorkflowService {
     return storedId;
   }
 
-  public void deleteScheduledWorkflow(MetisUser metisUser, String datasetId)
+  public void deleteScheduledWorkflow(MetisUserView metisUserView, String datasetId)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
     scheduledWorkflowDao.deleteScheduledWorkflow(datasetId);
   }
 

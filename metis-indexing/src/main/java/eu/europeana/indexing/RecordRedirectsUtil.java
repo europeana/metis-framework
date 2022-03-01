@@ -1,13 +1,13 @@
 package eu.europeana.indexing;
 
-import eu.europeana.metis.schema.jibx.Identifier;
-import eu.europeana.metis.schema.jibx.IsShownBy;
-import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.metis.mongo.model.RecordRedirect;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
+import eu.europeana.metis.mongo.model.RecordRedirect;
+import eu.europeana.metis.schema.jibx.Identifier;
+import eu.europeana.metis.schema.jibx.IsShownBy;
+import eu.europeana.metis.schema.jibx.Title;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -135,9 +135,9 @@ public final class RecordRedirectsUtil {
 
       //Return all identifiers found and their creationDates
       return solrDocuments.stream().map(document -> ImmutablePair
-          .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
-              (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
-          .collect(Collectors.toList());
+                              .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
+                                  (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
+                          .collect(Collectors.toList());
     }
     return new ArrayList<>();
   }
@@ -165,12 +165,12 @@ public final class RecordRedirectsUtil {
   private static SolrDocumentList getMatchingSolrDocuments(SolrDocumentList solrDocuments,
       Predicate<SolrDocument> solrDocumentPredicate) {
     return solrDocuments.stream().filter(solrDocumentPredicate)
-        .collect(Collectors.toCollection(SolrDocumentList::new));
+                        .collect(Collectors.toCollection(SolrDocumentList::new));
   }
 
   private static Predicate<SolrDocument> doExactIdsMatch(List<String> concatenatedIds) {
     return document -> concatenatedIds.stream()
-        .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
+                                      .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
   }
 
   private static Predicate<SolrDocument> doesGroupMatch(Map<String, List<String>> queryGroup) {
@@ -178,8 +178,8 @@ public final class RecordRedirectsUtil {
       int counter = 0;
       for (Entry<String, List<String>> entry : queryGroup.entrySet()) {
 
-        if (Optional.ofNullable(document.getFieldValues(entry.getKey())).map(Collection::stream)
-            .orElseGet(Stream::empty).map(String.class::cast).anyMatch(entry.getValue()::contains)) {
+        if (Optional.ofNullable(document.getFieldValues(entry.getKey())).stream().flatMap(Collection::stream)
+                    .map(String.class::cast).anyMatch(entry.getValue()::contains)) {
           counter++;
         }
       }
@@ -192,22 +192,23 @@ public final class RecordRedirectsUtil {
       Map<String, List<String>> thirdMapOfLists) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
-        .map(Identifier::getString).filter(StringUtils::isNotBlank).collect(Collectors.toList());
+                                               .map(Identifier::getString).filter(StringUtils::isNotBlank)
+                                               .collect(Collectors.toList());
     final List<String> titles = rdfWrapper.getProviderProxyTitles().stream().map(Title::getString)
-        .filter(StringUtils::isNotBlank).collect(Collectors.toList());
+                                          .filter(StringUtils::isNotBlank).collect(Collectors.toList());
     final List<String> descriptions = rdfWrapper.getProviderProxyDescriptions().stream()
-        .map(description -> {
-          if (StringUtils.isNotBlank(description.getString())) {
-            return description.getString();
-          } else if (description.getResource() != null && StringUtils
-              .isNotBlank(description.getResource().getResource())) {
-            return description.getResource().getResource();
-          }
-          return null;
-        }).filter(Objects::nonNull).collect(Collectors.toList());
+                                                .map(description -> {
+                                                  if (StringUtils.isNotBlank(description.getString())) {
+                                                    return description.getString();
+                                                  } else if (description.getResource() != null && StringUtils
+                                                      .isNotBlank(description.getResource().getResource())) {
+                                                    return description.getResource().getResource();
+                                                  }
+                                                  return null;
+                                                }).filter(Objects::nonNull).collect(Collectors.toList());
     final List<String> isShownByList = rdfWrapper.getIsShownByList().stream()
-        .map(IsShownBy::getResource).filter(StringUtils::isNotBlank)
-        .collect(Collectors.toList());
+                                                 .map(IsShownBy::getResource).filter(StringUtils::isNotBlank)
+                                                 .collect(Collectors.toList());
 
     //Create all lists that need to be combined
     firstMapOfLists.putAll(createFirstCombinationGroup(identifiers, titles, descriptions));
@@ -221,7 +222,7 @@ public final class RecordRedirectsUtil {
 
     //Join all groups
     final String combinedQuery = Stream.of(firstQueryGroup, secondQueryGroup, thirdQueryGroup)
-        .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
+                                       .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
     return StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null;
   }
 
@@ -271,8 +272,8 @@ public final class RecordRedirectsUtil {
 
   private static String generateQueryForFields(Map<String, List<String>> listsToCombine) {
     final List<String> items = listsToCombine.entrySet().stream()
-        .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
-        .filter(StringUtils::isNotBlank).collect(Collectors.toList());
+                                             .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
+                                             .filter(StringUtils::isNotBlank).collect(Collectors.toList());
     return computeJoiningQuery(items, UnaryOperator.identity(),
         Collectors.joining(" AND ", "(", ")"));
   }
@@ -313,8 +314,8 @@ public final class RecordRedirectsUtil {
       final List<String> filteredItems = getFilteredItems(datasetIdsToRedirectFrom);
 
       concatenatedDatasetRecordIds = filteredItems.stream().map(
-          datasetIdForRedirection -> String.format("\"/%s/%s\"", datasetIdForRedirection, recordId))
-          .collect(Collectors.toList());
+                                                      datasetIdForRedirection -> String.format("\"/%s/%s\"", datasetIdForRedirection, recordId))
+                                                  .collect(Collectors.toList());
 
       combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
           UnaryOperator.identity(),
@@ -369,12 +370,13 @@ public final class RecordRedirectsUtil {
     final List<RecordRedirect> existingRedirectsFromOldIdentifier = recordRedirectDao
         .getRecordRedirectsByOldId(oldIdentifier);
     existingRedirectsFromOldIdentifier.stream()
-        .filter(redirect -> !redirect.getNewId().equals(newIdentifier))
-        .forEach(recordRedirectDao::delete);
+                                      .filter(redirect -> !redirect.getNewId().equals(newIdentifier))
+                                      .forEach(recordRedirectDao::delete);
 
     // Create the new redirect X -> Y if one doesn't already exist.
     final boolean mappingAlreadyExists = existingRedirectsFromOldIdentifier.stream()
-        .map(RecordRedirect::getNewId).anyMatch(newIdentifier::equals);
+                                                                           .map(RecordRedirect::getNewId)
+                                                                           .anyMatch(newIdentifier::equals);
     if (!mappingAlreadyExists) {
       recordRedirectDao
           .createUpdate(new RecordRedirect(newIdentifier, oldIdentifier, recordRedirectDate));
@@ -388,8 +390,8 @@ public final class RecordRedirectsUtil {
   }
 
   /**
-   * Represents a function that accepts one argument and produces a result with the possibility of
-   * an {@link IndexingException} thrown.
+   * Represents a function that accepts one argument and produces a result with the possibility of an {@link IndexingException}
+   * thrown.
    *
    * @param <T> the type of the input to the function
    * @param <R> the type of the result of the function

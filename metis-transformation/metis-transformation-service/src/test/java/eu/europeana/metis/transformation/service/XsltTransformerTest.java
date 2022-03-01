@@ -20,17 +20,16 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/**
- * Created by pwozniak on 3/21/18
- */
-public class XsltTransformerTest {
+
+class XsltTransformerTest {
 
   @Test
-  public void shouldTransformGivenFile()
+  void shouldTransformGivenFile()
       throws TransformationException, IOException, ParserConfigurationException, SAXException {
     URL xsltFile = getClass().getClassLoader().getResource("sample_xslt.xslt");
     byte[] fileToTransform = readFile("xmlForTesting.xml");
-    StringWriter wr = new XsltTransformer(xsltFile.toString()).transform(fileToTransform, null);
+    StringWriter wr = new XsltTransformer(xsltFile.toString(), xsltFile.openStream()).transform(
+        fileToTransform, null);
 
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -44,10 +43,11 @@ public class XsltTransformerTest {
   }
 
   @Test
-  public void shouldTransformGivenFileWithInjection() throws IOException, TransformationException {
+  void shouldTransformGivenFileWithInjection() throws IOException, TransformationException {
     URL xsltFile = getClass().getClassLoader().getResource("inject_node.xslt");
     byte[] fileToTransform = readFile("xmlForTestingParamInjection.xml");
-    StringWriter wr = new XsltTransformer(xsltFile.toString(), "sample", null, null)
+    StringWriter wr = new XsltTransformer(xsltFile.toString(), xsltFile.openStream(), "sample",
+        null, null)
         .transform(fileToTransform, null);
     String resultXml = wr.toString();
     assertTrue(resultXml.contains("<injected_node>"));
@@ -56,18 +56,17 @@ public class XsltTransformerTest {
   }
 
   @Test
-  public void shouldFailForMalformedFile() throws IOException {
+  void shouldFailForMalformedFile() throws Exception {
     URL xsltFile = getClass().getClassLoader().getResource("inject_node.xslt");
     byte[] fileToTransform = readFile("malformedFile.xml");
-    assertThrows(TransformationException.class,
-        () -> new XsltTransformer(xsltFile.toString(), "sample", null, null)
-            .transform(fileToTransform, null));
+    final XsltTransformer xsltTransformer = new XsltTransformer(xsltFile.toString(), xsltFile.openStream(), "sample", null, null);
+    assertThrows(TransformationException.class, () -> xsltTransformer.transform(fileToTransform, null));
   }
 
   private byte[] readFile(String fileName) throws IOException {
     String myXml = IOUtils
         .toString(getClass().getClassLoader().getResource(fileName), StandardCharsets.UTF_8.name());
-    byte[] bytes = myXml.getBytes("UTF-8");
+    byte[] bytes = myXml.getBytes(StandardCharsets.UTF_8);
     InputStream contentStream = new ByteArrayInputStream(bytes);
     return IOUtils.toByteArray(contentStream);
   }

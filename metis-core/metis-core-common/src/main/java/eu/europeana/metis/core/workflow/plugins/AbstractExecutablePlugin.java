@@ -173,7 +173,21 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 
-  Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
+  Map<String, String> createParametersForValidationExternal(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
+    final Map<String, String> parametersForValidation = createParametersForValidation(urlOfSchemasZip, schemaRootPath,
+        schematronRootPath);
+    parametersForValidation.put(PluginParameterKeys.GENERATE_STATS, Boolean.TRUE.toString());
+    return parametersForValidation;
+  }
+
+  Map<String, String> createParametersForValidationInternal(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
+    final Map<String, String> parametersForValidation = createParametersForValidation(urlOfSchemasZip, schemaRootPath,
+        schematronRootPath);
+    parametersForValidation.put(PluginParameterKeys.GENERATE_STATS, Boolean.FALSE.toString());
+    return parametersForValidation;
+  }
+
+  private Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.SCHEMA_NAME, urlOfSchemasZip);
     extraParameters.put(PluginParameterKeys.ROOT_LOCATION, schemaRootPath);

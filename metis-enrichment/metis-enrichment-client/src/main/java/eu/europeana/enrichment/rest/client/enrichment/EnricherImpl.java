@@ -1,7 +1,5 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
-
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
@@ -90,8 +88,7 @@ public class EnricherImpl implements Enricher {
       return Collections.emptyMap();
     }
     try {
-      return retryableExternalRequestForNetworkExceptions(
-          () -> entityResolver.resolveByText(Set.copyOf(searchTerms)));
+      return entityResolver.resolveByText(Set.copyOf(searchTerms));
     } catch (RuntimeException e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }
@@ -104,8 +101,8 @@ public class EnricherImpl implements Enricher {
       return Collections.emptyMap();
     }
     try {
-      return retryableExternalRequestForNetworkExceptions(
-          () -> entityResolver.resolveByUri(references));
+      return entityResolver.resolveByUri(references);
+
     } catch (RuntimeException e) {
       throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
     }

@@ -12,20 +12,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.Concept;
-import eu.europeana.metis.schema.jibx.Coverage;
 import eu.europeana.metis.schema.jibx.CurrentLocation;
 import eu.europeana.metis.schema.jibx.EuropeanaProxy;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
-import eu.europeana.metis.schema.jibx.HasType;
-import eu.europeana.metis.schema.jibx.IsRelatedTo;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,22 +40,22 @@ class LanguageClassifierTest {
     doReturn(statistics).when(classifier).createLanguageTagStatistics(entity);
 
     // Try for different values of the ratio
-    doReturn(0.0).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.T0, classifier.classify(entity));
-    doReturn(0.24).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.T0, classifier.classify(entity));
-    doReturn(0.25).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(0.49).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.TA, classifier.classify(entity));
-    doReturn(0.50).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.TB, classifier.classify(entity));
-    doReturn(0.74).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.TB, classifier.classify(entity));
-    doReturn(0.75).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.TC, classifier.classify(entity));
-    doReturn(1.0).when(statistics).getPropertyWithLanguageRatio();
-    assertEquals(MetadataTier.TC, classifier.classify(entity));
+    doReturn(0.0).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.T0, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(0.24).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.T0, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(0.25).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(0.49).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.TA, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(0.50).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(0.74).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.TB, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(0.75).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
+    doReturn(1.0).when(statistics).getPropertiesWithLanguageRatio();
+    assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
   }
 
   @Test

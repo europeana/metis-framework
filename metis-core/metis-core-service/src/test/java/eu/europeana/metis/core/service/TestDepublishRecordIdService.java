@@ -15,7 +15,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
@@ -40,7 +40,7 @@ public class TestDepublishRecordIdService {
   private static OrchestratorService orchestratorService;
   private static DepublishRecordIdDao depublishRecordIdDao;
   private static DepublishRecordIdService depublishRecordIdService;
-  private static MetisUser metisUser;
+  private static MetisUserView metisUserView;
   private static String datasetId;
 
   @BeforeAll
@@ -49,7 +49,7 @@ public class TestDepublishRecordIdService {
     authorizer = mock(Authorizer.class);
     orchestratorService = mock(OrchestratorService.class);
     depublishRecordIdDao = mock(DepublishRecordIdDao.class);
-    metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     datasetId = Integer.toString(TestObjectFactory.DATASETID);
 
     depublishRecordIdService = spy(new DepublishRecordIdService(authorizer, orchestratorService,
@@ -67,9 +67,9 @@ public class TestDepublishRecordIdService {
 
   @Test
   void addRecordIdsToBeDepublishedTest() throws GenericMetisException {
-    depublishRecordIdService.addRecordIdsToBeDepublished(metisUser, datasetId, "1002");
+    depublishRecordIdService.addRecordIdsToBeDepublished(metisUserView, datasetId, "1002");
 
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verify(depublishRecordIdService, times(1)).checkAndNormalizeRecordIds(any(), any());
     verify(depublishRecordIdDao, times(1)).createRecordIdsToBeDepublished(any(), any());
     verifyNoMoreInteractions(orchestratorService);
@@ -79,9 +79,9 @@ public class TestDepublishRecordIdService {
 
   @Test
   void deletePendingRecordIdsTest() throws GenericMetisException {
-    depublishRecordIdService.deletePendingRecordIds(metisUser, datasetId, "1002");
+    depublishRecordIdService.deletePendingRecordIds(metisUserView, datasetId, "1002");
 
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verify(depublishRecordIdService, times(1)).checkAndNormalizeRecordIds(any(), any());
     verify(depublishRecordIdDao, times(1)).deletePendingRecordIds(any(), any());
     verifyNoMoreInteractions(orchestratorService);
@@ -98,11 +98,11 @@ public class TestDepublishRecordIdService {
         .getDepublishRecordIds(eq(datasetId), anyInt(), any(), any(), anyString());
 
     // Make the actual call
-    final var result = depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId, 1,
+    final var result = depublishRecordIdService.getDepublishRecordIds(metisUserView, datasetId, 1,
             DepublishRecordIdSortField.RECORD_ID, SortDirection.ASCENDING, "search");
 
     // Verify the interactions
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);
     verify(depublishRecordIdDao, times(1)).getDepublishRecordIds(datasetId,
             1, DepublishRecordIdSortField.RECORD_ID, SortDirection.ASCENDING, "search");
     verify(depublishRecordIdDao, times(1)).getDepublishRecordIds(anyString(),
@@ -125,10 +125,10 @@ public class TestDepublishRecordIdService {
 
     //Do the actual call
     WorkflowExecution result = depublishRecordIdService
-        .createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId, true, 1, mockRecordIdsSeparateLines);
+        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines);
 
     //Verify interactions
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);
     verify(orchestratorService, times(1))
         .addWorkflowInQueueOfWorkflowExecutions(any(), anyString(), any(), any(), anyInt());
 
@@ -150,9 +150,9 @@ public class TestDepublishRecordIdService {
     doReturn(PublicationStatus.PUBLISHED).when(mockExecutionInformation).getPublicationStatus();
     doReturn(true).when(mockExecutionInformation).isLastPreviewRecordsReadyForViewing();
     doReturn(true).when(mockExecutionInformation).isLastPublishedRecordsReadyForViewing();
-    boolean result = depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
+    boolean result = depublishRecordIdService.canTriggerDepublication(metisUserView, datasetId);
 
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);
     verify(orchestratorService, times(1)).getRunningOrInQueueExecution(datasetId);
     verify(orchestratorService, times(1)).getDatasetExecutionInformation(datasetId);
     verify(mockExecutionInformation, times(1)).getPublicationStatus();
@@ -165,9 +165,9 @@ public class TestDepublishRecordIdService {
     final WorkflowExecution mockWorkflow = mock(WorkflowExecution.class);
 
     doReturn(mockWorkflow).when(orchestratorService).getRunningOrInQueueExecution(datasetId);
-    boolean result = depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
+    boolean result = depublishRecordIdService.canTriggerDepublication(metisUserView, datasetId);
 
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
+    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);
     verify(orchestratorService, times(1)).getRunningOrInQueueExecution(datasetId);
     assertFalse(result);
   }

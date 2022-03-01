@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -34,11 +34,11 @@ public class Authorizer {
   /**
    * Authorizes writing access to the default XSLT. Will return quietly if authorization succeeds.
    * 
-   * @param metisUser The user wishing to gain access.
+   * @param metisUserView The user wishing to gain access.
    * @throws UserUnauthorizedException In case the user is not authorized.
    */
-  void authorizeWriteDefaultXslt(MetisUser metisUser) throws UserUnauthorizedException {
-    if (metisUser == null || metisUser.getAccountRole() != AccountRole.METIS_ADMIN) {
+  void authorizeWriteDefaultXslt(MetisUserView metisUserView) throws UserUnauthorizedException {
+    if (metisUserView == null || metisUserView.getAccountRole() != AccountRole.METIS_ADMIN) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
   }
@@ -46,12 +46,12 @@ public class Authorizer {
   /**
    * Authorizes reading access to all datasets. Will return quietly if authorization succeeds.
    * 
-   * @param metisUser The user wishing to gain access.
+   * @param metisUserView The user wishing to gain access.
    * @throws UserUnauthorizedException In case the user is not authorized.
    */
-  void authorizeReadAllDatasets(MetisUser metisUser) throws UserUnauthorizedException {
-    if (metisUser == null || (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
-        && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER)) {
+  void authorizeReadAllDatasets(MetisUserView metisUserView) throws UserUnauthorizedException {
+    if (metisUserView == null || (metisUserView.getAccountRole() != AccountRole.METIS_ADMIN
+        && metisUserView.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER)) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
   }
@@ -60,35 +60,35 @@ public class Authorizer {
    * Authorizes reading access to an existing dataset. Will return quietly if authorization
    * succeeds.
    * 
-   * @param metisUser The user wishing to gain access.
+   * @param metisUserView The user wishing to gain access.
    * @param datasetId The ID of the dataset to which the user wishes to gain access.
    * @return The dataset in question.
    * @throws UserUnauthorizedException In case the user is not authorized.
    * @throws NoDatasetFoundException In case the dataset with the given ID could not be found.
    */
-  Dataset authorizeReadExistingDatasetById(MetisUser metisUser, String datasetId)
+  Dataset authorizeReadExistingDatasetById(MetisUserView metisUserView, String datasetId)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    return authorizeExistingDatasetById(metisUser, datasetId, true);
+    return authorizeExistingDatasetById(metisUserView, datasetId, true);
   }
 
   /**
    * Authorizes writing access to an existing dataset. Will return quietly if authorization
    * succeeds.
    * 
-   * @param metisUser The user wishing to gain access.
+   * @param metisUserView The user wishing to gain access.
    * @param datasetId The ID of the dataset to which the user wishes to gain access.
    * @return The dataset in question.
    * @throws UserUnauthorizedException In case the user is not authorized.
    * @throws NoDatasetFoundException In case the dataset with the given ID could not be found.
    */
-  Dataset authorizeWriteExistingDatasetById(MetisUser metisUser, String datasetId)
+  Dataset authorizeWriteExistingDatasetById(MetisUserView metisUserView, String datasetId)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    return authorizeExistingDatasetById(metisUser, datasetId, false);
+    return authorizeExistingDatasetById(metisUserView, datasetId, false);
   }
 
-  private Dataset authorizeExistingDatasetById(MetisUser metisUser, String datasetId,
+  private Dataset authorizeExistingDatasetById(MetisUserView metisUserView, String datasetId,
       boolean allowView) throws UserUnauthorizedException, NoDatasetFoundException {
-    return authorizeExistingDataset(metisUser, allowView, () -> {
+    return authorizeExistingDataset(metisUserView, allowView, () -> {
       final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
       if (dataset == null) {
         throw new NoDatasetFoundException(
@@ -102,15 +102,15 @@ public class Authorizer {
    * Authorizes reading access to an existing dataset. Will return quietly if authorization
    * succeeds.
    * 
-   * @param metisUser The user wishing to gain access.
+   * @param metisUserView The user wishing to gain access.
    * @param datasetName The name of the dataset to which the user wishes to gain access.
    * @return The dataset in question.
    * @throws UserUnauthorizedException In case the user is not authorized.
    * @throws NoDatasetFoundException In case the dataset with the given name could not be found.
    */
-  Dataset authorizeReadExistingDatasetByName(MetisUser metisUser, String datasetName)
+  Dataset authorizeReadExistingDatasetByName(MetisUserView metisUserView, String datasetName)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    return authorizeExistingDataset(metisUser, true, () -> {
+    return authorizeExistingDataset(metisUserView, true, () -> {
       final Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
       if (dataset == null) {
         throw new NoDatasetFoundException(
@@ -120,12 +120,12 @@ public class Authorizer {
     });
   }
 
-  private Dataset authorizeExistingDataset(MetisUser metisUser, boolean allowView,
+  private Dataset authorizeExistingDataset(MetisUserView metisUserView, boolean allowView,
       DatasetSupplier datasetSupplier) throws UserUnauthorizedException, NoDatasetFoundException {
-    checkUserRoleForIndividualDatasetManagement(metisUser, allowView);
+    checkUserRoleForIndividualDatasetManagement(metisUserView, allowView);
     final Dataset dataset = datasetSupplier.get();
-    if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
-        && !metisUser.getOrganizationId().equals(dataset.getOrganizationId())) {
+    if (metisUserView.getAccountRole() != AccountRole.METIS_ADMIN
+        && !metisUserView.getOrganizationId().equals(dataset.getOrganizationId())) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return dataset;
@@ -134,17 +134,17 @@ public class Authorizer {
   /**
    * Authorizes the creation of a new dataset. Will return quietly if authorization succeeds.
    * 
-   * @param metisUser The user wishing to gain access.
+   * @param metisUserView The user wishing to gain access.
    * @throws UserUnauthorizedException In case the user is not authorized.
    */
-  void authorizeWriteNewDataset(MetisUser metisUser) throws UserUnauthorizedException {
-    checkUserRoleForIndividualDatasetManagement(metisUser, false);
+  void authorizeWriteNewDataset(MetisUserView metisUserView) throws UserUnauthorizedException {
+    checkUserRoleForIndividualDatasetManagement(metisUserView, false);
   }
 
-  private void checkUserRoleForIndividualDatasetManagement(MetisUser metisUser, boolean allowView)
+  private void checkUserRoleForIndividualDatasetManagement(MetisUserView metisUserView, boolean allowView)
       throws UserUnauthorizedException {
-    if (metisUser == null || metisUser.getAccountRole() == null
-        || (!allowView && metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER)) {
+    if (metisUserView == null || metisUserView.getAccountRole() == null
+        || (!allowView && metisUserView.getAccountRole() == AccountRole.PROVIDER_VIEWER)) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
   }

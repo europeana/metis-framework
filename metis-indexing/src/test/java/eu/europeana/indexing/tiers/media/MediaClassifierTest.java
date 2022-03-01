@@ -7,12 +7,13 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.jibx.EdmType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import eu.europeana.metis.schema.jibx.EdmType;
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.utils.RdfWrapper;
 
 public class MediaClassifierTest {
 
@@ -58,7 +59,7 @@ public class MediaClassifierTest {
 
     // Test audio
     doReturn(EdmType.SOUND).when(entity).getEdmType();
-    assertEquals(audioTier, classifier.classify(entity));
+    assertEquals(audioTier, classifier.classify(entity).getTier());
     verify(audioClassifier, times(1)).classify(entity);
     verify(imageClassifier, times(0)).classify(entity);
     verify(textClassifier, times(0)).classify(entity);
@@ -67,7 +68,7 @@ public class MediaClassifierTest {
 
     // Test image
     doReturn(EdmType.IMAGE).when(entity).getEdmType();
-    assertEquals(imageTier, classifier.classify(entity));
+    assertEquals(imageTier, classifier.classify(entity).getTier());
     verify(audioClassifier, times(1)).classify(entity);
     verify(imageClassifier, times(1)).classify(entity);
     verify(textClassifier, times(0)).classify(entity);
@@ -76,7 +77,7 @@ public class MediaClassifierTest {
 
     // Test text
     doReturn(EdmType.TEXT).when(entity).getEdmType();
-    assertEquals(textTier, classifier.classify(entity));
+    assertEquals(textTier, classifier.classify(entity).getTier());
     verify(audioClassifier, times(1)).classify(entity);
     verify(imageClassifier, times(1)).classify(entity);
     verify(textClassifier, times(1)).classify(entity);
@@ -85,7 +86,7 @@ public class MediaClassifierTest {
 
     // Test video
     doReturn(EdmType.VIDEO).when(entity).getEdmType();
-    assertEquals(videoTier, classifier.classify(entity));
+    assertEquals(videoTier, classifier.classify(entity).getTier());
     verify(audioClassifier, times(1)).classify(entity);
     verify(imageClassifier, times(1)).classify(entity);
     verify(textClassifier, times(1)).classify(entity);
@@ -94,7 +95,7 @@ public class MediaClassifierTest {
 
     // Test 3D
     doReturn(EdmType._3_D).when(entity).getEdmType();
-    assertEquals(threeDTier, classifier.classify(entity));
+    assertEquals(threeDTier, classifier.classify(entity).getTier());
     verify(audioClassifier, times(1)).classify(entity);
     verify(imageClassifier, times(1)).classify(entity);
     verify(textClassifier, times(1)).classify(entity);
@@ -103,7 +104,7 @@ public class MediaClassifierTest {
 
     // Test unknown
     doReturn(null).when(entity).getEdmType();
-    assertEquals(MediaTier.T0, classifier.classify(entity));
+    assertEquals(MediaTier.T0, classifier.classify(entity).getTier());
     verify(audioClassifier, times(1)).classify(entity);
     verify(imageClassifier, times(1)).classify(entity);
     verify(textClassifier, times(1)).classify(entity);

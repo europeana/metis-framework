@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * This class is able to compute statistics on language usage in an entity. It counts for which of
- * the defined property types a property is present that:
+ * This class is able to compute statistics on language usage in an entity. It counts for which of the defined property types a
+ * property is present that:
  * <ol><li>
  * has a language qualification itself, or,
  * <li>refers to a contextual entity (edm:Place, edm:TimeSpan or skos:concept) that has a language
@@ -31,68 +31,44 @@ import org.apache.commons.lang3.StringUtils;
  * It is then able to return for how many of the known property types a language qualification is
  * present.
  */
-class LanguageTagStatistics {
-
-  enum PropertyType {
-    DC_COVERAGE,
-    DC_DESCRIPTION,
-    DC_FORMAT,
-    DC_RELATION,
-    DC_RIGHTS,
-    DC_SOURCE,
-    DC_SUBJECT,
-    DC_TITLE,
-    DC_TYPE,
-    DCTERMS_ALTERNATIVE,
-    DCTERMS_HAS_PART,
-    DCTERMS_IS_PART_OF,
-    DCTERMS_IS_REFERENCED_BY,
-    DCTERMS_MEDIUM,
-    DCTERMS_PROVENANCE,
-    DCTERMS_REFERENCES,
-    DCTERMS_SPATIAL,
-    DCTERMS_TABLE_OF_CONTENTS,
-    DCTERMS_TEMPORAL,
-    EDM_CURRENT_LOCATION,
-    EDM_HAS_TYPE,
-    EDM_IS_RELATED_TO
-  }
+public class LanguageTagStatistics {
 
   private final Set<String> contextualClassesWithLanguage = new HashSet<>();
-  private final EnumSet<PropertyType> allAddedProperties = EnumSet.noneOf(PropertyType.class);
-  private final EnumSet<PropertyType> addedPropertiesWithLanguage = EnumSet
-      .noneOf(PropertyType.class);
+  private final EnumSet<PropertyType> qualifiedProperties = EnumSet.noneOf(PropertyType.class);
+  private final EnumSet<PropertyType> qualifiedPropertiesWithLanguage = EnumSet.noneOf(PropertyType.class);
 
   /**
    * Constructor.
    *
-   * @param places The place objects that may be referenced. Can be null or empty, but can't contain
-   * null values.
-   * @param timeSpans The time span objects that may be referenced. Can be null or empty, but can't
-   * contain null values.
-   * @param concepts The concept objects that may be referenced. Can be null or empty, but can't
-   * contain null values.
+   * @param places The place objects that may be referenced. Can be null or empty, but can't contain null values.
+   * @param timeSpans The time span objects that may be referenced. Can be null or empty, but can't contain null values.
+   * @param concepts The concept objects that may be referenced. Can be null or empty, but can't contain null values.
    */
   LanguageTagStatistics(List<PlaceType> places, List<TimeSpanType> timeSpans,
       List<Concept> concepts) {
     getStream(places).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-        .forEach(contextualClassesWithLanguage::add);
+                     .forEach(contextualClassesWithLanguage::add);
     getStream(timeSpans).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-        .forEach(contextualClassesWithLanguage::add);
+                        .forEach(contextualClassesWithLanguage::add);
     getStream(concepts).filter(LanguageTagStatistics::hasValidLanguage).map(AboutType::getAbout)
-        .forEach(contextualClassesWithLanguage::add);
+                       .forEach(contextualClassesWithLanguage::add);
+  }
+
+  private static boolean hasValidLanguage(Concept concept) {
+    return getStream(concept.getChoiceList()).filter(Concept.Choice::ifPrefLabel)
+                                             .map(Concept.Choice::getPrefLabel).anyMatch(LanguageTagStatistics::hasValidLanguage);
   }
 
   Set<String> getContextualClassesWithLanguage() {
     return Collections.unmodifiableSet(contextualClassesWithLanguage);
   }
 
-  Set<PropertyType> getAllAddedProperties() {
-    return Collections.unmodifiableSet(allAddedProperties);
+  Set<PropertyType> getQualifiedProperties() {
+    return Collections.unmodifiableSet(qualifiedProperties);
   }
 
-  Set<PropertyType> getAddedPropertiesWithLanguage() {
-    return Collections.unmodifiableSet(addedPropertiesWithLanguage);
+  Set<PropertyType> getQualifiedPropertiesWithLanguage() {
+    return Collections.unmodifiableSet(qualifiedPropertiesWithLanguage);
   }
 
   boolean containsContextualClass(String about) {
@@ -109,11 +85,6 @@ class LanguageTagStatistics {
 
   private static boolean hasValidLanguage(TimeSpanType timespan) {
     return getStream(timespan.getPrefLabelList()).anyMatch(LanguageTagStatistics::hasValidLanguage);
-  }
-
-  private static boolean hasValidLanguage(Concept concept) {
-    return getStream(concept.getChoiceList()).filter(Concept.Choice::ifPrefLabel)
-        .map(Concept.Choice::getPrefLabel).anyMatch(LanguageTagStatistics::hasValidLanguage);
   }
 
   private static boolean hasValidLanguage(LiteralType literal) {
@@ -137,10 +108,10 @@ class LanguageTagStatistics {
       return;
     }
     if (StringUtils.isNotBlank(property.getString())) {
+      qualifiedProperties.add(type);
       // If the literal has a value, check whether the language is not empty.
-      allAddedProperties.add(type);
       if (property.getLang() != null && StringUtils.isNotBlank(property.getLang().getLang())) {
-        addedPropertiesWithLanguage.add(type);
+        qualifiedPropertiesWithLanguage.add(type);
       }
     }
   }
@@ -161,18 +132,18 @@ class LanguageTagStatistics {
       return;
     }
     if (StringUtils.isNotBlank(property.getString())) {
+      qualifiedProperties.add(type);
       // If the property has a value, check whether the language is not empty.
-      allAddedProperties.add(type);
       if (property.getLang() != null && StringUtils.isNotBlank(property.getLang().getLang())) {
-        addedPropertiesWithLanguage.add(type);
+        qualifiedPropertiesWithLanguage.add(type);
       }
     }
     if (property.getResource() != null && StringUtils
         .isNotBlank(property.getResource().getResource())) {
+      qualifiedProperties.add(type);
       // If the property has a resource link, check whether the link is a contextual class.
-      allAddedProperties.add(type);
       if (containsContextualClass(property.getResource().getResource())) {
-        addedPropertiesWithLanguage.add(type);
+        qualifiedPropertiesWithLanguage.add(type);
       }
     }
   }
@@ -198,8 +169,8 @@ class LanguageTagStatistics {
   /**
    * Adds a property occurrence to the statistics.
    *
-   * @param choice The choice list containing the property value (s). The type of the property is
-   * determined based on which element of the choice is set.
+   * @param choice The choice list containing the property value (s). The type of the property is determined based on which
+   * element of the choice is set.
    */
   void addToStatistics(Choice choice) {
     if (choice == null) {
@@ -271,17 +242,16 @@ class LanguageTagStatistics {
   }
 
   /**
-   * Computes for how many of the known property types a language qualification is present. This is
-   * returned as a ratio (i.e. a fraction of the total number of known property types). If no
-   * properties were added, this method returns 0.
+   * Computes for how many of the known property types a language qualification is present. This is returned as a ratio (i.e. a
+   * fraction of the total number of known property types). If no properties were added, this method returns 0.
    *
    * @return The ratio.
    */
-  double getPropertyWithLanguageRatio() {
-    final Set<PropertyType> addedProperties = getAllAddedProperties();
+  double getPropertiesWithLanguageRatio() {
+    final Set<PropertyType> addedProperties = getQualifiedProperties();
     if (addedProperties.isEmpty()) {
       return 0;
     }
-    return ((double) getAddedPropertiesWithLanguage().size()) / addedProperties.size();
+    return ((double) getQualifiedPropertiesWithLanguage().size()) / addedProperties.size();
   }
 }

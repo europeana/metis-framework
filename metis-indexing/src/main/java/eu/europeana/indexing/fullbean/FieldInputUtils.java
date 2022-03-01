@@ -1,6 +1,9 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,10 +17,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.lang.StringUtils;
-import eu.europeana.metis.schema.jibx.LiteralType;
-import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
-import eu.europeana.metis.schema.jibx.ResourceType;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Class with utility methods for converting an instance of {@link eu.europeana.metis.schema.jibx.RDF}
@@ -66,9 +66,9 @@ final class FieldInputUtils {
 
       // Obtain the trimmed non-null non-empty values to add.
       final Stream<String> values = Optional.ofNullable(listItem).map(valuesGetter)
-          .filter(valueList -> !valueList.isEmpty()).map(List::stream).orElseGet(Stream::empty);
+                                            .filter(valueList -> !valueList.isEmpty()).stream().flatMap(Collection::stream);
       final List<String> filteredValues = values.filter(Objects::nonNull).map(String::trim)
-          .filter(StringUtils::isNotEmpty).collect(Collectors.toList());
+                                                .filter(StringUtils::isNotEmpty).collect(Collectors.toList());
 
       // If there are values to add, we add them to the map.
       if (!filteredValues.isEmpty()) {
@@ -86,7 +86,7 @@ final class FieldInputUtils {
       Function<T, List<String>> valuesGetter) {
     final Map<String, List<String>> map = createMapFromList(list, singleKeyGetter(), valuesGetter);
     final Stream<String> result = Optional.ofNullable(map).map(Map::values).map(Collection::stream)
-        .flatMap(Stream::findAny).map(List::stream).orElseGet(Stream::empty);
+                                          .flatMap(Stream::findAny).stream().flatMap(Collection::stream);
     return result.toArray(String[]::new);
   }
 

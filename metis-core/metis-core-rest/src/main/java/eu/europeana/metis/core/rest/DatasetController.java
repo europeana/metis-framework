@@ -1,10 +1,10 @@
 package eu.europeana.metis.core.rest;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -21,6 +21,8 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,8 +59,7 @@ public class DatasetController {
    * Autowired constructor with all required parameters.
    *
    * @param datasetService the datasetService
-   * @param authenticationClient the java client to communicate with the external authentication
-   * service
+   * @param authenticationClient the java client to communicate with the external authentication service
    */
   @Autowired
   public DatasetController(DatasetService datasetService,
@@ -71,8 +72,8 @@ public class DatasetController {
    * Create a provided dataset.
    * <p>Dataset is provided as json or xml.</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param dataset the provided dataset to be created
    * @return the dataset created including all other fields that are auto generated
    * @throws GenericMetisException which can be one of:
@@ -89,9 +90,9 @@ public class DatasetController {
       @RequestBody Dataset dataset)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Dataset createdDataset = datasetService.createDataset(metisUser, dataset);
+    Dataset createdDataset = datasetService.createDataset(metisUserView, dataset);
     LOGGER.info("Dataset with datasetId: {}, datasetName: {} and organizationId {} created",
         createdDataset.getDatasetId(), createdDataset.getDatasetName(),
         createdDataset.getOrganizationId());
@@ -101,13 +102,13 @@ public class DatasetController {
   /**
    * Update a provided dataset including an xslt string.
    * <p>
-   * Non allowed fields, to be manually updated, will be ignored. Updating a dataset with a new xslt
-   * will only overwrite the {@code Dataset#xsltId} and a new {@link DatasetXslt} object will be
-   * stored. The older {@link DatasetXslt} will still be accessible.
+   * Non allowed fields, to be manually updated, will be ignored. Updating a dataset with a new xslt will only overwrite the
+   * {@code Dataset#xsltId} and a new {@link DatasetXslt} object will be stored. The older {@link DatasetXslt} will still be
+   * accessible.
    * </p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param datasetXsltStringWrapper {@link DatasetXsltStringWrapper}
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -123,20 +124,22 @@ public class DatasetController {
       @RequestBody DatasetXsltStringWrapper datasetXsltStringWrapper)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     datasetService
-        .updateDataset(metisUser, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
+        .updateDataset(metisUserView, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
             .getXslt());
-    LOGGER.info("Dataset with datasetId {} updated",
-        datasetXsltStringWrapper.getDataset().getDatasetId());
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Dataset with datasetId {} updated",
+          CRLF_PATTERN.matcher(datasetXsltStringWrapper.getDataset().getDatasetId()).replaceAll(""));
+    }
   }
 
   /**
    * Delete a dataset using a datasetId.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param datasetId the identifier used to find and delete the dataset
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -150,9 +153,9 @@ public class DatasetController {
       @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
+    datasetService.deleteDatasetByDatasetId(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Dataset with datasetId '{}' deleted",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -162,8 +165,8 @@ public class DatasetController {
   /**
    * Get a dataset based on its datasetId
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param datasetId the identifier used to find a dataset
    * @return {@link Dataset}
    * @throws GenericMetisException which can be one of:
@@ -180,9 +183,9 @@ public class DatasetController {
       @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUser, datasetId);
+    Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Dataset with datasetId '{}' found",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -193,8 +196,8 @@ public class DatasetController {
   /**
    * Get the xslt object containing the escaped xslt string using a dataset identifier.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param datasetId the identifier used to find a dataset
    * @return the {@link DatasetXslt} object containing the xslt as an escaped string
    * @throws GenericMetisException which can be one of:
@@ -211,9 +214,9 @@ public class DatasetController {
   public DatasetXslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    DatasetXslt datasetXslt = datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
+    DatasetXslt datasetXslt = datasetService.getDatasetXsltByDatasetId(metisUserView, datasetId);
     LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId,
         datasetXslt.getId());
     return datasetXslt;
@@ -222,9 +225,8 @@ public class DatasetController {
   /**
    * Get the xslt string as non escaped text using an xslt identifier.
    * <p>
-   * It is a method that does not require authentication and it is meant to be used from external
-   * service to download the corresponding xslt. At the point of writing, ECloud transformation
-   * topology is using it. {@link TransformationPlugin}
+   * It is a method that does not require authentication and it is meant to be used from external service to download the
+   * corresponding xslt. At the point of writing, ECloud transformation topology is using it. {@link TransformationPlugin}
    * </p>
    *
    * @param xsltId the xslt identifier
@@ -248,14 +250,13 @@ public class DatasetController {
   /**
    * Create a new default xslt in the database.
    * <p>
-   * Each dataset can have it's own custom xslt but a default xslt should always be available.
-   * Creating a new default xslt will create a new {@link DatasetXslt} object and the older one will
-   * still be available. The created {@link DatasetXslt} will have it's {@code
-   * DatasetXslt#datasetId} as -1 to indicate that it is not related to a specific dataset.
+   * Each dataset can have it's own custom xslt but a default xslt should always be available. Creating a new default xslt will
+   * create a new {@link DatasetXslt} object and the older one will still be available. The created {@link DatasetXslt} will have
+   * it's {@code DatasetXslt#datasetId} as -1 to indicate that it is not related to a specific dataset.
    * </p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param xsltString the text of the String representation non escaped
    * @return the created {@link DatasetXslt}
    * @throws GenericMetisException which can be one of:
@@ -272,8 +273,8 @@ public class DatasetController {
       @RequestBody String xsltString)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    DatasetXslt defaultDatasetXslt = datasetService.createDefaultXslt(metisUser, xsltString);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    DatasetXslt defaultDatasetXslt = datasetService.createDefaultXslt(metisUserView, xsltString);
     LOGGER.info("New default xslt created with xsltId: {}", defaultDatasetXslt.getId());
     return defaultDatasetXslt;
   }
@@ -281,9 +282,8 @@ public class DatasetController {
   /**
    * Get the latest created default xslt.
    * <p>
-   * It is an method that does not require authentication and it is meant to be used from external
-   * service to download the corresponding xslt. At the point of writing, ECloud transformation
-   * topology is using it. {@link TransformationPlugin}
+   * It is an method that does not require authentication and it is meant to be used from external service to download the
+   * corresponding xslt. At the point of writing, ECloud transformation topology is using it. {@link TransformationPlugin}
    * </p>
    *
    * @return the text representation of the String xslt non escaped
@@ -306,18 +306,15 @@ public class DatasetController {
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
    * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String,
-   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after
-   * validation external to preview an example result.
+   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after validation external to preview an
+   * example result.
    * </p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
-   * @param datasetId the dataset identifier, it is required for authentication and for the dataset
-   * fields xslt injection
-   * @param records the list of {@link Record} that contain the xml fields {@code
-   * Record#xmlRecord}.
-   * @return a list of {@link Record}s with the field {@code Record#xmlRecord} containing the
-   * transformed xml
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@code Record#xmlRecord}.
+   * @return a list of {@link Record}s with the field {@code Record#xmlRecord} containing the transformed xml
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
@@ -335,26 +332,23 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestBody List<Record> records) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return datasetService.transformRecordsUsingLatestDatasetXslt(metisUser, datasetId, records);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return datasetService.transformRecordsUsingLatestDatasetXslt(metisUserView, datasetId, records);
   }
 
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
    * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String,
-   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after
-   * validation external to preview an example result.
+   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after validation external to preview an
+   * example result.
    * </p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
-   * @param datasetId the dataset identifier, it is required for authentication and for the dataset
-   * fields xslt injection
-   * @param records the list of {@link Record} that contain the xml fields {@code
-   * Record#xmlRecord}.
-   * @return a list of {@link Record}s with the field {@code Record#xmlRecord} containing the
-   * transformed xml
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@code Record#xmlRecord}.
+   * @return a list of {@link Record}s with the field {@code Record#xmlRecord} containing the transformed xml
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
@@ -372,15 +366,15 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestBody List<Record> records) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return datasetService.transformRecordsUsingLatestDefaultXslt(metisUser, datasetId, records);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return datasetService.transformRecordsUsingLatestDefaultXslt(metisUserView, datasetId, records);
   }
 
   /**
    * Get a dataset based on its datasetName
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param datasetName the name of the dataset used to find a dataset
    * @return {@link Dataset}
    * @throws GenericMetisException which can be one of:
@@ -397,9 +391,9 @@ public class DatasetController {
       @PathVariable("datasetName") String datasetName)
       throws GenericMetisException {
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Dataset dataset = datasetService.getDatasetByDatasetName(metisUser, datasetName);
+    Dataset dataset = datasetService.getDatasetByDatasetName(metisUserView, datasetName);
     LOGGER.info("Dataset with datasetName '{}' found", dataset.getDatasetName());
     return dataset;
   }
@@ -408,8 +402,8 @@ public class DatasetController {
    * Get a list of all the datasets using the provider field for lookup.
    * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param provider the provider used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
@@ -431,12 +425,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage),
+            datasetService.getAllDatasetsByProvider(metisUserView, provider, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -447,8 +441,8 @@ public class DatasetController {
    * Get a list of all the datasets using the intermediateProvider field for lookup.
    * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param intermediateProvider the intermediateProvider used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
@@ -470,13 +464,13 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
             datasetService
-                .getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage),
+                .getAllDatasetsByIntermediateProvider(metisUserView, intermediateProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -487,8 +481,8 @@ public class DatasetController {
    * Get a list of all the datasets using the dataProvider field for lookup.
    * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param dataProvider the dataProvider used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
@@ -510,12 +504,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage),
+            datasetService.getAllDatasetsByDataProvider(metisUserView, dataProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -526,8 +520,8 @@ public class DatasetController {
    * Get a list of all the datasets using the organizationId field for lookup.
    * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param organizationId the organizationId used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
@@ -549,12 +543,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage),
+            datasetService.getAllDatasetsByOrganizationId(metisUserView, organizationId, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -565,8 +559,8 @@ public class DatasetController {
    * Get a list of all the datasets using the organizationName field for lookup.
    * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param organizationName the organizationName used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
@@ -588,12 +582,12 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage),
+            datasetService.getAllDatasetsByOrganizationName(metisUserView, organizationName, nextPage),
             datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
@@ -604,8 +598,8 @@ public class DatasetController {
    * Get all available countries that can be used.
    * <p>The list is retrieved based on an internal enum</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.CountrySerializer}
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -642,7 +636,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Language.getLanguageListSortedByName().stream().map(LanguageView::new)
-        .collect(Collectors.toList());
+                   .collect(Collectors.toList());
   }
 
   /**
@@ -652,10 +646,9 @@ public class DatasetController {
    * <p> The expected input should follow the rule Bearer accessTokenHere </p>
    * @param searchString a string that may contain multiple words separated by spaces.
    * <p>The search will be performed on the fields datasetId, datasetName, provider, dataProvider.
-   * The words that start with a numeric character will be considered as part of the datasetId
-   * search and that field is searched as a "starts with" operation. All words that from a certain
-   * length threshold and above e.g. 3 will be used, as AND operations, for searching the fields
-   * datasetName, provider, dataProvider</p>
+   * The words that start with a numeric character will be considered as part of the datasetId search and that field is searched
+   * as a "starts with" operation. All words that from a certain length threshold and above e.g. 3 will be used, as AND
+   * operations, for searching the fields datasetName, provider, dataProvider</p>
    * @param nextPage the nextPage number, must be positive
    * @return a list with the dataset search view results
    * @throws GenericMetisException which can be one of:
@@ -677,11 +670,11 @@ public class DatasetController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
-    final MetisUser metisUser = authenticationClient
+    final MetisUserView metisUserView = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<DatasetSearchView> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
-        datasetService.searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage),
+        datasetService.searchDatasetsBasedOnSearchString(metisUserView, searchString, nextPage),
         datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED, responseListWrapper.getListSize(),
         nextPage);

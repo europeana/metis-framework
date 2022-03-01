@@ -40,7 +40,7 @@ public final class EuropeanaIdCreator {
 
   private static final String RDF_ABOUT_EXPRESSION =
       String.format("/%s:RDF/%s:ProvidedCHO[1]/@%s:about", RdfNamespaceContext.RDF_NAMESPACE_PREFIX,
-    		  RdfNamespaceContext.EDM_NAMESPACE_PREFIX, RdfNamespaceContext.RDF_NAMESPACE_PREFIX);
+          RdfNamespaceContext.EDM_NAMESPACE_PREFIX, RdfNamespaceContext.RDF_NAMESPACE_PREFIX);
 
   private static final Pattern LEGACY_COLLECTION_ID_PATTERN = Pattern.compile("[a-zA-Z]");
   private static final Pattern LEGACY_RDF_ABOUT_REPLACE_PATTERN = Pattern.compile("[^a-zA-Z0-9_]");
@@ -80,8 +80,7 @@ public final class EuropeanaIdCreator {
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF and provides a map for the Provider ID and
-   * Europeana ID.
+   * This method constructs a Europeana ID for an RDF and provides a map for the Provider ID and Europeana ID.
    *
    * @param rdf The RDF. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
@@ -90,14 +89,14 @@ public final class EuropeanaIdCreator {
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(RDF rdf, String datasetId)
       throws EuropeanaIdException {
-    return constructEuropeanaIdInternal(extractRdfAboutFromRdf(rdf), datasetId);
+    final String rdfAbout = extractRdfAboutFromRdf(rdf);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, constructEuropeanaIdString(rdfAbout, datasetId));
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for
-   * the ProvidedCHO rdf:about and Europeana ID. If the rdfAbout is already a europeana identifier
-   * then there will not be a generation of the Europeana ID but a copy of the ProvidedCHO
-   * rdf:about.
+   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for the ProvidedCHO rdf:about and
+   * Europeana ID. If the rdfAbout is already a europeana identifier then there will not be a generation of the Europeana ID but a
+   * copy of the ProvidedCHO rdf:about.
    *
    * @param rdfString The RDF as a string. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
@@ -105,15 +104,15 @@ public final class EuropeanaIdCreator {
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(String rdfString, String datasetId)
-          throws EuropeanaIdException {
-    return constructEuropeanaIdInternal(extractRdfAboutFromRdfString(rdfString), datasetId);
+      throws EuropeanaIdException {
+    final String rdfAbout = extractRdfAboutFromRdfString(rdfString);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, constructEuropeanaIdString(rdfAbout, datasetId));
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for
-   * the ProvidedCHO rdf:about and Europeana ID. If the rdfAbout is already a europeana identifier
-   * then there will not be a generation of the Europeana ID but a copy of the ProvidedCHO
-   * rdf:about.
+   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for the ProvidedCHO rdf:about and
+   * Europeana ID. If the rdfAbout is already a europeana identifier then there will not be a generation of the Europeana ID but a
+   * copy of the ProvidedCHO rdf:about.
    *
    * @param inputStream The RDF as an input stream. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
@@ -121,21 +120,26 @@ public final class EuropeanaIdCreator {
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(InputStream inputStream, String datasetId)
-          throws EuropeanaIdException {
-    return constructEuropeanaIdInternal(extractRdfAboutFromInputStream(inputStream), datasetId);
+      throws EuropeanaIdException {
+    final String rdfAbout = extractRdfAboutFromInputStream(inputStream);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, constructEuropeanaIdString(rdfAbout, datasetId));
   }
 
-  private EuropeanaGeneratedIdsMap constructEuropeanaIdInternal(String rdfAbout, String datasetId) {
-    final String europeanaId =
-            "/" + sanitizeDatasetIdLegacy(datasetId) + "/" + sanitizeRdfAboutLegacy(rdfAbout);
-    return new EuropeanaGeneratedIdsMap(rdfAbout, europeanaId);
+  /**
+   * Construct a String representation of the europeana id sanitized.
+   *
+   * @param rdfAbout the rdf about
+   * @param datasetId the dataset id
+   * @return the sanitized europeana id
+   */
+  public static String constructEuropeanaIdString(String rdfAbout, String datasetId) {
+    return "/" + sanitizeDatasetIdLegacy(datasetId) + "/" + sanitizeRdfAboutLegacy(rdfAbout);
   }
 
   /**
    * <p>
-   * This method sanitizes the RDF about for inclusion in the Europeana record ID. This is the
-   * legacy method (the UIM way). This sanitization consists of two steps (in the order given
-   * here):
+   * This method sanitizes the RDF about for inclusion in the Europeana record ID. This is the legacy method (the UIM way). This
+   * sanitization consists of two steps (in the order given here):
    * <ol>
    * <li><b>Shortening</b> the string, removing some structure in the case it is a URI.</li>
    * <li><b>Normalizing</b> the characters, replacing unsupported ones by a default
@@ -181,9 +185,8 @@ public final class EuropeanaIdCreator {
   }
 
   /**
-   * This method sanitizes the collection ID for inclusion in the Europeana record ID. This is the
-   * legacy method (the UIM way). This sanitization consists of merely checking the last character
-   * of the ID.
+   * This method sanitizes the collection ID for inclusion in the Europeana record ID. This is the legacy method (the UIM way).
+   * This sanitization consists of merely checking the last character of the ID.
    * <ul>
    * <li>If it is a Roman letter without diacritics it will be removed from the collection ID and
    * the rest will be returned.</li>
@@ -195,7 +198,7 @@ public final class EuropeanaIdCreator {
    */
   private static String sanitizeDatasetIdLegacy(String collectionId) {
     final Matcher matcher = LEGACY_COLLECTION_ID_PATTERN
-        .matcher(collectionId.substring(collectionId.length() - 1, collectionId.length()));
+        .matcher(collectionId.substring(collectionId.length() - 1));
     return matcher.find() ? collectionId.substring(0, collectionId.length() - 1) : collectionId;
   }
 
@@ -210,16 +213,16 @@ public final class EuropeanaIdCreator {
 
   private String extractRdfAboutFromRdfString(String rdfString) throws EuropeanaIdException {
     try (final InputStream inputStream =
-            new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
+        new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
       return extractRdfAboutFromInputStream(inputStream);
     } catch (IOException e) {
       throw new EuropeanaIdException(
-              "Something went wrong while extracting the provider ID from the source.", e);
+          "Something went wrong while extracting the provider ID from the source.", e);
     }
   }
 
   private String extractRdfAboutFromInputStream(InputStream inputStream)
-          throws EuropeanaIdException {
+      throws EuropeanaIdException {
 
     // Obtain the RDF about
     final String result;

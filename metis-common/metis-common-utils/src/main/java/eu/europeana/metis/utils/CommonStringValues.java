@@ -1,7 +1,10 @@
 package eu.europeana.metis.utils;
 
+import java.util.regex.Pattern;
+
 /**
  * Contains common used String values
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-02
  */
@@ -23,9 +26,10 @@ public final class CommonStringValues {
 
   public static final String S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE = "%s/data-providers/%s/data-sets/%s";
 
-  public static final String REPLACEABLE_CRLF_CHARACTERS_REGEX = "[\r\n]";
+  public static final String REPLACEABLE_CRLF_CHARACTERS_REGEX = "[\r\n\t]";
+
+  public static final Pattern CRLF_PATTERN = Pattern.compile(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX);
 
   private CommonStringValues() {
   }
-
 }

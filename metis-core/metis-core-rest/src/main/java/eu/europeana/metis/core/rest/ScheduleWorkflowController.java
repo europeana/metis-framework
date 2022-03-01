@@ -1,18 +1,20 @@
 package eu.europeana.metis.core.rest;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
-import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -70,13 +72,13 @@ public class ScheduleWorkflowController {
   @ResponseBody
   public void scheduleWorkflowExecution(@RequestHeader("Authorization") String authorization,
       @RequestBody ScheduledWorkflow scheduledWorkflow) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    scheduleWorkflowService.scheduleWorkflow(metisUserView, scheduledWorkflow);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
           "ScheduledWorkflowExecution for datasetId '{}', pointerDate at '{}', scheduled '{}'",
-          scheduledWorkflow.getDatasetId(), scheduledWorkflow.getPointerDate(),
-          scheduledWorkflow.getScheduleFrequence().name());
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()), scheduledWorkflow.getPointerDate(),
+          CRLF_PATTERN.matcher(scheduledWorkflow.getScheduleFrequence().name()).replaceAll(""));
     }
   }
 
@@ -100,9 +102,9 @@ public class ScheduleWorkflowController {
   public ScheduledWorkflow getScheduledWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ScheduledWorkflow scheduledWorkflow = scheduleWorkflowService
-        .getScheduledWorkflowByDatasetId(metisUser, datasetId);
+        .getScheduledWorkflowByDatasetId(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("ScheduledWorkflow with with datasetId '{}' found",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -123,9 +125,9 @@ public class ScheduleWorkflowController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     responseListWrapper.setResultsAndLastPage(scheduleWorkflowService
-            .getAllScheduledWorkflows(metisUser, ScheduleFrequence.NULL, nextPage),
+            .getAllScheduledWorkflows(metisUserView, ScheduleFrequence.NULL, nextPage),
         scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} scheduledWorkflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -138,10 +140,12 @@ public class ScheduleWorkflowController {
   @ResponseBody
   public void updateScheduledWorkflow(@RequestHeader("Authorization") String authorization,
       @RequestBody ScheduledWorkflow scheduledWorkflow) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
-        scheduledWorkflow.getDatasetId());
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    scheduleWorkflowService.updateScheduledWorkflow(metisUserView, scheduledWorkflow);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
+          CRLF_PATTERN.matcher(scheduledWorkflow.getDatasetId()).replaceAll(""));
+    }
   }
 
   @DeleteMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, produces = {
@@ -150,8 +154,8 @@ public class ScheduleWorkflowController {
   @ResponseBody
   public void deleteScheduledWorkflowExecution(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    scheduleWorkflowService.deleteScheduledWorkflow(metisUser, datasetId);
+    MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    scheduleWorkflowService.deleteScheduledWorkflow(metisUserView, datasetId);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));

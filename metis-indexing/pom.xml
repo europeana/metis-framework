@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>5.1</version>
+    <version>6</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <dependencies>
@@ -60,8 +60,22 @@
       <artifactId>junit-jupiter-engine</artifactId>
     </dependency>
     <dependency>
+      <artifactId>junit-jupiter-params</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+    </dependency>
+    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <!--This plugin is required for local IDE tests that use Jibx related classes. Check root pom for more information. -->
+      <plugin>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

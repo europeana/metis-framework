@@ -3,7 +3,7 @@ package eu.europeana.metis.authentication.rest.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.network.ExternalRequestUtil;
@@ -43,14 +43,14 @@ public class AuthenticationClient {
    * <p>
    * The expected input should follow the rule Bearer accessTokenHere
    * </p>
-   * @return {@link MetisUser}.
+   * @return {@link MetisUserView}.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
    * user cannot be authenticated.</li>
    * </ul>
    */
-  public MetisUser getUserByAccessTokenInHeader(String authorizationHeader)
+  public MetisUserView getUserByAccessTokenInHeader(String authorizationHeader)
       throws GenericMetisException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
@@ -63,7 +63,7 @@ public class AuthenticationClient {
           ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> restTemplate
               .exchange(String.format("%s%s", baseUrl, RestEndpoints.AUTHENTICATION_USER_BY_TOKEN),
                   HttpMethod.GET, request, String.class));
-      return objectMapper.readValue(response == null ? null : response.getBody(), MetisUser.class);
+      return objectMapper.readValue(response == null ? null : response.getBody(), MetisUserView.class);
     } catch (HttpClientErrorException e) {
       throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN, e);
     } catch (IOException e) {

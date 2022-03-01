@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -109,9 +109,9 @@ class TestOrchestratorController {
 
   @Test
   void createWorkflow() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
@@ -122,7 +122,7 @@ class TestOrchestratorController {
         .andExpect(content().string(""));
 
     verify(orchestratorService, times(1))
-        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .createWorkflow(eq(metisUserView), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
@@ -144,12 +144,12 @@ class TestOrchestratorController {
 
   @Test
   void createWorkflow_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-        .when(orchestratorService).createWorkflow(eq(metisUser), any(), any(), isNull());
+        .when(orchestratorService).createWorkflow(eq(metisUserView), any(), any(), isNull());
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -161,12 +161,12 @@ class TestOrchestratorController {
 
   @Test
   void createWorkflow_WorkflowAlreadyExistsException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
-        .createWorkflow(any(MetisUser.class), anyString(), any(Workflow.class), any());
+        .createWorkflow(any(MetisUserView.class), anyString(), any(Workflow.class), any());
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -176,14 +176,14 @@ class TestOrchestratorController {
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
     verify(orchestratorService, times(1))
-        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .createWorkflow(eq(metisUserView), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
   void updateWorkflow() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
@@ -194,7 +194,7 @@ class TestOrchestratorController {
         .andExpect(content().string(""));
 
     verify(orchestratorService, times(1))
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .updateWorkflow(eq(metisUserView), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
@@ -216,13 +216,13 @@ class TestOrchestratorController {
 
   @Test
   void updateWorkflow_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(orchestratorService)
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .updateWorkflow(eq(metisUserView), anyString(), any(Workflow.class), isNull());
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -234,12 +234,12 @@ class TestOrchestratorController {
 
   @Test
   void updateWorkflow_NoWorkflowFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .updateWorkflow(eq(metisUserView), anyString(), any(Workflow.class), isNull());
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -249,14 +249,14 @@ class TestOrchestratorController {
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
     verify(orchestratorService, times(1))
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
+        .updateWorkflow(eq(metisUserView), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
   void deleteWorkflow() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -264,7 +264,7 @@ class TestOrchestratorController {
         .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
-    verify(orchestratorService, times(1)).deleteWorkflow(eq(metisUser), anyString());
+    verify(orchestratorService, times(1)).deleteWorkflow(eq(metisUserView), anyString());
   }
 
   @Test
@@ -283,11 +283,11 @@ class TestOrchestratorController {
 
   @Test
   void deleteWorkflow_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-        .when(orchestratorService).deleteWorkflow(eq(metisUser), any());
+        .when(orchestratorService).deleteWorkflow(eq(metisUserView), any());
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -299,11 +299,11 @@ class TestOrchestratorController {
 
   @Test
   void getWorkflow() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(orchestratorService.getWorkflow(eq(metisUser), anyString())).thenReturn(workflow);
+    when(orchestratorService.getWorkflow(eq(metisUserView), anyString())).thenReturn(workflow);
     orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -312,17 +312,17 @@ class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.datasetId", is(workflow.getDatasetId())));
 
-    verify(orchestratorService, times(1)).getWorkflow(eq(metisUser), anyString());
+    verify(orchestratorService, times(1)).getWorkflow(eq(metisUserView), anyString());
   }
 
   @Test
   void addWorkflowInQueueOfWorkflowExecutions() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUserView), anyString(), isNull(), isNull(),
             anyInt()))
         .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
@@ -351,11 +351,11 @@ class TestOrchestratorController {
 
   @Test
   void addWorkflowInQueueOfWorkflowExecutions_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUserView), anyString(), isNull(), isNull(),
             anyInt()))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     orchestratorControllerMock.perform(
@@ -371,11 +371,11 @@ class TestOrchestratorController {
   @Test
   void addWorkflowInQueueOfWorkflowExecutions_WorkflowExecutionAlreadyExistsException()
       throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUserView), anyString(), isNull(), isNull(),
             anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
@@ -390,11 +390,11 @@ class TestOrchestratorController {
   @Test
   void addWorkflowInQueueOfWorkflowExecutions_NoDatasetFoundException()
       throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUserView), anyString(), isNull(), isNull(),
             anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
@@ -409,11 +409,11 @@ class TestOrchestratorController {
   @Test
   void addWorkflowInQueueOfWorkflowExecutions_NoWorkflowFoundException()
       throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUser), anyString(), isNull(), isNull(),
+        .addWorkflowInQueueOfWorkflowExecutions(eq(metisUserView), anyString(), isNull(), isNull(),
             anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
@@ -427,10 +427,10 @@ class TestOrchestratorController {
 
   @Test
   void cancelWorkflowExecution() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    doNothing().when(orchestratorService).cancelWorkflowExecution(eq(metisUser), anyString());
+        .thenReturn(metisUserView);
+    doNothing().when(orchestratorService).cancelWorkflowExecution(eq(metisUserView), anyString());
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
@@ -457,11 +457,11 @@ class TestOrchestratorController {
 
   @Test
   void cancelWorkflowExecution_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-        .when(orchestratorService).cancelWorkflowExecution(eq(metisUser), anyString());
+        .when(orchestratorService).cancelWorkflowExecution(eq(metisUserView), anyString());
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
@@ -474,11 +474,11 @@ class TestOrchestratorController {
 
   @Test
   void cancelWorkflowExecution_NoWorkflowExecutionFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new NoWorkflowExecutionFoundException("Some error")).when(orchestratorService)
-        .cancelWorkflowExecution(eq(metisUser), anyString());
+        .cancelWorkflowExecution(eq(metisUserView), anyString());
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
@@ -491,13 +491,13 @@ class TestOrchestratorController {
 
   @Test
   void getWorkflowExecutionByExecutionId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    when(orchestratorService.getWorkflowExecutionByExecutionId(eq(metisUser), anyString()))
+    when(orchestratorService.getWorkflowExecutionByExecutionId(eq(metisUserView), anyString()))
         .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
@@ -512,14 +512,14 @@ class TestOrchestratorController {
   @Test
   void getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution()
       throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     AbstractExecutablePlugin plugin = ExecutablePluginFactory
         .createPlugin(new ValidationExternalPluginMetadata());
     plugin.setId("validation_external_id");
     when(orchestratorService.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-        metisUser, Integer.toString(TestObjectFactory.DATASETID),
+        metisUserView, Integer.toString(TestObjectFactory.DATASETID),
         ExecutablePluginType.VALIDATION_EXTERNAL,
         null))
         .thenReturn(plugin);
@@ -538,11 +538,11 @@ class TestOrchestratorController {
   @Test
   void getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution_HarvestingPlugin()
       throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     when(orchestratorService
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUserView,
             Integer.toString(TestObjectFactory.DATASETID), ExecutablePluginType.OAIPMH_HARVEST,
             null))
         .thenReturn(null);
@@ -559,9 +559,9 @@ class TestOrchestratorController {
 
   @Test
   void getDatasetExecutionInformation() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
     datasetExecutionInformation.setLastHarvestedDate(new Date(1000));
     datasetExecutionInformation.setLastHarvestedRecords(100);
@@ -569,7 +569,7 @@ class TestOrchestratorController {
     datasetExecutionInformation.setLastPublishedDate(new Date(3000));
     datasetExecutionInformation.setLastPublishedRecords(100);
     when(orchestratorService
-        .getDatasetExecutionInformation(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
+        .getDatasetExecutionInformation(metisUserView, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(datasetExecutionInformation);
 
     orchestratorControllerMock.perform(
@@ -593,9 +593,9 @@ class TestOrchestratorController {
 
   @Test
   void getAllWorkflowExecutionsByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     int listSize = 2;
     ResponseListWrapper<WorkflowExecutionView> listOfWorkflowExecutions = new ResponseListWrapper<>();
     listOfWorkflowExecutions.setResultsAndLastPage(
@@ -603,7 +603,7 @@ class TestOrchestratorController {
         orchestratorService.getWorkflowExecutionsPerRequest(), 0);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), anyString(),
+    when(orchestratorService.getAllWorkflowExecutions(eq(metisUserView), anyString(),
         ArgumentMatchers.anySet(), any(DaoFieldNames.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
@@ -627,9 +627,9 @@ class TestOrchestratorController {
 
   @Test
   void getAllWorkflowExecutionsByDatasetIdNegativeNextPage() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -643,9 +643,9 @@ class TestOrchestratorController {
 
   @Test
   void getAllWorkflowExecutions() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     int listSize = 2;
     ResponseListWrapper<WorkflowExecutionView> listOfWorkflowExecutions = new ResponseListWrapper<>();
     listOfWorkflowExecutions.setResultsAndLastPage(
@@ -653,7 +653,7 @@ class TestOrchestratorController {
         orchestratorService.getWorkflowExecutionsPerRequest(), 0);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), isNull(),
+    when(orchestratorService.getAllWorkflowExecutions(eq(metisUserView), isNull(),
         ArgumentMatchers.anySet(), any(DaoFieldNames.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
@@ -676,9 +676,9 @@ class TestOrchestratorController {
 
   @Test
   void getAllWorkflowExecutionsNegativeNextPage() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -691,9 +691,9 @@ class TestOrchestratorController {
 
   @Test
   void getWorkflowExecutionsOverview() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     final int pageSize = 2;
     final int nextPage = 5;
     final int pageCount = 3;
@@ -705,7 +705,7 @@ class TestOrchestratorController {
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(pageSize);
     when(orchestratorService
-        .getWorkflowExecutionsOverview(eq(metisUser), isNull(), isNull(), isNull(), isNull(),
+        .getWorkflowExecutionsOverview(eq(metisUserView), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount)))
         .thenReturn(listOfWorkflowExecutionAndDatasetViews);
     orchestratorControllerMock
@@ -732,9 +732,9 @@ class TestOrchestratorController {
 
   @Test
   void getWorkflowExecutionsOverviewBadPaginationArguments() throws Exception {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -755,9 +755,9 @@ class TestOrchestratorController {
   void testGetDatasetExecutionHistory() throws Exception {
 
     // Get the user
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     // Create nonempty history
     final Execution execution1 = new Execution();
@@ -771,7 +771,7 @@ class TestOrchestratorController {
 
     // Test happy flow with non-empty evolution
     when(orchestratorService
-        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID))
+        .getDatasetExecutionHistory(metisUserView, "" + TestObjectFactory.DATASETID))
         .thenReturn(resultNonEmpty);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
@@ -792,7 +792,7 @@ class TestOrchestratorController {
     final ExecutionHistory resultEmpty = new ExecutionHistory();
     resultEmpty.setExecutions(Collections.emptyList());
     when(orchestratorService
-        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID))
+        .getDatasetExecutionHistory(metisUserView, "" + TestObjectFactory.DATASETID))
         .thenReturn(resultEmpty);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
@@ -803,7 +803,7 @@ class TestOrchestratorController {
 
     // Test for bad input
     when(orchestratorService
-        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID))
+        .getDatasetExecutionHistory(metisUserView, "" + TestObjectFactory.DATASETID))
         .thenThrow(new NoDatasetFoundException(""));
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
@@ -813,7 +813,7 @@ class TestOrchestratorController {
 
     // Test for unauthorized user
     doThrow(new UserUnauthorizedException("")).when(orchestratorService)
-        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID);
+        .getDatasetExecutionHistory(metisUserView, "" + TestObjectFactory.DATASETID);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
             TestObjectFactory.DATASETID)
@@ -825,9 +825,9 @@ class TestOrchestratorController {
   void testGetExecutablePluginsWithDataAvailability() throws Exception {
 
     // Get the user
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     // Create nonempty history
     final PluginWithDataAvailability plugin1 = new PluginWithDataAvailability();
@@ -841,7 +841,7 @@ class TestOrchestratorController {
 
     // Test happy flow with non-empty evolution
     when(orchestratorService
-        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
+        .getExecutablePluginsWithDataAvailability(metisUserView, TestObjectFactory.EXECUTIONID))
         .thenReturn(resultNonEmpty);
     orchestratorControllerMock
         .perform(
@@ -863,7 +863,7 @@ class TestOrchestratorController {
     final PluginsWithDataAvailability resultEmpty = new PluginsWithDataAvailability();
     resultEmpty.setPlugins(Collections.emptyList());
     when(orchestratorService
-        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
+        .getExecutablePluginsWithDataAvailability(metisUserView, TestObjectFactory.EXECUTIONID))
         .thenReturn(resultEmpty);
     orchestratorControllerMock
         .perform(
@@ -875,7 +875,7 @@ class TestOrchestratorController {
 
     // Test for bad input
     when(orchestratorService
-        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
+        .getExecutablePluginsWithDataAvailability(metisUserView, TestObjectFactory.EXECUTIONID))
         .thenThrow(new NoWorkflowExecutionFoundException(""));
     orchestratorControllerMock
         .perform(
@@ -886,7 +886,7 @@ class TestOrchestratorController {
 
     // Test for unauthorized user
     doThrow(new UserUnauthorizedException("")).when(orchestratorService)
-        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID);
+        .getExecutablePluginsWithDataAvailability(metisUserView, TestObjectFactory.EXECUTIONID);
     orchestratorControllerMock
         .perform(
             get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
@@ -899,9 +899,9 @@ class TestOrchestratorController {
   void testGetRecordEvolutionForVersion() throws Exception {
 
     // Get the user
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
 
     // Create nonempty evolution step
     final VersionEvolutionStep step1 = new VersionEvolutionStep();
@@ -918,7 +918,7 @@ class TestOrchestratorController {
     // Test happy flow with non-empty evolution
     final PluginType pluginType = PluginType.MEDIA_PROCESS;
     when(orchestratorService
-        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
+        .getRecordEvolutionForVersion(metisUserView, TestObjectFactory.EXECUTIONID, pluginType))
         .thenReturn(resultNonEmpty);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
@@ -941,7 +941,7 @@ class TestOrchestratorController {
     final VersionEvolution resultEmpty = new VersionEvolution();
     resultEmpty.setEvolutionSteps(Collections.emptyList());
     when(orchestratorService
-        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
+        .getRecordEvolutionForVersion(metisUserView, TestObjectFactory.EXECUTIONID, pluginType))
         .thenReturn(resultEmpty);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
@@ -952,7 +952,7 @@ class TestOrchestratorController {
 
     // Test for bad input
     when(orchestratorService
-        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
+        .getRecordEvolutionForVersion(metisUserView, TestObjectFactory.EXECUTIONID, pluginType))
         .thenThrow(new NoWorkflowExecutionFoundException(""));
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
@@ -962,7 +962,7 @@ class TestOrchestratorController {
 
     // Test for unauthorized user
     doThrow(new UserUnauthorizedException("")).when(orchestratorService)
-        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+        .getRecordEvolutionForVersion(metisUserView, TestObjectFactory.EXECUTIONID, pluginType);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
             pluginType)

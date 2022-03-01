@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This object represents a resource entry in an RDF file. It contains the resource URL, and a list
- * of reference types: the way this resource is referenced from within the RDF.
+ * This object represents a resource entry in an RDF file. It contains the resource URL, and a list of reference types: the way
+ * this resource is referenced from within the RDF.
  */
 public class RdfResourceEntry implements Serializable {
 
@@ -43,5 +43,10 @@ public class RdfResourceEntry implements Serializable {
 
   public Set<UrlType> getUrlTypes() {
     return Collections.unmodifiableSet(urlTypes);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("%s{resourceUrl=%s, urlTypes=%s}", RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes);
   }
 }

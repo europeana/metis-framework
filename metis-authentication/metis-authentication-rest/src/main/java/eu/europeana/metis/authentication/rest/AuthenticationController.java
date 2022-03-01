@@ -1,12 +1,12 @@
 package eu.europeana.metis.authentication.rest;
 
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.authentication.user.UserIdParameter;
 import eu.europeana.metis.exception.BadContentException;
@@ -14,8 +14,8 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
-import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +43,6 @@ public class AuthenticationController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
   private static final String ACTION_NOT_ALLOWED_FOR_USER = "Action not allowed";
-  private static final Pattern CRLF_PATTERN = Pattern
-      .compile(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX);
 
   private final AuthenticationService authenticationService;
 
@@ -88,7 +86,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Basic Base64Encoded(email:password) </p>
-   * @return {@link MetisUser}
+   * @return {@link MetisUserView}
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
@@ -100,15 +98,15 @@ public class AuthenticationController {
   @PostMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  public MetisUser loginUser(@RequestHeader("Authorization") String authorization)
+  public MetisUserView loginUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     Credentials credentials = authenticationService
         .validateAuthorizationHeaderWithCredentials(authorization);
-    MetisUser metisUser = authenticationService
+    MetisUserView metisUserView = authenticationService
         .loginUser(credentials.getEmail(), credentials.getPassword());
-    LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(),
-        metisUser.getUserId());
-    return metisUser;
+    LOGGER.info("User with email: {} and user id: {} logged in", metisUserView.getEmail(),
+        metisUserView.getUserId());
+    return metisUserView;
   }
 
   /**
@@ -141,12 +139,12 @@ public class AuthenticationController {
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(
             authorization);//Before any action, validate token
-    MetisUser metisUser = authenticationService.authenticateUser(accessToken);
-    authenticationService.authenticateUser(metisUser.getEmail(),
+    MetisUserView metisUserView = authenticationService.authenticateUser(accessToken);
+    authenticationService.authenticateUser(metisUserView.getEmail(),
         oldAndNewPasswordParameters
             .getOldPassword());//If no exception authentication with password succeeds
     authenticationService
-        .updateUserPassword(metisUser.getEmail(), oldAndNewPasswordParameters.getNewPassword());
+        .updateUserPassword(metisUserView.getEmail(), oldAndNewPasswordParameters.getNewPassword());
     LOGGER.info("User with access_token: {} updated password", accessToken);
   }
 
@@ -190,7 +188,7 @@ public class AuthenticationController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param emailParameter the class that contains the email parameter to act upon
-   * @return updated {@link MetisUser}
+   * @return updated {@link MetisUserView}
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
@@ -201,7 +199,7 @@ public class AuthenticationController {
   @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  public MetisUser updateUser(@RequestHeader("Authorization") String authorization,
+  public MetisUserView updateUser(@RequestHeader("Authorization") String authorization,
       @RequestBody EmailParameter emailParameter)
       throws GenericMetisException {
     if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
@@ -213,12 +211,12 @@ public class AuthenticationController {
         .hasPermissionToRequestUserUpdate(accessToken, emailParameter.getEmail())) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    MetisUser metisUser = authenticationService.updateUserFromZoho(emailParameter.getEmail());
+    MetisUserView metisUserView = authenticationService.updateUserFromZoho(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("User with email: {} updated",
           CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
     }
-    return metisUser;
+    return metisUserView;
   }
 
   /**
@@ -272,15 +270,15 @@ public class AuthenticationController {
   @PostMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_USER_ID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  public MetisUser getUserByUserId(@RequestHeader("Authorization") String authorization,
+  public MetisUserView getUserByUserId(@RequestHeader("Authorization") String authorization,
       @RequestBody UserIdParameter userIdParameter) throws GenericMetisException {
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(authorization);
-    MetisUser metisUser = authenticationService
+    MetisUserView metisUserView = authenticationService
         .getMetisUserByUserIdOnlyWithPublicFields(accessToken, userIdParameter.getUserId());
-    LOGGER.info("User with email: {} and user id: {} found", metisUser.getEmail(),
-        metisUser.getUserId());
-    return metisUser;
+    LOGGER.info("User with email: {} and user id: {} found", metisUserView.getEmail(),
+        metisUserView.getUserId());
+    return metisUserView;
   }
 
   /**
@@ -288,7 +286,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @return the corresponding {@link MetisUser}
+   * @return the corresponding {@link MetisUserView}
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
@@ -298,14 +296,14 @@ public class AuthenticationController {
   @GetMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_TOKEN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  public MetisUser getUserByAccessToken(@RequestHeader("Authorization") String authorization)
+  public MetisUserView getUserByAccessToken(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(authorization);
-    MetisUser metisUser = authenticationService.authenticateUser(accessToken);
-    LOGGER.info("User with email: {} and user id: {} authenticated", metisUser.getEmail(),
-        metisUser.getUserId());
-    return metisUser;
+    MetisUserView metisUserView = authenticationService.authenticateUser(accessToken);
+    LOGGER.info("User with email: {} and user id: {} authenticated", metisUserView.getEmail(),
+        metisUserView.getUserId());
+    return metisUserView;
   }
 
   /**
@@ -313,7 +311,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @return the list with all the {@link MetisUser}s
+   * @return the list with all the {@link MetisUserView}s
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot
@@ -324,7 +322,7 @@ public class AuthenticationController {
   @GetMapping(value = RestEndpoints.AUTHENTICATION_USERS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  public List<MetisUser> getAllUsers(@RequestHeader("Authorization") String authorization)
+  public List<MetisUserView> getAllUsers(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(authorization);

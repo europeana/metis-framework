@@ -22,7 +22,7 @@ import eu.europeana.metis.authentication.rest.utils.TestUtils;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
@@ -114,11 +114,11 @@ class AuthenticationControllerTest {
 
   @Test
   void loginUser() throws Exception {
-    MetisUser metisUser = spy(new MetisUser());
-    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
+    MetisUserView metisUserView = spy(new MetisUserView());
+    doReturn(EXAMPLE_EMAIL).when(metisUserView).getEmail();
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-    when(authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD)).thenReturn(metisUser);
+    when(authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD)).thenReturn(metisUserView);
 
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_LOGIN).header(
         HttpHeaders.AUTHORIZATION, ""))
@@ -139,11 +139,11 @@ class AuthenticationControllerTest {
 
   @Test
   void updateUserPassword() throws Exception {
-    MetisUser metisUser = spy(new MetisUser());
-    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
+    MetisUserView metisUserView = spy(new MetisUserView());
+    doReturn(EXAMPLE_EMAIL).when(metisUserView).getEmail();
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
-    when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
+    when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUserView);
     final OldNewPasswordParameters oldNewPasswordParameters = new OldNewPasswordParameters("123",
         "12345");
 
@@ -387,11 +387,11 @@ class AuthenticationControllerTest {
 
   @Test
   void getUserByAccessToken() throws Exception {
-    MetisUser metisUser = spy(new MetisUser());
-    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
+    MetisUserView metisUserView = spy(new MetisUserView());
+    doReturn(EXAMPLE_EMAIL).when(metisUserView).getEmail();
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
-    when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
+    when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUserView);
 
     authenticationControllerMock
         .perform(get(RestEndpoints.AUTHENTICATION_USER_BY_TOKEN)
@@ -402,8 +402,8 @@ class AuthenticationControllerTest {
 
   @Test
   void getUserByAccessTokenBadContentException() throws Exception {
-    MetisUser metisUser = spy(new MetisUser());
-    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
+    MetisUserView metisUserView = spy(new MetisUserView());
+    doReturn(EXAMPLE_EMAIL).when(metisUserView).getEmail();
 
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
@@ -417,19 +417,19 @@ class AuthenticationControllerTest {
 
   @Test
   void getAllUsers() throws Exception {
-    MetisUser metisUser0 = spy(new MetisUser());
-    doReturn(EXAMPLE_EMAIL).when(metisUser0).getEmail();
-    MetisUser metisUser1 = spy(new MetisUser());
-    doReturn(EXAMPLE_EMAIL).when(metisUser1).getEmail();
-    ArrayList<MetisUser> metisUsers = new ArrayList<>();
-    metisUsers.add(metisUser0);
-    metisUsers.add(metisUser1);
+    MetisUserView metisUserView0 = spy(new MetisUserView());
+    doReturn(EXAMPLE_EMAIL).when(metisUserView0).getEmail();
+    MetisUserView metisUserView1 = spy(new MetisUserView());
+    doReturn(EXAMPLE_EMAIL).when(metisUserView1).getEmail();
+    ArrayList<MetisUserView> metisUserViews = new ArrayList<>();
+    metisUserViews.add(metisUserView0);
+    metisUserViews.add(metisUserView1);
 
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN))
         .thenReturn(true);
-    when(authenticationService.getAllUsers()).thenReturn(metisUsers);
+    when(authenticationService.getAllUsers()).thenReturn(metisUserViews);
     authenticationControllerMock
         .perform(get(RestEndpoints.AUTHENTICATION_USERS).header(HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.OK.value()))

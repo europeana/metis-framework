@@ -8,7 +8,7 @@ import eu.europeana.metis.solr.connection.SolrProperties;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class contains all settings needed for indexing. These settings are not thread-safe.

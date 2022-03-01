@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
@@ -80,9 +80,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void scheduleWorkflowExecution() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -93,7 +93,7 @@ class TestScheduleWorkflowController {
     verify(authenticationClient, times(1))
         .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
     verify(scheduleWorkflowService, times(1))
-        .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .scheduleWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
   }
 
   @Test
@@ -112,9 +112,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void scheduleWorkflowExecution_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(scheduleWorkflowService).scheduleWorkflow(any(), any());
@@ -129,12 +129,12 @@ class TestScheduleWorkflowController {
 
   @Test
   void scheduleWorkflowExecution_BadContentException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     doThrow(new BadContentException("Some error")).when(scheduleWorkflowService)
-        .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .scheduleWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -146,12 +146,12 @@ class TestScheduleWorkflowController {
   @Test
   void scheduleWorkflowExecution_ScheduledWorkflowAlreadyExistsException()
       throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     doThrow(new ScheduledWorkflowAlreadyExistsException("Some error")).when(scheduleWorkflowService)
-        .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .scheduleWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -162,12 +162,12 @@ class TestScheduleWorkflowController {
 
   @Test
   void scheduleWorkflowExecution_NoWorkflowFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     doThrow(new NoWorkflowFoundException("Some error")).when(scheduleWorkflowService)
-        .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .scheduleWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -178,12 +178,12 @@ class TestScheduleWorkflowController {
 
   @Test
   void scheduleWorkflowExecution_NoDatasetFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     doThrow(new NoDatasetFoundException("Some error")).when(scheduleWorkflowService)
-        .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .scheduleWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -194,11 +194,11 @@ class TestScheduleWorkflowController {
 
   @Test
   void getScheduledWorkflow() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
-    when(scheduleWorkflowService.getScheduledWorkflowByDatasetId(any(MetisUser.class), anyString()))
+    when(scheduleWorkflowService.getScheduledWorkflowByDatasetId(any(MetisUserView.class), anyString()))
         .thenReturn(scheduledWorkflow);
     scheduleWorkflowControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
@@ -211,21 +211,21 @@ class TestScheduleWorkflowController {
     verify(authenticationClient, times(1))
         .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
     verify(scheduleWorkflowService, times(1))
-        .getScheduledWorkflowByDatasetId(any(MetisUser.class), anyString());
+        .getScheduledWorkflowByDatasetId(any(MetisUserView.class), anyString());
   }
 
   @Test
   void getAllScheduledWorkflows() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     int listSize = 2;
     List<ScheduledWorkflow> listOfScheduledWorkflows = TestObjectFactory
         .createListOfScheduledWorkflows(listSize + 1);//To get the effect of next page
 
     when(scheduleWorkflowService.getScheduledWorkflowsPerRequest()).thenReturn(listSize);
     when(scheduleWorkflowService
-        .getAllScheduledWorkflows(any(MetisUser.class), any(ScheduleFrequence.class), anyInt()))
+        .getAllScheduledWorkflows(any(MetisUserView.class), any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflows);
     scheduleWorkflowControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
@@ -248,9 +248,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void getAllScheduledWorkflowsNegativeNextPage() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     scheduleWorkflowControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -262,9 +262,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void updateScheduledWorkflow() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
@@ -276,7 +276,7 @@ class TestScheduleWorkflowController {
     verify(authenticationClient, times(1))
         .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
     verify(scheduleWorkflowService, times(1))
-        .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .updateScheduledWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
   }
 
   @Test
@@ -294,9 +294,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void updateScheduledWorkflow_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(scheduleWorkflowService).updateScheduledWorkflow(any(), any());
@@ -310,13 +310,13 @@ class TestScheduleWorkflowController {
 
   @Test
   void updateScheduledWorkflow_NoWorkflowFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     doThrow(new NoWorkflowFoundException("Some error")).when(scheduleWorkflowService)
-        .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .updateScheduledWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -327,13 +327,13 @@ class TestScheduleWorkflowController {
 
   @Test
   void updateScheduledWorkflow_NoScheduledWorkflowFoundException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     doThrow(new NoScheduledWorkflowFoundException("Some error")).when(scheduleWorkflowService)
-        .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .updateScheduledWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -344,13 +344,13 @@ class TestScheduleWorkflowController {
 
   @Test
   void updateScheduledWorkflow_BadContentException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     doThrow(new BadContentException("Some error")).when(scheduleWorkflowService)
-        .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+        .updateScheduledWorkflow(any(MetisUserView.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON)
@@ -361,9 +361,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void deleteScheduledWorkflowExecution() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     scheduleWorkflowControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -375,7 +375,7 @@ class TestScheduleWorkflowController {
     verify(authenticationClient, times(1))
         .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
     verify(scheduleWorkflowService, times(1))
-        .deleteScheduledWorkflow(any(MetisUser.class), anyString());
+        .deleteScheduledWorkflow(any(MetisUserView.class), anyString());
   }
 
 
@@ -395,9 +395,9 @@ class TestScheduleWorkflowController {
 
   @Test
   void deleteScheduledWorkflowExecution_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
+        .thenReturn(metisUserView);
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(scheduleWorkflowService).deleteScheduledWorkflow(any(), any());
     scheduleWorkflowControllerMock.perform(

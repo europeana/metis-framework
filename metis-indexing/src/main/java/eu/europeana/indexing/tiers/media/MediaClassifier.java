@@ -1,15 +1,16 @@
 package eu.europeana.indexing.tiers.media;
 
-import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.utils.RdfWrapper;
-import java.util.Optional;
+import eu.europeana.metis.schema.jibx.EdmType;
+import java.util.Collections;
 
 /**
  * Classifier for the media tier.
  */
-public class MediaClassifier implements TierClassifier<MediaTier> {
+public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBreakdown> {
 
   private final AudioClassifier audioClassifier;
   private final ImageClassifier imageClassifier;
@@ -27,7 +28,7 @@ public class MediaClassifier implements TierClassifier<MediaTier> {
 
   /**
    * Constructor for test purposes.
-   * 
+   *
    * @param audioClassifier The audio classifier to use.
    * @param imageClassifier The image classifier to use.
    * @param textClassifier The text classifier to use.
@@ -46,31 +47,39 @@ public class MediaClassifier implements TierClassifier<MediaTier> {
   }
 
   @Override
-  public MediaTier classify(RdfWrapper entity) {
-    return Optional.ofNullable(entity.getEdmType()).map(this::getDeferredClassifier)
-        .map(classifier -> classifier.classify(entity)).orElse(MediaTier.T0);
+  public TierClassification<MediaTier, ContentTierBreakdown> classify(RdfWrapper entity) {
+    final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier = getDeferredClassifier(entity.getEdmType());
+    if (deferredClassifier == null) {
+      return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown(null, null, false,
+          false, false, Collections.emptyList()));
+    }
+    return deferredClassifier.classify(entity);
   }
 
-  private TierClassifier<MediaTier> getDeferredClassifier(EdmType edmType) {
-    final TierClassifier<MediaTier> deferredClassifier;
-    switch (edmType) {
-      case SOUND:
-        deferredClassifier = audioClassifier;
-        break;
-      case IMAGE:
-        deferredClassifier = imageClassifier;
-        break;
-      case TEXT:
-        deferredClassifier = textClassifier;
-        break;
-      case VIDEO:
-        deferredClassifier = videoClassifier;
-        break;
-      case _3_D:
-        deferredClassifier = threeDClassifier;
-        break;
-      default:
-        deferredClassifier = null;
+  private TierClassifier<MediaTier, ContentTierBreakdown> getDeferredClassifier(EdmType edmType) {
+    final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier;
+    if (edmType == null) {
+      deferredClassifier = null;
+    } else {
+      switch (edmType) {
+        case SOUND:
+          deferredClassifier = audioClassifier;
+          break;
+        case IMAGE:
+          deferredClassifier = imageClassifier;
+          break;
+        case TEXT:
+          deferredClassifier = textClassifier;
+          break;
+        case VIDEO:
+          deferredClassifier = videoClassifier;
+          break;
+        case _3_D:
+          deferredClassifier = threeDClassifier;
+          break;
+        default:
+          deferredClassifier = null;
+      }
     }
     return deferredClassifier;
   }

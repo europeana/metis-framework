@@ -1,5 +1,7 @@
 package eu.europeana.metis.repository.dao;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
@@ -32,8 +34,8 @@ public class RecordDao {
    */
   public RecordDao(MongoClient mongo, String databaseName) {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
-        .discriminator(DiscriminatorFunction.className())
-        .collectionNaming(NamingStrategy.identity()).build();
+                                                     .discriminator(DiscriminatorFunction.className())
+                                                     .collectionNaming(NamingStrategy.identity()).build();
     this.datastore = Morphia.createDatastore(mongo, databaseName, mapperOptions);
     this.datastore.getMapper().map(Record.class);
   }
@@ -41,19 +43,23 @@ public class RecordDao {
   /**
    * Create record in the database.
    *
-   * @param record - The record to be saved in the database
+   * @param providedRecord - The record to be saved in the database
    * @return Whether the record was inserted (true) or updated (false).
    */
-  public boolean createRecord(Record record) {
+  public boolean createRecord(Record providedRecord) {
 
     Optional<Record> recordFound = datastore.find(Record.class)
-        .filter(Filters.eq(RECORD_ID_FIELD, record.getRecordId())).stream().findFirst();
+                                            .filter(Filters.eq(RECORD_ID_FIELD, providedRecord.getRecordId())).stream()
+                                            .findFirst();
 
-    recordFound.ifPresent(value -> record.setId(value.getId()));
+    recordFound.ifPresent(value -> providedRecord.setId(value.getId()));
 
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
-        () -> datastore.save(record));
-    LOGGER.info("Record for datasetId '{}' created in Mongo", record.getDatasetId());
+        () -> datastore.save(providedRecord));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Record for datasetId '{}' created in Mongo",
+          CRLF_PATTERN.matcher(providedRecord.getDatasetId()).replaceAll(""));
+    }
 
     return recordFound.isEmpty();
   }
@@ -76,28 +82,31 @@ public class RecordDao {
    */
   public Record getRecord(String recordId) {
     Optional<Record> recordFound = datastore.find(Record.class)
-        .filter(Filters.eq(RECORD_ID_FIELD, recordId))
-        .stream()
-        .findFirst();
+                                            .filter(Filters.eq(RECORD_ID_FIELD, recordId))
+                                            .stream()
+                                            .findFirst();
 
     if (recordFound.isPresent()) {
       return recordFound.get();
     } else {
-      LOGGER.warn("There is no such record with id " + recordId + ".");
+      if (LOGGER.isWarnEnabled()) {
+        LOGGER.warn("There is no such record with id {}.", CRLF_PATTERN.matcher(recordId).replaceAll(""));
+      }
       return null;
     }
   }
 
   /**
    * Deletes a record with the given record ID.
+   *
    * @param recordId The unique ID of the record to delete.
    * @return whether the record was deleted (i.e. whether the record existed).
    */
   public boolean deleteRecord(String recordId) {
     final boolean isDeleted = datastore.find(Record.class)
-        .filter(Filters.eq(RECORD_ID_FIELD, recordId)).delete().getDeletedCount() > 0;
+                                       .filter(Filters.eq(RECORD_ID_FIELD, recordId)).delete().getDeletedCount() > 0;
     if (!isDeleted) {
-      LOGGER.warn("There is no such record with id " + recordId + ".");
+      LOGGER.warn("There is no such record with id {}.", recordId);
     }
     return isDeleted;
   }

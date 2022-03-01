@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -8,6 +7,7 @@ import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.ClassifierFactory;
 import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -84,8 +84,8 @@ class IndexerImpl implements Indexer {
     // Perform the tier classification
     if (performTierCalculation) {
       final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-      RdfTierUtils.setTier(rdf, ClassifierFactory.getMediaClassifier().classify(rdfWrapper));
-      RdfTierUtils.setTier(rdf, ClassifierFactory.getMetadataClassifier().classify(rdfWrapper));
+      RdfTierUtils.setTier(rdf, ClassifierFactory.getMediaClassifier().classify(rdfWrapper).getTier());
+      RdfTierUtils.setTier(rdf, ClassifierFactory.getMetadataClassifier().classify(rdfWrapper).getTier());
     }
   }
 

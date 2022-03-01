@@ -198,19 +198,24 @@ public class SchemaProvider {
     }
   }
 
+  // We chose where to store the downloaded files.
+  @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
   private void handleZipEntry(File downloadedFile, ZipFile zip, ZipEntry entry)
       throws SchemaProviderException, IOException {
+    //Verify location generated for file first
+    final File fileLocation = new File(downloadedFile.getParent(), entry.getName());
+    if (!fileLocation.getCanonicalPath().startsWith(downloadedFile.getCanonicalFile().getParent())) {
+      throw new IOException("Entry is outside of the target directory");
+    }
+
     if (entry.isDirectory()) {
-      // We chose were to store the downloaded files.
-      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-      final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
+      final boolean couldCreateDir = fileLocation.mkdir();
       if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
       }
     } else {
       InputStream zipStream = zip.getInputStream(entry);
-      FileUtils.copyInputStreamToFile(zipStream,
-          new File(downloadedFile.getParent(), entry.getName()));
+      FileUtils.copyInputStreamToFile(zipStream, fileLocation);
     }
   }
 
@@ -232,6 +237,9 @@ public class SchemaProvider {
   }
 
   private boolean rootFileExists(File unzippedSchemaLocation, String rootFileLocation) {
+    // The parameter unzippedSchemaLocation is a location chosen by the software and the new File
+    // is handling the lookup for child for rootFileLocation parameter, therefore we can trust that this is safe
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
     File rootFile = new File(unzippedSchemaLocation, rootFileLocation);
     return rootFile.exists();
   }

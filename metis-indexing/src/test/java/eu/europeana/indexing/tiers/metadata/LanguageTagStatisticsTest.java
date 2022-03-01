@@ -10,7 +10,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 import eu.europeana.metis.schema.jibx.AltLabel;
 import eu.europeana.metis.schema.jibx.Alternative;
 import eu.europeana.metis.schema.jibx.Concept;
@@ -40,7 +39,6 @@ import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.metis.schema.jibx.Type;
-import eu.europeana.indexing.tiers.metadata.LanguageTagStatistics.PropertyType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -163,35 +161,35 @@ class LanguageTagStatisticsTest {
     assertThrows(IllegalArgumentException.class,
         () -> statistics.addToStatistics((LiteralType) null, null));
     statistics.addToStatistics((LiteralType) null, propertyType1);
-    assertTrue(statistics.getAllAddedProperties().isEmpty());
-    assertTrue(statistics.getAddedPropertiesWithLanguage().isEmpty());
+    assertTrue(statistics.getQualifiedProperties().isEmpty());
+    assertTrue(statistics.getQualifiedPropertiesWithLanguage().isEmpty());
 
     // Test for invalid literal types: empty value means not registered at all.
     statistics.addToStatistics(invalidLiteral1, propertyType1);
     statistics.addToStatistics(invalidLiteral2, propertyType2);
     statistics.addToStatistics(invalidLiteral3, propertyType3);
     statistics.addToStatistics(invalidLiteral4, propertyType4);
-    assertEquals(EnumSet.of(propertyType1, propertyType2), statistics.getAllAddedProperties());
-    assertTrue(statistics.getAddedPropertiesWithLanguage().isEmpty());
+    assertEquals(EnumSet.of(propertyType1, propertyType2), statistics.getQualifiedProperties());
+    assertTrue(statistics.getQualifiedPropertiesWithLanguage().isEmpty());
 
     // Test for valid literal type: add new type.
     statistics.addToStatistics(validLiteral, propertyType5);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType5),
-        statistics.getAllAddedProperties());
-    assertEquals(EnumSet.of(propertyType5), statistics.getAddedPropertiesWithLanguage());
+        statistics.getQualifiedProperties());
+    assertEquals(EnumSet.of(propertyType5), statistics.getQualifiedPropertiesWithLanguage());
 
     // Test for valid literal type: add to already registered type with language.
     statistics.addToStatistics(validLiteral, propertyType5);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType5),
-        statistics.getAllAddedProperties());
-    assertEquals(EnumSet.of(propertyType5), statistics.getAddedPropertiesWithLanguage());
+        statistics.getQualifiedProperties());
+    assertEquals(EnumSet.of(propertyType5), statistics.getQualifiedPropertiesWithLanguage());
 
     // Test for valid literal type: add to already registered type without language.
     statistics.addToStatistics(validLiteral, propertyType2);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType5),
-        statistics.getAllAddedProperties());
+        statistics.getQualifiedProperties());
     assertEquals(EnumSet.of(propertyType2, propertyType5),
-        statistics.getAddedPropertiesWithLanguage());
+        statistics.getQualifiedPropertiesWithLanguage());
   }
 
   private LiteralType createLiteralType(String language, String value) {
@@ -243,8 +241,8 @@ class LanguageTagStatisticsTest {
     assertThrows(IllegalArgumentException.class,
         () -> statistics.addToStatistics((ResourceOrLiteralType) null, null));
     statistics.addToStatistics((ResourceOrLiteralType) null, propertyType1);
-    assertTrue(statistics.getAllAddedProperties().isEmpty());
-    assertTrue(statistics.getAddedPropertiesWithLanguage().isEmpty());
+    assertTrue(statistics.getQualifiedProperties().isEmpty());
+    assertTrue(statistics.getQualifiedPropertiesWithLanguage().isEmpty());
 
     // Test for invalid literal types: empty value means not registered at all.
     statistics.addToStatistics(invalid1, propertyType1);
@@ -253,31 +251,31 @@ class LanguageTagStatisticsTest {
     statistics.addToStatistics(invalid4, propertyType4);
     statistics.addToStatistics(invalid5, propertyType5);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType5),
-        statistics.getAllAddedProperties());
-    assertTrue(statistics.getAddedPropertiesWithLanguage().isEmpty());
+        statistics.getQualifiedProperties());
+    assertTrue(statistics.getQualifiedPropertiesWithLanguage().isEmpty());
 
     // Test for valid literal type: add new type.
     statistics.addToStatistics(valid1, propertyType3);
     statistics.addToStatistics(valid2, propertyType4);
     statistics.addToStatistics(valid3, propertyType6);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType3, propertyType4,
-        propertyType5, propertyType6), statistics.getAllAddedProperties());
+        propertyType5, propertyType6), statistics.getQualifiedProperties());
     assertEquals(EnumSet.of(propertyType3, propertyType4, propertyType6),
-        statistics.getAddedPropertiesWithLanguage());
+        statistics.getQualifiedPropertiesWithLanguage());
 
     // Test for valid literal type: add to already registered type with language.
     statistics.addToStatistics(valid4, propertyType3);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType3, propertyType4,
-        propertyType5, propertyType6), statistics.getAllAddedProperties());
+        propertyType5, propertyType6), statistics.getQualifiedProperties());
     assertEquals(EnumSet.of(propertyType3, propertyType4, propertyType6),
-        statistics.getAddedPropertiesWithLanguage());
+        statistics.getQualifiedPropertiesWithLanguage());
 
     // Test for valid literal type: add to already registered type without language.
     statistics.addToStatistics(valid4, propertyType2);
     assertEquals(EnumSet.of(propertyType1, propertyType2, propertyType3, propertyType4,
-        propertyType5, propertyType6), statistics.getAllAddedProperties());
+        propertyType5, propertyType6), statistics.getQualifiedProperties());
     assertEquals(EnumSet.of(propertyType2, propertyType3, propertyType4, propertyType6),
-        statistics.getAddedPropertiesWithLanguage());
+        statistics.getQualifiedPropertiesWithLanguage());
   }
 
   private ResourceOrLiteralType createResourceOrLiteralType(String language, String resource,
@@ -387,21 +385,21 @@ class LanguageTagStatisticsTest {
     // Create mock
     final LanguageTagStatistics statistics = spy(new LanguageTagStatistics(null, null, null));
     doReturn(EnumSet.of(PropertyType.DC_COVERAGE, PropertyType.DC_TYPE, PropertyType.EDM_HAS_TYPE,
-        PropertyType.DC_SOURCE)).when(statistics).getAllAddedProperties();
+        PropertyType.DC_SOURCE)).when(statistics).getQualifiedProperties();
 
     // Test with non-zero values
-    doReturn(EnumSet.noneOf(PropertyType.class)).when(statistics).getAddedPropertiesWithLanguage();
-    assertEquals(0, statistics.getPropertyWithLanguageRatio());
+    doReturn(EnumSet.noneOf(PropertyType.class)).when(statistics).getQualifiedPropertiesWithLanguage();
+    assertEquals(0, statistics.getPropertiesWithLanguageRatio());
     doReturn(EnumSet.of(PropertyType.DC_COVERAGE)).when(statistics)
-        .getAddedPropertiesWithLanguage();
-    assertEquals(0.25, statistics.getPropertyWithLanguageRatio());
+                                                  .getQualifiedPropertiesWithLanguage();
+    assertEquals(0.25, statistics.getPropertiesWithLanguageRatio());
     doReturn(EnumSet.of(PropertyType.DC_COVERAGE, PropertyType.DC_TYPE)).when(statistics)
-        .getAddedPropertiesWithLanguage();
-    assertEquals(0.5, statistics.getPropertyWithLanguageRatio());
+                                                                        .getQualifiedPropertiesWithLanguage();
+    assertEquals(0.5, statistics.getPropertiesWithLanguageRatio());
 
     // Test case that nothing has been added.
-    doReturn(EnumSet.noneOf(PropertyType.class)).when(statistics).getAllAddedProperties();
-    doReturn(EnumSet.noneOf(PropertyType.class)).when(statistics).getAddedPropertiesWithLanguage();
-    assertEquals(0, statistics.getPropertyWithLanguageRatio());
+    doReturn(EnumSet.noneOf(PropertyType.class)).when(statistics).getQualifiedProperties();
+    doReturn(EnumSet.noneOf(PropertyType.class)).when(statistics).getQualifiedPropertiesWithLanguage();
+    assertEquals(0, statistics.getPropertiesWithLanguageRatio());
   }
 }

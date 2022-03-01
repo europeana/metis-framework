@@ -9,7 +9,7 @@ import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
@@ -234,17 +234,17 @@ public class TestObjectFactory {
    * @param email the email for the dummy user
    * @return the created metis user
    */
-  public static MetisUser createMetisUser(String email) {
-    MetisUser metisUser = spy(new MetisUser());
-    doReturn(email).when(metisUser).getEmail();
-    doReturn(AccountRole.EUROPEANA_DATA_OFFICER).when(metisUser).getAccountRole();
-    doReturn("Organization_12345").when(metisUser).getOrganizationId();
-    doReturn("OrganizationName").when(metisUser).getOrganizationName();
-    doReturn(true).when(metisUser).isMetisUserFlag();
-    doReturn("FirstName").when(metisUser).getFirstName();
-    doReturn("LastName").when(metisUser).getLastName();
-    doReturn("User_12345").when(metisUser).getUserId();
-    return metisUser;
+  public static MetisUserView createMetisUser(String email) {
+    MetisUserView metisUserView = spy(new MetisUserView());
+    doReturn(email).when(metisUserView).getEmail();
+    doReturn(AccountRole.EUROPEANA_DATA_OFFICER).when(metisUserView).getAccountRole();
+    doReturn("Organization_12345").when(metisUserView).getOrganizationId();
+    doReturn("OrganizationName").when(metisUserView).getOrganizationName();
+    doReturn(true).when(metisUserView).isMetisUserFlag();
+    doReturn("FirstName").when(metisUserView).getFirstName();
+    doReturn("LastName").when(metisUserView).getLastName();
+    doReturn("User_12345").when(metisUserView).getUserId();
+    return metisUserView;
   }
 
   /**

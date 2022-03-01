@@ -28,7 +28,6 @@ import dev.morphia.aggregation.experimental.stages.Lookup;
 import dev.morphia.aggregation.experimental.stages.Projection;
 import dev.morphia.aggregation.experimental.stages.Sort;
 import dev.morphia.aggregation.experimental.stages.Unwind;
-import dev.morphia.annotations.Embedded;
 import dev.morphia.annotations.Entity;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -36,7 +35,7 @@ import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
-import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -180,17 +179,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * value of the <code>cancelledBy</code> field will remain <code>null</code></p>
    *
    * @param workflowExecution the workflowExecution to be cancelled
-   * @param metisUser the user that triggered the cancellation or null if it was the system
+   * @param metisUserView the user that triggered the cancellation or null if it was the system
    */
-  public void setCancellingState(WorkflowExecution workflowExecution, MetisUser metisUser) {
+  public void setCancellingState(WorkflowExecution workflowExecution, MetisUserView metisUserView) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .filter(Filters.eq(ID.getFieldName(), workflowExecution.getId()));
     String cancelledBy;
-    if (metisUser == null || metisUser.getUserId() == null) {
+    if (metisUserView == null || metisUserView.getUserId() == null) {
       cancelledBy = SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
     } else {
-      cancelledBy = metisUser.getUserId();
+      cancelledBy = metisUserView.getUserId();
     }
     final UpdateOperator setCancellingOperator = UpdateOperators.set("cancelling", Boolean.TRUE);
     final UpdateOperator setCancelledByOperator = UpdateOperators.set("cancelledBy", cancelledBy);

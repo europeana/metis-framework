@@ -101,6 +101,7 @@ public class WorkflowExecutionMonitor {
    * all executions that are marked as being in the queue to the queue again. This method is meant
    * to run periodically.
    */
+  @SuppressWarnings("squid:S2222") //There is a lock.unlock() code within the `finally` code block, which will be run if an exception is thrown or not
   public void performFailsafe() {
     RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
     try {
