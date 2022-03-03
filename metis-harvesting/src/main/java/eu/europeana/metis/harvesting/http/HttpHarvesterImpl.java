@@ -52,7 +52,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       AtomicInteger currentNumberOfIterations = new AtomicInteger();
 
       // Now perform the harvesting - go by each file.
-      final HttpRecordIterator iterator = createHttpHarvestIterator(inputStream, compressedFileType);
+      final HttpRecordIterator iterator = createTemporaryHttpHarvestIterator(inputStream, compressedFileType);
       List<Pair<Path, Exception>> exception = new ArrayList<>(1);
       iterator.forEach(path -> {
         try (InputStream content = Files.newInputStream(path)) {
@@ -68,6 +68,9 @@ public class HttpHarvesterImpl implements HttpHarvester {
           return IterationResult.TERMINATE;
         }
       });
+
+      iterator.deleteIteratorContent();
+
       if (!exception.isEmpty()) {
         throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
             exception.get(0).getValue());
@@ -99,10 +102,10 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   @Override
-  public HttpRecordIterator createHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException {
+  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException {
     // We chose where to store the temporary file.
     @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-    Path tempDir = null;
+    Path tempDir;
     final Path tempFile;
     try {
       // Save the zip file in a temporary directory (and close the input stream).
@@ -115,18 +118,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       return harvestRecords(tempFile);
       } catch (IOException e) {
         throw new HarvesterException("Problem saving archive.", e);
-      } finally {
-
-        // Finally, attempt to delete the files.
-        if (tempDir != null) {
-            try {
-                FileUtils.deleteDirectory(tempDir.toFile());
-            } catch (IOException e) {
-                LOGGER.warn("Could not delete temporary directory.", e);
-            }
-        }
-    }
-
+      }
 
   }
 
@@ -208,6 +200,17 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     public FileIterator(Path extractedDirectory) {
       this.extractedDirectory = extractedDirectory;
+    }
+
+    @Override
+    public void deleteIteratorContent() {
+      if (extractedDirectory != null) {
+        try {
+          FileUtils.deleteDirectory(extractedDirectory.toFile());
+        } catch (IOException e) {
+          LOGGER.warn("Could not delete directory.", e);
+        }
+      }
     }
 
     @Override

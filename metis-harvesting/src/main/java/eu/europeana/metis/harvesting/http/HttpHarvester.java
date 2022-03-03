@@ -47,7 +47,15 @@ public interface HttpHarvester {
    */
   void setMaxNumberOfIterations(int maxOfIterations);
 
-  HttpRecordIterator createHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException;
+  /**
+   * It creates a {@link HttpRecordIterator} with a InputStream into a temporary file directory.
+   * It is needed to use the {@link HttpRecordIterator#deleteIteratorContent()} method if this method is used.
+   * @param input The input stream from which we create the iterator
+   * @param compressedFileType The type of compressed file type
+   * @return A HttpRecordIterator based on a temporary file location
+   * @throws HarvesterException In case there is an issue while using the input stream
+   */
+  HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException;
 
   /**
    * An object representing an entry in a file archive.
