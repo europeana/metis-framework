@@ -47,6 +47,8 @@ public interface HttpHarvester {
    */
   void setMaxNumberOfIterations(int maxOfIterations);
 
+  HttpRecordIterator createHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException;
+
   /**
    * An object representing an entry in a file archive.
    */

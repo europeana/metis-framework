@@ -49,26 +49,10 @@ public class HttpHarvesterImpl implements HttpHarvester {
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
       Consumer<ArchiveEntry> action) throws HarvesterException {
 
-    // We chose where to store the temporary file.
-    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-    Path tempDir = null;
-    try {
-
-      // Save the zip file in a temporary directory (and close the input stream).
-      final String prefix = UUID.randomUUID().toString();
-      final Path tempFile;
-      try {
-        tempDir = Files.createTempDirectory(prefix);
-        tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
-        FileUtils.copyInputStreamToFile(inputStream, tempFile.toFile());
-      } catch (IOException e) {
-        throw new HarvesterException("Problem saving archive.", e);
-      }
-
       AtomicInteger currentNumberOfIterations = new AtomicInteger();
 
       // Now perform the harvesting - go by each file.
-      final HttpRecordIterator iterator = harvestRecords(tempFile);
+      final HttpRecordIterator iterator = createHttpHarvestIterator(inputStream, compressedFileType);
       List<Pair<Path, Exception>> exception = new ArrayList<>(1);
       iterator.forEach(path -> {
         try (InputStream content = Files.newInputStream(path)) {
@@ -88,18 +72,6 @@ public class HttpHarvesterImpl implements HttpHarvester {
         throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
             exception.get(0).getValue());
       }
-
-    } finally {
-
-      // Finally, attempt to delete the files.
-      if (tempDir != null) {
-        try {
-          FileUtils.deleteDirectory(tempDir.toFile());
-        } catch (IOException e) {
-          LOGGER.warn("Could not delete temporary directory.", e);
-        }
-      }
-    }
   }
 
   @Override
@@ -124,6 +96,38 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     // Perform the harvesting
     return harvestRecords(downloadedFile);
+  }
+
+  @Override
+  public HttpRecordIterator createHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException {
+    // We chose where to store the temporary file.
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
+    Path tempDir = null;
+    final Path tempFile;
+    try {
+      // Save the zip file in a temporary directory (and close the input stream).
+      final String prefix = UUID.randomUUID().toString();
+
+      tempDir = Files.createTempDirectory(prefix);
+      tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
+      FileUtils.copyInputStreamToFile(input, tempFile.toFile());
+
+      return harvestRecords(tempFile);
+      } catch (IOException e) {
+        throw new HarvesterException("Problem saving archive.", e);
+      } finally {
+
+        // Finally, attempt to delete the files.
+        if (tempDir != null) {
+            try {
+                FileUtils.deleteDirectory(tempDir.toFile());
+            } catch (IOException e) {
+                LOGGER.warn("Could not delete temporary directory.", e);
+            }
+        }
+    }
+
+
   }
 
   private HttpRecordIterator harvestRecords(Path archiveFile) throws HarvesterException {
