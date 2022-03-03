@@ -40,14 +40,6 @@ public interface HttpHarvester {
           Consumer<ArchiveEntry> action) throws HarvesterException;
 
   /**
-   * Method to set up the maximum number of iterations through records during harvesting.
-   * If there is none, the harvesting iterate through all records.
-   *
-   * @param maxOfIterations The maximum number of iterations
-   */
-  void setMaxNumberOfIterations(int maxOfIterations);
-
-  /**
    * It creates a {@link HttpRecordIterator} with a InputStream into a temporary file directory.
    * It is needed to use the {@link HttpRecordIterator#deleteIteratorContent()} method if this method is used.
    * @param input The input stream from which we create the iterator

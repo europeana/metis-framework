@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
@@ -43,13 +42,9 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
-  private int maxNumberOfIterations = 0;
-
   @Override
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
       Consumer<ArchiveEntry> action) throws HarvesterException {
-
-      AtomicInteger currentNumberOfIterations = new AtomicInteger();
 
       // Now perform the harvesting - go by each file.
       final HttpRecordIterator iterator = createTemporaryHttpHarvestIterator(inputStream, compressedFileType);
@@ -58,10 +53,6 @@ public class HttpHarvesterImpl implements HttpHarvester {
         try (InputStream content = Files.newInputStream(path)) {
           action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
               new ByteArrayInputStream(IOUtils.toByteArray(content))));
-          currentNumberOfIterations.getAndIncrement();
-          if (maxNumberOfIterations > 0 && currentNumberOfIterations.get() > maxNumberOfIterations) {
-            return IterationResult.TERMINATE;
-          }
           return IterationResult.CONTINUE;
         } catch (IOException | RuntimeException e) {
           exception.add(new ImmutablePair<>(path, e));
@@ -75,11 +66,6 @@ public class HttpHarvesterImpl implements HttpHarvester {
         throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
             exception.get(0).getValue());
       }
-  }
-
-  @Override
-  public void setMaxNumberOfIterations(int maxOfIterations) {
-    this.maxNumberOfIterations = maxOfIterations;
   }
 
   @Override
