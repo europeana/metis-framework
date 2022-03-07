@@ -75,7 +75,7 @@ public class EntityXmlUtils {
             return null;
         }
         List<LabelResource> res = new ArrayList<>();
-        values.stream().forEach(value -> res.add(new LabelResource("def", value)));
+        values.stream().forEach(value -> res.add(new LabelResource(value)));
         return res;
     }
 
