@@ -196,6 +196,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
         } catch (IOException e) {
           LOGGER.warn("Could not delete directory.", e);
         }
+      } else {
+        LOGGER.warn("Extracted directory undefined, nothing removed.");
       }
     }
 
