@@ -16,11 +16,11 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +34,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
+// TODO resolve dependency once entity-client is deployed to artifactory
 /**
  * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from
  * there.
@@ -105,16 +105,7 @@ public class RemoteEntityResolver implements EntityResolver {
     }
 
     // Create partitions
-    final List<List<I>> partitions = new ArrayList<>();
-    partitions.add(new ArrayList<>());
-    inputValues.forEach(item -> {
-      List<I> currentPartition = partitions.get(partitions.size() - 1);
-      if (currentPartition.size() >= batchSize) {
-        currentPartition = new ArrayList<>();
-        partitions.add(currentPartition);
-      }
-      currentPartition.add(item);
-    });
+    final List<List<I>> partitions = EntityResolverUtils.createPartition(inputValues, batchSize);
 
     // Process partitions
     final Map<I, R> result = new HashMap<>();

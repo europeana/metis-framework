@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.api.external.model;
 
+import eu.europeana.enrichment.utils.EntityXmlUtils;
+
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,6 +44,12 @@ public class Concept extends EnrichmentBase {
   public Concept() {
     super();
     // Required for XML binding.
+  }
+
+  // Used for creating XML entity from EM model class
+  public Concept(eu.europeana.entitymanagement.definitions.model.Concept concept) {
+    super(concept);
+    init(concept);
   }
 
   public List<Label> getHiddenLabel() {
@@ -130,5 +138,41 @@ public class Concept extends EnrichmentBase {
 
   public void setRelatedMatch(List<Resource> relatedMatch) {
     this.relatedMatch = cloneListAcceptingNull(relatedMatch);
+  }
+
+  private void init(eu.europeana.entitymanagement.definitions.model.Concept concept){
+    if (concept.getHiddenLabel() != null) {
+      this.hiddenLabel = EntityXmlUtils.convertListToXmlLabel(concept.getHiddenLabel());
+    }
+    if (concept.getNotation() != null) {
+      this.notation = EntityXmlUtils.convertMultilingualMapToXmlLabel(concept.getNotation());
+    }
+    if (concept.getBroader() != null) {
+      this.broader = EntityXmlUtils.convertListToXmlResource(concept.getBroader());
+    }
+    if (concept.getBroadMatch() != null) {
+      this.broadMatch = EntityXmlUtils.convertListToXmlResource(concept.getBroadMatch());
+    }
+    if (concept.getCloseMatch() != null) {
+      this.closeMatch = EntityXmlUtils.convertListToXmlResource(concept.getCloseMatch());
+    }
+    if (concept.getSameReferenceLinks() != null) {
+      this.exactMatch = EntityXmlUtils.convertListToXmlResource(concept.getSameReferenceLinks());
+    }
+    if (concept.getInScheme() != null) {
+      this.inScheme = EntityXmlUtils.convertListToXmlResource(concept.getInScheme());
+    }
+    if (concept.getNarrower() != null) {
+      this.narrower = EntityXmlUtils.convertListToXmlResource(concept.getNarrower());
+    }
+    if (concept.getNarrowMatch() != null) {
+      this.narrowMatch = EntityXmlUtils.convertListToXmlResource(concept.getNarrowMatch());
+    }
+    if (concept.getRelated() != null) {
+      this.related = EntityXmlUtils.convertListToXmlResource(concept.getRelated());
+    }
+    if (concept.getRelatedMatch() != null) {
+      this.relatedMatch = EntityXmlUtils.convertListToXmlResource(concept.getRelatedMatch());
+    }
   }
 }

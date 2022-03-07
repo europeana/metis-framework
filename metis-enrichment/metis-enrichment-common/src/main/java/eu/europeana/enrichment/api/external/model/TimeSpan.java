@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.api.external.model;
 
+import eu.europeana.enrichment.utils.EntityXmlUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,6 +30,14 @@ public class TimeSpan extends EnrichmentBase {
   private List<Label> hiddenLabel = new ArrayList<>();
   @XmlElement(name = "isNextInSequence", namespace = "http://www.europeana.eu/schemas/edm/")
   private Part isNextInSequence;
+
+  public TimeSpan() {}
+
+  // Used for creating XML entity from EM model class
+  public TimeSpan(eu.europeana.entitymanagement.definitions.model.TimeSpan timeSpan) {
+    super(timeSpan);
+    init(timeSpan);
+  }
 
   public List<LabelResource> getIsPartOf() {
     return unmodifiableListAcceptingNull(isPartOf);
@@ -83,5 +93,29 @@ public class TimeSpan extends EnrichmentBase {
 
   public void setIsNextInSequence(Part isNextInSequence) {
     this.isNextInSequence = isNextInSequence;
+  }
+
+  private void init(eu.europeana.entitymanagement.definitions.model.TimeSpan timeSpan) {
+    if (timeSpan.getIsPartOfArray() != null) {
+      this.isPartOf = EntityXmlUtils.convertListToXmlLabelResource(timeSpan.getIsPartOfArray());
+    }
+    if (timeSpan.getHasPart() != null) {
+      this.hasPartsList = EntityXmlUtils.convertListToXmlLabelResource(timeSpan.getHasPart());
+    }
+    if (timeSpan.getSameReferenceLinks() != null) {
+      this.sameAs = EntityXmlUtils.convertListToXmlPart(timeSpan.getSameReferenceLinks());
+    }
+    if (timeSpan.getBeginString() != null) {
+      this.begin = new Label(timeSpan.getBeginString());
+    }
+    if (timeSpan.getEndString() != null) {
+      this.end = new Label(timeSpan.getEndString());
+    }
+    if (timeSpan.getHiddenLabel() != null) {
+      this.hiddenLabel = EntityXmlUtils.convertListToXmlLabel(timeSpan.getHiddenLabel());
+    }
+    if (timeSpan.getIsNextInSequence() != null) {
+      this.isNextInSequence = new Part(timeSpan.getIsNextInSequence().get(0));
+    }
   }
 }
