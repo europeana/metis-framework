@@ -7,7 +7,6 @@ import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
-import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
@@ -98,13 +97,10 @@ public class WorkflowPostProcessor {
   private void indexPostProcess(AbstractExecutablePlugin<?> indexPlugin, String datasetId)
       throws DpsException, InvalidIndexPluginException {
     TargetIndexingDatabase targetIndexingDatabase;
-    TargetIndexingEnvironment targetIndexingEnvironment;
     if (indexPlugin instanceof IndexToPreviewPlugin) {
       targetIndexingDatabase = ((IndexToPreviewPlugin) indexPlugin).getTargetIndexingDatabase();
-      targetIndexingEnvironment = ((IndexToPreviewPlugin) indexPlugin).getTargetIndexingEnvironment();
     } else if (indexPlugin instanceof IndexToPublishPlugin) {
       targetIndexingDatabase = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase();
-      targetIndexingEnvironment = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingEnvironment();
       //Reset depublish status
       depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
           DepublicationStatus.PENDING_DEPUBLICATION, null);
@@ -112,8 +108,7 @@ public class WorkflowPostProcessor {
       throw new InvalidIndexPluginException("Plugin is not of the types supported");
     }
     final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptionsThrowing(() ->
-        (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, targetIndexingDatabase,
-            targetIndexingEnvironment));
+        (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, targetIndexingDatabase));
     indexPlugin.getExecutionProgress().setTotalDatabaseRecords(databaseTotalRecords);
   }
 

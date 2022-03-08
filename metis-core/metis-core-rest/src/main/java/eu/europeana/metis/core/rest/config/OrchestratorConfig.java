@@ -139,8 +139,6 @@ public class OrchestratorConfig implements WebMvcConfigurer {
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
         .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
-    workflowExecutionFactory.setMetisUseAlternativeIndexingEnvironment(
-        propertiesHolder.isMetisUseAlternativeIndexingEnvironment());
     workflowExecutionFactory.setDefaultSamplingSizeForLinkChecking(
         propertiesHolder.getMetisLinkCheckingDefaultSamplingSize());
     return workflowExecutionFactory;

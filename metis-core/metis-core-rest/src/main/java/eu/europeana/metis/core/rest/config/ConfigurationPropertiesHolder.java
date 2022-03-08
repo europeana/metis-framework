@@ -95,8 +95,6 @@ public class ConfigurationPropertiesHolder {
   private int maxDepublishRecordIdsPerDataset;
 
   // Ecloud configuration
-  @Value("${metis.use.alternative.indexing.environment}")
-  private boolean metisUseAlternativeIndexingEnvironment;
   @Value("${metis.link.checking.default.sampling.size}")
   private int metisLinkCheckingDefaultSamplingSize;
   @Value("${solr.commit.period.in.mins}")
@@ -302,10 +300,6 @@ public class ConfigurationPropertiesHolder {
 
   public int getMaxDepublishRecordIdsPerDataset() {
     return maxDepublishRecordIdsPerDataset;
-  }
-
-  public boolean isMetisUseAlternativeIndexingEnvironment() {
-    return metisUseAlternativeIndexingEnvironment;
   }
 
   public int getMetisLinkCheckingDefaultSamplingSize() {

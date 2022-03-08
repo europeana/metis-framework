@@ -2,7 +2,6 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
-import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingEnvironment;
 
 /**
  * Index to Publish Plugin.
@@ -37,7 +36,6 @@ public class IndexToPublishPlugin extends AbstractExecutablePlugin<IndexToPublis
     return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
         getPluginMetadata().isIncrementalIndexing(),
         getPluginMetadata().getHarvestDate(),
-        getPluginMetadata().isUseAlternativeIndexingEnvironment(),
         getPluginMetadata().isPreserveTimestamps(),
         getPluginMetadata().getDatasetIdsToRedirectFrom(),
         getPluginMetadata().isPerformRedirects(), getTargetIndexingDatabase().name());
@@ -55,15 +53,5 @@ public class IndexToPublishPlugin extends AbstractExecutablePlugin<IndexToPublis
    */
   public TargetIndexingDatabase getTargetIndexingDatabase() {
     return TargetIndexingDatabase.PUBLISH;
-  }
-
-  /**
-   * Get the target indexing environment.
-   *
-   * @return the target indexing environment
-   */
-  public TargetIndexingEnvironment getTargetIndexingEnvironment() {
-    return getPluginMetadata().isUseAlternativeIndexingEnvironment() ? TargetIndexingEnvironment.ALTERNATIVE
-        : TargetIndexingEnvironment.DEFAULT;
   }
 }
