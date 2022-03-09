@@ -1,12 +1,12 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.*;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EntityResolverUtils;
-import eu.europeana.entity.client.model.EntityClientRequest;
 import eu.europeana.entity.client.utils.EntityClientUtils;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
@@ -14,7 +14,6 @@ import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.entitymanagement.definitions.exceptions.UnsupportedEntityTypeException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.vocabulary.EntityTypes;
-import org.codehaus.jettison.json.JSONException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from
  * Entity Management API
  */
-public class EntityClientResolver implements EntityResolver{
+public class EntityClientResolver implements EntityResolver {
 
     private EntityClientApi entityClientApi;
     private final RestTemplate template;
@@ -82,15 +81,15 @@ public class EntityClientResolver implements EntityResolver{
     private List<Entity> executeEntityClient(EntityClientRequest entityClientRequest) {
         try {
               if (entityClientRequest.isReference()) {
-                  if (entityClientRequest.getValue().startsWith(EntityClientUtils.BASE_URL)) {
-                     return Collections.singletonList(entityClientApi.getEntityById(entityClientRequest.getValue()));
+                  if (entityClientRequest.getValueToEnrich().startsWith(EntityClientUtils.BASE_URL)) {
+                     return Collections.singletonList(entityClientApi.getEntityById(entityClientRequest.getValueToEnrich()));
                   } else {
-                      return  entityClientApi.getEntityByUri(entityClientRequest.getValue());
+                      return  entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
                   }
               } else {
-                  return entityClientApi.getSuggestions(entityClientRequest.getValue(), entityClientRequest.getLanguage(), null, entityClientRequest.getType(), null, null);
+                  return entityClientApi.getSuggestions(entityClientRequest.getValueToEnrich(), entityClientRequest.getLanguage(), null, entityClientRequest.getType(), null, null);
               }
-        } catch (UnsupportedEntityTypeException | JSONException e) {
+        } catch (UnsupportedEntityTypeException | JsonProcessingException e) {
             throw new UnknownException("Entity Client GET call to " + (entityClientRequest.isReference() ? "getEntityByUri" : "getSuggestions")
                    + " failed for" + entityClientRequest + ".", e);
         }

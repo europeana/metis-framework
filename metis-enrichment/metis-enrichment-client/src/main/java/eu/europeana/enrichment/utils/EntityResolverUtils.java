@@ -2,9 +2,9 @@ package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EntityClientRequest;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.entity.client.model.EntityClientRequest;
 
 import java.util.*;
 import java.util.function.Function;
