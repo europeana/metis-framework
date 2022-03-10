@@ -211,7 +211,6 @@ public class WorkflowPostProcessor {
     final List<SubTaskInfo> subTasks = new ArrayList<>();
     List<SubTaskInfo> subTasksBatch;
     do {
-      // need to change dpsCline call
       subTasksBatch = retryableExternalRequestForNetworkExceptionsThrowing(
           () -> dpsClient.getDetailedTaskReportBetweenChunks(
               depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
