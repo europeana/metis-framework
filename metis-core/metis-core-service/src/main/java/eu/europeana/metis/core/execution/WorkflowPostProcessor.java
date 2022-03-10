@@ -49,7 +49,7 @@ public class WorkflowPostProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowPostProcessor.class);
 
-  private static final int ECLOUD_REQUEST_BATCH_SIZE = 100;
+  private static final int ECLOUD_REQUEST_BATCH_SIZE = 1000;
 
   private final DepublishRecordIdDao depublishRecordIdDao;
   private final DatasetDao datasetDao;
@@ -116,21 +116,35 @@ public class WorkflowPostProcessor {
       targetIndexingDatabase = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase();
       targetIndexingEnvironment = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingEnvironment();
 
-      // get all tasks from dataset id and topology name
-      List<SubTaskInfo> taskReport = dpsClient.getDetailedTaskReport(indexPlugin.getTopologyName(),
-          Long.parseLong(indexPlugin.getExternalTaskId()));
-      // get all currently de-published records ids
-      Set<String> depublishedRecordIds = depublishRecordIdDao
-          .getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-              DepublicationStatus.DEPUBLISHED);
-      // filter the record ids that are a part of the given report, to be de-published
-      Set<String> recordIdsToDepublish = taskReport.stream()
-          .filter(taskInfo -> depublishedRecordIds.contains(taskInfo.getEuropeanaId()))
-          .map(SubTaskInfo::getEuropeanaId).collect(Collectors.toSet());
+      final long totalRecords = dpsClient.getTotalMetisDatabaseRecords(indexPlugin.getExternalTaskId(),
+          ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase());
+      List<SubTaskInfo> subTaskInfoList;
 
-      // reset de-publish status
-      depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToDepublish,
-          DepublicationStatus.PENDING_DEPUBLICATION, null);
+      // get chunked tasks from dataset id and topology name
+      for (int i = 0; i < totalRecords; i = +ECLOUD_REQUEST_BATCH_SIZE) {
+        subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
+            Long.parseLong(indexPlugin.getExternalTaskId()), i, i + ECLOUD_REQUEST_BATCH_SIZE);
+        if (i >= totalRecords) {
+          subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
+              Long.parseLong(indexPlugin.getExternalTaskId()), (int) (totalRecords - (totalRecords % ECLOUD_REQUEST_BATCH_SIZE)),
+              (int) totalRecords);
+        }
+        // get all currently de-published records ids
+        Set<String> depublishedRecordIds = depublishRecordIdDao
+            .getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE,
+                SortDirection.ASCENDING,
+                DepublicationStatus.DEPUBLISHED);
+
+        // TODO: what if it's incremental
+        // filter the record ids that are a part of the given report, to be de-published
+        Set<String> recordIdsToDepublish = subTaskInfoList.stream()
+                                                          .filter(taskInfo -> depublishedRecordIds.contains(
+                                                              taskInfo.getEuropeanaId()))
+                                                          .map(SubTaskInfo::getEuropeanaId).collect(Collectors.toSet());
+        // reset de-publish status
+        depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToDepublish,
+            DepublicationStatus.PENDING_DEPUBLICATION, null);
+      }
     } else {
       throw new InvalidIndexPluginException("Plugin is not of the types supported");
     }
@@ -207,16 +221,16 @@ public class WorkflowPostProcessor {
 
     // Mark the records as DEPUBLISHED.
     final Map<String, Set<String>> successfulRecords = subTasks.stream()
-        .filter(subTask ->
-            subTask.getRecordState()
-                == RecordState.SUCCESS)
-        .map(SubTaskInfo::getResource).map(
+                                                               .filter(subTask ->
+                                                                   subTask.getRecordState()
+                                                                       == RecordState.SUCCESS)
+                                                               .map(SubTaskInfo::getResource).map(
             DepublishRecordIdUtils::decomposeFullRecordId)
-        .collect(Collectors.groupingBy(
-            Pair::getLeft,
-            Collectors.mapping(
-                Pair::getRight,
-                Collectors.toSet())));
+                                                               .collect(Collectors.groupingBy(
+                                                                   Pair::getLeft,
+                                                                   Collectors.mapping(
+                                                                       Pair::getRight,
+                                                                       Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
             DepublicationStatus.DEPUBLISHED, new Date()));
