@@ -121,7 +121,7 @@ public class WorkflowPostProcessor {
       List<SubTaskInfo> subTaskInfoList;
 
       // get chunked tasks from dataset id and topology name
-      for (int i = 0; i < totalRecords; i = +ECLOUD_REQUEST_BATCH_SIZE) {
+      for (int i = 0; i < totalRecords; i +=ECLOUD_REQUEST_BATCH_SIZE) {
         subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
             Long.parseLong(indexPlugin.getExternalTaskId()), i, i + ECLOUD_REQUEST_BATCH_SIZE);
         if (i >= totalRecords) {
