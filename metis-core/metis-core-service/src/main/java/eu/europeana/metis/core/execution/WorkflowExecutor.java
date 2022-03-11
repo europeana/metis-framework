@@ -24,6 +24,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.Date;
@@ -491,7 +492,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     if (monitorResult.getTaskState() == TaskState.PROCESSED) {
       try {
         this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
-      } catch (DpsException | InvalidIndexPluginException | RuntimeException e) {
+      } catch (DpsException | InvalidIndexPluginException | BadContentException | RuntimeException e) {
         processingAppliedOrNotRequired = false;
         LOGGER.warn("Problem occurred during Metis post-processing.", e);
         plugin.setFinishedDate(null);

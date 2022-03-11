@@ -16,8 +16,8 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -134,8 +134,7 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a list of dummy workflow executions. The dataset name will have a suffix number for each
-   * dataset.
+   * Create a list of dummy workflow executions. The dataset name will have a suffix number for each dataset.
    *
    * @param size the number of dummy workflow executions to create
    * @return the created list
@@ -146,8 +145,7 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a list of dummy execution overviews. The dataset name will have a suffix number for each
-   * dataset.
+   * Create a list of dummy execution overviews. The dataset name will have a suffix number for each dataset.
    *
    * @param size the number of dummy execution overviews to create
    * @return the created list
@@ -180,8 +178,7 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a list of dummy scheduled workflows. The dataset name will have a suffix number for each
-   * dataset.
+   * Create a list of dummy scheduled workflows. The dataset name will have a suffix number for each dataset.
    *
    * @param size the number of dummy scheduled workflows to create
    * @return the created list
@@ -198,11 +195,11 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a list of dummy scheduled workflows with pointer date and frequency. The dataset name
-   * will have a suffix number for each dataset.
+   * Create a list of dummy scheduled workflows with pointer date and frequency. The dataset name will have a suffix number for
+   * each dataset.
    *
-   * @param size the number of dummy scheduled workflows to create
-   * @param date the pointer date
+   * @param size              the number of dummy scheduled workflows to create
+   * @param date              the pointer date
    * @param scheduleFrequence the schedule frequence
    * @return the created list
    */
@@ -270,17 +267,15 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a dummy sub task info
+   * Create a dummy subtask info
    *
-   * @return the created sub task info
+   * @return the created subtask info
    */
   public static List<SubTaskInfo> createListOfSubTaskInfo() {
-    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "",
-        "Sensitive Information");
-    final int resourceNum = 2;
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1",
-        RecordState.SUCCESS, "",
-        "Sensitive Information");
+    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "info",
+        "additional info", "europeanaId", 0L);
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(2, "some_resource_id2", RecordState.SUCCESS, "info",
+        "additional info", "europeanaId", 0L);
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);
     subTaskInfos.add(subTaskInfo2);
@@ -304,8 +299,8 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These
-   * will also contain a list of {@link ErrorDetails} that in turn contain dummy identifiers.
+   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These will also contain a list of
+   * {@link ErrorDetails} that in turn contain dummy identifiers.
    *
    * @param numberOfErrorTypes the number of dummy error types
    * @return the created task errors info
@@ -325,11 +320,11 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These
-   * will also contain a list of {@link ErrorDetails} that in turn contain dummy identifiers.
+   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These will also contain a list of
+   * {@link ErrorDetails} that in turn contain dummy identifiers.
    *
    * @param errorType the error type to be used for the internal {@link TaskErrorInfo}
-   * @param message the message type to be used for the internal {@link TaskErrorInfo}
+   * @param message   the message type to be used for the internal {@link TaskErrorInfo}
    * @return the created task errors info
    */
   public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType,

@@ -253,11 +253,11 @@ public class TestObjectFactory {
    * @return the created sub task info
    */
   public static List<SubTaskInfo> createListOfSubTaskInfo() {
-    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "",
-        "Sensitive Information");
-    final int resourceNum = 2;
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1", RecordState.SUCCESS, "",
-        "Sensitive Information");
+
+    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "info",
+        "additional info", "europeanaId", 0L);
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(2, "some_resource_id2", RecordState.SUCCESS, "info",
+        "additional info", "europeanaId", 0L);
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);
     subTaskInfos.add(subTaskInfo2);
