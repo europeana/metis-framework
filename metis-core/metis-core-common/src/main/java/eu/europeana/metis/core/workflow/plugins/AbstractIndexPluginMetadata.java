@@ -10,7 +10,6 @@ import java.util.List;
  */
 public abstract class AbstractIndexPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
   private boolean performRedirects;
   private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
@@ -19,14 +18,6 @@ public abstract class AbstractIndexPluginMetadata extends AbstractExecutablePlug
 
   public AbstractIndexPluginMetadata() {
     //Required for json serialization
-  }
-
-  public boolean isUseAlternativeIndexingEnvironment() {
-    return useAlternativeIndexingEnvironment;
-  }
-
-  public void setUseAlternativeIndexingEnvironment(boolean useAlternativeIndexingEnvironment) {
-    this.useAlternativeIndexingEnvironment = useAlternativeIndexingEnvironment;
   }
 
   public boolean isPreserveTimestamps() {
