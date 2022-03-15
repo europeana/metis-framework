@@ -1,16 +1,32 @@
 package eu.europeana.metis.dereference.vocimport;
 
+import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Location;
+import org.apache.commons.collections.CollectionUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the factory for instances of {@link VocabularyCollectionImporter}.
  */
 public class VocabularyCollectionImporterFactory {
+
+  private final List<String> validUrlPrefixes;
+
+  /**
+   * Constructor for the factory
+   *
+   * @param validUrlPrefixes The utils class used to verify input values
+   */
+  public VocabularyCollectionImporterFactory(List<String> validUrlPrefixes) {
+    this.validUrlPrefixes = new ArrayList<>(validUrlPrefixes);
+  }
 
   /**
    * Create a vocabulary importer for remote web addresses, indicated by instances of {@link URI}.
@@ -18,9 +34,13 @@ public class VocabularyCollectionImporterFactory {
    * java.net.URL}.
    *
    * @param directoryLocation The location of the directory to import.
+   * @throws VocabularyImportException if a problem occurs when verifying directory
    * @return A vocabulary importer.
    */
-  public VocabularyCollectionImporter createImporter(URI directoryLocation) {
+  public VocabularyCollectionImporter createImporter(URI directoryLocation) throws VocabularyImportException {
+    if(isUrlPrefixNotValid(directoryLocation.toString())){
+      throw new VocabularyImportException("The location of the directory to import is not valid.");
+    }
     return new VocabularyCollectionImporterImpl(new UriLocation(directoryLocation));
   }
 
@@ -45,6 +65,17 @@ public class VocabularyCollectionImporterFactory {
    */
   public VocabularyCollectionImporter createImporter(Path baseDirectory, Path directoryLocation) {
     return new VocabularyCollectionImporterImpl(new PathLocation(baseDirectory, directoryLocation));
+  }
+
+  private boolean isUrlPrefixNotValid(String directoryToEvaluate) {
+    boolean result;
+
+    if (CollectionUtils.isEmpty(validUrlPrefixes)) {
+      result = true;
+    } else {
+      result = validUrlPrefixes.stream().noneMatch(directoryToEvaluate::startsWith);
+    }
+    return result;
   }
 
   private static final class UriLocation implements Location {

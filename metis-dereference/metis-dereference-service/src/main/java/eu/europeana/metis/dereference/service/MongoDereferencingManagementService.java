@@ -8,6 +8,7 @@ import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFact
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidator;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidatorImpl;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   private final VocabularyDao vocabularyDao;
   private final ProcessedEntityDao processedEntityDao;
+  private final VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory;
 
   /**
    * Constructor.
@@ -30,9 +32,10 @@ public class MongoDereferencingManagementService implements DereferencingManagem
    */
   @Autowired
   public MongoDereferencingManagementService(VocabularyDao vocabularyDao,
-          ProcessedEntityDao processedEntityDao) {
+          ProcessedEntityDao processedEntityDao, VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory) {
     this.vocabularyDao = vocabularyDao;
     this.processedEntityDao = processedEntityDao;
+    this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;
   }
 
   @Override
@@ -48,9 +51,10 @@ public class MongoDereferencingManagementService implements DereferencingManagem
   @Override
   public void loadVocabularies(URI directoryUrl) throws VocabularyImportException {
 
+    try {
     // Import and validate the vocabularies
     final List<Vocabulary> vocabularies = new ArrayList<>();
-    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
+    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
             .createImporter(directoryUrl);
     final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
             true, true, true);
@@ -58,6 +62,9 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
     // All vocabularies are loaded well. Now we replace the vocabularies.
     vocabularyDao.replaceAll(vocabularies);
+    } catch (VocabularyImportException e) {
+      throw new VocabularyImportException("An error as occurred while loading the vocabularies", e);
+    }
   }
 
   private static Vocabulary convertVocabulary(
