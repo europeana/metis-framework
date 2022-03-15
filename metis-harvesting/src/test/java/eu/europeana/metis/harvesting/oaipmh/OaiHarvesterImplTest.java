@@ -29,7 +29,7 @@ class OaiHarvesterImplTest {
 
   @BeforeAll
   static void prepare() throws IOException {
-    int portForWireMock = NetworkUtil.getAvailableLocalPort();
+    int portForWireMock = new NetworkUtil().getAvailableLocalPort();
     final String localhostUrl = "http://127.0.0.1:" + portForWireMock;
     OAI_PMH_ENDPOINT = localhostUrl + "/oai-phm/";
     CONNECTION_CLIENT_FACTORY = TestHelper.CONNECTION_CLIENT_FACTORY::apply;

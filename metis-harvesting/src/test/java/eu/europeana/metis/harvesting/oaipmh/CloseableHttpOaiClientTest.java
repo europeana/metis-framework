@@ -29,7 +29,7 @@ public class CloseableHttpOaiClientTest {
 
   @BeforeAll
   static void prepare() throws IOException {
-    int portForWireMock = NetworkUtil.getAvailableLocalPort();
+    int portForWireMock = new NetworkUtil().getAvailableLocalPort();
     final String localhostUrl = "http://127.0.0.1:" + portForWireMock;
     URL = localhostUrl + PATH;
     CONNECTION_CLIENT_FACTORY = () -> TestHelper.CONNECTION_CLIENT_FACTORY.apply(ENDPOINT);

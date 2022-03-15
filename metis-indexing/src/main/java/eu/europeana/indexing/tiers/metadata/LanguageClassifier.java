@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreakdown> {
 
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+
   private static final float MIN_RATE_FOR_T1 = 0.25F;
   private static final float MIN_RATE_FOR_T2 = 0.5F;
   private static final float MIN_RATE_FOR_T3 = 0.75F;
@@ -42,7 +44,7 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
 
     return new LanguageBreakdown(qualifiedProperties.size(),
         qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::getTypedClass)
-                                          .map(RdfConversionUtils::getQualifiedElementNameForClass).collect(Collectors.toSet()),
+                                          .map(rdfConversionUtils::getQualifiedElementNameForClass).collect(Collectors.toSet()),
         metadataTier);
   }
 

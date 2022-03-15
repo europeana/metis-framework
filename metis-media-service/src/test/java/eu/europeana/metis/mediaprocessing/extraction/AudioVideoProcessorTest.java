@@ -33,8 +33,8 @@ import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
-import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.network.NetworkUtil;
+import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -62,7 +62,7 @@ class AudioVideoProcessorTest {
 
   static {
     try {
-      portForWireMock = NetworkUtil.getAvailableLocalPort();
+      portForWireMock = new NetworkUtil().getAvailableLocalPort();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -130,7 +130,7 @@ class AudioVideoProcessorTest {
 
     // Create resource
     final Resource resource = mock(Resource.class);
-    doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
+    doReturn("https://valid.url.nl/test").when(resource).getResourceUrl();
     doReturn(Paths.get("content path")).when(resource).getContentPath();
 
     // test resource with content
@@ -158,10 +158,10 @@ class AudioVideoProcessorTest {
     doReturn("valid.without.prefix.nl/").when(resource).getResourceUrl();
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
-    doReturn("http://invalid.characters.nl/!@#$%^&*()_").when(resource).getResourceUrl();
+    doReturn("https://invalid.characters.nl/!@#$%^&*()_").when(resource).getResourceUrl();
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
-    doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
+    doReturn("https://valid.url.nl/test").when(resource).getResourceUrl();
 
     // test if hasContent fails.
     doThrow(new IOException()).when(resource).hasContent();

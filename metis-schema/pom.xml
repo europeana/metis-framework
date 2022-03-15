@@ -86,10 +86,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
     </dependency>
-    <dependency>
-      <artifactId>mockito-inline</artifactId>
-      <groupId>org.mockito</groupId>
-    </dependency>
   </dependencies>
 
   <build>
@@ -169,12 +165,10 @@
             </goals>
             <configuration>
               <schemaBindingDirectory>src/main/java</schemaBindingDirectory>
-
               <load>true</load>
               <validate>true</validate>
               <verify>false</verify>
             </configuration>
-
           </execution>
         </executions>
       </plugin>

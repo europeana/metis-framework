@@ -483,12 +483,6 @@
         <version>${version.mockito.core}</version>
         <scope>test</scope>
       </dependency>
-      <dependency>
-        <artifactId>mockito-inline</artifactId>
-        <groupId>org.mockito</groupId>
-        <scope>test</scope>
-        <version>${version.mockito.core}</version>
-      </dependency>
 
       <dependency>
         <groupId>org.springframework</groupId>

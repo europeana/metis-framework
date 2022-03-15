@@ -39,7 +39,7 @@ public class EmbeddedLocalhostMongo {
   public void start() {
     if (mongodExecutable == null) {
       try {
-        mongoPort = NetworkUtil.getAvailableLocalPort();
+        mongoPort = new NetworkUtil().getAvailableLocalPort();
         RuntimeConfig runtimeConfig = Defaults.runtimeConfigFor(Command.MongoD, LOGGER)
             .processOutput(ProcessOutput.getDefaultInstanceSilent())
             .build();
