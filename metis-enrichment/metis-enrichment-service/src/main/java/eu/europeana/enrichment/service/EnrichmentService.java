@@ -9,6 +9,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
+import eu.europeana.enrichment.profile.TrackTime;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -54,6 +55,7 @@ public class EnrichmentService {
    * @param searchValues a list of structured search values with parameters
    * @return the enrichment values in a structured list
    */
+  @TrackTime
   public List<EnrichmentResultBaseWrapper> enrichByEnrichmentSearchValues(
       List<SearchValue> searchValues) {
     final List<SearchTerm> orderedSearchTerms = searchValues.stream().map(
@@ -71,6 +73,7 @@ public class EnrichmentService {
    * @param referenceValue The URI to check for match
    * @return the structured result of the enrichment
    */
+  @TrackTime
   public List<EnrichmentBase> enrichByEquivalenceValues(ReferenceValue referenceValue) {
     try {
       final ReferenceTerm referenceTerm = new ReferenceTermImpl(
@@ -89,6 +92,7 @@ public class EnrichmentService {
    * @param entityAbout The URI to check for match
    * @return the structured result of the enrichment
    */
+  @TrackTime
   public EnrichmentBase enrichById(String entityAbout) {
     try {
       final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(entityAbout),
