@@ -16,6 +16,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.profile.TrackTime;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,6 +52,7 @@ public class RemoteEntityResolver implements EntityResolver {
     this.batchSize = batchSize;
   }
 
+  @TrackTime
   @Override
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
     final Function<List<T>, EnrichmentSearch> inputFunction = partition -> {
@@ -65,6 +67,7 @@ public class RemoteEntityResolver implements EntityResolver {
     return performInBatches(ENRICH_ENTITY_SEARCH, searchTerms, inputFunction, Function.identity());
   }
 
+  @TrackTime
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
     return performInBatches(ENRICH_ENTITY_ID, referenceTerms,
@@ -73,6 +76,7 @@ public class RemoteEntityResolver implements EntityResolver {
             resultItem -> resultItem.stream().findFirst().orElse(null));
   }
 
+  @TrackTime
   @Override
   public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(
           Set<T> referenceTerms) {
