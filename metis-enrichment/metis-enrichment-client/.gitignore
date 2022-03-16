@@ -1,2 +1,4 @@
 ##Add to ignore to not commit by mistake
 
+# properties file
+**/entity-client.properties

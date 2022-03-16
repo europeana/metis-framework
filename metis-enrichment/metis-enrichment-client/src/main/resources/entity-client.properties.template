@@ -1,0 +1,8 @@
+#Entity Management Base Url for Entity Retrieval
+entity.management.url=
+
+#Entity Api V2 url for search and suggest
+entity.api.url=
+
+#APIKEY
+entity.api.key=

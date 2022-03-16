@@ -1,5 +1,9 @@
 package eu.europeana.enrichment.api.external.model;
 
+import eu.europeana.enrichment.utils.EntityXmlUtils;
+import eu.europeana.entitymanagement.definitions.model.Agent;
+import eu.europeana.entitymanagement.definitions.model.Entity;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -49,7 +53,15 @@ public class Organization extends AgentBase {
   // Note: this property is not part of the FOAF Organization type according to metis-schema.
   @XmlElement(name = "hasAddress", namespace = "http://www.w3.org/2006/vcard/ns#")
   private VcardAddresses hasAddress;
-  
+
+  public Organization() {}
+
+  // Used for creating XML entity from EM model class
+  public Organization(eu.europeana.entitymanagement.definitions.model.Organization organization) {
+    super(organization);
+    init(organization);
+  }
+
   public VcardAddresses getHasAddress() {
     return hasAddress;
   }
@@ -121,5 +133,49 @@ public class Organization extends AgentBase {
   public void setDepiction(Resource depiction) {
     this.depiction = depiction;
   }
-  
+
+  private void init(eu.europeana.entitymanagement.definitions.model.Organization organization) {
+    if (organization.getCountry() != null) {
+      this.country = organization.getCountry();
+    }
+    if (organization.getHomepage() != null) {
+      this.homepage = new Resource(organization.getHomepage());
+    }
+    if (organization.getDescription() != null) {
+      this.descriptions = EntityXmlUtils.convertMapToXmlLabel(organization.getDescription());
+    }
+    if (organization.getAcronym() != null) {
+      this.acronyms = EntityXmlUtils.convertMultilingualMapToXmlLabel(organization.getAcronym());
+    }
+    if (organization.getLogo() != null) {
+      this.logo = new Resource(organization.getLogo());
+    }
+    if (organization.getDepiction() != null) {
+      this.depiction = new Resource(organization.getDepiction().getSource());
+    }
+    if (organization.getPhone() != null) {
+      this.phone = String.valueOf(organization.getPhone());
+    }
+    if (organization.getMbox() != null) {
+      this.mbox = String.valueOf(organization.getMbox());
+    }
+    if (organization.getAddress() != null) {
+      VcardAddresses addresses = EntityXmlUtils.getVcardAddresses(organization.getAddress());
+      if (addresses !=null) {
+        this.hasAddress = EntityXmlUtils.getVcardAddresses(organization.getAddress());
+      }
+    }
+    if (organization.getHiddenLabel() != null) {
+      setHiddenLabel(EntityXmlUtils.convertListToXmlLabel(organization.getHiddenLabel()));
+    }
+    if(organization.getSameReferenceLinks() != null) {
+      setSameAs(EntityXmlUtils.convertListToXmlPart(organization.getSameReferenceLinks()));
+    }
+    if (organization.getIdentifier() != null) {
+      setIdentifier(EntityXmlUtils.convertListToXmlLabel(organization.getIdentifier()));
+    }
+    if (organization.getIsRelatedTo() != null) {
+      setIsRelatedTo(EntityXmlUtils.convertListToXmlLabelResource(organization.getIsRelatedTo()));
+    }
+  }
 }

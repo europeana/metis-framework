@@ -2,6 +2,7 @@ package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +16,12 @@ public class SearchTermImpl extends AbstractSearchTerm {
   public SearchTermImpl(String textValue, String language, Set<EntityType> entityTypes) {
     super(textValue, language);
     this.entityTypes = Set.copyOf(entityTypes);
+  }
+
+  // Constructor for empty entityTypes
+  public SearchTermImpl(String textValue, String language) {
+    super(textValue, language);
+    this.entityTypes = new HashSet<>();
   }
 
   @Override
