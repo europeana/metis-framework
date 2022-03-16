@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  * REST controller for managing vocabularies and entities Created by gmamakis on 12-2-16.
@@ -43,7 +42,7 @@ public class DereferencingManagementController {
   @Autowired
   public DereferencingManagementController(DereferencingManagementService service, List<String> validUrlPrefixes) {
     this.service = service;
-    this.validUrlPrefixes = new ArrayList<>(validUrlPrefixes);;
+    this.validUrlPrefixes = new ArrayList<>(validUrlPrefixes);
   }
 
   /**
@@ -86,7 +85,7 @@ public class DereferencingManagementController {
           @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
     try {
       if(isUrlPrefixNotValid(directoryUrl)){
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The url of the directory to import is not valid.");
+        return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
       }
       service.loadVocabularies(new URI(directoryUrl));
       return ResponseEntity.ok().build();
