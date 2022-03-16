@@ -51,14 +51,12 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   @Override
-  public void validateVocabularyOnly(Consumer<Vocabulary> vocabularyReceiver)
-          throws VocabularyImportException {
+  public void validateVocabularyOnly(Consumer<Vocabulary> vocabularyReceiver) throws VocabularyImportException {
     validateInternal(vocabularyReceiver, null, false);
   }
 
   private void validateInternal(Consumer<Vocabulary> vocabularyReceiver,
-          Consumer<String> warningReceiver, boolean validateExamples)
-          throws VocabularyImportException {
+          Consumer<String> warningReceiver, boolean validateExamples) throws VocabularyImportException {
     final DuplicationChecker duplicationChecker = new DuplicationChecker();
     final Iterable<VocabularyLoader> vocabularyLoaders = importer.importVocabularies();
     for (VocabularyLoader loader : vocabularyLoaders) {

@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.vocimport;
 
-import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Location;
 
 import java.io.IOException;
@@ -55,11 +54,13 @@ public class VocabularyCollectionImporterFactory {
 
     UriLocation(URI uri) {
       this.uri = uri;
+
     }
 
     @Override
     public InputStream read() throws IOException {
       return uri.toURL().openStream();
+
     }
 
     @Override
