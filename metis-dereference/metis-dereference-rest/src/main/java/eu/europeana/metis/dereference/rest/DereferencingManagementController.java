@@ -11,7 +11,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * REST controller for managing vocabularies and entities Created by gmamakis on 12-2-16.
@@ -34,10 +38,12 @@ public class DereferencingManagementController {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);
 
   private final DereferencingManagementService service;
+  private final List<String> validUrlPrefixes;
 
   @Autowired
-  public DereferencingManagementController(DereferencingManagementService service) {
+  public DereferencingManagementController(DereferencingManagementService service, List<String> validUrlPrefixes) {
     this.service = service;
+    this.validUrlPrefixes = new ArrayList<>(validUrlPrefixes);;
   }
 
   /**
@@ -79,6 +85,9 @@ public class DereferencingManagementController {
   })  public ResponseEntity loadVocabularies(
           @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
     try {
+      if(isUrlPrefixNotValid(directoryUrl)){
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The url of the directory to import is not valid.");
+      }
       service.loadVocabularies(new URI(directoryUrl));
       return ResponseEntity.ok().build();
     } catch (URISyntaxException e) {
@@ -88,5 +97,16 @@ public class DereferencingManagementController {
       LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
     }
+  }
+
+  private boolean isUrlPrefixNotValid(String directoryToEvaluate) {
+    boolean result;
+
+    if (CollectionUtils.isEmpty(validUrlPrefixes)) {
+      result = true;
+    } else {
+      result = validUrlPrefixes.stream().noneMatch(directoryToEvaluate::startsWith);
+    }
+    return result;
   }
 }

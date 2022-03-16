@@ -9,7 +9,6 @@ import dev.morphia.Datastore;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.Collections;
 import java.util.List;
@@ -41,8 +40,7 @@ class MongoDereferencingManagementServiceTest {
       }
     };
     ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
-    VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory = mock(VocabularyCollectionImporterFactory.class);
-    service = new MongoDereferencingManagementService(vocDao, processedEntityDao, vocabularyCollectionImporterFactory);
+    service = new MongoDereferencingManagementService(vocDao, processedEntityDao);
   }
 
   @Test

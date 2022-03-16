@@ -4,12 +4,11 @@ import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -124,13 +123,11 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
+  List<String> getValidUrlPrefixes(){return List.of(validUrlPrefixes);}
 
   @Bean
-  public VocabularyCollectionImporterFactory getVocabularyCollectionImporterFactory(){
-    return new VocabularyCollectionImporterFactory(Arrays.asList(validUrlPrefixes));
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
   }
 
   /**

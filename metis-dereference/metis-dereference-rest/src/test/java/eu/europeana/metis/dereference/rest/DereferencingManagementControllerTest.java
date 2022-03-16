@@ -15,6 +15,8 @@ import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandl
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +35,7 @@ class DereferencingManagementControllerTest {
     dereferencingManagementServiceMock = mock(DereferencingManagementService.class);
 
     DereferencingManagementController dereferencingManagementController = new DereferencingManagementController(
-        dereferencingManagementServiceMock);
+        dereferencingManagementServiceMock, List.of("http://correctUrl"));
 
     dereferencingManagementControllerMock = MockMvcBuilders
         .standaloneSetup(dereferencingManagementController)
