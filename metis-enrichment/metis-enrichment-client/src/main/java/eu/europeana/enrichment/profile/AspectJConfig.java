@@ -8,11 +8,12 @@ import org.springframework.context.annotation.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+// Config class for profiling
 @EnableAspectJAutoProxy
 public class AspectJConfig {
 
     // TODO move this to a property file. Will be done in EA-2890
-    private static final String enrichmentUrl = "http://localhost:8080";
+    private static final String ENRICHMENT_URL = "http://localhost:8080";
 
     public int getBatchSize() {
         return ConnectionProvider.DEFAULT_BATCH_SIZE_ENRICHMENT;
@@ -25,6 +26,6 @@ public class AspectJConfig {
 
     @Bean
     EntityResolver remoteEntityResolver() throws MalformedURLException {
-        return new RemoteEntityResolver(new URL(enrichmentUrl), getBatchSize(), new ConnectionProvider().createRestTemplate());
+        return new RemoteEntityResolver(new URL(ENRICHMENT_URL), getBatchSize(), new ConnectionProvider().createRestTemplate());
     }
 }

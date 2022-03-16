@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StopWatch;
 
+// Class for defining PointCuts and Logging with profiling
 @Configuration
 @Aspect
 public class SimpleProfiler {
@@ -17,13 +18,16 @@ public class SimpleProfiler {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleProfiler.class);
 
     @Pointcut("@annotation(eu.europeana.enrichment.profile.TrackTime)")
-    public void allTrackTimeAnnotatedMethods() {}
+    public void allTrackTimeAnnotatedMethods() {
+    }
 
 
     /**
      * Spring AOP 'around' reference method signature is bounded like this, the
      * method name "profile" should be same as defined in spring.xml aop:around
      * section.
+     * @param proceedingJoinPoint joint point
+     * @return
      **/
     @Around("allTrackTimeAnnotatedMethods()")
     public Object profile(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
