@@ -6,7 +6,6 @@ import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.profile.TrackTime;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
@@ -46,7 +45,6 @@ public class EnricherImpl implements Enricher {
     this.entityMergeEngine = entityMergeEngine;
   }
 
-  @TrackTime
   @Override
   public void enrichment(RDF rdf) throws EnrichmentException {
 

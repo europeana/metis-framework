@@ -15,7 +15,6 @@ import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.enrichment.internal.model.AbstractEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
-import eu.europeana.enrichment.profile.TrackTime;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.utils.MorphiaUtils;
 import eu.europeana.metis.network.ExternalRequestUtil;
@@ -73,7 +72,6 @@ public class EnrichmentDao {
    * @param fieldValue the field value
    * @return the retrieved enrichment term
    */
-  @TrackTime
   public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, Object fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> Optional
         .ofNullable(
@@ -89,7 +87,6 @@ public class EnrichmentDao {
    * @param fieldValue the field value
    * @return the retrieved enrichment term object id if present
    */
-  @TrackTime
   public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, Object fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(
@@ -114,7 +111,6 @@ public class EnrichmentDao {
    * key being the fieldName and value being the fieldValue.
    * @return the retrieved list of enrichmentTerm
    */
-  @TrackTime
   public List<EnrichmentTerm> getAllEnrichmentTermsByFields(
       Map<String, List<Pair<String, String>>> containingListFieldNameAndValues) {
     final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
@@ -143,7 +139,6 @@ public class EnrichmentDao {
    * of fieldValues
    * @return the retrieved list of enrichmentTerm
    */
-  @TrackTime
   public List<EnrichmentTerm> getAllEnrichmentTermsByFieldsInList(
       List<Pair<String, List<String>>> fieldNameAndValues) {
     final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
@@ -160,7 +155,6 @@ public class EnrichmentDao {
    * @param entityType the entity type
    * @return the date of the latest modified entity
    */
-  @TrackTime
   public Date getDateOfLastUpdatedEnrichmentTerm(EntityType entityType) {
     Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
     query.filter(Filters.eq(ENTITY_TYPE_FIELD, entityType));
