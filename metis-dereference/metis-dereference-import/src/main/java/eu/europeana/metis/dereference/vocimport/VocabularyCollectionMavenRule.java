@@ -1,7 +1,6 @@
 package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
-
 import java.nio.file.Path;
 import org.apache.maven.enforcer.rule.api.EnforcerRule;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;
@@ -9,7 +8,6 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -79,16 +77,6 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
    * No-arguments constructor, required for maven instantiation.
    */
   public VocabularyCollectionMavenRule() {
-  }
-
-  /**
-   * Constructor. Used to inject the factory
-   *
-   * @param vocabularyCollectionImporterFactory The vocabulary collection importer factory
-   */
-  @Autowired
-  public VocabularyCollectionMavenRule(VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory){
-    this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;
   }
 
   /**
