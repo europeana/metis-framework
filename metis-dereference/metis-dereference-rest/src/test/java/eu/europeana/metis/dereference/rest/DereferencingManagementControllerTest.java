@@ -51,12 +51,12 @@ class DereferencingManagementControllerTest {
     Vocabulary dummyVocab1 = new Vocabulary();
     dummyVocab1.setId(new ObjectId());
     dummyVocab1.setName("Dummy1");
-    dummyVocab1.setUris(Collections.singleton("http://dummy1.org/path1"));
+    dummyVocab1.setUris(Collections.singleton("https://dummy1.org/path1"));
 
     Vocabulary dummyVocab2 = new Vocabulary();
     dummyVocab2.setId(new ObjectId());
     dummyVocab2.setName("Dummy2");
-    dummyVocab2.setUris(Collections.singleton("http://dummy2.org/path2"));
+    dummyVocab2.setUris(Collections.singleton("https://dummy2.org/path2"));
 
     ArrayList<Vocabulary> dummyVocabList = new ArrayList<>();
     dummyVocabList.add(dummyVocab1);
@@ -65,8 +65,8 @@ class DereferencingManagementControllerTest {
     when(dereferencingManagementServiceMock.getAllVocabularies()).thenReturn(dummyVocabList);
 
     dereferencingManagementControllerMock.perform(get("/vocabularies"))
-                                         .andExpect(jsonPath("$[0].uris[0]", is("http://dummy1.org/path1")))
-                                         .andExpect(jsonPath("$[1].uris[0]", is("http://dummy2.org/path2")))
+                                         .andExpect(jsonPath("$[0].uris[0]", is("https://dummy1.org/path1")))
+                                         .andExpect(jsonPath("$[1].uris[0]", is("https://dummy2.org/path2")))
                                          .andExpect(status().is(200));
   }
 
@@ -80,7 +80,7 @@ class DereferencingManagementControllerTest {
   @Test
   void testLoadVocabularies_invalidDomain_expectFail() throws Exception {
     dereferencingManagementControllerMock.perform(post("/load_vocabularies")
-        .param("directory_url", "http://invalid.domain.com")).andExpect(status().is(400));
+        .param("directory_url", "https://invalid.domain.com")).andExpect(status().is(400));
   }
 
   @Test
