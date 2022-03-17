@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -91,9 +92,9 @@ public class DereferencingManagementController {
         return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
       }
 
-      service.loadVocabularies(uri);
+      service.loadVocabularies(uri.toURL());
       return ResponseEntity.ok().build();
-    } catch (URISyntaxException e) {
+    } catch (URISyntaxException | MalformedURLException e) {
       LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.badRequest().body(e.getMessage());
     } catch (VocabularyImportException e) {

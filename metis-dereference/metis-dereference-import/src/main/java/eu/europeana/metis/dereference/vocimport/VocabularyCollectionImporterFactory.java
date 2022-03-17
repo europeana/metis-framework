@@ -3,7 +3,10 @@ package eu.europeana.metis.dereference.vocimport;
 import eu.europeana.metis.dereference.vocimport.model.Location;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -19,8 +22,8 @@ public class VocabularyCollectionImporterFactory {
    * @param directoryLocation The location of the directory to import.
    * @return A vocabulary importer.
    */
-  public VocabularyCollectionImporter createImporter(URI directoryLocation) {
-    return new VocabularyCollectionImporterImpl(new UriLocation(directoryLocation));
+  public VocabularyCollectionImporter createImporter(URL directoryLocation) {
+    return new VocabularyCollectionImporterImpl(new UrlLocation(directoryLocation));
   }
 
   /**
@@ -45,30 +48,29 @@ public class VocabularyCollectionImporterFactory {
     return new VocabularyCollectionImporterImpl(new PathLocation(baseDirectory, directoryLocation));
   }
 
-  private static final class UriLocation implements Location {
+  private static final class UrlLocation implements Location {
 
-    private final URI uri;
+    private final URL url;
 
-    UriLocation(URI uri) {
-      this.uri = uri;
+    UrlLocation(URL url) {
+      this.url = url;
     }
 
     @Override
     public InputStream read() throws IOException {
       return
-          uri
-              .toURL()
+          url
               .openStream();
     }
 
     @Override
-    public Location resolve(String relativeLocation) {
-      return new UriLocation(uri.resolve(relativeLocation));
+    public Location resolve(String relativeLocation) throws URISyntaxException, MalformedURLException {
+      return new UrlLocation(url.toURI().resolve(relativeLocation).toURL());
     }
 
     @Override
     public String toString() {
-      return uri.toString();
+      return url.toString();
     }
   }
 

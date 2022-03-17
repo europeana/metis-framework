@@ -2,6 +2,8 @@ package eu.europeana.metis.dereference.vocimport.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public interface Location {
 
@@ -14,14 +16,13 @@ public interface Location {
   InputStream read() throws IOException;
 
   /**
-   * Resolve a relative location against the given location. The given location can be assumed to be
-   * a file (as opposed to a path/directory) so that essentially the relative location is resolved
-   * against the parent of the given location.
+   * Resolve a relative location against the given location. The given location can be assumed to be a file (as opposed to a
+   * path/directory) so that essentially the relative location is resolved against the parent of the given location.
    *
    * @param relativeLocation The relative location to resolve.
    * @return The resolved location.
    */
-  Location resolve(String relativeLocation);
+  Location resolve(String relativeLocation) throws URISyntaxException, MalformedURLException;
 
   /**
    * @return A human-readable representation of the location.
