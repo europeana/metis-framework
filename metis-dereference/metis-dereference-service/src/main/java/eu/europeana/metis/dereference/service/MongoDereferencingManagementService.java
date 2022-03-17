@@ -8,8 +8,7 @@ import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFact
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidator;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidatorImpl;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
-
-import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +48,16 @@ public class MongoDereferencingManagementService implements DereferencingManagem
   }
 
   @Override
-  public void loadVocabularies(URI directoryUrl) throws VocabularyImportException {
+  public void loadVocabularies(URL directoryUrl) throws VocabularyImportException {
 
     try {
-    // Import and validate the vocabularies
-    final List<Vocabulary> vocabularies = new ArrayList<>();
-    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
-            .createImporter(directoryUrl);
-    final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
-            true, true, true);
-    validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
+      // Import and validate the vocabularies
+      final List<Vocabulary> vocabularies = new ArrayList<>();
+      final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
+          .createImporter(directoryUrl);
+      final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
+          true, true, true);
+      validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
 
     // All vocabularies are loaded well. Now we replace the vocabularies.
     vocabularyDao.replaceAll(vocabularies);

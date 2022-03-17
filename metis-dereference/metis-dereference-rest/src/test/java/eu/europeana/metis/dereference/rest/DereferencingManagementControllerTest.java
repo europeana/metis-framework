@@ -16,10 +16,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
-import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class DereferencingManagementControllerTest {
     dereferencingManagementServiceMock = mock(DereferencingManagementService.class);
 
     DereferencingManagementController dereferencingManagementController = new DereferencingManagementController(
-        dereferencingManagementServiceMock, List.of("http://correctUrl"));
+        dereferencingManagementServiceMock, Set.of("valid.domain.com"));
 
     dereferencingManagementControllerMock = MockMvcBuilders
         .standaloneSetup(dereferencingManagementController)
@@ -51,12 +51,12 @@ class DereferencingManagementControllerTest {
     Vocabulary dummyVocab1 = new Vocabulary();
     dummyVocab1.setId(new ObjectId());
     dummyVocab1.setName("Dummy1");
-    dummyVocab1.setUris(Collections.singleton("http://dummy1.org/path1"));
+    dummyVocab1.setUris(Collections.singleton("https://dummy1.org/path1"));
 
     Vocabulary dummyVocab2 = new Vocabulary();
     dummyVocab2.setId(new ObjectId());
     dummyVocab2.setName("Dummy2");
-    dummyVocab2.setUris(Collections.singleton("http://dummy2.org/path2"));
+    dummyVocab2.setUris(Collections.singleton("https://dummy2.org/path2"));
 
     ArrayList<Vocabulary> dummyVocabList = new ArrayList<>();
     dummyVocabList.add(dummyVocab1);
@@ -65,22 +65,22 @@ class DereferencingManagementControllerTest {
     when(dereferencingManagementServiceMock.getAllVocabularies()).thenReturn(dummyVocabList);
 
     dereferencingManagementControllerMock.perform(get("/vocabularies"))
-                                         .andExpect(jsonPath("$[0].uris[0]", is("http://dummy1.org/path1")))
-                                         .andExpect(jsonPath("$[1].uris[0]", is("http://dummy2.org/path2")))
+                                         .andExpect(jsonPath("$[0].uris[0]", is("https://dummy1.org/path1")))
+                                         .andExpect(jsonPath("$[1].uris[0]", is("https://dummy2.org/path2")))
                                          .andExpect(status().is(200));
   }
 
   @Test
-  void testLoadVocabularies_validPrefix_expectSuccess() throws Exception {
-    doNothing().when(dereferencingManagementServiceMock).loadVocabularies(any(URI.class));
+  void testLoadVocabularies_validDomain_expectSuccess() throws Exception {
+    doNothing().when(dereferencingManagementServiceMock).loadVocabularies(any(URL.class));
     dereferencingManagementControllerMock.perform(post("/load_vocabularies")
-        .param("directory_url", "http://correctUrl/test/call")).andExpect(status().is(200));
+        .param("directory_url", "https://valid.domain.com/test/call")).andExpect(status().is(200));
   }
 
   @Test
-  void testLoadVocabularies_invalidPrefix_expectFail() throws Exception {
+  void testLoadVocabularies_invalidDomain_expectFail() throws Exception {
     dereferencingManagementControllerMock.perform(post("/load_vocabularies")
-        .param("directory_url", "http://wrongUrl")).andExpect(status().is(400));
+        .param("directory_url", "https://invalid.domain.com")).andExpect(status().is(400));
   }
 
   @Test

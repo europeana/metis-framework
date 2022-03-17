@@ -7,7 +7,7 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,8 +68,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String vocabularyDb;
 
   //Valid directories list
-  @Value("${valid.url.prefixes}")
-  private String[] validUrlPrefixes;
+  @Value("${allowed.url.domains}")
+  private String[] allowedUrlDomains;
 
   private MongoClient mongoClientEntity;
   private MongoClient mongoClientVocabulary;
@@ -122,8 +122,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  List<String> getValidUrlPrefixes() {
-    return List.of(validUrlPrefixes);
+  Set<String> getAllowedUrlDomains() {
+    return Set.of(allowedUrlDomains);
   }
 
   @Bean

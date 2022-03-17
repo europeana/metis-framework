@@ -14,4 +14,5 @@ mongo.application.name=
 entity.db=
 vocabulary.db=
 
-valid.url.prefixes=
+#The allowed domains for vocabularies loading without the scheme(always validated against https). e.g. raw.githubusercontent.com
+allowed.url.domains=

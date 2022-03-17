@@ -2,7 +2,7 @@ package eu.europeana.metis.dereference.service;
 
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
-import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -26,8 +26,7 @@ public interface DereferencingManagementService {
    * Load the vocabularies from an online source. This does NOT purge the cache.
    *
    * @param directoryUrl The online location of the vocabulary directory.
-   * @throws VocabularyImportException In case some issue occurred while importing the
-   * vocabularies.
+   * @throws VocabularyImportException In case some issue occurred while importing the vocabularies.
    */
-  void loadVocabularies(URI directoryUrl) throws VocabularyImportException;
+  void loadVocabularies(URL directoryUrl) throws VocabularyImportException;
 }

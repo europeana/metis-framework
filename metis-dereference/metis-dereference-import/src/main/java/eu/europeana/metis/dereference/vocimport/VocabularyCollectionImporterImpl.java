@@ -9,6 +9,7 @@ import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyDirectoryEntry;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyMetadata;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -21,15 +22,14 @@ import org.apache.commons.io.IOUtils;
  */
 final class VocabularyCollectionImporterImpl implements VocabularyCollectionImporter {
 
-  private Location directoryLocation;
+  private final Location directoryLocation;
 
   VocabularyCollectionImporterImpl(Location directoryLocation) {
     this.directoryLocation = directoryLocation;
   }
 
   @Override
-  public Iterable<VocabularyLoader> importVocabularies()
-      throws VocabularyImportException {
+  public Iterable<VocabularyLoader> importVocabularies() throws VocabularyImportException {
 
     // Obtain the directory entries.
     final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -45,8 +45,16 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
     // Compile the vocabulary loaders
     final List<VocabularyLoader> result = new ArrayList<>(directoryEntries.length);
     for (VocabularyDirectoryEntry entry : directoryEntries) {
-      final Location metadataLocation = directoryLocation.resolve(entry.getMetadata());
-      final Location mappingLocation = directoryLocation.resolve(entry.getMapping());
+      final Location metadataLocation;
+      final Location mappingLocation;
+      try {
+        metadataLocation = directoryLocation.resolve(entry.getMetadata());
+        mappingLocation = directoryLocation.resolve(entry.getMapping());
+      } catch (BadContentException e) {
+        throw new VocabularyImportException(
+            String.format("Could not read vocabulary directory at [%s] and entry metadata [%s], entry mapping [%s].",
+                directoryLocation, entry.getMetadata(), entry.getMapping()), e);
+      }
       result.add(() -> loadVocabulary(metadataLocation, mappingLocation, mapper));
     }
 
@@ -55,7 +63,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
   }
 
   private Vocabulary loadVocabulary(Location metadataLocation, Location mappingLocation,
-          ObjectMapper mapper) throws VocabularyImportException {
+      ObjectMapper mapper) throws VocabularyImportException {
 
     // Read the metadata file.
     final VocabularyMetadata metadata;
@@ -63,7 +71,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
       metadata = mapper.readValue(input, VocabularyMetadata.class);
     } catch (IOException e) {
       throw new VocabularyImportException(
-              "Could not read vocabulary metadata at [" + metadataLocation + "].", e);
+          "Could not read vocabulary metadata at [" + metadataLocation + "].", e);
     }
 
     // Read the mapping file.
@@ -72,22 +80,22 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
       mapping = IOUtils.toString(input, StandardCharsets.UTF_8);
     } catch (IOException e) {
       throw new VocabularyImportException(
-              "Could not read vocabulary mapping at [" + mappingLocation + "].", e);
+          "Could not read vocabulary mapping at [" + mappingLocation + "].", e);
     }
 
     // Compile the vocabulary.
     return Vocabulary.builder()
-            .setName(metadata.getName())
-            .setTypes(metadata.getTypes())
-            .setPaths(metadata.getPaths())
-            .setParentIterations(metadata.getParentIterations())
-            .setSuffix(metadata.getSuffix())
-            .setExamples(metadata.getExamples())
-            .setCounterExamples(metadata.getCounterExamples())
-            .setTransformation(mapping)
-            .setReadableMetadataLocation(metadataLocation.toString())
-            .setReadableMappingLocation(mappingLocation.toString())
-            .build();
+                     .setName(metadata.getName())
+                     .setTypes(metadata.getTypes())
+                     .setPaths(metadata.getPaths())
+                     .setParentIterations(metadata.getParentIterations())
+                     .setSuffix(metadata.getSuffix())
+                     .setExamples(metadata.getExamples())
+                     .setCounterExamples(metadata.getCounterExamples())
+                     .setTransformation(mapping)
+                     .setReadableMetadataLocation(metadataLocation.toString())
+                     .setReadableMappingLocation(mappingLocation.toString())
+                     .build();
   }
 
   public Location getDirectoryLocation() {
