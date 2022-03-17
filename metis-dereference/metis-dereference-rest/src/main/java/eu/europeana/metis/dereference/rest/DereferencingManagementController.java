@@ -57,9 +57,8 @@ public class DereferencingManagementController {
   }
 
   /**
-   * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis
-   * instance/cluster is used for multiple services then the cache for other services is cleared as
-   * well.
+   * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster is used for multiple
+   * services then the cache for other services is cleared as well.
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY)
   @ResponseBody
@@ -84,10 +83,15 @@ public class DereferencingManagementController {
   public ResponseEntity loadVocabularies(
       @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
     try {
-      if (isUrlPrefixNotValid(directoryUrl)) {
+      URI uri = new URI(directoryUrl);
+      String scheme = uri.getScheme();
+      String remoteHost = uri.getHost();
+
+      if (!scheme.equals("https") || !validUrlPrefixes.contains(remoteHost)) {
         return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
       }
-      service.loadVocabularies(new URI(directoryUrl));
+
+      service.loadVocabularies(uri);
       return ResponseEntity.ok().build();
     } catch (URISyntaxException e) {
       LOGGER.warn("Could not load vocabularies", e);
