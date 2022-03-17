@@ -28,8 +28,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
   }
 
   @Override
-  public Iterable<VocabularyLoader> importVocabularies()
-      throws VocabularyImportException {
+  public Iterable<VocabularyLoader> importVocabularies() throws VocabularyImportException {
 
     // Obtain the directory entries.
     final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());

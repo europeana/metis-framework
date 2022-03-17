@@ -8,7 +8,6 @@ import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFact
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidator;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidatorImpl;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
-
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +51,13 @@ public class MongoDereferencingManagementService implements DereferencingManagem
   public void loadVocabularies(URI directoryUrl) throws VocabularyImportException {
 
     try {
-    // Import and validate the vocabularies
-    final List<Vocabulary> vocabularies = new ArrayList<>();
-    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
-            .createImporter(directoryUrl);
-    final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
-            true, true, true);
-    validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
+      // Import and validate the vocabularies
+      final List<Vocabulary> vocabularies = new ArrayList<>();
+      final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
+          .createImporter(directoryUrl);
+      final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
+          true, true, true);
+      validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
 
     // All vocabularies are loaded well. Now we replace the vocabularies.
     vocabularyDao.replaceAll(vocabularies);

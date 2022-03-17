@@ -52,13 +52,11 @@ public class VocabularyCollectionImporterFactory {
 
     UriLocation(URI uri) {
       this.uri = uri;
-
     }
 
     @Override
     public InputStream read() throws IOException {
       return uri.toURL().openStream();
-
     }
 
     @Override

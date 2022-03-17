@@ -77,11 +77,12 @@ public class DereferencingManagementController {
   @ResponseBody
   @ApiOperation(value = "Load and replace the vocabularies listed by the given vocabulary directory. Does NOT purge the cache.")
   @ApiResponses(value = {
-          @ApiResponse(code = 200, message = "Vocabularies loaded successfully."),
-          @ApiResponse(code = 400, message = "Bad request parameters."),
-          @ApiResponse(code = 502, message = "Problem accessing vocabulary repository.")
-  })  public ResponseEntity loadVocabularies(
-          @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
+      @ApiResponse(code = 200, message = "Vocabularies loaded successfully."),
+      @ApiResponse(code = 400, message = "Bad request parameters."),
+      @ApiResponse(code = 502, message = "Problem accessing vocabulary repository.")
+  })
+  public ResponseEntity loadVocabularies(
+      @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
     try {
       if (isUrlPrefixNotValid(directoryUrl)) {
         return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
