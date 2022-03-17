@@ -1,9 +1,8 @@
 package eu.europeana.metis.dereference.vocimport.model;
 
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 
 public interface Location {
 
@@ -22,7 +21,7 @@ public interface Location {
    * @param relativeLocation The relative location to resolve.
    * @return The resolved location.
    */
-  Location resolve(String relativeLocation) throws URISyntaxException, MalformedURLException;
+  Location resolve(String relativeLocation) throws BadContentException;
 
   /**
    * @return A human-readable representation of the location.

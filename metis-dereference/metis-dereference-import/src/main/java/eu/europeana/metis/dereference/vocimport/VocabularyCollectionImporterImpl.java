@@ -9,10 +9,9 @@ import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyDirectoryEntry;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyMetadata;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import org.apache.commons.io.IOUtils;
  */
 final class VocabularyCollectionImporterImpl implements VocabularyCollectionImporter {
 
-  private Location directoryLocation;
+  private final Location directoryLocation;
 
   VocabularyCollectionImporterImpl(Location directoryLocation) {
     this.directoryLocation = directoryLocation;
@@ -51,7 +50,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
       try {
         metadataLocation = directoryLocation.resolve(entry.getMetadata());
         mappingLocation = directoryLocation.resolve(entry.getMapping());
-      } catch (URISyntaxException | MalformedURLException e) {
+      } catch (BadContentException e) {
         throw new VocabularyImportException(
             String.format("Could not read vocabulary directory at [%s] and entry metadata [%s], entry mapping [%s].",
                 directoryLocation, entry.getMetadata(), entry.getMapping()), e);

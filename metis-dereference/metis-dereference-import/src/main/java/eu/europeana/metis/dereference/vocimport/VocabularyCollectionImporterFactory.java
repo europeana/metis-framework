@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.model.Location;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -58,14 +59,17 @@ public class VocabularyCollectionImporterFactory {
 
     @Override
     public InputStream read() throws IOException {
-      return
-          url
-              .openStream();
+      return url.openStream();
     }
 
     @Override
-    public Location resolve(String relativeLocation) throws URISyntaxException, MalformedURLException {
-      return new UrlLocation(url.toURI().resolve(relativeLocation).toURL());
+    public Location resolve(String relativeLocation) throws BadContentException {
+      try {
+        return new UrlLocation(url.toURI().resolve(relativeLocation).toURL());
+      } catch (URISyntaxException | MalformedURLException e) {
+        throw new BadContentException(
+            String.format("Provided url '%s' and relative location %s, failed to parse.", url, relativeLocation), e);
+      }
     }
 
     @Override

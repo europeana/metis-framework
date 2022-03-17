@@ -3,6 +3,7 @@ package eu.europeana.metis.dereference.rest;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,9 +13,10 @@ import io.swagger.annotations.ApiResponses;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.collections.CollectionUtils;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +73,8 @@ public class DereferencingManagementController {
   /**
    * Load the vocabularies from an online source. This does NOT purge the cache.
    *
-   * @param directoryUrl The online location of the vocabulary directory.
+   * @param directoryUrl The online location of the vocabulary directory
+   * @return sting containing an error message otherwise empty
    */
   @PostMapping(value = RestEndpoints.LOAD_VOCABULARIES)
   @ResponseBody
@@ -81,20 +84,16 @@ public class DereferencingManagementController {
       @ApiResponse(code = 400, message = "Bad request parameters."),
       @ApiResponse(code = 502, message = "Problem accessing vocabulary repository.")
   })
-  public ResponseEntity loadVocabularies(
+  public ResponseEntity<String> loadVocabularies(
       @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
     try {
-      URI uri = new URI(directoryUrl);
-      String scheme = uri.getScheme();
-      String remoteHost = uri.getHost();
-
-      if (!scheme.equals("https") || !validUrlPrefixes.contains(remoteHost)) {
-        return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
+      final Optional<URL> validatedLocationUrl = getValidatedLocationUrl(directoryUrl);
+      if (validatedLocationUrl.isPresent()) {
+        service.loadVocabularies(validatedLocationUrl.get());
+        return ResponseEntity.ok().build();
       }
-
-      service.loadVocabularies(uri.toURL());
-      return ResponseEntity.ok().build();
-    } catch (URISyntaxException | MalformedURLException e) {
+      return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
+    } catch (BadContentException e) {
       LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.badRequest().body(e.getMessage());
     } catch (VocabularyImportException e) {
@@ -103,14 +102,19 @@ public class DereferencingManagementController {
     }
   }
 
-  private boolean isUrlPrefixNotValid(String directoryToEvaluate) {
-    boolean result;
+  private Optional<URL> getValidatedLocationUrl(String directoryUrl) throws BadContentException {
+    try {
+      URI uri = new URI(directoryUrl);
+      String scheme = uri.getScheme();
+      String remoteHost = uri.getHost();
 
-    if (CollectionUtils.isEmpty(validUrlPrefixes)) {
-      result = true;
-    } else {
-      result = validUrlPrefixes.stream().noneMatch(directoryToEvaluate::startsWith);
+      if ("https".equals(scheme) && validUrlPrefixes.contains(remoteHost)) {
+        return Optional.of(uri.toURL());
+      }
+    } catch (URISyntaxException | MalformedURLException e) {
+      throw new BadContentException(String.format("Provided directoryUrl '%s', failed to parse.", directoryUrl), e);
     }
-    return result;
+
+    return Optional.empty();
   }
 }
