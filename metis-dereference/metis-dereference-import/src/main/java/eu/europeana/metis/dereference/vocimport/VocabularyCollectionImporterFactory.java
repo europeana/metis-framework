@@ -34,9 +34,8 @@ public class VocabularyCollectionImporterFactory {
   }
 
   /**
-   * Create a vocabulary importer for local files, indicated by instances of {@link Path}. This
-   * method provides a way to set a base directory that will be assumed known (so that output and
-   * logs will only include the relative location).
+   * Create a vocabulary importer for local files, indicated by instances of {@link Path}. This method provides a way to set a
+   * base directory that will be assumed known (so that output and logs will only include the relative location).
    *
    * @param baseDirectory The base directory of the project or collection. Can be null.
    * @param directoryLocation The full location of the directory file to import.
@@ -56,7 +55,10 @@ public class VocabularyCollectionImporterFactory {
 
     @Override
     public InputStream read() throws IOException {
-      return uri.toURL().openStream();
+      return
+          uri
+              .toURL()
+              .openStream();
     }
 
     @Override
