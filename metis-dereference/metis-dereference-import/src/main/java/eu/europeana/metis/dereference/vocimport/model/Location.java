@@ -20,6 +20,7 @@ public interface Location {
    *
    * @param relativeLocation The relative location to resolve.
    * @return The resolved location.
+   * @throws BadContentException if the resolve did not succeed
    */
   Location resolve(String relativeLocation) throws BadContentException;
 

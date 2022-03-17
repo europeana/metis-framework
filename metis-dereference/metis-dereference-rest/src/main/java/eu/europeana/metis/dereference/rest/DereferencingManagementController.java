@@ -14,9 +14,10 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,16 @@ public class DereferencingManagementController {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);
 
   private final DereferencingManagementService service;
-  private final List<String> validUrlPrefixes;
+  private final Set<String> allowedUrlDomains;
 
+  /**
+   * @param service the dereferencing management service
+   * @param allowedUrlDomains the allowed valid url prefixes
+   */
   @Autowired
-  public DereferencingManagementController(DereferencingManagementService service, List<String> validUrlPrefixes) {
+  public DereferencingManagementController(DereferencingManagementService service, Set<String> allowedUrlDomains) {
     this.service = service;
-    this.validUrlPrefixes = new ArrayList<>(validUrlPrefixes);
+    this.allowedUrlDomains = new HashSet<>(allowedUrlDomains);
   }
 
   /**
@@ -102,13 +107,27 @@ public class DereferencingManagementController {
     }
   }
 
+  /**
+   * Validates a String representation of a URL.
+   * <p>The method will check that the url is:
+   * <ul>
+   *   <li>valid according to the protocol</li>
+   *   <li>of https scheme</li>
+   *   <li>part of the allowed domains</li>
+   * </ul>
+   * domain for the application to further access it.</p>
+   *
+   * @param directoryUrl the url to validate
+   * @return the validated URL class
+   * @throws BadContentException if the url failed during parsing
+   */
   private Optional<URL> getValidatedLocationUrl(String directoryUrl) throws BadContentException {
     try {
       URI uri = new URI(directoryUrl);
       String scheme = uri.getScheme();
       String remoteHost = uri.getHost();
 
-      if ("https".equals(scheme) && validUrlPrefixes.contains(remoteHost)) {
+      if ("https".equals(scheme) && allowedUrlDomains.contains(remoteHost)) {
         return Optional.of(uri.toURL());
       }
     } catch (URISyntaxException | MalformedURLException e) {
