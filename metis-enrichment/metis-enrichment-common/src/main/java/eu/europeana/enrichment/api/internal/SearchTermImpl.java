@@ -40,4 +40,10 @@ public class SearchTermImpl extends AbstractSearchTerm {
   public int hashCode() {
     return Objects.hash(getTextValue(), getLanguage(), getCandidateTypes());
   }
+
+  @Override
+  public String toString() {
+    return "SearchTermImpl{" +
+            "text=" + getTextValue() + '}';
+  }
 }

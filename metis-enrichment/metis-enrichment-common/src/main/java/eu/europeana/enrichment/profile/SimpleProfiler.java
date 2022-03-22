@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StopWatch;
 
+import java.util.Arrays;
+
 // Class for defining PointCuts and Logging with profiling
 @Configuration
 @Aspect
@@ -36,6 +38,8 @@ public class SimpleProfiler {
         //Get intercepted method details
         String className = methodSignature.getDeclaringType().getSimpleName();
         String methodName = methodSignature.getName();
+        String arguments = Arrays.toString(proceedingJoinPoint.getArgs());
+
         StopWatch stopWatch = new StopWatch();
         stopWatch.start(proceedingJoinPoint.toShortString());
         boolean isExceptionThrown = false;
@@ -47,7 +51,8 @@ public class SimpleProfiler {
             throw e;
         } finally {
             stopWatch.stop();
-            LOGGER.info("Execution time of {}.{} :: {} ms. {} ",className, methodName, stopWatch.getTotalTimeMillis(), (isExceptionThrown ? " (thrown Exception)" : ""));
+            System.out.println("Execution time of "+className+"." +methodName + " for arguments " +arguments + " :: " + stopWatch.getTotalTimeMillis() + " ms. " + (isExceptionThrown ? " (thrown Exception)" : ""));
+            //LOGGER.info("Execution time of {}.{} :: {} ms. {} ",className, methodName, stopWatch.getTotalTimeMillis(), (isExceptionThrown ? " (thrown Exception)" : ""));
         }
     }
 }

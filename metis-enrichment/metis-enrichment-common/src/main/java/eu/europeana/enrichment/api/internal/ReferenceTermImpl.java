@@ -42,4 +42,11 @@ public class ReferenceTermImpl extends AbstractReferenceTerm {
     // Note: avoid using reference URL for computing the hash as it may do a domain name check.
     return Objects.hash(getCandidateTypes(), getReferenceAsString());
   }
+
+  @Override
+  public String toString() {
+    return "ReferenceTermImpl{" +
+            "reference=" + getReferenceAsString() +
+            '}';
+  }
 }
