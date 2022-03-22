@@ -113,41 +113,9 @@ public class WorkflowPostProcessor {
     } else if (indexPlugin instanceof IndexToPublishPlugin) {
       targetIndexingDatabase = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase();
 
-      final boolean isIncremental = ((IndexToPreviewPlugin) indexPlugin).getPluginMetadata().isIncrementalIndexing();
+      final boolean isIncremental = ((IndexToPublishPlugin) indexPlugin).getPluginMetadata().isIncrementalIndexing();
 
-      // if it's incremental with do batch processing
       if (isIncremental) {
-
-        final long totalRecords = dpsClient.getTotalMetisDatabaseRecords(indexPlugin.getExternalTaskId(),
-            ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase());
-        List<SubTaskInfo> subTaskInfoList;
-
-        // get chunked tasks from dataset id and topology name
-        for (int i = 0; i < totalRecords; i += ECLOUD_REQUEST_BATCH_SIZE) {
-          subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
-              Long.parseLong(indexPlugin.getExternalTaskId()), i, i + ECLOUD_REQUEST_BATCH_SIZE);
-          if (i >= totalRecords) {
-            subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
-                Long.parseLong(indexPlugin.getExternalTaskId()),
-                (int) (totalRecords - (totalRecords % ECLOUD_REQUEST_BATCH_SIZE)),
-                (int) totalRecords);
-          }
-          // get all currently de-published records ids
-          Set<String> depublishedRecordIds = depublishRecordIdDao
-              .getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE,
-                  SortDirection.ASCENDING,
-                  DepublicationStatus.DEPUBLISHED);
-          // filter the record ids that are a part of the given report, to be de-published
-          Set<String> recordIdsToDepublish = subTaskInfoList.stream()
-                                                            .filter(taskInfo -> depublishedRecordIds.contains(
-                                                                taskInfo.getEuropeanaId()))
-                                                            .map(SubTaskInfo::getEuropeanaId).collect(Collectors.toSet());
-          // reset de-publish status
-          depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToDepublish,
-              DepublicationStatus.PENDING_DEPUBLICATION, null);
-        }
-        // not incremental
-      } else {
         // get all currently de-published records ids
         Set<String> depublishedRecordIds = depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -156,10 +124,13 @@ public class WorkflowPostProcessor {
 
         List<String> publishedDatasetRecordIds = dpsClient.searchPublishedDatasetRecords(indexPlugin.getExternalTaskId(),
             new ArrayList<>(depublishedRecordIds));
-        // reset de-publish status
+        // reset de-publish status, pass recordIds to be de-published
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, new HashSet<>(publishedDatasetRecordIds),
             DepublicationStatus.PENDING_DEPUBLICATION, null);
-
+      } else {
+        // reset de-publish status, pass null, all records will be de-published
+        depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
+            DepublicationStatus.PENDING_DEPUBLICATION, null);
       }
     } else {
       throw new InvalidIndexPluginException("Plugin is not of the types supported");
