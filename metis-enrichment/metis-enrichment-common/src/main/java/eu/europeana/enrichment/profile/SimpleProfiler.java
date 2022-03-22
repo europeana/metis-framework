@@ -51,8 +51,7 @@ public class SimpleProfiler {
             throw e;
         } finally {
             stopWatch.stop();
-            System.out.println("Execution time of "+className+"." +methodName + " for arguments " +arguments + " :: " + stopWatch.getTotalTimeMillis() + " ms. " + (isExceptionThrown ? " (thrown Exception)" : ""));
-            //LOGGER.info("Execution time of {}.{} :: {} ms. {} ",className, methodName, stopWatch.getTotalTimeMillis(), (isExceptionThrown ? " (thrown Exception)" : ""));
+            LOGGER.info("Execution time of {}.{} for arguments :: {} ms. {} ",className, methodName, arguments, stopWatch.getTotalTimeMillis(), (isExceptionThrown ? " (thrown Exception)" : ""));
         }
     }
 }
