@@ -31,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -59,9 +60,9 @@ public class WorkflowPostProcessor {
    * Constructor.
    *
    * @param depublishRecordIdDao The DAO for de-published records
-   * @param datasetDao The DAO for datasets
+   * @param datasetDao           The DAO for datasets
    * @param workflowExecutionDao The DAO for workflow executions
-   * @param dpsClient the dps client
+   * @param dpsClient            the dps client
    */
   public WorkflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
       DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
@@ -74,12 +75,12 @@ public class WorkflowPostProcessor {
   /**
    * This method performs post-processing after an individual workflow step.
    *
-   * @param plugin The plugin that was successfully executed
+   * @param plugin    The plugin that was successfully executed
    * @param datasetId The dataset ID to which the plugin belongs
-   * @throws DpsException If communication with e-cloud dps failed
+   * @throws DpsException                If communication with e-cloud dps failed
    * @throws InvalidIndexPluginException If invalid type of plugin
-   * @throws BadContentException In case the records would violate the maximum number of de-published records that each dataset
-   * can have.
+   * @throws BadContentException         In case the records would violate the maximum number of de-published records that each
+   *                                     dataset can have.
    */
   void performPluginPostProcessing(AbstractExecutablePlugin<?> plugin, String datasetId)
       throws DpsException, InvalidIndexPluginException, BadContentException {
@@ -98,11 +99,11 @@ public class WorkflowPostProcessor {
    * Performs post-processing for indexing plugins
    *
    * @param indexPlugin The index plugin
-   * @param datasetId The dataset id
-   * @throws DpsException If communication with e-cloud dps failed
+   * @param datasetId   The dataset id
+   * @throws DpsException                If communication with e-cloud dps failed
    * @throws InvalidIndexPluginException If invalid type of plugin
-   * @throws BadContentException In case the records would violate the maximum number of de-published records that each dataset
-   * can have.
+   * @throws BadContentException         In case the records would violate the maximum number of de-published records that each
+   *                                     dataset can have.
    */
   private void indexPostProcess(AbstractExecutablePlugin<?> indexPlugin, String datasetId)
       throws DpsException, InvalidIndexPluginException, BadContentException {
@@ -111,38 +112,54 @@ public class WorkflowPostProcessor {
       targetIndexingDatabase = ((IndexToPreviewPlugin) indexPlugin).getTargetIndexingDatabase();
     } else if (indexPlugin instanceof IndexToPublishPlugin) {
       targetIndexingDatabase = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase();
-      //Reset depublish status
-      depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-          DepublicationStatus.PENDING_DEPUBLICATION, null);
 
-      final long totalRecords = dpsClient.getTotalMetisDatabaseRecords(indexPlugin.getExternalTaskId(),
-          ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase());
-      List<SubTaskInfo> subTaskInfoList;
+      final boolean isIncremental = ((IndexToPreviewPlugin) indexPlugin).getPluginMetadata().isIncrementalIndexing();
 
-      // get chunked tasks from dataset id and topology name
-      for (int i = 0; i < totalRecords; i += ECLOUD_REQUEST_BATCH_SIZE) {
-        subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
-            Long.parseLong(indexPlugin.getExternalTaskId()), i, i + ECLOUD_REQUEST_BATCH_SIZE);
-        if (i >= totalRecords) {
+      // if it's incremental with do batch processing
+      if (isIncremental) {
+
+        final long totalRecords = dpsClient.getTotalMetisDatabaseRecords(indexPlugin.getExternalTaskId(),
+            ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase());
+        List<SubTaskInfo> subTaskInfoList;
+
+        // get chunked tasks from dataset id and topology name
+        for (int i = 0; i < totalRecords; i += ECLOUD_REQUEST_BATCH_SIZE) {
           subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
-              Long.parseLong(indexPlugin.getExternalTaskId()), (int) (totalRecords - (totalRecords % ECLOUD_REQUEST_BATCH_SIZE)),
-              (int) totalRecords);
+              Long.parseLong(indexPlugin.getExternalTaskId()), i, i + ECLOUD_REQUEST_BATCH_SIZE);
+          if (i >= totalRecords) {
+            subTaskInfoList = dpsClient.getDetailedTaskReportBetweenChunks(indexPlugin.getTopologyName(),
+                Long.parseLong(indexPlugin.getExternalTaskId()),
+                (int) (totalRecords - (totalRecords % ECLOUD_REQUEST_BATCH_SIZE)),
+                (int) totalRecords);
+          }
+          // get all currently de-published records ids
+          Set<String> depublishedRecordIds = depublishRecordIdDao
+              .getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE,
+                  SortDirection.ASCENDING,
+                  DepublicationStatus.DEPUBLISHED);
+          // filter the record ids that are a part of the given report, to be de-published
+          Set<String> recordIdsToDepublish = subTaskInfoList.stream()
+                                                            .filter(taskInfo -> depublishedRecordIds.contains(
+                                                                taskInfo.getEuropeanaId()))
+                                                            .map(SubTaskInfo::getEuropeanaId).collect(Collectors.toSet());
+          // reset de-publish status
+          depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToDepublish,
+              DepublicationStatus.PENDING_DEPUBLICATION, null);
         }
+        // not incremental
+      } else {
         // get all currently de-published records ids
         Set<String> depublishedRecordIds = depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE,
                 SortDirection.ASCENDING,
                 DepublicationStatus.DEPUBLISHED);
 
-        // TODO: what if it's incremental
-        // filter the record ids that are a part of the given report, to be de-published
-        Set<String> recordIdsToDepublish = subTaskInfoList.stream()
-                                                          .filter(taskInfo -> depublishedRecordIds.contains(
-                                                              taskInfo.getEuropeanaId()))
-                                                          .map(SubTaskInfo::getEuropeanaId).collect(Collectors.toSet());
+        List<String> publishedDatasetRecordIds = dpsClient.searchPublishedDatasetRecords(indexPlugin.getExternalTaskId(),
+            new ArrayList<>(depublishedRecordIds));
         // reset de-publish status
-        depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToDepublish,
+        depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, new HashSet<>(publishedDatasetRecordIds),
             DepublicationStatus.PENDING_DEPUBLICATION, null);
+
       }
     } else {
       throw new InvalidIndexPluginException("Plugin is not of the types supported");
@@ -156,7 +173,7 @@ public class WorkflowPostProcessor {
    * Performs post-processing for de-publish plugins
    *
    * @param depublishPlugin The de-publish plugin
-   * @param datasetId The dataset id
+   * @param datasetId       The dataset id
    * @throws DpsException If communication with e-cloud dps failed
    */
   private void depublishPostProcess(DepublishPlugin depublishPlugin, String datasetId)
@@ -198,7 +215,7 @@ public class WorkflowPostProcessor {
 
   /**
    * @param depublishPlugin The de-publish plugin
-   * @param datasetId The dataset id
+   * @param datasetId       The dataset id
    * @throws DpsException If communication with e-cloud dps failed
    */
   private void depublishRecordPostProcess(DepublishPlugin depublishPlugin, String datasetId)
