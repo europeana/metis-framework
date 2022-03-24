@@ -11,7 +11,6 @@ import eu.europeana.entity.client.utils.EntityClientUtils;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
 
-import eu.europeana.entitymanagement.definitions.exceptions.UnsupportedEntityTypeException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.vocabulary.EntityTypes;
 import org.springframework.web.client.RestTemplate;
@@ -65,16 +64,18 @@ public class EntityClientResolver implements EntityResolver {
             for (I input: partition) {
                 EntityClientRequest clientRequest = identity.apply(input);
                 List<Entity> entities = executeEntityClient(clientRequest);
-                // convert entity to EnrichmentBase
-                List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
-                    EnrichmentBase enrichmentBase = createXmlEntity(entity);
-                    return enrichmentBase;
-                }).collect(Collectors.toList());
-                EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(), "Mismatch while converting the EM class to EnrichmentBase.");
-             result.put(input, enrichmentBaseList);
+                if(entities.size() > 0) {
+                    // convert entity to EnrichmentBase
+                    List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
+                        EnrichmentBase enrichmentBase = createXmlEntity(entity);
+                        return enrichmentBase;
+                    }).collect(Collectors.toList());
+                    EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(), "Mismatch while converting the EM class to EnrichmentBase.");
+                    System.out.println(enrichmentBaseList.size());
+                    result.put(input, enrichmentBaseList);
+                }
             }
         }
-        EntityResolverUtils.failSafeCheck(inputValues.size(), result.size(), "Server returned unexpected number of results.");
         return result;
     }
 
@@ -89,7 +90,7 @@ public class EntityClientResolver implements EntityResolver {
               } else {
                   return entityClientApi.getSuggestions(entityClientRequest.getValueToEnrich(), entityClientRequest.getLanguage(), null, entityClientRequest.getType(), null, null);
               }
-        } catch (UnsupportedEntityTypeException | JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             throw new UnknownException("Entity Client GET call to " + (entityClientRequest.isReference() ? "getEntityByUri" : "getSuggestions")
                    + " failed for" + entityClientRequest + ".", e);
         }

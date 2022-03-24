@@ -24,7 +24,7 @@ public class EntityClientResolverITTest {
     private EntityResolver entityResolver;
 
     @BeforeEach
-    void setup() {
+    void setup()  {
         connectionProvider = new ConnectionProvider();
         entityResolver = Mockito.spy(new EntityClientResolver(connectionProvider.createRestTemplate(), 2));
     }
@@ -40,7 +40,8 @@ public class EntityClientResolverITTest {
 
         Map<SearchTerm, List<EnrichmentBase>> results = entityResolver.resolveByText(setToTest);
         Assertions.assertNotNull(results);
-        Assertions.assertEquals(setToTest.size(), results.size());
+        // For invalidValue no entity will be found
+        Assertions.assertEquals(setToTest.size()-1, results.size());
     }
 
     @Test
@@ -61,8 +62,8 @@ public class EntityClientResolverITTest {
     @Test
     public void testResolveByUri() throws MalformedURLException {
         Set<ReferenceTerm> uriTotest = new HashSet<>();
-        uriTotest.add(new ReferenceTermImpl(new URL("http://dbpedia.org/resource/Johannes_Vermeer"), Set.of(EntityType.AGENT)));
-        uriTotest.add(new ReferenceTermImpl(new URL("http://dbpedia.org/resource/Johannes_Vermeer")));
+        uriTotest.add(new ReferenceTermImpl(new URL("http://viaf.org/viaf/78019125"), Set.of(EntityType.AGENT)));
+        uriTotest.add(new ReferenceTermImpl(new URL("http://www.idref.fr/092255841/id")));
         entityResolver.resolveByUri(uriTotest);
 
         Map<ReferenceTerm, List<EnrichmentBase>> results = entityResolver.resolveByUri(uriTotest);
