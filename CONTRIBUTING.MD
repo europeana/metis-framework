@@ -137,7 +137,8 @@ We prefer squash merging or alternatively non fast forward merging.
 
   To complete the squash merge, a commit has to also be performed if done locally.  
   The commit should be formatted as the following template(replicating github squashed commits):
-  ```<branch_type>/<ticket_number> <clear_description_of_the_issue_being_implemented> (#<pull_request_number>)  
+  ```
+  <branch_type>/<ticket_number> <clear_description_of_the_issue_being_implemented> (#<pull_request_number>)  
   (optionally as description)
   * List of all commit messages from the pull requst
   ```
@@ -150,7 +151,8 @@ We prefer squash merging or alternatively non fast forward merging.
 
   * MET-4250 Javadocs and cleanup
 
-  * MET-4250 Remove mockito inline from root pom```
+  * MET-4250 Remove mockito inline from root pom
+  ```
 
 
 - A non fast forward merge can be performed with the `--no-ff` parameter:
