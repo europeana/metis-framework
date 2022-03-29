@@ -23,7 +23,9 @@ public class IncomingRecordToEdmConverter {
   private static final String EMPTY_XML_REGEX
       =
       "\\A(<\\?.*?\\?>|<!--.*?-->|\\s)*\\Z";
-  private static final Pattern EMPTY_XML_CHECKER = Pattern.compile(EMPTY_XML_REGEX, Pattern.DOTALL);
+  private static final Pattern EMPTY_XML_CHECKER
+      =
+      Pattern.compile(EMPTY_XML_REGEX, Pattern.DOTALL);
 
   /**
    * Vocabulary XSLs require the resource ID as a parameter. This is the parameter name.
