@@ -49,25 +49,25 @@ public class EntityClientResolverITTest {
         Set<ReferenceTerm> idTotest = new HashSet<>();
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/agent/75")));
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/organization/1482250000004477289")));
-        idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/organization/1482250000004514646")));
+        idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/organization/1454482250000004514646554646")));
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/timespan/base/10")));
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/place/base/16436")));
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/concept/base/1106")));
 
         Map<ReferenceTerm, EnrichmentBase> results = entityResolver.resolveById(idTotest);
         Assertions.assertNotNull(results);
-        Assertions.assertEquals(idTotest.size(), results.size());
+        Assertions.assertEquals(idTotest.size()-1, results.size());
     }
 
     @Test
     public void testResolveByUri() throws MalformedURLException {
         Set<ReferenceTerm> uriTotest = new HashSet<>();
-        uriTotest.add(new ReferenceTermImpl(new URL("http://viaf.org/viaf/78019125"), Set.of(EntityType.AGENT)));
+        uriTotest.add(new ReferenceTermImpl(new URL("http://viaf.org/viaf/invalid"), Set.of(EntityType.AGENT)));
         uriTotest.add(new ReferenceTermImpl(new URL("http://www.idref.fr/092255841/id")));
-        entityResolver.resolveByUri(uriTotest);
 
         Map<ReferenceTerm, List<EnrichmentBase>> results = entityResolver.resolveByUri(uriTotest);
         Assertions.assertNotNull(results);
-        Assertions.assertEquals(uriTotest.size(), results.size());
+        // For invalidValue no entity will be found
+        Assertions.assertEquals(uriTotest.size()-1, results.size());
     }
 }

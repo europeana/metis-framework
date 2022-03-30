@@ -7,7 +7,7 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EntityResolverUtils;
-import eu.europeana.entity.client.utils.EntityClientUtils;
+import eu.europeana.entity.client.utils.EntityApiConstants;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
 
@@ -64,14 +64,13 @@ public class EntityClientResolver implements EntityResolver {
             for (I input: partition) {
                 EntityClientRequest clientRequest = identity.apply(input);
                 List<Entity> entities = executeEntityClient(clientRequest);
-                if(entities.size() > 0) {
+                if (!entities.isEmpty()) {
                     // convert entity to EnrichmentBase
                     List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
                         EnrichmentBase enrichmentBase = createXmlEntity(entity);
                         return enrichmentBase;
                     }).collect(Collectors.toList());
                     EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(), "Mismatch while converting the EM class to EnrichmentBase.");
-                    System.out.println(enrichmentBaseList.size());
                     result.put(input, enrichmentBaseList);
                 }
             }
@@ -82,8 +81,11 @@ public class EntityClientResolver implements EntityResolver {
     private List<Entity> executeEntityClient(EntityClientRequest entityClientRequest) {
         try {
               if (entityClientRequest.isReference()) {
-                  if (entityClientRequest.getValueToEnrich().startsWith(EntityClientUtils.BASE_URL)) {
-                     return Collections.singletonList(entityClientApi.getEntityById(entityClientRequest.getValueToEnrich()));
+                  if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
+                      Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
+                      if (entity != null) {
+                          return Collections.singletonList(entityClientApi.getEntityById(entityClientRequest.getValueToEnrich()));
+                      }
                   } else {
                       return  entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
                   }
@@ -97,6 +99,7 @@ public class EntityClientResolver implements EntityResolver {
         catch (RuntimeException e) {
             throw new UnknownException("Entity Client GET call failed for : "  + entityClientRequest + ".", e);
         }
+        return Collections.emptyList();
     }
 
     /**
