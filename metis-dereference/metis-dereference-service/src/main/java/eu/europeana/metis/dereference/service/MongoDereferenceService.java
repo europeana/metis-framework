@@ -17,6 +17,7 @@ import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -326,18 +327,14 @@ public class MongoDereferenceService implements DereferenceService {
   private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId)
       throws TransformerException {
     final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
-    final String result;
+    Optional<String> result;
     try {
       result = converter.convert(originalEntity, resourceId);
-      if (result == null && LOGGER.isInfoEnabled()) {
-        LOGGER.info("Could not transform entity {} as it results is an empty XML.",
-            CRLF_PATTERN.matcher(resourceId).replaceAll(""));
-      }
-    } catch (TransformerException e) {
+    } catch (TransformerException | BadContentException e) {
       LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());
       LOGGER.debug("Transformation issue: ", e);
-      return null;
+      result = Optional.empty();
     }
-    return result;
+    return result.orElse(null);
   }
 }

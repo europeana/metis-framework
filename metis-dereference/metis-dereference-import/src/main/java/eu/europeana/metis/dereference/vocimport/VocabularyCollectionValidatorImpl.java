@@ -7,15 +7,16 @@ import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportExcept
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabularyTrie;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
-import org.apache.commons.lang3.StringUtils;
 
 public class VocabularyCollectionValidatorImpl implements VocabularyCollectionValidator {
 
@@ -128,8 +129,9 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
 
     // Testing the counter examples (if there are any).
     for (String example : vocabulary.getCounterExamples()) {
+      System.out.println("CounterExample:" + example);
       testExample(converter, example, vocabulary.getSuffix(), true,
-              vocabulary.getReadableMetadataLocation(), warningReceiver);
+          vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
   }
 
@@ -166,34 +168,34 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     }
 
     // Convert the example
-    final String result;
+    final Optional<String> result;
     try {
       result = converter.convert(exampleContent, example);
-    } catch (TransformerException e) {
+    } catch (TransformerException | BadContentException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
-              readableMetadataLocation, "could not be mapped", e);
+          readableMetadataLocation, "could not be mapped", e);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, e);
       return;
     }
 
     // Check whether the example yielded a mapped entity or not
-    if (StringUtils.isNotBlank(result) && isCounterExample) {
+    if (result.isPresent() && isCounterExample) {
       final String message = getTestErrorMessage(example, isCounterExample,
-              readableMetadataLocation, "yielded a mapped result, but is expected not to", null);
+          readableMetadataLocation, "yielded a mapped result, but is expected not to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
-    } else if (StringUtils.isBlank(result) && !isCounterExample) {
+    } else if (result.isEmpty() && !isCounterExample) {
       final String message = getTestErrorMessage(example, isCounterExample,
-              readableMetadataLocation, "did not yield a mapped result, but is expected to", null);
+          readableMetadataLocation, "did not yield a mapped result, but is expected to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
     }
 
     // Check whether the example yielded valid XML
-    if (StringUtils.isNotBlank(result)) {
+    if (result.isPresent()) {
       try {
-        EnrichmentBaseConverter.convertToEnrichmentBase(result);
+        EnrichmentBaseConverter.convertToEnrichmentBase(result.get());
       } catch (JAXBException e) {
         final String message = getTestErrorMessage(example, isCounterExample,
-                readableMetadataLocation, "did not yield a valid XML", e);
+            readableMetadataLocation, "did not yield a valid XML", e);
         throw new VocabularyImportException(message, e);
       }
     }

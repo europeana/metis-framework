@@ -71,7 +71,7 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
    */
   private String vocabularyDirectoryFile = null;
 
-  private VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory;
+  private final VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory = new VocabularyCollectionImporterFactory();
 
   /**
    * No-arguments constructor, required for maven instantiation.
