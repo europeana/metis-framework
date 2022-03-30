@@ -30,16 +30,9 @@ import org.xml.sax.SAXException;
 /**
  * Convert an incoming record to EDM.
  */
-public class IncomingRecordToEdmConverter {
+public class IncomingRecordToEdmTransformer {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(IncomingRecordToEdmConverter.class);
-
-  //  private static final String EMPTY_XML_REGEX
-  //      =
-  //      "\\A(<\\?.*?\\?>|<!--.*?-->|\\s)*\\Z";
-  //  private static final Pattern EMPTY_XML_CHECKER
-  //      =
-  //      Pattern.compile(EMPTY_XML_REGEX, Pattern.DOTALL);
+  private static final Logger LOGGER = LoggerFactory.getLogger(IncomingRecordToEdmTransformer.class);
   private static final Pattern XML_DECLARATION_CHECKER = Pattern.compile("\\A<\\?[^?]*\\?>\\s*\\z");
 
   /**
@@ -48,14 +41,16 @@ public class IncomingRecordToEdmConverter {
   private static final String TARGET_ID_PARAMETER_NAME = "targetId";
 
   private final Templates template;
+  private final DocumentBuilderFactory documentBuilderFactory;
 
   /**
    * Create a converter for the given vocabulary.
    *
    * @param vocabulary The vocabulary for which to perform the conversion.
-   * @throws TransformerException In case the input could not be parsed or the conversion could not be set up.
+   * @throws TransformerException if the transformer could not be initialized
+   * @throws ParserConfigurationException if the xml builder could not be initialized
    */
-  public IncomingRecordToEdmConverter(Vocabulary vocabulary) throws TransformerException {
+  public IncomingRecordToEdmTransformer(Vocabulary vocabulary) throws TransformerException, ParserConfigurationException {
     this(vocabulary.getXslt());
   }
 
@@ -63,38 +58,47 @@ public class IncomingRecordToEdmConverter {
    * Create a converter for the transformation.
    *
    * @param xslt The xslt representing the conversion to perform.
-   * @throws TransformerException In case the input could not be parsed or the conversion could not be set up.
+   * @throws TransformerException if the transformer could not be initialized
+   * @throws ParserConfigurationException if the xml builder could not be initialized
    */
-  public IncomingRecordToEdmConverter(String xslt) throws TransformerException {
+  public IncomingRecordToEdmTransformer(String xslt) throws TransformerException, ParserConfigurationException {
     final Source xsltSource = new StreamSource(new StringReader(xslt));
     // Ensure that the Saxon library is used by choosing the right transformer factory.
     final TransformerFactory factory = new BasicTransformerFactory();
     factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
     this.template = factory.newTemplates(xsltSource);
+
+    documentBuilderFactory = DocumentBuilderFactory.newInstance();
+    documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    documentBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+    documentBuilderFactory.setNamespaceAware(true);
   }
 
   /**
-   * Convert the given xmlRecord.
+   * Transform the given xmlRecord.
    *
    * @param xmlRecord The incoming xmlRecord (that comes from the vocabulary).
    * @param resourceId The xmlRecord ID of the incoming xmlRecord.
    * @return The EDM xmlRecord, or null if the xmlRecord couldn't be transformed.
-   * @throws TransformerException In case there is a problem performing the transformation.
+   * @throws BadContentException if there was a problem performing the transformation.
    */
-  public Optional<String> convert(String xmlRecord, String resourceId) throws TransformerException, BadContentException {
+  public Optional<String> transform(String xmlRecord, String resourceId) throws BadContentException {
     // Set up the transformer
     final Source source = new StreamSource(new StringReader(xmlRecord));
-    final StringWriter stringWriter = new StringWriter();
-    final Transformer transformer = template.newTransformer();
-    transformer.setParameter(TARGET_ID_PARAMETER_NAME, resourceId);
-    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-    transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.name());
+    final StringWriter transformedXmlWriter = new StringWriter();
+    final Transformer transformer;
+    try {
+      transformer = template.newTransformer();
+      transformer.setParameter(TARGET_ID_PARAMETER_NAME, resourceId);
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.name());
 
-    // Perform the transformation.
-    transformer.transform(source, new StreamResult(stringWriter));
-    final String transformedXmlString = stringWriter.toString();
-
-    return getValidatedXml(resourceId, transformedXmlString);
+      // Perform the transformation.
+      transformer.transform(source, new StreamResult(transformedXmlWriter));
+    } catch (TransformerException e) {
+      throw new BadContentException("Transformation failure", e);
+    }
+    return getValidatedXml(resourceId, transformedXmlWriter.toString());
   }
 
   /**
@@ -136,8 +140,7 @@ public class IncomingRecordToEdmConverter {
    * @throws SAXException if xml parsing failed
    */
   private void isValidXml(String xml) throws ParserConfigurationException, IOException, SAXException {
-    DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                          .parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+    documentBuilderFactory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
   }
 
   /**

@@ -9,7 +9,7 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
-import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
+import eu.europeana.metis.dereference.IncomingRecordToEdmTransformer;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
@@ -33,6 +33,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -109,7 +110,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @return A collection of dereferenced resources. Is not null, but could be empty.
    */
   private Collection<EnrichmentBase> dereferenceResource(String resourceId)
-      throws JAXBException, TransformerException, URISyntaxException {
+      throws JAXBException, URISyntaxException {
 
     // Get the main object to dereference. If null, we are done.
     final Pair<EnrichmentBase, Vocabulary> resource = computeEnrichmentBaseVocabularyPair(
@@ -124,7 +125,7 @@ public class MongoDereferenceService implements DereferenceService {
       try {
         result = computeEnrichmentBaseVocabularyPair(key);
         return result == null ? null : result.getLeft();
-      } catch (JAXBException | TransformerException | URISyntaxException e) {
+      } catch (JAXBException | URISyntaxException e) {
         LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key),
             e);
         return null;
@@ -167,25 +168,6 @@ public class MongoDereferenceService implements DereferenceService {
     return collection == null ? Stream.empty() : collection.stream();
   }
 
-  Pair<EnrichmentBase, Vocabulary> computeEnrichmentBaseVocabularyPair(String resourceId)
-      throws JAXBException, TransformerException, URISyntaxException {
-
-    // Try to get the entity and its vocabulary from the cache.
-    final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
-    final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
-        cachedEntity);
-
-    // Parse the entity.
-    final Pair<EnrichmentBase, Vocabulary> enrichmentBaseVocabularyPair;
-    if (entityVocabularyPair.getLeft() == null || entityVocabularyPair.getRight() == null) {
-      enrichmentBaseVocabularyPair = null;
-    } else {
-      enrichmentBaseVocabularyPair = convertToEnrichmentBaseVocabularyPair(
-          entityVocabularyPair.getLeft(), entityVocabularyPair.getRight());
-    }
-    return enrichmentBaseVocabularyPair;
-  }
-
   /**
    * Computes the entity and vocabulary.
    * <p>It will use the cache if it's still valid, otherwise it will retrieve(if applicable) the
@@ -209,7 +191,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @throws TransformerException if an exception occurred during transformation of the original entity
    */
   private Pair<String, Vocabulary> computeEntityVocabularyPair(String resourceId,
-      ProcessedEntity cachedEntity) throws URISyntaxException, TransformerException {
+      ProcessedEntity cachedEntity) throws URISyntaxException {
 
     final Pair<String, Vocabulary> transformedEntityVocabularyPair;
 
@@ -234,35 +216,7 @@ public class MongoDereferenceService implements DereferenceService {
     return transformedEntityVocabularyPair;
   }
 
-  private void saveEntity(String resourceId, ProcessedEntity cachedEntity,
-      Pair<String, Vocabulary> transformedEntityAndVocabularyPair) {
-
-    final String entityXml = transformedEntityAndVocabularyPair.getLeft();
-    final Vocabulary vocabulary = transformedEntityAndVocabularyPair.getRight();
-    final String vocabularyIdString = Optional.ofNullable(vocabulary).map(Vocabulary::getId)
-                                              .map(ObjectId::toString).orElse(null);
-    //Save entity
-    ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
-    entityToCache.setResourceId(resourceId);
-    entityToCache.setXml(entityXml);
-    entityToCache.setVocabularyId(vocabularyIdString);
-    processedEntityDao.save(entityToCache);
-  }
-
-  private Pair<EnrichmentBase, Vocabulary> convertToEnrichmentBaseVocabularyPair(String entityXml,
-      Vocabulary entityVocabulary) throws JAXBException {
-    final Pair<EnrichmentBase, Vocabulary> result;
-    if (entityXml == null || entityVocabulary == null) {
-      result = null;
-    } else {
-      result = new ImmutablePair<>(EnrichmentBaseConverter.convertToEnrichmentBase(entityXml),
-          entityVocabulary);
-    }
-    return result;
-  }
-
-  private Pair<String, Vocabulary> retrieveAndTransformEntity(String resourceId)
-      throws TransformerException, URISyntaxException {
+  private Pair<String, Vocabulary> retrieveAndTransformEntity(String resourceId) throws URISyntaxException {
 
     final VocabularyCandidates vocabularyCandidates = VocabularyCandidates
         .findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
@@ -297,6 +251,46 @@ public class MongoDereferenceService implements DereferenceService {
     return entityVocabularyPair;
   }
 
+  private void saveEntity(String resourceId, ProcessedEntity cachedEntity,
+      Pair<String, Vocabulary> transformedEntityAndVocabularyPair) {
+
+    final String entityXml = transformedEntityAndVocabularyPair.getLeft();
+    final Vocabulary vocabulary = transformedEntityAndVocabularyPair.getRight();
+    final String vocabularyIdString = Optional.ofNullable(vocabulary).map(Vocabulary::getId)
+                                              .map(ObjectId::toString).orElse(null);
+    //Save entity
+    ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
+    entityToCache.setResourceId(resourceId);
+    entityToCache.setXml(entityXml);
+    entityToCache.setVocabularyId(vocabularyIdString);
+    processedEntityDao.save(entityToCache);
+  }
+
+  private Pair<EnrichmentBase, Vocabulary> convertToEnrichmentBaseVocabularyPair(String entityXml,
+      Vocabulary entityVocabulary) throws JAXBException {
+    final Pair<EnrichmentBase, Vocabulary> result;
+    if (entityXml == null || entityVocabulary == null) {
+      result = null;
+    } else {
+      result = new ImmutablePair<>(EnrichmentBaseConverter.convertToEnrichmentBase(entityXml),
+          entityVocabulary);
+    }
+    return result;
+  }
+
+  private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId) {
+    Optional<String> result;
+    try {
+      final IncomingRecordToEdmTransformer incomingRecordToEdmTransformer = new IncomingRecordToEdmTransformer(vocabulary);
+      result = incomingRecordToEdmTransformer.transform(originalEntity, resourceId);
+    } catch (TransformerException | BadContentException | ParserConfigurationException e) {
+      LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());
+      LOGGER.debug("Transformation issue: ", e);
+      result = Optional.empty();
+    }
+    return result.orElse(null);
+  }
+
   private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
       throws URISyntaxException {
 
@@ -324,17 +318,22 @@ public class MongoDereferenceService implements DereferenceService {
     return originalEntity;
   }
 
-  private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId)
-      throws TransformerException {
-    final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
-    Optional<String> result;
-    try {
-      result = converter.convert(originalEntity, resourceId);
-    } catch (TransformerException | BadContentException e) {
-      LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());
-      LOGGER.debug("Transformation issue: ", e);
-      result = Optional.empty();
+  Pair<EnrichmentBase, Vocabulary> computeEnrichmentBaseVocabularyPair(String resourceId)
+      throws JAXBException, URISyntaxException {
+
+    // Try to get the entity and its vocabulary from the cache.
+    final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
+    final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
+        cachedEntity);
+
+    // Parse the entity.
+    final Pair<EnrichmentBase, Vocabulary> enrichmentBaseVocabularyPair;
+    if (entityVocabularyPair.getLeft() == null || entityVocabularyPair.getRight() == null) {
+      enrichmentBaseVocabularyPair = null;
+    } else {
+      enrichmentBaseVocabularyPair = convertToEnrichmentBaseVocabularyPair(
+          entityVocabularyPair.getLeft(), entityVocabularyPair.getRight());
     }
-    return result.orElse(null);
+    return enrichmentBaseVocabularyPair;
   }
 }
