@@ -281,7 +281,8 @@ public class MongoDereferenceService implements DereferenceService {
   private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId) {
     Optional<String> result;
     try {
-      final IncomingRecordToEdmTransformer incomingRecordToEdmTransformer = new IncomingRecordToEdmTransformer(vocabulary);
+      final IncomingRecordToEdmTransformer incomingRecordToEdmTransformer = new IncomingRecordToEdmTransformer(
+          vocabulary.getXslt());
       result = incomingRecordToEdmTransformer.transform(originalEntity, resourceId);
     } catch (TransformerException | BadContentException | ParserConfigurationException e) {
       LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());

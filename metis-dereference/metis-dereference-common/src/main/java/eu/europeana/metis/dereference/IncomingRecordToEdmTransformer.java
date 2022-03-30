@@ -44,17 +44,6 @@ public class IncomingRecordToEdmTransformer {
   private final DocumentBuilderFactory documentBuilderFactory;
 
   /**
-   * Create a converter for the given vocabulary.
-   *
-   * @param vocabulary The vocabulary for which to perform the conversion.
-   * @throws TransformerException if the transformer could not be initialized
-   * @throws ParserConfigurationException if the xml builder could not be initialized
-   */
-  public IncomingRecordToEdmTransformer(Vocabulary vocabulary) throws TransformerException, ParserConfigurationException {
-    this(vocabulary.getXslt());
-  }
-
-  /**
    * Create a converter for the transformation.
    *
    * @param xslt The xslt representing the conversion to perform.
@@ -64,9 +53,9 @@ public class IncomingRecordToEdmTransformer {
   public IncomingRecordToEdmTransformer(String xslt) throws TransformerException, ParserConfigurationException {
     final Source xsltSource = new StreamSource(new StringReader(xslt));
     // Ensure that the Saxon library is used by choosing the right transformer factory.
-    final TransformerFactory factory = new BasicTransformerFactory();
-    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-    this.template = factory.newTemplates(xsltSource);
+    final TransformerFactory transformerFactory = new BasicTransformerFactory();
+    transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    this.template = transformerFactory.newTemplates(xsltSource);
 
     documentBuilderFactory = DocumentBuilderFactory.newInstance();
     documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -115,7 +104,7 @@ public class IncomingRecordToEdmTransformer {
     final Optional<String> xmlResponse;
     if (isEmptyXml(xml)) {
       xmlResponse = Optional.empty();
-      if (xml.isEmpty() && LOGGER.isInfoEnabled()) {
+      if (LOGGER.isInfoEnabled()) {
         LOGGER.info("Transformed entity {} results to an empty XML.",
             CRLF_PATTERN.matcher(resourceId).replaceAll(""));
       }
@@ -153,7 +142,7 @@ public class IncomingRecordToEdmTransformer {
    * @param xml the input XML.
    * @return true if xml is empty
    */
-  static boolean isEmptyXml(String xml) {
+  private boolean isEmptyXml(String xml) {
     return XML_DECLARATION_CHECKER.matcher(xml).matches();
   }
 }
