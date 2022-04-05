@@ -6,6 +6,7 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.solr.facet.FacetEncoder;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
@@ -41,19 +42,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
 /**
- * This class provides functionality to populate Solr documents. Both methods in this class should
- * be called to fill the Solr document. The method {@link #populateWithProperties(SolrInputDocument,
- * FullBeanImpl)} copies properties from the source to the Solr document. The method {@link
- * #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis and
- * sets technical metadata.
+ * This class provides functionality to populate Solr documents. Both methods in this class should be called to fill the Solr
+ * document. The method {@link #populateWithProperties(SolrInputDocument, FullBeanImpl)} copies properties from the source to the
+ * Solr document. The method {@link #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis
+ * and sets technical metadata.
  *
  * @author jochen
  */
 public class SolrDocumentPopulator {
 
   /**
-   * Populates a Solr document with the properties of the full bean. Please note: this method should
-   * only be called once on a given document, otherwise the behavior is not defined.
+   * Populates a Solr document with the properties of the full bean. Please note: this method should only be called once on a
+   * given document, otherwise the behavior is not defined.
    *
    * @param document The Solr document to populate.
    * @param fullBean The FullBean to populate from.
@@ -62,18 +62,19 @@ public class SolrDocumentPopulator {
 
     // Get the type: filter duplicates
     final String[] types = Optional.ofNullable(fullBean.getProxies()).stream().flatMap(List::stream)
-        .filter(Objects::nonNull).map(ProxyImpl::getEdmType).filter(Objects::nonNull).distinct()
-        .toArray(String[]::new);
+                                   .filter(Objects::nonNull).map(ProxyImpl::getEdmType).filter(Objects::nonNull).distinct()
+                                   .toArray(String[]::new);
     SolrPropertyUtils.addValues(document, EdmLabel.PROVIDER_EDM_TYPE, types);
 
     // Gather the licenses.
     final List<LicenseImpl> licenses = Optional.ofNullable(fullBean.getLicenses()).stream()
-        .flatMap(List::stream).filter(Objects::nonNull).collect(Collectors.toList());
+                                               .flatMap(List::stream).filter(Objects::nonNull).collect(Collectors.toList());
 
     // Gather the quality annotations.
     final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations()).stream()
-        .flatMap(Collection::stream).filter(Objects::nonNull).map(AggregationImpl::getAbout)
-        .filter(Objects::nonNull).collect(Collectors.toSet());
+                                                  .flatMap(Collection::stream).filter(Objects::nonNull)
+                                                  .map(AggregationImpl::getAbout)
+                                                  .filter(Objects::nonNull).collect(Collectors.toSet());
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
         .ofNullable(annotation.getTarget()).stream().flatMap(Arrays::stream)
         .anyMatch(acceptableTargets::contains);
@@ -99,10 +100,13 @@ public class SolrDocumentPopulator {
 
     // Add the licenses.
     final Set<String> defRights = fullBean.getAggregations().stream()
-        .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
-        .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
+                                          .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
+                                          .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout()))
         .addAllToDocument(document, fullBean.getLicenses());
+
+    // Add geo spatial fields
+    setGeospatialFields(document, fullBean);
 
     // Add the top-level properties.
     document
@@ -114,8 +118,8 @@ public class SolrDocumentPopulator {
   }
 
   /**
-   * Populates a Solr document with the CRF fields of the RDF. Please note: this method should only
-   * be called once on a given document, otherwise the behavior is not defined.
+   * Populates a Solr document with the CRF fields of the RDF. Please note: this method should only be called once on a given
+   * document, otherwise the behavior is not defined.
    *
    * @param document The document to populate.
    * @param rdf The RDF to populate from.
@@ -131,7 +135,7 @@ public class SolrDocumentPopulator {
     final List<WebResourceWrapper> webResourcesWithMedia = rdf.getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.IS_SHOWN_BY, WebResourceLinkType.HAS_VIEW));
     final boolean hasMedia = webResourcesWithMedia.stream().map(WebResourceWrapper::getMediaType)
-        .anyMatch(type -> type != MediaType.OTHER);
+                                                  .anyMatch(type -> type != MediaType.OTHER);
     document.addField(EdmLabel.FACET_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
@@ -141,7 +145,7 @@ public class SolrDocumentPopulator {
     // is_fulltext is true if and only if there is at least one web resource of type 'isShownBy'
     // or 'hasView' with 'rdf:type' equal to 'edm:FullTextResource'.
     final boolean isFullText = webResourcesWithMedia.stream().map(WebResourceWrapper::getType)
-        .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
+                                                    .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.FACET_IS_FULL_TEXT.toString(), isFullText);
 
     // Compose the filter and facet tags. Only use the web resources of type 'isShownBy' or 'hasView'.
@@ -163,14 +167,123 @@ public class SolrDocumentPopulator {
   }
 
   private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean) {
-
     List<String> proxyInResult = fullBean.getProxies().stream()
-        .filter(not(ProxyImpl::isEuropeanaProxy))
-        .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
-        .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
+                                         .filter(not(ProxyImpl::isEuropeanaProxy))
+                                         .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
+                                         .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
 
     return fullBean.getAggregations().stream().filter(x -> proxyInResult.contains(x.getAbout()))
-        .collect(Collectors.toList());
+                   .collect(Collectors.toList());
+  }
 
+  private void setGeospatialFields(SolrInputDocument document, FullBeanImpl fullBean) {
+    final List<ProxyImpl> proxies = fullBean.getProxies();
+    final Map<String, PlaceImpl> placesAboutMap = fullBean.getPlaces().stream()
+                                                          .collect(Collectors.toMap(PlaceImpl::getAbout, Function.identity(),
+                                                              (place1, place2) -> place1));
+    final Set<String> currentLocationStrings = new HashSet<>();
+    final Set<String> coverageLocationStrings = new HashSet<>();
+    for (ProxyImpl proxy : proxies) {
+      currentLocationStrings.addAll(getCurrentLocationStrings(proxy));
+      coverageLocationStrings.addAll(getCoverageLocationStrings(proxy));
+    }
+    final Set<LocationPoint> currentLocationPoints = new HashSet<>(
+        getReferencedPlacesLocationPoints(placesAboutMap, currentLocationStrings));
+    currentLocationPoints.addAll(getWGS84LocationPoints(currentLocationStrings));
+
+    final Set<LocationPoint> coverageLocationPoints = new HashSet<>(
+        getReferencedPlacesLocationPoints(placesAboutMap, coverageLocationStrings));
+    coverageLocationPoints.addAll(getWGS84LocationPoints(coverageLocationStrings));
+    System.out.println("DONE COLLECTING");
+
+    SolrPropertyUtils.addValues(document, EdmLabel.CURRENT_LOCATION_WGS,
+        currentLocationPoints.stream().map(Object::toString).toArray(String[]::new));
+
+    SolrPropertyUtils.addValues(document, EdmLabel.COVERAGE_LOCATION_WGS,
+        coverageLocationPoints.stream().map(Object::toString).toArray(String[]::new));
+
+    Set<LocationPoint> locationPointsCombined = new HashSet<>();
+    locationPointsCombined.addAll(currentLocationPoints);
+    locationPointsCombined.addAll(coverageLocationPoints);
+    SolrPropertyUtils.addValues(document, EdmLabel.LOCATION_WGS,
+        locationPointsCombined.stream().map(Object::toString).toArray(String[]::new));
+
+    System.out.println("DONE SETTING");
+  }
+
+  private Set<LocationPoint> getReferencedPlacesLocationPoints(Map<String, PlaceImpl> placesAboutMap,
+      Set<String> locationStrings) {
+    //Collect location points from referenced places
+    return locationStrings.stream().map(placesAboutMap::get).filter(Objects::nonNull)
+                          .map(place -> {
+                            if (place.getLatitude() != null
+                                && place.getLongitude() != null) {
+                              return new LocationPoint(place.getLatitude().doubleValue(), place.getLongitude().doubleValue()
+                              );
+                            }
+                            return null;
+                          }).filter(Objects::nonNull).collect(Collectors.toSet());
+  }
+
+  private Set<LocationPoint> getWGS84LocationPoints(Set<String> locationStrings) {
+    //Parse locations points from WGS-84 uris.
+    return new HashSet<>();
+  }
+
+
+  private Set<String> getCurrentLocationStrings(ProxyImpl proxy) {
+    final Set<String> spatialLocations = new HashSet<>();
+    //Collection spatial location ids
+    Optional.ofNullable(proxy.getEdmCurrentLocation()).map(Map::values).stream().flatMap(Collection::stream)
+            .flatMap(Collection::stream)
+            .filter(StringUtils::isNotBlank)
+            .forEach(spatialLocations::add);
+    return spatialLocations;
+  }
+
+  private Set<String> getCoverageLocationStrings(ProxyImpl proxy) {
+    final Set<String> spatialLocations = new HashSet<>();
+    Optional.ofNullable(proxy.getDctermsSpatial()).map(Map::values).stream().flatMap(Collection::stream)
+            .flatMap(Collection::stream)
+            .filter(StringUtils::isNotBlank)
+            .forEach(spatialLocations::add);
+    Optional.ofNullable(proxy.getDcCoverage()).map(Map::values).stream().flatMap(Collection::stream)
+            .flatMap(Collection::stream)
+            .filter(StringUtils::isNotBlank)
+            .forEach(spatialLocations::add);
+    return spatialLocations;
+  }
+
+  static class LocationPoint {
+
+    private final Double latitude;
+    private final Double longitude;
+
+    public LocationPoint(Double latitude, Double longitude) {
+      this.latitude = latitude;
+      this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("%f,%f", latitude, longitude);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      LocationPoint that = (LocationPoint) o;
+      return latitude.equals(that.latitude) && longitude.equals(that.longitude);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(latitude, longitude);
+    }
   }
 }
