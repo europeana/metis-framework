@@ -12,11 +12,13 @@ import java.util.stream.Collectors;
  */
 public final class GeoUriParser {
 
-  private static final String DECIMAL_POINT_PATTERN = "(?:\\.[0-9]{1,6})?)";
-  private static final String LATITUDE_PATTERN = "^[+-]?(?:90(?:\\.0{1,6})?|(?:[0-9]|[1-8][0-9])" + DECIMAL_POINT_PATTERN + "$";
+  private static final String DECIMAL_POINT_PATTERN = "(?:\\.\\d+)?";
+  private static final String ZEROES_DECIMAL_POINT_PATTERN = "(?:\\.0+)?";
+  private static final String LATITUDE_PATTERN =
+      "^[+-]?(?:90" + ZEROES_DECIMAL_POINT_PATTERN + "|(?:[0-9]|[1-8][0-9])" + DECIMAL_POINT_PATTERN + ")$";
   private static final String LONGITUDE_PATTERN =
-      "^[+-]?(?:180(?:\\.0{1,6})?|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])" + DECIMAL_POINT_PATTERN + "$";
-  private static final String ALTITUDE_PATTERN = "^[+-]?(?:\\d+)(?:\\.\\d{1,6})?$";
+      "^[+-]?(?:180" + ZEROES_DECIMAL_POINT_PATTERN + "|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])" + DECIMAL_POINT_PATTERN + ")$";
+  private static final String ALTITUDE_PATTERN = "^[+-]?\\d+" + DECIMAL_POINT_PATTERN + "$";
   private static final Pattern latitudePattern = Pattern.compile(LATITUDE_PATTERN);
   private static final Pattern longitudePattern = Pattern.compile(LONGITUDE_PATTERN);
   private static final Pattern altitudePattern = Pattern.compile(ALTITUDE_PATTERN);

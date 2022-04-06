@@ -52,6 +52,7 @@ class GeoUriParserTest {
 
     assertDoesNotThrow(() -> GeoUriParser.parse("geo:37.786971,-122.399677"));
     assertDoesNotThrow(() -> GeoUriParser.parse("geo:37.786971,-122.399677,10"));
+    assertDoesNotThrow(() -> GeoUriParser.parse("geo:37.1234567,-122.1234567,10"));
     assertDoesNotThrow(() -> GeoUriParser.parse("geo:37,-122"));
 
     final GeoCoordinates geoCoordinates = GeoUriParser.parse("geo:37.786971,-122.399677");

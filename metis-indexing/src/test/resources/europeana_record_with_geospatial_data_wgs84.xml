@@ -16,21 +16,6 @@
     <edm:preview rdf:resource="https://i.vimeocdn.com/video/624880505_640.jpg"/>
     <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
   </edm:EuropeanaAggregation>
-  <edm:ProvidedCHO rdf:about="/1/12944"/>
-  <edm:WebResource rdf:about="https://i.vimeocdn.com/video/624880505_640.jpg">
-    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6643</ebucore:fileByteSize>
-    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
-    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">480</ebucore:height>
-    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
-    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">640</ebucore:width>
-    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F0E68C</edm:componentColor>
-    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#B22222</edm:componentColor>
-    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FF4500</edm:componentColor>
-    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
-    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#ADFF2F</edm:componentColor>
-    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#87CEEB</edm:componentColor>
-    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
-  </edm:WebResource>
   <edm:Place rdf:about="http://data.europeana.eu/place/base/75">
     <wgs84_pos:lat>50.75</wgs84_pos:lat>
     <wgs84_pos:long>4.5</wgs84_pos:long>
@@ -47,11 +32,26 @@
     <wgs84_pos:lat>40</wgs84_pos:lat>
     <wgs84_pos:long>40</wgs84_pos:long>
   </edm:Place>
+  <edm:ProvidedCHO rdf:about="/1/12944"/>
   <edm:WebResource rdf:about="https://vimeo.com/209357984">
     <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">197506</ebucore:fileByteSize>
     <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
     <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
     <rdf:type rdf:resource="http://www.europeana.eu/schemas/edm/FullTextResource"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://i.vimeocdn.com/video/624880505_640.jpg">
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6643</ebucore:fileByteSize>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">480</ebucore:height>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">640</ebucore:width>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F0E68C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#B22222</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FF4500</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#ADFF2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#87CEEB</edm:componentColor>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
   </edm:WebResource>
   <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004502033">
     <skos:prefLabel xml:lang="en">The Royal Belgian Film Archives</skos:prefLabel>
@@ -68,14 +68,15 @@
     <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
   </ore:Aggregation>
   <ore:Proxy rdf:about="/proxy/europeana/1/12944">
+    <dc:coverage rdf:resource="geo:50,50"/>
     <dc:identifier>12944</dc:identifier>
     <dc:language>nld</dc:language>
     <dc:subject rdf:resource="http://data.europeana.eu/concept/base/184"></dc:subject>
     <dc:type rdf:resource="http://data.europeana.eu/concept/base/61"></dc:type>
-    <dc:coverage rdf:resource="http://data.europeana.eu/place/base/77"/>
-    <dcterms:spatial rdf:resource="http://data.europeana.eu/place/base/76"/>
-    <dcterms:spatial rdf:resource="http://data.europeana.eu/place/base/80"/>
-    <edm:currentLocation rdf:resource="http://data.europeana.eu/place/base/75"/>
+    <dcterms:spatial rdf:resource="geo:40,40"/>
+    <dcterms:spatial rdf:resource="geo:test,40"/>
+    <dcterms:spatial rdf:resource="geo:40.123456,40.123456,1000"/>
+    <edm:currentLocation rdf:resource="geo:50.75,4.5"/>
     <edm:europeanaProxy>true</edm:europeanaProxy>
     <edm:year>1984</edm:year>
     <ore:lineage rdf:resource="/proxy/provider/1/12944"/>

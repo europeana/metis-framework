@@ -3,6 +3,7 @@ package eu.europeana.indexing.solr;
 import static eu.europeana.indexing.solr.EdmLabel.COVERAGE_LOCATION_WGS;
 import static eu.europeana.indexing.solr.EdmLabel.CURRENT_LOCATION_WGS;
 import static eu.europeana.indexing.solr.EdmLabel.LOCATION_WGS;
+import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 
 import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
@@ -26,7 +27,10 @@ import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.schema.model.MediaType;
+import eu.europeana.metis.utils.GeoUriParser;
+import eu.europeana.metis.utils.GeoUriParser.GeoCoordinates;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -44,6 +48,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class provides functionality to populate Solr documents. Both methods in this class should be called to fill the Solr
@@ -54,6 +60,8 @@ import org.apache.solr.common.SolrInputDocument;
  * @author jochen
  */
 public class SolrDocumentPopulator {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SolrDocumentPopulator.class);
 
   /**
    * Populates a Solr document with the properties of the full bean. Please note: this method should only be called once on a
@@ -198,7 +206,6 @@ public class SolrDocumentPopulator {
     final Set<LocationPoint> coverageLocationPoints = new HashSet<>(
         getReferencedPlacesLocationPoints(placesAboutMap, coverageLocationStrings));
     coverageLocationPoints.addAll(getWGS84LocationPoints(coverageLocationStrings));
-    System.out.println("DONE COLLECTING");
 
     SolrPropertyUtils.addValues(document, CURRENT_LOCATION_WGS,
         currentLocationPoints.stream().map(Object::toString).toArray(String[]::new));
@@ -211,54 +218,59 @@ public class SolrDocumentPopulator {
     locationPointsCombined.addAll(coverageLocationPoints);
     SolrPropertyUtils.addValues(document, LOCATION_WGS,
         locationPointsCombined.stream().map(Object::toString).toArray(String[]::new));
-
-    System.out.println("DONE SETTING");
   }
 
   private Set<LocationPoint> getReferencedPlacesLocationPoints(Map<String, PlaceImpl> placesAboutMap,
       Set<String> locationStrings) {
-    //Collect location points from referenced places
     return locationStrings.stream().map(placesAboutMap::get).filter(Objects::nonNull)
-                          .map(place -> {
-                            if (place.getLatitude() != null
-                                && place.getLongitude() != null) {
-                              return new LocationPoint(place.getLatitude().doubleValue(), place.getLongitude().doubleValue()
-                              );
-                            }
-                            return null;
-                          }).filter(Objects::nonNull).collect(Collectors.toSet());
+                          .map(this::getPlaceLocationPoint).filter(Objects::nonNull).collect(Collectors.toSet());
   }
 
   private Set<LocationPoint> getWGS84LocationPoints(Set<String> locationStrings) {
-    //Parse locations points from WGS-84 uris.
-    return new HashSet<>();
+    return locationStrings.stream().map(this::getValidGeoCoordinates).filter(Objects::nonNull)
+                          .map(LocationPoint::new).collect(Collectors.toSet());
   }
 
-
   private Set<String> getCurrentLocationStrings(ProxyImpl proxy) {
-    final Set<String> spatialLocations = new HashSet<>();
-    //Collection spatial location ids
+    final Set<String> currentLocations = new HashSet<>();
     Optional.ofNullable(proxy.getEdmCurrentLocation()).map(Map::values).stream().flatMap(Collection::stream)
             .flatMap(Collection::stream)
             .filter(StringUtils::isNotBlank)
-            .forEach(spatialLocations::add);
-    return spatialLocations;
+            .forEach(currentLocations::add);
+    return currentLocations;
   }
 
   private Set<String> getCoverageLocationStrings(ProxyImpl proxy) {
-    final Set<String> spatialLocations = new HashSet<>();
+    final Set<String> coverageLocations = new HashSet<>();
     Optional.ofNullable(proxy.getDctermsSpatial()).map(Map::values).stream().flatMap(Collection::stream)
             .flatMap(Collection::stream)
             .filter(StringUtils::isNotBlank)
-            .forEach(spatialLocations::add);
+            .forEach(coverageLocations::add);
     Optional.ofNullable(proxy.getDcCoverage()).map(Map::values).stream().flatMap(Collection::stream)
             .flatMap(Collection::stream)
             .filter(StringUtils::isNotBlank)
-            .forEach(spatialLocations::add);
-    return spatialLocations;
+            .forEach(coverageLocations::add);
+    return coverageLocations;
   }
 
-  static class LocationPoint {
+  private LocationPoint getPlaceLocationPoint(PlaceImpl place) {
+    if (place.getLatitude() != null && place.getLongitude() != null) {
+      return new LocationPoint(place.getLatitude().doubleValue(), place.getLongitude().doubleValue());
+    }
+    return null;
+  }
+
+  private GeoCoordinates getValidGeoCoordinates(String s) {
+    try {
+      return GeoUriParser.parse(s);
+    } catch (BadContentException e) {
+      LOGGER.debug(format("Geo parsing failed %s", s), e);
+    }
+    return null;
+  }
+
+
+  private static class LocationPoint {
 
     private final Double latitude;
     private final Double longitude;
@@ -268,9 +280,14 @@ public class SolrDocumentPopulator {
       this.longitude = longitude;
     }
 
+    public LocationPoint(GeoCoordinates geoCoordinates) {
+      this.latitude = geoCoordinates.getLatitude();
+      this.longitude = geoCoordinates.getLongitude();
+    }
+
     @Override
     public String toString() {
-      return String.format(Locale.US, "%f,%f", latitude, longitude);
+      return format(Locale.US, "%f,%f", latitude, longitude);
     }
 
     @Override
