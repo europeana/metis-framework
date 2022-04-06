@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#">
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/2048223/europeana_fashion_314037">
+    <edm:aggregatedCHO rdf:resource="/2048223/europeana_fashion_314037"/>
+    <edm:completeness>0</edm:completeness>
+    <edm:country>Israel</edm:country>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:datasetName>2048223_EuropeanaFashion_1046</edm:datasetName>
+    <edm:language>mul</edm:language>
+    <edm:preview rdf:resource="http://repos.europeanafashion.eu/imj/images/B06_0225_1.jpg"/>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+  </edm:EuropeanaAggregation>
+  <edm:Place rdf:about="http://data.europeana.eu/place/base/75">
+    <wgs84_pos:lat>50.75</wgs84_pos:lat>
+    <wgs84_pos:long>4.5</wgs84_pos:long>
+  </edm:Place>
+  <edm:Place rdf:about="http://data.europeana.eu/place/base/76">
+    <wgs84_pos:lat>40</wgs84_pos:lat>
+    <wgs84_pos:long>40</wgs84_pos:long>
+  </edm:Place>
+  <edm:Place rdf:about="http://data.europeana.eu/place/base/77">
+    <wgs84_pos:lat>50</wgs84_pos:lat>
+    <wgs84_pos:long>50</wgs84_pos:long>
+  </edm:Place>
+  <edm:Place rdf:about="http://data.europeana.eu/place/base/80">
+    <wgs84_pos:lat>40</wgs84_pos:lat>
+    <wgs84_pos:long>40</wgs84_pos:long>
+  </edm:Place>
+  <edm:ProvidedCHO rdf:about="/2048223/europeana_fashion_314037"/>
+  <edm:WebResource rdf:about="http://repos.europeanafashion.eu/imj/images/B06_0225_1.jpg">
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">167022</ebucore:fileByteSize>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">792</ebucore:height>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">594</ebucore:width>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#BC8F8F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D3D3D3</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F5DEB3</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#DEB887</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D8BFD8</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D2B48C</edm:componentColor>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://repos.europeanafashion.eu/imj/images/B06_0225_3.jpg">
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">295211</ebucore:fileByteSize>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">792</ebucore:height>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">594</ebucore:width>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFF8DC</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FDF5E6</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#BDB76B</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFE4B5</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F0E68C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#3CB371</edm:componentColor>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://repos.europeanafashion.eu/imj/images/B06_0225_2.jpg">
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">337414</ebucore:fileByteSize>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">792</ebucore:height>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">594</ebucore:width>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFF0F5</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFEBCD</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#CD5C5C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFFFF0</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFE4B5</edm:componentColor>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.imj.org.il/imagine/collections/item.asp?itemNum=314037">
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">0</ebucore:fileByteSize>
+    <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
+  </edm:WebResource>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000000341157">
+    <skos:prefLabel xml:lang="en">The Israel Museum, Jerusalem</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000000369861">
+    <skos:prefLabel xml:lang="en">European Fashion Heritage Association</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004671107">
+    <skos:prefLabel xml:lang="en">Europeana Fashion</skos:prefLabel>
+  </foaf:Organization>
+  <ore:Aggregation rdf:about="/aggregation/provider/2048223/europeana_fashion_314037">
+    <edm:aggregatedCHO rdf:resource="/2048223/europeana_fashion_314037"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000000341157"/>
+    <edm:hasView rdf:resource="http://repos.europeanafashion.eu/imj/images/B06_0225_3.jpg"/>
+    <edm:hasView rdf:resource="http://repos.europeanafashion.eu/imj/images/B06_0225_2.jpg"/>
+    <edm:isShownAt rdf:resource="http://www.imj.org.il/imagine/collections/item.asp?itemNum=314037"/>
+    <edm:isShownBy rdf:resource="http://repos.europeanafashion.eu/imj/images/B06_0225_1.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000000369861"/>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+  <ore:Aggregation rdf:about="/aggregation/aggregator/2048223/europeana_fashion_314037">
+    <edm:aggregatedCHO rdf:resource="/2048223/europeana_fashion_314037"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000000369861"/>
+    <edm:isShownAt rdf:resource="http://www.imj.org.il/imagine/collections/item.asp?itemNum=314037"/>
+    <edm:isShownBy rdf:resource="http://repos.europeanafashion.eu/imj/images/B06_0225_1.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000000369861"/>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/provider/2048223/europeana_fashion_314037">
+    <dc:date xml:lang="en">1930s</dc:date>
+    <dc:description xml:lang="en">Material and technique: Cotton, cotton velvet, silk thread stitching, couched plaited gilt metal
+      thread ribbons, gilt silver filigree buttons.
+    </dc:description>
+    <dc:format rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10407"/>
+    <dc:format rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10402"/>
+    <dc:format xml:lang="en">Color: gold</dc:format>
+    <dc:format xml:lang="en">Color: blue</dc:format>
+    <dc:format xml:lang="en">Color: blue</dc:format>
+    <dc:identifier>B06.0225</dc:identifier>
+    <dc:rights xml:lang="en">Photo © The Israel Museum, Jerusalem, by Mauro Magliani</dc:rights>
+    <dc:title xml:lang="en">Girl’s dress</dc:title>
+    <dc:type rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10005"/>
+    <dc:type xml:lang="en">Object Type: dress</dc:type>
+    <dc:type xml:lang="en">Girl's dress</dc:type>
+    <dcterms:created xml:lang="en">1930/1939</dcterms:created>
+    <dcterms:extent xml:lang="en">H: 85; W: 56 cm</dcterms:extent>
+    <dcterms:isPartOf xml:lang="en">Europeana XX: Century of Change</dcterms:isPartOf>
+    <dcterms:provenance xml:lang="en">Purchased through the gift of Ellen and Jerome Stern, New York, to American Friends of The
+      Israel Museum, in honor of their grandson, Jordan Stern Vandervoort.
+    </dcterms:provenance>
+    <dcterms:spatial xml:lang="en">Sana'a, Yemen</dcterms:spatial>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <edm:type>IMAGE</edm:type>
+    <ore:proxyFor rdf:resource="/2048223/europeana_fashion_314037"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/2048223/europeana_fashion_314037"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/aggregator/2048223/europeana_fashion_314037">
+    <dc:coverage rdf:resource="http://data.europeana.eu/place/base/77"/>
+    <dcterms:spatial rdf:resource="http://data.europeana.eu/place/base/76"/>
+    <dcterms:spatial rdf:resource="http://data.europeana.eu/place/base/80"/>
+    <edm:currentLocation rdf:resource="http://data.europeana.eu/place/base/75"/>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10352"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10521"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10547"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10545"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10354"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10950"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10732"/>
+    <edm:isRelatedTo rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10408"/>
+    <edm:type>IMAGE</edm:type>
+    <ore:lineage rdf:resource="/proxy/provider/2048223/europeana_fashion_314037"/>
+    <ore:proxyFor rdf:resource="/2048223/europeana_fashion_314037"/>
+    <ore:proxyIn rdf:resource="/aggregation/aggregator/2048223/europeana_fashion_314037"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/europeana/2048223/europeana_fashion_314037">
+    <dc:identifier>http://mint-projects.image.ntua.gr/europeana-fashion/314037</dc:identifier>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <ore:lineage rdf:resource="/proxy/provider/2048223/europeana_fashion_314037"/>
+    <ore:lineage rdf:resource="/proxy/aggregator/2048223/europeana_fashion_314037"/>
+    <ore:proxyFor rdf:resource="/2048223/europeana_fashion_314037"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/2048223/europeana_fashion_314037"/>
+  </ore:Proxy>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10407">
+    <skos:altLabel xml:lang="fr">doré</skos:altLabel>
+    <skos:altLabel xml:lang="de">golden</skos:altLabel>
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10406"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Colours"/>
+    <skos:note xml:lang="en">A yellow color, like that of the metal (Webster's)</skos:note>
+    <skos:prefLabel xml:lang="nl">goud</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Gold</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">χρυσαφί</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">or</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">zlatna</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">oro</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">oro</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">gold</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">dourado</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">זהב</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">guld</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10547">
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10545"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Materials"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">Pure metallic element having symbol Ag and atomic number 47; a malleable, ductile, white metal with
+      characteristic sheen, considered a precious metal. Silver is widely distributed throughout the world, occurring rarely as
+      metallic silver (in Peru, Norway) but more often as silver-gold alloys and silver ore. Today silver is obtained as a
+      byproduct in the refinement of gold, lead, copper, or zinc ores. Silver was smelted from the ore galena as early as 3800
+      BCE. As a pure metal, silver is second to gold in malleability and ductility, can be polished to a highly reflective
+      surface, and used -- typically in an alloy -- in jewelry, coinage, photography, mirrors, electrical contacts, and tableware.
+      (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="sr">srebro</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Silber</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">plata</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">כסף</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">argent</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">prata</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">silver</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">zilver</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">silver</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">argento</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">ασήμι</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10408">
+    <skos:altLabel xml:lang="de">silbern</skos:altLabel>
+    <skos:altLabel xml:lang="fr">argenté</skos:altLabel>
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10406"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Colours"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">A light shade of gray (Wordnet)</skos:note>
+    <skos:prefLabel xml:lang="de">Silber</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">silver</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">silver</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">srebrna</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">plata</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">argent</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">zilver</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">ασημί</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">prateado</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">כסף</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">argento</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10950">
+    <skos:altLabel xml:lang="el">συρματερό</skos:altLabel>
+    <skos:altLabel xml:lang="nl">filigrein</skos:altLabel>
+    <skos:altLabel xml:lang="nl">filigraanwerk</skos:altLabel>
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10944"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Techniques"/>
+    <skos:note xml:lang="en">Decoration done entirely with fine wire, chiefly to ornament gold and silver. The term is usually
+      used to describe openwork made of wire. (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="fr">filigrane</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">filigree</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">פיליגרן</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">filigran</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Filigranarbeit</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">filigran</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">filigrana</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">φιλιγκράν</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">filigraan</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10354">
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10353"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Materials"/>
+    <skos:note xml:lang="en">White-to-yellowish seed-hair fibers of several species of the genus Gossypium, native to most
+      subtropical areas of the world; used especially for making textile, cord, padding, rag paper, and for cellulose used for
+      plastic and rayon. (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="el">βαμβάκι</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">coton</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">cotone</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Baumwolle</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">bomull</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">algodón</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">katoen</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">cotton</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">pamuk</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">algodão</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">כותנה</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10732">
+    <skos:altLabel xml:lang="nl">velours</skos:altLabel>
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10371"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Techniques"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">Warp pile weave, typically silk, with a short, soft dense pile produced by a supplementary warp that
+      is raised in loops above the surface of the textile through the introduction of rods during the weaving; the loops may be
+      cut or left uncut. (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="sr">somot</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Samt</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">βελούδο</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">קטיפה</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">velluto</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">fluweel</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">velours</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">velvet</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">sammet</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">terciopelo</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10352">
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10350"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Materials"/>
+    <skos:note xml:lang="en">Fine continuous protein fiber consisting primarily of fibroin filaments, secreted by silk
+      caterpillars. (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="fr">soie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">siden</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">seda</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">seda</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">zijde</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">svila</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">משי</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">silk</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Seide</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">μετάξι</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">seta</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10402">
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10400"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Colours"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">Having the color of the clear sky, or a hue resembling it, whether lighter or darker. (Webster's)
+    </skos:note>
+    <skos:prefLabel xml:lang="he">כחול</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">plava</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">blå</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">μπλε</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">blue</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">azul</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">azul</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">blu</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Blau</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">blauw</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">bleu</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10545">
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10544"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Materials"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">Any of a large group of substances that typically show a characteristic luster, are good conductors
+      of electricity and heat, are opaque, can be fused, and are usually malleable or ductile. (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="sr">metal</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">metal</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">metal</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">metall</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">metaal</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">metallo</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">métal</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Metall</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">מתכת</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">μέταλλο</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10005">
+    <skos:altLabel xml:lang="nl">jurk</skos:altLabel>
+    <skos:altLabel xml:lang="sv">kolt</skos:altLabel>
+    <skos:altLabel xml:lang="sv">dräkt</skos:altLabel>
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10003"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Type"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">Main garments for women, children, or infants consisting of a bodice and skirt made in one or more
+      pieces (AAT)
+    </skos:note>
+    <skos:prefLabel xml:lang="en">dress</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Kleid</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">abito</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">klänning</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">φόρεμα</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">haljina</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">vestido</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">vestido</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">robe</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">japon</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">שמלה</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://thesaurus.europeanafashion.eu/thesaurus/10521">
+    <skos:altLabel xml:lang="de">Metallgespinstfaden</skos:altLabel>
+    <skos:broader rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10348"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Materials"/>
+    <skos:inScheme rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/Subject"/>
+    <skos:note xml:lang="en">Manufactured fiber made wholly or in part from metal. (AAT)</skos:note>
+    <skos:prefLabel xml:lang="es">hilo metálico</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">חוטי מתכת</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">metal thread</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">filo di metallo</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">metalltråd</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">metaaldraad</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">metalna nit</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">μεταλλική κλωστή</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Metallfaden</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">fil métallique</skos:prefLabel>
+  </skos:Concept>
+</rdf:RDF>

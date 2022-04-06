@@ -1,5 +1,8 @@
 package eu.europeana.indexing.solr;
 
+import static eu.europeana.indexing.solr.EdmLabel.COVERAGE_LOCATION_WGS;
+import static eu.europeana.indexing.solr.EdmLabel.CURRENT_LOCATION_WGS;
+import static eu.europeana.indexing.solr.EdmLabel.LOCATION_WGS;
 import static java.util.function.Predicate.not;
 
 import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
@@ -197,16 +200,16 @@ public class SolrDocumentPopulator {
     coverageLocationPoints.addAll(getWGS84LocationPoints(coverageLocationStrings));
     System.out.println("DONE COLLECTING");
 
-    SolrPropertyUtils.addValues(document, EdmLabel.CURRENT_LOCATION_WGS,
+    SolrPropertyUtils.addValues(document, CURRENT_LOCATION_WGS,
         currentLocationPoints.stream().map(Object::toString).toArray(String[]::new));
 
-    SolrPropertyUtils.addValues(document, EdmLabel.COVERAGE_LOCATION_WGS,
+    SolrPropertyUtils.addValues(document, COVERAGE_LOCATION_WGS,
         coverageLocationPoints.stream().map(Object::toString).toArray(String[]::new));
 
     Set<LocationPoint> locationPointsCombined = new HashSet<>();
     locationPointsCombined.addAll(currentLocationPoints);
     locationPointsCombined.addAll(coverageLocationPoints);
-    SolrPropertyUtils.addValues(document, EdmLabel.LOCATION_WGS,
+    SolrPropertyUtils.addValues(document, LOCATION_WGS,
         locationPointsCombined.stream().map(Object::toString).toArray(String[]::new));
 
     System.out.println("DONE SETTING");
