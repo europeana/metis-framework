@@ -12,17 +12,22 @@ import java.util.stream.Collectors;
  */
 public final class GeoUriParser {
 
-  private static final String LATITUDE_PATTERN = "^[+-]?(?:90(?:\\.0{1,6})?|(?:[0-9]|[1-8][0-9])(?:\\.[0-9]{1,6})?)$";
-  private static final String LONGITUDE_PATTERN = "^[+-]?(?:180(?:\\.0{1,6})?|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:\\.[0-9]{1,6})?)$";
+  private static final String DECIMAL_POINT_PATTERN = "(?:\\.[0-9]{1,6})?)";
+  private static final String LATITUDE_PATTERN = "^[+-]?(?:90(?:\\.0{1,6})?|(?:[0-9]|[1-8][0-9])" + DECIMAL_POINT_PATTERN + "$";
+  private static final String LONGITUDE_PATTERN =
+      "^[+-]?(?:180(?:\\.0{1,6})?|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])" + DECIMAL_POINT_PATTERN + "$";
+  private static final String ALTITUDE_PATTERN = "^[+-]?(?:\\d+)(?:\\.\\d{1,6})?$";
   private static final Pattern latitudePattern = Pattern.compile(LATITUDE_PATTERN);
   private static final Pattern longitudePattern = Pattern.compile(LONGITUDE_PATTERN);
+  private static final Pattern altitudePattern = Pattern.compile(ALTITUDE_PATTERN);
   private static final String CRS_WGS_84 = "wgs84";
+  private static final int MAX_NUMBER_COORDINATES = 3;
 
   private GeoUriParser() {
   }
 
   /**
-   * Parse a provided geo uri in wgs84 coordinate reference system (CRS) and validate it's contents.
+   * Parse a provided geo uri in wgs84 coordinate reference system (CRS) and validate its contents.
    *
    * @param geoUriString the geo uri string
    * @return the geo coordinates
@@ -76,17 +81,27 @@ public final class GeoUriParser {
     }
 
     //Finally, check the coordinates part and validate
-    final String[] coordinates = geoUriParts[0].split(",");
-    if (coordinates.length < 2) {
+    return getGeoCoordinates(geoUriParts[0]);
+  }
+
+  private static GeoCoordinates getGeoCoordinates(String geoUriPart) throws BadContentException {
+    final String[] coordinates = geoUriPart.split(",");
+    if (coordinates.length < 2 || coordinates.length > MAX_NUMBER_COORDINATES) {
       throw new BadContentException("Coordinates are not of valid length");
     }
     final Matcher latitudeMatcher = latitudePattern.matcher(coordinates[0]);
     final Matcher longitudeMatcher = longitudePattern.matcher(coordinates[1]);
     final GeoCoordinates geoCoordinates;
     if (latitudeMatcher.matches() && longitudeMatcher.matches()) {
+      Double altitude = null;
+      if (coordinates.length == MAX_NUMBER_COORDINATES) {
+        final Matcher altitudeMatcher = altitudePattern.matcher(coordinates[2]);
+        if (altitudeMatcher.matches()) {
+          altitude = Double.parseDouble(altitudeMatcher.group(0));
+        }
+      }
       geoCoordinates = new GeoCoordinates(Double.parseDouble(latitudeMatcher.group(0)),
-          Double.parseDouble(longitudeMatcher.group(0))
-      );
+          Double.parseDouble(longitudeMatcher.group(0)), altitude);
     } else {
       throw new BadContentException("Coordinates are invalid");
     }
@@ -100,16 +115,19 @@ public final class GeoUriParser {
 
     private final Double latitude;
     private final Double longitude;
+    private final Double altitude;
 
     /**
      * Constructor with required parameters
      *
      * @param latitude the latitude
      * @param longitude the longitude
+     * @param altitude the altitude
      */
-    public GeoCoordinates(Double latitude, Double longitude) {
+    public GeoCoordinates(Double latitude, Double longitude, Double altitude) {
       this.latitude = latitude;
       this.longitude = longitude;
+      this.altitude = altitude;
     }
 
     public Double getLatitude() {
@@ -118,6 +136,10 @@ public final class GeoUriParser {
 
     public Double getLongitude() {
       return longitude;
+    }
+
+    public Double getAltitude() {
+      return altitude;
     }
   }
 

@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -266,7 +267,7 @@ public class SolrDocumentPopulator {
 
     @Override
     public String toString() {
-      return String.format("%f,%f", latitude, longitude);
+      return String.format(Locale.US, "%f,%f", latitude, longitude);
     }
 
     @Override
@@ -278,7 +279,7 @@ public class SolrDocumentPopulator {
         return false;
       }
       LocationPoint that = (LocationPoint) o;
-      return latitude.equals(that.latitude) && longitude.equals(that.longitude);
+      return this.toString().equals(that.toString());
     }
 
     @Override
