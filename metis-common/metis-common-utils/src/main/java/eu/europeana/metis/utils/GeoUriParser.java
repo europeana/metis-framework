@@ -30,6 +30,19 @@ public final class GeoUriParser {
 
   /**
    * Parse a provided geo uri in wgs84 coordinate reference system (CRS) and validate its contents.
+   * <p>The parsing of the string follows closely but not exhaustively the specification located at
+   * https://datatracker.ietf.org/doc/html/rfc5870</p>
+   * <p>The checks that are performed to the provided string are as follows:
+   * <ul>
+   *   <li>There should not be any spaces</li>
+   *   <li>It should start with "geo:"</li>
+   *   <li>There should be at least one part after the scheme and that should be the coordinates</li>
+   *   <li>If crs parameter is present it should be "wgs84"</li>
+   *   <li>The "u" parameter should be just after crs if crs is present or just after the coordinates</li>
+   *   <li>The coordinates should have 2 or 3 dimensions</li>
+   *   <li>The coordinates should be of valid structure and valid range</li>
+   * </ul>
+   * </p>
    *
    * @param geoUriString the geo uri string
    * @return the geo coordinates
@@ -63,7 +76,6 @@ public final class GeoUriParser {
       return new GeoUriParameter(split[0], split[1]);
     }).collect(Collectors.toCollection(LinkedList::new));
 
-    //
     //If crs present, it must be the exact first after the dimensions. If not present then there is a default
     String crs = CRS_WGS_84;
     for (int i = 0; i < geoUriParameters.size(); i++) {
@@ -79,7 +91,7 @@ public final class GeoUriParser {
     }
     //Validate value of crs
     if (!CRS_WGS_84.equalsIgnoreCase(crs)) {
-      throw new BadContentException("Crs parameter value is not WGS-84");
+      throw new BadContentException(String.format("Crs parameter value is not %s", CRS_WGS_84));
     }
 
     //Finally, check the coordinates part and validate

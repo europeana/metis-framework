@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class GeoUriParserTest {
 
   @Test
-  void parse() throws Exception {
+  void parse_invalid() {
 
     //URI cannot have spaces
     assertThrows(BadContentException.class, () -> GeoUriParser.parse("geo: 37.786971,-122.399677"));
@@ -44,7 +44,10 @@ class GeoUriParserTest {
     assertThrows(BadContentException.class, () -> GeoUriParser.parse("geo:test,-122.399677;crs=wgs84"));
     //Invalid range coordinates
     assertThrows(BadContentException.class, () -> GeoUriParser.parse("geo:-100,200;crs=wgs84"));
+  }
 
+  @Test
+  void parse_valid() throws Exception {
     assertDoesNotThrow(() -> GeoUriParser.parse("geo:37.786971,-122.399677;crs=wgs84;u=35"));
     assertDoesNotThrow(() -> GeoUriParser.parse("geo:37.786971,-122.399677;u=35"));
     assertDoesNotThrow(() -> GeoUriParser.parse("geo:37.786971,-122.399677;crs=wgs84;u=35;parameter1=value1"));
