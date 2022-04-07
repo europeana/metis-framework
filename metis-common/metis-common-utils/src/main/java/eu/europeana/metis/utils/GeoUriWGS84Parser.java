@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Contains functionality to parse and validate geo uri
  */
-public final class GeoUriParser {
+public final class GeoUriWGS84Parser {
 
   private static final String DECIMAL_POINT_PATTERN = "(?:\\.\\d+)?";
   private static final String ZEROES_DECIMAL_POINT_PATTERN = "(?:\\.0+)?";
@@ -24,8 +24,9 @@ public final class GeoUriParser {
   private static final Pattern altitudePattern = Pattern.compile(ALTITUDE_PATTERN);
   private static final String CRS_WGS_84 = "wgs84";
   private static final int MAX_NUMBER_COORDINATES = 3;
+  private static final int MAX_DECIMAL_POINTS_TO_KEEP = 7;
 
-  private GeoUriParser() {
+  private GeoUriWGS84Parser() {
   }
 
   /**
@@ -41,11 +42,12 @@ public final class GeoUriParser {
    *   <li>The "u" parameter should be just after crs if crs is present or just after the coordinates</li>
    *   <li>The coordinates should have 2 or 3 dimensions</li>
    *   <li>The coordinates should be of valid structure and valid range</li>
+   *   <li>The coordinates if they have decimal points they will be truncated after 7th point</li>
    * </ul>
    * </p>
    *
    * @param geoUriString the geo uri string
-   * @return the geo coordinates
+   * @return the geo coordinates, null will never be returned
    * @throws BadContentException if the geo uri parsing encountered an error
    */
   public static GeoCoordinates parse(String geoUriString) throws BadContentException {
@@ -111,15 +113,30 @@ public final class GeoUriParser {
       if (coordinates.length == MAX_NUMBER_COORDINATES) {
         final Matcher altitudeMatcher = altitudePattern.matcher(coordinates[2]);
         if (altitudeMatcher.matches()) {
-          altitude = Double.parseDouble(altitudeMatcher.group(0));
+          altitude = Double.parseDouble(truncateDecimalPoints(altitudeMatcher.group(0)));
         }
       }
-      geoCoordinates = new GeoCoordinates(Double.parseDouble(latitudeMatcher.group(0)),
-          Double.parseDouble(longitudeMatcher.group(0)), altitude);
+      geoCoordinates = new GeoCoordinates(
+          Double.parseDouble(truncateDecimalPoints(latitudeMatcher.group(0))),
+          Double.parseDouble(truncateDecimalPoints(longitudeMatcher.group(0))), altitude);
     } else {
       throw new BadContentException("Coordinates are invalid");
     }
     return geoCoordinates;
+  }
+
+  private static String truncateDecimalPoints(String decimalNumber) {
+    final String[] decimalNumberParts = decimalNumber.split("\\.");
+    final StringBuilder decimalNumberTruncated = new StringBuilder();
+    if (decimalNumberParts.length >= 1) {
+      decimalNumberTruncated.append(decimalNumberParts[0]);
+    }
+    if (decimalNumberParts.length > 1) {
+      decimalNumberTruncated.append(".");
+      decimalNumberTruncated.append(decimalNumberParts[1], 0,
+          Math.min(decimalNumberParts[1].length(), MAX_DECIMAL_POINTS_TO_KEEP));
+    }
+    return decimalNumberTruncated.toString();
   }
 
   /**

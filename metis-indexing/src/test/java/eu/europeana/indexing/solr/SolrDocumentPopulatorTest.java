@@ -45,11 +45,11 @@ class SolrDocumentPopulatorTest {
 
     assertTrue(document.get(EUROPEANA_ID.toString()).getValues().contains(fullBean.getAbout()));
     assertTrue(CollectionUtils.isEqualCollection(document.get(CURRENT_LOCATION_WGS.toString()).getValues(),
-        List.of("50.750000,4.500000")));
+        List.of("50.75,4.5")));
     assertTrue(CollectionUtils.isEqualCollection(document.get(COVERAGE_LOCATION_WGS.toString()).getValues(),
-        List.of("50.000000,50.000000", "40.000000,40.000000")));
+        List.of("50,50", "40,40")));
     assertTrue(CollectionUtils.isEqualCollection(document.get(LOCATION_WGS.toString()).getValues(),
-        List.of("50.000000,50.000000", "40.000000,40.000000", "50.750000,4.500000")));
+        List.of("50,50", "40,40", "50.75,4.5")));
   }
 
   @Test
@@ -75,10 +75,10 @@ class SolrDocumentPopulatorTest {
 
     assertTrue(document.get(EUROPEANA_ID.toString()).getValues().contains(fullBean.getAbout()));
     assertTrue(CollectionUtils.isEqualCollection(document.get(CURRENT_LOCATION_WGS.toString()).getValues(),
-        List.of("50.750000,4.500000")));
+        List.of("50.75,4.5")));
     assertTrue(CollectionUtils.isEqualCollection(document.get(COVERAGE_LOCATION_WGS.toString()).getValues(),
-        List.of("50.000000,50.000000", "40.000000,40.000000", "40.123456,40.123456")));
+        List.of("50,50", "40,40", "40.123456,40.1234567")));
     assertTrue(CollectionUtils.isEqualCollection(document.get(LOCATION_WGS.toString()).getValues(),
-        List.of("50.000000,50.000000", "40.000000,40.000000", "40.123456,40.123456", "50.750000,4.500000")));
+        List.of("50,50", "40,40", "40.123456,40.1234567", "50.75,4.5")));
   }
 }

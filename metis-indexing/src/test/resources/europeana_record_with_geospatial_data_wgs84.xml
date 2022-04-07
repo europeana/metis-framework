@@ -68,7 +68,7 @@
     <dc:type rdf:resource="http://data.europeana.eu/concept/base/61"></dc:type>
     <dcterms:spatial rdf:resource="geo:40,40"/>
     <dcterms:spatial rdf:resource="geo:test,40"/>
-    <dcterms:spatial rdf:resource="geo:40.123456,40.123456,1000"/>
+    <dcterms:spatial rdf:resource="geo:40.123456,40.123456789,1000"/>
     <edm:currentLocation rdf:resource="geo:50.75,4.5"/>
     <edm:europeanaProxy>true</edm:europeanaProxy>
     <edm:year>1984</edm:year>
