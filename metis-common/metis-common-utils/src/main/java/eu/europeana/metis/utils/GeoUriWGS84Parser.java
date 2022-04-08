@@ -100,6 +100,21 @@ public final class GeoUriWGS84Parser {
     return getGeoCoordinates(geoUriParts[0]);
   }
 
+  /**
+   * Generate a geo coordinates from a geoUriPart string.
+   * <p>The provided string is validated against:
+   *   <ul>
+   *     <li>the total coordinates available</li>
+   *     <li>the validity of each number and its range</li>
+   *     <li>the convertibility to a {@link Double}</li>
+   *   </ul>
+   *   The decimal points are also truncated up to a maximum allowed.
+   * </p>
+   *
+   * @param geoUriPart the string that should contain the coordinates
+   * @return the geo coordinates
+   * @throws BadContentException if the geo coordinates were not valid
+   */
   private static GeoCoordinates getGeoCoordinates(String geoUriPart) throws BadContentException {
     final String[] coordinates = geoUriPart.split(",");
     if (coordinates.length < 2 || coordinates.length > MAX_NUMBER_COORDINATES) {
