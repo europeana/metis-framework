@@ -143,10 +143,10 @@ public class FullBeanSolrProperties {
 
   private static class LocationPoint {
 
+    //We allow 7 decimal points
+    private static final DecimalFormat decimalFormat = new DecimalFormat("#.#######", new DecimalFormatSymbols(Locale.US));
     private final Double latitude;
     private final Double longitude;
-    //We allow 7 decimal points
-    private final static DecimalFormat decimalFormat = new DecimalFormat("#.#######", new DecimalFormatSymbols(Locale.US));
 
     public LocationPoint(Double latitude, Double longitude) {
       this.latitude = latitude;
