@@ -91,8 +91,8 @@ public class IncomingRecordToEdmTransformer {
   }
 
   /**
-   * Returns an empty optional which is empty if the provided xml is a validated empty xml or contains the xml itself if it's a
-   * valid parsable xml.
+   * Returns an optional which is empty if the provided xml is a validated empty xml or contains the xml itself if it's a valid
+   * parsable xml.
    *
    * @param resourceId the resource id
    * @param xml the xml
@@ -110,7 +110,7 @@ public class IncomingRecordToEdmTransformer {
       }
     } else {
       try {
-        isValidXml(xml);
+        assertXmlValidity(xml);
         xmlResponse = Optional.of(xml);
       } catch (ParserConfigurationException | IOException | SAXException e) {
         throw new BadContentException("Transformed xml is not valid", e);
@@ -121,14 +121,14 @@ public class IncomingRecordToEdmTransformer {
   }
 
   /**
-   * Validates if the provided xml can be parsed.
+   * Asserts if the provided xml is valid and can be parsed.
    *
    * @param xml the xml string
    * @throws ParserConfigurationException if xml parsing failed
    * @throws IOException if xml parsing failed
    * @throws SAXException if xml parsing failed
    */
-  private void isValidXml(String xml) throws ParserConfigurationException, IOException, SAXException {
+  private void assertXmlValidity(String xml) throws ParserConfigurationException, IOException, SAXException {
     documentBuilderFactory.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
   }
 
