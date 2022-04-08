@@ -12,16 +12,16 @@ import java.util.stream.Collectors;
  */
 public final class GeoUriWGS84Parser {
 
-  private static final String DECIMAL_POINT_PATTERN = "(?:\\.\\d+)?";
-  private static final String ZEROES_DECIMAL_POINT_PATTERN = "(?:\\.0+)?";
-  private static final String LATITUDE_PATTERN =
-      "^[+-]?(?:90" + ZEROES_DECIMAL_POINT_PATTERN + "|(?:[0-9]|[1-8][0-9])" + DECIMAL_POINT_PATTERN + ")$";
-  private static final String LONGITUDE_PATTERN =
-      "^[+-]?(?:180" + ZEROES_DECIMAL_POINT_PATTERN + "|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])" + DECIMAL_POINT_PATTERN + ")$";
-  private static final String ALTITUDE_PATTERN = "^[+-]?\\d+" + DECIMAL_POINT_PATTERN + "$";
-  private static final Pattern latitudePattern = Pattern.compile(LATITUDE_PATTERN);
-  private static final Pattern longitudePattern = Pattern.compile(LONGITUDE_PATTERN);
-  private static final Pattern altitudePattern = Pattern.compile(ALTITUDE_PATTERN);
+  private static final String DECIMAL_POINT_REGEX = "(?:\\.\\d+)?";
+  private static final String ZEROES_DECIMAL_POINT_REGEX = "(?:\\.0+)?";
+  private static final String LATITUDE_REGEX =
+      "^[+-]?(?:90" + ZEROES_DECIMAL_POINT_REGEX + "|(?:[0-9]|[1-8][0-9])" + DECIMAL_POINT_REGEX + ")$";
+  private static final Pattern LATITUDE_PATTERN = Pattern.compile(LATITUDE_REGEX);
+  private static final String LONGITUDE_REGEX =
+      "^[+-]?(?:180" + ZEROES_DECIMAL_POINT_REGEX + "|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])" + DECIMAL_POINT_REGEX + ")$";
+  private static final Pattern LONGITUDE_PATTERN = Pattern.compile(LONGITUDE_REGEX);
+  private static final String ALTITUDE_REGEX = "^[+-]?\\d+" + DECIMAL_POINT_REGEX + "$";
+  private static final Pattern ALTITUDE_PATTERN = Pattern.compile(ALTITUDE_REGEX);
   private static final String CRS_WGS_84 = "wgs84";
   private static final int MAX_NUMBER_COORDINATES = 3;
   private static final int MAX_DECIMAL_POINTS_TO_KEEP = 7;
@@ -51,6 +51,13 @@ public final class GeoUriWGS84Parser {
    * @throws BadContentException if the geo uri parsing encountered an error
    */
   public static GeoCoordinates parse(String geoUriString) throws BadContentException {
+    final String[] geoUriParts = validateGeoUriAndGetParts(geoUriString);
+
+    //Finally, check the coordinates part and validate
+    return validateGeoCoordinatesAndGet(geoUriParts[0]);
+  }
+
+  private static String[] validateGeoUriAndGetParts(String geoUriString) throws BadContentException {
     //Validate that there aren't any space characters in the URI
     if (!geoUriString.matches("^\\S+$")) {
       throw new BadContentException("URI cannot have spaces");
@@ -95,9 +102,7 @@ public final class GeoUriWGS84Parser {
     if (!CRS_WGS_84.equalsIgnoreCase(crs)) {
       throw new BadContentException(String.format("Crs parameter value is not %s", CRS_WGS_84));
     }
-
-    //Finally, check the coordinates part and validate
-    return getGeoCoordinates(geoUriParts[0]);
+    return geoUriParts;
   }
 
   /**
@@ -115,18 +120,18 @@ public final class GeoUriWGS84Parser {
    * @return the geo coordinates
    * @throws BadContentException if the geo coordinates were not valid
    */
-  private static GeoCoordinates getGeoCoordinates(String geoUriPart) throws BadContentException {
+  private static GeoCoordinates validateGeoCoordinatesAndGet(String geoUriPart) throws BadContentException {
     final String[] coordinates = geoUriPart.split(",");
     if (coordinates.length < 2 || coordinates.length > MAX_NUMBER_COORDINATES) {
       throw new BadContentException("Coordinates are not of valid length");
     }
-    final Matcher latitudeMatcher = latitudePattern.matcher(coordinates[0]);
-    final Matcher longitudeMatcher = longitudePattern.matcher(coordinates[1]);
+    final Matcher latitudeMatcher = LATITUDE_PATTERN.matcher(coordinates[0]);
+    final Matcher longitudeMatcher = LONGITUDE_PATTERN.matcher(coordinates[1]);
     final GeoCoordinates geoCoordinates;
     if (latitudeMatcher.matches() && longitudeMatcher.matches()) {
       Double altitude = null;
       if (coordinates.length == MAX_NUMBER_COORDINATES) {
-        final Matcher altitudeMatcher = altitudePattern.matcher(coordinates[2]);
+        final Matcher altitudeMatcher = ALTITUDE_PATTERN.matcher(coordinates[2]);
         if (altitudeMatcher.matches()) {
           altitude = Double.parseDouble(truncateDecimalPoints(altitudeMatcher.group(0)));
         }
