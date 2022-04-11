@@ -13,11 +13,11 @@ import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.io.File;
-import java.nio.file.Files;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 
@@ -25,9 +25,8 @@ class SolrDocumentPopulatorTest {
 
   @Test
   void populateWithProperties_PlaceCoordinates() throws Exception {
-    ClassLoader classLoader = SolrDocumentPopulatorTest.class.getClassLoader();
-    File file = new File(Objects.requireNonNull(classLoader.getResource("europeana_record_with_geospatial_data.xml")).getFile());
-    String xml = new String(Files.readAllBytes(file.toPath()));
+    String xml = IOUtils.toString(new FileInputStream("src/test/resources/europeana_record_with_geospatial_data.xml"),
+        StandardCharsets.UTF_8);
     final RDF rdf = new RdfConversionUtils().convertStringToRdf(xml);
 
     // Perform the tier classification
@@ -55,10 +54,8 @@ class SolrDocumentPopulatorTest {
 
   @Test
   void populateWithProperties_WGS84Coordinates() throws Exception {
-    ClassLoader classLoader = SolrDocumentPopulatorTest.class.getClassLoader();
-    File file = new File(
-        Objects.requireNonNull(classLoader.getResource("europeana_record_with_geospatial_data_wgs84.xml")).getFile());
-    String xml = new String(Files.readAllBytes(file.toPath()));
+    String xml = IOUtils.toString(new FileInputStream("src/test/resources/europeana_record_with_geospatial_data_wgs84.xml"),
+        StandardCharsets.UTF_8);
     final RDF rdf = new RdfConversionUtils().convertStringToRdf(xml);
 
     // Perform the tier classification
