@@ -21,6 +21,7 @@
     <module>metis-transformation</module>
     <module>metis-harvesting</module>
     <module>metis-repository</module>
+    <module>metis-pattern-analysis</module>
   </modules>
 
   <!-- Github connection -->
@@ -131,6 +132,7 @@
     <version.commons-fileupload>1.4</version.commons-fileupload>
     <version.commons.io>2.9.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
+    <version.commons.collections>3.2.2</version.commons.collections>
     <version.commonscompress>1.11</version.commonscompress>
     <version.corelib>2.15.3</version.corelib>
 

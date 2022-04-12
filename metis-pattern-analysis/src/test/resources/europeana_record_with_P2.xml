@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:ore="http://www.openarchives.org/ore/terms/">
+  <edm:ProvidedCHO rdf:about="/1/12944"/>
+  <edm:WebResource rdf:about="https://vimeo.com/209357984">
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+    <rdf:type rdf:resource="http://www.europeana.eu/schemas/edm/FullTextResource"/>
+    <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">197506</ebucore:fileByteSize>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://i.vimeocdn.com/video/624880505_640.jpg">
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6643</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">640</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">480</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F0E68C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#B22222</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FF4500</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#ADFF2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#87CEEB</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+  </edm:WebResource>
+  <edm:Place rdf:about="http://data.europeana.eu/place/base/75">
+    <wgs84_pos:lat>50.75</wgs84_pos:lat>
+    <wgs84_pos:long>4.5</wgs84_pos:long>
+  </edm:Place>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/base/83">
+    <skos:exactMatch rdf:resource="http://da.dbpedia.org/resource/1._verdenskrig"/>
+    <skos:note xml:lang="hi">1914-1919 के मध्य मुख्यतः यूरोप में व्याप्त इस महायुद्ध को प्रथम विश्व युद्ध कहते हैं । यह महायुद्ध
+      यूरोप, एशिया व अफ्रीका तीन महाद्वीपों और जल, थल तथा आकाश में लड़ा गया। इसमें भाग लेने वाले देशों की संख्या, इसका क्षेत्र
+      (जिसमें यह लड़ा गया) तथा इससे हुई क्षति के अभूतपूर्व आंकड़ों के कारण ही इसे विश्वयुद्ध कहते हैं ।
+    </skos:note>
+    <skos:prefLabel xml:lang="no">Første verdenskrig</skos:prefLabel>
+    <skos:related rdf:resource="http://dbpedia.org/resource/Category:Wars_involving_Nicaragua"/>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/1/12944">
+    <edm:aggregatedCHO rdf:resource="/1/12944"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000004502033"></edm:dataProvider>
+    <edm:isShownBy rdf:resource="https://vimeo.com/209357984"/>
+    <edm:object rdf:resource="https://i.vimeocdn.com/video/624880505_640.jpg"/>
+    <edm:provider xml:lang="en">EFG - The European Film Gateway</edm:provider>
+    <dc:rights>J.M.P.- Trends</dc:rights>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/1/12944">
+    <dc:identifier>12944</dc:identifier>
+    <dc:language>nld</dc:language>
+    <dc:type rdf:resource="http://data.europeana.eu/concept/base/61"></dc:type>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/base/184"></dc:subject>
+    <edm:currentLocation rdf:resource="http://data.europeana.eu/place/base/75"/>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <edm:year>1984</edm:year>
+    <ore:proxyFor rdf:resource="/1/12944"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/1/12944"/>
+    <ore:lineage rdf:resource="/proxy/provider/1/12944"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/1/12944">
+    <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
+    <dc:description xml:lang="en">same title and Description</dc:description>
+    <dc:identifier>12944</dc:identifier>
+    <dc:language>nl</dc:language>
+    <dc:subject xml:lang="en">EFG1914</dc:subject>
+    <dc:subject xml:lang="en">World War I</dc:subject>
+    <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
+    <dc:title xml:lang="en">Same title and Description</dc:title>
+    <dc:type xml:lang="en">Newsreel</dc:type>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>
+    <dcterms:created xml:lang="en">1984</dcterms:created>
+    <dcterms:spatial xml:lang="en">Belgium</dcterms:spatial>
+    <dcterms:spatial rdf:resource="http://sws.geonames.org/2802361/"></dcterms:spatial>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/1/12944"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/1/12944"/>
+    <edm:type>VIDEO</edm:type>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/1/12944">
+      <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
+      <dc:description xml:lang="en">same title and Description</dc:description>
+      <dc:identifier>12944</dc:identifier>
+      <dc:language>nl</dc:language>
+      <dc:subject xml:lang="en">EFG1914</dc:subject>
+      <dc:subject xml:lang="en">World War I</dc:subject>
+      <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
+      <dc:title xml:lang="en">Same title and Description</dc:title>
+      <dc:type xml:lang="en">Newsreel</dc:type>
+      <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
+      <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>
+      <dcterms:created xml:lang="en">1984</dcterms:created>
+      <dcterms:spatial xml:lang="en">Belgium</dcterms:spatial>
+      <dcterms:spatial rdf:resource="http://sws.geonames.org/2802361/"></dcterms:spatial>
+      <edm:europeanaProxy>false</edm:europeanaProxy>
+      <ore:proxyFor rdf:resource="/1/12944"/>
+      <ore:proxyIn rdf:resource="/aggregation/provider/1/12944"/>
+      <ore:lineage rdf:resource="someLineage"/>
+      <edm:type>VIDEO</edm:type>
+    </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/1/12944">
+    <edm:aggregatedCHO rdf:resource="/1/12944"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>1_test</edm:datasetName>
+    <edm:country>Netherlands</edm:country>
+    <edm:preview rdf:resource="https://i.vimeocdn.com/video/624880505_640.jpg"/>
+    <edm:language>nl</edm:language>
+    <edm:completeness>10</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004502033">
+    <skos:prefLabel xml:lang="en">The Royal Belgian Film Archives</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Cinémathèque royale de Belgique</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Koninklijk Belgisch Filmarchief</skos:prefLabel>
+  </foaf:Organization>
+</rdf:RDF>
