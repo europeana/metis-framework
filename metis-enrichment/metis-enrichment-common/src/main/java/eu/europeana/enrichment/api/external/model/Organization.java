@@ -148,7 +148,7 @@ public class Organization extends AgentBase {
       this.acronyms = EntityXmlUtils.convertMultilingualMapToXmlLabel(organization.getAcronym());
     }
     if (organization.getLogo() != null) {
-      this.logo = new Resource(organization.getLogo());
+      this.logo = new Resource(organization.getLogo().getId());
     }
     if (organization.getDepiction() != null) {
       this.depiction = new Resource(organization.getDepiction().getSource());
