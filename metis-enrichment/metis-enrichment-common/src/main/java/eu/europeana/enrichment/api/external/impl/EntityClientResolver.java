@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client.enrichment;
+package eu.europeana.enrichment.api.external.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
@@ -13,7 +13,6 @@ import eu.europeana.entity.client.web.EntityClientApiImpl;
 
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.vocabulary.EntityTypes;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.function.Function;
@@ -26,12 +25,10 @@ import java.util.stream.Collectors;
 public class EntityClientResolver implements EntityResolver {
 
     private EntityClientApi entityClientApi;
-    private final RestTemplate template;
     private final int batchSize;
 
 
-    public EntityClientResolver(RestTemplate template, int batchSize) {
-        this.template = template;
+    public EntityClientResolver(int batchSize) {
         this.batchSize = batchSize;
         entityClientApi = new EntityClientApiImpl();
     }
@@ -54,6 +51,23 @@ public class EntityClientResolver implements EntityResolver {
         return performInBatches(referenceTerms, inputFunction);
     }
 
+
+    /**
+     * Gets the Enrichment for single Entity request
+     * @param clientRequest
+     * @return
+     */
+    public List<EnrichmentBase> getEnrichment(EntityClientRequest clientRequest) {
+        return executeEntityClientRequest(clientRequest);
+    }
+
+    /**
+     * Gets the Enrichment for Multiple values in batches
+     * @param inputValues
+     * @param identity
+     * @param <I>
+     * @return
+     */
     private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, Function<I, EntityClientRequest> identity) {
         final Map<I, List<EnrichmentBase>> result = new HashMap<>();
         // create partitions
@@ -63,14 +77,8 @@ public class EntityClientResolver implements EntityResolver {
         for (List<I> partition : partitions) {
             for (I input: partition) {
                 EntityClientRequest clientRequest = identity.apply(input);
-                List<Entity> entities = executeEntityClient(clientRequest);
-                if (!entities.isEmpty()) {
-                    // convert entity to EnrichmentBase
-                    List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
-                        EnrichmentBase enrichmentBase = createXmlEntity(entity);
-                        return enrichmentBase;
-                    }).collect(Collectors.toList());
-                    EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(), "Mismatch while converting the EM class to EnrichmentBase.");
+                List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(clientRequest);
+                if (!enrichmentBaseList.isEmpty()) {
                     result.put(input, enrichmentBaseList);
                 }
             }
@@ -78,7 +86,22 @@ public class EntityClientResolver implements EntityResolver {
         return result;
     }
 
-    private List<Entity> executeEntityClient(EntityClientRequest entityClientRequest) {
+    private List<EnrichmentBase> executeEntityClientRequest(EntityClientRequest clientRequest) {
+        List<Entity> entities = getEntities(clientRequest);
+        if (!entities.isEmpty()) {
+            // convert entity to EnrichmentBase
+            List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
+                EnrichmentBase enrichmentBase = createXmlEntity(entity);
+                return enrichmentBase;
+            }).collect(Collectors.toList());
+            EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(), "Mismatch while converting the EM class to EnrichmentBase.");
+            return enrichmentBaseList;
+        }
+        return Collections.emptyList();
+    }
+
+
+    private List<Entity> getEntities(EntityClientRequest entityClientRequest) {
         try {
               if (entityClientRequest.isReference()) {
                   if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {

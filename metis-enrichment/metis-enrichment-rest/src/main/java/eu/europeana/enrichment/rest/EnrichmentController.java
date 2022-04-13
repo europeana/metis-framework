@@ -1,21 +1,23 @@
 package eu.europeana.enrichment.rest;
 
+import eu.europeana.api.commons.definitions.vocabulary.CommonApiConstants;
 import eu.europeana.enrichment.api.external.EnrichmentReference;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.EntityClientRequest;
 import eu.europeana.enrichment.service.EnrichmentService;
+import eu.europeana.entitymanagement.vocabulary.WebEntityConstants;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -126,4 +128,57 @@ public class EnrichmentController {
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
+
+  /**
+   * Get an enrichment providing a text
+   *
+   * @param text The text to check for match
+   * @return the structured result of the enrichment
+   */
+  @GetMapping(value = RestEndpoints.ENRICH_ENTITY_CLIENT_SEARCH,
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ApiOperation(value = "", response = EnrichmentResultList.class)
+  @ResponseBody
+  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  public EnrichmentResultList enrichByText(
+          @RequestParam(value = CommonApiConstants.QUERY_PARAM_TEXT) String text,
+          @RequestParam(value = CommonApiConstants.QUERY_PARAM_LANG, required = false) String lang,
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_TYPE, required = false) String type) {
+    return enrichmentService.enrichByEntityClient(new EntityClientRequest(text, lang, type, false));
+  }
+
+  /**
+   * Get an enrichment providing a URI
+   *
+   * @param uri The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  @GetMapping(value = RestEndpoints.ENRICH_ENTITY_CLIENT_EQUIVALENCE,
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ApiOperation(value = "", response = EnrichmentResultList.class)
+  @ResponseBody
+  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  public EnrichmentResultList enrichByURI(
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_URI) String uri,
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_TYPE, required = false) String type) {
+    return enrichmentService.enrichByEntityClient(new EntityClientRequest(uri, type, true));
+  }
+
+  /**
+   * Get an enrichment providing a URI
+   *
+   * @param uri The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  @GetMapping(value = RestEndpoints.ENRICH_ENTITY_CLIENT_ID,
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ApiOperation(value = "", response = EnrichmentResultList.class)
+  @ResponseBody
+  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  public EnrichmentResultList enrichByID(
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_URI) String uri,
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_TYPE, required = false) String type) {
+    return enrichmentService.enrichByEntityClient(new EntityClientRequest(uri, type, true));
+  }
+
 }

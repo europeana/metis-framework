@@ -2,8 +2,11 @@ package eu.europeana.enrichment.service;
 
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
+import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.EntityClientRequest;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -20,6 +23,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import eu.europeana.entity.client.exception.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +42,18 @@ public class EnrichmentService {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
 
   private final PersistentEntityResolver persistentEntityResolver;
+  private final EntityClientResolver entityClientResolver;
 
   /**
    * Parameter constructor.
    *
    * @param persistentEntityResolver the entity resolver
+   * @param entityClientResolver
    */
   @Autowired
-  public EnrichmentService(PersistentEntityResolver persistentEntityResolver) {
+  public EnrichmentService(PersistentEntityResolver persistentEntityResolver, EntityClientResolver entityClientResolver) {
     this.persistentEntityResolver = persistentEntityResolver;
+    this.entityClientResolver = entityClientResolver;
   }
 
   /**
@@ -161,4 +169,20 @@ public class EnrichmentService {
   public Date getDateOfLastUpdatedOrganization() {
     return persistentEntityResolver.getDateOfLastUpdatedOrganization();
   }
+
+  /**
+   * Get an enrichment by providing EntityClientRequest with text search value OR URI or entity id .
+   * This method gets the enrichment via Entity client Api
+   *
+   * @param clientRequest
+   * @return the enrichment values in a structured list
+   */
+  public EnrichmentResultList enrichByEntityClient(EntityClientRequest clientRequest) {
+    List<EnrichmentBase> enrichmentBases = entityClientResolver.getEnrichment(clientRequest);
+    if (!enrichmentBases.isEmpty()) {
+      return new EnrichmentResultList(Collections.singletonList(new EnrichmentResultBaseWrapper(enrichmentBases)));
+    }
+    throw new EntityNotFoundException("No entity found for enrichment for "+clientRequest.getValueToEnrich());
+  }
+
 }

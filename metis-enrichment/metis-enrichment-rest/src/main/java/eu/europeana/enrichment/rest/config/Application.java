@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.config;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
@@ -59,6 +60,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${enrichment.mongo.application.name}")
   private String enrichmentMongoApplicationName;
 
+  @Value("${enrichment.batch.size}")
+  private int enrichmentBatchSize;
+
   private MongoClient mongoClient;
 
   /**
@@ -85,7 +89,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
-    return new EnrichmentService(new PersistentEntityResolver(enrichmentDao));
+    return new EnrichmentService(new PersistentEntityResolver(enrichmentDao), new EntityClientResolver(enrichmentBatchSize));
   }
 
   @Bean

@@ -76,7 +76,7 @@ public class ConnectionProvider {
    * @return a {@link RestTemplate} instance with all the information
    * set up previously
    */
-  public RestTemplate createRestTemplate() {
+  protected RestTemplate createRestTemplate() {
     final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
     requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
     requestFactory.setReadTimeout(Math.max(responseTimeout, 0));

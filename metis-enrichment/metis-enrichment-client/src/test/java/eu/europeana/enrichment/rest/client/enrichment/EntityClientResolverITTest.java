@@ -1,9 +1,8 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-
+import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.*;
-import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.utils.EntityType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,13 +19,11 @@ import java.util.*;
 @Disabled
 public class EntityClientResolverITTest {
 
-    private ConnectionProvider connectionProvider;
     private EntityResolver entityResolver;
 
     @BeforeEach
     void setup()  {
-        connectionProvider = new ConnectionProvider();
-        entityResolver = Mockito.spy(new EntityClientResolver(connectionProvider.createRestTemplate(), 2));
+        entityResolver = Mockito.spy(new EntityClientResolver( 2));
     }
 
     @Test

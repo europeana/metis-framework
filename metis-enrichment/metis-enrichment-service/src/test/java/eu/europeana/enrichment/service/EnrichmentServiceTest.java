@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
+import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
@@ -38,6 +39,7 @@ class EnrichmentServiceTest {
 
   private static EnrichmentObjectUtils enrichmentObjectUtils;
   private static PersistentEntityResolver persistentEntityResolver;
+  private static EntityClientResolver entityClientResolver;
   private static EnrichmentService enrichmentService;
 
 
@@ -45,7 +47,8 @@ class EnrichmentServiceTest {
   static void prepare() {
     enrichmentObjectUtils = new EnrichmentObjectUtils();
     persistentEntityResolver = mock(PersistentEntityResolver.class);
-    enrichmentService = new EnrichmentService(persistentEntityResolver);
+    entityClientResolver = mock(EntityClientResolver.class);
+    enrichmentService = new EnrichmentService(persistentEntityResolver, entityClientResolver);
   }
 
   @BeforeEach
