@@ -141,8 +141,8 @@ public class EnrichmentController {
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList enrichByText(
-          @RequestParam(value = CommonApiConstants.QUERY_PARAM_TEXT) String text,
-          @RequestParam(value = CommonApiConstants.QUERY_PARAM_LANG, required = false) String lang,
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_TEXT) String text,
+          @RequestParam(value = WebEntityConstants.QUERY_PARAM_LANGUAGE, required = false) String lang,
           @RequestParam(value = WebEntityConstants.QUERY_PARAM_TYPE, required = false) String type) {
     return enrichmentService.enrichByEntityClient(new EntityClientRequest(text, lang, type, false));
   }
