@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.rest;
 
-import eu.europeana.api.commons.definitions.vocabulary.CommonApiConstants;
 import eu.europeana.enrichment.api.external.EnrichmentReference;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.ReferenceValue;
