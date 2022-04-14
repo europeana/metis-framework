@@ -1,6 +1,7 @@
 package eu.europeana.patternanalysis.view;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Arrays;
 
 /**
  * Enum containing all available problem patterns.
@@ -42,15 +43,20 @@ public enum ProblemPatternDescription {
     return problemPatternQualityDimension;
   }
 
-  enum ProblemPatternId {
+  public static ProblemPatternDescription fromName(String name) {
+    return Arrays.stream(ProblemPatternDescription.values()).filter(value -> value.name().equalsIgnoreCase(name)).findFirst()
+                 .orElseThrow();
+  }
+
+  public enum ProblemPatternId {
     P1, P2, P3, P5, P6, P7, P9, P12;
   }
 
-  enum ProblemPatternSeverity {
+  public enum ProblemPatternSeverity {
     NOTICE, WARNING, ERROR, FATAL
   }
 
-  enum ProblemPatternQualityDimension {
+  public enum ProblemPatternQualityDimension {
     ACCURACY, AVAILABILITY, COMPLETENESS, CONCISENESS, COMPLIANCE, CONSISTENCY, TIMELINESS, LICENSING, INTERLINKING, UNDERSTANDABILITY, REPRESENTATIONAL
   }
 }

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class DatasetProblemPatternAnalysisTest {
         ProblemPatternDescription.P2, 2, List.of(recordAnalysis1, recordAnalysis2));
     final ProblemPattern problemPattern2 = new ProblemPattern(ProblemPatternDescription.P2, 2, null);
 
-    final Date currentDate = new Date();
+    final LocalDateTime currentDate = LocalDateTime.now();
     final DatasetProblemPatternAnalysis datasetProblemPatternAnalysis1 = new DatasetProblemPatternAnalysis("datasetId1",
         currentDate,
         "VALIDATION_EXTERNAL", List.of(problemPattern1, problemPattern2));

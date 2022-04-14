@@ -1,8 +1,8 @@
 package eu.europeana.patternanalysis.view;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +12,7 @@ public class DatasetProblemPatternAnalysis {
 
   private final String datasetId;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private final Date executionTimestamp;
+  private final LocalDateTime executionTimestamp;
   private final String executionStep;
   private final List<ProblemPattern> problemPatternList;
 
@@ -24,10 +24,10 @@ public class DatasetProblemPatternAnalysis {
    * @param executionStep the execution step
    * @param problemPatternList the problem pattern list
    */
-  public DatasetProblemPatternAnalysis(String datasetId, Date executionTimestamp, String executionStep,
+  public DatasetProblemPatternAnalysis(String datasetId, LocalDateTime executionTimestamp, String executionStep,
       List<ProblemPattern> problemPatternList) {
     this.datasetId = datasetId;
-    this.executionTimestamp = new Date(executionTimestamp.getTime());
+    this.executionTimestamp = executionTimestamp;
     this.executionStep = executionStep;
     this.problemPatternList = problemPatternList == null ? new ArrayList<>() : new ArrayList<>(problemPatternList);
   }
@@ -40,8 +40,8 @@ public class DatasetProblemPatternAnalysis {
     return new ArrayList<>(problemPatternList);
   }
 
-  public Date getExecutionTimestamp() {
-    return new Date(executionTimestamp.getTime());
+  public LocalDateTime getExecutionTimestamp() {
+    return executionTimestamp;
   }
 
   public String getExecutionStep() {
