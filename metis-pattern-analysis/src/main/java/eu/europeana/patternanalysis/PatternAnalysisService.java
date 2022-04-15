@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Interface with all methods required for a pattern analysis service
  */
-public interface PatternAnalysisService {
+public interface PatternAnalysisService<T> {
 
   /**
    * Generates the analysis of the record in RDF format.
@@ -24,7 +24,7 @@ public interface PatternAnalysisService {
    * @param datasetId the datasetId
    * @param rdfRecord the rdf record
    */
-  void generateRecordPatternAnalysis(String datasetId, String executionStep, LocalDateTime executionTimestamp, RDF rdfRecord)
+  void generateRecordPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp, RDF rdfRecord)
       throws PatternAnalysisException;
 
   /**
@@ -39,7 +39,7 @@ public interface PatternAnalysisService {
    * @param executionTimestamp the execution timestamp for the execution of the dataset(this should be the same for all records).
    * @param rdfRecord the rdf record
    */
-  void generateRecordPatternAnalysis(String datasetId, String executionStep, LocalDateTime executionTimestamp, String rdfRecord)
+  void generateRecordPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp, String rdfRecord)
       throws PatternAnalysisException;
 
   /**
@@ -51,7 +51,7 @@ public interface PatternAnalysisService {
    * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox).
    * @param executionTimestamp the execution timestamp for the execution of the dataset(this should be the same for all records).
    */
-  void finalizeDatasetPatternAnalysis(String datasetId, String executionStep, LocalDateTime executionTimestamp)
+  void finalizeDatasetPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp)
       throws PatternAnalysisException;
 
   /**
@@ -66,7 +66,7 @@ public interface PatternAnalysisService {
    * @param executionTimestamp the execution timestamp
    * @return the dataset pattern analysis
    */
-  Optional<DatasetProblemPatternAnalysis> getDatasetPatternAnalysis(String datasetId, String executionStep,
+  Optional<DatasetProblemPatternAnalysis<T>> getDatasetPatternAnalysis(String datasetId, T executionStep,
       LocalDateTime executionTimestamp);
 
   /**
@@ -81,6 +81,6 @@ public interface PatternAnalysisService {
    * @param rdfRecord the RDF record
    * @return the list of problem patterns
    */
-  List<ProblemPattern> getRecordPatternAnalysis(String datasetId, String executionStep, LocalDateTime executionTimestamp,
+  List<ProblemPattern> getRecordPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp,
       RDF rdfRecord);
 }

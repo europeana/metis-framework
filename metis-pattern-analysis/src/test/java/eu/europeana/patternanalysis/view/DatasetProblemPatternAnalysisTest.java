@@ -24,9 +24,9 @@ class DatasetProblemPatternAnalysisTest {
     final ProblemPattern problemPattern2 = new ProblemPattern(ProblemPatternDescription.P2, 2, null);
 
     final LocalDateTime currentDate = LocalDateTime.now();
-    final DatasetProblemPatternAnalysis datasetProblemPatternAnalysis1 = new DatasetProblemPatternAnalysis("datasetId1",
-        currentDate,
-        "VALIDATION_EXTERNAL", List.of(problemPattern1, problemPattern2));
+    final DatasetProblemPatternAnalysis<String> datasetProblemPatternAnalysis1 = new DatasetProblemPatternAnalysis<>("datasetId1",
+        "VALIDATION_EXTERNAL", currentDate
+        , List.of(problemPattern1, problemPattern2));
 
     assertEquals("datasetId1", datasetProblemPatternAnalysis1.getDatasetId());
     assertEquals(0, currentDate.compareTo(datasetProblemPatternAnalysis1.getExecutionTimestamp()));
@@ -34,8 +34,8 @@ class DatasetProblemPatternAnalysisTest {
     assertTrue(CollectionUtils.isEqualCollection(List.of(problemPattern1, problemPattern2),
         datasetProblemPatternAnalysis1.getProblemPatternList()));
 
-    final DatasetProblemPatternAnalysis datasetProblemPatternAnalysis2 = new DatasetProblemPatternAnalysis("datasetId1",
-        currentDate, "VALIDATION_EXTERNAL", null);
+    final DatasetProblemPatternAnalysis<String> datasetProblemPatternAnalysis2 = new DatasetProblemPatternAnalysis<>("datasetId1",
+        "VALIDATION_EXTERNAL", currentDate, null);
     assertNotNull(datasetProblemPatternAnalysis2.getProblemPatternList());
   }
 

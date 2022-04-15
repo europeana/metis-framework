@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Class containing the dataset analysis for problem patterns.
  */
-public class DatasetProblemPatternAnalysis {
+public class DatasetProblemPatternAnalysis<T> {
 
   private final String datasetId;
+  private final T executionStep;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private final LocalDateTime executionTimestamp;
-  private final String executionStep;
   private final List<ProblemPattern> problemPatternList;
 
   /**
@@ -24,11 +24,11 @@ public class DatasetProblemPatternAnalysis {
    * @param executionStep the execution step
    * @param problemPatternList the problem pattern list
    */
-  public DatasetProblemPatternAnalysis(String datasetId, LocalDateTime executionTimestamp, String executionStep,
+  public DatasetProblemPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp,
       List<ProblemPattern> problemPatternList) {
     this.datasetId = datasetId;
-    this.executionTimestamp = executionTimestamp;
     this.executionStep = executionStep;
+    this.executionTimestamp = executionTimestamp;
     this.problemPatternList = problemPatternList == null ? new ArrayList<>() : new ArrayList<>(problemPatternList);
   }
 
@@ -36,15 +36,15 @@ public class DatasetProblemPatternAnalysis {
     return datasetId;
   }
 
-  public List<ProblemPattern> getProblemPatternList() {
-    return new ArrayList<>(problemPatternList);
+  public T getExecutionStep() {
+    return executionStep;
   }
 
   public LocalDateTime getExecutionTimestamp() {
     return executionTimestamp;
   }
 
-  public String getExecutionStep() {
-    return executionStep;
+  public List<ProblemPattern> getProblemPatternList() {
+    return new ArrayList<>(problemPatternList);
   }
 }
