@@ -1,6 +1,7 @@
 package eu.europeana.patternanalysis;
 
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.patternanalysis.exception.PatternAnalysisException;
 import eu.europeana.patternanalysis.view.DatasetProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import java.time.LocalDateTime;
@@ -9,6 +10,8 @@ import java.util.Optional;
 
 /**
  * Interface with all methods required for a pattern analysis service
+ *
+ * @param <T> the type of the execution step
  */
 public interface PatternAnalysisService<T> {
 
@@ -18,11 +21,12 @@ public interface PatternAnalysisService<T> {
    * It will compute patterns and store all relevant information in the database
    * </p>
    *
+   * @param datasetId the datasetId
    * @param executionStep the constant value of the step (Similar to eu.europeana.metis.core.workflow.plugins.PluginType from
    * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox
    * @param executionTimestamp the execution timestamp for the execution of the dataset(this should be the same for all records).
-   * @param datasetId the datasetId
    * @param rdfRecord the rdf record
+   * @throws PatternAnalysisException if an error occurred during the analysis
    */
   void generateRecordPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp, RDF rdfRecord)
       throws PatternAnalysisException;
@@ -38,6 +42,7 @@ public interface PatternAnalysisService<T> {
    * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox
    * @param executionTimestamp the execution timestamp for the execution of the dataset(this should be the same for all records).
    * @param rdfRecord the rdf record
+   * @throws PatternAnalysisException if an error occurred during the analysis
    */
   void generateRecordPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp, String rdfRecord)
       throws PatternAnalysisException;
@@ -50,6 +55,7 @@ public interface PatternAnalysisService<T> {
    * @param executionStep the constant value of the step (Similar to eu.europeana.metis.core.workflow.plugins.PluginType from
    * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox).
    * @param executionTimestamp the execution timestamp for the execution of the dataset(this should be the same for all records).
+   * @throws PatternAnalysisException if an error occurred during the analysis
    */
   void finalizeDatasetPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp)
       throws PatternAnalysisException;

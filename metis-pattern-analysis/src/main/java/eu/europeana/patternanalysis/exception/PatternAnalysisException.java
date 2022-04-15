@@ -1,4 +1,4 @@
-package eu.europeana.patternanalysis;
+package eu.europeana.patternanalysis.exception;
 
 /**
  * Exception used for a pattern analysis error.

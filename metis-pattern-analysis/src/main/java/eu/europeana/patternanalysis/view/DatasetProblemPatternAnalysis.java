@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Class containing the dataset analysis for problem patterns.
+ *
+ * @param <T> the type of the execution step
  */
 public class DatasetProblemPatternAnalysis<T> {
 

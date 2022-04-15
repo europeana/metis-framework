@@ -43,19 +43,34 @@ public enum ProblemPatternDescription {
     return problemPatternQualityDimension;
   }
 
+  /**
+   * Retrieves an instance of the enum based on the provided enum name(ignore case) or else throws a runtime exception
+   *
+   * @param name the enum name
+   * @return the enum object
+   */
   public static ProblemPatternDescription fromName(String name) {
     return Arrays.stream(ProblemPatternDescription.values()).filter(value -> value.name().equalsIgnoreCase(name)).findFirst()
                  .orElseThrow();
   }
 
+  /**
+   * The problem pattern ids
+   */
   public enum ProblemPatternId {
     P1, P2, P3, P5, P6, P7, P9, P12;
   }
 
+  /**
+   * The problem pattern severities
+   */
   public enum ProblemPatternSeverity {
     NOTICE, WARNING, ERROR, FATAL
   }
 
+  /**
+   * The problem pattern quality dimensions
+   */
   public enum ProblemPatternQualityDimension {
     ACCURACY, AVAILABILITY, COMPLETENESS, CONCISENESS, COMPLIANCE, CONSISTENCY, TIMELINESS, LICENSING, INTERLINKING, UNDERSTANDABILITY, REPRESENTATIONAL
   }

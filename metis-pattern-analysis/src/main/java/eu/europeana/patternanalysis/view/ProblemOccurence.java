@@ -17,7 +17,7 @@ public class ProblemOccurence {
   private final List<String> affectedRecordIds;
 
   /**
-   * Constructore with required parameters.
+   * Constructor with required parameters.
    *
    * @param message the problem message
    * @param affectedRecordIds the affected record ids. Can be null if the problem spans only to the current record.
@@ -27,6 +27,11 @@ public class ProblemOccurence {
     this.affectedRecordIds = affectedRecordIds == null ? new ArrayList<>() : new ArrayList<>(affectedRecordIds);
   }
 
+  /**
+   * Constructor with required parameters.
+   *
+   * @param messageReport the message report
+   */
   public ProblemOccurence(String messageReport) {
     this.messageReport = messageReport;
     this.affectedRecordIds = new ArrayList<>();
