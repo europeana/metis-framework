@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class containing the problem occurence report.
+ * Class containing the problem occurrence report.
  * <p>It also contains {@link #affectedRecordIds} which indicate other records are part of this problem with this record and
  * problem. It can be null if the problem is only related to the current record.</p>
  */
-public class ProblemOccurence {
+public class ProblemOccurrence {
 
   private final String messageReport;
   @JsonInclude(Include.NON_NULL)
@@ -22,7 +22,7 @@ public class ProblemOccurence {
    * @param message the problem message
    * @param affectedRecordIds the affected record ids. Can be null if the problem spans only to the current record.
    */
-  public ProblemOccurence(String message, List<String> affectedRecordIds) {
+  public ProblemOccurrence(String message, List<String> affectedRecordIds) {
     this.messageReport = message;
     this.affectedRecordIds = affectedRecordIds == null ? new ArrayList<>() : new ArrayList<>(affectedRecordIds);
   }
@@ -32,7 +32,7 @@ public class ProblemOccurence {
    *
    * @param messageReport the message report
    */
-  public ProblemOccurence(String messageReport) {
+  public ProblemOccurrence(String messageReport) {
     this.messageReport = messageReport;
     this.affectedRecordIds = new ArrayList<>();
   }

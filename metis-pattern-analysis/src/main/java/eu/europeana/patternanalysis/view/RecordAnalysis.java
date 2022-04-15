@@ -9,24 +9,24 @@ import java.util.List;
 public class RecordAnalysis {
 
   private final String recordId;
-  private final List<ProblemOccurence> problemOccurenceList;
+  private final List<ProblemOccurrence> problemOccurrenceList;
 
   /**
    * Constructor with required parameters.
    *
    * @param recordId the record id
-   * @param problemOccurenceList the problem occurences list
+   * @param problemOccurrenceList the problem occurrences list
    */
-  public RecordAnalysis(String recordId, List<ProblemOccurence> problemOccurenceList) {
+  public RecordAnalysis(String recordId, List<ProblemOccurrence> problemOccurrenceList) {
     this.recordId = recordId;
-    this.problemOccurenceList = problemOccurenceList == null ? new ArrayList<>() : new ArrayList<>(problemOccurenceList);
+    this.problemOccurrenceList = problemOccurrenceList == null ? new ArrayList<>() : new ArrayList<>(problemOccurrenceList);
   }
 
   public String getRecordId() {
     return recordId;
   }
 
-  public List<ProblemOccurence> getProblemOccurenceList() {
-    return new ArrayList<>(problemOccurenceList);
+  public List<ProblemOccurrence> getProblemOccurrenceList() {
+    return new ArrayList<>(problemOccurrenceList);
   }
 }

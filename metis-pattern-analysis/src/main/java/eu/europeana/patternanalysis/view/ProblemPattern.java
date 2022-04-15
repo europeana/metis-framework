@@ -9,20 +9,20 @@ import java.util.List;
 public class ProblemPattern {
 
   private final ProblemPatternDescription problemPatternDescription;
-  private final int recordOccurences;
+  private final int recordOccurrences;
   private final List<RecordAnalysis> recordAnalysisList;
 
   /**
    * Constructor with required parameters.
    *
    * @param problemPatternId the problem pattern id
-   * @param recordOccurences the record occurences
+   * @param recordOccurrences the record occurrences
    * @param recordAnalysisList the record analysis list
    */
-  public ProblemPattern(ProblemPatternDescription problemPatternId, int recordOccurences,
+  public ProblemPattern(ProblemPatternDescription problemPatternId, int recordOccurrences,
       List<RecordAnalysis> recordAnalysisList) {
     this.problemPatternDescription = problemPatternId;
-    this.recordOccurences = recordOccurences;
+    this.recordOccurrences = recordOccurrences;
     this.recordAnalysisList = recordAnalysisList == null ? new ArrayList<>() : new ArrayList<>(recordAnalysisList);
   }
 
@@ -30,8 +30,8 @@ public class ProblemPattern {
     return problemPatternDescription;
   }
 
-  public int getRecordOccurences() {
-    return recordOccurences;
+  public int getRecordOccurrences() {
+    return recordOccurrences;
   }
 
   public List<RecordAnalysis> getRecordAnalysisList() {

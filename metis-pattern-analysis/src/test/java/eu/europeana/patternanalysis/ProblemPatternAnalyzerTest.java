@@ -28,7 +28,7 @@ class ProblemPatternAnalyzerTest {
     assertNotNull(problemPatterns);
     assertEquals(1, problemPatterns.size());
     assertEquals(ProblemPatternDescription.P2, problemPatterns.get(0).getProblemPatternDescription());
-    assertEquals(1, problemPatterns.get(0).getRecordAnalysisList().get(0).getProblemOccurenceList().size());
+    assertEquals(1, problemPatterns.get(0).getRecordAnalysisList().get(0).getProblemOccurrenceList().size());
   }
 
   @Test
@@ -44,6 +44,6 @@ class ProblemPatternAnalyzerTest {
     assertNotNull(problemPatterns);
     assertEquals(1, problemPatterns.size());
     assertEquals(ProblemPatternDescription.P6, problemPatterns.get(0).getProblemPatternDescription());
-    assertEquals(1, problemPatterns.get(0).getRecordAnalysisList().get(0).getProblemOccurenceList().size());
+    assertEquals(1, problemPatterns.get(0).getRecordAnalysisList().get(0).getProblemOccurrenceList().size());
   }
 }

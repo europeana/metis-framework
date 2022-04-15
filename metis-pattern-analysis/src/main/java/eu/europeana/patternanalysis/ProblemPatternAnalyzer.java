@@ -12,7 +12,7 @@ import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.Title;
-import eu.europeana.patternanalysis.view.ProblemOccurence;
+import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
 import eu.europeana.patternanalysis.view.RecordAnalysis;
@@ -84,27 +84,27 @@ public class ProblemPatternAnalyzer {
               .filter(not(proxyType -> proxyType.getEuropeanaProxy().isEuropeanaProxy())).collect(Collectors.toList());
   }
 
-  private List<ProblemOccurence> checkP2(List<String> titles, List<String> descriptions) {
+  private List<ProblemOccurrence> checkP2(List<String> titles, List<String> descriptions) {
     final Set<String> uniqueTitles = titles.stream().map(String::toLowerCase).collect(Collectors.toSet());
     final Set<String> uniqueDescriptions = descriptions.stream().map(String::toLowerCase).collect(Collectors.toSet());
     final HashSet<String> equalTitlesAndDescriptions = new HashSet<>(uniqueTitles);
     equalTitlesAndDescriptions.retainAll(uniqueDescriptions);
 
     return equalTitlesAndDescriptions.stream().map(
-        value -> new ProblemOccurence(format("Equal(lower cased) title and description: %s", value))
+        value -> new ProblemOccurrence(format("Equal(lower cased) title and description: %s", value))
     ).collect(Collectors.toList());
   }
 
-  private List<ProblemOccurence> checkP6(List<String> titles) {
+  private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurence(format("Non meaningful title: %s", title))).collect(Collectors.toList());
+                 .map(title -> new ProblemOccurrence(format("Non meaningful title: %s", title))).collect(Collectors.toList());
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,
-      List<ProblemOccurence> problemOccurences) {
-    if (CollectionUtils.isNotEmpty(problemOccurences)) {
+      List<ProblemOccurrence> problemOccurrences) {
+    if (CollectionUtils.isNotEmpty(problemOccurrences)) {
       return Optional.of(new ProblemPattern(
-          problemPatternDescription, 1, List.of(new RecordAnalysis(recordId, problemOccurences))));
+          problemPatternDescription, 1, List.of(new RecordAnalysis(recordId, problemOccurrences))));
     }
     return Optional.empty();
   }
