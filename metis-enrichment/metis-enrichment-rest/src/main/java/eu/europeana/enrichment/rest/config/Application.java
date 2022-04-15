@@ -9,7 +9,6 @@ import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
-import java.util.Collections;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,24 +19,13 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
     "eu.europeana.enrichment.rest.exception"})
 @PropertySource("classpath:enrichment.properties")
 @EnableWebMvc
-@EnableSwagger2
-public class Application implements WebMvcConfigurer, InitializingBean {
+public class Application implements  InitializingBean {
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -73,18 +61,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "/swagger-ui/index.html");
-  }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/swagger-ui/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-        .resourceChain(false);
   }
 
   @Bean
@@ -129,30 +105,5 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (mongoClient != null) {
       mongoClient.close();
     }
-  }
-
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .useDefaultResponseMessages(false)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*"))
-        .build()
-        .apiInfo(apiInfo());
-  }
-
-  private ApiInfo apiInfo() {
-    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu",
-        "development@europeana.eu");
-
-    return new ApiInfo(
-        "Enrichment REST API",
-        "Enrichment REST API for Europeana",
-        "v1",
-        "API TOS",
-        contact,
-        "EUPL Licence v1.2",
-        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }

@@ -48,7 +48,7 @@ public class EnrichmentService {
    * Parameter constructor.
    *
    * @param persistentEntityResolver the entity resolver
-   * @param entityClientResolver
+   * @param entityClientResolver the ebt5ty client resolver
    */
   @Autowired
   public EnrichmentService(PersistentEntityResolver persistentEntityResolver, EntityClientResolver entityClientResolver) {
@@ -174,7 +174,7 @@ public class EnrichmentService {
    * Get an enrichment by providing EntityClientRequest with text search value OR URI or entity id .
    * This method gets the enrichment via Entity client Api
    *
-   * @param clientRequest
+   * @param clientRequest Entity Client request
    * @return the enrichment values in a structured list
    */
   public EnrichmentResultList enrichByEntityClient(EntityClientRequest clientRequest) {
