@@ -9,5 +9,7 @@
 		<Root level="INFO">
 			<AppenderRef ref="Console"/>
 		</Root>
+		<!-- Set to DEBUG to log all requests to backend systems -->
+		<Logger name="eu.europeana.entity.client" level="DEBUG"/>
 	</Loggers>
 </Configuration>

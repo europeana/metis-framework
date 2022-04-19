@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from
  * Entity Management API
+ *
+ * @author Srishti.singh@europeana.eu
  */
 public class EntityClientResolver implements EntityResolver {
 
@@ -42,7 +44,7 @@ public class EntityClientResolver implements EntityResolver {
     @Override
     public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
         final Function<T, EntityClientRequest> inputFunction = EntityResolverUtils.inputFunctionForRefSearch();
-        return EntityResolverUtils.getIdResults(performInBatches(referenceTerms,inputFunction));
+        return EntityResolverUtils.getIdResults(performInBatches(referenceTerms, inputFunction));
     }
 
     @Override
@@ -54,6 +56,7 @@ public class EntityClientResolver implements EntityResolver {
 
     /**
      * Gets the Enrichment for single Entity request
+     *
      * @param clientRequest
      * @return
      */
@@ -63,6 +66,7 @@ public class EntityClientResolver implements EntityResolver {
 
     /**
      * Gets the Enrichment for Multiple values in batches
+     *
      * @param inputValues
      * @param identity
      * @param <I>
@@ -75,7 +79,7 @@ public class EntityClientResolver implements EntityResolver {
 
         // Process partitions
         for (List<I> partition : partitions) {
-            for (I input: partition) {
+            for (I input : partition) {
                 EntityClientRequest clientRequest = identity.apply(input);
                 List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(clientRequest);
                 if (!enrichmentBaseList.isEmpty()) {
@@ -89,7 +93,12 @@ public class EntityClientResolver implements EntityResolver {
     private List<EnrichmentBase> executeEntityClientRequest(EntityClientRequest clientRequest) {
         List<Entity> entities = getEntities(clientRequest);
         if (!entities.isEmpty()) {
-            // convert entity to EnrichmentBase
+            // 1. get the parent entities
+            List<Entity> parentEntities = new ArrayList<>();
+            entities.stream().forEach(entity -> getParentEntities(entity, parentEntities));
+            // 2. add the parent entities
+            entities.addAll(parentEntities);
+            // 3. convert entity to EnrichmentBase
             List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
                 EnrichmentBase enrichmentBase = createXmlEntity(entity);
                 return enrichmentBase;
@@ -103,46 +112,73 @@ public class EntityClientResolver implements EntityResolver {
 
     private List<Entity> getEntities(EntityClientRequest entityClientRequest) {
         try {
-              if (entityClientRequest.isReference()) {
-                  if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
-                      Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
-                      if (entity != null) {
-                          return Collections.singletonList(entityClientApi.getEntityById(entityClientRequest.getValueToEnrich()));
-                      }
-                  } else {
-                      return  entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
-                  }
-              } else {
-                  return entityClientApi.getSuggestions(entityClientRequest.getValueToEnrich(), entityClientRequest.getLanguage(), null, entityClientRequest.getType(), null, null);
-              }
+            if (entityClientRequest.isReference()) {
+                if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
+                    Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
+                    if (entity != null) {
+                        // create a mutable list, as we might add parent entities later
+                        return new ArrayList<>(Arrays.asList(entity));
+                    }
+                } else {
+                    return entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
+                }
+            } else {
+                return entityClientApi.getSuggestions(entityClientRequest.getValueToEnrich(), entityClientRequest.getLanguage(), null, entityClientRequest.getType(), null, null);
+            }
         } catch (JsonProcessingException e) {
             throw new UnknownException("Entity Client GET call to " + (entityClientRequest.isReference() ? "getEntityByUri" : "getSuggestions")
-                   + " failed for" + entityClientRequest + ".", e);
-        }
-        catch (RuntimeException e) {
-            throw new UnknownException("Entity Client GET call failed for : "  + entityClientRequest + ".", e);
+                    + " failed for" + entityClientRequest + ".", e);
+        } catch (RuntimeException e) {
+            throw new UnknownException("Entity Client GET call failed for : " + entityClientRequest + ".", e);
         }
         return Collections.emptyList();
     }
 
     /**
+     * Adds the parent Entities to parentEntities list
+     *
+     * @param entity
+     * @param parentEntities
+     */
+    private void getParentEntities(Entity entity, List<Entity> parentEntities) {
+        if (EntityResolverUtils.isParentEntityRequired(entity) && entity.getIsPartOfArray() != null) {
+            entity.getIsPartOfArray().stream().forEach(parentEntityId -> {
+                if (!EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, parentEntities)) {
+                    getParent(parentEntityId, parentEntities);
+                }
+            });
+        }
+    }
+
+    private void getParent(String parentEntityId, List<Entity> parentEntities) {
+        Entity parentEntity = entityClientApi.getEntityById(parentEntityId);
+        // parent entity should never be null here, but just in case
+        if (parentEntity != null) {
+            parentEntities.add(parentEntity);
+        }
+        if (parentEntity != null && parentEntity.getIsPartOfArray() != null)
+            getParentEntities(parentEntity, parentEntities);
+    }
+
+    /**
      * Converts the EM model class to Metis XML Entity class
+     *
      * @param entity EM Entity
-     * @param <T> class that extends EnrichmentBase
+     * @param <T>    class that extends EnrichmentBase
      * @return
      */
     private static <T extends EnrichmentBase> T createXmlEntity(Entity entity) {
         switch (EntityTypes.valueOf(entity.getType())) {
             case Agent:
-                return (T)new Agent((eu.europeana.entitymanagement.definitions.model.Agent)entity);
+                return (T) new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
             case Place:
-                return (T)new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
+                return (T) new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
             case Concept:
-                return (T)new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
+                return (T) new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
             case TimeSpan:
-                return (T)new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
+                return (T) new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
             case Organization:
-                return (T)new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+                return (T) new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
         }
         return null;
     }

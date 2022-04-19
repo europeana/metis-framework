@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client.enrichment;
+package eu.europeana.enrichment.rest.enrichment;
 
 import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -12,7 +12,10 @@ import org.mockito.Mockito;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 // TODO - This is a Integration Test. Once we have measured performance of the new implementation,
 //  proper junit test will be added.
@@ -67,4 +70,14 @@ public class EntityClientResolverITTest {
         // For invalidValue no entity will be found
         Assertions.assertEquals(uriTotest.size()-1, results.size());
     }
+
+    @Test
+    public void testParentEntityForResolveByID() throws MalformedURLException {
+        Set<ReferenceTerm> idTotest = new HashSet<>();
+        idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/place/176923")));
+        Map<ReferenceTerm, EnrichmentBase> results = entityResolver.resolveById(idTotest);
+        Assertions.assertNotNull(results);
+        Assertions.assertEquals(idTotest.size(), results.size());
+    }
+
 }
