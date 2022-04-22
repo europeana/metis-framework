@@ -81,12 +81,8 @@ public interface PatternAnalysisService<T> {
    * If not, it should generate it on the fly. An in memory cache could be implemented internally.
    * </p>
    *
-   * @param datasetId the dataset identifier
-   * @param executionStep the execution step
-   * @param executionTimestamp the execution timestamp
    * @param rdfRecord the RDF record
    * @return the list of problem patterns
    */
-  List<ProblemPattern> getRecordPatternAnalysis(String datasetId, T executionStep, LocalDateTime executionTimestamp,
-      RDF rdfRecord);
+  List<ProblemPattern> getRecordPatternAnalysis(RDF rdfRecord);
 }
