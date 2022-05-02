@@ -44,7 +44,7 @@ public enum Country {
   LIECHTENSTEIN("Liechtenstein", "LI"),
   LITHUANIA("Lithuania", "LT"),
   LUXEMBOURG("Luxembourg", "LU"),
-  MACEDONIA("Macedonia", "MK"),
+  NORTH_MACEDONIA("North Macedonia", "MK"),
   MALTA("Malta", "MT"),
   MOLDOVA("Moldova", "MD"),
   MONACO("Monaco", "MC"),
