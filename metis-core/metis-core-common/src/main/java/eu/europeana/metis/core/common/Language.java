@@ -16,7 +16,7 @@ public enum Language {
       "French"), GA("Irish"), GD("Gaelic (Scottish)"), GL("Galician"), HE("Hebrew"), HI(
       "Hindi"), HR("Croatian (hrvatski jezik)"), HU("Hungarian"), HY("Armenian"), IE(
       "Interlingue"), IS("Icelandic"), IT("Italian"), JA("Japanese"), KA("Georgian"), KO(
-      "Korean"), LT("Lithuanian"), LV("Latvian (Lettish)"), MK("North Macedonian"), MT("Maltese"), MUL(
+      "Korean"), LT("Lithuanian"), LV("Latvian (Lettish)"), MK("Macedonian"), MT("Maltese"), MUL(
       "Multilingual Content"), NL("Dutch"), NO("Norwegian"), PL("Polish"), PT("Portugese"), RO(
       "Romanian"), RU("Russian"), SK("Slovak"), SL("Slovenian"), SQ("Albanian"), SR("Serbian"), SV(
       "Swedish"), TR("Turkish"), UK("Ukrainian"), YI("Yiddish"), ZH("Chinese");
