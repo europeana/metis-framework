@@ -77,7 +77,8 @@
     Ελλάδα
     </dc:title>
     <dc:title>Contains identifier 12944</dc:title>
-    <dc:title>Contains non-alphanumeric ?</dc:title>
+    <dc:title>Contains more than 5 non-alphanumeric ?!.?!.</dc:title>
+    <dc:title>Contains more than 5 non-alphanumeric(tabs) #x0009#x0009#x0009#x0009#x0009#x0009</dc:title>
     <dc:title xml:lang="my">မြန်မာဘာသာ</dc:title>
     <dc:type xml:lang="en">Newsreel</dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>

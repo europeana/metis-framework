@@ -38,8 +38,9 @@ public class ProblemPatternAnalyzer {
 
   private static final int MIN_TITLE_LENGTH = 2;
   private static final int MIN_DESCRIPTION_LENGTH = 50;
-  private static final String RECOGNIZABLE_TITLE_REGEX = "^[\\p{L}\\p{M}\\p{N}-_\\s]*$"; // Match alphanumeric, dash, spaces in all languages
-  private static final Pattern RECOGNIZABLE_TITLE_PATTERN = Pattern.compile(RECOGNIZABLE_TITLE_REGEX);
+  private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
+  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N}\\-_ ]"; // Match alphanumeric, dash, spaces in all languages
+  private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
 
   /**
    * Analyzes a record for problem patterns.
@@ -115,10 +116,25 @@ public class ProblemPatternAnalyzer {
     ).collect(Collectors.toList());
   }
 
+  /**
+   * Check whether a title is not human-readable.
+   * <p>
+   * We check this by:
+   *   <ul>
+   *     <li>Whether there are more than 5 characters that are not valid. Non valid characters are considered characters that are not alphanumeric and are not simple "literal" spaces(tabs, new lines etc. are considered invalid characters).</li>
+   *     <li>The title does not fully contain an identifier</li>
+   *   </ul>
+   * </p>
+   *
+   * @param titles the list of titles
+   * @param identifiers the list of identifiers
+   * @return the list of problem occurrences encountered
+   */
   private List<ProblemOccurrence> checkP5(List<String> titles, List<String> identifiers) {
-    final Predicate<String> notRecognizableString = not(s -> RECOGNIZABLE_TITLE_PATTERN.matcher(s).matches());
+    final Predicate<String> moreThanThresholdUnrecognizableCharacters = s ->
+        UNRECOGNIZABLE_CHARACTERS_PATTERN.matcher(s).results().count() > UNRECOGNIZABLE_CHARACTERS_THRESHOLD;
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
-    return titles.stream().filter(notRecognizableString.or(containsIdentifier))
+    return titles.stream().filter(moreThanThresholdUnrecognizableCharacters.or(containsIdentifier))
                  .map(title -> new ProblemOccurrence(format("Unrecognized title: %s", title))
                  ).collect(Collectors.toList());
   }

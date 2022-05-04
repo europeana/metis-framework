@@ -59,7 +59,7 @@ class ProblemPatternAnalyzerTest {
     assertNotNull(problemPatterns);
     assertEquals(1, problemPatterns.size());
     assertEquals(ProblemPatternDescription.P5, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(2, getFirstProblemOccurrencesSize(problemPatterns));
+    assertEquals(3, getFirstProblemOccurrencesSize(problemPatterns));
   }
 
   @Test
