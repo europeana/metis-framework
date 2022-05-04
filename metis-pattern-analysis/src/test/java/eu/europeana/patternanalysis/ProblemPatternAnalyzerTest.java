@@ -12,8 +12,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Stream;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class ProblemPatternAnalyzerTest {
 
@@ -40,69 +43,33 @@ class ProblemPatternAnalyzerTest {
     return problemPatternAnalyzer.analyzeRecord(rdf);
   }
 
-  @Test
-  void analyzeRecord_P2() throws Exception {
-    //Should contain two provider proxies that each contain a pair of identical title and description. All four values are identical on the two proxies.
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P2_LOCATION);
-
-    assertNotNull(problemPatterns);
-    assertEquals(1, problemPatterns.size());
-    assertEquals(ProblemPatternDescription.P2, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(1, getFirstProblemOccurrencesSize(problemPatterns));
+  private static Stream<Arguments> test() {
+    return Stream.of(
+        //Should contain two provider proxies that each contain a pair of identical title and description. All four values are identical on the two proxies.
+        Arguments.of(FILE_XML_P2_LOCATION, 1, ProblemPatternDescription.P2, 1),
+        //Should contain valid titles in different languages and unrecognizable titles
+        Arguments.of(FILE_XML_P5_LOCATION, 1, ProblemPatternDescription.P5, 3),
+        //Should contain one title that is not meaningful(too short)
+        Arguments.of(FILE_XML_P6_LOCATION, 1, ProblemPatternDescription.P6, 1),
+        //Should not contain any descriptions
+        Arguments.of(FILE_XML_P7_LOCATION, 1, ProblemPatternDescription.P7, 1),
+        //Should contain multiple descriptions that are "empty"
+        Arguments.of(FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION, 1, ProblemPatternDescription.P7, 1),
+        //Should contain a description with length less than or equal of 50
+        Arguments.of(FILE_XML_P9_LOCATION, 1, ProblemPatternDescription.P9, 2)
+    );
   }
 
-  @Test
-  void analyzeRecord_P5() throws Exception {
-    //Should contain valid titles in different languages and unrecognizable titles
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P5_LOCATION);
+  @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2} totalOccurrences:{3}")
+  @MethodSource("test")
+  void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
+      int totalOccurrences) throws Exception {
+    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(fileLocation);
 
     assertNotNull(problemPatterns);
-    assertEquals(1, problemPatterns.size());
-    assertEquals(ProblemPatternDescription.P5, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(3, getFirstProblemOccurrencesSize(problemPatterns));
-  }
+    assertEquals(totalPatterns, problemPatterns.size());
+    assertEquals(problemPatternDescription, getFirstProblemPatternDescription(problemPatterns));
+    assertEquals(totalOccurrences, getFirstProblemOccurrencesSize(problemPatterns));
 
-  @Test
-  void analyzeRecord_P6() throws Exception {
-    //Should contain one title that is not meaningful(too short)
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P6_LOCATION);
-
-    assertNotNull(problemPatterns);
-    assertEquals(1, problemPatterns.size());
-    assertEquals(ProblemPatternDescription.P6, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(1, getFirstProblemOccurrencesSize(problemPatterns));
-  }
-
-  @Test
-  void analyzeRecord_P7() throws Exception {
-    //Should not contain any descriptions
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P7_LOCATION);
-
-    assertNotNull(problemPatterns);
-    assertEquals(1, problemPatterns.size());
-    assertEquals(ProblemPatternDescription.P7, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(1, getFirstProblemOccurrencesSize(problemPatterns));
-  }
-
-  @Test
-  void analyzeRecord_P7_DescriptionsEmpty() throws Exception {
-    //Should contain multiple descriptions that are "empty"
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION);
-
-    assertNotNull(problemPatterns);
-    assertEquals(1, problemPatterns.size());
-    assertEquals(ProblemPatternDescription.P7, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(1, getFirstProblemOccurrencesSize(problemPatterns));
-  }
-
-  @Test
-  void analyzeRecord_P9() throws Exception {
-    //Should contain a description with length less than or equal of 50
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P9_LOCATION);
-
-    assertNotNull(problemPatterns);
-    assertEquals(1, problemPatterns.size());
-    assertEquals(ProblemPatternDescription.P9, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(2, getFirstProblemOccurrencesSize(problemPatterns));
   }
 }
