@@ -18,6 +18,7 @@ import eu.europeana.patternanalysis.view.ProblemPatternDescription;
 import eu.europeana.patternanalysis.view.RecordAnalysis;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -73,11 +74,7 @@ public class ProblemPatternAnalyzer {
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
       Function<Choice, T> choiceGetter, Function<T, String> getString) {
-    return choices.stream().filter(choicePredicate).map(choiceGetter)
-                  .map(getString)
-                  .filter(StringUtils::isNotBlank)
-                  .map(String::trim)
-                  .collect(Collectors.toList());
+    return choices.stream().filter(choicePredicate).map(choiceGetter).map(getString).collect(Collectors.toList());
   }
 
   private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
@@ -88,6 +85,7 @@ public class ProblemPatternAnalyzer {
         problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P5, checkP5(titles, identifiers)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P6, checkP6(titles)).ifPresent(problemPatterns::add);
+    constructProblemPattern(rdfAbout, ProblemPatternDescription.P7, checkP7(descriptions)).ifPresent(problemPatterns::add);
     return problemPatterns;
   }
 
@@ -110,16 +108,21 @@ public class ProblemPatternAnalyzer {
   private List<ProblemOccurrence> checkP5(List<String> titles, List<String> identifiers) {
     final Predicate<String> notRecognizableString = not(s -> RECOGNIZABLE_TITLE_PATTERN.matcher(s).matches());
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
-    final List<ProblemOccurrence> collect = titles.stream().filter(notRecognizableString.or(containsIdentifier))
-                                                  .map(title -> new ProblemOccurrence(format("Unrecognized title: %s", title))
-                                                  ).collect(Collectors.toList());
-    System.out.println(collect.size());
-    return collect;
+    return titles.stream().filter(notRecognizableString.or(containsIdentifier))
+                 .map(title -> new ProblemOccurrence(format("Unrecognized title: %s", title))
+                 ).collect(Collectors.toList());
   }
 
   private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
                  .map(title -> new ProblemOccurrence(format("Non meaningful title: %s", title))).collect(Collectors.toList());
+  }
+
+  private List<ProblemOccurrence> checkP7(List<String> descriptions) {
+    if (CollectionUtils.isEmpty(descriptions) || descriptions.stream().allMatch(StringUtils::isBlank)) {
+      return List.of(new ProblemOccurrence("Missing description fields"));
+    }
+    return Collections.emptyList();
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,
