@@ -26,6 +26,7 @@ class ProblemPatternAnalyzerTest {
   public static final String FILE_XML_P7_LOCATION = "src/test/resources/europeana_record_with_P7.xml";
   public static final String FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION = "src/test/resources/europeana_record_with_P7_descriptions_empty.xml";
   public static final String FILE_XML_P9_LOCATION = "src/test/resources/europeana_record_with_P9.xml";
+  public static final String FILE_XML_P12_LOCATION = "src/test/resources/europeana_record_with_P12.xml";
 
   private ProblemPatternDescription getFirstProblemPatternDescription(List<ProblemPattern> problemPatterns) {
     return problemPatterns.get(0).getProblemPatternDescription();
@@ -55,12 +56,14 @@ class ProblemPatternAnalyzerTest {
         Arguments.of(FILE_XML_P7_LOCATION, 1, ProblemPatternDescription.P7, 1),
         //Should contain multiple descriptions that are "empty"
         Arguments.of(FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION, 1, ProblemPatternDescription.P7, 1),
-        //Should contain a description with length less than or equal of 50
-        Arguments.of(FILE_XML_P9_LOCATION, 1, ProblemPatternDescription.P9, 2)
+        //Should contain a description with length less than threshold
+        Arguments.of(FILE_XML_P9_LOCATION, 1, ProblemPatternDescription.P9, 2),
+        //Should contain a title with length more than threshold
+        Arguments.of(FILE_XML_P12_LOCATION, 1, ProblemPatternDescription.P12, 1)
     );
   }
 
-  @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2} totalOccurrences:{3}")
+  @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2}, totalOccurrences:{3}")
   @MethodSource("test")
   void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
       int totalOccurrences) throws Exception {

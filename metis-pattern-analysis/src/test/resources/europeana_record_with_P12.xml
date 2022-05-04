@@ -69,23 +69,7 @@
     <dc:subject xml:lang="en">EFG1914</dc:subject>
     <dc:subject xml:lang="en">World War I</dc:subject>
     <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
-    <dc:title xml:lang="hi">के मध्य मुख्यतः यूरोप में व्याप्त इस</dc:title>
-    <dc:title xml:lang="el">Καλημέρα Ελλάδα</dc:title>
-    <dc:title xml:lang="el">Καλημέρα - Ελλάδα</dc:title>
-    <dc:title xml:lang="el">
-    Καλημέρα
-    Ελλάδα
-    </dc:title>
-    <dc:title>Contains identifier 12944</dc:title>
-    <dc:title>Contains more than 5 non-alphanumeric ?!.?!.</dc:title>
-    <dc:title>Contains more than 5 non-alphanumeric(new lines)
-
-
-
-
-
-    </dc:title>
-    <dc:title xml:lang="my">မြန်မာဘာသာ</dc:title>
+    <dc:title>This title is more than 70 characters long AAAAAAAAAAAAAAAAAAAAAAAAAAAA</dc:title>
     <dc:type xml:lang="en">Newsreel</dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>

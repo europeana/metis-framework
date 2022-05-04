@@ -37,6 +37,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ProblemPatternAnalyzer {
 
   private static final int MIN_TITLE_LENGTH = 2;
+  private static final int MAX_TITLE_LENGTH = 70;
   private static final int MIN_DESCRIPTION_LENGTH = 50;
   private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
   private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N}\\-_ ]"; // Match alphanumeric, dash, spaces in all languages
@@ -89,6 +90,7 @@ public class ProblemPatternAnalyzer {
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P6, checkP6(titles)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P7, checkP7(descriptions)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P9, checkP9(descriptions)).ifPresent(problemPatterns::add);
+    constructProblemPattern(rdfAbout, ProblemPatternDescription.P12, checkP12(titles)).ifPresent(problemPatterns::add);
     return problemPatterns;
   }
 
@@ -175,6 +177,17 @@ public class ProblemPatternAnalyzer {
                        .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
                        .map(description -> new ProblemOccurrence(format("Very short description: %s", description)))
                        .collect(Collectors.toList());
+  }
+
+  /**
+   * Check whether the record has titles of more than {@link #MAX_TITLE_LENGTH} characters.
+   *
+   * @param titles the list of titles
+   * @return the list of problem occurrences encountered
+   */
+  private List<ProblemOccurrence> checkP12(List<String> titles) {
+    return titles.stream().filter(title -> title.length() > MAX_TITLE_LENGTH)
+                 .map(title -> new ProblemOccurrence(format("Extremely long title: %s", title))).collect(Collectors.toList());
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,
