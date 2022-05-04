@@ -62,23 +62,14 @@
   </ore:Proxy>
   <ore:Proxy rdf:about="/proxy/provider/1/12944">
     <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
-    <dc:description xml:lang="en">This description is more than 50 charactersAAAAAAAA
-    </dc:description>
+    <dc:description>This description is less than 50 characters</dc:description>
+    <dc:description>This description is exactly 50 characters.........</dc:description>
+    <dc:description>This description is more 50 characters.............</dc:description>
     <dc:identifier>12944</dc:identifier>
     <dc:language>nl</dc:language>
     <dc:subject xml:lang="en">EFG1914</dc:subject>
     <dc:subject xml:lang="en">World War I</dc:subject>
     <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
-    <dc:title xml:lang="hi">के मध्य मुख्यतः यूरोप में व्याप्त इस</dc:title>
-    <dc:title xml:lang="el">Καλημέρα Ελλάδα</dc:title>
-    <dc:title xml:lang="el">Καλημέρα - Ελλάδα</dc:title>
-    <dc:title xml:lang="el">
-    Καλημέρα
-    Ελλάδα
-    </dc:title>
-    <dc:title>Contains identifier 12944</dc:title>
-    <dc:title>Contains non-alphanumeric ?</dc:title>
-    <dc:title xml:lang="my">မြန်မာဘာသာ</dc:title>
     <dc:type xml:lang="en">Newsreel</dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>

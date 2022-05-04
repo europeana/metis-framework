@@ -22,6 +22,7 @@ class ProblemPatternAnalyzerTest {
   public static final String FILE_XML_P6_LOCATION = "src/test/resources/europeana_record_with_P6.xml";
   public static final String FILE_XML_P7_LOCATION = "src/test/resources/europeana_record_with_P7.xml";
   public static final String FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION = "src/test/resources/europeana_record_with_P7_descriptions_empty.xml";
+  public static final String FILE_XML_P9_LOCATION = "src/test/resources/europeana_record_with_P9.xml";
 
   private ProblemPatternDescription getFirstProblemPatternDescription(List<ProblemPattern> problemPatterns) {
     return problemPatterns.get(0).getProblemPatternDescription();
@@ -92,5 +93,16 @@ class ProblemPatternAnalyzerTest {
     assertEquals(1, problemPatterns.size());
     assertEquals(ProblemPatternDescription.P7, getFirstProblemPatternDescription(problemPatterns));
     assertEquals(1, getFirstProblemOccurrencesSize(problemPatterns));
+  }
+
+  @Test
+  void analyzeRecord_P9() throws Exception {
+    //Should contain a description with length less than or equal of 50
+    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(FILE_XML_P9_LOCATION);
+
+    assertNotNull(problemPatterns);
+    assertEquals(1, problemPatterns.size());
+    assertEquals(ProblemPatternDescription.P9, getFirstProblemPatternDescription(problemPatterns));
+    assertEquals(2, getFirstProblemOccurrencesSize(problemPatterns));
   }
 }

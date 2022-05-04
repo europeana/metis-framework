@@ -62,13 +62,13 @@
   </ore:Proxy>
   <ore:Proxy rdf:about="/proxy/provider/1/12944">
     <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
-    <dc:description xml:lang="en">same title and Description</dc:description>
+    <dc:description xml:lang="en">This description is more than 50 charactersAAAAAAAA same title and Description</dc:description>
     <dc:identifier>12944</dc:identifier>
     <dc:language>nl</dc:language>
     <dc:subject xml:lang="en">EFG1914</dc:subject>
     <dc:subject xml:lang="en">World War I</dc:subject>
     <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
-    <dc:title xml:lang="en">Same title and Description</dc:title>
+    <dc:title xml:lang="en">This description is more than 50 charactersAAAAAAAA Same title and Description</dc:title>
     <dc:type xml:lang="en">Newsreel</dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>
@@ -82,13 +82,13 @@
   </ore:Proxy>
   <ore:Proxy rdf:about="/proxy/provider/1/12944">
       <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
-      <dc:description xml:lang="en">same title and Description</dc:description>
+      <dc:description xml:lang="en">This description is more than 50 charactersAAAAAAAA same title and Description</dc:description>
       <dc:identifier>12944</dc:identifier>
       <dc:language>nl</dc:language>
       <dc:subject xml:lang="en">EFG1914</dc:subject>
       <dc:subject xml:lang="en">World War I</dc:subject>
       <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
-      <dc:title xml:lang="en">Same title and Description</dc:title>
+      <dc:title xml:lang="en">This description is more than 50 charactersAAAAAAAA Same title and Description</dc:title>
       <dc:type xml:lang="en">Newsreel</dc:type>
       <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
       <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>

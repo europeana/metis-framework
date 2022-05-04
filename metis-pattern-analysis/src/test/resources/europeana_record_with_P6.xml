@@ -62,10 +62,7 @@
   </ore:Proxy>
   <ore:Proxy rdf:about="/proxy/provider/1/12944">
     <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
-    <dc:description xml:lang="en">Newsitems West Flanders. Day of the Navy in Ostend, with a wreath-laying memorial service at the
-      monument of the sailors on the dike. Thereafter, a military parade takes place at the Wapenplein in the presence of Prince
-      Albert, Princess Paola, Governor Vanneste, mayor Goekindt and certain naval officers. The navy admiral gives a speech,
-      followed by a short parade. The princess salutes the flag bearers of the veterans' associations.
+    <dc:description xml:lang="en">This description is more than 50 charactersAAAAAAAA
     </dc:description>
     <dc:identifier>12944</dc:identifier>
     <dc:language>nl</dc:language>

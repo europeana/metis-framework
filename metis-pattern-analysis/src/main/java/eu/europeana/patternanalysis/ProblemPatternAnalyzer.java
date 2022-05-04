@@ -37,7 +37,8 @@ import org.apache.commons.lang3.StringUtils;
 public class ProblemPatternAnalyzer {
 
   private static final int MIN_TITLE_LENGTH = 2;
-  private static final String RECOGNIZABLE_TITLE_REGEX = "^[\\p{L}\\p{M}\\p{N}-\\s]*$"; // Match alphanumeric, dash, spaces in all languages
+  private static final int MIN_DESCRIPTION_LENGTH = 50;
+  private static final String RECOGNIZABLE_TITLE_REGEX = "^[\\p{L}\\p{M}\\p{N}-_\\s]*$"; // Match alphanumeric, dash, spaces in all languages
   private static final Pattern RECOGNIZABLE_TITLE_PATTERN = Pattern.compile(RECOGNIZABLE_TITLE_REGEX);
 
   /**
@@ -86,6 +87,7 @@ public class ProblemPatternAnalyzer {
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P5, checkP5(titles, identifiers)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P6, checkP6(titles)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P7, checkP7(descriptions)).ifPresent(problemPatterns::add);
+    constructProblemPattern(rdfAbout, ProblemPatternDescription.P9, checkP9(descriptions)).ifPresent(problemPatterns::add);
     return problemPatterns;
   }
 
@@ -94,6 +96,14 @@ public class ProblemPatternAnalyzer {
               .filter(not(proxyType -> proxyType.getEuropeanaProxy().isEuropeanaProxy())).collect(Collectors.toList());
   }
 
+  /**
+   * Check whether there is a title - description pair for which the values are equal, ignoring letter (upper or lower) case.
+   * <p>It will report a single occurrence for multiple same fields</p>
+   *
+   * @param titles the list of titles
+   * @param descriptions the list of descriptions
+   * @return the list of problem occurrences encountered
+   */
   private List<ProblemOccurrence> checkP2(List<String> titles, List<String> descriptions) {
     final Set<String> uniqueTitles = titles.stream().map(String::toLowerCase).collect(Collectors.toSet());
     final Set<String> uniqueDescriptions = descriptions.stream().map(String::toLowerCase).collect(Collectors.toSet());
@@ -113,16 +123,42 @@ public class ProblemPatternAnalyzer {
                  ).collect(Collectors.toList());
   }
 
+  /**
+   * Check whether the record has titles of {@link #MIN_TITLE_LENGTH} characters or fewer.
+   *
+   * @param titles the list of titles
+   * @return the list of problem occurrences encountered
+   */
   private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
                  .map(title -> new ProblemOccurrence(format("Non meaningful title: %s", title))).collect(Collectors.toList());
   }
 
+  /**
+   * Check whether the record is lacking a description (or only has empty descriptions).
+   *
+   * @param descriptions the list of descriptions
+   * @return the list of problem occurrences encountered
+   */
   private List<ProblemOccurrence> checkP7(List<String> descriptions) {
     if (CollectionUtils.isEmpty(descriptions) || descriptions.stream().allMatch(StringUtils::isBlank)) {
       return List.of(new ProblemOccurrence("Missing description fields"));
     }
     return Collections.emptyList();
+  }
+
+  /**
+   * Check whether the record has descriptions of {@link #MIN_DESCRIPTION_LENGTH} characters or fewer.
+   * <p>We filter blank values before the analysis</p>
+   *
+   * @param descriptions the list of descriptions
+   * @return the list of problem occurrences encountered
+   */
+  private List<ProblemOccurrence> checkP9(List<String> descriptions) {
+    return descriptions.stream().filter(StringUtils::isNotBlank)
+                       .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
+                       .map(description -> new ProblemOccurrence(format("Very short description: %s", description)))
+                       .collect(Collectors.toList());
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,
