@@ -8,6 +8,7 @@ import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.Description;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
+import eu.europeana.metis.schema.jibx.Identifier;
 import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +35,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ProblemPatternAnalyzer {
 
-  public static final int MIN_TITLE_LENGTH = 2;
+  private static final int MIN_TITLE_LENGTH = 2;
+  private static final String RECOGNIZABLE_TITLE_REGEX = "^[\\p{L}\\p{M}\\p{N}-\\s]*$"; // Match alphanumeric, dash, spaces in all languages
+  private static final Pattern RECOGNIZABLE_TITLE_PATTERN = Pattern.compile(RECOGNIZABLE_TITLE_REGEX);
 
   /**
    * Analyzes a record for problem patterns.
@@ -53,28 +58,36 @@ public class ProblemPatternAnalyzer {
    */
   public List<ProblemPattern> analyzeRecord(RDF rdf) {
     final List<ProxyType> providerProxies = getProviderProxies(rdf);
-    final List<String> titles = providerProxies.stream().map(EuropeanaType::getChoiceList).flatMap(Collection::stream)
-                                               .filter(Choice::ifTitle).map(Choice::getTitle)
-                                               .map(Title::getString)
-                                               .filter(StringUtils::isNotBlank)
-                                               .map(String::trim)
-                                               .collect(Collectors.toList());
-    final List<String> descriptions = providerProxies.stream().map(EuropeanaType::getChoiceList).flatMap(Collection::stream)
-                                                     .filter(Choice::ifDescription).map(Choice::getDescription)
-                                                     .map(Description::getString)
-                                                     .filter(StringUtils::isNotBlank)
-                                                     .map(String::trim)
-                                                     .collect(Collectors.toList());
+    final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList).flatMap(Collection::stream)
+                                                .collect(Collectors.toList());
+
+    final List<String> titles = choices.stream().filter(Choice::ifTitle).map(Choice::getTitle)
+                                       .map(Title::getString)
+                                       .filter(StringUtils::isNotBlank)
+                                       .map(String::trim)
+                                       .collect(Collectors.toList());
+    final List<String> descriptions = choices.stream().filter(Choice::ifDescription).map(Choice::getDescription)
+                                             .map(Description::getString)
+                                             .filter(StringUtils::isNotBlank)
+                                             .map(String::trim)
+                                             .collect(Collectors.toList());
+    final List<String> identifiers = choices.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier)
+                                            .map(Identifier::getString)
+                                            .filter(StringUtils::isNotBlank)
+                                            .map(String::trim)
+                                            .collect(Collectors.toList());
     final String rdfAbout = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
                                .map(ProvidedCHOType::getAbout).orElse(null);
-    return computeProblemPatterns(rdfAbout, titles, descriptions);
+    return computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
   }
 
-  private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions) {
+  private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
+      List<String> identifiers) {
     final ArrayList<ProblemPattern> problemPatterns = new ArrayList<>();
 
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P2, checkP2(titles, descriptions)).ifPresent(
         problemPatterns::add);
+    constructProblemPattern(rdfAbout, ProblemPatternDescription.P5, checkP5(titles, identifiers)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P6, checkP6(titles)).ifPresent(problemPatterns::add);
     return problemPatterns;
   }
@@ -93,6 +106,16 @@ public class ProblemPatternAnalyzer {
     return equalTitlesAndDescriptions.stream().map(
         value -> new ProblemOccurrence(format("Equal(lower cased) title and description: %s", value))
     ).collect(Collectors.toList());
+  }
+
+  private List<ProblemOccurrence> checkP5(List<String> titles, List<String> identifiers) {
+    final Predicate<String> notRecognizableString = not(s -> RECOGNIZABLE_TITLE_PATTERN.matcher(s).matches());
+    final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
+    final List<ProblemOccurrence> collect = titles.stream().filter(notRecognizableString.or(containsIdentifier))
+                                                  .map(title -> new ProblemOccurrence(format("Unrecognized title: %s", title))
+                                                  ).collect(Collectors.toList());
+    System.out.println(collect.size());
+    return collect;
   }
 
   private List<ProblemOccurrence> checkP6(List<String> titles) {

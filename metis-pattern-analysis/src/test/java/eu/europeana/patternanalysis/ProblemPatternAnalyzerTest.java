@@ -32,6 +32,21 @@ class ProblemPatternAnalyzerTest {
   }
 
   @Test
+  void analyzeRecord_P5() throws Exception {
+    String xml = IOUtils.toString(new FileInputStream("src/test/resources/europeana_record_with_P5.xml"),
+        StandardCharsets.UTF_8);
+    final RDF rdf = new RdfConversionUtils().convertStringToRdf(xml);
+
+    final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
+    final List<ProblemPattern> problemPatterns = problemPatternAnalyzer.analyzeRecord(rdf);
+
+    assertNotNull(problemPatterns);
+    assertEquals(1, problemPatterns.size());
+    assertEquals(ProblemPatternDescription.P5, problemPatterns.get(0).getProblemPatternDescription());
+    assertEquals(2, problemPatterns.get(0).getRecordAnalysisList().get(0).getProblemOccurrenceList().size());
+  }
+
+  @Test
   void analyzeRecord_P6() throws Exception {
     //Should contain one title that is not meaningful(too short)
     String xml = IOUtils.toString(new FileInputStream("src/test/resources/europeana_record_with_P6.xml"),
