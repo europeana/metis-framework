@@ -5,14 +5,13 @@ import static java.util.function.Predicate.not;
 
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
-import eu.europeana.metis.schema.jibx.Description;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
-import eu.europeana.metis.schema.jibx.Identifier;
+import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.metis.schema.jibx.Title;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -61,24 +61,23 @@ public class ProblemPatternAnalyzer {
     final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList).flatMap(Collection::stream)
                                                 .collect(Collectors.toList());
 
-    final List<String> titles = choices.stream().filter(Choice::ifTitle).map(Choice::getTitle)
-                                       .map(Title::getString)
-                                       .filter(StringUtils::isNotBlank)
-                                       .map(String::trim)
-                                       .collect(Collectors.toList());
-    final List<String> descriptions = choices.stream().filter(Choice::ifDescription).map(Choice::getDescription)
-                                             .map(Description::getString)
-                                             .filter(StringUtils::isNotBlank)
-                                             .map(String::trim)
-                                             .collect(Collectors.toList());
-    final List<String> identifiers = choices.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier)
-                                            .map(Identifier::getString)
-                                            .filter(StringUtils::isNotBlank)
-                                            .map(String::trim)
-                                            .collect(Collectors.toList());
+    final List<String> titles = getChoicesInStringList(choices, Choice::ifTitle, Choice::getTitle, LiteralType::getString);
+    final List<String> descriptions = getChoicesInStringList(choices, Choice::ifDescription, Choice::getDescription,
+        ResourceOrLiteralType::getString);
+    final List<String> identifiers = getChoicesInStringList(choices, Choice::ifIdentifier, Choice::getIdentifier,
+        LiteralType::getString);
     final String rdfAbout = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
                                .map(ProvidedCHOType::getAbout).orElse(null);
     return computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
+  }
+
+  private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
+      Function<Choice, T> choiceGetter, Function<T, String> getString) {
+    return choices.stream().filter(choicePredicate).map(choiceGetter)
+                  .map(getString)
+                  .filter(StringUtils::isNotBlank)
+                  .map(String::trim)
+                  .collect(Collectors.toList());
   }
 
   private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
