@@ -24,12 +24,12 @@ public interface DereferencingManagementService {
 
   /**
    * Empty the cache by resource ID(URI)
-   * @param resourceId
+   * @param resourceId  The resourceId (URI) of the resource to be purged from the cache
    */
   void purgeByResourceId(String resourceId);
   /**
    * Empty the cache by vocabulary ID
-   * @param vocabularyId
+   * @param vocabularyId the vocabulary ID to be purged from the cache, with all associated resources
    */
   void purgeByVocabularyId(String vocabularyId);
 

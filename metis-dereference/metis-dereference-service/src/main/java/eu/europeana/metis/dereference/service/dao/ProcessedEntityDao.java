@@ -67,8 +67,6 @@ public class ProcessedEntityDao {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
           processedEntity.getResourceId());
       LOGGER.debug("Attempted to save duplicate record - exception details:", e);
-    } catch (Exception e) {
-      LOGGER.debug("Error persisting Entity. Exception details: ", e);
     }
   }
 
@@ -78,31 +76,22 @@ public class ProcessedEntityDao {
    * @param resourceId The resource ID (URI) to delete
    **/
   public void purgeByResourceId(String resourceId) {
-    try {
-      retryableExternalRequestForNetworkExceptions(() ->
-          datastore.find(ProcessedEntity.class)
-                   .filter(Filters.eq("resourceId", resourceId))
-                   .delete(new DeleteOptions()));
-    } catch (Exception e) {
-      LOGGER.debug("Error purging Entity. Exception details: ", e);
-    }
+    retryableExternalRequestForNetworkExceptions(() ->
+        datastore.find(ProcessedEntity.class)
+                 .filter(Filters.eq("resourceId", resourceId))
+                 .delete(new DeleteOptions()));
   }
 
   /**
    * Delete the entity based on its vocabulary ID.
    *
    * @param vocabularyId The ID of the vocabulary to delete.
-   *
    **/
   public void purgeByVocabularyId(String vocabularyId) {
-    try {
-      retryableExternalRequestForNetworkExceptions(() ->
-          datastore.find(ProcessedEntity.class)
-                   .filter(Filters.eq("vocabularyId", vocabularyId))
-                   .delete(new DeleteOptions().multi(true)));
-    } catch (Exception e) {
-      LOGGER.debug("Error purging Entity. Exception details: ", e);
-    }
+    retryableExternalRequestForNetworkExceptions(() ->
+        datastore.find(ProcessedEntity.class)
+                 .filter(Filters.eq("vocabularyId", vocabularyId))
+                 .delete(new DeleteOptions().multi(true)));
   }
 
   /**
