@@ -1,6 +1,7 @@
 package eu.europeana.patternanalysis;
 
 import static java.lang.String.format;
+import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
@@ -134,8 +135,8 @@ public class ProblemPatternAnalyzer {
 
   /**
    * Check whether there is a title - description pair for which the values are too similar.
-   * <p>Blank values are filtered out. Same titles will be reported once and will not have a duplicate of it self with same near
-   * identical descriptions</p>
+   * <p>Blank values are filtered out. Titles and descriptions that are equal, ignoring letter (upper or lower) case are filtered
+   * out. Same titles will be reported once and will not have a duplicate of it self with same near identical descriptions</p>
    *
    * @param titles the list of titles
    * @param descriptions the list of descriptions
@@ -156,11 +157,12 @@ public class ProblemPatternAnalyzer {
   private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
     final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
     final Predicate<String> lcsPredicate = description ->
-        ((float) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
+        ((double) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
             >= LCS_CALCULATION_THRESHOLD;
     final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
         <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
-    return descriptions.stream().filter(StringUtils::isNotBlank).filter(lcsPredicate.and(distancePredicate)).collect(toList());
+    return descriptions.stream().filter(StringUtils::isNotBlank).filter(not(title::equalsIgnoreCase))
+                       .filter(lcsPredicate.and(distancePredicate)).collect(toList());
   }
 
   /**
@@ -168,7 +170,9 @@ public class ProblemPatternAnalyzer {
    * <p>
    * We check this by:
    *   <ul>
-   *     <li>Whether there are more than 5 characters that are not valid. Non valid characters are considered characters that are not alphanumeric and are not simple "literal" spaces(tabs, new lines etc. are considered invalid characters).
+   *     <li>Whether there are more than 5 characters that are not valid.
+   *     Non valid characters are considered characters that are not alphanumeric and are not simple "literal" spaces(tabs,
+   *     new lines etc. are considered invalid characters).
    *     This is performed with regex unicode matching {@link #UNRECOGNIZABLE_CHARACTERS_REGEX} and should support all languages.
    *     For more information check <a href="https://www.regular-expressions.info/unicode.html#category">unicode regex</a></li>
    *     <li>The title does not fully contain an identifier</li>
