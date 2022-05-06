@@ -75,6 +75,9 @@ public class DereferencingManagementController {
     service.emptyCache();
   }
 
+  /**
+   * Empty the cache for a specific resource
+  * */
   @PostMapping(value = RestEndpoints.CACHE_EMPTY_RESOURCE)
   @ResponseBody
   @ApiOperation(value = "Empty the cache by resource Id")
@@ -83,6 +86,9 @@ public class DereferencingManagementController {
     service.purgeByResourceId(resourceId);
   }
 
+  /**
+   * Empty the cache for a specific vocabulary, with all associated entities
+   * */
   @PostMapping(value = RestEndpoints.CACHE_EMPTY_VOCABULARY)
   @ResponseBody
   @ApiOperation(value = "Empty the cache by vocabulary Id")
