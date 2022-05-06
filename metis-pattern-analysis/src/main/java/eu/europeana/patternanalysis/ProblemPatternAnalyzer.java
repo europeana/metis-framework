@@ -2,6 +2,9 @@ package eu.europeana.patternanalysis;
 
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -21,15 +24,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.LongestCommonSubsequence;
 
 /**
  * Class that contains functionality to analyze a record and retrieve all problem patterns.
@@ -40,7 +44,9 @@ public class ProblemPatternAnalyzer {
   private static final int MAX_TITLE_LENGTH = 70;
   private static final int MIN_DESCRIPTION_LENGTH = 50;
   private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
-  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N}\\-_ ]"; // Match alphanumeric, dash, spaces in all languages
+  private static final double LCS_CALCULATION_THRESHOLD = 0.9;
+  private static final int TITLE_DESCRIPTION_LENGTH_DISTANCE = 20;
+  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N} ]"; // Match alphanumeric, dash, spaces in all languages
   private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
 
   /**
@@ -63,7 +69,7 @@ public class ProblemPatternAnalyzer {
   public List<ProblemPattern> analyzeRecord(RDF rdf) {
     final List<ProxyType> providerProxies = getProviderProxies(rdf);
     final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList).flatMap(Collection::stream)
-                                                .collect(Collectors.toList());
+                                                .collect(toList());
 
     final List<String> titles = getChoicesInStringList(choices, Choice::ifTitle, Choice::getTitle, LiteralType::getString);
     final List<String> descriptions = getChoicesInStringList(choices, Choice::ifDescription, Choice::getDescription,
@@ -77,7 +83,7 @@ public class ProblemPatternAnalyzer {
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
       Function<Choice, T> choiceGetter, Function<T, String> getString) {
-    return choices.stream().filter(choicePredicate).map(choiceGetter).map(getString).collect(Collectors.toList());
+    return choices.stream().filter(choicePredicate).map(choiceGetter).map(getString).collect(toList());
   }
 
   private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
@@ -85,6 +91,8 @@ public class ProblemPatternAnalyzer {
     final ArrayList<ProblemPattern> problemPatterns = new ArrayList<>();
 
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P2, checkP2(titles, descriptions)).ifPresent(
+        problemPatterns::add);
+    constructProblemPattern(rdfAbout, ProblemPatternDescription.P3, checkP3(titles, descriptions)).ifPresent(
         problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P5, checkP5(titles, identifiers)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P6, checkP6(titles)).ifPresent(problemPatterns::add);
@@ -96,7 +104,7 @@ public class ProblemPatternAnalyzer {
 
   private List<ProxyType> getProviderProxies(RDF rdf) {
     return rdf.getProxyList().stream().filter(proxyType -> proxyType.getEuropeanaProxy() != null)
-              .filter(not(proxyType -> proxyType.getEuropeanaProxy().isEuropeanaProxy())).collect(Collectors.toList());
+              .filter(not(proxyType -> proxyType.getEuropeanaProxy().isEuropeanaProxy())).collect(toList());
   }
 
   /**
@@ -108,14 +116,45 @@ public class ProblemPatternAnalyzer {
    * @return the list of problem occurrences encountered
    */
   private List<ProblemOccurrence> checkP2(List<String> titles, List<String> descriptions) {
-    final Set<String> uniqueTitles = titles.stream().map(String::toLowerCase).collect(Collectors.toSet());
-    final Set<String> uniqueDescriptions = descriptions.stream().map(String::toLowerCase).collect(Collectors.toSet());
+    final Set<String> uniqueTitles = titles.stream().map(String::toLowerCase).collect(toSet());
+    final Set<String> uniqueDescriptions = descriptions.stream().map(String::toLowerCase).collect(toSet());
     final HashSet<String> equalTitlesAndDescriptions = new HashSet<>(uniqueTitles);
     equalTitlesAndDescriptions.retainAll(uniqueDescriptions);
 
     return equalTitlesAndDescriptions.stream().map(
         value -> new ProblemOccurrence(format("Equal(lower cased) title and description: %s", value))
-    ).collect(Collectors.toList());
+    ).collect(toList());
+  }
+
+  /**
+   * Check whether there is a title - description pair for which the values are too similar.
+   * <p>Blank values are filtered out. Same titles will be reported once and will not have a duplicate of it self with same near
+   * identical descriptions</p>
+   *
+   * @param titles the list of titles
+   * @param descriptions the list of descriptions
+   * @return the list of problem occurrences encountered
+   */
+  private List<ProblemOccurrence> checkP3(List<String> titles, List<String> descriptions) {
+    final Map<String, List<String>> nearIdenticalTitleDescriptionsMap =
+        titles.stream().filter(StringUtils::isNotBlank)
+              .collect(toMap(title -> title, title -> nearIdenticalDescriptions(title, descriptions), (t1, t2) -> t1));
+
+    return nearIdenticalTitleDescriptionsMap.entrySet().stream().flatMap(
+        entry -> entry.getValue().stream().map(
+            value -> new ProblemOccurrence(format("Near-Identical title and description fields: %s | %s", entry.getKey(), value))
+        )
+    ).collect(toList());
+  }
+
+  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
+    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
+    final Predicate<String> lcsPredicate = description ->
+        ((float) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
+            >= LCS_CALCULATION_THRESHOLD;
+    final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
+        <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
+    return descriptions.stream().filter(StringUtils::isNotBlank).filter(lcsPredicate.and(distancePredicate)).collect(toList());
   }
 
   /**
@@ -123,7 +162,9 @@ public class ProblemPatternAnalyzer {
    * <p>
    * We check this by:
    *   <ul>
-   *     <li>Whether there are more than 5 characters that are not valid. Non valid characters are considered characters that are not alphanumeric and are not simple "literal" spaces(tabs, new lines etc. are considered invalid characters).</li>
+   *     <li>Whether there are more than 5 characters that are not valid. Non valid characters are considered characters that are not alphanumeric and are not simple "literal" spaces(tabs, new lines etc. are considered invalid characters).
+   *     This is performed with regex unicode matching {@link #UNRECOGNIZABLE_CHARACTERS_REGEX} and should support all languages.
+   *     For more information check <a href="https://www.regular-expressions.info/unicode.html#category">unicode regex</a></li>
    *     <li>The title does not fully contain an identifier</li>
    *   </ul>
    * </p>
@@ -138,7 +179,7 @@ public class ProblemPatternAnalyzer {
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
     return titles.stream().filter(moreThanThresholdUnrecognizableCharacters.or(containsIdentifier))
                  .map(title -> new ProblemOccurrence(format("Unrecognized title: %s", title))
-                 ).collect(Collectors.toList());
+                 ).collect(toList());
   }
 
   /**
@@ -149,7 +190,7 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurrence(format("Non meaningful title: %s", title))).collect(Collectors.toList());
+                 .map(title -> new ProblemOccurrence(format("Non meaningful title: %s", title))).collect(toList());
   }
 
   /**
@@ -167,7 +208,7 @@ public class ProblemPatternAnalyzer {
 
   /**
    * Check whether the record has descriptions of {@link #MIN_DESCRIPTION_LENGTH} characters or fewer.
-   * <p>We filter blank values before the analysis</p>
+   * <p>Blank values are filtered out</p>
    *
    * @param descriptions the list of descriptions
    * @return the list of problem occurrences encountered
@@ -176,7 +217,7 @@ public class ProblemPatternAnalyzer {
     return descriptions.stream().filter(StringUtils::isNotBlank)
                        .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
                        .map(description -> new ProblemOccurrence(format("Very short description: %s", description)))
-                       .collect(Collectors.toList());
+                       .collect(toList());
   }
 
   /**
@@ -187,7 +228,7 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP12(List<String> titles) {
     return titles.stream().filter(title -> title.length() > MAX_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurrence(format("Extremely long title: %s", title))).collect(Collectors.toList());
+                 .map(title -> new ProblemOccurrence(format("Extremely long title: %s", title))).collect(toList());
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,

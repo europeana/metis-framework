@@ -21,6 +21,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 class ProblemPatternAnalyzerTest {
 
   public static final String FILE_XML_P2_LOCATION = "src/test/resources/europeana_record_with_P2.xml";
+  public static final String FILE_XML_P3_LOCATION = "src/test/resources/europeana_record_with_P3.xml";
   public static final String FILE_XML_P5_LOCATION = "src/test/resources/europeana_record_with_P5.xml";
   public static final String FILE_XML_P6_LOCATION = "src/test/resources/europeana_record_with_P6.xml";
   public static final String FILE_XML_P7_LOCATION = "src/test/resources/europeana_record_with_P7.xml";
@@ -28,26 +29,12 @@ class ProblemPatternAnalyzerTest {
   public static final String FILE_XML_P9_LOCATION = "src/test/resources/europeana_record_with_P9.xml";
   public static final String FILE_XML_P12_LOCATION = "src/test/resources/europeana_record_with_P12.xml";
 
-  private ProblemPatternDescription getFirstProblemPatternDescription(List<ProblemPattern> problemPatterns) {
-    return problemPatterns.get(0).getProblemPatternDescription();
-  }
-
-  private int getFirstProblemOccurrencesSize(List<ProblemPattern> problemPatterns) {
-    return problemPatterns.get(0).getRecordAnalysisList().get(0).getProblemOccurrenceList().size();
-  }
-
-  private List<ProblemPattern> analyzeProblemPatternsForFile(String fileLocation) throws IOException, SerializationException {
-    String xml = IOUtils.toString(new FileInputStream(fileLocation), StandardCharsets.UTF_8);
-    final RDF rdf = new RdfConversionUtils().convertStringToRdf(xml);
-
-    final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
-    return problemPatternAnalyzer.analyzeRecord(rdf);
-  }
-
   private static Stream<Arguments> test() {
     return Stream.of(
         //Should contain two provider proxies that each contain a pair of identical title and description. All four values are identical on the two proxies.
-        Arguments.of(FILE_XML_P2_LOCATION, 1, ProblemPatternDescription.P2, 1),
+        Arguments.of(FILE_XML_P2_LOCATION, 2, ProblemPatternDescription.P2, 1),
+        //Should contain identical titles and very similar ones and also completely different ones
+        Arguments.of(FILE_XML_P3_LOCATION, 2, ProblemPatternDescription.P3, 3),
         //Should contain valid titles in different languages and unrecognizable titles
         Arguments.of(FILE_XML_P5_LOCATION, 1, ProblemPatternDescription.P5, 3),
         //Should contain one title that is not meaningful(too short)
@@ -63,6 +50,30 @@ class ProblemPatternAnalyzerTest {
     );
   }
 
+  private ProblemPatternDescription getRequestedProblemPattern(ProblemPatternDescription problemPatternDescription,
+      List<ProblemPattern> problemPatterns) {
+    return problemPatterns.stream()
+                          .map(ProblemPattern::getProblemPatternDescription)
+                          .filter(patternDescription -> patternDescription == problemPatternDescription).findFirst().orElse(null);
+  }
+
+  private List<ProblemPattern> analyzeProblemPatternsForFile(String fileLocation) throws IOException, SerializationException {
+    String xml = IOUtils.toString(new FileInputStream(fileLocation), StandardCharsets.UTF_8);
+    final RDF rdf = new RdfConversionUtils().convertStringToRdf(xml);
+
+    final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
+    return problemPatternAnalyzer.analyzeRecord(rdf);
+  }
+
+  private int getRequestedProblemOccurrencesSize(ProblemPatternDescription problemPatternDescription,
+      List<ProblemPattern> problemPatterns) {
+    return problemPatterns.stream()
+                          .filter(problemPattern -> problemPattern.getProblemPatternDescription()
+                              == problemPatternDescription)
+                          .map(problemPattern -> problemPattern.getRecordAnalysisList().get(0).getProblemOccurrenceList().size())
+                          .findFirst().orElse(0);
+  }
+
   @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2}, totalOccurrences:{3}")
   @MethodSource("test")
   void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
@@ -71,8 +82,7 @@ class ProblemPatternAnalyzerTest {
 
     assertNotNull(problemPatterns);
     assertEquals(totalPatterns, problemPatterns.size());
-    assertEquals(problemPatternDescription, getFirstProblemPatternDescription(problemPatterns));
-    assertEquals(totalOccurrences, getFirstProblemOccurrencesSize(problemPatterns));
-
+    assertEquals(problemPatternDescription, getRequestedProblemPattern(problemPatternDescription, problemPatterns));
+    assertEquals(totalOccurrences, getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatterns));
   }
 }
