@@ -3,9 +3,7 @@ package eu.europeana.patternanalysis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
 import java.io.FileInputStream;
@@ -59,10 +57,9 @@ class ProblemPatternAnalyzerTest {
 
   private List<ProblemPattern> analyzeProblemPatternsForFile(String fileLocation) throws IOException, SerializationException {
     String xml = IOUtils.toString(new FileInputStream(fileLocation), StandardCharsets.UTF_8);
-    final RDF rdf = new RdfConversionUtils().convertStringToRdf(xml);
 
     final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
-    return problemPatternAnalyzer.analyzeRecord(rdf);
+    return problemPatternAnalyzer.analyzeRecord(xml);
   }
 
   private int getRequestedProblemOccurrencesSize(ProblemPatternDescription problemPatternDescription,

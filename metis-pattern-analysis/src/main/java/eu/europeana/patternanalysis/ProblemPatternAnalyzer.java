@@ -1,10 +1,10 @@
 package eu.europeana.patternanalysis;
 
 import static java.lang.String.format;
-import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
+import static org.apache.commons.lang3.BooleanUtils.isFalse;
 
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.LongestCommonSubsequence;
@@ -102,9 +103,14 @@ public class ProblemPatternAnalyzer {
     return problemPatterns;
   }
 
+  private static boolean isProviderProxy(ProxyType proxy) {
+    return proxy.getEuropeanaProxy() == null || isFalse(proxy.getEuropeanaProxy().isEuropeanaProxy());
+  }
+
   private List<ProxyType> getProviderProxies(RDF rdf) {
-    return rdf.getProxyList().stream().filter(proxyType -> proxyType.getEuropeanaProxy() != null)
-              .filter(not(proxyType -> proxyType.getEuropeanaProxy().isEuropeanaProxy())).collect(toList());
+    return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
+                   .filter(Objects::nonNull).filter(ProblemPatternAnalyzer::isProviderProxy)
+                   .collect(Collectors.toList());
   }
 
   /**

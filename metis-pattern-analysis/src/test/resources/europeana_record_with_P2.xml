@@ -95,7 +95,6 @@
       <dcterms:created xml:lang="en">1984</dcterms:created>
       <dcterms:spatial xml:lang="en">Belgium</dcterms:spatial>
       <dcterms:spatial rdf:resource="http://sws.geonames.org/2802361/"></dcterms:spatial>
-      <edm:europeanaProxy>false</edm:europeanaProxy>
       <ore:proxyFor rdf:resource="/1/12944"/>
       <ore:proxyIn rdf:resource="/aggregation/provider/1/12944"/>
       <ore:lineage rdf:resource="someLineage"/>
