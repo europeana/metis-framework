@@ -75,6 +75,23 @@ public class DereferencingManagementController {
     service.emptyCache();
   }
 
+  @PostMapping(value = RestEndpoints.CACHE_EMPTY_RESOURCE)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache by resource Id")
+  public void emptyCacheByResourceId(
+      @ApiParam(value = "Id (URI) of resource to clear cache", required = true) @RequestParam(value = "resourceId") String resourceId) {
+    service.purgeByResourceId(resourceId);
+  }
+
+  @PostMapping(value = RestEndpoints.CACHE_EMPTY_VOCABULARY)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache by vocabulary Id")
+  public void emptyCacheByVocabularyId(
+      @ApiParam(value = "Id of vocabulary to clear cache", required = true) @RequestParam(value = "vocabularyId") String vocabularyId) {
+    service.purgeByVocabularyId(vocabularyId);
+  }
+
+
   /**
    * Load the vocabularies from an online source. This does NOT purge the cache.
    *

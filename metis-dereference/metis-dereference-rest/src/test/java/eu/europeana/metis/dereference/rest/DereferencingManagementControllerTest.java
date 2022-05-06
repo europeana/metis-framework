@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,10 +41,8 @@ class DereferencingManagementControllerTest {
     DereferencingManagementController dereferencingManagementController = new DereferencingManagementController(
         dereferencingManagementServiceMock, Set.of("valid.domain.com"));
 
-    dereferencingManagementControllerMock = MockMvcBuilders
-        .standaloneSetup(dereferencingManagementController)
-        .setControllerAdvice(new RestResponseExceptionHandler())
-        .build();
+    dereferencingManagementControllerMock = MockMvcBuilders.standaloneSetup(dereferencingManagementController)
+                                                           .setControllerAdvice(new RestResponseExceptionHandler()).build();
   }
 
   @Test
@@ -73,14 +72,14 @@ class DereferencingManagementControllerTest {
   @Test
   void testLoadVocabularies_validDomain_expectSuccess() throws Exception {
     doNothing().when(dereferencingManagementServiceMock).loadVocabularies(any(URL.class));
-    dereferencingManagementControllerMock.perform(post("/load_vocabularies")
-        .param("directory_url", "https://valid.domain.com/test/call")).andExpect(status().is(200));
+    dereferencingManagementControllerMock.perform(
+        post("/load_vocabularies").param("directory_url", "https://valid.domain.com/test/call")).andExpect(status().is(200));
   }
 
   @Test
   void testLoadVocabularies_invalidDomain_expectFail() throws Exception {
-    dereferencingManagementControllerMock.perform(post("/load_vocabularies")
-        .param("directory_url", "https://invalid.domain.com")).andExpect(status().is(400));
+    dereferencingManagementControllerMock.perform(post("/load_vocabularies").param("directory_url", "https://invalid.domain.com"))
+                                         .andExpect(status().is(400));
   }
 
   @Test
@@ -90,7 +89,34 @@ class DereferencingManagementControllerTest {
       return null;
     }).when(dereferencingManagementServiceMock).emptyCache();
 
-    dereferencingManagementControllerMock.perform(delete("/cache"))
+    dereferencingManagementControllerMock.perform(delete(RestEndpoints.CACHE_EMPTY)).andExpect(status().is(200));
+
+    assertEquals("OK", testEmptyCacheResult);
+  }
+
+  @Test
+  void testEmptyCacheByResourceId() throws Exception {
+
+    doAnswer((Answer<Void>) invocationOnMock -> {
+      testEmptyCacheResult = "OK";
+      return null;
+    }).when(dereferencingManagementServiceMock).purgeByResourceId(any(String.class));
+
+    dereferencingManagementControllerMock.perform(post("/cache/resource").param("resourceId", "12345"))
+                                         .andExpect(status().is(200));
+
+    assertEquals("OK", testEmptyCacheResult);
+  }
+
+  @Test
+  void testEmptyCacheByVocabularyId() throws Exception {
+
+    doAnswer((Answer<Void>) invocationOnMock -> {
+      testEmptyCacheResult = "OK";
+      return null;
+    }).when(dereferencingManagementServiceMock).purgeByVocabularyId(any(String.class));
+
+    dereferencingManagementControllerMock.perform(post(RestEndpoints.CACHE_EMPTY_VOCABULARY).param("vocabularyId", "12345"))
                                          .andExpect(status().is(200));
 
     assertEquals("OK", testEmptyCacheResult);

@@ -34,8 +34,8 @@ public class ProcessedEntityDao {
    */
   public ProcessedEntityDao(MongoClient mongo, String databaseName) {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
-        .discriminator(DiscriminatorFunction.className())
-        .collectionNaming(NamingStrategy.identity()).build();
+                                                     .discriminator(DiscriminatorFunction.className())
+                                                     .collectionNaming(NamingStrategy.identity()).build();
     this.datastore = Morphia.createDatastore(mongo, databaseName, mapperOptions);
     this.datastore.getMapper().map(ProcessedEntity.class);
   }
@@ -49,7 +49,7 @@ public class ProcessedEntityDao {
   public ProcessedEntity get(String resourceId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
-            .first());
+                       .first());
   }
 
   /**
@@ -60,13 +60,48 @@ public class ProcessedEntityDao {
   public void save(ProcessedEntity processedEntity) {
     try {
       final ObjectId objectId = Optional.ofNullable(processedEntity.getId())
-          .orElseGet(ObjectId::new);
+                                        .orElseGet(ObjectId::new);
       processedEntity.setId(objectId);
       retryableExternalRequestForNetworkExceptions(() -> datastore.save(processedEntity));
     } catch (DuplicateKeyException e) {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
           processedEntity.getResourceId());
       LOGGER.debug("Attempted to save duplicate record - exception details:", e);
+    } catch (Exception e) {
+      LOGGER.debug("Error persisting Entity. Exception details: ", e);
+    }
+  }
+
+  /**
+   * Delete an entity by resource ID.
+   *
+   * @param resourceId The resource ID (URI) to delete
+   **/
+  public void purgeByResourceId(String resourceId) {
+    try {
+      retryableExternalRequestForNetworkExceptions(() ->
+          datastore.find(ProcessedEntity.class)
+                   .filter(Filters.eq("resourceId", resourceId))
+                   .delete(new DeleteOptions()));
+    } catch (Exception e) {
+      LOGGER.debug("Error purging Entity. Exception details: ", e);
+    }
+  }
+
+  /**
+   * Delete the entity based on its vocabulary ID.
+   *
+   * @param vocabularyId The ID of the vocabulary to delete.
+   *
+   **/
+  public void purgeByVocabularyId(String vocabularyId) {
+    try {
+      retryableExternalRequestForNetworkExceptions(() ->
+          datastore.find(ProcessedEntity.class)
+                   .filter(Filters.eq("vocabularyId", vocabularyId))
+                   .delete(new DeleteOptions().multi(true)));
+    } catch (Exception e) {
+      LOGGER.debug("Error purging Entity. Exception details: ", e);
     }
   }
 
