@@ -70,6 +70,8 @@
     <dc:subject xml:lang="en">World War I</dc:subject>
     <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
     <dc:title>This title is more than 70 characters long AAAAAAAAAAAAAAAAAAAAAAAAAAAA</dc:title>
+    <!-- Unicode codes are counted as one character and should not be reported if they extend over the threshold-->
+    <dc:title>This title is more than 70 characters long &#009;&#009;&#009;&#009;&#009;</dc:title>
     <dc:type xml:lang="en">Newsreel</dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>

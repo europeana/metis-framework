@@ -48,7 +48,8 @@ public class ProblemPatternAnalyzer {
   private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
   private static final double LCS_CALCULATION_THRESHOLD = 0.9;
   private static final int TITLE_DESCRIPTION_LENGTH_DISTANCE = 20;
-  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N} ]"; // Match alphanumeric, dash, spaces in all languages
+  // Match alphanumeric in all languages and literal spaces. We cannot just use \\w
+  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N} ]";
   private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
 
   /**
@@ -232,6 +233,7 @@ public class ProblemPatternAnalyzer {
 
   /**
    * Check whether the record has titles of more than {@link #MAX_TITLE_LENGTH} characters.
+   * <p>Unicode codes are converted to relevant characters(counted as one character) and the length of that is checked.</p>
    *
    * @param titles the list of titles
    * @return the list of problem occurrences encountered

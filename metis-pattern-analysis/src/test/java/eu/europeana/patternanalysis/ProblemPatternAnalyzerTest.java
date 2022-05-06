@@ -31,7 +31,7 @@ class ProblemPatternAnalyzerTest {
     return Stream.of(
         //Should contain two provider proxies that each contain a pair of identical title and description. All four values are identical on the two proxies.
         Arguments.of(FILE_XML_P2_LOCATION, 1, ProblemPatternDescription.P2, 1),
-        //Should contain identical titles and very similar ones and also completely different ones
+        //Should contain identical titles, very similar ones and also completely different ones
         Arguments.of(FILE_XML_P3_LOCATION, 2, ProblemPatternDescription.P3, 1),
         //Should contain valid titles in different languages and unrecognizable titles
         Arguments.of(FILE_XML_P5_LOCATION, 1, ProblemPatternDescription.P5, 3),
