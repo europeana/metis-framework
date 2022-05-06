@@ -77,6 +77,7 @@ public class DereferencingManagementController {
 
   /**
    * Empty the cache for a specific resource
+   * @param resourceId The resourceId to empty the cache for
   * */
   @PostMapping(value = RestEndpoints.CACHE_EMPTY_RESOURCE)
   @ResponseBody
@@ -88,6 +89,7 @@ public class DereferencingManagementController {
 
   /**
    * Empty the cache for a specific vocabulary, with all associated entities
+   * @param vocabularyId The vocabularyId to empty the cache for
    * */
   @PostMapping(value = RestEndpoints.CACHE_EMPTY_VOCABULARY)
   @ResponseBody
