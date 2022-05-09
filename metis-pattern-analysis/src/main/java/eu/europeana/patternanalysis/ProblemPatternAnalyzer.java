@@ -49,7 +49,7 @@ public class ProblemPatternAnalyzer {
   private static final double LCS_CALCULATION_THRESHOLD = 0.9;
   private static final int TITLE_DESCRIPTION_LENGTH_DISTANCE = 20;
   // Match anything that is not alphanumeric in all languages or literal spaces. We cannot just use \\w
-  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{L}\\p{M}\\p{N} ]";
+  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
   private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
 
   /**
@@ -71,7 +71,9 @@ public class ProblemPatternAnalyzer {
    */
   public List<ProblemPattern> analyzeRecord(RDF rdf) {
     final List<ProxyType> providerProxies = getProviderProxies(rdf);
-    final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList).flatMap(Collection::stream)
+    final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList)
+                                                .filter(Objects::nonNull)
+                                                .flatMap(Collection::stream)
                                                 .collect(toList());
 
     final List<String> titles = getChoicesInStringList(choices, Choice::ifTitle, Choice::getTitle, LiteralType::getString);
@@ -86,7 +88,7 @@ public class ProblemPatternAnalyzer {
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
       Function<Choice, T> choiceGetter, Function<T, String> getString) {
-    return choices.stream().filter(choicePredicate).map(choiceGetter).map(getString).collect(toList());
+    return choices.stream().filter(Objects::nonNull).filter(choicePredicate).map(choiceGetter).map(getString).collect(toList());
   }
 
   private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
@@ -136,8 +138,16 @@ public class ProblemPatternAnalyzer {
 
   /**
    * Check whether there is a title - description pair for which the values are too similar.
-   * <p>Blank values are filtered out. Titles and descriptions that are equal, ignoring letter (upper or lower) case are filtered
-   * out. Same titles will be reported once and will not have a duplicate of it self with same near identical descriptions</p>
+   * <p>
+   * The solution is based on the LCS algorithm(<a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem">Longest
+   * Common Subsequence</a>).
+   * <p>
+   * The formula chosen is:
+   * <p>
+   * LCS (title, description) / minimum(length(title), length(desc)) >= 0.9 && |length(title)-length(desc)| <= 20
+   * <p>
+   * Blank values are filtered out. Titles and descriptions that are equal, ignoring letter (upper or lower) case are filtered
+   * out. Same titles will be reported once and will not have a duplicate of it self with same near identical descriptions.
    *
    * @param titles the list of titles
    * @param descriptions the list of descriptions

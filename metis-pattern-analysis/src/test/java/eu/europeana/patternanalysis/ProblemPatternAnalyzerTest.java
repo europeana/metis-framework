@@ -18,6 +18,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class ProblemPatternAnalyzerTest {
 
+  public static final String FILE_XML_NO_PROBLEM_PATTERNS_LOCATION = "src/test/resources/europeana_record_no_problem_patterns.xml";
+  public static final String FILE_XML_EMPTY_CHOICES_LOCATION = "src/test/resources/europeana_record_empty_proxy_choices.xml";
   public static final String FILE_XML_P2_LOCATION = "src/test/resources/europeana_record_with_P2.xml";
   public static final String FILE_XML_P3_LOCATION = "src/test/resources/europeana_record_with_P3.xml";
   public static final String FILE_XML_P5_LOCATION = "src/test/resources/europeana_record_with_P5.xml";
@@ -27,8 +29,12 @@ class ProblemPatternAnalyzerTest {
   public static final String FILE_XML_P9_LOCATION = "src/test/resources/europeana_record_with_P9.xml";
   public static final String FILE_XML_P12_LOCATION = "src/test/resources/europeana_record_with_P12.xml";
 
-  private static Stream<Arguments> test() {
+  private static Stream<Arguments> analyzeRecord() {
     return Stream.of(
+        //Should not have any problem patterns generated
+        Arguments.of(FILE_XML_NO_PROBLEM_PATTERNS_LOCATION, 0, null, 0),
+        //Should not have any choices on the provider proxy(to check for null list), therefore reporting only P7
+        Arguments.of(FILE_XML_EMPTY_CHOICES_LOCATION, 1, ProblemPatternDescription.P7, 1),
         //Should contain two provider proxies that each contain a pair of identical title and description. All four values are identical on the two proxies.
         Arguments.of(FILE_XML_P2_LOCATION, 1, ProblemPatternDescription.P2, 1),
         //Should contain identical titles, very similar ones and also completely different ones
@@ -72,7 +78,7 @@ class ProblemPatternAnalyzerTest {
   }
 
   @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2}, totalOccurrences:{3}")
-  @MethodSource("test")
+  @MethodSource
   void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
       int totalOccurrences) throws Exception {
     final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(fileLocation);
