@@ -62,44 +62,24 @@
   </ore:Proxy>
   <ore:Proxy rdf:about="/proxy/provider/1/12944">
     <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
-    <dc:description xml:lang="en">same title and Element more than 50 charactersAAAAA</dc:description>
+    <dc:description>This description is less than 50 characters</dc:description>
+    <dc:description>This description is exactly 50 charactersAAAAAAAAA</dc:description>
+    <dc:description>This description is more 50 charactersAAAAAAAAAAAAA</dc:description>
     <dc:identifier>12944</dc:identifier>
     <dc:language>nl</dc:language>
     <dc:subject xml:lang="en">EFG1914</dc:subject>
     <dc:subject xml:lang="en">World War I</dc:subject>
     <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
-    <dc:title xml:lang="en">Same title and Element more than 50 charactersAAAAA</dc:title>
     <dc:type xml:lang="en">Newsreel</dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>
     <dcterms:created xml:lang="en">1984</dcterms:created>
     <dcterms:spatial xml:lang="en">Belgium</dcterms:spatial>
     <dcterms:spatial rdf:resource="http://sws.geonames.org/2802361/"></dcterms:spatial>
-    <edm:europeanaProxy>false</edm:europeanaProxy>
     <ore:proxyFor rdf:resource="/1/12944"/>
     <ore:proxyIn rdf:resource="/aggregation/provider/1/12944"/>
     <edm:type>VIDEO</edm:type>
   </ore:Proxy>
-  <ore:Proxy rdf:about="/proxy/provider/1/12944">
-      <dc:creator>PYLYSER, JEAN-MARIE</dc:creator>
-<!--      <dc:description xml:lang="en">same title and Element more than 50 charactersAAAAA</dc:description>-->
-      <dc:identifier>12944</dc:identifier>
-      <dc:language>nl</dc:language>
-      <dc:subject xml:lang="en">EFG1914</dc:subject>
-      <dc:subject xml:lang="en">World War I</dc:subject>
-      <dc:title xml:lang="nl">WESTVLAAMS FILMJOURNAAL - 164</dc:title>
-<!--      <dc:title xml:lang="en">Same title and Element more than 50 charactersAAAAA</dc:title>-->
-      <dc:type xml:lang="en">Newsreel</dc:type>
-      <dc:type rdf:resource="http://vocab.getty.edu/aat/300263837"></dc:type>
-      <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>
-      <dcterms:created xml:lang="en">1984</dcterms:created>
-      <dcterms:spatial xml:lang="en">Belgium</dcterms:spatial>
-      <dcterms:spatial rdf:resource="http://sws.geonames.org/2802361/"></dcterms:spatial>
-      <ore:proxyFor rdf:resource="/1/12944"/>
-      <ore:proxyIn rdf:resource="/aggregation/provider/1/12944"/>
-      <ore:lineage rdf:resource="someLineage"/>
-      <edm:type>VIDEO</edm:type>
-    </ore:Proxy>
   <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/1/12944">
     <edm:aggregatedCHO rdf:resource="/1/12944"/>
     <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>

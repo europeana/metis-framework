@@ -9,13 +9,37 @@ import java.util.Arrays;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ProblemPatternDescription {
 
+  /**
+   * Systematic use of the same title
+   */
   P1(ProblemPatternId.P1, ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.CONCISENESS),
+  /**
+   * Equal title and description fields
+   */
   P2(ProblemPatternId.P2, ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.CONCISENESS),
+  /**
+   * Near-Identical title and description fields
+   */
   P3(ProblemPatternId.P3, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.CONCISENESS),
+  /**
+   * Unrecognizable title
+   */
   P5(ProblemPatternId.P5, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
+  /**
+   * Non-meaningful title
+   */
   P6(ProblemPatternId.P6, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
+  /**
+   * Missing description fields
+   */
   P7(ProblemPatternId.P7, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.COMPLETENESS),
+  /**
+   * Very short description
+   */
   P9(ProblemPatternId.P9, ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
+  /**
+   * Extremely long values
+   */
   P12(ProblemPatternId.P12, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY);
 
   private final ProblemPatternId problemPatternId;
