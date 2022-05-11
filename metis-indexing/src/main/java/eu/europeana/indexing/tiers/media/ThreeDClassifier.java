@@ -3,10 +3,13 @@ package eu.europeana.indexing.tiers.media;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
+import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.Set;
 
 /**
  * Classifier for 3D objects.
@@ -30,8 +33,20 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   @Override
   MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
-    // T2-T4 if there is a mime type (any whatsoever), T0 otherwise.
-    return StringUtils.isNotBlank(webResource.getMimeType()) ? MediaTier.T4 : MediaTier.T0;
+    MediaTier result = MediaTier.T0;
+
+    if(hasMediaResourceThatIsNotImageOrPdf(webResource) && hasLicenseType(webResource,LicenseType.OPEN)){
+      result = MediaTier.T4;
+    } else if(hasMediaResourceThatIsNotImageOrPdf(webResource) && hasLicenseType(webResource, LicenseType.RESTRICTED)){
+      result = MediaTier.T3;
+    } else if(hasMediaResourceThatIsNotImageOrPdf(webResource) && webResource.getLicenseType().isPresent()){
+      result = MediaTier.T2;
+    } else if(hasLandingPage && webResource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT) &&
+            webResource.getLicenseType().isPresent()){
+      result = MediaTier.T1;
+    }
+
+    return result;
   }
 
   @Override
@@ -42,5 +57,17 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   @Override
   MediaType getMediaType() {
     return MediaType.THREE_D;
+  }
+
+  private boolean hasMediaResourceThatIsNotImageOrPdf(WebResourceWrapper webResource){
+    Set<WebResourceLinkType> extractedLinkTypes = webResource.getLinkTypes();
+    String mimeType = webResource.getMimeType();
+    return (extractedLinkTypes.contains(WebResourceLinkType.IS_SHOWN_BY) ||
+            extractedLinkTypes.contains(WebResourceLinkType.HAS_VIEW)) && !mimeType.contains("image") &&
+            !mimeType.contains("application/pdf");
+  }
+
+  private boolean hasLicenseType(WebResourceWrapper webResource, LicenseType licenseType){
+    return webResource.getLicenseType().isPresent() && webResource.getLicenseType().get() == licenseType;
   }
 }
