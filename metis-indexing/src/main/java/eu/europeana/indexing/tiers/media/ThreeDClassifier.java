@@ -41,8 +41,7 @@ class ThreeDClassifier extends AbstractMediaClassifier {
       result = MediaTier.T3;
     } else if(hasMediaResourceThatIsNotImageOrPdf(webResource) && webResource.getLicenseType().isPresent()){
       result = MediaTier.T2;
-    } else if(hasLandingPage && webResource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT) &&
-            webResource.getLicenseType().isPresent()){
+    } else if(hasLandingPage && webResource.getLicenseType().isPresent()){
       result = MediaTier.T1;
     }
 

@@ -101,9 +101,8 @@ class ThreeDClassifierTest {
   @Test
   void testClassifyWebResource_tier1Result() {
     final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
-    Set<WebResourceLinkType> mockSetResponse = Set.of(WebResourceLinkType.IS_SHOWN_AT);
     Optional<LicenseType> licenseType = Optional.of(LicenseType.CLOSED);
-    when(webResource.getLinkTypes()).thenReturn(mockSetResponse);
+    when(webResource.getLinkTypes()).thenReturn(Set.of());
     when(webResource.getMimeType()).thenReturn("video");
     when(webResource.getLicenseType()).thenReturn(licenseType).thenReturn(licenseType);
     assertEquals(MediaTier.T1, classifier.classifyWebResource(webResource, true, false));
