@@ -91,14 +91,15 @@ public class EntityClientResolver implements EntityResolver {
     }
 
     private List<EnrichmentBase> executeEntityClientRequest(EntityClientRequest clientRequest) {
+        // 1. get Entities
         List<Entity> entities = getEntities(clientRequest);
         if (!entities.isEmpty()) {
-            // 1. get the parent entities
+            // 2. get the parent entities
             List<Entity> parentEntities = new ArrayList<>();
             entities.stream().forEach(entity -> getParentEntities(entity, parentEntities));
-            // 2. add the parent entities
+            // 3. add the parent entities
             entities.addAll(parentEntities);
-            // 3. convert entity to EnrichmentBase
+            // 4. convert entity to EnrichmentBase
             List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
                 EnrichmentBase enrichmentBase = createXmlEntity(entity);
                 return enrichmentBase;
@@ -113,23 +114,34 @@ public class EntityClientResolver implements EntityResolver {
     private List<Entity> getEntities(EntityClientRequest entityClientRequest) {
         try {
             if (entityClientRequest.isReference()) {
-                if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
-                    Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
-                    if (entity != null) {
-                        // create a mutable list, as we might add parent entities later
-                        return new ArrayList<>(Arrays.asList(entity));
-                    }
-                } else {
-                    return entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
-                }
+                return resolveReferences(entityClientRequest);
             } else {
-                return entityClientApi.getSuggestions(entityClientRequest.getValueToEnrich(), entityClientRequest.getLanguage(), null, entityClientRequest.getType(), null, null);
+                // if the enrich method returns more than 1 entity, then no enrichment should be (for now) considered.
+                // It works as if no entity was returned. The reason for this is that Metis does not have a disambiguation
+                // mechanism in place that can judge which entity should be chosen out of the list of options.
+                List<Entity> entities = entityClientApi.getEnrichment(entityClientRequest.getValueToEnrich(), entityClientRequest.getLanguage(), entityClientRequest.getType(), null) ;
+                if (entities.size() == 1) {
+                    return entities;
+                }
             }
         } catch (JsonProcessingException e) {
-            throw new UnknownException("Entity Client GET call to " + (entityClientRequest.isReference() ? "getEntityByUri" : "getSuggestions")
+            throw new UnknownException("Entity Client call to " + (entityClientRequest.isReference() ? "getEntityByUri" : "getSuggestions")
                     + " failed for" + entityClientRequest + ".", e);
         } catch (RuntimeException e) {
-            throw new UnknownException("Entity Client GET call failed for : " + entityClientRequest + ".", e);
+            throw new UnknownException("Entity Client call failed for : " + entityClientRequest + ".", e);
+        }
+        return Collections.emptyList();
+    }
+
+    private List<Entity> resolveReferences(EntityClientRequest entityClientRequest) {
+        if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
+            Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
+            if (entity != null) {
+                // create a mutable list, as we might add parent entities later
+                return new ArrayList<>(Arrays.asList(entity));
+            }
+        } else {
+            return entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
         }
         return Collections.emptyList();
     }
