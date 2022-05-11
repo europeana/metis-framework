@@ -102,7 +102,7 @@ class ThreeDClassifierTest {
   void testClassifyWebResource_tier1Result() {
     final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
     Optional<LicenseType> licenseType = Optional.of(LicenseType.CLOSED);
-    when(webResource.getLinkTypes()).thenReturn(Set.of());
+    when(webResource.getLinkTypes()).thenReturn(Set.of(WebResourceLinkType.IS_SHOWN_AT));
     when(webResource.getMimeType()).thenReturn("video");
     when(webResource.getLicenseType()).thenReturn(licenseType).thenReturn(licenseType);
     assertEquals(MediaTier.T1, classifier.classifyWebResource(webResource, true, false));
@@ -118,6 +118,7 @@ class ThreeDClassifierTest {
     assertEquals(MediaTier.T0, classifier.classifyWebResource(webResource, false, false));
   }
 
+  //TODO: tier 0 With null values
 
   @Test
   void extractResolutionTierMetadataTest() {

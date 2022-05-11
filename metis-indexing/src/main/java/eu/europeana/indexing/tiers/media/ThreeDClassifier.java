@@ -41,7 +41,8 @@ class ThreeDClassifier extends AbstractMediaClassifier {
       result = MediaTier.T3;
     } else if(hasMediaResourceThatIsNotImageOrPdf(webResource) && webResource.getLicenseType().isPresent()){
       result = MediaTier.T2;
-    } else if(hasLandingPage && webResource.getLicenseType().isPresent()){
+    } else if(hasLandingPage && onlyContainsShownAtWebResource(webResource) &&
+            webResource.getLicenseType().isPresent()){
       result = MediaTier.T1;
     }
 
@@ -67,10 +68,12 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   }
 
   private boolean hasLicenseType(WebResourceWrapper webResource, LicenseType licenseType){
-    if(webResource.getLicenseType().isPresent()){
-      return webResource.getLicenseType().get() == licenseType;
-    } else {
-      return false;
-    }
+    return webResource.getLicenseType().map(otherLicenseType -> otherLicenseType == licenseType).orElse(false);
+  }
+
+  private boolean onlyContainsShownAtWebResource(WebResourceWrapper webResource){
+    return webResource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT) &&
+            !webResource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_BY) &&
+            !webResource.getLinkTypes().contains(WebResourceLinkType.HAS_VIEW);
   }
 }
