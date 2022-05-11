@@ -67,6 +67,10 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   }
 
   private boolean hasLicenseType(WebResourceWrapper webResource, LicenseType licenseType){
-    return webResource.getLicenseType().isPresent() ? webResource.getLicenseType().get() == licenseType : false;
+    if(webResource.getLicenseType().isPresent()){
+      return webResource.getLicenseType().get() == licenseType;
+    } else {
+      return false;
+    }
   }
 }
