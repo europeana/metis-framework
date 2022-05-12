@@ -33,6 +33,10 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   @Override
   MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
+    if(webResource == null){
+      return MediaTier.T0;
+    }
+
     MediaTier result = MediaTier.T0;
 
     if(hasMediaResourceThatIsNotImageOrPdf(webResource) && hasLicenseType(webResource,LicenseType.OPEN)){
@@ -62,7 +66,7 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   private boolean hasMediaResourceThatIsNotImageOrPdf(WebResourceWrapper webResource){
     Set<WebResourceLinkType> extractedLinkTypes = webResource.getLinkTypes();
     String mimeType = webResource.getMimeType();
-    return (extractedLinkTypes.contains(WebResourceLinkType.IS_SHOWN_BY) ||
+    return extractedLinkTypes != null && mimeType != null && (extractedLinkTypes.contains(WebResourceLinkType.IS_SHOWN_BY) ||
             extractedLinkTypes.contains(WebResourceLinkType.HAS_VIEW)) && !mimeType.contains("image") &&
             !mimeType.contains("application/pdf");
   }
@@ -72,8 +76,9 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   }
 
   private boolean onlyContainsShownAtWebResource(WebResourceWrapper webResource){
-    return webResource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT) &&
-            !webResource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_BY) &&
-            !webResource.getLinkTypes().contains(WebResourceLinkType.HAS_VIEW);
+    Set<WebResourceLinkType> linkTypes = webResource.getLinkTypes();
+    return linkTypes.contains(WebResourceLinkType.IS_SHOWN_AT) &&
+            !linkTypes.contains(WebResourceLinkType.IS_SHOWN_BY) &&
+            !linkTypes.contains(WebResourceLinkType.HAS_VIEW);
   }
 }

@@ -118,7 +118,12 @@ class ThreeDClassifierTest {
     assertEquals(MediaTier.T0, classifier.classifyWebResource(webResource, false, false));
   }
 
-  //TODO: tier 0 With null values
+  @Test
+  void testClassifyWebResource_tier0NullValuesResult() {
+    final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
+    when(webResource.getLinkTypes()).thenReturn(null);
+    assertEquals(MediaTier.T0, classifier.classifyWebResource(webResource, false, false));
+  }
 
   @Test
   void extractResolutionTierMetadataTest() {
