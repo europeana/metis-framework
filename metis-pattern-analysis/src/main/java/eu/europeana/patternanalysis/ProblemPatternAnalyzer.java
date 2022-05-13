@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.BooleanUtils.isFalse;
+import static org.apache.commons.lang3.StringUtils.truncate;
 
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -48,6 +49,7 @@ public class ProblemPatternAnalyzer {
   private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
   private static final double LCS_CALCULATION_THRESHOLD = 0.9;
   private static final int TITLE_DESCRIPTION_LENGTH_DISTANCE = 20;
+  private static final int DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT = 50;
   // Match anything that is not alphanumeric in all languages or literal spaces. We cannot just use \\w
   private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
   private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
@@ -132,7 +134,8 @@ public class ProblemPatternAnalyzer {
     equalTitlesAndDescriptions.retainAll(uniqueDescriptions);
 
     return equalTitlesAndDescriptions.stream().map(
-        value -> new ProblemOccurrence(format("Equal(lower cased) title and description: %s", value))
+        value -> new ProblemOccurrence(format("Equal(lower cased) title and description: %s(...)",
+            truncate(value, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT)))
     ).collect(toList());
   }
 
@@ -147,7 +150,7 @@ public class ProblemPatternAnalyzer {
    * LCS (title, description) / minimum(length(title), length(desc)) >= 0.9 && |length(title)-length(desc)| <= 20
    * <p>
    * Blank values are filtered out. Titles and descriptions that are equal, ignoring letter (upper or lower) case are filtered
-   * out. Same titles will be reported once and will not have a duplicate of it self with same near identical descriptions.
+   * out. Same titles will be reported once and will not have a duplicate of itself with same near identical descriptions.
    *
    * @param titles the list of titles
    * @param descriptions the list of descriptions
@@ -160,7 +163,9 @@ public class ProblemPatternAnalyzer {
 
     return nearIdenticalTitleDescriptionsMap.entrySet().stream().flatMap(
         entry -> entry.getValue().stream().map(
-            value -> new ProblemOccurrence(format("Near-Identical title and description fields: %s | %s", entry.getKey(), value))
+            value -> new ProblemOccurrence(format("Near-Identical title and description fields: %s(...) | %s(...)",
+                truncate(entry.getKey(), DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT),
+                truncate(value, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT)))
         )
     ).collect(toList());
   }
@@ -199,7 +204,8 @@ public class ProblemPatternAnalyzer {
         UNRECOGNIZABLE_CHARACTERS_PATTERN.matcher(s).results().count() > UNRECOGNIZABLE_CHARACTERS_THRESHOLD;
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
     return titles.stream().filter(moreThanThresholdUnrecognizableCharacters.or(containsIdentifier))
-                 .map(title -> new ProblemOccurrence(format("Unrecognized title: %s", title))
+                 .map(title -> new ProblemOccurrence(format("Unrecognized title: %s(...)",
+                     truncate(title, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT)))
                  ).collect(toList());
   }
 
@@ -211,7 +217,9 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurrence(format("Non meaningful title: %s", title))).collect(toList());
+                 .map(title -> new ProblemOccurrence(
+                     format("Non meaningful title: %s(...)", truncate(title, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT))))
+                 .collect(toList());
   }
 
   /**
@@ -237,7 +245,8 @@ public class ProblemPatternAnalyzer {
   private List<ProblemOccurrence> checkP9(List<String> descriptions) {
     return descriptions.stream().filter(StringUtils::isNotBlank)
                        .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
-                       .map(description -> new ProblemOccurrence(format("Very short description: %s", description)))
+                       .map(description -> new ProblemOccurrence(format("Very short description: %s(...)",
+                           truncate(description, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT))))
                        .collect(toList());
   }
 
@@ -250,7 +259,9 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP12(List<String> titles) {
     return titles.stream().filter(title -> title.length() > MAX_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurrence(format("Extremely long title: %s", title))).collect(toList());
+                 .map(title -> new ProblemOccurrence(
+                     format("Extremely long title: %s(...)", truncate(title, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT))))
+                 .collect(toList());
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,
