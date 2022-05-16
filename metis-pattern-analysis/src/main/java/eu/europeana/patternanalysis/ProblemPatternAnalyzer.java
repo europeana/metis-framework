@@ -19,6 +19,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
+import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
 import eu.europeana.patternanalysis.view.RecordAnalysis;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class ProblemPatternAnalyzer {
    * @return a list of problem patterns
    * @throws SerializationException if the record could not be converted to {@link RDF}
    */
-  public List<ProblemPattern> analyzeRecord(String rdfString) throws SerializationException {
+  public ProblemPatternAnalysis analyzeRecord(String rdfString) throws SerializationException {
     return analyzeRecord(new RdfConversionUtils().convertStringToRdf(rdfString));
   }
 
@@ -71,7 +72,7 @@ public class ProblemPatternAnalyzer {
    * @param rdf the rdf record
    * @return a list of problem patterns
    */
-  public List<ProblemPattern> analyzeRecord(RDF rdf) {
+  public ProblemPatternAnalysis analyzeRecord(RDF rdf) {
     final List<ProxyType> providerProxies = getProviderProxies(rdf);
     final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList)
                                                 .filter(Objects::nonNull)
@@ -85,7 +86,8 @@ public class ProblemPatternAnalyzer {
         LiteralType::getString);
     final String rdfAbout = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
                                .map(ProvidedCHOType::getAbout).orElse(null);
-    return computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
+    final ArrayList<ProblemPattern> problemPatterns = computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
+    return new ProblemPatternAnalysis(rdfAbout, problemPatterns, Set.copyOf(titles));
   }
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
@@ -272,4 +274,5 @@ public class ProblemPatternAnalyzer {
     }
     return Optional.empty();
   }
+
 }
