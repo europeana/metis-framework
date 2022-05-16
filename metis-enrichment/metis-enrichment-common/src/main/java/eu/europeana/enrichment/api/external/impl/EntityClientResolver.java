@@ -53,17 +53,6 @@ public class EntityClientResolver implements EntityResolver {
         return performInBatches(referenceTerms, inputFunction);
     }
 
-
-    /**
-     * Gets the Enrichment for single Entity request
-     *
-     * @param clientRequest
-     * @return
-     */
-    public List<EnrichmentBase> getEnrichment(EntityClientRequest clientRequest) {
-        return executeEntityClientRequest(clientRequest);
-    }
-
     /**
      * Gets the Enrichment for Multiple values in batches
      *

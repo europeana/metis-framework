@@ -67,7 +67,7 @@ public class EnrichmentService {
     final List<SearchTerm> orderedSearchTerms = searchValues.stream().map(
             search -> new SearchTermImpl(search.getValue(), search.getLanguage(),
                     Set.copyOf(search.getEntityTypes()))).collect(Collectors.toList());
-    final Map<SearchTerm, List<EnrichmentBase>> result = persistentEntityResolver
+    final Map<SearchTerm, List<EnrichmentBase>> result = entityClientResolver
             .resolveByText(new HashSet<>(orderedSearchTerms));
     return orderedSearchTerms.stream().map(result::get).map(EnrichmentResultBaseWrapper::new)
             .collect(Collectors.toList());
@@ -83,7 +83,7 @@ public class EnrichmentService {
     try {
       final ReferenceTerm referenceTerm = new ReferenceTermImpl(
               new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
-      return persistentEntityResolver.resolveByUri(Set.of(referenceTerm))
+      return entityClientResolver.resolveByUri(Set.of(referenceTerm))
               .getOrDefault(referenceTerm, Collections.emptyList());
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
@@ -101,7 +101,7 @@ public class EnrichmentService {
     try {
       final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(entityAbout),
               new HashSet<>());
-      return persistentEntityResolver.resolveById(Set.of(referenceTerm)).get(referenceTerm);
+      return entityClientResolver.resolveById(Set.of(referenceTerm)).get(referenceTerm);
     } catch (MalformedURLException e) {
       LOGGER.debug("There was a problem converting the input to ReferenceTermType");
       throw new IllegalArgumentException("The input values are invalid", e);
@@ -168,21 +168,6 @@ public class EnrichmentService {
    */
   public Date getDateOfLastUpdatedOrganization() {
     return persistentEntityResolver.getDateOfLastUpdatedOrganization();
-  }
-
-  /**
-   * Get an enrichment by providing EntityClientRequest with text search value OR URI or entity id .
-   * This method gets the enrichment via Entity client Api
-   *
-   * @param clientRequest Entity Client request
-   * @return the enrichment values in a structured list
-   */
-  public EnrichmentResultList enrichByEntityClient(EntityClientRequest clientRequest) {
-    List<EnrichmentBase> enrichmentBases = entityClientResolver.getEnrichment(clientRequest);
-    if (!enrichmentBases.isEmpty()) {
-      return new EnrichmentResultList(Collections.singletonList(new EnrichmentResultBaseWrapper(enrichmentBases)));
-    }
-    throw new EntityNotFoundException("No entity found for enrichment for "+clientRequest.getValueToEnrich());
   }
 
 }
