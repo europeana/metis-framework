@@ -3,7 +3,6 @@ package eu.europeana.indexing.tiers.media;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
-import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
@@ -33,21 +32,16 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   @Override
   MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
+    final MediaTier result;
+
     if(webResource == null){
-      return MediaTier.T0;
-    }
-
-    MediaTier result = MediaTier.T0;
-
-    if(hasMediaResourceThatIsNotImageOrPdf(webResource) && hasLicenseType(webResource,LicenseType.OPEN)){
+      result = MediaTier.T0;
+    } else if(mimeTypeIsNotImageOrApplicationPdf(webResource) && containsIsShownByOrHasViewWebResource(webResource)){
       result = MediaTier.T4;
-    } else if(hasMediaResourceThatIsNotImageOrPdf(webResource) && hasLicenseType(webResource, LicenseType.RESTRICTED)){
-      result = MediaTier.T3;
-    } else if(hasMediaResourceThatIsNotImageOrPdf(webResource) && webResource.getLicenseType().isPresent()){
-      result = MediaTier.T2;
-    } else if(hasLandingPage && onlyContainsShownAtWebResource(webResource) &&
-            webResource.getLicenseType().isPresent()){
+    } else if(hasLandingPage && onlyContainsShownAtWebResource(webResource)){
       result = MediaTier.T1;
+    } else {
+      result = MediaTier.T0;
     }
 
     return result;
@@ -63,16 +57,15 @@ class ThreeDClassifier extends AbstractMediaClassifier {
     return MediaType.THREE_D;
   }
 
-  private boolean hasMediaResourceThatIsNotImageOrPdf(WebResourceWrapper webResource){
-    Set<WebResourceLinkType> extractedLinkTypes = webResource.getLinkTypes();
+  private boolean mimeTypeIsNotImageOrApplicationPdf(WebResourceWrapper webResource){
     String mimeType = webResource.getMimeType();
-    return extractedLinkTypes != null && mimeType != null && (extractedLinkTypes.contains(WebResourceLinkType.IS_SHOWN_BY) ||
-            extractedLinkTypes.contains(WebResourceLinkType.HAS_VIEW)) && !mimeType.contains("image") &&
-            !mimeType.contains("application/pdf");
+    return mimeType != null && !(webResource.getMediaType() == MediaType.IMAGE) && !mimeType.startsWith("application/pdf");
   }
 
-  private boolean hasLicenseType(WebResourceWrapper webResource, LicenseType licenseType){
-    return webResource.getLicenseType().map(otherLicenseType -> otherLicenseType == licenseType).orElse(false);
+  private boolean containsIsShownByOrHasViewWebResource(WebResourceWrapper webResource){
+    Set<WebResourceLinkType> extractedLinkTypes = webResource.getLinkTypes();
+    return extractedLinkTypes != null && (extractedLinkTypes.contains(WebResourceLinkType.IS_SHOWN_BY) ||
+            extractedLinkTypes.contains(WebResourceLinkType.HAS_VIEW));
   }
 
   private boolean onlyContainsShownAtWebResource(WebResourceWrapper webResource){
