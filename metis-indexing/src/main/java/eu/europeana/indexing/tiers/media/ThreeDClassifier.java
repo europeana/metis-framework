@@ -59,7 +59,7 @@ class ThreeDClassifier extends AbstractMediaClassifier {
 
   private boolean mimeTypeIsNotImageOrApplicationPdf(WebResourceWrapper webResource){
     String mimeType = webResource.getMimeType();
-    return mimeType != null && !(webResource.getMediaType() == MediaType.IMAGE) && !mimeType.startsWith("application/pdf");
+    return mimeType != null && webResource.getMediaType() != MediaType.IMAGE && !mimeType.startsWith("application/pdf");
   }
 
   private boolean containsIsShownByOrHasViewWebResource(WebResourceWrapper webResource){
