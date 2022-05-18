@@ -66,10 +66,26 @@
     </dependency>
      <!-- Entity Client dependency. Includes Entity management Model classes used in common module-->
     <dependency>
-      <groupId>eu.europeana.api</groupId>
-      <artifactId>entity-api-client</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+        <groupId>eu.europeana.api</groupId>
+        <artifactId>entity-api-client</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <exclusions>
+            <exclusion>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
+    <!-- Fixes DNS resolution issues on Apple Silicon  -->
+     <dependency>
+         <groupId>io.netty</groupId>
+         <artifactId>netty-resolver-dns-native-macos</artifactId>
+         <version>4.1.69.Final</version>
+         <classifier>osx-aarch_64</classifier>
+     </dependency>
   </dependencies>
 </project>
-
