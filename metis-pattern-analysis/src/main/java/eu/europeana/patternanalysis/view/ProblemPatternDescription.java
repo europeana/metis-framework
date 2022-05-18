@@ -9,54 +9,40 @@ import java.util.Arrays;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ProblemPatternDescription {
 
-  /**
-   * Systematic use of the same title
-   */
-  P1(ProblemPatternId.P1, ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.CONCISENESS),
-  /**
-   * Equal title and description fields
-   */
-  P2(ProblemPatternId.P2, ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.CONCISENESS),
-  /**
-   * Near-Identical title and description fields
-   */
-  P3(ProblemPatternId.P3, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.CONCISENESS),
-  /**
-   * Unrecognizable title
-   */
-  P5(ProblemPatternId.P5, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
-  /**
-   * Non-meaningful title
-   */
-  P6(ProblemPatternId.P6, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
-  /**
-   * Missing description fields
-   */
-  P7(ProblemPatternId.P7, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.COMPLETENESS),
-  /**
-   * Very short description
-   */
-  P9(ProblemPatternId.P9, ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
-  /**
-   * Extremely long values
-   */
-  P12(ProblemPatternId.P12, ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY);
+  P1(ProblemPatternId.P1, "Systematic use of the same title", ProblemPatternSeverity.WARNING,
+      ProblemPatternQualityDimension.CONCISENESS),
+  P2(ProblemPatternId.P2, "Equal title and description fields", ProblemPatternSeverity.WARNING,
+      ProblemPatternQualityDimension.CONCISENESS),
+  P3(ProblemPatternId.P3, "Near-Identical title and description fields", ProblemPatternSeverity.NOTICE,
+      ProblemPatternQualityDimension.CONCISENESS),
+  P5(ProblemPatternId.P5, "Unrecognizable title", ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
+  P6(ProblemPatternId.P6, "Non-meaningful title", ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
+  P7(ProblemPatternId.P7, "Missing description fields", ProblemPatternSeverity.NOTICE,
+      ProblemPatternQualityDimension.COMPLETENESS),
+  P9(ProblemPatternId.P9, "Very short description", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
+  P12(ProblemPatternId.P12, "Extremely long values", ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY);
 
   private final ProblemPatternId problemPatternId;
+  private final String problemPatternTitle;
   private final ProblemPatternSeverity problemPatternSeverity;
   private final ProblemPatternQualityDimension problemPatternQualityDimension;
 
 
   ProblemPatternDescription(ProblemPatternId problemPatternId,
-      ProblemPatternSeverity problemPatternSeverity,
+      String problemPatternTitle, ProblemPatternSeverity problemPatternSeverity,
       ProblemPatternQualityDimension problemPatternQualityDimension) {
     this.problemPatternId = problemPatternId;
+    this.problemPatternTitle = problemPatternTitle;
     this.problemPatternSeverity = problemPatternSeverity;
     this.problemPatternQualityDimension = problemPatternQualityDimension;
   }
 
   public ProblemPatternId getProblemPatternId() {
     return problemPatternId;
+  }
+
+  public String getProblemPatternTitle() {
+    return problemPatternTitle;
   }
 
   public ProblemPatternSeverity getProblemPatternSeverity() {
