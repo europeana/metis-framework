@@ -21,10 +21,12 @@ import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
+import eu.europeana.patternanalysis.view.ProblemPatternDescription.ProblemPatternId;
 import eu.europeana.patternanalysis.view.RecordAnalysis;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +56,11 @@ public class ProblemPatternAnalyzer {
   // Match anything that is not alphanumeric in all languages or literal spaces. We cannot just use \\w
   private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
   private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
+
+  public static final Set<ProblemPatternId> globalProblemPatterns = Collections.unmodifiableSet(EnumSet.of(ProblemPatternId.P1));
+  public static final Set<ProblemPatternId> nonGlobalProblemPatterns = Collections.unmodifiableSet(
+      EnumSet.complementOf(EnumSet.of(ProblemPatternId.P1)));
+
 
   /**
    * Analyzes a record for problem patterns.
@@ -99,6 +106,7 @@ public class ProblemPatternAnalyzer {
       List<String> identifiers) {
     final ArrayList<ProblemPattern> problemPatterns = new ArrayList<>();
 
+    //We can only compute non-global patterns here
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P2, checkP2(titles, descriptions)).ifPresent(
         problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P3, checkP3(titles, descriptions)).ifPresent(
