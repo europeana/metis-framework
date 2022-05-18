@@ -79,5 +79,4 @@ public class EntityClientResolverITTest {
         Assertions.assertNotNull(results);
         Assertions.assertEquals(idTotest.size(), results.size());
     }
-
 }

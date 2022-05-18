@@ -5,6 +5,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EntityClientRequest;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.entity.client.utils.EntityApiConstants;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.vocabulary.EntityTypes;
 
@@ -82,12 +83,23 @@ public class EntityResolverUtils {
     }
 
     /**
-     * Parent entity functionality is applied only to Agent and Place only
+     * Parent entity functionality is applied only to text and uri search for
+     * Agent and Place only
      * @param entity
      * @return
      */
-    public static boolean isParentEntityRequired(Entity entity){
+    public static boolean isParentEntityRequired(Entity entity, EntityClientRequest clientRequest){
         EntityTypes type = EntityTypes.valueOf(entity.getType());
-        return (type.equals(EntityTypes.Place) || type.equals(EntityTypes.Agent));
+        return isTextOrUriSearch(clientRequest) && (type.equals(EntityTypes.Place) || type.equals(EntityTypes.Agent));
+    }
+
+    /**
+     * Returns true if the Request is Text search or Uri search
+     * @param clientRequest
+     * @return
+     */
+    public static boolean isTextOrUriSearch(EntityClientRequest clientRequest){
+        return (clientRequest.isReference() && !clientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL))
+                || !clientRequest.isReference();
     }
 }

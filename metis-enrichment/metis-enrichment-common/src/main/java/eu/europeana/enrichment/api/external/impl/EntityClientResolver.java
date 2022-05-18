@@ -85,7 +85,11 @@ public class EntityClientResolver implements EntityResolver {
         if (!entities.isEmpty()) {
             // 2. get the parent entities
             List<Entity> parentEntities = new ArrayList<>();
-            entities.stream().forEach(entity -> getParentEntities(entity, parentEntities));
+            entities.stream().forEach(entity -> {
+                if(EntityResolverUtils.isParentEntityRequired(entity, clientRequest) && entity.getIsPartOfArray() != null) {
+                    getParentEntities(entity, parentEntities);
+                }
+            });
             // 3. add the parent entities
             entities.addAll(parentEntities);
             // 4. convert entity to EnrichmentBase
@@ -142,13 +146,11 @@ public class EntityClientResolver implements EntityResolver {
      * @param parentEntities
      */
     private void getParentEntities(Entity entity, List<Entity> parentEntities) {
-        if (EntityResolverUtils.isParentEntityRequired(entity) && entity.getIsPartOfArray() != null) {
-            entity.getIsPartOfArray().stream().forEach(parentEntityId -> {
-                if (!EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, parentEntities)) {
-                    getParent(parentEntityId, parentEntities);
-                }
-            });
-        }
+        entity.getIsPartOfArray().stream().forEach(parentEntityId -> {
+            if (!EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, parentEntities)) {
+                getParent(parentEntityId, parentEntities);
+            }
+        });
     }
 
     private void getParent(String parentEntityId, List<Entity> parentEntities) {
