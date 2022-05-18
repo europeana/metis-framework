@@ -17,8 +17,8 @@ vocabulary.db=
 #The allowed domains for vocabularies loading without the scheme(always validated against https). e.g. raw.githubusercontent.com
 allowed.url.domains=
 
-# Dereferencing cache cron expressions
-# purge all, at 01:00 AM, on day 1 of the month
-dereference.purge.all.frequency="0 0 1 1 * ? *"
-# purge empty xml, at 05:00 AM
-dereference.purge.emptyxml.frequency="0 0 5 ? * * *"
+# Dereferencing cache cron expressions,
+# refer to Spring Framework CronExpression for documentation
+dereference.purge.all.frequency=@monthly
+# purge empty xml
+dereference.purge.emptyxml.frequency=@daily
