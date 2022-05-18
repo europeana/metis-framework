@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -72,7 +73,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   //Valid directories list
   @Value("${allowed.url.domains}")
   private String[] allowedUrlDomains;
-
   private MongoClient mongoClientEntity;
   private MongoClient mongoClientVocabulary;
 
@@ -131,6 +131,18 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
+  }
+
+  @Scheduled(cron = "${dereference.purge.emptyxml.frequency}")
+  @Bean
+  public void dereferenceCacheNullOrEmpty(){
+    this.getProcessedEntityDao().purgeByNullOrEmptyXml();
+  }
+
+  @Scheduled(cron = "${dereference.purge.all.frequency}")
+  @Bean
+  public void dereferenceCachePurgeAll(){
+    this.getProcessedEntityDao().purgeAll();
   }
 
   /**

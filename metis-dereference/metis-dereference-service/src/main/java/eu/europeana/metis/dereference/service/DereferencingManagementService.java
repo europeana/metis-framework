@@ -23,6 +23,12 @@ public interface DereferencingManagementService {
   void emptyCache();
 
   /**
+   *
+   * purge all ProcessedEntities with empty XML
+   */
+  void purgeByNullOrEmptyXml();
+
+  /**
    * Empty the cache by resource ID(URI)
    * @param resourceId  The resourceId (URI) of the resource to be purged from the cache
    */

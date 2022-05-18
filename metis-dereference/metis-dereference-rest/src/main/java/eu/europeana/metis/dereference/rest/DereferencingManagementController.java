@@ -76,6 +76,16 @@ public class DereferencingManagementController {
   }
 
   /**
+   * Empty the cache for all Resources without an XML representation
+   * */
+  @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_XML)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache without XML representations")
+  public void emptyCacheByEmptyXml() {
+    service.purgeByNullOrEmptyXml();
+  }
+
+  /**
    * Empty the cache for a specific resource
    * @param resourceId The resourceId to empty the cache for
   * */

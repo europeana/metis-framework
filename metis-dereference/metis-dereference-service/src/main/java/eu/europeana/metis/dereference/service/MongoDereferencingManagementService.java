@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -43,18 +42,20 @@ public class MongoDereferencingManagementService implements DereferencingManagem
     return vocabularyDao.getAll();
   }
 
-  // 0 0 1 * * ? = Every day at 1am
-  @Scheduled(cron = "0 0 1 * * ?")
   @Override
   public void emptyCache() {
     this.processedEntityDao.purgeAll();
   }
 
   @Override
+  public void purgeByNullOrEmptyXml() {
+    this.processedEntityDao.purgeByNullOrEmptyXml();
+  }
+
+  @Override
   public void purgeByResourceId(String resourceId) {
     this.processedEntityDao.purgeByResourceId(resourceId);
   }
-
 
   @Override
   public void purgeByVocabularyId(String vocabularyId) {

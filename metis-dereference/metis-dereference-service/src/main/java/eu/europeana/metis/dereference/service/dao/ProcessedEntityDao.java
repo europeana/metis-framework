@@ -13,6 +13,7 @@ import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,17 @@ public class ProcessedEntityDao {
           processedEntity.getResourceId());
       LOGGER.debug("Attempted to save duplicate record - exception details:", e);
     }
+  }
+
+  /**
+   * Delete an entity with no description in XML resources. Empty or Null
+   *
+   **/
+  public void purgeByNullOrEmptyXml() {
+    retryableExternalRequestForNetworkExceptions(() ->
+        datastore.find(ProcessedEntity.class)
+                 .filter(Filters.eq("xml", StringUtils.EMPTY))
+                 .delete(new DeleteOptions().multi(true)));
   }
 
   /**
