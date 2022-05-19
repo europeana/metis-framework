@@ -77,6 +77,12 @@
             <artifactId>metis-harvesting</artifactId>
             <version>${project.version}</version>
         </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${version.junit}</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
     <build>
         <plugins>
