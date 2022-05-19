@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class RecordTest {
+class RecordTest {
 
     private Record recordToTest;
     private final Instant instantUsedForTest = Instant.now();
