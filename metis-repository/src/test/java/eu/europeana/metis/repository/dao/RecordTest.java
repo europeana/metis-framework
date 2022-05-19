@@ -1,5 +1,6 @@
 package eu.europeana.metis.repository.dao;
 
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +8,8 @@ import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RecordTest {
 
@@ -41,5 +44,49 @@ public class RecordTest {
     @Test
     void testEdmRecord(){
         assertEquals("edmRecord",recordToTest.getEdmRecord());
+    }
+
+    @Test
+    void testSetAndGetId(){
+        assertNull(recordToTest.getId());
+        ObjectId objectId = new ObjectId();
+        recordToTest.setId(objectId);
+        assertEquals(objectId, recordToTest.getId());
+    }
+
+    @Test
+    void testSetRecordId(){
+        assertEquals("recordId",recordToTest.getRecordId());
+        recordToTest.setRecordId("newRecordId");
+        assertEquals("newRecordId", recordToTest.getRecordId());
+    }
+
+    @Test
+    void testSetDatasetId(){
+        assertEquals("datasetId",recordToTest.getDatasetId());
+        recordToTest.setDatasetId("newDatasetId");
+        assertEquals("newDatasetId", recordToTest.getDatasetId());
+    }
+
+    @Test
+    void testSetDateStamp(){
+        assertEquals(instantUsedForTest,recordToTest.getDateStamp());
+        Instant instantNew = Instant.now();
+        recordToTest.setDateStamp(instantNew);
+        assertEquals(instantNew, recordToTest.getDateStamp());
+    }
+
+    @Test
+    void testSetDeleted(){
+        assertFalse(recordToTest.isDeleted());
+        recordToTest.setDeleted(true);
+        assertTrue( recordToTest.isDeleted());
+    }
+
+    @Test
+    void testSetEdmRecord(){
+        assertEquals("edmRecord",recordToTest.getEdmRecord());
+        recordToTest.setEdmRecord("newEdmRecord");
+        assertEquals("newEdmRecord", recordToTest.getEdmRecord());
     }
 }
