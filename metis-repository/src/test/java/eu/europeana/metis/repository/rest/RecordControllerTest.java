@@ -4,7 +4,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -97,7 +96,7 @@ class RecordControllerTest {
                         .andExpect(status().is(200))
                         .andExpect(content().string(getXMLTestRecord()));
 
-    verify(recordDaoMock, times(1)).getRecord(eq("recordId"));
+    verify(recordDaoMock, times(1)).getRecord("recordId");
   }
 
   @Test
@@ -110,7 +109,7 @@ class RecordControllerTest {
                         .andExpect(status().is(404))
                         .andExpect(content().string(""));
 
-    verify(recordDaoMock, times(1)).getRecord(eq("recordId"));
+    verify(recordDaoMock, times(1)).getRecord("recordId");
   }
 
   @Test
