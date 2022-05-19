@@ -133,17 +133,25 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return new PropertySourcesPlaceholderConfigurer();
   }
 
+  /**
+   * Empty Cache with XML entries null or empty.
+   * This will remove entries with null or empty XML in the cache (Redis). If the same redis instance/cluster is used for multiple
+   * services then the cache for other services is cleared as well.
+   * This task is scheduled by a cron expression.
+   */
+
   @Scheduled(cron = "${dereference.purge.emptyxml.frequency}")
   @Bean
-  public void dereferenceCacheNullOrEmpty(){
-    this.getProcessedEntityDao().purgeByNullOrEmptyXml();
-  }
+  public void dereferenceCacheNullOrEmpty(){ getProcessedEntityDao().purgeByNullOrEmptyXml(); }
 
+  /**
+   * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster is used for multiple
+   * services then the cache for other services is cleared as well.
+   * This task is scheduled by a cron expression.
+   */
   @Scheduled(cron = "${dereference.purge.all.frequency}")
   @Bean
-  public void dereferenceCachePurgeAll(){
-    this.getProcessedEntityDao().purgeAll();
-  }
+  public void dereferenceCachePurgeAll(){ getProcessedEntityDao().purgeAll(); }
 
   /**
    * Closes any connections previous acquired.

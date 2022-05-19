@@ -44,22 +44,20 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   @Override
   public void emptyCache() {
-    this.processedEntityDao.purgeAll();
+    processedEntityDao.purgeAll();
   }
 
   @Override
-  public void purgeByNullOrEmptyXml() {
-    this.processedEntityDao.purgeByNullOrEmptyXml();
-  }
+  public void purgeByNullOrEmptyXml() { processedEntityDao.purgeByNullOrEmptyXml(); }
 
   @Override
   public void purgeByResourceId(String resourceId) {
-    this.processedEntityDao.purgeByResourceId(resourceId);
+    processedEntityDao.purgeByResourceId(resourceId);
   }
 
   @Override
   public void purgeByVocabularyId(String vocabularyId) {
-    this.processedEntityDao.purgeByVocabularyId(vocabularyId);
+    processedEntityDao.purgeByVocabularyId(vocabularyId);
   }
 
   @Override
