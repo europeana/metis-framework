@@ -323,7 +323,7 @@ public class MongoDereferenceService implements DereferenceService {
       throws JAXBException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
-    final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
+    final ProcessedEntity cachedEntity = processedEntityDao.getByResourceId(resourceId);
     final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
         cachedEntity);
 

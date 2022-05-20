@@ -1,11 +1,13 @@
 package eu.europeana.metis.dereference.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
@@ -17,14 +19,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * Created by ymamakis on 2/22/16.
- */
 class MongoDereferencingManagementServiceTest {
 
   private MongoDereferencingManagementService service;
-  private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
-  private Datastore vocDaoDatastore;
+  private final EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+  private Datastore vocabularyDaoDatastore;
+  private final ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
 
   @BeforeEach
   void prepare() {
@@ -37,11 +37,11 @@ class MongoDereferencingManagementServiceTest {
 
     VocabularyDao vocDao = new VocabularyDao(mongoClient, "voctest") {
       {
-        vocDaoDatastore = this.getDatastore();
+        vocabularyDaoDatastore = this.getDatastore();
       }
     };
-    ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
     VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory = mock(VocabularyCollectionImporterFactory.class);
+
     service = new MongoDereferencingManagementService(vocDao, processedEntityDao, vocabularyCollectionImporterFactory);
   }
 
@@ -52,9 +52,52 @@ class MongoDereferencingManagementServiceTest {
     voc.setName("testName");
     voc.setUris(Collections.singleton("http://www.test.uri/"));
     voc.setXslt("testXSLT");
-    vocDaoDatastore.save(voc);
+    vocabularyDaoDatastore.save(voc);
     List<Vocabulary> retVoc = service.getAllVocabularies();
     assertEquals(1, retVoc.size());
+  }
+
+
+  @Test
+  void purgeAllCache() {
+    ProcessedEntity processedEntity = new ProcessedEntity();
+    processedEntity.setResourceId("http://www.test.uri/");
+    processedEntityDao.save(processedEntity);
+    service.emptyCache();
+    ProcessedEntity ret = processedEntityDao.getByResourceId("http://www.test.uri/");
+    assertNull(ret);
+  }
+
+  @Test
+  void purgeCacheWithEmptyXML() {
+    ProcessedEntity processedEntity = new ProcessedEntity();
+    processedEntity.setResourceId("http://www.test.uri/");
+    processedEntity.setXml(null);
+    processedEntityDao.save(processedEntity);
+    service.purgeByNullOrEmptyXml();
+    ProcessedEntity ret = processedEntityDao.getByResourceId("http://www.test.uri/");
+    assertNull(ret);
+  }
+
+
+  @Test
+  void purgeCacheByResourceId() {
+    ProcessedEntity processedEntity = new ProcessedEntity();
+    processedEntity.setResourceId("http://www.test.uri/");
+    processedEntityDao.save(processedEntity);
+    service.purgeByResourceId("http://www.test.uri/");
+    ProcessedEntity ret = processedEntityDao.getByResourceId("http://www.test.uri/");
+    assertNull(ret);
+  }
+
+  @Test
+  void purgeCacheByVocabularyId() {
+    ProcessedEntity processedEntity = new ProcessedEntity();
+    processedEntity.setVocabularyId("vocabularyId");
+    processedEntityDao.save(processedEntity);
+    service.purgeByVocabularyId("vocabularyId");
+    ProcessedEntity ret = processedEntityDao.getByVocabularyId("vocabularyId");
+    assertNull(ret);
   }
 
   @AfterEach

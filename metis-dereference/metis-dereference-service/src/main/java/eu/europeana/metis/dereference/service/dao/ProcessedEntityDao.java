@@ -46,11 +46,24 @@ public class ProcessedEntityDao {
    * @param resourceId The resource ID (URI) to retrieve
    * @return The entity with the given resource ID.
    */
-  public ProcessedEntity get(String resourceId) {
+  public ProcessedEntity getByResourceId(String resourceId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
                        .first());
   }
+
+  /**
+   * Get an entity by vocabulary ID.
+   *
+   * @param vocabularyId The vocabuylaryDi to retrieve
+   * @return The entity with the given vocabulary ID.
+   */
+  public ProcessedEntity getByVocabularyId(String vocabularyId) {
+    return retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(ProcessedEntity.class).filter(Filters.eq("vocabularyId", vocabularyId))
+                       .first());
+  }
+
 
   /**
    * Save an entity.
