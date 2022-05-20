@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.patternanalysis.view.ProblemPattern;
+import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -61,7 +62,7 @@ class ProblemPatternAnalyzerTest {
                           .filter(patternDescription -> patternDescription == problemPatternDescription).findFirst().orElse(null);
   }
 
-  private List<ProblemPattern> analyzeProblemPatternsForFile(String fileLocation) throws IOException, SerializationException {
+  private ProblemPatternAnalysis analyzeProblemPatternsForFile(String fileLocation) throws IOException, SerializationException {
     String xml = IOUtils.toString(new FileInputStream(fileLocation), StandardCharsets.UTF_8);
 
     final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
@@ -81,11 +82,13 @@ class ProblemPatternAnalyzerTest {
   @MethodSource
   void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
       int totalOccurrences) throws Exception {
-    final List<ProblemPattern> problemPatterns = analyzeProblemPatternsForFile(fileLocation);
+    final ProblemPatternAnalysis problemPatternAnalysis = analyzeProblemPatternsForFile(fileLocation);
 
-    assertNotNull(problemPatterns);
-    assertEquals(totalPatterns, problemPatterns.size());
-    assertEquals(problemPatternDescription, getRequestedProblemPattern(problemPatternDescription, problemPatterns));
-    assertEquals(totalOccurrences, getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatterns));
+    assertNotNull(problemPatternAnalysis);
+    assertEquals(totalPatterns, problemPatternAnalysis.getProblemPatterns().size());
+    assertEquals(problemPatternDescription,
+        getRequestedProblemPattern(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
+    assertEquals(totalOccurrences,
+        getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
   }
 }
