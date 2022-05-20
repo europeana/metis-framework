@@ -16,7 +16,7 @@ class ProblemPatternAnalysisTest {
     final Set<String> titles = Set.of("titleA");
     final ProblemPatternAnalysis problemPatternAnalysis = new ProblemPatternAnalysis("rdfAbout", problemPatterns, titles);
 
-    assertEquals(problemPatternAnalysis.getRdfAbout(), "rdfAbout");
+    assertEquals("rdfAbout", problemPatternAnalysis.getRdfAbout());
     assertEquals(problemPatternAnalysis.getProblemPatterns().size(), problemPatterns.size());
     assertEquals(problemPatternAnalysis.getTitles().size(), titles.size());
 
