@@ -6,7 +6,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.BooleanUtils.isFalse;
-import static org.apache.commons.lang3.StringUtils.truncate;
+import static org.apache.commons.lang3.StringUtils.abbreviate;
 
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -19,11 +19,14 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
+import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
+import eu.europeana.patternanalysis.view.ProblemPatternDescription.ProblemPatternId;
 import eu.europeana.patternanalysis.view.RecordAnalysis;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +57,11 @@ public class ProblemPatternAnalyzer {
   private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
   private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
 
+  public static final Set<ProblemPatternId> globalProblemPatterns = Collections.unmodifiableSet(EnumSet.of(ProblemPatternId.P1));
+  public static final Set<ProblemPatternId> nonGlobalProblemPatterns = Collections.unmodifiableSet(
+      EnumSet.complementOf(EnumSet.of(ProblemPatternId.P1)));
+
+
   /**
    * Analyzes a record for problem patterns.
    *
@@ -61,7 +69,7 @@ public class ProblemPatternAnalyzer {
    * @return a list of problem patterns
    * @throws SerializationException if the record could not be converted to {@link RDF}
    */
-  public List<ProblemPattern> analyzeRecord(String rdfString) throws SerializationException {
+  public ProblemPatternAnalysis analyzeRecord(String rdfString) throws SerializationException {
     return analyzeRecord(new RdfConversionUtils().convertStringToRdf(rdfString));
   }
 
@@ -71,7 +79,7 @@ public class ProblemPatternAnalyzer {
    * @param rdf the rdf record
    * @return a list of problem patterns
    */
-  public List<ProblemPattern> analyzeRecord(RDF rdf) {
+  public ProblemPatternAnalysis analyzeRecord(RDF rdf) {
     final List<ProxyType> providerProxies = getProviderProxies(rdf);
     final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList)
                                                 .filter(Objects::nonNull)
@@ -85,7 +93,8 @@ public class ProblemPatternAnalyzer {
         LiteralType::getString);
     final String rdfAbout = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
                                .map(ProvidedCHOType::getAbout).orElse(null);
-    return computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
+    final ArrayList<ProblemPattern> problemPatterns = computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
+    return new ProblemPatternAnalysis(rdfAbout, problemPatterns, Set.copyOf(titles));
   }
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
@@ -97,6 +106,7 @@ public class ProblemPatternAnalyzer {
       List<String> identifiers) {
     final ArrayList<ProblemPattern> problemPatterns = new ArrayList<>();
 
+    //We can only compute non-global patterns here
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P2, checkP2(titles, descriptions)).ifPresent(
         problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P3, checkP3(titles, descriptions)).ifPresent(
@@ -120,6 +130,18 @@ public class ProblemPatternAnalyzer {
   }
 
   /**
+   * Abbreviate(based on {@link StringUtils#abbreviate(String, int)}) an element up to a default max length {@link
+   * #DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT}.
+   * <p>Is used locally and can be used publicly for global problem patterns like P1.</p>
+   *
+   * @param element the string element
+   * @return the truncated string
+   */
+  public String abbreviateElement(String element) {
+    return abbreviate(element, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT);
+  }
+
+  /**
    * Check whether there is a title - description pair for which the values are equal, ignoring letter (upper or lower) case.
    * <p>It will report a single occurrence for multiple same fields</p>
    *
@@ -134,9 +156,19 @@ public class ProblemPatternAnalyzer {
     equalTitlesAndDescriptions.retainAll(uniqueDescriptions);
 
     return equalTitlesAndDescriptions.stream().map(
-        value -> new ProblemOccurrence(format("Equal(lower cased) title and description: %s(...)",
-            truncate(value, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT)))
+        value -> new ProblemOccurrence(abbreviateElement(value))
     ).collect(toList());
+  }
+
+  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
+    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
+    final Predicate<String> lcsPredicate = description ->
+        ((double) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
+            >= LCS_CALCULATION_THRESHOLD;
+    final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
+        <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
+    return descriptions.stream().filter(StringUtils::isNotBlank).filter(not(title::equalsIgnoreCase))
+                       .filter(lcsPredicate.and(distancePredicate)).collect(toList());
   }
 
   /**
@@ -163,22 +195,9 @@ public class ProblemPatternAnalyzer {
 
     return nearIdenticalTitleDescriptionsMap.entrySet().stream().flatMap(
         entry -> entry.getValue().stream().map(
-            value -> new ProblemOccurrence(format("Near-Identical title and description fields: %s(...) | %s(...)",
-                truncate(entry.getKey(), DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT),
-                truncate(value, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT)))
+            value -> new ProblemOccurrence(format("%s <--> %s", abbreviateElement(entry.getKey()), abbreviateElement(value)))
         )
     ).collect(toList());
-  }
-
-  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
-    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
-    final Predicate<String> lcsPredicate = description ->
-        ((double) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
-            >= LCS_CALCULATION_THRESHOLD;
-    final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
-        <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
-    return descriptions.stream().filter(StringUtils::isNotBlank).filter(not(title::equalsIgnoreCase))
-                       .filter(lcsPredicate.and(distancePredicate)).collect(toList());
   }
 
   /**
@@ -204,8 +223,7 @@ public class ProblemPatternAnalyzer {
         UNRECOGNIZABLE_CHARACTERS_PATTERN.matcher(s).results().count() > UNRECOGNIZABLE_CHARACTERS_THRESHOLD;
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
     return titles.stream().filter(moreThanThresholdUnrecognizableCharacters.or(containsIdentifier))
-                 .map(title -> new ProblemOccurrence(
-                     format("Unrecognized title: %s(...)", truncate(title, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT)))
+                 .map(title -> new ProblemOccurrence(abbreviateElement(title))
                  ).collect(toList());
   }
 
@@ -217,8 +235,7 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurrence(
-                     format("Non meaningful title: %s(...)", truncate(title, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT))))
+                 .map(title -> new ProblemOccurrence(abbreviateElement(title)))
                  .collect(toList());
   }
 
@@ -230,7 +247,7 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP7(List<String> descriptions) {
     if (CollectionUtils.isEmpty(descriptions) || descriptions.stream().allMatch(StringUtils::isBlank)) {
-      return List.of(new ProblemOccurrence("Missing description fields"));
+      return List.of(new ProblemOccurrence(abbreviateElement("Missing description fields")));
     }
     return Collections.emptyList();
   }
@@ -245,8 +262,7 @@ public class ProblemPatternAnalyzer {
   private List<ProblemOccurrence> checkP9(List<String> descriptions) {
     return descriptions.stream().filter(StringUtils::isNotBlank)
                        .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
-                       .map(description -> new ProblemOccurrence(format("Very short description: %s(...)",
-                           truncate(description, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT))))
+                       .map(description -> new ProblemOccurrence(abbreviateElement(description)))
                        .collect(toList());
   }
 
@@ -259,8 +275,7 @@ public class ProblemPatternAnalyzer {
    */
   private List<ProblemOccurrence> checkP12(List<String> titles) {
     return titles.stream().filter(title -> title.length() > MAX_TITLE_LENGTH)
-                 .map(title -> new ProblemOccurrence(
-                     format("Extremely long title: %s(...)", truncate(title, DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT))))
+                 .map(title -> new ProblemOccurrence(abbreviateElement(title)))
                  .collect(toList());
   }
 
@@ -272,4 +287,5 @@ public class ProblemPatternAnalyzer {
     }
     return Optional.empty();
   }
+
 }

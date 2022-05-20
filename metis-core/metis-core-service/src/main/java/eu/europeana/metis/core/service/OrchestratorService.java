@@ -774,11 +774,9 @@ public class OrchestratorService {
     final int depublishedRecordCount;
     if (datasetCurrentlyDepublished) {
       depublishedRecordCount = executionInfo.getLastPublishedRecords();
-    } else if (depublishHappenedAfterLatestExecutablePublish) {
+    } else {
       depublishedRecordCount = (int) depublishRecordIdDao
           .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
-    } else {
-      depublishedRecordCount = 0;
     }
 
     //Compute more general information of the plugin
