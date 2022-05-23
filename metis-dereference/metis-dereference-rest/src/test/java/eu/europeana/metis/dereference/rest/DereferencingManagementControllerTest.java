@@ -124,9 +124,9 @@ class DereferencingManagementControllerTest {
     doAnswer((Answer<Void>) invocationOnMock -> {
       testEmptyCacheResult = "OK";
       return null;
-    }).when(dereferencingManagementServiceMock).purgeByNullOrEmptyXml();
+    }).when(deRefManagementServiceMock).purgeByNullOrEmptyXml();
 
-    dereferencingManagementControllerMock.perform(delete(RestEndpoints.CACHE_EMPTY_XML)).andExpect(status().is(200));
+    deRefManagementControllerMock.perform(delete(RestEndpoints.CACHE_EMPTY_XML)).andExpect(status().is(200));
 
     assertEquals("OK", testEmptyCacheResult);
   }
