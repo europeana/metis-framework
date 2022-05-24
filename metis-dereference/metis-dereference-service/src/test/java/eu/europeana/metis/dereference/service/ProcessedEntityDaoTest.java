@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.mongodb.client.MongoClient;
