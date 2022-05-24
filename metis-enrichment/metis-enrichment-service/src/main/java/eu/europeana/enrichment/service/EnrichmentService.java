@@ -15,13 +15,7 @@ import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import eu.europeana.entity.client.exception.EntityNotFoundException;
@@ -69,8 +63,8 @@ public class EnrichmentService {
                     Set.copyOf(search.getEntityTypes()))).collect(Collectors.toList());
     final Map<SearchTerm, List<EnrichmentBase>> result = entityClientResolver
             .resolveByText(new HashSet<>(orderedSearchTerms));
-    return orderedSearchTerms.stream().map(result::get).map(EnrichmentResultBaseWrapper::new)
-            .collect(Collectors.toList());
+    return orderedSearchTerms.stream().map(searchTerm -> result.getOrDefault(searchTerm, Collections.emptyList())).map(EnrichmentResultBaseWrapper::new)
+              .collect(Collectors.toList());
   }
 
   /**
