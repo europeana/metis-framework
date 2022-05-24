@@ -1,0 +1,3 @@
+# test
+- metadata: vocabulary/voctest.yml
+  mapping: vocabulary/voctest.xsl
