@@ -141,7 +141,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
    */
 
   @Scheduled(cron = "${dereference.purge.emptyxml.frequency}")
-  @Bean
   public void dereferenceCacheNullOrEmpty(){ getProcessedEntityDao().purgeByNullOrEmptyXml(); }
 
   /**
@@ -150,7 +149,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
    * This task is scheduled by a cron expression.
    */
   @Scheduled(cron = "${dereference.purge.all.frequency}")
-  @Bean
   public void dereferenceCachePurgeAll(){ getProcessedEntityDao().purgeAll(); }
 
   /**
