@@ -124,4 +124,14 @@ public class ProcessedEntityDao {
     retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(ProcessedEntity.class).delete(new DeleteOptions().multi(true)));
   }
+
+  /**
+   * Size of Processed entities
+   *
+   * @return amount of documents in db
+   */
+  protected long size() {
+    return retryableExternalRequestForNetworkExceptions(
+        () ->  datastore.find(ProcessedEntity.class).stream().count());
+  }
 }
