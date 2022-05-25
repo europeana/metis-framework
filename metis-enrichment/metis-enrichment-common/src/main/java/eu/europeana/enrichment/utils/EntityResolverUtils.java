@@ -1,8 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EntityClientRequest;
+import eu.europeana.enrichment.api.external.model.*;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.entity.client.utils.EntityApiConstants;
@@ -23,7 +22,7 @@ public class EntityResolverUtils {
     private EntityResolverUtils() {
     }
 
-    public static <I> List<List<I>> createPartition(Set<I> inputValues, int batchSize) {
+    public static <I> List<List<I>> createBatch(Set<I> inputValues, int batchSize) {
         // Create partitions - batches of 20
         final List<List<I>> partitions = new ArrayList<>();
         partitions.add(new ArrayList<>());
@@ -38,23 +37,29 @@ public class EntityResolverUtils {
         return partitions;
     }
 
-    public static <T extends SearchTerm> Function<T, EntityClientRequest> inputFunctionForTextSearch() {
-        return term -> new EntityClientRequest(term.getTextValue(), term.getLanguage(),
+    public static <T extends SearchTerm> Function<T, EnrichmentQuery> createEnrichmentQueryForTextSearch() {
+        return term -> new EnrichmentQuery(term.getTextValue(), term.getLanguage(),
                 term.getCandidateTypes()
                         .stream()
                         .map(entityType -> entityType.name().toLowerCase())
                         .collect(Collectors.joining(",")), false);
     }
 
-    public static <T extends ReferenceTerm> Function<T, EntityClientRequest> inputFunctionForRefSearch() {
-        return term -> new EntityClientRequest(term.getReference().toString(),
+    public static <T extends ReferenceTerm> Function<T, EnrichmentQuery> createEnrichmentQueryForRefSearch() {
+        return term -> new EnrichmentQuery(term.getReference().toString(),
                 term.getCandidateTypes()
                         .stream()
                         .map(entityType -> entityType.name().toLowerCase())
                         .collect(Collectors.joining(",")), true);
     }
 
-    public static <T>  Map<T, EnrichmentBase> getIdResults(Map<T, List<EnrichmentBase>> results) {
+    /**
+     * Returns the first Entity from the List<EnrichmentBase> for each input value
+     * @param results
+     * @param <T>
+     * @return
+     */
+    public static <T>  Map<T, EnrichmentBase> pickFirstFromTheList(Map<T, List<EnrichmentBase>> results) {
         Map<T, EnrichmentBase> finalValues = new HashMap<>();
         results.entrySet().stream().forEach(
                 entry ->
@@ -62,6 +67,29 @@ public class EntityResolverUtils {
                                 entry.getKey(),
                                 entry.getValue().stream().findFirst().orElse(null)));
         return finalValues;
+    }
+
+    /**
+     * Converts the EM model class to Metis EnrichmentBase
+     *
+     * @param entity EM Entity
+     * @param <T>    class that extends EnrichmentBase
+     * @return
+     */
+    public static <T extends EnrichmentBase> T convertEntityToEnrichmentBase(Entity entity) {
+        switch (EntityTypes.valueOf(entity.getType())) {
+            case Agent:
+                return (T) new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
+            case Place:
+                return (T) new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
+            case Concept:
+                return (T) new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
+            case TimeSpan:
+                return (T) new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
+            case Organization:
+                return (T) new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+        }
+        return null;
     }
 
     public static void failSafeCheck(int expected, int actual, String errorMsg) {
@@ -83,22 +111,11 @@ public class EntityResolverUtils {
     }
 
     /**
-     * Parent entity functionality is applied only to text and uri search for
-     * Agent and Place only
-     * @param entity
-     * @return
-     */
-    public static boolean isParentEntityRequired(Entity entity, EntityClientRequest clientRequest){
-        EntityTypes type = EntityTypes.valueOf(entity.getType());
-        return isTextOrUriSearch(clientRequest) && (type.equals(EntityTypes.Place) || type.equals(EntityTypes.Agent));
-    }
-
-    /**
      * Returns true if the Request is Text search or Uri search
      * @param clientRequest
      * @return
      */
-    public static boolean isTextOrUriSearch(EntityClientRequest clientRequest){
+    public static boolean isTextOrUriSearch(EnrichmentQuery clientRequest){
         return (clientRequest.isReference() && !clientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL))
                 || !clientRequest.isReference();
     }

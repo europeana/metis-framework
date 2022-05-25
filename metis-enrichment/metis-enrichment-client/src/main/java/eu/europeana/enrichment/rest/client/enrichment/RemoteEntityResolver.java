@@ -105,7 +105,7 @@ public class RemoteEntityResolver implements EntityResolver {
     }
 
     // Create partitions
-    final List<List<I>> partitions = EntityResolverUtils.createPartition(inputValues, batchSize);
+    final List<List<I>> partitions = EntityResolverUtils.createBatch(inputValues, batchSize);
 
     // Process partitions
     final Map<I, R> result = new HashMap<>();

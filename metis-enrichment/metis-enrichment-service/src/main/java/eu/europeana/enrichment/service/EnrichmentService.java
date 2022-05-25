@@ -5,8 +5,6 @@ import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.EntityClientRequest;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -18,7 +16,6 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import eu.europeana.entity.client.exception.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

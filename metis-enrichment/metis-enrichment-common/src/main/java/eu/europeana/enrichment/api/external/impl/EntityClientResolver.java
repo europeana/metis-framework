@@ -12,7 +12,6 @@ import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
 
 import eu.europeana.entitymanagement.definitions.model.Entity;
-import eu.europeana.entitymanagement.vocabulary.EntityTypes;
 
 import java.util.*;
 import java.util.function.Function;
@@ -37,39 +36,39 @@ public class EntityClientResolver implements EntityResolver {
 
     @Override
     public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
-        final Function<T, EntityClientRequest> inputFunction = EntityResolverUtils.inputFunctionForTextSearch();
+        final Function<T, EnrichmentQuery> inputFunction = EntityResolverUtils.createEnrichmentQueryForTextSearch();
         return performInBatches(searchTerms, inputFunction);
     }
 
     @Override
     public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
-        final Function<T, EntityClientRequest> inputFunction = EntityResolverUtils.inputFunctionForRefSearch();
-        return EntityResolverUtils.getIdResults(performInBatches(referenceTerms, inputFunction));
+        final Function<T, EnrichmentQuery> inputFunction = EntityResolverUtils.createEnrichmentQueryForRefSearch();
+        return EntityResolverUtils.pickFirstFromTheList(performInBatches(referenceTerms, inputFunction));
     }
 
     @Override
     public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
-        final Function<T, EntityClientRequest> inputFunction = EntityResolverUtils.inputFunctionForRefSearch();
+        final Function<T, EnrichmentQuery> inputFunction = EntityResolverUtils.createEnrichmentQueryForRefSearch();
         return performInBatches(referenceTerms, inputFunction);
     }
 
     /**
-     * Gets the Enrichment for Multiple values in batches
+     * Gets the Enrichment for Multiple input values in batches of batchSize
      *
-     * @param inputValues
-     * @param identity
-     * @param <I>
+     * @param inputValues Set of values for which enrichment will be performed
+     * @param requestParser Function to return EntityClientRequest from input value <I>
+     * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
      * @return
      */
-    private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, Function<I, EntityClientRequest> identity) {
+    private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, Function<I, EnrichmentQuery> requestParser) {
         final Map<I, List<EnrichmentBase>> result = new HashMap<>();
         // create partitions
-        final List<List<I>> partitions = EntityResolverUtils.createPartition(inputValues, batchSize);
+        final List<List<I>> partitions = EntityResolverUtils.createBatch(inputValues, batchSize);
 
         // Process partitions
         for (List<I> partition : partitions) {
             for (I input : partition) {
-                EntityClientRequest clientRequest = identity.apply(input);
+                EnrichmentQuery clientRequest = requestParser.apply(input);
                 List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(clientRequest);
                 if (!enrichmentBaseList.isEmpty()) {
                     result.put(input, enrichmentBaseList);
@@ -79,24 +78,22 @@ public class EntityClientResolver implements EntityResolver {
         return result;
     }
 
-    private List<EnrichmentBase> executeEntityClientRequest(EntityClientRequest clientRequest) {
+    private List<EnrichmentBase> executeEntityClientRequest(EnrichmentQuery clientRequest) {
         // 1. get Entities
         List<Entity> entities = getEntities(clientRequest);
         if (!entities.isEmpty()) {
             // 2. get the parent entities
             List<Entity> parentEntities = new ArrayList<>();
             entities.stream().forEach(entity -> {
-                if(EntityResolverUtils.isParentEntityRequired(entity, clientRequest) && entity.getIsPartOfArray() != null) {
-                    getParentEntities(entity, parentEntities);
+                if (entity.getIsPartOfArray() != null && EntityResolverUtils.isTextOrUriSearch(clientRequest)) {
+                    fetchParentEntities(entity, parentEntities);
                 }
             });
             // 3. add the parent entities
             entities.addAll(parentEntities);
             // 4. convert entity to EnrichmentBase
-            List<EnrichmentBase> enrichmentBaseList = entities.stream().map(entity -> {
-                EnrichmentBase enrichmentBase = createXmlEntity(entity);
-                return enrichmentBase;
-            }).collect(Collectors.toList());
+            List<EnrichmentBase> enrichmentBaseList = convertToEnrichmentBase(entities);
+
             EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(), "Mismatch while converting the EM class to EnrichmentBase.");
             return enrichmentBaseList;
         }
@@ -104,7 +101,7 @@ public class EntityClientResolver implements EntityResolver {
     }
 
 
-    private List<Entity> getEntities(EntityClientRequest entityClientRequest) {
+    private List<Entity> getEntities(EnrichmentQuery entityClientRequest) {
         try {
             if (entityClientRequest.isReference()) {
                 return resolveReferences(entityClientRequest);
@@ -126,7 +123,7 @@ public class EntityClientResolver implements EntityResolver {
         return Collections.emptyList();
     }
 
-    private List<Entity> resolveReferences(EntityClientRequest entityClientRequest) {
+    private List<Entity> resolveReferences(EnrichmentQuery entityClientRequest) {
         if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
             Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
             if (entity != null) {
@@ -145,44 +142,33 @@ public class EntityClientResolver implements EntityResolver {
      * @param entity
      * @param parentEntities
      */
-    private void getParentEntities(Entity entity, List<Entity> parentEntities) {
+    private void fetchParentEntities(Entity entity, List<Entity> parentEntities) {
         entity.getIsPartOfArray().stream().forEach(parentEntityId -> {
             if (!EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, parentEntities)) {
-                getParent(parentEntityId, parentEntities);
+                appendParent(parentEntityId, parentEntities);
             }
         });
     }
 
-    private void getParent(String parentEntityId, List<Entity> parentEntities) {
+    private void appendParent(String parentEntityId, List<Entity> parentEntities) {
         Entity parentEntity = entityClientApi.getEntityById(parentEntityId);
         // parent entity should never be null here, but just in case
         if (parentEntity != null) {
             parentEntities.add(parentEntity);
         }
         if (parentEntity != null && parentEntity.getIsPartOfArray() != null)
-            getParentEntities(parentEntity, parentEntities);
+            fetchParentEntities(parentEntity, parentEntities);
     }
 
     /**
-     * Converts the EM model class to Metis XML Entity class
-     *
-     * @param entity EM Entity
-     * @param <T>    class that extends EnrichmentBase
+     * Converts the EM Entity model to Enrichment base.
+     * @param entities
      * @return
      */
-    private static <T extends EnrichmentBase> T createXmlEntity(Entity entity) {
-        switch (EntityTypes.valueOf(entity.getType())) {
-            case Agent:
-                return (T) new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
-            case Place:
-                return (T) new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
-            case Concept:
-                return (T) new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
-            case TimeSpan:
-                return (T) new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
-            case Organization:
-                return (T) new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
-        }
-        return null;
+    private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
+        return entities.stream().map(entity -> {
+            EnrichmentBase enrichmentBase = EntityResolverUtils.convertEntityToEnrichmentBase(entity);
+            return enrichmentBase;
+        }).collect(Collectors.toList());
     }
 }

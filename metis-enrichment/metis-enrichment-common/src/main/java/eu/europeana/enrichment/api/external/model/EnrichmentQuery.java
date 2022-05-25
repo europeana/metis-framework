@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.api.external.model;
 
 // Request class for sending request to Entity API client
-public class EntityClientRequest {
+public class EnrichmentQuery {
 
     /**
      * value for enrichment. Could be text or URI
@@ -24,14 +24,14 @@ public class EntityClientRequest {
      */
     private boolean isReference;
 
-    public EntityClientRequest(String valueToEnrich, String language, String type, boolean isReference) {
+    public EnrichmentQuery(String valueToEnrich, String language, String type, boolean isReference) {
         this.valueToEnrich = valueToEnrich;
         this.language = language;
         this.type = type;
         this.isReference = isReference;
     }
 
-    public EntityClientRequest(String valueToEnrich,String type, boolean isReference) {
+    public EnrichmentQuery(String valueToEnrich, String type, boolean isReference) {
         this.valueToEnrich = valueToEnrich;
         this.type = type;
         this.isReference = isReference;
