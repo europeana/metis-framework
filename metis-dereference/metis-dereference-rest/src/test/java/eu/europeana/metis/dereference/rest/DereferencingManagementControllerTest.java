@@ -72,7 +72,7 @@ class DereferencingManagementControllerTest {
 
     when(deRefManagementServiceMock.getAllVocabularies()).thenReturn(dummyVocabList);
 
-    deRefManagementControllerMock.perform(get("/vocabularies"))
+    deRefManagementControllerMock.perform(get(RestEndpoints.VOCABULARIES))
                                  .andExpect(jsonPath("$[0].uris[0]", is("https://dummy1.org/path1")))
                                  .andExpect(jsonPath("$[1].uris[0]", is("https://dummy2.org/path2")))
                                  .andExpect(status().is(200));
@@ -81,14 +81,15 @@ class DereferencingManagementControllerTest {
   @Test
   void testLoadVocabularies_validDomain_expectSuccess() throws Exception {
     doNothing().when(deRefManagementServiceMock).loadVocabularies(any(URL.class));
-    deRefManagementControllerMock.perform(post("/load_vocabularies")
+    deRefManagementControllerMock.perform(post(RestEndpoints.LOAD_VOCABULARIES)
+                                            .param("url", "http://valid.domain.com/path/to/vocab.rdf")
                                      .param("directory_url", "https://valid.domain.com/test/call"))
                                  .andExpect(status().is(200));
   }
 
   @Test
   void testLoadVocabularies_invalidDomain_expectFail() throws Exception {
-    deRefManagementControllerMock.perform(post("/load_vocabularies")
+    deRefManagementControllerMock.perform(post(RestEndpoints.LOAD_VOCABULARIES)
                                      .param("directory_url", "https://invalid.domain.com"))
                                  .andExpect(status().is(400));
   }
@@ -140,7 +141,8 @@ class DereferencingManagementControllerTest {
       return null;
     }).when(deRefManagementServiceMock).purgeByResourceId(any(String.class));
 
-    deRefManagementControllerMock.perform(post("/cache/resource")
+    deRefManagementControllerMock.perform(post(RestEndpoints.CACHE_EMPTY_RESOURCE)
+                                            .param("resourceId", "resourceId")
                                      .param("resourceId", "12345"))
                                  .andExpect(status().is(200));
 
