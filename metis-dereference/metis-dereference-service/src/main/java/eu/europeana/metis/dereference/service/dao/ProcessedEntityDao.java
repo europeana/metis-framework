@@ -34,8 +34,8 @@ public class ProcessedEntityDao {
    */
   public ProcessedEntityDao(MongoClient mongo, String databaseName) {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
-        .discriminator(DiscriminatorFunction.className())
-        .collectionNaming(NamingStrategy.identity()).build();
+                                                     .discriminator(DiscriminatorFunction.className())
+                                                     .collectionNaming(NamingStrategy.identity()).build();
     this.datastore = Morphia.createDatastore(mongo, databaseName, mapperOptions);
     this.datastore.getMapper().map(ProcessedEntity.class);
   }
@@ -46,11 +46,24 @@ public class ProcessedEntityDao {
    * @param resourceId The resource ID (URI) to retrieve
    * @return The entity with the given resource ID.
    */
-  public ProcessedEntity get(String resourceId) {
+  public ProcessedEntity getByResourceId(String resourceId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
-            .first());
+                       .first());
   }
+
+  /**
+   * Get an entity by vocabulary ID.
+   *
+   * @param vocabularyId The vocabuylaryDi to retrieve
+   * @return The entity with the given vocabulary ID.
+   */
+  public ProcessedEntity getByVocabularyId(String vocabularyId) {
+    return retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(ProcessedEntity.class).filter(Filters.eq("vocabularyId", vocabularyId))
+                       .first());
+  }
+
 
   /**
    * Save an entity.
@@ -60,7 +73,7 @@ public class ProcessedEntityDao {
   public void save(ProcessedEntity processedEntity) {
     try {
       final ObjectId objectId = Optional.ofNullable(processedEntity.getId())
-          .orElseGet(ObjectId::new);
+                                        .orElseGet(ObjectId::new);
       processedEntity.setId(objectId);
       retryableExternalRequestForNetworkExceptions(() -> datastore.save(processedEntity));
     } catch (DuplicateKeyException e) {
@@ -71,10 +84,54 @@ public class ProcessedEntityDao {
   }
 
   /**
+   * Delete an entity with no description in XML resources. Empty or Null
+   **/
+  public void purgeByNullOrEmptyXml() {
+    retryableExternalRequestForNetworkExceptions(() ->
+        datastore.find(ProcessedEntity.class)
+                 .filter(Filters.eq("xml", null))
+                 .delete(new DeleteOptions().multi(true)));
+  }
+
+  /**
+   * Delete an entity by resource ID.
+   *
+   * @param resourceId The resource ID (URI) to delete
+   **/
+  public void purgeByResourceId(String resourceId) {
+    retryableExternalRequestForNetworkExceptions(() ->
+        datastore.find(ProcessedEntity.class)
+                 .filter(Filters.eq("resourceId", resourceId))
+                 .delete(new DeleteOptions()));
+  }
+
+  /**
+   * Delete the entity based on its vocabulary ID.
+   *
+   * @param vocabularyId The ID of the vocabulary to delete.
+   **/
+  public void purgeByVocabularyId(String vocabularyId) {
+    retryableExternalRequestForNetworkExceptions(() ->
+        datastore.find(ProcessedEntity.class)
+                 .filter(Filters.eq("vocabularyId", vocabularyId))
+                 .delete(new DeleteOptions().multi(true)));
+  }
+
+  /**
    * Remove all entities.
    */
   public void purgeAll() {
     retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(ProcessedEntity.class).delete(new DeleteOptions().multi(true)));
+  }
+
+  /**
+   * Size of Processed entities
+   *
+   * @return amount of documents in db
+   */
+  protected long size() {
+    return retryableExternalRequestForNetworkExceptions(
+        () ->  datastore.find(ProcessedEntity.class).stream().count());
   }
 }

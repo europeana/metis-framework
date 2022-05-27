@@ -31,7 +31,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
    */
   @Autowired
   public MongoDereferencingManagementService(VocabularyDao vocabularyDao,
-          ProcessedEntityDao processedEntityDao, VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory) {
+      ProcessedEntityDao processedEntityDao, VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory) {
     this.vocabularyDao = vocabularyDao;
     this.processedEntityDao = processedEntityDao;
     this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;
@@ -44,7 +44,20 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   @Override
   public void emptyCache() {
-    this.processedEntityDao.purgeAll();
+    processedEntityDao.purgeAll();
+  }
+
+  @Override
+  public void purgeByNullOrEmptyXml() { processedEntityDao.purgeByNullOrEmptyXml(); }
+
+  @Override
+  public void purgeByResourceId(String resourceId) {
+    processedEntityDao.purgeByResourceId(resourceId);
+  }
+
+  @Override
+  public void purgeByVocabularyId(String vocabularyId) {
+    processedEntityDao.purgeByVocabularyId(vocabularyId);
   }
 
   @Override
@@ -59,15 +72,15 @@ public class MongoDereferencingManagementService implements DereferencingManagem
           true, true, true);
       validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
 
-    // All vocabularies are loaded well. Now we replace the vocabularies.
-    vocabularyDao.replaceAll(vocabularies);
+      // All vocabularies are loaded well. Now we replace the vocabularies.
+      vocabularyDao.replaceAll(vocabularies);
     } catch (VocabularyImportException e) {
       throw new VocabularyImportException("An error as occurred while loading the vocabularies", e);
     }
   }
 
   private static Vocabulary convertVocabulary(
-          eu.europeana.metis.dereference.vocimport.model.Vocabulary input) {
+      eu.europeana.metis.dereference.vocimport.model.Vocabulary input) {
     final Vocabulary vocabulary = new Vocabulary();
     vocabulary.setName(input.getName());
     vocabulary.setUris(input.getPaths());

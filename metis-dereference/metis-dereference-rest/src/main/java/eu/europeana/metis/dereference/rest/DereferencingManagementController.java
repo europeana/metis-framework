@@ -76,6 +76,41 @@ public class DereferencingManagementController {
   }
 
   /**
+   * Empty the cache for all Resources without an XML representation
+   * */
+  @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_XML)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache without XML representations")
+  public void emptyCacheByEmptyXml() {
+    service.purgeByNullOrEmptyXml();
+  }
+
+  /**
+   * Empty the cache for a specific resource
+   * @param resourceId The resourceId to empty the cache for
+  * */
+  @PostMapping(value = RestEndpoints.CACHE_EMPTY_RESOURCE)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache by resource Id")
+  public void emptyCacheByResourceId(
+      @ApiParam(value = "Id (URI) of resource to clear cache", required = true) @RequestParam(value = "resourceId") String resourceId) {
+    service.purgeByResourceId(resourceId);
+  }
+
+  /**
+   * Empty the cache for a specific vocabulary, with all associated entities
+   * @param vocabularyId The vocabularyId to empty the cache for
+   * */
+  @PostMapping(value = RestEndpoints.CACHE_EMPTY_VOCABULARY)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache by vocabulary Id")
+  public void emptyCacheByVocabularyId(
+      @ApiParam(value = "Id of vocabulary to clear cache", required = true) @RequestParam(value = "vocabularyId") String vocabularyId) {
+    service.purgeByVocabularyId(vocabularyId);
+  }
+
+
+  /**
    * Load the vocabularies from an online source. This does NOT purge the cache.
    *
    * @param directoryUrl The online location of the vocabulary directory

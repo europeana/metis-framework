@@ -23,6 +23,23 @@ public interface DereferencingManagementService {
   void emptyCache();
 
   /**
+   *
+   * purge all ProcessedEntities with empty XML
+   */
+  void purgeByNullOrEmptyXml();
+
+  /**
+   * Empty the cache by resource ID(URI)
+   * @param resourceId  The resourceId (URI) of the resource to be purged from the cache
+   */
+  void purgeByResourceId(String resourceId);
+  /**
+   * Empty the cache by vocabulary ID
+   * @param vocabularyId the vocabulary ID to be purged from the cache, with all associated resources
+   */
+  void purgeByVocabularyId(String vocabularyId);
+
+  /**
    * Load the vocabularies from an online source. This does NOT purge the cache.
    *
    * @param directoryUrl The online location of the vocabulary directory.
