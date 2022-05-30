@@ -3,20 +3,20 @@ package eu.europeana.indexing.tiers.media;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
-
 import java.util.Set;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.Arguments;
 
 class ThreeDClassifierTest {
 
@@ -41,26 +41,13 @@ class ThreeDClassifierTest {
   }
 
   /**
-   * If there are no web resources, the result is always tier 0.
+   * If there are no web resources, the result is tier 0 or 1 depending on the landing page.
    */
   @Test
   void testClassifyEntityWithoutWebResources() {
     final RdfWrapper entity = mock(RdfWrapper.class);
-    assertEquals(MediaTier.T0, classifier.classifyEntityWithoutWebResources(entity, true));
+    assertEquals(MediaTier.T1, classifier.classifyEntityWithoutWebResources(entity, true));
     assertEquals(MediaTier.T0, classifier.classifyEntityWithoutWebResources(entity, false));
-  }
-
-  private static Stream<Arguments> testClassifyWebResource() {
-    return Stream.of(
-        //If mime type is not blank
-        Arguments.of(MediaTier.T4, "any mime type"),
-        //If mime type is blank(only spaces)
-        Arguments.of(MediaTier.T0, "   "),
-        //If mime type is blank(empty string)
-        Arguments.of(MediaTier.T0, ""),
-        //If mime type is blank(null)
-        Arguments.of(MediaTier.T0, null)
-    );
   }
 
   @Test
@@ -70,22 +57,6 @@ class ThreeDClassifierTest {
     when(webResource.getLinkTypes()).thenReturn(mockSetResponse);
     when(webResource.getMimeType()).thenReturn("video");
     assertEquals(MediaTier.T4, classifier.classifyWebResource(webResource, true, false));
-  }
-
-  @Test
-  void testClassifyWebResource_tier1Result() {
-    final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
-    when(webResource.getLinkTypes()).thenReturn(Set.of(WebResourceLinkType.IS_SHOWN_AT));
-    when(webResource.getMimeType()).thenReturn("video");
-    assertEquals(MediaTier.T1, classifier.classifyWebResource(webResource, true, false));
-  }
-
-  @Test
-  void testClassifyWebResource_tier0Result() {
-    final WebResourceWrapper webResource = mock(WebResourceWrapper.class);
-    when(webResource.getLinkTypes()).thenReturn(Set.of());
-    when(webResource.getMimeType()).thenReturn("video");
-    assertEquals(MediaTier.T0, classifier.classifyWebResource(webResource, false, false));
   }
 
   @Test
