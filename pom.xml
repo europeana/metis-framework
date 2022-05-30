@@ -8,7 +8,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>metis-schema</module>
     <module>metis-common</module>
     <module>metis-core</module>
     <module>metis-indexing</module>
@@ -122,6 +121,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.ecloud>7-SNAPSHOT</version.ecloud>
+    <version.metis-schema>7-SNAPSHOT</version.metis-schema>
+
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
     <version.awaitability>1.7.0</version.awaitability>
@@ -140,7 +142,6 @@
     <!-- These two versions are interdependent. -->
     <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
     <version.dspace.oai>4.2.0</version.dspace.oai>
-    <version.ecloud>7-SNAPSHOT</version.ecloud>
 
     <version.embedded.mongo>3.0.0</version.embedded.mongo>
     <version.hamcrest>1.3</version.hamcrest>
@@ -440,7 +441,7 @@
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-schema</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-schema}</version>
         <exclusions>
           <exclusion>
             <artifactId>xml-apis</artifactId>
