@@ -9,6 +9,7 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.indexing.solr.EdmLabel;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,12 +35,8 @@ class ConceptSolrCreatorTest {
   void addToDocument_withConceptPrefValueAndAltValue() {
     concept.setId(new ObjectId("6294c725de3fe70c48388a88"));
     concept.setAbout("concept");
-    concept.setPrefLabel(new HashMap<>() {{
-      put("keyPref", List.of("prefValue1", "prefValue2"));
-    }});
-    concept.setAltLabel(new HashMap<>() {{
-      put("keyAlt", List.of("altValue1", "altValue2"));
-    }});
+    concept.setPrefLabel(Map.of("keyPref", List.of("prefValue1", "prefValue2")));
+    concept.setAltLabel(Map.of("keyAlt", List.of("altValue1", "altValue2")));
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
@@ -57,12 +54,8 @@ class ConceptSolrCreatorTest {
   @Test
   void addToDocument_withoutConcept() {
     concept.setId(new ObjectId("6294c725de3fe70c48388a88"));
-    concept.setPrefLabel(new HashMap<>() {{
-      put("keyPref", List.of("prefValue1", "prefValue2"));
-    }});
-    concept.setAltLabel(new HashMap<>() {{
-      put("keyAlt", List.of("altValue1", "altValue2"));
-    }});
+    concept.setPrefLabel(Map.of("keyPref", List.of("prefValue1", "prefValue2")));
+    concept.setAltLabel(Map.of("keyAlt", List.of("altValue1", "altValue2")));
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
@@ -81,9 +74,7 @@ class ConceptSolrCreatorTest {
   void addToDocument_withoutPrefValue() {
     concept.setId(new ObjectId("6294c725de3fe70c48388a88"));
     concept.setAbout("concept");
-    concept.setAltLabel(new HashMap<>() {{
-      put("keyAlt", List.of("altValue1", "altValue2"));
-    }});
+    concept.setAltLabel(Map.of("keyAlt", List.of("altValue1", "altValue2")));
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
@@ -101,9 +92,7 @@ class ConceptSolrCreatorTest {
   void addToDocument_withoutAltValue() {
     concept.setId(new ObjectId("6294c725de3fe70c48388a88"));
     concept.setAbout("concept");
-    concept.setPrefLabel(new HashMap<>() {{
-      put("keyPref", List.of("prefValue1", "prefValue2"));
-    }});
+    concept.setPrefLabel(Map.of("keyPref", List.of("prefValue1", "prefValue2")));
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
