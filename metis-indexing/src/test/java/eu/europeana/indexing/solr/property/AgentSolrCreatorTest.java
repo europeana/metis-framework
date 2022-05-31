@@ -13,8 +13,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AgentSolrCreatorTest {
-
+class AgentSolrCreatorTest {
 
   private SolrInputDocument solrInputDocument;
   private AgentSolrCreator agentSolrCreator;
@@ -73,6 +72,5 @@ public class AgentSolrCreatorTest {
     assertEquals(9, solrInputDocument.size());
 
   }
-
 
 }
