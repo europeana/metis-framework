@@ -51,7 +51,7 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
     final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier = getDeferredClassifier(entity.getEdmType());
     if (deferredClassifier == null) {
       return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown(null, null, false,
-          false, false, Collections.emptyList()));
+          false, false, false, Collections.emptyList()));
     }
     return deferredClassifier.classify(entity);
   }

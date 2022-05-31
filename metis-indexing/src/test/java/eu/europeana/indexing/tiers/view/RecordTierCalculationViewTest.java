@@ -45,7 +45,7 @@ class RecordTierCalculationViewTest {
 
     final RecordTierCalculationView recordTierCalculationView = new RecordTierCalculationView(new RecordTierCalculationSummary(),
         new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,
-            true, true, Collections.singletonList(mediaResourceTechnicalMetadata)),
+            true, false, true, Collections.singletonList(mediaResourceTechnicalMetadata)),
         new MetadataTierBreakdown(languageBreakdown, enablingElementsBreakdown,
             contextualClassesBreakdown));
 

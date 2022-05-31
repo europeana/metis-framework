@@ -14,6 +14,7 @@ public class ContentTierBreakdown {
   private final LicenseType licenseType;
   private final boolean thumbnailAvailable;
   private final boolean landingPageAvailable;
+  private final boolean mediaResource3DAvailable;
   private final boolean embeddableMediaAvailable;
   private final List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList;
   private final List<ProcessingError> processingErrorsList;
@@ -29,9 +30,9 @@ public class ContentTierBreakdown {
    * @param mediaResourceTechnicalMetadataList the list of media resource technical metadata
    */
   public ContentTierBreakdown(MediaType recordType, LicenseType licenseType, boolean thumbnailAvailable,
-      boolean landingPageAvailable, boolean embeddableMediaAvailable,
-      List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList) {
-    this(recordType, licenseType, thumbnailAvailable, landingPageAvailable, embeddableMediaAvailable,
+                              boolean landingPageAvailable, boolean mediaResource3DAvailable, boolean embeddableMediaAvailable,
+                              List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList) {
+    this(recordType, licenseType, thumbnailAvailable, landingPageAvailable, mediaResource3DAvailable, embeddableMediaAvailable,
         mediaResourceTechnicalMetadataList, null);
   }
 
@@ -44,17 +45,19 @@ public class ContentTierBreakdown {
    */
   public ContentTierBreakdown(ContentTierBreakdown contentTierBreakdown, List<ProcessingError> processingErrorsList) {
     this(contentTierBreakdown.getRecordType(), contentTierBreakdown.getLicenseType(), contentTierBreakdown.isThumbnailAvailable(),
-        contentTierBreakdown.isLandingPageAvailable(), contentTierBreakdown.isEmbeddableMediaAvailable(),
-        contentTierBreakdown.mediaResourceTechnicalMetadataList, processingErrorsList);
+        contentTierBreakdown.isLandingPageAvailable(), contentTierBreakdown.isMediaResource3DAvailable(),
+        contentTierBreakdown.isEmbeddableMediaAvailable(), contentTierBreakdown.mediaResourceTechnicalMetadataList,
+        processingErrorsList);
   }
 
   private ContentTierBreakdown(MediaType recordType, LicenseType licenseType, boolean thumbnailAvailable,
-      boolean landingPageAvailable, boolean embeddableMediaAvailable,
-      List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList, List<ProcessingError> processingErrorsList) {
+                               boolean landingPageAvailable, boolean mediaResource3DAvailable, boolean embeddableMediaAvailable,
+                               List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList, List<ProcessingError> processingErrorsList) {
     this.recordType = recordType;
     this.licenseType = licenseType;
     this.thumbnailAvailable = thumbnailAvailable;
     this.landingPageAvailable = landingPageAvailable;
+    this.mediaResource3DAvailable = mediaResource3DAvailable;
     this.embeddableMediaAvailable = embeddableMediaAvailable;
     this.mediaResourceTechnicalMetadataList =
         mediaResourceTechnicalMetadataList == null ? new ArrayList<>() : new ArrayList<>(mediaResourceTechnicalMetadataList);
@@ -75,6 +78,10 @@ public class ContentTierBreakdown {
 
   public boolean isLandingPageAvailable() {
     return landingPageAvailable;
+  }
+
+  public boolean isMediaResource3DAvailable() {
+    return mediaResource3DAvailable;
   }
 
   public boolean isEmbeddableMediaAvailable() {

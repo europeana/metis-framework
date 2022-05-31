@@ -37,7 +37,7 @@ class ContentTierBreakdownTest {
         mediaResourceTechnicalMetadata1, mediaResourceTechnicalMetadata2);
 
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(recordType, licenseType, thumbnailAvailable,
-        landingPageAvailable, embeddableMediaAvailable, mediaResourceTechnicalMetadataList);
+        landingPageAvailable, false,embeddableMediaAvailable, mediaResourceTechnicalMetadataList);
 
     assertEquals(recordType, contentTierBreakdown.getRecordType());
     assertEquals(licenseType, contentTierBreakdown.getLicenseType());

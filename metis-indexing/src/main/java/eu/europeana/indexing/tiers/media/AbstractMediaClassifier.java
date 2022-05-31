@@ -34,7 +34,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     final MediaTier entityTier = preClassifyEntity(entity);
     if (entityTier != null) {
       return new TierClassification<>(entityTier, new ContentTierBreakdown(null, null, false,
-          false, false, Collections.emptyList()));
+          false, false, false, Collections.emptyList()));
     }
 
     // Find candidate web resources
@@ -62,9 +62,11 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
                                                           .orElse(MediaTier.T0);
       mediaResourceTechnicalMetadataList = descendingMediaResourceTechnicalMetadata;
     }
+    MediaType mediaTypeResult = getMediaType();
+    boolean hasMediaResource3DAvailable = mediaTypeResult == MediaType.THREE_D && (mediaTier != MediaTier.T0 && mediaTier != MediaTier.T1);
 
-    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(getMediaType(), entityLicenseType, hasThumbnails,
-        hasLandingPage, hasEmbeddableMedia, mediaResourceTechnicalMetadataList);
+    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(mediaTypeResult, entityLicenseType, hasThumbnails,
+        hasLandingPage, hasMediaResource3DAvailable,hasEmbeddableMedia, mediaResourceTechnicalMetadataList);
     return new TierClassification<>(mediaTier, contentTierBreakdown);
   }
 
