@@ -26,6 +26,7 @@ public class ContentTierBreakdown {
    * @param licenseType the license type
    * @param thumbnailAvailable the flag indicating if a thumbnails is available
    * @param landingPageAvailable the flag indicating if a page is available
+   * @param mediaResource3DAvailable the flag indicating if there are any 3D media resource (non image and/or pdf) available
    * @param embeddableMediaAvailable the flag indicating if embeddable media are available
    * @param mediaResourceTechnicalMetadataList the list of media resource technical metadata
    */
