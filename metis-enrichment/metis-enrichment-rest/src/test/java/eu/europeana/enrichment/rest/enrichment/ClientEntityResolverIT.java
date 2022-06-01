@@ -22,8 +22,9 @@ import org.mockito.Mockito;
 
 // TODO - This is a Integration Test. Once we have measured performance of the new implementation,
 //  proper junit test will be added.
+// This is not a test we usually have in metis. It has to either be implemented with Wiremock or kept disable for the time being.
 @Disabled
-public class ClientEntityResolverITTest {
+public class ClientEntityResolverIT {
 
     private EntityResolver entityResolver;
 
