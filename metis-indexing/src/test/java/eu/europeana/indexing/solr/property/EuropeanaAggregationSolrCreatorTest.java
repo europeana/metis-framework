@@ -52,7 +52,6 @@ class EuropeanaAggregationSolrCreatorTest {
   @Test
   void addEuropeanaAggregationToSolrDocument() {
 
-    // setup europeanaAggregation
     europeanaAggregation.setId(new ObjectId(String.valueOf(ObjectId.get())));
     europeanaAggregation.setAbout("about europeana aggregation");
     WebResource webResource = new WebResourceImpl();
@@ -61,11 +60,8 @@ class EuropeanaAggregationSolrCreatorTest {
     List<WebResource> webResources = new ArrayList<>();
     webResources.add(webResource);
     europeanaAggregation.setWebResources(webResources);
-
-    europeanaAggregation.setEdmCountry(Map.ofEntries(Map.entry("key_for_country", List.of("US"))));
-
+    europeanaAggregation.setEdmCountry(Map.of("key_for_country", List.of("US")));
     europeanaAggregation.setEdmLanguage(Map.of("key_for_language", List.of("en_US")));
-
     europeanaAggregation.setEdmPreview("http://www.europeana.eu/portal/en/preview.html");
 
     // the actual method we are testing
