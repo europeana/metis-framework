@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityXmlUtils;
-
+import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -142,37 +141,37 @@ public class Concept extends EnrichmentBase {
 
   private void init(eu.europeana.entitymanagement.definitions.model.Concept concept){
     if (concept.getHiddenLabel() != null) {
-      this.hiddenLabel = EntityXmlUtils.convertListToXmlLabel(concept.getHiddenLabel());
+      this.hiddenLabel = EntityValuesConverterUtils.convertListToLabel(concept.getHiddenLabel());
     }
     if (concept.getNotation() != null) {
-      this.notation = EntityXmlUtils.convertMultilingualMapToXmlLabel(concept.getNotation());
+      this.notation = EntityValuesConverterUtils.convertMultilingualMapToLabel(concept.getNotation());
     }
     if (concept.getBroader() != null) {
-      this.broader = EntityXmlUtils.convertListToXmlResource(concept.getBroader());
+      this.broader = EntityValuesConverterUtils.convertListToResource(concept.getBroader());
     }
     if (concept.getBroadMatch() != null) {
-      this.broadMatch = EntityXmlUtils.convertListToXmlResource(concept.getBroadMatch());
+      this.broadMatch = EntityValuesConverterUtils.convertListToResource(concept.getBroadMatch());
     }
     if (concept.getCloseMatch() != null) {
-      this.closeMatch = EntityXmlUtils.convertListToXmlResource(concept.getCloseMatch());
+      this.closeMatch = EntityValuesConverterUtils.convertListToResource(concept.getCloseMatch());
     }
     if (concept.getSameReferenceLinks() != null) {
-      this.exactMatch = EntityXmlUtils.convertListToXmlResource(concept.getSameReferenceLinks());
+      this.exactMatch = EntityValuesConverterUtils.convertListToResource(concept.getSameReferenceLinks());
     }
     if (concept.getInScheme() != null) {
-      this.inScheme = EntityXmlUtils.convertListToXmlResource(concept.getInScheme());
+      this.inScheme = EntityValuesConverterUtils.convertListToResource(concept.getInScheme());
     }
     if (concept.getNarrower() != null) {
-      this.narrower = EntityXmlUtils.convertListToXmlResource(concept.getNarrower());
+      this.narrower = EntityValuesConverterUtils.convertListToResource(concept.getNarrower());
     }
     if (concept.getNarrowMatch() != null) {
-      this.narrowMatch = EntityXmlUtils.convertListToXmlResource(concept.getNarrowMatch());
+      this.narrowMatch = EntityValuesConverterUtils.convertListToResource(concept.getNarrowMatch());
     }
     if (concept.getRelated() != null) {
-      this.related = EntityXmlUtils.convertListToXmlResource(concept.getRelated());
+      this.related = EntityValuesConverterUtils.convertListToResource(concept.getRelated());
     }
     if (concept.getRelatedMatch() != null) {
-      this.relatedMatch = EntityXmlUtils.convertListToXmlResource(concept.getRelatedMatch());
+      this.relatedMatch = EntityValuesConverterUtils.convertListToResource(concept.getRelatedMatch());
     }
   }
 }

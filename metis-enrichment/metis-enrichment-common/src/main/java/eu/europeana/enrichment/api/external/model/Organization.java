@@ -1,9 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityXmlUtils;
-import eu.europeana.entitymanagement.definitions.model.Agent;
-import eu.europeana.entitymanagement.definitions.model.Entity;
-
+import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -142,10 +139,10 @@ public class Organization extends AgentBase {
       this.homepage = new Resource(organization.getHomepage());
     }
     if (organization.getDescription() != null) {
-      this.descriptions = EntityXmlUtils.convertMapToXmlLabel(organization.getDescription());
+      this.descriptions = EntityValuesConverterUtils.convertMapToLabel(organization.getDescription());
     }
     if (organization.getAcronym() != null) {
-      this.acronyms = EntityXmlUtils.convertMultilingualMapToXmlLabel(organization.getAcronym());
+      this.acronyms = EntityValuesConverterUtils.convertMultilingualMapToLabel(organization.getAcronym());
     }
     if (organization.getLogo() != null) {
       this.logo = new Resource(organization.getLogo().getId());
@@ -160,22 +157,22 @@ public class Organization extends AgentBase {
       this.mbox = String.valueOf(organization.getMbox());
     }
     if (organization.getAddress() != null) {
-      VcardAddresses addresses = EntityXmlUtils.getVcardAddresses(organization.getAddress());
+      VcardAddresses addresses = EntityValuesConverterUtils.getVcardAddresses(organization.getAddress());
       if (addresses !=null) {
-        this.hasAddress = EntityXmlUtils.getVcardAddresses(organization.getAddress());
+        this.hasAddress = EntityValuesConverterUtils.getVcardAddresses(organization.getAddress());
       }
     }
     if (organization.getHiddenLabel() != null) {
-      setHiddenLabel(EntityXmlUtils.convertListToXmlLabel(organization.getHiddenLabel()));
+      setHiddenLabel(EntityValuesConverterUtils.convertListToLabel(organization.getHiddenLabel()));
     }
     if(organization.getSameReferenceLinks() != null) {
-      setSameAs(EntityXmlUtils.convertListToXmlPart(organization.getSameReferenceLinks()));
+      setSameAs(EntityValuesConverterUtils.convertListToPart(organization.getSameReferenceLinks()));
     }
     if (organization.getIdentifier() != null) {
-      setIdentifier(EntityXmlUtils.convertListToXmlLabel(organization.getIdentifier()));
+      setIdentifier(EntityValuesConverterUtils.convertListToLabel(organization.getIdentifier()));
     }
     if (organization.getIsRelatedTo() != null) {
-      setIsRelatedTo(EntityXmlUtils.convertListToXmlLabelResource(organization.getIsRelatedTo()));
+      setIsRelatedTo(EntityValuesConverterUtils.convertListToLabelResource(organization.getIsRelatedTo()));
     }
   }
 }

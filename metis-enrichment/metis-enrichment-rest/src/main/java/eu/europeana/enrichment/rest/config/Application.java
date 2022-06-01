@@ -73,10 +73,10 @@ public class Application implements InitializingBean {
   }
 
   @Bean
-  EntityResolver getEntityResolver(EnrichmentDao enrichmentDao) {
+  EntityResolver getEntityResolver() {
     final EntityResolver entityResolver;
     if (entityResolverType == EntityResolverType.PERSISTENT) {
-      entityResolver = new PersistentEntityResolver(enrichmentDao);
+      entityResolver = new PersistentEntityResolver(new EnrichmentDao(mongoClient, enrichmentMongoDatabase));
     } else {
       entityResolver = new ClientEntityResolver(enrichmentBatchSize);
     }
@@ -92,11 +92,6 @@ public class Application implements InitializingBean {
     mongoProperties.setApplicationName(enrichmentMongoApplicationName);
     mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     return mongoClient;
-  }
-
-  @Bean
-  EnrichmentDao getEnrichmentDao(MongoClient mongoClient) {
-    return new EnrichmentDao(mongoClient, enrichmentMongoDatabase);
   }
 
   @Bean

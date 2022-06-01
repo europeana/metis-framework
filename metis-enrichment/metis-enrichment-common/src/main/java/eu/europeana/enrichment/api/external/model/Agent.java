@@ -1,7 +1,5 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.entitymanagement.definitions.model.Entity;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;

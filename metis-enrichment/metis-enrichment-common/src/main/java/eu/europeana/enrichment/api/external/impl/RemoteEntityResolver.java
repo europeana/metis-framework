@@ -36,18 +36,23 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 // TODO resolve dependency once entity-client is deployed to artifactory
 /**
- * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from
- * there.
+ * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from there.
  */
 public class RemoteEntityResolver implements EntityResolver {
 
   private final int batchSize;
-  private final RestTemplate template;
+  private final RestTemplate restTemplate;
   private final URL enrichmentServiceUrl;
 
-  public RemoteEntityResolver(URL enrichmentServiceUrl, int batchSize, RestTemplate template) {
+  /**
+   * Constructor with required parameters
+   * @param enrichmentServiceUrl the enrichment service url
+   * @param batchSize the batch size
+   * @param restTemplate the rest template
+   */
+  public RemoteEntityResolver(URL enrichmentServiceUrl, int batchSize, RestTemplate restTemplate) {
     this.enrichmentServiceUrl = enrichmentServiceUrl;
-    this.template = template;
+    this.restTemplate = restTemplate;
     this.batchSize = batchSize;
   }
 
@@ -55,7 +60,7 @@ public class RemoteEntityResolver implements EntityResolver {
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
     final Function<List<T>, EnrichmentSearch> inputFunction = partition -> {
       final List<SearchValue> searchValues = partition.stream()
-              .map(term -> new SearchValue(term.getTextValue(), term.getLanguage(),
+                                                      .map(term -> new SearchValue(term.getTextValue(), term.getLanguage(),
                       term.getCandidateTypes().toArray(EntityType[]::new)))
               .collect(Collectors.toList());
       final EnrichmentSearch enrichmentSearch = new EnrichmentSearch();
@@ -141,7 +146,7 @@ public class RemoteEntityResolver implements EntityResolver {
     final EnrichmentResultList enrichmentResultList;
     try {
        enrichmentResultList = retryableExternalRequestForNetworkExceptions(
-                () -> template.postForObject(uri, httpEntity, EnrichmentResultList.class));
+           () -> restTemplate.postForObject(uri, httpEntity, EnrichmentResultList.class));
 
     } catch (RestClientException e) {
       throw new UnknownException("Enrichment client POST call failed: " + uri + ".", e);

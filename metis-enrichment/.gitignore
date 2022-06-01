@@ -1,5 +1,0 @@
-##Add to ignore to not commit by mistake
-**/src/main/resources/enrichment.properties
-
-# properties file
-**/entity-client.properties

@@ -1,67 +1,71 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.external.model.*;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.LabelResource;
+import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.VcardAddress;
+import eu.europeana.enrichment.api.external.model.VcardAddresses;
 import eu.europeana.entitymanagement.definitions.model.Address;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class EntityXmlUtils {
+public class EntityValuesConverterUtils {
 
-    private EntityXmlUtils() {
+    private EntityValuesConverterUtils() {
     }
 
-    public static List<Label> convertMapToXmlLabel(Map<String, String> values) {
+    public static List<Label> convertMapToLabel(Map<String, String> values) {
         if (values == null) {
             return null;
         }
         List<Label> res = new ArrayList<>();
-        for (Map.Entry<String,String> entry : values.entrySet()) {
+        for (Map.Entry<String, String> entry : values.entrySet()) {
             res.add(new Label(entry.getKey(), entry.getValue()));
         }
         return res;
     }
 
-    public static List<Label> convertMultilingualMapToXmlLabel(Map<String, List<String>> values) {
+    public static List<Label> convertMultilingualMapToLabel(Map<String, List<String>> values) {
         if (values == null) {
             return null;
         }
         List<Label> res = new ArrayList<>();
         for (Map.Entry<String, List<String>> entry : values.entrySet()) {
             List<String> entryValues = entry.getValue();
-           for (String entryValue : entryValues) {
+            for (String entryValue : entryValues) {
                 res.add(new Label(entry.getKey(), entryValue));
             }
         }
         return res;
     }
 
-    public static List<Label> convertListToXmlLabel(List<String> values) {
+    public static List<Label> convertListToLabel(List<String> values) {
         if (values == null) {
             return null;
         }
         List<Label> res = new ArrayList<>();
-        values.stream().forEach(value -> res.add(new Label(value)));
+        values.forEach(value -> res.add(new Label(value)));
         return res;
     }
 
-    public static List<Resource> convertListToXmlResource(List<String> values) {
+    public static List<Resource> convertListToResource(List<String> values) {
         if (values == null) {
             return null;
         }
         List<Resource> res = new ArrayList<>();
-        values.stream().forEach( value -> res.add(new Resource(value)));
+        values.forEach(value -> res.add(new Resource(value)));
         return res;
     }
 
-    public static List<LabelResource> convertMultilingualMapToXmlLabelResource(Map<String, List<String>> values) {
+    public static List<LabelResource> convertMultilingualMapToLabelResource(Map<String, List<String>> values) {
         if (values == null) {
             return null;
         }
         List<LabelResource> res = new ArrayList<>();
-        for (Map.Entry<String,List<String>> entry : values.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : values.entrySet()) {
             List<String> entryValues = entry.getValue();
             for (String entryValue : entryValues) {
                 res.add(new LabelResource(entry.getKey(), entryValue));
@@ -70,21 +74,21 @@ public class EntityXmlUtils {
         return res;
     }
 
-    public static List<LabelResource> convertListToXmlLabelResource(List<String> values) {
+    public static List<LabelResource> convertListToLabelResource(List<String> values) {
         if (values == null) {
             return null;
         }
         List<LabelResource> res = new ArrayList<>();
-        values.stream().forEach(value -> res.add(new LabelResource(value)));
+        values.forEach(value -> res.add(new LabelResource(value)));
         return res;
     }
 
-    public static List<Part> convertListToXmlPart(List<String> values) {
+    public static List<Part> convertListToPart(List<String> values) {
         if (values == null) {
             return null;
         }
         List<Part> res = new ArrayList<>();
-        values.stream().forEach(value -> res.add(new Part(value)));
+        values.forEach(value -> res.add(new Part(value)));
         return res;
     }
 

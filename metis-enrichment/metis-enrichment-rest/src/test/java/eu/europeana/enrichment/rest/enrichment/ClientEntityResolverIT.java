@@ -24,7 +24,7 @@ import org.mockito.Mockito;
 //  proper junit test will be added.
 // This is not a test we usually have in metis. It has to either be implemented with Wiremock or kept disable for the time being.
 @Disabled
-public class ClientEntityResolverIT {
+class ClientEntityResolverIT {
 
     private EntityResolver entityResolver;
 
@@ -34,7 +34,7 @@ public class ClientEntityResolverIT {
     }
 
     @Test
-    public void testResolveByText() {
+    void testResolveByText() {
         Set<SearchTerm> setToTest = new HashSet<>();
         setToTest.add(new SearchTermImpl("belgium", "en", Set.of(EntityType.PLACE)));
         setToTest.add(new SearchTermImpl("Paris", "en"));
@@ -49,7 +49,7 @@ public class ClientEntityResolverIT {
     }
 
     @Test
-    public void testResolveById() throws MalformedURLException {
+    void testResolveById() throws MalformedURLException {
         Set<ReferenceTerm> idTotest = new HashSet<>();
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/agent/75")));
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/organization/1482250000004477289")));
@@ -64,7 +64,7 @@ public class ClientEntityResolverIT {
     }
 
     @Test
-    public void testResolveByUri() throws MalformedURLException {
+    void testResolveByUri() throws MalformedURLException {
         Set<ReferenceTerm> uriTotest = new HashSet<>();
         uriTotest.add(new ReferenceTermImpl(new URL("http://viaf.org/viaf/invalid"), Set.of(EntityType.AGENT)));
         uriTotest.add(new ReferenceTermImpl(new URL("http://www.idref.fr/092255841/id")));
@@ -72,11 +72,11 @@ public class ClientEntityResolverIT {
         Map<ReferenceTerm, List<EnrichmentBase>> results = entityResolver.resolveByUri(uriTotest);
         Assertions.assertNotNull(results);
         // For invalidValue no entity will be found
-        Assertions.assertEquals(uriTotest.size()-1, results.size());
+        Assertions.assertEquals(uriTotest.size() - 1, results.size());
     }
 
     @Test
-    public void testParentEntityForResolveByID() throws MalformedURLException {
+    void testParentEntityForResolveByID() throws MalformedURLException {
         Set<ReferenceTerm> idTotest = new HashSet<>();
         idTotest.add(new ReferenceTermImpl(new URL("http://data.europeana.eu/place/176923")));
         Map<ReferenceTerm, EnrichmentBase> results = entityResolver.resolveById(idTotest);

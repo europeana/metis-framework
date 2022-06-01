@@ -1,8 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityXmlUtils;
-import eu.europeana.entitymanagement.definitions.model.Entity;
-
+import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -56,14 +54,15 @@ public abstract class AgentBase extends EnrichmentBase {
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
   private List<Part> sameAs = new ArrayList<>();
 
-  public AgentBase() {}
+  protected AgentBase() {
+  }
 
-  public AgentBase(eu.europeana.entitymanagement.definitions.model.Organization organization) {
+  protected AgentBase(eu.europeana.entitymanagement.definitions.model.Organization organization) {
     super(organization);
   }
 
   // Used for creating XML entity from EM model class
-  public AgentBase(eu.europeana.entitymanagement.definitions.model.Agent agent) {
+  protected AgentBase(eu.europeana.entitymanagement.definitions.model.Agent agent) {
     super(agent);
     init(agent);
   }
@@ -220,62 +219,63 @@ public abstract class AgentBase extends EnrichmentBase {
     this.sameAs = cloneListAcceptingNull(sameAs);
   }
 
-  private void init(eu.europeana.entitymanagement.definitions.model.Agent agent){
+  private void init(eu.europeana.entitymanagement.definitions.model.Agent agent) {
     if (agent.getHiddenLabel() != null) {
-      this.hiddenLabel = EntityXmlUtils.convertListToXmlLabel(agent.getHiddenLabel());
+      this.hiddenLabel = EntityValuesConverterUtils.convertListToLabel(agent.getHiddenLabel());
     }
     if (agent.getName() != null) {
-      this.name = EntityXmlUtils.convertMapToXmlLabel(agent.getName());
+      this.name = EntityValuesConverterUtils.convertMapToLabel(agent.getName());
     }
     if (agent.getBegin() != null) {
-      this.beginList = EntityXmlUtils.convertListToXmlLabel(agent.getBegin());
+      this.beginList = EntityValuesConverterUtils.convertListToLabel(agent.getBegin());
     }
     if (agent.getEnd() != null) {
-      this.endList = EntityXmlUtils.convertListToXmlLabel(agent.getEnd());
+      this.endList = EntityValuesConverterUtils.convertListToLabel(agent.getEnd());
     }
     if (agent.getIdentifier() != null) {
-      this.identifier = EntityXmlUtils.convertListToXmlLabel(agent.getIdentifier());
+      this.identifier = EntityValuesConverterUtils.convertListToLabel(agent.getIdentifier());
     }
     if (agent.getHasMet() != null) {
-      this.hasMet = EntityXmlUtils.convertListToXmlResource(agent.getHasMet());
+      this.hasMet = EntityValuesConverterUtils.convertListToResource(agent.getHasMet());
     }
     if (agent.getBiographicalInformation() != null) {
-      this.biographicalInformation = EntityXmlUtils.convertMultilingualMapToXmlLabelResource(agent.getBiographicalInformation());
+      this.biographicalInformation = EntityValuesConverterUtils.convertMultilingualMapToLabelResource(
+          agent.getBiographicalInformation());
     }
     if (agent.getPlaceOfBirth() != null) {
-      this.placeOfBirth = EntityXmlUtils.convertListToXmlLabelResource(agent.getPlaceOfBirth());
+      this.placeOfBirth = EntityValuesConverterUtils.convertListToLabelResource(agent.getPlaceOfBirth());
     }
     if (agent.getPlaceOfDeath() != null) {
-      this.placeOfDeath = EntityXmlUtils.convertListToXmlLabelResource(agent.getPlaceOfDeath());
+      this.placeOfDeath = EntityValuesConverterUtils.convertListToLabelResource(agent.getPlaceOfDeath());
     }
     if (agent.getDateOfBirth() != null) {
-      this.dateOfBirth = EntityXmlUtils.convertListToXmlLabel(agent.getDateOfBirth());
+      this.dateOfBirth = EntityValuesConverterUtils.convertListToLabel(agent.getDateOfBirth());
     }
     if (agent.getDateOfDeath() != null) {
-      this.dateOfDeath = EntityXmlUtils.convertListToXmlLabel(agent.getDateOfDeath());
+      this.dateOfDeath = EntityValuesConverterUtils.convertListToLabel(agent.getDateOfDeath());
     }
     if (agent.getDateOfEstablishment() != null) {
-      this.dateOfEstablishment = EntityXmlUtils.convertListToXmlLabel(agent.getDateOfEstablishment());
+      this.dateOfEstablishment = EntityValuesConverterUtils.convertListToLabel(agent.getDateOfEstablishment());
     }
     if (agent.getDateOfTermination() != null) {
-      this.dateOfTermination = EntityXmlUtils.convertListToXmlLabel(agent.getDateOfTermination());
+      this.dateOfTermination = EntityValuesConverterUtils.convertListToLabel(agent.getDateOfTermination());
     }
     if (agent.getGender() != null) {
-      this.gender = EntityXmlUtils.convertListToXmlLabel(agent.getGender());
+      this.gender = EntityValuesConverterUtils.convertListToLabel(agent.getGender());
     }
     if (agent.getProfessionOrOccupation() != null) {
-      this.professionOrOccupation = EntityXmlUtils.convertListToXmlLabelResource(agent.getProfessionOrOccupation());
+      this.professionOrOccupation = EntityValuesConverterUtils.convertListToLabelResource(agent.getProfessionOrOccupation());
     }
     if (agent.getDate() != null) {
-      this.date = EntityXmlUtils.convertListToXmlLabelResource(agent.getDate());
+      this.date = EntityValuesConverterUtils.convertListToLabelResource(agent.getDate());
     }
     if (agent.getIsRelatedTo() != null) {
-      this.isRelatedTo = EntityXmlUtils.convertListToXmlLabelResource(agent.getIsRelatedTo());
+      this.isRelatedTo = EntityValuesConverterUtils.convertListToLabelResource(agent.getIsRelatedTo());
     }
     if (agent.getWasPresentAt() != null) {
-      this.wasPresentAt = EntityXmlUtils.convertListToXmlResource(agent.getWasPresentAt());
+      this.wasPresentAt = EntityValuesConverterUtils.convertListToResource(agent.getWasPresentAt());
     }
 
-    this.sameAs = EntityXmlUtils.convertListToXmlPart(agent.getSameReferenceLinks());
+    this.sameAs = EntityValuesConverterUtils.convertListToPart(agent.getSameReferenceLinks());
   }
 }
