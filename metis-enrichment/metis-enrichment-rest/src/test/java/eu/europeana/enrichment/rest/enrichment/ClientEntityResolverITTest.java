@@ -1,32 +1,35 @@
 package eu.europeana.enrichment.rest.enrichment;
 
-import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.internal.*;
+import eu.europeana.enrichment.api.internal.EntityResolver;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.utils.EntityType;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 // TODO - This is a Integration Test. Once we have measured performance of the new implementation,
 //  proper junit test will be added.
 @Disabled
-public class EntityClientResolverITTest {
+public class ClientEntityResolverITTest {
 
     private EntityResolver entityResolver;
 
     @BeforeEach
-    void setup()  {
-        entityResolver = Mockito.spy(new EntityClientResolver( 2));
+    void setup() {
+        entityResolver = Mockito.spy(new ClientEntityResolver(2));
     }
 
     @Test

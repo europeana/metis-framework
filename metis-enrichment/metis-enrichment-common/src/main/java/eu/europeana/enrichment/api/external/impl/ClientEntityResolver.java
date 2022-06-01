@@ -2,7 +2,8 @@ package eu.europeana.enrichment.api.external.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.model.*;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentQuery;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -10,26 +11,29 @@ import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.entity.client.utils.EntityApiConstants;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
-
 import eu.europeana.entitymanagement.definitions.model.Entity;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * An entity resolver that works by accessing a service via Entity Client API and obtains entities from
- * Entity Management API
+ * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
  *
  * @author Srishti.singh@europeana.eu
  */
-public class EntityClientResolver implements EntityResolver {
+public class ClientEntityResolver implements EntityResolver {
 
-    private EntityClientApi entityClientApi;
+    private final EntityClientApi entityClientApi;
     private final int batchSize;
 
 
-    public EntityClientResolver(int batchSize) {
+    public ClientEntityResolver(int batchSize) {
         this.batchSize = batchSize;
         entityClientApi = new EntityClientApiImpl();
     }

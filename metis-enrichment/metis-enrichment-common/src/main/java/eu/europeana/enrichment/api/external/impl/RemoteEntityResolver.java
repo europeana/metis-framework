@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client.enrichment;
+package eu.europeana.enrichment.api.external.impl;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;

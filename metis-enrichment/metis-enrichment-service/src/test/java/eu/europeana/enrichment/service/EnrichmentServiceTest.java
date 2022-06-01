@@ -11,9 +11,9 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
-import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
+import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -31,32 +31,30 @@ import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class EnrichmentServiceTest {
 
   private static EnrichmentObjectUtils enrichmentObjectUtils;
-  private static PersistentEntityResolver persistentEntityResolver;
-  private static EntityClientResolver entityClientResolver;
+  private static EntityResolver entityResolver;
   private static EnrichmentService enrichmentService;
-
+  private static PersistentEntityResolver persistentEntityResolver;
+  private static EnrichmentService enrichmentServicePersistent;
 
   @BeforeAll
   static void prepare() {
     enrichmentObjectUtils = new EnrichmentObjectUtils();
-    persistentEntityResolver = mock(PersistentEntityResolver.class);
-    entityClientResolver = mock(EntityClientResolver.class);
-    enrichmentService = new EnrichmentService(persistentEntityResolver, entityClientResolver);
-  }
+    entityResolver = mock(EntityResolver.class);
+    enrichmentService = new EnrichmentService(entityResolver);
 
-  @BeforeEach
-  void setUp() {
+    persistentEntityResolver = mock(PersistentEntityResolver.class);
+    enrichmentServicePersistent = new EnrichmentService(persistentEntityResolver);
   }
 
   @AfterEach
   void tearDown() {
+    Mockito.reset(entityResolver);
     Mockito.reset(persistentEntityResolver);
   }
 
@@ -70,7 +68,7 @@ class EnrichmentServiceTest {
     assertNotNull(agentEnrichmentBase);
     final Map<SearchTerm, List<EnrichmentBase>> mockResultResolveByText = new HashMap<>();
     mockResultResolveByText.put(searchTerm, List.of(agentEnrichmentBase));
-    when(persistentEntityResolver.resolveByText(Set.of(searchTerm)))
+    when(entityResolver.resolveByText(Set.of(searchTerm)))
         .thenReturn(mockResultResolveByText);
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrappers = enrichmentService
         .enrichByEnrichmentSearchValues(List.of(searchValue));
@@ -80,7 +78,7 @@ class EnrichmentServiceTest {
     final EnrichmentBase enrichmentBase = enrichmentResultBaseWrappers.get(0)
         .getEnrichmentBaseList().get(0);
     assertEquals(agentEnrichmentBase.getAbout(), enrichmentBase.getAbout());
-    verify(persistentEntityResolver, times(1)).resolveByText(Set.of(searchTerm));
+    verify(entityResolver, times(1)).resolveByText(Set.of(searchTerm));
   }
 
   @Test
@@ -94,7 +92,7 @@ class EnrichmentServiceTest {
     assertNotNull(agentEnrichmentBase);
     final Map<ReferenceTerm, List<EnrichmentBase>> mockResultResolveByUri = new HashMap<>();
     mockResultResolveByUri.put(referenceTerm, List.of(agentEnrichmentBase));
-    when(persistentEntityResolver.resolveByUri(Set.of(referenceTerm)))
+    when(entityResolver.resolveByUri(Set.of(referenceTerm)))
         .thenReturn(mockResultResolveByUri);
     final List<EnrichmentBase> enrichmentBases = enrichmentService
         .enrichByEquivalenceValues(referenceValue);
@@ -102,7 +100,7 @@ class EnrichmentServiceTest {
     assertEquals(1, enrichmentBases.size());
     final EnrichmentBase enrichmentBase = enrichmentBases.get(0);
     assertEquals(agentEnrichmentBase.getAbout(), enrichmentBase.getAbout());
-    verify(persistentEntityResolver, times(1)).resolveByUri(Set.of(referenceTerm));
+    verify(entityResolver, times(1)).resolveByUri(Set.of(referenceTerm));
   }
 
   @Test
@@ -123,13 +121,13 @@ class EnrichmentServiceTest {
     assertNotNull(agentEnrichmentBase);
     final Map<ReferenceTerm, EnrichmentBase> mockResultResolveById = new HashMap<>();
     mockResultResolveById.put(referenceTerm, agentEnrichmentBase);
-    when(persistentEntityResolver.resolveById(Set.of(referenceTerm)))
+    when(entityResolver.resolveById(Set.of(referenceTerm)))
         .thenReturn(mockResultResolveById);
     final EnrichmentBase enrichmentBase = enrichmentService.enrichById(entityAbout);
 
     assertNotNull(enrichmentBase);
     assertEquals(agentEnrichmentBase.getAbout(), enrichmentBase.getAbout());
-    verify(persistentEntityResolver, times(1)).resolveById(Set.of(referenceTerm));
+    verify(entityResolver, times(1)).resolveById(Set.of(referenceTerm));
   }
 
   @Test
@@ -148,7 +146,7 @@ class EnrichmentServiceTest {
     final Date updated = new Date();
     when(persistentEntityResolver.saveOrganization(organizationEnrichmentEntity, created, updated))
         .thenReturn(organizationEnrichmentEntity);
-    final OrganizationEnrichmentEntity organizationEnrichmentEntityResult = enrichmentService
+    final OrganizationEnrichmentEntity organizationEnrichmentEntityResult = enrichmentServicePersistent
         .saveOrganization(organizationEnrichmentEntity, created, updated);
 
     assertNotNull(organizationEnrichmentEntityResult);
@@ -164,7 +162,7 @@ class EnrichmentServiceTest {
     when(persistentEntityResolver.findExistingOrganizations(toSearch)).thenReturn(
         List.of(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout(),
             enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout()));
-    final List<String> existingOrganizations = enrichmentService
+    final List<String> existingOrganizations = enrichmentServicePersistent
         .findExistingOrganizations(toSearch);
 
     assertNotNull(existingOrganizations);
@@ -182,7 +180,7 @@ class EnrichmentServiceTest {
     when(persistentEntityResolver.getOrganizationByUri(toSearch)).thenReturn(Optional
         .of((OrganizationEnrichmentEntity) enrichmentObjectUtils.organizationTerm1
             .getEnrichmentEntity()));
-    final Optional<OrganizationEnrichmentEntity> organizationByUri = enrichmentService
+    final Optional<OrganizationEnrichmentEntity> organizationByUri = enrichmentServicePersistent
         .getOrganizationByUri(toSearch);
 
     assertTrue(organizationByUri.isPresent());
@@ -195,7 +193,7 @@ class EnrichmentServiceTest {
     final List<String> toDelete = List
         .of(enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity().getAbout(),
             enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout());
-    enrichmentService.deleteOrganizations(toDelete);
+    enrichmentServicePersistent.deleteOrganizations(toDelete);
     verify(persistentEntityResolver, times(1)).deleteOrganizations(toDelete);
   }
 
@@ -203,7 +201,7 @@ class EnrichmentServiceTest {
   void deleteOrganization() {
     final String toDelete = enrichmentObjectUtils.organizationTerm1.getEnrichmentEntity()
         .getAbout();
-    enrichmentService.deleteOrganization(toDelete);
+    enrichmentServicePersistent.deleteOrganization(toDelete);
     verify(persistentEntityResolver, times(1)).deleteOrganization(toDelete);
   }
 
@@ -211,7 +209,7 @@ class EnrichmentServiceTest {
   void getDateOfLastUpdatedOrganization() {
     when(persistentEntityResolver.getDateOfLastUpdatedOrganization())
         .thenReturn(enrichmentObjectUtils.organizationTerm1.getUpdated());
-    final Date dateOfLastUpdatedOrganization = enrichmentService.getDateOfLastUpdatedOrganization();
+    final Date dateOfLastUpdatedOrganization = enrichmentServicePersistent.getDateOfLastUpdatedOrganization();
     verify(persistentEntityResolver, times(1)).getDateOfLastUpdatedOrganization();
     assertEquals(enrichmentObjectUtils.organizationTerm1.getUpdated(),
         dateOfLastUpdatedOrganization);

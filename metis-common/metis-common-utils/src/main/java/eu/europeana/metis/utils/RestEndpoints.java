@@ -76,12 +76,6 @@ public final class RestEndpoints {
   public static final String ENRICH_ENTITY_EQUIVALENCE = "/enrich/entity/equivalence";
   public static final String ENRICH_ENTITY_ID = "/enrich/entity/id";
 
-
-  /* ENTITY CLIENT ENRICHMENT Endpoint */
-  public static final String ENRICH_ENTITY_CLIENT_SEARCH = "/entity/enrich/search";
-  public static final String ENRICH_ENTITY_CLIENT_EQUIVALENCE = "/entity/enrich/equivalence";
-  public static final String ENRICH_ENTITY_CLIENT_ID = "/entity/enrich/id";
-
   /* METIS SCHEMA VALIDATION ENDPOINT */
   public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
   public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";

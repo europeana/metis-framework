@@ -10,3 +10,7 @@ enrichment.mongo.host=
 enrichment.mongo.database=
 enrichment.mongo.port=
 enrichment.mongo.application.name=
+
+enrichment.batch.size=
+#Options PERSISTENT, ENTITY_CLIENT. Defaults to PERSISTENT
+entity.resolver.type=

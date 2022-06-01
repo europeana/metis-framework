@@ -3,7 +3,8 @@ package eu.europeana.enrichment.rest.config;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.api.external.impl.EntityClientResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
+import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
@@ -25,7 +26,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
     "eu.europeana.enrichment.rest.exception"})
 @PropertySource("classpath:enrichment.properties")
 @EnableWebMvc
-public class Application implements  InitializingBean {
+public class Application implements InitializingBean {
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -51,6 +52,9 @@ public class Application implements  InitializingBean {
   @Value("${enrichment.batch.size}")
   private int enrichmentBatchSize;
 
+  @Value("${entity.resolver.type:PERSISTENT}")
+  private EntityResolverType entityResolverType;
+
   private MongoClient mongoClient;
 
   /**
@@ -65,7 +69,13 @@ public class Application implements  InitializingBean {
 
   @Bean
   EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
-    return new EnrichmentService(new PersistentEntityResolver(enrichmentDao), new EntityClientResolver(enrichmentBatchSize));
+    final EntityResolver entityResolver;
+    if (entityResolverType == EntityResolverType.PERSISTENT) {
+      entityResolver = new PersistentEntityResolver(enrichmentDao);
+    } else {
+      entityResolver = new ClientEntityResolver(enrichmentBatchSize);
+    }
+    return new EnrichmentService(entityResolver);
   }
 
   @Bean
