@@ -78,14 +78,15 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
             </exclusion>
+            <exclusion>
+              <groupId>org.slf4j</groupId>
+              <artifactId>jcl-over-slf4j</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
         </exclusions>
     </dependency>
-    <!-- Fixes DNS resolution issues on Apple Silicon  -->
-     <dependency>
-         <groupId>io.netty</groupId>
-         <artifactId>netty-resolver-dns-native-macos</artifactId>
-         <version>4.1.69.Final</version>
-         <classifier>osx-aarch_64</classifier>
-     </dependency>
   </dependencies>
 </project>
