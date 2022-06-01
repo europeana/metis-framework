@@ -1,14 +1,12 @@
-package eu.europeana.enrichment.rest.enrichment;
+package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentQuery;
-import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.entitymanagement.definitions.model.Agent;
 import eu.europeana.entitymanagement.definitions.model.Entity;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class EntityResolverUtilsTest {
 
