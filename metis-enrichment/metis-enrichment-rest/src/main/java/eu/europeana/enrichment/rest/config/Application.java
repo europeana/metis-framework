@@ -68,14 +68,19 @@ public class Application implements InitializingBean {
   }
 
   @Bean
-  EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
+  EnrichmentService getEnrichmentService(EntityResolver entityResolver) {
+    return new EnrichmentService(entityResolver);
+  }
+
+  @Bean
+  EntityResolver getEntityResolver(EnrichmentDao enrichmentDao) {
     final EntityResolver entityResolver;
     if (entityResolverType == EntityResolverType.PERSISTENT) {
       entityResolver = new PersistentEntityResolver(enrichmentDao);
     } else {
       entityResolver = new ClientEntityResolver(enrichmentBatchSize);
     }
-    return new EnrichmentService(entityResolver);
+    return entityResolver;
   }
 
   @Bean

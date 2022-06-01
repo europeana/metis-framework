@@ -24,14 +24,11 @@ import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -238,18 +235,6 @@ public final class Converter {
     output.setHasAddress(vcardAddresses);
 
     return output;
-  }
-
-  static EnrichmentTerm organizationImplToEnrichmentTerm(
-      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
-    final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);
-    enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
-    enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
-    enrichmentTerm.setUpdated(updated);
-    enrichmentTerm.setLabelInfos(createLabelInfoList(organizationEnrichmentEntity));
-
-    return enrichmentTerm;
   }
 
   /**
