@@ -49,7 +49,7 @@ public class Application implements InitializingBean {
   @Value("${enrichment.mongo.application.name}")
   private String enrichmentMongoApplicationName;
 
-  @Value("${enrichment.batch.size}")
+  @Value("${enrichment.batch.size:20}")
   private int enrichmentBatchSize;
 
   @Value("${entity.resolver.type:PERSISTENT}")
