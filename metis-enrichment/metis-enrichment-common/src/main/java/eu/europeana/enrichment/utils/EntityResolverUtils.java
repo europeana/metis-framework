@@ -28,7 +28,7 @@ public final class EntityResolverUtils {
   private EntityResolverUtils() {
   }
 
-  public static <I> List<List<I>> createBatch(Set<I> inputValues, int batchSize) {
+  public static <I> List<List<I>> splitInBatches(Set<I> inputValues, int batchSize) {
     final List<List<I>> batch = new ArrayList<>();
     batch.add(new ArrayList<>());
     inputValues.forEach(item -> {

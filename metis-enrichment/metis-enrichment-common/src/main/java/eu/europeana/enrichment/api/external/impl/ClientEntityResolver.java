@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.external.impl;
 
 import static java.lang.String.format;
+import static java.util.function.Predicate.not;
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,13 +17,18 @@ import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
@@ -68,11 +74,11 @@ public class ClientEntityResolver implements EntityResolver {
    */
   private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues) {
     final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    // create batches
-    final List<List<I>> batches = EntityResolverUtils.createBatch(inputValues, batchSize);
+    final List<List<I>> batches = EntityResolverUtils.splitInBatches(inputValues, batchSize);
 
     // Process batches
     for (List<I> batch : batches) {
+      // TODO: 02/06/2022 This is actually bypassing the batching..
       for (I batchItem : batch) {
         List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(batchItem);
         if (!enrichmentBaseList.isEmpty()) {
@@ -84,20 +90,11 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   private <I> List<EnrichmentBase> executeEntityClientRequest(I batchItem) {
-    // 1. get Entities
+    // get Entities
     List<Entity> entities = getEntities(batchItem);
     if (isNotEmpty(entities)) {
-      // 2. get the parent entities
-      List<Entity> parentEntities = new ArrayList<>();
-      entities.forEach(entity -> {
-        if (entity.getIsPartOfArray() != null && EntityResolverUtils.isSearchTermOrReferenceThatIsNotAEuropeanaEntity(
-            batchItem)) {
-          fetchParentEntities(entity, parentEntities);
-        }
-      });
-      // 3. add the parent entities
-      entities.addAll(parentEntities);
-      // 4. convert entity to EnrichmentBase
+      entities = extendEntitiesWithParents(entities);
+      // convert entity to EnrichmentBase
       List<EnrichmentBase> enrichmentBaseList = convertToEnrichmentBase(entities);
 
       EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(),
@@ -143,6 +140,7 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   private List<Entity> resolveReferences(ReferenceTerm referenceTerm) {
+    // TODO: 02/06/2022 This is valid(about then owlSameAs) but only for Uri search and not id search
     final String referenceValue = referenceTerm.getReference().toString();
     if (referenceValue.startsWith(EntityApiConstants.BASE_URL)) {
       Entity entity = entityClientApi.getEntityById(referenceValue);
@@ -157,28 +155,44 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Adds the parent Entities to parentEntities list
+   * Creates a copy list that is then extended with any parents found.
    *
-   * @param entity
-   * @param parentEntities
+   * @param entities the entities
+   * @return the extended entities
    */
-  private void fetchParentEntities(Entity entity, List<Entity> parentEntities) {
-    entity.getIsPartOfArray().forEach(parentEntityId -> {
-      if (!EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, parentEntities)) {
-        appendParent(parentEntityId, parentEntities);
-      }
-    });
+  // TODO: 02/06/2022 Add unit tests
+  private List<Entity> extendEntitiesWithParents(List<Entity> entities) {
+    //Copy list so that we can extend
+    final ArrayList<Entity> copyEntities = new ArrayList<>(entities);
+    return findParentEntitiesRecursive(copyEntities, copyEntities);
   }
 
-  private void appendParent(String parentEntityId, List<Entity> parentEntities) {
-    Entity parentEntity = entityClientApi.getEntityById(parentEntityId);
-    // parent entity should never be null here, but just in case
-    if (parentEntity != null) {
-      parentEntities.add(parentEntity);
+  /**
+   * Finds parent entities and extends recursively.
+   * <p>For each recursion it will, iterate over {@link Entity#getIsPartOfArray} bypassing blank values and entities already
+   * encountered. Each recursion will extended list if more parents have been found.
+   * </p>
+   *
+   * @param collectedEntities the collected entities
+   * @param children the children to check their parents for
+   * @return the extended list of entities
+   */
+  private List<Entity> findParentEntitiesRecursive(List<Entity> collectedEntities, List<Entity> children) {
+    List<Entity> parentEntities =
+        Stream.ofNullable(children).flatMap(Collection::stream)
+              .map(Entity::getIsPartOfArray).flatMap(Collection::stream)
+              .filter(StringUtils::isNotBlank)
+              .filter(not(parentEntityId -> EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, collectedEntities)))
+              .map(entityClientApi::getEntityById)
+              .filter(Objects::nonNull)
+              .collect(Collectors.toCollection(ArrayList::new));
+
+    if (CollectionUtils.isNotEmpty(parentEntities)) {
+      collectedEntities.addAll(parentEntities);
+      //Now check again parents of parents
+      findParentEntitiesRecursive(collectedEntities, parentEntities);
     }
-    if (parentEntity != null && parentEntity.getIsPartOfArray() != null) {
-      fetchParentEntities(parentEntity, parentEntities);
-    }
+    return collectedEntities;
   }
 
   /**

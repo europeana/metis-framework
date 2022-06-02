@@ -110,7 +110,7 @@ public class RemoteEntityResolver implements EntityResolver {
     }
 
     // Create batches
-    final List<List<I>> batches = EntityResolverUtils.createBatch(inputValues, batchSize);
+    final List<List<I>> batches = EntityResolverUtils.splitInBatches(inputValues, batchSize);
 
     // Process batches
     final Map<I, R> result = new HashMap<>();
