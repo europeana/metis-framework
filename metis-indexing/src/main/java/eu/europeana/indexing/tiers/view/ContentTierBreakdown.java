@@ -21,48 +21,33 @@ public class ContentTierBreakdown {
 
   /**
    * Constructor with required parameters.
-   *
-   * @param recordType the record media type
-   * @param licenseType the license type
-   * @param thumbnailAvailable the flag indicating if a thumbnails is available
-   * @param landingPageAvailable the flag indicating if a page is available
-   * @param mediaResource3DAvailable the flag indicating if there are any 3D media resource (non image and/or pdf) available
-   * @param embeddableMediaAvailable the flag indicating if embeddable media are available
-   * @param mediaResourceTechnicalMetadataList the list of media resource technical metadata
-   */
-  public ContentTierBreakdown(MediaType recordType, LicenseType licenseType, boolean thumbnailAvailable,
-                              boolean landingPageAvailable, boolean mediaResource3DAvailable, boolean embeddableMediaAvailable,
-                              List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList) {
-    this(recordType, licenseType, thumbnailAvailable, landingPageAvailable, mediaResource3DAvailable, embeddableMediaAvailable,
-        mediaResourceTechnicalMetadataList, null);
-  }
-
-  /**
-   * Constructor with required parameters.
    * <p>It creates a copy of the content tier breakdown extended with the processing errors list.</p>
    *
    * @param contentTierBreakdown the content tier breakdown
    * @param processingErrorsList the processing errors list
    */
   public ContentTierBreakdown(ContentTierBreakdown contentTierBreakdown, List<ProcessingError> processingErrorsList) {
-    this(contentTierBreakdown.getRecordType(), contentTierBreakdown.getLicenseType(), contentTierBreakdown.isThumbnailAvailable(),
-        contentTierBreakdown.isLandingPageAvailable(), contentTierBreakdown.isMediaResource3DAvailable(),
-        contentTierBreakdown.isEmbeddableMediaAvailable(), contentTierBreakdown.mediaResourceTechnicalMetadataList,
-        processingErrorsList);
+    this(new Builder()
+            .setRecordType(contentTierBreakdown.getRecordType())
+            .setLicenseType(contentTierBreakdown.getLicenseType())
+            .setThumbnailAvailable(contentTierBreakdown.isThumbnailAvailable())
+            .setLandingPageAvailable(contentTierBreakdown.isLandingPageAvailable())
+            .setMediaResource3DAvailable(contentTierBreakdown.isMediaResource3DAvailable())
+            .setEmbeddableMediaAvailable(contentTierBreakdown.isEmbeddableMediaAvailable())
+            .setMediaResourceTechnicalMetadataList(contentTierBreakdown.mediaResourceTechnicalMetadataList)
+            .setProcessingErrorsList(processingErrorsList));
   }
 
-  private ContentTierBreakdown(MediaType recordType, LicenseType licenseType, boolean thumbnailAvailable,
-                               boolean landingPageAvailable, boolean mediaResource3DAvailable, boolean embeddableMediaAvailable,
-                               List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList, List<ProcessingError> processingErrorsList) {
-    this.recordType = recordType;
-    this.licenseType = licenseType;
-    this.thumbnailAvailable = thumbnailAvailable;
-    this.landingPageAvailable = landingPageAvailable;
-    this.mediaResource3DAvailable = mediaResource3DAvailable;
-    this.embeddableMediaAvailable = embeddableMediaAvailable;
+  private ContentTierBreakdown(Builder builder) {
+    this.recordType = builder.recordType;
+    this.licenseType = builder.licenseType;
+    this.thumbnailAvailable = builder.thumbnailAvailable;
+    this.landingPageAvailable = builder.landingPageAvailable;
+    this.mediaResource3DAvailable = builder.mediaResource3DAvailable;
+    this.embeddableMediaAvailable = builder.embeddableMediaAvailable;
     this.mediaResourceTechnicalMetadataList =
-        mediaResourceTechnicalMetadataList == null ? new ArrayList<>() : new ArrayList<>(mediaResourceTechnicalMetadataList);
-    this.processingErrorsList = processingErrorsList == null ? new ArrayList<>() : new ArrayList<>(processingErrorsList);
+            builder.mediaResourceTechnicalMetadataList == null ? new ArrayList<>() : new ArrayList<>(builder.mediaResourceTechnicalMetadataList);
+    this.processingErrorsList = builder.processingErrorsList == null ? new ArrayList<>() : new ArrayList<>(builder.processingErrorsList);
   }
 
   public MediaType getRecordType() {
@@ -95,6 +80,64 @@ public class ContentTierBreakdown {
 
   public List<ProcessingError> getProcessingErrorsList() {
     return new ArrayList<>(processingErrorsList);
+  }
+
+  public static class Builder{
+    private MediaType recordType;
+    private LicenseType licenseType;
+    private boolean thumbnailAvailable;
+    private boolean landingPageAvailable;
+    private boolean mediaResource3DAvailable;
+    private boolean embeddableMediaAvailable;
+    private List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList;
+    private List<ProcessingError> processingErrorsList;
+
+    public Builder(){
+    }
+
+    public Builder setRecordType(MediaType recordType) {
+      this.recordType = recordType;
+      return this;
+    }
+
+    public Builder setLicenseType(LicenseType licenseType) {
+      this.licenseType = licenseType;
+      return this;
+    }
+
+    public Builder setThumbnailAvailable(boolean thumbnailAvailable) {
+      this.thumbnailAvailable = thumbnailAvailable;
+      return this;
+    }
+
+    public Builder setLandingPageAvailable(boolean landingPageAvailable) {
+      this.landingPageAvailable = landingPageAvailable;
+      return this;
+    }
+
+    public Builder setMediaResource3DAvailable(boolean mediaResource3DAvailable) {
+      this.mediaResource3DAvailable = mediaResource3DAvailable;
+      return this;
+    }
+
+    public Builder setEmbeddableMediaAvailable(boolean embeddableMediaAvailable) {
+      this.embeddableMediaAvailable = embeddableMediaAvailable;
+      return this;
+    }
+
+    public Builder setMediaResourceTechnicalMetadataList(List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList) {
+      this.mediaResourceTechnicalMetadataList = mediaResourceTechnicalMetadataList;
+      return this;
+    }
+
+    public Builder setProcessingErrorsList(List<ProcessingError> processingErrorsList) {
+      this.processingErrorsList = processingErrorsList;
+      return this;
+    }
+
+    public ContentTierBreakdown build(){
+      return new ContentTierBreakdown(this);
+    }
   }
 }
 

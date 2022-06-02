@@ -36,8 +36,14 @@ class ContentTierBreakdownTest {
     final List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList = List.of(
         mediaResourceTechnicalMetadata1, mediaResourceTechnicalMetadata2);
 
-    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(recordType, licenseType, thumbnailAvailable,
-        landingPageAvailable, false,embeddableMediaAvailable, mediaResourceTechnicalMetadataList);
+    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown.Builder()
+            .setRecordType(recordType)
+            .setLicenseType(licenseType)
+            .setThumbnailAvailable(thumbnailAvailable)
+            .setLandingPageAvailable(landingPageAvailable)
+            .setEmbeddableMediaAvailable(embeddableMediaAvailable)
+            .setMediaResourceTechnicalMetadataList(mediaResourceTechnicalMetadataList)
+            .build();
 
     assertEquals(recordType, contentTierBreakdown.getRecordType());
     assertEquals(licenseType, contentTierBreakdown.getLicenseType());

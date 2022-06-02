@@ -33,8 +33,9 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     // Look at the entity as a whole: we may classify without considering the web resources.
     final MediaTier entityTier = preClassifyEntity(entity);
     if (entityTier != null) {
-      return new TierClassification<>(entityTier, new ContentTierBreakdown(null, null, false,
-          false, false, false, Collections.emptyList()));
+      return new TierClassification<>(entityTier, new ContentTierBreakdown.Builder()
+                      .setMediaResourceTechnicalMetadataList(Collections.emptyList())
+                      .build());
     }
 
     // Find candidate web resources
@@ -65,8 +66,15 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     MediaType mediaTypeResult = getMediaType();
     boolean hasMediaResource3DAvailable = mediaTypeResult == MediaType.THREE_D && (mediaTier != MediaTier.T0 && mediaTier != MediaTier.T1);
 
-    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(mediaTypeResult, entityLicenseType, hasThumbnails,
-        hasLandingPage, hasMediaResource3DAvailable,hasEmbeddableMedia, mediaResourceTechnicalMetadataList);
+    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown.Builder()
+            .setRecordType(mediaTypeResult)
+            .setLicenseType(entityLicenseType)
+            .setThumbnailAvailable(hasThumbnails)
+            .setLandingPageAvailable(hasLandingPage)
+            .setMediaResource3DAvailable(hasMediaResource3DAvailable)
+            .setEmbeddableMediaAvailable(hasEmbeddableMedia)
+            .setMediaResourceTechnicalMetadataList(mediaResourceTechnicalMetadataList).build();
+
     return new TierClassification<>(mediaTier, contentTierBreakdown);
   }
 
