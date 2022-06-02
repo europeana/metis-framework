@@ -1,9 +1,11 @@
 package eu.europeana.enrichment.api.external.impl;
 
+import static java.lang.String.format;
+import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentQuery;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -18,8 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
@@ -27,6 +30,8 @@ import java.util.stream.Collectors;
  * @author Srishti.singh@europeana.eu
  */
 public class ClientEntityResolver implements EntityResolver {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(ClientEntityResolver.class);
 
   private final EntityClientApi entityClientApi;
   private final int batchSize;
@@ -39,20 +44,17 @@ public class ClientEntityResolver implements EntityResolver {
 
   @Override
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
-    final Function<T, EnrichmentQuery> inputFunction = EntityResolverUtils.createEnrichmentQueryForTextSearch();
-    return performInBatches(searchTerms, inputFunction);
+    return performInBatches(searchTerms);
   }
 
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
-    final Function<T, EnrichmentQuery> inputFunction = EntityResolverUtils.createEnrichmentQueryForRefSearch();
-    return EntityResolverUtils.pickFirstFromTheList(performInBatches(referenceTerms, inputFunction));
+    return EntityResolverUtils.pickFirstFromTheList(performInBatches(referenceTerms));
   }
 
   @Override
   public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
-    final Function<T, EnrichmentQuery> inputFunction = EntityResolverUtils.createEnrichmentQueryForRefSearch();
-    return performInBatches(referenceTerms, inputFunction);
+    return performInBatches(referenceTerms);
   }
 
   /**
@@ -63,32 +65,32 @@ public class ClientEntityResolver implements EntityResolver {
    * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
    * @return
    */
-  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, Function<I, EnrichmentQuery> requestParser) {
+  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues) {
     final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    // create partitions
-    final List<List<I>> partitions = EntityResolverUtils.createBatch(inputValues, batchSize);
+    // create batches
+    final List<List<I>> batches = EntityResolverUtils.createBatch(inputValues, batchSize);
 
-    // Process partitions
-    for (List<I> partition : partitions) {
-      for (I input : partition) {
-        EnrichmentQuery clientRequest = requestParser.apply(input);
-        List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(clientRequest);
+    // Process batches
+    for (List<I> batch : batches) {
+      for (I batchItem : batch) {
+        List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(batchItem);
         if (!enrichmentBaseList.isEmpty()) {
-          result.put(input, enrichmentBaseList);
+          result.put(batchItem, enrichmentBaseList);
         }
       }
     }
     return result;
   }
 
-  private List<EnrichmentBase> executeEntityClientRequest(EnrichmentQuery clientRequest) {
+  private <I> List<EnrichmentBase> executeEntityClientRequest(I batchItem) {
     // 1. get Entities
-    List<Entity> entities = getEntities(clientRequest);
-    if (!entities.isEmpty()) {
+    List<Entity> entities = getEntities(batchItem);
+    if (isNotEmpty(entities)) {
       // 2. get the parent entities
       List<Entity> parentEntities = new ArrayList<>();
-      entities.stream().forEach(entity -> {
-        if (entity.getIsPartOfArray() != null && EntityResolverUtils.isTextOrUriSearch(clientRequest)) {
+      entities.forEach(entity -> {
+        if (entity.getIsPartOfArray() != null && EntityResolverUtils.isSearchTermOrReferenceThatIsNotAEuropeanaEntity(
+            batchItem)) {
           fetchParentEntities(entity, parentEntities);
         }
       });
@@ -104,40 +106,51 @@ public class ClientEntityResolver implements EntityResolver {
     return Collections.emptyList();
   }
 
+  private <I> List<Entity> getEntities(I batchItem) {
+    if (batchItem instanceof ReferenceTerm) {
+      return resolveReferences((ReferenceTerm) batchItem);
+    } else {
+      return resolveTextSearch((SearchTerm) batchItem);
+    }
+  }
 
-  private List<Entity> getEntities(EnrichmentQuery entityClientRequest) {
+  private List<Entity> resolveTextSearch(SearchTerm searchTerm) {
+    final String entityTypesConcatenated = searchTerm.getCandidateTypes().stream()
+                                                     .map(entityType -> entityType.name().toLowerCase())
+                                                     .collect(Collectors.joining(","));
+    final List<Entity> entities;
     try {
-      if (entityClientRequest.isReference()) {
-        return resolveReferences(entityClientRequest);
-      } else {
-        // if the enrich method returns more than 1 entity, then no enrichment should be (for now) considered.
-        // It works as if no entity was returned. The reason for this is that Metis does not have a disambiguation
-        // mechanism in place that can judge which entity should be chosen out of the list of options.
-        List<Entity> entities = entityClientApi.getEnrichment(entityClientRequest.getValueToEnrich(),
-            entityClientRequest.getLanguage(), entityClientRequest.getType(), null);
-        if (entities.size() == 1) {
-          return entities;
-        }
-      }
+      entities = entityClientApi.getEnrichment(searchTerm.getTextValue(), searchTerm.getLanguage(),
+          entityTypesConcatenated, null);
     } catch (JsonProcessingException e) {
+      // TODO: 02/06/2022 Check if exception should be thrown or bypassed
       throw new UnknownException(
-          "Entity Client call to " + (entityClientRequest.isReference() ? "getEntityByUri" : "getSuggestions")
-              + " failed for" + entityClientRequest + ".", e);
-    } catch (RuntimeException e) {
-      throw new UnknownException("Entity Client call failed for : " + entityClientRequest + ".", e);
+          format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
+              searchTerm.getLanguage(), entityTypesConcatenated), e);
+    }
+    // TODO: 02/06/2022 This check is valid if the entities that are returned do not contain any parent entities.
+    // According to the intended implementation the parents are fetched here(remotely).
+    // If the parent fetching is moved to the Entity API application then this check will not be valid anymore.
+
+    // if the enrich method returns more than 1 entity, then no enrichment should be (for now) considered.
+    // It works as if no entity was returned. The reason for this is that Metis does not have a disambiguation
+    // mechanism in place that can judge which entity should be chosen out of the list of options.
+    if (entities.size() == 1) {
+      return entities;
     }
     return Collections.emptyList();
   }
 
-  private List<Entity> resolveReferences(EnrichmentQuery entityClientRequest) {
-    if (entityClientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL)) {
-      Entity entity = entityClientApi.getEntityById(entityClientRequest.getValueToEnrich());
+  private List<Entity> resolveReferences(ReferenceTerm referenceTerm) {
+    final String referenceValue = referenceTerm.getReference().toString();
+    if (referenceValue.startsWith(EntityApiConstants.BASE_URL)) {
+      Entity entity = entityClientApi.getEntityById(referenceValue);
       if (entity != null) {
         // create a mutable list, as we might add parent entities later
         return new ArrayList<>(List.of(entity));
       }
     } else {
-      return entityClientApi.getEntityByUri(entityClientRequest.getValueToEnrich());
+      return entityClientApi.getEntityByUri(referenceValue);
     }
     return Collections.emptyList();
   }
@@ -149,7 +162,7 @@ public class ClientEntityResolver implements EntityResolver {
    * @param parentEntities
    */
   private void fetchParentEntities(Entity entity, List<Entity> parentEntities) {
-    entity.getIsPartOfArray().stream().forEach(parentEntityId -> {
+    entity.getIsPartOfArray().forEach(parentEntityId -> {
       if (!EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, parentEntities)) {
         appendParent(parentEntityId, parentEntities);
       }

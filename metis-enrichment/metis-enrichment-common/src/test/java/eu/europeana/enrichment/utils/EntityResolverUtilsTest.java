@@ -1,40 +1,44 @@
 package eu.europeana.enrichment.utils;
 
+import static java.util.Collections.singleton;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentQuery;
+import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
+import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.entitymanagement.definitions.model.Agent;
 import eu.europeana.entitymanagement.definitions.model.Entity;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class EntityResolverUtilsTest {
 
-    @Test
-    void testCheckIfEntityAlreadyExists() {
-        List<Entity> entityList = new ArrayList<>();
-        Entity agent = new Agent();
-        agent.setAbout("http://data.europeana.eu/agent/456");
-        entityList.add(agent);
+  @Test
+  void testCheckIfEntityAlreadyExists() {
+    List<Entity> entityList = new ArrayList<>();
+    Entity agent = new Agent();
+    agent.setAbout("http://data.europeana.eu/agent/456");
+    entityList.add(agent);
 
-        assertFalse(EntityResolverUtils.checkIfEntityAlreadyExists(
-            "http://data.europeana.eu/agent/123", entityList));
+    assertFalse(EntityResolverUtils.checkIfEntityAlreadyExists(
+        "http://data.europeana.eu/agent/123", entityList));
 
-        assertTrue(EntityResolverUtils.checkIfEntityAlreadyExists(
-            "http://data.europeana.eu/agent/456", entityList));
-    }
+    assertTrue(EntityResolverUtils.checkIfEntityAlreadyExists(
+        "http://data.europeana.eu/agent/456", entityList));
+  }
 
-    @Test
-    void testIsTextOrUriSearch() {
-        assertTrue(EntityResolverUtils.isTextOrUriSearch
-                                          (new EnrichmentQuery("paris", "en", "Agent", false)));
+  @Test
+  void isSearchTermOrReferenceThatIsNotAEuropeanaEntity() throws MalformedURLException {
+    assertTrue(EntityResolverUtils.isSearchTermOrReferenceThatIsNotAEuropeanaEntity(
+        new SearchTermImpl("paris", "en", singleton(EntityType.AGENT))));
 
-        assertTrue(EntityResolverUtils.isTextOrUriSearch
-                                          (new EnrichmentQuery("https://viaf_test_uri", "place", true)));
+    assertTrue(EntityResolverUtils.isSearchTermOrReferenceThatIsNotAEuropeanaEntity(
+        new ReferenceTermImpl(new URL("https://viaf_test_uri"), singleton(EntityType.AGENT))));
 
-        assertFalse(EntityResolverUtils.isTextOrUriSearch
-                                           (new EnrichmentQuery("http://data.europeana.eu/place/456", null, true)));
-    }
+    assertFalse(EntityResolverUtils.isSearchTermOrReferenceThatIsNotAEuropeanaEntity(
+        new ReferenceTermImpl(new URL("http://data.europeana.eu/place/456"), singleton(EntityType.AGENT))));
+  }
 }

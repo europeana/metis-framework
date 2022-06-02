@@ -4,7 +4,6 @@ import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentQuery;
 import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
@@ -18,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * EntityClientResolver util class
@@ -43,20 +40,6 @@ public final class EntityResolverUtils {
       currentPartition.add(item);
     });
     return batch;
-  }
-
-  public static <T extends SearchTerm> Function<T, EnrichmentQuery> createEnrichmentQueryForTextSearch() {
-    return term -> new EnrichmentQuery(term.getTextValue(), term.getLanguage(),
-        term.getCandidateTypes().stream()
-            .map(entityType -> entityType.name().toLowerCase())
-            .collect(Collectors.joining(",")), false);
-  }
-
-  public static <T extends ReferenceTerm> Function<T, EnrichmentQuery> createEnrichmentQueryForRefSearch() {
-    return term -> new EnrichmentQuery(term.getReference().toString(),
-        term.getCandidateTypes().stream()
-            .map(entityType -> entityType.name().toLowerCase())
-            .collect(Collectors.joining(",")), true);
   }
 
   /**
@@ -112,13 +95,8 @@ public final class EntityResolverUtils {
     return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
-  /**
-   * Returns true if the Request is Text search or Uri search
-   *
-   * @param clientRequest
-   * @return
-   */
-  public static boolean isTextOrUriSearch(EnrichmentQuery clientRequest) {
-    return !clientRequest.isReference() || !clientRequest.getValueToEnrich().startsWith(EntityApiConstants.BASE_URL);
+  public static <I> boolean isSearchTermOrReferenceThatIsNotAEuropeanaEntity(I batchItem) {
+    return batchItem instanceof SearchTerm || !((ReferenceTerm) batchItem).getReference().toString()
+                                                                          .startsWith(EntityApiConstants.BASE_URL);
   }
 }
