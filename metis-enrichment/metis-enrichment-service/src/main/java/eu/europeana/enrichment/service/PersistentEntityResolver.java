@@ -7,9 +7,8 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,25 +31,11 @@ import org.slf4j.LoggerFactory;
 public class PersistentEntityResolver implements EntityResolver {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PersistentEntityResolver.class);
-  private static final Set<String> ALL_2CODE_LANGUAGES;
-  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES;
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
-  public static final int THREE_CHARACTER_LANGUAGE_LENGTH = 3;
-  public static final int TWO_CHARACTER_LANGUAGE_LENGTH = 2;
-
-  static {
-    HashSet<String> all2CodeLanguages = new HashSet<>();
-    Map<String, String> all3CodeLanguages = new HashMap<>();
-    Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
-      all2CodeLanguages.add(locale.getLanguage());
-      all3CodeLanguages.put(locale.getISO3Language(), locale.getLanguage());
-    });
-    ALL_2CODE_LANGUAGES = Collections.unmodifiableSet(all2CodeLanguages);
-    ALL_3CODE_TO_2CODE_LANGUAGES = Collections.unmodifiableMap(all3CodeLanguages);
-  }
 
   private final EnrichmentDao enrichmentDao;
+  private final LanguageCodeConverter languageCodeConverter;
 
   /**
    * Constructor with the persistence dao parameter.
@@ -59,6 +44,7 @@ public class PersistentEntityResolver implements EntityResolver {
    */
   public PersistentEntityResolver(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
+    languageCodeConverter = new LanguageCodeConverter();
   }
 
   @Override
@@ -137,17 +123,7 @@ public class PersistentEntityResolver implements EntityResolver {
     if (!StringUtils.isBlank(value)) {
       final Set<EntityType> entityTypes = searchTerm.getCandidateTypes();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
-      final String inputValueLanguage = searchTerm.getLanguage();
-      final String language;
-      if (inputValueLanguage != null
-          && inputValueLanguage.length() == THREE_CHARACTER_LANGUAGE_LENGTH) {
-        language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage);
-      } else if (inputValueLanguage != null
-          && inputValueLanguage.length() == TWO_CHARACTER_LANGUAGE_LENGTH) {
-        language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
-      } else {
-        language = null;
-      }
+      final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
 
       if (CollectionUtils.isEmpty(entityTypes)) {
         searchTermListMap.put(searchTerm, findEnrichmentTerms(null, value, language));

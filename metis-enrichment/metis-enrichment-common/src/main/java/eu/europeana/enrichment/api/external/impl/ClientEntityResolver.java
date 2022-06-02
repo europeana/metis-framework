@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EntityResolverUtils;
+import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.utils.EntityApiConstants;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
@@ -18,11 +19,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
@@ -31,13 +31,14 @@ import org.slf4j.LoggerFactory;
  */
 public class ClientEntityResolver implements EntityResolver {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ClientEntityResolver.class);
+  private final LanguageCodeConverter languageCodeConverter;
+  private final int batchSize;
 
   private final EntityClientApi entityClientApi;
-  private final int batchSize;
 
 
   public ClientEntityResolver(int batchSize) {
+    languageCodeConverter = new LanguageCodeConverter();
     this.batchSize = batchSize;
     entityClientApi = new EntityClientApiImpl();
   }
@@ -116,12 +117,12 @@ public class ClientEntityResolver implements EntityResolver {
 
   private List<Entity> resolveTextSearch(SearchTerm searchTerm) {
     final String entityTypesConcatenated = searchTerm.getCandidateTypes().stream()
-                                                     .map(entityType -> entityType.name().toLowerCase())
+                                                     .map(entityType -> entityType.name().toLowerCase(Locale.US))
                                                      .collect(Collectors.joining(","));
+    final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
     final List<Entity> entities;
     try {
-      entities = entityClientApi.getEnrichment(searchTerm.getTextValue(), searchTerm.getLanguage(),
-          entityTypesConcatenated, null);
+      entities = entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null);
     } catch (JsonProcessingException e) {
       // TODO: 02/06/2022 Check if exception should be thrown or bypassed
       throw new UnknownException(
