@@ -92,7 +92,11 @@ public class ContentTierBreakdown {
     private List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList;
     private List<ProcessingError> processingErrorsList;
 
+    /**
+     * Constructor of the object's builder
+     */
     public Builder(){
+      //There are no mandatory values
     }
 
     public Builder setRecordType(MediaType recordType) {
@@ -126,15 +130,19 @@ public class ContentTierBreakdown {
     }
 
     public Builder setMediaResourceTechnicalMetadataList(List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList) {
-      this.mediaResourceTechnicalMetadataList = mediaResourceTechnicalMetadataList;
+      this.mediaResourceTechnicalMetadataList = mediaResourceTechnicalMetadataList == null ? new ArrayList<>() : new ArrayList<>(mediaResourceTechnicalMetadataList);
       return this;
     }
 
     public Builder setProcessingErrorsList(List<ProcessingError> processingErrorsList) {
-      this.processingErrorsList = processingErrorsList;
+      this.processingErrorsList = processingErrorsList == null ? new ArrayList<>() : new ArrayList<>(processingErrorsList);
       return this;
     }
 
+    /**
+     * Creates a new ContentTierBreakdown object based on the values that were set from the builder
+     * @return A new instance of ContentTierBreakdown object
+     */
     public ContentTierBreakdown build(){
       return new ContentTierBreakdown(this);
     }
