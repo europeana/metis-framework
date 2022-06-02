@@ -49,7 +49,7 @@ class RecordTierCalculationViewTest {
                 .setLicenseType(LicenseType.OPEN)
                 .setThumbnailAvailable(true)
                 .setLandingPageAvailable(true)
-                .setMediaResource3DAvailable(false)
+                .setMediaResource3DAvailable(true)
                 .setEmbeddableMediaAvailable(true)
                 .setMediaResourceTechnicalMetadataList(Collections.singletonList(mediaResourceTechnicalMetadata))
                 .build(),

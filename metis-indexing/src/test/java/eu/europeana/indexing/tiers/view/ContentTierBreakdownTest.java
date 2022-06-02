@@ -22,6 +22,7 @@ class ContentTierBreakdownTest {
     final LicenseType licenseType = LicenseType.OPEN;
     final boolean thumbnailAvailable = true;
     final boolean landingPageAvailable = true;
+    final boolean mediaResource3DAvailable = true;
     final boolean embeddableMediaAvailable = true;
     final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata1 = new MediaResourceTechnicalMetadataBuilder(
         new ResolutionTierMetadataBuilder().build()).setResourceUrl("resourceUrl").setMediaType(MediaType.IMAGE)
@@ -41,6 +42,7 @@ class ContentTierBreakdownTest {
             .setLicenseType(licenseType)
             .setThumbnailAvailable(thumbnailAvailable)
             .setLandingPageAvailable(landingPageAvailable)
+            .setMediaResource3DAvailable(mediaResource3DAvailable)
             .setEmbeddableMediaAvailable(embeddableMediaAvailable)
             .setMediaResourceTechnicalMetadataList(mediaResourceTechnicalMetadataList)
             .build();
@@ -49,6 +51,7 @@ class ContentTierBreakdownTest {
     assertEquals(licenseType, contentTierBreakdown.getLicenseType());
     assertEquals(thumbnailAvailable, contentTierBreakdown.isThumbnailAvailable());
     assertEquals(landingPageAvailable, contentTierBreakdown.isLandingPageAvailable());
+    assertEquals(mediaResource3DAvailable, contentTierBreakdown.isMediaResource3DAvailable());
     assertEquals(embeddableMediaAvailable, contentTierBreakdown.isEmbeddableMediaAvailable());
     assertNotSame(mediaResourceTechnicalMetadataList, contentTierBreakdown.getMediaResourceTechnicalMetadataList());
     assertTrue(CollectionUtils.isEqualCollection(mediaResourceTechnicalMetadataList,
@@ -67,6 +70,7 @@ class ContentTierBreakdownTest {
     assertEquals(licenseType, contentTierBreakdown.getLicenseType());
     assertEquals(thumbnailAvailable, contentTierBreakdown.isThumbnailAvailable());
     assertEquals(landingPageAvailable, contentTierBreakdown.isLandingPageAvailable());
+    assertEquals(mediaResource3DAvailable, contentTierBreakdown.isMediaResource3DAvailable());
     assertEquals(embeddableMediaAvailable, contentTierBreakdown.isEmbeddableMediaAvailable());
     assertNotSame(mediaResourceTechnicalMetadataList, contentTierBreakdown.getMediaResourceTechnicalMetadataList());
     assertTrue(CollectionUtils.isEqualCollection(mediaResourceTechnicalMetadataList,
