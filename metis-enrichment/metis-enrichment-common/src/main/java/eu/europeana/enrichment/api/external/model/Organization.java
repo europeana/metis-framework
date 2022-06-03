@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
+import eu.europeana.enrichment.utils.EntityValuesConverter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -139,10 +139,10 @@ public class Organization extends AgentBase {
       this.homepage = new Resource(organization.getHomepage());
     }
     if (organization.getDescription() != null) {
-      this.descriptions = EntityValuesConverterUtils.convertMapToLabel(organization.getDescription());
+      this.descriptions = EntityValuesConverter.convertMapToLabels(organization.getDescription());
     }
     if (organization.getAcronym() != null) {
-      this.acronyms = EntityValuesConverterUtils.convertMultilingualMapToLabel(organization.getAcronym());
+      this.acronyms = EntityValuesConverter.convertMultilingualMapToLabel(organization.getAcronym());
     }
     if (organization.getLogo() != null) {
       this.logo = new Resource(organization.getLogo().getId());
@@ -157,22 +157,22 @@ public class Organization extends AgentBase {
       this.mbox = String.valueOf(organization.getMbox());
     }
     if (organization.getAddress() != null) {
-      VcardAddresses addresses = EntityValuesConverterUtils.getVcardAddresses(organization.getAddress());
+      VcardAddresses addresses = EntityValuesConverter.getVcardAddresses(organization.getAddress());
       if (addresses !=null) {
-        this.hasAddress = EntityValuesConverterUtils.getVcardAddresses(organization.getAddress());
+        this.hasAddress = EntityValuesConverter.getVcardAddresses(organization.getAddress());
       }
     }
     if (organization.getHiddenLabel() != null) {
-      setHiddenLabel(EntityValuesConverterUtils.convertListToLabel(organization.getHiddenLabel()));
+      setHiddenLabel(EntityValuesConverter.convertListToLabel(organization.getHiddenLabel()));
     }
     if(organization.getSameReferenceLinks() != null) {
-      setSameAs(EntityValuesConverterUtils.convertListToPart(organization.getSameReferenceLinks()));
+      setSameAs(EntityValuesConverter.convertListToPart(organization.getSameReferenceLinks()));
     }
     if (organization.getIdentifier() != null) {
-      setIdentifier(EntityValuesConverterUtils.convertListToLabel(organization.getIdentifier()));
+      setIdentifier(EntityValuesConverter.convertListToLabel(organization.getIdentifier()));
     }
     if (organization.getIsRelatedTo() != null) {
-      setIsRelatedTo(EntityValuesConverterUtils.convertListToLabelResource(organization.getIsRelatedTo()));
+      setIsRelatedTo(EntityValuesConverter.convertListToLabelResource(organization.getIsRelatedTo()));
     }
   }
 }

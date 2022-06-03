@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
+import eu.europeana.enrichment.utils.EntityValuesConverter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -96,13 +96,13 @@ public class TimeSpan extends EnrichmentBase {
 
   private void init(eu.europeana.entitymanagement.definitions.model.TimeSpan timeSpan) {
     if (timeSpan.getIsPartOfArray() != null) {
-      this.isPartOf = EntityValuesConverterUtils.convertListToLabelResource(timeSpan.getIsPartOfArray());
+      this.isPartOf = EntityValuesConverter.convertListToLabelResource(timeSpan.getIsPartOfArray());
     }
     if (timeSpan.getHasPart() != null) {
-      this.hasPartsList = EntityValuesConverterUtils.convertListToLabelResource(timeSpan.getHasPart());
+      this.hasPartsList = EntityValuesConverter.convertListToLabelResource(timeSpan.getHasPart());
     }
     if (timeSpan.getSameReferenceLinks() != null) {
-      this.sameAs = EntityValuesConverterUtils.convertListToPart(timeSpan.getSameReferenceLinks());
+      this.sameAs = EntityValuesConverter.convertListToPart(timeSpan.getSameReferenceLinks());
     }
     if (timeSpan.getBeginString() != null) {
       this.begin = new Label(timeSpan.getBeginString());
@@ -111,7 +111,7 @@ public class TimeSpan extends EnrichmentBase {
       this.end = new Label(timeSpan.getEndString());
     }
     if (timeSpan.getHiddenLabel() != null) {
-      this.hiddenLabel = EntityValuesConverterUtils.convertListToLabel(timeSpan.getHiddenLabel());
+      this.hiddenLabel = EntityValuesConverter.convertListToLabel(timeSpan.getHiddenLabel());
     }
     if (timeSpan.getIsNextInSequence() != null) {
       this.isNextInSequence = new Part(timeSpan.getIsNextInSequence().get(0));

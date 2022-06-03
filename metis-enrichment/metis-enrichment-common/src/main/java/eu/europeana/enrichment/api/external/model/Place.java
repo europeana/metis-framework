@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
+import eu.europeana.enrichment.utils.EntityValuesConverter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -87,13 +87,13 @@ public class Place extends EnrichmentBase {
 
   private void init(eu.europeana.entitymanagement.definitions.model.Place place) {
     if (place.getIsPartOfArray() != null) {
-      this.isPartOf = EntityValuesConverterUtils.convertListToLabelResource(place.getIsPartOfArray());
+      this.isPartOf = EntityValuesConverter.convertListToLabelResource(place.getIsPartOfArray());
     }
     if (place.getHasPart() != null) {
-      this.hasPartsList = EntityValuesConverterUtils.convertListToLabelResource(place.getHasPart());
+      this.hasPartsList = EntityValuesConverter.convertListToLabelResource(place.getHasPart());
     }
     if (place.getSameReferenceLinks() != null) {
-      this.sameAs = EntityValuesConverterUtils.convertListToPart(place.getSameReferenceLinks());
+      this.sameAs = EntityValuesConverter.convertListToPart(place.getSameReferenceLinks());
     }
     if (place.getLatitude() != null) {
       this.lat = String.valueOf(place.getLatitude());

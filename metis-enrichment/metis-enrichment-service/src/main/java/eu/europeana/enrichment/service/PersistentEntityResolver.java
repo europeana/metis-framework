@@ -6,6 +6,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.enrichment.service.utils.EnrichmentTermsToEnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import java.util.ArrayList;
@@ -160,12 +161,13 @@ public class PersistentEntityResolver implements EntityResolver {
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
         .getAllEnrichmentTermsByFields(fieldNameMap);
     final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
-        .map(this::findParentEntities).flatMap(List::stream).collect(Collectors.toList());
+                                                                      .map(this::findParentEntities).flatMap(List::stream)
+                                                                      .collect(Collectors.toList());
 
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     //Convert to EnrichmentBases
-    enrichmentBases.addAll(Converter.convert(enrichmentTerms));
-    enrichmentBases.addAll(Converter.convert(parentEnrichmentTerms));
+    enrichmentBases.addAll(EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentTerms));
+    enrichmentBases.addAll(EnrichmentTermsToEnrichmentBaseConverter.convert(parentEnrichmentTerms));
 
     return enrichmentBases;
   }
@@ -222,7 +224,7 @@ public class PersistentEntityResolver implements EntityResolver {
   private List<EnrichmentBase> getEnrichmentTermsAndConvert(
       List<Pair<String, String>> fieldNamesAndValues) {
     final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
-    return Converter.convert(enrichmentTerms);
+    return EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentTerms);
   }
 
   private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {

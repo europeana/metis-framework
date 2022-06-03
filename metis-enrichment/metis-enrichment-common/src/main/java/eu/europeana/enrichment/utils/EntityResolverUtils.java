@@ -1,16 +1,10 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Organization;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.entity.client.utils.EntityApiConstants;
 import eu.europeana.entitymanagement.definitions.model.Entity;
-import eu.europeana.entitymanagement.vocabulary.EntityTypes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,29 +46,6 @@ public final class EntityResolverUtils {
     Map<T, EnrichmentBase> finalValues = new HashMap<>();
     results.forEach((key, value) -> finalValues.put(key, value.stream().findFirst().orElse(null)));
     return finalValues;
-  }
-
-  /**
-   * Converts the EM model class to Metis EnrichmentBase
-   *
-   * @param entity EM Entity
-   * @param <T> class that extends EnrichmentBase
-   * @return
-   */
-  public static EnrichmentBase convertEntityToEnrichmentBase(Entity entity) {
-    switch (EntityTypes.valueOf(entity.getType())) {
-      case Agent:
-        return new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
-      case Place:
-        return new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
-      case Concept:
-        return new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
-      case TimeSpan:
-        return new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
-      case Organization:
-        return new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
-    }
-    return null;
   }
 
   /**

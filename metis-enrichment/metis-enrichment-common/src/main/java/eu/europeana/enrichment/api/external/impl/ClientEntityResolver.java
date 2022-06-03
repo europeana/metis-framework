@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.web.EntityClientApi;
@@ -220,6 +221,6 @@ public class ClientEntityResolver implements EntityResolver {
    * @return the converted list
    */
   private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
-    return entities.stream().map(EntityResolverUtils::convertEntityToEnrichmentBase).collect(Collectors.toList());
+    return EnrichmentBaseConverter.convertEntityToEnrichmentBase(entities);
   }
 }

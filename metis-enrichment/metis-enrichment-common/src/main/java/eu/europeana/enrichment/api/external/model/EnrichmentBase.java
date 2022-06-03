@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityValuesConverterUtils;
+import eu.europeana.enrichment.utils.EntityValuesConverter;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,9 +35,9 @@ public abstract class EnrichmentBase {
 
   protected EnrichmentBase(Entity entity) {
     this.about = entity.getAbout();
-    this.prefLabelList = EntityValuesConverterUtils.convertMapToLabel(entity.getPrefLabel());
-    this.altLabelList = EntityValuesConverterUtils.convertMultilingualMapToLabel(entity.getAltLabel());
-    this.notes = EntityValuesConverterUtils.convertMultilingualMapToLabel(entity.getNote());
+    this.prefLabelList = EntityValuesConverter.convertMapToLabels(entity.getPrefLabel());
+    this.altLabelList = EntityValuesConverter.convertMultilingualMapToLabel(entity.getAltLabel());
+    this.notes = EntityValuesConverter.convertMultilingualMapToLabel(entity.getNote());
   }
 
   public String getAbout() {

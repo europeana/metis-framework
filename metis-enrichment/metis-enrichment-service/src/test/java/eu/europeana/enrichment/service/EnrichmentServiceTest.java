@@ -17,6 +17,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
+import eu.europeana.enrichment.service.utils.EnrichmentTermsToEnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -54,7 +55,7 @@ class EnrichmentServiceTest {
         EntityType.TIMESPAN);
     final SearchTerm searchTerm = new SearchTermImpl(searchValue.getValue(),
         searchValue.getLanguage(), new HashSet<>(searchValue.getEntityTypes()));
-    final EnrichmentBase agentEnrichmentBase = Converter.convert(enrichmentObjectUtils.agentTerm1);
+    final EnrichmentBase agentEnrichmentBase = EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentObjectUtils.agentTerm1);
     assertNotNull(agentEnrichmentBase);
     final Map<SearchTerm, List<EnrichmentBase>> mockResultResolveByText = new HashMap<>();
     mockResultResolveByText.put(searchTerm, List.of(agentEnrichmentBase));
@@ -78,7 +79,7 @@ class EnrichmentServiceTest {
         Set.of(EntityType.AGENT, EntityType.TIMESPAN));
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(
         new URL(referenceValue.getReference()), Set.copyOf(referenceValue.getEntityTypes()));
-    final EnrichmentBase agentEnrichmentBase = Converter.convert(enrichmentObjectUtils.agentTerm1);
+    final EnrichmentBase agentEnrichmentBase = EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentObjectUtils.agentTerm1);
     assertNotNull(agentEnrichmentBase);
     final Map<ReferenceTerm, List<EnrichmentBase>> mockResultResolveByUri = new HashMap<>();
     mockResultResolveByUri.put(referenceTerm, List.of(agentEnrichmentBase));
@@ -107,7 +108,7 @@ class EnrichmentServiceTest {
     final String entityAbout = enrichmentObjectUtils.agentTerm1.getEnrichmentEntity().getAbout();
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(entityAbout),
         new HashSet<>());
-    final EnrichmentBase agentEnrichmentBase = Converter.convert(enrichmentObjectUtils.agentTerm1);
+    final EnrichmentBase agentEnrichmentBase = EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentObjectUtils.agentTerm1);
     assertNotNull(agentEnrichmentBase);
     final Map<ReferenceTerm, EnrichmentBase> mockResultResolveById = new HashMap<>();
     mockResultResolveById.put(referenceTerm, agentEnrichmentBase);
