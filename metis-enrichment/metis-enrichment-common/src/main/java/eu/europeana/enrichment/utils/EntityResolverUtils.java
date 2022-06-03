@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -62,26 +61,20 @@ public final class EntityResolverUtils {
    * @param <T> class that extends EnrichmentBase
    * @return
    */
-  public static <T extends EnrichmentBase> T convertEntityToEnrichmentBase(Entity entity) {
+  public static EnrichmentBase convertEntityToEnrichmentBase(Entity entity) {
     switch (EntityTypes.valueOf(entity.getType())) {
       case Agent:
-        return (T) new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
+        return new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
       case Place:
-        return (T) new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
+        return new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
       case Concept:
-        return (T) new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
+        return new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
       case TimeSpan:
-        return (T) new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
+        return new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
       case Organization:
-        return (T) new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+        return new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
     }
     return null;
-  }
-
-  public static void failSafeCheck(int expected, int actual, String errorMsg) {
-    if (expected != actual) {
-      throw new UnknownException(errorMsg + "Expected =" + expected + " Actual=" + actual);
-    }
   }
 
   /**

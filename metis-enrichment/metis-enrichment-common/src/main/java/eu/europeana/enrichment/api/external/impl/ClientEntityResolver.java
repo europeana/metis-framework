@@ -73,9 +73,8 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Gets the Enrichment for Multiple input values in batches of batchSize
+   * Perform search in batches.
    *
-   * @param requestParser Function to return EntityClientRequest from input value <I>
    * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
    * @param inputValues Set of values for which enrichment will be performed
    * @param uriSearch
@@ -89,7 +88,7 @@ public class ClientEntityResolver implements EntityResolver {
     for (List<I> batch : batches) {
       // TODO: 02/06/2022 This is actually bypassing the batching..
       for (I batchItem : batch) {
-        List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(batchItem, uriSearch);
+        List<EnrichmentBase> enrichmentBaseList = performBatch(batchItem, uriSearch);
         if (!enrichmentBaseList.isEmpty()) {
           result.put(batchItem, enrichmentBaseList);
         }
@@ -98,20 +97,16 @@ public class ClientEntityResolver implements EntityResolver {
     return result;
   }
 
-  private <I> List<EnrichmentBase> executeEntityClientRequest(I batchItem, boolean uriSearch) {
-    List<Entity> entities = getEntities(batchItem, uriSearch);
+  private <I> List<EnrichmentBase> performBatch(I batchItem, boolean uriSearch) {
+    List<Entity> entities = resolveEntities(batchItem, uriSearch);
     if (isNotEmpty(entities)) {
       entities = extendEntitiesWithParents(entities);
-      List<EnrichmentBase> enrichmentBaseList = convertToEnrichmentBase(entities);
-
-      EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(),
-          "Mismatch while converting the EM class to EnrichmentBase.");
-      return enrichmentBaseList;
+      return convertToEnrichmentBase(entities);
     }
     return Collections.emptyList();
   }
 
-  private <I> List<Entity> getEntities(I batchItem, boolean uriSearch) {
+  private <I> List<Entity> resolveEntities(I batchItem, boolean uriSearch) {
     if (batchItem instanceof ReferenceTerm) {
       return resolveReference((ReferenceTerm) batchItem, uriSearch);
     } else {
@@ -219,15 +214,12 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Converts the EM Entity model to Enrichment base.
+   * Converts the list of entities to a list of {@link EnrichmentBase}s.
    *
-   * @param entities
-   * @return
+   * @param entities the entities
+   * @return the converted list
    */
   private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
-    return entities.stream().map(entity -> {
-      EnrichmentBase enrichmentBase = EntityResolverUtils.convertEntityToEnrichmentBase(entity);
-      return enrichmentBase;
-    }).collect(Collectors.toList());
+    return entities.stream().map(EntityResolverUtils::convertEntityToEnrichmentBase).collect(Collectors.toList());
   }
 }
