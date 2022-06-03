@@ -223,7 +223,7 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-collections4</artifactId>
         <version>${version.commons-collections4}</version>
-        </dependency>
+      </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-storage</artifactId>

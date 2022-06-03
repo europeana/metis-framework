@@ -16,7 +16,7 @@ import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Collections;
 import java.util.Set;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
 class MediaResourceTechnicalMetadataBuilderTest {
