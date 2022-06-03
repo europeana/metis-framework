@@ -183,7 +183,7 @@ public class ClientEntityResolver implements EntityResolver {
 
   private <I> Map<I, List<EnrichmentBase>> performBatch(boolean uriSearch, List<I> batch) {
     final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    // TODO: 02/06/2022 This is actually bypassing the batching..
+    // TODO: 02/06/2022 This is actually bypassing the batching.. This is the selected way to perform this for now.
     for (I batchItem : batch) {
       List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
       if (isNotEmpty(enrichmentBaseList)) {
@@ -226,7 +226,7 @@ public class ClientEntityResolver implements EntityResolver {
   private List<Entity> findParentEntitiesRecursive(List<Entity> collectedEntities, List<Entity> children) {
     List<Entity> parentEntities =
         Stream.ofNullable(children).flatMap(Collection::stream)
-              .map(Entity::getIsPartOfArray).flatMap(Collection::stream)
+              .map(Entity::getIsPartOfArray).filter(Objects::nonNull).flatMap(Collection::stream)
               .filter(StringUtils::isNotBlank)
               .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
               .map(entityClientApi::getEntityById)

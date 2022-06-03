@@ -8,6 +8,10 @@
   </parent>
   <artifactId>metis-enrichment-common</artifactId>
 
+  <properties>
+    <version.entity-api-client>0.0.1-SNAPSHOT</version.entity-api-client>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -72,7 +76,7 @@
     <dependency>
         <groupId>eu.europeana.api</groupId>
         <artifactId>entity-api-client</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${version.entity-api-client}</version>
         <exclusions>
             <exclusion>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
