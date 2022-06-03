@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -61,18 +62,23 @@ public class ClientEntityResolver implements EntityResolver {
 
   @Override
   public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
-    return performInBatches(referenceTerms);
+    return performInBatches(referenceTerms, true);
+  }
+
+  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues) {
+    return performInBatches(inputValues, false);
   }
 
   /**
    * Gets the Enrichment for Multiple input values in batches of batchSize
    *
-   * @param inputValues Set of values for which enrichment will be performed
    * @param requestParser Function to return EntityClientRequest from input value <I>
    * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
+   * @param inputValues Set of values for which enrichment will be performed
+   * @param uriSearch
    * @return
    */
-  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues) {
+  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, boolean uriSearch) {
     final Map<I, List<EnrichmentBase>> result = new HashMap<>();
     final List<List<I>> batches = EntityResolverUtils.splitInBatches(inputValues, batchSize);
 
@@ -80,7 +86,7 @@ public class ClientEntityResolver implements EntityResolver {
     for (List<I> batch : batches) {
       // TODO: 02/06/2022 This is actually bypassing the batching..
       for (I batchItem : batch) {
-        List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(batchItem);
+        List<EnrichmentBase> enrichmentBaseList = executeEntityClientRequest(batchItem, uriSearch);
         if (!enrichmentBaseList.isEmpty()) {
           result.put(batchItem, enrichmentBaseList);
         }
@@ -89,12 +95,10 @@ public class ClientEntityResolver implements EntityResolver {
     return result;
   }
 
-  private <I> List<EnrichmentBase> executeEntityClientRequest(I batchItem) {
-    // get Entities
-    List<Entity> entities = getEntities(batchItem);
+  private <I> List<EnrichmentBase> executeEntityClientRequest(I batchItem, boolean uriSearch) {
+    List<Entity> entities = getEntities(batchItem, uriSearch);
     if (isNotEmpty(entities)) {
       entities = extendEntitiesWithParents(entities);
-      // convert entity to EnrichmentBase
       List<EnrichmentBase> enrichmentBaseList = convertToEnrichmentBase(entities);
 
       EntityResolverUtils.failSafeCheck(entities.size(), enrichmentBaseList.size(),
@@ -104,14 +108,29 @@ public class ClientEntityResolver implements EntityResolver {
     return Collections.emptyList();
   }
 
-  private <I> List<Entity> getEntities(I batchItem) {
+  private <I> List<Entity> getEntities(I batchItem, boolean uriSearch) {
     if (batchItem instanceof ReferenceTerm) {
-      return resolveReferences((ReferenceTerm) batchItem);
+      return resolveReference((ReferenceTerm) batchItem, uriSearch);
     } else {
       return resolveTextSearch((SearchTerm) batchItem);
     }
   }
 
+  /**
+   * Get entities by text search.
+   * <p>
+   * The result will always be a list of size 1. Internally the remote request might return more than one entities which in that
+   * case the return of this method will be an empty list. That is because the remote request would be ambiguous and therefore we
+   * do not know which of the entities is actually intended.
+   * </p>
+   * <p>
+   * ATTENTION: The described discarding of entities applies correctly in the case where the remote request does <b>NOT</b>
+   * contain parent entities and that the parent entities are fetched remotely i.e. {@link #extendEntitiesWithParents}.
+   * </p>
+   *
+   * @param searchTerm the text search term
+   * @return the list of entities(at this point of size 0 or 1)
+   */
   private List<Entity> resolveTextSearch(SearchTerm searchTerm) {
     final String entityTypesConcatenated = searchTerm.getCandidateTypes().stream()
                                                      .map(entityType -> entityType.name().toLowerCase(Locale.US))
@@ -120,38 +139,39 @@ public class ClientEntityResolver implements EntityResolver {
     final List<Entity> entities;
     try {
       entities = entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null);
+      if (entities.size() == 1) {
+        return entities;
+      }
     } catch (JsonProcessingException e) {
       // TODO: 02/06/2022 Check if exception should be thrown or bypassed
       throw new UnknownException(
           format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
               searchTerm.getLanguage(), entityTypesConcatenated), e);
     }
-    // TODO: 02/06/2022 This check is valid if the entities that are returned do not contain any parent entities.
-    // According to the intended implementation the parents are fetched here(remotely).
-    // If the parent fetching is moved to the Entity API application then this check will not be valid anymore.
-
-    // if the enrich method returns more than 1 entity, then no enrichment should be (for now) considered.
-    // It works as if no entity was returned. The reason for this is that Metis does not have a disambiguation
-    // mechanism in place that can judge which entity should be chosen out of the list of options.
-    if (entities.size() == 1) {
-      return entities;
-    }
     return Collections.emptyList();
   }
 
-  private List<Entity> resolveReferences(ReferenceTerm referenceTerm) {
-    // TODO: 02/06/2022 This is valid(about then owlSameAs) but only for Uri search and not id search
+  /**
+   * Get entities based on a reference.
+   * <p>We always check first if the reference resembles a euroepeana entity identifier and if so then we search by id..</p>
+   * <p>For invocations that are uri searches({@code uriSearch} equals true) then we also invoke the remote uri search.</p>
+   * <p>For uri searches, this resembles the metis implementation where the about search is invoked and if no result return then
+   * a second invocation on the owlSameAs is performed.</p>
+   *
+   * @param referenceTerm the reference term
+   * @param uriSearch indicates if the search is an uri or an id search
+   * @return the list of entities
+   */
+  private List<Entity> resolveReference(ReferenceTerm referenceTerm, boolean uriSearch) {
     final String referenceValue = referenceTerm.getReference().toString();
+
+    List<Entity> result = new ArrayList<>();
     if (referenceValue.startsWith(EntityApiConstants.BASE_URL)) {
-      Entity entity = entityClientApi.getEntityById(referenceValue);
-      if (entity != null) {
-        // create a mutable list, as we might add parent entities later
-        return new ArrayList<>(List.of(entity));
-      }
-    } else {
-      return entityClientApi.getEntityByUri(referenceValue);
+      result = Optional.ofNullable(entityClientApi.getEntityById(referenceValue)).map(List::of).orElse(Collections.emptyList());
+    } else if (uriSearch) {
+      result = entityClientApi.getEntityByUri(referenceValue);
     }
-    return Collections.emptyList();
+    return result;
   }
 
   /**
