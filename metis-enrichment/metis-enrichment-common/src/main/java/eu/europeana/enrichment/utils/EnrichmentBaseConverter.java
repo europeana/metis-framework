@@ -43,8 +43,8 @@ public final class EnrichmentBaseConverter {
    * @param entities the entities
    * @return the enrichment bases
    */
-  public static List<EnrichmentBase> convertEntityToEnrichmentBase(List<Entity> entities) {
-    return entities.stream().map(EnrichmentBaseConverter::convertEntityToEnrichmentBase).collect(Collectors.toList());
+  public static List<EnrichmentBase> convertEntitiesToEnrichmentBase(List<Entity> entities) {
+    return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase).collect(Collectors.toList());
   }
 
   /**
@@ -53,7 +53,7 @@ public final class EnrichmentBaseConverter {
    * @param entity the entity
    * @return the enrichment base
    */
-  public static EnrichmentBase convertEntityToEnrichmentBase(Entity entity) {
+  public static EnrichmentBase convertEntitiesToEnrichmentBase(Entity entity) {
     switch (EntityTypes.valueOf(entity.getType())) {
       case Agent:
         return new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);

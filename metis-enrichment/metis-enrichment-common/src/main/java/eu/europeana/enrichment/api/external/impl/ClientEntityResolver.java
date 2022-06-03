@@ -3,6 +3,7 @@ package eu.europeana.enrichment.api.external.impl;
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static org.apache.commons.collections4.ListUtils.partition;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
@@ -11,7 +12,6 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
-import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
@@ -61,7 +61,14 @@ public class ClientEntityResolver implements EntityResolver {
 
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
-    return EntityResolverUtils.pickFirstFromTheList(performInBatches(referenceTerms));
+    final Map<T, List<EnrichmentBase>> batches = performInBatches(referenceTerms);
+    return convertToMapWithSingleValues(batches);
+  }
+
+  private <T extends ReferenceTerm> HashMap<T, EnrichmentBase> convertToMapWithSingleValues(
+      Map<T, List<EnrichmentBase>> batches) {
+    return batches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
+        entry.getValue().stream().findFirst().orElse(null)), HashMap::putAll);
   }
 
   @Override
@@ -182,7 +189,7 @@ public class ClientEntityResolver implements EntityResolver {
    */
   private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, boolean uriSearch) {
     final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    final List<List<I>> batches = splitInBatches(inputValues, batchSize);
+    final List<List<I>> batches = partition(new ArrayList<>(inputValues), batchSize);
 
     // Process batches
     for (List<I> batch : batches) {
@@ -204,7 +211,7 @@ public class ClientEntityResolver implements EntityResolver {
    * @return the converted list
    */
   private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
-    return EnrichmentBaseConverter.convertEntityToEnrichmentBase(entities);
+    return EnrichmentBaseConverter.convertEntitiesToEnrichmentBase(entities);
   }
 
   /**

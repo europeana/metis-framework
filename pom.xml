@@ -124,14 +124,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
+    <version.commons-fileupload>1.4</version.commons-fileupload>
+    <version.commons.io>2.9.0</version.commons.io>
+    <version.commons.lang3>3.12.0</version.commons.lang3>
+    <version.commons-collections4>4.4</version.commons-collections4>
     <version.awaitability>1.7.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
     <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
-    <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.commons.io>2.9.0</version.commons.io>
-    <version.commons.lang3>3.12.0</version.commons.lang3>
     <version.commonscompress>1.11</version.commonscompress>
     <version.corelib>2.15.3</version.corelib>
 
@@ -218,6 +219,11 @@
         <artifactId>commons-lang3</artifactId>
         <version>${version.commons.lang3}</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${version.commons-collections4}</version>
+        </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-storage</artifactId>

@@ -4,6 +4,7 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ID;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_SEARCH;
+import static org.apache.commons.collections4.ListUtils.partition;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.EnrichmentReference;
@@ -20,6 +21,7 @@ import eu.europeana.enrichment.utils.EntityType;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -108,10 +110,7 @@ public class RemoteEntityResolver implements EntityResolver {
           "URL syntax issue with service url: " + enrichmentServiceUrl + ".", e);
     }
 
-    // Create batches
-    final List<List<I>> batches = splitInBatches(inputValues, batchSize);
-
-    // Process batches
+    final List<List<I>> batches = partition(new ArrayList<>(inputValues), batchSize);
     final Map<I, R> result = new HashMap<>();
     for (List<I> batch : batches) {
       final EnrichmentResultList enrichmentResultList = executeRequest(uri, bodyCreator, batch);
