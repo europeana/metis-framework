@@ -16,7 +16,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -110,7 +109,7 @@ public class RemoteEntityResolver implements EntityResolver {
     }
 
     // Create batches
-    final List<List<I>> batches = EntityResolverUtils.splitInBatches(inputValues, batchSize);
+    final List<List<I>> batches = splitInBatches(inputValues, batchSize);
 
     // Process batches
     final Map<I, R> result = new HashMap<>();

@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,20 @@ import java.util.regex.Pattern;
 public interface EntityResolver {
 
   Pattern europeanaLinkPattern = Pattern.compile("^https?://data.europeana.eu.*$");
+
+  default <I> List<List<I>> splitInBatches(Set<I> inputValues, int batchSize) {
+    final List<List<I>> batch = new ArrayList<>();
+    batch.add(new ArrayList<>());
+    inputValues.forEach(item -> {
+      List<I> currentPartition = batch.get(batch.size() - 1);
+      if (currentPartition.size() >= batchSize) {
+        currentPartition = new ArrayList<>();
+        batch.add(currentPartition);
+      }
+      currentPartition.add(item);
+    });
+    return batch;
+  }
 
   /**
    * Resolve entities by a textual reference.

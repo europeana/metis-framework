@@ -74,28 +74,14 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Perform search in batches.
+   * Checks if an entity identifier matches an identifier of the entities provided.
    *
-   * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
-   * @param inputValues Set of values for which enrichment will be performed
-   * @param uriSearch
-   * @return
+   * @param entityIdToCheck the entity identifier to check
+   * @param entities the entity list
+   * @return true if it matches otherwise false
    */
-  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, boolean uriSearch) {
-    final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    final List<List<I>> batches = EntityResolverUtils.splitInBatches(inputValues, batchSize);
-
-    // Process batches
-    for (List<I> batch : batches) {
-      // TODO: 02/06/2022 This is actually bypassing the batching..
-      for (I batchItem : batch) {
-        List<EnrichmentBase> enrichmentBaseList = performBatch(batchItem, uriSearch);
-        if (!enrichmentBaseList.isEmpty()) {
-          result.put(batchItem, enrichmentBaseList);
-        }
-      }
-    }
-    return result;
+  public static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
   private <I> List<EnrichmentBase> performBatch(I batchItem, boolean uriSearch) {
@@ -187,6 +173,41 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
+   * Perform search in batches.
+   *
+   * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
+   * @param inputValues Set of values for which enrichment will be performed
+   * @param uriSearch
+   * @return
+   */
+  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, boolean uriSearch) {
+    final Map<I, List<EnrichmentBase>> result = new HashMap<>();
+    final List<List<I>> batches = splitInBatches(inputValues, batchSize);
+
+    // Process batches
+    for (List<I> batch : batches) {
+      // TODO: 02/06/2022 This is actually bypassing the batching..
+      for (I batchItem : batch) {
+        List<EnrichmentBase> enrichmentBaseList = performBatch(batchItem, uriSearch);
+        if (!enrichmentBaseList.isEmpty()) {
+          result.put(batchItem, enrichmentBaseList);
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Converts the list of entities to a list of {@link EnrichmentBase}s.
+   *
+   * @param entities the entities
+   * @return the converted list
+   */
+  private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
+    return EnrichmentBaseConverter.convertEntityToEnrichmentBase(entities);
+  }
+
+  /**
    * Finds parent entities and extends recursively.
    * <p>For each recursion it will, iterate over {@link Entity#getIsPartOfArray} bypassing blank values and entities already
    * encountered. Each recursion will extended list if more parents have been found.
@@ -201,7 +222,7 @@ public class ClientEntityResolver implements EntityResolver {
         Stream.ofNullable(children).flatMap(Collection::stream)
               .map(Entity::getIsPartOfArray).flatMap(Collection::stream)
               .filter(StringUtils::isNotBlank)
-              .filter(not(parentEntityId -> EntityResolverUtils.checkIfEntityAlreadyExists(parentEntityId, collectedEntities)))
+              .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
               .map(entityClientApi::getEntityById)
               .filter(Objects::nonNull)
               .collect(Collectors.toCollection(ArrayList::new));
@@ -212,15 +233,5 @@ public class ClientEntityResolver implements EntityResolver {
       findParentEntitiesRecursive(collectedEntities, parentEntities);
     }
     return collectedEntities;
-  }
-
-  /**
-   * Converts the list of entities to a list of {@link EnrichmentBase}s.
-   *
-   * @param entities the entities
-   * @return the converted list
-   */
-  private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
-    return EnrichmentBaseConverter.convertEntityToEnrichmentBase(entities);
   }
 }

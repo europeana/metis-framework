@@ -4,6 +4,7 @@ import static java.util.Collections.singleton;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.entitymanagement.definitions.model.Agent;
@@ -23,10 +24,10 @@ public class EntityResolverUtilsTest {
     agent.setAbout("http://data.europeana.eu/agent/456");
     entityList.add(agent);
 
-    assertFalse(EntityResolverUtils.checkIfEntityAlreadyExists(
+    assertFalse(ClientEntityResolver.doesEntityExist(
         "http://data.europeana.eu/agent/123", entityList));
 
-    assertTrue(EntityResolverUtils.checkIfEntityAlreadyExists(
+    assertTrue(ClientEntityResolver.doesEntityExist(
         "http://data.europeana.eu/agent/456", entityList));
   }
 
