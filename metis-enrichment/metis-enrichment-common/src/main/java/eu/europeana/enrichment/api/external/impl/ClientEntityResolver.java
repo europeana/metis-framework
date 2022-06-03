@@ -12,7 +12,6 @@ import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EntityResolverUtils;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
-import eu.europeana.entity.client.utils.EntityApiConstants;
 import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.entitymanagement.definitions.model.Entity;
@@ -38,15 +37,19 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ClientEntityResolver implements EntityResolver {
 
-  private final LanguageCodeConverter languageCodeConverter;
   private final int batchSize;
-
+  private final LanguageCodeConverter languageCodeConverter;
   private final EntityClientApi entityClientApi;
 
 
+  /**
+   * Constructor with required parameters.
+   *
+   * @param batchSize the batch size
+   */
   public ClientEntityResolver(int batchSize) {
-    languageCodeConverter = new LanguageCodeConverter();
     this.batchSize = batchSize;
+    languageCodeConverter = new LanguageCodeConverter();
     entityClientApi = new EntityClientApiImpl();
   }
 
@@ -166,7 +169,7 @@ public class ClientEntityResolver implements EntityResolver {
     final String referenceValue = referenceTerm.getReference().toString();
 
     List<Entity> result = new ArrayList<>();
-    if (referenceValue.startsWith(EntityApiConstants.BASE_URL)) {
+    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
       result = Optional.ofNullable(entityClientApi.getEntityById(referenceValue)).map(List::of).orElse(Collections.emptyList());
     } else if (uriSearch) {
       result = entityClientApi.getEntityByUri(referenceValue);
