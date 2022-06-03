@@ -2,7 +2,7 @@ package eu.europeana.enrichment.api.external.impl;
 
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.ListUtils.partition;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,7 +28,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -91,15 +90,6 @@ public class ClientEntityResolver implements EntityResolver {
     return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
-  private <I> List<EnrichmentBase> performBatch(I batchItem, boolean uriSearch) {
-    List<Entity> entities = resolveEntities(batchItem, uriSearch);
-    if (isNotEmpty(entities)) {
-      entities = extendEntitiesWithParents(entities);
-      return convertToEnrichmentBase(entities);
-    }
-    return Collections.emptyList();
-  }
-
   private <I> List<Entity> resolveEntities(I batchItem, boolean uriSearch) {
     if (batchItem instanceof ReferenceTerm) {
       return resolveReference((ReferenceTerm) batchItem, uriSearch);
@@ -131,16 +121,13 @@ public class ClientEntityResolver implements EntityResolver {
     final List<Entity> entities;
     try {
       entities = entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null);
-      if (entities.size() == 1) {
-        return entities;
-      }
+      return entities.size() == 1 ? entities : Collections.emptyList();
     } catch (JsonProcessingException e) {
       // TODO: 02/06/2022 Check if exception should be thrown or bypassed
       throw new UnknownException(
           format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
               searchTerm.getLanguage(), entityTypesConcatenated), e);
     }
-    return Collections.emptyList();
   }
 
   /**
@@ -172,7 +159,6 @@ public class ClientEntityResolver implements EntityResolver {
    * @param entities the entities
    * @return the extended entities
    */
-  // TODO: 02/06/2022 Add unit tests
   private List<Entity> extendEntitiesWithParents(List<Entity> entities) {
     //Copy list so that we can extend
     final ArrayList<Entity> copyEntities = new ArrayList<>(entities);
@@ -182,26 +168,39 @@ public class ClientEntityResolver implements EntityResolver {
   /**
    * Perform search in batches.
    *
-   * @param <I> Input value Type. Could be <T extends SearchTerm> OR <T extends ReferenceTerm>
-   * @param inputValues Set of values for which enrichment will be performed
-   * @param uriSearch
-   * @return
+   * @param <I> the input value type. Can be <T extends SearchTerm> OR <T extends ReferenceTerm>
+   * @param inputValues the set of values for which enrichment will be performed
+   * @param uriSearch boolean indicating if it is an uri search or not(then it is an id search)
+   * @return the results mapped per input value
    */
   private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, boolean uriSearch) {
     final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    final List<List<I>> batches = partition(new ArrayList<>(inputValues), batchSize);
+    for (List<I> batch : partition(new ArrayList<>(inputValues), batchSize)) {
+      result.putAll(performBatch(uriSearch, batch));
+    }
+    return result;
+  }
 
-    // Process batches
-    for (List<I> batch : batches) {
-      // TODO: 02/06/2022 This is actually bypassing the batching..
-      for (I batchItem : batch) {
-        List<EnrichmentBase> enrichmentBaseList = performBatch(batchItem, uriSearch);
-        if (!enrichmentBaseList.isEmpty()) {
-          result.put(batchItem, enrichmentBaseList);
-        }
+  private <I> Map<I, List<EnrichmentBase>> performBatch(boolean uriSearch, List<I> batch) {
+    final Map<I, List<EnrichmentBase>> result = new HashMap<>();
+    // TODO: 02/06/2022 This is actually bypassing the batching..
+    for (I batchItem : batch) {
+      List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
+      if (isNotEmpty(enrichmentBaseList)) {
+        result.put(batchItem, enrichmentBaseList);
       }
     }
     return result;
+  }
+
+  private <I> List<EnrichmentBase> performItem(I batchItem, boolean uriSearch) {
+    List<Entity> entities = resolveEntities(batchItem, uriSearch);
+    List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+    if (isNotEmpty(entities)) {
+      entities = extendEntitiesWithParents(entities);
+      enrichmentBases = convertToEnrichmentBase(entities);
+    }
+    return enrichmentBases;
   }
 
   /**
@@ -234,7 +233,7 @@ public class ClientEntityResolver implements EntityResolver {
               .filter(Objects::nonNull)
               .collect(Collectors.toCollection(ArrayList::new));
 
-    if (CollectionUtils.isNotEmpty(parentEntities)) {
+    if (isNotEmpty(parentEntities)) {
       collectedEntities.addAll(parentEntities);
       //Now check again parents of parents
       findParentEntitiesRecursive(collectedEntities, parentEntities);

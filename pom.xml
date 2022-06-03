@@ -389,6 +389,10 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>dev.morphia.morphia</groupId>
             <artifactId>core</artifactId>
           </exclusion>

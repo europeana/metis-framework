@@ -24,8 +24,7 @@ public final class EnrichmentBaseConverter {
   }
 
   /**
-   * Parse the XML string to convert it to an instance of (one of the subclasses of) {@link
-   * EnrichmentBase}.
+   * Parse the XML string to convert it to an instance of (one of the subclasses of) {@link EnrichmentBase}.
    *
    * @param entityXml The XML string.
    * @return The entity.
@@ -54,18 +53,27 @@ public final class EnrichmentBaseConverter {
    * @return the enrichment base
    */
   public static EnrichmentBase convertEntitiesToEnrichmentBase(Entity entity) {
+    final EnrichmentBase enrichmentBase;
     switch (EntityTypes.valueOf(entity.getType())) {
       case Agent:
-        return new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
+        enrichmentBase = new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
+        break;
       case Place:
-        return new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
+        enrichmentBase = new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
+        break;
       case Concept:
-        return new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
+        enrichmentBase = new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
+        break;
       case TimeSpan:
-        return new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
+        enrichmentBase = new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
+        break;
       case Organization:
-        return new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+        enrichmentBase = new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+        break;
+      default:
+        enrichmentBase = null;
+        break;
     }
-    return null;
+    return enrichmentBase;
   }
 }
