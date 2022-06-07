@@ -73,17 +73,22 @@
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
       <version>${version.swagger}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-spring-webflux</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${version.swagger}</version>
+    </dependency>
+    <!--
+    This is required by springfox-swagger2. That is because Swagger2ControllerWebMvc and Swagger2ControllerWebFlux contain the
+    annotation ConditionalOnWebApplication.
+    Because the entity-api-client uses spring-webflux the @Conditional({OnReactiveWebApplication.class}) is not enough and if the
+    dependency is missing, it is then not checking for the extra ConditionalOnWebApplication condition.
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <version>${version.spring-boot-autoconfigure}</version>
     </dependency>
     <dependency>
       <groupId>com.jayway.jsonpath</groupId>
