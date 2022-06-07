@@ -8,6 +8,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.entity.client.web.EntityClientApiImpl;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
@@ -30,7 +31,7 @@ class ClientEntityResolverIT {
 
     @BeforeEach
     void setup() {
-        entityResolver = Mockito.spy(new ClientEntityResolver(2));
+        entityResolver = Mockito.spy(new ClientEntityResolver(new EntityClientApiImpl(), 2));
     }
 
     @Test

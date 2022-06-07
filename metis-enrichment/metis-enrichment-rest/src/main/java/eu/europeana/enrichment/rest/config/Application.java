@@ -8,6 +8,7 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import javax.annotation.PreDestroy;
@@ -78,7 +79,7 @@ public class Application implements InitializingBean {
     if (entityResolverType == EntityResolverType.PERSISTENT) {
       entityResolver = new PersistentEntityResolver(new EnrichmentDao(mongoClient, enrichmentMongoDatabase));
     } else {
-      entityResolver = new ClientEntityResolver(enrichmentBatchSize);
+      entityResolver = new ClientEntityResolver(new EntityClientApiImpl(), enrichmentBatchSize);
     }
     return entityResolver;
   }

@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.external.impl;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -14,7 +15,6 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.web.EntityClientApi;
-import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,12 +45,13 @@ public class ClientEntityResolver implements EntityResolver {
   /**
    * Constructor with required parameters.
    *
+   * @param entityClientApi the entity client api
    * @param batchSize the batch size
    */
-  public ClientEntityResolver(int batchSize) {
+  public ClientEntityResolver(EntityClientApi entityClientApi, int batchSize) {
     this.batchSize = batchSize;
-    languageCodeConverter = new LanguageCodeConverter();
-    entityClientApi = new EntityClientApiImpl();
+    this.languageCodeConverter = new LanguageCodeConverter();
+    this.entityClientApi = entityClientApi;
   }
 
   @Override
@@ -86,7 +87,7 @@ public class ClientEntityResolver implements EntityResolver {
    * @param entities the entity list
    * @return true if it matches otherwise false
    */
-  public static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
     return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
@@ -120,10 +121,10 @@ public class ClientEntityResolver implements EntityResolver {
     final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
     final List<Entity> entities;
     try {
-      entities = entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null);
+      entities = retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
       return entities.size() == 1 ? entities : Collections.emptyList();
     } catch (JsonProcessingException e) {
-      // TODO: 02/06/2022 Check if exception should be thrown or bypassed
       throw new UnknownException(
           format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
               searchTerm.getLanguage(), entityTypesConcatenated), e);
@@ -186,9 +187,7 @@ public class ClientEntityResolver implements EntityResolver {
     // TODO: 02/06/2022 This is actually bypassing the batching.. This is the selected way to perform this for now.
     for (I batchItem : batch) {
       List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
-      if (isNotEmpty(enrichmentBaseList)) {
-        result.put(batchItem, enrichmentBaseList);
-      }
+      result.put(batchItem, enrichmentBaseList);
     }
     return result;
   }
