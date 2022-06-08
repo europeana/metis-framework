@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
+import eu.europeana.enrichment.api.external.impl.EntityResolverType;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.PersistentEntityResolver;

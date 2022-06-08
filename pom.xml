@@ -135,7 +135,6 @@
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
     <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
-    <version.commons.collections>3.2.2</version.commons.collections>
     <version.apache.commons.text>1.9</version.apache.commons.text>
     <version.commonscompress>1.11</version.commonscompress>
     <version.corelib>2.15.3</version.corelib>

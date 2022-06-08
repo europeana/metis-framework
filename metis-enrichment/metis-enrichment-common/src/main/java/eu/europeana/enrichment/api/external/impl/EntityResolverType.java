@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.config;
+package eu.europeana.enrichment.api.external.impl;
 
 /**
  * Entity resolver type for choosing the requested implementation
