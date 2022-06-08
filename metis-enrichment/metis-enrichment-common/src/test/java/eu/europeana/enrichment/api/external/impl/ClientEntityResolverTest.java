@@ -256,25 +256,59 @@ class ClientEntityResolverTest {
       parentMatching(entry.getValue(), children);
     }
 
-    final Map<SearchTerm, List<EnrichmentBase>> searchTermEnrichmentBaseMap = clientEntityResolver.resolveByText(
+    final Map<SearchTerm, List<EnrichmentBase>> searchTermEnrichmentBasesMap = clientEntityResolver.resolveByText(
         new HashSet<>(searchTermsEntitiesMap.keySet()));
 
     //Verify each request has a result even if it's an empty list
-    assertEquals(searchTermsEntitiesMap.size(), searchTermEnrichmentBaseMap.size());
+    assertEquals(searchTermsEntitiesMap.size(), searchTermEnrichmentBasesMap.size());
 
     for (Entry<SearchTerm, EntitiesAndExpectedEnrichmentBases> entry : searchTermsEntitiesMap.entrySet()) {
       //For each search we expect an amount of enrichment bases
-      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), searchTermEnrichmentBaseMap.get(entry.getKey()).size());
+      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), searchTermEnrichmentBasesMap.get(entry.getKey()).size());
 
       //Verify that each entity
       entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
-           .forEach(entity -> assertTrue(searchTermEnrichmentBaseMap.get(entry.getKey()).stream().anyMatch(
+           .forEach(entity -> assertTrue(searchTermEnrichmentBasesMap.get(entry.getKey()).stream().anyMatch(
                item -> entity.getEntityId().equals(item.getAbout()))));
     }
   }
 
   @Test
-  void resolveById() {
+  void resolveById_Entity_Without_Parents() throws MalformedURLException {
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(PARENT_URI);
+    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(PARENT_URI));
+    int enrichmentBasesExpectedResults = 1;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    resolveById(Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  void resolveById(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
+    for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
+      final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
+                                         .collect(Collectors.toList());
+
+      if (entry.getValue().isChildEuropeanaEntity) {
+        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
+      } else {
+        when(entityClientApi.getEntityByUri(entry.getKey().getReference().toString())).thenReturn(children);
+      }
+      parentMatching(entry.getValue(), children);
+    }
+
+    final Map<ReferenceTerm, EnrichmentBase> referenceTermEnrichmentBaseMap = clientEntityResolver.resolveById(
+        new HashSet<>(referenceTermsEntitiesMap.keySet()));
+    final Map<ReferenceTerm, List<EnrichmentBase>> referenceTermEnrichmentBasesMap = referenceTermEnrichmentBaseMap.entrySet()
+                                                                                                                   .stream()
+                                                                                                                   .collect(
+                                                                                                                       Collectors.toMap(
+                                                                                                                           Entry::getKey,
+                                                                                                                           entry -> List.of(
+                                                                                                                               entry.getValue()),
+                                                                                                                           (existing, incoming) -> existing));
+    resultAssertions(referenceTermsEntitiesMap, referenceTermEnrichmentBasesMap);
   }
 
   @Test
@@ -352,9 +386,9 @@ class ClientEntityResolverTest {
       parentMatching(entry.getValue(), children);
     }
 
-    final Map<ReferenceTerm, List<EnrichmentBase>> searchTermEnrichmentBaseMap = clientEntityResolver.resolveByUri(
+    final Map<ReferenceTerm, List<EnrichmentBase>> referenceTermEnrichmentBasesMap = clientEntityResolver.resolveByUri(
         new HashSet<>(referenceTermsEntitiesMap.keySet()));
-    resultAssertions(referenceTermsEntitiesMap, searchTermEnrichmentBaseMap);
+    resultAssertions(referenceTermsEntitiesMap, referenceTermEnrichmentBasesMap);
   }
 
   private void resultAssertions(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap,
