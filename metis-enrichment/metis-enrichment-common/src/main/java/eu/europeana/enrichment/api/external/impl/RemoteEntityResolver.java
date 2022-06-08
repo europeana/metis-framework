@@ -35,7 +35,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-// TODO resolve dependency once entity-client is deployed to artifactory
 /**
  * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from there.
  */

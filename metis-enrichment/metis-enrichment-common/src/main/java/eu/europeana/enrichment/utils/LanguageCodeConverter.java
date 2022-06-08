@@ -8,6 +8,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Class with language converting functionality
+ */
 public class LanguageCodeConverter {
 
   public static final int THREE_CHARACTER_LANGUAGE_LENGTH = 3;

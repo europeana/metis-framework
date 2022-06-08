@@ -1,6 +1,9 @@
 package eu.europeana.enrichment.api.external.model;
 
-import eu.europeana.enrichment.utils.EntityValuesConverter;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToLabel;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToLabelResource;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToPart;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,7 +33,8 @@ public class TimeSpan extends EnrichmentBase {
   @XmlElement(name = "isNextInSequence", namespace = "http://www.europeana.eu/schemas/edm/")
   private Part isNextInSequence;
 
-  public TimeSpan() {}
+  public TimeSpan() {
+  }
 
   // Used for creating XML entity from EM model class
   public TimeSpan(eu.europeana.entitymanagement.definitions.model.TimeSpan timeSpan) {
@@ -95,24 +99,16 @@ public class TimeSpan extends EnrichmentBase {
   }
 
   private void init(eu.europeana.entitymanagement.definitions.model.TimeSpan timeSpan) {
-    if (timeSpan.getIsPartOfArray() != null) {
-      this.isPartOf = EntityValuesConverter.convertListToLabelResource(timeSpan.getIsPartOfArray());
-    }
-    if (timeSpan.getHasPart() != null) {
-      this.hasPartsList = EntityValuesConverter.convertListToLabelResource(timeSpan.getHasPart());
-    }
-    if (timeSpan.getSameReferenceLinks() != null) {
-      this.sameAs = EntityValuesConverter.convertListToPart(timeSpan.getSameReferenceLinks());
-    }
+    this.isPartOf = convertListToLabelResource(timeSpan.getIsPartOfArray());
+    this.hasPartsList = convertListToLabelResource(timeSpan.getHasPart());
+    this.sameAs = convertListToPart(timeSpan.getSameReferenceLinks());
     if (timeSpan.getBeginString() != null) {
       this.begin = new Label(timeSpan.getBeginString());
     }
     if (timeSpan.getEndString() != null) {
       this.end = new Label(timeSpan.getEndString());
     }
-    if (timeSpan.getHiddenLabel() != null) {
-      this.hiddenLabel = EntityValuesConverter.convertListToLabel(timeSpan.getHiddenLabel());
-    }
+    this.hiddenLabel = convertListToLabel(timeSpan.getHiddenLabel());
     if (timeSpan.getIsNextInSequence() != null) {
       this.isNextInSequence = new Part(timeSpan.getIsNextInSequence().get(0));
     }

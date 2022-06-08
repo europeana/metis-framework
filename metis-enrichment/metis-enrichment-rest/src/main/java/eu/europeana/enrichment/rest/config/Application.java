@@ -22,6 +22,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+/**
+ * Main Spring Configuration class
+ */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
     "eu.europeana.enrichment.rest.exception"})

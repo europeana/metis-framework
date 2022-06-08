@@ -150,63 +150,37 @@ class ClientEntityResolverTest {
 
   @Test
   void resolveByText_3LetterLanguage_Entity_Without_Parents() throws JsonProcessingException {
-    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "eng");
-    String expectedConvertedLanguage = "en";
-    Entity placeEntity = new Place();
-    placeEntity.setEntityId(PARENT_URI);
-    int enrichmentBasesExpectedResults = 1;
-    LinkedList<Entity> entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    resolveByText(
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
+    test_not_null("eng", "en");
   }
 
   @Test
   void resolveByText_InvalidLanguage_Entity_Without_Parents() throws JsonProcessingException {
-    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "invalidLanguage");
-    Entity placeEntity = new Place();
-    placeEntity.setEntityId(PARENT_URI);
-    int enrichmentBasesExpectedResults = 1;
-    LinkedList<Entity> entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-        enrichmentBasesExpectedResults)));
+    test_not_null("invalidLanguage", null);
   }
 
   @Test
   void resolveByText_1LetterLanguage_Entity_Without_Parents() throws JsonProcessingException {
-    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "e");
-    Entity placeEntity = new Place();
-    placeEntity.setEntityId(PARENT_URI);
-    int enrichmentBasesExpectedResults = 1;
-    LinkedList<Entity> entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-        enrichmentBasesExpectedResults)));
+    test_not_null("e", null);
   }
 
   @Test
   void resolveByText_EmptyLanguage_Entity_Without_Parents() throws JsonProcessingException {
-    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "");
-    Entity placeEntity = new Place();
-    placeEntity.setEntityId(PARENT_URI);
-    int enrichmentBasesExpectedResults = 1;
-    LinkedList<Entity> entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-        enrichmentBasesExpectedResults)));
+    test_not_null("", null);
   }
 
   @Test
   void resolveByText_NullLanguage_Entity_Without_Parents() throws JsonProcessingException {
-    SearchTermImpl searchTerm = new SearchTermImpl("Greece", null);
+    test_not_null(null, null);
+  }
+
+  void test_not_null(String language, String expectedLanguage) throws JsonProcessingException {
+    SearchTermImpl searchTerm = new SearchTermImpl("Greece", language);
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
-    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedLanguage, List.of(entityWithParents),
         enrichmentBasesExpectedResults)));
   }
 
@@ -253,7 +227,8 @@ class ClientEntityResolverTest {
   @Test
   void resolveByText_JsonProcessingException() throws JsonProcessingException {
     when(entityClientApi.getEnrichment(anyString(), anyString(), anyString(), isNull())).thenThrow(JsonProcessingException.class);
-    assertThrows(UnknownException.class, () -> clientEntityResolver.resolveByText(Set.of(new SearchTermImpl("Greece", "en"))));
+    final Set<SearchTermImpl> searchTerms = Set.of(new SearchTermImpl("Greece", "en"));
+    assertThrows(UnknownException.class, () -> clientEntityResolver.resolveByText(searchTerms));
   }
 
   void resolveByText(Map<SearchTerm, EntitiesAndExpectedEnrichmentBases> searchTermsEntitiesMap)
