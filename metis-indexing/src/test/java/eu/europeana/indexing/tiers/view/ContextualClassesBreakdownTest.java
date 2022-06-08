@@ -7,7 +7,7 @@ import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.util.Set;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
 class ContextualClassesBreakdownTest {

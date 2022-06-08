@@ -1,9 +1,14 @@
-package eu.europeana.enrichment.service;
+package eu.europeana.enrichment.service.utils;
+
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToPart;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertMapToLabels;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertMultilingualMapToLabel;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertResourceOrLiteral;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertToResourceList;
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelInfo;
 import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Organization;
@@ -22,16 +27,11 @@ import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
 import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -39,18 +39,19 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Contains functionality for converting from an incoming Object to a different one.
  */
-public final class Converter {
+public final class EnrichmentTermsToEnrichmentBaseConverter {
 
-  private Converter() {
+  private EnrichmentTermsToEnrichmentBaseConverter() {
   }
 
   /**
    * Converter from list of {@link EnrichmentTerm} to list of {@link EnrichmentBase}.
+   *
    * @param enrichmentTerms the enrichment terms to convert
    * @return the converted enrichment bases
    */
   public static List<EnrichmentBase> convert(List<EnrichmentTerm> enrichmentTerms) {
-    return enrichmentTerms.stream().map(Converter::convert).collect(Collectors.toList());
+    return enrichmentTerms.stream().map(EnrichmentTermsToEnrichmentBaseConverter::convert).collect(Collectors.toList());
   }
 
   /**
@@ -93,14 +94,14 @@ public final class Converter {
     TimeSpan output = new TimeSpan();
 
     output.setAbout(timespanEnrichmentEntity.getAbout());
-    output.setPrefLabelList(convert(timespanEnrichmentEntity.getPrefLabel()));
-    output.setAltLabelList(convert(timespanEnrichmentEntity.getAltLabel()));
-    output.setBegin(convert(timespanEnrichmentEntity.getBegin()).get(0));
-    output.setEnd(convert(timespanEnrichmentEntity.getEnd()).get(0));
+    output.setPrefLabelList(convertMultilingualMapToLabel(timespanEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convertMultilingualMapToLabel(timespanEnrichmentEntity.getAltLabel()));
+    output.setBegin(convertMultilingualMapToLabel(timespanEnrichmentEntity.getBegin()).get(0));
+    output.setEnd(convertMultilingualMapToLabel(timespanEnrichmentEntity.getEnd()).get(0));
     output.setHasPartsList(convertResourceOrLiteral(timespanEnrichmentEntity.getDctermsHasPart()));
-    output.setHiddenLabel(convert(timespanEnrichmentEntity.getHiddenLabel()));
-    output.setNotes(convert(timespanEnrichmentEntity.getNote()));
-    output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
+    output.setHiddenLabel(convertMultilingualMapToLabel(timespanEnrichmentEntity.getHiddenLabel()));
+    output.setNotes(convertMultilingualMapToLabel(timespanEnrichmentEntity.getNote()));
+    output.setSameAs(convertListToPart(timespanEnrichmentEntity.getOwlSameAs()));
 
     if (StringUtils.isNotBlank(timespanEnrichmentEntity.getIsPartOf())) {
       output.setIsPartOf(List.of(new LabelResource(timespanEnrichmentEntity.getIsPartOf())));
@@ -117,11 +118,11 @@ public final class Converter {
     Concept output = new Concept();
 
     output.setAbout(conceptEnrichmentEntity.getAbout());
-    output.setPrefLabelList(convert(conceptEnrichmentEntity.getPrefLabel()));
-    output.setAltLabelList(convert(conceptEnrichmentEntity.getAltLabel()));
-    output.setHiddenLabel(convert(conceptEnrichmentEntity.getHiddenLabel()));
-    output.setNotation(convert(conceptEnrichmentEntity.getNotation()));
-    output.setNotes(convert(conceptEnrichmentEntity.getNote()));
+    output.setPrefLabelList(convertMultilingualMapToLabel(conceptEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convertMultilingualMapToLabel(conceptEnrichmentEntity.getAltLabel()));
+    output.setHiddenLabel(convertMultilingualMapToLabel(conceptEnrichmentEntity.getHiddenLabel()));
+    output.setNotation(convertMultilingualMapToLabel(conceptEnrichmentEntity.getNotation()));
+    output.setNotes(convertMultilingualMapToLabel(conceptEnrichmentEntity.getNote()));
     output.setBroader(convertToResourceList(conceptEnrichmentEntity.getBroader()));
     output.setBroadMatch(convertToResourceList(conceptEnrichmentEntity.getBroadMatch()));
     output.setCloseMatch(convertToResourceList(conceptEnrichmentEntity.getCloseMatch()));
@@ -141,12 +142,12 @@ public final class Converter {
     Place output = new Place();
 
     output.setAbout(placeEnrichmentEntity.getAbout());
-    output.setPrefLabelList(convert(placeEnrichmentEntity.getPrefLabel()));
-    output.setAltLabelList(convert(placeEnrichmentEntity.getAltLabel()));
+    output.setPrefLabelList(convertMultilingualMapToLabel(placeEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convertMultilingualMapToLabel(placeEnrichmentEntity.getAltLabel()));
 
     output.setHasPartsList(convertResourceOrLiteral(placeEnrichmentEntity.getDcTermsHasPart()));
-    output.setNotes(convert(placeEnrichmentEntity.getNote()));
-    output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
+    output.setNotes(convertMultilingualMapToLabel(placeEnrichmentEntity.getNote()));
+    output.setSameAs(convertListToPart(placeEnrichmentEntity.getOwlSameAs()));
 
     if (StringUtils.isNotBlank(placeEnrichmentEntity.getIsPartOf())) {
       output.setIsPartOf(List.of(new LabelResource(placeEnrichmentEntity.getIsPartOf())));
@@ -169,33 +170,33 @@ public final class Converter {
     Agent output = new Agent();
 
     output.setAbout(agentEntityEnrichment.getAbout());
-    output.setPrefLabelList(convert(agentEntityEnrichment.getPrefLabel()));
-    output.setAltLabelList(convert(agentEntityEnrichment.getAltLabel()));
-    output.setHiddenLabel(convert(agentEntityEnrichment.getHiddenLabel()));
-    output.setFoafName(convert(agentEntityEnrichment.getFoafName()));
-    output.setNotes(convert(agentEntityEnrichment.getNote()));
+    output.setPrefLabelList(convertMultilingualMapToLabel(agentEntityEnrichment.getPrefLabel()));
+    output.setAltLabelList(convertMultilingualMapToLabel(agentEntityEnrichment.getAltLabel()));
+    output.setHiddenLabel(convertMultilingualMapToLabel(agentEntityEnrichment.getHiddenLabel()));
+    output.setFoafName(convertMultilingualMapToLabel(agentEntityEnrichment.getFoafName()));
+    output.setNotes(convertMultilingualMapToLabel(agentEntityEnrichment.getNote()));
 
-    output.setBeginList(convert(agentEntityEnrichment.getBegin()));
-    output.setEndList(convert(agentEntityEnrichment.getEnd()));
+    output.setBeginList(convertMultilingualMapToLabel(agentEntityEnrichment.getBegin()));
+    output.setEndList(convertMultilingualMapToLabel(agentEntityEnrichment.getEnd()));
 
-    output.setIdentifier(convert(agentEntityEnrichment.getDcIdentifier()));
+    output.setIdentifier(convertMultilingualMapToLabel(agentEntityEnrichment.getDcIdentifier()));
     output.setHasMet(convertToResourceList(agentEntityEnrichment.getEdmHasMet()));
     output.setBiographicalInformation(
         convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2BiographicalInformation()));
     output.setPlaceOfBirth(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfBirth()));
     output.setPlaceOfDeath(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfDeath()));
-    output.setDateOfBirth(convert(agentEntityEnrichment.getRdaGr2DateOfBirth()));
-    output.setDateOfDeath(convert(agentEntityEnrichment.getRdaGr2DateOfDeath()));
-    output.setDateOfEstablishment(convert(agentEntityEnrichment.getRdaGr2DateOfEstablishment()));
-    output.setDateOfTermination(convert(agentEntityEnrichment.getRdaGr2DateOfTermination()));
-    output.setGender(convert(agentEntityEnrichment.getRdaGr2Gender()));
+    output.setDateOfBirth(convertMultilingualMapToLabel(agentEntityEnrichment.getRdaGr2DateOfBirth()));
+    output.setDateOfDeath(convertMultilingualMapToLabel(agentEntityEnrichment.getRdaGr2DateOfDeath()));
+    output.setDateOfEstablishment(convertMultilingualMapToLabel(agentEntityEnrichment.getRdaGr2DateOfEstablishment()));
+    output.setDateOfTermination(convertMultilingualMapToLabel(agentEntityEnrichment.getRdaGr2DateOfTermination()));
+    output.setGender(convertMultilingualMapToLabel(agentEntityEnrichment.getRdaGr2Gender()));
 
     output.setDate(convertResourceOrLiteral(agentEntityEnrichment.getDcDate()));
     output.setProfessionOrOccupation(
         convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2ProfessionOrOccupation()));
 
     output.setWasPresentAt(convertToResourceList(agentEntityEnrichment.getEdmWasPresentAt()));
-    output.setSameAs(convertToPartsList(agentEntityEnrichment.getOwlSameAs()));
+    output.setSameAs(convertListToPart(agentEntityEnrichment.getOwlSameAs()));
 
     return output;
   }
@@ -205,10 +206,10 @@ public final class Converter {
     Organization output = new Organization();
 
     output.setAbout(organizationEnrichmentEntity.getAbout());
-    output.setPrefLabelList(convert(organizationEnrichmentEntity.getPrefLabel()));
-    output.setAltLabelList(convert(organizationEnrichmentEntity.getAltLabel()));
-    output.setNotes(convert(organizationEnrichmentEntity.getNote()));
-    output.setSameAs(convertToPartsList(organizationEnrichmentEntity.getOwlSameAs()));
+    output.setPrefLabelList(convertMultilingualMapToLabel(organizationEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convertMultilingualMapToLabel(organizationEnrichmentEntity.getAltLabel()));
+    output.setNotes(convertMultilingualMapToLabel(organizationEnrichmentEntity.getNote()));
+    output.setSameAs(convertListToPart(organizationEnrichmentEntity.getOwlSameAs()));
     if (MapUtils.isNotEmpty(organizationEnrichmentEntity.getEdmCountry())) {
       output.setCountry(
           organizationEnrichmentEntity.getEdmCountry().entrySet().iterator().next().getValue());
@@ -222,7 +223,7 @@ public final class Converter {
     output.setHomepage(new Resource(organizationEnrichmentEntity.getFoafHomepage()));
     output.setLogo(new Resource(organizationEnrichmentEntity.getFoafLogo()));
     output.setDepiction(new Resource(organizationEnrichmentEntity.getFoafDepiction()));
-    output.setAcronyms(convert(organizationEnrichmentEntity.getEdmAcronym()));
+    output.setAcronyms(convertMultilingualMapToLabel(organizationEnrichmentEntity.getEdmAcronym()));
     output.setDescriptions(convertMapToLabels(organizationEnrichmentEntity.getDcDescription()));
 
     final Address address = organizationEnrichmentEntity.getAddress();
@@ -238,18 +239,6 @@ public final class Converter {
     output.setHasAddress(vcardAddresses);
 
     return output;
-  }
-
-  static EnrichmentTerm organizationImplToEnrichmentTerm(
-      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
-    final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);
-    enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
-    enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
-    enrichmentTerm.setUpdated(updated);
-    enrichmentTerm.setLabelInfos(createLabelInfoList(organizationEnrichmentEntity));
-
-    return enrichmentTerm;
   }
 
   /**
@@ -282,53 +271,5 @@ public final class Converter {
                 .collect(Collectors.toList()));
       });
     }
-  }
-
-  private static List<Label> convert(Map<String, List<String>> map) {
-    List<Label> labels = new ArrayList<>();
-    if (map == null) {
-      return labels;
-    }
-    map.forEach(
-        (key, entry) -> entry.stream().map(value -> new Label(key, value)).forEach(labels::add));
-    return labels;
-  }
-
-  private static List<Label> convertMapToLabels(Map<String, String> map) {
-    List<Label> labels = new ArrayList<>();
-    if (map == null) {
-      return labels;
-    }
-    map.forEach((key, value) -> labels.add(new Label(key, value)));
-    return labels;
-  }
-
-  private static List<LabelResource> convertResourceOrLiteral(Map<String, List<String>> map) {
-    List<LabelResource> parts = new ArrayList<>();
-    if (map == null) {
-      return parts;
-    }
-    map.forEach((key, entry) -> entry.stream()
-        .map(value -> (isUri(key) ? new LabelResource(key) : new LabelResource(key, value)))
-        .forEach(parts::add));
-    return parts;
-  }
-
-  private static List<Resource> convertToResourceList(String[] resources) {
-    if (resources == null) {
-      return new ArrayList<>();
-    }
-    return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
-  }
-
-  private static List<Part> convertToPartsList(List<String> resources) {
-    if (resources == null) {
-      return new ArrayList<>();
-    }
-    return resources.stream().map(Part::new).collect(Collectors.toList());
-  }
-
-  private static boolean isUri(String str) {
-    return str.startsWith("http://");
   }
 }

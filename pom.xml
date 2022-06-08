@@ -126,14 +126,15 @@
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
+    <version.commons-fileupload>1.4</version.commons-fileupload>
+    <version.commons.io>2.9.0</version.commons.io>
+    <version.commons.lang3>3.12.0</version.commons.lang3>
+    <version.commons-collections4>4.4</version.commons-collections4>
     <version.awaitability>1.7.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
     <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
-    <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.commons.io>2.9.0</version.commons.io>
-    <version.commons.lang3>3.12.0</version.commons.lang3>
     <version.commons.collections>3.2.2</version.commons.collections>
     <version.apache.commons.text>1.9</version.apache.commons.text>
     <version.commonscompress>1.11</version.commonscompress>
@@ -180,6 +181,7 @@
     <version.slf4j>1.7.30</version.slf4j>
     <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.spring>5.3.7</version.spring>
+    <version.spring-boot-autoconfigure>2.7.0</version.spring-boot-autoconfigure>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.security>5.5.0</version.spring.security>
@@ -220,6 +222,11 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${version.commons.lang3}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${version.commons-collections4}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
@@ -385,6 +392,10 @@
         <artifactId>corelib-definitions</artifactId>
         <version>${version.corelib}</version>
         <exclusions>
+          <exclusion>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>dev.morphia.morphia</groupId>
             <artifactId>core</artifactId>

@@ -4,18 +4,21 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Implementations of this class have the ability to resolve entities based on the given input.
  */
 public interface EntityResolver {
 
+  Pattern europeanaLinkPattern = Pattern.compile("^https?://data.europeana.eu.*$");
+
   /**
    * Resolve entities by a textual reference.
    *
    * @param searchTerms The search terms to resolve.
-   * @return A map from provided search terms to lists of entities that the search term yielded.
-   * Note: not all provided search terms may be present (i.e. if the search yielded no result).
+   * @return A map from provided search terms to lists of entities that the search term yielded. Note: not all provided search
+   * terms may be present (i.e. if the search yielded no result).
    */
   <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms);
 

@@ -8,13 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
@@ -26,15 +23,12 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
-import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -45,7 +39,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -433,87 +426,5 @@ class PersistentEntityResolverTest {
         pair -> pair.getKey().equals(EnrichmentDao.ENTITY_TYPE_FIELD) && entityType == EntityType
             .valueOf(pair.getValue()));
     return matchesEntityType && matchesFieldName;
-  }
-
-  @Test
-  void saveOrganization() {
-    final ObjectId objectId = new ObjectId();
-    when(enrichmentDao.getEnrichmentTermObjectIdByField(EnrichmentDao.ENTITY_ABOUT_FIELD,
-        enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout()))
-        .thenReturn(Optional.of(objectId));
-    when(enrichmentDao.saveEnrichmentTerm(any(EnrichmentTerm.class)))
-        .thenReturn(objectId.toString());
-    when(enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, objectId.toString()))
-        .thenReturn(Optional.of(enrichmentObjectUtils.customOrganizationTerm));
-    final OrganizationEnrichmentEntity organizationEnrichmentEntity = persistentEntityResolver
-        .saveOrganization(
-            (OrganizationEnrichmentEntity) enrichmentObjectUtils.customOrganizationTerm
-                .getEnrichmentEntity(), new Date(), new Date());
-
-    verify(enrichmentDao, times(1))
-        .getEnrichmentTermByField(EnrichmentDao.ID_FIELD, objectId.toString());
-    assertEquals(enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout(),
-        organizationEnrichmentEntity.getAbout());
-  }
-
-  @Test
-  void findExistingOrganizations() {
-    final List<String> organizationIds = new ArrayList<>();
-    organizationIds
-        .add(enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout());
-    organizationIds.add("non_existent_id");
-    when(enrichmentDao.getAllEnrichmentTermsByFields(anyMap()))
-        .thenReturn(List.of(enrichmentObjectUtils.customOrganizationTerm))
-        .thenReturn(Collections.emptyList());
-    final List<String> existingOrganizations = persistentEntityResolver
-        .findExistingOrganizations(organizationIds);
-
-    assertEquals(1, existingOrganizations.size());
-    assertTrue(existingOrganizations.stream().anyMatch(id -> id
-        .equals(enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout())));
-  }
-
-  @Test
-  void getOrganizationByUri() {
-    when(enrichmentDao.getAllEnrichmentTermsByFields(anyMap()))
-        .thenReturn(List.of(enrichmentObjectUtils.customOrganizationTerm))
-        .thenReturn(Collections.emptyList());
-    final Optional<OrganizationEnrichmentEntity> organizationByUri = persistentEntityResolver
-        .getOrganizationByUri(
-            enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout());
-
-    assertTrue(organizationByUri.isPresent());
-    assertEquals(organizationByUri.get().getAbout(),
-        enrichmentObjectUtils.customOrganizationTerm.getEnrichmentEntity().getAbout());
-  }
-
-  @Test
-  void deleteOrganizations() {
-    final List<String> organizationIds = List.of("example_id");
-    persistentEntityResolver.deleteOrganizations(organizationIds);
-    verify(enrichmentDao, times(1)).deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
-    verifyNoMoreInteractions(enrichmentDao);
-  }
-
-  @Test
-  void deleteOrganization() {
-    final String organizationId = "example_id";
-    persistentEntityResolver.deleteOrganization(organizationId);
-    verify(enrichmentDao, times(1)).deleteEnrichmentTerms(argThat(is(EntityType.ORGANIZATION)),
-        (List) argThat(hasItems(organizationId)));
-    verifyNoMoreInteractions(enrichmentDao);
-  }
-
-  @Test
-  void getDateOfLastUpdatedOrganization() {
-    final Date date = new Date();
-    when(enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION))
-        .thenReturn(date);
-    final Date dateOfLastUpdatedOrganization = persistentEntityResolver
-        .getDateOfLastUpdatedOrganization();
-    assertEquals(date, dateOfLastUpdatedOrganization);
-    verify(enrichmentDao, times(1)).getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
-    verifyNoMoreInteractions(enrichmentDao);
-
   }
 }
