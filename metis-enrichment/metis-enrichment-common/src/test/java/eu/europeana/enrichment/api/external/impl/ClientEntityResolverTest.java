@@ -98,6 +98,20 @@ class ClientEntityResolverTest {
   }
 
   @Test
+  void resolveByText_Multiple_Entities_Without_Parents() throws JsonProcessingException {
+    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "en");
+    String expectedConvertedLanguage = "en";
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(PARENT_URI);
+    int enrichmentBasesExpectedResults = 0;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    resolveByText(Map.of(searchTerm,
+        new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents, entityWithParents),
+            enrichmentBasesExpectedResults)));
+  }
+
+  @Test
   void resolveByText_Entity_With_One_Parent() throws JsonProcessingException {
     SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
     String expectedConvertedLanguage = "en";
@@ -259,18 +273,7 @@ class ClientEntityResolverTest {
     final Map<SearchTerm, List<EnrichmentBase>> searchTermEnrichmentBasesMap = clientEntityResolver.resolveByText(
         new HashSet<>(searchTermsEntitiesMap.keySet()));
 
-    //Verify each request has a result even if it's an empty list
-    assertEquals(searchTermsEntitiesMap.size(), searchTermEnrichmentBasesMap.size());
-
-    for (Entry<SearchTerm, EntitiesAndExpectedEnrichmentBases> entry : searchTermsEntitiesMap.entrySet()) {
-      //For each search we expect an amount of enrichment bases
-      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), searchTermEnrichmentBasesMap.get(entry.getKey()).size());
-
-      //Verify that each entity
-      entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
-           .forEach(entity -> assertTrue(searchTermEnrichmentBasesMap.get(entry.getKey()).stream().anyMatch(
-               item -> entity.getEntityId().equals(item.getAbout()))));
-    }
+    resultAssertions(searchTermsEntitiesMap, searchTermEnrichmentBasesMap);
   }
 
   @Test
@@ -391,19 +394,21 @@ class ClientEntityResolverTest {
     resultAssertions(referenceTermsEntitiesMap, referenceTermEnrichmentBasesMap);
   }
 
-  private void resultAssertions(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap,
-      Map<ReferenceTerm, List<EnrichmentBase>> searchTermEnrichmentBaseMap) {
+  private <T> void resultAssertions(Map<T, EntitiesAndExpectedEnrichmentBases> termsEntitiesMap,
+      Map<T, List<EnrichmentBase>> termsEnrichmentBasesMap) {
     //Verify each request has a result even if it's an empty list
-    assertEquals(referenceTermsEntitiesMap.size(), searchTermEnrichmentBaseMap.size());
+    assertEquals(termsEntitiesMap.size(), termsEnrichmentBasesMap.size());
 
-    for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
+    for (Entry<T, EntitiesAndExpectedEnrichmentBases> entry : termsEntitiesMap.entrySet()) {
       //For each search we expect an amount of enrichment bases
-      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), searchTermEnrichmentBaseMap.get(entry.getKey()).size());
+      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), termsEnrichmentBasesMap.get(entry.getKey()).size());
 
-      //Verify that each entity
-      entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
-           .forEach(entity -> assertTrue(searchTermEnrichmentBaseMap.get(entry.getKey()).stream().anyMatch(
-               item -> entity.getEntityId().equals(item.getAbout()))));
+      //For expected results we check to find that each expected entity exists in the results
+      if (entry.getValue().getEnrichmentBasesExpectedResults() > 0) {
+        entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
+             .forEach(entity -> assertTrue(termsEnrichmentBasesMap.get(entry.getKey()).stream().anyMatch(
+                 item -> entity.getEntityId().equals(item.getAbout()))));
+      }
     }
   }
 
