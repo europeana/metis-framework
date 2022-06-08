@@ -60,110 +60,24 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   @Override
-  public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
-    final Map<T, List<EnrichmentBase>> batches = performInBatches(referenceTerms);
-    return convertToMapWithSingleValues(batches);
-  }
-
-  private <T extends ReferenceTerm> HashMap<T, EnrichmentBase> convertToMapWithSingleValues(
-      Map<T, List<EnrichmentBase>> batches) {
-    return batches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
-        entry.getValue().stream().findFirst().orElse(null)), HashMap::putAll);
+  public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
+    return performInBatches(referenceTerms, true);
   }
 
   @Override
-  public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
-    return performInBatches(referenceTerms, true);
+  public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
+    final Map<T, List<EnrichmentBase>> batches = performInBatches(referenceTerms);
+    return convertToMapWithSingleValues(batches);
   }
 
   private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues) {
     return performInBatches(inputValues, false);
   }
 
-  /**
-   * Checks if an entity identifier matches an identifier of the entities provided.
-   *
-   * @param entityIdToCheck the entity identifier to check
-   * @param entities the entity list
-   * @return true if it matches otherwise false
-   */
-  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
-    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
-  }
-
-  private <I> List<Entity> resolveEntities(I batchItem, boolean uriSearch) {
-    if (batchItem instanceof ReferenceTerm) {
-      return resolveReference((ReferenceTerm) batchItem, uriSearch);
-    } else {
-      return resolveTextSearch((SearchTerm) batchItem);
-    }
-  }
-
-  /**
-   * Get entities by text search.
-   * <p>
-   * The result will always be a list of size 1. Internally the remote request might return more than one entities which in that
-   * case the return of this method will be an empty list. That is because the remote request would be ambiguous and therefore we
-   * do not know which of the entities is actually intended.
-   * </p>
-   * <p>
-   * ATTENTION: The described discarding of entities applies correctly in the case where the remote request does <b>NOT</b>
-   * contain parent entities and that the parent entities are fetched remotely i.e. {@link #extendEntitiesWithParents}.
-   * </p>
-   *
-   * @param searchTerm the text search term
-   * @return the list of entities(at this point of size 0 or 1)
-   */
-  private List<Entity> resolveTextSearch(SearchTerm searchTerm) {
-    final String entityTypesConcatenated = searchTerm.getCandidateTypes().stream()
-                                                     .map(entityType -> entityType.name().toLowerCase(Locale.US))
-                                                     .collect(Collectors.joining(","));
-    final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
-    final List<Entity> entities;
-    try {
-      entities = retryableExternalRequestForNetworkExceptionsThrowing(
-          () -> entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
-      return entities.size() == 1 ? entities : Collections.emptyList();
-    } catch (JsonProcessingException e) {
-      throw new UnknownException(
-          format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
-              searchTerm.getLanguage(), entityTypesConcatenated), e);
-    }
-  }
-
-  /**
-   * Get entities based on a reference.
-   * <p>We always check first if the reference resembles a euroepeana entity identifier and if so then we search by id..</p>
-   * <p>For invocations that are uri searches({@code uriSearch} equals true) then we also invoke the remote uri search.</p>
-   * <p>For uri searches, this resembles the metis implementation where the about search is invoked and if no result return then
-   * a second invocation on the owlSameAs is performed.</p>
-   *
-   * @param referenceTerm the reference term
-   * @param uriSearch indicates if the search is an uri or an id search
-   * @return the list of entities
-   */
-  private List<Entity> resolveReference(ReferenceTerm referenceTerm, boolean uriSearch) {
-    final String referenceValue = referenceTerm.getReference().toString();
-
-    List<Entity> result = new ArrayList<>();
-    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-      result = Optional.ofNullable(entityClientApi.getEntityById(referenceValue)).map(List::of).orElse(Collections.emptyList());
-    } else if (uriSearch) {
-      result = entityClientApi.getEntityByUri(referenceValue);
-    }
-    return result;
-  }
-
-  /**
-   * Creates a copy list that is then extended with any parents found.
-   *
-   * @param entities the entities
-   * @return the extended entities
-   */
-  private List<Entity> extendEntitiesWithParents(List<Entity> entities) {
-    //Copy list so that we can extend
-    final ArrayList<Entity> copyEntities = new ArrayList<>(entities);
-    return findParentEntitiesRecursive(copyEntities, copyEntities);
+  private <T extends ReferenceTerm> HashMap<T, EnrichmentBase> convertToMapWithSingleValues(
+      Map<T, List<EnrichmentBase>> batches) {
+    return batches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
+        entry.getValue().stream().findFirst().orElse(null)), HashMap::putAll);
   }
 
   /**
@@ -202,6 +116,81 @@ public class ClientEntityResolver implements EntityResolver {
     return enrichmentBases;
   }
 
+  private <I> List<Entity> resolveEntities(I batchItem, boolean uriSearch) {
+    if (batchItem instanceof ReferenceTerm) {
+      return resolveReference((ReferenceTerm) batchItem, uriSearch);
+    } else {
+      return resolveTextSearch((SearchTerm) batchItem);
+    }
+  }
+
+  /**
+   * Get entities based on a reference.
+   * <p>We always check first if the reference resembles a euroepeana entity identifier and if so then we search by id..</p>
+   * <p>For invocations that are uri searches({@code uriSearch} equals true) then we also invoke the remote uri search.</p>
+   * <p>For uri searches, this resembles the metis implementation where the about search is invoked and if no result return then
+   * a second invocation on the owlSameAs is performed.</p>
+   *
+   * @param referenceTerm the reference term
+   * @param uriSearch indicates if the search is an uri or an id search
+   * @return the list of entities
+   */
+  private List<Entity> resolveReference(ReferenceTerm referenceTerm, boolean uriSearch) {
+    final String referenceValue = referenceTerm.getReference().toString();
+
+    List<Entity> result = new ArrayList<>();
+    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
+      result = Optional.ofNullable(entityClientApi.getEntityById(referenceValue)).map(List::of).orElse(Collections.emptyList());
+    } else if (uriSearch) {
+      result = entityClientApi.getEntityByUri(referenceValue);
+    }
+    return result;
+  }
+
+  /**
+   * Get entities by text search.
+   * <p>
+   * The result will always be a list of size 1. Internally the remote request might return more than one entities which in that
+   * case the return of this method will be an empty list. That is because the remote request would be ambiguous and therefore we
+   * do not know which of the entities is actually intended.
+   * </p>
+   * <p>
+   * ATTENTION: The described discarding of entities applies correctly in the case where the remote request does <b>NOT</b>
+   * contain parent entities and that the parent entities are fetched remotely i.e. {@link #extendEntitiesWithParents}.
+   * </p>
+   *
+   * @param searchTerm the text search term
+   * @return the list of entities(at this point of size 0 or 1)
+   */
+  private List<Entity> resolveTextSearch(SearchTerm searchTerm) {
+    final String entityTypesConcatenated = searchTerm.getCandidateTypes().stream()
+                                                     .map(entityType -> entityType.name().toLowerCase(Locale.US))
+                                                     .collect(Collectors.joining(","));
+    final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
+    final List<Entity> entities;
+    try {
+      entities = retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
+      return entities.size() == 1 ? entities : Collections.emptyList();
+    } catch (JsonProcessingException e) {
+      throw new UnknownException(
+          format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
+              searchTerm.getLanguage(), entityTypesConcatenated), e);
+    }
+  }
+
+  /**
+   * Creates a copy list that is then extended with any parents found.
+   *
+   * @param entities the entities
+   * @return the extended entities
+   */
+  private List<Entity> extendEntitiesWithParents(List<Entity> entities) {
+    //Copy list so that we can extend
+    final ArrayList<Entity> copyEntities = new ArrayList<>(entities);
+    return findParentEntitiesRecursive(copyEntities, copyEntities);
+  }
+
   /**
    * Converts the list of entities to a list of {@link EnrichmentBase}s.
    *
@@ -238,5 +227,16 @@ public class ClientEntityResolver implements EntityResolver {
       findParentEntitiesRecursive(collectedEntities, parentEntities);
     }
     return collectedEntities;
+  }
+
+  /**
+   * Checks if an entity identifier matches an identifier of the entities provided.
+   *
+   * @param entityIdToCheck the entity identifier to check
+   * @param entities the entity list
+   * @return true if it matches otherwise false
+   */
+  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 }
