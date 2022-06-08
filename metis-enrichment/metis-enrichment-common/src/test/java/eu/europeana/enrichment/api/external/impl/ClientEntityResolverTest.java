@@ -84,7 +84,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_singleEntity() throws JsonProcessingException {
+  void resolveByText_Entity_Without_Parents() throws JsonProcessingException {
     SearchTermImpl searchTerm = new SearchTermImpl("Greece", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -92,13 +92,13 @@ class ClientEntityResolverTest {
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
-    resolveByText("Return of one entity without parents", Map.of(searchTerm,
+    resolveByText(Map.of(searchTerm,
         new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
             enrichmentBasesExpectedResults)));
   }
 
   @Test
-  void resolveByText_parentEntity() throws JsonProcessingException {
+  void resolveByText_Entity_With_One_Parent() throws JsonProcessingException {
     SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -110,29 +110,32 @@ class ClientEntityResolverTest {
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
     entityWithParents.add(parentPlaceEntity);
-    resolveByText("Return one entity and one parent",
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    searchTerm = new SearchTermImpl("Crete", "en");
-    expectedConvertedLanguage = "en";
-    placeEntity = new Place();
-    placeEntity.setEntityId(CHILD_URI);
-    placeEntity.setIsPartOfArray(List.of(PARENT_URI));
-    parentPlaceEntity = new Place();
-    parentPlaceEntity.setEntityId(PARENT_URI);
-    parentPlaceEntity.setIsPartOfArray(List.of(CHILD_URI));
-    enrichmentBasesExpectedResults = 2;
-    entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    entityWithParents.add(parentPlaceEntity);
-    resolveByText("Return one entity and one parent(Circular parents do not cause endless loop)",
+    resolveByText(
         Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
             enrichmentBasesExpectedResults)));
   }
 
   @Test
-  void resolveByText_language() throws JsonProcessingException {
+  void resolveByText_Entity_With_One_Parent_Circular_OK() throws JsonProcessingException {
+    SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
+    String expectedConvertedLanguage = "en";
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(CHILD_URI);
+    placeEntity.setIsPartOfArray(List.of(PARENT_URI));
+    Entity parentPlaceEntity = new Place();
+    parentPlaceEntity.setEntityId(PARENT_URI);
+    parentPlaceEntity.setIsPartOfArray(List.of(CHILD_URI));
+    int enrichmentBasesExpectedResults = 2;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    entityWithParents.add(parentPlaceEntity);
+    resolveByText(
+        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
+            enrichmentBasesExpectedResults)));
+  }
+
+  @Test
+  void resolveByText_3LetterLanguage_Entity_Without_Parents() throws JsonProcessingException {
     SearchTermImpl searchTerm = new SearchTermImpl("Greece", "eng");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -140,33 +143,61 @@ class ClientEntityResolverTest {
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
-    resolveByText("Return of one entity without parents(3 letter language)",
+    resolveByText(
         Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    searchTerm = new SearchTermImpl("Greece", "invalidLanguage");
-    resolveByText("Return of one entity without parents(invalid language)",
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    searchTerm = new SearchTermImpl("Greece", "e");
-    resolveByText("Return of one entity without parents(1 letter language)",
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    searchTerm = new SearchTermImpl("Greece", "");
-    resolveByText("Return of one entity without parents(empty language)",
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    searchTerm = new SearchTermImpl("Greece", null);
-    resolveByText("Return of one entity without parents(null language)",
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
             enrichmentBasesExpectedResults)));
   }
 
   @Test
-  void resolveByText_entityTypes() throws JsonProcessingException {
+  void resolveByText_InvalidLanguage_Entity_Without_Parents() throws JsonProcessingException {
+    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "invalidLanguage");
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(PARENT_URI);
+    int enrichmentBasesExpectedResults = 1;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  @Test
+  void resolveByText_1LetterLanguage_Entity_Without_Parents() throws JsonProcessingException {
+    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "e");
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(PARENT_URI);
+    int enrichmentBasesExpectedResults = 1;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  @Test
+  void resolveByText_EmptyLanguage_Entity_Without_Parents() throws JsonProcessingException {
+    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "");
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(PARENT_URI);
+    int enrichmentBasesExpectedResults = 1;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  @Test
+  void resolveByText_NullLanguage_Entity_Without_Parents() throws JsonProcessingException {
+    SearchTermImpl searchTerm = new SearchTermImpl("Greece", null);
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(PARENT_URI);
+    int enrichmentBasesExpectedResults = 1;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    resolveByText(Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  @Test
+  void resolveByText_CorrectEntityType_Entity_Without_Parents() throws JsonProcessingException {
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.PLACE));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -174,28 +205,33 @@ class ClientEntityResolverTest {
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
-    resolveByText("Return of one entity without parents(Single entity type)",
+    resolveByText(
         Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
             enrichmentBasesExpectedResults)));
+  }
 
-    searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN));
-    expectedConvertedLanguage = "en";
-    placeEntity = new Place();
+  @Test
+  void resolveByText_IncorrectEntityType_Entity_Without_Parents() throws JsonProcessingException {
+    SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN));
+    String expectedConvertedLanguage = "en";
+    Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
-    enrichmentBasesExpectedResults = 0;
-    entityWithParents = new LinkedList<>();
-    resolveByText("Return of one entity without parents(Single incorrect entity type)",
-        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
+    int enrichmentBasesExpectedResults = 0;
+    resolveByText(
+        Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(new LinkedList<>()),
             enrichmentBasesExpectedResults)));
+  }
 
-    searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN, EntityType.PLACE));
-    expectedConvertedLanguage = "en";
-    placeEntity = new Place();
+  @Test
+  void resolveByText_MultipleEntityTypes_Entity_Without_Parents() throws JsonProcessingException {
+    SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN, EntityType.PLACE));
+    String expectedConvertedLanguage = "en";
+    Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
-    enrichmentBasesExpectedResults = 1;
-    entityWithParents = new LinkedList<>();
+    int enrichmentBasesExpectedResults = 1;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
-    resolveByText("Return of one entity without parents(Multiple entity types)",
+    resolveByText(
         Map.of(searchTerm, new EntitiesAndExpectedEnrichmentBases(true, expectedConvertedLanguage, List.of(entityWithParents),
             enrichmentBasesExpectedResults)));
   }
@@ -206,7 +242,7 @@ class ClientEntityResolverTest {
     assertThrows(UnknownException.class, () -> clientEntityResolver.resolveByText(Set.of(new SearchTermImpl("Greece", "en"))));
   }
 
-  void resolveByText(String testName, Map<SearchTerm, EntitiesAndExpectedEnrichmentBases> searchTermsEntitiesMap)
+  void resolveByText(Map<SearchTerm, EntitiesAndExpectedEnrichmentBases> searchTermsEntitiesMap)
       throws JsonProcessingException {
     for (Entry<SearchTerm, EntitiesAndExpectedEnrichmentBases> entry : searchTermsEntitiesMap.entrySet()) {
       final String entityTypes = entry.getKey().getCandidateTypes().stream()
@@ -217,11 +253,7 @@ class ClientEntityResolverTest {
       when(entityClientApi.getEnrichment(entry.getKey().getTextValue(), entry.getValue().getExpectedConvertedLanguage(),
           entityTypes, null)).thenReturn(children);
 
-      final List<Entity> parentEntities = entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
-                                               .filter(entity -> !children.contains(entity)).collect(Collectors.toList());
-      for (Entity parentEntity : parentEntities) {
-        when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
-      }
+      parentMatching(entry.getValue(), children);
     }
 
     final Map<SearchTerm, List<EnrichmentBase>> searchTermEnrichmentBaseMap = clientEntityResolver.resolveByText(
@@ -246,20 +278,19 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_singleEntity() throws MalformedURLException {
+  void resolveByUri_Entity_Without_Parents() throws MalformedURLException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(PARENT_URI));
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
-    resolveByUri("Return of one entity without parents", Map.of(referenceTerm,
-        new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
+    resolveByUri(Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
   }
 
   @Test
-  void resolveByUri_parentEntity() throws MalformedURLException {
+  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException {
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
@@ -270,44 +301,45 @@ class ClientEntityResolverTest {
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
     entityWithParents.add(parentPlaceEntity);
-    resolveByUri("Return one entity and one parent",
-        Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    //Check with sameAs as well
-    referenceTerm = new ReferenceTermImpl(new URL(CHILD_SAME_AS_URI));
-    placeEntity = new Place();
-    placeEntity.setEntityId(CHILD_URI);
-    placeEntity.setIsPartOfArray(List.of(PARENT_URI));
-    parentPlaceEntity = new Place();
-    parentPlaceEntity.setEntityId(PARENT_URI);
-    parentPlaceEntity.setIsPartOfArray(List.of(CHILD_URI));
-    enrichmentBasesExpectedResults = 2;
-    entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    entityWithParents.add(parentPlaceEntity);
-    resolveByUri("Return one entity and one parent(Circular parents do not cause endless loop)",
-        Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(false, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
-
-    //Circular does not fail or get stuck
-    referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
-    placeEntity = new Place();
-    placeEntity.setEntityId(CHILD_URI);
-    placeEntity.setIsPartOfArray(List.of(PARENT_URI));
-    parentPlaceEntity = new Place();
-    parentPlaceEntity.setEntityId(PARENT_URI);
-    parentPlaceEntity.setIsPartOfArray(List.of(CHILD_URI));
-    enrichmentBasesExpectedResults = 2;
-    entityWithParents = new LinkedList<>();
-    entityWithParents.add(placeEntity);
-    entityWithParents.add(parentPlaceEntity);
-    resolveByUri("Return one entity and one parent(Circular parents do not cause endless loop)",
-        Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
-            enrichmentBasesExpectedResults)));
+    resolveByUri(Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
   }
 
-  void resolveByUri(String testName, Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
+  @Test
+  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK() throws MalformedURLException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_SAME_AS_URI));
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(CHILD_URI);
+    placeEntity.setIsPartOfArray(List.of(PARENT_URI));
+    Entity parentPlaceEntity = new Place();
+    parentPlaceEntity.setEntityId(PARENT_URI);
+    parentPlaceEntity.setIsPartOfArray(List.of(CHILD_URI));
+    int enrichmentBasesExpectedResults = 2;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    entityWithParents.add(parentPlaceEntity);
+    resolveByUri(Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(false, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  @Test
+  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws MalformedURLException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
+    Entity placeEntity = new Place();
+    placeEntity.setEntityId(CHILD_URI);
+    placeEntity.setIsPartOfArray(List.of(PARENT_URI));
+    Entity parentPlaceEntity = new Place();
+    parentPlaceEntity.setEntityId(PARENT_URI);
+    parentPlaceEntity.setIsPartOfArray(List.of(CHILD_URI));
+    int enrichmentBasesExpectedResults = 2;
+    LinkedList<Entity> entityWithParents = new LinkedList<>();
+    entityWithParents.add(placeEntity);
+    entityWithParents.add(parentPlaceEntity);
+    resolveByUri(Map.of(referenceTerm, new EntitiesAndExpectedEnrichmentBases(true, null, List.of(entityWithParents),
+        enrichmentBasesExpectedResults)));
+  }
+
+  void resolveByUri(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
                                          .collect(Collectors.toList());
@@ -317,17 +349,16 @@ class ClientEntityResolverTest {
       } else {
         when(entityClientApi.getEntityByUri(entry.getKey().getReference().toString())).thenReturn(children);
       }
-
-      final List<Entity> parentEntities = entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
-                                               .filter(entity -> !children.contains(entity)).collect(Collectors.toList());
-      for (Entity parentEntity : parentEntities) {
-        when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
-      }
+      parentMatching(entry.getValue(), children);
     }
 
     final Map<ReferenceTerm, List<EnrichmentBase>> searchTermEnrichmentBaseMap = clientEntityResolver.resolveByUri(
         new HashSet<>(referenceTermsEntitiesMap.keySet()));
+    resultAssertions(referenceTermsEntitiesMap, searchTermEnrichmentBaseMap);
+  }
 
+  private void resultAssertions(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap,
+      Map<ReferenceTerm, List<EnrichmentBase>> searchTermEnrichmentBaseMap) {
     //Verify each request has a result even if it's an empty list
     assertEquals(referenceTermsEntitiesMap.size(), searchTermEnrichmentBaseMap.size());
 
@@ -339,6 +370,14 @@ class ClientEntityResolverTest {
       entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
            .forEach(entity -> assertTrue(searchTermEnrichmentBaseMap.get(entry.getKey()).stream().anyMatch(
                item -> entity.getEntityId().equals(item.getAbout()))));
+    }
+  }
+
+  private void parentMatching(EntitiesAndExpectedEnrichmentBases entry, List<Entity> children) {
+    final List<Entity> parentEntities = entry.getEntitiesWithParents().stream().flatMap(List::stream)
+                                             .filter(entity -> !children.contains(entity)).collect(Collectors.toList());
+    for (Entity parentEntity : parentEntities) {
+      when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
     }
   }
 }
