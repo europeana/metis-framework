@@ -8,9 +8,11 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+import java.util.Properties;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,8 +58,18 @@ public class Application implements InitializingBean {
   @Value("${enrichment.batch.size:20}")
   private int enrichmentBatchSize;
 
-  @Value("${entity.resolver.type:PERSISTENT}")
+  @Value("${enrichment.entity.resolver.type:PERSISTENT}")
   private EntityResolverType entityResolverType;
+
+  @Value("${entity.management.url}")
+  private String entityManagementUrl;
+
+  @Value("${entity.api.url}")
+  private String entityApiUrl;
+
+  @Value("${entity.api.key}")
+  private String entityApiKey;
+
 
   private MongoClient mongoClient;
 
@@ -82,7 +94,12 @@ public class Application implements InitializingBean {
     if (entityResolverType == EntityResolverType.PERSISTENT) {
       entityResolver = new PersistentEntityResolver(new EnrichmentDao(mongoClient, enrichmentMongoDatabase));
     } else {
-      entityResolver = new ClientEntityResolver(new EntityClientApiImpl(), enrichmentBatchSize);
+      final Properties properties = new Properties();
+      properties.put("entity.management.url", entityManagementUrl);
+      properties.put("entity.api.url", entityApiUrl);
+      properties.put("entity.api.key", entityApiKey);
+      entityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
+          enrichmentBatchSize);
     }
     return entityResolver;
   }
