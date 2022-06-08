@@ -12,6 +12,7 @@ import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
 import eu.europeana.indexing.solr.property.EuropeanaAggregationSolrCreator;
+import eu.europeana.indexing.solr.property.FullBeanSolrProperties;
 import eu.europeana.indexing.solr.property.LicenseSolrCreator;
 import eu.europeana.indexing.solr.property.PlaceSolrCreator;
 import eu.europeana.indexing.solr.property.ProvidedChoSolrCreator;
@@ -41,39 +42,35 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
 /**
- * This class provides functionality to populate Solr documents. Both methods in this class should
- * be called to fill the Solr document. The method {@link #populateWithProperties(SolrInputDocument,
- * FullBeanImpl)} copies properties from the source to the Solr document. The method {@link
- * #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis and
- * sets technical metadata.
+ * This class provides functionality to populate Solr documents. Both methods in this class should be called to fill the Solr
+ * document. The method {@link #populateWithProperties(SolrInputDocument, FullBeanImpl)} copies properties from the source to the
+ * Solr document. The method {@link #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis
+ * and sets technical metadata.
  *
  * @author jochen
  */
 public class SolrDocumentPopulator {
 
   /**
-   * Populates a Solr document with the properties of the full bean. Please note: this method should
-   * only be called once on a given document, otherwise the behavior is not defined.
+   * Populates a Solr document with the properties of the full bean. Please note: this method should only be called once on a
+   * given document, otherwise the behavior is not defined.
    *
    * @param document The Solr document to populate.
    * @param fullBean The FullBean to populate from.
    */
   public void populateWithProperties(SolrInputDocument document, FullBeanImpl fullBean) {
 
-    // Get the type: filter duplicates
-    final String[] types = Optional.ofNullable(fullBean.getProxies()).stream().flatMap(List::stream)
-        .filter(Objects::nonNull).map(ProxyImpl::getEdmType).filter(Objects::nonNull).distinct()
-        .toArray(String[]::new);
-    SolrPropertyUtils.addValues(document, EdmLabel.PROVIDER_EDM_TYPE, types);
+    new FullBeanSolrProperties().setProperties(document, fullBean);
 
     // Gather the licenses.
     final List<LicenseImpl> licenses = Optional.ofNullable(fullBean.getLicenses()).stream()
-        .flatMap(List::stream).filter(Objects::nonNull).collect(Collectors.toList());
+                                               .flatMap(List::stream).filter(Objects::nonNull).collect(Collectors.toList());
 
     // Gather the quality annotations.
     final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations()).stream()
-        .flatMap(Collection::stream).filter(Objects::nonNull).map(AggregationImpl::getAbout)
-        .filter(Objects::nonNull).collect(Collectors.toSet());
+                                                  .flatMap(Collection::stream).filter(Objects::nonNull)
+                                                  .map(AggregationImpl::getAbout)
+                                                  .filter(Objects::nonNull).collect(Collectors.toSet());
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
         .ofNullable(annotation.getTarget()).stream().flatMap(Arrays::stream)
         .anyMatch(acceptableTargets::contains);
@@ -99,23 +96,15 @@ public class SolrDocumentPopulator {
 
     // Add the licenses.
     final Set<String> defRights = fullBean.getAggregations().stream()
-        .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
-        .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
+                                          .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
+                                          .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout()))
         .addAllToDocument(document, fullBean.getLicenses());
-
-    // Add the top-level properties.
-    document
-        .addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(), fullBean.getEuropeanaCompleteness());
-    document.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
-        fullBean.getEuropeanaCollectionName()[0]);
-    document.addField(EdmLabel.TIMESTAMP_CREATED.toString(), fullBean.getTimestampCreated());
-    document.addField(EdmLabel.TIMESTAMP_UPDATED.toString(), fullBean.getTimestampUpdated());
   }
 
   /**
-   * Populates a Solr document with the CRF fields of the RDF. Please note: this method should only
-   * be called once on a given document, otherwise the behavior is not defined.
+   * Populates a Solr document with the CRF fields of the RDF. Please note: this method should only be called once on a given
+   * document, otherwise the behavior is not defined.
    *
    * @param document The document to populate.
    * @param rdf The RDF to populate from.
@@ -131,7 +120,7 @@ public class SolrDocumentPopulator {
     final List<WebResourceWrapper> webResourcesWithMedia = rdf.getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.IS_SHOWN_BY, WebResourceLinkType.HAS_VIEW));
     final boolean hasMedia = webResourcesWithMedia.stream().map(WebResourceWrapper::getMediaType)
-        .anyMatch(type -> type != MediaType.OTHER);
+                                                  .anyMatch(type -> type != MediaType.OTHER);
     document.addField(EdmLabel.FACET_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
@@ -141,7 +130,7 @@ public class SolrDocumentPopulator {
     // is_fulltext is true if and only if there is at least one web resource of type 'isShownBy'
     // or 'hasView' with 'rdf:type' equal to 'edm:FullTextResource'.
     final boolean isFullText = webResourcesWithMedia.stream().map(WebResourceWrapper::getType)
-        .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
+                                                    .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.FACET_IS_FULL_TEXT.toString(), isFullText);
 
     // Compose the filter and facet tags. Only use the web resources of type 'isShownBy' or 'hasView'.
@@ -163,14 +152,12 @@ public class SolrDocumentPopulator {
   }
 
   private List<AggregationImpl> getDataProviderAggregations(FullBeanImpl fullBean) {
-
     List<String> proxyInResult = fullBean.getProxies().stream()
-        .filter(not(ProxyImpl::isEuropeanaProxy))
-        .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
-        .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
+                                         .filter(not(ProxyImpl::isEuropeanaProxy))
+                                         .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
+                                         .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
 
     return fullBean.getAggregations().stream().filter(x -> proxyInResult.contains(x.getAbout()))
-        .collect(Collectors.toList());
-
+                   .collect(Collectors.toList());
   }
 }

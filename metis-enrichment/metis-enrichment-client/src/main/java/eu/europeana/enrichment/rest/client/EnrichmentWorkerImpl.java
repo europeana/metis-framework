@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorkerImpl.class);
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
   private final Enricher enricher;
   private final Dereferencer dereferencer;
@@ -169,18 +170,18 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
 
   String convertRdfToString(RDF rdf) throws SerializationException {
-    return RdfConversionUtils.convertRdfToString(rdf);
+    return rdfConversionUtils.convertRdfToString(rdf);
   }
 
   byte[] convertRdfToBytes(RDF rdf) throws SerializationException {
-    return RdfConversionUtils.convertRdfToBytes(rdf);
+    return rdfConversionUtils.convertRdfToBytes(rdf);
   }
 
   RDF convertStringToRdf(String xml) throws SerializationException {
-    return RdfConversionUtils.convertStringToRdf(xml);
+    return rdfConversionUtils.convertStringToRdf(xml);
   }
 
   RDF convertInputStreamToRdf(InputStream xml) throws SerializationException {
-    return RdfConversionUtils.convertInputStreamToRdf(xml);
+    return rdfConversionUtils.convertInputStreamToRdf(xml);
   }
 }

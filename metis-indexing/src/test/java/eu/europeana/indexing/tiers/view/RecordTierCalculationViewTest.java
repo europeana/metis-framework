@@ -44,8 +44,15 @@ class RecordTierCalculationViewTest {
             .build();
 
     final RecordTierCalculationView recordTierCalculationView = new RecordTierCalculationView(new RecordTierCalculationSummary(),
-        new ContentTierBreakdown(MediaType.AUDIO, LicenseType.OPEN, true,
-            true, true, Collections.singletonList(mediaResourceTechnicalMetadata)),
+        new ContentTierBreakdown.Builder()
+                .setRecordType(MediaType.AUDIO)
+                .setLicenseType(LicenseType.OPEN)
+                .setThumbnailAvailable(true)
+                .setLandingPageAvailable(true)
+                .setMediaResource3DAvailable(true)
+                .setEmbeddableMediaAvailable(true)
+                .setMediaResourceTechnicalMetadataList(Collections.singletonList(mediaResourceTechnicalMetadata))
+                .build(),
         new MetadataTierBreakdown(languageBreakdown, enablingElementsBreakdown,
             contextualClassesBreakdown));
 

@@ -8,6 +8,7 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.springframework.stereotype.Component;
 
 /**
  * This is a Maven-enabled enforcer rule that can be used in a maven project. For an example of how
@@ -44,6 +45,7 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
  * </plugins></build>
  * }</pre>
  */
+@Component
 public class VocabularyCollectionMavenRule implements EnforcerRule {
 
   /**
@@ -68,6 +70,8 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
    * '/'.
    */
   private String vocabularyDirectoryFile = null;
+
+  private final VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory = new VocabularyCollectionImporterFactory();
 
   /**
    * No-arguments constructor, required for maven instantiation.
@@ -113,8 +117,9 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
     final Path baseDirectory = project.getBasedir().toPath();
     final Path vocabularyDirectory = baseDirectory.resolve(vocabularyDirectoryFile);
 
+    try {
     // Prepare validation
-    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
+    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
             .createImporter(baseDirectory, vocabularyDirectory);
     final VocabularyCollectionValidatorImpl validator = new VocabularyCollectionValidatorImpl(
             importer, lenientOnLackOfExamples, lenientOnMappingTestFailures,
@@ -123,7 +128,7 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
     log.info("Validating vocabulary collection: " + importer.getDirectoryLocation().toString());
 
     // Perform validation
-    try {
+
       validator.validate(vocabulary -> log.info("  Vocabulary found: " + vocabulary.getName()),
               log::warn);
     } catch (VocabularyImportException e) {

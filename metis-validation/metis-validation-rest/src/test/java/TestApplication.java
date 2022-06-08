@@ -19,7 +19,7 @@ public class TestApplication {
 
   static {
     try {
-      portForWireMock = NetworkUtil.getAvailableLocalPort();
+      portForWireMock = new NetworkUtil().getAvailableLocalPort();
     } catch (IOException e) {
       e.printStackTrace();
     }

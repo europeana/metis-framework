@@ -6,7 +6,6 @@ import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMet
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Classifier for 3D objects.
@@ -23,15 +22,19 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   @Override
   MediaTier classifyEntityWithoutWebResources(RdfWrapper entity, boolean hasLandingPage) {
 
-    // A record without suitable web resources has tier 0.
-    return MediaTier.T0;
+    // A record without web resources has tier 1 if there is a landing page, otherwise tier 0.
+    return hasLandingPage ? MediaTier.T1 : MediaTier.T0;
   }
 
   @Override
   MediaTier classifyWebResource(WebResourceWrapper webResource, boolean hasLandingPage, boolean hasEmbeddableMedia) {
-
-    // T2-T4 if there is a mime type (any whatsoever), T0 otherwise.
-    return StringUtils.isNotBlank(webResource.getMimeType()) ? MediaTier.T4 : MediaTier.T0;
+    final MediaTier result;
+    if (webResource != null && mimeTypeIsNotImageOrApplicationPdf(webResource)) {
+      result = MediaTier.T4;
+    } else {
+      result = MediaTier.T0;
+    }
+    return result;
   }
 
   @Override
@@ -42,5 +45,10 @@ class ThreeDClassifier extends AbstractMediaClassifier {
   @Override
   MediaType getMediaType() {
     return MediaType.THREE_D;
+  }
+
+  private boolean mimeTypeIsNotImageOrApplicationPdf(WebResourceWrapper webResource){
+    String mimeType = webResource.getMimeType();
+    return mimeType != null && webResource.getMediaType() != MediaType.IMAGE && !mimeType.startsWith("application/pdf");
   }
 }

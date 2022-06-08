@@ -33,9 +33,7 @@ class ZohoUtilsTest {
     final Record recordOrganization = new Record();
     final List expectedChoiceList = List.of("Organization1Role", "Organization2Role");
     recordOrganization.addKeyValue(ZohoConstants.ORGANIZATION_ROLE_FIELD,
-        expectedChoiceList.stream()
-                          .map(choice -> new Choice<>(choice))
-                          .collect(Collectors.toList()));
+        expectedChoiceList.stream().map(Choice::new).collect(Collectors.toList()));
 
     final List<String> organizationRoleStringList = ZohoUtils.stringListSupplier(
         recordOrganization.getKeyValue(ZohoConstants.ORGANIZATION_ROLE_FIELD));

@@ -88,7 +88,4 @@ metis.core.baseUrl=
 #Metis Core (regardless on whether the list is paginated).
 metis.core.max.served.execution.list.length=
 metis.core.max.depublish.record.ids.per.dataset=
-#In the combination of TEST and ACCEPTANCE, TEST=false, ACCEPTANCE=true
-#For the production environment it should be false
-metis.use.alternative.indexing.environment=
 metis.link.checking.default.sampling.size=

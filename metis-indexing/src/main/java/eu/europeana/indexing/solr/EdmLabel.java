@@ -85,25 +85,30 @@ public enum EdmLabel {
   PROXY_DCTERMS_HAS_PART("proxy_dcterms_hasPart"), 
   PROXY_DCTERMS_IS_PART_OF("proxy_dcterms_isPartOf"), 
   PROXY_DCTERMS_ISSUED("proxy_dcterms_issued"), 
-  PROXY_DCTERMS_MEDIUM("proxy_dcterms_medium"), 
-  PROXY_DCTERMS_PROVENANCE("proxy_dcterms_provenance"), 
-  PROXY_DCTERMS_SPATIAL("proxy_dcterms_spatial"), 
-  PROXY_DCTERMS_TEMPORAL("proxy_dcterms_temporal"), 
+  PROXY_DCTERMS_MEDIUM("proxy_dcterms_medium"),
+  PROXY_DCTERMS_PROVENANCE("proxy_dcterms_provenance"),
+  PROXY_DCTERMS_SPATIAL("proxy_dcterms_spatial"),
+  PROXY_DCTERMS_TEMPORAL("proxy_dcterms_temporal"),
   EDM_UGC("edm_UGC"),
   PROXY_EDM_CURRENT_LOCATION("proxy_edm_currentLocation"),
   PROXY_EDM_HAS_MET("proxy_edm_hasMet"),
-  PROXY_EDM_ISRELATEDTO("proxy_edm_isRelatedTo"), 
+  PROXY_EDM_ISRELATEDTO("proxy_edm_isRelatedTo"),
   PROXY_EDM_YEAR("proxy_edm_year"),
   PROVIDER_EDM_TYPE("proxy_edm_type"),
 
+  //GEO LOCATION FIELDS
+  CURRENT_LOCATION_WGS("currentLocation_wgs"),
+  COVERAGE_LOCATION_WGS("coverageLocation_wgs"),
+  LOCATION_WGS("location_wgs"),
+
   //SKOS_CONCEPT
-  SKOS_CONCEPT("skos_concept"), 
-  CC_SKOS_PREF_LABEL("cc_skos_prefLabel"), 
-  CC_SKOS_ALT_LABEL("cc_skos_altLabel"), 
-  
+  SKOS_CONCEPT("skos_concept"),
+  CC_SKOS_PREF_LABEL("cc_skos_prefLabel"),
+  CC_SKOS_ALT_LABEL("cc_skos_altLabel"),
+
   //PLACE
-  EDM_PLACE("edm_place"), 
-  PL_SKOS_PREF_LABEL("pl_skos_prefLabel"), 
+  EDM_PLACE("edm_place"),
+  PL_SKOS_PREF_LABEL("pl_skos_prefLabel"),
   PL_SKOS_ALT_LABEL("pl_skos_altLabel"), 
   PL_WGS84_POS_LAT("pl_wgs84_pos_lat"),
   PL_WGS84_POS_LONG("pl_wgs84_pos_long"),

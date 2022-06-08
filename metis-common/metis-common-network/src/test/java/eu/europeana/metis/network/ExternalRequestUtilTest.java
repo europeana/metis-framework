@@ -64,25 +64,19 @@ class ExternalRequestUtilTest {
 
   @Test
   void testRetryableExternalRequestThrowsExceptionOutOfSpecifiedMap() {
-    assertThrows(RuntimeException.class, () -> {
-      ExternalRequestUtil.retryableExternalRequest(
-          () -> {
-            throw new RuntimeException(new ClassNotFoundException("Class pointer test exception"));
-          },
-          UNMODIFIABLE_MAP_WITH_TEST_EXCEPTIONS);
-    });
+    assertThrows(RuntimeException.class, () -> ExternalRequestUtil.retryableExternalRequest(
+        () -> {
+          throw new RuntimeException(new ClassNotFoundException("Class pointer test exception"));
+        }, UNMODIFIABLE_MAP_WITH_TEST_EXCEPTIONS));
   }
 
   @Disabled("TODO: MET-4255 Improve execution time")
   @Test
   void testRetryableExternalRequestThrowsException() {
-    assertThrows(RuntimeException.class, () -> {
-      ExternalRequestUtil.retryableExternalRequest(
-          () -> {
-            throw new RuntimeException(new ClassNotFoundException("Class pointer test exception"));
-          },
-          null);
-    });
+    assertThrows(RuntimeException.class, () -> ExternalRequestUtil.retryableExternalRequest(
+        () -> {
+          throw new RuntimeException(new ClassNotFoundException("Class pointer test exception"));
+        }, null));
   }
 
   @Test

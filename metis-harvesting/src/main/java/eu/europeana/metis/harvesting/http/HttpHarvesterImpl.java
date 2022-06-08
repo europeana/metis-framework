@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
@@ -43,68 +42,30 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
-  private int maxNumberOfIterations = 0;
-
   @Override
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
       Consumer<ArchiveEntry> action) throws HarvesterException {
 
-    // We chose where to store the temporary file.
-    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-    Path tempDir = null;
-    try {
-
-      // Save the zip file in a temporary directory (and close the input stream).
-      final String prefix = UUID.randomUUID().toString();
-      final Path tempFile;
-      try {
-        tempDir = Files.createTempDirectory(prefix);
-        tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
-        FileUtils.copyInputStreamToFile(inputStream, tempFile.toFile());
-      } catch (IOException e) {
-        throw new HarvesterException("Problem saving archive.", e);
-      }
-
-      AtomicInteger currentNumberOfIterations = new AtomicInteger();
-
       // Now perform the harvesting - go by each file.
-      final HttpRecordIterator iterator = harvestRecords(tempFile);
+      final HttpRecordIterator iterator = createTemporaryHttpHarvestIterator(inputStream, compressedFileType);
       List<Pair<Path, Exception>> exception = new ArrayList<>(1);
       iterator.forEach(path -> {
         try (InputStream content = Files.newInputStream(path)) {
           action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
               new ByteArrayInputStream(IOUtils.toByteArray(content))));
-          currentNumberOfIterations.getAndIncrement();
-          if (maxNumberOfIterations > 0 && currentNumberOfIterations.get() > maxNumberOfIterations) {
-            return IterationResult.TERMINATE;
-          }
           return IterationResult.CONTINUE;
         } catch (IOException | RuntimeException e) {
           exception.add(new ImmutablePair<>(path, e));
           return IterationResult.TERMINATE;
         }
       });
+
+      iterator.deleteIteratorContent();
+
       if (!exception.isEmpty()) {
         throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
             exception.get(0).getValue());
       }
-
-    } finally {
-
-      // Finally, attempt to delete the files.
-      if (tempDir != null) {
-        try {
-          FileUtils.deleteDirectory(tempDir.toFile());
-        } catch (IOException e) {
-          LOGGER.warn("Could not delete temporary directory.", e);
-        }
-      }
-    }
-  }
-
-  @Override
-  public void setMaxNumberOfIterations(int maxOfIterations) {
-    this.maxNumberOfIterations = maxOfIterations;
   }
 
   @Override
@@ -124,6 +85,27 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     // Perform the harvesting
     return harvestRecords(downloadedFile);
+  }
+
+  @Override
+  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException {
+    // We chose where to store the temporary file.
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
+    Path tempDir;
+    final Path tempFile;
+    try {
+      // Save the zip file in a temporary directory (and close the input stream).
+      final String prefix = UUID.randomUUID().toString();
+
+      tempDir = Files.createTempDirectory(prefix);
+      tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
+      FileUtils.copyInputStreamToFile(input, tempFile.toFile());
+
+      return harvestRecords(tempFile);
+      } catch (IOException e) {
+        throw new HarvesterException("Problem saving archive.", e);
+      }
+
   }
 
   private HttpRecordIterator harvestRecords(Path archiveFile) throws HarvesterException {
@@ -204,6 +186,19 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     public FileIterator(Path extractedDirectory) {
       this.extractedDirectory = extractedDirectory;
+    }
+
+    @Override
+    public void deleteIteratorContent() {
+      if (extractedDirectory != null) {
+        try {
+          FileUtils.deleteDirectory(extractedDirectory.toFile());
+        } catch (IOException e) {
+          LOGGER.warn("Could not delete directory.", e);
+        }
+      } else {
+        LOGGER.warn("Extracted directory undefined, nothing removed.");
+      }
     }
 
     @Override

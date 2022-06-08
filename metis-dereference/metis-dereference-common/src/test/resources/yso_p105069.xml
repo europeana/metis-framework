@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/terms/"
+  xmlns:dc11="http://purl.org/dc/elements/1.1/"
+  xmlns:isothes="http://purl.org/iso25964/skos-thes#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">
+
+  <rdf:Description rdf:about="http://purl.org/iso25964/skos-thes#broaderPartitive">
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2004/02/skos/core#broader"/>
+  </rdf:Description>
+
+  <skos:Concept rdf:about="http://www.yso.fi/onto/yso/p107480">
+    <isothes:narrowerPartitive rdf:resource="http://www.yso.fi/onto/yso/p105069"/>
+    <skos:narrower rdf:resource="http://www.yso.fi/onto/yso/p105069"/>
+    <skos:prefLabel xml:lang="sv">Tjeckien</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Tšekki</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Czech Republic</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://www.yso.fi/onto/yso/p105069">
+    <dc11:source xml:lang="sv">Källa för positionsinformation: Wikidata.</dc11:source>
+    <dc11:source xml:lang="en">Location information source: Wikidata.</dc11:source>
+    <dc11:source xml:lang="fi">Sijaintitietojen lähde: Wikidata.</dc11:source>
+    <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1990-06-18</dc:created>
+    <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-05-23T16:13:36+03:00</dc:modified>
+    <isothes:broaderPartitive rdf:resource="http://www.yso.fi/onto/yso/p107480"/>
+    <skos:broader rdf:resource="http://www.yso.fi/onto/yso/p107480"/>
+    <skos:closeMatch rdf:resource="http://www.wikidata.org/entity/Q1085"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/ysa/Y105069"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/allars/Y33647"/>
+    <skos:inScheme>
+      <skos:ConceptScheme rdf:about="http://www.yso.fi/onto/yso/places">
+      </skos:ConceptScheme>
+    </skos:inScheme>
+    <skos:prefLabel xml:lang="fi">Praha</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Prague</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Prag</skos:prefLabel>
+    <wgs84:lat>50.08333</wgs84:lat>
+    <wgs84:long>14.41667</wgs84:long>
+
+  </skos:Concept>
+
+</rdf:RDF>

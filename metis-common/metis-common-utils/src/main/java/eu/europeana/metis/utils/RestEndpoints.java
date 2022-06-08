@@ -69,6 +69,9 @@ public final class RestEndpoints {
   public static final String DEREFERENCE = "/dereference";
   public static final String VOCABULARIES = "/vocabularies";
   public static final String CACHE_EMPTY = "/cache";
+  public static final String CACHE_EMPTY_VOCABULARY = "/cache/vocabulary";
+  public static final String CACHE_EMPTY_RESOURCE = "/cache/resource";
+  public static final String CACHE_EMPTY_XML = "/cache/emptyxml";
   public static final String LOAD_VOCABULARIES = "/load_vocabularies";
 
   /* METIS ENRICHMENT Endpoint */

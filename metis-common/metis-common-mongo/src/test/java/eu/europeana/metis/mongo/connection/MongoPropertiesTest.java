@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
@@ -33,6 +32,8 @@ class MongoPropertiesTest {
         "testAplication");
 
     assertMongoProperties(mongoProperties);
+    mongoProperties.setMaxConnectionPoolSize(10);
+    assertEquals(10, mongoProperties.getMaxConnectionPoolSize());
   }
 
   @Test

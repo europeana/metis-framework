@@ -7,6 +7,7 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import java.util.Collections;
+import java.util.Set;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -31,6 +34,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Spring configuration class Created by ymamakis on 12-2-16.
  */
 @Configuration
+@EnableScheduling
 @ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest",
     "eu.europeana.metis.dereference.rest.exceptions"})
 @PropertySource("classpath:dereferencing.properties")
@@ -66,6 +70,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${vocabulary.db}")
   private String vocabularyDb;
 
+  //Valid directories list
+  @Value("${allowed.url.domains}")
+  private String[] allowedUrlDomains;
   private MongoClient mongoClientEntity;
   private MongoClient mongoClientVocabulary;
 
@@ -117,9 +124,32 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
+  Set<String> getAllowedUrlDomains() {
+    return Set.of(allowedUrlDomains);
+  }
+
+  @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
   }
+
+  /**
+   * Empty Cache with XML entries null or empty.
+   * This will remove entries with null or empty XML in the cache (Redis). If the same redis instance/cluster is used for multiple
+   * services then the cache for other services is cleared as well.
+   * This task is scheduled by a cron expression.
+   */
+
+  @Scheduled(cron = "${dereference.purge.emptyxml.frequency}")
+  public void dereferenceCacheNullOrEmpty(){ getProcessedEntityDao().purgeByNullOrEmptyXml(); }
+
+  /**
+   * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster is used for multiple
+   * services then the cache for other services is cleared as well.
+   * This task is scheduled by a cron expression.
+   */
+  @Scheduled(cron = "${dereference.purge.all.frequency}")
+  public void dereferenceCachePurgeAll(){ getProcessedEntityDao().purgeAll(); }
 
   /**
    * Closes any connections previous acquired.
