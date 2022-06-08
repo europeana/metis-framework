@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.rest.config;
 
+import static java.lang.String.format;
+
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
@@ -14,6 +16,7 @@ import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import java.util.Properties;
 import javax.annotation.PreDestroy;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -91,15 +94,20 @@ public class Application implements InitializingBean {
   @Bean
   EntityResolver getEntityResolver() {
     final EntityResolver entityResolver;
-    if (entityResolverType == EntityResolverType.PERSISTENT) {
-      entityResolver = new PersistentEntityResolver(new EnrichmentDao(mongoClient, enrichmentMongoDatabase));
-    } else {
+    if (entityResolverType == EntityResolverType.ENTITY_CLIENT) {
+      //Sanity check
+      if (StringUtils.isAnyBlank(entityManagementUrl, entityApiUrl, entityApiKey)) {
+        throw new IllegalArgumentException(
+            format("Requested %s resolver but configuration is missing", EntityResolverType.ENTITY_CLIENT));
+      }
       final Properties properties = new Properties();
       properties.put("entity.management.url", entityManagementUrl);
       properties.put("entity.api.url", entityApiUrl);
       properties.put("entity.api.key", entityApiKey);
       entityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
           enrichmentBatchSize);
+    } else {
+      entityResolver = new PersistentEntityResolver(new EnrichmentDao(mongoClient, enrichmentMongoDatabase));
     }
     return entityResolver;
   }
