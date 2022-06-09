@@ -39,17 +39,12 @@ class LicenseSolrCreatorTest {
 
     licenseSolrCreator.addToDocument(solrInputDocument, license);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
     assertEquals("license2", solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()));
     assertEquals(Date.from(Instant.parse("2022-06-01T12:22:55.888Z")),
         solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON.toString()));
     assertEquals("OdrlInheritFrom",
         solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
-
     assertEquals(3, solrInputDocument.size());
   }
 
@@ -61,16 +56,11 @@ class LicenseSolrCreatorTest {
 
     licenseSolrCreator.addToDocument(solrInputDocument, license);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
     assertEquals("license2", solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
     assertEquals("OdrlInheritFrom",
         solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
-
     assertEquals(2, solrInputDocument.size());
   }
 
@@ -78,17 +68,13 @@ class LicenseSolrCreatorTest {
   void addToDocument_WithAggregationAndDeprecatedOnWithoutOdrlInherit() {
     license.setAbout("license5");
     license.setCcDeprecatedOn(Date.from(Instant.parse("2022-06-01T12:22:55.888Z")));
+
     licenseSolrCreator.addToDocument(solrInputDocument, license);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.WR_CC_DEPRECATED_ON.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
     assertEquals("license5", solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()));
     assertEquals(Date.from(Instant.parse("2022-06-01T12:22:55.888Z")),
         solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
-
     assertEquals(2, solrInputDocument.size());
   }
 
@@ -100,16 +86,11 @@ class LicenseSolrCreatorTest {
 
     licenseSolrCreator.addToDocument(solrInputDocument, license);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.WR_CC_LICENSE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
     assertEquals("license0", solrInputDocument.getFieldValue(EdmLabel.WR_CC_LICENSE.toString()));
     assertEquals(Date.from(Instant.parse("2022-06-01T12:22:55.888Z")),
         solrInputDocument.getFieldValue(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
-
     assertEquals(2, solrInputDocument.size());
   }
 
@@ -121,15 +102,10 @@ class LicenseSolrCreatorTest {
 
     licenseSolrCreator.addToDocument(solrInputDocument, license);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.WR_CC_LICENSE.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.WR_CC_DEPRECATED_ON.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
     assertEquals("license0", solrInputDocument.getFieldValue(EdmLabel.WR_CC_LICENSE.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.WR_CC_DEPRECATED_ON.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE.toString()));
     assertNull(solrInputDocument.getFieldValue(EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM.toString()));
-
     assertEquals(1, solrInputDocument.size());
   }
 }
