@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
+import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -117,10 +118,11 @@ public class EnricherImpl implements Enricher {
   public void cleanupPreviousEnrichmentEntities(RDF rdf) {
     final ProxyType europeanaProxy = RdfEntityUtils.getEuropeanaProxy(rdf);
     //Find the correct links
-    final Set<String> europeanaLinks = Arrays.stream(ProxyFieldType.values())
-                                             .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
-                                             .flatMap(Collection::stream).filter(europeanaLinkPattern.asPredicate())
-                                             .collect(Collectors.toSet());
-    RdfEntityUtils.removeMatchingEntities(rdf, europeanaLinks);
+    final Set<String> matchingLinks = Arrays.stream(ProxyFieldType.values())
+                                            .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
+                                            .flatMap(Collection::stream)
+                                            .filter(europeanaLinkPattern.asPredicate().or(semiumLinkPattern.asPredicate()))
+                                            .collect(Collectors.toSet());
+    RdfEntityUtils.removeMatchingEntities(rdf, matchingLinks);
   }
 }

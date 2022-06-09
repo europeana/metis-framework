@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public interface EntityResolver {
 
   Pattern europeanaLinkPattern = Pattern.compile("^https?://data.europeana.eu.*$");
+  Pattern semiumLinkPattern = Pattern.compile("^https?://semium.org.*$");
 
   /**
    * Resolve entities by a textual reference.
