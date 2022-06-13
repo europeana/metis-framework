@@ -141,7 +141,7 @@ class DereferencingManagementControllerTest {
       return null;
     }).when(deRefManagementServiceMock).purgeByResourceId(any(String.class));
 
-    deRefManagementControllerMock.perform(post(RestEndpoints.CACHE_EMPTY_RESOURCE)
+    deRefManagementControllerMock.perform(delete(RestEndpoints.CACHE_EMPTY_RESOURCE)
                                             .param("resourceId", "resourceId")
                                      .param("resourceId", "12345"))
                                  .andExpect(status().is(200));
@@ -157,7 +157,7 @@ class DereferencingManagementControllerTest {
       return null;
     }).when(deRefManagementServiceMock).purgeByVocabularyId(any(String.class));
 
-    deRefManagementControllerMock.perform(post(RestEndpoints.CACHE_EMPTY_VOCABULARY)
+    deRefManagementControllerMock.perform(delete(RestEndpoints.CACHE_EMPTY_VOCABULARY)
                                      .param("vocabularyId", "12345"))
                                  .andExpect(status().is(200));
 
