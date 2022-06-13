@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.api.external.model;
 
+import eu.europeana.enrichment.utils.EntityValuesConverter;
+import eu.europeana.entitymanagement.definitions.model.Entity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +29,16 @@ public abstract class EnrichmentBase {
   private List<Label> prefLabelList = new ArrayList<>();
   @XmlElement(name = "note", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> notes = new ArrayList<>();
+
+  protected EnrichmentBase() {
+  }
+
+  protected EnrichmentBase(Entity entity) {
+    this.about = entity.getAbout();
+    this.prefLabelList = EntityValuesConverter.convertMapToLabels(entity.getPrefLabel());
+    this.altLabelList = EntityValuesConverter.convertMultilingualMapToLabel(entity.getAltLabel());
+    this.notes = EntityValuesConverter.convertMultilingualMapToLabel(entity.getNote());
+  }
 
   public String getAbout() {
     return about;

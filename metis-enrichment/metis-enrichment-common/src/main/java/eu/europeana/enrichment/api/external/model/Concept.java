@@ -1,5 +1,9 @@
 package eu.europeana.enrichment.api.external.model;
 
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToLabel;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToResource;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertMultilingualMapToLabel;
+
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,6 +46,12 @@ public class Concept extends EnrichmentBase {
   public Concept() {
     super();
     // Required for XML binding.
+  }
+
+  // Used for creating XML entity from EM model class
+  public Concept(eu.europeana.entitymanagement.definitions.model.Concept concept) {
+    super(concept);
+    init(concept);
   }
 
   public List<Label> getHiddenLabel() {
@@ -130,5 +140,19 @@ public class Concept extends EnrichmentBase {
 
   public void setRelatedMatch(List<Resource> relatedMatch) {
     this.relatedMatch = cloneListAcceptingNull(relatedMatch);
+  }
+
+  private void init(eu.europeana.entitymanagement.definitions.model.Concept concept) {
+    this.hiddenLabel = convertListToLabel(concept.getHiddenLabel());
+    this.notation = convertMultilingualMapToLabel(concept.getNotation());
+    this.broader = convertListToResource(concept.getBroader());
+    this.broadMatch = convertListToResource(concept.getBroadMatch());
+    this.closeMatch = convertListToResource(concept.getCloseMatch());
+    this.exactMatch = convertListToResource(concept.getSameReferenceLinks());
+    this.inScheme = convertListToResource(concept.getInScheme());
+    this.narrower = convertListToResource(concept.getNarrower());
+    this.narrowMatch = convertListToResource(concept.getNarrowMatch());
+    this.related = convertListToResource(concept.getRelated());
+    this.relatedMatch = convertListToResource(concept.getRelatedMatch());
   }
 }

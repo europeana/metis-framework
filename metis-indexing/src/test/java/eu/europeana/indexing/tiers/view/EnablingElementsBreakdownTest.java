@@ -7,7 +7,7 @@ import eu.europeana.indexing.tiers.metadata.ContextualClassGroup;
 import eu.europeana.indexing.tiers.metadata.EnablingElement;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import java.util.Set;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
 class EnablingElementsBreakdownTest {

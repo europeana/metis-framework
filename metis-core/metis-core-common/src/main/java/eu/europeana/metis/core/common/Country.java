@@ -1,5 +1,9 @@
 package eu.europeana.metis.core.common;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Countries supported by METIS
  */
@@ -44,7 +48,7 @@ public enum Country {
   LIECHTENSTEIN("Liechtenstein", "LI"),
   LITHUANIA("Lithuania", "LT"),
   LUXEMBOURG("Luxembourg", "LU"),
-  MACEDONIA("Macedonia", "MK"),
+  NORTH_MACEDONIA("North Macedonia", "MK"),
   MALTA("Malta", "MT"),
   MOLDOVA("Moldova", "MD"),
   MONACO("Monaco", "MC"),
@@ -114,5 +118,16 @@ public enum Country {
       }
     }
     return null;
+  }
+
+  /**
+   * Provides the countries sorted by the {@link #getName()} field
+   *
+   * @return the list of countries sorted
+   */
+  public static List<Country> getCountryListSortedByName() {
+    List<Country> countries = Arrays.asList(Country.values());
+    countries.sort(Comparator.comparing(Country::getName));
+    return countries;
   }
 }

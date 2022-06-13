@@ -5,19 +5,16 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
-import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.enrichment.service.utils.EnrichmentTermsToEnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -26,7 +23,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,25 +32,11 @@ import org.slf4j.LoggerFactory;
 public class PersistentEntityResolver implements EntityResolver {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PersistentEntityResolver.class);
-  private static final Set<String> ALL_2CODE_LANGUAGES;
-  private static final Map<String, String> ALL_3CODE_TO_2CODE_LANGUAGES;
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
-  public static final int THREE_CHARACTER_LANGUAGE_LENGTH = 3;
-  public static final int TWO_CHARACTER_LANGUAGE_LENGTH = 2;
-
-  static {
-    HashSet<String> all2CodeLanguages = new HashSet<>();
-    Map<String, String> all3CodeLanguages = new HashMap<>();
-    Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
-      all2CodeLanguages.add(locale.getLanguage());
-      all3CodeLanguages.put(locale.getISO3Language(), locale.getLanguage());
-    });
-    ALL_2CODE_LANGUAGES = Collections.unmodifiableSet(all2CodeLanguages);
-    ALL_3CODE_TO_2CODE_LANGUAGES = Collections.unmodifiableMap(all3CodeLanguages);
-  }
 
   private final EnrichmentDao enrichmentDao;
+  private final LanguageCodeConverter languageCodeConverter;
 
   /**
    * Constructor with the persistence dao parameter.
@@ -63,6 +45,7 @@ public class PersistentEntityResolver implements EntityResolver {
    */
   public PersistentEntityResolver(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
+    languageCodeConverter = new LanguageCodeConverter();
   }
 
   @Override
@@ -141,17 +124,7 @@ public class PersistentEntityResolver implements EntityResolver {
     if (!StringUtils.isBlank(value)) {
       final Set<EntityType> entityTypes = searchTerm.getCandidateTypes();
       //Language has to be a valid 2 or 3 code, otherwise we do not use it
-      final String inputValueLanguage = searchTerm.getLanguage();
-      final String language;
-      if (inputValueLanguage != null
-          && inputValueLanguage.length() == THREE_CHARACTER_LANGUAGE_LENGTH) {
-        language = ALL_3CODE_TO_2CODE_LANGUAGES.get(inputValueLanguage);
-      } else if (inputValueLanguage != null
-          && inputValueLanguage.length() == TWO_CHARACTER_LANGUAGE_LENGTH) {
-        language = ALL_2CODE_LANGUAGES.contains(inputValueLanguage) ? inputValueLanguage : null;
-      } else {
-        language = null;
-      }
+      final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
 
       if (CollectionUtils.isEmpty(entityTypes)) {
         searchTermListMap.put(searchTerm, findEnrichmentTerms(null, value, language));
@@ -188,12 +161,13 @@ public class PersistentEntityResolver implements EntityResolver {
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
         .getAllEnrichmentTermsByFields(fieldNameMap);
     final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
-        .map(this::findParentEntities).flatMap(List::stream).collect(Collectors.toList());
+                                                                      .map(this::findParentEntities).flatMap(List::stream)
+                                                                      .collect(Collectors.toList());
 
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     //Convert to EnrichmentBases
-    enrichmentBases.addAll(Converter.convert(enrichmentTerms));
-    enrichmentBases.addAll(Converter.convert(parentEnrichmentTerms));
+    enrichmentBases.addAll(EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentTerms));
+    enrichmentBases.addAll(EnrichmentTermsToEnrichmentBaseConverter.convert(parentEnrichmentTerms));
 
     return enrichmentBases;
   }
@@ -250,96 +224,13 @@ public class PersistentEntityResolver implements EntityResolver {
   private List<EnrichmentBase> getEnrichmentTermsAndConvert(
       List<Pair<String, String>> fieldNamesAndValues) {
     final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
-    return Converter.convert(enrichmentTerms);
+    return EnrichmentTermsToEnrichmentBaseConverter.convert(enrichmentTerms);
   }
 
   private List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
     final HashMap<String, List<Pair<String, String>>> fieldNameMap = new HashMap<>();
     fieldNameMap.put(null, fieldNamesAndValues);
     return enrichmentDao.getAllEnrichmentTermsByFields(fieldNameMap);
-  }
-
-  /* --- Organization specific methods, used by the annotations api --- */
-
-  /**
-   * Save an organization to the database
-   *
-   * @param organizationEnrichmentEntity the organization to save
-   * @param created the created date to be used
-   * @param updated the updated date to be used
-   * @return the saved organization
-   */
-  public OrganizationEnrichmentEntity saveOrganization(
-      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
-
-    final EnrichmentTerm enrichmentTerm = Converter
-        .organizationImplToEnrichmentTerm(organizationEnrichmentEntity, created, updated);
-
-    final Optional<ObjectId> objectId = enrichmentDao
-        .getEnrichmentTermObjectIdByField(EnrichmentDao.ENTITY_ABOUT_FIELD,
-            organizationEnrichmentEntity.getAbout());
-    objectId.ifPresent(enrichmentTerm::setId);
-
-    //Save term list
-    final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
-    return enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
-        .map(EnrichmentTerm::getEnrichmentEntity).map(OrganizationEnrichmentEntity.class::cast)
-        .orElse(null);
-  }
-
-  /**
-   * Return the list of ids for existing organizations from database
-   *
-   * @param organizationIds The organization ids to check existence
-   * @return list of ids of existing organizations
-   */
-  public List<String> findExistingOrganizations(List<String> organizationIds) {
-    List<String> existingOrganizationIds = new ArrayList<>();
-    for (String id : organizationIds) {
-      Optional<OrganizationEnrichmentEntity> organization = getOrganizationByUri(id);
-      organization.ifPresent(value -> existingOrganizationIds.add(value.getAbout()));
-    }
-    return existingOrganizationIds;
-  }
-
-  /**
-   * Get an organization by uri
-   *
-   * @param uri The EDM organization uri
-   * @return OrganizationImpl object
-   */
-  public Optional<OrganizationEnrichmentEntity> getOrganizationByUri(String uri) {
-    final List<EnrichmentTerm> enrichmentTerm = getEnrichmentTerms(
-        Collections.singletonList(new ImmutablePair<>(EnrichmentDao.ENTITY_ABOUT_FIELD, uri)));
-    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getEnrichmentEntity)
-        .map(OrganizationEnrichmentEntity.class::cast);
-  }
-
-  /**
-   * Delete organizations from database by given organization ids
-   *
-   * @param organizationIds The organization ids
-   */
-  public void deleteOrganizations(List<String> organizationIds) {
-    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
-  }
-
-  /**
-   * This method removes organization from database by given organization id.
-   *
-   * @param organizationId The organization id
-   */
-  public void deleteOrganization(String organizationId) {
-    deleteOrganizations(Collections.singletonList(organizationId));
-  }
-
-  /**
-   * Get the date of the latest updated organization.
-   *
-   * @return the date of the latest updated organization
-   */
-  public Date getDateOfLastUpdatedOrganization() {
-    return enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
   }
 
 }

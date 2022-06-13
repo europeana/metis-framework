@@ -11,7 +11,7 @@ import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.metis.schema.model.MediaType;
 import java.util.Collections;
 import java.util.List;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
 class ContentTierBreakdownTest {
@@ -22,6 +22,7 @@ class ContentTierBreakdownTest {
     final LicenseType licenseType = LicenseType.OPEN;
     final boolean thumbnailAvailable = true;
     final boolean landingPageAvailable = true;
+    final boolean mediaResource3DAvailable = true;
     final boolean embeddableMediaAvailable = true;
     final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata1 = new MediaResourceTechnicalMetadataBuilder(
         new ResolutionTierMetadataBuilder().build()).setResourceUrl("resourceUrl").setMediaType(MediaType.IMAGE)
@@ -36,13 +37,21 @@ class ContentTierBreakdownTest {
     final List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList = List.of(
         mediaResourceTechnicalMetadata1, mediaResourceTechnicalMetadata2);
 
-    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown(recordType, licenseType, thumbnailAvailable,
-        landingPageAvailable, embeddableMediaAvailable, mediaResourceTechnicalMetadataList);
+    final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown.Builder()
+            .setRecordType(recordType)
+            .setLicenseType(licenseType)
+            .setThumbnailAvailable(thumbnailAvailable)
+            .setLandingPageAvailable(landingPageAvailable)
+            .setMediaResource3DAvailable(mediaResource3DAvailable)
+            .setEmbeddableMediaAvailable(embeddableMediaAvailable)
+            .setMediaResourceTechnicalMetadataList(mediaResourceTechnicalMetadataList)
+            .build();
 
     assertEquals(recordType, contentTierBreakdown.getRecordType());
     assertEquals(licenseType, contentTierBreakdown.getLicenseType());
     assertEquals(thumbnailAvailable, contentTierBreakdown.isThumbnailAvailable());
     assertEquals(landingPageAvailable, contentTierBreakdown.isLandingPageAvailable());
+    assertEquals(mediaResource3DAvailable, contentTierBreakdown.isMediaResource3DAvailable());
     assertEquals(embeddableMediaAvailable, contentTierBreakdown.isEmbeddableMediaAvailable());
     assertNotSame(mediaResourceTechnicalMetadataList, contentTierBreakdown.getMediaResourceTechnicalMetadataList());
     assertTrue(CollectionUtils.isEqualCollection(mediaResourceTechnicalMetadataList,
@@ -61,6 +70,7 @@ class ContentTierBreakdownTest {
     assertEquals(licenseType, contentTierBreakdown.getLicenseType());
     assertEquals(thumbnailAvailable, contentTierBreakdown.isThumbnailAvailable());
     assertEquals(landingPageAvailable, contentTierBreakdown.isLandingPageAvailable());
+    assertEquals(mediaResource3DAvailable, contentTierBreakdown.isMediaResource3DAvailable());
     assertEquals(embeddableMediaAvailable, contentTierBreakdown.isEmbeddableMediaAvailable());
     assertNotSame(mediaResourceTechnicalMetadataList, contentTierBreakdown.getMediaResourceTechnicalMetadataList());
     assertTrue(CollectionUtils.isEqualCollection(mediaResourceTechnicalMetadataList,

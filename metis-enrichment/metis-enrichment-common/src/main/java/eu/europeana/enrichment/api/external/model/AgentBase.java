@@ -1,5 +1,12 @@
 package eu.europeana.enrichment.api.external.model;
 
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToLabel;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToLabelResource;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToPart;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToResource;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertMapToLabels;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertResourceOrLiteral;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -52,6 +59,19 @@ public abstract class AgentBase extends EnrichmentBase {
   private List<Resource> wasPresentAt = new ArrayList<>();
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
   private List<Part> sameAs = new ArrayList<>();
+
+  protected AgentBase() {
+  }
+
+  protected AgentBase(eu.europeana.entitymanagement.definitions.model.Organization organization) {
+    super(organization);
+  }
+
+  // Used for creating XML entity from EM model class
+  protected AgentBase(eu.europeana.entitymanagement.definitions.model.Agent agent) {
+    super(agent);
+    init(agent);
+  }
 
   public List<Label> getHiddenLabel() {
     return unmodifiableListAcceptingNull(hiddenLabel);
@@ -203,5 +223,28 @@ public abstract class AgentBase extends EnrichmentBase {
 
   public void setSameAs(List<Part> sameAs) {
     this.sameAs = cloneListAcceptingNull(sameAs);
+  }
+
+  private void init(eu.europeana.entitymanagement.definitions.model.Agent agent) {
+    this.hiddenLabel = convertListToLabel(agent.getHiddenLabel());
+    this.name = convertMapToLabels(agent.getName());
+    this.beginList = convertListToLabel(agent.getBegin());
+    this.endList = convertListToLabel(agent.getEnd());
+    this.identifier = convertListToLabel(agent.getIdentifier());
+    this.hasMet = convertListToResource(agent.getHasMet());
+    this.biographicalInformation = convertResourceOrLiteral(
+        agent.getBiographicalInformation());
+    this.placeOfBirth = convertListToLabelResource(agent.getPlaceOfBirth());
+    this.placeOfDeath = convertListToLabelResource(agent.getPlaceOfDeath());
+    this.dateOfBirth = convertListToLabel(agent.getDateOfBirth());
+    this.dateOfDeath = convertListToLabel(agent.getDateOfDeath());
+    this.dateOfEstablishment = convertListToLabel(agent.getDateOfEstablishment());
+    this.dateOfTermination = convertListToLabel(agent.getDateOfTermination());
+    this.gender = convertListToLabel(agent.getGender());
+    this.professionOrOccupation = convertListToLabelResource(agent.getProfessionOrOccupation());
+    this.date = convertListToLabelResource(agent.getDate());
+    this.isRelatedTo = convertListToLabelResource(agent.getIsRelatedTo());
+    this.wasPresentAt = convertListToResource(agent.getWasPresentAt());
+    this.sameAs = convertListToPart(agent.getSameReferenceLinks());
   }
 }

@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import eu.europeana.enrichment.api.external.impl.RemoteEntityResolver;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
-import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import java.net.MalformedURLException;
