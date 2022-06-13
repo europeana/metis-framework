@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import eu.europeana.enrichment.api.external.impl.RemoteEntityResolver;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;

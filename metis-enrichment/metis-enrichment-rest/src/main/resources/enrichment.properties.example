@@ -10,3 +10,18 @@ enrichment.mongo.host=
 enrichment.mongo.database=
 enrichment.mongo.port=
 enrichment.mongo.application.name=
+
+
+#If not provided defaults to 20
+enrichment.batch.size=
+#Options PERSISTENT, ENTITY_CLIENT. Defaults to PERSISTENT
+entity.resolver.type=
+
+#Entity Management Base Url for Entity Retrieval
+entity.management.url=
+
+#Entity Api V2 url for search and suggest
+entity.api.url=
+
+#Api key
+entity.api.key=

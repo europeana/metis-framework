@@ -1,5 +1,8 @@
 package eu.europeana.enrichment.api.external.model;
 
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToLabelResource;
+import static eu.europeana.enrichment.utils.EntityValuesConverter.convertListToPart;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -27,6 +30,14 @@ public class Place extends EnrichmentBase {
   private String lon;
   @XmlElement(name = "alt", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String alt;
+
+  public  Place() {}
+
+  // Used for creating XML entity from EM model class
+  public Place(eu.europeana.entitymanagement.definitions.model.Place place) {
+    super(place);
+    init(place);
+  }
 
   public List<LabelResource> getIsPartOf() {
     return unmodifiableListAcceptingNull(isPartOf);
@@ -74,6 +85,21 @@ public class Place extends EnrichmentBase {
 
   public void setAlt(String alt) {
     this.alt = alt;
+  }
+
+  private void init(eu.europeana.entitymanagement.definitions.model.Place place) {
+    this.isPartOf = convertListToLabelResource(place.getIsPartOfArray());
+    this.hasPartsList = convertListToLabelResource(place.getHasPart());
+    this.sameAs = convertListToPart(place.getSameReferenceLinks());
+    if (place.getLatitude() != null) {
+      this.lat = String.valueOf(place.getLatitude());
+    }
+    if (place.getLongitude() != null) {
+      this.lon = String.valueOf(place.getLongitude());
+    }
+    if (place.getAltitude() != null) {
+      this.alt = String.valueOf(place.getAltitude());
+    }
   }
 
 }

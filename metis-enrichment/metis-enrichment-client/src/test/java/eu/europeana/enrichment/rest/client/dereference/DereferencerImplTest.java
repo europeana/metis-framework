@@ -10,6 +10,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import eu.europeana.enrichment.api.external.impl.RemoteEntityResolver;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
@@ -18,7 +19,6 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
-import eu.europeana.enrichment.rest.client.enrichment.RemoteEntityResolver;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;

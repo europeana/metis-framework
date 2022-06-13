@@ -1,15 +1,23 @@
 package eu.europeana.enrichment.rest.config;
 
+import static java.lang.String.format;
+
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
+import eu.europeana.enrichment.api.external.impl.EntityResolverType;
+import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.PersistentEntityResolver;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.entity.client.config.EntityClientConfiguration;
+import eu.europeana.entity.client.web.EntityClientApiImpl;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
-import java.util.Collections;
+import java.util.Properties;
 import javax.annotation.PreDestroy;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,24 +27,16 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Main Spring Configuration class
+ */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
     "eu.europeana.enrichment.rest.exception"})
 @PropertySource("classpath:enrichment.properties")
 @EnableWebMvc
-@EnableSwagger2
-public class Application implements WebMvcConfigurer, InitializingBean {
+public class Application implements InitializingBean {
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -59,6 +59,22 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${enrichment.mongo.application.name}")
   private String enrichmentMongoApplicationName;
 
+  @Value("${enrichment.batch.size:20}")
+  private int enrichmentBatchSize;
+
+  @Value("${enrichment.entity.resolver.type:PERSISTENT}")
+  private EntityResolverType entityResolverType;
+
+  @Value("${entity.management.url}")
+  private String entityManagementUrl;
+
+  @Value("${entity.api.url}")
+  private String entityApiUrl;
+
+  @Value("${entity.api.key}")
+  private String entityApiKey;
+
+
   private MongoClient mongoClient;
 
   /**
@@ -71,21 +87,30 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     }
   }
 
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "/swagger-ui/index.html");
-  }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/swagger-ui/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-        .resourceChain(false);
+  @Bean
+  EnrichmentService getEnrichmentService(EntityResolver entityResolver) {
+    return new EnrichmentService(entityResolver);
   }
 
   @Bean
-  EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
-    return new EnrichmentService(new PersistentEntityResolver(enrichmentDao));
+  EntityResolver getEntityResolver() {
+    final EntityResolver entityResolver;
+    if (entityResolverType == EntityResolverType.ENTITY_CLIENT) {
+      //Sanity check
+      if (StringUtils.isAnyBlank(entityManagementUrl, entityApiUrl, entityApiKey)) {
+        throw new IllegalArgumentException(
+            format("Requested %s resolver but configuration is missing", EntityResolverType.ENTITY_CLIENT));
+      }
+      final Properties properties = new Properties();
+      properties.put("entity.management.url", entityManagementUrl);
+      properties.put("entity.api.url", entityApiUrl);
+      properties.put("entity.api.key", entityApiKey);
+      entityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
+          enrichmentBatchSize);
+    } else {
+      entityResolver = new PersistentEntityResolver(new EnrichmentDao(mongoClient, enrichmentMongoDatabase));
+    }
+    return entityResolver;
   }
 
   @Bean
@@ -97,11 +122,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     mongoProperties.setApplicationName(enrichmentMongoApplicationName);
     mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     return mongoClient;
-  }
-
-  @Bean
-  EnrichmentDao getEnrichmentDao(MongoClient mongoClient) {
-    return new EnrichmentDao(mongoClient, enrichmentMongoDatabase);
   }
 
   @Bean
@@ -125,30 +145,5 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (mongoClient != null) {
       mongoClient.close();
     }
-  }
-
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .useDefaultResponseMessages(false)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*"))
-        .build()
-        .apiInfo(apiInfo());
-  }
-
-  private ApiInfo apiInfo() {
-    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu",
-        "development@europeana.eu");
-
-    return new ApiInfo(
-        "Enrichment REST API",
-        "Enrichment REST API for Europeana",
-        "v1",
-        "API TOS",
-        contact,
-        "EUPL Licence v1.2",
-        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }

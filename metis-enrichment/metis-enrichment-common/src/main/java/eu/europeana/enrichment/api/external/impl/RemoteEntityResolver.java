@@ -1,9 +1,10 @@
-package eu.europeana.enrichment.rest.client.enrichment;
+package eu.europeana.enrichment.api.external.impl;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ID;
 import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_SEARCH;
+import static org.apache.commons.collections4.ListUtils.partition;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.EnrichmentReference;
@@ -34,20 +35,24 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 /**
- * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from
- * there.
+ * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from there.
  */
 public class RemoteEntityResolver implements EntityResolver {
 
   private final int batchSize;
-  private final RestTemplate template;
+  private final RestTemplate restTemplate;
   private final URL enrichmentServiceUrl;
 
-  public RemoteEntityResolver(URL enrichmentServiceUrl, int batchSize, RestTemplate template) {
+  /**
+   * Constructor with required parameters
+   * @param enrichmentServiceUrl the enrichment service url
+   * @param batchSize the batch size
+   * @param restTemplate the rest template
+   */
+  public RemoteEntityResolver(URL enrichmentServiceUrl, int batchSize, RestTemplate restTemplate) {
     this.enrichmentServiceUrl = enrichmentServiceUrl;
-    this.template = template;
+    this.restTemplate = restTemplate;
     this.batchSize = batchSize;
   }
 
@@ -55,7 +60,7 @@ public class RemoteEntityResolver implements EntityResolver {
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
     final Function<List<T>, EnrichmentSearch> inputFunction = partition -> {
       final List<SearchValue> searchValues = partition.stream()
-              .map(term -> new SearchValue(term.getTextValue(), term.getLanguage(),
+                                                      .map(term -> new SearchValue(term.getTextValue(), term.getLanguage(),
                       term.getCandidateTypes().toArray(EntityType[]::new)))
               .collect(Collectors.toList());
       final EnrichmentSearch enrichmentSearch = new EnrichmentSearch();
@@ -97,33 +102,21 @@ public class RemoteEntityResolver implements EntityResolver {
     try {
       final URI parentUri = enrichmentServiceUrl.toURI();
       uri = new URI(parentUri.getScheme(), parentUri.getUserInfo(), parentUri.getHost(),
-              parentUri.getPort(), parentUri.getPath() + "/" + endpointPath,
-              parentUri.getQuery(), parentUri.getFragment()).normalize();
+          parentUri.getPort(), parentUri.getPath() + "/" + endpointPath,
+          parentUri.getQuery(), parentUri.getFragment()).normalize();
     } catch (URISyntaxException e) {
       throw new UnknownException(
-              "URL syntax issue with service url: " + enrichmentServiceUrl + ".", e);
+          "URL syntax issue with service url: " + enrichmentServiceUrl + ".", e);
     }
 
-    // Create partitions
-    final List<List<I>> partitions = new ArrayList<>();
-    partitions.add(new ArrayList<>());
-    inputValues.forEach(item -> {
-      List<I> currentPartition = partitions.get(partitions.size() - 1);
-      if (currentPartition.size() >= batchSize) {
-        currentPartition = new ArrayList<>();
-        partitions.add(currentPartition);
-      }
-      currentPartition.add(item);
-    });
-
-    // Process partitions
+    final List<List<I>> batches = partition(new ArrayList<>(inputValues), batchSize);
     final Map<I, R> result = new HashMap<>();
-    for (List<I> partition : partitions) {
-      final EnrichmentResultList enrichmentResultList = executeRequest(uri, bodyCreator, partition);
-      for (int i = 0; i < partition.size(); i++) {
-        final I inputItem = partition.get(i);
+    for (List<I> batch : batches) {
+      final EnrichmentResultList enrichmentResultList = executeRequest(uri, bodyCreator, batch);
+      for (int i = 0; i < batch.size(); i++) {
+        final I inputItem = batch.get(i);
         Optional.ofNullable(enrichmentResultList
-                .getEnrichmentBaseResultWrapperList().get(i))
+                    .getEnrichmentBaseResultWrapperList().get(i))
                 .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList)
                 .filter(list -> !list.isEmpty())
                 .map(resultParser).ifPresent(resultItem -> result.put(inputItem, resultItem));
@@ -135,10 +128,10 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   private <I, B> EnrichmentResultList executeRequest(URI uri, Function<List<I>, B> bodyCreator,
-          List<I> partition) {
+      List<I> batch) {
 
     // Create the request
-    final B body = bodyCreator.apply(partition);
+    final B body = bodyCreator.apply(batch);
     final HttpHeaders headers = new HttpHeaders();
     if (body != null) {
       headers.setContentType(MediaType.APPLICATION_JSON);
@@ -150,7 +143,7 @@ public class RemoteEntityResolver implements EntityResolver {
     final EnrichmentResultList enrichmentResultList;
     try {
        enrichmentResultList = retryableExternalRequestForNetworkExceptions(
-                () -> template.postForObject(uri, httpEntity, EnrichmentResultList.class));
+           () -> restTemplate.postForObject(uri, httpEntity, EnrichmentResultList.class));
 
     } catch (RestClientException e) {
       throw new UnknownException("Enrichment client POST call failed: " + uri + ".", e);
@@ -158,7 +151,7 @@ public class RemoteEntityResolver implements EntityResolver {
     if (enrichmentResultList == null) {
       throw new UnknownException("Empty body from server (" + uri + ").");
     }
-    if (enrichmentResultList.getEnrichmentBaseResultWrapperList().size() != partition.size()) {
+    if (enrichmentResultList.getEnrichmentBaseResultWrapperList().size() != batch.size()) {
       throw new UnknownException("Server returned unexpected number of results (" + uri + ").");
     }
 
