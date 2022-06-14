@@ -46,9 +46,8 @@ public class AuthenticationService {
 
   private static final int LOG_ROUNDS = 13;
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
-
+  @SuppressWarnings("java:S6418") // It is not an actual token
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private static final Pattern TOKEN_MATCHING_PATTERN = Pattern.compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
   public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
