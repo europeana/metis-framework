@@ -18,9 +18,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class provides the functionality of reading zip files.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class ZipFileReader {
 
@@ -37,11 +36,10 @@ public class ZipFileReader {
   }
 
   /**
-   * This method extracts all files from a ZIP file and returns them as strings. This method only
-   * considers files in the main directory. This method creates (and then removes) a temporary file.
+   * This method extracts all files from a ZIP file and returns them as strings. This method only considers files in the main
+   * directory. This method creates (and then removes) a temporary file.
    *
-   * @param providedZipFile Input stream containing the zip file. This method is not responsible for
-   *        closing the stream.
+   * @param providedZipFile Input stream containing the zip file. This method is not responsible for closing the stream.
    * @return A list of records.
    * @throws IOException In case of problems with the temporary file or with reading the zip file.
    */
@@ -52,17 +50,15 @@ public class ZipFileReader {
   }
 
   /**
-   * This method extracts all files from a ZIP file and returns them as byte arrays. This method
-   * only considers files in the main directory. This method creates (and then removes) a temporary
-   * file.
+   * This method extracts all files from a ZIP file and returns them as byte arrays. This method only considers files in the main
+   * directory. This method creates (and then removes) a temporary file.
    *
-   * @param providedZipFile Input stream containing the zip file. This method is not responsible for
-   * closing the stream.
+   * @param providedZipFile Input stream containing the zip file. This method is not responsible for closing the stream.
    * @return A list of records.
    * @throws IOException In case of problems with the temporary file or with reading the zip file.
    */
   public List<ByteArrayInputStream> getContentFromZipFile(InputStream providedZipFile)
-          throws IOException {
+      throws IOException {
     try (final ZipFile zipFile = createTempZipFile(providedZipFile)) {
       final List<InputStream> streams = getContentFromZipFile(zipFile);
       final List<ByteArrayInputStream> result = new ArrayList<>(streams.size());
@@ -75,7 +71,10 @@ public class ZipFileReader {
 
   private ZipFile createTempZipFile(InputStream content) throws IOException {
     final String prefix = UUID.randomUUID().toString();
-    final File tempFile = File.createTempFile(prefix, ".zip");
+    final File tempFile =
+        File
+            .createTempFile(prefix,
+                ".zip");
     FileUtils.copyInputStreamToFile(content, tempFile);
     LOGGER.info("Temp file: {} created.", tempFile);
     return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);
