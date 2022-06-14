@@ -36,8 +36,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 /**
- * Service that handles all related operations to authentication including  communication between a
- * psql database and Zoho.
+ * Service that handles all related operations to authentication including  communication between a psql database and Zoho.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-12-05
@@ -47,12 +46,11 @@ public class AuthenticationService {
 
   private static final int LOG_ROUNDS = 13;
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
-  private static final String ACCESS_TOKEN_CHARACTER_BASKET
-      =
-      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
   private static final int ACCESS_TOKEN_LENGTH = 32;
-  private static final Pattern TOKEN_MATCHING_PATTERN = Pattern
-      .compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
+  private static final Pattern TOKEN_MATCHING_PATTERN = Pattern.compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
   public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
       "Could not convert internal user");
   private final PsqlMetisUserDao psqlMetisUserDao;
@@ -245,7 +243,7 @@ public class AuthenticationService {
     }
     //Check that the token is of valid structure
     if (accessToken.length() != ACCESS_TOKEN_LENGTH || !TOKEN_MATCHING_PATTERN.matcher(accessToken)
-        .matches()) {
+                                                                              .matches()) {
       throw new UserUnauthorizedException("Access token invalid");
     }
     return accessToken;
@@ -370,7 +368,8 @@ public class AuthenticationService {
     }
     MetisUser storedMetisUser = authenticateUserInternal(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || storedMetisUser.getEmail()
-        .equals(storedMetisUserToUpdate.getEmail());
+                                                                                         .equals(
+                                                                                             storedMetisUserToUpdate.getEmail());
   }
 
   String generateAccessToken() {
