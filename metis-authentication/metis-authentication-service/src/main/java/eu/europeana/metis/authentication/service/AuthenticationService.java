@@ -4,9 +4,9 @@ import com.zoho.crm.api.record.Record;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
-import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -47,7 +47,9 @@ public class AuthenticationService {
 
   private static final int LOG_ROUNDS = 13;
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
-  private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  private static final String ACCESS_TOKEN_CHARACTER_BASKET
+      =
+      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private static final Pattern TOKEN_MATCHING_PATTERN = Pattern
       .compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
@@ -480,14 +482,14 @@ public class AuthenticationService {
     return convert(psqlMetisUserDao.getAllMetisUsers());
   }
 
-  private static MetisUserView convert(MetisUser record) throws BadContentException {
-    return Optional.ofNullable(record).map(MetisUserView::new)
-        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+  private static MetisUserView convert(MetisUser metisUser) throws BadContentException {
+    return Optional.ofNullable(metisUser).map(MetisUserView::new)
+                   .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   private static List<MetisUserView> convert(List<MetisUser> records) {
     return Optional.ofNullable(records).stream().flatMap(Collection::stream).map(MetisUserView::new)
-        .collect(Collectors.toList());
+                   .collect(Collectors.toList());
   }
 }
 
