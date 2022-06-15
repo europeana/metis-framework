@@ -36,7 +36,9 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
    */
   AbstractTemporaryFile(String resourceUrl, String prefix, String suffix) {
     this.resourceUrl = resourceUrl;
-    this.contentFileCreator = () -> Files.createTempFile(prefix, suffix);
+    this.contentFileCreator = () ->
+        Files
+            .createTempFile(prefix, suffix);
   }
 
   @Override
