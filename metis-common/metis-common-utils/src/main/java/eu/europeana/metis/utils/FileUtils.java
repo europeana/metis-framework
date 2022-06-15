@@ -28,6 +28,7 @@ public final class FileUtils {
 
   /**
    * Create a secure temp file for posix and other file systems.
+   * <p>This method is not responsible of removing the temp file</p>
    *
    * @param prefix the prefix
    * @param suffix the suffix
@@ -48,7 +49,8 @@ public final class FileUtils {
   /**
    * Create a secure temp file for posix and other file systems.
    * <p>
-   * This is equivalent to calling {@link #createSecureTempFile(String, String)} with null as a prefix.
+   * This is equivalent to calling {@link #createSecureTempFile(String, String)} with null as a prefix. This method is not
+   * responsible of removing the temp file.
    * </p>
    *
    * @param suffix the suffix

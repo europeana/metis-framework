@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static eu.europeana.metis.utils.FileUtils.createSecureTempFile;
+
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import java.io.IOException;
@@ -24,9 +26,8 @@ class PdfToImageConverter {
   private final CommandExecutor commandExecutor;
 
   /**
-   * Constructor. This is a wrapper for {@link PdfToImageConverter#PdfToImageConverter(CommandExecutor,
-   * String)} where the property is detected. It is advisable to use this constructor for
-   * non-testing purposes.
+   * Constructor. This is a wrapper for {@link PdfToImageConverter#PdfToImageConverter(CommandExecutor, String)} where the
+   * property is detected. It is advisable to use this constructor for non-testing purposes.
    *
    * @param commandExecutor A command executor.
    * @throws MediaProcessorException In case the properties could not be initialized.
@@ -47,7 +48,7 @@ class PdfToImageConverter {
   }
 
   private static String getGlobalGhostScriptCommand(CommandExecutor commandExecutor)
-          throws MediaProcessorException {
+      throws MediaProcessorException {
     synchronized (AudioVideoProcessor.class) {
       if (globalGhostScriptCommand == null) {
         globalGhostScriptCommand = discoverGhostScriptCommand(commandExecutor);
@@ -57,13 +58,13 @@ class PdfToImageConverter {
   }
 
   static String discoverGhostScriptCommand(CommandExecutor commandExecutor)
-          throws MediaProcessorException {
+      throws MediaProcessorException {
 
     // Check whether ghostscript is installed.
     final String command = "gs";
     final String output;
     output = commandExecutor.execute(Arrays.asList(command, "--version"), true, message ->
-            new MediaProcessorException("Error while looking for ghostscript tools: " + message));
+        new MediaProcessorException("Error while looking for ghostscript tools: " + message));
     if (!output.startsWith("9.")) {
       throw new MediaProcessorException("Ghostscript 9.x not found.");
     }
@@ -73,14 +74,14 @@ class PdfToImageConverter {
   }
 
   /**
-   * The main method of this class. It takes a PDF input file and converts the frist page of it to a
-   * PNG image. It saves it as a file and returns the reference to it.
+   * The main method of this class. It takes a PDF input file and converts the first page of it to a PNG image. It saves it as a
+   * file and returns the reference to it.
    *
    * @param content the PDF input.
    * @return The PNG output.
    * @throws MediaExtractionException In case something went wrong during the conversion.
    */
-  Path convertToPdf(Path content) throws MediaExtractionException {
+  Path convertPdfFirstPageToImage(Path content) throws MediaExtractionException {
 
     // Sanity checking
     if (content == null) {
@@ -113,9 +114,7 @@ class PdfToImageConverter {
 
   Path createPdfImageFile() throws MediaExtractionException {
     try {
-      return
-          Files
-              .createTempFile("metis_pdf_image_", null);
+      return createSecureTempFile("metis_pdf_image_", ".png").toPath();
     } catch (IOException e) {
       throw new MediaExtractionException("Could not create temporary file.", e);
     }
@@ -123,23 +122,23 @@ class PdfToImageConverter {
 
   List<String> createPdfConversionCommand(Path inputFile, Path outputFile) {
     return Arrays.asList(ghostScriptCmd,
-            "-q",
-            "-dQUIET",
-            "-dSAFER",
-            "-dBATCH",
-            "-dNOPAUSE",
-            "-dNOPROMPT",
-            "-dMaxBitmap=500000000",
-            "-dAlignToPixels=0",
-            "-dGridFitTT=2",
-            "-sDEVICE=pngalpha",
-            "-dTextAlphaBits=4",
-            "-dGraphicsAlphaBits=4",
-            "-r72x72",
-            "-dFirstPage=1",
-            "-dLastPage=1",
-            "-sOutputFile=" + outputFile.toAbsolutePath().toString(),
-            "-f" + inputFile.toAbsolutePath().toString()
+        "-q",
+        "-dQUIET",
+        "-dSAFER",
+        "-dBATCH",
+        "-dNOPAUSE",
+        "-dNOPROMPT",
+        "-dMaxBitmap=500000000",
+        "-dAlignToPixels=0",
+        "-dGridFitTT=2",
+        "-sDEVICE=pngalpha",
+        "-dTextAlphaBits=4",
+        "-dGraphicsAlphaBits=4",
+        "-r72x72",
+        "-dFirstPage=1",
+        "-dLastPage=1",
+        "-sOutputFile=" + outputFile.toAbsolutePath(),
+        "-f" + inputFile.toAbsolutePath()
     );
   }
 }
