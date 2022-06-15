@@ -97,12 +97,15 @@ public class HttpHarvesterImpl implements HttpHarvester {
       // Save the zip file in a temporary directory (and close the input stream).
       final String prefix = UUID.randomUUID().toString();
 
-      tempDir = Files.createTempDirectory(prefix);
-      tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
+      tempDir =
+          Files
+              .createTempDirectory(prefix);
+      tempFile =
+          Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
       FileUtils.copyInputStreamToFile(input, tempFile.toFile());
 
       return harvestRecords(tempFile);
-      } catch (IOException e) {
+    } catch (IOException e) {
         throw new HarvesterException("Problem saving archive.", e);
       }
 
