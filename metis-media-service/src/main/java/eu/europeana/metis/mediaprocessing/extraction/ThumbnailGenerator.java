@@ -102,8 +102,10 @@ class ThumbnailGenerator {
         if (colorMapInputStream == null) {
           throw new MediaProcessorException("Could not load color map file: could not find file.");
         }
-        colormapTempFile = Files
-            .createTempFile("colormap", ".png");
+        colormapTempFile =
+            Files
+                .
+                createTempFile("colormap", ".png");
         Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
       } catch (IOException e) {
         throw new MediaProcessorException(
