@@ -447,7 +447,9 @@ class ThumbnailGenerator {
 
     ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, String imageMagickTypePrefix)
         throws IOException {
-      this(thumbnail, imageSize, Files.createTempFile("thumbnail_", null), imageMagickTypePrefix);
+      this(thumbnail, imageSize,
+          Files
+              .createTempFile("thumbnail_", null), imageMagickTypePrefix);
     }
 
     ThumbnailImpl getThumbnail() {
