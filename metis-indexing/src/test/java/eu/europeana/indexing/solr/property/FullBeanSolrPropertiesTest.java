@@ -4,14 +4,16 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import eu.europeana.corelib.definitions.edm.entity.Place;
-import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
+import eu.europeana.indexing.solr.EdmLabel;
+import eu.europeana.metis.schema.jibx.EdmType;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -36,17 +38,6 @@ class FullBeanSolrPropertiesTest {
 
     FullBeanImpl fullBean = new FullBeanImpl();
 
-    // proxy setup
-    ProxyImpl proxy = new ProxyImpl();
-    proxy.setAbout("About Proxy");
-    proxy.setEdmType(DocType.TEXT.getEnumNameValue());
-    proxy.setEdmHasType(Map.of("edm types", List.of(DocType.TEXT.getEnumNameValue())));
-    proxy.setEuropeanaProxy(true);
-    proxy.setEdmCurrentLocation(Map.of("Somewhere", List.of("Nowhere")));
-    proxy.setDctermsSpatial(Map.of("Somewhere", List.of("Nowhere")));
-    proxy.setDcCoverage(Map.of("Somewhere", List.of("Nowhere")));
-    fullBean.setProxies(List.of(proxy));
-
     // agent setup
     AgentImpl agent = new AgentImpl();
     agent.setAbout("About Agent");
@@ -60,56 +51,44 @@ class FullBeanSolrPropertiesTest {
     place.setAltitude(7.0f);
     fullBean.setPlaces(List.of(place));
 
+    // proxy setup
+    ProxyImpl proxy = new ProxyImpl();
+    proxy.setAbout("About Proxy");
+    proxy.setEuropeanaProxy(true);
+    proxy.setEdmType(EdmType.TEXT.name());
+//    proxy.setDcType(Map.of(EdmLabel.PROXY_DC_TYPE.name(), Arrays.asList(EdmType.TEXT.name())));
+    proxy.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place.getAbout())));
+    proxy.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place.getAbout())));
+    proxy.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place.getAbout())));
+    fullBean.setProxies(List.of(proxy));
+
     fullBean.setEuropeanaCompleteness(0);
     fullBean.setEuropeanaCollectionName(new String[]{"Europeana Collection Name"});
     fullBean.setTimestampCreated(Date.from(Instant.now().truncatedTo(DAYS)));
-
     fullBean.setTimestampUpdated(Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
 
     // method to test
     fullBeanSolrProperties.setProperties(solrInputDocument, fullBean);
 
     // assertions
-    assertEquals("TEXT", solrInputDocument.getFieldValue("proxy_edm_type"));
-    assertEquals("10,33", solrInputDocument.getFieldValue("currentLocation_wgs"));
-    assertEquals("10,33", solrInputDocument.getFieldValue("coverageLocation_wgs"));
-    assertEquals("10,33", solrInputDocument.getFieldValue("location_wgs"));
-    assertEquals(0, solrInputDocument.getFieldValue("europeana_completeness"));
-    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue("europeana_collectionName"));
-    assertEquals(solrInputDocument.getFieldValue("timestamp_created"), Date.from(Instant.now().truncatedTo(DAYS)));
-    assertEquals(solrInputDocument.getFieldValue("timestamp_update"),
+    assertEquals(EdmType.TEXT.name(), solrInputDocument.getFieldValue(EdmLabel.PROVIDER_EDM_TYPE.toString()));
+    assertEquals("10,33", solrInputDocument.getFieldValue(EdmLabel.CURRENT_LOCATION_WGS.toString()));
+    assertEquals("10,33", solrInputDocument.getFieldValue(EdmLabel.COVERAGE_LOCATION_WGS.toString()));
+    assertEquals("10,33", solrInputDocument.getFieldValue(EdmLabel.LOCATION_WGS.toString()));
+    assertEquals(0, solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COMPLETENESS.toString()));
+    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COLLECTIONNAME.toString()));
+    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()),
+        Date.from(Instant.now().truncatedTo(DAYS)));
+    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_UPDATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
     assertEquals(8, solrInputDocument.size());
 
   }
 
   @Test
-  void fullBeanSolrSetPropertiesNullProxyTest() {
+  void fullBeanSolrSetPropertiesMultipleProxiesTest() {
 
     FullBeanImpl fullBean = new FullBeanImpl();
-    // proxy setup
-    ProxyImpl proxy1 = new ProxyImpl();
-    proxy1.setAbout("About Proxy1");
-    proxy1.setEdmType(DocType.TEXT.getEnumNameValue());
-    proxy1.setEdmHasType(Map.of("edm types", List.of(DocType.TEXT.getEnumNameValue())));
-    proxy1.setEuropeanaProxy(true);
-    proxy1.setEdmCurrentLocation(Map.of("Somewhere", List.of("Nowhere")));
-    proxy1.setDctermsSpatial(Map.of("Somewhere", List.of("Nowhere")));
-
-    ProxyImpl proxy2 = new ProxyImpl();
-    proxy2.setAbout("About Proxy2");
-    proxy2.setEdmType(DocType._3D.getEnumNameValue());
-    proxy2.setEdmHasType(Map.of("edm types", List.of(DocType._3D.getEnumNameValue())));
-    proxy2.setEuropeanaProxy(true);
-    proxy2.setEdmCurrentLocation(Map.of("Somewhere", List.of("Nowhere")));
-    proxy2.setDctermsSpatial(Map.of("Somewhere", List.of("Nowhere")));
-
-    List<ProxyImpl> proxies = new ArrayList<>();
-    proxies.add(proxy1);
-    proxies.add(proxy2);
-    proxies.add(null);
-
-    fullBean.setProxies(proxies);
 
     // agent setup
     AgentImpl agent = new AgentImpl();
@@ -118,43 +97,65 @@ class FullBeanSolrPropertiesTest {
 
     // place setup
     Place place1 = new PlaceImpl();
-    place1.setAbout("Nowhere");
+    place1.setAbout("Somewhere1");
     place1.setLatitude(10.0f);
     place1.setLongitude(33.0f);
     place1.setAltitude(7.0f);
 
     Place place2 = new PlaceImpl();
-    place2.setAbout("Nowhere");
+    place2.setAbout("Somewhere2");
     place2.setLatitude(40.0f);
     place2.setLongitude(53.0f);
     place2.setAltitude(36.0f);
 
     fullBean.setPlaces(List.of(place1, place2));
 
+    // proxy setup
+    ProxyImpl proxy1 = new ProxyImpl();
+    proxy1.setAbout("About Proxy1");
+    proxy1.setEuropeanaProxy(true);
+    proxy1.setEdmType(EdmType.IMAGE.name());
+//    proxy1.setDcType(Map.of(EdmLabel.PROXY_DC_TYPE.name(), Arrays.asList(EdmType.IMAGE.name())));
+    proxy1.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place1.getAbout())));
+    proxy1.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place1.getAbout())));
+    proxy1.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place1.getAbout())));
+    proxy1.setEdmHasType(Map.of(EdmType.IMAGE.name(), List.of(EdmType.IMAGE.toString())));
+
+    ProxyImpl proxy2 = new ProxyImpl();
+    proxy2.setAbout("About Proxy2");
+    proxy2.setEuropeanaProxy(true);
+    proxy2.setEdmType(EdmType.SOUND.name());
+//    proxy2.setDcType(Map.of(EdmLabel.PROXY_DC_TYPE.name(), Arrays.asList(EdmType.SOUND.name())));
+    proxy2.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place2.getAbout())));
+    proxy2.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place2.getAbout())));
+    proxy2.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place2.getAbout())));
+    proxy2.setEdmHasType(Map.of(EdmType.SOUND.name(), List.of(EdmType.SOUND.toString())));
+
+    List<ProxyImpl> proxies = new ArrayList<>();
+    proxies.add(proxy1);
+    proxies.add(proxy2);
+    proxies.add(null);
+    fullBean.setProxies(proxies);
+
     fullBean.setEuropeanaCompleteness(0);
     fullBean.setEuropeanaCollectionName(new String[]{"Europeana Collection Name"});
     fullBean.setTimestampCreated(Date.from(Instant.now().truncatedTo(DAYS)));
-
     fullBean.setTimestampUpdated(Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
 
     // method to test
     fullBeanSolrProperties.setProperties(solrInputDocument, fullBean);
 
     // assertions
-    // List.of("10","33") doesn't work as expected, it adds a whitespace between the two values
-    List<String> wgs = new ArrayList();
-    wgs.add("10,33");
-    assertEquals(List.of("TEXT", "3D"), solrInputDocument.getFieldValues("proxy_edm_type"));
-    assertEquals(wgs, solrInputDocument.getFieldValues("currentLocation_wgs"));
-    assertEquals(wgs, solrInputDocument.getFieldValues("coverageLocation_wgs"));
-    assertEquals(wgs, solrInputDocument.getFieldValues("location_wgs"));
-    assertEquals(0, solrInputDocument.getFieldValue("europeana_completeness"));
-    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue("europeana_collectionName"));
-    assertEquals(solrInputDocument.getFieldValue("timestamp_created"), Date.from(Instant.now().truncatedTo(DAYS)));
-    assertEquals(solrInputDocument.getFieldValue("timestamp_update"),
+    assertEquals(EdmType.IMAGE.name(), solrInputDocument.getFieldValue(EdmLabel.PROVIDER_EDM_TYPE.toString()));
+    assertEquals("40,53", solrInputDocument.getFieldValue(EdmLabel.CURRENT_LOCATION_WGS.toString()));
+    assertEquals("40,53", solrInputDocument.getFieldValue(EdmLabel.COVERAGE_LOCATION_WGS.toString()));
+    assertEquals("40,53", solrInputDocument.getFieldValue(EdmLabel.LOCATION_WGS.toString()));
+    assertEquals(0, solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COMPLETENESS.toString()));
+    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COLLECTIONNAME.toString()));
+    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()),
+        Date.from(Instant.now().truncatedTo(DAYS)));
+    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_UPDATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
     assertEquals(8, solrInputDocument.size());
-
   }
-
 }
