@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.utils.FileUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -36,9 +37,7 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
    */
   AbstractTemporaryFile(String resourceUrl, String prefix, String suffix) {
     this.resourceUrl = resourceUrl;
-    this.contentFileCreator = () ->
-        Files
-            .createTempFile(prefix, suffix);
+    this.contentFileCreator = () -> FileUtils.createSecureTempFile(prefix, suffix).toPath();
   }
 
   @Override
@@ -61,8 +60,7 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
   private Long computeContentSizeInternal() throws IOException {
 
     // If the content path does not exist, remove the reference.
-    // Note: should use Files.exists instead when migrating away from Java 8.
-    if (this.contentPath != null && !this.contentPath.toFile().exists()) {
+    if (this.contentPath != null && Files.notExists(this.contentPath)) {
       this.contentPath = null;
     }
 
@@ -96,9 +94,8 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
   @Override
   public void markAsNoContent() throws IOException {
     try {
-      // Note: should use Files.exists instead when migrating away from Java 8.
-      if (this.contentPath != null && this.contentPath.toFile().exists()) {
-        Files.delete(this.contentPath);
+      if (this.contentPath != null) {
+        Files.deleteIfExists(this.contentPath);
       }
     } finally {
       this.contentPath = null;
