@@ -101,7 +101,7 @@ class ThumbnailGenerator {
         if (colorMapInputStream == null) {
           throw new MediaProcessorException("Could not load color map file: could not find file.");
         }
-        colormapTempFile = FileUtils.createSecureTempFile("colormap", ".png").toPath();
+        colormapTempFile = FileUtils.createSecureTempFileDeleteOnExit("colormap", ".png").toPath();
         Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
       } catch (IOException e) {
         throw new MediaProcessorException(
@@ -278,11 +278,9 @@ class ThumbnailGenerator {
 
     // Generate the thumbnails and read image properties.
     final String contentMarker = UUID.randomUUID().toString();
-    final List<String> command =
-        createThumbnailGenerationCommand(thumbnails, removeAlpha, content, contentMarker);
+    final List<String> command = createThumbnailGenerationCommand(thumbnails, removeAlpha, content, contentMarker);
     final String response = commandExecutor.execute(command, false, message ->
-        new MediaExtractionException(
-            "Could not analyze content and generate thumbnails: " + message));
+        new MediaExtractionException("Could not analyze content and generate thumbnails: " + message));
     final ImageMetadata result = parseCommandResponse(response, contentMarker);
 
     // Check the thumbnails.
@@ -332,12 +330,15 @@ class ThumbnailGenerator {
     // Decide on the thumbnail file type
     final String imageMagickThumbnailTypePrefix;
     final String thumbnailMimeType;
+    final String thumbnailFileSuffix;
     if (PNG_MIME_TYPE.equals(detectedMimeType)) {
       imageMagickThumbnailTypePrefix = "png:";
       thumbnailMimeType = PNG_MIME_TYPE;
+      thumbnailFileSuffix = FileUtils.PNG_FILE_EXTENSION;
     } else {
       imageMagickThumbnailTypePrefix = "jpeg:";
       thumbnailMimeType = JPEG_MIME_TYPE;
+      thumbnailFileSuffix = FileUtils.JPEG_FILE_EXTENSION;
     }
 
     // Create the thumbnails: one for each kind
@@ -348,8 +349,8 @@ class ThumbnailGenerator {
         final String targetName = md5 + thumbnailKind.getNameSuffix();
         // False positive - we don't want to close the thumbnail here.
         @SuppressWarnings("squid:S2095") final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
-        result.add(new ThumbnailWithSize(thumbnail, thumbnailKind.getImageSize(),
-            imageMagickThumbnailTypePrefix));
+        result.add(
+            new ThumbnailWithSize(thumbnail, thumbnailKind.getImageSize(), imageMagickThumbnailTypePrefix, thumbnailFileSuffix));
       }
     } catch (RuntimeException | IOException e) {
       closeAllThumbnailsSilently(result);
@@ -445,11 +446,10 @@ class ThumbnailGenerator {
       this.imageMagickTypePrefix = imageMagickTypePrefix;
     }
 
-    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, String imageMagickTypePrefix)
+    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, String imageMagickTypePrefix, String thumbnailFileSuffix)
         throws IOException {
-      this(thumbnail, imageSize,
-          Files
-              .createTempFile("thumbnail_", null), imageMagickTypePrefix);
+      this(thumbnail, imageSize, FileUtils.createSecureTempFile("thumbnail_", thumbnailFileSuffix).toPath(),
+          imageMagickTypePrefix);
     }
 
     ThumbnailImpl getThumbnail() {
@@ -470,7 +470,7 @@ class ThumbnailGenerator {
 
     void deleteTempFileSilently() {
       try {
-        Files.delete(getTempFileForThumbnail());
+        Files.deleteIfExists(getTempFileForThumbnail());
       } catch (IOException e) {
         LOGGER.warn("Could not close thumbnail: {}", getTempFileForThumbnail(), e);
       }
