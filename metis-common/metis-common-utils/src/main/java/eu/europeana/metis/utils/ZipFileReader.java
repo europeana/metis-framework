@@ -1,5 +1,7 @@
 package eu.europeana.metis.utils;
 
+import static eu.europeana.metis.utils.FileUtils.createSecureTempFile;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
@@ -44,7 +45,7 @@ public class ZipFileReader {
    * @throws IOException In case of problems with the temporary file or with reading the zip file.
    */
   public List<String> getRecordsFromZipFile(InputStream providedZipFile) throws IOException {
-    try (final ZipFile zipFile = createTempZipFile(providedZipFile)) {
+    try (final ZipFile zipFile = createInMemoryZipFileObject(providedZipFile)) {
       return getRecordsFromZipFile(zipFile);
     }
   }
@@ -59,7 +60,7 @@ public class ZipFileReader {
    */
   public List<ByteArrayInputStream> getContentFromZipFile(InputStream providedZipFile)
       throws IOException {
-    try (final ZipFile zipFile = createTempZipFile(providedZipFile)) {
+    try (final ZipFile zipFile = createInMemoryZipFileObject(providedZipFile)) {
       final List<InputStream> streams = getContentFromZipFile(zipFile);
       final List<ByteArrayInputStream> result = new ArrayList<>(streams.size());
       for (InputStream stream : streams) {
@@ -69,12 +70,8 @@ public class ZipFileReader {
     }
   }
 
-  private ZipFile createTempZipFile(InputStream content) throws IOException {
-    final String prefix = UUID.randomUUID().toString();
-    final File tempFile =
-        File
-            .createTempFile(prefix,
-                ".zip");
+  private ZipFile createInMemoryZipFileObject(InputStream content) throws IOException {
+    final File tempFile = createSecureTempFile(".zip");
     FileUtils.copyInputStreamToFile(content, tempFile);
     LOGGER.info("Temp file: {} created.", tempFile);
     return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);
