@@ -56,7 +56,6 @@ class FullBeanSolrPropertiesTest {
     proxy.setAbout("About Proxy");
     proxy.setEuropeanaProxy(true);
     proxy.setEdmType(EdmType.TEXT.name());
-//    proxy.setDcType(Map.of(EdmLabel.PROXY_DC_TYPE.name(), Arrays.asList(EdmType.TEXT.name())));
     proxy.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place.getAbout())));
     proxy.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place.getAbout())));
     proxy.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place.getAbout())));
@@ -115,7 +114,6 @@ class FullBeanSolrPropertiesTest {
     proxy1.setAbout("About Proxy1");
     proxy1.setEuropeanaProxy(true);
     proxy1.setEdmType(EdmType.IMAGE.name());
-//    proxy1.setDcType(Map.of(EdmLabel.PROXY_DC_TYPE.name(), Arrays.asList(EdmType.IMAGE.name())));
     proxy1.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place1.getAbout())));
     proxy1.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place1.getAbout())));
     proxy1.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place1.getAbout())));
@@ -125,7 +123,6 @@ class FullBeanSolrPropertiesTest {
     proxy2.setAbout("About Proxy2");
     proxy2.setEuropeanaProxy(true);
     proxy2.setEdmType(EdmType.SOUND.name());
-//    proxy2.setDcType(Map.of(EdmLabel.PROXY_DC_TYPE.name(), Arrays.asList(EdmType.SOUND.name())));
     proxy2.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place2.getAbout())));
     proxy2.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place2.getAbout())));
     proxy2.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place2.getAbout())));
