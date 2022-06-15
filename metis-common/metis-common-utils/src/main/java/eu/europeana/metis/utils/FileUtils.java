@@ -28,13 +28,14 @@ public final class FileUtils {
 
   /**
    * Create a secure temp file for posix and other file systems.
-   * <p>This method is not responsible of removing the temp file</p>
+   * <p>The temp file will be removed on exit e.g.{@link File#deleteOnExit()}</p>
    *
    * @param prefix the prefix
    * @param suffix the suffix
    * @return the secure temp file
    * @throws IOException if the file failed to be created
    */
+  @SuppressWarnings("java:S2308")
   public static File createSecureTempFile(String prefix, String suffix) throws IOException {
     //Set permissions only to owner, posix style
     final File file = Files.createTempFile(prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE).toFile();
@@ -42,6 +43,7 @@ public final class FileUtils {
     if (!(file.setReadable(true, true) && file.setWritable(true, true) && file.setExecutable(true, true))) {
       LOGGER.debug("Setting permissions failed on file {}", file.getAbsolutePath());
     }
+    file.deleteOnExit();
 
     return file;
   }

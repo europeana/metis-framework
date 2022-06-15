@@ -6,6 +6,7 @@ import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
 import eu.europeana.metis.schema.model.MediaType;
+import eu.europeana.metis.utils.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +52,7 @@ class ThumbnailGenerator {
   private static final int COMMAND_RESULT_COLORSPACE_LINE = 2;
   private static final int COMMAND_RESULT_MAX_COLORS = 6;
   public static final String COLORMAP_PNG = "colormap.png";
+  public static final int EXPECTED_CONTENT_MARKERS_COUNT = 5;
 
   private static String globalMagickCommand;
   private static Path globalColormapFile;
@@ -61,12 +63,10 @@ class ThumbnailGenerator {
   private final CommandExecutor commandExecutor;
 
   /**
-   * Constructor. This is a wrapper for {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor,
-   * String, String)} where the properties are detected. It is advisable to use this constructor for
-   * non-testing purposes.
+   * Constructor. This is a wrapper for {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor, String, String)} where the
+   * properties are detected. It is advisable to use this constructor for non-testing purposes.
    *
-   * @param commandExecutor A command executor. The calling class is responsible for closing this
-   * object.
+   * @param commandExecutor A command executor. The calling class is responsible for closing this object.
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
@@ -76,8 +76,7 @@ class ThumbnailGenerator {
   /**
    * Constructor.
    *
-   * @param commandExecutor A command executor.The calling class is responsible for closing this
-   * object
+   * @param commandExecutor A command executor.The calling class is responsible for closing this object
    * @param magickCommand The magick command (how to trigger imageMagick).
    * @param colorMapFile The location of the color map file.
    */
@@ -102,18 +101,12 @@ class ThumbnailGenerator {
         if (colorMapInputStream == null) {
           throw new MediaProcessorException("Could not load color map file: could not find file.");
         }
-        colormapTempFile =
-            Files
-                .
-                createTempFile("colormap", ".png");
+        colormapTempFile = FileUtils.createSecureTempFile("colormap", ".png").toPath();
         Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
       } catch (IOException e) {
         throw new MediaProcessorException(
             String.format("Could not load color map file: %s", COLORMAP_PNG), e);
       }
-
-      // Ensure that the temporary file is removed (should not be needed).
-      colormapTempFile.toFile().deleteOnExit();
 
       // So everything went well. We set this as the new color map file.
       globalColormapFile = colormapTempFile;
@@ -183,7 +176,7 @@ class ThumbnailGenerator {
 
   private static List<String> splitByNewLine(String input) {
     return Stream.of(input.split("\\R")).filter(StringUtils::isNotBlank)
-        .collect(Collectors.toList());
+                 .collect(Collectors.toList());
   }
 
   /**
@@ -193,8 +186,8 @@ class ThumbnailGenerator {
    * @param detectedMimeType The detected mime type of the content.
    * @param content The resource content for which to generate thumbnails.
    * @param removeAlpha Whether any alpha should be removed and replaced with a white background.
-   * @return The metadata of the image as gathered during processing, together with the thumbnails.
-   * The list can be null or empty, but does not contain null values or thumbnails without content.
+   * @return The metadata of the image as gathered during processing, together with the thumbnails. The list can be null or empty,
+   * but does not contain null values or thumbnails without content.
    * @throws MediaExtractionException In case a problem occurred.
    */
   Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url, String detectedMimeType,
@@ -235,7 +228,7 @@ class ThumbnailGenerator {
 
     // Done.
     final List<Thumbnail> resultThumbnails = thumbnails.stream()
-        .map(ThumbnailWithSize::getThumbnail).collect(Collectors.toList());
+                                                       .map(ThumbnailWithSize::getThumbnail).collect(Collectors.toList());
     return new ImmutablePair<>(image, resultThumbnails);
   }
 
@@ -354,8 +347,7 @@ class ThumbnailGenerator {
       for (ThumbnailKind thumbnailKind : ThumbnailKind.values()) {
         final String targetName = md5 + thumbnailKind.getNameSuffix();
         // False positive - we don't want to close the thumbnail here.
-        @SuppressWarnings("squid:S2095")
-        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
+        @SuppressWarnings("squid:S2095") final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
         result.add(new ThumbnailWithSize(thumbnail, thumbnailKind.getImageSize(),
             imageMagickThumbnailTypePrefix));
       }
@@ -387,12 +379,12 @@ class ThumbnailGenerator {
 
       // Divide in segments and check their number.
       final String[] segments = response.split(Pattern.quote(contentMarker), 6);
-      if (segments.length < 5) {
+      if (segments.length < EXPECTED_CONTENT_MARKERS_COUNT) {
         throw new MediaExtractionException(String.format(
             "Could not parse ImageMagick response(there are not enough content markers):%s%s",
             System.lineSeparator(), response));
       }
-      if (segments.length > 5) {
+      if (segments.length > EXPECTED_CONTENT_MARKERS_COUNT) {
         throw new MediaExtractionException(String
             .format("Could not parse ImageMagick response(there are too many content markers):%s%s",
                 System.lineSeparator(), response));
@@ -402,8 +394,8 @@ class ThumbnailGenerator {
       // segments are empty. If there is any unexpected content, this could be an error message.
       final String unexpectedContent =
           IntStream.range(0, segments.length).filter(index -> index % 2 == 0)
-              .mapToObj(index -> segments[index])
-              .collect(Collectors.joining(System.lineSeparator()));
+                   .mapToObj(index -> segments[index])
+                   .collect(Collectors.joining(System.lineSeparator()));
       if (StringUtils.isNotBlank(unexpectedContent)) {
         throw new MediaExtractionException(String
             .format("Unexpected content found in ImageMagick response: %s%s",
@@ -414,14 +406,14 @@ class ThumbnailGenerator {
       final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
       final List<String> colorStrings =
           splitByNewLine(segments[3]).stream().sorted(Collections.reverseOrder())
-              .limit(COMMAND_RESULT_MAX_COLORS).collect(Collectors.toList());
+                                     .limit(COMMAND_RESULT_MAX_COLORS).collect(Collectors.toList());
       final Supplier<Stream<Matcher>> streamMatcherSupplier = () -> colorStrings.stream()
-          .map(pattern::matcher);
+                                                                                .map(pattern::matcher);
       if (!streamMatcherSupplier.get().allMatch(Matcher::find)) {
         throw new IllegalStateException("Invalid color line found.");
       }
       final List<String> dominantColors = streamMatcherSupplier.get().filter(Matcher::find)
-          .map(matcher -> matcher.group(1)).collect(Collectors.toList());
+                                                               .map(matcher -> matcher.group(1)).collect(Collectors.toList());
 
       // Get width, height and color space
       final List<String> metadata = splitByNewLine(segments[1]);
