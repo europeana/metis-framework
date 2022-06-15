@@ -6,8 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
+import java.util.EnumSet;
 import java.util.Set;
-import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +17,10 @@ import org.slf4j.LoggerFactory;
 public final class FileUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
+  private static final EnumSet<PosixFilePermission> OWNER_PERMISSIONS_ONLY_SET = EnumSet.of(PosixFilePermission.OWNER_READ,
+      PosixFilePermission.OWNER_WRITE, PosixFilePermission.OWNER_EXECUTE);
+  private static final FileAttribute<Set<PosixFilePermission>> OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE = PosixFilePermissions.asFileAttribute(
+      OWNER_PERMISSIONS_ONLY_SET);
 
   private FileUtils() {
     //Private constructor
@@ -31,18 +35,13 @@ public final class FileUtils {
    * @throws IOException if the file failed to be created
    */
   public static File createSecureTempFile(String prefix, String suffix) throws IOException {
-    final File file;
     //Set permissions only to owner
-    if (SystemUtils.IS_OS_UNIX) {
-      FileAttribute<Set<PosixFilePermission>> fileAttribute = PosixFilePermissions.asFileAttribute(
-          PosixFilePermissions.fromString("rwx------"));
-      file = Files.createTempFile(prefix, suffix, fileAttribute).toFile();
-    } else {
-      file = Files.createTempFile(prefix, suffix).toFile();
-      if (!(file.setReadable(true, true) && file.setWritable(true, true) && file.setExecutable(true, true))) {
-        LOGGER.debug("Setting permissions failed on file {}", file.getAbsolutePath());
-      }
+    final File file = Files.createTempFile(prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE).toFile();
+    //Set again for non posix systems
+    if (!(file.setReadable(true, true) && file.setWritable(true, true) && file.setExecutable(true, true))) {
+      LOGGER.debug("Setting permissions failed on file {}", file.getAbsolutePath());
     }
+
     return file;
   }
 
