@@ -35,7 +35,7 @@ public final class FileUtils {
    * @throws IOException if the file failed to be created
    */
   public static File createSecureTempFile(String prefix, String suffix) throws IOException {
-    //Set permissions only to owner
+    //Set permissions only to owner, posix style
     final File file = Files.createTempFile(prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE).toFile();
     //Set again for non posix systems
     if (!(file.setReadable(true, true) && file.setWritable(true, true) && file.setExecutable(true, true))) {

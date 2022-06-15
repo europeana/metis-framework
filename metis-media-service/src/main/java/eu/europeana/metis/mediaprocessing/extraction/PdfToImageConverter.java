@@ -113,7 +113,9 @@ class PdfToImageConverter {
 
   Path createPdfImageFile() throws MediaExtractionException {
     try {
-      return Files.createTempFile("metis_pdf_image_", null);
+      return
+          Files
+              .createTempFile("metis_pdf_image_", null);
     } catch (IOException e) {
       throw new MediaExtractionException("Could not create temporary file.", e);
     }
