@@ -1,6 +1,6 @@
 package eu.europeana.metis.utils;
 
-import static eu.europeana.metis.utils.FileUtils.createSecureTempFile;
+import static eu.europeana.metis.utils.TempFileUtils.createSecureTempFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -71,7 +71,7 @@ public class ZipFileReader {
   }
 
   private ZipFile createInMemoryZipFileObject(InputStream content) throws IOException {
-    final File tempFile = createSecureTempFile(".zip");
+    final File tempFile = createSecureTempFile(ZipFileReader.class.getSimpleName(), ".zip");
     FileUtils.copyInputStreamToFile(content, tempFile);
     LOGGER.info("Temp file: {} created.", tempFile);
     return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);

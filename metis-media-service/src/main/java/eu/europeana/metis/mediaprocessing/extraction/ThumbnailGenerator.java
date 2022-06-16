@@ -6,7 +6,7 @@ import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
 import eu.europeana.metis.schema.model.MediaType;
-import eu.europeana.metis.utils.FileUtils;
+import eu.europeana.metis.utils.TempFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,7 +101,7 @@ class ThumbnailGenerator {
         if (colorMapInputStream == null) {
           throw new MediaProcessorException("Could not load color map file: could not find file.");
         }
-        colormapTempFile = FileUtils.createSecureTempFileDeleteOnExit("colormap", ".png").toPath();
+        colormapTempFile = TempFileUtils.createSecureTempFileDeleteOnExit("colormap", ".png").toPath();
         Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
       } catch (IOException e) {
         throw new MediaProcessorException(
@@ -334,11 +334,11 @@ class ThumbnailGenerator {
     if (PNG_MIME_TYPE.equals(detectedMimeType)) {
       imageMagickThumbnailTypePrefix = "png:";
       thumbnailMimeType = PNG_MIME_TYPE;
-      thumbnailFileSuffix = FileUtils.PNG_FILE_EXTENSION;
+      thumbnailFileSuffix = TempFileUtils.PNG_FILE_EXTENSION;
     } else {
       imageMagickThumbnailTypePrefix = "jpeg:";
       thumbnailMimeType = JPEG_MIME_TYPE;
-      thumbnailFileSuffix = FileUtils.JPEG_FILE_EXTENSION;
+      thumbnailFileSuffix = TempFileUtils.JPEG_FILE_EXTENSION;
     }
 
     // Create the thumbnails: one for each kind
@@ -448,7 +448,7 @@ class ThumbnailGenerator {
 
     ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, String imageMagickTypePrefix, String thumbnailFileSuffix)
         throws IOException {
-      this(thumbnail, imageSize, FileUtils.createSecureTempFile("thumbnail_", thumbnailFileSuffix).toPath(),
+      this(thumbnail, imageSize, TempFileUtils.createSecureTempFile("thumbnail_", thumbnailFileSuffix).toPath(),
           imageMagickTypePrefix);
     }
 

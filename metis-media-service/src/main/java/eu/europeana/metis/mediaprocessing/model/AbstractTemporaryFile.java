@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.utils.FileUtils;
+import eu.europeana.metis.utils.TempFileUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -37,7 +37,7 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
    */
   AbstractTemporaryFile(String resourceUrl, String prefix, String suffix) {
     this.resourceUrl = resourceUrl;
-    this.contentFileCreator = () -> FileUtils.createSecureTempFile(prefix, suffix).toPath();
+    this.contentFileCreator = () -> TempFileUtils.createSecureTempFile(prefix, suffix).toPath();
   }
 
   @Override
