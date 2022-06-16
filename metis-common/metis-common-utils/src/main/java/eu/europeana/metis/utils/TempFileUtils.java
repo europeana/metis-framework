@@ -30,7 +30,7 @@ public final class TempFileUtils {
   }
 
   /**
-   * Creates a secure temporary file for posix and other file systems.
+   * Creates a secure temporary file(owner permissions only) for posix and other file systems.
    * <p>This method is not responsible of removing the temporary file.
    * An implementation that uses this method should delete the temp files by itself.</p>
    *
@@ -39,17 +39,17 @@ public final class TempFileUtils {
    * @return the secure temporary file
    * @throws IOException if the file failed to be created
    */
-  public static File createSecureTempFile(String prefix, String suffix) throws IOException {
+  public static Path createSecureTempFile(String prefix, String suffix) throws IOException {
     //Set permissions only to owner, posix style
-    final File file = Files.createTempFile(prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE).toFile();
+    final Path secureTempFile = Files.createTempFile(prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE);
     //Set again for non posix systems
-    setManualFilePermissions(file);
+    setPosixIndependentOwnerOnlyFilePermissions(secureTempFile);
 
-    return file;
+    return secureTempFile;
   }
 
   /**
-   * Creates a secure temporary file for posix and other file systems.
+   * Creates a secure temporary file(owner permissions only) for posix and other file systems.
    * <p>
    * This is equivalent to calling {@link #createSecureTempFile(String, String)} and in addition it declares that it will remove
    * the temporary file with {@link File#deleteOnExit()}.
@@ -66,15 +66,15 @@ public final class TempFileUtils {
    * @throws IOException if the file failed to be created
    */
   @SuppressWarnings("java:S2308") //Delete on exit is intended here and javadoc warns the user
-  public static File createSecureTempFileDeleteOnExit(String prefix, String suffix) throws IOException {
-    final File secureTempFile = createSecureTempFile(prefix, suffix);
-    secureTempFile.deleteOnExit();
+  public static Path createSecureTempFileDeleteOnExit(String prefix, String suffix) throws IOException {
+    final Path secureTempFile = createSecureTempFile(prefix, suffix);
+    secureTempFile.toFile().deleteOnExit();
     return secureTempFile;
   }
 
   /**
-   * Creates a secure temporary directory with the {@code directoryPrefix} specified and then creates a temporary file inside that
-   * directory with the {@code prefix} and {@code suffix} specified.
+   * Creates a secure temporary directory(owner permissions only) with the {@code directoryPrefix} specified and then creates a
+   * secure temporary file(owner permissions only) inside that directory with the {@code prefix} and {@code suffix} specified.
    *
    * @param directoryPrefix the directory prefix
    * @param prefix the file prefix
@@ -83,17 +83,17 @@ public final class TempFileUtils {
    * @throws IOException if the directory or file failed to be created
    */
   public static Path createSecureTempDirectoryAndFile(String directoryPrefix, String prefix, String suffix) throws IOException {
-    Path tempParentDir = createSecureTempDirectory(directoryPrefix);
+    Path tempSecureParentDir = createSecureTempDirectory(directoryPrefix);
     //Set permissions only to owner, posix style
-    final File file = Files.createTempFile(tempParentDir, prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE).toFile();
+    final Path secureTempFile = Files.createTempFile(tempSecureParentDir, prefix, suffix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE);
     //Set again for non posix systems
-    setManualFilePermissions(file);
+    setPosixIndependentOwnerOnlyFilePermissions(secureTempFile);
 
-    return file.toPath();
+    return secureTempFile;
   }
 
   /**
-   * Creates a secure temporary directory with the {@code prefix} specified.
+   * Creates a secure temporary directory(owner permissions only) with the {@code prefix} specified.
    *
    * @param prefix the prefix
    * @return the secure temporary directory
@@ -101,14 +101,15 @@ public final class TempFileUtils {
    */
   public static Path createSecureTempDirectory(String prefix) throws IOException {
     //Set permissions only to owner, posix style
-    final File file = Files.createTempDirectory(prefix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE).toFile();
+    final Path secureTempFile = Files.createTempDirectory(prefix, OWNER_PERMISSIONS_ONLY_FILE_ATTRIBUTE);
     //Set again for non posix systems
-    setManualFilePermissions(file);
+    setPosixIndependentOwnerOnlyFilePermissions(secureTempFile);
 
-    return file.toPath();
+    return secureTempFile;
   }
 
-  private static void setManualFilePermissions(File file) {
+  private static void setPosixIndependentOwnerOnlyFilePermissions(Path path) {
+    File file = path.toFile();
     //Set again for non posix systems
     if (!(file.setReadable(true, true) && file.setWritable(true, true) && file.setExecutable(true, true))) {
       LOGGER.debug("Setting permissions failed on file {}", file.getAbsolutePath());

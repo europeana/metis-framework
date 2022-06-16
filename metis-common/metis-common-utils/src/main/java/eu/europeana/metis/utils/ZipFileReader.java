@@ -71,7 +71,7 @@ public class ZipFileReader {
   }
 
   private ZipFile createInMemoryZipFileObject(InputStream content) throws IOException {
-    final File tempFile = createSecureTempFile(ZipFileReader.class.getSimpleName(), ".zip");
+    final File tempFile = createSecureTempFile(ZipFileReader.class.getSimpleName(), ".zip").toFile();
     FileUtils.copyInputStreamToFile(content, tempFile);
     LOGGER.info("Temp file: {} created.", tempFile);
     return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);

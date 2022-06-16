@@ -101,7 +101,7 @@ class ThumbnailGenerator {
         if (colorMapInputStream == null) {
           throw new MediaProcessorException("Could not load color map file: could not find file.");
         }
-        colormapTempFile = TempFileUtils.createSecureTempFileDeleteOnExit("colormap", ".png").toPath();
+        colormapTempFile = TempFileUtils.createSecureTempFileDeleteOnExit("colormap", ".png");
         Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
       } catch (IOException e) {
         throw new MediaProcessorException(
@@ -448,7 +448,7 @@ class ThumbnailGenerator {
 
     ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, String imageMagickTypePrefix, String thumbnailFileSuffix)
         throws IOException {
-      this(thumbnail, imageSize, TempFileUtils.createSecureTempFile("thumbnail_", thumbnailFileSuffix).toPath(),
+      this(thumbnail, imageSize, TempFileUtils.createSecureTempFile("thumbnail_", thumbnailFileSuffix),
           imageMagickTypePrefix);
     }
 
