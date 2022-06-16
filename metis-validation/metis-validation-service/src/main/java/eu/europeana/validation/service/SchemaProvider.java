@@ -188,7 +188,9 @@ public class SchemaProvider {
 
   private void unzipArchive(File downloadedFile) throws SchemaProviderException {
     try (ZipFile zip = new ZipFile(downloadedFile)) {
-      Enumeration<? extends ZipEntry> entries = zip.entries();
+      Enumeration<? extends ZipEntry> entries =
+          zip
+              .entries();
       while (entries.hasMoreElements()) {
         ZipEntry entry = entries.nextElement();
         handleZipEntry(downloadedFile, zip, entry);
