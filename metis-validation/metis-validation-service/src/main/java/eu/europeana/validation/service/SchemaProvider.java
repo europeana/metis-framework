@@ -1,5 +1,7 @@
 package eu.europeana.validation.service;
 
+import static java.lang.String.format;
+
 import eu.europeana.validation.model.Schema;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -23,13 +25,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Provides schemas based on url of predefined name (EDM-INTERNAL on EDM-EXTERNAL). Per instance of
- * this class there is a UUID generated that is used to create the directory path of where the
- * schemas will be stored. This is done so, to avoid file system collisions of processes that run
- * the exact same code and are independent from each other.
+ * Provides schemas based on url of predefined name (EDM-INTERNAL on EDM-EXTERNAL). Per instance of this class there is a UUID
+ * generated that is used to create the directory path of where the schemas will be stored. This is done so, to avoid file system
+ * collisions of processes that run the exact same code and are independent from each other.
  * <p>
- * The {@link #TMP_DIR} field is set through a system variable named "java.io.tmpdir". This value
- * should be sanitized and controlled otherwise this class can become unsecure.
+ * The {@link #TMP_DIR} field is set through a system variable named "java.io.tmpdir". This value should be sanitized and
+ * controlled otherwise this class can become unsecure.
  * </p>
  * <p>
  * Created by pwozniak on 12/20/17
@@ -48,9 +49,8 @@ public class SchemaProvider {
   private final PredefinedSchemas predefinedSchemasLocations;
 
   /**
-   * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object. The {@link
-   * #schemasRootDirectory} is also calculated which includes the UUID of this {@link
-   * SchemaProvider}.
+   * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object. The {@link #schemasRootDirectory} is also
+   * calculated which includes the UUID of this {@link SchemaProvider}.
    *
    * @param predefinedSchemasLocations the wrapper class with all the schema locations
    */
@@ -70,8 +70,8 @@ public class SchemaProvider {
    * Retrieves schema object from given (remote) location.
    *
    * @param zipUrl place where (remote) zip file is located. Accepts url to file.
-   * @param rootFileLocation indicates where root xsd file is located inside zip. The caller is
-   * responsible to provide a valid path to that file
+   * @param rootFileLocation indicates where root xsd file is located inside zip. The caller is responsible to provide a valid
+   * path to that file
    * @param schematronLocation place where schematron file is located
    * @return schema object
    * @throws SchemaProviderException any exception that can occur during retrieving schema files
@@ -143,10 +143,7 @@ public class SchemaProvider {
   private File downloadZipIfNeeded(String zipLocation, String destinationDir)
       throws SchemaProviderException {
 
-    HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .uri(URI.create(zipLocation))
-        .build();
+    HttpRequest httpRequest = HttpRequest.newBuilder().GET().uri(URI.create(zipLocation)).build();
 
     File schemasLocation = new File(schemasRootDirectory, destinationDir);
 
@@ -167,8 +164,8 @@ public class SchemaProvider {
       httpResponse = httpClient.send(httpRequest, BodyHandlers.ofFile(Paths.get(destinationFile.toURI())));
       destinationFile = httpResponse.body().toFile();
     } catch (IOException e) {
-      LOGGER.info("There was some trouble sending a request to {}", schemasLocation);
-    } catch (InterruptedException e){
+      LOGGER.info(format("There was some trouble sending a request to %s", schemasLocation), e);
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
       LOGGER.info("The thread was interrupted");
     }
@@ -187,13 +184,11 @@ public class SchemaProvider {
   }
 
   private void unzipArchive(File downloadedFile) throws SchemaProviderException {
-    try (ZipFile zip = new ZipFile(downloadedFile)) {
-      Enumeration<? extends ZipEntry> entries =
-          zip
-              .entries();
-      while (entries.hasMoreElements()) {
-        ZipEntry entry = entries.nextElement();
-        handleZipEntry(downloadedFile, zip, entry);
+    try (ZipFile zipFile = new ZipFile(downloadedFile)) {
+      final Iterator<? extends ZipEntry> entries = zipFile.stream().iterator();
+      while (entries.hasNext()) {
+        final ZipEntry zipEntry = entries.next();
+        handleZipEntry(downloadedFile, zipFile, zipEntry);
       }
     } catch (IOException e) {
       throw new SchemaProviderException("Exception while unzipping file", e);
