@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-public class CleanMarkupTagsNormalizerTest {
+class CleanMarkupTagsNormalizerTest {
 
   private String html = "<div\n\tid=\"blah\" alt=\" man\n"
       + "\tthis is ugly html \"\n"
@@ -18,10 +18,10 @@ public class CleanMarkupTagsNormalizerTest {
       + "</div>";
 
   @Test
-  public void testHtmlMarkup() {
+  void testHtmlMarkup() {
     CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.HTML_ONLY);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
-        .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
+                                  .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(html);
     System.out.println(cleaned);
     assertEquals(1, cleaned.size());
@@ -34,10 +34,10 @@ public class CleanMarkupTagsNormalizerTest {
   }
 
   @Test
-  public void testAllMarkup() {
+  void testAllMarkup() {
     CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.ALL_MARKUP);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
-        .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
+                                  .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(cleaned);
     assertEquals(1, cleaned.size());
     assertTrue(cleaned.get(0).contains("ire this guy"));

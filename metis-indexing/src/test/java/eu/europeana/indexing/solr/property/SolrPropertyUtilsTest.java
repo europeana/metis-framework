@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import eu.europeana.indexing.solr.EdmLabel;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,14 +21,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
-import eu.europeana.indexing.solr.EdmLabel;
-import eu.europeana.indexing.solr.property.SolrPropertyUtils;
-import static org.mockito.Mockito.*;
 
-public class SolrPropertyUtilsTest {
+class SolrPropertyUtilsTest {
 
   @Test
-  public void testAddValues() {
+  void testAddValues() {
 
     // Start with empty document: verify that it is empty.
     final SolrInputDocument document = new SolrInputDocument();
@@ -64,7 +67,7 @@ public class SolrPropertyUtilsTest {
   }
 
   @Test
-  public void testAddNullValues() {
+  void testAddNullValues() {
 
     // Start with empty document: verify that it is empty.
     final SolrInputDocument document = new SolrInputDocument();
@@ -87,7 +90,7 @@ public class SolrPropertyUtilsTest {
   }
 
   @Test
-  public void testRightsForMap() {
+  void testRightsForMap() {
 
     // Test null map
     final Stream<String> fromNullMap = SolrPropertyUtils.getRightsFromMap(null);
@@ -113,7 +116,7 @@ public class SolrPropertyUtilsTest {
   }
 
   @Test
-  public void testHasLicenseForRights() {
+  void testHasLicenseForRights() {
 
     // no rights required
     assertTrue(SolrPropertyUtils.hasLicenseForRights(Collections.emptyMap(), license -> false));
@@ -127,7 +130,7 @@ public class SolrPropertyUtilsTest {
     assertFalse(SolrPropertyUtils.hasLicenseForRights(rights, contradiction));
     verify(contradiction, times(3)).test(anyString());
     for (String inputString : input) {
-      verify(contradiction, times(1)).test(eq(inputString));
+      verify(contradiction, times(1)).test(inputString);
     }
 
     // rights required and licenses available

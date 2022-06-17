@@ -1,7 +1,8 @@
 package eu.europeana.normalization.normalizers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doAnswer;
@@ -17,10 +18,10 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 
 
-public class RemoveDuplicateStatementNormalizerTest {
+class RemoveDuplicateStatementNormalizerTest {
 
   @Test
-  public void testConvertToMap() {
+  void testConvertToMap() {
 
     // Create attributes with proper values, two of which are very similar
     final String name1 = "a1";
@@ -65,36 +66,34 @@ public class RemoveDuplicateStatementNormalizerTest {
   }
 
   @Test
-  public void testPairEquals() {
+  void testPairEquals() {
 
     // Test with incompatible objects
     final TextAttributesPair pair = new TextAttributesPair(null, null);
-    assertFalse(pair.equals(null));
-    assertFalse(pair.equals(new Object()));
+    assertNotNull(pair);
+    assertNotEquals(pair, new Object());
 
     // Test with itself
     assertEquals(pair, pair);
 
     // Test with actual and empty names
-    assertTrue(new TextAttributesPair("A", null).equals(new TextAttributesPair("A", null)));
-    assertFalse(new TextAttributesPair("A", null).equals(new TextAttributesPair("B", null)));
-    assertTrue(new TextAttributesPair("", null).equals(new TextAttributesPair(null, null)));
+    assertEquals(new TextAttributesPair("A", null), new TextAttributesPair("A", null));
+    assertNotEquals(new TextAttributesPair("A", null), new TextAttributesPair("B", null));
+    assertEquals(new TextAttributesPair("", null), new TextAttributesPair(null, null));
 
     // Test with attribute values
-    assertTrue(new TextAttributesPair("", Collections.singletonMap("A", "X"))
-        .equals(new TextAttributesPair("", Collections.singletonMap("A", "X"))));
-    assertFalse(new TextAttributesPair("", Collections.singletonMap("A", "X"))
-        .equals(new TextAttributesPair("", Collections.singletonMap("A", "x"))));
-    assertFalse(new TextAttributesPair("", Collections.singletonMap("A", "X"))
-        .equals(new TextAttributesPair("", Collections.singletonMap("a", "X"))));
-    assertFalse(new TextAttributesPair("", Collections.singletonMap("A", "X"))
-        .equals(new TextAttributesPair("", null)));
+    assertEquals(new TextAttributesPair("", Collections.singletonMap("A", "X")),
+        new TextAttributesPair("", Collections.singletonMap("A", "X")));
+    assertNotEquals(new TextAttributesPair("", Collections.singletonMap("A", "X")),
+        new TextAttributesPair("", Collections.singletonMap("A", "x")));
+    assertNotEquals(new TextAttributesPair("", Collections.singletonMap("A", "X")),
+        new TextAttributesPair("", Collections.singletonMap("a", "X")));
+    assertNotEquals(new TextAttributesPair("", Collections.singletonMap("A", "X")), new TextAttributesPair("", null));
     Map<String, String> multipleAttributes = new HashMap<>();
     multipleAttributes.put("A", "X");
     multipleAttributes.put("B", "Y");
-    assertFalse(new TextAttributesPair("", Collections.singletonMap("A", "X"))
-        .equals(new TextAttributesPair("", multipleAttributes)));
-    assertTrue(new TextAttributesPair("", multipleAttributes)
-        .equals(new TextAttributesPair("", multipleAttributes)));
+    assertNotEquals(new TextAttributesPair("", Collections.singletonMap("A", "X")),
+        new TextAttributesPair("", multipleAttributes));
+    assertEquals(new TextAttributesPair("", multipleAttributes), new TextAttributesPair("", multipleAttributes));
   }
 }

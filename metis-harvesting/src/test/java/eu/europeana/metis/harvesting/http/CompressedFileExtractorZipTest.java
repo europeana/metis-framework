@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class CompressedFileExtractorZipTest {
+class CompressedFileExtractorZipTest {
 
     private final static String DESTINATION_DIR = String.format("src%1$stest%1$sresources%1$s__files%1$s", File.separator);
     private final static int XML_FILES_COUNT = 13;
@@ -23,27 +23,27 @@ public class CompressedFileExtractorZipTest {
     public static final String FILE_EXTENSION = ".zip";
 
     @Test
-    public void shouldUnpackTheZipFilesRecursively() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + FILE_EXTENSION), 
-                Path.of(DESTINATION_DIR));
+    void shouldUnpackTheZipFilesRecursively() throws IOException {
+        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + FILE_EXTENSION),
+            Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
         assertNotNull(files);
         assertEquals(XML_FILES_COUNT, files.size());
     }
 
     @Test
-    public void shouldUnpackTheZipFilesWithNestedFoldersRecursively() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION), 
-                Path.of(DESTINATION_DIR));
+    void shouldUnpackTheZipFilesWithNestedFoldersRecursively() throws IOException {
+        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION),
+            Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
         assertNotNull(files);
         assertEquals(XML_FILES_COUNT, files.size());
     }
 
     @Test
-    public void shouldUnpackTheZipFilesWithNestedMixedCompressedFiles() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + FILE_EXTENSION), 
-                Path.of(DESTINATION_DIR));
+    void shouldUnpackTheZipFilesWithNestedMixedCompressedFiles() throws IOException {
+        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + FILE_EXTENSION),
+            Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
         assertNotNull(files);
         assertEquals(XML_FILES_COUNT, files.size());

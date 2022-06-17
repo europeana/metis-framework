@@ -22,23 +22,15 @@ public class CompressedFileExtractorGzTest {
     public static final String FILE_EXTENSION = ".tar.gz";
     
     @Test
-    public void shouldUnpackTheTarGzFilesRecursively() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + FILE_EXTENSION),Path.of(DESTINATION_DIR));
+    void shouldUnpackTheTarGzFilesRecursively() throws IOException {
+        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + FILE_EXTENSION), Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME);
         assertNotNull(files);
         assertEquals(XML_FILES_COUNT, files.size());
     }
 
     @Test
-    public void shouldUnpackTheTarGzFilesRecursivelyWithCompressedXMLFiles() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION),Path.of(DESTINATION_DIR));
-        Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
-        assertNotNull(files);
-        assertEquals(XML_FILES_COUNT, files.size());
-    }
-
-    @Test
-    public void shouldUnpackTheTGZFilesRecursivelyWithCompressedXMLFiles() throws IOException {
+    void shouldUnpackTheTarGzFilesRecursivelyWithCompressedXMLFiles() throws IOException {
         CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION), Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
         assertNotNull(files);
@@ -46,7 +38,15 @@ public class CompressedFileExtractorGzTest {
     }
 
     @Test
-    public void shouldUnpackTheTarGzFilesRecursivelyWithMixedNestedCompressedFiles() throws IOException {
+    void shouldUnpackTheTGZFilesRecursivelyWithCompressedXMLFiles() throws IOException {
+        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION), Path.of(DESTINATION_DIR));
+        Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
+        assertNotNull(files);
+        assertEquals(XML_FILES_COUNT, files.size());
+    }
+
+    @Test
+    void shouldUnpackTheTarGzFilesRecursivelyWithMixedNestedCompressedFiles() throws IOException {
         CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + FILE_EXTENSION), Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME3);
         assertNotNull(files);
