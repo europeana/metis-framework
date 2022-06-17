@@ -2,6 +2,7 @@ package eu.europeana.indexing.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
-public class SetUtilsTest {
+class SetUtilsTest {
 
   /*
    * We test this by generating all strings that satisfy the following conditions:
@@ -25,14 +26,14 @@ public class SetUtilsTest {
    * 4. After that it may contain one upper case letter (only X)
    */
   @Test
-  public void testGenerateOptionalCombinations() {
+  void testGenerateOptionalCombinations() {
 
     // Create sets of options
     final Set<Character> allowedDigits = Stream.of('1', '2', '3').collect(Collectors.toSet());
     final Set<Character> allowedlowerCase = Stream.of('a', 'b').collect(Collectors.toSet());
     final Set<Character> allowedUpperCase = Collections.singleton('X');
     final List<Set<Character>> options =
-            Arrays.asList(allowedDigits, allowedlowerCase, allowedUpperCase);
+        Arrays.asList(allowedDigits, allowedlowerCase, allowedUpperCase);
 
     // Generate the combinations.
     final Set<String> result = SetUtils
@@ -71,14 +72,14 @@ public class SetUtilsTest {
    * 4. After that it must contain one upper case letter (only X)
    */
   @Test
-  public void testGenerateForcedCombinations() {
+  void testGenerateForcedCombinations() {
 
     // Create sets of options
     final Set<Character> allowedDigits = Stream.of('1', '2', '3').collect(Collectors.toSet());
     final Set<Character> allowedlowerCase = Stream.of('a', 'b').collect(Collectors.toSet());
     final Set<Character> allowedUpperCase = Collections.singleton('X');
     final List<Set<Character>> options =
-            Arrays.asList(allowedDigits, allowedlowerCase, allowedUpperCase);
+        Arrays.asList(allowedDigits, allowedlowerCase, allowedUpperCase);
 
     // Generate the combinations.
     final Set<String> result = SetUtils

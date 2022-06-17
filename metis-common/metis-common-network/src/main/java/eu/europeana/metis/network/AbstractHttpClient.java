@@ -135,8 +135,8 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
   public R download(I link, Map<String, String> requestHeaders) throws IOException {
 
     // Set up the connection.
-    final String resourceUlr = getResourceUrl(link);
-    final HttpGet httpGet = new HttpGet(resourceUlr);
+    final String resourceUrl = getResourceUrl(link);
+    final HttpGet httpGet = new HttpGet(resourceUrl);
     requestHeaders.forEach(httpGet::setHeader);
     final HttpClientContext context = HttpClientContext.create();
 
@@ -146,7 +146,7 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
       public void run() {
         synchronized (httpGet) {
           if (httpGet.cancel()) {
-            LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
+            LOGGER.info("Aborting request due to time limit: {}.", resourceUrl);
           }
         }
       }
@@ -166,8 +166,8 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
       final HttpEntity responseEntity = performThrowingFunction(responseObject, response -> {
         final int status = response.getCode();
         if (!httpCallIsSuccessful(status)) {
-          throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
-                  status + " (message: " + response.getReasonPhrase() + ").");
+          throw new IOException("Download failed of resource " + resourceUrl + ". Status code " +
+              status + " (message: " + response.getReasonPhrase() + ").");
         }
         return response.getEntity();
       });
@@ -210,7 +210,7 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
       // Cancel the request to stop downloading.
       synchronized (httpGet) {
         if (httpGet.cancel()) {
-          LOGGER.debug("Aborting request after all processing is completed: {}.", resourceUlr);
+          LOGGER.debug("Aborting request after all processing is completed: {}.", resourceUrl);
         }
       }
 

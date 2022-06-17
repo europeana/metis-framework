@@ -48,12 +48,16 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID = "/orchestrator/workflows/executions/{executionId}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY = "/orchestrator/workflows/executions/{executionId}/plugins/data-availability";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY
+      = "/orchestrator/workflows/executions/{executionId}/plugins/data-availability";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID = "/orchestrator/workflows/executions/dataset/{datasetId}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_INCREMENTAL = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_incremental";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_plugin";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_INCREMENTAL
+      = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_incremental";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN
+      = "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_plugin";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY = "/orchestrator/workflows/executions/dataset/{datasetId}/history";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION = "/orchestrator/workflows/executions/dataset/{datasetId}/information";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION
+      = "/orchestrator/workflows/executions/dataset/{datasetId}/information";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW = "/orchestrator/workflows/executions/overview";
   public static final String ORCHESTRATOR_WORKFLOWS_EVOLUTION = "/orchestrator/workflows/evolution/{workflowExecutionId}/{pluginType}";
@@ -94,8 +98,7 @@ public final class RestEndpoints {
   }
 
   /**
-   * Resolves an endpoint with parameters wrapped around "{" and "}" by providing the endpoint and
-   * all the required parameters.
+   * Resolves an endpoint with parameters wrapped around "{" and "}" by providing the endpoint and all the required parameters.
    *
    * @param endpoint the endpoint to resolve
    * @param params all the parameters specified

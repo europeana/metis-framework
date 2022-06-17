@@ -1,6 +1,8 @@
 package eu.europeana.metis.harvesting.http;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.utils.TempFileUtils.createSecureTempDirectoryAndFile;
+import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
@@ -22,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
@@ -46,26 +47,26 @@ public class HttpHarvesterImpl implements HttpHarvester {
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
       Consumer<ArchiveEntry> action) throws HarvesterException {
 
-      // Now perform the harvesting - go by each file.
-      final HttpRecordIterator iterator = createTemporaryHttpHarvestIterator(inputStream, compressedFileType);
-      List<Pair<Path, Exception>> exception = new ArrayList<>(1);
-      iterator.forEach(path -> {
-        try (InputStream content = Files.newInputStream(path)) {
-          action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
-              new ByteArrayInputStream(IOUtils.toByteArray(content))));
-          return IterationResult.CONTINUE;
-        } catch (IOException | RuntimeException e) {
-          exception.add(new ImmutablePair<>(path, e));
-          return IterationResult.TERMINATE;
-        }
-      });
-
-      iterator.deleteIteratorContent();
-
-      if (!exception.isEmpty()) {
-        throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
-            exception.get(0).getValue());
+    // Now perform the harvesting - go by each file.
+    final HttpRecordIterator iterator = createTemporaryHttpHarvestIterator(inputStream, compressedFileType);
+    List<Pair<Path, Exception>> exception = new ArrayList<>(1);
+    iterator.forEach(path -> {
+      try (InputStream content = Files.newInputStream(path)) {
+        action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
+            new ByteArrayInputStream(IOUtils.toByteArray(content))));
+        return IterationResult.CONTINUE;
+      } catch (IOException | RuntimeException e) {
+        exception.add(new ImmutablePair<>(path, e));
+        return IterationResult.TERMINATE;
       }
+    });
+
+    iterator.deleteIteratorContent();
+
+    if (!exception.isEmpty()) {
+      throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
+          exception.get(0).getValue());
+    }
   }
 
   @Override
@@ -88,23 +89,16 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   @Override
-  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType) throws HarvesterException {
-    // We chose where to store the temporary file.
-    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-    Path tempDir;
-    final Path tempFile;
+  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType)
+      throws HarvesterException {
     try {
-      // Save the zip file in a temporary directory (and close the input stream).
-      final String prefix = UUID.randomUUID().toString();
-
-      tempDir = Files.createTempDirectory(prefix);
-      tempFile = Files.createTempFile(tempDir, prefix, compressedFileType.getExtension());
-      FileUtils.copyInputStreamToFile(input, tempFile.toFile());
-
+      final Path tempFile = createSecureTempDirectoryAndFile(HttpHarvesterImpl.class.getSimpleName(),
+          HttpHarvesterImpl.class.getSimpleName(), compressedFileType.getExtension());
+      copyInputStreamToFile(input, tempFile.toFile());
       return harvestRecords(tempFile);
-      } catch (IOException e) {
-        throw new HarvesterException("Problem saving archive.", e);
-      }
+    } catch (IOException e) {
+      throw new HarvesterException("Problem saving archive.", e);
+    }
 
   }
 
@@ -133,16 +127,16 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException {
-    final Path directory = Files.createDirectories(downloadDirectory);
-    final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
     final URL archiveUrl = new URL(archiveUrlString);
     if (!SUPPORTED_PROTOCOLS.contains(archiveUrl.getProtocol())) {
       throw new IOException("This functionality does not support this protocol ("
           + archiveUrl.getProtocol() + ").");
     }
+    final Path directory = Files.createDirectories(downloadDirectory);
+    final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
     // Note: we allow any download URL for http harvesting. This is the functionality we support.
-    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final URLConnection conn = archiveUrl.openConnection();
-    try (final InputStream inputStream = conn.getInputStream();
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final URLConnection urlConnection = archiveUrl.openConnection();
+    try (final InputStream inputStream = urlConnection.getInputStream();
         final OutputStream outputStream = Files.newOutputStream(file)) {
       IOUtils.copyLarge(inputStream, outputStream);
     }
@@ -150,12 +144,11 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   /**
-   * Method corrects rights on Linux systems, where created new directory and extracted files have
-   * not right copied from parent folder, and they have not any right for others users. Also group
-   * is not preserved from parent. It is a problem cause apache server could not reach files cause
-   * it typically works as special apache_user. The purpose of this method is to copy rights from
-   * parent directory, that should have correctly configured right to passed as parameter directory
-   * and any directory or file inside.
+   * Method corrects rights on Linux systems, where created new directory and extracted files have not right copied from parent
+   * folder, and they have not any right for others users. Also group is not preserved from parent. It is a problem cause apache
+   * server could not reach files cause it typically works as special apache_user. The purpose of this method is to copy rights
+   * from parent directory, that should have correctly configured right to passed as parameter directory and any directory or file
+   * inside.
    *
    * @param directory directory for which rights will be updated
    * @throws IOException in case of rights update failure

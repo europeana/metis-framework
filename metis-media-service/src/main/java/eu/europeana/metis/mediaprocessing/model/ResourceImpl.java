@@ -14,7 +14,7 @@ import java.util.Set;
 public class ResourceImpl extends AbstractTemporaryFile implements Resource {
 
   private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
-  private static final Long DEFAULT_FILE_SIZE = Long.valueOf(0L);
+  private static final Long DEFAULT_FILE_SIZE = 0L;
   private final String providedMimeType;
   private final Long providedFileSize;
   private final Set<UrlType> urlTypes;

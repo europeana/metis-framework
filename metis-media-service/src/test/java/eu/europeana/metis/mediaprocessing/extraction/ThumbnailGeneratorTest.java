@@ -10,7 +10,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -432,7 +431,9 @@ class ThumbnailGeneratorTest {
       assertEquals(contentSize, thumbnail1.getContentSize());
       assertEquals(url, thumbnail1.getResourceUrl());
       assertEquals(expectedMimeType, thumbnail1.getMimeType());
-
     }
+    //Delete the temp files now
+    thumbnailWithSize1.deleteTempFileSilently();
+    thumbnailWithSize2.deleteTempFileSilently();
   }
 }

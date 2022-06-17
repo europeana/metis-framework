@@ -25,8 +25,8 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.service.WorkflowExecutionFactory;
-import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
@@ -86,7 +86,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       LOGGER.info("Redis enabled SSL");
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
         singleServerConfig
-            .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
+            .setSslTruststore(Paths.get(propertiesHolder.getTruststorePath()).toUri().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
         LOGGER.info("Redis enabled SSL using custom Truststore");
       }

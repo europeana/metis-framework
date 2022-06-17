@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import org.junit.jupiter.api.Test;
 
-public class MediaTierTest {
+class MediaTierTest {
 
   @Test
   void checkValues() {
     final MediaTier[] tiersOrderedByLevel = Arrays.stream(MediaTier.values())
-        .sorted(Comparator.comparingInt(MediaTier::getLevel)).toArray(MediaTier[]::new);
+                                                  .sorted(Comparator.comparingInt(MediaTier::getLevel)).toArray(MediaTier[]::new);
     assertEquals(5, tiersOrderedByLevel.length);
 
     final MediaTier[] expectedOrder =
