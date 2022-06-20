@@ -159,6 +159,6 @@ class FullBeanSolrPropertiesTest {
   void verifyCollection(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Collection<String> collection) {
     final Collection<Object> fieldValues = solrInputDocument.getFieldValues(edmLabel.toString());
     assertTrue(fieldValues.containsAll(collection));
-    assertEquals(fieldValues.size(), collection.size());
+    assertEquals(collection.size(), fieldValues.size());
   }
 }
