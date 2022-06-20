@@ -65,10 +65,12 @@ public class FullBeanSolrProperties {
                                                               (place1, place2) -> place1));
     final Set<String> currentLocationStrings = new HashSet<>();
     final Set<String> coverageLocationStrings = new HashSet<>();
-    for (ProxyImpl proxy : proxies) {
+
+    proxies.stream().filter(Objects::nonNull).forEach(proxy -> {
       currentLocationStrings.addAll(getCurrentLocationStrings(proxy));
       coverageLocationStrings.addAll(getCoverageLocationStrings(proxy));
-    }
+    });
+
     final Set<LocationPoint> currentLocationPoints = new HashSet<>(
         getReferencedPlacesLocationPoints(placesAboutMap, currentLocationStrings));
     currentLocationPoints.addAll(getWGS84LocationPoints(currentLocationStrings));
