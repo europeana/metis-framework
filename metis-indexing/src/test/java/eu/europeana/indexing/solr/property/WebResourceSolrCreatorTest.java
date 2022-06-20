@@ -46,9 +46,9 @@ class WebResourceSolrCreatorTest {
     webResourceSolrCreator.addToDocument(solrInputDocument, webResource);
 
     // Then
-    assertEquals(solrInputDocument.getFieldValue(EdmLabel.EDM_WEB_RESOURCE.toString()), webResource.getAbout());
-    assertEquals(solrInputDocument.getFieldValue(EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE.toString()),
-        webResource.getIsNextInSequence());
+    assertEquals(webResource.getAbout(), solrInputDocument.getFieldValue(EdmLabel.EDM_WEB_RESOURCE.toString()));
+    assertEquals(webResource.getIsNextInSequence(),
+        solrInputDocument.getFieldValue(EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE.toString()));
     verifyMap(solrInputDocument, EdmLabel.WR_EDM_RIGHTS, webResource.getWebResourceEdmRights());
     verifyMap(solrInputDocument, EdmLabel.WR_DC_RIGHTS, webResource.getWebResourceDcRights());
     verifyCollection(solrInputDocument, EdmLabel.WR_SVCS_HAS_SERVICE, webResourceSvcsHasService);
@@ -69,7 +69,7 @@ class WebResourceSolrCreatorTest {
   void verifyCollection(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Collection<String> collection) {
     final Collection<Object> fieldValues = solrInputDocument.getFieldValues(edmLabel.toString());
     assertTrue(fieldValues.containsAll(collection));
-    assertEquals(fieldValues.size(), collection.size());
+    assertEquals(collection.size(), fieldValues.size());
   }
 
 
