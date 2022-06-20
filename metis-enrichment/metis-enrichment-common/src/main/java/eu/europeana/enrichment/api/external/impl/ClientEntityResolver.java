@@ -140,9 +140,11 @@ public class ClientEntityResolver implements EntityResolver {
 
     List<Entity> result = new ArrayList<>();
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-      result = Optional.ofNullable(entityClientApi.getEntityById(referenceValue)).map(List::of).orElse(Collections.emptyList());
+      result = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.getEntityById(referenceValue))).map(List::of).orElse(Collections.emptyList());
     } else if (uriSearch) {
-      result = entityClientApi.getEntityByUri(referenceValue);
+      result = retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.getEntityByUri(referenceValue));
     }
     return result;
   }
@@ -217,7 +219,8 @@ public class ClientEntityResolver implements EntityResolver {
               .map(Entity::getIsPartOfArray).filter(Objects::nonNull).flatMap(Collection::stream)
               .filter(StringUtils::isNotBlank)
               .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
-              .map(entityClientApi::getEntityById)
+              .map(parentEntityId -> retryableExternalRequestForNetworkExceptionsThrowing(
+                  () -> entityClientApi.getEntityById(parentEntityId)))
               .filter(Objects::nonNull)
               .collect(Collectors.toCollection(ArrayList::new));
 

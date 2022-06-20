@@ -8,12 +8,13 @@ import java.util.Arrays;
 import java.util.Comparator;
 import org.junit.jupiter.api.Test;
 
-public class MetadataTierTest {
+class MetadataTierTest {
 
   @Test
   void checkValues() {
     final MetadataTier[] tiersOrderedByLevel = Arrays.stream(MetadataTier.values())
-        .sorted(Comparator.comparingInt(MetadataTier::getLevel)).toArray(MetadataTier[]::new);
+                                                     .sorted(Comparator.comparingInt(MetadataTier::getLevel))
+                                                     .toArray(MetadataTier[]::new);
     assertEquals(4, tiersOrderedByLevel.length);
     final MetadataTier[] expectedOrder =
         new MetadataTier[]{MetadataTier.T0, MetadataTier.TA, MetadataTier.TB, MetadataTier.TC};

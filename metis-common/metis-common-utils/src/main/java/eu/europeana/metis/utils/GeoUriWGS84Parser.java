@@ -15,10 +15,10 @@ public final class GeoUriWGS84Parser {
   private static final String DECIMAL_POINT_REGEX = "(?:\\.\\d+)?";
   private static final String ZEROES_DECIMAL_POINT_REGEX = "(?:\\.0+)?";
   private static final String LATITUDE_REGEX =
-      "^[+-]?(?:90" + ZEROES_DECIMAL_POINT_REGEX + "|(?:[0-9]|[1-8][0-9])" + DECIMAL_POINT_REGEX + ")$";
+      "^[+-]?(?:90" + ZEROES_DECIMAL_POINT_REGEX + "|(?:\\d|[1-8]\\d)" + DECIMAL_POINT_REGEX + ")$";
   private static final Pattern LATITUDE_PATTERN = Pattern.compile(LATITUDE_REGEX);
   private static final String LONGITUDE_REGEX =
-      "^[+-]?(?:180" + ZEROES_DECIMAL_POINT_REGEX + "|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])" + DECIMAL_POINT_REGEX + ")$";
+      "^[+-]?(?:180" + ZEROES_DECIMAL_POINT_REGEX + "|(?:\\d|[1-9]\\d|1[0-7]\\d)" + DECIMAL_POINT_REGEX + ")$";
   private static final Pattern LONGITUDE_PATTERN = Pattern.compile(LONGITUDE_REGEX);
   private static final String ALTITUDE_REGEX = "^[+-]?\\d+" + DECIMAL_POINT_REGEX + "$";
   private static final Pattern ALTITUDE_PATTERN = Pattern.compile(ALTITUDE_REGEX);

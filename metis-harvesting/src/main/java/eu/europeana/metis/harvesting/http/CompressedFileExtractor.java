@@ -1,6 +1,7 @@
 package eu.europeana.metis.harvesting.http;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -35,9 +36,9 @@ final class CompressedFileExtractor {
    * @throws IOException If there was a problem with the extraction.
    */
   public static void extractFile(final Path compressedFile, final Path destinationFolder)
-          throws IOException {
+      throws IOException {
     final CompressedFileExtension compressingExtension = CompressedFileExtension
-            .forPath(compressedFile);
+        .forPath(compressedFile);
     if (compressingExtension == null) {
       throw new IOException("Can't process archive of this type: " + compressedFile);
     }
@@ -54,12 +55,11 @@ final class CompressedFileExtractor {
         break;
       default:
         throw new IllegalStateException(
-                "Shouldn't be here. Extension found: " + compressingExtension.name());
+            "Shouldn't be here. Extension found: " + compressingExtension.name());
     }
   }
 
-  private static void extractZipFile(final Path compressedFile,
-          final Path destinationFolder) throws IOException {
+  private static void extractZipFile(final Path compressedFile, final Path destinationFolder) throws IOException {
     final List<Path> nestedCompressedFiles = new ArrayList<>();
     ZipUtil.unpack(compressedFile.toFile(), destinationFolder.toFile(), name -> {
       if (CompressedFileExtension.hasCompressedFileExtension(name)) {
@@ -73,17 +73,17 @@ final class CompressedFileExtractor {
   }
 
   private static void extractTarGzFile(final Path compressedFile, final Path destinationFolder)
-          throws IOException {
+      throws IOException {
     final Archiver archiver = ArchiverFactory
-            .createArchiver(ArchiveFormat.TAR, CompressionType.GZIP);
+        .createArchiver(ArchiveFormat.TAR, CompressionType.GZIP);
     archiver.extract(compressedFile.toFile(), destinationFolder.toFile());
     final Path newDestination = CompressedFileExtension
-            .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));
+        .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));
     final Set<Path> nestedCompressedFiles;
     try (Stream<Path> nestedFilesStream = Files.walk(newDestination)) {
       nestedCompressedFiles = performFunction(nestedFilesStream, stream -> stream
-              .filter(CompressedFileExtension::hasCompressedFileExtension)
-              .collect(Collectors.toSet()));
+          .filter(CompressedFileExtension::hasCompressedFileExtension)
+          .collect(Collectors.toSet()));
     }
     for (Path file : nestedCompressedFiles) {
       extractFile(file, file.getParent());
@@ -91,13 +91,13 @@ final class CompressedFileExtractor {
   }
 
   private static void extractGzFile(final Path compressedFile, final Path destinationFolder)
-          throws IOException {
+      throws IOException {
     // Note: .gz files just contain one file.
     final Path destination = CompressedFileExtension
-            .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));
+        .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));
     try (final GzipCompressorInputStream inputStream = new GzipCompressorInputStream(
-            Files.newInputStream(compressedFile));
-            final OutputStream outputStream = Files.newOutputStream(destination)) {
+        Files.newInputStream(compressedFile));
+        final OutputStream outputStream = Files.newOutputStream(destination)) {
       IOUtils.copy(inputStream, outputStream);
     }
   }
