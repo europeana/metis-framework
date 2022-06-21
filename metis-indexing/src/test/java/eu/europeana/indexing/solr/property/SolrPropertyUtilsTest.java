@@ -22,6 +22,9 @@ import java.util.stream.Stream;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test {@link SolrPropertyUtils} class
+ */
 class SolrPropertyUtilsTest {
 
   @Test

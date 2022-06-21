@@ -1,5 +1,7 @@
 package eu.europeana.indexing.solr.property;
 
+import static eu.europeana.indexing.utils.TestUtils.verifyCollection;
+import static eu.europeana.indexing.utils.TestUtils.verifyMap;
 import static org.apache.commons.collections4.CollectionUtils.union;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -117,20 +119,5 @@ class EuropeanaAggregationSolrCreatorTest {
     verifyCollection(solrInputDocument, EdmLabel.CONTENT_TIER,
         List.of(RdfTier.CONTENT_TIER_0.getTier().toString(), RdfTier.CONTENT_TIER_1.getTier().toString()));
     verifyCollection(solrInputDocument, EdmLabel.METADATA_TIER, List.of(RdfTier.METADATA_TIER_0.getTier().toString()));
-  }
-
-  void verifyCollection(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Collection<String> collection) {
-    final Collection<Object> fieldValues = solrInputDocument.getFieldValues(edmLabel.toString());
-    assertTrue(fieldValues.containsAll(collection));
-    assertEquals(collection.size(), fieldValues.size());
-  }
-
-  void verifyMap(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Map<String, List<String>> map) {
-    map.forEach((key, value) -> assertTrue(solrInputDocument.getFieldValues(computeSolrField(edmLabel, key))
-                                                            .containsAll(value)));
-  }
-
-  private String computeSolrField(EdmLabel label, String value) {
-    return label.toString() + "." + value;
   }
 }

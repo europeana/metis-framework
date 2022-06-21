@@ -1,5 +1,6 @@
 package eu.europeana.indexing.solr.property;
 
+import static eu.europeana.indexing.utils.TestUtils.verifyCollection;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,6 +23,9 @@ import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link FullBeanSolrProperties} class
+ */
 class FullBeanSolrPropertiesTest {
 
   private FullBeanSolrProperties fullBeanSolrProperties;
@@ -155,10 +159,5 @@ class FullBeanSolrPropertiesTest {
     assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_UPDATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
     assertEquals(8, solrInputDocument.size());
-  }
-  void verifyCollection(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Collection<String> collection) {
-    final Collection<Object> fieldValues = solrInputDocument.getFieldValues(edmLabel.toString());
-    assertTrue(fieldValues.containsAll(collection));
-    assertEquals(collection.size(), fieldValues.size());
   }
 }

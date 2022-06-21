@@ -12,6 +12,9 @@ import java.util.Arrays;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link ProxySolrCreator} class
+ */
 public class PropertySolrCreatorTest {
 
   @Test

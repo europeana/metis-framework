@@ -13,6 +13,9 @@ import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link AgentSolrCreator} class
+ */
 class AgentSolrCreatorTest {
 
   private SolrInputDocument solrInputDocument;

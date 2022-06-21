@@ -11,6 +11,9 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.SolrInputField;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link QualityAnnotationSolrCreator} class
+ */
 class QualityAnnotationSolrCreatorTest {
 
   @Test
