@@ -46,10 +46,10 @@ class SolrPropertyUtilsTest {
     assertEquals(2, document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString()).size());
     assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString()).contains("A"));
     assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString())
-        .contains(Float.valueOf("0.0")));
+                       .contains(Float.valueOf("0.0")));
 
     // Add multiple values to second field
-    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_LONG, new String[] {"C", "D"});
+    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_LONG, new String[]{"C", "D"});
     assertEquals(2, document.getFieldNames().size());
     assertEquals(2, document.getFieldValues(EdmLabel.PL_WGS84_POS_LONG.toString()).size());
     assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LONG.toString()).contains("C"));

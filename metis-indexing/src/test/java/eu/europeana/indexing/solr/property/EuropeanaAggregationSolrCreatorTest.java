@@ -4,7 +4,6 @@ import static eu.europeana.indexing.utils.TestUtils.verifyCollection;
 import static eu.europeana.indexing.utils.TestUtils.verifyMap;
 import static org.apache.commons.collections4.CollectionUtils.union;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.License;
@@ -16,7 +15,6 @@ import eu.europeana.corelib.solr.entity.QualityAnnotationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.utils.RdfTier;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -26,7 +24,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for {@link EuropeanaAggregationSolrCreator} class
  */
-
 class EuropeanaAggregationSolrCreatorTest {
 
   @Test

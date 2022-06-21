@@ -3,7 +3,6 @@ package eu.europeana.indexing.solr.property;
 import static eu.europeana.indexing.utils.TestUtils.verifyCollection;
 import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.Place;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -15,8 +14,6 @@ import eu.europeana.metis.schema.jibx.EdmType;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -31,17 +28,14 @@ class FullBeanSolrPropertiesTest {
   private FullBeanSolrProperties fullBeanSolrProperties;
   private SolrInputDocument solrInputDocument;
 
-
   @BeforeEach
   void setup() {
     solrInputDocument = new SolrInputDocument();
     fullBeanSolrProperties = new FullBeanSolrProperties();
   }
 
-
   @Test
   void fullBeanSolrSetPropertiesTest() {
-
     FullBeanImpl fullBean = new FullBeanImpl();
     // agent setup
     AgentImpl agent = new AgentImpl();
@@ -86,12 +80,10 @@ class FullBeanSolrPropertiesTest {
     assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_UPDATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
     assertEquals(8, solrInputDocument.size());
-
   }
 
   @Test
   void fullBeanSolrSetPropertiesMultipleProxiesTest() {
-
     FullBeanImpl fullBean = new FullBeanImpl();
 
     // agent setup

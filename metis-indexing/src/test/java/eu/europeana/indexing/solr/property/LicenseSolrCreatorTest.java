@@ -1,9 +1,7 @@
 package eu.europeana.indexing.solr.property;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.entity.LicenseImpl;
 import eu.europeana.indexing.solr.EdmLabel;

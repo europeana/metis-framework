@@ -1,12 +1,12 @@
 package eu.europeana.indexing.solr.property;
 
+import static eu.europeana.indexing.utils.TestUtils.verifyMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.Agent;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.indexing.solr.EdmLabel;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -31,7 +31,6 @@ class AgentSolrCreatorTest {
 
   @Test
   void agentSolrCreatorAddToSolrDocument() {
-
     Agent agent = new AgentImpl();
     agent.setAbout("About Agent");
     agent.setPrefLabel(Map.of("pref_label", List.of("val1", "val2")));
@@ -48,32 +47,17 @@ class AgentSolrCreatorTest {
 
     // assertions
     assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_AGENT.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_SKOS_PREF_LABEL + ".pref_label"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_SKOS_ALT_LABEL + ".alt_label"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_FOAF_NAME + ".foaf_name"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_RDAGR2_DATEOFBIRTH + ".date_of_birth_label"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_RDAGR2_DATEOFDEATH + ".date_of_death_label"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_RDAGR2_PLACEOFBIRTH + ".place_of_birth_label"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_RDAGR2_PLACEOFDEATH + ".place_of_death_label"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.AG_RDAGR2_PROFESSIONOROCCUPATION + ".profession_label"));
-
     assertEquals("About Agent", solrInputDocument.getFieldValue(EdmLabel.EDM_AGENT.toString()));
-    assertEquals(Arrays.asList("val1", "val2"), solrInputDocument.getFieldValues(EdmLabel.AG_SKOS_PREF_LABEL + ".pref_label"));
-    assertEquals(Arrays.asList("val1", "val2"), solrInputDocument.getFieldValues(EdmLabel.AG_SKOS_ALT_LABEL + ".alt_label"));
-    assertEquals(Arrays.asList("val1", "val2"), solrInputDocument.getFieldValues(EdmLabel.AG_FOAF_NAME + ".foaf_name"));
-    assertEquals(Arrays.asList("some_date"),
-        solrInputDocument.getFieldValues(EdmLabel.AG_RDAGR2_DATEOFBIRTH + ".date_of_birth_label"));
-    assertEquals(Arrays.asList("other_date"),
-        solrInputDocument.getFieldValues(EdmLabel.AG_RDAGR2_DATEOFDEATH + ".date_of_death_label"));
-    assertEquals(Arrays.asList("some_place"),
-        solrInputDocument.getFieldValues(EdmLabel.AG_RDAGR2_PLACEOFBIRTH + ".place_of_birth_label"));
-    assertEquals(Arrays.asList("other_place"),
-        solrInputDocument.getFieldValues(EdmLabel.AG_RDAGR2_PLACEOFDEATH + ".place_of_death_label"));
-    assertEquals(Arrays.asList("lawyer", "chef"),
-        solrInputDocument.getFieldValues(EdmLabel.AG_RDAGR2_PROFESSIONOROCCUPATION + ".profession_label"));
+
+    verifyMap(solrInputDocument, EdmLabel.AG_SKOS_PREF_LABEL, agent.getPrefLabel());
+    verifyMap(solrInputDocument, EdmLabel.AG_SKOS_ALT_LABEL, agent.getAltLabel());
+    verifyMap(solrInputDocument, EdmLabel.AG_FOAF_NAME, agent.getFoafName());
+    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_DATEOFBIRTH, agent.getRdaGr2DateOfBirth());
+    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_DATEOFDEATH, agent.getRdaGr2DateOfDeath());
+    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_PLACEOFBIRTH, agent.getRdaGr2PlaceOfBirth());
+    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_PLACEOFDEATH, agent.getRdaGr2PlaceOfDeath());
+    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_PROFESSIONOROCCUPATION, agent.getRdaGr2ProfessionOrOccupation());
 
     assertEquals(9, solrInputDocument.size());
-
   }
-
 }

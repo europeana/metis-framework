@@ -22,13 +22,11 @@ public class TestUtils {
     if (inputStream == null) {
       throw new IOException("Failed reading file " + file);
     }
-    return new BufferedReader(new InputStreamReader(inputStream)).lines()
-        .collect(Collectors.joining("\n"));
+    return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
   }
 
   public static void verifyMap(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Map<String, List<String>> map) {
-    map.forEach((key, value) -> assertTrue(solrInputDocument.getFieldValues(computeSolrField(edmLabel, key))
-                                                            .containsAll(value)));
+    map.forEach((key, value) -> assertTrue(solrInputDocument.getFieldValues(computeSolrField(edmLabel, key)).containsAll(value)));
   }
 
   private static String computeSolrField(EdmLabel label, String value) {

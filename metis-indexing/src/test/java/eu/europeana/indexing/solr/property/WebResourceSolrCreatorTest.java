@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
  * Unit test for {@link WebResourceSolrCreator} class
  */
 class WebResourceSolrCreatorTest {
+
   @Test
   void addToDocument() {
     // given

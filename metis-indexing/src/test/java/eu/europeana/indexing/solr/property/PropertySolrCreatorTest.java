@@ -24,7 +24,8 @@ public class PropertySolrCreatorTest {
     final PropertySolrCreator<PlaceImpl> creator = spy(new PropertySolrCreator<PlaceImpl>() {
 
       @Override
-      public void addToDocument(SolrInputDocument document, PlaceImpl property) {}
+      public void addToDocument(SolrInputDocument document, PlaceImpl property) {
+      }
 
     });
 
