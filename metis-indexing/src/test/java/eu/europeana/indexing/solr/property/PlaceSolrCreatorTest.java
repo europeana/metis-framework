@@ -15,6 +15,9 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link PlaceSolrCreator} class
+ */
 class PlaceSolrCreatorTest {
 
   private SolrInputDocument solrInputDocument;

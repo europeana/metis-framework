@@ -1,5 +1,7 @@
 package eu.europeana.indexing.solr.property;
 
+import static eu.europeana.indexing.utils.TestUtils.verifyCollection;
+import static eu.europeana.indexing.utils.TestUtils.verifyMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,11 +16,13 @@ import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link WebResourceSolrCreator} class
+ */
 class WebResourceSolrCreatorTest {
 
   @Test
   void addToDocument() {
-
     // given
     License license1 = new LicenseImpl();
     license1.setAbout("license1About");
@@ -56,21 +60,4 @@ class WebResourceSolrCreatorTest {
     verifyCollection(solrInputDocument, EdmLabel.WR_CC_ODRL_INHERITED_FROM,
         List.of(license1.getOdrlInheritFrom(), license2.getOdrlInheritFrom()));
   }
-
-  void verifyMap(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Map<String, List<String>> map) {
-    map.forEach((key, value) -> assertTrue(solrInputDocument.getFieldValues(computeSolrField(edmLabel, key))
-                                                            .containsAll(value)));
-  }
-
-  private String computeSolrField(EdmLabel label, String value) {
-    return label.toString() + "." + value;
-  }
-
-  void verifyCollection(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Collection<String> collection) {
-    final Collection<Object> fieldValues = solrInputDocument.getFieldValues(edmLabel.toString());
-    assertTrue(fieldValues.containsAll(collection));
-    assertEquals(collection.size(), fieldValues.size());
-  }
-
-
 }

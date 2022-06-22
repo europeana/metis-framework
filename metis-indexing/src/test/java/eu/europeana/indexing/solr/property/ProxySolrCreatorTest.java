@@ -1,7 +1,6 @@
 package eu.europeana.indexing.solr.property;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static eu.europeana.indexing.utils.TestUtils.verifyMap;
 
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.solr.EdmLabel;
@@ -33,68 +32,37 @@ class ProxySolrCreatorTest {
 
     proxySolrCreator.addToDocument(solrInputDocument, proxy);
 
-    assertKeys(solrInputDocument);
-    assertDocumentContent(solrInputDocument);
+    assertDocumentContent(proxy, solrInputDocument);
   }
 
-  private void assertDocumentContent(SolrInputDocument solrInputDocument) {
-    assertEquals(List.of("locationA", "locationB"), solrInputDocument.getFieldValues(EdmLabel.PROXY_EDM_CURRENT_LOCATION + ".location"));
-    assertEquals(List.of("contributorA", "contributorB"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_CONTRIBUTOR + ".contributor"));
-    assertEquals(List.of("coverage1", "coverage2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_COVERAGE + ".coverage"));
-    assertEquals(List.of("creator1", "creator2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_CREATOR + ".creator"));
-    assertEquals(List.of("date1", "date2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_DATE + ".date"));
-    assertEquals(List.of("description1", "description2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_DESCRIPTION + ".description"));
-    assertEquals(List.of("format1", "format2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_FORMAT + ".format"));
-    assertEquals(List.of("identifier1", "identifier2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_IDENTIFIER + ".identifier"));
-    assertEquals(List.of("taal1", "taal2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_LANGUAGE + ".language"));
-    assertEquals(List.of("publisher1", "publisher2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_PUBLISHER + ".publisher"));
-    assertEquals(List.of("rights1", "rights2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_RIGHTS + ".rights"));
-    assertEquals(List.of("source1", "source2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_SOURCE + ".source"));
-    assertEquals(List.of("subject1", "subject2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_SUBJECT + ".subject"));
-    assertEquals(List.of("title1", "title2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_TITLE + ".title"));
-    assertEquals(List.of("type1", "type2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DC_TYPE + ".type"));
-    assertEquals(List.of("alt1", "alt2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_ALTERNATIVE + ".alternative"));
-    assertEquals(List.of("created1", "created2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_CREATED + ".created"));
-    assertEquals(List.of("hasPart1", "hasPart2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_HAS_PART + ".hasPart"));
-    assertEquals(List.of("isPartOf1", "isPartOf2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_IS_PART_OF + ".isPartOf"));
-    assertEquals(List.of("issued1", "issued2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_ISSUED + ".issued"));
-    assertEquals(List.of("medium1", "medium2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_MEDIUM + ".medium"));
-    assertEquals(List.of("provenance1", "provenance2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_PROVENANCE + ".provenance"));
-    assertEquals(List.of("spatial1", "spatial2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_SPATIAL + ".spatial"));
-    assertEquals(List.of("temp1", "temp2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_DCTERMS_TEMPORAL + ".temporal"));
-    assertEquals(List.of("year1", "year2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_EDM_YEAR + ".year"));
-    assertEquals(List.of("hasMet1", "hasMet2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_EDM_HAS_MET + ".hasMet"));
-    assertEquals(List.of("isRelatedTo1", "isRelatedTo2"), solrInputDocument.getFieldValues(EdmLabel.PROXY_EDM_ISRELATEDTO + ".isRelatedTo"));
-  }
-
-  private void assertKeys(SolrInputDocument solrInputDocument) {
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_EDM_CURRENT_LOCATION + ".location"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_CONTRIBUTOR + ".contributor"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_COVERAGE + ".coverage"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_CREATOR + ".creator"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_DATE + ".date"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_DESCRIPTION + ".description"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_FORMAT + ".format"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_IDENTIFIER + ".identifier"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_LANGUAGE + ".language"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_PUBLISHER + ".publisher"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_RIGHTS + ".rights"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_SOURCE + ".source"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_SUBJECT + ".subject"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_TITLE + ".title"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DC_TYPE + ".type"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_ALTERNATIVE + ".alternative"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_CREATED + ".created"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_HAS_PART + ".hasPart"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_IS_PART_OF + ".isPartOf"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_ISSUED + ".issued"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_MEDIUM + ".medium"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_PROVENANCE + ".provenance"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_SPATIAL + ".spatial"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_DCTERMS_TEMPORAL + ".temporal"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_EDM_YEAR + ".year"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_EDM_HAS_MET + ".hasMet"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PROXY_EDM_ISRELATEDTO + ".isRelatedTo"));
+  private void assertDocumentContent(ProxyImpl expectedProxy, SolrInputDocument actualSolrInputDocument) {
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_CURRENT_LOCATION, expectedProxy.getEdmCurrentLocation());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_CONTRIBUTOR, expectedProxy.getDcContributor());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_COVERAGE, expectedProxy.getDcCoverage());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_CREATOR, expectedProxy.getDcCreator());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_DATE, expectedProxy.getDcDate());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_DESCRIPTION, expectedProxy.getDcDescription());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_FORMAT, expectedProxy.getDcFormat());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_IDENTIFIER, expectedProxy.getDcIdentifier());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_LANGUAGE, expectedProxy.getDcLanguage());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_PUBLISHER, expectedProxy.getDcPublisher());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_RIGHTS, expectedProxy.getDcRights());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_SOURCE, expectedProxy.getDcSource());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_SUBJECT, expectedProxy.getDcSubject());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_TITLE, expectedProxy.getDcTitle());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_TYPE, expectedProxy.getDcType());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_ALTERNATIVE, expectedProxy.getDctermsAlternative());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_CREATED, expectedProxy.getDctermsCreated());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_HAS_PART, expectedProxy.getDctermsHasPart());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_IS_PART_OF, expectedProxy.getDctermsIsPartOf());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_ISSUED, expectedProxy.getDctermsIssued());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_MEDIUM, expectedProxy.getDctermsMedium());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_PROVENANCE, expectedProxy.getDctermsProvenance());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_SPATIAL, expectedProxy.getDctermsSpatial());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_TEMPORAL, expectedProxy.getDctermsTemporal());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_YEAR, expectedProxy.getYear());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_HAS_MET, expectedProxy.getEdmHasMet());
+    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_ISRELATEDTO, expectedProxy.getEdmIsRelatedTo());
   }
 
   private ProxyImpl getTestProxy() {

@@ -11,6 +11,9 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.SolrInputField;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link QualityAnnotationSolrCreator} class
+ */
 class QualityAnnotationSolrCreatorTest {
 
   @Test
@@ -24,6 +27,6 @@ class QualityAnnotationSolrCreatorTest {
     final SolrInputField solrInputField = document.get(metadataTierC.getEdmLabel().toString());
     assertNotNull(solrInputField);
     assertEquals(metadataTierC.getEdmLabel().toString(), solrInputField.getName());
-    assertEquals(metadataTierC.getTier().toString(), ((Collection<String>)solrInputField.getValue()).iterator().next());
+    assertEquals(metadataTierC.getTier().toString(), ((Collection<String>) solrInputField.getValue()).iterator().next());
   }
 }
