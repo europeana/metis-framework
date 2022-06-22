@@ -73,22 +73,22 @@ class IndexerImpl implements Indexer {
     LOGGER.info("Parsing {} records...", records.size());
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> wrappedRecords = new ArrayList<>(records.size());
-    for (String record : records) {
-      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(record));
+    for (String stringRdfRecord : records) {
+      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(stringRdfRecord));
     }
     indexRecords(wrappedRecords, indexingProperties);
   }
 
   @Override
-  public void index(InputStream record, IndexingProperties indexingProperties)
+  public void index(InputStream recordInputStream, IndexingProperties indexingProperties)
       throws IndexingException {
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
-    indexRdf(stringToRdfConverter.convertToRdf(record), indexingProperties);
+    indexRdf(stringToRdfConverter.convertToRdf(recordInputStream), indexingProperties);
   }
 
   @Override
-  public void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException {
-    indexRdfs(List.of(record), indexingProperties);
+  public void indexRdf(RDF rdfRecord, IndexingProperties indexingProperties) throws IndexingException {
+    indexRdfs(List.of(rdfRecord), indexingProperties);
   }
 
   private void indexRecords(List<RDF> records, IndexingProperties properties)
@@ -101,13 +101,13 @@ class IndexerImpl implements Indexer {
     final FullBeanPublisher publisher =
         connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
 
-    for (RDF record : records) {
-      preprocessRecord(record, properties.isPerformTierCalculation());
+    for (RDF rdfRecord : records) {
+      preprocessRecord(rdfRecord, properties);
       if (properties.isPerformRedirects()) {
-        publisher.publishWithRedirects(new RdfWrapper(record), properties.getRecordDate(),
+        publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
             properties.getDatasetIdsForRedirection());
       } else {
-        publisher.publish(new RdfWrapper(record), properties.getRecordDate(),
+        publisher.publish(new RdfWrapper(rdfRecord), properties.getRecordDate(),
             properties.getDatasetIdsForRedirection());
       }
     }
@@ -116,16 +116,17 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void index(String record, IndexingProperties indexingProperties) throws IndexingException {
-    index(List.of(record), indexingProperties);
+  public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
+    index(List.of(stringRdfRecord), indexingProperties);
   }
 
-  private void preprocessRecord(RDF rdf, boolean performTierCalculation)
+  private void preprocessRecord(RDF rdf, IndexingProperties properties)
       throws IndexingException {
 
     // Perform the tier classification
-    if (performTierCalculation) {
-      final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+    if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
+                                                           .contains(rdfWrapper.getEdmType())) {
       RdfTierUtils.setTier(rdf, mediaClassifier.classify(rdfWrapper).getTier());
       RdfTierUtils.setTier(rdf, metadataClassifier.classify(rdfWrapper).getTier());
     }
