@@ -1,9 +1,9 @@
 package eu.europeana.indexing;
 
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.Closeable;
 import java.time.Duration;
 import org.apache.commons.pool2.BasePooledObjectFactory;
@@ -84,12 +84,12 @@ public class IndexerPool implements Closeable {
    * This method indexes a single record, using a free indexer in the pool.
    * </p>
    *
-   * @param record The record to index (can be parsed to RDF).
+   * @param stringRdfRecord The record to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
-  public void index(String record, IndexingProperties indexingProperties) throws IndexingException {
-    indexRecord(indexer -> indexer.index(record, indexingProperties));
+  public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
+    indexRecord(indexer -> indexer.index(stringRdfRecord, indexingProperties));
   }
 
   /**
@@ -97,22 +97,22 @@ public class IndexerPool implements Closeable {
    * This method indexes a single record, using a free indexer in the pool.
    * </p>
    *
-   * @param record The record to index.
+   * @param stringRdfRecord The record to index.
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
-  public void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException {
-    indexRecord(indexer -> indexer.indexRdf(record, indexingProperties));
+  public void indexRdf(RDF stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
+    indexRecord(indexer -> indexer.indexRdf(stringRdfRecord, indexingProperties));
   }
 
   /**
    * This method removes a single record, using a free indexer in the pool
    *
-   * @param record The record to be removed
+   * @param stringRdfRecord The record to be removed
    * @throws IndexingException In case something went wrong.
    */
-  public void remove(String record) throws IndexingException {
-    indexRecord(indexer -> indexer.remove(record));
+  public void remove(String stringRdfRecord) throws IndexingException {
+    indexRecord(indexer -> indexer.remove(stringRdfRecord));
   }
 
   private void indexRecord(IndexTask indexTask) throws IndexingException {
