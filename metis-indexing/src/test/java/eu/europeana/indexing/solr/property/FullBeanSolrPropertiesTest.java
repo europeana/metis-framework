@@ -48,16 +48,21 @@ class FullBeanSolrPropertiesTest {
     place.setLatitude(10.0f);
     place.setLongitude(33.0f);
     place.setAltitude(7.0f);
-    fullBean.setPlaces(List.of(place));
+
+    Place place2 = new PlaceImpl();
+    place2.setAbout("Invalid range");
+    place2.setLatitude(578991.875f);
+    place2.setLongitude(578991.875f);
+    fullBean.setPlaces(List.of(place, place2));
 
     // proxy setup
     ProxyImpl proxy = new ProxyImpl();
     proxy.setAbout("About Proxy");
     proxy.setEuropeanaProxy(true);
     proxy.setEdmType(EdmType.TEXT.name());
-    proxy.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place.getAbout())));
-    proxy.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place.getAbout())));
-    proxy.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place.getAbout())));
+    proxy.setEdmCurrentLocation(Map.of("def", List.of(place.getAbout(), place2.getAbout())));
+    proxy.setDctermsSpatial(Map.of("def", List.of(place.getAbout())));
+    proxy.setDcCoverage(Map.of("def", List.of(place.getAbout())));
     fullBean.setProxies(List.of(proxy));
 
     fullBean.setEuropeanaCompleteness(0);

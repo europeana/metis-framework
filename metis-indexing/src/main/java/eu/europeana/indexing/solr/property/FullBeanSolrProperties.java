@@ -71,13 +71,11 @@ public class FullBeanSolrProperties {
       coverageLocationStrings.addAll(getCoverageLocationStrings(proxy));
     });
 
-    final Set<LocationPoint> currentLocationPoints = new HashSet<>(
-        getReferencedPlacesLocationPoints(placesAboutMap, currentLocationStrings));
-    currentLocationPoints.addAll(getWGS84LocationPoints(currentLocationStrings));
+    currentLocationStrings.addAll(getReferencedPlacesLocationStrings(placesAboutMap, currentLocationStrings));
+    final Set<LocationPoint> currentLocationPoints = new HashSet<>(getWGS84LocationPoints(currentLocationStrings));
 
-    final Set<LocationPoint> coverageLocationPoints = new HashSet<>(
-        getReferencedPlacesLocationPoints(placesAboutMap, coverageLocationStrings));
-    coverageLocationPoints.addAll(getWGS84LocationPoints(coverageLocationStrings));
+    coverageLocationStrings.addAll(getReferencedPlacesLocationStrings(placesAboutMap, coverageLocationStrings));
+    final Set<LocationPoint> coverageLocationPoints = new HashSet<>(getWGS84LocationPoints(coverageLocationStrings));
 
     SolrPropertyUtils.addValues(document, CURRENT_LOCATION_WGS,
         currentLocationPoints.stream().map(Object::toString).toArray(String[]::new));
@@ -93,10 +91,20 @@ public class FullBeanSolrProperties {
   }
 
 
-  private Set<LocationPoint> getReferencedPlacesLocationPoints(Map<String, PlaceImpl> placesAboutMap,
-      Set<String> locationStrings) {
+  private Set<String> getReferencedPlacesLocationStrings(Map<String, PlaceImpl> placesAboutMap, Set<String> locationStrings) {
     return locationStrings.stream().map(placesAboutMap::get).filter(Objects::nonNull)
-                          .map(this::getPlaceLocationPoint).filter(Objects::nonNull).collect(Collectors.toSet());
+                          .filter(place -> place.getLatitude() != null)
+                          .filter(place -> place.getLongitude() != null)
+                          .map(place -> {
+                            //Create string value -> geo:lat,lon,alt
+                            final StringBuilder stringBuilder = new StringBuilder("geo:");
+                            stringBuilder.append(place.getLatitude()).append(",").append(place.getLongitude());
+                            if (place.getAltitude() != null) {
+                              stringBuilder.append(",").append(place.getAltitude());
+                            }
+                            return stringBuilder.toString();
+                          })
+                          .collect(Collectors.toSet());
   }
 
   private Set<LocationPoint> getWGS84LocationPoints(Set<String> locationStrings) {
@@ -124,13 +132,6 @@ public class FullBeanSolrProperties {
             .filter(StringUtils::isNotBlank)
             .forEach(coverageLocations::add);
     return coverageLocations;
-  }
-
-  private LocationPoint getPlaceLocationPoint(PlaceImpl place) {
-    if (place.getLatitude() != null && place.getLongitude() != null) {
-      return new LocationPoint(place.getLatitude().doubleValue(), place.getLongitude().doubleValue());
-    }
-    return null;
   }
 
   private GeoCoordinates getValidGeoCoordinates(String s) {

@@ -44,6 +44,10 @@ class GeoUriWGS84ParserTest {
     assertThrows(BadContentException.class, () -> GeoUriWGS84Parser.parse("geo:test,-122.399677;crs=wgs84"));
     //Invalid range coordinates
     assertThrows(BadContentException.class, () -> GeoUriWGS84Parser.parse("geo:-100,200;crs=wgs84"));
+    assertThrows(BadContentException.class, () -> GeoUriWGS84Parser.parse("geo:578991.875,578991.875"));
+    assertThrows(BadContentException.class, () -> GeoUriWGS84Parser.parse("geo:-90.123456,100"));
+
+
   }
 
   @Test
