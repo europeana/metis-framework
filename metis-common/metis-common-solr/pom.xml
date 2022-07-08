@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>6</version>
+    <version>7</version>
   </parent>
   <artifactId>metis-common-solr</artifactId>
 

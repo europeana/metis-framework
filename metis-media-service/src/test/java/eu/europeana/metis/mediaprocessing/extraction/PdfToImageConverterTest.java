@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PdfToImageConverterTest {
+class PdfToImageConverterTest {
 
   private static final String GHOST_SCRIPT_COMMAND = "gs command";
 
@@ -121,23 +121,23 @@ public class PdfToImageConverterTest {
     doReturn("").when(commandExecutor).execute(eq(command), eq(false), any());
 
     // Execute happy flow
-    assertEquals(outputFile, pdfToImageConverter.convertToPdf(inputFile));
+    assertEquals(outputFile, pdfToImageConverter.convertPdfFirstPageToImage(inputFile));
 
     // Test for empty input
-    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertToPdf(null));
+    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertPdfFirstPageToImage(null));
 
     // Test for problem creating the file - revert and check all is well
     doThrow(MediaExtractionException.class).when(pdfToImageConverter).createPdfImageFile();
-    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertToPdf(inputFile));
+    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertPdfFirstPageToImage(inputFile));
     doReturn(outputFile).when(pdfToImageConverter).createPdfImageFile();
-    assertEquals(outputFile, pdfToImageConverter.convertToPdf(inputFile));
+    assertEquals(outputFile, pdfToImageConverter.convertPdfFirstPageToImage(inputFile));
 
     // Test for exceptions in executing the execution
     doNothing().when(pdfToImageConverter).removePdfImageFileSilently(any());
     doThrow(MediaExtractionException.class).when(commandExecutor)
-            .execute(eq(command), eq(false), any());
-    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertToPdf(inputFile));
-    verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(eq(outputFile));
+                                           .execute(eq(command), eq(false), any());
+    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertPdfFirstPageToImage(inputFile));
+    verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(outputFile);
     verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(any());
   }
 }

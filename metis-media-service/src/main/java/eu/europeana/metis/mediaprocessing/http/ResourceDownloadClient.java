@@ -127,12 +127,10 @@ public class ResourceDownloadClient extends
         resource.markAsNoContent();
       }
     } catch (IOException | RuntimeException e) {
-      // Close the resource if a problem occurs.
       resource.close();
       throw e;
     }
 
-    // Done: return the resource.
     return resource;
   }
 

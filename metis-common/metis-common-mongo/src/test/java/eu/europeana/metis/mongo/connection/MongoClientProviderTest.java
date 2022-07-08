@@ -8,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ReadPreference;
 import com.mongodb.client.MongoClient;
-import eu.europeana.metis.mongo.connection.MongoClientProvider;
-import eu.europeana.metis.mongo.connection.MongoProperties;
+import com.mongodb.connection.ConnectionPoolSettings;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -40,14 +39,26 @@ class MongoClientProviderTest {
     embeddedLocalhostMongo.stop();
   }
 
-  @Test
-  void getDefaultClientSettingsBuilder() {
-    MongoClientSettings.Builder actual = MongoClientProvider.getDefaultClientSettingsBuilder();
+  private static MongoProperties getMongoProperties() {
+    final String mongoHost = embeddedLocalhostMongo.getMongoHost();
+    final int mongoPort = embeddedLocalhostMongo.getMongoPort();
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties.setMongoHosts(new String[]{mongoHost}, new int[]{mongoPort});
+    mongoProperties.setMongoCredentials("user", "wachtwoord", "authenticationDB");
+    mongoProperties.setApplicationName(DATABASE_NAME);
+    mongoProperties.setMaxConnectionPoolSize(10);
+    return mongoProperties;
+  }
 
-    assertFalse(actual.build().getRetryWrites());
-    assertEquals(ReadPreference.secondaryPreferred(), actual.build().getReadPreference());
-    assertEquals("Europeana Application Suite", actual.build().getApplicationName());
-    assertEquals(30_000, actual.build().getConnectionPoolSettings().getMaxConnectionIdleTime(TimeUnit.MILLISECONDS));
+  @Test
+  void getClientSettingsBuilder() {
+    final MongoClientSettings mongoClientSettings = MongoClientProvider.getDefaultClientSettingsBuilder().build();
+    assertFalse(mongoClientSettings.getRetryWrites());
+    assertEquals(ReadPreference.secondaryPreferred(), mongoClientSettings.getReadPreference());
+    assertEquals("Europeana Application Suite", mongoClientSettings.getApplicationName());
+    assertEquals(30_000, mongoClientSettings.getConnectionPoolSettings().getMaxConnectionIdleTime(TimeUnit.MILLISECONDS));
+    assertEquals(20, mongoClientSettings.getConnectionPoolSettings().getMaxSize());
   }
 
   @Test
@@ -87,14 +98,10 @@ class MongoClientProviderTest {
     assertTrue(mongoClient instanceof MongoClient);
   }
 
-  private static MongoProperties getMongoProperties() {
-    final String mongoHost = embeddedLocalhostMongo.getMongoHost();
-    final int mongoPort = embeddedLocalhostMongo.getMongoPort();
-    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
-        IllegalArgumentException::new);
-    mongoProperties.setMongoHosts(new String[]{mongoHost}, new int[]{mongoPort});
-    mongoProperties.setMongoCredentials("user","wachtwoord","authenticationDB");
-    mongoProperties.setApplicationName(DATABASE_NAME);
-    return mongoProperties;
+  @Test
+  void createConnectionPoolSettings() {
+    final ConnectionPoolSettings connectionPoolSettings = MongoClientProvider.createConnectionPoolSettings(10);
+    assertEquals(30_000, connectionPoolSettings.getMaxConnectionIdleTime(TimeUnit.MILLISECONDS));
+    assertEquals(10, connectionPoolSettings.getMaxSize());
   }
 }

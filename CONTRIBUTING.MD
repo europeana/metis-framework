@@ -128,14 +128,40 @@ If there is any doubt on fixing the merge conflicts while merging, the implement
 worked on the relevant changes that were introduced on the destination branch.
 
 The merge can be performed on the github pull request page or manually(especially for conflicts).  
-To do this manually, checkout the destination branch(usually `develop`) and execute the merge command with the `--no-ff`
-parameter:
+To do this manually, checkout the destination branch(usually `develop`).  
+We prefer squash merging or alternatively non fast forward merging.
+
+- A squash merge can be performed with the `--squash` parameter:
+
+  `git merge --squash <branch_to_be_merge>`
+
+  To complete the squash merge, a commit has to also be performed if done locally.  
+  The commit should be formatted as the following template(replicating github squashed commits):
+  ```
+  <branch_type>/<ticket_number> <clear_description_of_the_issue_being_implemented> (#<pull_request_number>)  
+  (optionally as description)
+  * List of all commit messages from the pull requst
+  ```
+  Example message:
+  ```
+  Debt/met 4250 refactor code to remove mock maker inline (#508)
+  * MET-4250 Update NetworkUtil
+
+  * MET-4250 Update RdfConversionUtils
+
+  * MET-4250 Javadocs and cleanup
+
+  * MET-4250 Remove mockito inline from root pom
+  ```
+
+
+- A non fast forward merge can be performed with the `--no-ff` parameter:
 
 `git merge --no-ff <branch_to_be_merge>`
 
-The merger should check that the local branch is building before and after merging. If there were merge conflicts that were
-resolved during the merge, then a local deployment should be triggered and verified. If the build succeeds the destination branch
-can be pushed to the remote repository and the pull request will be resolved.
+The merger should check that the local branch is building before and after merging.  
+If there were merge conflicts that were resolved during the merge, then a local deployment should be triggered and verified.  
+If the build succeeds the destination branch can be pushed to the remote repository and the pull request will be resolved.
 
 The reviewer can now move the ticket ahead in the board and re-assign it to the implementor.
 

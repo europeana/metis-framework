@@ -12,6 +12,9 @@ import java.util.Arrays;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test for {@link ProxySolrCreator} class
+ */
 public class PropertySolrCreatorTest {
 
   @Test
@@ -21,7 +24,8 @@ public class PropertySolrCreatorTest {
     final PropertySolrCreator<PlaceImpl> creator = spy(new PropertySolrCreator<PlaceImpl>() {
 
       @Override
-      public void addToDocument(SolrInputDocument document, PlaceImpl property) {}
+      public void addToDocument(SolrInputDocument document, PlaceImpl property) {
+      }
 
     });
 

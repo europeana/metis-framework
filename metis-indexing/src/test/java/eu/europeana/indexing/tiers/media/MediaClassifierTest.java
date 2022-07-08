@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MediaClassifierTest {
+class MediaClassifierTest {
 
   private static AudioClassifier audioClassifier;
   private static ImageClassifier imageClassifier;

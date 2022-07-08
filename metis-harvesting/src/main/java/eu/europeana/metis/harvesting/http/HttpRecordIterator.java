@@ -13,6 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public interface HttpRecordIterator {
 
+  void deleteIteratorContent();
+
   /**
    * Iterate through the decompressed records.
    *

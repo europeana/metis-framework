@@ -44,6 +44,8 @@ import org.springframework.util.CollectionUtils;
 
 public class EntityMergeEngineTest {
 
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+
   private static Place createPlace() {
     Place place = new Place();
 
@@ -605,7 +607,7 @@ public class EntityMergeEngineTest {
     verifyPlace((Place) inputList.get(2), rdf.getPlaceList().get(2));
 
     // Convert RDF to string as extra test that everything is OK.
-    RdfConversionUtils.convertRdfToString(rdf);
+    rdfConversionUtils.convertRdfToString(rdf);
   }
 
   @Test
@@ -645,7 +647,7 @@ public class EntityMergeEngineTest {
     verifyOrganization((Organization) inputList.get(5), rdf.getOrganizationList().get(0));
 
     // Convert RDF to string as extra test that everything is OK.
-    RdfConversionUtils.convertRdfToString(rdf);
+    rdfConversionUtils.convertRdfToString(rdf);
   }
 
   @Test

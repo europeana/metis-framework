@@ -89,4 +89,13 @@ public class VocabularyDao {
   protected Datastore getDatastore() {
     return datastore;
   }
+
+  /**
+   * Amount of documents
+   *
+   * @return amount of documents in db
+   */
+  protected long size() {
+    return retryableExternalRequestForNetworkExceptions(() -> datastore.find(Vocabulary.class).stream().count());
+  }
 }

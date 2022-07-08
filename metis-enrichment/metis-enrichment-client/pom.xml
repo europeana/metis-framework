@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>6</version>
+    <version>7</version>
   </parent>
   <artifactId>metis-enrichment-client</artifactId>
   <packaging>jar</packaging>
@@ -42,7 +42,6 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-schema</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

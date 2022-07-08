@@ -1,9 +1,13 @@
 package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.model.Location;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -13,15 +17,14 @@ import java.nio.file.Path;
 public class VocabularyCollectionImporterFactory {
 
   /**
-   * Create a vocabulary importer for remote web addresses, indicated by instances of {@link URI}.
-   * Note that this method can only be used for locations that are also a valid {@link
-   * java.net.URL}.
+   * Create a vocabulary importer for remote web addresses, indicated by instances of {@link URI}. Note that this method can only
+   * be used for locations that are also a valid {@link java.net.URL}.
    *
    * @param directoryLocation The location of the directory to import.
    * @return A vocabulary importer.
    */
-  public VocabularyCollectionImporter createImporter(URI directoryLocation) {
-    return new VocabularyCollectionImporterImpl(new UriLocation(directoryLocation));
+  public VocabularyCollectionImporter createImporter(URL directoryLocation) {
+    return new VocabularyCollectionImporterImpl(new UrlLocation(directoryLocation));
   }
 
   /**
@@ -35,9 +38,8 @@ public class VocabularyCollectionImporterFactory {
   }
 
   /**
-   * Create a vocabulary importer for local files, indicated by instances of {@link Path}. This
-   * method provides a way to set a base directory that will be assumed known (so that output and
-   * logs will only include the relative location).
+   * Create a vocabulary importer for local files, indicated by instances of {@link Path}. This method provides a way to set a
+   * base directory that will be assumed known (so that output and logs will only include the relative location).
    *
    * @param baseDirectory The base directory of the project or collection. Can be null.
    * @param directoryLocation The full location of the directory file to import.
@@ -47,27 +49,32 @@ public class VocabularyCollectionImporterFactory {
     return new VocabularyCollectionImporterImpl(new PathLocation(baseDirectory, directoryLocation));
   }
 
-  private static final class UriLocation implements Location {
+  private static final class UrlLocation implements Location {
 
-    private final URI uri;
+    private final URL url;
 
-    UriLocation(URI uri) {
-      this.uri = uri;
+    UrlLocation(URL url) {
+      this.url = url;
     }
 
     @Override
     public InputStream read() throws IOException {
-      return uri.toURL().openStream();
+      return url.openStream();
     }
 
     @Override
-    public Location resolve(String relativeLocation) {
-      return new UriLocation(uri.resolve(relativeLocation));
+    public Location resolve(String relativeLocation) throws BadContentException {
+      try {
+        return new UrlLocation(url.toURI().resolve(relativeLocation).toURL());
+      } catch (URISyntaxException | MalformedURLException e) {
+        throw new BadContentException(
+            String.format("Provided url '%s' and relative location %s, failed to parse.", url, relativeLocation), e);
+      }
     }
 
     @Override
     public String toString() {
-      return uri.toString();
+      return url.toString();
     }
   }
 

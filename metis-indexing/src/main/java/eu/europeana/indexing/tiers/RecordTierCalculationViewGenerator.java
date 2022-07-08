@@ -3,6 +3,7 @@ package eu.europeana.indexing.tiers;
 import eu.europeana.indexing.exception.TierCalculationException;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.tiers.model.TierClassifier.TierClassification;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
@@ -21,6 +22,10 @@ import org.springframework.util.CollectionUtils;
  * Generator of tier statistics view {@link RecordTierCalculationView}
  */
 public class RecordTierCalculationViewGenerator {
+
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+  private static final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
+  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
 
   private final String europeanaId;
   private final String providerId;
@@ -59,13 +64,11 @@ public class RecordTierCalculationViewGenerator {
     final RDF rdf;
     try {
       // Perform the tier classification
-      rdf = RdfConversionUtils.convertStringToRdf(xml);
+      rdf = rdfConversionUtils.convertStringToRdf(xml);
       final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-      final TierClassification<MediaTier, ContentTierBreakdown> mediaTierClassification = ClassifierFactory.getMediaClassifier()
-                                                                                                           .classify(rdfWrapper);
-      final TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification = ClassifierFactory.getMetadataClassifier()
-                                                                                                                  .classify(
-                                                                                                                      rdfWrapper);
+      final TierClassification<MediaTier, ContentTierBreakdown> mediaTierClassification = mediaClassifier.classify(rdfWrapper);
+      final TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification = metadataClassifier.classify(
+          rdfWrapper);
       RecordTierCalculationSummary recordTierCalculationSummary = new RecordTierCalculationSummary();
       recordTierCalculationSummary.setEuropeanaRecordId(europeanaId);
       recordTierCalculationSummary.setProviderRecordId(providerId);

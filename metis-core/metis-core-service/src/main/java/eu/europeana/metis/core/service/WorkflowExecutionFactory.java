@@ -50,7 +50,6 @@ public class WorkflowExecutionFactory {
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
-  private boolean metisUseAlternativeIndexingEnvironment; // Use getter and setter for this field!
   private int defaultSamplingSizeForLinkChecking; // Use getter and setter for this field!
 
   /**
@@ -113,23 +112,17 @@ public class WorkflowExecutionFactory {
           (ValidationInternalPluginMetadata) pluginMetadata, getValidationInternalProperties());
     } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata) {
       ((IndexToPreviewPluginMetadata) pluginMetadata)
-          .setUseAlternativeIndexingEnvironment(isMetisUseAlternativeIndexingEnvironment());
-      ((IndexToPreviewPluginMetadata) pluginMetadata)
           .setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PREVIEW, typesInWorkflowBeforeThisPlugin);
       ((IndexToPreviewPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof IndexToPublishPluginMetadata) {
       ((IndexToPublishPluginMetadata) pluginMetadata)
-          .setUseAlternativeIndexingEnvironment(isMetisUseAlternativeIndexingEnvironment());
-      ((IndexToPublishPluginMetadata) pluginMetadata)
           .setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
       ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof DepublishPluginMetadata) {
-      ((DepublishPluginMetadata) pluginMetadata)
-          .setUseAlternativeIndexingEnvironment(isMetisUseAlternativeIndexingEnvironment());
       setupDepublishPluginMetadata(dataset, ((DepublishPluginMetadata) pluginMetadata));
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
@@ -303,19 +296,6 @@ public class WorkflowExecutionFactory {
   public void setValidationInternalProperties(ValidationProperties validationInternalProperties) {
     synchronized (this) {
       this.validationInternalProperties = validationInternalProperties;
-    }
-  }
-
-  private boolean isMetisUseAlternativeIndexingEnvironment() {
-    synchronized (this) {
-      return metisUseAlternativeIndexingEnvironment;
-    }
-  }
-
-  public void setMetisUseAlternativeIndexingEnvironment(
-      boolean metisUseAlternativeIndexingEnvironment) {
-    synchronized (this) {
-      this.metisUseAlternativeIndexingEnvironment = metisUseAlternativeIndexingEnvironment;
     }
   }
 

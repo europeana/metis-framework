@@ -10,7 +10,6 @@ import eu.europeana.metis.network.StringHttpClient.StringContent;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.BasicHttpEntity;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -56,8 +54,7 @@ class StringHttpClientTest {
   void createResult() throws URISyntaxException, IOException {
     List<Closeable> closeables = new ArrayList<>();
     HttpEntity responseEntity = new BasicHttpEntity(new ByteArrayInputStream("content".getBytes()), ContentType.TEXT_PLAIN);
-    final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(
-        responseEntity == null ? InputStream::nullInputStream : responseEntity::getContent,
+    final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(responseEntity::getContent,
         closeables::add);
 
     StringContent actualContent = stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"),
@@ -65,18 +62,17 @@ class StringHttpClientTest {
 
     assertEquals("content", actualContent.getContent());
     assertEquals("text/plain", actualContent.getContentType());
+    assertEquals(1, closeables.size());
   }
 
-  @Disabled("TODO: MET-4250 Handle MockMaker in Jenkins")
   @Test
   void createResultWithException() throws IOException {
     final ContentRetriever contentRetriever = mock(ContentRetriever.class);
     when(contentRetriever.getContent()).thenThrow(IOException.class);
 
-    assertThrows(IOException.class, () -> {
-      stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"),
-          "text/plain", 7L, contentRetriever);
-    });
+    assertThrows(IOException.class,
+        () -> stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"),
+            "text/plain", 7L, contentRetriever));
   }
 
   @Test

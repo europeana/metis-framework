@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>6</version>
+    <version>7</version>
   </parent>
   <artifactId>metis-common-mongo</artifactId>
 
@@ -28,7 +28,6 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-schema</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>dev.morphia.morphia</groupId>

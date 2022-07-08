@@ -13,8 +13,9 @@ import eu.europeana.metis.network.NetworkUtil;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class TestValidationClient {
 
   static {
     try {
-      portForWireMock = NetworkUtil.getAvailableLocalPort();
+      portForWireMock = new NetworkUtil().getAvailableLocalPort();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -110,11 +111,12 @@ class TestValidationClient {
                 "}")));
 
     ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
-    File tempFile = File.createTempFile("temp_file", ".tmp");
-    tempFile.deleteOnExit();
-    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", tempFile);
+    Path tempFile = Files.createTempFile("temp_file", ".tmp");
+    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", tempFile.toFile());
+    Files.delete(tempFile);
     assertTrue(result.isSuccess());
     assertEquals(0, result.getResultList().size());
+
   }
 
   @Test
@@ -136,9 +138,9 @@ class TestValidationClient {
                 "}")));
 
     ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
-    File tempFile = File.createTempFile("temp_file", ".tmp");
-    tempFile.deleteOnExit();
-    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", tempFile);
+    Path tempFile = Files.createTempFile("temp_file", ".tmp");
+    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", tempFile.toFile());
+    Files.delete(tempFile);
     assertTrue(result.isSuccess());
     assertEquals(1, result.getResultList().size());
     assertFalse(result.getResultList().get(0).isSuccess());

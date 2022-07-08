@@ -8,7 +8,7 @@ import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFact
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidator;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidatorImpl;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
-import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   private final VocabularyDao vocabularyDao;
   private final ProcessedEntityDao processedEntityDao;
+  private final VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory;
 
   /**
    * Constructor.
@@ -30,9 +31,10 @@ public class MongoDereferencingManagementService implements DereferencingManagem
    */
   @Autowired
   public MongoDereferencingManagementService(VocabularyDao vocabularyDao,
-          ProcessedEntityDao processedEntityDao) {
+      ProcessedEntityDao processedEntityDao, VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory) {
     this.vocabularyDao = vocabularyDao;
     this.processedEntityDao = processedEntityDao;
+    this.vocabularyCollectionImporterFactory = vocabularyCollectionImporterFactory;
   }
 
   @Override
@@ -42,26 +44,43 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   @Override
   public void emptyCache() {
-    this.processedEntityDao.purgeAll();
+    processedEntityDao.purgeAll();
   }
 
   @Override
-  public void loadVocabularies(URI directoryUrl) throws VocabularyImportException {
+  public void purgeByNullOrEmptyXml() { processedEntityDao.purgeByNullOrEmptyXml(); }
 
-    // Import and validate the vocabularies
-    final List<Vocabulary> vocabularies = new ArrayList<>();
-    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
-            .createImporter(directoryUrl);
-    final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
-            true, true, true);
-    validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
+  @Override
+  public void purgeByResourceId(String resourceId) {
+    processedEntityDao.purgeByResourceId(resourceId);
+  }
 
-    // All vocabularies are loaded well. Now we replace the vocabularies.
-    vocabularyDao.replaceAll(vocabularies);
+  @Override
+  public void purgeByVocabularyId(String vocabularyId) {
+    processedEntityDao.purgeByVocabularyId(vocabularyId);
+  }
+
+  @Override
+  public void loadVocabularies(URL directoryUrl) throws VocabularyImportException {
+
+    try {
+      // Import and validate the vocabularies
+      final List<Vocabulary> vocabularies = new ArrayList<>();
+      final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
+          .createImporter(directoryUrl);
+      final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
+          true, true, true);
+      validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
+
+      // All vocabularies are loaded well. Now we replace the vocabularies.
+      vocabularyDao.replaceAll(vocabularies);
+    } catch (VocabularyImportException e) {
+      throw new VocabularyImportException("An error as occurred while loading the vocabularies", e);
+    }
   }
 
   private static Vocabulary convertVocabulary(
-          eu.europeana.metis.dereference.vocimport.model.Vocabulary input) {
+      eu.europeana.metis.dereference.vocimport.model.Vocabulary input) {
     final Vocabulary vocabulary = new Vocabulary();
     vocabulary.setName(input.getName());
     vocabulary.setUris(input.getPaths());

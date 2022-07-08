@@ -49,13 +49,9 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
   @Override
   public DpsTask prepareDpsTask(String datasetId,
       EcloudBasePluginParameters ecloudBasePluginParameters) {
-    boolean useAlternativeIndexingEnvironment = getPluginMetadata()
-        .isUseAlternativeIndexingEnvironment();
 
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
-    extraParameters.put(PluginParameterKeys.METIS_USE_ALT_INDEXING_ENV,
-            String.valueOf(useAlternativeIndexingEnvironment));
     //Do set the records ids parameter only if record ids depublication enabled and there are record ids
     if (!getPluginMetadata().isDatasetDepublish()) {
       if (CollectionUtils.isEmpty(getPluginMetadata().getRecordIdsToDepublish())) {

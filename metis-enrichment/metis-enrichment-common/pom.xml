@@ -4,15 +4,18 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>6</version>
+    <version>7</version>
   </parent>
   <artifactId>metis-enrichment-common</artifactId>
+
+  <properties>
+    <version.entity-api-client>2.0</version.entity-api-client>
+  </properties>
 
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-schema</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -35,7 +38,7 @@
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
+        <artifactId>jaxb-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
@@ -60,12 +63,42 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
       <version>${version.swagger.annotations}</version>
     </dependency>
+     <!-- Entity Client dependency. Includes Entity management Model classes used in common module-->
+    <dependency>
+        <groupId>eu.europeana.api</groupId>
+        <artifactId>entity-api-client</artifactId>
+        <version>${version.entity-api-client}</version>
+        <exclusions>
+            <exclusion>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.slf4j</groupId>
+              <artifactId>jcl-over-slf4j</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>*</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
   </dependencies>
 </project>
-
-
-

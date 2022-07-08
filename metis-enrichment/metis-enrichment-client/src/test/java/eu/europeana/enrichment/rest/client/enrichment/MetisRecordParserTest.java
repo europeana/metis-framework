@@ -24,12 +24,15 @@ import eu.europeana.metis.schema.jibx.Spatial;
 import eu.europeana.metis.schema.jibx.Subject;
 import eu.europeana.metis.schema.jibx.Temporal;
 import eu.europeana.metis.schema.jibx.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 public class MetisRecordParserTest {
+
+  private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
   @Test
   public void testExtractedFieldValuesForEnrichment() {
@@ -177,8 +180,8 @@ public class MetisRecordParserTest {
   @Test
   public void testSetAdditionalData() throws Exception {
     String xml = IOUtils
-        .toString(getClass().getClassLoader().getResourceAsStream("sample_completeness.rdf"), "UTF-8");
-    RDF rdf = RdfConversionUtils.convertStringToRdf(xml);
+        .toString(getClass().getClassLoader().getResourceAsStream("sample_completeness.rdf"), StandardCharsets.UTF_8);
+    RDF rdf = rdfConversionUtils.convertStringToRdf(xml);
     EnrichmentUtils.setAdditionalData(rdf);
     EuropeanaAggregationType europeanaAggregationType = rdf.getEuropeanaAggregationList().stream()
         .findAny().orElse(null);

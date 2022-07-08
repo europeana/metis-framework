@@ -28,6 +28,7 @@ public class MongoProperties<E extends Exception> {
   private MongoCredential mongoCredentials;
   private boolean mongoEnableSsl;
   private ReadPreferenceValue readPreferenceValue;
+  private Integer maxConnectionPoolSize;
   private String applicationName;
 
   /**
@@ -150,8 +151,16 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * Set the application name. Can be null, in which case a default generic application name is
-   * to be used.
+   * Get the maximum connection pol size
+   *
+   * @return the maximum connection pool size
+   */
+  public Integer getMaxConnectionPoolSize() {
+    return maxConnectionPoolSize;
+  }
+
+  /**
+   * Set the application name. Can be null, in which case a default generic application name is to be used.
    *
    * @param applicationName The application name, or null for the default.
    */
@@ -219,6 +228,15 @@ public class MongoProperties<E extends Exception> {
    */
   public ReadPreferenceValue getReadPreferenceValue() {
     return readPreferenceValue;
+  }
+
+  /**
+   * Set the maximum connection poll size. Can be null, in which case the default applies.
+   *
+   * @param maxConnectionPoolSize the maximum connection pool size
+   */
+  public void setMaxConnectionPoolSize(Integer maxConnectionPoolSize) {
+    this.maxConnectionPoolSize = maxConnectionPoolSize;
   }
 
   /**

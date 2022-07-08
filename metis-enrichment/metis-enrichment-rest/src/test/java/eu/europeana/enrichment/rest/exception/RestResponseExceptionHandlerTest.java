@@ -7,19 +7,18 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import javax.servlet.http.HttpServletResponse;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.HttpStatus;
 
-public class RestResponseExceptionHandlerTest {
+class RestResponseExceptionHandlerTest {
 
   private static final RestResponseExceptionHandler REST_RESPONSE_EXCEPTION_HANDLER = new RestResponseExceptionHandler();
   private static final String ERROR_MESSAGE = "error message";
   ArgumentCaptor<Integer> valueCaptor = ArgumentCaptor.forClass(Integer.class);
 
   @Test
-  void testHandleResponse(){
+  void testHandleResponse() {
     HttpServletResponse response = mock(HttpServletResponse.class);
     Exception exception = new Exception(ERROR_MESSAGE);
 

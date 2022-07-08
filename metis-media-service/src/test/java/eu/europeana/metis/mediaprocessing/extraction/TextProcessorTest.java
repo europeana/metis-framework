@@ -178,7 +178,7 @@ class TextProcessorTest {
     final Path pdfImagePath = mock(Path.class);
     final File pdfImageFile = new File("PDF image");
     doReturn(pdfImageFile).when(pdfImagePath).toFile();
-    doReturn(pdfImagePath).when(pdfToImageConverter).convertToPdf(contentPath);
+    doReturn(pdfImagePath).when(pdfToImageConverter).convertPdfFirstPageToImage(contentPath);
     doNothing().when(pdfToImageConverter).removePdfImageFileSilently(pdfImagePath);
 
     // Define output and mock thumbnail generator - resource type for which metadata is generated.

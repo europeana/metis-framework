@@ -3,6 +3,7 @@ package eu.europeana.enrichment.api.internal;
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.URL;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,6 +17,11 @@ public class ReferenceTermImpl extends AbstractReferenceTerm {
   public ReferenceTermImpl(URL reference, Set<EntityType> entityTypes) {
     super(reference);
     this.entityTypes = Set.copyOf(entityTypes);
+  }
+
+  public ReferenceTermImpl(URL reference) {
+    super(reference);
+    this.entityTypes = new HashSet<>();
   }
 
   @Override

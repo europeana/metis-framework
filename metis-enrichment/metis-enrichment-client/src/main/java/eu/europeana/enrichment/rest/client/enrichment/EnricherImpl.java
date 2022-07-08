@@ -1,5 +1,8 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
+import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
+
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
@@ -19,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -31,13 +33,17 @@ import org.slf4j.LoggerFactory;
 public class EnricherImpl implements Enricher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
-  private static final Pattern europeanaLinkPattern = Pattern
-      .compile("^https?://data.europeana.eu.*$");
-
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
   private final EntityMergeEngine entityMergeEngine;
 
+  /**
+   * Constructor with required parameters.
+   *
+   * @param recordParser the record parser
+   * @param entityResolver the entity resolver
+   * @param entityMergeEngine the entity merge engine
+   */
   public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver,
       EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
@@ -112,10 +118,11 @@ public class EnricherImpl implements Enricher {
   public void cleanupPreviousEnrichmentEntities(RDF rdf) {
     final ProxyType europeanaProxy = RdfEntityUtils.getEuropeanaProxy(rdf);
     //Find the correct links
-    final Set<String> europeanaLinks = Arrays.stream(ProxyFieldType.values())
-        .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
-        .flatMap(Collection::stream).filter(europeanaLinkPattern.asPredicate())
-        .collect(Collectors.toSet());
-    RdfEntityUtils.removeMatchingEntities(rdf, europeanaLinks);
+    final Set<String> matchingLinks = Arrays.stream(ProxyFieldType.values())
+                                            .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
+                                            .flatMap(Collection::stream)
+                                            .filter(europeanaLinkPattern.asPredicate().or(semiumLinkPattern.asPredicate()))
+                                            .collect(Collectors.toSet());
+    RdfEntityUtils.removeMatchingEntities(rdf, matchingLinks);
   }
 }

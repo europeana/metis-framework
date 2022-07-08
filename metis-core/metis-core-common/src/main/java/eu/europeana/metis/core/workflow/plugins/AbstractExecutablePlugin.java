@@ -156,7 +156,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters, String datasetId,
-      boolean incrementalIndexing, Date harvestDate, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
+      boolean incrementalIndexing, Date harvestDate, boolean preserveTimestamps,
       List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
     final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
     dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -165,7 +165,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     extraParameters.put(PluginParameterKeys.INCREMENTAL_INDEXING, String.valueOf(incrementalIndexing));
     extraParameters.put(PluginParameterKeys.HARVEST_DATE, dateFormat.format(harvestDate));
     extraParameters.put(PluginParameterKeys.METIS_TARGET_INDEXING_DATABASE, targetDatabase);
-    extraParameters.put(PluginParameterKeys.METIS_USE_ALT_INDEXING_ENV, String.valueOf(useAlternativeIndexingEnvironment));
     extraParameters.put(PluginParameterKeys.METIS_RECORD_DATE, dateFormat.format(getStartedDate()));
     extraParameters.put(PluginParameterKeys.METIS_PRESERVE_TIMESTAMPS, String.valueOf(preserveTimestamps));
     extraParameters.put(PluginParameterKeys.DATASET_IDS_TO_REDIRECT_FROM, String.join(",", datasetIdsToRedirectFrom));

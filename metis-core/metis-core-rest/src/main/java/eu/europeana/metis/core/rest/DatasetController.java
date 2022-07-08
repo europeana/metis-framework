@@ -613,7 +613,8 @@ public class DatasetController {
   public List<CountryView> getDatasetsCountries(
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return Arrays.stream(Country.values()).map(CountryView::new).collect(Collectors.toList());
+    return Country.getCountryListSortedByName().stream().map(CountryView::new)
+            .collect(Collectors.toList());
   }
 
   /**

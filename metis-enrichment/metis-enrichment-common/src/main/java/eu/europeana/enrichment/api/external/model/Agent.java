@@ -11,4 +11,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Agent extends AgentBase {
 
+    public Agent() {}
+
+    public Agent(eu.europeana.entitymanagement.definitions.model.Agent entity) {
+        super(entity);
+    }
+
+    public Agent(eu.europeana.entitymanagement.definitions.model.Organization entity) {
+        super(entity);
+    }
+
 }
