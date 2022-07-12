@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static eu.europeana.metis.mediaprocessing.extraction.ThumbnailGenerator.MAGICK_TEMPORARY_PATH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,9 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -28,13 +31,17 @@ import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
@@ -78,49 +85,49 @@ class ThumbnailGeneratorTest {
     // Test I.M. 7
     final List<String> versionCommand = Arrays.asList(magick7Command, versionDirective);
     doReturn("Version: ImageMagick 7.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
-        .when(commandExecutor).execute(eq(versionCommand), eq(true), any());
+        .when(commandExecutor).execute(eq(versionCommand), anyMap(), eq(true), any());
     assertEquals(magick7Command, ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
-    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand), eq(true), any());
+    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand), anyMap(), eq(true), any());
 
     // Test I.M. 6: detect three locations, the last of which is the correct one.
     final List<String> convertLocations = Arrays.asList("convert 1", "convert 2", "convert 3");
     final String convertLocationsConcat = String.join("\n", convertLocations);
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true), any());
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true), any());
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
     final List<String> versionCommand0 = Arrays.asList(convertLocations.get(0), versionDirective);
-    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand0), eq(true), any());
+    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand0), anyMap(), eq(true), any());
     final List<String> versionCommand1 = Arrays.asList(convertLocations.get(1), versionDirective);
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(versionCommand1), eq(true), any());
+        .execute(eq(versionCommand1), anyMap(), eq(true), any());
     final List<String> versionCommand2 = Arrays.asList(convertLocations.get(2), versionDirective);
     doReturn("Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
-        .when(commandExecutor).execute(eq(versionCommand2), eq(true), any());
+        .when(commandExecutor).execute(eq(versionCommand2), anyMap(), eq(true), any());
     assertEquals(convertLocations.get(2),
         ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Change previous test by throwing exception for I.M 7 - should still detect I.M. 6.
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(versionCommand), eq(true), any());
+        .execute(eq(versionCommand), anyMap(), eq(true), any());
     assertEquals(convertLocations.get(2),
         ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Change previous test by throwing exception when doing where/which. Should now fail.
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true), any());
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true), any());
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Test other version of I.M. (make sure that where/which works again).
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true), any());
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true), any());
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
     doReturn("Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
-        .when(commandExecutor).execute(eq(versionCommand2), eq(true), any());
+        .when(commandExecutor).execute(eq(versionCommand2), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
   }
@@ -153,7 +160,7 @@ class ThumbnailGeneratorTest {
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
         .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
-    doReturn(commandResponse).when(commandExecutor).execute(eq(command), eq(false), any());
+    doReturn(commandResponse).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
     doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(eq(commandResponse), any());
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
     doNothing().when(thumbnailGenerator).copyFile(any(Path.class), any());
@@ -189,10 +196,10 @@ class ThumbnailGeneratorTest {
 
     // Check exception during command execution - thumbnails should be closed.
     doThrow(new MediaExtractionException("TEST", null)).when(commandExecutor)
-        .execute(eq(command), eq(false), any());
+        .execute(eq(command), anyMap(), eq(false), any());
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false));
-    doReturn(commandResponse).when(commandExecutor).execute(eq(command), eq(false), any());
+    doReturn(commandResponse).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
     verify(thumbnail1.getThumbnail(), times(1)).close();
     verify(thumbnail2.getThumbnail(), times(1)).close();
 
@@ -436,4 +443,40 @@ class ThumbnailGeneratorTest {
     thumbnailWithSize1.deleteTempFileSilently();
     thumbnailWithSize2.deleteTempFileSilently();
   }
+
+  @Test
+  void testDeleteImageMagickTemporaryFiles() throws MediaExtractionException {
+    // Mock the thumbnail generation
+    final List<ThumbnailWithSize> thumbnails = Collections.emptyList();
+    final String url = "testUrl";
+    final File content = new File("content file");
+    final List<String> command = Arrays.asList("command1", "command2");
+    final String commandResponse = "response1\nresponse2";
+    final ImageMetadata imageMetadata = new ImageMetadata(200, 200, "sRGB",
+            Arrays.asList("WHITE", "BLACK"));
+    doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
+    doReturn(command).when(thumbnailGenerator)
+            .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
+    doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(eq(commandResponse), any());
+    //Mock execute method with code creating temp file
+    final AtomicReference<String> magickRandomTempDir=new AtomicReference<>();
+    final AtomicBoolean tempFileCreated=new AtomicBoolean();
+    doAnswer(invocation->{
+      Map<String,String> env=invocation.getArgument(1);
+      magickRandomTempDir.set(env.get(MAGICK_TEMPORARY_PATH));
+      Files.createFile(Path.of(magickRandomTempDir.get(), "magick-file12345"));
+      tempFileCreated.set(true);
+      return commandResponse;
+    }).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
+
+    // Call the method and verify the result.
+    thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false);
+
+    //Double check the file was created by execute method
+    assertTrue(tempFileCreated.get());
+    //Check temp directory was deleted
+    assertTrue(Files.notExists(Path.of(magickRandomTempDir.get())));
+  }
+
+
 }

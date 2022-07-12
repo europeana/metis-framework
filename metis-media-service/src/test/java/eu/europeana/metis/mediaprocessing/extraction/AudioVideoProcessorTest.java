@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -91,36 +92,36 @@ class AudioVideoProcessorTest {
 
     // Test ffprobe 4
     doReturn("ffprobe version 4.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test ffprobe 3
     doReturn("ffprobe version 3.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test ffprobe 2
     doReturn("ffprobe version 2.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test other commands
     doReturn("ffprobe version 1.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
     doReturn("ffprobe version 5.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
     doReturn("Other command").when(commandExecutor)
-        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test command execution exception
     doThrow(new MediaProcessorException("", null)).when(commandExecutor)
-        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
+        .execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
   }
@@ -543,7 +544,7 @@ class AudioVideoProcessorTest {
     final List<String> command = Collections.emptyList();
     doReturn(command).when(audioVideoProcessor).createAudioVideoAnalysisCommand(resource);
     final String response = "response";
-    doReturn(response).when(commandExecutor).execute(eq(command), eq(false), any());
+    doReturn(response).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
     final AbstractResourceMetadata metadata = mock(AbstractResourceMetadata.class);
     doReturn(metadata).when(audioVideoProcessor)
         .parseCommandResponse(resource, detectedMimeType, response);
@@ -555,10 +556,10 @@ class AudioVideoProcessorTest {
     assertNull(result.getThumbnails());
 
     // In case there was a command execution issue
-    doThrow(new MediaExtractionException("", null)).when(commandExecutor).execute(eq(command), eq(false), any());
+    doThrow(new MediaExtractionException("", null)).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.extractMetadata(resource, detectedMimeType, true));
-    doReturn(response).when(commandExecutor).execute(eq(command), eq(false), any());
+    doReturn(response).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
 
     // Check that all is well again
     assertNotNull(audioVideoProcessor.extractMetadata(resource, detectedMimeType, true));

@@ -7,12 +7,11 @@ import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
 import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.utils.TempFileUtils;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+
+import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -30,11 +29,15 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 
 /**
  * This class performs thumbnail generation for images and PDF files using ImageMagick.
@@ -53,6 +56,7 @@ class ThumbnailGenerator {
   private static final int COMMAND_RESULT_MAX_COLORS = 6;
   public static final String COLORMAP_PNG = "colormap.png";
   public static final int EXPECTED_CONTENT_MARKERS_COUNT = 5;
+  public static final String MAGICK_TEMPORARY_PATH = "MAGICK_TEMPORARY_PATH";
 
   private static String globalMagickCommand;
   private static Path globalColormapFile;
@@ -129,7 +133,7 @@ class ThumbnailGenerator {
 
     // Try the 'magick' command for ImageMagick 7.
     try {
-      final String im7Response = commandExecutor.execute(Arrays.asList("magick", "-version"), true,
+      final String im7Response = commandExecutor.execute(Arrays.asList("magick", "-version"), emptyMap(),  true,
           MediaProcessorException::new);
       if (im7Response.startsWith("Version: ImageMagick 7")) {
         final String result = "magick";
@@ -147,7 +151,7 @@ class ThumbnailGenerator {
     List<String> paths;
     try {
       paths = splitByNewLine(commandExecutor.execute(Arrays.asList(
-          isWindows ? "where" : "which", "convert"), true, MediaProcessorException::new));
+          isWindows ? "where" : "which", "convert"), emptyMap(), true, MediaProcessorException::new));
     } catch (MediaProcessorException e) {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
@@ -156,7 +160,7 @@ class ThumbnailGenerator {
     // Try the 'convert' command for ImageMagick 6: try executables to find the right one.
     for (String path : paths) {
       try {
-        final String pathResult = commandExecutor.execute(Arrays.asList(path, "-version"), true,
+        final String pathResult = commandExecutor.execute(Arrays.asList(path, "-version"), emptyMap(), true,
             MediaProcessorException::new);
         if (pathResult.startsWith("Version: ImageMagick 6")) {
           LOGGER.info("Found ImageMagic 6. Command: {}", path);
@@ -279,8 +283,8 @@ class ThumbnailGenerator {
     // Generate the thumbnails and read image properties.
     final String contentMarker = UUID.randomUUID().toString();
     final List<String> command = createThumbnailGenerationCommand(thumbnails, removeAlpha, content, contentMarker);
-    final String response = commandExecutor.execute(command, false, message ->
-        new MediaExtractionException("Could not analyze content and generate thumbnails: " + message));
+
+    final String response = executeImageMagick(command);
     final ImageMetadata result = parseCommandResponse(response, contentMarker);
 
     // Check the thumbnails.
@@ -308,6 +312,40 @@ class ThumbnailGenerator {
 
     // Done.
     return result;
+  }
+
+  private String executeImageMagick(List<String> command) throws MediaExtractionException {
+    Path tempDir = createMagickTempDirectory();
+    try {
+      return commandExecutor.execute(command, singletonMap(MAGICK_TEMPORARY_PATH, tempDir.toString()), false,
+              message -> new MediaExtractionException("Could not analyze content and generate thumbnails: " + message));
+    } finally {
+      deleteMagickTempDirectory(tempDir);
+    }
+  }
+
+
+  private Path createMagickTempDirectory() {
+    try {
+      return Files.createTempDirectory("magick_");
+    } catch (IOException e) {
+      throw new UncheckedIOException("Could not create temporary directory for media extraction!", e);
+    }
+  }
+
+  private void deleteMagickTempDirectory(Path tempDir) {
+    try {
+      try (DirectoryStream<Path> files = Files.newDirectoryStream(tempDir)) {
+        for (Path file : files) {
+          LOGGER.warn("Image Magick process left temporary file: {}, it would be deleted.", file);
+          //It uses deleteIfExists, cause this file could be deleted in meantime by OS.
+          Files.deleteIfExists(file);
+        }
+      }
+      Files.delete(tempDir);
+    } catch (IOException e) {
+      LOGGER.warn("Could not clear temporary Image Magick folder: {} cause of: {}", tempDir, e.getMessage(), e);
+    }
   }
 
   long getFileSize(Path file) throws IOException {

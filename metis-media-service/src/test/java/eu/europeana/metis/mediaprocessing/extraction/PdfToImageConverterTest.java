@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -50,23 +51,23 @@ class PdfToImageConverterTest {
 
     // Test right version
     doReturn("9.26").when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), eq(true), any());
+            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertEquals(ghostScriptCommand,
             PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
 
     // Test other commands
     doReturn("8.26").when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), eq(true), any());
+            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
             () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
     doReturn("Other command").when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), eq(true), any());
+            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
             () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
 
     // Test command execution exception
     doThrow(new MediaProcessorException("", null)).when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), eq(true), any());
+            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
             () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
   }
@@ -118,7 +119,7 @@ class PdfToImageConverterTest {
     doReturn(outputFile).when(pdfToImageConverter).createPdfImageFile();
     final List<String> command = Collections.singletonList("command");
     doReturn(command).when(pdfToImageConverter).createPdfConversionCommand(inputFile, outputFile);
-    doReturn("").when(commandExecutor).execute(eq(command), eq(false), any());
+    doReturn("").when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
 
     // Execute happy flow
     assertEquals(outputFile, pdfToImageConverter.convertPdfFirstPageToImage(inputFile));
@@ -135,7 +136,7 @@ class PdfToImageConverterTest {
     // Test for exceptions in executing the execution
     doNothing().when(pdfToImageConverter).removePdfImageFileSilently(any());
     doThrow(MediaExtractionException.class).when(commandExecutor)
-                                           .execute(eq(command), eq(false), any());
+                                           .execute(eq(command), anyMap(), eq(false), any());
     assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertPdfFirstPageToImage(inputFile));
     verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(outputFile);
     verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(any());

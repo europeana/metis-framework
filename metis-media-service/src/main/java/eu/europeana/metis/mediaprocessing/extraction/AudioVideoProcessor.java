@@ -35,6 +35,8 @@ import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static java.util.Collections.emptyMap;
+
 /**
  * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of types {@link
@@ -92,7 +94,7 @@ class AudioVideoProcessor implements MediaProcessor {
     // Check whether ffprobe is installed.
     final String command = "ffprobe";
     final String output;
-    output = commandExecutor.execute(Collections.singletonList(command), true, message ->
+    output = commandExecutor.execute(Collections.singletonList(command), emptyMap(), true, message ->
             new MediaProcessorException("Error while looking for ffprobe tools: " + message));
     int indexVersion = output.lastIndexOf("version ") + "version ".length();
     int version = Character.isDigit(output.charAt(indexVersion)) ?
@@ -165,7 +167,7 @@ class AudioVideoProcessor implements MediaProcessor {
       final Function<String, MediaExtractionException> exceptionProducer = message ->
               new MediaExtractionException("Problem while analyzing audio/video file: " + message);
       final String response = commandExecutor
-              .execute(createAudioVideoAnalysisCommand(resource), false, exceptionProducer);
+              .execute(createAudioVideoAnalysisCommand(resource), emptyMap(),  false, exceptionProducer);
 
       // Parse command result.
       metadata = parseCommandResponse(resource, detectedMimeType, response);

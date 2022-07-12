@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import org.apache.commons.io.IOUtils;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
+  public static final int PROCESS_TERMINATION_TIMEOUT_SECONDS = 30;
 
   private final ProcessFactory processFactory;
 
@@ -32,8 +34,14 @@ class CommandExecutor {
    * before it is forcibly destroyed (i.e. cancelled).
    */
   CommandExecutor(int commandTimeout) {
-    this(commandTimeout, (command, redirectErrorStream) -> new ProcessBuilder(command)
-        .redirectErrorStream(redirectErrorStream).start());
+    this(commandTimeout, CommandExecutor::createProcess);
+  }
+
+  private static Process createProcess(List<String> command, Map<String,String> extraEnvironmentVariables,
+                                       boolean redirectErrorStream) throws IOException {
+    ProcessBuilder processBuilder = new ProcessBuilder(command);
+    extraEnvironmentVariables.forEach((name, value) -> processBuilder.environment().put(name, value));
+    return processBuilder.redirectErrorStream(redirectErrorStream).start();
   }
 
   /**
@@ -53,6 +61,7 @@ class CommandExecutor {
    * Execute a command.
    *
    * @param command The command to execute, as a list of directives and parameters
+   * @param extraEnvironmentVariables allows to set additional environment variables, passed to process.
    * @param redirectErrorStream Whether to return the contents of the error stream as part of the
    * command's output. If this is false, and there is error output but no regular output, an
    * exception will be thrown.
@@ -62,10 +71,10 @@ class CommandExecutor {
    * @return The output of the command as a String.
    * @throws E In case a problem occurs.
    */
-  <E extends Exception> String execute(List<String> command, boolean redirectErrorStream,
-      Function<String, E> exceptionProducer) throws E {
+  <E extends Exception> String execute(List<String> command, Map<String, String> extraEnvironmentVariables,
+                                       boolean redirectErrorStream, Function<String, E> exceptionProducer) throws E {
     try {
-      return executeInternal(command, redirectErrorStream, exceptionProducer);
+      return executeInternal(command, extraEnvironmentVariables, redirectErrorStream, exceptionProducer);
     } catch (IOException | RuntimeException e) {
       final E exceptionToThrow = exceptionProducer
               .apply("Problem while executing command: " + e.getMessage());
@@ -74,18 +83,29 @@ class CommandExecutor {
     }
   }
 
-  <E extends Exception> String executeInternal(List<String> command, boolean redirectErrorStream,
-          Function<String, E> exceptionProducer) throws IOException, E {
+  <E extends Exception> String executeInternal(List<String> command, Map<String, String> extraEnvironmentVariables, boolean redirectErrorStream,
+                                               Function<String, E> exceptionProducer) throws IOException, E {
 
     // Create process and start it.
-    final Process process = processFactory.createProcess(command, redirectErrorStream);
+    final Process process = processFactory.createProcess(command, extraEnvironmentVariables,redirectErrorStream);
 
     // Wait for the process to finish (or the time-out to elapse).
     try {
       if (!process.waitFor(commandTimeout, TimeUnit.SECONDS)) {
-        process.destroyForcibly();
-        throw exceptionProducer.apply("The process did not terminate within the timeout of " +
-                commandTimeout + " seconds. It was forcibly destroyed.");
+        process.destroy();
+        long time = System.currentTimeMillis();
+        if (process.waitFor(PROCESS_TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+          time = System.currentTimeMillis() - time;
+          throw exceptionProducer.apply("The process did not terminate within the timeout of " +
+                  commandTimeout + " seconds. So term signal was send, and " + time + " milliseconds after that " +
+                  "the process eventually terminated.");
+        } else {
+          process.destroyForcibly();
+          throw exceptionProducer.apply("The process did not finish within the timeout of " +
+                  commandTimeout + " seconds. And it did not terminate in additional " + PROCESS_TERMINATION_TIMEOUT_SECONDS
+                  + " seconds after term signal was send. So it was eventually forcibly destroyed.");
+
+        }
       }
     } catch (InterruptedException e) {
       process.destroyForcibly();
@@ -135,6 +155,7 @@ class CommandExecutor {
      * @return The process.
      * @throws IOException In case a problem occurs creating the process.
      */
-    Process createProcess(List<String> command, boolean redirectErrorStream) throws IOException;
+    Process createProcess(List<String> command, Map<String, String> extraEnvironmentVariables,
+                          boolean redirectErrorStream) throws IOException;
   }
 }

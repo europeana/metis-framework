@@ -1,14 +1,18 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static java.util.Collections.emptyMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -55,7 +59,7 @@ class CommandExecutorTest {
   @BeforeEach
   void resetMocks() throws IOException, InterruptedException {
     reset(process, processFactory, commandExecutor);
-    doReturn(process).when(processFactory).createProcess(anyList(), anyBoolean());
+    doReturn(process).when(processFactory).createProcess(anyList(), anyMap(), anyBoolean());
     doReturn(true).when(process).waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
   }
 
@@ -68,10 +72,10 @@ class CommandExecutorTest {
 
     // Perform call
     final String result =
-        commandExecutor.executeInternal(COMMAND_INPUT, false, MediaExtractionException::new);
+        commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), false, MediaExtractionException::new);
 
     // Verify
-    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, false);
+    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(), false);
     verifyNoMoreInteractions(processFactory);
     assertEquals(COMMAND_OUTPUT, result);
   }
@@ -85,10 +89,10 @@ class CommandExecutorTest {
 
     // Perform call
     final String result =
-        commandExecutor.executeInternal(COMMAND_INPUT, true, MediaExtractionException::new);
+        commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new);
 
     // Verify
-    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, true);
+    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(),true);
     verifyNoMoreInteractions(processFactory);
     assertEquals(COMMAND_OUTPUT, result);
   }
@@ -102,10 +106,10 @@ class CommandExecutorTest {
 
     // Perform call
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.executeInternal(COMMAND_INPUT, false, MediaExtractionException::new));
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), false, MediaExtractionException::new));
 
     // Verify
-    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, false);
+    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(),false);
     verifyNoMoreInteractions(processFactory);
   }
 
@@ -118,20 +122,36 @@ class CommandExecutorTest {
 
     // Perform call
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.executeInternal(COMMAND_INPUT, false, MediaExtractionException::new));
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), false, MediaExtractionException::new));
   }
 
   @Test
-  void testCommandWithTimeout() throws InterruptedException {
+  void testCommandWithProcessingTimeout() throws InterruptedException {
 
     // Set up timeout
-    doReturn(false).when(process).waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
+    doReturn(false, true).when(process).waitFor(anyLong(), any(TimeUnit.class));
 
     // Perform call
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.executeInternal(COMMAND_INPUT, true, MediaExtractionException::new));
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new));
 
     // Verify
+    verify(process, times(1)).destroy();
+    verify(process, never()).destroyForcibly();
+  }
+
+  @Test
+  void testCommandWithProcessingTimeoutAndTerminationTimeout() throws InterruptedException {
+
+    // Set up timeout
+    doReturn(false).when(process).waitFor(anyLong(), any(TimeUnit.class));
+
+    // Perform call
+    assertThrows(MediaExtractionException.class,
+            () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new));
+
+    // Verify
+    verify(process, times(1)).destroy();
     verify(process, times(1)).destroyForcibly();
   }
 
@@ -144,7 +164,7 @@ class CommandExecutorTest {
 
     // Perform call
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.executeInternal(COMMAND_INPUT, true, MediaExtractionException::new));
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new));
 
     // Verify
     verify(process, times(1)).destroyForcibly();
@@ -156,17 +176,17 @@ class CommandExecutorTest {
     // Set up the input and the output.
     final List<String> command = Collections.singletonList("command");
     final String result = "result";
-    doReturn(result).when(commandExecutor).executeInternal(any(), anyBoolean(), any());
+    doReturn(result).when(commandExecutor).executeInternal(any(), anyMap(), anyBoolean(), any());
 
     // Run with redirect and verify that the internal call was made.
-    assertEquals(result, commandExecutor.execute(command, true, MediaExtractionException::new));
-    verify(commandExecutor, times(1)).executeInternal(eq(command), eq(true), any());
-    verify(commandExecutor, times(1)).executeInternal(any(), anyBoolean(), any());
+    assertEquals(result, commandExecutor.execute(command, emptyMap(), true, MediaExtractionException::new));
+    verify(commandExecutor, times(1)).executeInternal(eq(command), anyMap(), eq(true), any());
+    verify(commandExecutor, times(1)).executeInternal(any(), anyMap(), anyBoolean(), any());
 
     // Run without redirect and verify that the internal call was made.
-    assertEquals(result, commandExecutor.execute(command, false, MediaExtractionException::new));
-    verify(commandExecutor, times(1)).executeInternal(eq(command), eq(false), any());
-    verify(commandExecutor, times(2)).executeInternal(any(), anyBoolean(), any());
+    assertEquals(result, commandExecutor.execute(command, emptyMap(), false, MediaExtractionException::new));
+    verify(commandExecutor, times(1)).executeInternal(eq(command), anyMap(), eq(false), any());
+    verify(commandExecutor, times(2)).executeInternal(any(), anyMap(), anyBoolean(), any());
   }
 
   @Test
@@ -177,18 +197,18 @@ class CommandExecutorTest {
 
     // Test MediaExtractionException
     doThrow(MediaExtractionException.class).when(commandExecutor)
-        .executeInternal(eq(command), eq(true), any());
+        .executeInternal(eq(command), anyMap(), eq(true), any());
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.execute(command, true, MediaExtractionException::new));
+        () -> commandExecutor.execute(command, emptyMap(), true, MediaExtractionException::new));
 
     // Test IOException
-    doThrow(IOException.class).when(commandExecutor).executeInternal(eq(command), eq(true), any());
+    doThrow(IOException.class).when(commandExecutor).executeInternal(eq(command), anyMap(), eq(true), any());
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.execute(command, true, MediaExtractionException::new));
+        () -> commandExecutor.execute(command, emptyMap(), true, MediaExtractionException::new));
 
     // Test RuntimeException
-    doThrow(RuntimeException.class).when(commandExecutor).executeInternal(eq(command), eq(true), any());
+    doThrow(RuntimeException.class).when(commandExecutor).executeInternal(eq(command), anyMap(), eq(true), any());
     assertThrows(MediaExtractionException.class,
-        () -> commandExecutor.execute(command, true, MediaExtractionException::new));
+        () -> commandExecutor.execute(command, emptyMap(), true, MediaExtractionException::new));
   }
 }
