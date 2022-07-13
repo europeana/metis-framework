@@ -7,6 +7,8 @@ import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
+import eu.europeana.metis.utils.CompressedFileExtension;
+import eu.europeana.metis.utils.CompressedFileExtractor;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -135,7 +137,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
     final Path directory = Files.createDirectories(downloadDirectory);
     final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
     // Note: we allow any download URL for http harvesting. This is the functionality we support.
-    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final URLConnection urlConnection = archiveUrl.openConnection();
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
+    final URLConnection urlConnection = archiveUrl.openConnection();
     try (final InputStream inputStream = urlConnection.getInputStream();
         final OutputStream outputStream = Files.newOutputStream(file)) {
       IOUtils.copyLarge(inputStream, outputStream);

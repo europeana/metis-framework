@@ -38,16 +38,6 @@
             <version>${version.saxon.he}</version>
         </dependency>
         <dependency>
-            <groupId>org.zeroturnaround</groupId>
-            <artifactId>zt-zip</artifactId>
-            <version>1.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.rauschig</groupId>
-            <artifactId>jarchivelib</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
             <version>${version.com.github.tomakehurst.wiremock}</version>

@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.http;
+package eu.europeana.metis.utils;
 
 import java.nio.file.Path;
 import java.util.Arrays;

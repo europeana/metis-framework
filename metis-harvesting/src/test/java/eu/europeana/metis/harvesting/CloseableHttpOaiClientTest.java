@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.oaipmh;
+package eu.europeana.metis.harvesting;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -10,6 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import eu.europeana.metis.harvesting.oaipmh.CloseableHttpOaiClient;
 import eu.europeana.metis.network.NetworkUtil;
 import java.io.IOException;
 import java.util.function.Supplier;

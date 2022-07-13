@@ -4,8 +4,8 @@ import static eu.europeana.metis.utils.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
+import eu.europeana.metis.utils.CompressedFileExtractor;
 import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.utils.ZipFileReader;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
@@ -112,7 +112,7 @@ public class ValidationController {
 
     final List<ByteArrayInputStream> records;
     try {
-      records = new ZipFileReader().getContentFromZipFile(providedZipFile.getInputStream());
+      records = new CompressedFileExtractor().getContentFromZipFile(providedZipFile.getInputStream());
     } catch (IOException e) {
       throw new ServerException(e);
     }
@@ -122,7 +122,8 @@ public class ValidationController {
         
     try {
       ValidationResultList list = validator.batchValidation(targetSchema, null, null, records);
-      // TODO JV Note the condition below means that list.success is ALWAYS true (or a NPE occurs). This is probably not the purpose here.
+      // TODO: Note the condition below means that list.success is ALWAYS true (or a NPE occurs).
+      //  This is probably not the purpose here.
       if (list.getResultList() != null || list.getResultList().isEmpty()) {
         list.setSuccess(true);
       }

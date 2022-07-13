@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.http;
+package eu.europeana.metis.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,6 +10,10 @@ import java.util.Collection;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for {@link CompressedFileExtractor}
+ */
 
 public class CompressedFileExtractorGzTest {
 

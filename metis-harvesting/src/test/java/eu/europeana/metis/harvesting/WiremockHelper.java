@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.oaipmh;
+package eu.europeana.metis.harvesting;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.apache.http.HttpHeaders.CONTENT_TYPE;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.oaipmh;
+package eu.europeana.metis.harvesting;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -10,8 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.oaipmh.OaiHarvest;
+import eu.europeana.metis.harvesting.oaipmh.OaiHarvesterImpl;
 import eu.europeana.metis.harvesting.oaipmh.OaiHarvesterImpl.ConnectionClientFactory;
+import eu.europeana.metis.harvesting.oaipmh.OaiRecord;
+import eu.europeana.metis.harvesting.oaipmh.OaiRepository;
 import eu.europeana.metis.network.NetworkUtil;
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,8 +1,8 @@
-package eu.europeana.metis.harvesting.oaipmh;
+package eu.europeana.metis.harvesting;
 
 import static org.xmlunit.matchers.CompareMatcher.isSimilarTo;
 
-import eu.europeana.metis.harvesting.HarvestingClientSettings;
+import eu.europeana.metis.harvesting.oaipmh.CloseableHttpOaiClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
