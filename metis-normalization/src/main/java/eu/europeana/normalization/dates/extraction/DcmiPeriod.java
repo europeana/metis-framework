@@ -1,6 +1,6 @@
 package eu.europeana.normalization.dates.extraction;
 
-import eu.europeana.normalization.dates.edtf.Instant;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 
 /**
  * A time interval, representing a DCMI period. They may be open.
@@ -9,21 +9,21 @@ import eu.europeana.normalization.dates.edtf.Instant;
  */
 public final class DcmiPeriod {
 
-  private final Instant start;
-  private final Instant end;
+  private final InstantEDTFDate start;
+  private final InstantEDTFDate end;
   private final String name;
 
   /**
    * Create a new period. To create an open interval you may set one of the boundaries null.
    */
-  public DcmiPeriod(Instant start, Instant end) {
+  public DcmiPeriod(InstantEDTFDate start, InstantEDTFDate end) {
     this(start, end, null);
   }
 
   /**
    * Create a new period with an optional name. To create an open interval you may set one of the bounbaries null.
    */
-  public DcmiPeriod(Instant start, Instant end, String name) {
+  public DcmiPeriod(InstantEDTFDate start, InstantEDTFDate end, String name) {
     if (start == null && end == null) {
       throw new IllegalStateException("A period must be bounded at least at one end");
     }
@@ -38,14 +38,14 @@ public final class DcmiPeriod {
   /**
    * Returns the start date of the period or null, if it has only an upper bound.
    */
-  public Instant getStart() {
+  public InstantEDTFDate getStart() {
     return start;
   }
 
   /**
    * Returns the end date of the period or null, if it has only a lower bound.
    */
-  public Instant getEnd() {
+  public InstantEDTFDate getEnd() {
     return end;
   }
 

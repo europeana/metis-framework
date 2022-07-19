@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.Interval;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,13 +22,13 @@ public class PatternBriefDateRange implements DateExtractor {
     Matcher m = briefDateRangePattern.matcher(inputValue.trim());
 
     if (m.matches()) {
-      Date dStart = new Date();
+      EDTFDatePart dStart = new EDTFDatePart();
       dStart.setYear(Integer.parseInt(m.group("start")));
       int endYear = Integer.parseInt(m.group("end"));
       if (endYear > 12) {
         int startYear = dStart.getYear() % 100;
         if (startYear < endYear) {
-          Date dEnd = new Date();
+          EDTFDatePart dEnd = new EDTFDatePart();
           dEnd.setYear((dStart.getYear() / 100) * 100 + endYear);
 
           if (m.group("uncertain") != null || m.group("uncertain2") != null) {
@@ -36,7 +36,7 @@ public class PatternBriefDateRange implements DateExtractor {
             dEnd.setUncertain(true);
           }
           return new Match(MatchId.Brief_Date_Range, inputValue,
-              new Interval(new Instant(dStart), new Instant(dEnd)));
+              new IntervalEDTFDate(new InstantEDTFDate(dStart), new InstantEDTFDate(dEnd)));
         }
       }
     }

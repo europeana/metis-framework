@@ -1,9 +1,9 @@
 package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.edtf.EdtfParser;
-import eu.europeana.normalization.dates.edtf.EdtfSerializer;
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.TemporalEntity;
+import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
+import eu.europeana.normalization.dates.edtf.EDTFParser;
+import eu.europeana.normalization.dates.edtf.EDTFSerializer;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -73,8 +73,8 @@ public class EdmSerializer {
      * Convert a value of this datatype out to lexical form.
      */
     public String unparse(Object value) {
-      TemporalEntity r = (TemporalEntity) value;
-      return EdtfSerializer.serialize(r);
+      AbstractEDTFDate r = (AbstractEDTFDate) value;
+      return EDTFSerializer.serialize(r);
     }
 
     /**
@@ -84,7 +84,7 @@ public class EdmSerializer {
      */
     public Object parse(String lexicalForm) throws DatatypeFormatException {
       try {
-        TemporalEntity parsed = new EdtfParser().parse(lexicalForm);
+        AbstractEDTFDate parsed = new EDTFParser().parse(lexicalForm);
         return parsed;
       } catch (ParseException e) {
         throw new DatatypeFormatException(lexicalForm, instance, e.getMessage());
@@ -93,9 +93,9 @@ public class EdmSerializer {
   }
 
   public static Resource serialize(EdmTemporalEntity edmTemporalEntity) {
-    TemporalEntity edtf = edmTemporalEntity.getEdtf();
+    AbstractEDTFDate edtf = edmTemporalEntity.getEdtf();
     Model m = ModelFactory.createDefaultModel();
-    String edtfString = EdtfSerializer.serialize(edtf);
+    String edtfString = EDTFSerializer.serialize(edtf);
     String uri;
     try {
       uri = "#" + URLEncoder.encode(edtfString, StandardCharsets.UTF_8.name());
@@ -114,14 +114,14 @@ public class EdmSerializer {
 
     Integer startCentury = null;
     Integer endCentury = null;
-    Instant firstDay = edtf.getFirstDay();
-    Instant lastDay = edtf.getLastDay();
+    InstantEDTFDate firstDay = edtf.getFirstDay();
+    InstantEDTFDate lastDay = edtf.getLastDay();
     if (firstDay != null) {
-      r.addProperty(Edm.begin, EdtfSerializer.serialize(firstDay));
+      r.addProperty(Edm.begin, EDTFSerializer.serialize(firstDay));
       startCentury = firstDay.getCentury();
     }
     if (lastDay != null) {
-      r.addProperty(Edm.end, EdtfSerializer.serialize(lastDay));
+      r.addProperty(Edm.end, EDTFSerializer.serialize(lastDay));
       endCentury = lastDay.getCentury();
     }
 

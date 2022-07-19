@@ -2,8 +2,8 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Instant;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -52,26 +52,26 @@ public class PatternMonthName implements DateExtractor {
     for (Month month : Month.values()) {
       Matcher m = patternDayMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        Date d = new Date();
+        EDTFDatePart d = new EDTFDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         d.setMonth(month.getValue());
         d.setDay(Integer.parseInt(m.group("day")));
-        return new Match(MatchId.MONTH_NAME, inputValue, new Instant(d));
+        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEDTFDate(d));
       }
       m = patternMonthDayYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        Date d = new Date();
+        EDTFDatePart d = new EDTFDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         d.setMonth(month.getValue());
         d.setDay(Integer.parseInt(m.group("day")));
-        return new Match(MatchId.MONTH_NAME, inputValue, new Instant(d));
+        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEDTFDate(d));
       }
       m = patternMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        Date d = new Date();
+        EDTFDatePart d = new EDTFDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         d.setMonth(month.getValue());
-        return new Match(MatchId.MONTH_NAME, inputValue, new Instant(d));
+        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEDTFDate(d));
       }
     }
     return null;

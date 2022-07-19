@@ -10,12 +10,12 @@ import java.io.Serializable;
 /**
  * An EDTF date that represents a period of time specified by a start and end date with various degrees of precision
  */
-public class Interval extends TemporalEntity implements Serializable {
+public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
 
-  Instant start;
-  Instant end;
+  InstantEDTFDate start;
+  InstantEDTFDate end;
 
-  public Interval(Instant start, Instant end) {
+  public IntervalEDTFDate(InstantEDTFDate start, InstantEDTFDate end) {
     super();
     this.start = start;
     this.end = end;
@@ -26,39 +26,39 @@ public class Interval extends TemporalEntity implements Serializable {
     return (start == null || start.isTimeOnly()) && (end == null || end.isTimeOnly());
   }
 
-  public Instant getStart() {
+  public InstantEDTFDate getStart() {
     return start;
   }
 
-  public void setStart(Instant start) {
+  public void setStart(InstantEDTFDate start) {
     this.start = start;
   }
 
-  public Instant getEnd() {
+  public InstantEDTFDate getEnd() {
     return end;
   }
 
-  public void setEnd(Instant end) {
+  public void setEnd(InstantEDTFDate end) {
     this.end = end;
   }
 
   @Override
   public void setApproximate(boolean approx) {
-    if (start != null && start.date != null) {
-      start.date.setApproximate(approx);
+    if (start != null && start.getEdtfDatePart() != null) {
+      start.getEdtfDatePart().setApproximate(approx);
     }
-    if (end != null && end.date != null) {
-      end.date.setApproximate(approx);
+    if (end != null && end.getEdtfDatePart() != null) {
+      end.getEdtfDatePart().setApproximate(approx);
     }
   }
 
   @Override
   public void setUncertain(boolean uncertain) {
-    if (start != null && start.date != null) {
-      start.date.setUncertain(uncertain);
+    if (start != null && start.getEdtfDatePart() != null) {
+      start.getEdtfDatePart().setUncertain(uncertain);
     }
-    if (end != null && end.date != null) {
-      end.date.setUncertain(uncertain);
+    if (end != null && end.getEdtfDatePart() != null) {
+      end.getEdtfDatePart().setUncertain(uncertain);
     }
   }
 
@@ -83,14 +83,14 @@ public class Interval extends TemporalEntity implements Serializable {
   }
 
   @Override
-  public TemporalEntity copy() {
+  public AbstractEDTFDate copy() {
     try {
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       ObjectOutputStream out = new ObjectOutputStream(bytes);
       out.writeObject(this);
       out.close();
       ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      Interval copy = (Interval) in.readObject();
+      IntervalEDTFDate copy = (IntervalEDTFDate) in.readObject();
       return copy;
     } catch (ClassNotFoundException | IOException e) {
       throw new RuntimeException(e.getMessage(), e);
@@ -98,12 +98,12 @@ public class Interval extends TemporalEntity implements Serializable {
   }
 
   @Override
-  public Instant getFirstDay() {
+  public InstantEDTFDate getFirstDay() {
     return start == null ? null : start.getFirstDay();
   }
 
   @Override
-  public Instant getLastDay() {
+  public InstantEDTFDate getLastDay() {
     return end == null ? null : end.getLastDay();
   }
 

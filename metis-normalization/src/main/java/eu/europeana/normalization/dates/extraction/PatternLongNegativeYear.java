@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.Interval;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,24 +24,24 @@ public class PatternLongNegativeYear implements DateExtractor {
     Matcher m;
     m = patYyyyyy.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYear(Integer.parseInt(m.group("year")));
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.LongYear, inputValue, new Instant(d));
+      return new Match(MatchId.LongYear, inputValue, new InstantEDTFDate(d));
     }
     m = patYyyyyyRange.matcher(inputValue);
     if (m.matches()) {
-      Date start = new Date();
+      EDTFDatePart start = new EDTFDatePart();
       start.setYear(Integer.parseInt(m.group("year")));
-      Date end = new Date();
+      EDTFDatePart end = new EDTFDatePart();
       end.setYear(Integer.parseInt(m.group("year2")));
-      Interval interval = new Interval(new Instant(start), new Instant(end));
+      IntervalEDTFDate intervalEDTFDate = new IntervalEDTFDate(new InstantEDTFDate(start), new InstantEDTFDate(end));
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-        interval.setUncertain(true);
+        intervalEDTFDate.setUncertain(true);
       }
-      return new Match(MatchId.LongYear, inputValue, interval);
+      return new Match(MatchId.LongYear, inputValue, intervalEDTFDate);
     }
     return null;
   }

@@ -1,6 +1,6 @@
 package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.edtf.TemporalEntity;
+import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
 
 /**
  * a data class that contains a normalised date value. It contains an EDTF date plus a label.
@@ -8,18 +8,18 @@ import eu.europeana.normalization.dates.edtf.TemporalEntity;
 public class EdmTemporalEntity {
 
   protected String label;
-  protected TemporalEntity edtf;
+  protected AbstractEDTFDate edtf;
 
   public EdmTemporalEntity() {
   }
 
-  public EdmTemporalEntity(String label, TemporalEntity edtf) {
+  public EdmTemporalEntity(String label, AbstractEDTFDate edtf) {
     super();
     this.label = label;
     this.edtf = edtf;
   }
 
-  public EdmTemporalEntity(TemporalEntity edtf) {
+  public EdmTemporalEntity(AbstractEDTFDate edtf) {
     this(null, edtf);
   }
 
@@ -31,11 +31,11 @@ public class EdmTemporalEntity {
     this.label = label;
   }
 
-  public TemporalEntity getEdtf() {
+  public AbstractEDTFDate getEdtf() {
     return edtf;
   }
 
-  public void setEdtf(TemporalEntity edtf) {
+  public void setEdtf(AbstractEDTFDate edtf) {
     this.edtf = edtf;
   }
 

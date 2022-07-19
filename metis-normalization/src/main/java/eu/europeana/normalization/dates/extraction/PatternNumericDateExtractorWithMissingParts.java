@@ -2,8 +2,8 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Instant;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +32,7 @@ public class PatternNumericDateExtractorWithMissingParts implements DateExtracto
     for (Pattern pat : patterns) {
       Matcher m = pat.matcher(inputValue);
       if (m.matches()) {
-        Date d = new Date();
+        EDTFDatePart d = new EDTFDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         if (m.group("month") != null && m.group("day") != null) {
           d.setMonth(Integer.parseInt(clean(m.group("month"))));
@@ -50,7 +50,7 @@ public class PatternNumericDateExtractorWithMissingParts implements DateExtracto
         if (ambigMatcher.matches()) {
           return null;// these cases are ambiguous. Example '187?'
         }
-        return new Match(MatchId.Numeric_AllVariants, inputValue, new Instant(d));
+        return new Match(MatchId.Numeric_AllVariants, inputValue, new InstantEDTFDate(d));
       }
     }
     return null;

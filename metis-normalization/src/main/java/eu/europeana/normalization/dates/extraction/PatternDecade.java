@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Date.YearPrecision;
-import eu.europeana.normalization.dates.edtf.Instant;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,23 +22,23 @@ public class PatternDecade implements DateExtractor {
   public Match extract(String inputValue) {
     Matcher m = patUncertainEnding.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYearPrecision(YearPrecision.DECADE);
       d.setYear(Integer.parseInt(m.group("year")) * 10);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Decade, inputValue, new Instant(d));
+      return new Match(MatchId.Decade, inputValue, new InstantEDTFDate(d));
     }
     m = patUncertainBegining.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYearPrecision(YearPrecision.DECADE);
       d.setYear(Integer.parseInt(m.group("year")) * 10);
       if (m.group("uncertain") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Decade, inputValue, new Instant(d));
+      return new Match(MatchId.Decade, inputValue, new InstantEDTFDate(d));
     }
     return null;
   }

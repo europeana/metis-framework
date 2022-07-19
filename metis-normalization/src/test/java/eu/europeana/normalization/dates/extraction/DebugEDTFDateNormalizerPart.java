@@ -4,7 +4,7 @@ import eu.europeana.normalization.dates.DatesNormaliser;
 import eu.europeana.normalization.dates.Match;
 import org.junit.jupiter.api.Test;
 
-public class DebugDateNormalizer {
+public class DebugEDTFDateNormalizerPart {
 
 	@Test
 	void extractorsTest() throws Exception {

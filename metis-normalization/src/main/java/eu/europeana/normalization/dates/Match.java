@@ -1,8 +1,8 @@
 package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.Interval;
-import eu.europeana.normalization.dates.edtf.TemporalEntity;
+import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
 
 /**
  * a data class that contains the result of a normalisation. It contains the pattern that was matched, if some cleaning was done,
@@ -30,14 +30,14 @@ public class Match {
 		this.extracted = extracted;
 	}
 
-	public Match(MatchId matchId, String input, TemporalEntity extracted) {
+	public Match(MatchId matchId, String input, AbstractEDTFDate extracted) {
 		super();
 		this.matchId = matchId;
 		this.input = input;
 		this.extracted = extracted == null ? null : new EdmTemporalEntity(extracted);
 	}
 
-	public Match(MatchId matchId, CleanId cleanOperation, String input, TemporalEntity extracted) {
+	public Match(MatchId matchId, CleanId cleanOperation, String input, AbstractEDTFDate extracted) {
 		super();
 		this.matchId = matchId;
 		this.cleanOperation = cleanOperation;
@@ -97,26 +97,29 @@ public class Match {
 		if (extracted == null || extracted.getEdtf().isTimeOnly()) {
 			return false;
 		}
-		if (extracted.getEdtf() instanceof Instant) {
-			return ((Instant) extracted.getEdtf()).getDate().getDay() != null;
+		if (extracted.getEdtf() instanceof InstantEDTFDate) {
+			return ((InstantEDTFDate) extracted.getEdtf()).getEdtfDatePart().getDay() != null;
 		} else {
-			Interval interval = (Interval) extracted.getEdtf();
-			if (interval.getStart() != null && interval.getEnd() != null) {
-				if (interval.getStart().getDate().isUnkown() || interval.getStart().getDate().isUnspecified()) {
+			IntervalEDTFDate intervalEDTFDate = (IntervalEDTFDate) extracted.getEdtf();
+			if (intervalEDTFDate.getStart() != null && intervalEDTFDate.getEnd() != null) {
+				if (intervalEDTFDate.getStart().getEdtfDatePart().isUnknown() || intervalEDTFDate.getStart().getEdtfDatePart()
+																																												 .isUnspecified()) {
 					return false;
 				}
-				if (interval.getEnd().getDate().isUnkown() || interval.getEnd().getDate().isUnspecified()) {
+				if (intervalEDTFDate.getEnd().getEdtfDatePart().isUnknown() || intervalEDTFDate.getEnd().getEdtfDatePart()
+																																											 .isUnspecified()) {
 					return false;
 				}
-				if (interval.getStart().getDate().getYearPrecision() != null
-						|| interval.getEnd().getDate().getYearPrecision() != null) {
+				if (intervalEDTFDate.getStart().getEdtfDatePart().getYearPrecision() != null
+						|| intervalEDTFDate.getEnd().getEdtfDatePart().getYearPrecision() != null) {
 					return false;
 				}
-				if (interval.getStart().getDate().getDay() != null && interval.getStart().getDate().getDay() != null) {
+				if (intervalEDTFDate.getStart().getEdtfDatePart().getDay() != null
+						&& intervalEDTFDate.getStart().getEdtfDatePart().getDay() != null) {
 					return true;
 				}
-				if (interval.getStart().getDate().getMonth() == null
-						&& interval.getStart().getDate().getMonth() == null) {
+				if (intervalEDTFDate.getStart().getEdtfDatePart().getMonth() == null
+						&& intervalEDTFDate.getStart().getEdtfDatePart().getMonth() == null) {
 					return true;
 				}
 			}

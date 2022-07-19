@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * This class implements the deserialization of EDTF strings into the EDTF structure centred on the TemporalEntity class.
  */
-public class EdtfParser {
+public class EDTFParser {
 
 	private static final Pattern DATE_PATTERN = Pattern
 			.compile("((?<year1>\\-?\\d{4})-(?<month1>\\d{2})-(?<day1>\\d{2})|"
@@ -22,7 +22,7 @@ public class EdtfParser {
 	//TODO:millis  (\\.\\n{3})?
 	//TODO:timezone			+ "(?<year>\\n{4})-(?<month>\\n{2})|(?<year>\\n{4}))(?<modifier>[\\?%~]?)");
 
-	public TemporalEntity parse(String edtfString) throws ParseException {
+	public AbstractEDTFDate parse(String edtfString) throws ParseException {
 		if (StringUtils.isEmpty(edtfString)) {
 			throw new ParseException("Not input given", 0);
 		}
@@ -32,38 +32,39 @@ public class EdtfParser {
 		return parseInstant(edtfString);
 	}
 
-	protected Instant parseInstant(String edtfString) throws ParseException {
+	protected InstantEDTFDate parseInstant(String edtfString) throws ParseException {
 		if (edtfString.contains("T")) {
 			String datePart = edtfString.substring(0, edtfString.indexOf('T'));
 			String timePart = edtfString.substring(edtfString.indexOf('T') + 1);
 			if (datePart.isEmpty()) {
-				return new Instant(parseTime(timePart));
+				return new InstantEDTFDate(parseTime(timePart));
 			}
-			return new Instant(parseDate(datePart), parseTime(timePart));
+			return new InstantEDTFDate(parseDate(datePart), parseTime(timePart));
 		} else if (edtfString.contains(":")) {
-			return new Instant(parseTime(edtfString));
+			return new InstantEDTFDate(parseTime(edtfString));
 		} else {
-			return new Instant(parseDate(edtfString));
+			return new InstantEDTFDate(parseDate(edtfString));
 		}
 	}
 
-	protected Interval parseInterval(String edtfString) throws ParseException {
+	protected IntervalEDTFDate parseInterval(String edtfString) throws ParseException {
 		String startPart = edtfString.substring(0, edtfString.indexOf('/'));
 		String endPart = edtfString.substring(edtfString.indexOf('/') + 1);
-		Instant start = parseInstant(startPart);
-		Instant end = parseInstant(endPart);
-		if ((end.date.isUnkown() || end.date.isUnspecified()) && (start.date.isUnkown() || start.date.isUnspecified())) {
+		InstantEDTFDate start = parseInstant(startPart);
+		InstantEDTFDate end = parseInstant(endPart);
+		if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
+				|| start.getEdtfDatePart().isUnspecified())) {
 			throw new ParseException(edtfString, 0);
 		}
-		return new Interval(start, end);
+		return new IntervalEDTFDate(start, end);
 	}
 
-	protected Time parseTime(String edtfString) throws ParseException {
+	protected EDTFTimePart parseTime(String edtfString) throws ParseException {
 		Matcher m = TIME_PATTERN.matcher(edtfString);
 		if (!m.matches()) {
 			throw new ParseException("For input " + edtfString, 0);
 		}
-		Time t = new Time();
+		EDTFTimePart t = new EDTFTimePart();
 		if (!StringUtils.isEmpty(m.group("hour3"))) {
 			t.setHour(Integer.parseInt(m.group("hour3")));
 		} else if (!StringUtils.isEmpty(m.group("hour2"))) {
@@ -81,14 +82,14 @@ public class EdtfParser {
 		return t;
 	}
 
-	protected Date parseDate(String edtfString) throws ParseException {
+	protected EDTFDatePart parseDate(String edtfString) throws ParseException {
 		if (edtfString.isEmpty()) {
-			return Date.UNKNOWN;
+			return EDTFDatePart.getUnknownInstance();
 		}
 		if (edtfString.equals("..")) {
-			return Date.UNSPECIFIED;
+			return EDTFDatePart.getUnspecifiedInstance();
 		}
-		Date d = new Date();
+		EDTFDatePart d = new EDTFDatePart();
 		if (edtfString.startsWith("Y")) {
 			d.setYear(Integer.parseInt(edtfString.substring(1)));
 		} else {

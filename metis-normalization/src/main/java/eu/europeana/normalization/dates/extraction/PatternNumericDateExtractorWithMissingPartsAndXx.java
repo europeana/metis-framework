@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Date.YearPrecision;
-import eu.europeana.normalization.dates.edtf.Instant;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +48,7 @@ public class PatternNumericDateExtractorWithMissingPartsAndXx implements DateExt
     for (Pattern pat : patterns) {
       Matcher m = pat.matcher(inputValue);
       if (m.matches()) {
-        Date d = new Date();
+        EDTFDatePart d = new EDTFDatePart();
 
         String year = m.group("year");
         Matcher mtc = unknownChars.matcher(year);
@@ -89,7 +89,7 @@ public class PatternNumericDateExtractorWithMissingPartsAndXx implements DateExt
         if (ambigMatcher.matches()) {
           return null;// these cases are ambiguous. Examples '187-?', '187?'
         }
-        return new Match(MatchId.Numeric_AllVariants_Xx, inputValue, new Instant(d));
+        return new Match(MatchId.Numeric_AllVariants_Xx, inputValue, new InstantEDTFDate(d));
       }
     }
     return null;

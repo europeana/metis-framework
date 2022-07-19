@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.Interval;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,9 +85,9 @@ public class PatternNumericDateRangeExtractorWithMissingParts implements DateExt
     for (Pattern pat : patterns) {
       Matcher m = pat.matcher(inputValue.trim());
       if (m.matches()) {
-        Date dStart = new Date();
+        EDTFDatePart dStart = new EDTFDatePart();
         if (m.group("unspecified") != null) {
-          dStart = Date.UNSPECIFIED;
+          dStart = EDTFDatePart.getUnspecifiedInstance();
         } else {
           dStart.setYear(Integer.parseInt(m.group("year")));
           if (m.group("month") != null && m.group("day") != null) {
@@ -102,9 +102,9 @@ public class PatternNumericDateRangeExtractorWithMissingParts implements DateExt
             dStart.setUncertain(true);
           }
         }
-        Date dEnd = new Date();
+        EDTFDatePart dEnd = new EDTFDatePart();
         if (m.group("unspecified2") != null) {
-          dEnd = Date.UNSPECIFIED;
+          dEnd = EDTFDatePart.getUnspecifiedInstance();
         } else {
           dEnd.setYear(Integer.parseInt(m.group("year2")));
           if (m.group("month2") != null && m.group("day2") != null) {
@@ -124,7 +124,7 @@ public class PatternNumericDateRangeExtractorWithMissingParts implements DateExt
           return null;// these cases are ambiguous. Example '187-?'
         }
         return new Match(MatchId.Numeric_Range_AllVariants, inputValue,
-            new Interval(new Instant(dStart), new Instant(dEnd)));
+            new IntervalEDTFDate(new InstantEDTFDate(dStart), new InstantEDTFDate(dEnd)));
       }
     }
     return null;

@@ -2,10 +2,10 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Date.YearPrecision;
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.Interval;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,50 +37,50 @@ public class PatternCentury implements DateExtractor {
     Matcher m;
     m = patYyyy.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear(Integer.parseInt(m.group("century")) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Numeric, inputValue, new Instant(d));
+      return new Match(MatchId.Century_Numeric, inputValue, new InstantEDTFDate(d));
     }
     m = patEnglish.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear((Integer.parseInt(m.group("century")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Numeric, inputValue, new Instant(d));
+      return new Match(MatchId.Century_Numeric, inputValue, new InstantEDTFDate(d));
     }
     m = patRoman.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear((RomanToNumber.romanToDecimal(m.group("century")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Roman, inputValue, new Instant(d));
+      return new Match(MatchId.Century_Roman, inputValue, new InstantEDTFDate(d));
     }
     m = patRomanClean.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear((RomanToNumber.romanToDecimal(m.group("century")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Roman, inputValue, new Instant(d));
+      return new Match(MatchId.Century_Roman, inputValue, new InstantEDTFDate(d));
     }
     m = patRomanRange.matcher(inputValue);
     if (m.matches()) {
-      Date start = new Date();
+      EDTFDatePart start = new EDTFDatePart();
       start.setYearPrecision(YearPrecision.CENTURY);
       start.setYear((RomanToNumber.romanToDecimal(m.group("century1")) - 1) * 100);
-      Date end = new Date();
+      EDTFDatePart end = new EDTFDatePart();
       end.setYearPrecision(YearPrecision.CENTURY);
       end.setYear((RomanToNumber.romanToDecimal(m.group("century2")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
@@ -88,7 +88,7 @@ public class PatternCentury implements DateExtractor {
         end.setUncertain(true);
       }
       return new Match(MatchId.Century_Range_Roman, inputValue,
-          new Interval(new Instant(start), new Instant(end)));
+          new IntervalEDTFDate(new InstantEDTFDate(start), new InstantEDTFDate(end)));
     }
     return null;
   }

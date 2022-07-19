@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.Date;
-import eu.europeana.normalization.dates.edtf.Instant;
-import eu.europeana.normalization.dates.edtf.Interval;
+import eu.europeana.normalization.dates.edtf.EDTFDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,33 +74,33 @@ public class PatternBcAd implements DateExtractor {
   public Match extract(String inputValue) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       if (bcAbbreviations.contains(m.group("era").toLowerCase())) {
         d.setYear(-Integer.parseInt(m.group("year")));
       } else {
         d.setYear(Integer.parseInt(m.group("year")));
       }
-      return new Match(MatchId.BcAd, inputValue, new Instant(d));
+      return new Match(MatchId.BcAd, inputValue, new InstantEDTFDate(d));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
-      Date d = new Date();
+      EDTFDatePart d = new EDTFDatePart();
       if (isBc(m.group("era"))) {
         d.setYear(-Integer.parseInt(m.group("year")));
       } else {
         d.setYear(Integer.parseInt(m.group("year")));
       }
-      Instant start = new Instant(d);
+      InstantEDTFDate start = new InstantEDTFDate(d);
 
-      d = new Date();
+      d = new EDTFDatePart();
       if (isBc(m.group("era2"))) {
         d.setYear(-Integer.parseInt(m.group("year2")));
       } else {
         d.setYear(Integer.parseInt(m.group("year2")));
       }
-      Instant end = new Instant(d);
+      InstantEDTFDate end = new InstantEDTFDate(d);
 
-      return new Match(MatchId.BcAd, inputValue, new Interval(start, end));
+      return new Match(MatchId.BcAd, inputValue, new IntervalEDTFDate(start, end));
     }
     return null;
   }
