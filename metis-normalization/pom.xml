@@ -55,5 +55,10 @@
       <artifactId>jena-iri</artifactId>
       <version>${version.jena.iri}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-core</artifactId>
+      <version>3.11.0</version>
+    </dependency>
   </dependencies>
 </project>
