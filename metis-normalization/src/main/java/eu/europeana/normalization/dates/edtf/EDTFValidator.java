@@ -1,192 +1,203 @@
 package eu.europeana.normalization.dates.edtf;
 
 import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
+import java.time.Month;
 import java.time.Year;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.EnumSet;
 
 /**
- * This class validates instances of TemporalEntity. It validates the following: . If the start date of an interval is earlier
- * than the end date. . If a date has a month between 1 and 12 . If a date has a possible month day. . Checks if a day 30 or 31 is
- * possible for the month of the date, and checks that the 29th of February is on a leap year. . If a date is not in the future.
+ * This class validates instances of EDTF dates.
+ * <p>It validates the following:
+ * <ul>
+ *  <li>If the start date of an interval is earlier than the end date.</li>
+ *  <li>If a date has a month between 1 and 12.</li>
+ *  <li>If a date has a possible month day.</li>
+ *  <li>Checks if a day 30 or 31 is possible for the month of the date, and checks that the 29th of February is on a leap year.</li>
+ *  <li>If a date is not in the future.</li>
+ * </ul>
+ * </p>
  */
-public class EDTFValidator {
+public final class EDTFValidator {
 
-  public static boolean validate(AbstractEDTFDate edtf, boolean allowFutureDates) {
-    boolean isValid = false;
-    if (edtf instanceof InstantEDTFDate) {
-      isValid = validateInstant((InstantEDTFDate) edtf, true);
+  private static final EnumSet<Month> MONTHS_WITH_31_DAYS = EnumSet.of(Month.JANUARY, Month.MARCH, Month.MAY, Month.JULY,
+      Month.AUGUST, Month.OCTOBER, Month.DECEMBER);
+  // TODO: 20/07/2022 Check if we need a validator. Shouldn't the creation or matching code for edtf be valid in the fist place?
+
+  private EDTFValidator() {
+  }
+
+  public static boolean validate(AbstractEDTFDate edtfDate, boolean allowFutureDates) {
+    boolean isValid;
+    if (edtfDate instanceof InstantEDTFDate) {
+      isValid = validateInstant((InstantEDTFDate) edtfDate, true);
     } else {
-      isValid = validateInterval((IntervalEDTFDate) edtf);
+      isValid = validateInterval((IntervalEDTFDate) edtfDate);
     }
-    return isValid && (allowFutureDates || validateNotInFuture(edtf));
+    return isValid && (allowFutureDates || validateNotInFuture(edtfDate));
   }
 
-  private static boolean validateNotInFuture(AbstractEDTFDate edtf) {
-    if (edtf instanceof InstantEDTFDate) {
-      return validateInstantNotInFuture((InstantEDTFDate) edtf);
+  private static boolean validateNotInFuture(AbstractEDTFDate edtfDate) {
+    if (edtfDate instanceof InstantEDTFDate) {
+      return validateInstantNotInFuture((InstantEDTFDate) edtfDate);
     }
-    return validateIntervalNotInFuture((IntervalEDTFDate) edtf);
+    return validateIntervalNotInFuture((IntervalEDTFDate) edtfDate);
   }
 
-  private static boolean validateInterval(IntervalEDTFDate edtf) {
-    if (edtf.getStart() == null || edtf.getEnd() == null || !validateInstant(edtf.getStart(), false)
-        || !validateInstant(edtf.getEnd(), false)) {
-      return false;
-    }
-
-    EDTFDatePart sEDTFDatePart = edtf.getStart().getEdtfDatePart();
-    EDTFDatePart eEDTFDatePart = edtf.getEnd().getEdtfDatePart();
-    if ((eEDTFDatePart.isUnknown() || eEDTFDatePart.isUnspecified()) && (sEDTFDatePart.isUnknown()
-        || sEDTFDatePart.isUnspecified())) {
-      return false;
-    }
-    if ((eEDTFDatePart.isUnknown() || eEDTFDatePart.isUnspecified()) && !(sEDTFDatePart.isUnknown()
-        || sEDTFDatePart.isUnspecified())) {
-      return true;
-    }
-    if ((sEDTFDatePart.isUnknown() || sEDTFDatePart.isUnspecified()) && !(eEDTFDatePart.isUnknown()
-        || eEDTFDatePart.isUnspecified())) {
-      return true;
-    }
-
-    if (sEDTFDatePart.getYearPrecision() == null && eEDTFDatePart.getYearPrecision() == null) {
-      if (sEDTFDatePart.getYear() > eEDTFDatePart.getYear()) {
-        return false;
+  // TODO: 20/07/2022 It checks interval of date parts but not time parts??
+  private static boolean validateInterval(IntervalEDTFDate intervalEDTFDate) {
+    final InstantEDTFDate startDate = intervalEDTFDate.getStart();
+    final InstantEDTFDate endDate = intervalEDTFDate.getEnd();
+    final boolean isIntervalValid;
+    if (startDate != null && validateInstant(startDate, false) && endDate != null && validateInstant(endDate, false)) {
+      EDTFDatePart startDatePart = startDate.getEdtfDatePart();
+      EDTFDatePart endDatePart = endDate.getEdtfDatePart();
+      final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
+      final boolean isEndDatePartSpecific = !endDatePart.isUnknown() && !endDatePart.isUnspecified();
+      if (isStartDatePartSpecific && isEndDatePartSpecific) {
+        if (startDatePart.getYearPrecision() == null && endDatePart.getYearPrecision() == null) {
+          isIntervalValid = validateSpecificIntervalDates(startDatePart, endDatePart);
+        } else {
+          //Validate year using precision instead
+          final Integer adjustedStartYear = adjustYearWithPrecision(startDatePart.getYear(), startDatePart.getYearPrecision());
+          final Integer adjustedEndYear = adjustYearWithPrecision(endDatePart.getYear(), endDatePart.getYearPrecision());
+          isIntervalValid = adjustedStartYear <= adjustedEndYear;
+        }
+      } else {
+        isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
       }
-      if (sEDTFDatePart.getYear() < eEDTFDatePart.getYear()) {
-        return true;
-      }
-      if (sEDTFDatePart.getMonth() == null || eEDTFDatePart.getMonth() == null
-          || sEDTFDatePart.getMonth() < eEDTFDatePart.getMonth()) {
-        return true;
-      }
-      if (sEDTFDatePart.getMonth() > eEDTFDatePart.getMonth()) {
-        return false;
-      }
-      if (sEDTFDatePart.getDay() == null || eEDTFDatePart.getDay() == null || sEDTFDatePart.getDay() <= eEDTFDatePart.getDay()) {
-        return true;
-      }
-      return false;
-      //		}else if(sDate.yearPrecision!=null || eDate.yearPrecision!=null){
     } else {
-      int precisionAdjust = 0;
-      Integer sYear = sEDTFDatePart.getYear();
-      Integer eYear = eEDTFDatePart.getYear();
-      if (sEDTFDatePart.getYearPrecision() != null) {
-        switch (sEDTFDatePart.getYearPrecision()) {
-          case DECADE:
-            precisionAdjust = 10;
-            break;
-          case CENTURY:
-            precisionAdjust = 100;
-            break;
-          case MILLENNIUM:
-            precisionAdjust = 1000;
-            break;
-        }
-        sYear = (sYear / precisionAdjust) * precisionAdjust;
-      }
-      if (eEDTFDatePart.getYearPrecision() != null) {
-        switch (eEDTFDatePart.getYearPrecision()) {
-          case DECADE:
-            precisionAdjust = 10;
-            break;
-          case CENTURY:
-            precisionAdjust = 100;
-            break;
-          case MILLENNIUM:
-            precisionAdjust = 1000;
-            break;
-        }
-        eYear = (eYear / precisionAdjust) * precisionAdjust;
-      }
-      return sYear <= eYear;
+      isIntervalValid = false;
     }
+
+    return isIntervalValid;
   }
 
-  private static boolean validateInstant(InstantEDTFDate edtf, boolean standalone) {
-    EDTFDatePart edtfDatePart = edtf.getEdtfDatePart();
-    if (edtfDatePart != null) {
-      if (!(edtfDatePart.isUnknown() || edtfDatePart.isUnspecified())) {
-        if (edtfDatePart.getYear() == null) {
-          return false;
-        }
-        if (edtfDatePart.getYearPrecision() == null) {
-          if (edtfDatePart.getMonth() != null) {
-            if (edtfDatePart.getMonth() < 1 || edtfDatePart.getMonth() > 12) {
-              return false;
-            }
-            if (edtfDatePart.getDay() != null) {
-              if (edtfDatePart.getDay() < 1 || edtfDatePart.getDay() > 31) {
-                return false;
-              }
-              if (edtfDatePart.getDay() == 31 && !isMonthOf31Days(edtfDatePart.getMonth())) {
-                return false;
-              }
-              if (edtfDatePart.getMonth() == 2) {
-                if (edtfDatePart.getDay() == 30 || (edtfDatePart.getDay() == 29 && !Year.isLeap(edtfDatePart.getYear()))) {
-                  return false;
-                }
-              }
-            }
-          }
-        }
+  private static boolean validateSpecificIntervalDates(EDTFDatePart startDatePart, EDTFDatePart endDatePart) {
+    // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc?
+    // TODO: 20/07/2022 No check for null year but we check for null month and day?
+    boolean isDatesValid = false;
+    if (startDatePart.getYear().equals(endDatePart.getYear())) {
+      if (startDatePart.getMonth() == null || endDatePart.getMonth() == null
+          || startDatePart.getMonth() < endDatePart.getMonth()) {
+        isDatesValid = true;
+      } else if (startDatePart.getMonth().equals(endDatePart.getMonth())) {
+        isDatesValid =
+            startDatePart.getDay() == null || endDatePart.getDay() == null || startDatePart.getDay() <= endDatePart.getDay();
       }
+    } else {
+      isDatesValid = startDatePart.getYear() < endDatePart.getYear();
     }
-    EDTFTimePart edtfTimePart = edtf.getEdtfTimePart();
-    if (edtfTimePart != null) {
-      if (edtfTimePart.getHour() >= 24 || edtfTimePart.getHour() < 0) {
-        return false;
-      }
-      if (edtfTimePart.getMinute() != null && (edtfTimePart.getMinute() >= 60 || edtfTimePart.getMinute() < 0)) {
-        return false;
-      }
-      if (edtfTimePart.getSecond() != null && (edtfTimePart.getSecond() >= 60 || edtfTimePart.getSecond() < 0)) {
-        return false;
-      }
-      if (edtfTimePart.getMillisecond() != null && (edtfTimePart.getMillisecond() >= 1000 || edtfTimePart.getMillisecond() < 0)) {
-        return false;
-      }
-      // TODO: validate timezone
-    }
-    if (standalone) {
-      if ((edtfDatePart == null || edtfDatePart.isUnknown()) && edtfTimePart == null) {
-        return false;
-      }
-    }
-    return true;
+    return isDatesValid;
   }
 
-  private static boolean validateIntervalNotInFuture(IntervalEDTFDate edtf) {
-    return validateInstantNotInFuture(edtf.getStart()) && validateInstantNotInFuture(edtf.getEnd());
+  private static Integer adjustYearWithPrecision(Integer year, YearPrecision yearPrecision) {
+    final Integer adjustedYear;
+    if (yearPrecision != null) {
+      final int precisionAdjust = yearPrecision.getDuration();
+      adjustedYear = (year / precisionAdjust) * precisionAdjust;
+    } else {
+      adjustedYear = year;
+    }
+    return adjustedYear;
   }
 
-  private static boolean validateInstantNotInFuture(InstantEDTFDate edtf) {
-    if (edtf.getEdtfDatePart() == null || edtf.getEdtfDatePart().isUnknown() || edtf.getEdtfDatePart().isUnspecified()) {
-      return true;
+  private static boolean validateInstant(InstantEDTFDate instantEDTFDate, boolean standalone) {
+    boolean isInstantValid = false;
+    EDTFDatePart edtfDatePart = instantEDTFDate.getEdtfDatePart();
+    if (validateDatePart(edtfDatePart)) {
+      EDTFTimePart edtfTimePart = instantEDTFDate.getEdtfTimePart();
+      if (validateTimePart(edtfTimePart)) {
+        // TODO: 20/07/2022 Does this mean that if it's not standalone, it is then allowed to have both null/unknown??
+        if (standalone) {
+          //Not valid if both parts null/unknown
+          final boolean isBothPartsNullOrUnknown = (edtfDatePart == null || edtfDatePart.isUnknown()) && edtfTimePart == null;
+          isInstantValid = !isBothPartsNullOrUnknown;
+        } else {
+          isInstantValid = true;
+        }
+      }
     }
-    int currentYear = new GregorianCalendar().get(Calendar.YEAR);
-    if (edtf.getEdtfDatePart().getYearPrecision() == null) {
-      return edtf.getEdtfDatePart().getYear() <= currentYear;
-    } else if (edtf.getEdtfDatePart().getYearPrecision() == YearPrecision.MILLENNIUM) {
-      currentYear = (currentYear / 1000) * 1000;
-      return (edtf.getEdtfDatePart().getYear() * 1000) / 1000 <= currentYear;
-    } else if (edtf.getEdtfDatePart().getYearPrecision() == YearPrecision.CENTURY) {
-      currentYear = (currentYear / 100) * 100;
-      return (edtf.getEdtfDatePart().getYear() * 100) / 100 <= currentYear;
-    } else if (edtf.getEdtfDatePart().getYearPrecision() == YearPrecision.DECADE) {
-      currentYear = (currentYear / 10) * 10;
-      return (edtf.getEdtfDatePart().getYear() * 10) / 10 <= currentYear;
+    return isInstantValid;
+  }
+
+  private static boolean validateDatePart(EDTFDatePart edtfDatePart) {
+    boolean isDatePartValid = true;
+    if (edtfDatePart != null && !(edtfDatePart.isUnknown() || edtfDatePart.isUnspecified())) {
+      if (edtfDatePart.getYear() == null) {
+        isDatePartValid = false;
+      }
+      if (edtfDatePart.getYearPrecision() == null && edtfDatePart.getMonth() != null) {
+        if (edtfDatePart.getMonth() < 1 || edtfDatePart.getMonth() > 12) {
+          isDatePartValid = false;
+        } else {
+          isDatePartValid = isDatePartDayValid(edtfDatePart);
+        }
+      }
     }
-    throw new IllegalArgumentException("This should never occour");
+    return isDatePartValid;
+  }
+
+  private static boolean isDatePartDayValid(EDTFDatePart edtfDatePart) {
+    final boolean isDayValid;
+    if (edtfDatePart.getDay() == null) {
+      isDayValid = true;
+    } else {
+      final boolean isValidDayRange = edtfDatePart.getDay() > 0 && edtfDatePart.getDay() <= 31;
+      final boolean isNot31Or31AndValid = edtfDatePart.getDay() != 31 || isMonthOf31Days(edtfDatePart.getMonth());
+      final boolean isNotFebruaryOrFebruaryAndValidDay = edtfDatePart.getMonth() != 2 || isValidFebruaryDay(edtfDatePart);
+      isDayValid = isValidDayRange && isNot31Or31AndValid && isNotFebruaryOrFebruaryAndValidDay;
+    }
+    return isDayValid;
+  }
+
+  private static boolean isValidFebruaryDay(EDTFDatePart edtfDatePart) {
+    return (edtfDatePart.getDay() > 0 && edtfDatePart.getDay() < 30 && edtfDatePart.getDay() != 29) || Year.isLeap(
+        edtfDatePart.getYear());
+  }
+
+  private static boolean validateTimePart(EDTFTimePart edtfTimePart) {
+    final boolean isTimePartValid;
+    if (edtfTimePart == null) {
+      isTimePartValid = true;
+    } else {
+      final boolean isHourValid = edtfTimePart.getHour() >= 0 && edtfTimePart.getHour() < 24;
+      final boolean isMinuteValid =
+          edtfTimePart.getMinute() != null && (edtfTimePart.getMinute() >= 0 && edtfTimePart.getMinute() < 60);
+      final boolean isSecondValid =
+          edtfTimePart.getSecond() != null && (edtfTimePart.getSecond() >= 0 && edtfTimePart.getSecond() < 60);
+      final boolean isMillisecondValid =
+          edtfTimePart.getMillisecond() != null && (edtfTimePart.getMillisecond() >= 0 && edtfTimePart.getMillisecond() < 1000);
+      isTimePartValid = isHourValid && isMinuteValid && isSecondValid && isMillisecondValid;
+    }
+    return isTimePartValid;
+  }
+
+  private static boolean validateIntervalNotInFuture(IntervalEDTFDate intervalEDTFDate) {
+    return validateInstantNotInFuture(intervalEDTFDate.getStart()) && validateInstantNotInFuture(intervalEDTFDate.getEnd());
+  }
+
+  // TODO: 20/07/2022 This only calculates years and not other parts of the date.
+  //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
+  private static boolean validateInstantNotInFuture(InstantEDTFDate instantEDTFDate) {
+    final boolean isYearInPast;
+    //If null or not specific it's valid
+    if (instantEDTFDate.getEdtfDatePart() == null || instantEDTFDate.getEdtfDatePart().isUnknown()
+        || instantEDTFDate.getEdtfDatePart().isUnspecified()) {
+      isYearInPast = true;
+    } else {
+      int currentYear = Year.now().getValue();
+      final Integer edtfYear = instantEDTFDate.getEdtfDatePart().getYear();
+      final YearPrecision yearPrecision = instantEDTFDate.getEdtfDatePart().getYearPrecision();
+
+      final Integer adjustedCurrentYear = adjustYearWithPrecision(currentYear, yearPrecision);
+      final Integer adjustedEdtfYear = adjustYearWithPrecision(edtfYear, yearPrecision);
+      isYearInPast = adjustedEdtfYear <= adjustedCurrentYear;
+    }
+    return isYearInPast;
   }
 
   public static boolean isMonthOf31Days(Integer month) {
-    month -= 1;// java Calendar starts at month 0
-    return ((month == Calendar.JANUARY) || (month == Calendar.MARCH) || (month == Calendar.MAY)
-        || (month == Calendar.JULY) || (month == Calendar.AUGUST) || (month == Calendar.OCTOBER)
-        || (month == Calendar.DECEMBER));
+    return MONTHS_WITH_31_DAYS.contains(Month.of(month));
   }
 
 }

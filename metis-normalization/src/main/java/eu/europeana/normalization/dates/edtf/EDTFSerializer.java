@@ -1,80 +1,128 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 /**
- * This class implements the serialisation of instances of TemporalEntity as EDTF strings.
+ * This class implements the serialisation of instances of EDTF objects.
  */
-public class EDTFSerializer {
+public final class EDTFSerializer {
 
-  public static String serialize(AbstractEDTFDate edtf) {
-    if (edtf instanceof InstantEDTFDate) {
-      return serializeInstant((InstantEDTFDate) edtf);
-    }
-    return serializeInstant(((IntervalEDTFDate) edtf).getStart()) + "/" + serializeInstant(((IntervalEDTFDate) edtf).getEnd());
+  public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
+
+  // TODO: 19/07/2022 Shouldn't the methods of this class be in fact the toString methods of the relevant classes??
+
+  private EDTFSerializer() {
   }
 
-  private static String serializeInstant(InstantEDTFDate edtf) {
-    StringBuffer buf = new StringBuffer();
-    if (edtf.getEdtfDatePart() != null) {
-      if (edtf.getEdtfDatePart().isUnknown()) {
-        buf.append("");
-      } else if (edtf.getEdtfDatePart().isUnspecified()) {
-        buf.append("..");
+  public static String serialize(AbstractEDTFDate edtfDate) {
+    if (edtfDate instanceof InstantEDTFDate) {
+      return serializeInstant((InstantEDTFDate) edtfDate);
+    }
+    return serializeInstant(((IntervalEDTFDate) edtfDate).getStart()) + "/" + serializeInstant(
+        ((IntervalEDTFDate) edtfDate).getEnd());
+  }
+
+  private static String serializeInstant(InstantEDTFDate edtfDate) {
+    StringBuilder stringBuilder = new StringBuilder();
+    //Date part serialization
+    if (edtfDate.getEdtfDatePart() != null) {
+      if (edtfDate.getEdtfDatePart().isUnknown()) {
+        stringBuilder.append("");
+      } else if (edtfDate.getEdtfDatePart().isUnspecified()) {
+        stringBuilder.append("..");
       } else {
-        buf.append(serializeYear(edtf.getEdtfDatePart()));
-        if (edtf.getEdtfDatePart().getYear() < -9999 || edtf.getEdtfDatePart().getYear() > 9999) {
-          return buf.toString();
-        }
-        if (edtf.getEdtfDatePart().getMonth() != null && edtf.getEdtfDatePart().getMonth() > 0) {
-          buf.append("-").append(padInt(edtf.getEdtfDatePart().getMonth(), 2));
-          if (edtf.getEdtfDatePart().getDay() != null && edtf.getEdtfDatePart().getDay() > 0) {
-            buf.append("-").append(padInt(edtf.getEdtfDatePart().getDay(), 2));
-          }
-        }
-        if (edtf.getEdtfDatePart().isApproximate() && edtf.getEdtfDatePart().isUncertain()) {
-          buf.append("%");
-        } else if (edtf.getEdtfDatePart().isApproximate()) {
-          buf.append("~");
-        } else if (edtf.getEdtfDatePart().isUncertain()) {
-          buf.append("?");
-        }
+        stringBuilder.append(serializeDatePart(edtfDate));
       }
     }
-    if (edtf.getEdtfTimePart() != null && (edtf.getEdtfTimePart().getHour() != 0 || edtf.getEdtfTimePart().getMinute() != 0
-        || edtf.getEdtfTimePart().getSecond() != 0)) {
-      buf.append("T").append(padInt(edtf.getEdtfTimePart().getHour(), 2));
-      if (edtf.getEdtfTimePart().getMinute() != null) {
-        buf.append(":").append(padInt(edtf.getEdtfTimePart().getMinute(), 2));
-        if (edtf.getEdtfTimePart().getSecond() != null) {
-          buf.append(":").append(padInt(edtf.getEdtfTimePart().getSecond(), 2));
-          if (edtf.getEdtfTimePart().getMillisecond() != null) {
-            buf.append(".").append(padInt(edtf.getEdtfTimePart().getMillisecond(), 3));
-          }
-        }
-      }
-    }
-    return buf.toString();
+    stringBuilder.append(serializeTimePart(edtfDate));
+    return stringBuilder.toString();
   }
+
+  private static String serializeDatePart(InstantEDTFDate edtfDate) {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(serializeYear(edtfDate.getEdtfDatePart()));
+    //If the year is below or above threshold(prefixed with Y) we stop
+    if (edtfDate.getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR
+        || edtfDate.getEdtfDatePart().getYear() > THRESHOLD_4_DIGITS_YEAR) {
+      return stringBuilder.toString();
+    }
+
+    //Append Month and day
+    if (edtfDate.getEdtfDatePart().getMonth() != null && edtfDate.getEdtfDatePart().getMonth() > 0) {
+      stringBuilder.append("-").append(zeroPadding(edtfDate.getEdtfDatePart().getMonth(), 2));
+      if (edtfDate.getEdtfDatePart().getDay() != null && edtfDate.getEdtfDatePart().getDay() > 0) {
+        stringBuilder.append("-").append(zeroPadding(edtfDate.getEdtfDatePart().getDay(), 2));
+      }
+    }
+    //Append approximate/uncertain
+    if (edtfDate.getEdtfDatePart().isApproximate() && edtfDate.getEdtfDatePart().isUncertain()) {
+      stringBuilder.append("%");
+    } else if (edtfDate.getEdtfDatePart().isApproximate()) {
+      stringBuilder.append("~");
+    } else if (edtfDate.getEdtfDatePart().isUncertain()) {
+      stringBuilder.append("?");
+    }
+    return stringBuilder.toString();
+  }
+
+
+  private static String serializeTimePart(InstantEDTFDate edtfDate) {
+    StringBuilder stringBuilder = new StringBuilder();
+    // TODO: 20/07/2022 Why the hour,minute,second has to be != 0 ??
+    //  In fact checking the value and then nullity probably will cause an issue if it was null.
+    if (edtfDate.getEdtfTimePart() != null && (edtfDate.getEdtfTimePart().getHour() != 0
+        || edtfDate.getEdtfTimePart().getMinute() != 0 || edtfDate.getEdtfTimePart().getSecond() != 0)) {
+      stringBuilder.append("T").append(zeroPadding(edtfDate.getEdtfTimePart().getHour(), 2));
+      if (edtfDate.getEdtfTimePart().getMinute() != null) {
+        stringBuilder.append(":").append(zeroPadding(edtfDate.getEdtfTimePart().getMinute(), 2));
+        if (edtfDate.getEdtfTimePart().getSecond() != null) {
+          stringBuilder.append(":").append(zeroPadding(edtfDate.getEdtfTimePart().getSecond(), 2));
+          if (edtfDate.getEdtfTimePart().getMillisecond() != null) {
+            stringBuilder.append(".").append(zeroPadding(edtfDate.getEdtfTimePart().getMillisecond(), 3));
+          }
+        }
+      }
+    }
+    return stringBuilder.toString();
+  }
+
 
   private static String serializeYear(EDTFDatePart edtfDatePart) {
-    if (edtfDatePart.getYear() < -9999 || edtfDatePart.getYear() > 9999) {
-      return "Y" + edtfDatePart.getYear();
+    final String serializedYear;
+    if (edtfDatePart.getYear() < -THRESHOLD_4_DIGITS_YEAR || edtfDatePart.getYear() > THRESHOLD_4_DIGITS_YEAR) {
+      serializedYear = "Y" + edtfDatePart.getYear();
+    } else {
+      final String paddedYear = zeroPadding(Math.abs(edtfDatePart.getYear()), 4);
+      final String prefix = edtfDatePart.getYear() < 0 ? "-" : "";
+      serializedYear = prefix + getYearWithPrecisionApplied(edtfDatePart, paddedYear);
     }
-    String yearStr = padInt(Math.abs(edtfDatePart.getYear()), 4);
-    String prefix = edtfDatePart.getYear() < 0 ? "-" : "";
-    if (edtfDatePart.getYearPrecision() != null) {
-      switch (edtfDatePart.getYearPrecision()) {
-        case MILLENNIUM:
-          return prefix + yearStr.substring(0, 1) + "XXX";
-        case CENTURY:
-          return prefix + yearStr.substring(0, 2) + "XX";
-        case DECADE:
-          return prefix + yearStr.substring(0, 3) + "X";
-      }
-    }
-    return prefix + yearStr;
+    return serializedYear;
   }
 
-  private static String padInt(int value, int paddingLength) {
-    return String.format("%0" + paddingLength + "d", value);
+  private static String getYearWithPrecisionApplied(EDTFDatePart edtfDatePart, String paddedYear) {
+    final String yearWithAppliedPrecision;
+    if (edtfDatePart.getYearPrecision() == null) {
+      yearWithAppliedPrecision = paddedYear;
+    } else {
+      switch (edtfDatePart.getYearPrecision()) {
+        case MILLENNIUM:
+          // TODO: 19/07/2022 What happens if a year was first padded and then substringed in this cases?
+          yearWithAppliedPrecision = paddedYear.charAt(0) + "XXX";
+          break;
+        case CENTURY:
+          yearWithAppliedPrecision = paddedYear.substring(0, 2) + "XX";
+          break;
+        case DECADE:
+        default:
+          yearWithAppliedPrecision = paddedYear.substring(0, 3) + "X";
+          break;
+      }
+    }
+    return yearWithAppliedPrecision;
+  }
+
+  private static String zeroPadding(int value, int paddingLength) {
+    final String paddingFormat = "%0" + paddingLength + "d";
+    return format(paddingFormat, value);
   }
 }

@@ -16,7 +16,17 @@ public class EDTFDatePart implements Serializable {
    * Enum indicating the year precision of the date part
    */
   public enum YearPrecision {
-    MILLENNIUM, CENTURY, DECADE
+    MILLENNIUM(1000), CENTURY(100), DECADE(10);
+
+    final int duration;
+
+    YearPrecision(int duration) {
+      this.duration = duration;
+    }
+
+    public int getDuration() {
+      return duration;
+    }
   }
 
   private boolean uncertain;
@@ -97,7 +107,7 @@ public class EDTFDatePart implements Serializable {
   /**
    * Switches the values of the day and month.
    */
-  public void switchDayWithMonth() {
+  public void switchDayAndMonth() {
     if (day != null) {
       int tempDay = day;
       setDay(month);

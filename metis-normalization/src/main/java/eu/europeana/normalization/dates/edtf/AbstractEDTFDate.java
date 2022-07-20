@@ -7,7 +7,7 @@ package eu.europeana.normalization.dates.edtf;
 public abstract class AbstractEDTFDate {
 
   public String serialize() {
-    return new EDTFSerializer().serialize(this);
+    return EDTFSerializer.serialize(this);
   }
 
   @Override
@@ -25,7 +25,7 @@ public abstract class AbstractEDTFDate {
 
   public abstract boolean isTimeOnly();
 
-  public abstract void switchDayMonth();
+  public abstract void switchDayAndMonth();
 
   public abstract AbstractEDTFDate copy();
 

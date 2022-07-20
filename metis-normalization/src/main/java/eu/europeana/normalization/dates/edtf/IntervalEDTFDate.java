@@ -12,8 +12,9 @@ import java.io.Serializable;
  */
 public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
 
-  InstantEDTFDate start;
-  InstantEDTFDate end;
+  private static final long serialVersionUID = -8754610674192759880L;
+  private InstantEDTFDate start;
+  private InstantEDTFDate end;
 
   public IntervalEDTFDate(InstantEDTFDate start, InstantEDTFDate end) {
     super();
@@ -73,12 +74,12 @@ public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
   }
 
   @Override
-  public void switchDayMonth() {
+  public void switchDayAndMonth() {
     if (start != null) {
-      start.switchDayMonth();
+      start.switchDayAndMonth();
     }
     if (end != null) {
-      end.switchDayMonth();
+      end.switchDayAndMonth();
     }
   }
 
@@ -90,8 +91,7 @@ public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
       out.writeObject(this);
       out.close();
       ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      IntervalEDTFDate copy = (IntervalEDTFDate) in.readObject();
-      return copy;
+      return (IntervalEDTFDate) in.readObject();
     } catch (ClassNotFoundException | IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     }

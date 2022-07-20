@@ -232,7 +232,7 @@ public class DatesNormaliser {
 
           if (trySwitchingDayMonth) {
             EdmTemporalEntity copy = extracted.getExtracted().copy();
-            copy.getEdtf().switchDayMonth();
+            copy.getEdtf().switchDayAndMonth();
             if (!EDTFValidator.validate(copy.getEdtf(), false)) {
               extracted.setMatchId(MatchId.INVALID);
             } else {
@@ -245,7 +245,7 @@ public class DatesNormaliser {
       } else {
         if (trySwitchingDayMonth) {
           EdmTemporalEntity copy = extracted.getExtracted().copy();
-          copy.getEdtf().switchDayMonth();
+          copy.getEdtf().switchDayAndMonth();
           if (!EDTFValidator.validate(copy.getEdtf(), false)) {
             extracted.setMatchId(MatchId.INVALID);
           } else {
