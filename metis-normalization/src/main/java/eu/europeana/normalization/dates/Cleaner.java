@@ -1,6 +1,5 @@
-package eu.europeana.normalization.dates.extraction;
+package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.CleanId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;

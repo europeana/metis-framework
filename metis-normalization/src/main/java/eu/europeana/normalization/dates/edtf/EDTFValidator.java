@@ -143,7 +143,8 @@ public final class EDTFValidator {
       isDayValid = true;
     } else {
       final boolean isValidDayRange = edtfDatePart.getDay() > 0 && edtfDatePart.getDay() <= 31;
-      final boolean isNot31Or31AndValid = edtfDatePart.getDay() != 31 || isMonthOf31Days(edtfDatePart.getMonth());
+      final boolean isNot31Or31AndValid =
+          edtfDatePart.getDay() != 31 || MONTHS_WITH_31_DAYS.contains(Month.of(edtfDatePart.getMonth()));
       final boolean isNotFebruaryOrFebruaryAndValidDay = edtfDatePart.getMonth() != 2 || isValidFebruaryDay(edtfDatePart);
       isDayValid = isValidDayRange && isNot31Or31AndValid && isNotFebruaryOrFebruaryAndValidDay;
     }
@@ -194,10 +195,6 @@ public final class EDTFValidator {
       isYearInPast = adjustedEdtfYear <= adjustedCurrentYear;
     }
     return isYearInPast;
-  }
-
-  public static boolean isMonthOf31Days(Integer month) {
-    return MONTHS_WITH_31_DAYS.contains(Month.of(month));
   }
 
 }

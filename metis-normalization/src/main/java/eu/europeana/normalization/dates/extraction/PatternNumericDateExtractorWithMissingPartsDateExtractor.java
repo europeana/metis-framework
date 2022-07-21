@@ -11,14 +11,14 @@ import java.util.regex.Pattern;
 /**
  * Patterns for numeric dates with variations in the separators of date components
  */
-public class PatternNumericDateExtractorWithMissingParts implements DateExtractor {
+public class PatternNumericDateExtractorWithMissingPartsDateExtractor implements DateExtractor {
 
   ArrayList<Pattern> patterns = new ArrayList<Pattern>();
   Pattern cleanSeparator = Pattern.compile("[\\-\\./]");
 
   Pattern ambigousPattern = Pattern.compile("\\d\\d\\d\\?");
 
-  public PatternNumericDateExtractorWithMissingParts() {
+  public PatternNumericDateExtractorWithMissingPartsDateExtractor() {
     String componentSep = "[\\-\\./]";
     String dateYmd = "\\s*(?<uncertain>\\?)?(?<year>\\d\\d\\d\\d?)" + "(?<month>" + componentSep
         + "\\d\\d?)?(?<day>" + componentSep + "\\d\\d?)?(?<uncertain2>\\?)?\\s*";

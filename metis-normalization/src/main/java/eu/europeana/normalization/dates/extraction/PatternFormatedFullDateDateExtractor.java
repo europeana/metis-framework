@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Patterns for date formats that are well-structured but do not follow a particular standard
  */
-public class PatternFormatedFullDate implements DateExtractor {
+public class PatternFormatedFullDateDateExtractor implements DateExtractor {
 
   MonthMultilingual monthNames = new MonthMultilingual();
 

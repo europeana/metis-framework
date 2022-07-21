@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * ‘AC/DC’, but the abbreviations used in other languages will be supported in the future. Or a date range where the start/end
  * years contain an indication of the era.
  */
-public class PatternBcAd implements DateExtractor {
+public class PatternBcAdDateExtractor implements DateExtractor {
 
   static final HashSet<String> bcAbbreviations = new HashSet<String>() {
     {
@@ -55,7 +55,7 @@ public class PatternBcAd implements DateExtractor {
   Pattern patYyyy;
   Pattern patRange;
 
-  public PatternBcAd() {
+  public PatternBcAdDateExtractor() {
     String patYearBcAd = "(?<year>\\d{2,4})\\s*(?<era>";
     for (String abrev : bcAbbreviations) {
       patYearBcAd += abrev + "|";

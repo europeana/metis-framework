@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * A decade represented as YYYu or YYYx. For example, '198u', '198x' Dates such as '198-' are not supported because they may
  * indicate a decade or a time period with an open end
  */
-public class PatternDecade implements DateExtractor {
+public class PatternDecadeDateExtractor implements DateExtractor {
 
   Pattern patUncertainBegining = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>\\d\\d\\d)[xu]\\s*",
       Pattern.CASE_INSENSITIVE);

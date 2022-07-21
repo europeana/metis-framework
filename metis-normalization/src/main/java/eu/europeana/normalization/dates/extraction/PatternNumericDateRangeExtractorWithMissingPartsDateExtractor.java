@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * Patterns for numeric date ranges with variations in the separators of date components
  */
-public class PatternNumericDateRangeExtractorWithMissingParts implements DateExtractor {
+public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor implements DateExtractor {
   // period separators "/" -> "[-\\.]"
   // period separators " - " -> "[-\\./]"
   // period separators "-" -> "[\\./]"
@@ -23,7 +23,7 @@ public class PatternNumericDateRangeExtractorWithMissingParts implements DateExt
 
   ArrayList<Pattern> patterns = new ArrayList<Pattern>();
 
-  public PatternNumericDateRangeExtractorWithMissingParts() {
+  public PatternNumericDateRangeExtractorWithMissingPartsDateExtractor() {
     String dateSep = "/";
     String componentSep = "[\\-\\.]";
     String unsepecifiedVals = "\\?|\\-|\\.\\.";

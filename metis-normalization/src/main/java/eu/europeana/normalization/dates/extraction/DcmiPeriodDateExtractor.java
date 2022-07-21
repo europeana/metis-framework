@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * Date extractor for DCMI Period
  */
-public class DcmiPeriodExtractor implements DateExtractor {
+public class DcmiPeriodDateExtractor implements DateExtractor {
 
   private static final Pattern DCMI_PERIOD_NAME_WITHOUT_FIELD = Pattern.compile("^([^;=]*)\\s*;");
   private static final Pattern DCMI_PERIOD = Pattern.compile("(start|end|name)\\s*=\\s*(.*?)(?:;|\\s*$)");

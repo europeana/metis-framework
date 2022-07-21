@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
  * Patterns for numeric dates with variations in the separators of date components, and supporting characters for
  * unknown/unspecified date components.
  */
-public class PatternNumericDateExtractorWithMissingPartsAndXx implements DateExtractor {
+public class PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor implements DateExtractor {
 
   ArrayList<Pattern> patterns = new ArrayList<Pattern>();
   //	Pattern cleanSeparator=Pattern.compile("[-\\./]");
@@ -23,7 +23,7 @@ public class PatternNumericDateExtractorWithMissingPartsAndXx implements DateExt
 
   Pattern ambigousPattern = Pattern.compile("(\\d\\d\\d\\-?\\?|\\d\\d\\d\\-)");
 
-  public PatternNumericDateExtractorWithMissingPartsAndXx() {
+  public PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor() {
     String componentSep = "[\\./]";
     String dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d\\?\\-Xu])"
         + "(" + componentSep + "(?<month>XX|uu|\\d\\d|\\?\\?|\\-\\-))?(" + componentSep

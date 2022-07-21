@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.Month;
 import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
@@ -182,21 +183,7 @@ public class InstantEDTFDate extends AbstractEDTFDate implements Serializable {
   }
 
   private int lastDayBasedOnMonth() {
-    // TODO: 20/07/2022 LocalDate seems to have this solved??
-    //  localDate.getMonth().length(localDate.isLeapYear())
-    final int day;
-    if (EDTFValidator.isMonthOf31Days(getEdtfDatePart().getMonth())) {
-      day = 31;
-    } else if (getEdtfDatePart().getMonth() == 2) {
-      if (Year.isLeap(getEdtfDatePart().getYear())) {
-        day = 29;
-      } else {
-        day = 28;
-      }
-    } else {
-      day = 30;
-    }
-    return day;
+    return Month.of(getEdtfDatePart().getMonth()).length(Year.isLeap(getEdtfDatePart().getYear()));
   }
 
   @Override

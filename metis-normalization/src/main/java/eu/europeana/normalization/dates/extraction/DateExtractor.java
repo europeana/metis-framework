@@ -7,6 +7,6 @@ import eu.europeana.normalization.dates.Match;
  */
 public interface DateExtractor {
 
-  public Match extract(String inputValue);
+  Match extract(String inputValue);
 
 }

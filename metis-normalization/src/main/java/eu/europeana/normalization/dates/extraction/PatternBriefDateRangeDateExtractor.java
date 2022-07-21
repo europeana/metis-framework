@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * Most values that match this pattern also match the EDTF pattern, but would result in an invalid date. This pattern only matches
  * values that would not be valid EDTF dates.
  */
-public class PatternBriefDateRange implements DateExtractor {
+public class PatternBriefDateRangeDateExtractor implements DateExtractor {
 
   Pattern briefDateRangePattern = Pattern
       .compile("(?<uncertain>\\?\\s*)?(?<start>\\d\\d\\d\\d?)[\\-/](?<end>\\d\\d)(?<uncertain2>\\s*\\?)?");

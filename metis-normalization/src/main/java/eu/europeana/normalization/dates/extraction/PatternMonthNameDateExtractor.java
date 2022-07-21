@@ -12,13 +12,13 @@ import java.util.regex.Pattern;
 /**
  * A date where the month is specified by its name or an abbreviation. Supports all the official languages of the European Union
  */
-public class PatternMonthName implements DateExtractor {
+public class PatternMonthNameDateExtractor implements DateExtractor {
 
   HashMap<Month, Pattern> patternDayMonthYear = new HashMap<Month, Pattern>(12);
   HashMap<Month, Pattern> patternMonthDayYear = new HashMap<Month, Pattern>(12);
   HashMap<Month, Pattern> patternMonthYear = new HashMap<Month, Pattern>(12);
 
-  public PatternMonthName() {
+  public PatternMonthNameDateExtractor() {
     MonthMultilingual months = new MonthMultilingual();
     for (Month month : Month.values()) {
       String monthNamesPattern = null;
@@ -75,9 +75,5 @@ public class PatternMonthName implements DateExtractor {
       }
     }
     return null;
-  }
-
-  public static void main(String[] args) throws Exception {
-    new PatternMonthName();
   }
 }

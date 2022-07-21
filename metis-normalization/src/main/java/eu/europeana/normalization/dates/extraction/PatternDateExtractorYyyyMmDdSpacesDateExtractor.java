@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * A complete date using whitespace to separate the date components.
  */
-public class PatternDateExtractorYyyyMmDdSpaces implements DateExtractor {
+public class PatternDateExtractorYyyyMmDdSpacesDateExtractor implements DateExtractor {
 
   Pattern patYyyyMmDd = Pattern.compile("\\s*(\\d{4}) (\\d{1,2}) (\\d{1,2})\\s*");
   Pattern patDdMmYyyy = Pattern.compile("\\s*(\\d{1,2}) (\\d{1,2}) (\\d{4})\\s*");

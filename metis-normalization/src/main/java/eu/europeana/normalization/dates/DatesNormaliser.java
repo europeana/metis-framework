@@ -1,26 +1,25 @@
 package eu.europeana.normalization.dates;
 
+import eu.europeana.normalization.dates.Cleaner.CleanResult;
 import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
 import eu.europeana.normalization.dates.edtf.EDTFValidator;
 import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
-import eu.europeana.normalization.dates.extraction.Cleaner;
-import eu.europeana.normalization.dates.extraction.Cleaner.CleanResult;
 import eu.europeana.normalization.dates.extraction.DateExtractor;
-import eu.europeana.normalization.dates.extraction.DcmiPeriodExtractor;
-import eu.europeana.normalization.dates.extraction.PatternBcAd;
-import eu.europeana.normalization.dates.extraction.PatternBriefDateRange;
-import eu.europeana.normalization.dates.extraction.PatternCentury;
-import eu.europeana.normalization.dates.extraction.PatternDateExtractorYyyyMmDdSpaces;
-import eu.europeana.normalization.dates.extraction.PatternDecade;
-import eu.europeana.normalization.dates.extraction.PatternEdtf;
-import eu.europeana.normalization.dates.extraction.PatternFormatedFullDate;
-import eu.europeana.normalization.dates.extraction.PatternLongNegativeYear;
-import eu.europeana.normalization.dates.extraction.PatternMonthName;
-import eu.europeana.normalization.dates.extraction.PatternNumericDateExtractorWithMissingParts;
-import eu.europeana.normalization.dates.extraction.PatternNumericDateExtractorWithMissingPartsAndXx;
-import eu.europeana.normalization.dates.extraction.PatternNumericDateRangeExtractorWithMissingParts;
-import eu.europeana.normalization.dates.extraction.PatternNumericDateRangeExtractorWithMissingPartsAndXx;
+import eu.europeana.normalization.dates.extraction.DcmiPeriodDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternBcAdDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternBriefDateRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternCenturyDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternDateExtractorYyyyMmDdSpacesDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternDecadeDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternEdtfDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternFormatedFullDateDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternLongNegativeYearDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternMonthNameDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternNumericDateExtractorWithMissingPartsDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor;
+import eu.europeana.normalization.dates.extraction.PatternNumericDateRangeExtractorWithMissingPartsDateExtractor;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,25 +37,25 @@ public class DatesNormaliser {
       // this pattern needs to be executed before the Edtf one. Most values that match
       // this pattern also match the EDTF pattern, but would result in an invalid
       // date. This pattern only matches values that would not be valid EDTF dates
-      add(new PatternBriefDateRange());
-      add(new PatternEdtf());
-      add(new PatternCentury());
-      add(new PatternDecade());
-      add(new PatternNumericDateRangeExtractorWithMissingParts());
-      add(new PatternNumericDateRangeExtractorWithMissingPartsAndXx());
-      add(new PatternNumericDateExtractorWithMissingParts());
-      add(new PatternNumericDateExtractorWithMissingPartsAndXx());
-      add(new PatternDateExtractorYyyyMmDdSpaces());
-      add(new DcmiPeriodExtractor());
-      add(new PatternMonthName());
-      add(new PatternFormatedFullDate());
-      add(new PatternBcAd());
-      add(new PatternLongNegativeYear());
+      add(new PatternBriefDateRangeDateExtractor());
+      add(new PatternEdtfDateExtractor());
+      add(new PatternCenturyDateExtractor());
+      add(new PatternDecadeDateExtractor());
+      add(new PatternNumericDateRangeExtractorWithMissingPartsDateExtractor());
+      add(new PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor());
+      add(new PatternNumericDateExtractorWithMissingPartsDateExtractor());
+      add(new PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor());
+      add(new PatternDateExtractorYyyyMmDdSpacesDateExtractor());
+      add(new DcmiPeriodDateExtractor());
+      add(new PatternMonthNameDateExtractor());
+      add(new PatternFormatedFullDateDateExtractor());
+      add(new PatternBcAdDateExtractor());
+      add(new PatternLongNegativeYearDateExtractor());
     }
   };
   private static final ArrayList<Class> extractorsExcludedForGenericProperties = new ArrayList<Class>() {
     {
-      add(PatternBriefDateRange.class);
+      add(PatternBriefDateRangeDateExtractor.class);
     }
   };
 

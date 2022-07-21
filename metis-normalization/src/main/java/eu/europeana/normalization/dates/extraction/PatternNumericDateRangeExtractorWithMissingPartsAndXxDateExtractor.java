@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  * Patterns for numeric date ranges with variations in the separators of date components, and supporting characters for
  * unknown/unspecified date components.
  */
-public class PatternNumericDateRangeExtractorWithMissingPartsAndXx implements DateExtractor {
+public class PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor implements DateExtractor {
   // period separators "/" -> "[-\\.]"
   // period separators " - " -> "[-\\./]"
   // period separators "-" -> "[\\./]"
@@ -27,7 +27,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsAndXx implements Da
 
   ArrayList<Pattern> patterns = new ArrayList<Pattern>();
 
-  public PatternNumericDateRangeExtractorWithMissingPartsAndXx() {
+  public PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor() {
     String dateSep = "\\s*[\\/\\|]\\s*";
     String componentSep = "[\\-]";
     String componentMissing = "[Xu]";

@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * A century indicated as a Roman numeral, as for example ‘XVI’. The Roman numerals may also be preceded by an abbreviation of
  * century, as for example ‘s. IXX’. Also supports ranges.
  */
-public class PatternCentury implements DateExtractor {
+public class PatternCenturyDateExtractor implements DateExtractor {
 
   Pattern patYyyy = Pattern.compile("\\s*(?<uncertain>\\?)?(?<century>\\d{2})\\.{2}(?<uncertain2>\\?)?\\s*",
       Pattern.CASE_INSENSITIVE);

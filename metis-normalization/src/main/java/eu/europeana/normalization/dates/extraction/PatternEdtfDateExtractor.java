@@ -9,7 +9,7 @@ import java.text.ParseException;
 /**
  * The pattern for EDTF dates. Also compatible with ISO 8601 dates.
  */
-public class PatternEdtf implements DateExtractor {
+public class PatternEdtfDateExtractor implements DateExtractor {
 
   EDTFParser parser = new EDTFParser();
 
