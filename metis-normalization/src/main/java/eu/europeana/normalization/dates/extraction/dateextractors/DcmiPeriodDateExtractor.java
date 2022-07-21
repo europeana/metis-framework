@@ -111,7 +111,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       }
 
       IntervalEDTFDate edtf = new IntervalEDTFDate(edtfStart, edtfEnd);
-      return new Match(MatchId.DCMIPeriod, inputValue, new EdmTemporalEntity(decoded.getName(), edtf));
+      return new Match(MatchId.DCMI_PERIOD, inputValue, new EdmTemporalEntity(decoded.getName(), edtf));
     } catch (IllegalStateException e) {
       // a parsing error occoured
       return null;

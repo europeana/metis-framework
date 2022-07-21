@@ -29,7 +29,7 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.LongYear, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.LONG_YEAR, inputValue, new InstantEDTFDate(d));
     }
     m = patYyyyyyRange.matcher(inputValue);
     if (m.matches()) {
@@ -41,7 +41,7 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         intervalEDTFDate.setUncertain(true);
       }
-      return new Match(MatchId.LongYear, inputValue, intervalEDTFDate);
+      return new Match(MatchId.LONG_YEAR, inputValue, intervalEDTFDate);
     }
     return null;
   }

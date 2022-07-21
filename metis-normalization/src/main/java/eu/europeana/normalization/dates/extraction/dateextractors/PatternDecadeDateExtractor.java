@@ -28,7 +28,7 @@ public class PatternDecadeDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Decade, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.DECADE, inputValue, new InstantEDTFDate(d));
     }
     m = patUncertainBegining.matcher(inputValue);
     if (m.matches()) {
@@ -38,7 +38,7 @@ public class PatternDecadeDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Decade, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.DECADE, inputValue, new InstantEDTFDate(d));
     }
     return null;
   }

@@ -80,7 +80,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       } else {
         d.setYear(Integer.parseInt(m.group("year")));
       }
-      return new Match(MatchId.BcAd, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.BC_AD, inputValue, new InstantEDTFDate(d));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
@@ -100,7 +100,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       }
       InstantEDTFDate end = new InstantEDTFDate(d);
 
-      return new Match(MatchId.BcAd, inputValue, new IntervalEDTFDate(start, end));
+      return new Match(MatchId.BC_AD, inputValue, new IntervalEDTFDate(start, end));
     }
     return null;
   }

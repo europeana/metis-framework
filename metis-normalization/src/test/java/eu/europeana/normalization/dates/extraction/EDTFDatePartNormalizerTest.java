@@ -152,7 +152,7 @@ public class EDTFDatePartNormalizerTest {
 			} else {
 				String edtfStr = EDTFSerializer.serialize(match.getExtracted().getEdtf());
 				assertEquals(testCases.get(testCase), edtfStr, "Test case '" + testCase + "'");
-				if (match.getMatchId() == MatchId.DCMIPeriod) {
+				if (match.getMatchId() == MatchId.DCMI_PERIOD) {
 					assertTrue(testCase.startsWith(match.getExtracted().getLabel()) || testCase.startsWith(
 									"name=" + match.getExtracted().getLabel()),
 							"Test case '" + testCase + "' period name not extracted");

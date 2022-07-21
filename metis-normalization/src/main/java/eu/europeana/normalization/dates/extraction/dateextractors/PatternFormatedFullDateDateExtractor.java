@@ -41,7 +41,7 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       //			t.setHour(Integer.parseInt(m.group(4)));
       //			t.setMinute(Integer.parseInt(m.group(5)));
       //			t.setSecond(Integer.parseInt(m.group(6)));
-      return new Match(MatchId.FormatedFullDate, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.FORMATTED_FULL_DATE, inputValue, new InstantEDTFDate(d));
     }
     m = patFormatedDate.matcher(inputValue);
     if (m.matches()) {
@@ -54,7 +54,7 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       //			t.setHour(Integer.parseInt(m.group(3)));
       //			t.setMinute(Integer.parseInt(m.group(4)));
       //			t.setSecond(Integer.parseInt(m.group(5)));
-      return new Match(MatchId.FormatedFullDate, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.FORMATTED_FULL_DATE, inputValue, new InstantEDTFDate(d));
     }
     m = patFormatedDate3.matcher(inputValue);
     if (m.matches()) {
@@ -67,7 +67,7 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       //			t.setHour(Integer.parseInt(m.group(4)));
       //			t.setMinute(Integer.parseInt(m.group(5)));
       //			t.setSecond(Integer.parseInt(m.group(6)));
-      return new Match(MatchId.FormatedFullDate, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.FORMATTED_FULL_DATE, inputValue, new InstantEDTFDate(d));
     }
     return null;
   }

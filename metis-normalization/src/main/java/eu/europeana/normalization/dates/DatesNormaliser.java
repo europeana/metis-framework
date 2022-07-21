@@ -143,8 +143,8 @@ public class DatesNormaliser {
         }
       }
 
-      if (extracted.getMatchId() == MatchId.Edtf && extracted.getCleanOperation() != null) {
-        extracted.setMatchId(MatchId.Edtf_Cleaned);
+      if (extracted.getMatchId() == MatchId.EDTF && extracted.getCleanOperation() != null) {
+        extracted.setMatchId(MatchId.EDTF_CLEANED);
       }
       if (extracted.getMatchId() != MatchId.NO_MATCH) {
         if (extracted.getMatchId() != MatchId.NO_MATCH && extracted.getMatchId() != MatchId.INVALID) {
@@ -202,8 +202,8 @@ public class DatesNormaliser {
         }
       }
 
-      if (match.getMatchId() == MatchId.Edtf && match.getCleanOperation() != null) {
-        match.setMatchId(MatchId.Edtf_Cleaned);
+      if (match.getMatchId() == MatchId.EDTF && match.getCleanOperation() != null) {
+        match.setMatchId(MatchId.EDTF_CLEANED);
       }
 
       if (match.getMatchId() != MatchId.NO_MATCH) {

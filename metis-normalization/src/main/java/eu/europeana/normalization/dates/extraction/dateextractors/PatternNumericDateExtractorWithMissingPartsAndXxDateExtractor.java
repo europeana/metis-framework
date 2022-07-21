@@ -89,7 +89,7 @@ public class PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor imple
         if (ambigMatcher.matches()) {
           return null;// these cases are ambiguous. Examples '187-?', '187?'
         }
-        return new Match(MatchId.Numeric_AllVariants_Xx, inputValue, new InstantEDTFDate(d));
+        return new Match(MatchId.NUMERIC_ALL_VARIANTS_XX, inputValue, new InstantEDTFDate(d));
       }
     }
     return null;

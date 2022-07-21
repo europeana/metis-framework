@@ -123,7 +123,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor imple
         if (dEnd.isUnspecified() && dStart.getYear() != null && dStart.getYear() < 1000) {
           return null;// these cases are ambiguous. Example '187-?'
         }
-        return new Match(MatchId.Numeric_Range_AllVariants, inputValue,
+        return new Match(MatchId.NUMERIC_RANGE_ALL_VARIANTS, inputValue,
             new IntervalEDTFDate(new InstantEDTFDate(dStart), new InstantEDTFDate(dEnd)));
       }
     }

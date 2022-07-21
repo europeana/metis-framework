@@ -35,7 +35,7 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
             dStart.setUncertain(true);
             dEnd.setUncertain(true);
           }
-          return new Match(MatchId.Brief_Date_Range, inputValue,
+          return new Match(MatchId.BRIEF_DATE_RANGE, inputValue,
               new IntervalEDTFDate(new InstantEDTFDate(dStart), new InstantEDTFDate(dEnd)));
         }
       }

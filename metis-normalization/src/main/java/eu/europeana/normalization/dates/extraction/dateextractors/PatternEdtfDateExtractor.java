@@ -7,17 +7,18 @@ import eu.europeana.normalization.dates.edtf.EDTFParser;
 import java.text.ParseException;
 
 /**
- * The pattern for EDTF dates. Also compatible with ISO 8601 dates.
+ * The pattern for EDTF dates and compatible with ISO 8601 dates.
  */
 public class PatternEdtfDateExtractor implements DateExtractor {
 
-  EDTFParser parser = new EDTFParser();
+  final EDTFParser edtfParser = new EDTFParser();
 
+  @Override
   public Match extract(String inputValue) {
     try {
-      AbstractEDTFDate parsed = parser.parse(inputValue);
-      parsed.removeTime();
-      return new Match(MatchId.Edtf, inputValue, parsed);
+      AbstractEDTFDate edtfDate = edtfParser.parse(inputValue);
+      edtfDate.removeTime();
+      return new Match(MatchId.EDTF, inputValue, edtfDate);
     } catch (ParseException | NumberFormatException e) {
       return null;
     }

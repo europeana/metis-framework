@@ -50,7 +50,7 @@ public class PatternNumericDateExtractorWithMissingPartsDateExtractor implements
         if (ambigMatcher.matches()) {
           return null;// these cases are ambiguous. Example '187?'
         }
-        return new Match(MatchId.Numeric_AllVariants, inputValue, new InstantEDTFDate(d));
+        return new Match(MatchId.NUMERIC_ALL_VARIANTS, inputValue, new InstantEDTFDate(d));
       }
     }
     return null;

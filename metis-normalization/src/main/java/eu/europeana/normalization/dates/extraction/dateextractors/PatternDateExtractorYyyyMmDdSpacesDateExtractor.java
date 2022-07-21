@@ -22,7 +22,7 @@ public class PatternDateExtractorYyyyMmDdSpacesDateExtractor implements DateExtr
       d.setYear(Integer.parseInt(m.group(1)));
       d.setMonth(Integer.parseInt(m.group(2)));
       d.setDay(Integer.parseInt(m.group(3)));
-      return new Match(MatchId.YYYY_MM_DD_Spaces, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.YYYY_MM_DD_SPACES, inputValue, new InstantEDTFDate(d));
     }
     m = patDdMmYyyy.matcher(inputValue);
     if (m.matches()) {
@@ -30,7 +30,7 @@ public class PatternDateExtractorYyyyMmDdSpacesDateExtractor implements DateExtr
       d.setYear(Integer.parseInt(m.group(3)));
       d.setMonth(Integer.parseInt(m.group(2)));
       d.setDay(Integer.parseInt(m.group(1)));
-      return new Match(MatchId.YYYY_MM_DD_Spaces, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.YYYY_MM_DD_SPACES, inputValue, new InstantEDTFDate(d));
     }
     return null;
   }

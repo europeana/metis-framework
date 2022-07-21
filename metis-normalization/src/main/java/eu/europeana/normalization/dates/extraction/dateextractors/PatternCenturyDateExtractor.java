@@ -44,7 +44,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Numeric, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_NUMERIC, inputValue, new InstantEDTFDate(d));
     }
     m = patEnglish.matcher(inputValue);
     if (m.matches()) {
@@ -54,7 +54,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Numeric, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_NUMERIC, inputValue, new InstantEDTFDate(d));
     }
     m = patRoman.matcher(inputValue);
     if (m.matches()) {
@@ -64,7 +64,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Roman, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_ROMAN, inputValue, new InstantEDTFDate(d));
     }
     m = patRomanClean.matcher(inputValue);
     if (m.matches()) {
@@ -74,7 +74,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.Century_Roman, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_ROMAN, inputValue, new InstantEDTFDate(d));
     }
     m = patRomanRange.matcher(inputValue);
     if (m.matches()) {
@@ -88,7 +88,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
         start.setUncertain(true);
         end.setUncertain(true);
       }
-      return new Match(MatchId.Century_Range_Roman, inputValue,
+      return new Match(MatchId.CENTURY_RANGE_ROMAN, inputValue,
           new IntervalEDTFDate(new InstantEDTFDate(start), new InstantEDTFDate(end)));
     }
     return null;
