@@ -9,19 +9,19 @@ package eu.europeana.normalization.dates.edtf;
 public class EdtfDateWithLabel {
 
   protected String label;
-  protected AbstractEdtfDate edtf;
+  protected AbstractEdtfDate edtfDate;
 
   public EdtfDateWithLabel() {
   }
 
-  public EdtfDateWithLabel(String label, AbstractEdtfDate edtf) {
+  public EdtfDateWithLabel(String label, AbstractEdtfDate edtfDate) {
     super();
     this.label = label;
-    this.edtf = edtf;
+    this.edtfDate = edtfDate;
   }
 
-  public EdtfDateWithLabel(AbstractEdtfDate edtf) {
-    this(null, edtf);
+  public EdtfDateWithLabel(AbstractEdtfDate edtfDate) {
+    this(null, edtfDate);
   }
 
   public String getLabel() {
@@ -32,16 +32,11 @@ public class EdtfDateWithLabel {
     this.label = label;
   }
 
-  public AbstractEdtfDate getEdtf() {
-    return edtf;
+  public AbstractEdtfDate getEdtfDate() {
+    return edtfDate;
   }
 
-  public void setEdtf(AbstractEdtfDate edtf) {
-    this.edtf = edtf;
+  public void setEdtfDate(AbstractEdtfDate edtfDate) {
+    this.edtfDate = edtfDate;
   }
-
-  public EdtfDateWithLabel copy() {
-    return new EdtfDateWithLabel(label, edtf.copy());
-  }
-
 }

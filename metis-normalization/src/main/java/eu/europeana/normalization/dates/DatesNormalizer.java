@@ -1,9 +1,8 @@
 package eu.europeana.normalization.dates;
 
 import eu.europeana.normalization.dates.Cleaner.CleanResult;
-import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
+import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfValidator;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
@@ -87,7 +86,7 @@ public class DatesNormalizer {
 
       //Check if we did a clean operation and update approximate
       if (dateNormalizationResult.getCleanOperationMatchId() != null) {
-        dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf().setApproximate(
+        dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(
             CleanOperationId.isApproximateCleanOperationIdForDateProperty(dateNormalizationResult.getCleanOperationMatchId()));
       }
 
@@ -97,8 +96,8 @@ public class DatesNormalizer {
       //If we found a match, and it is valid and also the EDTF date(or dates) IS a time only date, then we declare there is no matchId
       if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.NO_MATCH
           && dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.INVALID
-          && dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf().isTimeOnly()) {
-        // TODO: 21/07/2022 The result is only declared with NO_MATCH but the contents are still present in the object. Is that okay?
+          && dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().isTimeOnly()) {
+        // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are still present in the object. Is that okay?
         dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
       }
       return dateNormalizationResult;
@@ -129,8 +128,25 @@ public class DatesNormalizer {
     return dateNormalizationResult;
   }
 
-  // TODO: 21/07/2022 Not used? Assuming this was not unit tested?
   // TODO: 21/07/2022 To check. This method does not do the validate and switching like the other method
+  private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
+    final AbstractEdtfDate edtfDate = dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate();
+    if (!EdtfValidator.validate(edtfDate, false)) {
+
+      if (edtfDate instanceof IntervalEdtfDate) {
+        ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
+        if (!EdtfValidator.validate(edtfDate, false)) {
+          //Revert the start/end
+          ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
+          switchDayWithMonthAndValidate(dateNormalizationResult, edtfDate);
+        }
+      } else {
+        switchDayWithMonthAndValidate(dateNormalizationResult, edtfDate);
+      }
+    }
+  }
+
+  // TODO: 21/07/2022 Not used? Assuming this was not unit tested?
   public DateNormalizationResult normalizeGenericProperty(String input) throws Exception {
     try {
       String valTrim = sanitizeCharacters(input);
@@ -168,9 +184,9 @@ public class DatesNormalizer {
 
       if (dateNormalizationResult.getCleanOperationMatchId() != null) {
         if (dateNormalizationResult.getCleanOperationMatchId() == CleanOperationId.CIRCA) {
-          dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf().setApproximate(true);
+          dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(true);
         } else if (dateNormalizationResult.getCleanOperationMatchId() == CleanOperationId.SQUARE_BRACKETS_AND_CIRCA) {
-          dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf().setApproximate(true);
+          dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(true);
         }
       }
 
@@ -180,7 +196,7 @@ public class DatesNormalizer {
       }
 
       if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.NO_MATCH) {
-        if (!EdtfValidator.validate(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf(), false)) {
+        if (!EdtfValidator.validate(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate(), false)) {
           dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
         }
       }
@@ -190,45 +206,13 @@ public class DatesNormalizer {
     }
   }
 
-  private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
-    if (!EdtfValidator.validate(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf(), false)) {
-
-      if (dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf() instanceof IntervalEdtfDate) {
-        //Switch end and start dates and try again
-        IntervalEdtfDate intervalEdtfDate = (IntervalEdtfDate) dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf();
-        InstantEdtfDate start = intervalEdtfDate.getStart();
-        intervalEdtfDate.setStart(intervalEdtfDate.getEnd());
-        intervalEdtfDate.setEnd(start);
-        if (!EdtfValidator.validate(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf(), false)) {
-          //Revert the star and end switch back to what it was
-          intervalEdtfDate.setEnd(intervalEdtfDate.getStart());
-          intervalEdtfDate.setStart(start);
-
-          //Switch the day with month values and try again, else invalid
-          EdtfDateWithLabel copy = dateNormalizationResult.getNormalizedEdtfDateWithLabel().copy();
-          copy.getEdtf().switchDayAndMonth();
-          if (!EdtfValidator.validate(copy.getEdtf(), false)) {
-            dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
-          } else {
-            dateNormalizationResult.setNormalizedEdtfDateWithLabel(copy);
-          }
-        }
-      } else {
-        //Switch the day with month values and try again, else invalid
-        EdtfDateWithLabel copy = dateNormalizationResult.getNormalizedEdtfDateWithLabel().copy();
-        copy.getEdtf().switchDayAndMonth();
-        if (!EdtfValidator.validate(copy.getEdtf(), false)) {
-          dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
-        } else {
-          dateNormalizationResult.setNormalizedEdtfDateWithLabel(copy);
-        }
-      }
-    }
-    // TODO: 21/07/2022 This is performed on the upper method as well. Is this okay?
-    if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.NO_MATCH
-        && dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.INVALID
-        && dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf().isTimeOnly()) {
-      dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
+  private void switchDayWithMonthAndValidate(DateNormalizationResult dateNormalizationResult, AbstractEdtfDate edtfDate) {
+    edtfDate.switchDayAndMonth();
+    if (EdtfValidator.validate(edtfDate, false)) {
+      dateNormalizationResult.getNormalizedEdtfDateWithLabel().setEdtfDate(edtfDate);
+    } else {
+      edtfDate.switchDayAndMonth();
+      dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
     }
   }
 

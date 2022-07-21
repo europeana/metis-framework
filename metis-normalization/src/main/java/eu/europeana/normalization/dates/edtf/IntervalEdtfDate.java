@@ -1,18 +1,12 @@
 package eu.europeana.normalization.dates.edtf;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 /**
  * An EDTF date that represents a period of time specified by a start and end date with various degrees of precision
  */
-public class IntervalEdtfDate extends AbstractEdtfDate implements Serializable {
+public class IntervalEdtfDate extends AbstractEdtfDate {
 
   private static final long serialVersionUID = -8754610674192759880L;
+
   private InstantEdtfDate start;
   private InstantEdtfDate end;
 
@@ -22,25 +16,15 @@ public class IntervalEdtfDate extends AbstractEdtfDate implements Serializable {
     this.end = end;
   }
 
+  public void switchStartWithEnd() {
+    InstantEdtfDate tempStart = this.start;
+    this.start = this.end;
+    this.end = tempStart;
+  }
+
   @Override
   public boolean isTimeOnly() {
     return (start == null || start.isTimeOnly()) && (end == null || end.isTimeOnly());
-  }
-
-  public InstantEdtfDate getStart() {
-    return start;
-  }
-
-  public void setStart(InstantEdtfDate start) {
-    this.start = start;
-  }
-
-  public InstantEdtfDate getEnd() {
-    return end;
-  }
-
-  public void setEnd(InstantEdtfDate end) {
-    this.end = end;
   }
 
   @Override
@@ -84,20 +68,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate implements Serializable {
   }
 
   @Override
-  public AbstractEdtfDate copy() {
-    try {
-      ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-      ObjectOutputStream out = new ObjectOutputStream(bytes);
-      out.writeObject(this);
-      out.close();
-      ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      return (IntervalEdtfDate) in.readObject();
-    } catch (ClassNotFoundException | IOException e) {
-      throw new RuntimeException(e.getMessage(), e);
-    }
-  }
-
-  @Override
   public InstantEdtfDate getFirstDay() {
     return start == null ? null : start.getFirstDay();
   }
@@ -115,5 +85,21 @@ public class IntervalEdtfDate extends AbstractEdtfDate implements Serializable {
     if (end != null) {
       end.removeTime();
     }
+  }
+
+  public InstantEdtfDate getStart() {
+    return start;
+  }
+
+  public void setStart(InstantEdtfDate start) {
+    this.start = start;
+  }
+
+  public InstantEdtfDate getEnd() {
+    return end;
+  }
+
+  public void setEnd(InstantEdtfDate end) {
+    this.end = end;
   }
 }

@@ -14,7 +14,7 @@ public class DebugEDTFDateNormalizerPart {
 		dateNormalizationResult = normaliser.normalizeDateProperty("?/1807");
 		System.out.println(dateNormalizationResult.getOriginalInput());
 		System.out.println(dateNormalizationResult.getMatchId());
-		System.out.println(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf().serialize());
+		System.out.println(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().serialize());
 	}
 
 }

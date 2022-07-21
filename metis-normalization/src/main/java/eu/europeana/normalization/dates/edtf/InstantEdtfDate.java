@@ -1,24 +1,20 @@
 package eu.europeana.normalization.dates.edtf;
 
 import eu.europeana.normalization.dates.YearPrecision;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.time.Month;
 import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * Part of an EDTF date that represents a point in time with various degrees of precision
  */
-public class InstantEdtfDate extends AbstractEdtfDate implements Serializable {
+public class InstantEdtfDate extends AbstractEdtfDate {
 
   private static final long serialVersionUID = -4111050222535744456L;
+
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   private EdtfDatePart edtfDatePart;
   private EdtfTimePart edtfTimePart;
@@ -101,24 +97,10 @@ public class InstantEdtfDate extends AbstractEdtfDate implements Serializable {
   }
 
   @Override
-  public AbstractEdtfDate copy() {
-    try {
-      ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-      ObjectOutputStream out = new ObjectOutputStream(bytes);
-      out.writeObject(this);
-      out.close();
-      ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      return (InstantEdtfDate) in.readObject();
-    } catch (ClassNotFoundException | IOException e) {
-      throw new RuntimeException(e.getMessage(), e);
-    }
-  }
-
-  @Override
   public InstantEdtfDate getFirstDay() {
     InstantEdtfDate firstDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      firstDay = (InstantEdtfDate) this.copy();
+      firstDay = SerializationUtils.clone(this);
       firstDay.setEdtfTimePart(null);
       firstDay.setApproximate(false);
       firstDay.setUncertain(false);
@@ -150,7 +132,7 @@ public class InstantEdtfDate extends AbstractEdtfDate implements Serializable {
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      lastDay = (InstantEdtfDate) this.copy();
+      lastDay = SerializationUtils.clone(this);
       lastDay.setEdtfTimePart(null);
       lastDay.setApproximate(false);
       lastDay.setUncertain(false);

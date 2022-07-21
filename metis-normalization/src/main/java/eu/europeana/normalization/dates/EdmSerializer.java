@@ -94,7 +94,7 @@ public class EdmSerializer {
   }
 
   public static Resource serialize(EdtfDateWithLabel edtfDateWithLabel) {
-    AbstractEdtfDate edtf = edtfDateWithLabel.getEdtf();
+    AbstractEdtfDate edtf = edtfDateWithLabel.getEdtfDate();
     Model m = ModelFactory.createDefaultModel();
     String edtfString = EdtfSerializer.serialize(edtf);
     String uri;

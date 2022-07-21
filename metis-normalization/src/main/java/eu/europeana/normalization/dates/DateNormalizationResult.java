@@ -84,13 +84,13 @@ public class DateNormalizationResult {
   }
 
   public boolean isCompleteDate() {
-    if (normalizedEdtfDateWithLabel == null || normalizedEdtfDateWithLabel.getEdtf().isTimeOnly()) {
+    if (normalizedEdtfDateWithLabel == null || normalizedEdtfDateWithLabel.getEdtfDate().isTimeOnly()) {
       return false;
     }
-    if (normalizedEdtfDateWithLabel.getEdtf() instanceof InstantEdtfDate) {
-      return ((InstantEdtfDate) normalizedEdtfDateWithLabel.getEdtf()).getEdtfDatePart().getDay() != null;
+    if (normalizedEdtfDateWithLabel.getEdtfDate() instanceof InstantEdtfDate) {
+      return ((InstantEdtfDate) normalizedEdtfDateWithLabel.getEdtfDate()).getEdtfDatePart().getDay() != null;
     } else {
-      IntervalEdtfDate intervalEdtfDate = (IntervalEdtfDate) normalizedEdtfDateWithLabel.getEdtf();
+      IntervalEdtfDate intervalEdtfDate = (IntervalEdtfDate) normalizedEdtfDateWithLabel.getEdtfDate();
       if (intervalEdtfDate.getStart() != null && intervalEdtfDate.getEnd() != null) {
         if (intervalEdtfDate.getStart().getEdtfDatePart().isUnknown() || intervalEdtfDate.getStart().getEdtfDatePart()
                                                                                          .isUnspecified()) {

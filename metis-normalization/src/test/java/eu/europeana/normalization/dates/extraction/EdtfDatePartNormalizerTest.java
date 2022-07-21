@@ -149,7 +149,7 @@ public class EdtfDatePartNormalizerTest {
         assertNull(testCases.get(testCase), "Test case '" + testCase
             + "' was a no-match but should be normalised to '" + testCases.get(testCase) + "'");
       } else {
-        String edtfStr = EdtfSerializer.serialize(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtf());
+        String edtfStr = EdtfSerializer.serialize(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate());
         assertEquals(testCases.get(testCase), edtfStr, "Test case '" + testCase + "'");
         if (dateNormalizationResult.getMatchId() == DateNormalizationExtractorMatchId.DCMI_PERIOD) {
           assertTrue(
