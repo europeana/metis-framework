@@ -10,13 +10,13 @@ import java.io.Serializable;
 /**
  * An EDTF date that represents a period of time specified by a start and end date with various degrees of precision
  */
-public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
+public class IntervalEdtfDate extends AbstractEdtfDate implements Serializable {
 
   private static final long serialVersionUID = -8754610674192759880L;
-  private InstantEDTFDate start;
-  private InstantEDTFDate end;
+  private InstantEdtfDate start;
+  private InstantEdtfDate end;
 
-  public IntervalEDTFDate(InstantEDTFDate start, InstantEDTFDate end) {
+  public IntervalEdtfDate(InstantEdtfDate start, InstantEdtfDate end) {
     super();
     this.start = start;
     this.end = end;
@@ -27,19 +27,19 @@ public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
     return (start == null || start.isTimeOnly()) && (end == null || end.isTimeOnly());
   }
 
-  public InstantEDTFDate getStart() {
+  public InstantEdtfDate getStart() {
     return start;
   }
 
-  public void setStart(InstantEDTFDate start) {
+  public void setStart(InstantEdtfDate start) {
     this.start = start;
   }
 
-  public InstantEDTFDate getEnd() {
+  public InstantEdtfDate getEnd() {
     return end;
   }
 
-  public void setEnd(InstantEDTFDate end) {
+  public void setEnd(InstantEdtfDate end) {
     this.end = end;
   }
 
@@ -84,26 +84,26 @@ public class IntervalEDTFDate extends AbstractEDTFDate implements Serializable {
   }
 
   @Override
-  public AbstractEDTFDate copy() {
+  public AbstractEdtfDate copy() {
     try {
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       ObjectOutputStream out = new ObjectOutputStream(bytes);
       out.writeObject(this);
       out.close();
       ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      return (IntervalEDTFDate) in.readObject();
+      return (IntervalEdtfDate) in.readObject();
     } catch (ClassNotFoundException | IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     }
   }
 
   @Override
-  public InstantEDTFDate getFirstDay() {
+  public InstantEdtfDate getFirstDay() {
     return start == null ? null : start.getFirstDay();
   }
 
   @Override
-  public InstantEDTFDate getLastDay() {
+  public InstantEdtfDate getLastDay() {
     return end == null ? null : end.getLastDay();
   }
 

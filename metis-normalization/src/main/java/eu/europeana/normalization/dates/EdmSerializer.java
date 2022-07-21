@@ -1,9 +1,10 @@
 package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
-import eu.europeana.normalization.dates.edtf.EDTFParser;
-import eu.europeana.normalization.dates.edtf.EDTFSerializer;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
+import eu.europeana.normalization.dates.edtf.EdtfParser;
+import eu.europeana.normalization.dates.edtf.EdtfSerializer;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -73,8 +74,8 @@ public class EdmSerializer {
      * Convert a value of this datatype out to lexical form.
      */
     public String unparse(Object value) {
-      AbstractEDTFDate r = (AbstractEDTFDate) value;
-      return EDTFSerializer.serialize(r);
+      AbstractEdtfDate r = (AbstractEdtfDate) value;
+      return EdtfSerializer.serialize(r);
     }
 
     /**
@@ -84,7 +85,7 @@ public class EdmSerializer {
      */
     public Object parse(String lexicalForm) throws DatatypeFormatException {
       try {
-        AbstractEDTFDate parsed = new EDTFParser().parse(lexicalForm);
+        AbstractEdtfDate parsed = new EdtfParser().parse(lexicalForm);
         return parsed;
       } catch (ParseException e) {
         throw new DatatypeFormatException(lexicalForm, instance, e.getMessage());
@@ -92,10 +93,10 @@ public class EdmSerializer {
     }
   }
 
-  public static Resource serialize(EdmTemporalEntity edmTemporalEntity) {
-    AbstractEDTFDate edtf = edmTemporalEntity.getEdtf();
+  public static Resource serialize(EdtfDateWithLabel edtfDateWithLabel) {
+    AbstractEdtfDate edtf = edtfDateWithLabel.getEdtf();
     Model m = ModelFactory.createDefaultModel();
-    String edtfString = EDTFSerializer.serialize(edtf);
+    String edtfString = EdtfSerializer.serialize(edtf);
     String uri;
     try {
       uri = "#" + URLEncoder.encode(edtfString, StandardCharsets.UTF_8.name());
@@ -114,14 +115,14 @@ public class EdmSerializer {
 
     Integer startCentury = null;
     Integer endCentury = null;
-    InstantEDTFDate firstDay = edtf.getFirstDay();
-    InstantEDTFDate lastDay = edtf.getLastDay();
+    InstantEdtfDate firstDay = edtf.getFirstDay();
+    InstantEdtfDate lastDay = edtf.getLastDay();
     if (firstDay != null) {
-      r.addProperty(Edm.begin, EDTFSerializer.serialize(firstDay));
+      r.addProperty(Edm.begin, EdtfSerializer.serialize(firstDay));
       startCentury = firstDay.getCentury();
     }
     if (lastDay != null) {
-      r.addProperty(Edm.end, EDTFSerializer.serialize(lastDay));
+      r.addProperty(Edm.end, EdtfSerializer.serialize(lastDay));
       endCentury = lastDay.getCentury();
     }
 
@@ -134,8 +135,8 @@ public class EdmSerializer {
       r.addProperty(Dcterms.isPartOf, m.createResource("http://data.europeana.eu/timespan/" + c));
     }
 
-    if (!StringUtils.isEmpty(edmTemporalEntity.getLabel())) {
-      r.addProperty(Skos.prefLabel, edmTemporalEntity.getLabel());
+    if (!StringUtils.isEmpty(edtfDateWithLabel.getLabel())) {
+      r.addProperty(Skos.prefLabel, edtfDateWithLabel.getLabel());
     } else {
       r.addProperty(Skos.prefLabel, edtfString, "zxx");
     }

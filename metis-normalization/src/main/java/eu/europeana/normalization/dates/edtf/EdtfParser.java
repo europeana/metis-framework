@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * This class implements the deserialization of EDTF strings into the EDTF structure.
  */
-public class EDTFParser {
+public class EdtfParser {
 
   // TODO: 19/07/2022 Simplify regex by potentially splitting it
   private static final Pattern DATE_PATTERN = Pattern
@@ -22,7 +22,7 @@ public class EDTFParser {
           + "(?<hour4>\\d{2}):(?<minute4>\\d{2}):(?<second4>\\d{2})(\\.(?<millis>\\d{1,3}))?(Z|[+\\-]\\d{2}:?\\d{0,2})?)");
 
 
-  public AbstractEDTFDate parse(String edtfString) throws ParseException {
+  public AbstractEdtfDate parse(String edtfString) throws ParseException {
     if (StringUtils.isEmpty(edtfString)) {
       throw new ParseException("Empty argument", 0);
     }
@@ -32,38 +32,38 @@ public class EDTFParser {
     return parseInstant(edtfString);
   }
 
-  protected InstantEDTFDate parseInstant(String edtfString) throws ParseException {
+  protected InstantEdtfDate parseInstant(String edtfString) throws ParseException {
     if (edtfString.contains("T")) {
       String datePart = edtfString.substring(0, edtfString.indexOf('T'));
       String timePart = edtfString.substring(edtfString.indexOf('T') + 1);
       if (datePart.isEmpty()) {
-        return new InstantEDTFDate(parseTime(timePart));
+        return new InstantEdtfDate(parseTime(timePart));
       }
-      return new InstantEDTFDate(parseDate(datePart), parseTime(timePart));
+      return new InstantEdtfDate(parseDate(datePart), parseTime(timePart));
     } else if (edtfString.contains(":")) {
-      return new InstantEDTFDate(parseTime(edtfString));
+      return new InstantEdtfDate(parseTime(edtfString));
     } else {
-      return new InstantEDTFDate(parseDate(edtfString));
+      return new InstantEdtfDate(parseDate(edtfString));
     }
   }
 
-  protected IntervalEDTFDate parseInterval(String edtfString) throws ParseException {
+  protected IntervalEdtfDate parseInterval(String edtfString) throws ParseException {
     String startPart = edtfString.substring(0, edtfString.indexOf('/'));
     String endPart = edtfString.substring(edtfString.indexOf('/') + 1);
-    InstantEDTFDate start = parseInstant(startPart);
-    InstantEDTFDate end = parseInstant(endPart);
+    InstantEdtfDate start = parseInstant(startPart);
+    InstantEdtfDate end = parseInstant(endPart);
     if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
         || start.getEdtfDatePart().isUnspecified())) {
       throw new ParseException(edtfString, 0);
     }
-    return new IntervalEDTFDate(start, end);
+    return new IntervalEdtfDate(start, end);
   }
 
-  protected EDTFTimePart parseTime(String edtfString) throws ParseException {
+  protected EdtfTimePart parseTime(String edtfString) throws ParseException {
     Matcher matcher = TIME_PATTERN.matcher(edtfString);
-    final EDTFTimePart edtfTimePart;
+    final EdtfTimePart edtfTimePart;
     if (matcher.matches()) {
-      edtfTimePart = new EDTFTimePart();
+      edtfTimePart = new EdtfTimePart();
       if (!StringUtils.isEmpty(matcher.group("hour3"))) {
         edtfTimePart.setHour(Integer.parseInt(matcher.group("hour3")));
       } else if (!StringUtils.isEmpty(matcher.group("hour2"))) {
@@ -84,23 +84,23 @@ public class EDTFParser {
     return edtfTimePart;
   }
 
-  protected EDTFDatePart parseDate(String edtfString) throws ParseException {
-    final EDTFDatePart edtfDatePart;
+  protected EdtfDatePart parseDate(String edtfString) throws ParseException {
+    final EdtfDatePart edtfDatePart;
     if (edtfString.isEmpty()) {
-      edtfDatePart = EDTFDatePart.getUnknownInstance();
+      edtfDatePart = EdtfDatePart.getUnknownInstance();
     } else if ("..".equals(edtfString)) {
-      edtfDatePart = EDTFDatePart.getUnspecifiedInstance();
+      edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
     } else if (edtfString.startsWith("Y")) {
-      edtfDatePart = new EDTFDatePart();
+      edtfDatePart = new EdtfDatePart();
       edtfDatePart.setYear(Integer.parseInt(edtfString.substring(1)));
     } else {
-      edtfDatePart = getRegexParsedEDTFDatePart(edtfString);
+      edtfDatePart = getRegexParsedEdtfDatePart(edtfString);
     }
     return edtfDatePart;
   }
 
-  private EDTFDatePart getRegexParsedEDTFDatePart(String edtfString) throws ParseException {
-    final EDTFDatePart edtfDatePart = new EDTFDatePart();
+  private EdtfDatePart getRegexParsedEdtfDatePart(String edtfString) throws ParseException {
+    final EdtfDatePart edtfDatePart = new EdtfDatePart();
     Matcher matcher = DATE_PATTERN.matcher(edtfString);
     if (matcher.matches()) {
       //Select data based on the name of the regex group matching

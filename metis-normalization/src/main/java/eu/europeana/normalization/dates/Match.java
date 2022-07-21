@@ -1,130 +1,133 @@
 package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
-import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 
 /**
- * a data class that contains the result of a normalisation. It contains the pattern that was matched, if some cleaning was done,
- * and the normalised value (if successfully normalised).
+ * Contains the result of a date normalisation.
+ * <p>
+ * It contains the pattern that was matched, if some cleaning was done, and the normalised value (if successfully normalised).
+ * </p>
  */
 public class Match {
 
-	MatchId matchId;
-	CleanId cleanOperation;
-	String input;
-	EdmTemporalEntity extracted;
+  MatchId matchId;
+  CleanId cleanOperation;
+  String input;
+  EdtfDateWithLabel extracted;
 
-	public Match(MatchId matchId, String input, EdmTemporalEntity extracted) {
-		super();
-		this.matchId = matchId;
-		this.input = input;
-		this.extracted = extracted;
-	}
+  public Match(MatchId matchId, String input, EdtfDateWithLabel extracted) {
+    super();
+    this.matchId = matchId;
+    this.input = input;
+    this.extracted = extracted;
+  }
 
-	public Match(MatchId matchId, CleanId cleanOperation, String input, EdmTemporalEntity extracted) {
-		super();
-		this.matchId = matchId;
-		this.cleanOperation = cleanOperation;
-		this.input = input;
-		this.extracted = extracted;
-	}
+  public Match(MatchId matchId, CleanId cleanOperation, String input, EdtfDateWithLabel extracted) {
+    super();
+    this.matchId = matchId;
+    this.cleanOperation = cleanOperation;
+    this.input = input;
+    this.extracted = extracted;
+  }
 
-	public Match(MatchId matchId, String input, AbstractEDTFDate extracted) {
-		super();
-		this.matchId = matchId;
-		this.input = input;
-		this.extracted = extracted == null ? null : new EdmTemporalEntity(extracted);
-	}
+  public Match(MatchId matchId, String input, AbstractEdtfDate extracted) {
+    super();
+    this.matchId = matchId;
+    this.input = input;
+    this.extracted = extracted == null ? null : new EdtfDateWithLabel(extracted);
+  }
 
-	public Match(MatchId matchId, CleanId cleanOperation, String input, AbstractEDTFDate extracted) {
-		super();
-		this.matchId = matchId;
-		this.cleanOperation = cleanOperation;
-		this.input = input;
-		this.extracted = extracted == null ? null : new EdmTemporalEntity(extracted);
-	}
+  public Match(MatchId matchId, CleanId cleanOperation, String input, AbstractEdtfDate extracted) {
+    super();
+    this.matchId = matchId;
+    this.cleanOperation = cleanOperation;
+    this.input = input;
+    this.extracted = extracted == null ? null : new EdtfDateWithLabel(extracted);
+  }
 
-	public Match(String input) {
-		this.input = input;
-	}
+  public Match(String input) {
+    this.input = input;
+  }
 
-	public MatchId getMatchId() {
-		return matchId;
-	}
+  public MatchId getMatchId() {
+    return matchId;
+  }
 
-	public String getInput() {
-		return input;
-	}
+  public String getInput() {
+    return input;
+  }
 
-	public EdmTemporalEntity getExtracted() {
-		return extracted;
-	}
+  public EdtfDateWithLabel getExtracted() {
+    return extracted;
+  }
 
-	public void setMatchId(MatchId matchId) {
-		this.matchId = matchId;
-	}
+  public void setMatchId(MatchId matchId) {
+    this.matchId = matchId;
+  }
 
-	public void setInput(String input) {
-		this.input = input;
-	}
+  public void setInput(String input) {
+    this.input = input;
+  }
 
-	public void setExtracted(EdmTemporalEntity extracted) {
-		this.extracted = extracted;
-	}
+  public void setExtracted(EdtfDateWithLabel extracted) {
+    this.extracted = extracted;
+  }
 
-	public void setResult(Match result) {
-		matchId = result.getMatchId();
-		this.cleanOperation = result.getCleanOperation();
-		this.extracted = result.getExtracted();
-	}
+  public void setResult(Match result) {
+    matchId = result.getMatchId();
+    this.cleanOperation = result.getCleanOperation();
+    this.extracted = result.getExtracted();
+  }
 
-	public CleanId getCleanOperation() {
-		return cleanOperation;
-	}
+  public CleanId getCleanOperation() {
+    return cleanOperation;
+  }
 
-	public void setCleanOperation(CleanId cleanOperation) {
-		this.cleanOperation = cleanOperation;
-	}
+  public void setCleanOperation(CleanId cleanOperation) {
+    this.cleanOperation = cleanOperation;
+  }
 
-	@Override
-	public String toString() {
-		return "Match [matchId=" + matchId + ", cleanOperation=" + cleanOperation + ", input=" + input + ", extracted="
-				+ extracted + "]";
-	}
+  @Override
+  public String toString() {
+    return "Match [matchId=" + matchId + ", cleanOperation=" + cleanOperation + ", input=" + input + ", extracted="
+        + extracted + "]";
+  }
 
-	public boolean isCompleteDate() {
-		if (extracted == null || extracted.getEdtf().isTimeOnly()) {
-			return false;
-		}
-		if (extracted.getEdtf() instanceof InstantEDTFDate) {
-			return ((InstantEDTFDate) extracted.getEdtf()).getEdtfDatePart().getDay() != null;
-		} else {
-			IntervalEDTFDate intervalEDTFDate = (IntervalEDTFDate) extracted.getEdtf();
-			if (intervalEDTFDate.getStart() != null && intervalEDTFDate.getEnd() != null) {
-				if (intervalEDTFDate.getStart().getEdtfDatePart().isUnknown() || intervalEDTFDate.getStart().getEdtfDatePart()
-																																												 .isUnspecified()) {
-					return false;
-				}
-				if (intervalEDTFDate.getEnd().getEdtfDatePart().isUnknown() || intervalEDTFDate.getEnd().getEdtfDatePart()
-																																											 .isUnspecified()) {
-					return false;
-				}
-				if (intervalEDTFDate.getStart().getEdtfDatePart().getYearPrecision() != null
-						|| intervalEDTFDate.getEnd().getEdtfDatePart().getYearPrecision() != null) {
-					return false;
-				}
-				if (intervalEDTFDate.getStart().getEdtfDatePart().getDay() != null
-						&& intervalEDTFDate.getStart().getEdtfDatePart().getDay() != null) {
-					return true;
-				}
-				if (intervalEDTFDate.getStart().getEdtfDatePart().getMonth() == null
-						&& intervalEDTFDate.getStart().getEdtfDatePart().getMonth() == null) {
-					return true;
-				}
-			}
-			return false;
-		}
-	}
+  public boolean isCompleteDate() {
+    if (extracted == null || extracted.getEdtf().isTimeOnly()) {
+      return false;
+    }
+    if (extracted.getEdtf() instanceof InstantEdtfDate) {
+      return ((InstantEdtfDate) extracted.getEdtf()).getEdtfDatePart().getDay() != null;
+    } else {
+      IntervalEdtfDate intervalEdtfDate = (IntervalEdtfDate) extracted.getEdtf();
+      if (intervalEdtfDate.getStart() != null && intervalEdtfDate.getEnd() != null) {
+        if (intervalEdtfDate.getStart().getEdtfDatePart().isUnknown() || intervalEdtfDate.getStart().getEdtfDatePart()
+                                                                                         .isUnspecified()) {
+          return false;
+        }
+        if (intervalEdtfDate.getEnd().getEdtfDatePart().isUnknown() || intervalEdtfDate.getEnd().getEdtfDatePart()
+                                                                                       .isUnspecified()) {
+          return false;
+        }
+        if (intervalEdtfDate.getStart().getEdtfDatePart().getYearPrecision() != null
+            || intervalEdtfDate.getEnd().getEdtfDatePart().getYearPrecision() != null) {
+          return false;
+        }
+        if (intervalEdtfDate.getStart().getEdtfDatePart().getDay() != null
+            && intervalEdtfDate.getStart().getEdtfDatePart().getDay() != null) {
+          return true;
+        }
+        if (intervalEdtfDate.getStart().getEdtfDatePart().getMonth() == null
+            && intervalEdtfDate.getStart().getEdtfDatePart().getMonth() == null) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 
 }

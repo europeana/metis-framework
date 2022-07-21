@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * A data class for representing the hours, minutes, seconds, miliseconds and timezone part of an EDTF date
  */
-public class EDTFTimePart implements Serializable {
+public class EdtfTimePart implements Serializable {
 
   private static final long serialVersionUID = 7275202766728354307L;
 
@@ -15,7 +15,7 @@ public class EDTFTimePart implements Serializable {
   private Integer millisecond;
   private Integer timezone;
 
-  public EDTFTimePart(Integer hour, Integer minute, Integer second, Integer millisecond, Integer timezone) {
+  public EdtfTimePart(Integer hour, Integer minute, Integer second, Integer millisecond, Integer timezone) {
     super();
     this.hour = hour;
     this.minute = minute;
@@ -24,20 +24,20 @@ public class EDTFTimePart implements Serializable {
     this.timezone = timezone;
   }
 
-  public EDTFTimePart(Integer hour, Integer minute, Integer second) {
+  public EdtfTimePart(Integer hour, Integer minute, Integer second) {
     super();
     this.hour = hour;
     this.minute = minute;
     this.second = second;
   }
 
-  public EDTFTimePart(Integer hour, Integer minute) {
+  public EdtfTimePart(Integer hour, Integer minute) {
     super();
     this.hour = hour;
     this.minute = minute;
   }
 
-  public EDTFTimePart() {
+  public EdtfTimePart() {
   }
 
   public Integer getHour() {

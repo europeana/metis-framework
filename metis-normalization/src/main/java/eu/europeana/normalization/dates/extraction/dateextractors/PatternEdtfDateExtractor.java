@@ -2,8 +2,8 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
-import eu.europeana.normalization.dates.edtf.EDTFParser;
+import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.EdtfParser;
 import java.text.ParseException;
 
 /**
@@ -11,12 +11,12 @@ import java.text.ParseException;
  */
 public class PatternEdtfDateExtractor implements DateExtractor {
 
-  final EDTFParser edtfParser = new EDTFParser();
+  final EdtfParser edtfParser = new EdtfParser();
 
   @Override
   public Match extract(String inputValue) {
     try {
-      AbstractEDTFDate edtfDate = edtfParser.parse(inputValue);
+      AbstractEdtfDate edtfDate = edtfParser.parse(inputValue);
       edtfDate.removeTime();
       return new Match(MatchId.EDTF, inputValue, edtfDate);
     } catch (ParseException | NumberFormatException e) {

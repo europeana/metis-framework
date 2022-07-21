@@ -2,8 +2,8 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,19 +18,19 @@ public class PatternDateExtractorYyyyMmDdSpacesDateExtractor implements DateExtr
   public Match extract(String inputValue) {
     Matcher m = patYyyyMmDd.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYear(Integer.parseInt(m.group(1)));
       d.setMonth(Integer.parseInt(m.group(2)));
       d.setDay(Integer.parseInt(m.group(3)));
-      return new Match(MatchId.YYYY_MM_DD_SPACES, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.YYYY_MM_DD_SPACES, inputValue, new InstantEdtfDate(d));
     }
     m = patDdMmYyyy.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYear(Integer.parseInt(m.group(3)));
       d.setMonth(Integer.parseInt(m.group(2)));
       d.setDay(Integer.parseInt(m.group(1)));
-      return new Match(MatchId.YYYY_MM_DD_SPACES, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.YYYY_MM_DD_SPACES, inputValue, new InstantEdtfDate(d));
     }
     return null;
   }

@@ -5,24 +5,24 @@ import static java.lang.String.format;
 /**
  * This class implements the serialisation of instances of EDTF objects.
  */
-public final class EDTFSerializer {
+public final class EdtfSerializer {
 
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
 
   // TODO: 19/07/2022 Shouldn't the methods of this class be in fact the toString methods of the relevant classes??
 
-  private EDTFSerializer() {
+  private EdtfSerializer() {
   }
 
-  public static String serialize(AbstractEDTFDate edtfDate) {
-    if (edtfDate instanceof InstantEDTFDate) {
-      return serializeInstant((InstantEDTFDate) edtfDate);
+  public static String serialize(AbstractEdtfDate edtfDate) {
+    if (edtfDate instanceof InstantEdtfDate) {
+      return serializeInstant((InstantEdtfDate) edtfDate);
     }
-    return serializeInstant(((IntervalEDTFDate) edtfDate).getStart()) + "/" + serializeInstant(
-        ((IntervalEDTFDate) edtfDate).getEnd());
+    return serializeInstant(((IntervalEdtfDate) edtfDate).getStart()) + "/" + serializeInstant(
+        ((IntervalEdtfDate) edtfDate).getEnd());
   }
 
-  private static String serializeInstant(InstantEDTFDate edtfDate) {
+  private static String serializeInstant(InstantEdtfDate edtfDate) {
     StringBuilder stringBuilder = new StringBuilder();
     //Date part serialization
     if (edtfDate.getEdtfDatePart() != null) {
@@ -38,7 +38,7 @@ public final class EDTFSerializer {
     return stringBuilder.toString();
   }
 
-  private static String serializeDatePart(InstantEDTFDate edtfDate) {
+  private static String serializeDatePart(InstantEdtfDate edtfDate) {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append(serializeYear(edtfDate.getEdtfDatePart()));
     //If the year is below or above threshold(prefixed with Y) we stop
@@ -66,7 +66,7 @@ public final class EDTFSerializer {
   }
 
 
-  private static String serializeTimePart(InstantEDTFDate edtfDate) {
+  private static String serializeTimePart(InstantEdtfDate edtfDate) {
     StringBuilder stringBuilder = new StringBuilder();
     // TODO: 20/07/2022 Why the hour,minute,second has to be != 0 ??
     //  In fact checking the value and then nullity probably will cause an issue if it was null.
@@ -87,7 +87,7 @@ public final class EDTFSerializer {
   }
 
 
-  private static String serializeYear(EDTFDatePart edtfDatePart) {
+  private static String serializeYear(EdtfDatePart edtfDatePart) {
     final String serializedYear;
     if (edtfDatePart.getYear() < -THRESHOLD_4_DIGITS_YEAR || edtfDatePart.getYear() > THRESHOLD_4_DIGITS_YEAR) {
       serializedYear = "Y" + edtfDatePart.getYear();
@@ -99,7 +99,7 @@ public final class EDTFSerializer {
     return serializedYear;
   }
 
-  private static String getYearWithPrecisionApplied(EDTFDatePart edtfDatePart, String paddedYear) {
+  private static String getYearWithPrecisionApplied(EdtfDatePart edtfDatePart, String paddedYear) {
     final String yearWithAppliedPrecision;
     if (edtfDatePart.getYearPrecision() == null) {
       yearWithAppliedPrecision = paddedYear;

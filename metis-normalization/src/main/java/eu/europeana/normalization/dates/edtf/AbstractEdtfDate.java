@@ -4,15 +4,15 @@ package eu.europeana.normalization.dates.edtf;
  * An abstract class that contains the template that an EDTF date with compliance level 1 should implement.
  * <p>See more in the specification of <a href="https://www.loc.gov/standards/datetime/">EDTF</a></p>
  */
-public abstract class AbstractEDTFDate {
+public abstract class AbstractEdtfDate {
 
   public String serialize() {
-    return EDTFSerializer.serialize(this);
+    return EdtfSerializer.serialize(this);
   }
 
   @Override
   public String toString() {
-    return EDTFSerializer.serialize(this);
+    return EdtfSerializer.serialize(this);
   }
 
   public abstract void setApproximate(boolean approx);
@@ -27,11 +27,11 @@ public abstract class AbstractEDTFDate {
 
   public abstract void switchDayAndMonth();
 
-  public abstract AbstractEDTFDate copy();
+  public abstract AbstractEdtfDate copy();
 
-  public abstract InstantEDTFDate getFirstDay();
+  public abstract InstantEdtfDate getFirstDay();
 
-  public abstract InstantEDTFDate getLastDay();
+  public abstract InstantEdtfDate getLastDay();
 
   public abstract void removeTime();
 

@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
-import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,24 +24,24 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
     Matcher m;
     m = patYyyyyy.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYear(Integer.parseInt(m.group("year")));
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.LONG_YEAR, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.LONG_YEAR, inputValue, new InstantEdtfDate(d));
     }
     m = patYyyyyyRange.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart start = new EDTFDatePart();
+      EdtfDatePart start = new EdtfDatePart();
       start.setYear(Integer.parseInt(m.group("year")));
-      EDTFDatePart end = new EDTFDatePart();
+      EdtfDatePart end = new EdtfDatePart();
       end.setYear(Integer.parseInt(m.group("year2")));
-      IntervalEDTFDate intervalEDTFDate = new IntervalEDTFDate(new InstantEDTFDate(start), new InstantEDTFDate(end));
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(start), new InstantEdtfDate(end));
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-        intervalEDTFDate.setUncertain(true);
+        intervalEdtfDate.setUncertain(true);
       }
-      return new Match(MatchId.LONG_YEAR, inputValue, intervalEDTFDate);
+      return new Match(MatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }
     return null;
   }

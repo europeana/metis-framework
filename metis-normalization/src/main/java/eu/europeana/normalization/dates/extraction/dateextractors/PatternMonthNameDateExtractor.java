@@ -2,8 +2,8 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
 import java.time.Month;
 import java.util.HashMap;
@@ -53,26 +53,26 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
     for (Month month : Month.values()) {
       Matcher m = patternDayMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EDTFDatePart d = new EDTFDatePart();
+        EdtfDatePart d = new EdtfDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         d.setMonth(month.getValue());
         d.setDay(Integer.parseInt(m.group("day")));
-        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEDTFDate(d));
+        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
       }
       m = patternMonthDayYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EDTFDatePart d = new EDTFDatePart();
+        EdtfDatePart d = new EdtfDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         d.setMonth(month.getValue());
         d.setDay(Integer.parseInt(m.group("day")));
-        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEDTFDate(d));
+        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
       }
       m = patternMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EDTFDatePart d = new EDTFDatePart();
+        EdtfDatePart d = new EdtfDatePart();
         d.setYear(Integer.parseInt(m.group("year")));
         d.setMonth(month.getValue());
-        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEDTFDate(d));
+        return new Match(MatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
       }
     }
     return null;

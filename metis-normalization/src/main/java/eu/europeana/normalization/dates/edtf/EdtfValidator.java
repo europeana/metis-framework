@@ -1,6 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
-import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
 import java.time.Month;
 import java.time.Year;
 import java.util.EnumSet;
@@ -17,40 +17,40 @@ import java.util.EnumSet;
  * </ul>
  * </p>
  */
-public final class EDTFValidator {
+public final class EdtfValidator {
 
   private static final EnumSet<Month> MONTHS_WITH_31_DAYS = EnumSet.of(Month.JANUARY, Month.MARCH, Month.MAY, Month.JULY,
       Month.AUGUST, Month.OCTOBER, Month.DECEMBER);
   // TODO: 20/07/2022 Check if we need a validator. Shouldn't the creation or matching code for edtf be valid in the fist place?
 
-  private EDTFValidator() {
+  private EdtfValidator() {
   }
 
-  public static boolean validate(AbstractEDTFDate edtfDate, boolean allowFutureDates) {
+  public static boolean validate(AbstractEdtfDate edtfDate, boolean allowFutureDates) {
     boolean isValid;
-    if (edtfDate instanceof InstantEDTFDate) {
-      isValid = validateInstant((InstantEDTFDate) edtfDate, true);
+    if (edtfDate instanceof InstantEdtfDate) {
+      isValid = validateInstant((InstantEdtfDate) edtfDate, true);
     } else {
-      isValid = validateInterval((IntervalEDTFDate) edtfDate);
+      isValid = validateInterval((IntervalEdtfDate) edtfDate);
     }
     return isValid && (allowFutureDates || validateNotInFuture(edtfDate));
   }
 
-  private static boolean validateNotInFuture(AbstractEDTFDate edtfDate) {
-    if (edtfDate instanceof InstantEDTFDate) {
-      return validateInstantNotInFuture((InstantEDTFDate) edtfDate);
+  private static boolean validateNotInFuture(AbstractEdtfDate edtfDate) {
+    if (edtfDate instanceof InstantEdtfDate) {
+      return validateInstantNotInFuture((InstantEdtfDate) edtfDate);
     }
-    return validateIntervalNotInFuture((IntervalEDTFDate) edtfDate);
+    return validateIntervalNotInFuture((IntervalEdtfDate) edtfDate);
   }
 
   // TODO: 20/07/2022 It checks interval of date parts but not time parts??
-  private static boolean validateInterval(IntervalEDTFDate intervalEDTFDate) {
-    final InstantEDTFDate startDate = intervalEDTFDate.getStart();
-    final InstantEDTFDate endDate = intervalEDTFDate.getEnd();
+  private static boolean validateInterval(IntervalEdtfDate intervalEdtfDate) {
+    final InstantEdtfDate startDate = intervalEdtfDate.getStart();
+    final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
     final boolean isIntervalValid;
     if (startDate != null && validateInstant(startDate, false) && endDate != null && validateInstant(endDate, false)) {
-      EDTFDatePart startDatePart = startDate.getEdtfDatePart();
-      EDTFDatePart endDatePart = endDate.getEdtfDatePart();
+      EdtfDatePart startDatePart = startDate.getEdtfDatePart();
+      EdtfDatePart endDatePart = endDate.getEdtfDatePart();
       final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
       final boolean isEndDatePartSpecific = !endDatePart.isUnknown() && !endDatePart.isUnspecified();
       if (isStartDatePartSpecific && isEndDatePartSpecific) {
@@ -72,7 +72,7 @@ public final class EDTFValidator {
     return isIntervalValid;
   }
 
-  private static boolean validateSpecificIntervalDates(EDTFDatePart startDatePart, EDTFDatePart endDatePart) {
+  private static boolean validateSpecificIntervalDates(EdtfDatePart startDatePart, EdtfDatePart endDatePart) {
     // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc?
     // TODO: 20/07/2022 No check for null year but we check for null month and day?
     boolean isDatesValid = false;
@@ -101,11 +101,11 @@ public final class EDTFValidator {
     return adjustedYear;
   }
 
-  private static boolean validateInstant(InstantEDTFDate instantEDTFDate, boolean standalone) {
+  private static boolean validateInstant(InstantEdtfDate instantEdtfDate, boolean standalone) {
     boolean isInstantValid = false;
-    EDTFDatePart edtfDatePart = instantEDTFDate.getEdtfDatePart();
+    EdtfDatePart edtfDatePart = instantEdtfDate.getEdtfDatePart();
     if (validateDatePart(edtfDatePart)) {
-      EDTFTimePart edtfTimePart = instantEDTFDate.getEdtfTimePart();
+      EdtfTimePart edtfTimePart = instantEdtfDate.getEdtfTimePart();
       if (validateTimePart(edtfTimePart)) {
         // TODO: 20/07/2022 Does this mean that if it's not standalone, it is then allowed to have both null/unknown??
         if (standalone) {
@@ -120,7 +120,7 @@ public final class EDTFValidator {
     return isInstantValid;
   }
 
-  private static boolean validateDatePart(EDTFDatePart edtfDatePart) {
+  private static boolean validateDatePart(EdtfDatePart edtfDatePart) {
     boolean isDatePartValid = true;
     if (edtfDatePart != null && !(edtfDatePart.isUnknown() || edtfDatePart.isUnspecified())) {
       if (edtfDatePart.getYear() == null) {
@@ -137,7 +137,7 @@ public final class EDTFValidator {
     return isDatePartValid;
   }
 
-  private static boolean isDatePartDayValid(EDTFDatePart edtfDatePart) {
+  private static boolean isDatePartDayValid(EdtfDatePart edtfDatePart) {
     final boolean isDayValid;
     if (edtfDatePart.getDay() == null) {
       isDayValid = true;
@@ -151,12 +151,12 @@ public final class EDTFValidator {
     return isDayValid;
   }
 
-  private static boolean isValidFebruaryDay(EDTFDatePart edtfDatePart) {
+  private static boolean isValidFebruaryDay(EdtfDatePart edtfDatePart) {
     return (edtfDatePart.getDay() > 0 && edtfDatePart.getDay() < 30 && edtfDatePart.getDay() != 29) || Year.isLeap(
         edtfDatePart.getYear());
   }
 
-  private static boolean validateTimePart(EDTFTimePart edtfTimePart) {
+  private static boolean validateTimePart(EdtfTimePart edtfTimePart) {
     final boolean isTimePartValid;
     if (edtfTimePart == null) {
       isTimePartValid = true;
@@ -173,22 +173,22 @@ public final class EDTFValidator {
     return isTimePartValid;
   }
 
-  private static boolean validateIntervalNotInFuture(IntervalEDTFDate intervalEDTFDate) {
-    return validateInstantNotInFuture(intervalEDTFDate.getStart()) && validateInstantNotInFuture(intervalEDTFDate.getEnd());
+  private static boolean validateIntervalNotInFuture(IntervalEdtfDate intervalEdtfDate) {
+    return validateInstantNotInFuture(intervalEdtfDate.getStart()) && validateInstantNotInFuture(intervalEdtfDate.getEnd());
   }
 
   // TODO: 20/07/2022 This only calculates years and not other parts of the date.
   //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
-  private static boolean validateInstantNotInFuture(InstantEDTFDate instantEDTFDate) {
+  private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;
     //If null or not specific it's valid
-    if (instantEDTFDate.getEdtfDatePart() == null || instantEDTFDate.getEdtfDatePart().isUnknown()
-        || instantEDTFDate.getEdtfDatePart().isUnspecified()) {
+    if (instantEdtfDate.getEdtfDatePart() == null || instantEdtfDate.getEdtfDatePart().isUnknown()
+        || instantEdtfDate.getEdtfDatePart().isUnspecified()) {
       isYearInPast = true;
     } else {
       int currentYear = Year.now().getValue();
-      final Integer edtfYear = instantEDTFDate.getEdtfDatePart().getYear();
-      final YearPrecision yearPrecision = instantEDTFDate.getEdtfDatePart().getYearPrecision();
+      final Integer edtfYear = instantEdtfDate.getEdtfDatePart().getYear();
+      final YearPrecision yearPrecision = instantEdtfDate.getEdtfDatePart().getYearPrecision();
 
       final Integer adjustedCurrentYear = adjustYearWithPrecision(currentYear, yearPrecision);
       final Integer adjustedEdtfYear = adjustYearWithPrecision(edtfYear, yearPrecision);

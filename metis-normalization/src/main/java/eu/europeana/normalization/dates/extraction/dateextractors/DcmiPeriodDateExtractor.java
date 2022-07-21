@@ -1,12 +1,12 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import eu.europeana.normalization.dates.EdmTemporalEntity;
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.EDTFParser;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
-import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
+import eu.europeana.normalization.dates.edtf.EdtfParser;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.DcmiPeriod;
 import java.text.ParseException;
 import java.util.regex.Matcher;
@@ -34,8 +34,8 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     try {
       if (mayBeW3CDTFEncoded) {
         // Declare fields
-        InstantEDTFDate start = null;
-        InstantEDTFDate end = null;
+        InstantEdtfDate start = null;
+        InstantEdtfDate end = null;
         String name = null;
         // Parse
         Matcher m = DCMI_PERIOD.matcher(value);
@@ -79,10 +79,10 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
   /**
    * @throws IllegalArgumentException if the value cannot be parsed
    */
-  private static InstantEDTFDate parseW3CDTF(String value) {
+  private static InstantEdtfDate parseW3CDTF(String value) {
     try {
-      EDTFParser parser = new EDTFParser();
-      return (InstantEDTFDate) parser.parse(value);
+      EdtfParser parser = new EdtfParser();
+      return (InstantEdtfDate) parser.parse(value);
     } catch (ParseException e) {
       throw new IllegalArgumentException(e);
     }
@@ -97,21 +97,21 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         return null;
       }
 
-      InstantEDTFDate edtfStart;
-      InstantEDTFDate edtfEnd;
+      InstantEdtfDate edtfStart;
+      InstantEdtfDate edtfEnd;
       if (decoded.hasStart()) {
         edtfStart = decoded.getStart();
       } else {
-        edtfStart = new InstantEDTFDate(EDTFDatePart.getUnspecifiedInstance());
+        edtfStart = new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance());
       }
       if (decoded.hasEnd()) {
         edtfEnd = decoded.getEnd();
       } else {
-        edtfEnd = new InstantEDTFDate(EDTFDatePart.getUnspecifiedInstance());
+        edtfEnd = new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance());
       }
 
-      IntervalEDTFDate edtf = new IntervalEDTFDate(edtfStart, edtfEnd);
-      return new Match(MatchId.DCMI_PERIOD, inputValue, new EdmTemporalEntity(decoded.getName(), edtf));
+      IntervalEdtfDate edtf = new IntervalEdtfDate(edtfStart, edtfEnd);
+      return new Match(MatchId.DCMI_PERIOD, inputValue, new EdtfDateWithLabel(decoded.getName(), edtf));
     } catch (IllegalStateException e) {
       // a parsing error occoured
       return null;

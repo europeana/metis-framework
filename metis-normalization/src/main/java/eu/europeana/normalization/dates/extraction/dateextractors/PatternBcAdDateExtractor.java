@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
-import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,33 +74,33 @@ public class PatternBcAdDateExtractor implements DateExtractor {
   public Match extract(String inputValue) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       if (bcAbbreviations.contains(m.group("era").toLowerCase())) {
         d.setYear(-Integer.parseInt(m.group("year")));
       } else {
         d.setYear(Integer.parseInt(m.group("year")));
       }
-      return new Match(MatchId.BC_AD, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.BC_AD, inputValue, new InstantEdtfDate(d));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       if (isBc(m.group("era"))) {
         d.setYear(-Integer.parseInt(m.group("year")));
       } else {
         d.setYear(Integer.parseInt(m.group("year")));
       }
-      InstantEDTFDate start = new InstantEDTFDate(d);
+      InstantEdtfDate start = new InstantEdtfDate(d);
 
-      d = new EDTFDatePart();
+      d = new EdtfDatePart();
       if (isBc(m.group("era2"))) {
         d.setYear(-Integer.parseInt(m.group("year2")));
       } else {
         d.setYear(Integer.parseInt(m.group("year2")));
       }
-      InstantEDTFDate end = new InstantEDTFDate(d);
+      InstantEdtfDate end = new InstantEdtfDate(d);
 
-      return new Match(MatchId.BC_AD, inputValue, new IntervalEDTFDate(start, end));
+      return new Match(MatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
     }
     return null;
   }

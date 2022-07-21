@@ -2,10 +2,10 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
-import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,50 +38,50 @@ public class PatternCenturyDateExtractor implements DateExtractor {
     Matcher m;
     m = patYyyy.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear(Integer.parseInt(m.group("century")) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.CENTURY_NUMERIC, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_NUMERIC, inputValue, new InstantEdtfDate(d));
     }
     m = patEnglish.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear((Integer.parseInt(m.group("century")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.CENTURY_NUMERIC, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_NUMERIC, inputValue, new InstantEdtfDate(d));
     }
     m = patRoman.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear((RomanToNumber.romanToDecimal(m.group("century")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.CENTURY_ROMAN, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_ROMAN, inputValue, new InstantEdtfDate(d));
     }
     m = patRomanClean.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart d = new EDTFDatePart();
+      EdtfDatePart d = new EdtfDatePart();
       d.setYearPrecision(YearPrecision.CENTURY);
       d.setYear((RomanToNumber.romanToDecimal(m.group("century")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.CENTURY_ROMAN, inputValue, new InstantEDTFDate(d));
+      return new Match(MatchId.CENTURY_ROMAN, inputValue, new InstantEdtfDate(d));
     }
     m = patRomanRange.matcher(inputValue);
     if (m.matches()) {
-      EDTFDatePart start = new EDTFDatePart();
+      EdtfDatePart start = new EdtfDatePart();
       start.setYearPrecision(YearPrecision.CENTURY);
       start.setYear((RomanToNumber.romanToDecimal(m.group("century1")) - 1) * 100);
-      EDTFDatePart end = new EDTFDatePart();
+      EdtfDatePart end = new EdtfDatePart();
       end.setYearPrecision(YearPrecision.CENTURY);
       end.setYear((RomanToNumber.romanToDecimal(m.group("century2")) - 1) * 100);
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
@@ -89,7 +89,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
         end.setUncertain(true);
       }
       return new Match(MatchId.CENTURY_RANGE_ROMAN, inputValue,
-          new IntervalEDTFDate(new InstantEDTFDate(start), new InstantEDTFDate(end)));
+          new IntervalEdtfDate(new InstantEdtfDate(start), new InstantEdtfDate(end)));
     }
     return null;
   }

@@ -1,6 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
-import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,36 +16,36 @@ import java.util.GregorianCalendar;
 /**
  * Part of an EDTF date that represents a point in time with various degrees of precision
  */
-public class InstantEDTFDate extends AbstractEDTFDate implements Serializable {
+public class InstantEdtfDate extends AbstractEdtfDate implements Serializable {
 
   private static final long serialVersionUID = -4111050222535744456L;
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
-  private EDTFDatePart edtfDatePart;
-  private EDTFTimePart edtfTimePart;
+  private EdtfDatePart edtfDatePart;
+  private EdtfTimePart edtfTimePart;
 
-  public InstantEDTFDate(EDTFDatePart edtfDatePart, EDTFTimePart edtfTimePart) {
+  public InstantEdtfDate(EdtfDatePart edtfDatePart, EdtfTimePart edtfTimePart) {
     super();
     this.edtfDatePart = edtfDatePart;
     this.edtfTimePart = edtfTimePart;
   }
 
-  public InstantEDTFDate(EDTFDatePart edtfDatePart) {
+  public InstantEdtfDate(EdtfDatePart edtfDatePart) {
     super();
     this.edtfDatePart = edtfDatePart;
   }
 
-  public InstantEDTFDate(EDTFTimePart parseEDTFTimePart) {
-    this(null, parseEDTFTimePart);
+  public InstantEdtfDate(EdtfTimePart parseEdtfTimePart) {
+    this(null, parseEdtfTimePart);
   }
 
-  public InstantEDTFDate(Date date) {
+  public InstantEdtfDate(Date date) {
     GregorianCalendar gregorianCalendar = new GregorianCalendar();
     gregorianCalendar.setTime(date);
-    edtfDatePart = new EDTFDatePart();
+    edtfDatePart = new EdtfDatePart();
     edtfDatePart.setYear(gregorianCalendar.get(Calendar.YEAR));
     edtfDatePart.setMonth(gregorianCalendar.get(Calendar.MONTH));
     edtfDatePart.setDay(gregorianCalendar.get(Calendar.DAY_OF_MONTH));
-    edtfTimePart = new EDTFTimePart();
+    edtfTimePart = new EdtfTimePart();
     edtfTimePart.setHour(gregorianCalendar.get(Calendar.HOUR_OF_DAY));
     edtfTimePart.setMinute(gregorianCalendar.get(Calendar.MINUTE));
     edtfTimePart.setSecond(gregorianCalendar.get(Calendar.SECOND));
@@ -57,19 +57,19 @@ public class InstantEDTFDate extends AbstractEDTFDate implements Serializable {
     return edtfDatePart == null;
   }
 
-  public EDTFDatePart getEdtfDatePart() {
+  public EdtfDatePart getEdtfDatePart() {
     return edtfDatePart;
   }
 
-  public void setEdtfDatePart(EDTFDatePart edtfDatePart) {
+  public void setEdtfDatePart(EdtfDatePart edtfDatePart) {
     this.edtfDatePart = edtfDatePart;
   }
 
-  public EDTFTimePart getEdtfTimePart() {
+  public EdtfTimePart getEdtfTimePart() {
     return edtfTimePart;
   }
 
-  public void setEdtfTimePart(EDTFTimePart edtfTimePart) {
+  public void setEdtfTimePart(EdtfTimePart edtfTimePart) {
     this.edtfTimePart = edtfTimePart;
   }
 
@@ -101,24 +101,24 @@ public class InstantEDTFDate extends AbstractEDTFDate implements Serializable {
   }
 
   @Override
-  public AbstractEDTFDate copy() {
+  public AbstractEdtfDate copy() {
     try {
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       ObjectOutputStream out = new ObjectOutputStream(bytes);
       out.writeObject(this);
       out.close();
       ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      return (InstantEDTFDate) in.readObject();
+      return (InstantEdtfDate) in.readObject();
     } catch (ClassNotFoundException | IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     }
   }
 
   @Override
-  public InstantEDTFDate getFirstDay() {
-    InstantEDTFDate firstDay = null;
+  public InstantEdtfDate getFirstDay() {
+    InstantEdtfDate firstDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      firstDay = (InstantEDTFDate) this.copy();
+      firstDay = (InstantEdtfDate) this.copy();
       firstDay.setEdtfTimePart(null);
       firstDay.setApproximate(false);
       firstDay.setUncertain(false);
@@ -138,19 +138,19 @@ public class InstantEDTFDate extends AbstractEDTFDate implements Serializable {
           firstDay.getEdtfDatePart().setDay(1);
         }
       } else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-        EDTFDatePart newEDTFDatePart = new EDTFDatePart();
-        newEDTFDatePart.setYear(getEdtfDatePart().getYear());
-        firstDay = new InstantEDTFDate(newEDTFDatePart);
+        EdtfDatePart newEdtfDatePart = new EdtfDatePart();
+        newEdtfDatePart.setYear(getEdtfDatePart().getYear());
+        firstDay = new InstantEdtfDate(newEdtfDatePart);
       }
     }
     return firstDay;
   }
 
   @Override
-  public InstantEDTFDate getLastDay() {
-    InstantEDTFDate lastDay = null;
+  public InstantEdtfDate getLastDay() {
+    InstantEdtfDate lastDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      lastDay = (InstantEDTFDate) this.copy();
+      lastDay = (InstantEdtfDate) this.copy();
       lastDay.setEdtfTimePart(null);
       lastDay.setApproximate(false);
       lastDay.setUncertain(false);
@@ -174,9 +174,9 @@ public class InstantEDTFDate extends AbstractEDTFDate implements Serializable {
           lastDay.getEdtfDatePart().setDay(31);
         }
       } else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-        EDTFDatePart newEdtfDatePart = new EDTFDatePart();
+        EdtfDatePart newEdtfDatePart = new EdtfDatePart();
         newEdtfDatePart.setYear(getEdtfDatePart().getYear());
-        lastDay = new InstantEDTFDate(newEdtfDatePart);
+        lastDay = new InstantEdtfDate(newEdtfDatePart);
       }
     }
     return lastDay;

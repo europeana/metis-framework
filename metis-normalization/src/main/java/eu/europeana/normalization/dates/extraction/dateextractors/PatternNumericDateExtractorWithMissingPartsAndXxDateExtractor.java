@@ -2,9 +2,9 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 import eu.europeana.normalization.dates.MatchId;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart;
-import eu.europeana.normalization.dates.edtf.EDTFDatePart.YearPrecision;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +48,7 @@ public class PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor imple
     for (Pattern pat : patterns) {
       Matcher m = pat.matcher(inputValue);
       if (m.matches()) {
-        EDTFDatePart d = new EDTFDatePart();
+        EdtfDatePart d = new EdtfDatePart();
 
         String year = m.group("year");
         Matcher mtc = unknownChars.matcher(year);
@@ -89,7 +89,7 @@ public class PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor imple
         if (ambigMatcher.matches()) {
           return null;// these cases are ambiguous. Examples '187-?', '187?'
         }
-        return new Match(MatchId.NUMERIC_ALL_VARIANTS_XX, inputValue, new InstantEDTFDate(d));
+        return new Match(MatchId.NUMERIC_ALL_VARIANTS_XX, inputValue, new InstantEdtfDate(d));
       }
     }
     return null;

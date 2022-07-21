@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Support partial dates, including only centuries or decades (e.g., 19XX)
  * </p>
  */
-public class EDTFDatePart implements Serializable {
+public class EdtfDatePart implements Serializable {
 
   private static final long serialVersionUID = -7497880706682687923L;
 
@@ -115,14 +115,14 @@ public class EDTFDatePart implements Serializable {
     }
   }
 
-  public static EDTFDatePart getUnknownInstance() {
-    final EDTFDatePart edtfDatePart = new EDTFDatePart();
+  public static EdtfDatePart getUnknownInstance() {
+    final EdtfDatePart edtfDatePart = new EdtfDatePart();
     edtfDatePart.setUnknown(true);
     return edtfDatePart;
   }
 
-  public static EDTFDatePart getUnspecifiedInstance() {
-    final EDTFDatePart edtfDatePart = new EDTFDatePart();
+  public static EdtfDatePart getUnspecifiedInstance() {
+    final EdtfDatePart edtfDatePart = new EdtfDatePart();
     edtfDatePart.setUnspecified(true);
     return edtfDatePart;
   }

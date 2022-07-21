@@ -1,10 +1,11 @@
 package eu.europeana.normalization.dates;
 
 import eu.europeana.normalization.dates.Cleaner.CleanResult;
-import eu.europeana.normalization.dates.edtf.AbstractEDTFDate;
-import eu.europeana.normalization.dates.edtf.EDTFValidator;
-import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
-import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
+import eu.europeana.normalization.dates.edtf.EdtfValidator;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
@@ -119,7 +120,7 @@ public class DatesNormaliser {
         }
       }
       if (extracted == null) {
-        return new Match(MatchId.NO_MATCH, input, (AbstractEDTFDate) null);
+        return new Match(MatchId.NO_MATCH, input, (AbstractEdtfDate) null);
       } else {
         extracted.setInput(input);
       }
@@ -137,7 +138,7 @@ public class DatesNormaliser {
         if (validateAndFix) {
           validateAndFix(extracted);
         } else {
-          if (!EDTFValidator.validate(extracted.getExtracted().getEdtf(), false)) {
+          if (!EdtfValidator.validate(extracted.getExtracted().getEdtf(), false)) {
             extracted.setMatchId(MatchId.INVALID);
           }
         }
@@ -189,7 +190,7 @@ public class DatesNormaliser {
         }
       }
       if (match == null || !match.isCompleteDate()) {
-        return new Match(MatchId.NO_MATCH, input, (AbstractEDTFDate) null);
+        return new Match(MatchId.NO_MATCH, input, (AbstractEdtfDate) null);
       } else {
         match.setInput(input);
       }
@@ -207,7 +208,7 @@ public class DatesNormaliser {
       }
 
       if (match.getMatchId() != MatchId.NO_MATCH) {
-        if (!EDTFValidator.validate(match.getExtracted().getEdtf(), false)) {
+        if (!EdtfValidator.validate(match.getExtracted().getEdtf(), false)) {
           match.setMatchId(MatchId.INVALID);
         }
       }
@@ -218,21 +219,21 @@ public class DatesNormaliser {
   }
 
   private void validateAndFix(Match extracted) {
-    if (!EDTFValidator.validate(extracted.getExtracted().getEdtf(), false)) {
-      if (extracted.getExtracted().getEdtf() instanceof IntervalEDTFDate) {
+    if (!EdtfValidator.validate(extracted.getExtracted().getEdtf(), false)) {
+      if (extracted.getExtracted().getEdtf() instanceof IntervalEdtfDate) {
         // lets try to invert the start and end dates and see if it validates
-        IntervalEDTFDate i = (IntervalEDTFDate) extracted.getExtracted().getEdtf();
-        InstantEDTFDate start = i.getStart();
+        IntervalEdtfDate i = (IntervalEdtfDate) extracted.getExtracted().getEdtf();
+        InstantEdtfDate start = i.getStart();
         i.setStart(i.getEnd());
         i.setEnd(start);
-        if (!EDTFValidator.validate(extracted.getExtracted().getEdtf(), false)) {
+        if (!EdtfValidator.validate(extracted.getExtracted().getEdtf(), false)) {
           i.setEnd(i.getStart());
           i.setStart(start);
 
           if (trySwitchingDayMonth) {
-            EdmTemporalEntity copy = extracted.getExtracted().copy();
+            EdtfDateWithLabel copy = extracted.getExtracted().copy();
             copy.getEdtf().switchDayAndMonth();
-            if (!EDTFValidator.validate(copy.getEdtf(), false)) {
+            if (!EdtfValidator.validate(copy.getEdtf(), false)) {
               extracted.setMatchId(MatchId.INVALID);
             } else {
               extracted.setExtracted(copy);
@@ -243,9 +244,9 @@ public class DatesNormaliser {
         }
       } else {
         if (trySwitchingDayMonth) {
-          EdmTemporalEntity copy = extracted.getExtracted().copy();
+          EdtfDateWithLabel copy = extracted.getExtracted().copy();
           copy.getEdtf().switchDayAndMonth();
-          if (!EDTFValidator.validate(copy.getEdtf(), false)) {
+          if (!EdtfValidator.validate(copy.getEdtf(), false)) {
             extracted.setMatchId(MatchId.INVALID);
           } else {
             extracted.setExtracted(copy);
