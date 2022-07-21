@@ -1,4 +1,4 @@
-package eu.europeana.normalization.dates.extraction;
+package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.Match;
 

@@ -1,4 +1,4 @@
-package eu.europeana.normalization.dates.extraction;
+package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.EdmTemporalEntity;
 import eu.europeana.normalization.dates.Match;
@@ -7,6 +7,7 @@ import eu.europeana.normalization.dates.edtf.EDTFDatePart;
 import eu.europeana.normalization.dates.edtf.EDTFParser;
 import eu.europeana.normalization.dates.edtf.InstantEDTFDate;
 import eu.europeana.normalization.dates.edtf.IntervalEDTFDate;
+import eu.europeana.normalization.dates.extraction.DcmiPeriod;
 import java.text.ParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
