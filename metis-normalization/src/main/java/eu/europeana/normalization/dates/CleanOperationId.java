@@ -19,8 +19,15 @@ public enum CleanOperationId {
   private static final EnumSet<CleanOperationId> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
       CleanOperationId.CIRCA, CleanOperationId.SQUARE_BRACKETS_AND_CIRCA, CleanOperationId.PARENTHESES_FULL_VALUE_AND_CIRCA);
 
+  private static final EnumSet<CleanOperationId> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY = EnumSet.of(
+      CleanOperationId.CIRCA, CleanOperationId.SQUARE_BRACKETS_AND_CIRCA);
+
   public static boolean isApproximateCleanOperationIdForDateProperty(CleanOperationId cleanOperationId) {
     return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY.contains(cleanOperationId);
+  }
+
+  public static boolean isApproximateCleanOperationIdForGenericProperty(CleanOperationId cleanOperationId) {
+    return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY.contains(cleanOperationId);
   }
 
 

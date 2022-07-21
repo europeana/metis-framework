@@ -1,5 +1,9 @@
 package eu.europeana.normalization.dates;
 
+import static eu.europeana.normalization.dates.CleanOperationId.isApproximateCleanOperationIdForDateProperty;
+import static eu.europeana.normalization.dates.CleanOperationId.isApproximateCleanOperationIdForGenericProperty;
+import static java.util.function.Predicate.not;
+
 import eu.europeana.normalization.dates.Cleaner.CleanResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfValidator;
@@ -22,6 +26,7 @@ import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumeric
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -37,9 +42,10 @@ import org.apache.commons.lang3.StringUtils;
 public class DatesNormalizer {
 
   private final Cleaner cleaner = new Cleaner();
-  private final List<DateExtractor> extractorsInOrder;
-  private final List<Class<? extends DateExtractor>> extractorsExcludedForGenericProperties;
-  private final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder;
+  private final List<DateExtractor> extractorsInOrderForDateProperties;
+  private final List<DateExtractor> extractorsInOrderForGenericProperties;
+  private final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrderDateProperty;
+  private final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrderGenericProperty;
 
   /**
    * Default constructor.
@@ -48,7 +54,7 @@ public class DatesNormalizer {
     // The pattern PatternBriefDateRangeDateExtractor needs to be executed before the EDTF pattern.
     // Most values that match this pattern also match the EDTF pattern, but would result in an invalid date.
     // This pattern only matches values that would not be valid EDTF dates.
-    extractorsInOrder = List.of(
+    extractorsInOrderForDateProperties = List.of(
         new PatternBriefDateRangeDateExtractor(),
         new PatternEdtfDateExtractor(),
         new PatternCenturyDateExtractor(),
@@ -63,59 +69,96 @@ public class DatesNormalizer {
         new PatternFormatedFullDateDateExtractor(),
         new PatternBcAdDateExtractor(),
         new PatternLongNegativeYearDateExtractor());
-    extractorsExcludedForGenericProperties = List.of(PatternBriefDateRangeDateExtractor.class);
-    normalizationOperationsInOrder = List.of(
-        this::normalizeInput,
-        input -> normalizeInput(input, cleaner::clean1stTime),
-        input -> normalizeInput(input, cleaner::clean2ndTime));
+
+    extractorsInOrderForGenericProperties = extractorsInOrderForDateProperties.stream().filter(
+        not(PatternBriefDateRangeDateExtractor.class::isInstance)).collect(
+        Collectors.toList());
+
+    normalizationOperationsInOrderDateProperty = List.of(
+        input -> normalizeInput(extractorsInOrderForDateProperties, input),
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean1stTime),
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean2ndTime));
+
+    normalizationOperationsInOrderGenericProperty = List.of(
+        input -> normalizeInput(extractorsInOrderForGenericProperties, input),
+        input -> normalizeInput(extractorsInOrderForGenericProperties, input, cleaner::cleanGenericProperty));
   }
 
-  public DateNormalizationResult normalizeDateProperty(String input) throws Exception {
-    try {
-      DateNormalizationResult dateNormalizationResult;
-      String sanitizedInput = sanitizeCharacters(input);
+  public DateNormalizationResult normalizeDateProperty(String input) {
+    DateNormalizationResult dateNormalizationResult;
+    String sanitizedInput = sanitizeCharacters(input);
 
-      //Normalize trying operations in order
-      dateNormalizationResult = normalizationOperationsInOrder.stream().map(operation -> operation.apply(sanitizedInput))
-                                                              .filter(Objects::nonNull).findFirst()
-                                                              .orElse(null);
-      //Check if we have a match to this point
-      if (dateNormalizationResult == null) {
-        return DateNormalizationResult.getNoMatchResult(input);
-      }
+    //Normalize trying operations in order
+    dateNormalizationResult = normalizationOperationsInOrderDateProperty
+        .stream()
+        .map(operation -> operation.apply(sanitizedInput))
+        .filter(Objects::nonNull).findFirst().orElse(null);
 
-      //Check if we did a clean operation and update approximate
-      if (dateNormalizationResult.getCleanOperationMatchId() != null) {
-        dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(
-            CleanOperationId.isApproximateCleanOperationIdForDateProperty(dateNormalizationResult.getCleanOperationMatchId()));
-      }
-
-      //Try validation and switching
-      validateAndFix(dateNormalizationResult);
-
-      //If we found a match, and it is valid and also the EDTF date(or dates) IS a time only date, then we declare there is no matchId
-      if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.NO_MATCH
-          && dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.INVALID
-          && dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().isTimeOnly()) {
-        // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are still present in the object. Is that okay?
-        dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
-      }
-      return dateNormalizationResult;
-    } catch (Exception e) {
-      throw new Exception("Error in value: " + input, e);
+    //Check if we have a match
+    if (dateNormalizationResult == null) {
+      return DateNormalizationResult.getNoMatchResult(input);
     }
+
+    //Check if we did a clean operation and update approximate
+    if (dateNormalizationResult.getCleanOperationMatchId() != null) {
+      dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(
+          isApproximateCleanOperationIdForDateProperty(dateNormalizationResult.getCleanOperationMatchId()));
+    }
+
+    //Try validation and switching
+    validateAndFix(dateNormalizationResult);
+
+    //If the result is valid and the EDTF date(or dates) IS a time only date, then we declare there is no matchId
+    if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.INVALID
+        && dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().isTimeOnly()) {
+      // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are still present in the object. Is that okay?
+      dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
+    }
+    return dateNormalizationResult;
   }
 
-  private DateNormalizationResult normalizeInput(String input) {
-    return extractorsInOrder.stream().map(dateExtractor -> dateExtractor.extract(input))
-                            .filter(Objects::nonNull).findFirst().orElse(null);
+  // TODO: 21/07/2022 To check. This method does not do dates switching like the other method
+  // TODO: 21/07/2022 Not used? Assuming this was not unit tested?
+  public DateNormalizationResult normalizeGenericProperty(String input) {
+    DateNormalizationResult dateNormalizationResult;
+    String sanitizedInput = sanitizeCharacters(input);
+
+    //Normalize trying operations in order
+    dateNormalizationResult = normalizationOperationsInOrderGenericProperty
+        .stream()
+        .map(operation -> operation.apply(sanitizedInput))
+        .filter(Objects::nonNull).findFirst().orElse(null);
+
+    //Check if we have a match or no complete date
+    if (dateNormalizationResult == null || !dateNormalizationResult.isCompleteDate()) {
+      return DateNormalizationResult.getNoMatchResult(input);
+    }
+
+    //Check if we did a clean operation and update approximate
+    if (dateNormalizationResult.getCleanOperationMatchId() != null) {
+      dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(
+          isApproximateCleanOperationIdForGenericProperty(dateNormalizationResult.getCleanOperationMatchId()));
+    }
+
+    //Try validation
+    if (!EdtfValidator.validate(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate(), false)) {
+      dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
+    }
+
+    return dateNormalizationResult;
   }
 
-  private DateNormalizationResult normalizeInput(String input, Function<String, CleanResult> cleanFunction) {
+  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input) {
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extract(input))
+                         .filter(Objects::nonNull).findFirst().orElse(null);
+  }
+
+  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input,
+      Function<String, CleanResult> cleanFunction) {
     final CleanResult cleanedInput = cleanFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = null;
     if (cleanedInput != null && StringUtils.isNotEmpty(cleanedInput.getCleanedValue())) {
-      dateNormalizationResult = normalizeInput(cleanedInput.getCleanedValue());
+      dateNormalizationResult = normalizeInput(dateExtractors, cleanedInput.getCleanedValue());
       if (dateNormalizationResult != null) {
         dateNormalizationResult.setCleanOperationMatchId(cleanedInput.getCleanOperation());
         // TODO: 21/07/2022 Perhaps this should be done differently, because it pollutes the map of the extractor and its id
@@ -128,7 +171,6 @@ public class DatesNormalizer {
     return dateNormalizationResult;
   }
 
-  // TODO: 21/07/2022 To check. This method does not do the validate and switching like the other method
   private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
     final AbstractEdtfDate edtfDate = dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate();
     if (!EdtfValidator.validate(edtfDate, false)) {
@@ -143,66 +185,6 @@ public class DatesNormalizer {
       } else {
         switchDayWithMonthAndValidate(dateNormalizationResult, edtfDate);
       }
-    }
-  }
-
-  // TODO: 21/07/2022 Not used? Assuming this was not unit tested?
-  public DateNormalizationResult normalizeGenericProperty(String input) throws Exception {
-    try {
-      String valTrim = sanitizeCharacters(input);
-      DateNormalizationResult dateNormalizationResult = null;
-      for (DateExtractor extractor : extractorsInOrder) {
-        if (extractorsExcludedForGenericProperties.contains(extractor.getClass())) {
-          continue;
-        }
-        dateNormalizationResult = extractor.extract(valTrim);
-        if (dateNormalizationResult != null) {
-          break;
-        }
-      }
-      if (dateNormalizationResult == null) {
-        // Trying patterns after cleaning
-        CleanResult cleanResult = cleaner.cleanGenericProperty(valTrim);
-        if (cleanResult != null && !StringUtils.isEmpty(cleanResult.getCleanedValue())) {
-          for (DateExtractor extractor : extractorsInOrder) {
-            if (extractorsExcludedForGenericProperties.contains(extractor.getClass())) {
-              continue;
-            }
-            dateNormalizationResult = extractor.extract(cleanResult.getCleanedValue());
-            if (dateNormalizationResult != null) {
-              dateNormalizationResult.setCleanOperationMatchId(cleanResult.getCleanOperation());
-              break;
-            }
-          }
-        }
-      }
-      if (dateNormalizationResult == null || !dateNormalizationResult.isCompleteDate()) {
-        return DateNormalizationResult.getNoMatchResult(input);
-      } else {
-        dateNormalizationResult.setOriginalInput(input);
-      }
-
-      if (dateNormalizationResult.getCleanOperationMatchId() != null) {
-        if (dateNormalizationResult.getCleanOperationMatchId() == CleanOperationId.CIRCA) {
-          dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(true);
-        } else if (dateNormalizationResult.getCleanOperationMatchId() == CleanOperationId.SQUARE_BRACKETS_AND_CIRCA) {
-          dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(true);
-        }
-      }
-
-      if (dateNormalizationResult.getMatchId() == DateNormalizationExtractorMatchId.EDTF
-          && dateNormalizationResult.getCleanOperationMatchId() != null) {
-        dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.EDTF_CLEANED);
-      }
-
-      if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.NO_MATCH) {
-        if (!EdtfValidator.validate(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate(), false)) {
-          dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
-        }
-      }
-      return dateNormalizationResult;
-    } catch (Exception e) {
-      throw new Exception("Error in value: " + input, e);
     }
   }
 
