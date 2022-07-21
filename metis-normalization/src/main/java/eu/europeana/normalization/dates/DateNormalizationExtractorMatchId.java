@@ -3,7 +3,7 @@ package eu.europeana.normalization.dates;
 /**
  * Identifies the pattern that was matched, or if none of the patterns matched, or if a date matched a pattern but was invalid
  */
-public enum MatchId {
+public enum DateNormalizationExtractorMatchId {
   BC_AD("normalisable: BC/AD date"),
   BRIEF_DATE_RANGE("normalisable: brief year range"),
   CENTURY_NUMERIC("normalisable: century (numeric)"),
@@ -26,7 +26,7 @@ public enum MatchId {
 
   final String label;
 
-  MatchId(String label) {
+  DateNormalizationExtractorMatchId(String label) {
     this.label = label;
   }
 

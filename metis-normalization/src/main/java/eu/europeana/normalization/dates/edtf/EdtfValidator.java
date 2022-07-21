@@ -1,6 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
-import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
+import eu.europeana.normalization.dates.YearPrecision;
 import java.time.Month;
 import java.time.Year;
 import java.util.EnumSet;
@@ -178,6 +178,7 @@ public final class EdtfValidator {
   }
 
   // TODO: 20/07/2022 This only calculates years and not other parts of the date.
+  //  (this probably won't capture a dates that is days/months in the future but on the current year?)
   //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
   private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;

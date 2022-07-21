@@ -1,7 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import eu.europeana.normalization.dates.Match;
-import eu.europeana.normalization.dates.MatchId;
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
+import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
@@ -29,7 +29,7 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
   // year month day hour minute second
   Pattern patFormatedDate3 = Pattern.compile("(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})(\\.\\d{1,3})?");
 
-  public Match extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue) {
     Matcher m = patFormatedDate2.matcher(inputValue);
     if (m.matches()) {
       EdtfDatePart d = new EdtfDatePart();
@@ -41,7 +41,8 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       //			t.setHour(Integer.parseInt(m.group(4)));
       //			t.setMinute(Integer.parseInt(m.group(5)));
       //			t.setSecond(Integer.parseInt(m.group(6)));
-      return new Match(MatchId.FORMATTED_FULL_DATE, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
+          new InstantEdtfDate(d));
     }
     m = patFormatedDate.matcher(inputValue);
     if (m.matches()) {
@@ -54,7 +55,8 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       //			t.setHour(Integer.parseInt(m.group(3)));
       //			t.setMinute(Integer.parseInt(m.group(4)));
       //			t.setSecond(Integer.parseInt(m.group(5)));
-      return new Match(MatchId.FORMATTED_FULL_DATE, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
+          new InstantEdtfDate(d));
     }
     m = patFormatedDate3.matcher(inputValue);
     if (m.matches()) {
@@ -67,7 +69,8 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       //			t.setHour(Integer.parseInt(m.group(4)));
       //			t.setMinute(Integer.parseInt(m.group(5)));
       //			t.setSecond(Integer.parseInt(m.group(6)));
-      return new Match(MatchId.FORMATTED_FULL_DATE, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
+          new InstantEdtfDate(d));
     }
     return null;
   }

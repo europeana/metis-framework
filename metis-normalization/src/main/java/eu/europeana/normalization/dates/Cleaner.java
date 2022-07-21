@@ -13,16 +13,16 @@ public class Cleaner {
 
   public class CleanResult {
 
-    CleanId cleanOperation;
+    CleanOperationId cleanOperation;
     String cleanedValue;
 
-    public CleanResult(CleanId cleanOperation, String cleanedValue) {
+    public CleanResult(CleanOperationId cleanOperation, String cleanedValue) {
       super();
       this.cleanOperation = cleanOperation;
       this.cleanedValue = cleanedValue;
     }
 
-    public CleanId getCleanOperation() {
+    public CleanOperationId getCleanOperation() {
       return cleanOperation;
     }
 
@@ -49,44 +49,44 @@ public class Cleaner {
     if (m.find()) {
       String cleanedVal = m.replaceFirst("");
       if (!StringUtils.isEmpty(cleanedVal)) {
-        return new CleanResult(CleanId.INITIAL_TEXT, cleanedVal);
+        return new CleanResult(CleanOperationId.INITIAL_TEXT, cleanedVal);
       }
     }
     m = patInitialTextB.matcher(value);
     if (m.find()) {
       String cleanedVal = m.replaceFirst("");
       if (!StringUtils.isEmpty(cleanedVal)) {
-        return new CleanResult(CleanId.INITIAL_TEXT, cleanedVal);
+        return new CleanResult(CleanOperationId.INITIAL_TEXT, cleanedVal);
       }
     }
     m = patEndingText.matcher(value);
     if (m.find()) {
       String cleanedVal = m.replaceFirst("");
       if (!StringUtils.isEmpty(cleanedVal)) {
-        return new CleanResult(CleanId.ENDING_TEXT, cleanedVal);
+        return new CleanResult(CleanOperationId.ENDING_TEXT, cleanedVal);
       }
     }
     m = patSquareBracketsAndCa.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.SQUARE_BRACKETS_AND_CIRCA, m.replaceAll("$2"));
+      return new CleanResult(CleanOperationId.SQUARE_BRACKETS_AND_CIRCA, m.replaceAll("$2"));
     }
     m = patSquareBrackets.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.SQUARE_BRACKETS, m.replaceAll("$1"));
+      return new CleanResult(CleanOperationId.SQUARE_BRACKETS, m.replaceAll("$1"));
     }
     m = patCa.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.CIRCA, m.replaceAll(""));
+      return new CleanResult(CleanOperationId.CIRCA, m.replaceAll(""));
     }
     m = patEndingSquareBracket.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.SQUARE_BRACKET_END, m.replaceAll(""));
+      return new CleanResult(CleanOperationId.SQUARE_BRACKET_END, m.replaceAll(""));
     }
     m = patEndingDot.matcher(value);
     if (m.find()) {
       String cleanedVal = m.replaceFirst("");
       if (!StringUtils.isEmpty(cleanedVal)) {
-        return new CleanResult(CleanId.ENDING_TEXT, cleanedVal);
+        return new CleanResult(CleanOperationId.ENDING_TEXT, cleanedVal);
       }
     }
     return null;
@@ -95,15 +95,15 @@ public class Cleaner {
   public CleanResult clean2ndTime(String value) {
     Matcher m = patEndingTextSquareBrackets.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.ENDING_TEXT, m.replaceFirst(""));
+      return new CleanResult(CleanOperationId.ENDING_TEXT, m.replaceFirst(""));
     }
     m = patParenthesesFullValueAndCa.matcher(value);
     if (m.matches()) {
-      return new CleanResult(CleanId.PARENTHESES_FULL_VALUE_AND_CIRCA, m.replaceAll("$1"));
+      return new CleanResult(CleanOperationId.PARENTHESES_FULL_VALUE_AND_CIRCA, m.replaceAll("$1"));
     }
     m = patParenthesesFullValue.matcher(value);
     if (m.matches()) {
-      return new CleanResult(CleanId.PARENTHESES_FULL_VALUE, m.replaceAll("$1"));
+      return new CleanResult(CleanOperationId.PARENTHESES_FULL_VALUE, m.replaceAll("$1"));
     }
     return null;
   }
@@ -111,21 +111,21 @@ public class Cleaner {
   public CleanResult cleanGenericProperty(String value) {
     Matcher m = patSquareBracketsAndCa.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.SQUARE_BRACKETS_AND_CIRCA, m.replaceAll("$2"));
+      return new CleanResult(CleanOperationId.SQUARE_BRACKETS_AND_CIRCA, m.replaceAll("$2"));
     }
     m = patSquareBrackets.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.SQUARE_BRACKETS, m.replaceAll("$1"));
+      return new CleanResult(CleanOperationId.SQUARE_BRACKETS, m.replaceAll("$1"));
     }
     m = patCa.matcher(value);
     if (m.find()) {
-      return new CleanResult(CleanId.CIRCA, m.replaceAll(""));
+      return new CleanResult(CleanOperationId.CIRCA, m.replaceAll(""));
     }
     m = patEndingDot.matcher(value);
     if (m.find()) {
       String cleanedVal = m.replaceFirst("");
       if (!StringUtils.isEmpty(cleanedVal)) {
-        return new CleanResult(CleanId.ENDING_TEXT, cleanedVal);
+        return new CleanResult(CleanOperationId.ENDING_TEXT, cleanedVal);
       }
     }
     return null;

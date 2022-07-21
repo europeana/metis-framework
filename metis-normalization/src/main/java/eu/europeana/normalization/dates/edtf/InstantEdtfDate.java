@@ -1,6 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
-import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
+import eu.europeana.normalization.dates.YearPrecision;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

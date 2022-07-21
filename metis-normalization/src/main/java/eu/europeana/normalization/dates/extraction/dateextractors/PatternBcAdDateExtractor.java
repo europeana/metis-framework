@@ -1,7 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import eu.europeana.normalization.dates.Match;
-import eu.europeana.normalization.dates.MatchId;
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
+import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -71,7 +71,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         Pattern.CASE_INSENSITIVE);
   }
 
-  public Match extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
       EdtfDatePart d = new EdtfDatePart();
@@ -80,7 +80,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       } else {
         d.setYear(Integer.parseInt(m.group("year")));
       }
-      return new Match(MatchId.BC_AD, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new InstantEdtfDate(d));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
@@ -100,7 +100,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       }
       InstantEdtfDate end = new InstantEdtfDate(d);
 
-      return new Match(MatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
     }
     return null;
   }

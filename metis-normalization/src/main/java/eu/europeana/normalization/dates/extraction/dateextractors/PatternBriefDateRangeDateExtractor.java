@@ -1,7 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import eu.europeana.normalization.dates.Match;
-import eu.europeana.normalization.dates.MatchId;
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
+import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -18,7 +18,7 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
   Pattern briefDateRangePattern = Pattern
       .compile("(?<uncertain>\\?\\s*)?(?<start>\\d\\d\\d\\d?)[\\-/](?<end>\\d\\d)(?<uncertain2>\\s*\\?)?");
 
-  public Match extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue) {
     Matcher m = briefDateRangePattern.matcher(inputValue.trim());
 
     if (m.matches()) {
@@ -35,7 +35,7 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
             dStart.setUncertain(true);
             dEnd.setUncertain(true);
           }
-          return new Match(MatchId.BRIEF_DATE_RANGE, inputValue,
+          return new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
               new IntervalEdtfDate(new InstantEdtfDate(dStart), new InstantEdtfDate(dEnd)));
         }
       }

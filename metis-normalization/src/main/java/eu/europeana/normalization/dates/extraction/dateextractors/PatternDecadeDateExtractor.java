@@ -1,9 +1,9 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import eu.europeana.normalization.dates.Match;
-import eu.europeana.normalization.dates.MatchId;
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
+import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart.YearPrecision;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +19,7 @@ public class PatternDecadeDateExtractor implements DateExtractor {
   Pattern patUncertainEnding = Pattern.compile(
       "\\s*(?<year>\\d\\d\\d)([ux](?<uncertain>\\?)?|\\?(?<uncertain2>\\?))\\s*", Pattern.CASE_INSENSITIVE);
 
-  public Match extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue) {
     Matcher m = patUncertainEnding.matcher(inputValue);
     if (m.matches()) {
       EdtfDatePart d = new EdtfDatePart();
@@ -28,7 +28,7 @@ public class PatternDecadeDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.DECADE, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(d));
     }
     m = patUncertainBegining.matcher(inputValue);
     if (m.matches()) {
@@ -38,7 +38,7 @@ public class PatternDecadeDateExtractor implements DateExtractor {
       if (m.group("uncertain") != null) {
         d.setUncertain(true);
       }
-      return new Match(MatchId.DECADE, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(d));
     }
     return null;
   }

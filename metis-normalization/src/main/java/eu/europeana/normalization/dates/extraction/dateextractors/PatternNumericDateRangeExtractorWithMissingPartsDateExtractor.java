@@ -1,7 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import eu.europeana.normalization.dates.Match;
-import eu.europeana.normalization.dates.MatchId;
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
+import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -81,7 +81,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor imple
                                                             .replace("unspecified", "unspecified2")));
   }
 
-  public Match extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue) {
     for (Pattern pat : patterns) {
       Matcher m = pat.matcher(inputValue.trim());
       if (m.matches()) {
@@ -123,7 +123,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor imple
         if (dEnd.isUnspecified() && dStart.getYear() != null && dStart.getYear() < 1000) {
           return null;// these cases are ambiguous. Example '187-?'
         }
-        return new Match(MatchId.NUMERIC_RANGE_ALL_VARIANTS, inputValue,
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS, inputValue,
             new IntervalEdtfDate(new InstantEdtfDate(dStart), new InstantEdtfDate(dEnd)));
       }
     }

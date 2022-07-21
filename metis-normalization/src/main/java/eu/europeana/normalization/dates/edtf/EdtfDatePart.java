@@ -1,5 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
+import eu.europeana.normalization.dates.YearPrecision;
 import java.io.Serializable;
 
 /**
@@ -11,23 +12,6 @@ import java.io.Serializable;
 public class EdtfDatePart implements Serializable {
 
   private static final long serialVersionUID = -7497880706682687923L;
-
-  /**
-   * Enum indicating the year precision of the date part
-   */
-  public enum YearPrecision {
-    MILLENNIUM(1000), CENTURY(100), DECADE(10);
-
-    final int duration;
-
-    YearPrecision(int duration) {
-      this.duration = duration;
-    }
-
-    public int getDuration() {
-      return duration;
-    }
-  }
 
   private boolean uncertain;
   private boolean approximate;
