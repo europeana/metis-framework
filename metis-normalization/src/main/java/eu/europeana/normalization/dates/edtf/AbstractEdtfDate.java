@@ -9,14 +9,18 @@ import java.io.Serializable;
 public abstract class AbstractEdtfDate implements Serializable {
 
   private static final long serialVersionUID = -4111050222535744456L;
+  private final String label;
 
-  public String serialize() {
-    return EdtfSerializer.serialize(this);
+  public AbstractEdtfDate() {
+    this.label = null;
   }
 
-  @Override
-  public String toString() {
-    return EdtfSerializer.serialize(this);
+  public AbstractEdtfDate(String label) {
+    this.label = label;
+  }
+
+  public String getLabel() {
+    return label;
   }
 
   public abstract void setApproximate(boolean approx);
@@ -36,5 +40,10 @@ public abstract class AbstractEdtfDate implements Serializable {
   public abstract InstantEdtfDate getLastDay();
 
   public abstract void removeTime();
+
+  @Override
+  public String toString() {
+    return EdtfSerializer.serialize(this);
+  }
 
 }

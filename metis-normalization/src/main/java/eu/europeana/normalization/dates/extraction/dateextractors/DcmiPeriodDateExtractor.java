@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
-import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -17,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class DcmiPeriodDateExtractor implements DateExtractor {
 
+  // TODO: 22/07/2022 Need to fix this regex, it is reported as dangerous
   private static final Pattern DCMI_PERIOD_NAME_WITHOUT_FIELD = Pattern.compile("^([^;=]*)\\s*;");
   private static final Pattern DCMI_PERIOD = Pattern.compile("(start|end|name)\\s*=\\s*(.*?)(?:;|\\s*$)");
   private static final Pattern DCMI_PERIOD_SCHEME = Pattern.compile("scheme\\s*=\\s*(.*?)(?:;|\\s*$)");
@@ -110,9 +110,8 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         edtfEnd = new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance());
       }
 
-      IntervalEdtfDate edtf = new IntervalEdtfDate(edtfStart, edtfEnd);
-      return new DateNormalizationResult(
-          DateNormalizationExtractorMatchId.DCMI_PERIOD, inputValue, new EdtfDateWithLabel(decoded.getName(), edtf));
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(decoded.getName(), edtfStart, edtfEnd);
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, inputValue, intervalEdtfDate);
     } catch (IllegalStateException e) {
       // a parsing error occoured
       return null;

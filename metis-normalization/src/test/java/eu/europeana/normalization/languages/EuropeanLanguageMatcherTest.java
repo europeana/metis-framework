@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-class LanguageMatcherTest {
+class EuropeanLanguageMatcherTest {
 
   private static final String LANGUAGE_1_CODE_1 = "ca";
   private static final String LANGUAGE_1_CODE_2B = "cab";

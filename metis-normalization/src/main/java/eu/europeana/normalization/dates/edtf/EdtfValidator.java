@@ -21,7 +21,6 @@ public final class EdtfValidator {
 
   private static final EnumSet<Month> MONTHS_WITH_31_DAYS = EnumSet.of(Month.JANUARY, Month.MARCH, Month.MAY, Month.JULY,
       Month.AUGUST, Month.OCTOBER, Month.DECEMBER);
-  // TODO: 20/07/2022 Check if we need a validator. Shouldn't the creation or matching code for edtf be valid in the fist place?
 
   private EdtfValidator() {
   }

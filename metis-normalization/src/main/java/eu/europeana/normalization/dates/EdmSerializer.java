@@ -1,7 +1,6 @@
 package eu.europeana.normalization.dates;
 
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
-import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.EdtfSerializer;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -93,10 +92,9 @@ public class EdmSerializer {
     }
   }
 
-  public static Resource serialize(EdtfDateWithLabel edtfDateWithLabel) {
-    AbstractEdtfDate edtf = edtfDateWithLabel.getEdtfDate();
+  public static Resource serialize(AbstractEdtfDate edtfDate) {
     Model m = ModelFactory.createDefaultModel();
-    String edtfString = EdtfSerializer.serialize(edtf);
+    String edtfString = EdtfSerializer.serialize(edtfDate);
     String uri;
     try {
       uri = "#" + URLEncoder.encode(edtfString, StandardCharsets.UTF_8.name());
@@ -106,17 +104,17 @@ public class EdmSerializer {
     Resource r = m.createResource(uri);
     r.addProperty(Rdf.type, Edm.TimeSpan);
     r.addProperty(Skos.notation, edtfString, EdtfLevel1Type.instance);
-    if (edtf.isApproximate()) {
+    if (edtfDate.isApproximate()) {
       r.addProperty(Skos.note, "approximate", "en");
     }
-    if (edtf.isUncertain()) {
+    if (edtfDate.isUncertain()) {
       r.addProperty(Skos.note, "uncertain", "en");
     }
 
     Integer startCentury = null;
     Integer endCentury = null;
-    InstantEdtfDate firstDay = edtf.getFirstDay();
-    InstantEdtfDate lastDay = edtf.getLastDay();
+    InstantEdtfDate firstDay = edtfDate.getFirstDay();
+    InstantEdtfDate lastDay = edtfDate.getLastDay();
     if (firstDay != null) {
       r.addProperty(Edm.begin, EdtfSerializer.serialize(firstDay));
       startCentury = firstDay.getCentury();
@@ -135,8 +133,8 @@ public class EdmSerializer {
       r.addProperty(Dcterms.isPartOf, m.createResource("http://data.europeana.eu/timespan/" + c));
     }
 
-    if (!StringUtils.isEmpty(edtfDateWithLabel.getLabel())) {
-      r.addProperty(Skos.prefLabel, edtfDateWithLabel.getLabel());
+    if (!StringUtils.isEmpty(edtfDate.getLabel())) {
+      r.addProperty(Skos.prefLabel, edtfDate.getLabel());
     } else {
       r.addProperty(Skos.prefLabel, edtfString, "zxx");
     }

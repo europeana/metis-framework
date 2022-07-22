@@ -20,13 +20,11 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   private EdtfTimePart edtfTimePart;
 
   public InstantEdtfDate(EdtfDatePart edtfDatePart, EdtfTimePart edtfTimePart) {
-    super();
     this.edtfDatePart = edtfDatePart;
     this.edtfTimePart = edtfTimePart;
   }
 
   public InstantEdtfDate(EdtfDatePart edtfDatePart) {
-    super();
     this.edtfDatePart = edtfDatePart;
   }
 

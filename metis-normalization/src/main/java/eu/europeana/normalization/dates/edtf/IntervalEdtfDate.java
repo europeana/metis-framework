@@ -11,7 +11,12 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   private InstantEdtfDate end;
 
   public IntervalEdtfDate(InstantEdtfDate start, InstantEdtfDate end) {
-    super();
+    this.start = start;
+    this.end = end;
+  }
+
+  public IntervalEdtfDate(String label, InstantEdtfDate start, InstantEdtfDate end) {
+    super(label);
     this.start = start;
     this.end = end;
   }

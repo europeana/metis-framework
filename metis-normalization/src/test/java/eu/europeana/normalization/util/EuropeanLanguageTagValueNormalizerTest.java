@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class LanguageTagValueNormalizerTest {
+class EuropeanLanguageTagValueNormalizerTest {
 
   @Test
   void testNormalize() {
