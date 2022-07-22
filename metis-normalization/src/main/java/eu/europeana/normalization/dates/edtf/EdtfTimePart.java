@@ -15,28 +15,6 @@ public class EdtfTimePart implements Serializable {
   private Integer millisecond;
   private Integer timezone;
 
-  public EdtfTimePart(Integer hour, Integer minute, Integer second, Integer millisecond, Integer timezone) {
-    super();
-    this.hour = hour;
-    this.minute = minute;
-    this.second = second;
-    this.millisecond = millisecond;
-    this.timezone = timezone;
-  }
-
-  public EdtfTimePart(Integer hour, Integer minute, Integer second) {
-    super();
-    this.hour = hour;
-    this.minute = minute;
-    this.second = second;
-  }
-
-  public EdtfTimePart(Integer hour, Integer minute) {
-    super();
-    this.hour = hour;
-    this.minute = minute;
-  }
-
   public EdtfTimePart() {
   }
 

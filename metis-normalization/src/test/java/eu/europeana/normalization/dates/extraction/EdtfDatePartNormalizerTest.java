@@ -144,17 +144,17 @@ public class EdtfDatePartNormalizerTest {
 
     for (String testCase : testCases.keySet()) {
       dateNormalizationResult = normaliser.normalizeDateProperty(testCase);
-      if (dateNormalizationResult.getMatchId() == DateNormalizationExtractorMatchId.NO_MATCH
-          || dateNormalizationResult.getMatchId() == DateNormalizationExtractorMatchId.INVALID) {
+      if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.NO_MATCH
+          || dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.INVALID) {
         assertNull(testCases.get(testCase), "Test case '" + testCase
             + "' was a no-match but should be normalised to '" + testCases.get(testCase) + "'");
       } else {
-        String edtfStr = EdtfSerializer.serialize(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate());
+        String edtfStr = EdtfSerializer.serialize(dateNormalizationResult.getEdtfDate());
         assertEquals(testCases.get(testCase), edtfStr, "Test case '" + testCase + "'");
-        if (dateNormalizationResult.getMatchId() == DateNormalizationExtractorMatchId.DCMI_PERIOD) {
+        if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.DCMI_PERIOD) {
           assertTrue(
-              testCase.startsWith(dateNormalizationResult.getNormalizedEdtfDateWithLabel().getLabel()) || testCase.startsWith(
-                  "name=" + dateNormalizationResult.getNormalizedEdtfDateWithLabel().getLabel()),
+              testCase.startsWith(dateNormalizationResult.getEdtfDate().getLabel()) || testCase.startsWith(
+                  "name=" + dateNormalizationResult.getEdtfDate().getLabel()),
               "Test case '" + testCase + "' period name not extracted");
         }
       }

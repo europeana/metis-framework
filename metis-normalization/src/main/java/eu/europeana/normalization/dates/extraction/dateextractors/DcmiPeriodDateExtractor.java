@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
-import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -111,9 +110,8 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         edtfEnd = new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance());
       }
 
-      IntervalEdtfDate edtf = new IntervalEdtfDate(edtfStart, edtfEnd);
-      return new DateNormalizationResult(
-          DateNormalizationExtractorMatchId.DCMI_PERIOD, inputValue, new EdtfDateWithLabel(decoded.getName(), edtf));
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(decoded.getName(), edtfStart, edtfEnd);
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, inputValue, intervalEdtfDate);
     } catch (IllegalStateException e) {
       // a parsing error occoured
       return null;

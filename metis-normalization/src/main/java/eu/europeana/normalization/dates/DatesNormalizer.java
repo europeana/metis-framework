@@ -127,7 +127,7 @@ public class DatesNormalizer {
     } else {
       //Check if we did a clean operation and update approximate
       if (dateNormalizationResult.getCleanOperationMatchId() != null) {
-        dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().setApproximate(
+        dateNormalizationResult.getEdtfDate().setApproximate(
             checkIfApproximateCleanOperationId.test(dateNormalizationResult.getCleanOperationMatchId()));
       }
       validationOperation.accept(dateNormalizationResult);
@@ -137,8 +137,8 @@ public class DatesNormalizer {
   }
 
   private void noMatchIfValidAndTimeOnly(DateNormalizationResult dateNormalizationResult) {
-    if (dateNormalizationResult.getMatchId() != DateNormalizationExtractorMatchId.INVALID
-        && dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate().isTimeOnly()) {
+    if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.INVALID
+        && dateNormalizationResult.getEdtfDate().isTimeOnly()) {
       // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are still present in the object. Is that okay?
       dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
     }
@@ -159,7 +159,7 @@ public class DatesNormalizer {
         dateNormalizationResult.setCleanOperationMatchId(cleanedInput.getCleanOperation());
         // TODO: 21/07/2022 Perhaps this should be done differently, because it pollutes the map of the extractor and its id
         //Update the extractor match id.
-        if (dateNormalizationResult.getMatchId() == DateNormalizationExtractorMatchId.EDTF) {
+        if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.EDTF) {
           dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.EDTF_CLEANED);
         }
       }
@@ -168,14 +168,14 @@ public class DatesNormalizer {
   }
 
   private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
-    final AbstractEdtfDate edtfDate = dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate();
+    final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
     if (!EdtfValidator.validate(edtfDate, false)) {
       switchAndValidate(dateNormalizationResult, edtfDate);
     }
   }
 
   private void validate(DateNormalizationResult dateNormalizationResult) {
-    final AbstractEdtfDate edtfDate = dateNormalizationResult.getNormalizedEdtfDateWithLabel().getEdtfDate();
+    final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
     if (!EdtfValidator.validate(edtfDate, false)) {
       dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
     }
@@ -197,7 +197,7 @@ public class DatesNormalizer {
   private void switchDayWithMonthAndValidate(DateNormalizationResult dateNormalizationResult, AbstractEdtfDate edtfDate) {
     edtfDate.switchDayAndMonth();
     if (EdtfValidator.validate(edtfDate, false)) {
-      dateNormalizationResult.getNormalizedEdtfDateWithLabel().setEdtfDate(edtfDate);
+      dateNormalizationResult.setEdtfDate(edtfDate);
     } else {
       edtfDate.switchDayAndMonth();
       dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
