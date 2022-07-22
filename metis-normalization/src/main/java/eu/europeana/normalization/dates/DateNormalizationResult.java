@@ -1,8 +1,9 @@
 package eu.europeana.normalization.dates;
 
+import eu.europeana.normalization.dates.cleaning.CleanOperation;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.EdtfDateWithLabel;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 
 /**
@@ -14,7 +15,7 @@ import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 public class DateNormalizationResult {
 
   private DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
-  private CleanOperationId cleanOperationId;
+  private CleanOperation cleanOperation;
   private String originalInput;
   private EdtfDateWithLabel normalizedEdtfDateWithLabel;
 
@@ -35,12 +36,12 @@ public class DateNormalizationResult {
         normalizedEdtfDateWithLabel);
   }
 
-  public static DateNormalizationResult getNoMatchResult(String originalInput) {
-    return new DateNormalizationResult(DateNormalizationExtractorMatchId.NO_MATCH, originalInput, (AbstractEdtfDate) null);
-  }
-
   public DateNormalizationResult(String originalInput) {
     this.originalInput = originalInput;
+  }
+
+  public static DateNormalizationResult getNoMatchResult(String originalInput) {
+    return new DateNormalizationResult(DateNormalizationExtractorMatchId.NO_MATCH, originalInput, (AbstractEdtfDate) null);
   }
 
   public DateNormalizationExtractorMatchId getMatchId() {
@@ -67,54 +68,53 @@ public class DateNormalizationResult {
     this.normalizedEdtfDateWithLabel = normalizedEdtfDateWithLabel;
   }
 
-  public CleanOperationId getCleanOperationMatchId() {
-    return cleanOperationId;
+  public CleanOperation getCleanOperationMatchId() {
+    return cleanOperation;
   }
 
-  public void setCleanOperationMatchId(CleanOperationId cleanOperationId) {
-    this.cleanOperationId = cleanOperationId;
+  public void setCleanOperationMatchId(CleanOperation cleanOperation) {
+    this.cleanOperation = cleanOperation;
   }
 
   @Override
   public String toString() {
-    return "Match [matchId=" + dateNormalizationExtractorMatchId + ", cleanOperation=" + cleanOperationId + ", input="
+    return "Match [matchId=" + dateNormalizationExtractorMatchId + ", cleanOperation=" + cleanOperation + ", input="
         + originalInput
         + ", extracted="
         + normalizedEdtfDateWithLabel + "]";
   }
 
+  // TODO: 22/07/2022 Double check if this is correct, it has not been tested since it's used in the untested generic property method
   public boolean isCompleteDate() {
+    boolean isCompleteDate = true;
     if (normalizedEdtfDateWithLabel == null || normalizedEdtfDateWithLabel.getEdtfDate().isTimeOnly()) {
-      return false;
-    }
-    if (normalizedEdtfDateWithLabel.getEdtfDate() instanceof InstantEdtfDate) {
-      return ((InstantEdtfDate) normalizedEdtfDateWithLabel.getEdtfDate()).getEdtfDatePart().getDay() != null;
-    } else {
-      IntervalEdtfDate intervalEdtfDate = (IntervalEdtfDate) normalizedEdtfDateWithLabel.getEdtfDate();
-      if (intervalEdtfDate.getStart() != null && intervalEdtfDate.getEnd() != null) {
-        if (intervalEdtfDate.getStart().getEdtfDatePart().isUnknown() || intervalEdtfDate.getStart().getEdtfDatePart()
-                                                                                         .isUnspecified()) {
-          return false;
-        }
-        if (intervalEdtfDate.getEnd().getEdtfDatePart().isUnknown() || intervalEdtfDate.getEnd().getEdtfDatePart()
-                                                                                       .isUnspecified()) {
-          return false;
-        }
-        if (intervalEdtfDate.getStart().getEdtfDatePart().getYearPrecision() != null
-            || intervalEdtfDate.getEnd().getEdtfDatePart().getYearPrecision() != null) {
-          return false;
-        }
-        if (intervalEdtfDate.getStart().getEdtfDatePart().getDay() != null
-            && intervalEdtfDate.getStart().getEdtfDatePart().getDay() != null) {
-          return true;
-        }
-        if (intervalEdtfDate.getStart().getEdtfDatePart().getMonth() == null
-            && intervalEdtfDate.getStart().getEdtfDatePart().getMonth() == null) {
-          return true;
-        }
+      isCompleteDate = false;
+    } else if (normalizedEdtfDateWithLabel.getEdtfDate() instanceof IntervalEdtfDate) {
+      final EdtfDatePart startEdtfDatePart = ((IntervalEdtfDate) normalizedEdtfDateWithLabel.getEdtfDate()).getStart()
+                                                                                                           .getEdtfDatePart();
+      final EdtfDatePart endEdtfDatePart = ((IntervalEdtfDate) normalizedEdtfDateWithLabel.getEdtfDate()).getEnd()
+                                                                                                         .getEdtfDatePart();
+
+      if (startEdtfDatePart != null && endEdtfDatePart != null &&
+          (isEitherDateNonPrecise(startEdtfDatePart, endEdtfDatePart) || isDayMonthNotComplete(startEdtfDatePart,
+              endEdtfDatePart))) {
+        isCompleteDate = false;
       }
-      return false;
     }
+    return isCompleteDate;
+  }
+
+  private boolean isEitherDateNonPrecise(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
+    return startEdtfDatePart.isUnknown() || startEdtfDatePart.isUncertain()
+        || endEdtfDatePart.isUnknown() || endEdtfDatePart.isUncertain()
+        || startEdtfDatePart.getYearPrecision() != null || endEdtfDatePart.getYearPrecision() != null;
+  }
+
+  // TODO: 22/07/2022 Is this calculation correct??
+  private boolean isDayMonthNotComplete(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
+    return startEdtfDatePart.getDay() == null
+        || endEdtfDatePart.getDay() == null || startEdtfDatePart.getMonth() != null
+        || endEdtfDatePart.getMonth() != null;
   }
 
 }

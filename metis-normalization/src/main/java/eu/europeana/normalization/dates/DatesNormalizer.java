@@ -2,7 +2,9 @@ package eu.europeana.normalization.dates;
 
 import static java.util.function.Predicate.not;
 
-import eu.europeana.normalization.dates.Cleaner.CleanResult;
+import eu.europeana.normalization.dates.cleaning.CleanOperation;
+import eu.europeana.normalization.dates.cleaning.CleanResult;
+import eu.europeana.normalization.dates.cleaning.Cleaner;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfValidator;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -87,7 +89,7 @@ public class DatesNormalizer {
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false,
-        CleanOperationId::isApproximateCleanOperationIdForDateProperty,
+        CleanOperation::isApproximateCleanOperationIdForDateProperty,
         this::validateAndFix,
         this::noMatchIfValidAndTimeOnly);
   }
@@ -97,7 +99,7 @@ public class DatesNormalizer {
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),
-        CleanOperationId::isApproximateCleanOperationIdForGenericProperty,
+        CleanOperation::isApproximateCleanOperationIdForGenericProperty,
         this::validate,
         dateNormalizationResult -> {//NOOP
         });
@@ -106,7 +108,7 @@ public class DatesNormalizer {
   private DateNormalizationResult normalizeProperty(
       String input, final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder,
       Predicate<DateNormalizationResult> extraCheckForNoMatch,
-      Predicate<CleanOperationId> checkIfApproximateCleanOperationId,
+      Predicate<CleanOperation> checkIfApproximateCleanOperationId,
       Consumer<DateNormalizationResult> validationOperation,
       Consumer<DateNormalizationResult> postProcessingMatchId) {
 
