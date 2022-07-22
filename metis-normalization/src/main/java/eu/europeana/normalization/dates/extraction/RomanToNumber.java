@@ -1,67 +1,46 @@
 package eu.europeana.normalization.dates.extraction;
 
-/**
- * Auxiliary class for reading/converting roman numerals
- */
-public class RomanToNumber {
+import java.util.HashMap;
+import java.util.Map;
 
-  // This function returns value of a Roman symbol
-  private static int value(char r) {
-    if (r == 'I') {
-      return 1;
-    }
-    if (r == 'V') {
-      return 5;
-    }
-    if (r == 'X') {
-      return 10;
-    }
-    if (r == 'L') {
-      return 50;
-    }
-    if (r == 'C') {
-      return 100;
-    }
-    if (r == 'D') {
-      return 500;
-    }
-    if (r == 'M') {
-      return 1000;
-    }
-    return -1;
+/**
+ * Auxiliary class for converting roman numerals to decimal.
+ */
+public final class RomanToNumber {
+
+  private static final Map<Character, Integer> numbersMap;
+
+  static {
+    numbersMap = new HashMap<>();
+    numbersMap.put('I', 1);
+    numbersMap.put('V', 5);
+    numbersMap.put('X', 10);
+    numbersMap.put('L', 50);
+    numbersMap.put('C', 100);
+    numbersMap.put('D', 500);
+    numbersMap.put('M', 1000);
   }
 
-  // Finds decimal value of a given romal numeral
-  public static int romanToDecimal(String str) {
-    // Initialize result
-    int res = 0;
+  private RomanToNumber() {
+  }
 
-    for (int i = 0; i < str.length(); i++) {
-      // Getting value of symbol s[i]
-      int s1 = value(str.charAt(i));
-
-      // Getting value of symbol s[i+1]
-      if (i + 1 < str.length()) {
-        int s2 = value(str.charAt(i + 1));
-
-        // Comparing both values
-        if (s1 >= s2) {
-          // Value of current symbol
-          // is greater or equalto
-          // the next symbol
-          res = res + s1;
-        } else {
-          // Value of current symbol is
-          // less than the next symbol
-          res = res + s2 - s1;
-          i++;
-        }
+  /**
+   * Converts from roman numeral to a decimal
+   *
+   * @param value the roman value
+   * @return the decimal value
+   */
+  public static int romanToDecimal(String value) {
+    int result = 0;
+    for (int i = 0; i < value.length(); i++) {
+      char character = value.charAt(i);      // Current Roman Character
+      if (i > 0 && numbersMap.get(character) > numbersMap.get(value.charAt(i - 1))) {
+        result += numbersMap.get(character) - 2 * numbersMap.get(value.charAt(i - 1));
       } else {
-        res = res + s1;
+        result += numbersMap.get(character);
       }
     }
 
-    return res;
+    return result;
   }
-
 }
