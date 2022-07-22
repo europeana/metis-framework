@@ -48,7 +48,7 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
     if (m.matches()) {
       EdtfDatePart d = new EdtfDatePart();
       d.setYear(Integer.parseInt(m.group(6)));
-      d.setMonth(monthNames.parse(m.group(1)));
+      d.setMonth(monthNames.getMonthIndexValue(m.group(1)));
       d.setDay(Integer.parseInt(m.group(2)));
       // discard the time
       //			Time t=new Time();

@@ -2,64 +2,59 @@ package eu.europeana.normalization.dates.extraction;
 
 import java.time.Month;
 import java.time.format.TextStyle;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * Class that holds the names of months in the official languages of the European Union, including abbreviated forms. Used in the
- * PatternMonthName
+ * Class that contains the map of all months and its string representation(full and short in both standard and stand-alone  forms)
+ * in all European languages.
  */
 public class MonthMultilingual {
 
-  HashMap<Month, HashMap<Language, HashSet<String>>> monthStringsByLanguage = new HashMap<Month, HashMap<Language, HashSet<String>>>();
+  private final Map<Month, Set<String>> monthToAllLanguagesStringsMap;
 
+  /**
+   * Default constructor.
+   * <p>
+   * Initializes the map with the Months to all languages.
+   * </p>
+   */
   public MonthMultilingual() {
-    for (Month month : Month.values()) {
-      HashMap<Language, HashSet<String>> monthValues = new HashMap<Language, HashSet<String>>();
-      monthStringsByLanguage.put(month, monthValues);
-      for (Language l : Language.values()) {
-        HashSet<String> langValues = new HashSet<String>();
-        monthValues.put(l, langValues);
-        langValues.add(month.getDisplayName(TextStyle.SHORT, l.getLocale()));
-        langValues.add(month.getDisplayName(TextStyle.SHORT_STANDALONE, l.getLocale()));
-        langValues.add(month.getDisplayName(TextStyle.FULL, l.getLocale()));
-        langValues.add(month.getDisplayName(TextStyle.FULL_STANDALONE, l.getLocale()));
-      }
-    }
+    monthToAllLanguagesStringsMap = new EnumMap<>(Month.class);
 
+    for (Month month : Month.values()) {
+      final HashSet<String> languageValues = new HashSet<>();
+      for (EuropeanLanguage europeanLanguage : EuropeanLanguage.values()) {
+        languageValues.add(month.getDisplayName(TextStyle.SHORT, europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.SHORT_STANDALONE, europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.FULL, europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.FULL_STANDALONE, europeanLanguage.getLocale()));
+      }
+      monthToAllLanguagesStringsMap.put(month, languageValues);
+    }
   }
 
-  public Set<String> getAllMonthStrings() {
-    Set<String> ret = new HashSet<String>();
-    for (Month month : Month.values()) {
-      HashMap<Language, HashSet<String>> monthValues = monthStringsByLanguage.get(month);
-      for (Language l : Language.values()) {
-        ret.addAll(monthValues.get(l));
-      }
-    }
-    return ret;
-  }
-
+  /**
+   * Get all languages string values for a month.
+   *
+   * @param month the month
+   * @return the set of all string representations
+   */
   public Set<String> getMonthStrings(Month month) {
-    Set<String> ret = new HashSet<String>();
-    HashMap<Language, HashSet<String>> monthValues = monthStringsByLanguage.get(month);
-    for (Language l : Language.values()) {
-      ret.addAll(monthValues.get(l));
-    }
-    return ret;
+    return monthToAllLanguagesStringsMap.get(month);
   }
 
-  public Integer parse(String monthName) {
-    for (Month month : Month.values()) {
-      HashMap<Language, HashSet<String>> monthValues = monthStringsByLanguage.get(month);
-      for (Language l : Language.values()) {
-        if (monthValues.get(l).contains(monthName)) {
-          return month.getValue();
-        }
-      }
-    }
-    return null;
+  /**
+   * Get the month index based on a month name in any supported language, full or short, standard or stand-alone.
+   *
+   * @param monthName the month name
+   * @return the month index
+   */
+  public Integer getMonthIndexValue(String monthName) {
+    return monthToAllLanguagesStringsMap.entrySet().stream().filter(entry -> entry.getValue().contains(monthName))
+                                        .findFirst().map(entry -> entry.getKey().getValue()).orElse(null);
   }
 
 }

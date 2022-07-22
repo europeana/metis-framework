@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-class AbstractLanguageNormalizerTest {
+class AbstractEuropeanLanguageNormalizerTest {
 
   @Test
   void testNormalizeValue() {
