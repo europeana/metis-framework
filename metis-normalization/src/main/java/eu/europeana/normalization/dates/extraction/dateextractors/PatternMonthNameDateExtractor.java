@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
  */
 public class PatternMonthNameDateExtractor implements DateExtractor {
 
-  HashMap<Month, Pattern> patternDayMonthYear = new HashMap<Month, Pattern>(12);
-  HashMap<Month, Pattern> patternMonthDayYear = new HashMap<Month, Pattern>(12);
-  HashMap<Month, Pattern> patternMonthYear = new HashMap<Month, Pattern>(12);
+  HashMap<Month, Pattern> patternDayMonthYear = new HashMap<>(12);
+  HashMap<Month, Pattern> patternMonthDayYear = new HashMap<>(12);
+  HashMap<Month, Pattern> patternMonthYear = new HashMap<>(12);
 
   public PatternMonthNameDateExtractor() {
     MonthMultilingual months = new MonthMultilingual();
@@ -36,14 +36,14 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
       patternDayMonthYear
           .put(month,
               Pattern.compile(
-                  "\\s*(?<day>\\d\\d?)[ \\.,]([a-zA-Z]{0,2}[ \\.,])?" + monthNamesPattern
-                      + "[ \\.,]([a-zA-Z]{0,2}[ \\.,])?(?<year>\\d{4})\\s*",
+                  "\\s*(?<day>\\d\\d?)[ .,]([a-zA-Z]{0,2}[ .,])?" + monthNamesPattern
+                      + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<year>\\d{4})\\s*",
                   Pattern.CASE_INSENSITIVE));
       patternMonthDayYear.put(month, Pattern.compile("\\s*" + monthNamesPattern
-              + "[ \\.,]([a-zA-Z]{0,2}[ \\.,])?(?<day>\\d\\d?)[ \\.,][a-zA-Z]{0,2}[ \\.,](?<year>\\d{4})\\s*",
+              + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<day>\\d\\d?)[ .,][a-zA-Z]{0,2}[ .,](?<year>\\d{4})\\s*",
           Pattern.CASE_INSENSITIVE));
       patternMonthYear.put(month,
-          Pattern.compile("\\s*" + monthNamesPattern + "[ \\.,]([a-zA-Z]{0,2}[ \\.,])?(?<year>\\d{4})\\s*",
+          Pattern.compile("\\s*" + monthNamesPattern + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<year>\\d{4})\\s*",
               Pattern.CASE_INSENSITIVE));
     }
   }

@@ -36,11 +36,6 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       d.setYear(Integer.parseInt(m.group(1)));
       d.setMonth(Integer.parseInt(m.group(2)));
       d.setDay(Integer.parseInt(m.group(3)));
-      // discard the time
-      //			Time t=new Time();
-      //			t.setHour(Integer.parseInt(m.group(4)));
-      //			t.setMinute(Integer.parseInt(m.group(5)));
-      //			t.setSecond(Integer.parseInt(m.group(6)));
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
           new InstantEdtfDate(d));
     }
@@ -50,11 +45,6 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       d.setYear(Integer.parseInt(m.group(6)));
       d.setMonth(monthNames.getMonthIndexValue(m.group(1)));
       d.setDay(Integer.parseInt(m.group(2)));
-      // discard the time
-      //			Time t=new Time();
-      //			t.setHour(Integer.parseInt(m.group(3)));
-      //			t.setMinute(Integer.parseInt(m.group(4)));
-      //			t.setSecond(Integer.parseInt(m.group(5)));
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
           new InstantEdtfDate(d));
     }
@@ -64,11 +54,6 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
       d.setYear(Integer.parseInt(m.group(1)));
       d.setMonth(Integer.parseInt(m.group(2)));
       d.setDay(Integer.parseInt(m.group(3)));
-      // discard the time
-      //			Time t=new Time();
-      //			t.setHour(Integer.parseInt(m.group(4)));
-      //			t.setMinute(Integer.parseInt(m.group(5)));
-      //			t.setSecond(Integer.parseInt(m.group(6)));
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
           new InstantEdtfDate(d));
     }

@@ -90,6 +90,11 @@ public final class EdtfValidator {
   }
 
   private static Integer adjustYearWithPrecision(Integer year, YearPrecision yearPrecision) {
+    // TODO: 25/07/2022 Is this precision adjustment correct? How should the rounding be for positive and negatives?
+    // TODO: 25/07/2022 Some examples of rounding:
+    // TODO: 25/07/2022 1325/100 * 100 = 1300
+    // TODO: 25/07/2022 -1325/100 * 100 = -1300
+    // TODO: 25/07/2022  1325/100 * 100 = 1300 VERSUS 1375/100 * 100 = 1300
     final Integer adjustedYear;
     if (yearPrecision != null) {
       final int precisionAdjust = yearPrecision.getDuration();

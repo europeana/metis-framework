@@ -13,20 +13,15 @@ import java.util.regex.Pattern;
  * Patterns for numeric date ranges with variations in the separators of date components
  */
 public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor implements DateExtractor {
-  // period separators "/" -> "[-\\.]"
-  // period separators " - " -> "[-\\./]"
-  // period separators "-" -> "[\\./]"
-  //	String dateYyyyMmDdPatStr="(\\d\\d\\d\\d(([-/.]\\d\\d?)?[-/.]\\d\\d?)?|\\?)";
-  //	String dateDdMmYyyyPatStr="(((\\d\\d?[-/.])?\\d\\d??[-/.])?\\d\\d\\d\\d?|\\?)";
 
-  Pattern cleanSeparator = Pattern.compile("[\\-\\./]");
+  Pattern cleanSeparator = Pattern.compile("[\\-./]");
 
-  ArrayList<Pattern> patterns = new ArrayList<Pattern>();
+  ArrayList<Pattern> patterns = new ArrayList<>();
 
   public PatternNumericDateRangeExtractorWithMissingPartsDateExtractor() {
     String dateSep = "/";
-    String componentSep = "[\\-\\.]";
-    String unsepecifiedVals = "\\?|\\-|\\.\\.";
+    String componentSep = "[\\-.]";
+    String unsepecifiedVals = "\\?|-|\\.\\.";
     String dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
         + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
     String dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
@@ -38,9 +33,9 @@ public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor imple
                                                             .replace("day", "day2").replace("uncertain", "uncertain2")
                                                             .replace("unspecified", "unspecified2")));
 
-    dateSep = " \\- ";
-    componentSep = "[\\-\\./]";
-    unsepecifiedVals = "\\?|\\-|\\.\\.";
+    dateSep = " - ";
+    componentSep = "[\\-./]";
+    unsepecifiedVals = "\\?|-|\\.\\.";
     dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
         + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
     dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
@@ -53,7 +48,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor imple
                                                             .replace("unspecified", "unspecified2")));
 
     dateSep = "-";
-    componentSep = "[\\./]";
+    componentSep = "[./]";
     unsepecifiedVals = "\\?|\\.\\.";
     dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
         + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
@@ -67,7 +62,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor imple
                                                             .replace("unspecified", "unspecified2")));
 
     dateSep = " ";
-    componentSep = "[\\./\\-]";
+    componentSep = "[./\\-]";
     unsepecifiedVals = "";
     dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
         + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";

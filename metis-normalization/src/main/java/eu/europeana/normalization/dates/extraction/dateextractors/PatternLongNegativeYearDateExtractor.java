@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
  */
 public class PatternLongNegativeYearDateExtractor implements DateExtractor {
 
-  Pattern patYyyyyy = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>\\-\\d{5,9})(?<uncertain2>\\?)?\\s*",
+  Pattern patYyyyyy = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>-\\d{5,9})(?<uncertain2>\\?)?\\s*",
       Pattern.CASE_INSENSITIVE);
   Pattern patYyyyyyRange = Pattern.compile(
-      "\\s*(?<uncertain>\\?)?(?<year>\\-\\d{5,9})\\s*/\\s*(?<year2>\\-\\d{5,9})(?<uncertain2>\\?)?\\s*",
+      "\\s*(?<uncertain>\\?)?(?<year>-\\d{5,9})\\s*/\\s*(?<year2>-\\d{5,9})(?<uncertain2>\\?)?\\s*",
       Pattern.CASE_INSENSITIVE);
 
   public DateNormalizationResult extract(String inputValue) {

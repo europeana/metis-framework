@@ -16,19 +16,14 @@ import org.apache.commons.lang3.StringUtils;
  * unknown/unspecified date components.
  */
 public class PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor implements DateExtractor {
-  // period separators "/" -> "[-\\.]"
-  // period separators " - " -> "[-\\./]"
-  // period separators "-" -> "[\\./]"
-  //	String dateYyyyMmDdPatStr="(\\d\\d\\d\\d(([-/.]\\d\\d?)?[-/.]\\d\\d?)?|\\?)";
-  //	String dateDdMmYyyyPatStr="(((\\d\\d?[-/.])?\\d\\d??[-/.])?\\d\\d\\d\\d?|\\?)";
 
-  Pattern cleanSeparatorAndUnknown = Pattern.compile("[\\-\\./\\?Xu]", Pattern.CASE_INSENSITIVE);
-  Pattern unknownChars = Pattern.compile("[\\-\\?Xu]+$", Pattern.CASE_INSENSITIVE);
+  Pattern cleanSeparatorAndUnknown = Pattern.compile("[\\-./?Xu]", Pattern.CASE_INSENSITIVE);
+  Pattern unknownChars = Pattern.compile("[\\-?Xu]+$", Pattern.CASE_INSENSITIVE);
 
-  ArrayList<Pattern> patterns = new ArrayList<Pattern>();
+  ArrayList<Pattern> patterns = new ArrayList<>();
 
   public PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor() {
-    String dateSep = "\\s*[\\/\\|]\\s*";
+    String dateSep = "\\s*[/|]\\s*";
     String componentSep = "[\\-]";
     String componentMissing = "[Xu]";
 
@@ -68,8 +63,8 @@ public class PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor 
                      .replace("unspecified", "unspecified2"),
         Pattern.CASE_INSENSITIVE));
 
-    dateSep = "\\s+[\\-\\|]\\s+";
-    componentSep = "[\\./]";
+    dateSep = "\\s+[\\-|]\\s+";
+    componentSep = "[./]";
     componentMissing = "[\\-Xu]";
     dateYmd = "\\s*((?<year>\\d\\d\\d\\d?|\\d\\d\\d" + componentMissing + "?|\\d\\d+" + componentMissing
         + componentMissing + "?)(" + componentSep + "(?<month>\\d\\d?|\\d" + componentMissing + "?))?("
@@ -109,7 +104,7 @@ public class PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor 
             Pattern.CASE_INSENSITIVE));
 
     dateSep = "-";
-    componentSep = "[\\./]";
+    componentSep = "[./]";
     componentMissing = "[Xu]";
     dateYmd = "\\s*((?<year>\\d\\d\\d\\d?|\\d\\d\\d" + componentMissing + "?|\\d\\d+" + componentMissing
         + componentMissing + "?)(" + componentSep + "(?<month>\\d\\d?|\\d" + componentMissing + "?))?("

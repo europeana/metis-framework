@@ -16,28 +16,27 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor implements DateExtractor {
 
-  ArrayList<Pattern> patterns = new ArrayList<Pattern>();
-  //	Pattern cleanSeparator=Pattern.compile("[-\\./]");
-  Pattern cleanSeparatorAndUnknown = Pattern.compile("[-\\./\\?X]");
-  Pattern unknownChars = Pattern.compile("[u\\-\\?X]+$", Pattern.CASE_INSENSITIVE);
+  ArrayList<Pattern> patterns = new ArrayList<>();
+  Pattern cleanSeparatorAndUnknown = Pattern.compile("[-./?X]");
+  Pattern unknownChars = Pattern.compile("[u\\-?X]+$", Pattern.CASE_INSENSITIVE);
 
-  Pattern ambigousPattern = Pattern.compile("(\\d\\d\\d\\-?\\?|\\d\\d\\d\\-)");
+  Pattern ambigousPattern = Pattern.compile("(\\d\\d\\d-?\\?|\\d\\d\\d-)");
 
   public PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor() {
-    String componentSep = "[\\./]";
-    String dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d\\?\\-Xu])"
-        + "(" + componentSep + "(?<month>XX|uu|\\d\\d|\\?\\?|\\-\\-))?(" + componentSep
-        + "(?<day>\\d\\d|\\-\\-|XX|uu|\\?\\?))?(?<uncertain2>\\?)?";
-    String dateDmy = "(?<uncertain>\\?)?((?<day>\\d\\d|\\-\\-|\\?\\?|xx|uu)" + componentSep
-        + ")?((?<month>XX|uu|\\d\\d|\\?\\?|\\-\\-)?" + componentSep
-        + ")?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d\\?\\-Xu])(?<uncertain2>\\?)?";
+    String componentSep = "[./]";
+    String dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d?\\-Xu])"
+        + "(" + componentSep + "(?<month>XX|uu|\\d\\d|\\?\\?|--))?(" + componentSep
+        + "(?<day>\\d\\d|--|XX|uu|\\?\\?))?(?<uncertain2>\\?)?";
+    String dateDmy = "(?<uncertain>\\?)?((?<day>\\d\\d|--|\\?\\?|xx|uu)" + componentSep
+        + ")?((?<month>XX|uu|\\d\\d|\\?\\?|--)?" + componentSep
+        + ")?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d?\\-Xu])(?<uncertain2>\\?)?";
     patterns.add(Pattern.compile(dateYmd, Pattern.CASE_INSENSITIVE));
     patterns.add(Pattern.compile(dateDmy, Pattern.CASE_INSENSITIVE));
 
-    componentSep = "\\-";
-    dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\d\\?\\?|\\d\\d\\d[\\d\\?X])" + "(" + componentSep
+    componentSep = "-";
+    dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\d\\?\\?|\\d\\d\\d[\\d?X])" + "(" + componentSep
         + "(?<month>XX|\\d\\d|\\?\\?))?(" + componentSep + "(?<day>\\d\\d|XX|\\?\\?))?(?<uncertain2>\\?)?";
-    dateDmy = "(?<uncertain>\\?)?((?<day>\\d\\d|\\-\\-|\\?\\?|xx|uu)" + componentSep
+    dateDmy = "(?<uncertain>\\?)?((?<day>\\d\\d|--|\\?\\?|xx|uu)" + componentSep
         + ")?((?<month>XX|\\d\\d|\\?\\?)?" + componentSep
         + ")?(?<year>\\d\\dXX|\\d\\d\\?\\?|\\d\\d\\d[\\d\\?X])(?<uncertain2>\\?)?";
     patterns.add(Pattern.compile(dateYmd, Pattern.CASE_INSENSITIVE));
@@ -106,6 +105,5 @@ public class PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor imple
 
   private String clean(String group) {
     return cleanSeparatorAndUnknown.matcher(group).replaceAll("");
-    //		return cleanSeparator.matcher(group).replaceFirst("");
   }
 }

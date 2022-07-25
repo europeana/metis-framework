@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 public class PatternNumericDateExtractorWithMissingPartsDateExtractor implements DateExtractor {
 
   ArrayList<Pattern> patterns = new ArrayList<Pattern>();
-  Pattern cleanSeparator = Pattern.compile("[\\-\\./]");
+  Pattern cleanSeparator = Pattern.compile("[\\-./]");
 
   Pattern ambigousPattern = Pattern.compile("\\d\\d\\d\\?");
 
   public PatternNumericDateExtractorWithMissingPartsDateExtractor() {
-    String componentSep = "[\\-\\./]";
+    String componentSep = "[\\-./]";
     String dateYmd = "\\s*(?<uncertain>\\?)?(?<year>\\d\\d\\d\\d?)" + "(?<month>" + componentSep
         + "\\d\\d?)?(?<day>" + componentSep + "\\d\\d?)?(?<uncertain2>\\?)?\\s*";
     String dateDmy = "\\s*(?<uncertain>\\?)?(?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep

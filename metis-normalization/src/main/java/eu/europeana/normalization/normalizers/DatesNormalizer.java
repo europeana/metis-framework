@@ -324,7 +324,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
 
   private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
-    //    final String edtfDateString = EdtfSerializer.serialize(edtfDate);
     final String edtfDateString = edtfDate.toString();
     String uri;
     try {
@@ -377,13 +376,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
     if (firstDay != null) {
       edmBegin = document.createElementNS(EDM_BEGIN.getNamespace().getUri(), EDM_BEGIN.getPrefixedElementName());
       edmBegin.appendChild(document.createTextNode(firstDay.toString()));
-      //      edmBegin.appendChild(document.createTextNode(EdtfSerializer.serialize(firstDay)));
       startCentury = firstDay.getCentury();
     }
     if (lastDay != null) {
       edmEnd = document.createElementNS(EDM_END.getNamespace().getUri(), EDM_END.getPrefixedElementName());
       edmEnd.appendChild(document.createTextNode(lastDay.toString()));
-      //      edmEnd.appendChild(document.createTextNode(EdtfSerializer.serialize(lastDay)));
       endCentury = lastDay.getCentury();
     }
 

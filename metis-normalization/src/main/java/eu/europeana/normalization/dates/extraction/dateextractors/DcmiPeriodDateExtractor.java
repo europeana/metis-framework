@@ -86,7 +86,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     } catch (ParseException e) {
       throw new IllegalArgumentException(e);
     }
-    //	    return ISODateTimeFormat.dateTimeParser().parseDateTime(value).toDate();
   }
 
   @Override
