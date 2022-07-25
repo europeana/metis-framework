@@ -1,5 +1,8 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
+
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -7,8 +10,11 @@ import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
 import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.utils.TempFileUtils;
-
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
@@ -29,15 +35,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonMap;
 
 /**
  * This class performs thumbnail generation for images and PDF files using ImageMagick.
@@ -327,7 +329,7 @@ class ThumbnailGenerator {
 
   private Path createMagickTempDirectory() {
     try {
-      return Files.createTempDirectory("magick_");
+      return TempFileUtils.createSecureTempDirectory("magick_");
     } catch (IOException e) {
       throw new UncheckedIOException("Could not create temporary directory for media extraction!", e);
     }

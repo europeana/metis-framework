@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
-  public static final int PROCESS_TERMINATION_TIMEOUT_SECONDS = 30;
+  private static final int PROCESS_TERMINATION_TIMEOUT_SECONDS = 30;
 
   private final ProcessFactory processFactory;
 
@@ -37,13 +37,6 @@ class CommandExecutor {
     this(commandTimeout, CommandExecutor::createProcess);
   }
 
-  private static Process createProcess(List<String> command, Map<String,String> extraEnvironmentVariables,
-                                       boolean redirectErrorStream) throws IOException {
-    ProcessBuilder processBuilder = new ProcessBuilder(command);
-    extraEnvironmentVariables.forEach((name, value) -> processBuilder.environment().put(name, value));
-    return processBuilder.redirectErrorStream(redirectErrorStream).start();
-  }
-
   /**
    * Constructor.
    *
@@ -55,6 +48,13 @@ class CommandExecutor {
   CommandExecutor(int commandTimeout, ProcessFactory processFactory) {
     this.commandTimeout = commandTimeout;
     this.processFactory = processFactory;
+  }
+
+  private static Process createProcess(List<String> command, Map<String,String> extraEnvironmentVariables,
+                                       boolean redirectErrorStream) throws IOException {
+    ProcessBuilder processBuilder = new ProcessBuilder(command);
+    processBuilder.environment().putAll(extraEnvironmentVariables);
+    return processBuilder.redirectErrorStream(redirectErrorStream).start();
   }
 
   /**
@@ -152,6 +152,8 @@ class CommandExecutor {
      * @param command The command to execute.
      * @param redirectErrorStream Whether to return the contents of the error stream as part of the
      * command's output.
+     * @param extraEnvironmentVariables environment variables that will be included in the process
+     * execution
      * @return The process.
      * @throws IOException In case a problem occurs creating the process.
      */
