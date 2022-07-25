@@ -8,7 +8,6 @@ import eu.europeana.normalization.dates.cleaning.CleanOperation;
 import eu.europeana.normalization.dates.cleaning.CleanResult;
 import eu.europeana.normalization.dates.cleaning.Cleaner;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
-import eu.europeana.normalization.dates.edtf.EdtfSerializer;
 import eu.europeana.normalization.dates.edtf.EdtfValidator;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -325,7 +324,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
 
   private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
-    final String edtfDateString = EdtfSerializer.serialize(edtfDate);
+    //    final String edtfDateString = EdtfSerializer.serialize(edtfDate);
+    final String edtfDateString = edtfDate.toString();
     String uri;
     try {
       uri = String.format("#%s", URLEncoder.encode(edtfDateString, StandardCharsets.UTF_8.name()));
@@ -376,12 +376,14 @@ public class DatesNormalizer implements RecordNormalizeAction {
     Element edmEnd = null;
     if (firstDay != null) {
       edmBegin = document.createElementNS(EDM_BEGIN.getNamespace().getUri(), EDM_BEGIN.getPrefixedElementName());
-      edmBegin.appendChild(document.createTextNode(EdtfSerializer.serialize(firstDay)));
+      edmBegin.appendChild(document.createTextNode(firstDay.toString()));
+      //      edmBegin.appendChild(document.createTextNode(EdtfSerializer.serialize(firstDay)));
       startCentury = firstDay.getCentury();
     }
     if (lastDay != null) {
       edmEnd = document.createElementNS(EDM_END.getNamespace().getUri(), EDM_END.getPrefixedElementName());
-      edmEnd.appendChild(document.createTextNode(EdtfSerializer.serialize(lastDay)));
+      edmEnd.appendChild(document.createTextNode(lastDay.toString()));
+      //      edmEnd.appendChild(document.createTextNode(EdtfSerializer.serialize(lastDay)));
       endCentury = lastDay.getCentury();
     }
 

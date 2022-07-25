@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * An abstract class that contains the template that an EDTF date with compliance level 1 should implement.
  * <p>See more in the specification of <a href="https://www.loc.gov/standards/datetime/">EDTF</a></p>
+ * <p>The date can contain a label, but can also be null</p>
  */
 public abstract class AbstractEdtfDate implements Serializable {
 
@@ -40,10 +41,5 @@ public abstract class AbstractEdtfDate implements Serializable {
   public abstract InstantEdtfDate getLastDay();
 
   public abstract void removeTime();
-
-  @Override
-  public String toString() {
-    return EdtfSerializer.serialize(this);
-  }
 
 }

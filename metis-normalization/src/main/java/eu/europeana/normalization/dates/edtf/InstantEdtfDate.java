@@ -1,11 +1,10 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 import eu.europeana.normalization.dates.YearPrecision;
 import java.time.Month;
 import java.time.Year;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import org.apache.commons.lang3.SerializationUtils;
 
 /**
@@ -30,21 +29,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   public InstantEdtfDate(EdtfTimePart parseEdtfTimePart) {
     this(null, parseEdtfTimePart);
-  }
-
-  public InstantEdtfDate(Date date) {
-    // TODO: 25/07/2022 Remove gregorian calendar and use new java.time classes
-    GregorianCalendar gregorianCalendar = new GregorianCalendar();
-    gregorianCalendar.setTime(date);
-    edtfDatePart = new EdtfDatePart();
-    edtfDatePart.setYear(gregorianCalendar.get(Calendar.YEAR));
-    edtfDatePart.setMonth(gregorianCalendar.get(Calendar.MONTH));
-    edtfDatePart.setDay(gregorianCalendar.get(Calendar.DAY_OF_MONTH));
-    edtfTimePart = new EdtfTimePart();
-    edtfTimePart.setHour(gregorianCalendar.get(Calendar.HOUR_OF_DAY));
-    edtfTimePart.setMinute(gregorianCalendar.get(Calendar.MINUTE));
-    edtfTimePart.setSecond(gregorianCalendar.get(Calendar.SECOND));
-    edtfTimePart.setMillisecond(gregorianCalendar.get(Calendar.MILLISECOND));
   }
 
   @Override
@@ -118,7 +102,9 @@ public class InstantEdtfDate extends AbstractEdtfDate {
           firstDay.getEdtfDatePart().setMonth(1);
           firstDay.getEdtfDatePart().setDay(1);
         }
-      } else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
+      }
+      // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
+      else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
         EdtfDatePart newEdtfDatePart = new EdtfDatePart();
         newEdtfDatePart.setYear(getEdtfDatePart().getYear());
         firstDay = new InstantEdtfDate(newEdtfDatePart);
@@ -188,4 +174,105 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     return century;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    //Date part serialization
+    if (this.getEdtfDatePart() != null) {
+      if (this.getEdtfDatePart().isUnspecified()) {
+        stringBuilder.append("..");
+      } else {
+        stringBuilder.append(serializeDatePart());
+      }
+    }
+
+    stringBuilder.append(serializeTimePart());
+    return stringBuilder.toString();
+  }
+
+  private String serializeDatePart() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(serializeYear());
+    //If the year is below or above threshold(prefixed with Y) we stop
+    if (this.getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR
+        || this.getEdtfDatePart().getYear() > THRESHOLD_4_DIGITS_YEAR) {
+      return stringBuilder.toString();
+    }
+
+    //Append Month and day
+    if (this.getEdtfDatePart().getMonth() != null && this.getEdtfDatePart().getMonth() > 0) {
+      stringBuilder.append("-").append(zeroPadding(this.getEdtfDatePart().getMonth(), 2));
+      if (this.getEdtfDatePart().getDay() != null && this.getEdtfDatePart().getDay() > 0) {
+        stringBuilder.append("-").append(zeroPadding(this.getEdtfDatePart().getDay(), 2));
+      }
+    }
+    //Append approximate/uncertain
+    if (this.getEdtfDatePart().isApproximate() && this.getEdtfDatePart().isUncertain()) {
+      stringBuilder.append("%");
+    } else if (this.getEdtfDatePart().isApproximate()) {
+      stringBuilder.append("~");
+    } else if (this.getEdtfDatePart().isUncertain()) {
+      stringBuilder.append("?");
+    }
+    return stringBuilder.toString();
+  }
+
+
+  private String serializeTimePart() {
+    StringBuilder stringBuilder = new StringBuilder();
+    // TODO: 20/07/2022 Why the hour,minute,second has to be != 0 ??
+    //  In fact checking the value and then nullity probably will cause an issue if it was null.
+    if (this.getEdtfTimePart() != null && (this.getEdtfTimePart().getHour() != 0
+        || this.getEdtfTimePart().getMinute() != 0 || this.getEdtfTimePart().getSecond() != 0)) {
+      stringBuilder.append("T").append(zeroPadding(this.getEdtfTimePart().getHour(), 2));
+      if (this.getEdtfTimePart().getMinute() != null) {
+        stringBuilder.append(":").append(zeroPadding(this.getEdtfTimePart().getMinute(), 2));
+        if (this.getEdtfTimePart().getSecond() != null) {
+          stringBuilder.append(":").append(zeroPadding(this.getEdtfTimePart().getSecond(), 2));
+          if (this.getEdtfTimePart().getMillisecond() != null) {
+            stringBuilder.append(".").append(zeroPadding(this.getEdtfTimePart().getMillisecond(), 3));
+          }
+        }
+      }
+    }
+    return stringBuilder.toString();
+  }
+
+  private String serializeYear() {
+    final String serializedYear;
+    if (edtfDatePart.getYear() < -THRESHOLD_4_DIGITS_YEAR || edtfDatePart.getYear() > THRESHOLD_4_DIGITS_YEAR) {
+      serializedYear = "Y" + edtfDatePart.getYear();
+    } else {
+      final String paddedYear = zeroPadding(Math.abs(edtfDatePart.getYear()), 4);
+      final String prefix = edtfDatePart.getYear() < 0 ? "-" : "";
+      serializedYear = prefix + getYearWithPrecisionApplied(paddedYear);
+    }
+    return serializedYear;
+  }
+
+  private String getYearWithPrecisionApplied(String paddedYear) {
+    final String yearWithAppliedPrecision;
+    if (edtfDatePart.getYearPrecision() == null) {
+      yearWithAppliedPrecision = paddedYear;
+    } else {
+      switch (edtfDatePart.getYearPrecision()) {
+        case MILLENNIUM:
+          yearWithAppliedPrecision = paddedYear.charAt(0) + "XXX";
+          break;
+        case CENTURY:
+          yearWithAppliedPrecision = paddedYear.substring(0, 2) + "XX";
+          break;
+        case DECADE:
+        default:
+          yearWithAppliedPrecision = paddedYear.substring(0, 3) + "X";
+          break;
+      }
+    }
+    return yearWithAppliedPrecision;
+  }
+
+  private String zeroPadding(int value, int paddingLength) {
+    final String paddingFormat = "%0" + paddingLength + "d";
+    return format(paddingFormat, value);
+  }
 }

@@ -107,4 +107,9 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   public void setEnd(InstantEdtfDate end) {
     this.end = end;
   }
+
+  @Override
+  public String toString() {
+    return String.format("%s/%s", start.toString(), end.toString());
+  }
 }

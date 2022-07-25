@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfSerializer;
 import eu.europeana.normalization.normalizers.DatesNormalizer;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
@@ -138,7 +137,7 @@ public class EdtfDatePartNormalizerTest {
   }
 
   @Test
-  void extractorsTest() throws Exception {
+  void extractorsTest() {
     DatesNormalizer normaliser = new DatesNormalizer();
     DateNormalizationResult dateNormalizationResult;
 
@@ -149,7 +148,7 @@ public class EdtfDatePartNormalizerTest {
         assertNull(testCases.get(testCase), "Test case '" + testCase
             + "' was a no-match but should be normalised to '" + testCases.get(testCase) + "'");
       } else {
-        String edtfStr = EdtfSerializer.serialize(dateNormalizationResult.getEdtfDate());
+        String edtfStr = dateNormalizationResult.getEdtfDate().toString();
         assertEquals(testCases.get(testCase), edtfStr, "Test case '" + testCase + "'");
         if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.DCMI_PERIOD) {
           assertTrue(

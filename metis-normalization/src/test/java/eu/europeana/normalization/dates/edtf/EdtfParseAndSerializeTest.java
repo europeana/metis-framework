@@ -15,7 +15,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == 1);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004-01";
     parse = (InstantEdtfDate) parser.parse(dateStr);
@@ -23,7 +23,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004";
     parse = (InstantEdtfDate) parser.parse(dateStr);
@@ -31,7 +31,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == null);
     assert (parse.getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004-01?";
     parse = (InstantEdtfDate) parser.parse(dateStr);
@@ -39,7 +39,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004~";
     parse = (InstantEdtfDate) parser.parse(dateStr);
@@ -47,7 +47,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == null);
     assert (parse.getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004-01-01%";
     parse = (InstantEdtfDate) parser.parse(dateStr);
@@ -56,17 +56,17 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == 1);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "Y-200000";
     parse = (InstantEdtfDate) parser.parse(dateStr);
     assert (parse.getEdtfDatePart().getYear() == -200000);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "Y200000";
     parse = (InstantEdtfDate) parser.parse(dateStr);
     assert (parse.getEdtfDatePart().getYear() == 200000);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "..";
     parse = (InstantEdtfDate) parser.parse(dateStr);
@@ -74,7 +74,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfDatePart().getYear() == null);
     assert (parse.getEdtfDatePart().getMonth() == null);
     assert (parse.getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
   }
 
   @Test
@@ -87,20 +87,20 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEdtfTimePart().getHour() == 23);
     assert (parse.getEdtfTimePart().getMinute() == 5);
     assert (parse.getEdtfTimePart().getSecond() == 2);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004-01-01T23:05";
     parse = (InstantEdtfDate) parser.parse(dateStr);
     assert (parse.getEdtfTimePart().getHour() == 23);
     assert (parse.getEdtfTimePart().getMinute() == 5);
     assert (parse.getEdtfTimePart().getSecond() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004-01-01T23";
     parse = (InstantEdtfDate) parser.parse(dateStr);
     assert (parse.getEdtfTimePart().getHour() == 23);
     assert (parse.getEdtfTimePart().getMinute() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
   }
 
   @Test
@@ -114,7 +114,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEnd().getEdtfDatePart().getYear() == 2004);
     assert (parse.getEnd().getEdtfDatePart().getMonth() == 1);
     assert (parse.getEnd().getEdtfDatePart().getDay() == 2);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004-01-01/2005";
     parse = (IntervalEdtfDate) parser.parse(dateStr);
@@ -125,7 +125,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEnd().getEdtfDatePart().getYear() == 2005);
     assert (parse.getEnd().getEdtfDatePart().getMonth() == null);
     assert (parse.getEnd().getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004/2005";
     parse = (IntervalEdtfDate) parser.parse(dateStr);
@@ -136,7 +136,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEnd().getEdtfDatePart().getYear() == 2005);
     assert (parse.getEnd().getEdtfDatePart().getMonth() == null);
     assert (parse.getEnd().getEdtfDatePart().getDay() == null);
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
 
     dateStr = "2004?/2005~";
     parse = (IntervalEdtfDate) parser.parse(dateStr);
@@ -149,7 +149,7 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEnd().getEdtfDatePart().getMonth() == null);
     assert (parse.getEnd().getEdtfDatePart().getDay() == null);
     assert (parse.getEnd().getEdtfDatePart().isApproximate());
-    assert (EdtfSerializer.serialize(parse).equals(dateStr));
+    assert (parse.toString().equals(dateStr));
   }
 
   @Test
