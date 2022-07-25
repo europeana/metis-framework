@@ -1,7 +1,9 @@
-package eu.europeana.normalization.dates;
+package eu.europeana.normalization.normalizers;
 
 import static java.util.function.Predicate.not;
 
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
+import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.cleaning.CleanOperation;
 import eu.europeana.normalization.dates.cleaning.CleanResult;
 import eu.europeana.normalization.dates.cleaning.Cleaner;
@@ -27,8 +29,6 @@ import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumeric
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsDateExtractor;
 import eu.europeana.normalization.model.ConfidenceLevel;
 import eu.europeana.normalization.model.NormalizationReport;
-import eu.europeana.normalization.normalizers.InternalNormalizationReport;
-import eu.europeana.normalization.normalizers.RecordNormalizeAction;
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlUtil;
@@ -81,17 +81,17 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private static final List<XpathQuery> DATE_PROPERTY_FIELDS = List.of(
       PROXY_QUERY_CREATED, PROXY_QUERY_ISSUED, PROXY_QUERY_TEMPORAL, PROXY_QUERY_DATE);
 
-  private static final Namespace.Element EDM_TIMESPAN = Namespace.EDM.getElement("edm:TimeSpan");
-  private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("rdf:about");
-  private static final Namespace.Element SKOS_PREFLABEL = Namespace.SKOS.getElement("skos:prefLabel");
-  private static final Namespace.Element XML_LANG = Namespace.XML.getElement("xml:lang");
-  private static final Namespace.Element SKOS_NOTATION = Namespace.SKOS.getElement("skos:notation");
-  private static final Namespace.Element SKOS_NOTE = Namespace.SKOS.getElement("skos:note");
-  private static final Namespace.Element RDF_TYPE = Namespace.RDF.getElement("rdf:type");
-  private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("rdf:resource");
-  private static final Namespace.Element EDM_BEGIN = Namespace.EDM.getElement("edm:begin");
-  private static final Namespace.Element EDM_END = Namespace.EDM.getElement("edm:end");
-  private static final Namespace.Element DCTERMS_ISPARTOF = Namespace.DCTERMS.getElement("dcterms:isPartOf");
+  private static final Namespace.Element EDM_TIMESPAN = Namespace.EDM.getElement("TimeSpan");
+  private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
+  private static final Namespace.Element SKOS_PREFLABEL = Namespace.SKOS.getElement("prefLabel");
+  private static final Namespace.Element XML_LANG = Namespace.XML.getElement("lang");
+  private static final Namespace.Element SKOS_NOTATION = Namespace.SKOS.getElement("notation");
+  private static final Namespace.Element SKOS_NOTE = Namespace.SKOS.getElement("note");
+  private static final Namespace.Element RDF_TYPE = Namespace.RDF.getElement("type");
+  private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
+  private static final Namespace.Element EDM_BEGIN = Namespace.EDM.getElement("begin");
+  private static final Namespace.Element EDM_END = Namespace.EDM.getElement("end");
+  private static final Namespace.Element DCTERMS_ISPARTOF = Namespace.DCTERMS.getElement("isPartOf");
 
   private static final List<XpathQuery> GENERIC_PROPERTY_FIELDS = List.of(PROXY_QUERY_COVERAGE, PROXY_QUERY_SUBJECT);
   private final Cleaner cleaner = new Cleaner();
@@ -177,7 +177,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final String elementText = XmlUtil.getElementText(element);
     final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
     if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.NO_MATCH) {
-      createTimespanEntity(document, dateNormalizationResult.getEdtfDate());
+      appendTimespanEntity(document, dateNormalizationResult.getEdtfDate());
       report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
     }
   }
@@ -324,7 +324,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   }
 
 
-  private void createTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
+  private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
     final String edtfDateString = EdtfSerializer.serialize(edtfDate);
     String uri;
     try {
@@ -334,15 +334,17 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     //Initialize timespan element
-    final Element timeSpan = document.createElementNS(EDM_TIMESPAN.getNamespace().getUri(), EDM_TIMESPAN.getElementName());
-    final Attr rdfAbout = document.createAttributeNS(RDF_ABOUT.getNamespace().getUri(), RDF_ABOUT.getElementName());
+    final Element timeSpan = document.createElementNS(EDM_TIMESPAN.getNamespace().getUri(),
+        EDM_TIMESPAN.getPrefixedElementName());
+    final Attr rdfAbout = document.createAttributeNS(RDF_ABOUT.getNamespace().getUri(), RDF_ABOUT.getPrefixedElementName());
     rdfAbout.setValue(uri);
     timeSpan.setAttributeNode(rdfAbout);
 
     //skosPrefLabel
     final Element skosPrefLabel = document.createElementNS(SKOS_PREFLABEL.getNamespace().getUri(),
-        SKOS_PREFLABEL.getElementName());
-    final Attr skosPrefLabelLang = document.createAttributeNS(XML_LANG.getNamespace().getUri(), XML_LANG.getElementName());
+        SKOS_PREFLABEL.getPrefixedElementName());
+    final Attr skosPrefLabelLang = document.createAttributeNS(XML_LANG.getNamespace().getUri(),
+        XML_LANG.getPrefixedElementName());
     skosPrefLabel.setAttributeNode(skosPrefLabelLang);
     if (StringUtils.isNotBlank(edtfDate.getLabel())) {
       skosPrefLabel.setNodeValue(edtfDate.getLabel());
@@ -355,17 +357,17 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     //skosNote
     if (edtfDate.isApproximate()) {
-      final Element skosNote = document.createElementNS(SKOS_NOTE.getNamespace().getUri(), SKOS_NOTE.getElementName());
+      final Element skosNote = document.createElementNS(SKOS_NOTE.getNamespace().getUri(), SKOS_NOTE.getPrefixedElementName());
       skosNote.appendChild(document.createTextNode("approximate"));
       timeSpan.appendChild(skosNote);
     }
     if (edtfDate.isUncertain()) {
-      final Element skosNote = document.createElementNS(SKOS_NOTE.getNamespace().getUri(), SKOS_NOTE.getElementName());
+      final Element skosNote = document.createElementNS(SKOS_NOTE.getNamespace().getUri(), SKOS_NOTE.getPrefixedElementName());
       skosNote.appendChild(document.createTextNode("uncertain"));
       timeSpan.appendChild(skosNote);
     }
 
-    //begin/end
+    //begin/end prepare
     Integer startCentury = null;
     Integer endCentury = null;
     InstantEdtfDate firstDay = edtfDate.getFirstDay();
@@ -373,12 +375,12 @@ public class DatesNormalizer implements RecordNormalizeAction {
     Element edmBegin = null;
     Element edmEnd = null;
     if (firstDay != null) {
-      edmBegin = document.createElementNS(EDM_BEGIN.getNamespace().getUri(), EDM_BEGIN.getElementName());
+      edmBegin = document.createElementNS(EDM_BEGIN.getNamespace().getUri(), EDM_BEGIN.getPrefixedElementName());
       edmBegin.appendChild(document.createTextNode(EdtfSerializer.serialize(firstDay)));
       startCentury = firstDay.getCentury();
     }
     if (lastDay != null) {
-      edmEnd = document.createElementNS(EDM_END.getNamespace().getUri(), EDM_END.getElementName());
+      edmEnd = document.createElementNS(EDM_END.getNamespace().getUri(), EDM_END.getPrefixedElementName());
       edmEnd.appendChild(document.createTextNode(EdtfSerializer.serialize(lastDay)));
       endCentury = lastDay.getCentury();
     }
@@ -392,14 +394,15 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
     for (int century = Math.max(1, startCentury); century <= Math.max(0, endCentury); century++) {
       final Element dctermsIsPartOf = document.createElementNS(DCTERMS_ISPARTOF.getNamespace().getUri(),
-          DCTERMS_ISPARTOF.getElementName());
+          DCTERMS_ISPARTOF.getPrefixedElementName());
       final Attr dctermsIsPartOfResource = document.createAttributeNS(RDF_RESOURCE.getNamespace().getUri(),
-          RDF_RESOURCE.getElementName());
+          RDF_RESOURCE.getPrefixedElementName());
       dctermsIsPartOfResource.setValue("http://data.europeana.eu/timespan/" + century);
       dctermsIsPartOf.setAttributeNode(dctermsIsPartOfResource);
       timeSpan.appendChild(dctermsIsPartOf);
     }
 
+    //begin/end append
     if (edmBegin != null) {
       timeSpan.appendChild(edmBegin);
     }
@@ -408,8 +411,9 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     //skosNotation
-    final Element skosNotation = document.createElementNS(SKOS_NOTATION.getNamespace().getUri(), SKOS_NOTATION.getElementName());
-    final Attr skosNotationType = document.createAttributeNS(RDF_TYPE.getNamespace().getUri(), RDF_TYPE.getElementName());
+    final Element skosNotation = document.createElementNS(SKOS_NOTATION.getNamespace().getUri(),
+        SKOS_NOTATION.getPrefixedElementName());
+    final Attr skosNotationType = document.createAttributeNS(RDF_TYPE.getNamespace().getUri(), RDF_TYPE.getPrefixedElementName());
     skosNotationType.setValue("http://id.loc.gov/datatypes/edtf/EDTF-level1");
     skosNotation.setAttributeNode(skosNotationType);
     skosNotation.appendChild(document.createTextNode(uri));

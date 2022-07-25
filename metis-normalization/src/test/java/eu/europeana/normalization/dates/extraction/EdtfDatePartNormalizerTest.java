@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DatesNormalizer;
 import eu.europeana.normalization.dates.edtf.EdtfSerializer;
+import eu.europeana.normalization.normalizers.DatesNormalizer;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 

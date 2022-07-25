@@ -1,10 +1,10 @@
 package eu.europeana.normalization;
 
-import eu.europeana.normalization.dates.DatesNormalizer;
 import eu.europeana.normalization.languages.LanguageMatcher;
 import eu.europeana.normalization.normalizers.CleanIRIViolationsNormalizer;
 import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
 import eu.europeana.normalization.normalizers.CleanSpaceCharactersNormalizer;
+import eu.europeana.normalization.normalizers.DatesNormalizer;
 import eu.europeana.normalization.normalizers.DcLanguageNormalizer;
 import eu.europeana.normalization.normalizers.NormalizeAction;
 import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer;
