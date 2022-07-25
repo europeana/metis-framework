@@ -101,6 +101,7 @@
     <dc:type xml:lang="en">text</dc:type>
     <dc:type xml:lang="en">Correspondence</dc:type>
     <dc:type xml:lang="en"></dc:type>
+    <dcterms:created xml:lang="en">1984</dcterms:created>
     <dcterms:isPartOf rdf:resource="ivrla:3573"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/17227308" rdfs:label="Author"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/22950329" rdfs:label="Author"/>
