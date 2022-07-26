@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class executes commands (like you would in a terminal). It imposes a maximum number of
- * processes that can perform command-line IO at any given time.
+ * This class executes commands (like you would in a terminal). It imposes a maximum number of processes that can perform
+ * command-line IO at any given time.
  * <p>The command provided is sanitized before executed based on a predefined regex, for safety. In
  * case of an invalid command an exception will be thrown.</p>
  */
@@ -30,8 +30,8 @@ class CommandExecutor {
   /**
    * Constructor.
    *
-   * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take
-   * before it is forcibly destroyed (i.e. cancelled).
+   * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take before it is forcibly destroyed
+   * (i.e. cancelled).
    */
   CommandExecutor(int commandTimeout) {
     this(commandTimeout, CommandExecutor::createProcess);
@@ -40,18 +40,18 @@ class CommandExecutor {
   /**
    * Constructor.
    *
-   * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take
-   * before it is forcibly destroyed (i.e. cancelled).
-   * @param processFactory A function that, given a command and whether to redirect the error
-   * stream, creates a {@link Process} for executing that command.
+   * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take before it is forcibly destroyed
+   * (i.e. cancelled).
+   * @param processFactory A function that, given a command and whether to redirect the error stream, creates a {@link Process}
+   * for executing that command.
    */
   CommandExecutor(int commandTimeout, ProcessFactory processFactory) {
     this.commandTimeout = commandTimeout;
     this.processFactory = processFactory;
   }
 
-  private static Process createProcess(List<String> command, Map<String,String> extraEnvironmentVariables,
-                                       boolean redirectErrorStream) throws IOException {
+  private static Process createProcess(List<String> command, Map<String, String> extraEnvironmentVariables,
+      boolean redirectErrorStream) throws IOException {
     ProcessBuilder processBuilder = new ProcessBuilder(command);
     processBuilder.environment().putAll(extraEnvironmentVariables);
     return processBuilder.redirectErrorStream(redirectErrorStream).start();
@@ -62,32 +62,32 @@ class CommandExecutor {
    *
    * @param command The command to execute, as a list of directives and parameters
    * @param extraEnvironmentVariables allows to set additional environment variables, passed to process.
-   * @param redirectErrorStream Whether to return the contents of the error stream as part of the
-   * command's output. If this is false, and there is error output but no regular output, an
-   * exception will be thrown.
-   * @param exceptionProducer The function producing the exception that is to be thrown if something
-   * goes wrong. Should accept null values.
+   * @param redirectErrorStream Whether to return the contents of the error stream as part of the command's output. If this is
+   * false, and there is error output but no regular output, an exception will be thrown.
+   * @param exceptionProducer The function producing the exception that is to be thrown if something goes wrong. Should accept
+   * null values.
    * @param <E> The type of exception thrown by this instance.
    * @return The output of the command as a String.
    * @throws E In case a problem occurs.
    */
   <E extends Exception> String execute(List<String> command, Map<String, String> extraEnvironmentVariables,
-                                       boolean redirectErrorStream, Function<String, E> exceptionProducer) throws E {
+      boolean redirectErrorStream, Function<String, E> exceptionProducer) throws E {
     try {
       return executeInternal(command, extraEnvironmentVariables, redirectErrorStream, exceptionProducer);
     } catch (IOException | RuntimeException e) {
       final E exceptionToThrow = exceptionProducer
-              .apply("Problem while executing command: " + e.getMessage());
+          .apply("Problem while executing command: " + e.getMessage());
       exceptionToThrow.initCause(e);
       throw exceptionToThrow;
     }
   }
 
-  <E extends Exception> String executeInternal(List<String> command, Map<String, String> extraEnvironmentVariables, boolean redirectErrorStream,
-                                               Function<String, E> exceptionProducer) throws IOException, E {
+  <E extends Exception> String executeInternal(List<String> command, Map<String, String> extraEnvironmentVariables,
+      boolean redirectErrorStream,
+      Function<String, E> exceptionProducer) throws IOException, E {
 
     // Create process and start it.
-    final Process process = processFactory.createProcess(command, extraEnvironmentVariables,redirectErrorStream);
+    final Process process = processFactory.createProcess(command, extraEnvironmentVariables, redirectErrorStream);
 
     // Wait for the process to finish (or the time-out to elapse).
     try {
@@ -97,13 +97,13 @@ class CommandExecutor {
         if (process.waitFor(PROCESS_TERMINATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
           time = System.currentTimeMillis() - time;
           throw exceptionProducer.apply("The process did not terminate within the timeout of " +
-                  commandTimeout + " seconds. So term signal was send, and " + time + " milliseconds after that " +
-                  "the process eventually terminated.");
+              commandTimeout + " seconds. So term signal was send, and " + time + " milliseconds after that " +
+              "the process eventually terminated.");
         } else {
           process.destroyForcibly();
           throw exceptionProducer.apply("The process did not finish within the timeout of " +
-                  commandTimeout + " seconds. And it did not terminate in additional " + PROCESS_TERMINATION_TIMEOUT_SECONDS
-                  + " seconds after term signal was send. So it was eventually forcibly destroyed.");
+              commandTimeout + " seconds. And it did not terminate in additional " + PROCESS_TERMINATION_TIMEOUT_SECONDS
+              + " seconds after term signal was send. So it was eventually forcibly destroyed.");
 
         }
       }
@@ -150,14 +150,12 @@ class CommandExecutor {
      * Create a {@link Process} instance.
      *
      * @param command The command to execute.
-     * @param redirectErrorStream Whether to return the contents of the error stream as part of the
-     * command's output.
-     * @param extraEnvironmentVariables environment variables that will be included in the process
-     * execution
+     * @param redirectErrorStream Whether to return the contents of the error stream as part of the command's output.
+     * @param extraEnvironmentVariables environment variables that will be included in the process execution
      * @return The process.
      * @throws IOException In case a problem occurs creating the process.
      */
     Process createProcess(List<String> command, Map<String, String> extraEnvironmentVariables,
-                          boolean redirectErrorStream) throws IOException;
+        boolean redirectErrorStream) throws IOException;
   }
 }

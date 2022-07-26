@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -18,6 +18,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.CommandExecutor.ProcessFactory;
 import java.io.ByteArrayInputStream;
@@ -92,7 +93,7 @@ class CommandExecutorTest {
         commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new);
 
     // Verify
-    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(),true);
+    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(), true);
     verifyNoMoreInteractions(processFactory);
     assertEquals(COMMAND_OUTPUT, result);
   }
@@ -109,7 +110,7 @@ class CommandExecutorTest {
         () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), false, MediaExtractionException::new));
 
     // Verify
-    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(),false);
+    verify(processFactory, times(1)).createProcess(COMMAND_INPUT, emptyMap(), false);
     verifyNoMoreInteractions(processFactory);
   }
 
@@ -148,7 +149,7 @@ class CommandExecutorTest {
 
     // Perform call
     assertThrows(MediaExtractionException.class,
-            () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new));
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, emptyMap(), true, MediaExtractionException::new));
 
     // Verify
     verify(process, times(1)).destroy();
@@ -160,7 +161,7 @@ class CommandExecutorTest {
 
     // Set up timeout
     doThrow(new InterruptedException()).when(process)
-        .waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
+                                       .waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
 
     // Perform call
     assertThrows(MediaExtractionException.class,
@@ -197,7 +198,7 @@ class CommandExecutorTest {
 
     // Test MediaExtractionException
     doThrow(MediaExtractionException.class).when(commandExecutor)
-        .executeInternal(eq(command), anyMap(), eq(true), any());
+                                           .executeInternal(eq(command), anyMap(), eq(true), any());
     assertThrows(MediaExtractionException.class,
         () -> commandExecutor.execute(command, emptyMap(), true, MediaExtractionException::new));
 

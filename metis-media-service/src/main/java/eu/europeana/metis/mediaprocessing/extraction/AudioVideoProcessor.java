@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static java.util.Collections.emptyMap;
+
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
@@ -35,12 +37,10 @@ import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static java.util.Collections.emptyMap;
-
 /**
  * <p>
- * Implementation of {@link MediaProcessor} that is designed to handle resources of types {@link
- * MediaType#AUDIO} and {@link MediaType#VIDEO}.
+ * Implementation of {@link MediaProcessor} that is designed to handle resources of types {@link MediaType#AUDIO} and
+ * {@link MediaType#VIDEO}.
  * </p>
  * <p>
  * Note: No thumbnails are created for audio or video files.
@@ -56,9 +56,8 @@ class AudioVideoProcessor implements MediaProcessor {
   private final String ffprobeCommand;
 
   /**
-   * Constructor. This is a wrapper for {@link AudioVideoProcessor#AudioVideoProcessor(CommandExecutor,
-   * String)} where the property is detected. It is advisable to use this constructor for
-   * non-testing purposes.
+   * Constructor. This is a wrapper for {@link AudioVideoProcessor#AudioVideoProcessor(CommandExecutor, String)} where the
+   * property is detected. It is advisable to use this constructor for non-testing purposes.
    *
    * @param commandExecutor A command executor.
    * @throws MediaProcessorException In case the properties could not be initialized.
@@ -95,7 +94,7 @@ class AudioVideoProcessor implements MediaProcessor {
     final String command = "ffprobe";
     final String output;
     output = commandExecutor.execute(Collections.singletonList(command), emptyMap(), true, message ->
-            new MediaProcessorException("Error while looking for ffprobe tools: " + message));
+        new MediaProcessorException("Error while looking for ffprobe tools: " + message));
     int indexVersion = output.lastIndexOf("version ") + "version ".length();
     int version = Character.isDigit(output.charAt(indexVersion)) ?
         Integer.parseInt(String.valueOf(output.charAt(indexVersion))) : 0;
@@ -156,7 +155,7 @@ class AudioVideoProcessor implements MediaProcessor {
 
   @Override
   public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType,
-          boolean mainThumbnailAvailable) throws MediaExtractionException {
+      boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     AbstractResourceMetadata metadata;
     //Check if it's an mpd mimetype
@@ -165,9 +164,9 @@ class AudioVideoProcessor implements MediaProcessor {
     } else {
       // Execute command
       final Function<String, MediaExtractionException> exceptionProducer = message ->
-              new MediaExtractionException("Problem while analyzing audio/video file: " + message);
+          new MediaExtractionException("Problem while analyzing audio/video file: " + message);
       final String response = commandExecutor
-              .execute(createAudioVideoAnalysisCommand(resource), emptyMap(),  false, exceptionProducer);
+          .execute(createAudioVideoAnalysisCommand(resource), emptyMap(), false, exceptionProducer);
 
       // Parse command result.
       metadata = parseCommandResponse(resource, detectedMimeType, response);
@@ -177,25 +176,25 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   private Representation getRepresentationFromMpd(AdaptationSet videoAdaptationSet)
-          throws MediaExtractionException {
+      throws MediaExtractionException {
     // If only one representation available, get that one, otherwise get the first of type video
     Representation videoRepresentation = videoAdaptationSet.getRepresentations().get(0);
     if (videoAdaptationSet.getRepresentations().size() > 1) {
       //Get the one with the highest width*height if possible
       videoRepresentation = videoAdaptationSet.getRepresentations().stream()
-              .filter(representation -> representation.getWidth() != null
-                      && representation.getHeight() != null).max(Comparator.comparing(
-                      representation -> representation.getWidth() * representation.getHeight()))
-              .orElse(null);
+                                              .filter(representation -> representation.getWidth() != null
+                                                  && representation.getHeight() != null).max(Comparator.comparing(
+              representation -> representation.getWidth() * representation.getHeight()))
+                                              .orElse(null);
 
       //If not max resolution found then get the one that is at least of type video
       if (videoRepresentation == null) {
         videoRepresentation = videoAdaptationSet.getRepresentations().stream()
-                .filter(representation -> (representation.getMimeType() != null && representation
-                        .getMimeType().startsWith("video")) || representation.getWidth() != null
-                        || representation.getHeight() != null)
-                .findFirst().orElseThrow(() -> new MediaExtractionException(
-                        "Cannot find video representation element in mpd"));
+                                                .filter(representation -> (representation.getMimeType() != null && representation
+                                                    .getMimeType().startsWith("video")) || representation.getWidth() != null
+                                                    || representation.getHeight() != null)
+                                                .findFirst().orElseThrow(() -> new MediaExtractionException(
+                "Cannot find video representation element in mpd"));
       }
     }
     return videoRepresentation;
@@ -209,7 +208,7 @@ class AudioVideoProcessor implements MediaProcessor {
     final MPD mpd;
     // We know where the URL comes from: from the apache library.
     try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") InputStream inputStream = resource
-            .getActualLocation().toURL().openStream()) {
+        .getActualLocation().toURL().openStream()) {
       mpd = parser.parse(inputStream);
 
     } catch (IOException e) {
@@ -218,39 +217,39 @@ class AudioVideoProcessor implements MediaProcessor {
 
     // Analyze the result - get some data structures we will need.
     final Period period = mpd.getPeriods().stream().findFirst()
-            .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));
+                             .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));
     final AdaptationSet videoAdaptationSet = period.getAdaptationSets().stream().filter(adaptationSet ->
-            Stream.of(adaptationSet.getMimeType(), adaptationSet.getContentType())
-                    .filter(Objects::nonNull).findFirst().map(type -> type.startsWith("video"))
-                    .orElse(Boolean.FALSE)
+        Stream.of(adaptationSet.getMimeType(), adaptationSet.getContentType())
+              .filter(Objects::nonNull).findFirst().map(type -> type.startsWith("video"))
+              .orElse(Boolean.FALSE)
     ).findFirst().orElseThrow(() -> new MediaExtractionException(
-            "Cannot find video adaptation set element in mpd"));
-    final Representation videoRepresentation =getRepresentationFromMpd(videoAdaptationSet);
+        "Cannot find video adaptation set element in mpd"));
+    final Representation videoRepresentation = getRepresentationFromMpd(videoAdaptationSet);
     final Duration durationValue = mpd.getMediaPresentationDuration();
 
     //Get value either from the adaptation set or the representation
     final Long widthValue = videoRepresentation.getWidth() == null ?
-            videoAdaptationSet.getWidth() : videoRepresentation.getWidth();
+        videoAdaptationSet.getWidth() : videoRepresentation.getWidth();
     final Long heightValue = videoRepresentation.getHeight() == null ?
-            videoAdaptationSet.getHeight() : videoRepresentation.getHeight();
+        videoAdaptationSet.getHeight() : videoRepresentation.getHeight();
     final FrameRate frameRateValue = videoRepresentation.getFrameRate() == null ?
-            videoAdaptationSet.getFrameRate() : videoRepresentation.getFrameRate();
+        videoAdaptationSet.getFrameRate() : videoRepresentation.getFrameRate();
     final String codecNames = videoRepresentation.getCodecs() == null ?
-            videoAdaptationSet.getCodecs() : videoRepresentation.getCodecs();
+        videoAdaptationSet.getCodecs() : videoRepresentation.getCodecs();
 
     // Normalize numerical values
     final Integer width = widthValue == null ? null : nullIfNegative(Math.toIntExact(widthValue));
     final Integer height =
-            heightValue == null ? null : nullIfNegative(Math.toIntExact(heightValue));
+        heightValue == null ? null : nullIfNegative(Math.toIntExact(heightValue));
     final Double duration =
-            durationValue == null ? null : nullIfNegative((double) durationValue.getSeconds());
+        durationValue == null ? null : nullIfNegative((double) durationValue.getSeconds());
     final Double frameRate =
-            frameRateValue == null ? null : nullIfNegative(frameRateValue.toDouble());
+        frameRateValue == null ? null : nullIfNegative(frameRateValue.toDouble());
     final Integer bitRate = nullIfNegative(Math.toIntExact(videoRepresentation.getBandwidth()));
 
     // Create response object
     return new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(), null, duration,
-            bitRate, width, height, codecNames, frameRate);
+        bitRate, width, height, codecNames, frameRate);
   }
 
   JSONObject readCommandResponseToJson(String response) {
@@ -337,14 +336,14 @@ class AudioVideoProcessor implements MediaProcessor {
 
   Integer findInt(String key, JSONObject[] candidates) {
     final int result = findValue(key, candidates,
-            candidate -> candidate.optInt(key, Integer.MIN_VALUE),
-            value -> Integer.MIN_VALUE != value);
+        candidate -> candidate.optInt(key, Integer.MIN_VALUE),
+        value -> Integer.MIN_VALUE != value);
     return nullIfNegative(result);
   }
 
   Double findDouble(String key, JSONObject[] candidates) {
     final double result = findValue(key, candidates,
-            candidate -> candidate.optDouble(key, Double.NaN), value -> !value.isNaN());
+        candidate -> candidate.optDouble(key, Double.NaN), value -> !value.isNaN());
     return nullIfNegative(result);
   }
 
@@ -356,7 +355,7 @@ class AudioVideoProcessor implements MediaProcessor {
   <T> T findValue(String key, JSONObject[] candidates, Function<JSONObject, T> valueGetter,
       Predicate<T> valueValidator) {
     return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst()
-        .orElseThrow(() -> new JSONException("Could not find value for field: " + key));
+                 .orElseThrow(() -> new JSONException("Could not find value for field: " + key));
   }
 
   JSONObject findStream(JSONObject data, String codecType) {

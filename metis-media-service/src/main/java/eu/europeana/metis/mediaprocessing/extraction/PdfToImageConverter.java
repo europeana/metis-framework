@@ -65,7 +65,7 @@ class PdfToImageConverter {
     // Check whether ghostscript is installed.
     final String command = "gs";
     final String output;
-    output = commandExecutor.execute(Arrays.asList(command, "--version"), emptyMap(),  true, message ->
+    output = commandExecutor.execute(Arrays.asList(command, "--version"), emptyMap(), true, message ->
         new MediaProcessorException("Error while looking for ghostscript tools: " + message));
     if (!output.startsWith("9.")) {
       throw new MediaProcessorException("Ghostscript 9.x not found.");

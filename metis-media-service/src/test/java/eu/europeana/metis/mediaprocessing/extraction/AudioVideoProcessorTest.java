@@ -55,10 +55,8 @@ import org.junit.jupiter.api.Test;
 class AudioVideoProcessorTest {
 
   private static final String FF_PROBE_COMMAND = "ffprobe command";
-
   private static CommandExecutor commandExecutor;
   private static AudioVideoProcessor audioVideoProcessor;
-
   private static int portForWireMock = 9999;
 
   static {
@@ -115,13 +113,14 @@ class AudioVideoProcessorTest {
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
     doReturn("Other command").when(commandExecutor)
-        .execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
+                             .execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test command execution exception
     doThrow(new MediaProcessorException("", null)).when(commandExecutor)
-        .execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
+                                                  .execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true),
+                                                      any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
   }
@@ -302,7 +301,7 @@ class AudioVideoProcessorTest {
     doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
     doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
     doReturn(bitsPerSample).when(audioVideoProcessor)
-        .findInt(eq("bits_per_sample"), eq(candidates));
+                           .findInt(eq("bits_per_sample"), eq(candidates));
     doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
     doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
     doReturn("aac").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
@@ -362,7 +361,7 @@ class AudioVideoProcessorTest {
     doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
     doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
     doReturn(frameRateNumerator + "/" + frameRateDenominator).when(audioVideoProcessor)
-        .findString(eq("avg_frame_rate"), eq(candidates));
+                                                             .findString(eq("avg_frame_rate"), eq(candidates));
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
@@ -380,7 +379,7 @@ class AudioVideoProcessorTest {
     assertEquals(frameRate, metadata.getFrameRate());
     assertEquals(height, metadata.getHeight());
     assertEquals(width, metadata.getWidth());
-    
+
     // Try various options for the frame rate
     doReturn("0/0").when(audioVideoProcessor).findString(eq("avg_frame_rate"), eq(candidates));
     final AbstractResourceMetadata metadataWith0FrameRate = audioVideoProcessor
@@ -463,8 +462,8 @@ class AudioVideoProcessorTest {
     final AbstractResourceMetadata metadata = audioVideoProcessor
         .parseMpdResource(resource, "application/xml");
 
-    assertEquals(480, ((VideoResourceMetadata)metadata).getWidth().intValue());
-    assertEquals(360, ((VideoResourceMetadata)metadata).getHeight().intValue());
+    assertEquals(480, ((VideoResourceMetadata) metadata).getWidth().intValue());
+    assertEquals(360, ((VideoResourceMetadata) metadata).getHeight().intValue());
   }
 
   @Test
@@ -547,7 +546,7 @@ class AudioVideoProcessorTest {
     doReturn(response).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
     final AbstractResourceMetadata metadata = mock(AbstractResourceMetadata.class);
     doReturn(metadata).when(audioVideoProcessor)
-        .parseCommandResponse(resource, detectedMimeType, response);
+                      .parseCommandResponse(resource, detectedMimeType, response);
 
     // Check that all is well
     final ResourceExtractionResultImpl result = audioVideoProcessor

@@ -53,11 +53,9 @@ class ThumbnailGeneratorTest {
 
   private static final String IMAGE_MAGICK = "Image Magick";
   private static final String COLOR_MAP_FILE = "color map file";
-
   private static final String PDF_MIME_TYPE = "application/pdf";
   private static final String PNG_MIME_TYPE = "image/png";
   private static final String JPG_MIME_TYPE = "image/jpeg";
-
   private static CommandExecutor commandExecutor;
   private static ThumbnailGenerator thumbnailGenerator;
 
@@ -93,14 +91,14 @@ class ThumbnailGeneratorTest {
     final List<String> convertLocations = Arrays.asList("convert 1", "convert 2", "convert 3");
     final String convertLocationsConcat = String.join("\n", convertLocations);
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
+                                    .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
+                                    .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
     final List<String> versionCommand0 = Arrays.asList(convertLocations.get(0), versionDirective);
     doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand0), anyMap(), eq(true), any());
     final List<String> versionCommand1 = Arrays.asList(convertLocations.get(1), versionDirective);
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(versionCommand1), anyMap(), eq(true), any());
+                                          .execute(eq(versionCommand1), anyMap(), eq(true), any());
     final List<String> versionCommand2 = Arrays.asList(convertLocations.get(2), versionDirective);
     doReturn("Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
         .when(commandExecutor).execute(eq(versionCommand2), anyMap(), eq(true), any());
@@ -109,23 +107,23 @@ class ThumbnailGeneratorTest {
 
     // Change previous test by throwing exception for I.M 7 - should still detect I.M. 6.
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(versionCommand), anyMap(), eq(true), any());
+                                          .execute(eq(versionCommand), anyMap(), eq(true), any());
     assertEquals(convertLocations.get(2),
         ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Change previous test by throwing exception when doing where/which. Should now fail.
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
+                                          .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
     doThrow(MediaProcessorException.class).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
+                                          .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Test other version of I.M. (make sure that where/which works again).
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
+                                    .execute(eq(Arrays.asList(whichCommand, magick6Command)), anyMap(), eq(true), any());
     doReturn(convertLocationsConcat).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
+                                    .execute(eq(Arrays.asList(whereCommand, magick6Command)), anyMap(), eq(true), any());
     doReturn("Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
         .when(commandExecutor).execute(eq(versionCommand2), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
@@ -159,7 +157,7 @@ class ThumbnailGeneratorTest {
     // Mock the thumbnail generator
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
-        .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
+                     .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
     doReturn(commandResponse).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
     doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(eq(commandResponse), any());
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
@@ -177,7 +175,6 @@ class ThumbnailGeneratorTest {
     verify(thumbnail1, times(1)).deleteTempFileSilently();
     verify(thumbnail2, times(1)).deleteTempFileSilently();
 
-
     // Check that the generated thumbnail was used for thumbnail 1.
     verify(thumbnailGenerator, times(1)).copyFile(any(Path.class), any());
     verify(thumbnailGenerator, times(1)).copyFile(thumbnail1.getTempFileForThumbnail(), thumbnail1);
@@ -188,15 +185,15 @@ class ThumbnailGeneratorTest {
 
     // Check non-image content
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, content, false));
+        () -> thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, content, false));
 
     // Check null content
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, null, true));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, null, true));
 
     // Check exception during command execution - thumbnails should be closed.
     doThrow(new MediaExtractionException("TEST", null)).when(commandExecutor)
-        .execute(eq(command), anyMap(), eq(false), any());
+                                                       .execute(eq(command), anyMap(), eq(false), any());
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false));
     doReturn(commandResponse).when(commandExecutor).execute(eq(command), anyMap(), eq(false), any());
@@ -231,10 +228,10 @@ class ThumbnailGeneratorTest {
     // Perform the call
     final String contentMarker = "1234567890";
     final List<String> input = Arrays
-            .asList("", contentMarker, "589", "768", "sRGB", contentMarker, "", contentMarker,
-                    "      2995: ( 47, 79, 79,255) #2F4F4F DarkSlateGray",
-                    "        24: ( 72, 61,139,255) #483D8B DarkSlateBlue",
-                    "      6711: ( 85,107, 47,255) #556B2F DarkOliveGreen", contentMarker, "");
+        .asList("", contentMarker, "589", "768", "sRGB", contentMarker, "", contentMarker,
+            "      2995: ( 47, 79, 79,255) #2F4F4F DarkSlateGray",
+            "        24: ( 72, 61,139,255) #483D8B DarkSlateBlue",
+            "      6711: ( 85,107, 47,255) #556B2F DarkOliveGreen", contentMarker, "");
     assertEquals(13, input.size()); // If false, recalculate indices below.
     final ImageMetadata result = thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
@@ -255,63 +252,63 @@ class ThumbnailGeneratorTest {
     // Check missing content marker at the beginning
     input.set(1, "");
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(1, contentMarker);
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check missing content marker in the middle
     input.set(5, "");
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(5, contentMarker);
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check missing content marker at the end
     input.set(11, "");
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(11, contentMarker);
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check additional content marker at the end
     input.set(0, contentMarker);
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(0, "");
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check additional content marker in the middle
     input.set(6, contentMarker);
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(6, "");
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check additional content marker at the end
     input.set(12, contentMarker);
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(12, "");
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check unexpected content at the beginning
     input.set(0, "UNEXPECTED CONTENT");
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(0, "");
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check unexpected content in the middle
     input.set(6, "UNEXPECTED CONTENT");
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(6, "");
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check unexpected content at the end
     input.set(12, "UNEXPECTED CONTENT");
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
     input.set(12, "");
     thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
@@ -319,7 +316,7 @@ class ThumbnailGeneratorTest {
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.parseCommandResponse(null, contentMarker));
     assertThrows(MediaExtractionException.class,
-            () -> thumbnailGenerator.parseCommandResponse("", contentMarker));
+        () -> thumbnailGenerator.parseCommandResponse("", contentMarker));
     input.set(2, null);
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
@@ -342,7 +339,7 @@ class ThumbnailGeneratorTest {
     input.set(9, "");
     input.set(10, "");
     assertTrue(thumbnailGenerator.parseCommandResponse(concat(input), contentMarker)
-            .getDominantColors().isEmpty());
+                                 .getDominantColors().isEmpty());
   }
 
   @Test
@@ -453,16 +450,16 @@ class ThumbnailGeneratorTest {
     final List<String> command = Arrays.asList("command1", "command2");
     final String commandResponse = "response1\nresponse2";
     final ImageMetadata imageMetadata = new ImageMetadata(200, 200, "sRGB",
-            Arrays.asList("WHITE", "BLACK"));
+        Arrays.asList("WHITE", "BLACK"));
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
-            .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
+                     .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
     doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(eq(commandResponse), any());
     //Mock execute method with code creating temp file
-    final AtomicReference<String> magickRandomTempDir=new AtomicReference<>();
-    final AtomicBoolean tempFileCreated=new AtomicBoolean();
-    doAnswer(invocation->{
-      Map<String,String> env=invocation.getArgument(1);
+    final AtomicReference<String> magickRandomTempDir = new AtomicReference<>();
+    final AtomicBoolean tempFileCreated = new AtomicBoolean();
+    doAnswer(invocation -> {
+      Map<String, String> env = invocation.getArgument(1);
       magickRandomTempDir.set(env.get(MAGICK_TEMPORARY_PATH));
       Files.createFile(Path.of(magickRandomTempDir.get(), "magick-file12345"));
       tempFileCreated.set(true);

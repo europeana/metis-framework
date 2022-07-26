@@ -51,25 +51,25 @@ class PdfToImageConverterTest {
 
     // Test right version
     doReturn("9.26").when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
+                    .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertEquals(ghostScriptCommand,
-            PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
+        PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
 
     // Test other commands
     doReturn("8.26").when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
+                    .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
-            () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
+        () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
     doReturn("Other command").when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
+                             .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
-            () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
+        () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
 
     // Test command execution exception
     doThrow(new MediaProcessorException("", null)).when(commandExecutor)
-            .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
+                                                  .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
-            () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
+        () -> PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
   }
 
   @Test
@@ -85,27 +85,27 @@ class PdfToImageConverterTest {
 
     // Get the command
     final List<String> expectedCommand = Arrays.asList(GHOST_SCRIPT_COMMAND,
-            "-q",
-            "-dQUIET",
-            "-dSAFER",
-            "-dBATCH",
-            "-dNOPAUSE",
-            "-dNOPROMPT",
-            "-dMaxBitmap=500000000",
-            "-dAlignToPixels=0",
-            "-dGridFitTT=2",
-            "-sDEVICE=pngalpha",
-            "-dTextAlphaBits=4",
-            "-dGraphicsAlphaBits=4",
-            "-r72x72",
-            "-dFirstPage=1",
-            "-dLastPage=1",
-            "-sOutputFile=" + outputFile.toString(),
-            "-f" + inputFile.toString());
+        "-q",
+        "-dQUIET",
+        "-dSAFER",
+        "-dBATCH",
+        "-dNOPAUSE",
+        "-dNOPROMPT",
+        "-dMaxBitmap=500000000",
+        "-dAlignToPixels=0",
+        "-dGridFitTT=2",
+        "-sDEVICE=pngalpha",
+        "-dTextAlphaBits=4",
+        "-dGraphicsAlphaBits=4",
+        "-r72x72",
+        "-dFirstPage=1",
+        "-dLastPage=1",
+        "-sOutputFile=" + outputFile.toString(),
+        "-f" + inputFile.toString());
 
     // Execute the command
     assertEquals(expectedCommand,
-            pdfToImageConverter.createPdfConversionCommand(inputFile, outputFile));
+        pdfToImageConverter.createPdfConversionCommand(inputFile, outputFile));
   }
 
   @Test

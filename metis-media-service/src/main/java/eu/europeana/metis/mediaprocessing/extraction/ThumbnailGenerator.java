@@ -135,7 +135,7 @@ class ThumbnailGenerator {
 
     // Try the 'magick' command for ImageMagick 7.
     try {
-      final String im7Response = commandExecutor.execute(Arrays.asList("magick", "-version"), emptyMap(),  true,
+      final String im7Response = commandExecutor.execute(Arrays.asList("magick", "-version"), emptyMap(), true,
           MediaProcessorException::new);
       if (im7Response.startsWith("Version: ImageMagick 7")) {
         final String result = "magick";
@@ -320,7 +320,7 @@ class ThumbnailGenerator {
     Path tempDir = createMagickTempDirectory();
     try {
       return commandExecutor.execute(command, singletonMap(MAGICK_TEMPORARY_PATH, tempDir.toString()), false,
-              message -> new MediaExtractionException("Could not analyze content and generate thumbnails: " + message));
+          message -> new MediaExtractionException("Could not analyze content and generate thumbnails: " + message));
     } finally {
       deleteMagickTempDirectory(tempDir);
     }
