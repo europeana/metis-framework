@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static eu.europeana.metis.utils.TempFileUtils.createSecureTempFile;
+import static java.util.Collections.emptyMap;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -64,7 +65,7 @@ class PdfToImageConverter {
     // Check whether ghostscript is installed.
     final String command = "gs";
     final String output;
-    output = commandExecutor.execute(Arrays.asList(command, "--version"), true, message ->
+    output = commandExecutor.execute(Arrays.asList(command, "--version"), emptyMap(), true, message ->
         new MediaProcessorException("Error while looking for ghostscript tools: " + message));
     if (!output.startsWith("9.")) {
       throw new MediaProcessorException("Ghostscript 9.x not found.");
@@ -95,7 +96,7 @@ class PdfToImageConverter {
     // Execute the command
     try {
       final List<String> command = createPdfConversionCommand(content, pdfImage);
-      this.commandExecutor.execute(command, false, MediaExtractionException::new);
+      this.commandExecutor.execute(command, emptyMap(), false, MediaExtractionException::new);
     } catch (MediaExtractionException | RuntimeException e) {
       removePdfImageFileSilently(pdfImage);
       throw e;
