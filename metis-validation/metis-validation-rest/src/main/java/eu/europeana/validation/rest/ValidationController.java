@@ -4,7 +4,7 @@ import static eu.europeana.metis.utils.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
-import eu.europeana.metis.utils.CompressedFileExtractor;
+import eu.europeana.metis.utils.CompressedFileHandler;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
@@ -112,7 +112,7 @@ public class ValidationController {
 
     final List<ByteArrayInputStream> records;
     try {
-      records = new CompressedFileExtractor().getContentFromZipFile(providedZipFile.getInputStream());
+      records = new CompressedFileHandler().getContentFromZipFile(providedZipFile.getInputStream());
     } catch (IOException e) {
       throw new ServerException(e);
     }

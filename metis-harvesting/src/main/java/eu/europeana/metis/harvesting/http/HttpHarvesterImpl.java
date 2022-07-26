@@ -8,7 +8,7 @@ import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.utils.CompressedFileExtension;
-import eu.europeana.metis.utils.CompressedFileExtractor;
+import eu.europeana.metis.utils.CompressedFileHandler;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -112,7 +112,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       throw new IllegalStateException("Downloaded file should have a parent.");
     }
     try {
-      CompressedFileExtractor.extractFile(archiveFile.toAbsolutePath(), extractedDirectory);
+      CompressedFileHandler.extractFile(archiveFile.toAbsolutePath(), extractedDirectory);
     } catch (IOException e) {
       throw new HarvesterException("Problem extracting archive.", e);
     }
