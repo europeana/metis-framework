@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.text.ParseException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Unit tests to validate EDTF format parser
+ * Unit tests to validate EDTF format parser Level 0
  *
  * @see <a href="https://www.loc.gov/standards/datetime/">EDTF library specification</a>
  */
@@ -250,6 +251,47 @@ public class DateLevel0Test {
       assertEquals(expectedHour, actual.getEdtfTimePart().getHour());
       assertEquals(expectedMinute, actual.getEdtfTimePart().getMinute());
       assertEquals(expectedSecond, actual.getEdtfTimePart().getSecond());
+    } else {
+      assertThrows(ParseException.class, () -> parser.parse(actualDate));
+    }
+  }
+
+  private static Stream<Arguments> dateIntervalRepresentation() {
+    return Stream.of(Arguments.of("1986/1998", 1986, null, null, 1998, null, null, true),
+        Arguments.of("1986-07/1998-11", 1986, 7, null, 1998, 11, null, true),
+        Arguments.of("1986-07 / 1998-07", 1986, 7, null, 1998, 7, null, false), //TODO: check if the space between is valid
+        Arguments.of("1986-02-12/1998-07-09", 1986, 2, 12, 1998, 7, 9, true),
+        Arguments.of("1986-07-09/2005", 1986, 7, 9, 2005, null, null, true),
+        Arguments.of("1986/2005-02-22", 1986, null, null, 2005, 2, 22, true),
+        Arguments.of("0986/0998", 986, null, null, 998, null, null, true),
+        Arguments.of("986/998", 986, null, null, 998, null, null, false),
+        Arguments.of("1286/1218", 1286, null, null, 1218, null, null, true), //TODO: check if ranges d1>d2 or d2>d1 are valid
+        Arguments.of("1986-1998", 1986, null, null, 1998, null, null, false),
+        Arguments.of("1986-13/1998-01", 1986, 13, null, 1998, 1, null, true), //TODO: check why this is valid?
+        Arguments.of("1986-00/1998-01", 1986, null, null, 1998, 1, null, true) //TODO: check why this is valid?
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource("dateIntervalRepresentation")
+  @DisplayName("EDTF Level 0 adopts representations of a time interval")
+  void testDateInterval(String actualDate,
+      Integer expectedStartYear,
+      Integer expectedStartMonth,
+      Integer expectedStartDay,
+      Integer expectedEndYear,
+      Integer expectedEndMonth,
+      Integer expectedEndDay,
+      Boolean isSuccess) throws ParseException {
+    if (isSuccess) {
+      IntervalEdtfDate actual = (IntervalEdtfDate) parser.parse(actualDate);
+
+      assertEquals(expectedStartDay, actual.getStart().getEdtfDatePart().getDay());
+      assertEquals(expectedStartMonth, actual.getStart().getEdtfDatePart().getMonth());
+      assertEquals(expectedStartYear, actual.getStart().getEdtfDatePart().getYear());
+      assertEquals(expectedEndDay, actual.getEnd().getEdtfDatePart().getDay());
+      assertEquals(expectedEndMonth, actual.getEnd().getEdtfDatePart().getMonth());
+      assertEquals(expectedEndYear, actual.getEnd().getEdtfDatePart().getYear());
     } else {
       assertThrows(ParseException.class, () -> parser.parse(actualDate));
     }
