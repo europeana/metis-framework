@@ -8,6 +8,7 @@ import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * A year with an indication of the era, for example ‘3000 BC’. Currently, the normalisation process recognizes ‘BC/AD’ and
@@ -16,53 +17,50 @@ import java.util.regex.Pattern;
  */
 public class PatternBcAdDateExtractor implements DateExtractor {
 
-  static final HashSet<String> bcAbbreviations = new HashSet<String>() {
-    {
-      add("B\\.?C".toLowerCase());
-      add("A\\.?C".toLowerCase());
-      add("v\\.?Chr".toLowerCase());
-      add("vC".toLowerCase());
-      add("avant J\\.?-C".toLowerCase());
-      add("av[\\. ]J\\.?-C".toLowerCase());
-      //		add("eKr"); removed due to ambiguity
-      add("f\\.?Kr".toLowerCase());
-      add("π\\.*Χ".toLowerCase());
-    }
-  };
-  static final HashSet<String> adAbbreviations = new HashSet<String>() {
-    {
-      add("A\\.?D".toLowerCase());
-      add("D\\.?C".toLowerCase());
-      add("n\\.?Chr".toLowerCase());
-      add("nC".toLowerCase());
-      add("après J-C".toLowerCase());
-      add("apres J-C".toLowerCase());
-      add("ap[\\. ]J-C".toLowerCase());
-      //		add("eKr"); removed due to ambiguity
-      add("j\\.?Kr".toLowerCase());
-      add("μ\\.?Χ".toLowerCase());
-    }
-  };
+  static final HashSet<String> bcAbbreviations = new HashSet<>();
 
-  static final HashSet<Pattern> bcAbbreviationsPatterns = new HashSet<Pattern>() {
-    {
-      for (String abrev : bcAbbreviations) {
-        add(Pattern.compile(abrev, Pattern.CASE_INSENSITIVE));
-      }
+  static {
+    bcAbbreviations.add("B\\.?C".toLowerCase());
+    bcAbbreviations.add("A\\.?C".toLowerCase());
+    bcAbbreviations.add("v\\.?Chr".toLowerCase());
+    bcAbbreviations.add("vC".toLowerCase());
+    bcAbbreviations.add("avant J\\.?-C".toLowerCase());
+    bcAbbreviations.add("av[\\. ]J\\.?-C".toLowerCase());
+    //bcAbbreviations.add("eKr"); removed due to ambiguity
+    bcAbbreviations.add("f\\.?Kr".toLowerCase());
+    bcAbbreviations.add("π\\.*Χ".toLowerCase());
+  }
+
+  static final HashSet<String> adAbbreviations = new HashSet<>();
+
+  static {
+    adAbbreviations.add("A\\.?D".toLowerCase());
+    adAbbreviations.add("D\\.?C".toLowerCase());
+    adAbbreviations.add("n\\.?Chr".toLowerCase());
+    adAbbreviations.add("nC".toLowerCase());
+    adAbbreviations.add("après J-C".toLowerCase());
+    adAbbreviations.add("apres J-C".toLowerCase());
+    adAbbreviations.add("ap[\\. ]J-C".toLowerCase());
+    //adAbbreviations.add("eKr"); removed due to ambiguity
+    adAbbreviations.add("j\\.?Kr".toLowerCase());
+    adAbbreviations.add("μ\\.?Χ".toLowerCase());
+  }
+
+  static final HashSet<Pattern> bcAbbreviationsPatterns = new HashSet<>();
+
+  static {
+    for (String abbrev : bcAbbreviations) {
+      bcAbbreviationsPatterns.add(Pattern.compile(abbrev, Pattern.CASE_INSENSITIVE));
     }
-  };
+  }
 
   Pattern patYyyy;
   Pattern patRange;
 
   public PatternBcAdDateExtractor() {
     String patYearBcAd = "(?<year>\\d{2,4})\\s*(?<era>";
-    for (String abrev : bcAbbreviations) {
-      patYearBcAd += abrev + "|";
-    }
-    for (String abrev : adAbbreviations) {
-      patYearBcAd += abrev + "|";
-    }
+    patYearBcAd += bcAbbreviations.stream().collect(Collectors.joining("|"));
+    patYearBcAd += adAbbreviations.stream().collect(Collectors.joining("|"));
     patYearBcAd = patYearBcAd.substring(0, patYearBcAd.length() - 1) + ")\\.?";
 
     patYyyy = Pattern.compile(patYearBcAd, Pattern.CASE_INSENSITIVE);
@@ -113,5 +111,4 @@ public class PatternBcAdDateExtractor implements DateExtractor {
     }
     return false;
   }
-
 }
