@@ -11,7 +11,6 @@ import static org.mockito.Mockito.spy;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ class CompressedFileHandlerRecordsTest {
     // Create zipfile with content and reader that rejects everything
     final List<ZipEntry> entries =
         Stream.of("A", "B", "C").map(name -> createEntry(name, false)).collect(Collectors.toList());
-    final CompressedFileHandler reader = spy(new CompressedFileHandler());
+    final CompressedFileHandler reader = spy(CompressedFileHandler.class);
     final ZipFile zipFileWithBadContent = mock(ZipFile.class);
     doReturn(entries.stream()).when(zipFileWithBadContent).stream();
     doReturn(false).when(reader).accept(any());
@@ -62,7 +61,7 @@ class CompressedFileHandlerRecordsTest {
         .when(zipFile).getInputStream(any());
 
     // Create file extractor that knows the difference between good and bad.
-    final CompressedFileHandler reader = spy(new CompressedFileHandler());
+    final CompressedFileHandler reader = spy(CompressedFileHandler.class);
     doAnswer(invocation -> goodEntries.contains(((ZipEntry) invocation.getArgument(0)).getName()))
         .when(reader).accept(any());
 

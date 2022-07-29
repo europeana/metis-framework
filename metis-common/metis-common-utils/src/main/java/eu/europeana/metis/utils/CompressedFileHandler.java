@@ -40,8 +40,6 @@ public class CompressedFileHandler {
   private static final String MAC_TEMP_FOLDER = "__MACOSX";
   private static final String MAC_TEMP_FILE = ".DS_Store";
 
-  public CompressedFileHandler() {
-  }
 
   /**
    * Extract a file.
@@ -105,7 +103,7 @@ public class CompressedFileHandler {
     final List<InputStream> streams = getContentFromZipFile(zipFile);
     final List<String> result = new ArrayList<>(streams.size());
     for (InputStream stream : streams) {
-      result.add(IOUtils.toString(stream, StandardCharsets.UTF_8.name()));
+      result.add(IOUtils.toString(stream, StandardCharsets.UTF_8));
     }
     return result;
   }
@@ -122,7 +120,7 @@ public class CompressedFileHandler {
     return result;
   }
 
-  boolean accept(ZipEntry zipEntry) {
+  public boolean accept(ZipEntry zipEntry) {
     return !zipEntry.isDirectory() && !zipEntry.getName().startsWith(MAC_TEMP_FOLDER)
         && !zipEntry.getName().endsWith(MAC_TEMP_FILE);
   }
