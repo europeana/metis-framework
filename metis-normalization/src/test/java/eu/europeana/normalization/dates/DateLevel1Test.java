@@ -2,9 +2,11 @@ package eu.europeana.normalization.dates;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.text.ParseException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Disabled;
@@ -145,6 +147,7 @@ public class DateLevel1Test {
 
   @ParameterizedTest
   @MethodSource("negativeCalendarYear")
+  @DisplayName("Negative Calendar Year")
   void testNegativeCalendarYear(String actualDate,
       Integer expectedYear,
       Boolean isSuccess) throws ParseException {
@@ -157,4 +160,175 @@ public class DateLevel1Test {
     }
   }
 
+  private static Stream<Arguments> openEndTimeInterval() {
+    return Stream.of(
+        Arguments.of("1998-11-12/..", 1998, 11, 12, false, false, true),
+        Arguments.of("1998-11/..", 1998, 11, null, false, false, true),
+        Arguments.of("1998/..", 1998, null, null, false, false, true),
+        Arguments.of("1998-11-12~/..", 1998, 11, 12, true, false, true),
+        Arguments.of("1998-11~/..", 1998, 11, null, true, false, true),
+        Arguments.of("1998~/..", 1998, null, null, true, false, true),
+        Arguments.of("1998-11-12?/..", 1998, 11, 12, false, true, true),
+        Arguments.of("1998-11?/..", 1998, 11, null, false, true, true),
+        Arguments.of("1998?/..", 1998, null, null, false, true, true),
+        Arguments.of("1998-11-12%/..", 1998, 11, 12, true, true, true),
+        Arguments.of("1998-11%/..", 1998, 11, null, true, true, true),
+        Arguments.of("1998%/..", 1998, null, null, true, true, true),
+        Arguments.of("1998-11-12 / ..", 1998, 11, 12, false, false, false),
+        Arguments.of("1998-11-12 /..", 1998, 11, 12, false, false, false),
+        Arguments.of("1998-11-12/ ..", 1998, 11, 12, false, false, false));
+  }
+
+  @ParameterizedTest
+  @MethodSource("openEndTimeInterval")
+  @DisplayName("Open end time interval")
+  void testOpenEndTimeInterval(String actualDate,
+      Integer expectedYear,
+      Integer expectedMonth,
+      Integer expectedDay,
+      Boolean expectedIsApproximate,
+      Boolean expectedIsUncertain,
+      Boolean isSuccess) throws ParseException {
+    if (isSuccess) {
+      IntervalEdtfDate actual = (IntervalEdtfDate) parser.parse(actualDate);
+
+      assertEquals(expectedYear, actual.getStart().getEdtfDatePart().getYear());
+      assertEquals(expectedMonth, actual.getStart().getEdtfDatePart().getMonth());
+      assertEquals(expectedDay, actual.getStart().getEdtfDatePart().getDay());
+      assertEquals(expectedIsApproximate, actual.getStart().isApproximate());
+      assertEquals(expectedIsUncertain, actual.getStart().isUncertain());
+      assertTrue(actual.getEnd().getEdtfDatePart().isUnspecified());
+    } else {
+      assertThrows(ParseException.class, () -> parser.parse(actualDate));
+    }
+  }
+
+  private static Stream<Arguments> openStartTimeInterval() {
+    return Stream.of(
+        Arguments.of("../1998-11-12", 1998, 11, 12, false, false, true),
+        Arguments.of("../1998-11", 1998, 11, null, false, false, true),
+        Arguments.of("../1998", 1998, null, null, false, false, true),
+        Arguments.of("../1998-11-12~", 1998, 11, 12, true, false, true),
+        Arguments.of("../1998-11~", 1998, 11, null, true, false, true),
+        Arguments.of("../1998~", 1998, null, null, true, false, true),
+        Arguments.of("../1998-11-12?", 1998, 11, 12, false, true, true),
+        Arguments.of("../1998-11?", 1998, 11, null, false, true, true),
+        Arguments.of("../1998?", 1998, null, null, false, true, true),
+        Arguments.of("../1998-11-12%", 1998, 11, 12, true, true, true),
+        Arguments.of("../1998-11%", 1998, 11, null, true, true, true),
+        Arguments.of("../1998%", 1998, null, null, true, true, true),
+        Arguments.of(".. / 1998-11-12", 1998, 11, 12, false, false, false),
+        Arguments.of("../ 1998-11-12", 1998, 11, 12, false, false, false),
+        Arguments.of(".. /1998-11-12", 1998, 11, 12, false, false, false));
+  }
+
+  @ParameterizedTest
+  @MethodSource("openStartTimeInterval")
+  @DisplayName("Open start time interval")
+  void testOpenStartTimeInterval(String actualDate,
+      Integer expectedYear,
+      Integer expectedMonth,
+      Integer expectedDay,
+      Boolean expectedIsApproximate,
+      Boolean expectedIsUncertain,
+      Boolean isSuccess) throws ParseException {
+    if (isSuccess) {
+      IntervalEdtfDate actual = (IntervalEdtfDate) parser.parse(actualDate);
+
+      assertEquals(expectedYear, actual.getEnd().getEdtfDatePart().getYear());
+      assertEquals(expectedMonth, actual.getEnd().getEdtfDatePart().getMonth());
+      assertEquals(expectedDay, actual.getEnd().getEdtfDatePart().getDay());
+      assertEquals(expectedIsApproximate, actual.getEnd().isApproximate());
+      assertEquals(expectedIsUncertain, actual.getEnd().isUncertain());
+      assertTrue(actual.getStart().getEdtfDatePart().isUnspecified());
+    } else {
+      assertThrows(ParseException.class, () -> parser.parse(actualDate));
+    }
+  }
+
+  private static Stream<Arguments> timeIntervalWithUnknownEnd() {
+    return Stream.of(
+        Arguments.of("1998-11-12/", 1998, 11, 12, false, false, true),
+        Arguments.of("1998-11/", 1998, 11, null, false, false, true),
+        Arguments.of("1998/", 1998, null, null, false, false, true),
+        Arguments.of("1998-11-12~/", 1998, 11, 12, true, false, true),
+        Arguments.of("1998-11~/", 1998, 11, null, true, false, true),
+        Arguments.of("1998~/", 1998, null, null, true, false, true),
+        Arguments.of("1998-11-12?/", 1998, 11, 12, false, true, true),
+        Arguments.of("1998-11?/", 1998, 11, null, false, true, true),
+        Arguments.of("1998?/", 1998, null, null, false, true, true),
+        Arguments.of("1998-11-12%/", 1998, 11, 12, true, true, true),
+        Arguments.of("1998-11%/", 1998, 11, null, true, true, true),
+        Arguments.of("1998%/", 1998, null, null, true, true, true),
+        Arguments.of("1998-11-12 / ", 1998, 11, 12, false, false, false),
+        Arguments.of("1998-11-12 /", 1998, 11, 12, false, false, false),
+        Arguments.of("1998-11-12/ ", 1998, 11, 12, false, false, false));
+  }
+
+  @ParameterizedTest
+  @MethodSource("timeIntervalWithUnknownEnd")
+  @DisplayName("Time interval with unknown end")
+  void testTimeIntervalWithUnknownEnd(String actualDate,
+      Integer expectedYear,
+      Integer expectedMonth,
+      Integer expectedDay,
+      Boolean expectedIsApproximate,
+      Boolean expectedIsUncertain,
+      Boolean isSuccess) throws ParseException {
+    if (isSuccess) {
+      IntervalEdtfDate actual = (IntervalEdtfDate) parser.parse(actualDate);
+
+      assertEquals(expectedYear, actual.getStart().getEdtfDatePart().getYear());
+      assertEquals(expectedMonth, actual.getStart().getEdtfDatePart().getMonth());
+      assertEquals(expectedDay, actual.getStart().getEdtfDatePart().getDay());
+      assertEquals(expectedIsApproximate, actual.getStart().isApproximate());
+      assertEquals(expectedIsUncertain, actual.getStart().isUncertain());
+      assertTrue(actual.getEnd().getEdtfDatePart().isUnknown());
+    } else {
+      assertThrows(ParseException.class, () -> parser.parse(actualDate));
+    }
+  }
+
+  private static Stream<Arguments> timeIntervalWithUnknownStart() {
+    return Stream.of(
+        Arguments.of("/1998-11-12", 1998, 11, 12, false, false, true),
+        Arguments.of("/1998-11", 1998, 11, null, false, false, true),
+        Arguments.of("/1998", 1998, null, null, false, false, true),
+        Arguments.of("/1998-11-12~", 1998, 11, 12, true, false, true),
+        Arguments.of("/1998-11~", 1998, 11, null, true, false, true),
+        Arguments.of("/1998~", 1998, null, null, true, false, true),
+        Arguments.of("/1998-11-12?", 1998, 11, 12, false, true, true),
+        Arguments.of("/1998-11?", 1998, 11, null, false, true, true),
+        Arguments.of("/1998?", 1998, null, null, false, true, true),
+        Arguments.of("/1998-11-12%", 1998, 11, 12, true, true, true),
+        Arguments.of("/1998-11%", 1998, 11, null, true, true, true),
+        Arguments.of("/1998%", 1998, null, null, true, true, true),
+        Arguments.of(" / 1998-11-12", 1998, 11, 12, false, false, false),
+        Arguments.of("/ 1998-11-12", 1998, 11, 12, false, false, false),
+        Arguments.of(" /1998-11-12", 1998, 11, 12, false, false, false));
+  }
+
+  @ParameterizedTest
+  @MethodSource("timeIntervalWithUnknownStart")
+  @DisplayName("Time interval with unknown start")
+  void testTimeIntervalWithUnknownStart(String actualDate,
+      Integer expectedYear,
+      Integer expectedMonth,
+      Integer expectedDay,
+      Boolean expectedIsApproximate,
+      Boolean expectedIsUncertain,
+      Boolean isSuccess) throws ParseException {
+    if (isSuccess) {
+      IntervalEdtfDate actual = (IntervalEdtfDate) parser.parse(actualDate);
+
+      assertEquals(expectedYear, actual.getEnd().getEdtfDatePart().getYear());
+      assertEquals(expectedMonth, actual.getEnd().getEdtfDatePart().getMonth());
+      assertEquals(expectedDay, actual.getEnd().getEdtfDatePart().getDay());
+      assertEquals(expectedIsApproximate, actual.getEnd().isApproximate());
+      assertEquals(expectedIsUncertain, actual.getEnd().isUncertain());
+      assertTrue(actual.getStart().getEdtfDatePart().isUnknown());
+    } else {
+      assertThrows(ParseException.class, () -> parser.parse(actualDate));
+    }
+  }
 }
