@@ -282,14 +282,16 @@ public class ProxiesController {
   }
 
   /**
-   * Get a list with record contents from the external resource based on an workflow execution and
-   * {@link PluginType}.
+   * Get a list with record contents from the external resource for a specific list of IDS based on
+   * a workflow execution and {@link PluginType}.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
-   * @return the list of records from the external resource
+   * @return the list of records from the external resource matching the input ID list. If no record
+   * with the matching ID was found in the given workflow step, no entry for this record will appear
+   * in the result list.
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while

@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -276,8 +277,8 @@ class TestProxiesController {
     final Record record1 = new Record("ID 1", "content 1");
     final Record record2 = new Record("ID 2", "content 2");
     final RecordsResponse output = new RecordsResponse(Arrays.asList(record1, record2));
-    final List<String> expectedInput = output.getRecords().stream().map(Record::getEcloudId)
-        .collect(Collectors.toList());
+    final List<String> expectedInput = Stream.concat(Stream.of("UNKNOWN ID"),
+        output.getRecords().stream().map(Record::getEcloudId)).collect(Collectors.toList());
 
     // Test happy flow with non-empty ID list
     final ExecutablePluginType pluginType = ExecutablePluginType.MEDIA_PROCESS;
