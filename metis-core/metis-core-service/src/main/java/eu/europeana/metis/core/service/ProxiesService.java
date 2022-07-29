@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -342,6 +343,10 @@ public class ProxiesService {
     // Get the records themselves.
     final List<Record> records = new ArrayList<>(revisionsWithDeletedFlagSetToFalse.size());
     for (CloudTagsResponse cloudTagsResponse : revisionsWithDeletedFlagSetToFalse) {
+      final Record record = getRecord(executionAndPlugin.getRight(), cloudTagsResponse.getCloudId());
+      if (record == null) {
+        throw new IllegalStateException("This can't happen: eCloud just told us the record exists");
+      }
       records.add(getRecord(executionAndPlugin.getRight(), cloudTagsResponse.getCloudId()));
     }
 
@@ -383,7 +388,7 @@ public class ProxiesService {
     // Get the records.
     final List<Record> records = new ArrayList<>(ecloudIds.getIds().size());
     for (String cloudId : ecloudIds.getIds()) {
-      records.add(getRecord(executionAndPlugin.getRight(), cloudId));
+      Optional.ofNullable(getRecord(executionAndPlugin.getRight(), cloudId)).ifPresent(records::add);
     }
 
     // Done.
@@ -425,11 +430,9 @@ public class ProxiesService {
           plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId), e);
     }
 
-    // Perform checks on the representation version lists.
+    // If no representation is found, return null.
     if (representations == null || representations.isEmpty()) {
-      throw new ExternalTaskException(String.format(
-          "Expecting representations, but received none. externalTaskId: %s, pluginType: %s, ecloudId: %s",
-          plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
+      return null;
     }
     final Representation representation = representations.get(0);
 
