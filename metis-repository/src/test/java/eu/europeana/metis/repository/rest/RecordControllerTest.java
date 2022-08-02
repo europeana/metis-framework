@@ -3,6 +3,7 @@ package eu.europeana.metis.repository.rest;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -176,11 +177,6 @@ class RecordControllerTest {
     verify(recordDaoMock, times(2)).createRecord(any());
   }
 
-  /*
-  This test should still succeed. The Java library we use for extracting zip files does not seem
-  to throw an exception when opening this bad zip file. In the future we may implement some
-  validation mechanism for bad zip files.
-   */
   @Test
   void saveRecords_Exception() throws Exception {
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("repository-test-error.zip");
@@ -196,8 +192,9 @@ class RecordControllerTest {
                             .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
                             .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
                         .andDo(print())
-                        .andExpect(status().is(200))
-                        .andExpect(jsonPath("$.insertedRecords", is(0)));
+                        .andExpect(status().is(500))
+                        .andExpect(result -> assertTrue(result.getResolvedException() instanceof ResponseStatusException));
+
     verify(recordDaoMock, times(0)).createRecord(any());
   }
 

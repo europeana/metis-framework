@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -99,7 +101,7 @@ public class CompressedFileHandler {
     return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);
   }
 
-  public  List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {
+  public List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {
     final List<InputStream> streams = getContentFromZipFile(zipFile);
     final List<String> result = new ArrayList<>(streams.size());
     for (InputStream stream : streams) {
@@ -128,27 +130,15 @@ public class CompressedFileHandler {
 
   private static void extractZipFile(final Path compressedFile, final Path destinationFolder) throws IOException {
     final List<Path> nestedCompressedFiles = new ArrayList<>();
-    try (ZipInputStream zis =  new ZipInputStream(Files.newInputStream(compressedFile))) {
-      //      ArchiveEntry entry;
-      ZipEntry entry;
-      while ((entry = zis.getNextEntry()) != null) {
-        // create a new path, zip slip validate
+    try (ZipArchiveInputStream is = new ZipArchiveInputStream(Files.newInputStream(compressedFile))) {
+      ZipArchiveEntry entry;
+      while ((entry = is.getNextZipEntry()) != null) {
+        // create a new path, zip slip validate/protect against malicious zip files
         Path newPath = zipSlipProtect(entry.getName(), destinationFolder);
         if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
           nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
         }
-        if (entry.isDirectory()) {
-          Files.createDirectories(newPath);
-        } else {
-          // check parent folder again
-          Path parent = newPath.getParent();
-          if (parent != null) {
-            if (Files.notExists(parent)) {
-              Files.createDirectories(parent);
-            }
-          }
-          Files.copy(zis, newPath, StandardCopyOption.REPLACE_EXISTING);
-        }
+        extract(is, entry, newPath);
       }
     }
     for (Path nestedCompressedFile : nestedCompressedFiles) {
@@ -167,21 +157,9 @@ public class CompressedFileHandler {
 
       ArchiveEntry entry;
       while ((entry = ti.getNextEntry()) != null) {
-        // create a new path, zip slip validate
+        // create a new path, zip slip validate/protect against malicious zip files
         Path newPath = zipSlipProtect(entry.getName(), destinationFolder);
-        if (entry.isDirectory()) {
-          Files.createDirectories(newPath);
-        } else {
-          // check parent folder again
-          Path parent = newPath.getParent();
-          if (parent != null) {
-            if (Files.notExists(parent)) {
-              Files.createDirectories(parent);
-            }
-          }
-          // copy TarArchiveInputStream to Path newPath
-          Files.copy(ti, newPath, StandardCopyOption.REPLACE_EXISTING);
-        }
+        extract(ti, entry, newPath);
       }
     }
     final Path newDestination = CompressedFileExtension
@@ -206,6 +184,22 @@ public class CompressedFileHandler {
         Files.newInputStream(compressedFile));
         final OutputStream outputStream = Files.newOutputStream(destination)) {
       IOUtils.copy(inputStream, outputStream);
+    }
+  }
+
+  private static void extract(ArchiveInputStream is, ArchiveEntry entry, Path newPath) throws IOException {
+
+    if (entry.isDirectory()) {
+      Files.createDirectories(newPath);
+    } else {
+      // check parent folder
+      Path parent = newPath.getParent();
+      if (parent != null) {
+        if (Files.notExists(parent)) {
+          Files.createDirectories(parent);
+        }
+      }
+      Files.copy(is, newPath, StandardCopyOption.REPLACE_EXISTING);
     }
   }
 
