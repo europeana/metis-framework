@@ -47,8 +47,7 @@ class RecordControllerTest {
   static void setup() {
     recordDaoMock = mock(RecordDao.class);
     recordController = new RecordController();
-    recordControllerMock = MockMvcBuilders.standaloneSetup(recordController)
-                                          .build();
+    recordControllerMock = MockMvcBuilders.standaloneSetup(recordController).build();
   }
 
   @AfterEach
@@ -177,6 +176,11 @@ class RecordControllerTest {
     verify(recordDaoMock, times(2)).createRecord(any());
   }
 
+  /*
+  This test should still succeed. The Java library we use for extracting zip files does not seem
+  to throw an exception when opening this bad zip file. In the future we may implement some
+  validation mechanism for bad zip files.
+   */
   @Test
   void saveRecords_Exception() throws Exception {
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("repository-test-error.zip");
@@ -192,9 +196,8 @@ class RecordControllerTest {
                             .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
                             .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
                         .andDo(print())
-                        .andExpect(status().is(200));
-                        // TODO: this is wrong just to fix the test
-//                        .andExpect(status().is(500));
+                        .andExpect(status().is(200))
+                        .andExpect(jsonPath("$.insertedRecords", is(0)));
     verify(recordDaoMock, times(0)).createRecord(any());
   }
 

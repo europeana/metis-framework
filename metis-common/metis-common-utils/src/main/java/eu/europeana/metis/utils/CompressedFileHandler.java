@@ -96,7 +96,7 @@ public class CompressedFileHandler {
     final File tempFile = createSecureTempFile(content.getClass().getSimpleName(), ".zip").toFile();
     FileUtils.copyInputStreamToFile(content, tempFile);
     LOGGER.info("Temp file: {} created.", tempFile);
-    return new CompressedSecureFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);
+    return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);
   }
 
   public  List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {

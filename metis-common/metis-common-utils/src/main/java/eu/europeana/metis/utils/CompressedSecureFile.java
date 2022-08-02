@@ -111,9 +111,8 @@ public class CompressedSecureFile extends ZipFile {
     this.fileName = new File(name).getAbsolutePath();
   }
 
-
-  public CompressedSecureFile(File file, int i) throws IOException {
-    super(file.getName());
+  public CompressedSecureFile(File file, int accessFlags) throws IOException {
+    super(file, accessFlags);
     this.fileName = file.getAbsolutePath();
   }
 

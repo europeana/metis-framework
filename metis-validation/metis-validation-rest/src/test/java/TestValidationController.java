@@ -63,7 +63,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebAppConfiguration
 class TestValidationController {
 
-  private static int portForWireMock = TestApplication.portForWireMock;
+  private static final int portForWireMock = TestApplication.portForWireMock;
   private static WireMockServer wireMockServer;
 
   @Autowired
@@ -144,8 +144,6 @@ class TestValidationController {
     assertTrue(result.getResolvedException() instanceof ValidationException);
   }
 
-
-/*
   @Test
   void shouldValidateZipFileRecordsAgainstEDMInternal() throws Exception {
     wireMockServer.stubFor(get(urlEqualTo("/test_schema.zip"))
@@ -155,10 +153,6 @@ class TestValidationController {
 
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
         new FileInputStream("src/test/resources/test_batch.zip"));
-
-    CompressedFileHandler compressedFileHandler = mock(CompressedFileHandler.class);
-    List<ByteArrayInputStream> records  = List.of(new ByteArrayInputStream(file.getBytes()));
-    when(compressedFileHandler.getContentFromZipFile(any(InputStream.class))).thenReturn(records);
 
     mockMvc.perform(MockMvcRequestBuilders
         .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
@@ -204,7 +198,7 @@ class TestValidationController {
       assertFalse(validationResult.isSuccess());
     }
   }
-  */
+
   @Test
   void ShouldReturnResultSetOfExceptionsForUndefinedSchemaForZipFile() throws Exception {
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
