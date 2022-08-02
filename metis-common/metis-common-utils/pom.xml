@@ -29,7 +29,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
-      <version>1.21</version>
+      <version>${version.commonscompress}</version>
     </dependency>
     <!--Test dependencies-->
     <dependency>
