@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+// TODO JV: this class tests a class called LanguageTagValueNormalizer. Why add 'European' to this class name?
 class EuropeanLanguageTagValueNormalizerTest {
 
   @Test

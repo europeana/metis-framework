@@ -108,23 +108,19 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
       NormalizedValueWithConfidence value, InternalNormalizationReport report) {
     final boolean valueAdded = valuesAlreadyPresent.add(value.getNormalizedValue());
     if (valueAdded) {
-      final String prefix = copyTarget
+      final String knownPrefix = copyTarget
           .lookupPrefix(copySettings.getDestinationElement().getNamespace().getUri());
-      final String newElementName = XmlUtil
-          .addPrefixToNodeName(copySettings.getDestinationElement().getElementName(), prefix);
-      final Element newElement = copyTarget.getOwnerDocument()
-          .createElementNS(copySettings.getDestinationElement().getNamespace().getUri(),
-              newElementName);
+      final Element newElement = copyTarget.getOwnerDocument().createElementNS(
+          copySettings.getDestinationElement().getNamespace().getUri(),
+          copySettings.getDestinationElement().getPrefixedElementName(knownPrefix));
       addTextToElement(newElement, value, report);
 
       // Find last element of after element
       Element afterElemement = null;
       if (copySettings.getAfterElement() != null) {
-        final String afterElementName = XmlUtil
-            .addPrefixToNodeName(copySettings.getAfterElement().getElementName(),
-                copyTarget.lookupPrefix(copySettings.getAfterElement().getNamespace().getUri()));
-        afterElemement = XmlUtil
-            .getLastElementByTagName(copyTarget, afterElementName);
+        final String afterElementName = copySettings.getAfterElement().getPrefixedElementName(
+            copyTarget.lookupPrefix(copySettings.getAfterElement().getNamespace().getUri()));
+        afterElemement = XmlUtil.getLastElementByTagName(copyTarget, afterElementName);
       }
 
       if (afterElemement == null) {

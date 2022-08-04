@@ -9,7 +9,7 @@ import eu.europeana.normalization.model.NormalizationReport;
  *
  * @author jochen
  */
-public class InternalNormalizationReport extends NormalizationReport {
+class InternalNormalizationReport extends NormalizationReport {
 
   @Override
   public void increment(String operation, ConfidenceLevel confidence) {

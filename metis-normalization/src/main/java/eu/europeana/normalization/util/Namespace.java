@@ -1,5 +1,7 @@
 package eu.europeana.normalization.util;
 
+import java.util.Optional;
+
 /**
  * Instances of this class represent an XML namespace (with tag prefix and URI).
  */
@@ -20,11 +22,11 @@ public enum Namespace {
   DCTERMS("http://purl.org/dc/terms/", "dcterms");
 
   private final String uri;
-  private final String prefix;
+  private final String suggestedPrefix;
 
-  Namespace(String uri, String prefix) {
+  Namespace(String uri, String suggestedPrefix) {
     this.uri = uri;
-    this.prefix = prefix;
+    this.suggestedPrefix = suggestedPrefix;
   }
 
   /**
@@ -38,12 +40,12 @@ public enum Namespace {
 
 
   /**
-   * Get the prefix for this namespace
+   * Get the suggested prefix for this namespace
    *
    * @return the prefix
    */
-  public String getPrefix() {
-    return prefix;
+  public String getSuggestedPrefix() {
+    return suggestedPrefix;
   }
 
   /**
@@ -90,10 +92,13 @@ public enum Namespace {
     /**
      * Get an element name that contains the namespace prefix e.g. prefix:elementName.
      *
+     * @param knownPrefix the prefix to use, if one is known for this element's namespace. If null,
+     *                    the suggested prefix for the element's namespace will be used.
      * @return the prefixed element name
      */
-    public String getPrefixedElementName() {
-      return String.format("%s:%s", namespace.getPrefix(), elementName);
+    public String getPrefixedElementName(String knownPrefix) {
+      return XmlUtil.addPrefixToNodeName(elementName, Optional.ofNullable(knownPrefix)
+          .orElseGet(namespace::getSuggestedPrefix));
     }
   }
 }
