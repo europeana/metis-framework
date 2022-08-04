@@ -4,8 +4,13 @@ import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.stream.Stream;
 
 /**
@@ -96,6 +101,24 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case a problem occurred during indexing.
    */
   void index(InputStream record, IndexingProperties indexingProperties) throws IndexingException;
+
+  /**
+   * <p>
+   * This method indexes a single record, publishing it to the provided data stores.
+   * It also returns the results of the Content tier and Metadata tier calculations
+   * </p>
+   * <p>
+   * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
+   * not done within a transaction.
+   * </p>
+   *
+   * @param record The record to index (can be parsed to RDF).
+   * @param indexingProperties The properties of this indexing operation.
+   * @throws IndexingException In case a problem occurred during indexing.
+   * @return A pair with both content tier and metadata tier calculations results of the given record
+   */
+  Pair<MediaTier, MetadataTier> indexAndGetTierCalculations(InputStream record, IndexingProperties indexingProperties)
+          throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,

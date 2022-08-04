@@ -20,6 +20,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,6 +90,29 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
+  public Pair<MediaTier, MetadataTier> indexAndGetTierCalculations(InputStream record, IndexingProperties indexingProperties)
+          throws IndexingException{
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(record);
+    if (indexingProperties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
+      throw new SetupRelatedIndexingException(
+              "Record redirect dao has not been initialized and performing redirects is requested");
+    }
+    LOGGER.info("Processing record to obtain tier calculations...");
+    final FullBeanPublisher publisher =
+            connectionProvider.getFullBeanPublisher(indexingProperties.isPreserveUpdateAndCreateTimesFromRdf());
+    Pair<MediaTier, MetadataTier> result = preprocessRecord(rdfRecord, indexingProperties);
+    if (indexingProperties.isPerformRedirects()) {
+      publisher.publishWithRedirects(new RdfWrapper(rdfRecord), indexingProperties.getRecordDate(),
+              indexingProperties.getDatasetIdsForRedirection());
+    } else {
+      publisher.publish(new RdfWrapper(rdfRecord), indexingProperties.getRecordDate(),
+              indexingProperties.getDatasetIdsForRedirection());
+    }
+
+    return result;
+  }
+
+  @Override
   public void indexRdf(RDF rdfRecord, IndexingProperties indexingProperties) throws IndexingException {
     indexRdfs(List.of(rdfRecord), indexingProperties);
   }
@@ -120,16 +146,21 @@ class IndexerImpl implements Indexer {
     index(List.of(stringRdfRecord), indexingProperties);
   }
 
-  private void preprocessRecord(RDF rdf, IndexingProperties properties)
+  private Pair<MediaTier, MetadataTier> preprocessRecord(RDF rdf, IndexingProperties properties)
       throws IndexingException {
 
     // Perform the tier classification
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+    Pair<MediaTier, MetadataTier> tierCalculationsResult = new ImmutablePair<>(null, null);
     if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
                                                            .contains(rdfWrapper.getEdmType())) {
-      RdfTierUtils.setTier(rdf, mediaClassifier.classify(rdfWrapper).getTier());
-      RdfTierUtils.setTier(rdf, metadataClassifier.classify(rdfWrapper).getTier());
+      tierCalculationsResult = new ImmutablePair<>(mediaClassifier.classify(rdfWrapper).getTier(),
+              metadataClassifier.classify(rdfWrapper).getTier());
+      RdfTierUtils.setTier(rdf, tierCalculationsResult.getLeft());
+      RdfTierUtils.setTier(rdf, tierCalculationsResult.getRight());
     }
+
+    return tierCalculationsResult;
   }
 
   @Override
