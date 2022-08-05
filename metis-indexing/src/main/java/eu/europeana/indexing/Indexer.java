@@ -7,9 +7,9 @@ import java.util.List;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.stream.Stream;
 
@@ -117,7 +117,7 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case a problem occurred during indexing.
    * @return A pair with both content tier and metadata tier calculations results of the given record
    */
-  Pair<MediaTier, MetadataTier> indexAndGetTierCalculations(InputStream record, IndexingProperties indexingProperties)
+  TierResults indexAndGetTierCalculations(InputStream record, IndexingProperties indexingProperties)
           throws IndexingException;
 
   /**
