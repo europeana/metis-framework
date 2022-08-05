@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPathExpressionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -157,6 +158,36 @@ public final class XmlUtil {
     return IntStream.range(0, nodeList.getLength()).mapToObj(nodeList::item)
         .filter(node -> (node instanceof Element)).map(node -> (Element) node)
         .collect(Collectors.toList());
+  }
+
+  /**
+   * Executes the Xpath query to find the unique element.
+   *
+   * @param query    The query to execute.
+   * @param document The document in which to query.
+   * @return The unique element satisfying the query.
+   * @throws NormalizationException In case the query could not be executed, or there is not a
+   *                                (unique) element satisfying the query.
+   */
+  public static Element getUniqueElement(XpathQuery query, Document document)
+      throws NormalizationException {
+
+    // Execute the queyr.
+    final NodeList queryResult;
+    try {
+      queryResult = query.execute(document);
+    } catch (XPathExpressionException e) {
+      throw new NormalizationException("Xpath query issue: " + e.getMessage(), e);
+    }
+
+    // Check the validity of the target
+    if (queryResult.getLength() != 1 || !(queryResult.item(0) instanceof Element)) {
+      throw new NormalizationException(
+          "The document does not contain a (unique) element satisfying this query.", null);
+    }
+
+    // Done
+    return (Element) queryResult.item(0);
   }
 
   /**

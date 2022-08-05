@@ -207,24 +207,7 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
 
   private static Element getCopyTargetFromSettings(Document edm, CopySettings copySettings)
       throws NormalizationException {
-
-    // Find the matching nodes
-    final NodeList copyTargets;
-    try {
-      copyTargets = copySettings.getDestinationParent().execute(edm);
-    } catch (XPathExpressionException e) {
-      throw new NormalizationException("Xpath query issue: " + e.getMessage(), e);
-    }
-
-    // Check the validity of the target
-    if (copyTargets.getLength() != 1 || !(copyTargets.item(0) instanceof Element)) {
-      throw new NormalizationException(
-          "The document does not contain a unique element to which to copy the normalized values.",
-          null);
-    }
-
-    // Done
-    return (Element) copyTargets.item(0);
+    return XmlUtil.getUniqueElement(copySettings.getDestinationParent(), edm);
   }
 
   static class CopySettings {

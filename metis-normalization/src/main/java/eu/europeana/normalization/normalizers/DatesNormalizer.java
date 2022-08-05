@@ -44,6 +44,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -60,32 +62,6 @@ import org.w3c.dom.Element;
  */
 public class DatesNormalizer implements RecordNormalizeAction {
 
-  private static final Namespace.Element ORE_PROXY = Namespace.ORE.getElement("Proxy");
-  private static final Namespace.Element EDM_EUROPEANA_PROXY = Namespace.EDM.getElement("europeanaProxy");
-
-  private static final XpathQuery PROXY_QUERY_CREATED = getProxySubtagQuery(
-      Namespace.DCTERMS.getElement("created"));
-
-  private static final XpathQuery PROXY_QUERY_ISSUED = getProxySubtagQuery(
-      Namespace.DCTERMS.getElement("issued"));
-
-  private static final XpathQuery PROXY_QUERY_TEMPORAL = getProxySubtagQuery(
-      Namespace.DCTERMS.getElement("temporal"));
-
-  private static final XpathQuery PROXY_QUERY_DATE = getProxySubtagQuery(
-      Namespace.DC.getElement("date"));
-
-  private static final XpathQuery PROXY_QUERY_COVERAGE = getProxySubtagQuery(
-      Namespace.DC.getElement("coverage"));
-
-  private static final XpathQuery PROXY_QUERY_SUBJECT = getProxySubtagQuery(
-      Namespace.DC.getElement("subject"));
-
-  private static final List<XpathQuery> DATE_PROPERTY_FIELDS = List.of(
-      PROXY_QUERY_CREATED, PROXY_QUERY_ISSUED, PROXY_QUERY_TEMPORAL, PROXY_QUERY_DATE);
-  private static final List<XpathQuery> GENERIC_PROPERTY_FIELDS = List.of(
-      PROXY_QUERY_COVERAGE, PROXY_QUERY_SUBJECT);
-
   private static final Namespace.Element EDM_TIMESPAN = Namespace.EDM.getElement("TimeSpan");
   private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
   private static final Namespace.Element SKOS_PREFLABEL = Namespace.SKOS.getElement("prefLabel");
@@ -97,6 +73,34 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private static final Namespace.Element EDM_BEGIN = Namespace.EDM.getElement("begin");
   private static final Namespace.Element EDM_END = Namespace.EDM.getElement("end");
   private static final Namespace.Element DCTERMS_ISPARTOF = Namespace.DCTERMS.getElement("isPartOf");
+  private static final Namespace.Element ORE_PROXY = Namespace.ORE.getElement("Proxy");
+  private static final Namespace.Element EDM_EUROPEANA_PROXY = Namespace.EDM.getElement("europeanaProxy");
+
+  private static final Pair<Namespace.Element, XpathQuery> PROXY_QUERY_CREATED = getProxySubtagQuery(
+      Namespace.DCTERMS.getElement("created"));
+
+  private static final Pair<Namespace.Element, XpathQuery> PROXY_QUERY_ISSUED = getProxySubtagQuery(
+      Namespace.DCTERMS.getElement("issued"));
+
+  private static final Pair<Namespace.Element, XpathQuery> PROXY_QUERY_TEMPORAL = getProxySubtagQuery(
+      Namespace.DCTERMS.getElement("temporal"));
+
+  private static final Pair<Namespace.Element, XpathQuery> PROXY_QUERY_DATE = getProxySubtagQuery(
+      Namespace.DC.getElement("date"));
+
+  private static final Pair<Namespace.Element, XpathQuery> PROXY_QUERY_COVERAGE = getProxySubtagQuery(
+      Namespace.DC.getElement("coverage"));
+
+  private static final Pair<Namespace.Element, XpathQuery> PROXY_QUERY_SUBJECT = getProxySubtagQuery(
+      Namespace.DC.getElement("subject"));
+
+  private static final List<Pair<Namespace.Element, XpathQuery>> DATE_PROPERTY_FIELDS = List.of(
+      PROXY_QUERY_CREATED, PROXY_QUERY_ISSUED, PROXY_QUERY_TEMPORAL, PROXY_QUERY_DATE);
+  private static final List<Pair<Namespace.Element, XpathQuery>> GENERIC_PROPERTY_FIELDS = List.of(
+      PROXY_QUERY_COVERAGE, PROXY_QUERY_SUBJECT);
+
+  private static final XpathQuery EUROPEANA_PROXY = new XpathQuery("/%s/%s[%s='true']",
+      XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY);
 
   private final Cleaner cleaner = new Cleaner();
 
@@ -143,29 +147,39 @@ public class DatesNormalizer implements RecordNormalizeAction {
         input -> normalizeInput(extractorsInOrderForGenericProperties, input, cleaner::cleanGenericProperty));
   }
 
-  private static XpathQuery getProxySubtagQuery(Namespace.Element subtag) {
-    return new XpathQuery("/%s/%s[not(%s='true')]/%s", XpathQuery.RDF_TAG,
-        ORE_PROXY, EDM_EUROPEANA_PROXY, subtag);
+  private static Pair<Namespace.Element, XpathQuery> getProxySubtagQuery(Namespace.Element subtag) {
+    return ImmutablePair.of(subtag, new XpathQuery("/%s/%s[not(%s='true')]/%s",
+        XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY, subtag));
   }
 
   @Override
   public NormalizationReport normalize(Document document) throws NormalizationException {
 
-    final InternalNormalizationReport report = new InternalNormalizationReport();
-    report.mergeWith(normalizeElements(document, DATE_PROPERTY_FIELDS, this::normalizeDateProperty));
-    report.mergeWith(normalizeElements(document, GENERIC_PROPERTY_FIELDS, this::normalizeGenericProperty));
+    // Find the Europeana proxy.
+    final Element europeanaProxy = XmlUtil.getUniqueElement(EUROPEANA_PROXY, document);
 
+    // Perform the two different kinds of normalizations
+    final InternalNormalizationReport report = new InternalNormalizationReport();
+    report.mergeWith(normalizeElements(document, europeanaProxy, DATE_PROPERTY_FIELDS,
+        this::normalizeDateProperty));
+    report.mergeWith(normalizeElements(document, europeanaProxy, GENERIC_PROPERTY_FIELDS,
+        this::normalizeGenericProperty));
+
+    // Done.
     return report;
   }
 
-  private InternalNormalizationReport normalizeElements(Document document, List<XpathQuery> propertyFields,
-      Function<String, DateNormalizationResult> normalizationFunction) throws NormalizationException {
+  private InternalNormalizationReport normalizeElements(Document document, Element europeanaProxy,
+      List<Pair<Namespace.Element, XpathQuery>> propertyFields,
+      Function<String, DateNormalizationResult> normalizationFunction)
+      throws NormalizationException {
     final InternalNormalizationReport report = new InternalNormalizationReport();
-    for (XpathQuery query : propertyFields) {
+    for (Pair<Namespace.Element, XpathQuery> query : propertyFields) {
       try {
-        final List<Element> elements = XmlUtil.getAsElementList(query.execute(document));
+        final List<Element> elements = XmlUtil.getAsElementList(query.getRight().execute(document));
         for (Element element : elements) {
-          normalizeElement(document, element, normalizationFunction, report);
+          normalizeElement(document, element, query.getLeft(), europeanaProxy,
+              normalizationFunction, report);
         }
       } catch (XPathExpressionException e) {
         throw new NormalizationException("Xpath query issue: " + e.getMessage(), e);
@@ -174,13 +188,26 @@ public class DatesNormalizer implements RecordNormalizeAction {
     return report;
   }
 
-  private void normalizeElement(Document document, Element element,
-      Function<String, DateNormalizationResult> normalizationFunction,
+  private void normalizeElement(Document document, Element element, Namespace.Element elementType,
+      Element europeanaProxy, Function<String, DateNormalizationResult> normalizationFunction,
       InternalNormalizationReport report) throws NormalizationException {
     final String elementText = XmlUtil.getElementText(element);
     final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
     if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.NO_MATCH) {
-      appendTimespanEntity(document, dateNormalizationResult.getEdtfDate());
+
+      // Append the timespan to the document.
+      final String timespanId = appendTimespanEntity(document, dateNormalizationResult.getEdtfDate());
+
+      // Add a reference to the timespan to the Europeana proxy.
+      final Element reference = XmlUtil.createElement(elementType, europeanaProxy, null);
+      final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
+          reference.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
+      final Attr dctermsIsPartOfResource = document.createAttributeNS(
+          RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
+      dctermsIsPartOfResource.setValue(timespanId);
+      reference.setAttributeNode(dctermsIsPartOfResource);
+
+      // Update the report.
       report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
     }
   }
@@ -326,8 +353,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     return valTrim;
   }
 
-
-  private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
+  private String appendTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
 
     //The ID of the new timespan.
     final String edtfDateString = edtfDate.toString();
@@ -412,6 +438,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
     skosNotationType.setValue("http://id.loc.gov/datatypes/edtf/EDTF-level1");
     skosNotation.setAttributeNode(skosNotationType);
     skosNotation.appendChild(document.createTextNode(edtfDateString));
-    timeSpan.appendChild(skosNotation);
+
+    // Done - return the new ID.
+    return uri;
   }
 }
