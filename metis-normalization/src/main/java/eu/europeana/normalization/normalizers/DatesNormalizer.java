@@ -62,6 +62,10 @@ import org.w3c.dom.Element;
  */
 public class DatesNormalizer implements RecordNormalizeAction {
 
+  private static final Namespace.Element EDM_PROVIDED_CHO = Namespace.EDM.getElement("ProvidedCHO");
+  private static final Namespace.Element EDM_WEB_RESOURCE = Namespace.EDM.getElement("WebResource");
+  private static final Namespace.Element EDM_AGENT = Namespace.EDM.getElement("Agent");
+  private static final Namespace.Element EDM_PLACE = Namespace.EDM.getElement("Place");
   private static final Namespace.Element EDM_TIMESPAN = Namespace.EDM.getElement("TimeSpan");
   private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
   private static final Namespace.Element SKOS_PREFLABEL = Namespace.SKOS.getElement("prefLabel");
@@ -191,25 +195,40 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private void normalizeElement(Document document, Element element, Namespace.Element elementType,
       Element europeanaProxy, Function<String, DateNormalizationResult> normalizationFunction,
       InternalNormalizationReport report) throws NormalizationException {
+
+    // Apply the normalization. If nothing can be done, we return.
     final String elementText = XmlUtil.getElementText(element);
-    final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
-    if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.NO_MATCH) {
-
-      // Append the timespan to the document.
-      final String timespanId = appendTimespanEntity(document, dateNormalizationResult.getEdtfDate());
-
-      // Add a reference to the timespan to the Europeana proxy.
-      final Element reference = XmlUtil.createElement(elementType, europeanaProxy, null);
-      final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
-          reference.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
-      final Attr dctermsIsPartOfResource = document.createAttributeNS(
-          RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
-      dctermsIsPartOfResource.setValue(timespanId);
-      reference.setAttributeNode(dctermsIsPartOfResource);
-
-      // Update the report.
-      report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
+    final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(
+        elementText);
+    if (dateNormalizationResult.getDateNormalizationExtractorMatchId()
+        == DateNormalizationExtractorMatchId.NO_MATCH) {
+      return;
     }
+
+    // Compute the timespan ID we need.
+    final String timespanId;
+    try {
+      timespanId = String.format("#%s", URLEncoder.encode(
+          dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8.name()));
+    } catch (UnsupportedEncodingException e) {
+      throw new NormalizationException(e.getMessage(), e);
+    }
+
+    // Append the timespan to the document.
+    appendTimespanEntity(document, dateNormalizationResult.getEdtfDate(), timespanId);
+
+    // Add a reference to the timespan to the Europeana proxy. All elements we're adding
+    // go at the beginning of the proxy in a choice, so the order doesn't matter.
+    final Element reference = XmlUtil.createElement(elementType, europeanaProxy, List.of());
+    final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
+        reference.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
+    final Attr dctermsIsPartOfResource = document.createAttributeNS(
+        RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
+    dctermsIsPartOfResource.setValue(timespanId);
+    reference.setAttributeNode(dctermsIsPartOfResource);
+
+    // Update the report.
+    report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
   }
 
   // TODO: 25/07/2022 This can be made private
@@ -353,23 +372,16 @@ public class DatesNormalizer implements RecordNormalizeAction {
     return valTrim;
   }
 
-  private String appendTimespanEntity(Document document, AbstractEdtfDate edtfDate) throws NormalizationException {
+  private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate,
+      String timespanId) {
 
-    //The ID of the new timespan.
-    final String edtfDateString = edtfDate.toString();
-    final String uri;
-    try {
-      uri = String.format("#%s", URLEncoder.encode(edtfDateString, StandardCharsets.UTF_8.name()));
-    } catch (UnsupportedEncodingException e) {
-      throw new NormalizationException(e.getMessage(), e);
-    }
-
-    // Create and add timespan element to document (RDF)
-    final Element timeSpan = XmlUtil.createElement(EDM_TIMESPAN, document.getDocumentElement(), null);
+    // Create and add timespan element to document (RDF).
+    final Element timeSpan = XmlUtil.createElement(EDM_TIMESPAN, document.getDocumentElement(),
+        List.of(EDM_PROVIDED_CHO, EDM_AGENT, EDM_PLACE, EDM_WEB_RESOURCE, EDM_TIMESPAN));
     final String fullRdfAboutName = XmlUtil.getPrefixedElementName(RDF_ABOUT,
         document.getDocumentElement().lookupPrefix(RDF_ABOUT.getNamespace().getUri()));
     final Attr rdfAbout = document.createAttributeNS(RDF_ABOUT.getNamespace().getUri(), fullRdfAboutName);
-    rdfAbout.setValue(uri);
+    rdfAbout.setValue(timespanId);
     timeSpan.setAttributeNode(rdfAbout);
 
     // Create and add skosPrefLabel to timespan
@@ -383,7 +395,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
       final Attr skosPrefLabelLang = document.createAttributeNS(XML_LANG.getNamespace().getUri(), fullLangName);
       skosPrefLabel.setAttributeNode(skosPrefLabelLang);
       skosPrefLabelLang.setValue("zxx");
-      skosPrefLabel.appendChild(document.createTextNode(edtfDateString));
+      skosPrefLabel.appendChild(document.createTextNode(edtfDate.toString()));
     }
 
     // Create and add skosNote elements to timespan in case of approximate or uncertain dates.
@@ -437,9 +449,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final Attr skosNotationType = document.createAttributeNS(RDF_TYPE.getNamespace().getUri(), fullNotationTypeName);
     skosNotationType.setValue("http://id.loc.gov/datatypes/edtf/EDTF-level1");
     skosNotation.setAttributeNode(skosNotationType);
-    skosNotation.appendChild(document.createTextNode(edtfDateString));
-
-    // Done - return the new ID.
-    return uri;
+    skosNotation.appendChild(document.createTextNode(edtfDate.toString()));
   }
 }

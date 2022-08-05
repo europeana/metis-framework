@@ -108,7 +108,7 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
     final boolean valueAdded = valuesAlreadyPresent.add(value.getNormalizedValue());
     if (valueAdded) {
       final Element newElement = XmlUtil.createElement(copySettings.getDestinationElement(),
-          copyTarget, copySettings.getAfterElement());
+          copyTarget, List.of(copySettings.getAfterElement()));
       addTextToElement(newElement, value, report);
     }
   }
