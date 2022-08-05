@@ -3,6 +3,7 @@ package eu.europeana.indexing.tiers.model;
 /**
  * Object that encapsulates the content and metadata tiers values.
  * It can not change set new values.
+ *
  */
 public class TierResults {
 
