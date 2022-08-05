@@ -327,7 +327,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     //The ID of the new timespan.
     final String edtfDateString = edtfDate.toString();
-    String uri;
+    final String uri;
     try {
       uri = String.format("#%s", URLEncoder.encode(edtfDateString, StandardCharsets.UTF_8.name()));
     } catch (UnsupportedEncodingException e) {
@@ -349,16 +349,16 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final String fullPrefLabelName = SKOS_PREFLABEL.getPrefixedElementName(
         timeSpan.lookupPrefix(SKOS_PREFLABEL.getNamespace().getUri()));
     final Element skosPrefLabel = document.createElementNS(SKOS_PREFLABEL.getNamespace().getUri(), fullPrefLabelName);
-    final String fullLangName = XML_LANG.getPrefixedElementName(
-        timeSpan.lookupPrefix(XML_LANG.getNamespace().getUri()));
-    final Attr skosPrefLabelLang = document.createAttributeNS(XML_LANG.getNamespace().getUri(), fullLangName);
-    skosPrefLabel.setAttributeNode(skosPrefLabelLang);
     if (StringUtils.isNotBlank(edtfDate.getLabel())) {
       skosPrefLabel.setNodeValue(edtfDate.getLabel());
       skosPrefLabel.appendChild(document.createTextNode(edtfDate.getLabel()));
     } else {
+      final String fullLangName = XML_LANG.getPrefixedElementName(
+          timeSpan.lookupPrefix(XML_LANG.getNamespace().getUri()));
+      final Attr skosPrefLabelLang = document.createAttributeNS(XML_LANG.getNamespace().getUri(), fullLangName);
+      skosPrefLabel.setAttributeNode(skosPrefLabelLang);
       skosPrefLabelLang.setValue("zxx");
-      skosPrefLabel.appendChild(document.createTextNode(uri));
+      skosPrefLabel.appendChild(document.createTextNode(edtfDateString));
     }
     timeSpan.appendChild(skosPrefLabel);
 
@@ -434,7 +434,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final Attr skosNotationType = document.createAttributeNS(RDF_TYPE.getNamespace().getUri(), fullNotationTypeName);
     skosNotationType.setValue("http://id.loc.gov/datatypes/edtf/EDTF-level1");
     skosNotation.setAttributeNode(skosNotationType);
-    skosNotation.appendChild(document.createTextNode(uri));
+    skosNotation.appendChild(document.createTextNode(edtfDateString));
     timeSpan.appendChild(skosNotation);
   }
 }
