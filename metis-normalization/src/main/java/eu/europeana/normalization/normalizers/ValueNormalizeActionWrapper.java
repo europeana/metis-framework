@@ -19,7 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 
 /**
  * This class represents a wrapper around a value normalize action (instance of {@link
@@ -108,30 +107,9 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
       NormalizedValueWithConfidence value, InternalNormalizationReport report) {
     final boolean valueAdded = valuesAlreadyPresent.add(value.getNormalizedValue());
     if (valueAdded) {
-      final String knownPrefix = copyTarget
-          .lookupPrefix(copySettings.getDestinationElement().getNamespace().getUri());
-      final Element newElement = copyTarget.getOwnerDocument().createElementNS(
-          copySettings.getDestinationElement().getNamespace().getUri(),
-          copySettings.getDestinationElement().getPrefixedElementName(knownPrefix));
+      final Element newElement = XmlUtil.createElement(copySettings.getDestinationElement(),
+          copyTarget, copySettings.getAfterElement());
       addTextToElement(newElement, value, report);
-
-      // Find last element of after element
-      Element afterElemement = null;
-      if (copySettings.getAfterElement() != null) {
-        final String afterElementName = copySettings.getAfterElement().getPrefixedElementName(
-            copyTarget.lookupPrefix(copySettings.getAfterElement().getNamespace().getUri()));
-        afterElemement = XmlUtil.getLastElementByTagName(copyTarget, afterElementName);
-      }
-
-      if (afterElemement == null) {
-        copyTarget.appendChild(newElement);
-      } else {
-        final Text textNode = copyTarget.getOwnerDocument()
-            .createTextNode(afterElemement.getNextSibling().getTextContent());
-        copyTarget.replaceChild(newElement, afterElemement);
-        copyTarget.insertBefore(textNode, newElement);
-        copyTarget.insertBefore(afterElemement, textNode);
-      }
     }
   }
 

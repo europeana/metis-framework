@@ -37,6 +37,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -59,6 +60,9 @@ import org.w3c.dom.Element;
  */
 public class DatesNormalizer implements RecordNormalizeAction {
 
+  private static final Namespace.Element ORE_PROXY = Namespace.ORE.getElement("Proxy");
+  private static final Namespace.Element EDM_EUROPEANA_PROXY = Namespace.EDM.getElement("europeanaProxy");
+
   private static final XpathQuery PROXY_QUERY_CREATED = getProxySubtagQuery(
       Namespace.DCTERMS.getElement("created"));
 
@@ -79,6 +83,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private static final List<XpathQuery> DATE_PROPERTY_FIELDS = List.of(
       PROXY_QUERY_CREATED, PROXY_QUERY_ISSUED, PROXY_QUERY_TEMPORAL, PROXY_QUERY_DATE);
+  private static final List<XpathQuery> GENERIC_PROPERTY_FIELDS = List.of(
+      PROXY_QUERY_COVERAGE, PROXY_QUERY_SUBJECT);
 
   private static final Namespace.Element EDM_TIMESPAN = Namespace.EDM.getElement("TimeSpan");
   private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
@@ -92,14 +98,12 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private static final Namespace.Element EDM_END = Namespace.EDM.getElement("end");
   private static final Namespace.Element DCTERMS_ISPARTOF = Namespace.DCTERMS.getElement("isPartOf");
 
-  private static final List<XpathQuery> GENERIC_PROPERTY_FIELDS = List.of(PROXY_QUERY_COVERAGE, PROXY_QUERY_SUBJECT);
   private final Cleaner cleaner = new Cleaner();
 
   private final List<DateExtractor> extractorsInOrderForDateProperties;
   private final List<DateExtractor> extractorsInOrderForGenericProperties;
   private final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrderDateProperty;
   private final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrderGenericProperty;
-
 
   /**
    * Default constructor.
@@ -141,7 +145,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private static XpathQuery getProxySubtagQuery(Namespace.Element subtag) {
     return new XpathQuery("/%s/%s[not(%s='true')]/%s", XpathQuery.RDF_TAG,
-        Namespace.ORE.getElement("Proxy"), Namespace.EDM.getElement("europeanaProxy"), subtag);
+        ORE_PROXY, EDM_EUROPEANA_PROXY, subtag);
   }
 
   @Override
@@ -335,101 +339,74 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     // Create and add timespan element to document (RDF)
-    final String fullTimespanName = EDM_TIMESPAN.getPrefixedElementName(
-        document.getDocumentElement().lookupPrefix(EDM_TIMESPAN.getNamespace().getUri()));
-    final Element timeSpan = document.createElementNS(EDM_TIMESPAN.getNamespace().getUri(), fullTimespanName);
-    final String fullRdfAboutName = RDF_ABOUT.getPrefixedElementName(
+    final Element timeSpan = XmlUtil.createElement(EDM_TIMESPAN, document.getDocumentElement(), null);
+    final String fullRdfAboutName = XmlUtil.getPrefixedElementName(RDF_ABOUT,
         document.getDocumentElement().lookupPrefix(RDF_ABOUT.getNamespace().getUri()));
     final Attr rdfAbout = document.createAttributeNS(RDF_ABOUT.getNamespace().getUri(), fullRdfAboutName);
     rdfAbout.setValue(uri);
     timeSpan.setAttributeNode(rdfAbout);
-    document.getDocumentElement().appendChild(timeSpan);
 
     // Create and add skosPrefLabel to timespan
-    final String fullPrefLabelName = SKOS_PREFLABEL.getPrefixedElementName(
-        timeSpan.lookupPrefix(SKOS_PREFLABEL.getNamespace().getUri()));
-    final Element skosPrefLabel = document.createElementNS(SKOS_PREFLABEL.getNamespace().getUri(), fullPrefLabelName);
+    final Element skosPrefLabel = XmlUtil.createElement(SKOS_PREFLABEL, timeSpan, null);
     if (StringUtils.isNotBlank(edtfDate.getLabel())) {
       skosPrefLabel.setNodeValue(edtfDate.getLabel());
       skosPrefLabel.appendChild(document.createTextNode(edtfDate.getLabel()));
     } else {
-      final String fullLangName = XML_LANG.getPrefixedElementName(
+      final String fullLangName = XmlUtil.getPrefixedElementName(XML_LANG,
           timeSpan.lookupPrefix(XML_LANG.getNamespace().getUri()));
       final Attr skosPrefLabelLang = document.createAttributeNS(XML_LANG.getNamespace().getUri(), fullLangName);
       skosPrefLabel.setAttributeNode(skosPrefLabelLang);
       skosPrefLabelLang.setValue("zxx");
       skosPrefLabel.appendChild(document.createTextNode(edtfDateString));
     }
-    timeSpan.appendChild(skosPrefLabel);
 
     // Create and add skosNote elements to timespan in case of approximate or uncertain dates.
-    final String fullNoteName = SKOS_NOTE.getPrefixedElementName(
-        timeSpan.lookupPrefix(SKOS_NOTE.getNamespace().getUri()));
     if (edtfDate.isApproximate()) {
-      final Element skosNote = document.createElementNS(SKOS_NOTE.getNamespace().getUri(), fullNoteName);
+      final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("approximate"));
-      timeSpan.appendChild(skosNote);
     }
     if (edtfDate.isUncertain()) {
-      final Element skosNote = document.createElementNS(SKOS_NOTE.getNamespace().getUri(), fullNoteName);
+      final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("uncertain"));
-      timeSpan.appendChild(skosNote);
     }
 
-    // Create (but don't add) the begin and end.
-    Integer startCentury = null;
-    Integer endCentury = null;
-    InstantEdtfDate firstDay = edtfDate.getFirstDay();
-    InstantEdtfDate lastDay = edtfDate.getLastDay();
-    Element edmBegin = null;
-    Element edmEnd = null;
-    if (firstDay != null) {
-      final String fullBeginName = EDM_BEGIN.getPrefixedElementName(
-          timeSpan.lookupPrefix(EDM_BEGIN.getNamespace().getUri()));
-      edmBegin = document.createElementNS(EDM_BEGIN.getNamespace().getUri(), fullBeginName);
-      edmBegin.appendChild(document.createTextNode(firstDay.toString()));
-      startCentury = firstDay.getCentury();
-    }
-    if (lastDay != null) {
-      final String fullEndName = EDM_END.getPrefixedElementName(
-          timeSpan.lookupPrefix(EDM_END.getNamespace().getUri()));
-      edmEnd = document.createElementNS(EDM_END.getNamespace().getUri(), fullEndName);
-      edmEnd.appendChild(document.createTextNode(lastDay.toString()));
-      endCentury = lastDay.getCentury();
-    }
-
-    // Create and add the isPartOf
-    // TODO: 25/07/2022 What if both are null, won't the for below fail?
+    // Compute the date range and century range.
+    final InstantEdtfDate firstDay = edtfDate.getFirstDay();
+    final InstantEdtfDate lastDay = edtfDate.getLastDay();
+    Integer startCentury = Optional.ofNullable(firstDay)
+        .map(InstantEdtfDate::getCentury).orElse(null);
+    Integer endCentury = Optional.ofNullable(lastDay)
+        .map(InstantEdtfDate::getCentury).orElse(null);
+    // TODO: 25/07/2022 What if both are null, won't the 'for' loop below fail? Is there always at least one century?
     if (startCentury == null) {
       startCentury = endCentury;
     } else if (endCentury == null) {
       endCentury = startCentury;
     }
-    final String fullIsPartOfName = DCTERMS_ISPARTOF.getPrefixedElementName(
-        timeSpan.lookupPrefix(DCTERMS_ISPARTOF.getNamespace().getUri()));
-    final String fullResourceName = RDF_RESOURCE.getPrefixedElementName(
+
+    // Create and add the isPartOf
+    final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
         timeSpan.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
     for (int century = Math.max(1, startCentury); century <= Math.max(0, endCentury); century++) {
-      final Element dctermsIsPartOf = document.createElementNS(DCTERMS_ISPARTOF.getNamespace().getUri(), fullIsPartOfName);
+      final Element dctermsIsPartOf = XmlUtil.createElement(DCTERMS_ISPARTOF, timeSpan, null);
       final Attr dctermsIsPartOfResource = document.createAttributeNS(RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
       dctermsIsPartOfResource.setValue("http://data.europeana.eu/timespan/" + century);
       dctermsIsPartOf.setAttributeNode(dctermsIsPartOfResource);
-      timeSpan.appendChild(dctermsIsPartOf);
     }
 
-    // Now we can add the begin and end.
-    if (edmBegin != null) {
-      timeSpan.appendChild(edmBegin);
+    // Create and add the begin and end.
+    if (firstDay != null) {
+      final Element edmBegin = XmlUtil.createElement(EDM_BEGIN, timeSpan, null);
+      edmBegin.appendChild(document.createTextNode(firstDay.toString()));
     }
-    if (edmEnd != null) {
-      timeSpan.appendChild(edmEnd);
+    if (lastDay != null) {
+      final Element edmEnd = XmlUtil.createElement(EDM_END, timeSpan, null);
+      edmEnd.appendChild(document.createTextNode(lastDay.toString()));
     }
 
     // Create and add skosNotation
-    final String fullNotationName = SKOS_NOTATION.getPrefixedElementName(
-        timeSpan.lookupPrefix(SKOS_NOTATION.getNamespace().getUri()));
-    final Element skosNotation = document.createElementNS(SKOS_NOTATION.getNamespace().getUri(), fullNotationName);
-    final String fullNotationTypeName = RDF_TYPE.getPrefixedElementName(
+    final Element skosNotation = XmlUtil.createElement(SKOS_NOTATION, timeSpan, null);
+    final String fullNotationTypeName = XmlUtil.getPrefixedElementName(RDF_TYPE,
         timeSpan.lookupPrefix(RDF_TYPE.getNamespace().getUri()));
     final Attr skosNotationType = document.createAttributeNS(RDF_TYPE.getNamespace().getUri(), fullNotationTypeName);
     skosNotationType.setValue("http://id.loc.gov/datatypes/edtf/EDTF-level1");

@@ -1,7 +1,5 @@
 package eu.europeana.normalization.util;
 
-import java.util.Optional;
-
 /**
  * Instances of this class represent an XML namespace (with tag prefix and URI).
  */
@@ -87,18 +85,6 @@ public enum Namespace {
      */
     public String getElementName() {
       return elementName;
-    }
-
-    /**
-     * Get an element name that contains the namespace prefix e.g. prefix:elementName.
-     *
-     * @param knownPrefix the prefix to use, if one is known for this element's namespace. If null,
-     *                    the suggested prefix for the element's namespace will be used.
-     * @return the prefixed element name
-     */
-    public String getPrefixedElementName(String knownPrefix) {
-      return XmlUtil.addPrefixToNodeName(elementName, Optional.ofNullable(knownPrefix)
-          .orElseGet(namespace::getSuggestedPrefix));
     }
   }
 }

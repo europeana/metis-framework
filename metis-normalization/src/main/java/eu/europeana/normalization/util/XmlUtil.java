@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.xml.XMLConstants;
@@ -25,6 +26,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
 /**
@@ -51,6 +53,19 @@ public final class XmlUtil {
   }
 
   /**
+   * Get an element name that contains the namespace prefix e.g. prefix:elementName.
+   *
+   * @param elementType the element type of which to compute the name.
+   * @param knownPrefix the prefix to use, if one is known for this element's namespace. If null,
+   *                    the suggested prefix for the element's namespace will be used.
+   * @return the prefixed element name
+   */
+  public static String getPrefixedElementName(Namespace.Element elementType, String knownPrefix) {
+    return XmlUtil.addPrefixToNodeName(elementType.getElementName(),
+        Optional.ofNullable(knownPrefix).orElseGet(elementType.getNamespace()::getSuggestedPrefix));
+  }
+
+  /**
    * Add the prefix to the node name and returns the result.
    *
    * @param nodeName The name of the node.
@@ -59,6 +74,54 @@ public final class XmlUtil {
    */
   public static String addPrefixToNodeName(String nodeName, String prefix) {
     return prefix == null ? nodeName : String.format("%s:%s", prefix, nodeName);
+  }
+
+  /**
+   * Add the element to the parent. The new element will be added directly after the last occurrence
+   * of this element type. If this value is null, or if the element type was not encountered in the
+   * parent, the element will be added at the end. Note: if a previous element type is given, the
+   * code assumes that there is a text node (e.g. newline) directly after the last occurrence of the
+   * previous element type (if any such occurrence exists).
+   *
+   * @param elementType         The element type to add.
+   * @param parent              The parent to add the element to.
+   * @param previousElementType The element type to add this element after. Can be null.
+   * @return The added (empty) element.
+   */
+  public static Element createElement(Namespace.Element elementType, Element parent,
+      Namespace.Element previousElementType) {
+
+    // Create the new element.
+    final String knownPrefix = parent.lookupPrefix(elementType.getNamespace().getUri());
+    final Element newElement = parent.getOwnerDocument().createElementNS(
+        elementType.getNamespace().getUri(), getPrefixedElementName(elementType, knownPrefix));
+
+    // Find last instance of the previous element type.
+    final Element previousElement;
+    if (previousElementType != null) {
+      final String previousElementName = getPrefixedElementName(previousElementType,
+          parent.lookupPrefix(previousElementType.getNamespace().getUri()));
+      previousElement = XmlUtil.getLastElementByTagName(parent, previousElementName);
+    } else {
+      previousElement = null;
+    }
+
+    // Position the element properly in the parent.
+    if (previousElement == null) {
+      parent.appendChild(newElement);
+    } else {
+      // The text node coming right after the afterElement. Will be copied to separate the elements.
+      final Text textNode = parent.getOwnerDocument()
+          .createTextNode(previousElement.getNextSibling().getTextContent());
+      // Put the new element in the afterElement place.
+      parent.replaceChild(newElement, previousElement);
+      // Insert the after element again, before the new element and separated by a copy of the text node.
+      parent.insertBefore(textNode, newElement);
+      parent.insertBefore(previousElement, textNode);
+    }
+
+    // Done.
+    return newElement;
   }
 
   /**
