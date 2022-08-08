@@ -133,8 +133,8 @@ public class CompressedFileHandler {
     try (ZipArchiveInputStream is = new ZipArchiveInputStream(Files.newInputStream(compressedFile))) {
       ZipArchiveEntry entry;
       while ((entry = is.getNextZipEntry()) != null) {
-        // create a new path, zip slip validate/protect against malicious zip files
-        Path newPath = zipSlipProtect(entry.getName(), destinationFolder);
+        // create a new path, protect against malicious zip files
+        Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
         if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
           nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
         }
@@ -157,8 +157,8 @@ public class CompressedFileHandler {
 
       ArchiveEntry entry;
       while ((entry = ti.getNextEntry()) != null) {
-        // create a new path, zip slip validate/protect against malicious zip files
-        Path newPath = zipSlipProtect(entry.getName(), destinationFolder);
+        // create a new path, protect against malicious zip files
+        Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
         extract(ti, entry, newPath);
       }
     }
@@ -194,23 +194,21 @@ public class CompressedFileHandler {
     } else {
       // check parent folder
       Path parent = newPath.getParent();
-      if (parent != null) {
-        if (Files.notExists(parent)) {
-          Files.createDirectories(parent);
-        }
+      if (parent != null && Files.notExists(parent)) {
+        Files.createDirectories(parent);
       }
       Files.copy(is, newPath, StandardCopyOption.REPLACE_EXISTING);
     }
   }
 
-  private static Path zipSlipProtect(String entryName, Path targetDir)
+  private static Path zipSlipVulnerabilityProtect(String entryName, Path targetDir)
       throws IOException {
     // https://snyk.io/research/zip-slip-vulnerability
     Path targetDirResolved = targetDir.resolve(entryName);
     // make sure normalized file still has targetDir as its prefix else throw exception
     Path normalizePath = targetDirResolved.normalize();
     if (!normalizePath.startsWith(targetDir)) {
-      throw new IOException("Bad entry: " + entryName);
+      throw new IOException("Entry is outside of the target dir: " + entryName);
     }
     return normalizePath;
   }

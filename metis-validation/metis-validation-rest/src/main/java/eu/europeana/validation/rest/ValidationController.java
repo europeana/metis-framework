@@ -62,7 +62,7 @@ public class ValidationController {
    * parameter
    *
    * @param targetSchema The schema to validate against
-   * @param record The record to validate
+   * @param recordToValidate The record to validate
    * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
    * @throws ValidationException if a validation error occurs
    */
@@ -71,13 +71,13 @@ public class ValidationController {
   @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
   public ValidationResult validate(
       @ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-      @RequestBody String record
+      @RequestBody String recordToValidate
   ) throws ValidationException {
     if (!schemaProvider.isPredefined(targetSchema)) {
       throw new ValidationException("", "", "It is not predefined schema.");
     }
 
-    ValidationResult result = validator.singleValidation(targetSchema, null, null, record);
+    ValidationResult result = validator.singleValidation(targetSchema, null, null, recordToValidate);
     if (result.isSuccess()) {
       return result;
     } else {
@@ -131,11 +131,10 @@ public class ValidationController {
         }
         throw new BatchValidationException("Batch validation service failed.", validationResultList);
       }
-      return null;
-
     } catch (ExecutionException | InterruptedException e) {
       Thread.currentThread().interrupt();
       throw new ServerException(e);
     }
+    return null;
   }
 }

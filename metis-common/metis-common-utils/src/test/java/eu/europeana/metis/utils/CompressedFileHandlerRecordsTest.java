@@ -28,12 +28,12 @@ class CompressedFileHandlerRecordsTest {
   @Test
   void testGetRecordsFromEmptyZipFile() throws IOException {
 
-    // Call reader for empty zipfile
+    // Call CompressedFileHandler for empty ZIP file
     final ZipFile emptyZipFile = mock(ZipFile.class);
     doReturn(Stream.empty()).when(emptyZipFile).stream();
     assertTrue(new CompressedFileHandler().getRecordsFromZipFile(emptyZipFile).isEmpty());
 
-    // Create zipfile with content and reader that rejects everything
+    // Create ZIP file with bad content and CompressedFileHandler that rejects everything
     final List<ZipEntry> entries =
         Stream.of("A", "B", "C").map(name -> createEntry(name, false)).collect(Collectors.toList());
     final CompressedFileHandler reader = spy(CompressedFileHandler.class);
@@ -60,7 +60,7 @@ class CompressedFileHandlerRecordsTest {
         StandardCharsets.UTF_8))
         .when(zipFile).getInputStream(any());
 
-    // Create file extractor that knows the difference between good and bad.
+    // Create CompressedFileHandler that knows the difference between good and bad.
     final CompressedFileHandler reader = spy(CompressedFileHandler.class);
     doAnswer(invocation -> goodEntries.contains(((ZipEntry) invocation.getArgument(0)).getName()))
         .when(reader).accept(any());
