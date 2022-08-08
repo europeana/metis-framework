@@ -7,8 +7,8 @@ package eu.europeana.indexing.tiers.model;
  */
 public class TierResults {
 
-    private MediaTier mediaTier;
-    private MetadataTier metadataTier;
+    private final MediaTier mediaTier;
+    private final MetadataTier metadataTier;
 
     /**
      * Constructor

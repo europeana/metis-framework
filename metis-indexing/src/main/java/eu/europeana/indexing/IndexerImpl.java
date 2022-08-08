@@ -89,9 +89,8 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public TierResults indexAndGetTierCalculations(InputStream record, IndexingProperties indexingProperties)
+  public TierResults indexAndGetTierCalculations(InputStream recordContent, IndexingProperties indexingProperties)
           throws IndexingException{
-    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(record);
     if (indexingProperties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
       throw new SetupRelatedIndexingException(
               "Record redirect dao has not been initialized and performing redirects is requested");
@@ -99,6 +98,8 @@ class IndexerImpl implements Indexer {
     LOGGER.info("Processing record to obtain tier calculations...");
     final FullBeanPublisher publisher =
             connectionProvider.getFullBeanPublisher(indexingProperties.isPreserveUpdateAndCreateTimesFromRdf());
+
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(recordContent);
     TierResults result = preprocessRecord(rdfRecord, indexingProperties);
     if (indexingProperties.isPerformRedirects()) {
       publisher.publishWithRedirects(new RdfWrapper(rdfRecord), indexingProperties.getRecordDate(),

@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
@@ -112,12 +110,12 @@ public interface Indexer extends Closeable {
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index (can be parsed to RDF).
+   * @param recordContent The record to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    * @return A pair with both content tier and metadata tier calculations results of the given record
    */
-  TierResults indexAndGetTierCalculations(InputStream record, IndexingProperties indexingProperties)
+  TierResults indexAndGetTierCalculations(InputStream recordContent, IndexingProperties indexingProperties)
           throws IndexingException;
 
   /**
