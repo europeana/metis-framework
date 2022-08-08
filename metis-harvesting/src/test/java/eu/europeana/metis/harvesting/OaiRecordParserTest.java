@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.oaipmh;
+package eu.europeana.metis.harvesting;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.oaipmh.OaiRecord;
+import eu.europeana.metis.harvesting.oaipmh.OaiRecordParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;

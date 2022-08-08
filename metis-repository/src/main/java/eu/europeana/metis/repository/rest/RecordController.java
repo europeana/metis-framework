@@ -1,10 +1,10 @@
 package eu.europeana.metis.repository.rest;
 
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.http.CompressedFileExtension;
 import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.utils.CompressedFileExtension;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

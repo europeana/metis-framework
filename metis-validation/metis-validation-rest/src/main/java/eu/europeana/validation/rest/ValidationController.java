@@ -4,8 +4,8 @@ import static eu.europeana.metis.utils.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 
+import eu.europeana.metis.utils.CompressedFileHandler;
 import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.utils.ZipFileReader;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
@@ -58,11 +58,11 @@ public class ValidationController {
   }
 
   /**
-   * Single Record service class. The target schema is supplied as a path parameter
-   * and the record via POST as a form-data parameter
+   * Single Record service class. The target schema is supplied as a path parameter and the record via POST as a form-data
+   * parameter
    *
    * @param targetSchema The schema to validate against
-   * @param record The record to validate
+   * @param recordToValidate The record to validate
    * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
    * @throws ValidationException if a validation error occurs
    */
@@ -71,13 +71,13 @@ public class ValidationController {
   @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
   public ValidationResult validate(
       @ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-      @RequestBody String record
+      @RequestBody String recordToValidate
   ) throws ValidationException {
     if (!schemaProvider.isPredefined(targetSchema)) {
       throw new ValidationException("", "", "It is not predefined schema.");
     }
 
-    ValidationResult result = validator.singleValidation(targetSchema, null, null, record);
+    ValidationResult result = validator.singleValidation(targetSchema, null, null, recordToValidate);
     if (result.isSuccess()) {
       return result;
     } else {
@@ -87,8 +87,8 @@ public class ValidationController {
   }
 
   /**
-   * Batch Validation REST API implementation. It is exposed via /validate/batch/EDM-{EXTERNAL,INTERNAL}. The parameters are
-   * a zip file with records (folders are not currently supported so records need to be at the root of the file)
+   * Batch Validation REST API implementation. It is exposed via /validate/batch/EDM-{EXTERNAL,INTERNAL}. The parameters are a zip
+   * file with records (folders are not currently supported so records need to be at the root of the file)
    *
    * @param targetSchema The schema to validate against
    * @param providedZipFile A zip file
@@ -112,30 +112,29 @@ public class ValidationController {
 
     final List<ByteArrayInputStream> records;
     try {
-      records = new ZipFileReader().getContentFromZipFile(providedZipFile.getInputStream());
+      records = new CompressedFileHandler().getContentFromZipFile(providedZipFile.getInputStream());
     } catch (IOException e) {
       throw new ServerException(e);
     }
     if (records.isEmpty()) {
       throw new ServerException("No suitable records found in zip file.");
     }
-        
+
     try {
-      ValidationResultList list = validator.batchValidation(targetSchema, null, null, records);
-      // TODO JV Note the condition below means that list.success is ALWAYS true (or a NPE occurs). This is probably not the purpose here.
-      if (list.getResultList() != null || list.getResultList().isEmpty()) {
-        list.setSuccess(true);
+      ValidationResultList validationResultList =
+          validator.batchValidation(targetSchema, null, null, records);
+
+      if (validationResultList != null) {
+        if (validationResultList.getResultList() != null || validationResultList.getResultList().isEmpty()) {
+          validationResultList.setSuccess(true);
+          return validationResultList;
+        }
+        throw new BatchValidationException("Batch validation service failed.", validationResultList);
       }
-      if (list.isSuccess()) {
-        return list;
-      } else {
-        throw new BatchValidationException("Batch service failed", list);
-      }
-    } catch (ExecutionException e) {
-      throw new ServerException(e);
-    } catch (InterruptedException e) {
+    } catch (ExecutionException | InterruptedException e) {
       Thread.currentThread().interrupt();
       throw new ServerException(e);
     }
+    return null;
   }
 }

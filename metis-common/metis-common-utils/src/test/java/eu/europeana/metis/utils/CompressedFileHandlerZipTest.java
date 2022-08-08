@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.http;
+package eu.europeana.metis.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,7 +11,11 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-class CompressedFileExtractorZipTest {
+/**
+ * Unit tests for {@link CompressedFileHandler}
+ */
+
+class CompressedFileHandlerZipTest {
 
     private final static String DESTINATION_DIR = String.format("src%1$stest%1$sresources%1$s__files%1$s", File.separator);
     private final static int XML_FILES_COUNT = 13;
@@ -24,7 +28,7 @@ class CompressedFileExtractorZipTest {
 
     @Test
     void shouldUnpackTheZipFilesRecursively() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + FILE_EXTENSION),
+        CompressedFileHandler.extractFile(Path.of(DESTINATION_DIR + FILE_NAME + FILE_EXTENSION),
             Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
         assertNotNull(files);
@@ -33,7 +37,7 @@ class CompressedFileExtractorZipTest {
 
     @Test
     void shouldUnpackTheZipFilesWithNestedFoldersRecursively() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION),
+        CompressedFileHandler.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION),
             Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
         assertNotNull(files);
@@ -42,7 +46,7 @@ class CompressedFileExtractorZipTest {
 
     @Test
     void shouldUnpackTheZipFilesWithNestedMixedCompressedFiles() throws IOException {
-        CompressedFileExtractor.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + FILE_EXTENSION),
+        CompressedFileHandler.extractFile(Path.of(DESTINATION_DIR + FILE_NAME3 + FILE_EXTENSION),
             Path.of(DESTINATION_DIR));
         Collection<File> files = getXMLFiles(DESTINATION_DIR + DEFAULT_DESTINATION_NAME);
         assertNotNull(files);

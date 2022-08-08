@@ -3,6 +3,7 @@ package eu.europeana.metis.repository.rest;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -31,6 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -47,8 +49,7 @@ class RecordControllerTest {
   static void setup() {
     recordDaoMock = mock(RecordDao.class);
     recordController = new RecordController();
-    recordControllerMock = MockMvcBuilders.standaloneSetup(recordController)
-                                          .build();
+    recordControllerMock = MockMvcBuilders.standaloneSetup(recordController).build();
   }
 
   @AfterEach
@@ -186,13 +187,15 @@ class RecordControllerTest {
         inputStream);
     when(recordDaoMock.createRecord(any(Record.class))).thenReturn(true);
     recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(multipart(RestEndpoints.REPOSITORY_RECORDS)
-                            .file(recordsFile)
-                            .param("datasetId", "datasetId")
-                            .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
-                            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
-                        .andDo(print())
-                        .andExpect(status().is(500));
+    MvcResult result = recordControllerMock.perform(multipart(RestEndpoints.REPOSITORY_RECORDS)
+                                               .file(recordsFile)
+                                               .param("datasetId", "datasetId")
+                                               .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
+                                               .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+                                           .andDo(print())
+                                           .andExpect(status().is(500))
+                                           .andReturn();
+    assertTrue(result.getResolvedException() instanceof ResponseStatusException);
     verify(recordDaoMock, times(0)).createRecord(any());
   }
 

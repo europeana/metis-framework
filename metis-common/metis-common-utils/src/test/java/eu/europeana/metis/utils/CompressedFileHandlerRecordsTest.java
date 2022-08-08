@@ -11,7 +11,6 @@ import static org.mockito.Mockito.spy;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,22 +21,22 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link ZipFileReader}
+ * Unit tests for {@link CompressedFileHandler}
  */
-class ZipFileReaderTest {
+class CompressedFileHandlerRecordsTest {
 
   @Test
   void testGetRecordsFromEmptyZipFile() throws IOException {
 
-    // Call reader for empty zipfile
+    // Call CompressedFileHandler for empty ZIP file
     final ZipFile emptyZipFile = mock(ZipFile.class);
     doReturn(Stream.empty()).when(emptyZipFile).stream();
-    assertTrue(new ZipFileReader().getRecordsFromZipFile(emptyZipFile).isEmpty());
+    assertTrue(new CompressedFileHandler().getRecordsFromZipFile(emptyZipFile).isEmpty());
 
-    // Create zipfile with content and reader that rejects everything
+    // Create ZIP file with bad content and CompressedFileHandler that rejects everything
     final List<ZipEntry> entries =
         Stream.of("A", "B", "C").map(name -> createEntry(name, false)).collect(Collectors.toList());
-    final ZipFileReader reader = spy(new ZipFileReader());
+    final CompressedFileHandler reader = spy(CompressedFileHandler.class);
     final ZipFile zipFileWithBadContent = mock(ZipFile.class);
     doReturn(entries.stream()).when(zipFileWithBadContent).stream();
     doReturn(false).when(reader).accept(any());
@@ -48,10 +47,8 @@ class ZipFileReaderTest {
   void testGetRecordsFromZipFile() throws IOException {
 
     // We have good entries (regular entries) and bad entries (directories).
-    final List<ZipEntry> entries = new ArrayList<>();
     final List<String> goodEntries = Arrays.asList("A", "B", "C");
-    entries.addAll(
-        goodEntries.stream().map(name -> createEntry(name, false)).collect(Collectors.toList()));
+    final List<ZipEntry> entries = goodEntries.stream().map(name -> createEntry(name, false)).collect(Collectors.toList());
     final List<String> badEntries = Arrays.asList("X", "Y", "Z");
     entries.addAll(
         badEntries.stream().map(name -> createEntry(name, true)).collect(Collectors.toList()));
@@ -63,8 +60,8 @@ class ZipFileReaderTest {
         StandardCharsets.UTF_8))
         .when(zipFile).getInputStream(any());
 
-    // Create reader that knows the difference between good and bad.
-    final ZipFileReader reader = spy(new ZipFileReader());
+    // Create CompressedFileHandler that knows the difference between good and bad.
+    final CompressedFileHandler reader = spy(CompressedFileHandler.class);
     doAnswer(invocation -> goodEntries.contains(((ZipEntry) invocation.getArgument(0)).getName()))
         .when(reader).accept(any());
 
@@ -76,14 +73,14 @@ class ZipFileReaderTest {
   @Test
   void testAccept() {
     // Test against directories and special Mac files. Entry examples taken from actual zip file.
-    ZipFileReader reader = new ZipFileReader();
-    assertFalse(reader.accept(createEntry("Internal_valid/", true)));
-    assertFalse(reader.accept(createEntry("Internal_valid/.DS_Store", false)));
-    assertFalse(reader.accept(createEntry("__MACOSX/", true)));
-    assertFalse(reader.accept(createEntry("__MACOSX/Internal_valid/", true)));
-    assertFalse(reader.accept(createEntry("__MACOSX/Internal_valid/._.DS_Store", false)));
-    assertTrue(reader.accept(createEntry("Internal_valid/Item_445790357.xml", false)));
-    assertFalse(reader.accept(createEntry("__MACOSX/Internal_valid/._Item_445790357.xml", false)));
+    CompressedFileHandler compressedFileHandler = new CompressedFileHandler();
+    assertFalse(compressedFileHandler.accept(createEntry("Internal_valid/", true)));
+    assertFalse(compressedFileHandler.accept(createEntry("Internal_valid/.DS_Store", false)));
+    assertFalse(compressedFileHandler.accept(createEntry("__MACOSX/", true)));
+    assertFalse(compressedFileHandler.accept(createEntry("__MACOSX/Internal_valid/", true)));
+    assertFalse(compressedFileHandler.accept(createEntry("__MACOSX/Internal_valid/._.DS_Store", false)));
+    assertTrue(compressedFileHandler.accept(createEntry("Internal_valid/Item_445790357.xml", false)));
+    assertFalse(compressedFileHandler.accept(createEntry("__MACOSX/Internal_valid/._Item_445790357.xml", false)));
   }
 
   private ZipEntry createEntry(String name, boolean isDirectory) {

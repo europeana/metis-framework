@@ -26,7 +26,11 @@
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+      <version>${version.commonscompress}</version>
+    </dependency>
     <!--Test dependencies-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
