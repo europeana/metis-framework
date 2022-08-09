@@ -19,7 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 
 /**
  * This class represents a wrapper around a value normalize action (instance of {@link
@@ -108,34 +107,9 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
       NormalizedValueWithConfidence value, InternalNormalizationReport report) {
     final boolean valueAdded = valuesAlreadyPresent.add(value.getNormalizedValue());
     if (valueAdded) {
-      final String prefix = copyTarget
-          .lookupPrefix(copySettings.getDestinationElement().getNamespace().getUri());
-      final String newElementName = XmlUtil
-          .addPrefixToNodeName(copySettings.getDestinationElement().getElementName(), prefix);
-      final Element newElement = copyTarget.getOwnerDocument()
-          .createElementNS(copySettings.getDestinationElement().getNamespace().getUri(),
-              newElementName);
+      final Element newElement = XmlUtil.createElement(copySettings.getDestinationElement(),
+          copyTarget, List.of(copySettings.getAfterElement()));
       addTextToElement(newElement, value, report);
-
-      // Find last element of after element
-      Element afterElemement = null;
-      if (copySettings.getAfterElement() != null) {
-        final String afterElementName = XmlUtil
-            .addPrefixToNodeName(copySettings.getAfterElement().getElementName(),
-                copyTarget.lookupPrefix(copySettings.getAfterElement().getNamespace().getUri()));
-        afterElemement = XmlUtil
-            .getLastElementByTagName(copyTarget, afterElementName);
-      }
-
-      if (afterElemement == null) {
-        copyTarget.appendChild(newElement);
-      } else {
-        final Text textNode = copyTarget.getOwnerDocument()
-            .createTextNode(afterElemement.getNextSibling().getTextContent());
-        copyTarget.replaceChild(newElement, afterElemement);
-        copyTarget.insertBefore(textNode, newElement);
-        copyTarget.insertBefore(afterElemement, textNode);
-      }
     }
   }
 
@@ -233,24 +207,7 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
 
   private static Element getCopyTargetFromSettings(Document edm, CopySettings copySettings)
       throws NormalizationException {
-
-    // Find the matching nodes
-    final NodeList copyTargets;
-    try {
-      copyTargets = copySettings.getDestinationParent().execute(edm);
-    } catch (XPathExpressionException e) {
-      throw new NormalizationException("Xpath query issue: " + e.getMessage(), e);
-    }
-
-    // Check the validity of the target
-    if (copyTargets.getLength() != 1 || !(copyTargets.item(0) instanceof Element)) {
-      throw new NormalizationException(
-          "The document does not contain a unique element to which to copy the normalized values.",
-          null);
-    }
-
-    // Done
-    return (Element) copyTargets.item(0);
+    return XmlUtil.getUniqueElement(copySettings.getDestinationParent(), edm);
   }
 
   static class CopySettings {

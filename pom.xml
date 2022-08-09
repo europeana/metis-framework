@@ -122,7 +122,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.ecloud>7-SNAPSHOT</version.ecloud>
-    <version.metis-schema>7</version.metis-schema>
+    <version.metis-schema>7-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
@@ -156,6 +156,7 @@
     <version.jaxb.api>2.3.1</version.jaxb.api>
     <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
     <version.jena.iri>4.1.0</version.jena.iri>
+    <version.jena.core>3.11.0</version.jena.core>
     <version.jersey>2.21</version.jersey>
     <version.json>20210307</version.json>
     <version.json.path>2.5.0</version.json.path>

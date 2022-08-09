@@ -19,7 +19,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-class AbstractLanguageNormalizerTest {
+// TODO JV: this class tests a class called AbstractLanguageNormalizer. Why add 'European' to this class name?
+class AbstractEuropeanLanguageNormalizerTest {
 
   @Test
   void testNormalizeValue() {
