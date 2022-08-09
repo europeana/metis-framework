@@ -72,7 +72,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private static final Namespace.Element XML_LANG = Namespace.XML.getElement("lang");
   private static final Namespace.Element SKOS_NOTATION = Namespace.SKOS.getElement("notation");
   private static final Namespace.Element SKOS_NOTE = Namespace.SKOS.getElement("note");
-  private static final Namespace.Element RDF_TYPE = Namespace.RDF.getElement("type");
+  private static final Namespace.Element RDF_DATATYPE = Namespace.RDF.getElement("datatype");
   private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
   private static final Namespace.Element EDM_BEGIN = Namespace.EDM.getElement("begin");
   private static final Namespace.Element EDM_END = Namespace.EDM.getElement("end");
@@ -137,9 +137,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new PatternBcAdDateExtractor(),
         new PatternLongNegativeYearDateExtractor());
 
-    extractorsInOrderForGenericProperties = extractorsInOrderForDateProperties.stream()
-        .filter(not(PatternBriefDateRangeDateExtractor.class::isInstance))
-        .collect(Collectors.toList());
+    extractorsInOrderForGenericProperties =
+        extractorsInOrderForDateProperties.stream()
+                                          .filter(
+                                              not(PatternBriefDateRangeDateExtractor.class::isInstance))
+                                          .collect(Collectors.toList());
 
     normalizationOperationsInOrderDateProperty = List.of(
         input -> normalizeInput(extractorsInOrderForDateProperties, input),
@@ -168,8 +170,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
         this::normalizeDateProperty));
     report.mergeWith(normalizeElements(document, europeanaProxy, GENERIC_PROPERTY_FIELDS,
         this::normalizeGenericProperty));
-
-    // Done.
     return report;
   }
 
@@ -372,8 +372,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
     return valTrim;
   }
 
-  private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate,
-      String timespanId) {
+  private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate, String timespanId) {
+    // TODO: 09/08/2022 All the element prefixes below are searched first and if not found then the suggested prefix is added.
+    //  When it does not exist in the root the namespace is added in the element itself.
+    //  Should we be adding it in the root element of the document instead?
 
     // Create and add timespan element to document (RDF).
     final Element timeSpan = XmlUtil.createElement(EDM_TIMESPAN, document.getDocumentElement(),
@@ -412,9 +414,9 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final InstantEdtfDate firstDay = edtfDate.getFirstDay();
     final InstantEdtfDate lastDay = edtfDate.getLastDay();
     Integer startCentury = Optional.ofNullable(firstDay)
-        .map(InstantEdtfDate::getCentury).orElse(null);
+                                   .map(InstantEdtfDate::getCentury).orElse(null);
     Integer endCentury = Optional.ofNullable(lastDay)
-        .map(InstantEdtfDate::getCentury).orElse(null);
+                                 .map(InstantEdtfDate::getCentury).orElse(null);
     // TODO: 25/07/2022 What if both are null, won't the 'for' loop below fail? Is there always at least one century?
     if (startCentury == null) {
       startCentury = endCentury;
@@ -444,9 +446,9 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     // Create and add skosNotation
     final Element skosNotation = XmlUtil.createElement(SKOS_NOTATION, timeSpan, null);
-    final String fullNotationTypeName = XmlUtil.getPrefixedElementName(RDF_TYPE,
-        timeSpan.lookupPrefix(RDF_TYPE.getNamespace().getUri()));
-    final Attr skosNotationType = document.createAttributeNS(RDF_TYPE.getNamespace().getUri(), fullNotationTypeName);
+    final String fullNotationTypeName = XmlUtil.getPrefixedElementName(RDF_DATATYPE,
+        timeSpan.lookupPrefix(RDF_DATATYPE.getNamespace().getUri()));
+    final Attr skosNotationType = document.createAttributeNS(RDF_DATATYPE.getNamespace().getUri(), fullNotationTypeName);
     skosNotationType.setValue("http://id.loc.gov/datatypes/edtf/EDTF-level1");
     skosNotation.setAttributeNode(skosNotationType);
     skosNotation.appendChild(document.createTextNode(edtfDate.toString()));
