@@ -18,6 +18,7 @@ public class EdtfDatePart implements Serializable {
   private boolean uncertain;
   private boolean approximate;
   private boolean unknown;
+
   // TODO: 25/07/2022 What is unspecified? It's not in the documentation, is it the same as unknown?
   private boolean unspecified;
 

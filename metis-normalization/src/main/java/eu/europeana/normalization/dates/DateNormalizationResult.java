@@ -69,6 +69,7 @@ public class DateNormalizationResult {
         + edtfDate + "]";
   }
 
+
   // TODO: 22/07/2022 Double check if this is correct, it has not been tested since it's used in the untested generic property method
   public boolean isCompleteDate() {
     boolean isCompleteDate = true;
@@ -94,6 +95,7 @@ public class DateNormalizationResult {
         || endEdtfDatePart.isUnknown() || endEdtfDatePart.isUncertain()
         || startEdtfDatePart.getYearPrecision() != null || endEdtfDatePart.getYearPrecision() != null;
   }
+
 
   // TODO: 22/07/2022 Is this calculation correct??
   private boolean isDayMonthNotComplete(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {

@@ -42,6 +42,7 @@ public final class EdtfValidator {
     return validateIntervalNotInFuture((IntervalEdtfDate) edtfDate);
   }
 
+
   // TODO: 20/07/2022 It checks interval of date parts but not time parts??
   private static boolean validateInterval(IntervalEdtfDate intervalEdtfDate) {
     final InstantEdtfDate startDate = intervalEdtfDate.getStart();
@@ -72,6 +73,7 @@ public final class EdtfValidator {
   }
 
   private static boolean validateSpecificIntervalDates(EdtfDatePart startDatePart, EdtfDatePart endDatePart) {
+
     // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc?
     // TODO: 20/07/2022 No check for null year but we check for null month and day?
     boolean isDatesValid = false;
@@ -90,6 +92,7 @@ public final class EdtfValidator {
   }
 
   private static Integer adjustYearWithPrecision(Integer year, YearPrecision yearPrecision) {
+
     // TODO: 25/07/2022 Is this precision adjustment correct? How should the rounding be for positive and negatives?
     // TODO: 25/07/2022 Some examples of rounding:
     // TODO: 25/07/2022 1325/100 * 100 = 1300
@@ -111,6 +114,7 @@ public final class EdtfValidator {
     if (validateDatePart(edtfDatePart)) {
       EdtfTimePart edtfTimePart = instantEdtfDate.getEdtfTimePart();
       if (validateTimePart(edtfTimePart)) {
+
         // TODO: 20/07/2022 Does this mean that if it's not standalone, it is then allowed to have both null/unknown??
         if (standalone) {
           //Not valid if both parts null/unknown
@@ -180,6 +184,7 @@ public final class EdtfValidator {
   private static boolean validateIntervalNotInFuture(IntervalEdtfDate intervalEdtfDate) {
     return validateInstantNotInFuture(intervalEdtfDate.getStart()) && validateInstantNotInFuture(intervalEdtfDate.getEnd());
   }
+
 
   // TODO: 20/07/2022 This only calculates years and not other parts of the date.
   //  (this probably won't capture a dates that is days/months in the future but on the current year?)

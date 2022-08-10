@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EdtfParser {
 
+
   // TODO: 19/07/2022 Simplify regex by potentially splitting it
   private static final Pattern DATE_PATTERN = Pattern
       .compile("((?<year1>-?\\d{4})-(?<month1>\\d{2})-(?<day1>\\d{2})|"

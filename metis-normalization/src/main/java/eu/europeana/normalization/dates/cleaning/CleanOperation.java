@@ -36,6 +36,7 @@ public enum CleanOperation {
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
   CIRCA(compile("^\\s*(circa|CA\\.?|C\\.)\\s*", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
+
   // TODO: 22/07/2022 Need to fix this regex, it is reported as dangerous
   SQUARE_BRACKETS_AND_CIRCA(compile("\\[(circa|CA\\.?|C\\.)\\s*([^]]+)]", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll("$2"), s -> true),

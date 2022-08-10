@@ -101,6 +101,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
           firstDay.getEdtfDatePart().setDay(1);
         }
       }
+
       // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
       else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
         EdtfDatePart newEdtfDatePart = new EdtfDatePart();
@@ -158,6 +159,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   public Integer getCentury() {
     final int century;
+
     // TODO: 25/07/2022 getEdtfDatePart() or getEdtfDatePart().getYear() might be null??
     if (getEdtfDatePart().getYear() < 0) {
       century = -1;
