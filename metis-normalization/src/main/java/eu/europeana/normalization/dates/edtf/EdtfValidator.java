@@ -43,7 +43,13 @@ public final class EdtfValidator {
   }
 
 
-  // TODO: 20/07/2022 It checks interval of date parts but not time parts??
+  /**
+   * The interval validation only checks for the date part and not the time part of the date.
+   * <p>It has been decided that only the date part should be checked, ignoring the time part</p>
+   *
+   * @param intervalEdtfDate the interval date to check
+   * @return true if it's valid
+   */
   private static boolean validateInterval(IntervalEdtfDate intervalEdtfDate) {
     final InstantEdtfDate startDate = intervalEdtfDate.getStart();
     final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
