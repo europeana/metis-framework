@@ -18,8 +18,18 @@ public class EdtfDatePart implements Serializable {
   private boolean uncertain;
   private boolean approximate;
   private boolean unknown;
-
-  // TODO: 25/07/2022 What is unspecified? It's not in the documentation, is it the same as unknown?
+  /**
+   * It relates to edtf format. If there is an edtf formatted date already in the document, while parsing it, this field will
+   * indicate if that date is an "unspecified" one.
+   *
+   * <p>
+   * Examples:
+   * <ul>
+   *   <li>1900/ (unspecified end)</li>
+   *   <li>1900/? (unknown)</li>
+   * </ul>
+   * </p>
+   */
   private boolean unspecified;
 
   private Integer year;
