@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates;
 import eu.europeana.normalization.dates.cleaning.CleanOperation;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 
 /**
@@ -70,38 +71,67 @@ public class DateNormalizationResult {
   }
 
 
-  // TODO: 22/07/2022 Double check if this is correct, it has not been tested since it's used in the untested generic property method
+  /**
+   * Checks if a date is complete.
+   * <p>This method is used for the generic properties normalization</p>\
+   * <p>
+   * A date is considered complete if:
+   *   <ul>
+   *     <li>it contains a date part</li>
+   *     <li>it is precise</li>
+   *     <li>for intervals both dates are only years(without month or day) otherwise both month and days should be present</li>
+   *   </ul>
+   * </p>
+   *
+   * @return true if the date is complete
+   */
   public boolean isCompleteDate() {
     boolean isCompleteDate = true;
     if (edtfDate == null || edtfDate.isTimeOnly()) {
       isCompleteDate = false;
-    } else if (edtfDate instanceof IntervalEdtfDate) {
+    } else if (edtfDate instanceof InstantEdtfDate) {
+      final EdtfDatePart edtfDatePart = ((InstantEdtfDate) edtfDate).getEdtfDatePart();
+      if (isDateNonPrecise(edtfDatePart) || isMonthDayNotComplete(edtfDatePart)) {
+        isCompleteDate = false;
+      }
+    } else {
       final EdtfDatePart startEdtfDatePart = ((IntervalEdtfDate) edtfDate).getStart()
                                                                           .getEdtfDatePart();
       final EdtfDatePart endEdtfDatePart = ((IntervalEdtfDate) edtfDate).getEnd()
                                                                         .getEdtfDatePart();
 
       if (startEdtfDatePart != null && endEdtfDatePart != null &&
-          (isEitherDateNonPrecise(startEdtfDatePart, endEdtfDatePart) || isDayMonthNotComplete(startEdtfDatePart,
-              endEdtfDatePart))) {
+          (areDatesNonPrecise(startEdtfDatePart, endEdtfDatePart) ||
+              !isOnlyYearsOrComplete(startEdtfDatePart, endEdtfDatePart))
+      ) {
         isCompleteDate = false;
       }
     }
     return isCompleteDate;
   }
 
-  private boolean isEitherDateNonPrecise(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
-    return startEdtfDatePart.isUnknown() || startEdtfDatePart.isUncertain()
-        || endEdtfDatePart.isUnknown() || endEdtfDatePart.isUncertain()
-        || startEdtfDatePart.getYearPrecision() != null || endEdtfDatePart.getYearPrecision() != null;
+  private boolean areDatesNonPrecise(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
+    return isDateNonPrecise(startEdtfDatePart) || isDateNonPrecise(endEdtfDatePart);
   }
 
+  private boolean isDateNonPrecise(EdtfDatePart edtfDatePart) {
+    return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
+  }
 
-  // TODO: 22/07/2022 Is this calculation correct??
-  private boolean isDayMonthNotComplete(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
-    return startEdtfDatePart.getDay() == null
-        || endEdtfDatePart.getDay() == null || startEdtfDatePart.getMonth() != null
-        || endEdtfDatePart.getMonth() != null;
+  private boolean isMonthDayNotComplete(EdtfDatePart edtfDatePart) {
+    return !isMonthDayComplete(edtfDatePart);
+  }
+
+  private boolean isMonthDayComplete(EdtfDatePart edtfDatePart) {
+    return edtfDatePart.getMonth() != null && edtfDatePart.getDay() != null;
+  }
+
+  private boolean isOnlyYearsOrComplete(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
+    final boolean isOnlyYear = startEdtfDatePart.getMonth() == null && endEdtfDatePart.getMonth() == null &&
+        startEdtfDatePart.getDay() == null && endEdtfDatePart.getDay() == null;
+    final boolean isCompleteDate = isMonthDayComplete(startEdtfDatePart) && isMonthDayComplete(endEdtfDatePart);
+
+    return isOnlyYear || isCompleteDate;
   }
 
 }
