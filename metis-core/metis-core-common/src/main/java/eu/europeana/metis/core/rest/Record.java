@@ -17,7 +17,7 @@ public class Record {
   }
 
   /**
-   * Constructore with the required arguments
+   * Constructor with the required arguments
    *
    * @param ecloudId the ecloudId representing the record
    * @param xmlRecord the text representing the xml record

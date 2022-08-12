@@ -1,6 +1,9 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.client.uis.rest.CloudException;
+import eu.europeana.cloud.client.uis.rest.UISClient;
+import eu.europeana.cloud.common.model.CloudId;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.Revision;
@@ -61,6 +64,7 @@ public class ProxiesService {
   private final RecordServiceClient recordServiceClient;
   private final FileServiceClient fileServiceClient;
   private final DpsClient dpsClient;
+  private final UISClient uisClient;
   private final String ecloudProvider;
   private final Authorizer authorizer;
   private final ProxiesHelper proxiesHelper;
@@ -78,21 +82,22 @@ public class ProxiesService {
    */
   public ProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
-      FileServiceClient fileServiceClient, DpsClient dpsClient, String ecloudProvider,
+      FileServiceClient fileServiceClient, DpsClient dpsClient, UISClient uisClient, String ecloudProvider,
       Authorizer authorizer) {
     this(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient, fileServiceClient,
-        dpsClient, ecloudProvider, authorizer, new ProxiesHelper());
+        dpsClient, uisClient, ecloudProvider, authorizer, new ProxiesHelper());
   }
 
   ProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
-      FileServiceClient fileServiceClient, DpsClient dpsClient, String ecloudProvider,
+      FileServiceClient fileServiceClient, DpsClient dpsClient, UISClient uisClient, String ecloudProvider,
       Authorizer authorizer, ProxiesHelper proxiesHelper) {
     this.workflowExecutionDao = workflowExecutionDao;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.recordServiceClient = recordServiceClient;
     this.fileServiceClient = fileServiceClient;
     this.dpsClient = dpsClient;
+    this.uisClient = uisClient;
     this.ecloudProvider = ecloudProvider;
     this.authorizer = authorizer;
     this.proxiesHelper = proxiesHelper;
@@ -299,7 +304,7 @@ public class ProxiesService {
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param nextPage the string representation of the next page which is provided from the response and can be used to get the
    * next page of results.
-   * TODO The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
+   * TODO: The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
    * @param numberOfRecords the number of records per response
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
@@ -393,6 +398,52 @@ public class ProxiesService {
 
     // Done.
     return new RecordsResponse(records);
+  }
+  /**
+   * Get a record from the external resource based on o searchId, workflow execution and {@link PluginType}.
+   *
+   * @param metisUserView the user wishing to perform this operation
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
+   * @param searchId the searchId of the record we wish to obtain
+   * @return the record from the external resource
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external
+   * resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
+   * </ul>
+   */
+  public Record lookupIdFromUISClient(MetisUserView metisUserView, String workflowExecutionId , ExecutablePluginType pluginType, String searchId )
+      throws GenericMetisException {
+
+    // Get the right workflow execution and plugin type.
+    final Pair<WorkflowExecution, AbstractExecutablePlugin> executionAndPlugin = getExecutionAndPlugin(
+        metisUserView, workflowExecutionId, pluginType);
+    if (executionAndPlugin == null) {
+      throw new NoWorkflowExecutionFoundException(String
+          .format("No executable plugin of type %s found for workflowExecution with id: %s",
+              pluginType.name(), workflowExecutionId));
+    }
+    // Authorize
+//    authorizer.authorizeReadAllDatasets(metisUserView);
+
+    // lookup for eCloudId.
+    final CloudId cloudId;
+    try {
+      cloudId = uisClient.getCloudId(searchId,searchId);
+
+
+      if (cloudId != null) {
+        return Optional.ofNullable(getRecord(executionAndPlugin.getRight(), cloudId.getId())).orElse(null);
+      }
+    } catch (CloudException e) {
+      throw new GenericMetisException(String.format("Failed to lookup cloudId for searchId: %s", searchId), e);
+    }
+    return null;
   }
 
   Pair<WorkflowExecution, AbstractExecutablePlugin> getExecutionAndPlugin(

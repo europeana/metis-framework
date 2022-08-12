@@ -264,6 +264,7 @@ class TestProxiesController {
         .andExpect(jsonPath("$.records[1].ecloudId", is(record2.getEcloudId())))
         .andExpect(jsonPath("$.records[1].xmlRecord", is(record2.getXmlRecord())));
   }
+  // TODO: add tests for lookupIdFromUISClient
 
   @Test
   void testGetRecordEvolutionForVersion() throws Exception {

@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.Revision;
@@ -88,6 +89,7 @@ class TestProxiesService {
   private static ProxiesService proxiesService;
   private static WorkflowExecutionDao workflowExecutionDao;
   private static DpsClient dpsClient;
+  private static UISClient uisClient; // TODO: add tests for UISClient
   private static DataSetServiceClient ecloudDataSetServiceClient;
   private static RecordServiceClient recordServiceClient;
   private static FileServiceClient fileServiceClient;
@@ -101,11 +103,12 @@ class TestProxiesService {
     recordServiceClient = mock(RecordServiceClient.class);
     fileServiceClient = mock(FileServiceClient.class);
     dpsClient = mock(DpsClient.class);
+    uisClient = mock(UISClient.class);
     authorizer = mock(Authorizer.class);
     proxiesHelper = mock(ProxiesHelper.class);
 
     proxiesService = spy(new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient,
-        recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider", authorizer, proxiesHelper));
+        recordServiceClient, fileServiceClient, dpsClient,  uisClient,"ecloudProvider", authorizer, proxiesHelper));
   }
 
   @AfterEach
@@ -115,6 +118,7 @@ class TestProxiesService {
     reset(recordServiceClient);
     reset(fileServiceClient);
     reset(dpsClient);
+    reset(uisClient);
     reset(authorizer);
     reset(proxiesHelper);
     reset(proxiesService);
@@ -332,6 +336,8 @@ class TestProxiesService {
     verifyNoMoreInteractions(authorizer);
     assertSame(recordStatistics, result);
   }
+
+  // TODO: add tests for lookupIdFromUISClient
 
   @Test
   void getListOfFileContentsFromPluginExecution() throws Exception {

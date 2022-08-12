@@ -2,6 +2,7 @@ package eu.europeana.metis.core.rest.config;
 
 import com.rabbitmq.client.Channel;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
@@ -154,9 +155,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public ProxiesService getProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
-      FileServiceClient fileServiceClient, DpsClient dpsClient, Authorizer authorizer) {
+      FileServiceClient fileServiceClient, DpsClient dpsClient, UISClient uisClient,Authorizer authorizer) {
     return new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient,
-        fileServiceClient, dpsClient, propertiesHolder.getEcloudProvider(), authorizer);
+        fileServiceClient, dpsClient, uisClient , propertiesHolder.getEcloudProvider(), authorizer);
   }
 
   @Bean

@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.rest.config;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
@@ -26,6 +27,7 @@ public class ECloudConfig implements WebMvcConfigurer {
   private RecordServiceClient recordServiceClient;
   private FileServiceClient fileServiceClient;
   private DpsClient dpsClient;
+  private UISClient uisClient;
 
   /**
    * Constructor.
@@ -73,6 +75,15 @@ public class ECloudConfig implements WebMvcConfigurer {
     return dpsClient;
   }
 
+  @Bean
+  UISClient uisClient() {
+    uisClient = new UISClient(propertiesHolder.getEcloudDpsBaseUrl(),
+        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
+        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+        propertiesHolder.getDpsReadTimeoutInMillisecs());
+    return uisClient;
+  }
+
   @PreDestroy
   public void close() {
     if (dataSetServiceClient != null) {
@@ -86,6 +97,9 @@ public class ECloudConfig implements WebMvcConfigurer {
     }
     if (dpsClient != null) {
       dpsClient.close();
+    }
+    if (uisClient != null) {
+      uisClient.close();
     }
   }
 }

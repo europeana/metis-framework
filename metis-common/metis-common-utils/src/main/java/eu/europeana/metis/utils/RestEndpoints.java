@@ -68,6 +68,7 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_NODE_STATISTICS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/nodestatistics";
   public static final String ORCHESTRATOR_PROXIES_RECORDS = "/orchestrator/proxies/records";
   public static final String ORCHESTRATOR_PROXIES_RECORDS_BY_IDS = "/orchestrator/proxies/recordsbyids";
+  public static final String ORCHESTRATOR_PROXIES_RECORD_SEARCH_BY_ID = "/orchestrator/proxies/recordsearchbyid";
 
   /* METIS-DEREFERENCE Endpoints*/
   public static final String DEREFERENCE = "/dereference";
