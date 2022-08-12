@@ -103,6 +103,8 @@ public class InstantEdtfDate extends AbstractEdtfDate {
       }
 
       // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
+      //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
+      //Verify though that the contents of this class are always considered valid before the call of this method.
       else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
         EdtfDatePart newEdtfDatePart = new EdtfDatePart();
         newEdtfDatePart.setYear(getEdtfDatePart().getYear());
@@ -161,6 +163,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     final int century;
 
     // TODO: 25/07/2022 getEdtfDatePart() or getEdtfDatePart().getYear() might be null??
+    //Better to check both for nullity and if they are null we then throw an exception.
     if (getEdtfDatePart().getYear() < 0) {
       century = -1;
     } else if (getEdtfDatePart().getYearPrecision() == null) {

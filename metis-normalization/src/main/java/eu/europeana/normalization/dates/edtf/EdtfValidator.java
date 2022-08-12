@@ -209,6 +209,7 @@ public final class EdtfValidator {
 
   // TODO: 20/07/2022 This only calculates years and not other parts of the date.
   //  (this probably won't capture a dates that is days/months in the future but on the current year?)
+  // Fix this to also check the other parts of the date as well.
   //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
   private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;
