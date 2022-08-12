@@ -28,7 +28,7 @@ public final class EdtfValidator {
   public static boolean validate(AbstractEdtfDate edtfDate, boolean allowFutureDates) {
     boolean isValid;
     if (edtfDate instanceof InstantEdtfDate) {
-      isValid = validateInstant((InstantEdtfDate) edtfDate, true);
+      isValid = validateInstant((InstantEdtfDate) edtfDate);
     } else {
       isValid = validateInterval((IntervalEdtfDate) edtfDate);
     }
@@ -54,7 +54,7 @@ public final class EdtfValidator {
     final InstantEdtfDate startDate = intervalEdtfDate.getStart();
     final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
     final boolean isIntervalValid;
-    if (startDate != null && validateInstant(startDate, false) && endDate != null && validateInstant(endDate, false)) {
+    if (startDate != null && validateInstantOfInterval(startDate) && endDate != null && validateInstantOfInterval(endDate)) {
       EdtfDatePart startDatePart = startDate.getEdtfDatePart();
       EdtfDatePart endDatePart = endDate.getEdtfDatePart();
       final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
@@ -129,31 +129,24 @@ public final class EdtfValidator {
 
   /**
    * Validates an instant date.
-   * <p>This is a combination method where the {@code standalone} parameter specifies if the provided instant date is part of an
-   * interval(standalone = false) or it is an independent instant date(standalone = true)</p>
-   * <p>Furthermore a standalone <b>cannot</b> have both parts(date,time) null or unknown, but for a non-standalone(instant date
-   * of an interval date) both parts(date,time) <b>can</b> be null or unknown</p>
+   * <p>It contains general validity of date and time parts and in addition it <b>cannot</b> have both parts(date,time) null or
+   * unknown.</p>
    *
    * @param instantEdtfDate the instant date to validate
-   * @param standalone if the instant date is a standalone
    * @return true if the instant is valid
    */
-  private static boolean validateInstant(InstantEdtfDate instantEdtfDate, boolean standalone) {
+  private static boolean validateInstant(InstantEdtfDate instantEdtfDate) {
     boolean isInstantValid = false;
-    EdtfDatePart edtfDatePart = instantEdtfDate.getEdtfDatePart();
-    if (validateDatePart(edtfDatePart)) {
-      EdtfTimePart edtfTimePart = instantEdtfDate.getEdtfTimePart();
-      if (validateTimePart(edtfTimePart)) {
-        if (standalone) {
-          //Not valid if both parts null/unknown
-          final boolean isBothPartsNullOrUnknown = (edtfDatePart == null || edtfDatePart.isUnknown()) && edtfTimePart == null;
-          isInstantValid = !isBothPartsNullOrUnknown;
-        } else {
-          isInstantValid = true;
-        }
-      }
+    if (validateInstantOfInterval(instantEdtfDate)) {
+      final boolean datePartValid = instantEdtfDate.getEdtfDatePart() != null && !instantEdtfDate.getEdtfDatePart().isUnknown();
+      final boolean timePartValid = instantEdtfDate.getEdtfTimePart() != null;
+      isInstantValid = datePartValid || timePartValid;
     }
     return isInstantValid;
+  }
+
+  private static boolean validateInstantOfInterval(InstantEdtfDate instantEdtfDate) {
+    return validateDatePart(instantEdtfDate.getEdtfDatePart()) && validateTimePart(instantEdtfDate.getEdtfTimePart());
   }
 
   private static boolean validateDatePart(EdtfDatePart edtfDatePart) {

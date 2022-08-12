@@ -73,7 +73,7 @@ public class DateNormalizationResult {
 
   /**
    * Checks if a date is complete.
-   * <p>This method is used for the generic properties normalization</p>\
+   * <p>This method is used for the generic properties normalization</p>
    * <p>
    * A date is considered complete if:
    *   <ul>
@@ -100,14 +100,18 @@ public class DateNormalizationResult {
       final EdtfDatePart endEdtfDatePart = ((IntervalEdtfDate) edtfDate).getEnd()
                                                                         .getEdtfDatePart();
 
-      if (startEdtfDatePart != null && endEdtfDatePart != null &&
-          (areDatesNonPrecise(startEdtfDatePart, endEdtfDatePart) ||
-              !isOnlyYearsOrComplete(startEdtfDatePart, endEdtfDatePart))
-      ) {
+      if (areBothDatesSpecified(startEdtfDatePart, endEdtfDatePart) &&
+          (areDatesNonPrecise(startEdtfDatePart, endEdtfDatePart) || !isOnlyYearsOrComplete(startEdtfDatePart,
+              endEdtfDatePart))) {
         isCompleteDate = false;
       }
     }
     return isCompleteDate;
+  }
+
+  private boolean areBothDatesSpecified(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
+    return startEdtfDatePart != null && endEdtfDatePart != null && !startEdtfDatePart.isUnspecified()
+        && !endEdtfDatePart.isUnspecified();
   }
 
   private boolean areDatesNonPrecise(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {

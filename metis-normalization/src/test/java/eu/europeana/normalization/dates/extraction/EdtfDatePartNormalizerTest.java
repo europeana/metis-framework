@@ -139,8 +139,8 @@ public class EdtfDatePartNormalizerTest {
     datePropertyTestCases.put("1871 - 191-", "1871/191X");
     datePropertyTestCases.put("name=Prehistoric Period; end=-5300", "../-5300");
 
-    //    genericPropertyTestCases.put("XIV", null);
-    //    genericPropertyTestCases.put("1905 09 01", "1905-09-01");
+    genericPropertyTestCases.put("XIV", null);
+    genericPropertyTestCases.put("1905 09 01", "1905-09-01");
     genericPropertyTestCases.put("1851-01-01  - 1851-12-31", "1851-01-01/1851-12-31");
     genericPropertyTestCases.put("18..", null);
     genericPropertyTestCases.put("2013-09-07 09:31:51 UTC", "2013-09-07");
@@ -154,7 +154,7 @@ public class EdtfDatePartNormalizerTest {
   @Test
   void extractorsTest() {
     DatesNormalizer normaliser = new DatesNormalizer();
-    //    verifyNormalizations(datePropertyTestCases, normaliser::normalizeDateProperty);
+    verifyNormalizations(datePropertyTestCases, normaliser::normalizeDateProperty);
     verifyNormalizations(genericPropertyTestCases, normaliser::normalizeGenericProperty);
   }
 
