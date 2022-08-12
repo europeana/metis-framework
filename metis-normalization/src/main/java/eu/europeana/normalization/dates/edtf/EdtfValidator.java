@@ -127,14 +127,23 @@ public final class EdtfValidator {
     return adjustedYear;
   }
 
+  /**
+   * Validates an instant date.
+   * <p>This is a combination method where the {@code standalone} parameter specifies if the provided instant date is part of an
+   * interval(standalone = false) or it is an independent instant date(standalone = true)</p>
+   * <p>Furthermore a standalone <b>cannot</b> have both parts(date,time) null or unknown, but for a non-standalone(instant date
+   * of an interval date) both parts(date,time) <b>can</b> be null or unknown</p>
+   *
+   * @param instantEdtfDate the instant date to validate
+   * @param standalone if the instant date is a standalone
+   * @return true if the instant is valid
+   */
   private static boolean validateInstant(InstantEdtfDate instantEdtfDate, boolean standalone) {
     boolean isInstantValid = false;
     EdtfDatePart edtfDatePart = instantEdtfDate.getEdtfDatePart();
     if (validateDatePart(edtfDatePart)) {
       EdtfTimePart edtfTimePart = instantEdtfDate.getEdtfTimePart();
       if (validateTimePart(edtfTimePart)) {
-
-        // TODO: 20/07/2022 Does this mean that if it's not standalone, it is then allowed to have both null/unknown??
         if (standalone) {
           //Not valid if both parts null/unknown
           final boolean isBothPartsNullOrUnknown = (edtfDatePart == null || edtfDatePart.isUnknown()) && edtfTimePart == null;
