@@ -79,9 +79,11 @@ public final class EdtfValidator {
   }
 
   private static boolean validateSpecificIntervalDates(EdtfDatePart startDatePart, EdtfDatePart endDatePart) {
-
-    // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc?
-    // TODO: 20/07/2022 No check for null year but we check for null month and day?
+    // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc? (to be handled with MET-4726)
+    //Sanity check: years should not be null at this stage, but we check to be sure
+    if (startDatePart.getYear() == null || endDatePart.getYear() == null) {
+      throw new IllegalArgumentException("Year cannot be null for start or end dates");
+    }
     boolean isDatesValid = false;
     if (startDatePart.getYear().equals(endDatePart.getYear())) {
       if (startDatePart.getMonth() == null || endDatePart.getMonth() == null
