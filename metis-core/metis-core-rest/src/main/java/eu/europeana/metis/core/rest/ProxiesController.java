@@ -345,6 +345,6 @@ public class ProxiesController {
       @RequestParam("searchId") String searchId
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.lookupIdFromUISClient(metisUserView, workflowExecutionId, pluginType, searchId);
+    return proxiesService.lookupRecordById(metisUserView, workflowExecutionId, pluginType, searchId);
   }
 }

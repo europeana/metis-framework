@@ -417,7 +417,7 @@ public class ProxiesService {
    * execution exists for the provided identifier</li>
    * </ul>
    */
-  public Record lookupIdFromUISClient(MetisUserView metisUserView, String workflowExecutionId , ExecutablePluginType pluginType, String searchId )
+  public Record lookupRecordById(MetisUserView metisUserView, String workflowExecutionId , ExecutablePluginType pluginType, String searchId )
       throws GenericMetisException {
 
     // Get the right workflow execution and plugin type.
@@ -428,20 +428,15 @@ public class ProxiesService {
           .format("No executable plugin of type %s found for workflowExecution with id: %s",
               pluginType.name(), workflowExecutionId));
     }
-    // Authorize
-//    authorizer.authorizeReadAllDatasets(metisUserView);
-
     // lookup for eCloudId.
     final CloudId cloudId;
     try {
       cloudId = uisClient.getCloudId(searchId,searchId);
-
-
       if (cloudId != null) {
         return Optional.ofNullable(getRecord(executionAndPlugin.getRight(), cloudId.getId())).orElse(null);
       }
     } catch (CloudException e) {
-      throw new GenericMetisException(String.format("Failed to lookup cloudId for searchId: %s", searchId), e);
+      throw new ExternalTaskException(String.format("Failed to lookup cloudId for searchId: %s", searchId), e);
     }
     return null;
   }
