@@ -99,13 +99,24 @@ public final class EdtfValidator {
     return isDatesValid;
   }
 
+  /**
+   * Adjusts the year value based on the {@link YearPrecision} supplied.
+   * <p>The adjustment is not a rounding operation but a discarding operation of the right most digits</p>
+   * <p>
+   * Examples of discarding operations for {@link YearPrecision#CENTURY}:
+   *   <ul>
+   *     <li>1325/100 * 100 = 1300</li>
+   *     <li>-1325/100 * 100 = -1300</li>
+   *     <li>1325/100 * 100 = 1300</li>
+   *     <li>1375/100 * 100 = 1300</li>
+   *   </ul>
+   * </p>
+   *
+   * @param year the year to adjust
+   * @param yearPrecision the year precision to use for the adjustment
+   * @return the adjusted year
+   */
   private static Integer adjustYearWithPrecision(Integer year, YearPrecision yearPrecision) {
-
-    // TODO: 25/07/2022 Is this precision adjustment correct? How should the rounding be for positive and negatives?
-    // TODO: 25/07/2022 Some examples of rounding:
-    // TODO: 25/07/2022 1325/100 * 100 = 1300
-    // TODO: 25/07/2022 -1325/100 * 100 = -1300
-    // TODO: 25/07/2022  1325/100 * 100 = 1300 VERSUS 1375/100 * 100 = 1300
     final Integer adjustedYear;
     if (yearPrecision != null) {
       final int precisionAdjust = yearPrecision.getDuration();
