@@ -61,12 +61,13 @@ public class EdtfTimePart implements Serializable {
     final DecimalFormat decimalFormat = new DecimalFormat("00");
     final DecimalFormat millisFormat = new DecimalFormat("000");
     StringBuilder stringBuilder = new StringBuilder();
-    // TODO: 25/07/2022 Original checks where checking for hour, minute, second being non-zero.
-    //  We now check only for hour. We cannot have any other granularity if hour is null, zero should be okay though
+
     if (hour != null) {
       stringBuilder.append("T").append(decimalFormat.format(hour));
     }
-    //A child value can only exist if the parent value exists.
+    // A child value can only exist if the parent value exists.
+    // TODO should the nested checks below not themselves be nested inside the hour!=null check above?
+    //   You can't have a minute if there is no hour, right?
     if (minute != null) {
       stringBuilder.append(":").append(decimalFormat.format(minute));
       if (second != null) {

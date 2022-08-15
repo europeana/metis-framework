@@ -28,7 +28,7 @@ public final class EdtfValidator {
   public static boolean validate(AbstractEdtfDate edtfDate, boolean allowFutureDates) {
     boolean isValid;
     if (edtfDate instanceof InstantEdtfDate) {
-      isValid = validateInstant((InstantEdtfDate) edtfDate, true);
+      isValid = validateInstant((InstantEdtfDate) edtfDate);
     } else {
       isValid = validateInterval((IntervalEdtfDate) edtfDate);
     }
@@ -42,12 +42,22 @@ public final class EdtfValidator {
     return validateIntervalNotInFuture((IntervalEdtfDate) edtfDate);
   }
 
-  // TODO: 20/07/2022 It checks interval of date parts but not time parts??
+
+  /**
+   * The interval validation only checks for the date part and not the time part of the date.
+   * <p>It has been decided that only the date part should be checked, ignoring the time part. This
+   * could mean that the interval is technically not valid (e.g. start and end are on the same date
+   * but the start is later than the end). But since we are only interested in dates, we accept
+   * this.</p>
+   *
+   * @param intervalEdtfDate the interval date to check
+   * @return true if it's valid
+   */
   private static boolean validateInterval(IntervalEdtfDate intervalEdtfDate) {
     final InstantEdtfDate startDate = intervalEdtfDate.getStart();
     final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
     final boolean isIntervalValid;
-    if (startDate != null && validateInstant(startDate, false) && endDate != null && validateInstant(endDate, false)) {
+    if (startDate != null && validateInstantOfInterval(startDate) && endDate != null && validateInstantOfInterval(endDate)) {
       EdtfDatePart startDatePart = startDate.getEdtfDatePart();
       EdtfDatePart endDatePart = endDate.getEdtfDatePart();
       final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
@@ -72,8 +82,11 @@ public final class EdtfValidator {
   }
 
   private static boolean validateSpecificIntervalDates(EdtfDatePart startDatePart, EdtfDatePart endDatePart) {
-    // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc?
-    // TODO: 20/07/2022 No check for null year but we check for null month and day?
+    // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc? (to be handled with MET-4726)
+    //Sanity check: years should not be null at this stage, but we check to be sure
+    if (startDatePart.getYear() == null || endDatePart.getYear() == null) {
+      throw new IllegalArgumentException("Year cannot be null for start or end dates");
+    }
     boolean isDatesValid = false;
     if (startDatePart.getYear().equals(endDatePart.getYear())) {
       if (startDatePart.getMonth() == null || endDatePart.getMonth() == null
@@ -89,12 +102,23 @@ public final class EdtfValidator {
     return isDatesValid;
   }
 
+  /**
+   * Adjusts the year value based on the {@link YearPrecision} supplied.
+   * <p>The adjustment is not a rounding operation but a discarding operation of the right most digits</p>
+   * <p>
+   * Examples of discarding operations for {@link YearPrecision#CENTURY}:
+   *   <ul>
+   *     <li>1325/100 * 100 = 1300</li>
+   *     <li>-1325/100 * 100 = -1300</li>
+   *     <li>1375/100 * 100 = 1300</li>
+   *   </ul>
+   * </p>
+   *
+   * @param year the year to adjust
+   * @param yearPrecision the year precision to use for the adjustment
+   * @return the adjusted year
+   */
   private static Integer adjustYearWithPrecision(Integer year, YearPrecision yearPrecision) {
-    // TODO: 25/07/2022 Is this precision adjustment correct? How should the rounding be for positive and negatives?
-    // TODO: 25/07/2022 Some examples of rounding:
-    // TODO: 25/07/2022 1325/100 * 100 = 1300
-    // TODO: 25/07/2022 -1325/100 * 100 = -1300
-    // TODO: 25/07/2022  1325/100 * 100 = 1300 VERSUS 1375/100 * 100 = 1300
     final Integer adjustedYear;
     if (yearPrecision != null) {
       final int precisionAdjust = yearPrecision.getDuration();
@@ -105,23 +129,26 @@ public final class EdtfValidator {
     return adjustedYear;
   }
 
-  private static boolean validateInstant(InstantEdtfDate instantEdtfDate, boolean standalone) {
+  /**
+   * Validates an instant date.
+   * <p>It contains general validity of date and time parts and in addition it <b>cannot</b> have both parts(date,time) null or
+   * unknown.</p>
+   *
+   * @param instantEdtfDate the instant date to validate
+   * @return true if the instant is valid
+   */
+  private static boolean validateInstant(InstantEdtfDate instantEdtfDate) {
     boolean isInstantValid = false;
-    EdtfDatePart edtfDatePart = instantEdtfDate.getEdtfDatePart();
-    if (validateDatePart(edtfDatePart)) {
-      EdtfTimePart edtfTimePart = instantEdtfDate.getEdtfTimePart();
-      if (validateTimePart(edtfTimePart)) {
-        // TODO: 20/07/2022 Does this mean that if it's not standalone, it is then allowed to have both null/unknown??
-        if (standalone) {
-          //Not valid if both parts null/unknown
-          final boolean isBothPartsNullOrUnknown = (edtfDatePart == null || edtfDatePart.isUnknown()) && edtfTimePart == null;
-          isInstantValid = !isBothPartsNullOrUnknown;
-        } else {
-          isInstantValid = true;
-        }
-      }
+    if (validateInstantOfInterval(instantEdtfDate)) {
+      final boolean datePartValid = instantEdtfDate.getEdtfDatePart() != null && !instantEdtfDate.getEdtfDatePart().isUnknown();
+      final boolean timePartValid = instantEdtfDate.getEdtfTimePart() != null;
+      isInstantValid = datePartValid || timePartValid;
     }
     return isInstantValid;
+  }
+
+  private static boolean validateInstantOfInterval(InstantEdtfDate instantEdtfDate) {
+    return validateDatePart(instantEdtfDate.getEdtfDatePart()) && validateTimePart(instantEdtfDate.getEdtfTimePart());
   }
 
   private static boolean validateDatePart(EdtfDatePart edtfDatePart) {
@@ -181,8 +208,10 @@ public final class EdtfValidator {
     return validateInstantNotInFuture(intervalEdtfDate.getStart()) && validateInstantNotInFuture(intervalEdtfDate.getEnd());
   }
 
+
   // TODO: 20/07/2022 This only calculates years and not other parts of the date.
   //  (this probably won't capture a dates that is days/months in the future but on the current year?)
+  //  Fix this to also check the other parts of the date as well.
   //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
   private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;

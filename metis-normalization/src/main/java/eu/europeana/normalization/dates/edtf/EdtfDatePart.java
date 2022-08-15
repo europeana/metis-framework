@@ -17,8 +17,17 @@ public class EdtfDatePart implements Serializable {
 
   private boolean uncertain;
   private boolean approximate;
+
+  /**
+   * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string
+   * was equal to '<code>1900/?</code>').
+   */
   private boolean unknown;
-  // TODO: 25/07/2022 What is unspecified? It's not in the documentation, is it the same as unknown?
+
+  /**
+   * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval
+   * string was equal to '<code>1900/</code>').
+   */
   private boolean unspecified;
 
   private Integer year;

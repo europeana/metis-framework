@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class DcmiPeriodDateExtractor implements DateExtractor {
 
+
   // TODO: 22/07/2022 Need to fix this regex, it is reported as dangerous
   private static final Pattern DCMI_PERIOD_NAME_WITHOUT_FIELD = Pattern.compile("^([^;=]*)\\s*;");
   private static final Pattern DCMI_PERIOD = Pattern.compile("(start|end|name)\\s*=\\s*(.*?)(?:;|\\s*$)");

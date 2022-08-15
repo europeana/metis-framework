@@ -231,23 +231,23 @@ public class DatesNormalizer implements RecordNormalizeAction {
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
   }
 
-  // TODO: 25/07/2022 This can be made private
+
+  // TODO: 25/07/2022 This could be made private
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
-        dateNormalizationResult -> false,
+        dateNormalizationResult -> false, //No extra check
         CleanOperation::isApproximateCleanOperationIdForDateProperty,
         this::validateAndFix,
         this::noMatchIfValidAndTimeOnly);
   }
 
-  // TODO: 21/07/2022 To check. This method does not do dates switching like the other method
-  // TODO: 21/07/2022 Did not have unit tests originally.
-  // TODO: 25/07/2022 This can be made private
+
+  // TODO: 25/07/2022 This could be made private
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),
         CleanOperation::isApproximateCleanOperationIdForGenericProperty,
-        this::validate,
+        this::validate, //If invalid we don't perform a fixing to retry validation
         dateNormalizationResult -> {//NOOP
         });
   }
@@ -286,7 +286,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private void noMatchIfValidAndTimeOnly(DateNormalizationResult dateNormalizationResult) {
     if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.INVALID
         && dateNormalizationResult.getEdtfDate().isTimeOnly()) {
-      // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are still present in the object. Is that okay?
+
+      // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are
+      //  still present in the object. Is that okay?
+      //  Answer: This is okay, but as before we don't expect to have just the time and not the date.
+      //  To be considered on how to structure this, if at all to be changed.
       dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
     }
   }
@@ -304,6 +308,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
       dateNormalizationResult = normalizeInput(dateExtractors, cleanedInput.getCleanedValue());
       if (dateNormalizationResult != null) {
         dateNormalizationResult.setCleanOperationMatchId(cleanedInput.getCleanOperation());
+
         // TODO: 21/07/2022 Perhaps this should be done differently, because it pollutes the map of the extractor and its id
         //Update the extractor match id.
         if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.EDTF) {
@@ -373,10 +378,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
   }
 
   private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate, String timespanId) {
+
     // TODO: 09/08/2022 All the element prefixes below are searched first and if not found then the suggested prefix is added.
     //  When it does not exist in the root the namespace is added in the element itself.
     //  Should we be adding it in the root element of the document instead?
-
     // Create and add timespan element to document (RDF).
     final Element timeSpan = XmlUtil.createElement(EDM_TIMESPAN, document.getDocumentElement(),
         List.of(EDM_PROVIDED_CHO, EDM_AGENT, EDM_PLACE, EDM_WEB_RESOURCE, EDM_TIMESPAN));
@@ -417,7 +422,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
                                    .map(InstantEdtfDate::getCentury).orElse(null);
     Integer endCentury = Optional.ofNullable(lastDay)
                                  .map(InstantEdtfDate::getCentury).orElse(null);
+
     // TODO: 25/07/2022 What if both are null, won't the 'for' loop below fail? Is there always at least one century?
+    //At this point, everything should be valid so that is not possible.
+    //For a sanity check perhaps we can check for that case and throw an exception if that happens.
+    //Or the date objects, as before, are by their instantiation validated.
     if (startCentury == null) {
       startCentury = endCentury;
     } else if (endCentury == null) {
