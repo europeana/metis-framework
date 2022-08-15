@@ -39,6 +39,12 @@ public class ConfigurationPropertiesHolder {
   private int pollingTimeoutForCleaningCompletionServiceInMillisecs;
   @Value("${period.of.no.processed.records.change.in.minutes}")
   private int periodOfNoProcessedRecordsChangeInMinutes;
+  @Value("${throttling.level.weak}")
+  private int throttlingLevelWeak;
+  @Value("${throttling.level.medium}")
+  private int throttlingLevelMedium;
+  @Value("${throttling.level.strong}")
+  private int throttlingLevelStrong;
 
   //Redis
   @Value("${redis.host}")
@@ -204,6 +210,18 @@ public class ConfigurationPropertiesHolder {
 
   public int getPeriodOfNoProcessedRecordsChangeInMinutes() {
     return periodOfNoProcessedRecordsChangeInMinutes;
+  }
+
+  public int getThrottlingLevelWeak() {
+    return throttlingLevelWeak;
+  }
+
+  public int getThrottlingLevelMedium() {
+    return throttlingLevelMedium;
+  }
+
+  public int getThrottlingLevelStrong() {
+    return throttlingLevelStrong;
   }
 
   public String getRedisHost() {

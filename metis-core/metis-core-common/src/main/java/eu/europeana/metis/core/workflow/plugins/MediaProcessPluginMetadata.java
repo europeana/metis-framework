@@ -9,6 +9,8 @@ package eu.europeana.metis.core.workflow.plugins;
 public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.MEDIA_PROCESS;
+  private String throttlingLevel;
+
 
   public MediaProcessPluginMetadata() {
     //Required for json serialization

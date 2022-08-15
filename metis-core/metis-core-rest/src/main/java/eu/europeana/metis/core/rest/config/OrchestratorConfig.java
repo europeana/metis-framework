@@ -30,6 +30,9 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
+
+import eu.europeana.metis.core.workflow.plugins.ThrottlingLevelValuePair;
+import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -250,6 +253,17 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     schedulerExecutor = new SchedulerExecutor(orchestratorService, scheduleWorkflowService,
         redissonClient);
     return schedulerExecutor;
+  }
+
+  @Bean
+  public ThrottlingValues getThrottlingValues(){
+    ThrottlingLevelValuePair weak = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.WEAK,
+            propertiesHolder.getThrottlingLevelWeak());
+    ThrottlingLevelValuePair medium = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.MEDIUM,
+            propertiesHolder.getThrottlingLevelMedium());
+    ThrottlingLevelValuePair strong = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.STRONG,
+            propertiesHolder.getThrottlingLevelStrong());
+    return new ThrottlingValues(weak, medium, strong);
   }
 
   /**
