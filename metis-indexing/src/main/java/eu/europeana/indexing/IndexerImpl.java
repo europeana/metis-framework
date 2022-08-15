@@ -8,6 +8,7 @@ import eu.europeana.indexing.tiers.ClassifierFactory;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
 import eu.europeana.indexing.utils.RdfTierUtils;
@@ -18,8 +19,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +67,7 @@ class IndexerImpl implements Indexer {
   @Override
   public void indexRdfs(List<RDF> records, IndexingProperties indexingProperties)
       throws IndexingException {
-    indexRecords(records, indexingProperties);
+    indexRecords(records, indexingProperties, tiers -> {});
   }
 
   @Override
@@ -76,7 +79,7 @@ class IndexerImpl implements Indexer {
     for (String stringRdfRecord : records) {
       wrappedRecords.add(stringToRdfConverter.convertStringToRdf(stringRdfRecord));
     }
-    indexRecords(wrappedRecords, indexingProperties);
+    indexRecords(wrappedRecords, indexingProperties, tiers -> {});
   }
 
   @Override
@@ -87,12 +90,21 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
+  public TierResults indexAndGetTierCalculations(InputStream recordContent,
+      IndexingProperties indexingProperties) throws IndexingException {
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(recordContent);
+    final List<TierResults> result = new ArrayList<>();
+    indexRecords(List.of(rdfRecord), indexingProperties, result::add);
+    return result.get(0);
+  }
+
+  @Override
   public void indexRdf(RDF rdfRecord, IndexingProperties indexingProperties) throws IndexingException {
     indexRdfs(List.of(rdfRecord), indexingProperties);
   }
 
-  private void indexRecords(List<RDF> records, IndexingProperties properties)
-      throws IndexingException {
+  private void indexRecords(List<RDF> records, IndexingProperties properties,
+      Consumer<TierResults> tierResultsConsumer) throws IndexingException {
     if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
       throw new SetupRelatedIndexingException(
           "Record redirect dao has not been initialized and performing redirects is requested");
@@ -102,7 +114,7 @@ class IndexerImpl implements Indexer {
         connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
 
     for (RDF rdfRecord : records) {
-      preprocessRecord(rdfRecord, properties);
+      tierResultsConsumer.accept(preprocessRecord(rdfRecord, properties));
       if (properties.isPerformRedirects()) {
         publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
             properties.getDatasetIdsForRedirection());
@@ -120,16 +132,21 @@ class IndexerImpl implements Indexer {
     index(List.of(stringRdfRecord), indexingProperties);
   }
 
-  private void preprocessRecord(RDF rdf, IndexingProperties properties)
+  private TierResults preprocessRecord(RDF rdf, IndexingProperties properties)
       throws IndexingException {
 
     // Perform the tier classification
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+    TierResults tierCalculationsResult = new TierResults(null, null);
     if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
                                                            .contains(rdfWrapper.getEdmType())) {
-      RdfTierUtils.setTier(rdf, mediaClassifier.classify(rdfWrapper).getTier());
-      RdfTierUtils.setTier(rdf, metadataClassifier.classify(rdfWrapper).getTier());
+      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper).getTier(),
+              metadataClassifier.classify(rdfWrapper).getTier());
+      RdfTierUtils.setTier(rdf, tierCalculationsResult.getMediaTier());
+      RdfTierUtils.setTier(rdf, tierCalculationsResult.getMetadataTier());
     }
+
+    return tierCalculationsResult;
   }
 
   @Override
