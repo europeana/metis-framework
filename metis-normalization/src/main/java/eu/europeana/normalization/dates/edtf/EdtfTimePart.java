@@ -65,7 +65,9 @@ public class EdtfTimePart implements Serializable {
     if (hour != null) {
       stringBuilder.append("T").append(decimalFormat.format(hour));
     }
-    //A child value can only exist if the parent value exists.
+    // A child value can only exist if the parent value exists.
+    // TODO should the nested checks below not themselves be nested inside the hour!=null check above?
+    //   You can't have a minute if there is no hour, right?
     if (minute != null) {
       stringBuilder.append(":").append(decimalFormat.format(minute));
       if (second != null) {

@@ -45,7 +45,10 @@ public final class EdtfValidator {
 
   /**
    * The interval validation only checks for the date part and not the time part of the date.
-   * <p>It has been decided that only the date part should be checked, ignoring the time part</p>
+   * <p>It has been decided that only the date part should be checked, ignoring the time part. This
+   * could mean that the interval is technically not valid (e.g. start and end are on the same date
+   * but the start is later than the end). But since we are only interested in dates, we accept
+   * this.</p>
    *
    * @param intervalEdtfDate the interval date to check
    * @return true if it's valid
@@ -107,7 +110,6 @@ public final class EdtfValidator {
    *   <ul>
    *     <li>1325/100 * 100 = 1300</li>
    *     <li>-1325/100 * 100 = -1300</li>
-   *     <li>1325/100 * 100 = 1300</li>
    *     <li>1375/100 * 100 = 1300</li>
    *   </ul>
    * </p>
@@ -209,7 +211,7 @@ public final class EdtfValidator {
 
   // TODO: 20/07/2022 This only calculates years and not other parts of the date.
   //  (this probably won't capture a dates that is days/months in the future but on the current year?)
-  // Fix this to also check the other parts of the date as well.
+  //  Fix this to also check the other parts of the date as well.
   //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
   private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;

@@ -17,18 +17,16 @@ public class EdtfDatePart implements Serializable {
 
   private boolean uncertain;
   private boolean approximate;
-  private boolean unknown;
+
   /**
-   * It relates to edtf format. If there is an edtf formatted date already in the document, while parsing it, this field will
-   * indicate if that date is an "unspecified" one.
-   *
-   * <p>
-   * Examples:
-   * <ul>
-   *   <li>1900/ (unspecified end)</li>
-   *   <li>1900/? (unknown)</li>
-   * </ul>
-   * </p>
+   * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string
+   * was equal to '<code>1900/?</code>').
+   */
+  private boolean unknown;
+
+  /**
+   * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval
+   * string was equal to '<code>1900/</code>').
    */
   private boolean unspecified;
 

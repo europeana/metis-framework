@@ -79,7 +79,7 @@ public class DateNormalizationResult {
    *   <ul>
    *     <li>it contains a date part</li>
    *     <li>it is precise</li>
-   *     <li>for intervals both dates are only years(without month or day) otherwise both month and days should be present</li>
+   *     <li>for intervals: either, both dates are only years(without month or day), or, both dates have month day present</li>
    *   </ul>
    * </p>
    *

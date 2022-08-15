@@ -287,8 +287,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
     if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.INVALID
         && dateNormalizationResult.getEdtfDate().isTimeOnly()) {
 
-      // TODO: 21/07/2022 This is okay, but as before we don't expect to have just the time and not the date.
-      //To be considered on how to structure this, if at all to be changed.
+      // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are
+      //  still present in the object. Is that okay?
+      //  Answer: This is okay, but as before we don't expect to have just the time and not the date.
+      //  To be considered on how to structure this, if at all to be changed.
       dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.NO_MATCH);
     }
   }
