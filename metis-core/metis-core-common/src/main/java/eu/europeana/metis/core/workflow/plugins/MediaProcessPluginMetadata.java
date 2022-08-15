@@ -20,4 +20,8 @@ public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata
   public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
+
+  public String getThrottlingLevel() {
+    return throttlingLevel;
+  }
 }
