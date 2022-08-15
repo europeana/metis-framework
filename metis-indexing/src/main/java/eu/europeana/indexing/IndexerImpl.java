@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -66,7 +67,7 @@ class IndexerImpl implements Indexer {
   @Override
   public void indexRdfs(List<RDF> records, IndexingProperties indexingProperties)
       throws IndexingException {
-    indexRecords(records, indexingProperties);
+    indexRecords(records, indexingProperties, tiers -> {});
   }
 
   @Override
@@ -78,7 +79,7 @@ class IndexerImpl implements Indexer {
     for (String stringRdfRecord : records) {
       wrappedRecords.add(stringToRdfConverter.convertStringToRdf(stringRdfRecord));
     }
-    indexRecords(wrappedRecords, indexingProperties);
+    indexRecords(wrappedRecords, indexingProperties, tiers -> {});
   }
 
   @Override
@@ -89,27 +90,12 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public TierResults indexAndGetTierCalculations(InputStream recordContent, IndexingProperties indexingProperties)
-          throws IndexingException{
-    if (indexingProperties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
-      throw new SetupRelatedIndexingException(
-              "Record redirect dao has not been initialized and performing redirects is requested");
-    }
-    LOGGER.info("Processing record to obtain tier calculations...");
-    final FullBeanPublisher publisher =
-            connectionProvider.getFullBeanPublisher(indexingProperties.isPreserveUpdateAndCreateTimesFromRdf());
-
+  public TierResults indexAndGetTierCalculations(InputStream recordContent,
+      IndexingProperties indexingProperties) throws IndexingException {
     final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(recordContent);
-    TierResults result = preprocessRecord(rdfRecord, indexingProperties);
-    if (indexingProperties.isPerformRedirects()) {
-      publisher.publishWithRedirects(new RdfWrapper(rdfRecord), indexingProperties.getRecordDate(),
-              indexingProperties.getDatasetIdsForRedirection());
-    } else {
-      publisher.publish(new RdfWrapper(rdfRecord), indexingProperties.getRecordDate(),
-              indexingProperties.getDatasetIdsForRedirection());
-    }
-
-    return result;
+    final List<TierResults> result = new ArrayList<>();
+    indexRecords(List.of(rdfRecord), indexingProperties, result::add);
+    return result.get(0);
   }
 
   @Override
@@ -117,8 +103,8 @@ class IndexerImpl implements Indexer {
     indexRdfs(List.of(rdfRecord), indexingProperties);
   }
 
-  private void indexRecords(List<RDF> records, IndexingProperties properties)
-      throws IndexingException {
+  private void indexRecords(List<RDF> records, IndexingProperties properties,
+      Consumer<TierResults> tierResultsConsumer) throws IndexingException {
     if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
       throw new SetupRelatedIndexingException(
           "Record redirect dao has not been initialized and performing redirects is requested");
@@ -128,7 +114,7 @@ class IndexerImpl implements Indexer {
         connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
 
     for (RDF rdfRecord : records) {
-      preprocessRecord(rdfRecord, properties);
+      tierResultsConsumer.accept(preprocessRecord(rdfRecord, properties));
       if (properties.isPerformRedirects()) {
         publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
             properties.getDatasetIdsForRedirection());

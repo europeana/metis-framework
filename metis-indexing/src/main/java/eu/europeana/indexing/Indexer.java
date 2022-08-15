@@ -115,8 +115,8 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case a problem occurred during indexing.
    * @return A pair with both content tier and metadata tier calculations results of the given record
    */
-  TierResults indexAndGetTierCalculations(InputStream recordContent, IndexingProperties indexingProperties)
-          throws IndexingException;
+  TierResults indexAndGetTierCalculations(InputStream recordContent,
+      IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,
@@ -172,9 +172,9 @@ public interface Indexer extends Closeable {
    * </p>
    * <p>
    * Please <b>NOTE</b> that the criteria for whether a record or any of the listed dependencies are
-   * removed is based on the value of {@link eu.europeana.metis.schema.edm.entity.AbstractEdmEntity#getAbout()}
-   * and {@link eu.europeana.metis.schema.edm.beans.FullBean#getAbout()}. So the value of
-   * {@link eu.europeana.metis.schema.edm.beans.FullBean#getEuropeanaCollectionName()} does
+   * removed is based on the value of {@link eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity#getAbout()}
+   * and {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getAbout()}. So the value of
+   * {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getEuropeanaCollectionName()} does
    * <b>not</b> play any role in determining which records to remove. This should eventually be
    * changed so that the structure of the rdf:about value is taken out of the equation (like it is
    * in {@link #remove(String)}).
