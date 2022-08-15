@@ -7,7 +7,7 @@ import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.dps.metis.indexing.TargetIndexingDatabase;
-import eu.europeana.metis.core.common.DepublishRecordIdUtils;
+import eu.europeana.metis.core.common.RecordIdUtils;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
@@ -99,7 +99,7 @@ public class WorkflowPostProcessor {
             datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
             DepublicationStatus.DEPUBLISHED);
         final Map<String, String> depublishedRecordIdsByFullId = depublishedRecordIds.stream()
-            .collect(Collectors.toMap(id -> DepublishRecordIdUtils.composeFullRecordId(datasetId, id),
+            .collect(Collectors.toMap(id -> RecordIdUtils.composeFullRecordId(datasetId, id),
                 Function.identity()));
 
         // Check which have been published by the index action - use full record IDs for eCloud.
@@ -166,16 +166,10 @@ public class WorkflowPostProcessor {
 
     // Mark the records as DEPUBLISHED.
     final Map<String, Set<String>> successfulRecords = subTasks.stream()
-                                                               .filter(subTask ->
-                                                                   subTask.getRecordState()
-                                                                       == RecordState.SUCCESS)
-                                                               .map(SubTaskInfo::getResource).map(
-            DepublishRecordIdUtils::decomposeFullRecordId)
-                                                               .collect(Collectors.groupingBy(
-                                                                   Pair::getLeft,
-                                                                   Collectors.mapping(
-                                                                       Pair::getRight,
-                                                                       Collectors.toSet())));
+        .filter(subTask -> subTask.getRecordState() == RecordState.SUCCESS)
+        .map(SubTaskInfo::getResource).map(RecordIdUtils::decomposeFullRecordId)
+        .collect(Collectors.groupingBy(Pair::getLeft,
+            Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
             DepublicationStatus.DEPUBLISHED, new Date()));

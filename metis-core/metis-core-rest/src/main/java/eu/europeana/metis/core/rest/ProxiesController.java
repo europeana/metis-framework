@@ -257,7 +257,7 @@ public class ProxiesController {
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
    * retrieving the records from the external resource</li>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
    * workflow execution exists for the provided identifier</li>
@@ -294,7 +294,7 @@ public class ProxiesController {
    * in the result list.
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
    * retrieving the records from the external resource</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authorized to perform this task</li>
@@ -327,10 +327,12 @@ public class ProxiesController {
    * with the matching ID was found, it will return an empty string.
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
    * retrieving the records from the external resource</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
    * </ul>
    */
   @PostMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORD_SEARCH_BY_ID,
@@ -338,13 +340,13 @@ public class ProxiesController {
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public Record lookupRecordByIdFromPluginExecution(
+  public Record searchRecordByIdFromPluginExecution(
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
       @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestParam("searchId") String searchId
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.lookupRecordById(metisUserView, workflowExecutionId, pluginType, searchId);
+    return proxiesService.searchRecordByIdFromPluginExecution(metisUserView, workflowExecutionId, pluginType, searchId);
   }
 }

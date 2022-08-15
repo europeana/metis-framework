@@ -8,7 +8,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
-import eu.europeana.metis.core.common.DepublishRecordIdUtils;
+import eu.europeana.metis.core.common.RecordIdUtils;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -252,8 +252,7 @@ public class DepublishRecordIdService {
 
   Set<String> checkAndNormalizeRecordIds(String datasetId,
       String recordIdsInSeparateLines) throws BadContentException {
-    return DepublishRecordIdUtils
-        .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
+    return RecordIdUtils.checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
   }
 
 }
