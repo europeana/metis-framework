@@ -48,4 +48,21 @@ public class ThrottlingValues {
     public ThrottlingLevelValuePair getStrong() {
         return strong;
     }
+
+    public int getThreadNumberFromLevel(ThrottlingLevelValuePair.ThrottlingLevel throttlingLevel){
+        int result;
+        switch (throttlingLevel){
+            case MEDIUM:
+                result = medium.getNumberOfThreads();
+                break;
+            case STRONG:
+                result = strong.getNumberOfThreads();
+                break;
+            default:
+                result = weak.getNumberOfThreads();
+                break;
+        }
+
+        return result;
+    }
 }

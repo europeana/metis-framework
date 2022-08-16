@@ -2,6 +2,7 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.PluginParameterKeys;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPluginMetadata> {
 
   private final String topologyName = Topology.MEDIA_PROCESS.getTopologyName();
+  private ThrottlingValues throttlingValues;
 
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
@@ -44,12 +46,17 @@ public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPlu
   DpsTask prepareDpsTask(String datasetId,
       EcloudBasePluginParameters ecloudBasePluginParameters) {
     final Map<String, String> extraParameters = new HashMap<>();
-    String throttlingLevel = getPluginMetadata().getThrottlingLevel() == null ?
-    ThrottlingLevelValuePair.ThrottlingLevel.WEAK.name() :
-    getPluginMetadata().getThrottlingLevel();
-    //TODO: This is not correct, it should be a number
-    extraParameters.put(PluginParameterKeys.MAXIMUM_PARALLELIZATION, throttlingLevel);
+    ThrottlingLevelValuePair.ThrottlingLevel throttlingLevel = getPluginMetadata().getThrottlingLevel() == null ?
+    ThrottlingLevelValuePair.ThrottlingLevel.WEAK :
+            ThrottlingLevelValuePair.ThrottlingLevel.valueOf(getPluginMetadata().getThrottlingLevel());
+    extraParameters.put(PluginParameterKeys.MAXIMUM_PARALLELIZATION,
+            String.valueOf(throttlingValues.getThreadNumberFromLevel(throttlingLevel)));
 
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
+  }
+
+  @Autowired
+  public void setThrottlingValues(ThrottlingValues throttlingValues){
+    this.throttlingValues = throttlingValues;
   }
 }
