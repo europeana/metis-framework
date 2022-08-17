@@ -92,22 +92,22 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   private DpsTask createDpsTaskForPluginWithExistingDataset(Map<String, String> parameters,
-      EcloudBasePluginParameters ecloudBasePluginParameters, boolean publish) {
+                                                            DpsTaskSettings dpsTaskSettings, boolean publish) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
     dataEntries.put(InputDataType.DATASET_URLS, Collections.singletonList(String
-        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBasePluginParameters.getEcloudBaseUrl(),
-            ecloudBasePluginParameters.getEcloudProvider(), ecloudBasePluginParameters.getEcloudDatasetId())));
+        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, dpsTaskSettings.getEcloudBaseUrl(),
+            dpsTaskSettings.getEcloudProvider(), dpsTaskSettings.getEcloudDatasetId())));
     dpsTask.setInputData(dataEntries);
 
     dpsTask.setParameters(parameters);
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudBasePluginParameters.getEcloudProvider(), publish));
+    dpsTask.setOutputRevision(createOutputRevisionForExecution(dpsTaskSettings.getEcloudProvider(), publish));
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForHarvestPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
-      Map<String, String> extraParameters, String targetUrl, boolean incrementalProcessing) {
+  DpsTask createDpsTaskForHarvestPlugin(DpsTaskSettings dpsTaskSettings,
+                                        Map<String, String> extraParameters, String targetUrl, boolean incrementalProcessing) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -123,41 +123,41 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     parameters.put(PluginParameterKeys.INCREMENTAL_HARVEST, String.valueOf(incrementalProcessing));
     parameters.put(PluginParameterKeys.HARVEST_DATE, dateFormat.format(getStartedDate()));
-    parameters.put(PluginParameterKeys.PROVIDER_ID, ecloudBasePluginParameters.getEcloudProvider());
+    parameters.put(PluginParameterKeys.PROVIDER_ID, dpsTaskSettings.getEcloudProvider());
     parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
-        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBasePluginParameters.getEcloudBaseUrl(),
-            ecloudBasePluginParameters.getEcloudProvider(), ecloudBasePluginParameters.getEcloudDatasetId()));
+        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, dpsTaskSettings.getEcloudBaseUrl(),
+            dpsTaskSettings.getEcloudProvider(), dpsTaskSettings.getEcloudDatasetId()));
     parameters.put(PluginParameterKeys.NEW_REPRESENTATION_NAME, MetisPlugin.getRepresentationName());
     dpsTask.setParameters(parameters);
 
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudBasePluginParameters.getEcloudProvider(), false));
+    dpsTask.setOutputRevision(createOutputRevisionForExecution(dpsTaskSettings.getEcloudProvider(), false));
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForProcessPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
-      Map<String, String> extraParameters) {
+  DpsTask createDpsTaskForProcessPlugin(DpsTaskSettings dpsTaskSettings,
+                                        Map<String, String> extraParameters) {
     Map<String, String> parameters = new HashMap<>();
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
     parameters.put(PluginParameterKeys.REPRESENTATION_NAME, MetisPlugin.getRepresentationName());
     parameters.put(PluginParameterKeys.REVISION_NAME, getPluginMetadata().getRevisionNamePreviousPlugin());
-    parameters.put(PluginParameterKeys.REVISION_PROVIDER, ecloudBasePluginParameters.getEcloudProvider());
+    parameters.put(PluginParameterKeys.REVISION_PROVIDER, dpsTaskSettings.getEcloudProvider());
     DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
     dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     parameters
         .put(PluginParameterKeys.REVISION_TIMESTAMP, dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
-    parameters.put(PluginParameterKeys.PREVIOUS_TASK_ID, ecloudBasePluginParameters.getPreviousExternalTaskId());
+    parameters.put(PluginParameterKeys.PREVIOUS_TASK_ID, dpsTaskSettings.getPreviousExternalTaskId());
     parameters.put(PluginParameterKeys.NEW_REPRESENTATION_NAME, MetisPlugin.getRepresentationName());
     parameters.put(PluginParameterKeys.OUTPUT_DATA_SETS, String
-        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBasePluginParameters.getEcloudBaseUrl(),
-            ecloudBasePluginParameters.getEcloudProvider(), ecloudBasePluginParameters.getEcloudDatasetId()));
-    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBasePluginParameters, false);
+        .format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, dpsTaskSettings.getEcloudBaseUrl(),
+            dpsTaskSettings.getEcloudProvider(), dpsTaskSettings.getEcloudDatasetId()));
+    return createDpsTaskForPluginWithExistingDataset(parameters, dpsTaskSettings, false);
   }
 
-  DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters, String datasetId,
-      boolean incrementalIndexing, Date harvestDate, boolean preserveTimestamps,
-      List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
+  DpsTask createDpsTaskForIndexPlugin(DpsTaskSettings dpsTaskSettings, String datasetId,
+                                      boolean incrementalIndexing, Date harvestDate, boolean preserveTimestamps,
+                                      List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
     final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
     dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     final Map<String, String> extraParameters = new HashMap<>();
@@ -169,7 +169,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     extraParameters.put(PluginParameterKeys.METIS_PRESERVE_TIMESTAMPS, String.valueOf(preserveTimestamps));
     extraParameters.put(PluginParameterKeys.DATASET_IDS_TO_REDIRECT_FROM, String.join(",", datasetIdsToRedirectFrom));
     extraParameters.put(PluginParameterKeys.PERFORM_REDIRECTS, String.valueOf(performRedirects));
-    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
+    return createDpsTaskForProcessPlugin(dpsTaskSettings, extraParameters);
   }
 
   Map<String, String> createParametersForValidationExternal(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
@@ -197,19 +197,19 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   /**
    * Prepare the {@link DpsTask} based on the specific implementation of the plugin.
    *
-   * @param ecloudBasePluginParameters the basic parameter required for each execution
+   * @param dpsTaskSettings the basic parameter required for each execution
    * @return the {@link DpsTask} prepared with all the required parameters
    */
-  abstract DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters);
+  abstract DpsTask prepareDpsTask(String datasetId, DpsTaskSettings dpsTaskSettings);
 
   @Override
-  public void execute(String datasetId, DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
+  public void execute(String datasetId, DpsClient dpsClient, DpsTaskSettings dpsTaskSettings)
       throws ExternalTaskException {
     String pluginTypeName = getPluginType().name();
     LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
-        ecloudBasePluginParameters.getEcloudDatasetId());
+        dpsTaskSettings.getEcloudDatasetId());
 
-    DpsTask dpsTask = prepareDpsTask(datasetId, ecloudBasePluginParameters);
+    DpsTask dpsTask = prepareDpsTask(datasetId, dpsTaskSettings);
     try {
       setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       setDataStatus(DataStatus.VALID);

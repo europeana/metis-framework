@@ -258,11 +258,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public ThrottlingValues getThrottlingValues(){
     ThrottlingLevelValuePair weak = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.WEAK,
-            propertiesHolder.getThrottlingLevelWeak());
+            propertiesHolder.getThreadLimitThrottlingLevelWeak());
     ThrottlingLevelValuePair medium = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.MEDIUM,
-            propertiesHolder.getThrottlingLevelMedium());
+            propertiesHolder.getThreadLimitThrottlingLevelMedium());
     ThrottlingLevelValuePair strong = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.STRONG,
-            propertiesHolder.getThrottlingLevelStrong());
+            propertiesHolder.getThreadLimitThrottlingLevelStrong());
     return new ThrottlingValues(weak, medium, strong);
   }
 

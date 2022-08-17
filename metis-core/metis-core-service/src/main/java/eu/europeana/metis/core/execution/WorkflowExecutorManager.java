@@ -7,6 +7,8 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
+import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,7 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   private String ecloudBaseUrl; //Initialize with setter
   private String ecloudProvider; //Initialize with setter
   private String metisCoreBaseUrl; //Initialize with setter
+  private ThrottlingValues throttlingValues; //Initialize with setter
 
   /**
    * Autowired constructor.
@@ -89,6 +92,10 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.metisCoreBaseUrl = metisCoreBaseUrl;
   }
 
+  public void setThrottlingValues(ThrottlingValues throttlingValues){
+    this.throttlingValues = throttlingValues;
+  }
+
   public void setDpsMonitorCheckIntervalInSecs(int dpsMonitorCheckIntervalInSecs) {
     this.dpsMonitorCheckIntervalInSecs = dpsMonitorCheckIntervalInSecs;
   }
@@ -121,5 +128,10 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   @Override
   public String getMetisCoreBaseUrl() {
     return metisCoreBaseUrl;
+  }
+
+  @Override
+  public ThrottlingValues getThrottlingValues() {
+    return null;
   }
 }

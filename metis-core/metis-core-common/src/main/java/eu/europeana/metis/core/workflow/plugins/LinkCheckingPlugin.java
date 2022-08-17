@@ -40,13 +40,13 @@ public class LinkCheckingPlugin extends AbstractExecutablePlugin<LinkCheckingPlu
   }
 
   @Override
-  DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
+  DpsTask prepareDpsTask(String datasetId, DpsTaskSettings dpsTaskSettings) {
     final Map<String, String> extraParameters = new HashMap<>();
     if (Boolean.TRUE.equals(getPluginMetadata().getPerformSampling())
         && getPluginMetadata().getSampleSize() != null) {
       extraParameters
               .put(PluginParameterKeys.SAMPLE_SIZE, getPluginMetadata().getSampleSize().toString());
     }
-    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
+    return createDpsTaskForProcessPlugin(dpsTaskSettings, extraParameters);
   }
 }

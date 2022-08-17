@@ -48,7 +48,7 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
 
   @Override
   public DpsTask prepareDpsTask(String datasetId,
-      EcloudBasePluginParameters ecloudBasePluginParameters) {
+      DpsTaskSettings dpsTaskSettings) {
 
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
