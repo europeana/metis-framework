@@ -406,7 +406,7 @@ public class ProxiesService {
    * @param metisUserView the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
-   * @param searchId the searchId of the record we wish to obtain
+   * @param idToSearch the ID we are searching for and for which we want to find a record
    * @return the record from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
@@ -418,7 +418,8 @@ public class ProxiesService {
    * execution exists for the provided identifier</li>
    * </ul>
    */
-  public Record searchRecordByIdFromPluginExecution(MetisUserView metisUserView, String workflowExecutionId , ExecutablePluginType pluginType, String searchId )
+  public Record searchRecordByIdFromPluginExecution(MetisUserView metisUserView,
+      String workflowExecutionId, ExecutablePluginType pluginType, String idToSearch)
       throws GenericMetisException {
 
     // Get the right workflow execution and plugin type.
@@ -434,27 +435,27 @@ public class ProxiesService {
     final String datasetId = executionAndPlugin.getLeft().getDatasetId();
     String ecloudId = null;
     try {
-      final String normalizedRecordId = RecordIdUtils.checkAndNormalizeRecordId(datasetId, searchId)
+      final String normalizedRecordId = RecordIdUtils.checkAndNormalizeRecordId(datasetId, idToSearch)
           .map(id -> RecordIdUtils.composeFullRecordId(datasetId, id)).orElse(null);
       if (normalizedRecordId != null) {
         ecloudId = uisClient.getCloudId(ecloudProvider, normalizedRecordId).getId();
       }
     } catch (BadContentException e) {
       // Normalization failed.
-      ecloudId = searchId;
+      ecloudId = idToSearch;
     } catch (CloudException e) {
       if (e.getCause() instanceof RecordDoesNotExistException) {
         // The record ID does not exist.
-        ecloudId = searchId;
+        ecloudId = idToSearch;
       } else {
         // Some other connectivity issue.
         throw new ExternalTaskException(
-            String.format("Failed to lookup cloudId for searchId: %s", searchId), e);
+            String.format("Failed to lookup cloudId for idToSearch: %s", idToSearch), e);
       }
     }
 
     // Try to retrieve the record.
-    return Optional.ofNullable(getRecord(executionAndPlugin.getRight(), ecloudId)).orElse(null);
+    return ecloudId == null ? null : getRecord(executionAndPlugin.getRight(), ecloudId);
   }
 
   Pair<WorkflowExecution, ExecutablePlugin> getExecutionAndPlugin(MetisUserView metisUserView,

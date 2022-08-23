@@ -322,7 +322,7 @@ public class ProxiesController {
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
-   * @param searchId the searchId of the records we wish to obtain
+   * @param idToSearch the ID we are searching for and for which we want to find a record
    * @return the CloudId from the external resource matching the input ID. If no record
    * with the matching ID was found, it will return an empty string.
    * @throws GenericMetisException can be one of:
@@ -344,9 +344,9 @@ public class ProxiesController {
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
       @RequestParam("pluginType") ExecutablePluginType pluginType,
-      @RequestParam("searchId") String searchId
+      @RequestParam("idToSearch") String idToSearch
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.searchRecordByIdFromPluginExecution(metisUserView, workflowExecutionId, pluginType, searchId);
+    return proxiesService.searchRecordByIdFromPluginExecution(metisUserView, workflowExecutionId, pluginType, idToSearch);
   }
 }
