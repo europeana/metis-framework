@@ -16,13 +16,13 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * This class contains functionality concerning the parsing and composing of depublish record IDs.
  */
-public final class DepublishRecordIdUtils {
+public final class RecordIdUtils {
 
   private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
   private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
   private static final Pattern FULL_RECORD_ID_PATTERN = Pattern.compile("^/([^/\\s]+)/([^/\\s]+)$");
 
-  private DepublishRecordIdUtils() {
+  private RecordIdUtils() {
   }
 
   /**
@@ -105,7 +105,7 @@ public final class DepublishRecordIdUtils {
   private static String validateNonEmptyRecordId(String datasetId, String recordIdTrimmed)
           throws BadContentException {
 
-    // Check if it is a valid URL. This also checks for spaces.
+    // Check if it is a valid URI. This also checks for spaces. Relative URIs pass this test too.
     try {
       new URI(recordIdTrimmed);
     } catch (URISyntaxException e) {

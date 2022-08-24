@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.Revision;
@@ -47,6 +48,7 @@ import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -88,6 +90,7 @@ class TestProxiesService {
   private static ProxiesService proxiesService;
   private static WorkflowExecutionDao workflowExecutionDao;
   private static DpsClient dpsClient;
+  private static UISClient uisClient;
   private static DataSetServiceClient ecloudDataSetServiceClient;
   private static RecordServiceClient recordServiceClient;
   private static FileServiceClient fileServiceClient;
@@ -101,11 +104,12 @@ class TestProxiesService {
     recordServiceClient = mock(RecordServiceClient.class);
     fileServiceClient = mock(FileServiceClient.class);
     dpsClient = mock(DpsClient.class);
+    uisClient = mock(UISClient.class);
     authorizer = mock(Authorizer.class);
     proxiesHelper = mock(ProxiesHelper.class);
 
     proxiesService = spy(new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient,
-        recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider", authorizer, proxiesHelper));
+        recordServiceClient, fileServiceClient, dpsClient, uisClient,"ecloudProvider", authorizer, proxiesHelper));
   }
 
   @AfterEach
@@ -115,6 +119,7 @@ class TestProxiesService {
     reset(recordServiceClient);
     reset(fileServiceClient);
     reset(dpsClient);
+    reset(uisClient);
     reset(authorizer);
     reset(proxiesHelper);
     reset(proxiesService);
@@ -333,6 +338,8 @@ class TestProxiesService {
     assertSame(recordStatistics, result);
   }
 
+  // TODO: add tests for searchRecordByIdFromPluginExecution
+
   @Test
   void getListOfFileContentsFromPluginExecution() throws Exception {
 
@@ -544,14 +551,13 @@ class TestProxiesService {
                   .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
 
     // Test happy flow with result
-    final Pair<WorkflowExecution, AbstractExecutablePlugin> result = proxiesService
+    final Pair<WorkflowExecution, ExecutablePlugin> result = proxiesService
         .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType());
     assertNotNull(result);
     assertEquals(execution, result.getLeft());
     assertNotNull(result.getRight());
     assertSame(plugin, result.getRight());
-    assertTrue(execution.getMetisPlugins().contains(result.getRight()));
     verify(authorizer, times(1))
         .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
@@ -589,7 +595,7 @@ class TestProxiesService {
 
     // Create plugin
     final PluginType pluginType = PluginType.MEDIA_PROCESS;
-    final AbstractExecutablePlugin plugin = mock(AbstractExecutablePlugin.class);
+    final ExecutablePlugin plugin = mock(ExecutablePlugin.class);
     when(plugin.getPluginType()).thenReturn(pluginType);
     when(plugin.getStartedDate()).thenReturn(new Date());
 

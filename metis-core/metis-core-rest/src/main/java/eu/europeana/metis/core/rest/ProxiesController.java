@@ -253,11 +253,11 @@ public class ProxiesController {
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
    * @param nextPage the string representation of the next page which is provided from the response
    * and can be used to get the next page of results.
-   * TODO The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
+   * TODO: The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
    * retrieving the records from the external resource</li>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
    * workflow execution exists for the provided identifier</li>
@@ -294,7 +294,7 @@ public class ProxiesController {
    * in the result list.
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
    * retrieving the records from the external resource</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authorized to perform this task</li>
@@ -316,5 +316,37 @@ public class ProxiesController {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return proxiesService.getListOfFileContentsFromPluginExecution(metisUserView, workflowExecutionId,
         pluginType, ecloudIds);
+  }
+  /**
+   * Get an eCloudId from the external resource for a specific searchId.
+   *
+   * @param authorization the authorization header with the access token
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param idToSearch the ID we are searching for and for which we want to find a record
+   * @return the CloudId from the external resource matching the input ID. If no record
+   * with the matching ID was found, it will return an empty string.
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
+   * retrieving the records from the external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
+   * </ul>
+   */
+  @PostMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORD_SEARCH_BY_ID,
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public Record searchRecordByIdFromPluginExecution(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam("workflowExecutionId") String workflowExecutionId,
+      @RequestParam("pluginType") ExecutablePluginType pluginType,
+      @RequestParam("idToSearch") String idToSearch
+  ) throws GenericMetisException {
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.searchRecordByIdFromPluginExecution(metisUserView, workflowExecutionId, pluginType, idToSearch);
   }
 }
