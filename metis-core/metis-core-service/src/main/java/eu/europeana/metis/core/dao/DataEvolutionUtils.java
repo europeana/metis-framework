@@ -306,8 +306,13 @@ public class DataEvolutionUtils {
     return new ArrayList<>(evolutionSteps);
   }
 
-  // Not private because of unit tests.
-  Pair<MetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(MetisPlugin plugin, String datasetId) {
+  /**
+   *
+   * @param plugin
+   * @param datasetId
+   * @return
+   */
+  public Pair<MetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(MetisPlugin plugin, String datasetId) {
 
     // Check whether we are at the end of the chain.
     final ExecutedMetisPluginId previousPluginId = ExecutedMetisPluginId.forPredecessor(plugin);
