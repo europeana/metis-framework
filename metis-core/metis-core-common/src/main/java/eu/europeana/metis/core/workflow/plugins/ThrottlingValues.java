@@ -49,14 +49,13 @@ public class ThrottlingValues {
         return strong;
     }
 
-    public int getThreadNumberFromString(String throttlingLevel){
-        throttlingLevel = throttlingLevel.toUpperCase();
+    public int getThreadNumberFromThrottlingLevel(ThrottlingLevel throttlingLevel){
         int result;
         switch (throttlingLevel){
-            case "MEDIUM":
+            case MEDIUM:
                 result = medium;
                 break;
-            case "STRONG":
+            case STRONG:
                 result = strong;
                 break;
             default:

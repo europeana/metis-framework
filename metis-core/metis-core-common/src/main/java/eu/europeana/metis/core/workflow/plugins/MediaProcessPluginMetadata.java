@@ -9,7 +9,7 @@ package eu.europeana.metis.core.workflow.plugins;
 public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.MEDIA_PROCESS;
-  private String throttlingLevel;
+  private ThrottlingLevel throttlingLevel;
 
 
   public MediaProcessPluginMetadata() {
@@ -21,11 +21,11 @@ public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata
     return pluginType;
   }
 
-  public String getThrottlingLevel() {
+  public ThrottlingLevel getThrottlingLevel() {
     return throttlingLevel;
   }
 
-  public void setThrottlingLevel(String throttlingLevel) {
+  public void setThrottlingLevel(ThrottlingLevel throttlingLevel) {
     this.throttlingLevel = throttlingLevel;
   }
 }

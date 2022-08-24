@@ -42,10 +42,11 @@ public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPlu
   @Override
   DpsTask prepareDpsTask(String datasetId,
       DpsTaskSettings dpsTaskSettings) {
-    String throttlingLevel = getPluginMetadata().getThrottlingLevel() == null ? "WEAK" : getPluginMetadata().getThrottlingLevel();
+    ThrottlingLevel throttlingLevel = getPluginMetadata().getThrottlingLevel() == null ?
+            ThrottlingLevel.WEAK : getPluginMetadata().getThrottlingLevel();
 
     return createDpsTaskForProcessPlugin(dpsTaskSettings, Map.of(PluginParameterKeys.MAXIMUM_PARALLELIZATION,
-            String.valueOf(dpsTaskSettings.getThrottlingValues().getThreadNumberFromString(throttlingLevel))));
+            String.valueOf(dpsTaskSettings.getThrottlingValues().getThreadNumberFromThrottlingLevel(throttlingLevel))));
   }
 
 }
