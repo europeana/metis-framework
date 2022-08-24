@@ -317,4 +317,41 @@ public class ProxiesController {
     return proxiesService.getListOfFileContentsFromPluginExecution(metisUserView, workflowExecutionId,
         pluginType, ecloudIds);
   }
+
+  /**
+   * Get a list with record contents from the external resource for a specific list of IDS based on
+   * a workflow execution and the predecessor of the given {@link PluginType}.
+   *
+   * @param authorization the authorization header with the access token
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
+   * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
+   * @return the list of records from the external resource matching the input ID list. If no record
+   * with the matching ID was found in the given workflow step, no entry for this record will appear
+   * in the result list.
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
+   * retrieving the records from the external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
+   * </ul>
+   */
+  @PostMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_FROM_PREDECESSOR_PLUGIN,
+          consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public RecordsResponse getListOfFileContentsFromPredecessorOfPluginExecution(
+          @RequestHeader("Authorization") String authorization,
+          @RequestParam("workflowExecutionId") String workflowExecutionId,
+          @RequestParam("pluginType") ExecutablePluginType pluginType,
+          @RequestBody ListOfIds ecloudIds
+  ) throws GenericMetisException {
+    final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getListOfFileContentsFromPredecessorPluginExecution(metisUserView, workflowExecutionId, pluginType, ecloudIds);
+  }
+
 }
