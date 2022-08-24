@@ -31,6 +31,8 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
+
+import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -190,6 +192,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
     workflowExecutorManager.setEcloudProvider(propertiesHolder.getEcloudProvider());
     workflowExecutorManager.setMetisCoreBaseUrl(propertiesHolder.getMetisCoreBaseUrl());
+    workflowExecutorManager.setThrottlingValues(getThrottlingValues());
     return workflowExecutorManager;
   }
 
@@ -251,6 +254,13 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     schedulerExecutor = new SchedulerExecutor(orchestratorService, scheduleWorkflowService,
         redissonClient);
     return schedulerExecutor;
+  }
+
+  @Bean
+  public ThrottlingValues getThrottlingValues(){
+    return new ThrottlingValues(propertiesHolder.getThreadLimitThrottlingLevelWeak(),
+            propertiesHolder.getThreadLimitThrottlingLevelMedium(),
+            propertiesHolder.getThreadLimitThrottlingLevelStrong());
   }
 
   /**

@@ -42,11 +42,11 @@ public class HTTPHarvestPlugin extends AbstractExecutablePlugin<HTTPHarvestPlugi
   }
 
   @Override
-  DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
+  DpsTask prepareDpsTask(String datasetId, DpsTaskSettings dpsTaskSettings) {
     String targetUrl = getPluginMetadata().getUrl();
     Map<String, String> parameters = new HashMap<>();
     parameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
-    return createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl,
+    return createDpsTaskForHarvestPlugin(dpsTaskSettings, parameters, targetUrl,
             getPluginMetadata().isIncrementalHarvest());
   }
 }

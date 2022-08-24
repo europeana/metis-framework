@@ -7,13 +7,14 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-19
  */
-public class EcloudBasePluginParameters {
+public class DpsTaskSettings {
 
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
   private final String ecloudDatasetId;
   private final String metisCoreBaseUrl;
   private final String previousExternalTaskId;
+  private final ThrottlingValues throttlingValues;
 
   /**
    * Constructor with all parameters.
@@ -26,13 +27,14 @@ public class EcloudBasePluginParameters {
    * null if there is no previous task, like for example a harvesting plugin.
    * @param metisCoreBaseUrl the base url of metis core application
    */
-  public EcloudBasePluginParameters(String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDatasetId, String previousExternalTaskId, String metisCoreBaseUrl) {
+  public DpsTaskSettings(String ecloudBaseUrl, String ecloudProvider,
+                         String ecloudDatasetId, String previousExternalTaskId, String metisCoreBaseUrl, ThrottlingValues throttlingValues) {
     this.ecloudBaseUrl = ecloudBaseUrl;
     this.ecloudProvider = ecloudProvider;
     this.ecloudDatasetId = ecloudDatasetId;
     this.metisCoreBaseUrl = metisCoreBaseUrl;
     this.previousExternalTaskId = previousExternalTaskId;
+    this.throttlingValues = throttlingValues;
   }
 
   public String getEcloudBaseUrl() {
@@ -53,5 +55,9 @@ public class EcloudBasePluginParameters {
 
   public String getMetisCoreBaseUrl() {
     return metisCoreBaseUrl;
+  }
+
+  public ThrottlingValues getThrottlingValues(){
+    return throttlingValues;
   }
 }

@@ -18,12 +18,13 @@ import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata
 import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractIndexPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
+import eu.europeana.metis.core.workflow.plugins.DpsTaskSettings;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.network.ExternalRequestUtil;
@@ -75,6 +76,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   private final String ecloudProvider;
   private final String metisCoreBaseUrl;
   private WorkflowExecution workflowExecution;
+  private final ThrottlingValues throttlingValues;
 
   WorkflowExecutor(WorkflowExecution workflowExecution, PersistenceProvider persistenceProvider,
       WorkflowExecutionSettings workflowExecutionSettings) {
@@ -89,6 +91,7 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
     this.metisCoreBaseUrl = workflowExecutionSettings.getMetisCoreBaseUrl();
+    this.throttlingValues = workflowExecutionSettings.getThrottlingValues();
   }
 
   @Override
@@ -296,11 +299,11 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
         if (plugin.getPluginStatus() == PluginStatus.INQUEUE) {
           plugin.setStartedDate(startDateToUse);
         }
-        final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
+        final DpsTaskSettings dpsTaskSettings = new DpsTaskSettings(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
-            getExternalTaskIdOfPreviousPlugin(metadata), metisCoreBaseUrl);
+            getExternalTaskIdOfPreviousPlugin(metadata), metisCoreBaseUrl, throttlingValues);
         plugin
-            .execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
+            .execute(workflowExecution.getDatasetId(), dpsClient, dpsTaskSettings);
       }
     } catch (ExternalTaskException | RuntimeException e) {
       LOGGER.warn(String.format("workflowExecutionId: %s, pluginType: %s - Execution of plugin "

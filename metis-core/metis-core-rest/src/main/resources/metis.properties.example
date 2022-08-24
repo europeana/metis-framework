@@ -9,6 +9,9 @@ periodic.scheduler.check.in.millisecs=
 polling.timeout.for.cleaning.completion.service.in.millisecs=
 #If a task passed this cap the task will be cancelled
 period.of.no.processed.records.change.in.minutes=
+thread.limit.throttling.level.weak=
+thread.limit.throttling.level.medium=
+thread.limit.throttling.level.strong=
 
 #Socks Proxy
 socks.proxy.enabled=

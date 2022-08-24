@@ -23,7 +23,7 @@ import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
+import eu.europeana.metis.core.workflow.plugins.DpsTaskSettings;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
@@ -142,7 +142,7 @@ class TestWorkflowExecutor {
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
     doThrow(new ExternalTaskException("Some error")).when(oaipmhHarvestPlugin)
-        .execute(any(String.class), any(DpsClient.class), any(EcloudBasePluginParameters.class));
+        .execute(any(String.class), any(DpsClient.class), any(DpsTaskSettings.class));
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
 

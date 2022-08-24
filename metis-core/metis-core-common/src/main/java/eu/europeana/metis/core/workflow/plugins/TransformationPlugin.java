@@ -48,10 +48,10 @@ public class TransformationPlugin extends AbstractExecutablePlugin<Transformatio
 
   @Override
   public DpsTask prepareDpsTask(String datasetId,
-      EcloudBasePluginParameters ecloudBasePluginParameters) {
+      DpsTaskSettings dpsTaskSettings) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.XSLT_URL,
-            ecloudBasePluginParameters.getMetisCoreBaseUrl() + RestEndpoints
+            dpsTaskSettings.getMetisCoreBaseUrl() + RestEndpoints
                     .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
                             Collections.singletonList(getPluginMetadata().getXsltId())));
     extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
@@ -61,6 +61,6 @@ public class TransformationPlugin extends AbstractExecutablePlugin<Transformatio
             .put(PluginParameterKeys.METIS_DATASET_COUNTRY, getPluginMetadata().getCountry());
     extraParameters
             .put(PluginParameterKeys.METIS_DATASET_LANGUAGE, getPluginMetadata().getLanguage());
-    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
+    return createDpsTaskForProcessPlugin(dpsTaskSettings, extraParameters);
   }
 }
