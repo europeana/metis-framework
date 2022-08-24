@@ -8,9 +8,9 @@ package eu.europeana.metis.core.workflow.plugins;
  */
 public class ThrottlingValues {
 
-    private final ThrottlingLevelValuePair weak;
-    private final ThrottlingLevelValuePair medium;
-    private final ThrottlingLevelValuePair strong;
+    private final int weak;
+    private final int medium;
+    private final int strong;
 
     /**
      * Constructor
@@ -19,7 +19,7 @@ public class ThrottlingValues {
      * @param medium The throttling details to represent level medium
      * @param strong The throttling details to represent level strong
      */
-    public ThrottlingValues(ThrottlingLevelValuePair weak, ThrottlingLevelValuePair medium, ThrottlingLevelValuePair strong) {
+    public ThrottlingValues(int weak, int medium, int strong) {
         this.weak = weak;
         this.medium = medium;
         this.strong = strong;
@@ -29,7 +29,7 @@ public class ThrottlingValues {
      * Return the details related to weak throttling level
      * @return The details about throttling level weak
      */
-    public ThrottlingLevelValuePair getWeak() {
+    public int getWeak() {
         return weak;
     }
 
@@ -37,7 +37,7 @@ public class ThrottlingValues {
      * Return the details related to medium throttling level
      * @return The details about throttling level medium
      */
-    public ThrottlingLevelValuePair getMedium() {
+    public int getMedium() {
         return medium;
     }
 
@@ -45,21 +45,22 @@ public class ThrottlingValues {
      * Return the details related to strong throttling level
      * @return The details about throttling level strong
      */
-    public ThrottlingLevelValuePair getStrong() {
+    public int getStrong() {
         return strong;
     }
 
-    public int getThreadNumberFromLevel(ThrottlingLevelValuePair.ThrottlingLevel throttlingLevel){
+    public int getThreadNumberFromString(String throttlingLevel){
+        throttlingLevel = throttlingLevel.toUpperCase();
         int result;
         switch (throttlingLevel){
-            case MEDIUM:
-                result = medium.getNumberOfThreads();
+            case "MEDIUM":
+                result = medium;
                 break;
-            case STRONG:
-                result = strong.getNumberOfThreads();
+            case "STRONG":
+                result = strong;
                 break;
             default:
-                result = weak.getNumberOfThreads();
+                result = weak;
                 break;
         }
 

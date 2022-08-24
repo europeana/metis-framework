@@ -3,7 +3,6 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.PluginParameterKeys;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -43,13 +42,10 @@ public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPlu
   @Override
   DpsTask prepareDpsTask(String datasetId,
       DpsTaskSettings dpsTaskSettings) {
-    final Map<String, String> extraParameters = new HashMap<>();
-    ThrottlingLevelValuePair.ThrottlingLevel throttlingLevel = getPluginMetadata().getThrottlingLevel() == null ?
-    ThrottlingLevelValuePair.ThrottlingLevel.WEAK : getPluginMetadata().getThrottlingLevel();
-    extraParameters.put(PluginParameterKeys.MAXIMUM_PARALLELIZATION,
-            String.valueOf(dpsTaskSettings.getThrottlingValues().getThreadNumberFromLevel(throttlingLevel)));
+    String throttlingLevel = getPluginMetadata().getThrottlingLevel() == null ? "WEAK" : getPluginMetadata().getThrottlingLevel();
 
-    return createDpsTaskForProcessPlugin(dpsTaskSettings, extraParameters);
+    return createDpsTaskForProcessPlugin(dpsTaskSettings, Map.of(PluginParameterKeys.MAXIMUM_PARALLELIZATION,
+            String.valueOf(dpsTaskSettings.getThrottlingValues().getThreadNumberFromString(throttlingLevel))));
   }
 
 }

@@ -31,7 +31,6 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
 
-import eu.europeana.metis.core.workflow.plugins.ThrottlingLevelValuePair;
 import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
@@ -192,6 +191,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
     workflowExecutorManager.setEcloudProvider(propertiesHolder.getEcloudProvider());
     workflowExecutorManager.setMetisCoreBaseUrl(propertiesHolder.getMetisCoreBaseUrl());
+    workflowExecutorManager.setThrottlingValues(getThrottlingValues());
     return workflowExecutorManager;
   }
 
@@ -257,13 +257,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public ThrottlingValues getThrottlingValues(){
-    ThrottlingLevelValuePair weak = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.WEAK,
-            propertiesHolder.getThreadLimitThrottlingLevelWeak());
-    ThrottlingLevelValuePair medium = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.MEDIUM,
-            propertiesHolder.getThreadLimitThrottlingLevelMedium());
-    ThrottlingLevelValuePair strong = new ThrottlingLevelValuePair(ThrottlingLevelValuePair.ThrottlingLevel.STRONG,
+    return new ThrottlingValues(propertiesHolder.getThreadLimitThrottlingLevelWeak(),
+            propertiesHolder.getThreadLimitThrottlingLevelMedium(),
             propertiesHolder.getThreadLimitThrottlingLevelStrong());
-    return new ThrottlingValues(weak, medium, strong);
   }
 
   /**
