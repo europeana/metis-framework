@@ -77,7 +77,7 @@ public class ECloudConfig implements WebMvcConfigurer {
 
   @Bean
   UISClient uisClient() {
-    uisClient = new UISClient(propertiesHolder.getEcloudDpsBaseUrl(),
+    uisClient = new UISClient(propertiesHolder.getEcloudBaseUrl(),
         propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
         propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
