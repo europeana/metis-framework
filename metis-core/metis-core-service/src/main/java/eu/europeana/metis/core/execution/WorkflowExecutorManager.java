@@ -132,6 +132,6 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
 
   @Override
   public ThrottlingValues getThrottlingValues() {
-    return null;
+    return throttlingValues;
   }
 }
