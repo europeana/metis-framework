@@ -69,6 +69,7 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_PROXIES_RECORDS = "/orchestrator/proxies/records";
   public static final String ORCHESTRATOR_PROXIES_RECORDS_BY_IDS = "/orchestrator/proxies/recordsbyids";
   public static final String ORCHESTRATOR_PROXIES_RECORD_SEARCH_BY_ID = "/orchestrator/proxies/recordsearchbyid";
+  public static final String ORCHESTRATOR_PROXIES_RECORDS_FROM_PREDECESSOR_PLUGIN = "/orchestrator/proxies/recordfrompredecessorplugin";
 
   /* METIS-DEREFERENCE Endpoints*/
   public static final String DEREFERENCE = "/dereference";

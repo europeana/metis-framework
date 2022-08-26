@@ -19,6 +19,7 @@ import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.cloud.service.uis.exception.RecordDoesNotExistException;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.RecordIdUtils;
+import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.rest.ListOfIds;
@@ -33,6 +34,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.core.workflow.plugins.*;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
@@ -69,6 +71,7 @@ public class ProxiesService {
   private final String ecloudProvider;
   private final Authorizer authorizer;
   private final ProxiesHelper proxiesHelper;
+  private final DataEvolutionUtils dataEvolutionUtils;
 
   /**
    * Constructor with required parameters.
@@ -102,6 +105,7 @@ public class ProxiesService {
     this.ecloudProvider = ecloudProvider;
     this.authorizer = authorizer;
     this.proxiesHelper = proxiesHelper;
+    this.dataEvolutionUtils = new DataEvolutionUtils(this.workflowExecutionDao);
   }
 
   /**
@@ -395,6 +399,58 @@ public class ProxiesService {
     final List<Record> records = new ArrayList<>(ecloudIds.getIds().size());
     for (String cloudId : ecloudIds.getIds()) {
       Optional.ofNullable(getRecord(executionAndPlugin.getRight(), cloudId)).ifPresent(records::add);
+    }
+
+    // Done.
+    return new RecordsResponse(records);
+  }
+
+  /**
+   * Get a list with record contents from the external resource based on a workflow execution and the predecessor
+   * of the given {@link PluginType}.
+   *
+   * @param metisUserView the user wishing to perform this operation
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
+   * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
+   * @return the list of records from the external resource
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while retrieving the records from the external
+   * resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
+   * </ul>
+   */
+  public RecordsResponse getListOfFileContentsFromPredecessorPluginExecution(MetisUserView metisUserView,
+          String workflowExecutionId, ExecutablePluginType pluginType, ListOfIds ecloudIds)
+          throws GenericMetisException {
+
+    // Get the right workflow execution and plugin type.
+    final Pair<WorkflowExecution, ExecutablePlugin> executionAndPlugin = getExecutionAndPlugin(
+            metisUserView, workflowExecutionId, pluginType);
+    if (executionAndPlugin == null) {
+      throw new NoWorkflowExecutionFoundException(String
+              .format("No executable plugin of type %s found for workflowExecution with id: %s",
+                      pluginType.name(), workflowExecutionId));
+    }
+
+    Pair<MetisPlugin, WorkflowExecution> predecessorPlugin =
+            dataEvolutionUtils.getPreviousExecutionAndPlugin(executionAndPlugin.getRight(), executionAndPlugin.getLeft().getDatasetId());
+    if(predecessorPlugin == null){
+      throw new NoWorkflowExecutionFoundException(String
+              .format("No predecessor for executable plugin of type %s found for workflowExecution with id: %s",
+                      pluginType.name(), workflowExecutionId));
+    }
+
+    ExecutablePlugin predecessorExecutablePlugin = (ExecutablePlugin) predecessorPlugin.getLeft();
+
+    // Get the records.
+    final List<Record> records = new ArrayList<>(ecloudIds.getIds().size());
+    for (String cloudId : ecloudIds.getIds()) {
+      Optional.ofNullable(getRecord(predecessorExecutablePlugin, cloudId)).ifPresent(records::add);
     }
 
     // Done.
