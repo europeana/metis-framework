@@ -307,10 +307,11 @@ public class DataEvolutionUtils {
   }
 
   /**
+   * Returns the plugin that is the predecessor from the given plugin
    *
-   * @param plugin
-   * @param datasetId
-   * @return
+   * @param plugin The given plugin to find its predecessor, if any
+   * @param datasetId The dataset id from which we want to find the predecessor plugin
+   * @return The predecessor plugin from the give one, otherwise null if there is none
    */
   public Pair<MetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(MetisPlugin plugin, String datasetId) {
 

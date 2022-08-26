@@ -331,7 +331,7 @@ public class ProxiesController {
    * in the result list.
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
    * retrieving the records from the external resource</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authorized to perform this task</li>

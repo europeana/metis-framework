@@ -405,7 +405,7 @@ public class ProxiesService {
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link MCSException} if an error occurred while retrieving the records from the external
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while retrieving the records from the external
    * resource</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authorized to perform this task</li>
@@ -428,6 +428,12 @@ public class ProxiesService {
 
     Pair<MetisPlugin, WorkflowExecution> predecessorPlugin =
             dataEvolutionUtils.getPreviousExecutionAndPlugin(executionAndPlugin.getRight(), executionAndPlugin.getLeft().getDatasetId());
+    if(predecessorPlugin == null){
+      throw new NoWorkflowExecutionFoundException(String
+              .format("No predecessor for executable plugin of type %s found for workflowExecution with id: %s",
+                      pluginType.name(), workflowExecutionId));
+    }
+
     AbstractExecutablePlugin predecessorExecutablePlugin = (AbstractExecutablePlugin) predecessorPlugin.getLeft();
 
     // Get the records.
