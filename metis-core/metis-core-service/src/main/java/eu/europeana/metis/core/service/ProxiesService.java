@@ -34,7 +34,6 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.core.workflow.plugins.*;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
@@ -357,7 +356,7 @@ public class ProxiesService {
       if (record == null) {
         throw new IllegalStateException("This can't happen: eCloud just told us the record exists");
       }
-      records.add(getRecord(executionAndPlugin.getRight(), cloudTagsResponse.getCloudId()));
+      records.add(record);
     }
 
     // Compile the result.
@@ -488,7 +487,7 @@ public class ProxiesService {
               pluginType.name(), workflowExecutionId));
     }
 
-    // Check whether the searched ID is known as a Europeana ID. Otherwise, assume it is an ecloudId.
+    // Check whether the searched ID is known as a Europeana ID or an ecloudId.
     final String datasetId = executionAndPlugin.getLeft().getDatasetId();
     String ecloudId = null;
     try {
@@ -498,12 +497,12 @@ public class ProxiesService {
         ecloudId = uisClient.getCloudId(ecloudProvider, normalizedRecordId).getId();
       }
     } catch (BadContentException e) {
-      // Normalization failed.
-      ecloudId = idToSearch;
+      // Normalization failed. Check whether the ID is already an eCloud ID.
+      ecloudId = verifyExistenceOfEcloudId(idToSearch);
     } catch (CloudException e) {
       if (e.getCause() instanceof RecordDoesNotExistException) {
-        // The record ID does not exist.
-        ecloudId = idToSearch;
+        // The record ID does not exist. Check whether the ID is already an eCloud ID.
+        ecloudId = verifyExistenceOfEcloudId(idToSearch);
       } else {
         // Some other connectivity issue.
         throw new ExternalTaskException(
@@ -511,8 +510,21 @@ public class ProxiesService {
       }
     }
 
-    // Try to retrieve the record.
+    // Try to retrieve the record. Note: we need to know if the eCloud ID exists at this point
+    // because getRecord() cannot detect non-existing eCloud IDs.
     return ecloudId == null ? null : getRecord(executionAndPlugin.getRight(), ecloudId);
+  }
+
+  private String verifyExistenceOfEcloudId(String potentialEcloudId) throws ExternalTaskException {
+    try {
+      return uisClient.getRecordId(potentialEcloudId).getResults().isEmpty() ? null
+          : potentialEcloudId;
+    } catch (CloudException e) {
+      // TODO currently we can't distinguish between a connection issue and a non-existing eCloud ID.
+      //  The client should be changed to allow for this. We assume here that there is not a connection
+      //  issue because, where this method is called, we just did a successful call to the UIS service.
+      return null;
+    }
   }
 
   Pair<WorkflowExecution, ExecutablePlugin> getExecutionAndPlugin(MetisUserView metisUserView,
