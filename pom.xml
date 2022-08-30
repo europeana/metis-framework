@@ -137,7 +137,7 @@
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
     <version.apache.commons.text>1.9</version.apache.commons.text>
     <version.commonscompress>1.21</version.commonscompress>
-    <version.corelib>2.15.3</version.corelib>
+    <version.corelib>2.15.8</version.corelib>
 
     <!-- These two versions are interdependent. -->
     <version.directory.maven.plugin>1.0</version.directory.maven.plugin>

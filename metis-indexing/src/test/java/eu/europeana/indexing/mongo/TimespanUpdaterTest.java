@@ -40,7 +40,7 @@ class TimespanUpdaterTest extends MongoEntityUpdaterTest<TimespanImpl> {
     testMapPropertyUpdate(propertyUpdater, "isPartOf", TimespanImpl::setIsPartOf);
     testMapPropertyUpdate(propertyUpdater, "dctermsHasPart", TimespanImpl::setDctermsHasPart);
     testArrayPropertyUpdate(propertyUpdater, "owlSameAs", TimespanImpl::setOwlSameAs);
-
+    testMapPropertyUpdate(propertyUpdater, "notation", TimespanImpl::setSkosNotation);
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }

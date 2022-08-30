@@ -23,5 +23,6 @@ public class TimespanUpdater extends AbstractIsolatedEdmEntityUpdater<TimespanIm
     propertyUpdater.updateMap("isPartOf", TimespanImpl::getIsPartOf);
     propertyUpdater.updateMap("dctermsHasPart", TimespanImpl::getDctermsHasPart);
     propertyUpdater.updateArray("owlSameAs", TimespanImpl::getOwlSameAs);
+    propertyUpdater.updateMap("notation", TimespanImpl::getSkosNotation);
   }
 }
