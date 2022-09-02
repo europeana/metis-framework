@@ -9,7 +9,7 @@ import java.util.Arrays;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ProblemPatternDescription {
 
-  P1(ProblemPatternId.P1, "Systematic use of the same title", ProblemPatternSeverity.WARNING,
+  P1(ProblemPatternId.P1, "Systematic use of the same title (ignoring case)", ProblemPatternSeverity.WARNING,
       ProblemPatternQualityDimension.CONCISENESS),
   P2(ProblemPatternId.P2, "Equal title and description fields", ProblemPatternSeverity.WARNING,
       ProblemPatternQualityDimension.CONCISENESS),
