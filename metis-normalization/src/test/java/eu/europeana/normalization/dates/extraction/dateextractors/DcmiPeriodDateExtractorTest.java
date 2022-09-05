@@ -22,6 +22,18 @@ class DcmiPeriodDateExtractorTest {
 
   private static Stream<Arguments> dcmiPeriodData() {
     return Stream.of(
+        //Scheme checks
+        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3CDTF;",
+            "1929", "1939", "The Great Depression", true),
+        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3C-DTF;",
+            "1929", "1939", "The Great Depression", true),
+        Arguments.of("scheme=W3C-DTF; name=The Great Depression; start=1929; end=1939;",
+            "1929", "1939", "The Great Depression", true),
+        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3C-DTF",
+            "1929", "1939", "The Great Depression", true),
+        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3C-",
+            "1929", "1939", "The Great Depression", false),
+
         Arguments.of("name=The Great Depression; start=1929; end=1939;",
             "1929", "1939", "The Great Depression", true),
         Arguments.of("name=The Great Depression; start=; end=1939;",

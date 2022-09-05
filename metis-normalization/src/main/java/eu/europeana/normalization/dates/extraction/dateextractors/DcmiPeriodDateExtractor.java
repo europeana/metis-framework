@@ -8,6 +8,7 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.DcmiPeriod;
 import java.text.ParseException;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,20 +21,18 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
   // TODO: 22/07/2022 Need to fix this regex, it is reported as dangerous
   private static final Pattern DCMI_PERIOD_NAME_WITHOUT_FIELD = Pattern.compile("^([^;=]*)\\s*;");
   private static final Pattern DCMI_PERIOD = Pattern.compile("(start|end|name)\\s*=\\s*(.*?)(?:;|\\s*$)");
-  private static final Pattern DCMI_PERIOD_SCHEME = Pattern.compile("scheme\\s*=\\s*(.*?)(?:;|\\s*$)");
+
+  private static final String NON_SPACE_NON_SEMICOLON = "[^\\s;]*";
+  private static final String NON_SPACE_NON_LINE_END = "[^\\s$]*";
+  private static final Pattern DCMI_PERIOD_SCHEME_PATTERN = Pattern.compile(
+      "scheme\\s*=\\s*(" + NON_SPACE_NON_SEMICOLON + "|" + NON_SPACE_NON_LINE_END + ")\\s*(?:;|$)");
+
+  private static final Set<String> W3C_DTF_VALUES = Set.of("W3C-DTF", "W3CDTF");
 
   public static DcmiPeriod decodePeriod(String value) {
-    // Parse value
-    Matcher schemeMatcher = DCMI_PERIOD_SCHEME.matcher(value);
-    boolean mayBeW3CDTFEncoded = true;
-    if (schemeMatcher.find()) {
-      String schemeString = schemeMatcher.group(1);
-      if (!"W3C-DTF".equalsIgnoreCase(schemeString) && !"W3CDTF".equalsIgnoreCase(schemeString)) {
-        mayBeW3CDTFEncoded = false;
-      }
-    }
+
     try {
-      if (mayBeW3CDTFEncoded) {
+      if (isValidScheme(value)) {
         // Declare fields
         InstantEdtfDate start = null;
         InstantEdtfDate end = null;
@@ -75,6 +74,32 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       // Parse error
     }
     return null;
+  }
+
+  /**
+   * Checks if the scheme definition of the DCMI period provided is valid.
+   * <p>
+   * The scheme is valid if:
+   *   <ul>
+   *     <li>it is not specified</li>
+   *     <li>it is specified and it is of type W3C-DTF</li>
+   *   </ul>
+   * </p>
+   *
+   * @param dcmiPeriod the DCMI period
+   * @return if the scheme is valid in the period
+   */
+  private static boolean isValidScheme(String dcmiPeriod) {
+    final Matcher schemeMatcher = DCMI_PERIOD_SCHEME_PATTERN.matcher(dcmiPeriod);
+    boolean isValidScheme = true;
+    //If scheme present we only accept W3C-DTF.
+    if (schemeMatcher.find()) {
+      String dcmiScheme = schemeMatcher.group(1);
+      if (W3C_DTF_VALUES.stream().noneMatch(dcmiScheme::equalsIgnoreCase)) {
+        isValidScheme = false;
+      }
+    }
+    return isValidScheme;
   }
 
   /**
