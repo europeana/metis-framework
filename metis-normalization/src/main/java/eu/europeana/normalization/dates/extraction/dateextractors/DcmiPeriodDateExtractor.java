@@ -6,7 +6,6 @@ import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import eu.europeana.normalization.dates.extraction.DcmiPeriod;
 import java.text.ParseException;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -39,16 +38,11 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
   private static final Pattern DCMI_PERIOD_NAME = Pattern.compile("name\\s*=\\s*([^;]*|[^$]*)" + VALUE_ENDING);
 
   private static final Set<String> W3C_DTF_VALUES = Set.of("W3C-DTF", "W3CDTF");
+  private static final EdtfParser EDTF_PARSER = new EdtfParser();
 
-  /**
-   * Extracts a DCMI period from a provided value.
-   *
-   * @param value the value containing a period in dcmi format
-   * @return the dmci period object extracted
-   */
-  public static DcmiPeriod extractDcmiPeriod(String value) {
-
-    DcmiPeriod dcmiPeriod = null;
+  @Override
+  public DateNormalizationResult extract(String value) {
+    DateNormalizationResult dateNormalizationResult = null;
     if (isValidScheme(value)) {
       try {
         Matcher matcher = DCMI_PERIOD_START.matcher(value);
@@ -57,53 +51,19 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         InstantEdtfDate end = extractDate(matcher);
         String name = extractName(value);
 
-        if (start != null || end != null) {
-          dcmiPeriod = new DcmiPeriod(start, end, name);
+        //At least one end has to be specified
+        if (!start.getEdtfDatePart().isUnspecified() || !end.getEdtfDatePart().isUnspecified()) {
+          IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(name, start, end);
+          dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
+              intervalEdtfDate);
         }
-
       } catch (DuplicateFieldException | ParseException e) {
         LOGGER.warn("Exception during dcmi field extraction", e);
       }
     }
-    return dcmiPeriod;
+    return dateNormalizationResult;
   }
 
-  private static InstantEdtfDate extractDate(Matcher matcher) throws DuplicateFieldException, ParseException {
-    InstantEdtfDate instantEdtfDate = null;
-    if (matcher.find()) {
-      final String fieldValue = matcher.group(1);
-      if (StringUtils.isNotBlank(fieldValue)) {
-        instantEdtfDate = parseW3CDTF(fieldValue);
-      }
-      //if we find it again we declare invalid
-      if (matcher.find()) {
-        throw new DuplicateFieldException("Found duplicate field");
-      }
-    }
-    return instantEdtfDate;
-  }
-
-  private static String extractName(String value) throws DuplicateFieldException {
-    String name = null;
-    Matcher matcher = DCMI_PERIOD_NAME.matcher(value);
-    if (matcher.find()) {
-      name = matcher.group(1);
-      name = name.trim(); //Clean up ending spaces
-      //if we find it again we declare invalid
-      if (matcher.find()) {
-        throw new DuplicateFieldException("Found duplicate field");
-      }
-    }
-
-    //If name is null try checking beginning without field name
-    if (name == null) {
-      matcher = DCMI_PERIOD_START_NAME_WITHOUT_FIELD.matcher(value);
-      if (matcher.find()) {
-        name = matcher.group(1);
-      }
-    }
-    return name;
-  }
 
   /**
    * Checks if the scheme definition of the DCMI period provided is valid.
@@ -131,38 +91,41 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     return isValidScheme;
   }
 
-  private static InstantEdtfDate parseW3CDTF(String value) throws ParseException {
-    EdtfParser parser = new EdtfParser();
-    return (InstantEdtfDate) parser.parse(value);
+  private static InstantEdtfDate extractDate(Matcher matcher) throws DuplicateFieldException, ParseException {
+    InstantEdtfDate instantEdtfDate = null;
+    if (matcher.find()) {
+      final String fieldValue = matcher.group(1);
+      if (StringUtils.isNotBlank(fieldValue)) {
+        instantEdtfDate = (InstantEdtfDate) EDTF_PARSER.parse(fieldValue);
+      }
+      //if we find it again we declare invalid
+      if (matcher.find()) {
+        throw new DuplicateFieldException("Found duplicate field");
+      }
+    }
+    return instantEdtfDate == null ? new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()) : instantEdtfDate;
   }
 
-  @Override
-  public DateNormalizationResult extract(String value) {
-    try {
-      DcmiPeriod dcmiPeriod = extractDcmiPeriod(value);
-      if (dcmiPeriod == null) {
-        return null;
+  private static String extractName(String value) throws DuplicateFieldException {
+    String name = null;
+    Matcher matcher = DCMI_PERIOD_NAME.matcher(value);
+    if (matcher.find()) {
+      name = matcher.group(1);
+      name = name.trim(); //Clean up ending spaces
+      //if we find it again we declare invalid
+      if (matcher.find()) {
+        throw new DuplicateFieldException("Found duplicate field");
       }
-
-      InstantEdtfDate edtfStart;
-      InstantEdtfDate edtfEnd;
-      if (dcmiPeriod.hasStart()) {
-        edtfStart = dcmiPeriod.getStart();
-      } else {
-        edtfStart = new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance());
-      }
-      if (dcmiPeriod.hasEnd()) {
-        edtfEnd = dcmiPeriod.getEnd();
-      } else {
-        edtfEnd = new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance());
-      }
-
-      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(dcmiPeriod.getName(), edtfStart, edtfEnd);
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value, intervalEdtfDate);
-    } catch (IllegalStateException e) {
-      // a parsing error occurred
-      return null;
     }
+
+    //If name is null try checking beginning without field name
+    if (name == null) {
+      matcher = DCMI_PERIOD_START_NAME_WITHOUT_FIELD.matcher(value);
+      if (matcher.find()) {
+        name = matcher.group(1);
+      }
+    }
+    return name;
   }
 
   private static class DuplicateFieldException extends Exception {
