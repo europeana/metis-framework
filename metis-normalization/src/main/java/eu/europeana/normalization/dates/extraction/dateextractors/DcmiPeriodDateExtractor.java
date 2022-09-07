@@ -21,23 +21,36 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DcmiPeriodDateExtractor.class);
 
-  private static final Pattern DCMI_PERIOD_START_NAME_WITHOUT_FIELD = Pattern.compile("^((?!scheme|start|end)[^;]*)\\s*;");
   private static final String NON_SPACE_NON_SEMICOLON = "[^\\s;]*";
   private static final String NON_SPACE_NON_LINE_END = "[^\\s$]*";
   private static final String VALUE_ENDING = "(?:;|$)";
   private static final String SPACE_VALUE_ENDING = "\\s*" + VALUE_ENDING;
-  private static final Pattern DCMI_PERIOD_SCHEME_PATTERN = Pattern.compile(
-      "scheme\\s*=\\s*(" + NON_SPACE_NON_SEMICOLON + "|" + NON_SPACE_NON_LINE_END + ")" + SPACE_VALUE_ENDING);
+  private static final String EQUALS_SPACES_WRAPPED = "\\s*=\\s*";
+  private static final String DCMI_FIELD_REGEX =
+      EQUALS_SPACES_WRAPPED + "(" + NON_SPACE_NON_SEMICOLON + "|" + NON_SPACE_NON_LINE_END + ")" + SPACE_VALUE_ENDING;
+  private static final Pattern DCMI_PERIOD_SCHEME_PATTERN = Pattern.compile("scheme" + DCMI_FIELD_REGEX);
+  private static final Pattern DCMI_PERIOD_START_PATTERN = Pattern.compile("start" + DCMI_FIELD_REGEX);
+  private static final Pattern DCMI_PERIOD_END_PATTERN = Pattern.compile("end" + DCMI_FIELD_REGEX);
 
+  /**
+   * This pattern captures the name field and it is a little different that the rest of the fields because we want to capture
+   * spaces as well.
+   * <p>
+   * It also captures spaces, so redundant starting or ending spaces can be simply trimmed to avoid quadratic regex
+   * complexity.</p>
+   */
+  private static final Pattern DCMI_PERIOD_NAME_PATTERN = Pattern.compile(
+      "name" + EQUALS_SPACES_WRAPPED + "([^;]*|[^$]*)" + VALUE_ENDING);
+  /**
+   * This pattern captures the cases where the name of the period is at the beginning but does not contain the <code>name</code>
+   * field name.
+   * <p>It also captures spaces, so redundant starting or ending spaces can be simply trimmed to avoid quadratic regex
+   * complexity</p>
+   */
+  private static final Pattern DCMI_PERIOD_START_NAME_WITHOUT_FIELD = Pattern.compile(
+      "^(?!scheme|start|end)([^;]*);");
 
-  private static final Pattern DCMI_PERIOD_START = Pattern.compile(
-      "start\\s*=\\s*(" + NON_SPACE_NON_SEMICOLON + "|" + NON_SPACE_NON_LINE_END + ")" + SPACE_VALUE_ENDING);
-  private static final Pattern DCMI_PERIOD_END = Pattern.compile(
-      "end\\s*=\\s*(" + NON_SPACE_NON_SEMICOLON + "|" + NON_SPACE_NON_LINE_END + ")" + SPACE_VALUE_ENDING);
-  //This also matches ending spaces of the value
-  private static final Pattern DCMI_PERIOD_NAME = Pattern.compile("name\\s*=\\s*([^;]*|[^$]*)" + VALUE_ENDING);
-
-  private static final Set<String> W3C_DTF_VALUES = Set.of("W3C-DTF", "W3CDTF");
+  private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
   private static final EdtfParser EDTF_PARSER = new EdtfParser();
 
   @Override
@@ -45,9 +58,9 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     if (isValidScheme(value)) {
       try {
-        Matcher matcher = DCMI_PERIOD_START.matcher(value);
+        Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
         InstantEdtfDate start = extractDate(matcher);
-        matcher = DCMI_PERIOD_END.matcher(value);
+        matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
         InstantEdtfDate end = extractDate(matcher);
         String name = extractName(value);
 
@@ -63,7 +76,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     }
     return dateNormalizationResult;
   }
-
 
   /**
    * Checks if the scheme definition of the DCMI period provided is valid.
@@ -84,7 +96,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     //If scheme present we only accept W3C-DTF.
     if (schemeMatcher.find()) {
       String dcmiScheme = schemeMatcher.group(1);
-      if (W3C_DTF_VALUES.stream().noneMatch(dcmiScheme::equalsIgnoreCase)) {
+      if (W3C_DTF_SCHEME_VALUES.stream().noneMatch(dcmiScheme::equalsIgnoreCase)) {
         isValidScheme = false;
       }
     }
@@ -108,10 +120,9 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
 
   private static String extractName(String value) throws DuplicateFieldException {
     String name = null;
-    Matcher matcher = DCMI_PERIOD_NAME.matcher(value);
+    Matcher matcher = DCMI_PERIOD_NAME_PATTERN.matcher(value);
     if (matcher.find()) {
-      name = matcher.group(1);
-      name = name.trim(); //Clean up ending spaces
+      name = matcher.group(1).trim();
       //if we find it again we declare invalid
       if (matcher.find()) {
         throw new DuplicateFieldException("Found duplicate field");
@@ -122,7 +133,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     if (name == null) {
       matcher = DCMI_PERIOD_START_NAME_WITHOUT_FIELD.matcher(value);
       if (matcher.find()) {
-        name = matcher.group(1);
+        name = matcher.group(1).trim();
       }
     }
     return name;

@@ -105,13 +105,21 @@ class DcmiPeriodDateExtractorTest {
         //Invalid date
         Arguments.of("end=1998-09-25T16:40+10:00; start=1998-1986; scheme=W3C-DTF;",
             null, "..", "1998-09-25T16:40:00", false),
-
+        //
         //Spaces at the end of the name are cleaned up
         Arguments.of("name=The Great Depression          ; start=1929; end=1939;",
             "The Great Depression", "1929", "1939", true),
 
         //Spaces at the beginning of the name are cleaned up
-        Arguments.of("name=The Great Depression; start=1929; end=1939;",
+        Arguments.of("name=     The Great Depression; start=1929; end=1939;",
+            "The Great Depression", "1929", "1939", true),
+
+        //Name at the beginning without field name
+        Arguments.of("The Great Depression; start=1929; end=1939;",
+            "The Great Depression", "1929", "1939", true),
+
+        //Name at the beginning without field name and spaces at wrapped
+        Arguments.of("   The Great Depression   ; start=1929; end=1939;",
             "The Great Depression", "1929", "1939", true),
 
         //Normal case
