@@ -35,7 +35,7 @@ public class PatternCenturyDateExtractor implements DateExtractor {
         DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ROMAN(
         compile(
-            "\\s*(?<startsWithQuestionMark>\\?)?(s\\s|s\\.|sec\\.?|saec\\.?)\\s*(?<century1>I{1,3}|IV|VI{0,3}|I?X|XI{1,3}|XIV|XVI{0,3}|I?XX|XXI)(?<endsWithQuestionMark>\\?)?\\s*",
+            "\\s*(?<startsWithQuestionMark>\\?)?(s\\s|s\\.?|sec\\.?|saec\\.?)\\s*(?<century1>I{1,3}|IV|VI{0,3}|I?X|XI{1,3}|XIV|XVI{0,3}|I?XX|XXI)(?<endsWithQuestionMark>\\?)?\\s*",
             CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
         DateNormalizationExtractorMatchId.CENTURY_ROMAN),
     PATTERN_ROMAN_CLEAN(
@@ -68,6 +68,10 @@ public class PatternCenturyDateExtractor implements DateExtractor {
     }
   }
 
+  // TODO: 09/09/2022 Check if this is ok for the expectation of [XIV]{1,5}, why don't we do something similar for the other cases?
+  // TODO: 09/09/2022 And shouldn't the RomanToNumber.romanToDecimal also validate the roman representation(at least for the range?
+
+  // TODO: 12/09/2022 Also this one is a bit different than the instance one, it does not contain the "s\\s" option and also not the clean version without the (s., sec. etc.)
   private static final Pattern PATTERN_ROMAN_RANGE = compile(
       "\\s*(?<startsWithQuestionMark>\\?)?(s\\.?|sec\\.?|saec\\.?)\\s*(?<century1>[XIV]{1,5})\\s*-\\s*(?<century2>[XIV]{1,5})(?<endsWithQuestionMark>\\?)?\\s*",
       CASE_INSENSITIVE);
