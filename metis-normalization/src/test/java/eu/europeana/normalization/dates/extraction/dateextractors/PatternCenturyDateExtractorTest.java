@@ -21,8 +21,7 @@ class PatternCenturyDateExtractorTest {
 
   @ParameterizedTest
   @MethodSource("extractData")
-  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
-      Boolean isUncertain) {
+  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = patternCenturyDateExtractor.extract(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
@@ -61,6 +60,10 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("12th century BC", null, null, null), // not supported
         Arguments.of("[10th century]", null, null, null), // not supported
         Arguments.of("11thcentury", null, null, null), //Incorrect spacing numeric
+        Arguments.of("11st century", null, null, null), //Incorrect suffix
+        Arguments.of("21th century", null, null, null), //Incorrect suffix
+        Arguments.of("22rd century", null, null, null), //Incorrect suffix
+        Arguments.of("23st century", null, null, null), //Incorrect suffix
 
         //PATTERN_ROMAN
         Arguments.of("s I", "00XX", CENTURY_ROMAN),
@@ -73,7 +76,7 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("s XIV", "13XX", CENTURY_ROMAN),
         Arguments.of("s XV", "14XX", CENTURY_ROMAN),
         Arguments.of("s XVI", "15XX", CENTURY_ROMAN),
-        Arguments.of("s IXX", "18XX", CENTURY_ROMAN),
+        Arguments.of("s XIX", "18XX", CENTURY_ROMAN),
         Arguments.of("s XX", "19XX", CENTURY_ROMAN),
         Arguments.of("s XXI", "20XX", CENTURY_ROMAN),
         Arguments.of("s. I", "00XX", CENTURY_ROMAN),
@@ -83,6 +86,7 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("secI", "00XX", CENTURY_ROMAN),
         Arguments.of("saec.I", "00XX", CENTURY_ROMAN),
         Arguments.of("SAEC. I", "00XX", CENTURY_ROMAN),
+        // TODO: 12/09/2022 prefixes without space are not allowed if the dot does not exist.If the dot exists, spaces is optional
         Arguments.of("saecI", "00XX", CENTURY_ROMAN),
         Arguments.of("  s I  ", "00XX", CENTURY_ROMAN),
         Arguments.of("?s. I", "00XX?", CENTURY_ROMAN),
@@ -100,7 +104,7 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("XIV", "13XX", CENTURY_ROMAN),
         Arguments.of("XV", "14XX", CENTURY_ROMAN),
         Arguments.of("XVI", "15XX", CENTURY_ROMAN),
-        Arguments.of("IXX", "18XX", CENTURY_ROMAN),
+        Arguments.of("XIX", "18XX", CENTURY_ROMAN),
         Arguments.of("XX", "19XX", CENTURY_ROMAN),
         Arguments.of("XXI", "20XX", CENTURY_ROMAN),
         Arguments.of("I", "00XX", CENTURY_ROMAN),
@@ -115,7 +119,8 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("?I", "00XX?", CENTURY_ROMAN),
         Arguments.of("I?", "00XX?", CENTURY_ROMAN),
         Arguments.of("?I?", "00XX?", CENTURY_ROMAN),
-        Arguments.of("MDCLXX", null, null, null), // Full value not supported
+        Arguments.of("MDCLXX", null, null, null), // Not supported range
+        Arguments.of("IXX", null, null, null), // Invalid roman
 
         //PATTERN_ROMAN_RANGE
         Arguments.of("s.I-II", "00XX/01XX", CENTURY_RANGE_ROMAN),
@@ -149,8 +154,7 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("?saecX-XVIII", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
         Arguments.of("saecX-XVIII?", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
         Arguments.of("?saecX-XVIII?", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
-        // TODO: 12/09/2022 This is incorrect ROMAN, but still triggers a result
-        Arguments.of("S. XIIII-XIIIV", "13XX/15XX", CENTURY_RANGE_ROMAN),
+        Arguments.of("S. XIIII-XIIIV", null, null), //Invalid roman
         Arguments.of("S. XVIII-", null, null, null), //Open-ended incorrect
         Arguments.of("XVI-XVIII", null, null, null) //Missing prefix
     );
