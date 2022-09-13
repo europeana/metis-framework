@@ -33,7 +33,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
   private static final Pattern DCMI_PERIOD_END_PATTERN = Pattern.compile("end" + DCMI_FIELD_REGEX);
 
   /**
-   * This pattern captures the name field and it is a little different that the rest of the fields because we want to capture
+   * This pattern captures the name field, and it is a little different that the rest of the fields because we want to capture
    * spaces as well.
    * <p>
    * It also captures spaces, so redundant starting or ending spaces can be simply trimmed to avoid quadratic regex
@@ -41,14 +41,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
    */
   private static final Pattern DCMI_PERIOD_NAME_PATTERN = Pattern.compile(
       "name" + EQUALS_SPACES_WRAPPED + "([^;]*|[^$]*)" + VALUE_ENDING);
-  /**
-   * This pattern captures the cases where the name of the period is at the beginning but does not contain the <code>name</code>
-   * field name.
-   * <p>It also captures spaces, so redundant starting or ending spaces can be simply trimmed to avoid quadratic regex
-   * complexity</p>
-   */
-  private static final Pattern DCMI_PERIOD_START_NAME_WITHOUT_FIELD = Pattern.compile(
-      "^(?!scheme|start|end)([^;]*);");
 
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
   private static final EdtfParser EDTF_PARSER = new EdtfParser();
@@ -126,14 +118,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       //if we find it again we declare invalid
       if (matcher.find()) {
         throw new DuplicateFieldException("Found duplicate field");
-      }
-    }
-
-    //If name is null try checking beginning without field name
-    if (name == null) {
-      matcher = DCMI_PERIOD_START_NAME_WITHOUT_FIELD.matcher(value);
-      if (matcher.find()) {
-        name = matcher.group(1).trim();
       }
     }
     return name;
