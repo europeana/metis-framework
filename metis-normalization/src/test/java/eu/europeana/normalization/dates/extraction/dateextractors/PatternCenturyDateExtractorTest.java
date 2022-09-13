@@ -149,11 +149,11 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("sec. V-X", "04XX/09XX", CENTURY_RANGE_ROMAN),
         Arguments.of("saec.VII-XVIII", "06XX/17XX", CENTURY_RANGE_ROMAN),
         Arguments.of("saec. XVI-XVIII", "15XX/17XX", CENTURY_RANGE_ROMAN),
+        Arguments.of("XVI-XVIII", "15XX/17XX", CENTURY_RANGE_ROMAN),
         Arguments.of("?saec.X-XVIII", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
         Arguments.of("?saec.X-XVIII?", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
         Arguments.of("S. XIIII-XIIIV", null, null), //Invalid roman
         Arguments.of("S. XVIII-", null, null, null), //Open-ended incorrect
-        Arguments.of("XVI-XVIII", null, null, null), //Missing prefix
         Arguments.of("sII-V", null, null), //Without a dot a space is required
         Arguments.of("secVI-XVII", null, null), //Without a dot a space is required
         Arguments.of("saecX-XVIII?", null, null) //Without a dot a space is required
