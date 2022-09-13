@@ -61,9 +61,11 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("[10th century]", null, null, null), // not supported
         Arguments.of("11thcentury", null, null, null), //Incorrect spacing numeric
         Arguments.of("11st century", null, null, null), //Incorrect suffix
+        Arguments.of("12rd century", null, null, null), //Incorrect suffix
+        Arguments.of("13st century", null, null, null), //Incorrect suffix
         Arguments.of("21th century", null, null, null), //Incorrect suffix
-        Arguments.of("22rd century", null, null, null), //Incorrect suffix
-        Arguments.of("23st century", null, null, null), //Incorrect suffix
+        Arguments.of("0st century", null, null, null), //Out of range
+        Arguments.of("22nd century", null, null, null), //Out of range
 
         //PATTERN_ROMAN
         Arguments.of("s I", "00XX", CENTURY_ROMAN),
@@ -83,15 +85,14 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("S.I", "00XX", CENTURY_ROMAN),
         Arguments.of("sec.I", "00XX", CENTURY_ROMAN),
         Arguments.of("SEC. I", "00XX", CENTURY_ROMAN),
-        Arguments.of("secI", "00XX", CENTURY_ROMAN),
         Arguments.of("saec.I", "00XX", CENTURY_ROMAN),
         Arguments.of("SAEC. I", "00XX", CENTURY_ROMAN),
-        // TODO: 12/09/2022 prefixes without space are not allowed if the dot does not exist.If the dot exists, spaces is optional
-        Arguments.of("saecI", "00XX", CENTURY_ROMAN),
         Arguments.of("  s I  ", "00XX", CENTURY_ROMAN),
         Arguments.of("?s. I", "00XX?", CENTURY_ROMAN),
         Arguments.of("sec. I?", "00XX?", CENTURY_ROMAN),
         Arguments.of("?saec. I?", "00XX?", CENTURY_ROMAN),
+        Arguments.of("saecI", null, null), //Without a dot a space is required
+        Arguments.of("secI", null, null), //Without a dot a space is required
 
         //PATTERN_ROMAN_CLEAN
         Arguments.of("I", "00XX", CENTURY_ROMAN),
@@ -143,20 +144,19 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("s.XVIII-XIX", "17XX/18XX", CENTURY_RANGE_ROMAN),
         Arguments.of("s.XIX-XX", "18XX/19XX", CENTURY_RANGE_ROMAN),
         Arguments.of("s.XX-XXI", "19XX/20XX", CENTURY_RANGE_ROMAN),
-        Arguments.of("sII-V", "01XX/04XX", CENTURY_RANGE_ROMAN),
         Arguments.of("S.X-XIV", "09XX/13XX", CENTURY_RANGE_ROMAN),
         Arguments.of("sec.IV-VII", "03XX/06XX", CENTURY_RANGE_ROMAN),
         Arguments.of("sec. V-X", "04XX/09XX", CENTURY_RANGE_ROMAN),
-        Arguments.of("secVI-XVII", "05XX/16XX", CENTURY_RANGE_ROMAN),
         Arguments.of("saec.VII-XVIII", "06XX/17XX", CENTURY_RANGE_ROMAN),
         Arguments.of("saec. XVI-XVIII", "15XX/17XX", CENTURY_RANGE_ROMAN),
-        Arguments.of("saecX-XVIII", "09XX/17XX", CENTURY_RANGE_ROMAN),
-        Arguments.of("?saecX-XVIII", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
-        Arguments.of("saecX-XVIII?", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
-        Arguments.of("?saecX-XVIII?", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
+        Arguments.of("?saec.X-XVIII", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
+        Arguments.of("?saec.X-XVIII?", "09XX?/17XX?", CENTURY_RANGE_ROMAN),
         Arguments.of("S. XIIII-XIIIV", null, null), //Invalid roman
         Arguments.of("S. XVIII-", null, null, null), //Open-ended incorrect
-        Arguments.of("XVI-XVIII", null, null, null) //Missing prefix
+        Arguments.of("XVI-XVIII", null, null, null), //Missing prefix
+        Arguments.of("sII-V", null, null), //Without a dot a space is required
+        Arguments.of("secVI-XVII", null, null), //Without a dot a space is required
+        Arguments.of("saecX-XVIII?", null, null) //Without a dot a space is required
     );
   }
 

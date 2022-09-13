@@ -17,34 +17,42 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Extractor that matches a century with a Roman numeral, for example ‘XVI’.
+ * Extractor that matches a century with a decimal or Roman numerals
+ * <p>The range of values this accepts are from 1-21 including.</p>
+ * <p>Examples of some cases:
+ * <ul>
+ *   <li>
+ *     Value = 18.. | Outcome = 18XX
+ *     Value = 1st century | Outcome = 00XX
+ *     Value = s. XXI | Outcome = 20XX
+ *     Value = s.II-III | Outcome = 01XX/02XX
+ *   </li>
+ * </ul>
+ * </p>
  * <p>The Roman numerals may also be preceded by an abbreviation of century, for example ‘s. XIX’.</p>
  * <p>Also supports ranges.</p>
  */
 public class PatternCenturyDateExtractor implements DateExtractor {
 
-  private static final String ROMAN_1_TO_21_REGEX = "(?:X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
+  private static final String ROMAN_1_TO_21_REGEX = "(X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
+  private static final String NUMERIC_10_TO_21_REGEX = "1\\d|2[0-1]";
+  private static final String NUMERIC_1_TO_21_SUFFIXED_REGEX = "2?1st|2nd|3rd|(?:1\\d|[4-9]|20)th";
+  private static final String CENTURY_PREFIX = "((?:s|sec|saec)\\s|(?:s|sec|saec)\\.\\s?)";
 
   enum PatternCenturyDateOperation {
-    // TODO: 12/09/2022 Enforce numeric digits to be in the range of 1-21 only
-    // TODO: 12/09/2022 Check if the st|nd|rd|th can be enforced as well
-    PATTERN_YYYY(
-        compile("\\??(?<century1>\\d{2})\\.{2}\\??",
-            CASE_INSENSITIVE), century -> Integer.parseInt(century) * 100,
+    PATTERN_YYYY(compile("\\??(?<century1>" + NUMERIC_10_TO_21_REGEX + ")\\.{2}\\??",
+        CASE_INSENSITIVE), century -> Integer.parseInt(century) * 100,
         DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ENGLISH(
-        compile(
-            "\\??(?<century1>[12]?\\d)(st|nd|rd|th)\\s+century\\??",
-            CASE_INSENSITIVE), century -> (Integer.parseInt(century) - 1) * 100,
+        compile("\\??(?<century1>" + NUMERIC_1_TO_21_SUFFIXED_REGEX + ")\\s+century\\??",
+            CASE_INSENSITIVE), century -> (Integer.parseInt(century.substring(0, century.length() - 2)) - 1) * 100,
         DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ROMAN(
-        compile(
-            "\\??(s\\s|s\\.?|sec\\.?|saec\\.?)\\s*(?<century1>" + ROMAN_1_TO_21_REGEX + ")\\??",
+        compile("\\??" + CENTURY_PREFIX + "(?<century1>" + ROMAN_1_TO_21_REGEX + ")\\??",
             CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
         DateNormalizationExtractorMatchId.CENTURY_ROMAN),
     PATTERN_ROMAN_CLEAN(
-        compile(
-            "\\??(?<century1>" + ROMAN_1_TO_21_REGEX + ")\\??",
+        compile("\\??(?<century1>" + ROMAN_1_TO_21_REGEX + ")\\??",
             CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
         DateNormalizationExtractorMatchId.CENTURY_ROMAN);
 
@@ -72,11 +80,8 @@ public class PatternCenturyDateExtractor implements DateExtractor {
     }
   }
 
-  // TODO: 12/09/2022 Update this to use a similar approach as the non interval ones, so that we have valid roman numerals.
-  // TODO: 12/09/2022 The prefixes can also be applied here as optional, similarly to the "instance" cases above.
   private static final Pattern PATTERN_ROMAN_RANGE = compile(
-      "\\??(s\\s|s\\.?|sec\\.?|saec\\.?)\\s*(?<century1>" + ROMAN_1_TO_21_REGEX + ")\\s*-\\s*(?<century2>" + ROMAN_1_TO_21_REGEX
-          + ")\\??",
+      "\\??" + CENTURY_PREFIX + "(?<century1>" + ROMAN_1_TO_21_REGEX + ")\\s*-\\s*(?<century2>" + ROMAN_1_TO_21_REGEX + ")\\??",
       CASE_INSENSITIVE);
 
   @Override
