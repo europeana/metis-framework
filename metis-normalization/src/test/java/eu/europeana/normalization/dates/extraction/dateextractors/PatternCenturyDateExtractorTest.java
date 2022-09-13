@@ -19,8 +19,6 @@ class PatternCenturyDateExtractorTest {
 
   private static final PatternCenturyDateExtractor patternCenturyDateExtractor = new PatternCenturyDateExtractor();
 
-  @ParameterizedTest
-  @MethodSource("extractData")
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = patternCenturyDateExtractor.extract(input);
     if (expected == null) {
@@ -37,7 +35,19 @@ class PatternCenturyDateExtractorTest {
     }
   }
 
-  private static Stream<Arguments> extractData() {
+  @ParameterizedTest
+  @MethodSource("extractNumericData")
+  void extractNumeric(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+    extract(input, expected, dateNormalizationExtractorMatchId);
+  }
+
+  @ParameterizedTest
+  @MethodSource("extractRomanData")
+  void extractRoman(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+    extract(input, expected, dateNormalizationExtractorMatchId);
+  }
+
+  private static Stream<Arguments> extractNumericData() {
     return Stream.of(
         //PATTERN_YYYY
         Arguments.of("18..", "18XX", CENTURY_NUMERIC),
@@ -65,8 +75,12 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("13st century", null, null, null), //Incorrect suffix
         Arguments.of("21th century", null, null, null), //Incorrect suffix
         Arguments.of("0st century", null, null, null), //Out of range
-        Arguments.of("22nd century", null, null, null), //Out of range
+        Arguments.of("22nd century", null, null, null) //Out of range
+    );
+  }
 
+  private static Stream<Arguments> extractRomanData() {
+    return Stream.of(
         //PATTERN_ROMAN
         Arguments.of("s I", "00XX", CENTURY_ROMAN),
         Arguments.of("S IV", "03XX", CENTURY_ROMAN),
@@ -91,10 +105,6 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("?s. I", "00XX?", CENTURY_ROMAN),
         Arguments.of("sec. I?", "00XX?", CENTURY_ROMAN),
         Arguments.of("?saec. I?", "00XX?", CENTURY_ROMAN),
-        Arguments.of("saecI", null, null), //Without a dot a space is required
-        Arguments.of("secI", null, null), //Without a dot a space is required
-
-        //PATTERN_ROMAN_CLEAN
         Arguments.of("I", "00XX", CENTURY_ROMAN),
         Arguments.of("IV", "03XX", CENTURY_ROMAN),
         Arguments.of("V", "04XX", CENTURY_ROMAN),
@@ -120,6 +130,8 @@ class PatternCenturyDateExtractorTest {
         Arguments.of("?I", "00XX?", CENTURY_ROMAN),
         Arguments.of("I?", "00XX?", CENTURY_ROMAN),
         Arguments.of("?I?", "00XX?", CENTURY_ROMAN),
+        Arguments.of("saecI", null, null), //Without a dot a space is required
+        Arguments.of("secI", null, null), //Without a dot a space is required
         Arguments.of("MDCLXX", null, null, null), // Not supported range
         Arguments.of("IXX", null, null, null), // Invalid roman
 
