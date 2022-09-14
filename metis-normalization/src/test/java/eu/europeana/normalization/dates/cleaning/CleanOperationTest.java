@@ -1,10 +1,10 @@
 package eu.europeana.normalization.dates.cleaning;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 class CleanOperationTest {
 
@@ -35,7 +35,7 @@ class CleanOperationTest {
 
     @Test
     void testEndingTextRegex_expectMatch(){
-        assertTrue(CleanOperation.ENDING_TEXT.getCleanPattern().matcher("  (Herstellung (Werk))  ").matches());
+        assertTrue(CleanOperation.ENDING_TEXT.getCleanPattern().matcher(" (Herstellung (Werk))").matches());
     }
 
     @Test

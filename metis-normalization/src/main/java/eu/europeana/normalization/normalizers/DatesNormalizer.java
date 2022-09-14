@@ -145,8 +145,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     normalizationOperationsInOrderDateProperty = List.of(
         input -> normalizeInput(extractorsInOrderForDateProperties, input),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean1stTime),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean2ndTime));
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean1stTimeDateProperty),
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean2ndTimeDateProperty));
 
     normalizationOperationsInOrderGenericProperty = List.of(
         input -> normalizeInput(extractorsInOrderForGenericProperties, input),
@@ -231,8 +231,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
   }
 
-
-  // TODO: 25/07/2022 This could be made private
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false, //No extra check
@@ -241,8 +239,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
         this::noMatchIfValidAndTimeOnly);
   }
 
-
-  // TODO: 25/07/2022 This could be made private
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),

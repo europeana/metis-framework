@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Enum containing all cleaning operations.
+ * <p>The patterns expect the original value to be sanitized from multiple space characters and leading and trailing spaces
+ * removed.</p>
  * <p>
  * In detail each enum value contains:
  *   <ul>
@@ -22,32 +24,27 @@ import org.apache.commons.lang3.StringUtils;
  * </p>
  */
 public enum CleanOperation {
-  INITIAL_TEXT_A(compile("^\\s*[^\\s:]+:\\s*"),
+  INITIAL_TEXT_A(compile("^[^\\s:]+:\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  INITIAL_TEXT_B(compile("^\\s*\\([^)]+\\)\\s*"),
+  INITIAL_TEXT_B(compile("^\\([^)]+\\)\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  ENDING_TEXT(compile("\\s*\\(.+\\)\\s*$"),
+  ENDING_TEXT(compile("\\s?\\(.+\\)$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  ENDING_TEXT_SQUARE_BRACKETS(compile("\\s*\\[.+]\\s*$"),
+  ENDING_TEXT_SQUARE_BRACKETS(compile("\\s?\\[.+]$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), s -> true),
-  ENDING_DOT(compile("\\s*\\.\\s*$"),
+  ENDING_DOT(compile("\\s?\\.$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
   SQUARE_BRACKETS(compile("\\[([^]]+)]"),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
-  CIRCA(compile("^\\s*(circa|CA\\.?|C\\.)\\s*", Pattern.CASE_INSENSITIVE),
+  CIRCA(compile("^(circa|CA\\.?|C\\.)\\s?", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
-
-  // TODO: 22/07/2022 Need to fix this regex, it is reported as dangerous
-  SQUARE_BRACKETS_AND_CIRCA(
-      compile(
-          "\\[(circa|CA\\.?|C\\.)\\s*([^]]+)]",
-          Pattern.CASE_INSENSITIVE),
+  SQUARE_BRACKETS_AND_CIRCA(compile("\\[(circa|CA\\.?|C\\.)\\s?([^]]+)]", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll("$2"), s -> true),
-  SQUARE_BRACKET_END(compile("\\s*]\\s*$"),
+  SQUARE_BRACKET_END(compile("\\s?]$"),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
-  PARENTHESES_FULL_VALUE(compile("\\s*\\(([^()]+)\\)\\s*"),
+  PARENTHESES_FULL_VALUE(compile("\\s?\\(([^()]+)\\)\\s?"),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true),
-  PARENTHESES_FULL_VALUE_AND_CIRCA(compile("\\s*\\((circa|CA\\.?|C\\.)([^()]+)\\)\\s*"),
+  PARENTHESES_FULL_VALUE_AND_CIRCA(compile("\\s?\\((circa|CA\\.?|C\\.)([^()]+)\\)\\s?"),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true);
 
   private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
@@ -85,10 +82,22 @@ public enum CleanOperation {
     return isOperationSuccessful;
   }
 
+  /**
+   * Check if provided clean operation id is part of the approximate clean operations for date properties.
+   *
+   * @param cleanOperation the clean operation
+   * @return true if it is, false otherwise
+   */
   public static boolean isApproximateCleanOperationIdForDateProperty(CleanOperation cleanOperation) {
     return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY.contains(cleanOperation);
   }
 
+  /**
+   * Check if provided clean operation id is part of the approximate clean operations for generic properties.
+   *
+   * @param cleanOperation the clean operation
+   * @return true if it is, false otherwise
+   */
   public static boolean isApproximateCleanOperationIdForGenericProperty(CleanOperation cleanOperation) {
     return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY.contains(cleanOperation);
   }
