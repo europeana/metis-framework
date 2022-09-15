@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  * </p>
  */
 public enum CleanOperation {
-  INITIAL_TEXT_A(compile("^[^\\s:]+:\\s?"),
+  INITIAL_TEXT_A(compile("^[^:]+:\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
   INITIAL_TEXT_B(compile("^\\([^)]+\\)\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
@@ -44,8 +44,8 @@ public enum CleanOperation {
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
   PARENTHESES_FULL_VALUE(compile("\\s?\\(([^()]+)\\)\\s?"),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true),
-  PARENTHESES_FULL_VALUE_AND_CIRCA(compile("\\s?\\((circa|CA\\.?|C\\.)([^()]+)\\)\\s?"),
-      Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true);
+  PARENTHESES_FULL_VALUE_AND_CIRCA(compile("\\s?\\((circa|CA\\.?|C\\.)([^()]+)\\)\\s?", Pattern.CASE_INSENSITIVE),
+      Matcher::matches, matcher -> matcher.replaceAll("$2"), s -> true);
 
   private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
       CleanOperation.CIRCA, CleanOperation.SQUARE_BRACKETS_AND_CIRCA, CleanOperation.PARENTHESES_FULL_VALUE_AND_CIRCA);
