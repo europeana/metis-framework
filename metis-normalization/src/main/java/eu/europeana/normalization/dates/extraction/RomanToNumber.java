@@ -1,25 +1,37 @@
 package eu.europeana.normalization.dates.extraction;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Auxiliary class for converting roman numerals to decimal.
  */
 public final class RomanToNumber {
 
-  private static final Map<Character, Integer> numbersMap;
+  enum ROMAN {
+    I('I', 1),
+    V('V', 5),
+    X('X', 10),
+    L('L', 50),
+    C('C', 100),
+    D('D', 500),
+    M('M', 1000),
+    ;
 
-  static {
-    numbersMap = new HashMap<>();
-    numbersMap.put('I', 1);
-    numbersMap.put('V', 5);
-    numbersMap.put('X', 10);
-    numbersMap.put('L', 50);
-    numbersMap.put('C', 100);
-    numbersMap.put('D', 500);
-    numbersMap.put('M', 1000);
+    private final char text;
+    private final int value;
+
+    ROMAN(char text, int value) {
+      this.text = text;
+      this.value = value;
+    }
+
+    public char getText() {
+      return text;
+    }
+
+    public int getValue() {
+      return value;
+    }
   }
 
   private RomanToNumber() {
@@ -40,10 +52,13 @@ public final class RomanToNumber {
     for (int i = 0; i < upperCasedValue.length(); i++) {
       // Current Roman Character
       char character = upperCasedValue.charAt(i);
-      if (i > 0 && numbersMap.get(character) > numbersMap.get(upperCasedValue.charAt(i - 1))) {
-        result += numbersMap.get(character) - 2 * numbersMap.get(upperCasedValue.charAt(i - 1));
+      if (i > 0 && ROMAN.valueOf(String.valueOf(character)).getValue() > ROMAN.valueOf(
+          String.valueOf(upperCasedValue.charAt(i - 1))).getValue()) {
+        result +=
+            ROMAN.valueOf(String.valueOf(character)).getValue() - 2 * ROMAN.valueOf(String.valueOf(upperCasedValue.charAt(i - 1)))
+                                                                           .getValue();
       } else {
-        result += numbersMap.get(character);
+        result += ROMAN.valueOf(String.valueOf(character)).getValue();
       }
     }
 
