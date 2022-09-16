@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.extraction;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -25,17 +26,22 @@ public final class RomanToNumber {
   }
 
   /**
-   * Converts from roman numeral to a decimal
+   * Converts from roman numeral to a decimal.
+   * <p>
+   * The provided roman numeral is first converted to upper cased.
+   * </p>
    *
    * @param value the roman value
    * @return the decimal value
    */
   public static int romanToDecimal(String value) {
     int result = 0;
-    for (int i = 0; i < value.length(); i++) {
-      char character = value.charAt(i);      // Current Roman Character
-      if (i > 0 && numbersMap.get(character) > numbersMap.get(value.charAt(i - 1))) {
-        result += numbersMap.get(character) - 2 * numbersMap.get(value.charAt(i - 1));
+    final String upperCasedValue = value.toUpperCase(Locale.US);
+    for (int i = 0; i < upperCasedValue.length(); i++) {
+      // Current Roman Character
+      char character = upperCasedValue.charAt(i);
+      if (i > 0 && numbersMap.get(character) > numbersMap.get(upperCasedValue.charAt(i - 1))) {
+        result += numbersMap.get(character) - 2 * numbersMap.get(upperCasedValue.charAt(i - 1));
       } else {
         result += numbersMap.get(character);
       }
