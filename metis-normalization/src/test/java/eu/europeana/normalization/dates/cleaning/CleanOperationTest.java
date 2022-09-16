@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,7 +22,11 @@ class CleanOperationTest {
       assertFalse(matches);
     } else {
       assertTrue(matches);
-      assertEquals(expectedResult, cleanOperation.getReplaceOperation().apply(matcher));
+      final String result = cleanOperation.getReplaceOperation().apply(matcher);
+      assertEquals(expectedResult, result);
+      if (StringUtils.isNotEmpty(expectedResult)) {
+        assertTrue(cleanOperation.getIsOperationSuccessful().test(result));
+      }
     }
   }
 
@@ -30,29 +35,32 @@ class CleanOperationTest {
     return Stream.of(
         //INITIAL_TEXT_A
         Arguments.of(CleanOperation.INITIAL_TEXT_A, "textA:textB", "textB"),
+        Arguments.of(CleanOperation.INITIAL_TEXT_A, "textA:", ""),
         Arguments.of(CleanOperation.INITIAL_TEXT_A, "textA", null),
         //Should this match with space at the end?? (I'm assuming this was to match multiple spaces and replace them. Is a single space okay though or the same applies?)
         Arguments.of(CleanOperation.INITIAL_TEXT_A, "textA: textB", "textB"),
 
         //INITIAL_TEXT_B
+        Arguments.of(CleanOperation.INITIAL_TEXT_B, "(1942-1943)text", "text"),
         Arguments.of(CleanOperation.INITIAL_TEXT_B, "(1942-1943)", ""),
         Arguments.of(CleanOperation.INITIAL_TEXT_B, "1942-1943)", null),
         //This seems incorrect?(It does not match the last closing parenthesis)
-        Arguments.of(CleanOperation.INITIAL_TEXT_B, "((1942-1943))", ")"),
-        Arguments.of(CleanOperation.INITIAL_TEXT_B, "(((1942-1943))", ")"),
-        Arguments.of(CleanOperation.INITIAL_TEXT_B, "((1942-1943)))", "))"),
+        Arguments.of(CleanOperation.INITIAL_TEXT_B, "((1942-1943))text", ")text"),
+        Arguments.of(CleanOperation.INITIAL_TEXT_B, "(((1942-1943))text", ")text"),
+        Arguments.of(CleanOperation.INITIAL_TEXT_B, "((1942-1943)))text", "))text"),
         //Should this match with space at the end??
-        Arguments.of(CleanOperation.INITIAL_TEXT_B, "(1942-1943) ", ""),
+        Arguments.of(CleanOperation.INITIAL_TEXT_B, "(1942-1943) text", "text"),
 
         //ENDING_TEXT
+        Arguments.of(CleanOperation.ENDING_TEXT, "text(1942-1943)", "text"),
         Arguments.of(CleanOperation.ENDING_TEXT, "(1942-1943)", ""),
         Arguments.of(CleanOperation.ENDING_TEXT, "(1942-1943", null),
         //This matches more if we compare it with the INITIAL_TEXT_B similar example. On the other hand the example just above with missing closing bracket does not match..
-        Arguments.of(CleanOperation.ENDING_TEXT, "((1942-1943))", ""),
-        Arguments.of(CleanOperation.ENDING_TEXT, "(((1942-1943))", ""),
-        Arguments.of(CleanOperation.ENDING_TEXT, "((1942-1943)))", ""),
+        Arguments.of(CleanOperation.ENDING_TEXT, "text((1942-1943))", "text"),
+        Arguments.of(CleanOperation.ENDING_TEXT, "text(((1942-1943))", "text"),
+        Arguments.of(CleanOperation.ENDING_TEXT, "text((1942-1943)))", "text"),
         //Should this match with space at the beginning??
-        Arguments.of(CleanOperation.ENDING_TEXT, " (1942-1943)", ""),
+        Arguments.of(CleanOperation.ENDING_TEXT, "text (1942-1943)", "text"),
 
         //ENDING_TEXT_SQUARE_BRACKETS
         Arguments.of(CleanOperation.ENDING_TEXT_SQUARE_BRACKETS, "[1942-1943]", ""),
@@ -67,6 +75,7 @@ class CleanOperationTest {
 
         //ENDING_DOT
         Arguments.of(CleanOperation.ENDING_DOT, "textA.", "textA"),
+        Arguments.of(CleanOperation.ENDING_DOT, ".", ""),
         Arguments.of(CleanOperation.ENDING_DOT, "textA .", "textA"),
         Arguments.of(CleanOperation.ENDING_DOT, "textA", null),
 
