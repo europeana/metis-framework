@@ -30,10 +30,10 @@ public class Cleaner {
         CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON,
         CleanOperation.STARTING_PARENTHESES,
         CleanOperation.ENDING_PARENTHESES,
-        CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA,
-        CleanOperation.SQUARE_BRACKETS,
+        CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA,
+        CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS,
         CleanOperation.STARTING_CIRCA,
-        CleanOperation.CLOSING_SQUARE_BRACKET,
+        CleanOperation.ENDING_CLOSING_SQUARE_BRACKET,
         CleanOperation.ENDING_DOT
     );
 
@@ -44,8 +44,8 @@ public class Cleaner {
     );
 
     cleaningPatternsGenericProperty = List.of(
-        CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA,
-        CleanOperation.SQUARE_BRACKETS,
+        CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA,
+        CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS,
         CleanOperation.STARTING_CIRCA,
         CleanOperation.ENDING_PARENTHESES
     );

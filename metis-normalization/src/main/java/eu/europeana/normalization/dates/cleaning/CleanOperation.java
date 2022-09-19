@@ -36,13 +36,13 @@ public enum CleanOperation {
       Matcher::find, matcher -> matcher.replaceFirst(""), s -> true),
   ENDING_DOT(compile("\\s?\\.$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  SQUARE_BRACKETS(compile("\\[([^]]+)]"),
+  CAPTURE_VALUE_IN_SQUARE_BRACKETS(compile("\\[([^]]+)]"),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
   STARTING_CIRCA(compile("^" + CleanOperation.CIRCA_REGEX, Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
-  STARTING_SQUARE_BRACKETS_WITH_CIRCA(compile("\\[" + CleanOperation.CIRCA_REGEX + "([^]]+)]", Pattern.CASE_INSENSITIVE),
+  CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA(compile("\\[" + CleanOperation.CIRCA_REGEX + "([^]]+)]", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
-  CLOSING_SQUARE_BRACKET(compile("\\s?]$"),
+  ENDING_CLOSING_SQUARE_BRACKET(compile("\\s?]$"),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
   CAPTURE_VALUE_IN_PARENTHESES(compile("\\s?\\((.+)\\)\\s?"),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true),
@@ -52,10 +52,10 @@ public enum CleanOperation {
 
   private static final String CIRCA_REGEX = "(?:(?:circa|CA|C)\\s|(?:CA\\.|C\\.)\\s?)";
   private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
-      CleanOperation.STARTING_CIRCA, CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA,
+      CleanOperation.STARTING_CIRCA, CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA,
       CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA);
   private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY = EnumSet.of(
-      CleanOperation.STARTING_CIRCA, CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA);
+      CleanOperation.STARTING_CIRCA, CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA);
 
   private final Pattern cleanPattern;
   private final Predicate<Matcher> matchingCheck;

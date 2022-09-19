@@ -1,8 +1,20 @@
 package eu.europeana.normalization.dates.cleaning;
 
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_PARENTHESES;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_CLOSING_SQUARE_BRACKET;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_DOT;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_PARENTHESES;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_SQUARE_BRACKETS;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_CIRCA;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_PARENTHESES;
+import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
@@ -32,147 +44,148 @@ class CleanOperationTest {
 
   private static Stream<Arguments> extractData() {
     return Stream.of(
-        //INITIAL_TEXT_A
-        Arguments.of(CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON, "textA:textB", "textB"),
-        Arguments.of(CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON, "textA:textB:textC", "textB:textC"),
-        Arguments.of(CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON, "textA:", ""),
-        Arguments.of(CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON, "textA", null),
-        Arguments.of(CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON, "textA: textB", "textB"),
+        //STARTING_TEXT_UNTIL_FIRST_COLON
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA:textB", "textB"),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA:textB:textC", "textB:textC"),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA:", ""),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA", null),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA: textB", "textB"),
 
-        //INITIAL_TEXT_B
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "(1942-1943)text", "text"),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "(1942-1943)", ""),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "1942-1943)", null),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "((1942-1943))text", "text"),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "(((1942-1943))text", "text"),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "((1942-1943)))text", "text"),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "((1942-1943)))textA)textB", "textB"),
-        Arguments.of(CleanOperation.STARTING_PARENTHESES, "(1942-1943) text", "text"),
+        //STARTING_PARENTHESES
+        of(STARTING_PARENTHESES, "(1942-1943)text", "text"),
+        of(STARTING_PARENTHESES, "(1942-1943)", ""),
+        of(STARTING_PARENTHESES, "1942-1943)", null),
+        of(STARTING_PARENTHESES, "((1942-1943))text", "text"),
+        of(STARTING_PARENTHESES, "(((1942-1943))text", "text"),
+        of(STARTING_PARENTHESES, "((1942-1943)))text", "text"),
+        of(STARTING_PARENTHESES, "((1942-1943)))textA)textB", "textB"),
+        of(STARTING_PARENTHESES, "(1942-1943) text", "text"),
 
-        //ENDING_TEXT
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "text(1942-1943)", "text"),
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "(1942-1943)", ""),
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "(1942-1943", null),
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "text((1942-1943))", "text"),
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "text(((1942-1943))", "text"),
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "text((1942-1943)))", "text"),
-        Arguments.of(CleanOperation.ENDING_PARENTHESES, "text (1942-1943)", "text"),
+        //ENDING_PARENTHESES
+        of(ENDING_PARENTHESES, "text(1942-1943)", "text"),
+        of(ENDING_PARENTHESES, "(1942-1943)", ""),
+        of(ENDING_PARENTHESES, "(1942-1943", null),
+        of(ENDING_PARENTHESES, "text((1942-1943))", "text"),
+        of(ENDING_PARENTHESES, "text(((1942-1943))", "text"),
+        of(ENDING_PARENTHESES, "text((1942-1943)))", "text"),
+        of(ENDING_PARENTHESES, "text (1942-1943)", "text"),
 
-        //ENDING_TEXT_SQUARE_BRACKETS
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "text[1942-1943]", "text"),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "[1942-1943]", ""),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "[1942-1943", null),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "text[[1942-1943]]", "text"),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "text[[[1942-1943]]", "text"),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "text[[1942-1943]]]", "text"),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "text [1942-1943]", "text"),
-        Arguments.of(CleanOperation.ENDING_SQUARE_BRACKETS, "textA textB[1942-1943]", "textA textB"),
+        //ENDING_SQUARE_BRACKETS
+        of(ENDING_SQUARE_BRACKETS, "text[1942-1943]", "text"),
+        of(ENDING_SQUARE_BRACKETS, "[1942-1943]", ""),
+        of(ENDING_SQUARE_BRACKETS, "[1942-1943", null),
+        of(ENDING_SQUARE_BRACKETS, "text[[1942-1943]]", "text"),
+        of(ENDING_SQUARE_BRACKETS, "text[[[1942-1943]]", "text"),
+        of(ENDING_SQUARE_BRACKETS, "text[[1942-1943]]]", "text"),
+        of(ENDING_SQUARE_BRACKETS, "text [1942-1943]", "text"),
+        of(ENDING_SQUARE_BRACKETS, "textA textB[1942-1943]", "textA textB"),
 
         //ENDING_DOT
-        Arguments.of(CleanOperation.ENDING_DOT, "text.", "text"),
-        Arguments.of(CleanOperation.ENDING_DOT, ".", ""),
-        Arguments.of(CleanOperation.ENDING_DOT, "text .", "text"),
-        Arguments.of(CleanOperation.ENDING_DOT, "text", null),
+        of(ENDING_DOT, "text.", "text"),
+        of(ENDING_DOT, ".", ""),
+        of(ENDING_DOT, "text .", "text"),
+        of(ENDING_DOT, "text", null),
 
         //SQUARE_BRACKETS
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "textA[1942-1943]textB", "textA1942-1943textB"),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "textA[[1942-1943]]textB", "textA[1942-1943]textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[1942-1943]textB", "textA1942-1943textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[[1942-1943]]textB", "textA[1942-1943]textB"),
         //We don't capture nested brackets
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "[[[I-V]]]", "[[I-V]]"),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "textA[[1942-1943]]]textB", "textA[1942-1943]]textB"),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "[I-V]]", "I-V]"),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "[I-V]", "I-V"),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "[I-V]textA[V-X]", "I-VtextAV-X"),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "textA[1942-1943textB", null),
-        Arguments.of(CleanOperation.SQUARE_BRACKETS, "1942-1943", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[[[I-V]]]", "[[I-V]]"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[[1942-1943]]]textB", "textA[1942-1943]]textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[I-V]]", "I-V]"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[I-V]", "I-V"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[I-V]textA[V-X]", "I-VtextAV-X"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[1942-1943textB", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA1942-1943]textB", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "1942-1943", null),
 
-        //CIRCA
-        Arguments.of(CleanOperation.STARTING_CIRCA, "circa 2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "ca.2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "ca. 2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "c.2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "c. 2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "CIRCA 2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "CA.2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "CA. 2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "C.2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "C. 2000", "2000"),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "circa2000", null),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "CIRCA2000", null),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "CA2000", null),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "ca2000", null),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "C2000", null),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "c2000", null),
-        Arguments.of(CleanOperation.STARTING_CIRCA, "nocirca", null),
+        //STARTING_CIRCA
+        of(STARTING_CIRCA, "circa 2000", "2000"),
+        of(STARTING_CIRCA, "ca.2000", "2000"),
+        of(STARTING_CIRCA, "ca. 2000", "2000"),
+        of(STARTING_CIRCA, "c.2000", "2000"),
+        of(STARTING_CIRCA, "c. 2000", "2000"),
+        of(STARTING_CIRCA, "CIRCA 2000", "2000"),
+        of(STARTING_CIRCA, "CA.2000", "2000"),
+        of(STARTING_CIRCA, "CA. 2000", "2000"),
+        of(STARTING_CIRCA, "C.2000", "2000"),
+        of(STARTING_CIRCA, "C. 2000", "2000"),
+        of(STARTING_CIRCA, "circa2000", null),
+        of(STARTING_CIRCA, "CIRCA2000", null),
+        of(STARTING_CIRCA, "CA2000", null),
+        of(STARTING_CIRCA, "ca2000", null),
+        of(STARTING_CIRCA, "C2000", null),
+        of(STARTING_CIRCA, "c2000", null),
+        of(STARTING_CIRCA, "nocirca", null),
 
-        //SQUARE_BRACKETS_AND_CIRCA
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[circa 2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[ca.2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[ca. 2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[c.2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000] text", "2000 text"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[CIRCA 2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[CA.2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[CA. 2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[CA. 2000 text]", "2000 text"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[C.2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[C. 2000]", "2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[C. 2000] text", "2000 text"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "text [C. 2000]", "text 2000"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[[C. 2000]]", "[2000]"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[[C. 2000]]]", "[2000]]"),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[circa2000]", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[CIRCA2000]", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[ca2000]", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[CA2000]", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[c2000]", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[C2000]", null),
-        Arguments.of(CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA, "[nocirca]", null),
+        //STARTING_SQUARE_BRACKETS_WITH_CIRCA
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca.2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca. 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c.2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000] text", "2000 text"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CIRCA 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CA.2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CA. 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CA. 2000 text]", "2000 text"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[C.2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[C. 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[C. 2000] text", "2000 text"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "text [C. 2000]", "text 2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[[C. 2000]]", "[2000]"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[[C. 2000]]]", "[2000]]"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa2000]", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CIRCA2000]", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca2000]", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CA2000]", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c2000]", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[C2000]", null),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[nocirca]", null),
 
-        //SQUARE_BRACKET_END
-        Arguments.of(CleanOperation.CLOSING_SQUARE_BRACKET, "]", ""),
-        Arguments.of(CleanOperation.CLOSING_SQUARE_BRACKET, "text ]", "text"),
-        Arguments.of(CleanOperation.CLOSING_SQUARE_BRACKET, "textA ] textB", null),
-        Arguments.of(CleanOperation.CLOSING_SQUARE_BRACKET, "no bracket", null),
+        //CLOSING_SQUARE_BRACKET
+        of(ENDING_CLOSING_SQUARE_BRACKET, "]", ""),
+        of(ENDING_CLOSING_SQUARE_BRACKET, "text ]", "text"),
+        of(ENDING_CLOSING_SQUARE_BRACKET, "textA ] textB", null),
+        of(ENDING_CLOSING_SQUARE_BRACKET, "no bracket", null),
 
-        //PARENTHESES_FULL_VALUE
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "(1942-1943)", "1942-1943"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, " (text)", "text"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "(text) ", "text"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, " (text) ", "text"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "(circa text) ", "circa text"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "(textA) (textB)", "textA) (textB"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "((text)) ", "(text)"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "(text)) ", "text)"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES, "no parenthesis", null),
+        //CAPTURE_VALUE_IN_PARENTHESES
+        of(CAPTURE_VALUE_IN_PARENTHESES, "(1942-1943)", "1942-1943"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, " (text)", "text"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "(text) ", "text"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, " (text) ", "text"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "(circa text) ", "circa text"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "(textA) (textB)", "textA) (textB"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "((text)) ", "(text)"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "(text)) ", "text)"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "no parenthesis", null),
 
-        //PARENTHESES_FULL_VALUE_AND_CIRCA
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca.2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca. 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c.2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 2000) ", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CIRCA 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CA.2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CA. 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C.2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. 2000) ", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, " (C. 2000)", "2000"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. (2000))", "(2000)"),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "((C. 2000))", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "((C. 2000)))", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 2000", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa2000)", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CIRCA2000)", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca2000)", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CA2000)", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c2000)", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C2000)", null),
-        Arguments.of(CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(nocirca)", null)
+        //CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca.2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca. 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c.2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 2000) ", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CIRCA 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CA.2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CA. 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C.2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. 2000) ", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, " (C. 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. (2000))", "(2000)"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "((C. 2000))", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "((C. 2000)))", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 2000", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa2000)", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CIRCA2000)", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca2000)", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(CA2000)", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c2000)", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C2000)", null),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(nocirca)", null)
     );
   }
 }
