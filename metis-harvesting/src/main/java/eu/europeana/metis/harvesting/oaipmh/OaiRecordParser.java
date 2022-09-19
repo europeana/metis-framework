@@ -39,7 +39,7 @@ import org.xml.sax.InputSource;
  * <code> javax.xml.xpath.XPathExpressionException: org.xml.sax.SAXException: FWK005 parse may
  * not be called while parsing</code>.</p>
  */
-class OaiRecordParser {
+public class OaiRecordParser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OaiRecordParser.class);
 
@@ -79,7 +79,7 @@ class OaiRecordParser {
    *
    * @throws HarvesterException In case there was a problem with setting up the parser.
    */
-  OaiRecordParser() throws HarvesterException {
+  public OaiRecordParser() throws HarvesterException {
     initializeExpressions();
   }
 
@@ -90,7 +90,7 @@ class OaiRecordParser {
    * @return The record along with the OAI header.
    * @throws HarvesterException in case there is a problem with the expression.
    */
-  OaiRecord parseOaiRecord(byte[] oaiRecord) throws HarvesterException {
+  public OaiRecord parseOaiRecord(byte[] oaiRecord) throws HarvesterException {
     synchronized (OaiRecordParser.class) {
       try {
         return parseOaiRecordInternal(oaiRecord);

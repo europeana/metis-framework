@@ -19,7 +19,7 @@ class ProblemPatternDescriptionTest {
 
   @Test
   void checkValuesTest() {
-    assertProblemPatternDescription(ProblemPatternDescription.P1, "P1", "Systematic use of the same title", "WARNING",
+    assertProblemPatternDescription(ProblemPatternDescription.P1, "P1", "Systematic use of the same title (ignoring case)", "WARNING",
         "CONCISENESS");
     assertProblemPatternDescription(ProblemPatternDescription.P2, "P2", "Equal title and description fields", "WARNING",
         "CONCISENESS");

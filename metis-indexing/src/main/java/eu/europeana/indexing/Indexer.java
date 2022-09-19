@@ -4,8 +4,11 @@ import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+
+import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
+
 import java.util.stream.Stream;
 
 /**
@@ -98,6 +101,24 @@ public interface Indexer extends Closeable {
   void index(InputStream record, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
+   * <p>
+   * This method indexes a single record, publishing it to the provided data stores.
+   * It also returns the results of the Content tier and Metadata tier calculations
+   * </p>
+   * <p>
+   * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
+   * not done within a transaction.
+   * </p>
+   *
+   * @param recordContent The record to index (can be parsed to RDF).
+   * @param indexingProperties The properties of this indexing operation.
+   * @throws IndexingException In case a problem occurred during indexing.
+   * @return A pair with both content tier and metadata tier calculations results of the given record
+   */
+  TierResults indexAndGetTierCalculations(InputStream recordContent,
+      IndexingProperties indexingProperties) throws IndexingException;
+
+  /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,
    * causing it to become permanent as well as available to other processes. Calling this method is
    * not obligatory, and indexing will work without it. This just allows the caller to determine the
@@ -151,9 +172,9 @@ public interface Indexer extends Closeable {
    * </p>
    * <p>
    * Please <b>NOTE</b> that the criteria for whether a record or any of the listed dependencies are
-   * removed is based on the value of {@link eu.europeana.metis.schema.edm.entity.AbstractEdmEntity#getAbout()}
-   * and {@link eu.europeana.metis.schema.edm.beans.FullBean#getAbout()}. So the value of
-   * {@link eu.europeana.metis.schema.edm.beans.FullBean#getEuropeanaCollectionName()} does
+   * removed is based on the value of {@link eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity#getAbout()}
+   * and {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getAbout()}. So the value of
+   * {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getEuropeanaCollectionName()} does
    * <b>not</b> play any role in determining which records to remove. This should eventually be
    * changed so that the structure of the rdf:about value is taken out of the equation (like it is
    * in {@link #remove(String)}).

@@ -1,7 +1,14 @@
 package eu.europeana.normalization;
 
 import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.normalizers.*;
+import eu.europeana.normalization.normalizers.CleanIRIViolationsNormalizer;
+import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
+import eu.europeana.normalization.normalizers.CleanSpaceCharactersNormalizer;
+import eu.europeana.normalization.normalizers.DatesNormalizer;
+import eu.europeana.normalization.normalizers.DcLanguageNormalizer;
+import eu.europeana.normalization.normalizers.NormalizeAction;
+import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer;
+import eu.europeana.normalization.normalizers.XmlLangNormalizer;
 import eu.europeana.normalization.settings.NormalizerSettings;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 
@@ -31,6 +38,11 @@ public enum NormalizerStep {
    * Remove duplicate statements. See {@link RemoveDuplicateStatementNormalizer}.
    **/
   REMOVE_DUPLICATE_STATEMENTS(settings -> new RemoveDuplicateStatementNormalizer()),
+
+  /**
+   * Dates normalization
+   */
+  DATES_NORMALIZER(settings -> new DatesNormalizer()),
 
   /**
    * Normalize language references. See {@link DcLanguageNormalizer}.

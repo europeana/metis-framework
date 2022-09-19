@@ -1,6 +1,7 @@
 package eu.europeana.metis.harvesting.http;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.utils.CompressedFileExtension;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.function.Consumer;

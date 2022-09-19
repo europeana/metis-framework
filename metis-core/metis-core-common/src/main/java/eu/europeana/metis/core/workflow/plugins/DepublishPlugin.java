@@ -2,7 +2,7 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.PluginParameterKeys;
-import eu.europeana.metis.core.common.DepublishRecordIdUtils;
+import eu.europeana.metis.core.common.RecordIdUtils;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.util.CollectionUtils;
@@ -48,7 +48,7 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
 
   @Override
   public DpsTask prepareDpsTask(String datasetId,
-      EcloudBasePluginParameters ecloudBasePluginParameters) {
+      DpsTaskSettings dpsTaskSettings) {
 
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.METIS_DATASET_ID, datasetId);
@@ -58,7 +58,7 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
         throw new IllegalStateException(
             "Requested record depublication but there are no records ids for depublication in the db");
       } else {
-        final String recordIdList = String.join(",", DepublishRecordIdUtils
+        final String recordIdList = String.join(",", RecordIdUtils
                 .composeFullRecordIds(datasetId, getPluginMetadata().getRecordIdsToDepublish()));
         extraParameters.put(PluginParameterKeys.RECORD_IDS_TO_DEPUBLISH, recordIdList);
       }

@@ -32,8 +32,8 @@ public class IndexToPublishPlugin extends AbstractExecutablePlugin<IndexToPublis
   }
 
   @Override
-  public DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
-    return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
+  public DpsTask prepareDpsTask(String datasetId, DpsTaskSettings dpsTaskSettings) {
+    return createDpsTaskForIndexPlugin(dpsTaskSettings, datasetId,
         getPluginMetadata().isIncrementalIndexing(),
         getPluginMetadata().getHarvestDate(),
         getPluginMetadata().isPreserveTimestamps(),

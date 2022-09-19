@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.Revision;
@@ -47,6 +48,7 @@ import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -63,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -87,6 +90,7 @@ class TestProxiesService {
   private static ProxiesService proxiesService;
   private static WorkflowExecutionDao workflowExecutionDao;
   private static DpsClient dpsClient;
+  private static UISClient uisClient;
   private static DataSetServiceClient ecloudDataSetServiceClient;
   private static RecordServiceClient recordServiceClient;
   private static FileServiceClient fileServiceClient;
@@ -100,11 +104,12 @@ class TestProxiesService {
     recordServiceClient = mock(RecordServiceClient.class);
     fileServiceClient = mock(FileServiceClient.class);
     dpsClient = mock(DpsClient.class);
+    uisClient = mock(UISClient.class);
     authorizer = mock(Authorizer.class);
     proxiesHelper = mock(ProxiesHelper.class);
 
     proxiesService = spy(new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient,
-        recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider", authorizer, proxiesHelper));
+        recordServiceClient, fileServiceClient, dpsClient, uisClient,"ecloudProvider", authorizer, proxiesHelper));
   }
 
   @AfterEach
@@ -114,6 +119,7 @@ class TestProxiesService {
     reset(recordServiceClient);
     reset(fileServiceClient);
     reset(dpsClient);
+    reset(uisClient);
     reset(authorizer);
     reset(proxiesHelper);
     reset(proxiesService);
@@ -332,6 +338,8 @@ class TestProxiesService {
     assertSame(recordStatistics, result);
   }
 
+  // TODO: add tests for searchRecordByIdFromPluginExecution
+
   @Test
   void getListOfFileContentsFromPluginExecution() throws Exception {
 
@@ -365,6 +373,12 @@ class TestProxiesService {
     assertEquals(record.getXmlRecord(),
         listOfFileContentsFromPluginExecution.getRecords().get(0).getXmlRecord());
     assertEquals(ecloudId, listOfFileContentsFromPluginExecution.getRecords().get(0).getEcloudId());
+
+    // If the actual record could not be gotten, we need to see an exception.
+    doReturn(null).when(proxiesService).getRecord(plugin, ecloudId);
+    assertThrows(IllegalStateException.class, () -> proxiesService
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
+            plugin.getPluginMetadata().getExecutablePluginType(), null, 5));
   }
 
   @Test
@@ -473,6 +487,17 @@ class TestProxiesService {
     assertTrue(emptyResult.getRecords().isEmpty());
     input.setIds(idList);
 
+    // Check that if a record does not exist, the method still returns with the other records.
+    doReturn(null).when(proxiesService).getRecord(plugin, record3.getEcloudId());
+    final RecordsResponse resultWithMissingRecord = proxiesService
+        .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
+            plugin.getPluginMetadata().getExecutablePluginType(), input);
+    assertNotNull(resultWithMissingRecord);
+    assertNotNull(resultWithMissingRecord.getRecords());
+    assertEquals(idList.size() - 1, resultWithMissingRecord.getRecords().size());
+    assertTrue(new HashSet<>(idList).containsAll(resultWithMissingRecord.getRecords().stream()
+        .map(Record::getEcloudId).collect(Collectors.toList())));
+
     // Check that if a record cannot be retrieved, the method fails.
     doThrow(ExternalTaskException.class).when(proxiesService)
                                         .getRecord(plugin, record3.getEcloudId());
@@ -526,14 +551,13 @@ class TestProxiesService {
                   .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
 
     // Test happy flow with result
-    final Pair<WorkflowExecution, AbstractExecutablePlugin> result = proxiesService
+    final Pair<WorkflowExecution, ExecutablePlugin> result = proxiesService
         .getExecutionAndPlugin(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType());
     assertNotNull(result);
     assertEquals(execution, result.getLeft());
     assertNotNull(result.getRight());
     assertSame(plugin, result.getRight());
-    assertTrue(execution.getMetisPlugins().contains(result.getRight()));
     verify(authorizer, times(1))
         .authorizeReadExistingDatasetById(metisUserView, execution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
@@ -571,7 +595,7 @@ class TestProxiesService {
 
     // Create plugin
     final PluginType pluginType = PluginType.MEDIA_PROCESS;
-    final AbstractExecutablePlugin plugin = mock(AbstractExecutablePlugin.class);
+    final ExecutablePlugin plugin = mock(ExecutablePlugin.class);
     when(plugin.getPluginType()).thenReturn(pluginType);
     when(plugin.getStartedDate()).thenReturn(new Date());
 
@@ -610,17 +634,19 @@ class TestProxiesService {
         .when(fileServiceClient).getFile(contentUri);
     proxiesService.getRecord(plugin, ecloudId);
 
-    // When the record service client returns an exception or an unexpected list size.
+    // When the file service client throws exception
     doReturn(null).when(recordServiceClient)
                   .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
                       revision);
-    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    assertNull(proxiesService.getRecord(plugin, ecloudId));
     doReturn(Collections.emptyList()).when(recordServiceClient)
                                      .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
                                          revision);
-    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    assertNull(proxiesService.getRecord(plugin, ecloudId));
     doReturn(Arrays.asList(representation, representation)).when(recordServiceClient).getRepresentationsByRevision(ecloudId,
         MetisPlugin.getRepresentationName(), revision);
+
+    // When the record service client returns an exception or an unexpected list size.
     proxiesService.getRecord(plugin, ecloudId);
     when(recordServiceClient.getRepresentationsByRevision(anyString(), anyString(),
         any(Revision.class))).thenThrow(MCSException.class);

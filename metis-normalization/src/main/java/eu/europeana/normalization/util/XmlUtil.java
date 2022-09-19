@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.xml.XMLConstants;
@@ -19,6 +20,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPathExpressionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -51,6 +53,19 @@ public final class XmlUtil {
   }
 
   /**
+   * Get an element name that contains the namespace prefix e.g. prefix:elementName.
+   *
+   * @param elementType the element type of which to compute the name.
+   * @param knownPrefix the prefix to use, if one is known for this element's namespace. If null,
+   *                    the suggested prefix for the element's namespace will be used.
+   * @return the prefixed element name
+   */
+  public static String getPrefixedElementName(Namespace.Element elementType, String knownPrefix) {
+    return XmlUtil.addPrefixToNodeName(elementType.getElementName(),
+        Optional.ofNullable(knownPrefix).orElseGet(elementType.getNamespace()::getSuggestedPrefix));
+  }
+
+  /**
    * Add the prefix to the node name and returns the result.
    *
    * @param nodeName The name of the node.
@@ -59,6 +74,65 @@ public final class XmlUtil {
    */
   public static String addPrefixToNodeName(String nodeName, String prefix) {
     return prefix == null ? nodeName : String.format("%s:%s", prefix, nodeName);
+  }
+
+  /**
+   * Add the element to the parent. The new element will be added directly after the last occurrence
+   * of any element of any given previous element type. If no previous element types are passed
+   * (i.e. empty list), or if no element af any given previous element type was encountered, the
+   * element will be added at the beginning. If the list is null, this signals that the element
+   * is to be added at the end.
+  *
+   * @param elementType          The element type to add.
+   * @param parent               The parent to add the element to.
+   * @param previousElementTypes The element types to add this element after. Can be null.
+   * @return The added (empty) element.
+   */
+  public static Element createElement(Namespace.Element elementType, Element parent,
+      List<Namespace.Element> previousElementTypes) {
+
+    // Create the new element.
+    final String knownPrefix = parent.lookupPrefix(elementType.getNamespace().getUri());
+    final Element newElement = parent.getOwnerDocument().createElementNS(
+        elementType.getNamespace().getUri(), getPrefixedElementName(elementType, knownPrefix));
+
+    // Find last instance of a previous element type.
+    Element previousElement = null;
+    if (previousElementTypes != null && !previousElementTypes.isEmpty()) {
+      for (int i = parent.getChildNodes().getLength() - 1; i >= 0; i--) {
+
+        // Get the child
+        final Node childNode = parent.getChildNodes().item(i);
+        if (!(childNode instanceof Element)) {
+          continue;
+        }
+        final Element childElement = (Element) childNode;
+
+        // Check against the types: if we find one that matches, we found our previous element.
+        final boolean matchesPreviousElementType = previousElementTypes.stream()
+            .filter(type -> type.getElementName().equals(childElement.getLocalName()))
+            .anyMatch(type -> type.getNamespace().getUri()
+                .equals(childElement.lookupNamespaceURI(childElement.getPrefix())));
+        if (matchesPreviousElementType) {
+          previousElement = childElement;
+          break;
+        }
+      }
+    }
+
+    // Position the element properly in the parent.
+    if (previousElement == null) {
+      if (previousElementTypes == null || parent.getChildNodes().getLength() == 0) {
+        parent.appendChild(newElement);
+      } else {
+        parent.insertBefore(newElement, parent.getChildNodes().item(0));
+      }
+    } else {
+      parent.insertBefore(newElement, previousElement.getNextSibling());
+    }
+
+    // Done.
+    return newElement;
   }
 
   /**
@@ -97,6 +171,36 @@ public final class XmlUtil {
   }
 
   /**
+   * Executes the Xpath query to find the unique element.
+   *
+   * @param query    The query to execute.
+   * @param document The document in which to query.
+   * @return The unique element satisfying the query.
+   * @throws NormalizationException In case the query could not be executed, or there is not a
+   *                                (unique) element satisfying the query.
+   */
+  public static Element getUniqueElement(XpathQuery query, Document document)
+      throws NormalizationException {
+
+    // Execute the query.
+    final NodeList queryResult;
+    try {
+      queryResult = query.execute(document);
+    } catch (XPathExpressionException e) {
+      throw new NormalizationException("Xpath query issue: " + e.getMessage(), e);
+    }
+
+    // Check the validity of the target
+    if (queryResult.getLength() != 1 || !(queryResult.item(0) instanceof Element)) {
+      throw new NormalizationException(
+          "The document does not contain a (unique) element satisfying this query.", null);
+    }
+
+    // Done
+    return (Element) queryResult.item(0);
+  }
+
+  /**
    * Gets the first child Element with a given name
    *
    * @param n the node get the children from
@@ -105,12 +209,6 @@ public final class XmlUtil {
    */
   public static Element getElementByTagName(Element n, String elementName) {
     return (Element) n.getElementsByTagName(elementName).item(0);
-  }
-
-  public static Element getLastElementByTagName(Element n, String elementName) {
-    final NodeList elementsByTagName = n.getElementsByTagName(elementName);
-    return elementsByTagName.getLength() == 0 ? null
-        : (Element) elementsByTagName.item(elementsByTagName.getLength() - 1);
   }
 
   /**

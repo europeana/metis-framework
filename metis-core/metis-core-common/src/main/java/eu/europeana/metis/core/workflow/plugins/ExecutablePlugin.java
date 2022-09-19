@@ -43,11 +43,11 @@ public interface ExecutablePlugin extends MetisPlugin {
    *
    * @param datasetId the dataset id that is required for some of the plugins
    * @param dpsClient {@link DpsClient} used to submit the external execution
-   * @param ecloudBasePluginParameters the basic parameter required for each execution
+   * @param dpsTaskSettings the basic parameter required for each execution
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
   void execute(String datasetId, DpsClient dpsClient,
-      EcloudBasePluginParameters ecloudBasePluginParameters)
+      DpsTaskSettings dpsTaskSettings)
       throws ExternalTaskException;
 
   /**

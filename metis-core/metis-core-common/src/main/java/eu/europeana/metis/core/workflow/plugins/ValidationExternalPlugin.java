@@ -45,12 +45,12 @@ public class ValidationExternalPlugin extends
   }
 
   @Override
-  DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
+  DpsTask prepareDpsTask(String datasetId, DpsTaskSettings dpsTaskSettings) {
     String urlOfSchemasZip = getPluginMetadata().getUrlOfSchemasZip();
     String schemaRootPath = getPluginMetadata().getSchemaRootPath();
     String schematronRootPath = getPluginMetadata().getSchematronRootPath();
     Map<String, String> extraParameters = createParametersForValidationExternal(urlOfSchemasZip,
         schemaRootPath, schematronRootPath);
-    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
+    return createDpsTaskForProcessPlugin(dpsTaskSettings, extraParameters);
   }
 }

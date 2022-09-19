@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>7</version>
+  <version>8</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -27,7 +27,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v7</tag>
+    <tag>v8</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -122,7 +122,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.ecloud>7-SNAPSHOT</version.ecloud>
-    <version.metis-schema>7</version.metis-schema>
+    <version.metis-schema>7-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
@@ -136,8 +136,8 @@
     <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
     <version.apache.commons.text>1.9</version.apache.commons.text>
-    <version.commonscompress>1.11</version.commonscompress>
-    <version.corelib>2.15.3</version.corelib>
+    <version.commonscompress>1.21</version.commonscompress>
+    <version.corelib>2.15.8-SNAPSHOT</version.corelib>
 
     <!-- These two versions are interdependent. -->
     <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
@@ -156,6 +156,7 @@
     <version.jaxb.api>2.3.1</version.jaxb.api>
     <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
     <version.jena.iri>4.1.0</version.jena.iri>
+    <version.jena.core>3.11.0</version.jena.core>
     <version.jersey>2.21</version.jersey>
     <version.json>20210307</version.json>
     <version.json.path>2.5.0</version.json.path>

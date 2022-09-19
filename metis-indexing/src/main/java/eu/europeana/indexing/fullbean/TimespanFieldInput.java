@@ -32,6 +32,7 @@ final class TimespanFieldInput implements Function<TimeSpanType, TimespanImpl> {
     mongoTimespan.setIsNextInSequence(
         Optional.ofNullable(timeSpan.getIsNextInSequence()).map(IsNextInSequence::getResource)
             .orElse(null));
+    mongoTimespan.setSkosNotation(FieldInputUtils.createLiteralMapFromString(timeSpan.getNotation()));
     return mongoTimespan;
   }
 }

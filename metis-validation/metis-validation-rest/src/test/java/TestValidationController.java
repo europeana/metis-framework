@@ -5,8 +5,14 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import eu.europeana.metis.utils.CompressedFileHandler;
 import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
@@ -19,8 +25,10 @@ import eu.europeana.validation.rest.exceptions.exceptionmappers.ServerExceptionM
 import eu.europeana.validation.rest.exceptions.exceptionmappers.ValidationExceptionController;
 import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -55,7 +63,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebAppConfiguration
 class TestValidationController {
 
-  private static int portForWireMock = TestApplication.portForWireMock;
+  private static final int portForWireMock = TestApplication.portForWireMock;
   private static WireMockServer wireMockServer;
 
   @Autowired
@@ -136,7 +144,6 @@ class TestValidationController {
     assertTrue(result.getResolvedException() instanceof ValidationException);
   }
 
-
   @Test
   void shouldValidateZipFileRecordsAgainstEDMInternal() throws Exception {
     wireMockServer.stubFor(get(urlEqualTo("/test_schema.zip"))
@@ -146,6 +153,7 @@ class TestValidationController {
 
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
         new FileInputStream("src/test/resources/test_batch.zip"));
+
     mockMvc.perform(MockMvcRequestBuilders
         .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
         .file(file))

@@ -1,11 +1,11 @@
 package eu.europeana.normalization;
 
-import java.util.ArrayList;
-import java.util.List;
 import eu.europeana.normalization.normalizers.ChainedNormalizer;
 import eu.europeana.normalization.normalizers.RecordNormalizeAction;
 import eu.europeana.normalization.settings.NormalizerSettings;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class creates instances of {@link Normalizer}. The default steps for a normalization are:
@@ -33,8 +33,11 @@ public class NormalizerFactory {
       NormalizerStep.NORMALIZE_DC_LANGUAGE_REFERENCES,
       NormalizerStep.NORMALIZE_XML_LANG_REFERENCES,
 
-      // Last: remove duplicate statements (which may be caused by the operations above).
-      NormalizerStep.REMOVE_DUPLICATE_STATEMENTS
+      // Third: remove duplicate statements (which may be caused by the operations above).
+      NormalizerStep.REMOVE_DUPLICATE_STATEMENTS,
+
+      // Last: normalize dates (which may be affected by the operations above).
+      NormalizerStep.DATES_NORMALIZER
   };
 
   /**
