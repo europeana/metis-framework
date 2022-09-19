@@ -27,27 +27,27 @@ public class Cleaner {
    */
   public Cleaner() {
     cleaningPatterns1stTimeDateProperty = List.of(
-        CleanOperation.INITIAL_TEXT_A,
-        CleanOperation.INITIAL_TEXT_B,
-        CleanOperation.ENDING_TEXT,
-        CleanOperation.SQUARE_BRACKETS_AND_CIRCA,
+        CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON,
+        CleanOperation.STARTING_PARENTHESES,
+        CleanOperation.ENDING_PARENTHESES,
+        CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA,
         CleanOperation.SQUARE_BRACKETS,
-        CleanOperation.CIRCA,
-        CleanOperation.SQUARE_BRACKET_END,
+        CleanOperation.STARTING_CIRCA,
+        CleanOperation.CLOSING_SQUARE_BRACKET,
         CleanOperation.ENDING_DOT
     );
 
     cleaningPatterns2ndTimeDateProperty = List.of(
-        CleanOperation.ENDING_TEXT_SQUARE_BRACKETS,
-        CleanOperation.PARENTHESES_FULL_VALUE_AND_CIRCA,
-        CleanOperation.PARENTHESES_FULL_VALUE
+        CleanOperation.ENDING_SQUARE_BRACKETS,
+        CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA,
+        CleanOperation.CAPTURE_VALUE_IN_PARENTHESES
     );
 
     cleaningPatternsGenericProperty = List.of(
-        CleanOperation.SQUARE_BRACKETS_AND_CIRCA,
+        CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA,
         CleanOperation.SQUARE_BRACKETS,
-        CleanOperation.CIRCA,
-        CleanOperation.ENDING_TEXT
+        CleanOperation.STARTING_CIRCA,
+        CleanOperation.ENDING_PARENTHESES
     );
   }
 
@@ -82,7 +82,7 @@ public class Cleaner {
   }
 
   private CleanResult clean(List<CleanOperation> cleanOperations, String inputValue) {
-    final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
+    final String sanitizedValue = cleanSpacesAndTrim(inputValue);
     for (CleanOperation cleaningOperationId : cleanOperations) {
       final Matcher matcher = cleaningOperationId.getCleanPattern().matcher(sanitizedValue);
       if (cleaningOperationId.getMatchingCheck().test(matcher)) {
@@ -93,5 +93,9 @@ public class Cleaner {
       }
     }
     return null;
+  }
+
+  private String cleanSpacesAndTrim(String inputValue) {
+    return inputValue.replaceAll("\\s", " ").trim();
   }
 }

@@ -26,34 +26,36 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum CleanOperation {
 
-  INITIAL_TEXT_A(compile("^[^:]+:\\s?"),
+  STARTING_TEXT_UNTIL_FIRST_COLON(compile("^[^:]+:\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  INITIAL_TEXT_B(compile("^\\(.+\\)\\s?"),
+  STARTING_PARENTHESES(compile("^\\(.+\\)\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  ENDING_TEXT(compile("\\s?\\(.+\\)$"),
+  ENDING_PARENTHESES(compile("\\s?\\(.+\\)$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
-  ENDING_TEXT_SQUARE_BRACKETS(compile("\\s?\\[.+]$"),
+  ENDING_SQUARE_BRACKETS(compile("\\s?\\[.+]$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), s -> true),
   ENDING_DOT(compile("\\s?\\.$"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
   SQUARE_BRACKETS(compile("\\[([^]]+)]"),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
-  CIRCA(compile("^" + CleanOperation.CIRCA_REGEX, Pattern.CASE_INSENSITIVE),
+  STARTING_CIRCA(compile("^" + CleanOperation.CIRCA_REGEX, Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
-  SQUARE_BRACKETS_AND_CIRCA(compile("\\[" + CleanOperation.CIRCA_REGEX + "([^]]+)]", Pattern.CASE_INSENSITIVE),
+  STARTING_SQUARE_BRACKETS_WITH_CIRCA(compile("\\[" + CleanOperation.CIRCA_REGEX + "([^]]+)]", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
-  SQUARE_BRACKET_END(compile("\\s?]$"),
+  CLOSING_SQUARE_BRACKET(compile("\\s?]$"),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
-  PARENTHESES_FULL_VALUE(compile("\\s?\\((.+)\\)\\s?"),
+  CAPTURE_VALUE_IN_PARENTHESES(compile("\\s?\\((.+)\\)\\s?"),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true),
-  PARENTHESES_FULL_VALUE_AND_CIRCA(compile("\\s?\\(" + CleanOperation.CIRCA_REGEX + "(.+)\\)\\s?", Pattern.CASE_INSENSITIVE),
+  CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA(
+      compile("\\s?\\(" + CleanOperation.CIRCA_REGEX + "(.+)\\)\\s?", Pattern.CASE_INSENSITIVE),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true);
 
   private static final String CIRCA_REGEX = "(?:(?:circa|CA|C)\\s|(?:CA\\.|C\\.)\\s?)";
   private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
-      CleanOperation.CIRCA, CleanOperation.SQUARE_BRACKETS_AND_CIRCA, CleanOperation.PARENTHESES_FULL_VALUE_AND_CIRCA);
+      CleanOperation.STARTING_CIRCA, CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA,
+      CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA);
   private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY = EnumSet.of(
-      CleanOperation.CIRCA, CleanOperation.SQUARE_BRACKETS_AND_CIRCA);
+      CleanOperation.STARTING_CIRCA, CleanOperation.STARTING_SQUARE_BRACKETS_WITH_CIRCA);
 
   private final Pattern cleanPattern;
   private final Predicate<Matcher> matchingCheck;
