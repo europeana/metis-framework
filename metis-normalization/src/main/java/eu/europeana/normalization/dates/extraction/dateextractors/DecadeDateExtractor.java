@@ -9,41 +9,43 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Extractor that matches a decade of the format YYY[ux].
+ * <p>The decade may start and/or end with a question mark indicating uncertainty. Dates such as '198-' are not supported because
+ * they may indicate a decade or a time period with an open end.</p>
+ * <p>
+ * Examples:
+ *   <ul>
+ *     <li>180u</li>
+ *     <li>180x</li>
+ *     <li>?180u</li>
+ *     <li>?180x</li>
+ *     <li>180??</li>
+ *     <li>180x?</li>
+ *   </ul>
+ * </p>
+ * <p>
  * A decade represented as YYYu or YYYx. For example, '198u', '198x' Dates such as '198-' are not supported because they may
  * indicate a decade or a time period with an open end
  */
 public class DecadeDateExtractor implements DateExtractor {
 
-  // TODO: 20/09/2022 Clean and capture uncertain outside regex
-  // TODO: 20/09/2022 This can be combined in one regex
-  // TODO: 20/09/2022 Should we restrict the 3 digits to a specific range??
-  Pattern patUncertainBeginning = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>\\d\\d\\d)[xu]\\s*",
-      Pattern.CASE_INSENSITIVE);
-  Pattern patUncertainEnding = Pattern.compile(
-      "\\s*(?<year>\\d\\d\\d)([ux](?<uncertain>\\?)?|\\?(?<uncertain2>\\?))\\s*", Pattern.CASE_INSENSITIVE);
+  // TODO: 20/09/2022 Should we limit the range of the 3 digits?
+  static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   public DateNormalizationResult extract(String inputValue) {
-    Matcher m = patUncertainEnding.matcher(inputValue);
-    if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
-      d.setYearPrecision(YearPrecision.DECADE);
-      d.setYear(Integer.parseInt(m.group("year")) * 10);
-      if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-        d.setUncertain(true);
-      }
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(d));
-    }
-    m = patUncertainBeginning.matcher(inputValue);
-    if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
-      d.setYearPrecision(YearPrecision.DECADE);
-      d.setYear(Integer.parseInt(m.group("year")) * 10);
-      if (m.group("uncertain") != null) {
-        d.setUncertain(true);
-      }
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(d));
-    }
-    return null;
-  }
+    final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
+    final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
 
+    DateNormalizationResult dateNormalizationResult = null;
+    final Matcher matcher = decadePattern.matcher(sanitizedValue);
+    if (matcher.matches()) {
+      EdtfDatePart datePart = new EdtfDatePart();
+      datePart.setYearPrecision(YearPrecision.DECADE);
+      datePart.setYear(Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration());
+      datePart.setUncertain(uncertain);
+      dateNormalizationResult = new DateNormalizationResult(
+          DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart));
+    }
+    return dateNormalizationResult;
+  }
 }
