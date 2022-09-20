@@ -17,16 +17,16 @@ import java.util.regex.Matcher;
  */
 public class Cleaner {
 
-  private final List<CleanOperation> cleaningPatterns1stTimeDateProperty;
-  private final List<CleanOperation> cleaningPatterns2ndTimeDateProperty;
-  private final List<CleanOperation> cleaningPatternsGenericProperty;
+  private final List<CleanOperation> cleaningPatterns1stGroupDateProperty;
+  private final List<CleanOperation> cleaningPatterns2ndGroupDateProperty;
+  private final List<CleanOperation> cleaningPatternsGroupGenericProperty;
 
   /**
    * Default constructor.
    * <p>It initializes all cleaning lists.</p>
    */
   public Cleaner() {
-    cleaningPatterns1stTimeDateProperty = List.of(
+    cleaningPatterns1stGroupDateProperty = List.of(
         CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON,
         CleanOperation.STARTING_PARENTHESES,
         CleanOperation.ENDING_PARENTHESES,
@@ -37,13 +37,13 @@ public class Cleaner {
         CleanOperation.ENDING_DOT
     );
 
-    cleaningPatterns2ndTimeDateProperty = List.of(
+    cleaningPatterns2ndGroupDateProperty = List.of(
         CleanOperation.ENDING_SQUARE_BRACKETS,
         CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA,
         CleanOperation.CAPTURE_VALUE_IN_PARENTHESES
     );
 
-    cleaningPatternsGenericProperty = List.of(
+    cleaningPatternsGroupGenericProperty = List.of(
         CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA,
         CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS,
         CleanOperation.STARTING_CIRCA,
@@ -58,7 +58,7 @@ public class Cleaner {
    * @return the clean result
    */
   public CleanResult clean1stTimeDateProperty(String value) {
-    return clean(cleaningPatterns1stTimeDateProperty, value);
+    return clean(cleaningPatterns1stGroupDateProperty, value);
   }
 
   /**
@@ -68,7 +68,7 @@ public class Cleaner {
    * @return the clean result
    */
   public CleanResult clean2ndTimeDateProperty(String value) {
-    return clean(cleaningPatterns2ndTimeDateProperty, value);
+    return clean(cleaningPatterns2ndGroupDateProperty, value);
   }
 
   /**
@@ -78,7 +78,7 @@ public class Cleaner {
    * @return the clean result
    */
   public CleanResult cleanGenericProperty(String value) {
-    return clean(cleaningPatternsGenericProperty, value);
+    return clean(cleaningPatternsGroupGenericProperty, value);
   }
 
   private CleanResult clean(List<CleanOperation> cleanOperations, String inputValue) {
