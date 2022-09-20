@@ -38,6 +38,7 @@ class CleanerTest {
         of(ENDING_PARENTHESES, "text(1942-1943)", "text"),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa 2000]", "2000"),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[1942-1943]textB", "textA1942-1943textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[textA]-[textB]", "textA-textB"),
         of(STARTING_CIRCA, "circa 2000", "2000"),
         of(ENDING_CLOSING_SQUARE_BRACKET, "text ]", "text"),
         of(ENDING_DOT, "text.", "text"),
