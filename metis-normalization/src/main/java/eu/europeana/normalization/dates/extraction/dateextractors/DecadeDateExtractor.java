@@ -12,9 +12,12 @@ import java.util.regex.Pattern;
  * A decade represented as YYYu or YYYx. For example, '198u', '198x' Dates such as '198-' are not supported because they may
  * indicate a decade or a time period with an open end
  */
-public class PatternDecadeDateExtractor implements DateExtractor {
+public class DecadeDateExtractor implements DateExtractor {
 
-  Pattern patUncertainBegining = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>\\d\\d\\d)[xu]\\s*",
+  // TODO: 20/09/2022 Clean and capture uncertain outside regex
+  // TODO: 20/09/2022 This can be combined in one regex
+  // TODO: 20/09/2022 Should we restrict the 3 digits to a specific range??
+  Pattern patUncertainBeginning = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>\\d\\d\\d)[xu]\\s*",
       Pattern.CASE_INSENSITIVE);
   Pattern patUncertainEnding = Pattern.compile(
       "\\s*(?<year>\\d\\d\\d)([ux](?<uncertain>\\?)?|\\?(?<uncertain2>\\?))\\s*", Pattern.CASE_INSENSITIVE);
@@ -30,7 +33,7 @@ public class PatternDecadeDateExtractor implements DateExtractor {
       }
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(d));
     }
-    m = patUncertainBegining.matcher(inputValue);
+    m = patUncertainBeginning.matcher(inputValue);
     if (m.matches()) {
       EdtfDatePart d = new EdtfDatePart();
       d.setYearPrecision(YearPrecision.DECADE);
