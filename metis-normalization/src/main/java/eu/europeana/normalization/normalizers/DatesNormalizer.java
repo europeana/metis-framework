@@ -13,6 +13,7 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericWithMissingPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBriefDateRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternCenturyDateExtractor;
@@ -23,7 +24,6 @@ import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormate
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternMonthNameDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateExtractorWithMissingPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsDateExtractor;
 import eu.europeana.normalization.model.ConfidenceLevel;
@@ -128,7 +128,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new PatternDecadeDateExtractor(),
         new PatternNumericDateRangeExtractorWithMissingPartsDateExtractor(),
         new PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor(),
-        new PatternNumericDateExtractorWithMissingPartsDateExtractor(),
+        new NumericWithMissingPartsDateExtractor(),
         new PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor(),
         new PatternDateExtractorYyyyMmDdSpacesDateExtractor(),
         new DcmiPeriodDateExtractor(),
