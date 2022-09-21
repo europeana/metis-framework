@@ -129,7 +129,8 @@ class NumericWithMissingPartsDateExtractorTest {
         of("1989 11 01", null, null), //Spaces should not match
         of("1989--11--01", null, null), //Double dashes should not match
         of("1989..11..01", null, null), //Double dots should not match
-        of("1989//11//01", null, null) //Double slashes should not match
+        of("1989//11//01", null, null), //Double slashes should not match
+        of("198?", null, null) //Ambiguous
 
     );
   }
