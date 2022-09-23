@@ -7,7 +7,6 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -19,13 +18,15 @@ import org.apache.commons.lang3.StringUtils;
  * unknown/unspecified date components.
  */
 public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor {
-  // TODO: 22/09/2022 Add pattern DMY
 
+  /**
+   * The start of the string can be one or three question marks but not two.
+   */
+  public static final Pattern STARTING_UNCERTAIN_PATTERN = Pattern.compile("^(?:\\?(?!\\?)|\\?{3})");
   /**
    * The end of the string can be one or three question marks but not two.
    */
   public static final Pattern ENDING_UNCERTAIN_PATTERN = Pattern.compile("(?:(?<!\\?)\\?|\\?{3})$");
-  public static final Pattern STARTING_UNCERTAIN_PATTERN = Pattern.compile("^(?:\\?(?!\\?)|\\?{3})");
   public static final String DELIMITERS = "[\\-./]";
   /**
    * For the 3 digits we make sure there is no question mark in front, using a lookahead
@@ -35,11 +36,10 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
    * For the double dash case we make sure there isn't a third dash with a lookbehind
    */
   private static final String DELIMITER_DIGITS = "(?:" + DELIMITERS + "(\\d{2}|XX|UU|(?<!-)--|\\?\\?))?";
+  /**
+   * For the double dash case we make sure there isn't a third dash with a lookahead
+   */
   private static final String DIGITS_DELIMITER = "(?:(\\d{2}|XX|UU|--(?!-)|\\?\\?)" + DELIMITERS + ")?";
-  //  private static final Pattern YMD_PATTERN = Pattern.compile(
-  //      "^\\??" + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + "\\??$");
-  //  private static final Pattern MDY_PATTERN = Pattern.compile(
-  //      "^\\??" + DIGITS_DELIMITER + DIGITS_DELIMITER + YEAR + "\\??$");
 
   private enum NumericWithMissingPartsAndXxPattern {
     YMD(Pattern.compile("^\\??" + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + "\\??$"), 1, 2, 3),
@@ -74,33 +74,7 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
     }
   }
 
-  // TODO: 23/09/2022 to remove
-  ArrayList<Pattern> patterns = new ArrayList<>();
-  Pattern cleanSeparatorAndUnknown = Pattern.compile("[-./?X]");
-  Pattern unknownChars = Pattern.compile("[u\\-?X]+$", Pattern.CASE_INSENSITIVE);
-
-  Pattern ambigousPattern = Pattern.compile("(\\d\\d\\d-?\\?|\\d\\d\\d-)");
-
   public NumericWithMissingPartsAndXxDateExtractor() {
-    String componentSep = "[./]";
-    //    String dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d?\\-Xu])"
-    //        + "(" + componentSep + "(?<month>XX|uu|\\d\\d|\\?\\?|--))?(" + componentSep
-    //        + "(?<day>\\d\\d|--|XX|uu|\\?\\?))?(?<uncertain2>\\?)?";
-
-    String dateDmy = "(?<uncertain>\\?)?((?<day>\\d\\d|--|\\?\\?|xx|uu)" + componentSep
-        + ")?((?<month>XX|uu|\\d\\d|\\?\\?|--)?" + componentSep
-        + ")?(?<year>\\d\\dXX|\\d\\duu|\\d\\d--|\\d\\d\\?\\?|\\d\\d\\d[\\d?\\-Xu])(?<uncertain2>\\?)?";
-    //    patterns.add(Pattern.compile(dateYmd, Pattern.CASE_INSENSITIVE));
-    patterns.add(Pattern.compile(dateDmy, Pattern.CASE_INSENSITIVE));
-
-    componentSep = "-";
-    //    dateYmd = "(?<uncertain>\\?)?(?<year>\\d\\dXX|\\d\\d\\?\\?|\\d\\d\\d[\\d?X])" + "(" + componentSep
-    //        + "(?<month>XX|\\d\\d|\\?\\?))?(" + componentSep + "(?<day>\\d\\d|XX|\\?\\?))?(?<uncertain2>\\?)?";
-    dateDmy = "(?<uncertain>\\?)?((?<day>\\d\\d|--|\\?\\?|xx|uu)" + componentSep
-        + ")?((?<month>XX|\\d\\d|\\?\\?)?" + componentSep
-        + ")?(?<year>\\d\\dXX|\\d\\d\\?\\?|\\d\\d\\d[\\d\\?X])(?<uncertain2>\\?)?";
-    //    patterns.add(Pattern.compile(dateYmd, Pattern.CASE_INSENSITIVE));
-    patterns.add(Pattern.compile(dateDmy, Pattern.CASE_INSENSITIVE));
   }
 
   public DateNormalizationResult extract(String inputValue) {
@@ -109,13 +83,14 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
 
     DateNormalizationResult dateNormalizationResult = null;
-    //    final Matcher matcher = YMD_PATTERN.matcher(sanitizedValue);
-    // TODO: 23/09/2022 Fix this to capture all
-    final Matcher matcher = NumericWithMissingPartsAndXxPattern.DMY.getPattern().matcher(sanitizedValue);
-    if (matcher.matches()) {
-      EdtfDatePart edtfDatePart = extractDate(NumericWithMissingPartsAndXxPattern.DMY, matcher, uncertain);
-      dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX, inputValue,
-          new InstantEdtfDate(edtfDatePart));
+    for (NumericWithMissingPartsAndXxPattern numericWithMissingPartsAndXxPattern : NumericWithMissingPartsAndXxPattern.values()) {
+      final Matcher matcher = numericWithMissingPartsAndXxPattern.getPattern().matcher(sanitizedValue);
+      if (matcher.matches()) {
+        EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsAndXxPattern, matcher, uncertain);
+        dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX,
+            inputValue,
+            new InstantEdtfDate(edtfDatePart));
+      }
     }
     return dateNormalizationResult;
   }
@@ -148,7 +123,7 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
 
   /**
    * Checks if the month is null and if the day is not null it will get its value instead.
-   * <p>That occurs with the DMY matcher when there is no day e.g. 11-1989</p>
+   * <p>That occurs with the DMY pattern when there is no day e.g. 11-1989</p>
    *
    * @param numericWithMissingPartsAndXxPattern the group indices
    * @param matcher the matcher
@@ -160,7 +135,7 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
   }
 
   /**
-   * Check if month is null, it then returns the default value, otherwise gets the value of day.
+   * Checks if month is null, it then returns the default value, otherwise gets the value of day.
    *
    * @param numericWithMissingPartsAndXxPattern the group indices
    * @param matcher the matcher
@@ -170,69 +145,5 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
     return ofNullable(matcher.group(numericWithMissingPartsAndXxPattern.getMonthIndex()))
         .map(optional -> matcher.group(numericWithMissingPartsAndXxPattern.getDayIndex()))
         .orElse("0");
-  }
-
-  public DateNormalizationResult extractOld(String inputValue) {
-    for (Pattern pat : patterns) {
-      Matcher m = pat.matcher(inputValue);
-      if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-
-        String year = m.group("year");
-        Matcher mtc = unknownChars.matcher(year);
-        if (!mtc.find()) {
-          d.setYear(Integer.parseInt(year));
-        } else {
-          if (mtc.group(0).length() == 2) {
-            d.setYearPrecision(YearPrecision.CENTURY);
-            d.setYear(Integer.parseInt(year.substring(0, year.length() - mtc.group(0).length())) * 100);
-          } else {
-            d.setYearPrecision(YearPrecision.DECADE);
-            d.setYear(Integer.parseInt(year.substring(0, year.length() - mtc.group(0).length())) * 10);
-          }
-        }
-
-        String month = m.group("month");
-        if (month != null) {
-          month = clean(month);
-        }
-        String day = m.group("day");
-        if (day != null) {
-          day = clean(day);
-        }
-
-        if (!StringUtils.isEmpty(month) && !StringUtils.isEmpty(day)) {
-          d.setMonth(safeParse(month));
-          d.setDay(safeParse(day));
-        } else if (!StringUtils.isEmpty(month)) {
-          d.setMonth(safeParse(month));
-        } else if (!StringUtils.isEmpty(day)) {
-          d.setMonth(safeParse(day));
-        }
-        if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-          d.setUncertain(true);
-        }
-
-        Matcher ambigMatcher = ambigousPattern.matcher(inputValue);
-        if (ambigMatcher.matches()) {
-          return null;// these cases are ambiguous. Examples '187-?', '187?'
-        }
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX, inputValue,
-            new InstantEdtfDate(d));
-      }
-    }
-    return null;
-  }
-
-  private Integer safeParse(String val) {
-    try {
-      return Integer.parseInt(val);
-    } catch (Exception e) {
-      return null;
-    }
-  }
-
-  private String clean(String group) {
-    return cleanSeparatorAndUnknown.matcher(group).replaceAll("");
   }
 }

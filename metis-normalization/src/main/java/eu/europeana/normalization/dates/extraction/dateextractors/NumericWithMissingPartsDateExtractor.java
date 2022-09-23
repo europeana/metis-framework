@@ -84,7 +84,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
 
   /**
    * Checks if the month is null and if the day is not null it will get its value instead.
-   * <p>That occurs with the DMY matcher when there is no day e.g. 11-1989</p>
+   * <p>That occurs with the DMY pattern when there is no day e.g. 11-1989</p>
    *
    * @param numericWithMissingPartsPattern the group indices
    * @param matcher the matcher
@@ -96,7 +96,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   }
 
   /**
-   * Check if month is null, it then returns the default value, otherwise gets the value of day.
+   * Checks if month is null, it then returns the default value, otherwise gets the value of day.
    *
    * @param numericWithMissingPartsPattern the group indices
    * @param matcher the matcher
