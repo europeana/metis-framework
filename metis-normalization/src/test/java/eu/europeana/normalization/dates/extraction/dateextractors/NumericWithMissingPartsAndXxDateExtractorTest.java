@@ -73,8 +73,8 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/??", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989/--", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989-XX", "1989", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 Shouldn't the UU be captured for dash delimiter as well???
-        of("1989-UU", null, null),
+        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
+        of("1989-UU", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989-??", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("?1989.11", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989.XX", "1989?", NUMERIC_ALL_VARIANTS_XX),
@@ -88,8 +88,8 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("?1989/--", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989-11", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989-XX", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 Shouldn't the UU be captured for dash delimiter as well???
-        of("?1989-UU", null, null),
+        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
+        of("?1989-UU", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989-??", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989.11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("1989.XX?", "1989?", NUMERIC_ALL_VARIANTS_XX),
@@ -103,8 +103,8 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/--?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("1989-XX?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 Shouldn't the UU be captured for dash delimiter as well???
-        of("1989-UU?", null, null),
+        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
+        of("1989-UU?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989-???", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989.11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989/11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -129,14 +129,16 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/11/??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989/11/--", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-XX", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 Shouldn't the UU be captured for dash delimiter as well???
-        of("1989-11-UU", null, null),
+        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
+        of("1989-11-UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11---", null, null),
         of("1989.11.X", null, null),
         of("1989.11.U", null, null),
         of("1989.11.?", null, null),
         of("1989.11.-", null, null),
+        of("1989-??-??", "1989", NUMERIC_ALL_VARIANTS_XX),
+        of("1989-????", null, null),
 
         of("?1989.11.01", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
         of("1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
