@@ -20,8 +20,8 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   private static final String DIGITS1_2_DELIMITER = "(?:(\\d{1,2})" + DELIMITERS + ")?";
 
   private enum NumericWithMissingPartsPattern {
-    YMD(Pattern.compile("^\\??" + YEAR + DELIMITER_DIGITS1_2 + DELIMITER_DIGITS1_2 + "\\??$"), 1, 2, 3),
-    DMY(Pattern.compile("^\\??" + DIGITS1_2_DELIMITER + DIGITS1_2_DELIMITER + YEAR + "\\??$"), 3, 2, 1);
+    YMD(Pattern.compile("^\\??" + YEAR + DELIMITER_DIGITS1_2 + DELIMITER_DIGITS1_2 + "\\??$", Pattern.CASE_INSENSITIVE), 1, 2, 3),
+    DMY(Pattern.compile("^\\??" + DIGITS1_2_DELIMITER + DIGITS1_2_DELIMITER + YEAR + "\\??$", Pattern.CASE_INSENSITIVE), 3, 2, 1);
 
     private final Pattern pattern;
     private final int yearIndex;

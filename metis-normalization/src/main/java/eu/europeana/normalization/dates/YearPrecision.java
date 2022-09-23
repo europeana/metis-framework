@@ -4,7 +4,7 @@ package eu.europeana.normalization.dates;
  * Enum indicating the year precision that can be used to adjust a year.
  */
 public enum YearPrecision {
-  MILLENNIUM(1000), CENTURY(100), DECADE(10);
+  DECADE(10), CENTURY(100), MILLENNIUM(1000);
 
   final int duration;
 

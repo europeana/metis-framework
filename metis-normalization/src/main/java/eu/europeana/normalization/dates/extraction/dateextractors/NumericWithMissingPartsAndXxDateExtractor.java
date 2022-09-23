@@ -27,6 +27,10 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
    * The end of the string can be one or three question marks but not two.
    */
   public static final Pattern ENDING_UNCERTAIN_PATTERN = Pattern.compile("(?:(?<!\\?)\\?|\\?{3})$");
+  /**
+   * Those are characters that indicate unknowns on year, month or day
+   */
+  public static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
   public static final String DELIMITERS = "[\\-./]";
   /**
    * For the 3 digits we make sure there is no question mark in front, using a lookahead
@@ -42,8 +46,8 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
   private static final String DIGITS_DELIMITER = "(?:(\\d{2}|XX|UU|--(?!-)|\\?\\?)" + DELIMITERS + ")?";
 
   private enum NumericWithMissingPartsAndXxPattern {
-    YMD(Pattern.compile("^\\??" + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + "\\??$"), 1, 2, 3),
-    DMY(Pattern.compile("^\\??" + DIGITS_DELIMITER + DIGITS_DELIMITER + YEAR + "\\??$"), 3, 2, 1);
+    YMD(Pattern.compile("^\\??" + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + "\\??$", Pattern.CASE_INSENSITIVE), 1, 2, 3),
+    DMY(Pattern.compile("^\\??" + DIGITS_DELIMITER + DIGITS_DELIMITER + YEAR + "\\??$", Pattern.CASE_INSENSITIVE), 3, 2, 1);
 
     private final Pattern pattern;
     private final int yearIndex;
@@ -74,9 +78,6 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
     }
   }
 
-  public NumericWithMissingPartsAndXxDateExtractor() {
-  }
-
   public DateNormalizationResult extract(String inputValue) {
     final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
     final boolean uncertain =
@@ -102,9 +103,13 @@ public class NumericWithMissingPartsAndXxDateExtractor implements DateExtractor 
     final String day = getDay(numericWithMissingPartsAndXxPattern, matcher);
     final EdtfDatePart edtfDatePart = new EdtfDatePart();
 
-    final String yearSanitized = StringUtils.defaultIfEmpty(year.toUpperCase(Locale.US).replaceAll("[XU?-]", ""), "0");
-    final String monthSanitized = StringUtils.defaultIfEmpty(month.toUpperCase(Locale.US).replaceAll("[XU?-]", ""), "0");
-    final String daySanitized = StringUtils.defaultIfEmpty(day.toUpperCase(Locale.US).replaceAll("[XU?-]", ""), "0");
+    final String yearSanitized = StringUtils.defaultIfEmpty(year.toUpperCase(Locale.US).replaceAll(UNKNOWN_CHARACTERS_REGEX, ""),
+        "0");
+    final String monthSanitized = StringUtils.defaultIfEmpty(
+        month.toUpperCase(Locale.US).replaceAll(UNKNOWN_CHARACTERS_REGEX, ""),
+        "0");
+    final String daySanitized = StringUtils.defaultIfEmpty(day.toUpperCase(Locale.US).replaceAll(UNKNOWN_CHARACTERS_REGEX, ""),
+        "0");
     final int unknownYearCharacters = year.length() - yearSanitized.length();
     if (unknownYearCharacters == 2) {
       edtfDatePart.setYearPrecision(YearPrecision.CENTURY);

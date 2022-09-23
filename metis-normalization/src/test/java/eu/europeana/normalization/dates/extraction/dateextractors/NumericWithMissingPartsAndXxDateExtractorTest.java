@@ -141,29 +141,39 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("1989-11-UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        //Both month and day unknown
+        of("1989-??-??", "1989", NUMERIC_ALL_VARIANTS_XX),
+
+        //Lowercase
+        of("1989.11.xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("1989.11.uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("1989/11/xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("1989/11/uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("1989-11-xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
+        of("1989-11-uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+
+        //Uncertain cases
+        of("?1989.11.01", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("?1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("?1989/11/01", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("1989/11/01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("?1989/11/01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+
+        //Invalids
         of("1989-11---", null, null),
         of("1989.11.X", null, null),
         of("1989.11.U", null, null),
         of("1989.11.?", null, null),
         of("1989.11.-", null, null),
-        of("1989-??-??", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989-????", null, null),
-
-        of("?1989.11.01", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/01", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989/11/01", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989/11/01?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-
         of("989.1.1", null, null), //Too few digits on year
         of("1989.1.1", null, null), //Too few digits on month
         of("1989.11.1", null, null), //Too few digits on day
         of("12345.01.01", null, null), //Too many digits on year
         of("1234.123.12", null, null), //Too many digits on month
         of("1234.12.123", null, null) //Too many digits on day
-
     );
   }
 
@@ -243,22 +253,33 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("UU-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("??-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        //Both month and day unknown
+        of("??-??-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
+
+        //Lowercase
+        of("xx.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("uu.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("xx/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("uu/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("xx-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
+        of("uu-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+
+        //Uncertain cases
+        of("?01.11.1989", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("01.11.1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("?01.11.1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("?01/11/1989", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("01/11/1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+        of("?01/11/1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
+
+        //Invalids
         of("---11-1989", null, null),
         of("X.11.1989", null, null),
         of("U.11.1989", null, null),
         of("?.11.1989", null, null),
         of("-.11.1989", null, null),
-        of("??-??-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("????-1989", null, null),
-
-        of("?01.11.1989", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("01.11.1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("?01.11.1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("01/11/1989", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
-        of("?01/11/1989", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("01/11/1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-        of("?01/11/1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS_XX),
-
         of("1.1.989", null, null), //Too few digits on year
         of("1.1.1989", null, null), //Too few digits on month
         of("1.11.1989", null, null), //Too few digits on day
