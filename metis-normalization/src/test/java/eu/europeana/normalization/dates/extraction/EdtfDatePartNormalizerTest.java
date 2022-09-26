@@ -81,6 +81,10 @@ class EdtfDatePartNormalizerTest {
     datePropertyTestCases.put("19--]", "19XX");
     datePropertyTestCases.put("1939 [1942?]",
         "1939/1942?"); // this may not be 100% correct, maybe it is not a range but two dates
+    datePropertyTestCases.put("S.VIII-XV", "07XX/14XX");
+    datePropertyTestCases.put("S. XVIII-", null); // open ended period? this is not supported
+    datePropertyTestCases.put("S. XVI-XVIII", "15XX/17XX");
+    datePropertyTestCases.put("[XVI-XIX]", "15XX/18XX");
     datePropertyTestCases.put("1972/10/31 | 1972/10/01", "1972-10-01/1972-10-31");
     datePropertyTestCases.put("19xx", "19XX");
     datePropertyTestCases.put("Sat Jan 01 01:00:00 CET 1701", "1701-01-01");
