@@ -62,7 +62,8 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("?1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("989", null, null), //Only three digits not accepted
+        //Only three digits not accepted
+        of("989", null, null),
         //3 digits and question mark is ambiguous
         of("198?", null, null),
         //3 digits and dash is ambiguous
@@ -82,7 +83,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/??", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989/--", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989-XX", "1989", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("1989-UU", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("1989-??", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("?1989.11", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -97,7 +97,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("?1989/--", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989-11", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989-XX", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("?1989-UU", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989-??", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989.11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -112,7 +111,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/--?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("1989-XX?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("1989-UU?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("1989-???", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?1989.11?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -127,7 +125,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989.11.01", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-01", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
         of("1989/11/01", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
-        //This is working but shouldn't we restrict the month and day ranges???
         of("1989.13.32", "1989-13-32", NUMERIC_ALL_VARIANTS_XX),
         of("1989.11.XX", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989.11.UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
@@ -138,7 +135,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/11/??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989/11/--", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-XX", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("1989-11-UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         //Both month and day unknown
@@ -150,7 +146,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("1989/11/xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989/11/uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("1989-11-xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("1989-11-uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
 
         //Uncertain cases
@@ -194,7 +189,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("??/1989", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("--/1989", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("XX-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("UU-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("??-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("?11.1989", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -209,7 +203,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("?--/1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?11-1989", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("?XX-1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("?UU-1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("???-1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("11.1989?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -224,7 +217,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("--/1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("11-1989?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
         of("XX-1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("UU-1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("??-1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
         of("?11.1989?", "1989-11?", NUMERIC_ALL_VARIANTS_XX),
@@ -239,7 +231,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("01.11.1989", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
         of("01-11-1989", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
         of("01/11/1989", "1989-11-01", NUMERIC_ALL_VARIANTS_XX),
-        //This is working but shouldn't we restrict the month and day ranges???
         of("32.13.1989", "1989-13-32", NUMERIC_ALL_VARIANTS_XX),
         of("XX.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("UU.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
@@ -250,7 +241,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("??/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("--/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("XX-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("UU-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("??-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         //Both month and day unknown
@@ -262,7 +252,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("xx/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("uu/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("xx-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        // TODO: 22/09/2022 This was not captured, and it allows it(seems to be required in the documentation)
         of("uu-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
 
         //Uncertain cases
@@ -286,8 +275,6 @@ class NumericWithMissingPartsAndXxDateExtractorTest {
         of("01.01.12345", null, null), //Too many digits on year
         of("12.123.1234", null, null), //Too many digits on month
         of("123.12.1234", null, null) //Too many digits on day
-
     );
   }
-
 }

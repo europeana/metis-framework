@@ -61,8 +61,8 @@ class NumericWithMissingPartsDateExtractorTest {
 
         //YEAR-MONTH-DAY
         of("1989-11-01", "1989-11-01", NUMERIC_ALL_VARIANTS),
+        // TODO: 26/09/2022 Make sure this is checked later on, on validation code
         of("1989-13-32", "1989-13-32", NUMERIC_ALL_VARIANTS),
-        //This is working but shouldn't we restrict the month and day ranges???
         of("989-1-1", "0989-01-01", NUMERIC_ALL_VARIANTS), //Some missing digits are allowed
         of("?1989-11-01", "1989-11-01?", NUMERIC_ALL_VARIANTS),
         of("1989-11-01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
@@ -80,7 +80,7 @@ class NumericWithMissingPartsDateExtractorTest {
 
         of("89-01-01", null, null), //Too few digits on year
         of("89.1.1", null, null), //Too few digits on year
-        of("1/1/89", null, null), //Too few digits on year
+        of("89/1/1", null, null), //Too few digits on year
         of("12345-01-01", null, null), //Too many digits on year
         of("1234-123-12", null, null), //Too many digits on month
         of("1234-12-123", null, null), //Too many digits on day
@@ -101,8 +101,8 @@ class NumericWithMissingPartsDateExtractorTest {
 
         //DAY-MONTH-YEAR
         of("01-11-1989", "1989-11-01", NUMERIC_ALL_VARIANTS),
+        // TODO: 26/09/2022 Make sure this is checked later on, on validation code
         of("32-13-1989", "1989-13-32", NUMERIC_ALL_VARIANTS),
-        //This is working but shouldn't we restrict the month and day ranges???
         of("1-1-989", "0989-01-01", NUMERIC_ALL_VARIANTS), //Some missing digits are allowed
         of("?01-11-1989", "1989-11-01?", NUMERIC_ALL_VARIANTS),
         of("01-11-1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
