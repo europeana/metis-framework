@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
  *   <ul>
  *     <li>180u</li>
  *     <li>180x</li>
+ *     <li>180-</li>
  *     <li>?180u</li>
  *     <li>?180x</li>
  *     <li>180??</li>
