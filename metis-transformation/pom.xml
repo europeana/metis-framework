@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>8-SNAPSHOT</version>
+    <version>9-SNAPSHOT</version>
   </parent>
   <artifactId>metis-transformation</artifactId>
   <packaging>pom</packaging>
