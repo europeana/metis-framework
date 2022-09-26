@@ -45,14 +45,16 @@ class DecadeDateExtractorTest {
         of("  180u  ", "180X", DECADE),
         of("180x?", "180X?", DECADE),
         of("180u?", "180X?", DECADE),
-        of("180??", "180X?", DECADE), //Documentation says that should not be normalized??
+        // TODO: 26/09/2022 This is fine since it contains two question marks at the end and not just one question mark
+        of("180??", "180X?", DECADE),
         of("?180x", "180X?", DECADE),
         of("?180u", "180X?", DECADE),
         of("?180u?", "180X?", DECADE),
 
-        of("222u", "222X", DECADE), //Should this be captured??
-        of("180-", null, null),
-        //Non u, x or ? (Verify this. Documentation says that the right most character can be a hyphen as well??)
+        of("222u", "222X", DECADE),
+        of("180-?", null, null), //This is an ambiguous case because hyphen can be used as a separator
+        // TODO: 26/09/2022 Update to support hyphen as well
+        of("180-", null, null),//Non u, x or ?
         of("180?", null, null), //Only one question mark not supported
         of("1800", null, null), //Too many digits
         of("18??", null, null), //Too few digits

@@ -29,7 +29,6 @@ import java.util.regex.Pattern;
  */
 public class DecadeDateExtractor implements DateExtractor {
 
-  // TODO: 20/09/2022 Should we limit the range of the 3 digits?
   static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   public DateNormalizationResult extract(String inputValue) {
