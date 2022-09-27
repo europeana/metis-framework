@@ -50,6 +50,7 @@ class CleanOperationTest {
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA:", ""),
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA", null),
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA: textB", "textB"),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "   :textB", "textB"),
 
         //STARTING_PARENTHESES
         of(STARTING_PARENTHESES, "(1942-1943)text", "text"),
@@ -135,6 +136,7 @@ class CleanOperationTest {
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "text [C. 2000]", "text 2000"),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[[C. 2000]]", "[2000]"),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[[C. 2000]]]", "[2000]]"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[C. (2000)]", "(2000)"),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c. 2000", null),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa2000]", null),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[CIRCA2000]", null),
@@ -175,6 +177,7 @@ class CleanOperationTest {
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. 2000)", "2000"),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. 2000) ", "2000"),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, " (C. 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. (2000))", "(2000)"),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(C. (2000))", "(2000)"),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "((C. 2000))", null),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "((C. 2000)))", null),

@@ -34,14 +34,61 @@ class CleanerTest {
   private static Stream<Arguments> clean1stTimeDateProperty() {
     return Stream.of(
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA:textB", "textB"),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA: ", null),
+        of(STARTING_TEXT_UNTIL_FIRST_COLON, "   :textB", "textB"),
+
         of(STARTING_PARENTHESES, "(textA)textB", "textB"),
+        of(STARTING_PARENTHESES, "( textA )textB", "textB"),
+        of(STARTING_PARENTHESES, "(textA) textB", "textB"),
+        of(STARTING_PARENTHESES, "(textA)(textB)textC", "textC"),
+        of(STARTING_PARENTHESES, "(textA)(textB)", null),
+
         of(ENDING_PARENTHESES, "text(1942-1943)", "text"),
+        of(ENDING_PARENTHESES, "text(1942-1943)(1950)", "text"),
+        of(ENDING_PARENTHESES, "text( 1942-1943 )", "text"),
+        of(ENDING_PARENTHESES, "text( 1942-1943)", "text"),
+        of(ENDING_PARENTHESES, "text(1942-1943 )", "text"),
+        of(ENDING_PARENTHESES, "text(1942-1943 ) (1928)", "text"),
+
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa AD]", "AD"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca AD]", "AD"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca xyz]", "xyz"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca. 123]", "123"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c. 123]", "123"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa ad][c. 123]", "ad123"),
+
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[1942-1943]textB", "textA1942-1943textB"),
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[textA]-[textB]", "textA-textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[1942-1943][1950]", "text1942-19431950"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[ 1942-1943 ]", "text 1942-1943 "),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[ 1942-1943]", "text 1942-1943"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[1942-1943 ]", "text1942-1943 "),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[1942-1943 ] [1928]", "text1942-1943  1928"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[textA] [textB]", "textA textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA]", "textA"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][textB]", "textAtextB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][ textB]", "textA textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][ textB ]", "textA textB "),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][ [textB] ]", "textA [textB ]"),
+
         of(STARTING_CIRCA, "circa 2000", "2000"),
+        of(STARTING_CIRCA, "ca 2000", "2000"),
+        of(STARTING_CIRCA, "c 2000", "2000"),
+        of(STARTING_CIRCA, "ca. 2000", "2000"),
+        of(STARTING_CIRCA, "ca.2000", "2000"),
+        of(STARTING_CIRCA, "c. 2000", "2000"),
+        of(STARTING_CIRCA, "c.2000", "2000"),
+        of(STARTING_CIRCA, " c 2000", "2000"),
+        of(STARTING_CIRCA, " ca 2000", "2000"),
+        of(STARTING_CIRCA, " circa 2000", "2000"),
+
         of(ENDING_CLOSING_SQUARE_BRACKET, "text ]", "text"),
+        of(ENDING_CLOSING_SQUARE_BRACKET, "textA]textB ]", "textA]textB"),
+
         of(ENDING_DOT, "text.", "text"),
+        of(ENDING_DOT, "text...", "text.."),
+        of(ENDING_DOT, ".text...", ".text.."),
 
         //Cases where the capture should fail
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA", null),
@@ -73,8 +120,19 @@ class CleanerTest {
     return Stream.of(
         of(ENDING_SQUARE_BRACKETS, "text[1942-1943]", "text"),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa 2000)", "2000"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa AD)", "AD"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca AD)", "AD"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca xyz)", "xyz"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(ca. 123)", "123"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(c. 123)", "123"),
+        of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa ad)(c. 123)", "ad)(c. 123"),
+
         of(CAPTURE_VALUE_IN_PARENTHESES, "(1942-1943)", "1942-1943"),
-        of(CAPTURE_VALUE_IN_PARENTHESES, "(1942-1943)", "1942-1943"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, "(textA) (textB)", "textA) (textB"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, " (textA)", "textA"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, " (textA)(textB)", "textA)(textB"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, " (textA)( textB)", "textA)( textB"),
+        of(CAPTURE_VALUE_IN_PARENTHESES, " (textA)( textB )", "textA)( textB "),
 
         //Cases where the capture should fail
         of(ENDING_SQUARE_BRACKETS, "text[1942-1943textB", null),
@@ -102,6 +160,12 @@ class CleanerTest {
     return Stream.of(
         //1st cleanup = text[[1942-1943]]] -> text[1942-1943]] | 2nd cleanup = text[1942-1943]] -> text
         of(ENDING_SQUARE_BRACKETS, "textA[[textB]]]", "textA"),
+        of(ENDING_SQUARE_BRACKETS, "textA:1500[textB]", "1500"),
+        of(ENDING_SQUARE_BRACKETS, "(1500textB)2000[textC]", "2000"),
+        of(ENDING_SQUARE_BRACKETS, "(1500-1720)(2001-2020)2000[textC]", "2000"),
+        of(ENDING_SQUARE_BRACKETS, "(circa 1720)circa 2000[textC]", "circa 2000"),
+        of(ENDING_SQUARE_BRACKETS, "(circa 1720)2700[info]2000[textC]", "2700"),
+
         //1st cleanup fails because STARTING_PARENTHESES, ENDING_PARENTHESES give empty result, so it moves to the 2nd cleanup
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa 2000)", "2000"),
         of(CAPTURE_VALUE_IN_PARENTHESES, "(textA)", "textA"),
@@ -136,8 +200,38 @@ class CleanerTest {
   private static Stream<Arguments> cleanGenericProperty() {
     return Stream.of(
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa 2000]", "2000"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa AD]", "AD"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca AD]", "AD"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca xyz]", "xyz"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[ca. 123]", "123"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[c. 123]", "123"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA, "[circa ad][c. 123]", "ad123"),
+
         of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "textA[1942-1943]textB", "textA1942-1943textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[1942-1943][1950]", "text1942-19431950"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[ 1942-1943 ]", "text 1942-1943 "),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[ 1942-1943]", "text 1942-1943"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[1942-1943 ]", "text1942-1943 "),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "text[1942-1943 ] [1928]", "text1942-1943  1928"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[textA]-[textB]", "textA-textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, "[textA] [textB]", "textA textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA]", "textA"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][textB]", "textAtextB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][ textB]", "textA textB"),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][ textB ]", "textA textB "),
+        of(CAPTURE_VALUE_IN_SQUARE_BRACKETS, " [textA][ [textB] ]", "textA [textB ]"),
+
         of(STARTING_CIRCA, "circa 2000", "2000"),
+        of(STARTING_CIRCA, "ca 2000", "2000"),
+        of(STARTING_CIRCA, "c 2000", "2000"),
+        of(STARTING_CIRCA, "ca. 2000", "2000"),
+        of(STARTING_CIRCA, "ca.2000", "2000"),
+        of(STARTING_CIRCA, "c. 2000", "2000"),
+        of(STARTING_CIRCA, "c.2000", "2000"),
+        of(STARTING_CIRCA, " c 2000", "2000"),
+        of(STARTING_CIRCA, " ca 2000", "2000"),
+        of(STARTING_CIRCA, " circa 2000", "2000"),
+
         of(ENDING_PARENTHESES, "text(1942-1943)", "text"),
 
         //Cases where the capture should fail

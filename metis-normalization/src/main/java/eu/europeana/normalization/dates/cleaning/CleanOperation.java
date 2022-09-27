@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public enum CleanOperation {
 
-  STARTING_TEXT_UNTIL_FIRST_COLON(compile("^[^:]+:\\s?"),
+  STARTING_TEXT_UNTIL_FIRST_COLON(compile("^[^:]*:\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
   STARTING_PARENTHESES(compile("^\\(.+\\)\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
