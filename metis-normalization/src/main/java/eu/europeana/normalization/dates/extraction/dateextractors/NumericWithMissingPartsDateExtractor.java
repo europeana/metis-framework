@@ -34,6 +34,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   private static final String DELIMITERS = "[\\-./]";
   private static final String QUESTION_MARK = "\\??";
 
+  // TODO: 28/09/2022 Perhaps the missing and XX can be combined in one and then identified from the UNKNOWN_CHARACTERS cleanup??
   /**
    * For the 3 digits we make sure there is no question mark in front, using a lookahead
    */
