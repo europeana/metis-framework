@@ -1,16 +1,16 @@
-package eu.europeana.normalization.dates.cleaning;
+package eu.europeana.normalization.dates.sanitize;
 
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_PARENTHESES;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_CLOSING_SQUARE_BRACKET;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_DOT;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_PARENTHESES;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_SQUARE_BRACKETS;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_CIRCA;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_PARENTHESES;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_PARENTHESES;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_CLOSING_SQUARE_BRACKET;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_DOT;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_PARENTHESES;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_SQUARE_BRACKETS;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.STARTING_CIRCA;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.STARTING_PARENTHESES;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.STARTING_TEXT_UNTIL_FIRST_COLON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,21 +23,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class CleanOperationTest {
+class SanitizeOperationTest {
 
   @ParameterizedTest
   @MethodSource("extractData")
-  void extract(CleanOperation cleanOperation, String input, String expectedResult) {
-    final Matcher matcher = cleanOperation.getCleanPattern().matcher(input);
-    final boolean matches = cleanOperation.getMatchingCheck().test(matcher);
+  void extract(SanitizeOperation sanitizeOperation, String input, String expectedResult) {
+    final Matcher matcher = sanitizeOperation.getSanitizePattern().matcher(input);
+    final boolean matches = sanitizeOperation.getMatchingCheck().test(matcher);
     if (expectedResult == null) {
       assertFalse(matches);
     } else {
       assertTrue(matches);
-      final String result = cleanOperation.getReplaceOperation().apply(matcher);
+      final String result = sanitizeOperation.getReplaceOperation().apply(matcher);
       assertEquals(expectedResult, result);
       if (StringUtils.isNotEmpty(expectedResult)) {
-        assertTrue(cleanOperation.getIsOperationSuccessful().test(result));
+        assertTrue(sanitizeOperation.getIsOperationSuccessful().test(result));
       }
     }
   }

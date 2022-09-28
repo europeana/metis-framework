@@ -1,16 +1,16 @@
-package eu.europeana.normalization.dates.cleaning;
+package eu.europeana.normalization.dates.sanitize;
 
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_PARENTHESES;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_CLOSING_SQUARE_BRACKET;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_DOT;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_PARENTHESES;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.ENDING_SQUARE_BRACKETS;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_CIRCA;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_PARENTHESES;
-import static eu.europeana.normalization.dates.cleaning.CleanOperation.STARTING_TEXT_UNTIL_FIRST_COLON;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_PARENTHESES;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_CLOSING_SQUARE_BRACKET;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_DOT;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_PARENTHESES;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.ENDING_SQUARE_BRACKETS;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.STARTING_CIRCA;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.STARTING_PARENTHESES;
+import static eu.europeana.normalization.dates.sanitize.SanitizeOperation.STARTING_TEXT_UNTIL_FIRST_COLON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -21,17 +21,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class CleanerTest {
+class DateFieldSanitizerTest {
 
-  private static final Cleaner CLEANER = new Cleaner();
+  private static final DateFieldSanitizer DATE_FIELD_SANITIZER = new DateFieldSanitizer();
 
   @ParameterizedTest
   @MethodSource
-  void clean1stTimeDateProperty(CleanOperation expectedCleanOperation, String input, String expectedResult) {
-    assertCleaner(CLEANER::clean1stTimeDateProperty, expectedCleanOperation, input, expectedResult);
+  void sanitize1stTimeDateProperty(SanitizeOperation expectedSanitizeOperation, String input, String expectedResult) {
+    assertCleaner(DATE_FIELD_SANITIZER::sanitize1stTimeDateProperty, expectedSanitizeOperation, input, expectedResult);
   }
 
-  private static Stream<Arguments> clean1stTimeDateProperty() {
+  private static Stream<Arguments> sanitize1stTimeDateProperty() {
     return Stream.of(
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA:textB", "textB"),
         of(STARTING_TEXT_UNTIL_FIRST_COLON, "textA: ", null),
@@ -112,11 +112,11 @@ class CleanerTest {
 
   @ParameterizedTest
   @MethodSource
-  void clean2ndTimeDateProperty(CleanOperation expectedCleanOperation, String input, String expectedResult) {
-    assertCleaner(CLEANER::clean2ndTimeDateProperty, expectedCleanOperation, input, expectedResult);
+  void sanitize2ndTimeDateProperty(SanitizeOperation expectedSanitizeOperation, String input, String expectedResult) {
+    assertCleaner(DATE_FIELD_SANITIZER::sanitize2ndTimeDateProperty, expectedSanitizeOperation, input, expectedResult);
   }
 
-  private static Stream<Arguments> clean2ndTimeDateProperty() {
+  private static Stream<Arguments> sanitize2ndTimeDateProperty() {
     return Stream.of(
         of(ENDING_SQUARE_BRACKETS, "text[1942-1943]", "text"),
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa 2000)", "2000"),
@@ -142,23 +142,24 @@ class CleanerTest {
   }
 
   /**
-   * Test to achieve a second cleanup after the first cleanup has failed or produced some result for the second cleanup
+   * Test to achieve a second sanitization after the first sanitization has failed or produced some result for the second
+   * sanitization.
    *
-   * @param expectedCleanOperation the expected "final"(2nd) cleanup operation
+   * @param expectedSanitizeOperation the expected "final"(2nd) sanitization operation
    * @param input the input
    * @param expectedResult expected result
    */
   @ParameterizedTest
   @MethodSource
-  void clean1stAnd2ndTimeDateProperty(CleanOperation expectedCleanOperation, String input, String expectedResult) {
-    final CleanResult clean1stResult = CLEANER.clean1stTimeDateProperty(input);
-    assertCleaner(CLEANER::clean2ndTimeDateProperty, expectedCleanOperation,
-        clean1stResult == null ? input : clean1stResult.getCleanedValue(), expectedResult);
+  void sanitize1stAnd2ndTimeDateProperty(SanitizeOperation expectedSanitizeOperation, String input, String expectedResult) {
+    final SanitizedDate sanitize1stResult = DATE_FIELD_SANITIZER.sanitize1stTimeDateProperty(input);
+    assertCleaner(DATE_FIELD_SANITIZER::sanitize2ndTimeDateProperty, expectedSanitizeOperation,
+        sanitize1stResult == null ? input : sanitize1stResult.getSanitizedDateString(), expectedResult);
   }
 
-  private static Stream<Arguments> clean1stAnd2ndTimeDateProperty() {
+  private static Stream<Arguments> sanitize1stAnd2ndTimeDateProperty() {
     return Stream.of(
-        //1st cleanup = text[[1942-1943]]] -> text[1942-1943]] | 2nd cleanup = text[1942-1943]] -> text
+        //1st sanitization = text[[1942-1943]]] -> text[1942-1943]] | 2nd sanitization = text[1942-1943]] -> text
         of(ENDING_SQUARE_BRACKETS, "textA[[textB]]]", "textA"),
         of(ENDING_SQUARE_BRACKETS, "textA:1500[textB]", "1500"),
         of(ENDING_SQUARE_BRACKETS, "(1500textB)2000[textC]", "2000"),
@@ -166,22 +167,22 @@ class CleanerTest {
         of(ENDING_SQUARE_BRACKETS, "(circa 1720)circa 2000[textC]", "circa 2000"),
         of(ENDING_SQUARE_BRACKETS, "(circa 1720)2700[info]2000[textC]", "2700"),
 
-        //1st cleanup fails because STARTING_PARENTHESES, ENDING_PARENTHESES give empty result, so it moves to the 2nd cleanup
+        //1st sanitization fails because STARTING_PARENTHESES, ENDING_PARENTHESES give empty result, so it moves to the 2nd sanitization
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa 2000)", "2000"),
         of(CAPTURE_VALUE_IN_PARENTHESES, "(textA)", "textA"),
-        //1st cleanup = textA:(textB) -> (textB) | 2nd cleanup = (textB) -> textB
+        //1st sanitization = textA:(textB) -> (textB) | 2nd sanitization = (textB) -> textB
         of(CAPTURE_VALUE_IN_PARENTHESES, "textA:(textB)", "textB"),
-        //1st cleanup = (circa [circa 2000]) -> (circa 2000) | 2nd cleanup = (circa 2000) -> 2000
+        //1st sanitization = (circa [circa 2000]) -> (circa 2000) | 2nd sanitization = (circa 2000) -> 2000
         of(CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA, "(circa [circa 2000])", "2000"),
-        //1st cleanup = (textA-[textB]-textC) -> (textA-textB-textC) | 2nd cleanup = (textA-textB-textC) -> textA-textB-textC
+        //1st sanitization = (textA-[textB]-textC) -> (textA-textB-textC) | 2nd sanitization = (textA-textB-textC) -> textA-textB-textC
         of(CAPTURE_VALUE_IN_PARENTHESES, "(textA-[textB]-textC)", "textA-textB-textC"),
 
         //Cases where the capture should fail
-        //1st cleanup = circa 2000 -> 2000 2nd cleanup will not match because of Matcher.matches
+        //1st sanitization = circa 2000 -> 2000 2nd sanitization will not match because of Matcher.matches
         of(null, "circa 2000", null),
-        //1st cleanup = text ] -> text 2nd cleanup will not match because of Matcher.matches
+        //1st sanitization = text ] -> text 2nd sanitization will not match because of Matcher.matches
         of(null, "text ]", null),
-        //1st cleanup = text . -> text 2nd cleanup will not match because of Matcher.matches
+        //1st sanitization = text . -> text 2nd sanitization will not match because of Matcher.matches
         of(null, "text.", null),
         of(ENDING_SQUARE_BRACKETS, "text[1942-1943textB", null),
         //Must miss closing parenthesis otherwise is captured from next operation
@@ -193,8 +194,8 @@ class CleanerTest {
 
   @ParameterizedTest
   @MethodSource
-  void cleanGenericProperty(CleanOperation expectedCleanOperation, String input, String expectedResult) {
-    assertCleaner(CLEANER::cleanGenericProperty, expectedCleanOperation, input, expectedResult);
+  void cleanGenericProperty(SanitizeOperation expectedSanitizeOperation, String input, String expectedResult) {
+    assertCleaner(DATE_FIELD_SANITIZER::sanitizeGenericProperty, expectedSanitizeOperation, input, expectedResult);
   }
 
   private static Stream<Arguments> cleanGenericProperty() {
@@ -245,14 +246,14 @@ class CleanerTest {
     );
   }
 
-  private void assertCleaner(Function<String, CleanResult> cleanFunction, CleanOperation expectedCleanOperation, String input,
-      String expectedResult) {
-    final CleanResult cleanResult = cleanFunction.apply(input);
+  private void assertCleaner(Function<String, SanitizedDate> sanitizeFunction, SanitizeOperation expectedSanitizeOperation,
+      String input, String expectedResult) {
+    final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     if (expectedResult == null) {
-      assertNull(cleanResult);
+      assertNull(sanitizedDate);
     } else {
-      assertEquals(expectedResult, cleanResult.getCleanedValue());
-      assertEquals(expectedCleanOperation, cleanResult.getCleanOperation());
+      assertEquals(expectedResult, sanitizedDate.getSanitizedDateString());
+      assertEquals(expectedSanitizeOperation, sanitizedDate.getSanitizeOperation());
     }
   }
 }

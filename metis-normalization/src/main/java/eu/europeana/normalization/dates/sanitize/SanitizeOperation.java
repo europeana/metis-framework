@@ -1,4 +1,4 @@
-package eu.europeana.normalization.dates.cleaning;
+package eu.europeana.normalization.dates.sanitize;
 
 import static java.util.regex.Pattern.compile;
 
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Enum containing all cleaning operations.
+ * Enum containing all sanitize operations.
  * <p>The patterns expect the original value to be sanitized from multiple space characters and leading and trailing spaces
  * removed. Some operation could have been combined, but they are structured intentionally separately so that they can be applied
  * separately in different order.</p>
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  *   </ul>
  * </p>
  */
-public enum CleanOperation {
+public enum SanitizeOperation {
 
   STARTING_TEXT_UNTIL_FIRST_COLON(compile("^[^:]*:\\s?"),
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
@@ -38,41 +38,42 @@ public enum CleanOperation {
       Matcher::find, matcher -> matcher.replaceFirst(""), StringUtils::isNotEmpty),
   CAPTURE_VALUE_IN_SQUARE_BRACKETS(compile("\\[([^]]+)]"),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
-  STARTING_CIRCA(compile("^" + CleanOperation.CIRCA_REGEX, Pattern.CASE_INSENSITIVE),
+  STARTING_CIRCA(compile("^" + SanitizeOperation.CIRCA_REGEX, Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
-  CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA(compile("\\[" + CleanOperation.CIRCA_REGEX + "([^]]+)]", Pattern.CASE_INSENSITIVE),
+  CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA(
+      compile("\\[" + SanitizeOperation.CIRCA_REGEX + "([^]]+)]", Pattern.CASE_INSENSITIVE),
       Matcher::find, matcher -> matcher.replaceAll("$1"), s -> true),
   ENDING_CLOSING_SQUARE_BRACKET(compile("\\s?]$"),
       Matcher::find, matcher -> matcher.replaceAll(""), s -> true),
   CAPTURE_VALUE_IN_PARENTHESES(compile("\\s?\\((.+)\\)\\s?"),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true),
   CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA(
-      compile("\\s?\\(" + CleanOperation.CIRCA_REGEX + "(.+)\\)\\s?", Pattern.CASE_INSENSITIVE),
+      compile("\\s?\\(" + SanitizeOperation.CIRCA_REGEX + "(.+)\\)\\s?", Pattern.CASE_INSENSITIVE),
       Matcher::matches, matcher -> matcher.replaceAll("$1"), s -> true);
 
   private static final String CIRCA_REGEX = "(?:(?:circa|CA|C)\\s|(?:CA\\.|C\\.)\\s?)";
-  private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
-      CleanOperation.STARTING_CIRCA, CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA,
-      CleanOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA);
-  private static final EnumSet<CleanOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY = EnumSet.of(
-      CleanOperation.STARTING_CIRCA, CleanOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA);
+  private static final EnumSet<SanitizeOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY = EnumSet.of(
+      SanitizeOperation.STARTING_CIRCA, SanitizeOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA,
+      SanitizeOperation.CAPTURE_VALUE_IN_PARENTHESES_WITH_CIRCA);
+  private static final EnumSet<SanitizeOperation> APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY = EnumSet.of(
+      SanitizeOperation.STARTING_CIRCA, SanitizeOperation.CAPTURE_VALUE_IN_SQUARE_BRACKETS_WITH_CIRCA);
 
-  private final Pattern cleanPattern;
+  private final Pattern sanitizePattern;
   private final Predicate<Matcher> matchingCheck;
   private final Function<Matcher, String> replaceOperation;
   private final Predicate<String> isOperationSuccessful;
 
 
-  CleanOperation(Pattern cleanPattern, Predicate<Matcher> matchingCheck, Function<Matcher, String> replaceOperation,
+  SanitizeOperation(Pattern sanitizePattern, Predicate<Matcher> matchingCheck, Function<Matcher, String> replaceOperation,
       Predicate<String> isOperationSuccessful) {
-    this.cleanPattern = cleanPattern;
+    this.sanitizePattern = sanitizePattern;
     this.matchingCheck = matchingCheck;
     this.replaceOperation = replaceOperation;
     this.isOperationSuccessful = isOperationSuccessful;
   }
 
-  public Pattern getCleanPattern() {
-    return cleanPattern;
+  public Pattern getSanitizePattern() {
+    return sanitizePattern;
   }
 
   public Predicate<Matcher> getMatchingCheck() {
@@ -88,22 +89,22 @@ public enum CleanOperation {
   }
 
   /**
-   * Check if provided clean operation id is part of the approximate clean operations for date properties.
+   * Check if provided sanitize operation is part of the approximate sanitize operations for date properties.
    *
-   * @param cleanOperation the clean operation
+   * @param sanitizeOperation the sanitize operation
    * @return true if it is, false otherwise
    */
-  public static boolean isApproximateCleanOperationIdForDateProperty(CleanOperation cleanOperation) {
-    return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY.contains(cleanOperation);
+  public static boolean isApproximateSanitizeOperationForDateProperty(SanitizeOperation sanitizeOperation) {
+    return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_DATE_PROPERTY.contains(sanitizeOperation);
   }
 
   /**
-   * Check if provided clean operation id is part of the approximate clean operations for generic properties.
+   * Check if provided sanitize operation is part of the approximate sanitize operations for generic properties.
    *
-   * @param cleanOperation the clean operation
+   * @param sanitizeOperation the sanitize operation
    * @return true if it is, false otherwise
    */
-  public static boolean isApproximateCleanOperationIdForGenericProperty(CleanOperation cleanOperation) {
-    return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY.contains(cleanOperation);
+  public static boolean isApproximateSanitizeOperationForGenericProperty(SanitizeOperation sanitizeOperation) {
+    return APPROXIMATE_CLEAN_OPERATION_IDS_FOR_GENERIC_PROPERTY.contains(sanitizeOperation);
   }
 }
