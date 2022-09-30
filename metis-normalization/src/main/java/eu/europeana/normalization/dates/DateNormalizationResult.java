@@ -1,21 +1,22 @@
 package eu.europeana.normalization.dates;
 
-import eu.europeana.normalization.dates.cleaning.CleanOperation;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
 
 /**
  * Contains the result of a date normalisation.
  * <p>
- * It contains the pattern that was matched, if some cleaning was done, and the normalised value (if successfully normalised).
+ * It contains the pattern that was matched, if some sanitizing was performed, and the normalised value (if successfully
+ * normalised).
  * </p>
  */
 public class DateNormalizationResult {
 
   private DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
-  private CleanOperation cleanOperation;
+  private SanitizeOperation sanitizeOperation;
   private String originalInput;
   private AbstractEdtfDate edtfDate;
 
@@ -38,12 +39,12 @@ public class DateNormalizationResult {
     this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
   }
 
-  public CleanOperation getCleanOperationMatchId() {
-    return cleanOperation;
+  public SanitizeOperation getSanitizeOperation() {
+    return sanitizeOperation;
   }
 
-  public void setCleanOperationMatchId(CleanOperation cleanOperation) {
-    this.cleanOperation = cleanOperation;
+  public void setCleanOperationMatchId(SanitizeOperation sanitizeOperation) {
+    this.sanitizeOperation = sanitizeOperation;
   }
 
   public String getOriginalInput() {
@@ -61,15 +62,6 @@ public class DateNormalizationResult {
   public void setEdtfDate(AbstractEdtfDate edtfDate) {
     this.edtfDate = edtfDate;
   }
-
-  @Override
-  public String toString() {
-    return "Match [matchId=" + dateNormalizationExtractorMatchId + ", cleanOperation=" + cleanOperation + ", input="
-        + originalInput
-        + ", extracted="
-        + edtfDate + "]";
-  }
-
 
   /**
    * Checks if a date is complete.
