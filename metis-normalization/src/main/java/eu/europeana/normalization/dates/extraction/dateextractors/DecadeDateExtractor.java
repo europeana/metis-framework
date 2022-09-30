@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
  *   <ul>
  *     <li>180u</li>
  *     <li>180x</li>
- *     <li>180-</li>
  *     <li>?180u</li>
  *     <li>?180x</li>
  *     <li>180??</li>
@@ -30,7 +29,7 @@ import java.util.regex.Pattern;
  */
 public class DecadeDateExtractor implements DateExtractor {
 
-  static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
+  private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   public DateNormalizationResult extract(String inputValue) {
     final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
