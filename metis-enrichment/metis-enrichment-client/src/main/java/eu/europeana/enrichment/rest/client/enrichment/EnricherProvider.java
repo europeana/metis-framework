@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
-import eu.europeana.enrichment.api.external.impl.RemoteEntityResolver;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
@@ -53,7 +52,7 @@ public class EnricherProvider extends ConnectionProvider {
 
     /**
      * Set the entity resolver creator to use. The default is null, in which case a {@link
-     * RemoteEntityResolver} will be used with the connection settings in this class, and {@link
+     * ClientEntityResolver} will be used with the connection settings in this class, and {@link
      * #setPropertiesValues(String, String, String)} will need to have been called.
      *
      * @param entityResolverCreator A creator for the entity resolver.
@@ -63,7 +62,7 @@ public class EnricherProvider extends ConnectionProvider {
     }
 
     /**
-     * Set the URL of the enrichment service. The default is null, in which case {@link
+     * Set the properties values of the enrichment service. The default is null, in which case {@link
      * #setEntityResolverCreator(EntityResolverCreator)} will need to have been called.
      *
      * @param entityManagementUrl

@@ -10,7 +10,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.enrichment.api.external.impl.RemoteEntityResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
@@ -80,7 +80,7 @@ public class DereferencerImplTest {
   void testDereferencerHappyFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final RemoteEntityResolver remoteEntityResolver = mock(RemoteEntityResolver.class);
+    final ClientEntityResolver remoteEntityResolver = mock(ClientEntityResolver.class);
     doReturn(ENRICHMENT_RESULT).when(remoteEntityResolver).resolveByText(anySet());
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
     doReturn(DEREFERENCE_RESULT.get(0),
@@ -105,7 +105,7 @@ public class DereferencerImplTest {
   void testDereferencerNullFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final RemoteEntityResolver remoteEntityResolver = mock(RemoteEntityResolver.class);
+    final ClientEntityResolver remoteEntityResolver = mock(ClientEntityResolver.class);
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
 
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
