@@ -13,7 +13,7 @@ public class EnricherProviderTest {
     assertThrows(EnrichmentException.class,
         () -> {
       EnricherProvider provider = new EnricherProvider();
-            provider.setEnrichmentUrl("");
+            provider.setPropertiesValues("", "", "");
             provider.create();
     });
   }

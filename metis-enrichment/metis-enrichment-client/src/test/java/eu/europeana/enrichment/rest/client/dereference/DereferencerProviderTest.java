@@ -13,7 +13,7 @@ public class DereferencerProviderTest {
         () -> {
       DereferencerProvider provider = new DereferencerProvider();
             provider.setDereferenceUrl("");
-            provider.setEnrichmentUrl("");
+            provider.setPropertiesValues("", "", "");
             provider.create();
             });
   }
