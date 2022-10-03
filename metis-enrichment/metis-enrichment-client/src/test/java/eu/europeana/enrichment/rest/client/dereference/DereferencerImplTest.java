@@ -80,8 +80,8 @@ public class DereferencerImplTest {
   void testDereferencerHappyFlow() throws DereferenceException {
 
     // Create mocks of the dependencies
-    final ClientEntityResolver remoteEntityResolver = mock(ClientEntityResolver.class);
-    doReturn(ENRICHMENT_RESULT).when(remoteEntityResolver).resolveByText(anySet());
+    final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+    doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
     doReturn(DEREFERENCE_RESULT.get(0),
         DEREFERENCE_RESULT.subList(1, DEREFERENCE_RESULT.size()).toArray()).when(dereferenceClient)
@@ -89,7 +89,7 @@ public class DereferencerImplTest {
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
     final Dereferencer dereferencer = spy(
-        new DereferencerImpl(entityMergeEngine, remoteEntityResolver, dereferenceClient));
+        new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet()))
         .when(dereferencer).extractReferencesForDereferencing(any());
 
