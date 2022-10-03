@@ -38,9 +38,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * An entity resolver that works by accessing a service through HTTP/REST and obtains entities from there.
  *
- * @Deprecated Will be removed
+ * @deprecated Will be removed
  */
-@Deprecated
+@Deprecated(forRemoval = true)
 public class RemoteEntityResolver implements EntityResolver {
 
   private final int batchSize;
@@ -52,6 +52,7 @@ public class RemoteEntityResolver implements EntityResolver {
    * @param enrichmentServiceUrl the enrichment service url
    * @param batchSize the batch size
    * @param restTemplate the rest template
+   * @deprecated No longer needed
    */
   public RemoteEntityResolver(URL enrichmentServiceUrl, int batchSize, RestTemplate restTemplate) {
     this.enrichmentServiceUrl = enrichmentServiceUrl;
@@ -60,7 +61,7 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   @Override
-  @Deprecated
+  @Deprecated(since = "9.0", forRemoval = true)
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
     final Function<List<T>, EnrichmentSearch> inputFunction = partition -> {
       final List<SearchValue> searchValues = partition.stream()
@@ -75,7 +76,7 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   @Override
-  @Deprecated
+  @Deprecated(since = "9.0", forRemoval = true)
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
     return performInBatches(ENRICH_ENTITY_ID, referenceTerms,
             partition -> partition.stream().map(ReferenceTerm::getReference).map(URL::toString)
@@ -84,7 +85,7 @@ public class RemoteEntityResolver implements EntityResolver {
   }
 
   @Override
-  @Deprecated
+  @Deprecated(since = "9.0", forRemoval = true)
   public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(
           Set<T> referenceTerms) {
     final Function<List<T>, EnrichmentReference> inputFunction = partition -> {

@@ -22,8 +22,6 @@ public class DereferencerProvider extends ConnectionProvider {
     private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerProvider.class);
 
     private String dereferenceUrl;
-    //TODO: enrichment properties instead
-//  private String enrichmentUrl;
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
@@ -40,14 +38,13 @@ public class DereferencerProvider extends ConnectionProvider {
     }
 
     /**
-     * Set the properties values of the enrichment service. The default is null. If set to a blank value, the
+     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the
      * dereferencer will not be configured to perform dereferencing.
      *
-     * @param entityManagementUrl
-     * @param entityApiUrl
-     * @param entityApiKey
+     * @param entityManagementUrl The url of the entity service
+     * @param entityApiUrl The url of the entity API service
+     * @param entityApiKey The key for the entity service
      */
-    //TODO: set enrichment properties instead
     public void setPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
       this.entityManagementUrl = entityManagementUrl;
       this.entityApiUrl = entityApiUrl;
