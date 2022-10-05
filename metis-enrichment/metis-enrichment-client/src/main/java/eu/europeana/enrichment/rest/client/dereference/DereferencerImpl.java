@@ -35,7 +35,7 @@ public class DereferencerImpl implements Dereferencer {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
-  private final EntityResolver clientEntityResolver;
+  private final EntityResolver entityResolver;
   private final DereferenceClient dereferenceClient;
 
   /**
@@ -49,7 +49,7 @@ public class DereferencerImpl implements Dereferencer {
   public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityResolver entityResolver,
           DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
-    this.clientEntityResolver = entityResolver;
+    this.entityResolver = entityResolver;
     this.dereferenceClient = dereferenceClient;
   }
 
@@ -113,11 +113,11 @@ public class DereferencerImpl implements Dereferencer {
 
   private List<EnrichmentBase> dereferenceOwnEntities(Set<ReferenceTerm> resourceIds)
       throws DereferenceException {
-    if (clientEntityResolver == null) {
+    if (entityResolver == null) {
       return Collections.emptyList();
     }
     try {
-      return new ArrayList<>(clientEntityResolver.resolveById(resourceIds).values());
+      return new ArrayList<>(entityResolver.resolveById(resourceIds).values());
     } catch (Exception e) {
       throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
           e);
