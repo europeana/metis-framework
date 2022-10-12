@@ -87,9 +87,10 @@ public class EdtfParser {
 
   protected EdtfDatePart parseDate(String edtfString) throws ParseException {
     final EdtfDatePart edtfDatePart;
-    if (edtfString.isEmpty()) {
-      edtfDatePart = EdtfDatePart.getUnknownInstance();
-    } else if ("..".equals(edtfString)) {
+    //    if (edtfString.isEmpty()) {
+    //      edtfDatePart = EdtfDatePart.getUnknownInstance();
+    //    } else
+    if ("..".equals(edtfString)) {
       edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
     } else if (edtfString.startsWith("Y")) {
       edtfDatePart = new EdtfDatePart();
