@@ -18,21 +18,22 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Patterns for numeric dates with variations in the separators of date components
+ * Patterns for numeric dates with variations in the separators of date components.
+ * <p>For Patterns pay attentions on the use of {@link Matcher#matches()} or {@link Matcher#find()} in this method.</p>
  */
 public class NumericWithMissingPartsDateExtractor implements DateExtractor {
 
   /**
    * The start of the string can be one or three question marks but not two.
    */
-  public static final Pattern STARTING_UNCERTAIN_PATTERN = compile("^(?:\\?(?!\\?)|\\?{3})");
+  private static final Pattern STARTING_UNCERTAIN_PATTERN = compile("^(?:\\?(?!\\?)|\\?{3})");
   /**
    * The end of the string can be one or three question marks but not two.
    */
-  public static final Pattern ENDING_UNCERTAIN_PATTERN = compile("(?:(?<!\\?)\\?|\\?{3})$");
+  private static final Pattern ENDING_UNCERTAIN_PATTERN = compile("(?:(?<!\\?)\\?|\\?{3})$");
 
   private static final String DELIMITERS = "[\\-./]";
-  private static final String QUESTION_MARK = "\\??";
+  private static final String OPTIONAL_QUESTION_MARK = "\\??";
 
   // TODO: 28/09/2022 Perhaps the missing and XX can be combined in one and then identified from the UNKNOWN_CHARACTERS cleanup??
   /**
@@ -45,11 +46,11 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   /**
    * Those are characters that indicate unknowns on year, month or day
    */
-  public static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
+  private static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
   /**
    * For the 3 digits we make sure there is no question mark in front, using a lookahead
    */
-  public static final String YEAR_XX = "(\\d{2}(?:XX|UU|--|\\?\\?)|\\d{3}(?!\\?)[XU]|\\d{4})";
+  private static final String YEAR_XX = "(\\d{2}(?:XX|UU|--|\\?\\?)|\\d{3}(?!\\?)[XU]|\\d{4})";
   /**
    * For the double dash case we make sure there isn't a third dash with a lookbehind
    */
@@ -59,15 +60,21 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    */
   private static final String DIGITS_DELIMITER_XX = "(?:(\\d{2}|XX|UU|--(?!-)|\\?\\?)" + DELIMITERS + ")?";
 
+  /**
+   * Enum with all the acceptable date patterns used in the surrounding class.
+   */
   private enum NumericWithMissingPartsPattern {
-    YMD(compile(QUESTION_MARK + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + QUESTION_MARK, CASE_INSENSITIVE),
-        NUMERIC_ALL_VARIANTS, 1, 2, 3),
-    DMY(compile(QUESTION_MARK + DIGITS_DELIMITER + DIGITS_DELIMITER + YEAR + QUESTION_MARK, CASE_INSENSITIVE),
+    YMD(compile(OPTIONAL_QUESTION_MARK + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + OPTIONAL_QUESTION_MARK,
+        CASE_INSENSITIVE), NUMERIC_ALL_VARIANTS, 1, 2, 3),
+
+    DMY(compile(OPTIONAL_QUESTION_MARK + DIGITS_DELIMITER + DIGITS_DELIMITER + YEAR + OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE),
         NUMERIC_ALL_VARIANTS, 3, 2, 1),
-    YMD_XX(compile(QUESTION_MARK + YEAR_XX + DELIMITER_DIGITS_XX + DELIMITER_DIGITS_XX + QUESTION_MARK, CASE_INSENSITIVE),
-        NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-    DMY_XX(compile(QUESTION_MARK + DIGITS_DELIMITER_XX + DIGITS_DELIMITER_XX + YEAR_XX + QUESTION_MARK, CASE_INSENSITIVE),
-        NUMERIC_ALL_VARIANTS_XX, 3, 2, 1);
+
+    YMD_XX(compile(OPTIONAL_QUESTION_MARK + YEAR_XX + DELIMITER_DIGITS_XX + DELIMITER_DIGITS_XX + OPTIONAL_QUESTION_MARK,
+        CASE_INSENSITIVE), NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
+
+    DMY_XX(compile(OPTIONAL_QUESTION_MARK + DIGITS_DELIMITER_XX + DIGITS_DELIMITER_XX + YEAR_XX + OPTIONAL_QUESTION_MARK,
+        CASE_INSENSITIVE), NUMERIC_ALL_VARIANTS_XX, 3, 2, 1);
 
     private final Pattern pattern;
     private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
