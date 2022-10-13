@@ -41,11 +41,11 @@ public class DereferencerProvider extends ConnectionProvider {
      * Set the properties values of the enrichment API. The default is null. If set to a blank value, the
      * dereferencer will not be configured to perform dereferencing.
      *
-     * @param entityManagementUrl The url of the entity service
+     * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
      * @param entityApiKey The key for the entity service
      */
-    public void setPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
       this.entityManagementUrl = entityManagementUrl;
       this.entityApiUrl = entityApiUrl;
       this.entityApiKey = entityApiKey;
@@ -88,7 +88,7 @@ public class DereferencerProvider extends ConnectionProvider {
 
 
         // Create the enrichment client if needed
-        final ClientEntityResolver remoteEntityResolver;
+        final ClientEntityResolver entityResolver;
         if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl) &&
                 StringUtils.isNotBlank(entityApiKey)) {
 
@@ -96,14 +96,14 @@ public class DereferencerProvider extends ConnectionProvider {
             properties.put("entity.management.url", entityManagementUrl);
             properties.put("entity.api.url", entityApiUrl);
             properties.put("entity.api.key", entityApiKey);
-            remoteEntityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
+            entityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
                     batchSizeEnrichment);
 
         } else {
-            remoteEntityResolver = null;
+            entityResolver = null;
         }
 
         // Done.
-        return new DereferencerImpl(new EntityMergeEngine(), remoteEntityResolver, dereferenceClient);
+        return new DereferencerImpl(new EntityMergeEngine(), entityResolver, dereferenceClient);
     }
 }

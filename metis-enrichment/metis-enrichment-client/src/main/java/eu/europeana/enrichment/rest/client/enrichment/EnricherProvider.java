@@ -53,7 +53,7 @@ public class EnricherProvider extends ConnectionProvider {
     /**
      * Set the entity resolver creator to use. The default is null, in which case a {@link
      * ClientEntityResolver} will be used with the connection settings in this class, and {@link
-     * #setPropertiesValues(String, String, String)} will need to have been called.
+     * #setEnrichmentPropertiesValues(String, String, String)} will need to have been called.
      *
      * @param entityResolverCreator A creator for the entity resolver.
      */
@@ -65,11 +65,11 @@ public class EnricherProvider extends ConnectionProvider {
      * Set the properties values of the enrichment service. The default is null, in which case {@link
      * #setEntityResolverCreator(EntityResolverCreator)} will need to have been called.
      *
-     * @param entityManagementUrl The url of the entity service
+     * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
      * @param entityApiKey The key for the entity service
      */
-    public void setPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
         this.entityManagementUrl = entityManagementUrl;
         this.entityApiUrl = entityApiUrl;
         this.entityApiKey = entityApiKey;
