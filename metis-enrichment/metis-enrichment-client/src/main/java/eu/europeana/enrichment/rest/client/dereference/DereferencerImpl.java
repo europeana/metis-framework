@@ -35,21 +35,21 @@ public class DereferencerImpl implements Dereferencer {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
 
   private final EntityMergeEngine entityMergeEngine;
-  private final EntityResolver remoteEntityResolver;
+  private final EntityResolver entityResolver;
   private final DereferenceClient dereferenceClient;
 
   /**
    * Constructor.
    *
    * @param entityMergeEngine The entity merge engine. Cannot be null.
-   * @param remoteEntityResolver Remove entity resolver: can be null if we only dereference own
+   * @param entityResolver Remove entity resolver: can be null if we only dereference own
    * entities.
    * @param dereferenceClient Dereference client. Can be null if we don't dereference own entities.
    */
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityResolver remoteEntityResolver,
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityResolver entityResolver,
           DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
-    this.remoteEntityResolver = remoteEntityResolver;
+    this.entityResolver = entityResolver;
     this.dereferenceClient = dereferenceClient;
   }
 
@@ -113,11 +113,11 @@ public class DereferencerImpl implements Dereferencer {
 
   private List<EnrichmentBase> dereferenceOwnEntities(Set<ReferenceTerm> resourceIds)
       throws DereferenceException {
-    if (remoteEntityResolver == null) {
+    if (entityResolver == null) {
       return Collections.emptyList();
     }
     try {
-      return new ArrayList<>(remoteEntityResolver.resolveById(resourceIds).values());
+      return new ArrayList<>(entityResolver.resolveById(resourceIds).values());
     } catch (Exception e) {
       throw new DereferenceException("Exception occurred while trying to perform dereferencing.",
           e);

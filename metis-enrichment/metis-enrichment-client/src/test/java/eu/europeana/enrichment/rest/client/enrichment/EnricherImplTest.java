@@ -11,7 +11,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.enrichment.api.external.impl.RemoteEntityResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
@@ -76,7 +76,7 @@ public class EnricherImplTest {
 
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final RemoteEntityResolver remoteEntityResolver = Mockito.mock(RemoteEntityResolver.class);
+    final ClientEntityResolver remoteEntityResolver = Mockito.mock(ClientEntityResolver.class);
     doReturn(ENRICHMENT_RESULT).when(remoteEntityResolver).resolveByText(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
@@ -99,7 +99,7 @@ public class EnricherImplTest {
     // Create mocks of the dependencies
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
-    final RemoteEntityResolver remoteEntityResolver = Mockito.mock(RemoteEntityResolver.class);
+    final ClientEntityResolver remoteEntityResolver = Mockito.mock(ClientEntityResolver.class);
 
     //Create enricher
     final Enricher enricher = spy(
@@ -114,7 +114,7 @@ public class EnricherImplTest {
     verifyMergeNullFlow(entityMergeEngine);
   }
 
-  private void verifyEnricherHappyFlow(RecordParser recordParser, RemoteEntityResolver remoteEntityResolver,
+  private void verifyEnricherHappyFlow(RecordParser recordParser, ClientEntityResolver remoteEntityResolver,
       RDF inputRdf) {
 
     // Extracting values for enrichment
@@ -161,7 +161,7 @@ public class EnricherImplTest {
     }
   }
 
-  private void verifyEnricherNullFlow(RemoteEntityResolver remoteEntityResolver,
+  private void verifyEnricherNullFlow(ClientEntityResolver remoteEntityResolver,
           RecordParser recordParser, RDF inputRdf) {
 
     // Extracting values for enrichment

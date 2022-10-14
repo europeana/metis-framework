@@ -8,11 +8,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.metis.utils.RestEndpoints;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,9 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Enrichment REST API
+ *
+ * @deprecated No longer needed
  */
 @Api("/")
 @Controller
+@Deprecated(since = "9.0", forRemoval = true)
 public class EnrichmentController {
 
   private final EnrichmentService enrichmentService;
@@ -38,6 +37,7 @@ public class EnrichmentController {
    * Autowired constructor.
    *
    * @param enrichmentService the service that contains logic for processing entities
+   * @deprecated No longer needed
    */
   @Autowired
   public EnrichmentController(EnrichmentService enrichmentService) {
@@ -49,6 +49,7 @@ public class EnrichmentController {
    *
    * @param enrichmentSearch a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
+   * @deprecated No longer needed
    */
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_SEARCH, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
@@ -56,6 +57,7 @@ public class EnrichmentController {
   @ResponseBody
   @ApiOperation(value = "Get an enrichment by providing a list of SearchValue", response = EnrichmentResultList.class)
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  @Deprecated(since = "9.0", forRemoval = true)
   public EnrichmentResultList search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
     return new EnrichmentResultList(enrichmentService
@@ -67,6 +69,7 @@ public class EnrichmentController {
    *
    * @param uri The URI to check for match
    * @return the structured result of the enrichment
+   * @deprecated No longer needed
    */
   @GetMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -74,11 +77,11 @@ public class EnrichmentController {
       + "owlSameAs", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  @Deprecated(since = "9.0", forRemoval = true)
   public EnrichmentBase equivalence(@ApiParam("uri") @RequestParam("uri") String uri) {
     List<EnrichmentBase> result = enrichmentService
           .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
     return result.stream().findFirst().orElse(null);
-    //TODO 07-12-2020: For this case it is expected only one as a result, but we should handle this better in the future
   }
 
   /**
@@ -87,6 +90,7 @@ public class EnrichmentController {
    *
    * @param enrichmentReference The references to check for match
    * @return the structured result of the enrichment
+   * @deprecated No longer needed
    */
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_EQUIVALENCE, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
@@ -96,6 +100,7 @@ public class EnrichmentController {
           + "match an entity's about or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  @Deprecated(since = "9.0", forRemoval = true)
   public EnrichmentResultList equivalence(@RequestBody EnrichmentReference enrichmentReference) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
         .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
@@ -108,6 +113,7 @@ public class EnrichmentController {
    *
    * @param uris The URIs to check for match
    * @return the structured result of the enrichment
+   * @deprecated No longer needed
    */
   @PostMapping(value = RestEndpoints.ENRICH_ENTITY_ID, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -115,8 +121,8 @@ public class EnrichmentController {
       + "match an entity's about", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  @Deprecated(since = "9.0", forRemoval = true)
   public EnrichmentResultList entityId(@RequestBody List<String> uris) {
-    // TODO: 17/11/2020 Support for xml input. Requires a wrapper class with a field of the list of uris
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers =
         uris.stream()
         .map(enrichmentService::enrichById)

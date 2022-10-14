@@ -76,7 +76,9 @@ public class ClientEntityResolver implements EntityResolver {
 
   private <T extends ReferenceTerm> HashMap<T, EnrichmentBase> convertToMapWithSingleValues(
       Map<T, List<EnrichmentBase>> batches) {
-    return batches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
+    Map<T, List<EnrichmentBase>> filteredBatches = batches.entrySet().stream().filter(entry -> !entry.getValue().isEmpty())
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    return filteredBatches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
         entry.getValue().stream().findFirst().orElse(null)), HashMap::putAll);
   }
 
@@ -101,7 +103,8 @@ public class ClientEntityResolver implements EntityResolver {
     // TODO: 02/06/2022 This is actually bypassing the batching.. This is the selected way to perform this for now.
     for (I batchItem : batch) {
       List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
-      result.put(batchItem, enrichmentBaseList);
+      result.put(batchItem, !enrichmentBaseList.isEmpty() ? enrichmentBaseList.stream().filter(Objects::nonNull).collect(Collectors.toList()) :
+              Collections.emptyList());
     }
     return result;
   }
