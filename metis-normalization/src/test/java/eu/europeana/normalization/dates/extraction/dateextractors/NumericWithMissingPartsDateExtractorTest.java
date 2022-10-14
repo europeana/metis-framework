@@ -284,6 +284,10 @@ class NumericWithMissingPartsDateExtractorTest {
         of("19XX/XX/99", "19XX", NUMERIC_ALL_VARIANTS_XX),
         of("19XX/--/--", "19XX", NUMERIC_ALL_VARIANTS_XX),
         of("19XX.--.--", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("19XX-11-99?", "19XX-11-99?", NUMERIC_ALL_VARIANTS_XX),
+        of("19UU-XX-99?", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("19UU-??-99?", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("19UU/--/99?", "19XX?", NUMERIC_ALL_VARIANTS_XX),
         //Both month and day unknown
         of("1989-??-??", "1989", NUMERIC_ALL_VARIANTS_XX),
         //Lowercase
@@ -313,7 +317,6 @@ class NumericWithMissingPartsDateExtractorTest {
   private static Stream<Arguments> extractDMY_XX() {
 
     return Stream.of(
-
         //YEAR-MONTH
         of("XX.1989", "1989", NUMERIC_ALL_VARIANTS_XX),
         of("UU.1989", "1989", NUMERIC_ALL_VARIANTS_XX),
@@ -366,6 +369,13 @@ class NumericWithMissingPartsDateExtractorTest {
         of("UU-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         of("??-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
         //Unknown month and day as well as some unknown digits on the year
+        of("XX.11.198X", "198X-11", NUMERIC_ALL_VARIANTS_XX),
+        of("11.UU.198X", "198X", NUMERIC_ALL_VARIANTS_XX),
+        of("XX/UU/198X", "198X", NUMERIC_ALL_VARIANTS_XX),
+        of("xx/--/198X", "198X", NUMERIC_ALL_VARIANTS_XX),
+        of("99/XX/19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("--/--/19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("--.--.19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
         of("?99-11-19XX", "19XX-11-99?", NUMERIC_ALL_VARIANTS_XX),
         of("?99-XX-19UU", "19XX?", NUMERIC_ALL_VARIANTS_XX),
         of("?99-??-19UU", "19XX?", NUMERIC_ALL_VARIANTS_XX),
