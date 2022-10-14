@@ -43,6 +43,12 @@ class EdtfDatePartNormalizerTest {
     datePropertyTestCases.put("S. XVI-XVIII", "15XX/17XX");
     datePropertyTestCases.put("S. XVIII-", null); // open-ended period
 
+    //Unknown/Unspecified start or end of range
+    datePropertyTestCases.put("1907/?", "1907/..");
+    datePropertyTestCases.put("?/1907", "../1907");
+    datePropertyTestCases.put("1907/", "1907/..");
+    datePropertyTestCases.put("/1907", "../1907");
+
     datePropertyTestCases.put("1905 09 01", "1905-09-01");
     datePropertyTestCases.put("1851-01-01  - 1851-12-31", "1851-01-01/1851-12-31");
     datePropertyTestCases.put("1952-02-25T00:00:00Z-1952-02-25T23:59:59Z", null);

@@ -196,10 +196,13 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     // Apply the normalization. If nothing can be done, we return.
     final String elementText = XmlUtil.getElementText(element);
-    final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(
-        elementText);
-    if (dateNormalizationResult.getDateNormalizationExtractorMatchId()
-        == DateNormalizationExtractorMatchId.NO_MATCH) {
+    // TODO: 11/10/2022 Check if this can be more securely structured.
+    //  Currently the class InstantEdtfDate is allowed to contain invalid values for day, month, year and therefore a call
+    //  to some of it's functions, for example getLastDay which internally triggers a call to lastDayBasedOnMonth can fail if the values are invalid.
+    //  Probably a better approach is to not allow the object to be created with invalid values in the first place.
+    final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
+    if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.NO_MATCH
+        || dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.INVALID) {
       return;
     }
 
