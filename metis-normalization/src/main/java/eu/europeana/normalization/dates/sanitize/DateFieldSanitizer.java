@@ -95,7 +95,13 @@ public class DateFieldSanitizer {
     return null;
   }
 
-  private String cleanSpacesAndTrim(String inputValue) {
-    return inputValue.replaceAll("\\s", " ").trim();
+  /**
+   * Replaces multiple continues spaces in a string with a literal string and then trims the value.
+   *
+   * @param value the value to clean
+   * @return the cleaned value
+   */
+  public static String cleanSpacesAndTrim(String value) {
+    return value.replaceAll("\\s", " ").trim();
   }
 }

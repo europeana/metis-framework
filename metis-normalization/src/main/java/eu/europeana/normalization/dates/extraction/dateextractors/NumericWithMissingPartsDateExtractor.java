@@ -11,6 +11,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -113,7 +114,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   }
 
   public DateNormalizationResult extract(String inputValue) {
-    final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain =
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
 

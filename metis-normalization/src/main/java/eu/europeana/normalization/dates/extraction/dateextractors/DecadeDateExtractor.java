@@ -5,6 +5,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +33,7 @@ public class DecadeDateExtractor implements DateExtractor {
   private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   public DateNormalizationResult extract(String inputValue) {
-    final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
 
     DateNormalizationResult dateNormalizationResult = null;
