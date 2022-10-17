@@ -19,6 +19,7 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
   ArrayList<Pattern> patterns = new ArrayList<>();
 
   public NumericRangeWithMissingPartsDateExtractor() {
+    // TODO: 17/10/2022 Why are there unspecified values separately and also as an OR operation on the regexes 
     String dateSep = "/";
     String componentSep = "[\\-.]";
     String unsepecifiedVals = "\\?|-|\\.\\.";
