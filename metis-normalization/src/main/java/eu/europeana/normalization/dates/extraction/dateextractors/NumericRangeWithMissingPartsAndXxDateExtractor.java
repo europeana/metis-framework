@@ -15,14 +15,14 @@ import org.apache.commons.lang3.StringUtils;
  * Patterns for numeric date ranges with variations in the separators of date components, and supporting characters for
  * unknown/unspecified date components.
  */
-public class PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor implements DateExtractor {
+public class NumericRangeWithMissingPartsAndXxDateExtractor implements DateExtractor {
 
   Pattern cleanSeparatorAndUnknown = Pattern.compile("[\\-./?Xu]", Pattern.CASE_INSENSITIVE);
   Pattern unknownChars = Pattern.compile("[\\-?Xu]+$", Pattern.CASE_INSENSITIVE);
 
   ArrayList<Pattern> patterns = new ArrayList<>();
 
-  public PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor() {
+  public NumericRangeWithMissingPartsAndXxDateExtractor() {
     String dateSep = "\\s*[/|]\\s*";
     String componentSep = "[\\-]";
     String componentMissing = "[Xu]";

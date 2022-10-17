@@ -12,13 +12,13 @@ import java.util.regex.Pattern;
 /**
  * Patterns for numeric date ranges with variations in the separators of date components
  */
-public class PatternNumericDateRangeExtractorWithMissingPartsDateExtractor implements DateExtractor {
+public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor {
 
   Pattern cleanSeparator = Pattern.compile("[\\-./]");
 
   ArrayList<Pattern> patterns = new ArrayList<>();
 
-  public PatternNumericDateRangeExtractorWithMissingPartsDateExtractor() {
+  public NumericRangeWithMissingPartsDateExtractor() {
     String dateSep = "/";
     String componentSep = "[\\-.]";
     String unsepecifiedVals = "\\?|-|\\.\\.";
