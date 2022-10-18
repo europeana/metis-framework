@@ -19,12 +19,16 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
   ArrayList<Pattern> patterns = new ArrayList<>();
 
   public NumericRangeWithMissingPartsDateExtractor() {
-    // TODO: 17/10/2022 Why are there unspecified values separately and also as an OR operation on the regexes 
     String dateSep = "/";
     String componentSep = "[\\-.]";
     String unsepecifiedVals = "\\?|-|\\.\\.";
-    String dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
-        + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
+    String dateYmd = "\\s*("
+        + "(?<year>\\d\\d\\d\\d?)"
+        + "(?<month>" + componentSep + "\\d\\d?)?"
+        + "(?<day>" + componentSep + "\\d\\d?)?"
+        + "(?<uncertain>\\?)?"
+        + "|(?<unspecified>" + unsepecifiedVals + ")"
+        + ")\\s*";
     String dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
         + ")?(?<year>\\d\\d\\d\\d?)(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
     patterns.add(Pattern.compile(dateYmd + dateSep + dateYmd.replace("year", "year2").replace("month", "month2")

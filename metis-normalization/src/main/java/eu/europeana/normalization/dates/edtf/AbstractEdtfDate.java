@@ -32,6 +32,8 @@ public abstract class AbstractEdtfDate implements Serializable {
 
   public abstract boolean isUncertain();
 
+  public abstract boolean isUnspecified();
+
   public abstract boolean isTimeOnly();
 
   public abstract void switchDayAndMonth();

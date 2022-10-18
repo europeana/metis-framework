@@ -3,9 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -50,11 +48,7 @@ class NumericWithMissingPartsDateExtractorTest {
     } else {
       final String actual = dateNormalizationResult.getEdtfDate().toString();
       assertEquals(expected, actual);
-      if (actual.contains("?")) {
-        assertTrue(dateNormalizationResult.getEdtfDate().isUncertain());
-      } else {
-        assertFalse(dateNormalizationResult.getEdtfDate().isUncertain());
-      }
+      assertEquals(actual.contains("?"), dateNormalizationResult.getEdtfDate().isUncertain());
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }

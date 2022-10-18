@@ -63,6 +63,11 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
+  public boolean isUnspecified() {
+    return (start != null && start.isUnspecified()) || (end != null && end.isUnspecified());
+  }
+
+  @Override
   public void switchDayAndMonth() {
     if (start != null) {
       start.switchDayAndMonth();

@@ -71,6 +71,11 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
+  public boolean isUnspecified() {
+    return edtfDatePart.isUnspecified();
+  }
+
+  @Override
   public void switchDayAndMonth() {
     if (edtfDatePart != null) {
       edtfDatePart.switchDayAndMonth();
