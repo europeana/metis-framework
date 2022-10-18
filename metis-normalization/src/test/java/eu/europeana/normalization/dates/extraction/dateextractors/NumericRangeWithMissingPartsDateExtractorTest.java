@@ -9,6 +9,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -50,10 +51,16 @@ class NumericRangeWithMissingPartsDateExtractorTest {
     // TODO: 17/10/2022 The '?' is not supported in the beginning of the date in ranges but in single dates it
     //  is(NumericWithMissingPartsDateExtractor). What should we follow?
 
+    return Stream.of(yearArguments(),
+                     yearMonthArguments(),
+                     yearMonthDayArguments(),
+                     otherCasesArguments())
+                 .flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> yearArguments() {
     return Stream.of(
-        //YEAR
         //Numeric range '/'
-        //A month and day can be missing
         of("1989/1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989?/1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
@@ -68,9 +75,12 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         //Dates separator ' '(space)
         of("1989 1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989? 1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS),
-        of("?1989 ?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
+        of("?1989 ?1990", null, NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //YEAR-MONTH
+  private static Stream<Arguments> yearMonthArguments() {
+    return Stream.of(
         //Dates separator '/'
         of("1989-11/1990-11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11/1990.11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -107,9 +117,12 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989/11? 1990/11?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989-11 ?1990-11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11 ?1990.11", null, NUMERIC_RANGE_ALL_VARIANTS),
-        of("?1989/11 ?1990/11", null, NUMERIC_RANGE_ALL_VARIANTS),
+        of("?1989/11 ?1990/11", null, NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //YEAR-MONTH-DAY
+  private static Stream<Arguments> yearMonthDayArguments() {
+    return Stream.of(
         //Dates separator '/'
         of("1989-11-01/1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01/1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -120,6 +133,10 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989.11.01?/1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989-11-01/?1990-11-01", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11.01/?1990.11.01", null, NUMERIC_RANGE_ALL_VARIANTS),
+        //Combination of date parts separators
+        of("1989-11-01/1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("1989-11-01?/1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
+
         //Dates separator ' - '
         of("1989-11-01 - 1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01 - 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -134,6 +151,12 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?1989-11-01 - ?1990-11-01", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11.01 - ?1990.11.01", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/11/01 - ?1990/11/01", null, NUMERIC_RANGE_ALL_VARIANTS),
+        //Combination of date parts separators
+        of("1989-11-01 - 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("1989-11-01 - 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("1989-11-01? - 1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
+        of("1989-11-01? - 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
+
         //Dates separator '-'
         of("1989/11/01-1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01-1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -144,6 +167,10 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989.11.01?-1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/11/01-?1990/11/01", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11.01-?1990.11.01", null, NUMERIC_RANGE_ALL_VARIANTS),
+        //Combination of date parts separators
+        of("1989/11/01-1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("1989/11/01?-1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
+
         //Dates separator ' '(space)
         of("1989-11-01 1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -158,26 +185,18 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?1989-11-01 ?1990-11-01", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11.01 ?1990.11.01", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/11/01 ?1990/11/01", null, NUMERIC_RANGE_ALL_VARIANTS),
-
-        //Combination of separators
-        of("1989-11-01/1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989-11-01?/1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-
-        of("1989-11-01 - 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989-11-01 - 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989-11-01? - 1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989-11-01? - 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-
-        of("1989/11/01-1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989/11/01?-1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-
+        //Combination of date parts separators
         of("1989-11-01 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01? 1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01? 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989.11.01? 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
+        of("1989.11.01? 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
+  private static Stream<Arguments> otherCasesArguments() {
+    return Stream.of(
         //Too few digits on year
         of("89-01-01/90-01-01", null, null),
         of("89.1.1/90.1.1", null, null),
