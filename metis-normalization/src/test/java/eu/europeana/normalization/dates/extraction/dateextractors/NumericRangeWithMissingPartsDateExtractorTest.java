@@ -42,108 +42,133 @@ class NumericRangeWithMissingPartsDateExtractorTest {
     }
   }
 
-  private static Stream<Arguments> extractYMD() {
-    // TODO: 17/10/2022 The '?' is not supported in the beginning of the date in ranges but in single dates it
-    //  is(NumericWithMissingPartsDateExtractor). What should we follow?
-    // TODO: 18/10/2022 The unspecified ""(empty) value for dates separator " "(space) does not work. Is that okay?
-    // TODO: 20/10/2022 Unspecified, ambiguous start year under a 1000 is returning null but the same for end does not work
+  // TODO: 17/10/2022 The '?' is not supported in the beginning of the date in ranges but in single dates it
+  //  is(NumericWithMissingPartsDateExtractor). What should we follow?
+  // TODO: 18/10/2022 The unspecified ""(empty) value for dates separator " "(space) does not work. Is that okay?
+  // TODO: 20/10/2022 Unspecified, ambiguous start year under a 1000 is returning null but the same for end does not work
 
+  private static Stream<Arguments> extractYMD() {
     return Stream.of(
-                     yearArguments(),
-                     yearMonthArguments(),
-                     yearMonthDayArguments(),
-                     yearMonthDayInvalidArguments())
-                 .flatMap(Function.identity());
+        yearArguments(),
+        yearMonthArguments(),
+        yearMonthDayArguments(),
+        yearMonthDayInvalidArguments()
+    ).flatMap(Function.identity());
   }
 
   private static Stream<Arguments> extractDMY() {
-    return Stream.of(monthYearArguments(),
-                     dayMonthYearArguments(),
-                     dayMonthYearInvalidArguments())
-                 .flatMap(Function.identity());
+    return Stream.of(
+        monthYearArguments(),
+        dayMonthYearArguments(),
+        dayMonthYearInvalidArguments()
+    ).flatMap(Function.identity());
   }
 
   private static Stream<Arguments> yearArguments() {
     return Stream.of(
-        //DATE SEPARATOR '/'
+        year_SlashArguments(),
+        year_SpacedDashArguments(),
+        year_DashArguments(),
+        year_SpaceArguments()
+    ).flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> year_SlashArguments() {
+    return Stream.of(
         of("1989/1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989?/1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/-", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("?/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("../1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198/?", null, null),
         of("198/-", null, null),
         of("198/..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?/198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
-        of("../198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198", "../0198", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR  ' - '
+  private static Stream<Arguments> year_SpacedDashArguments() {
+    return Stream.of(
         of("1989 - 1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989? - 1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989 - ?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989 - ?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989 - -", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989 - ..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("? - 1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198 - ?", null, null),
         of("198 - -", null, null),
         of("198 - ..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("? - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
-        of(".. - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR '-'
+  private static Stream<Arguments> year_DashArguments() {
+    return Stream.of(
         of("1989-1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989?-1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989-?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("..-1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198-?", null, null),
         of("198-..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?-198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
-        of("..-198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of("..-198", "../0198", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' '(space)
+  private static Stream<Arguments> year_SpaceArguments() {
+    return Stream.of(
         of("1989 1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989? 1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989 ?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989 ", null, null),
         of(" 1989", null, null),
         of("198 ", null, null),
         of(" 198", null, null)
-
     );
   }
 
   private static Stream<Arguments> yearMonthArguments() {
     return Stream.of(
-        //DATE SEPARATOR '/'
+        yearMonth_SlashArguments(),
+        yearMonth_SpacedDashArguments(),
+        yearMonth_DashArguments(),
+        yearMonth_SpaceArguments()
+    ).flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> yearMonth_SlashArguments() {
+    return Stream.of(
         of("1989-11/1990-11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11/1990.11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11?/1990-11?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11?/1990.11?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989-11/?1990-11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11/?1990.11", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989-11/?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11/-", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11/..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -156,22 +181,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("../1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198-11/?", null, null),
         of("198-11/-", null, null),
         of("198-11/..", null, null),
         of("198.11/?", null, null),
         of("198.11/-", null, null),
         of("198.11/..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?/198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("../198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("?/198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
-        of("../198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' - '
+  private static Stream<Arguments> yearMonth_SpacedDashArguments() {
+    return Stream.of(
         of("1989-11 - 1990-11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11 - 1990.11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11 - 1990/11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -181,7 +209,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?1989-11 - ?1990-11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11 - ?1990.11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/11 - ?1990/11", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/11 - ?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11 - -", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11 - ..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -200,7 +228,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198-11 - ?", null, null),
         of("198-11 - -", null, null),
         of("198-11 - ..", null, null),
@@ -210,7 +238,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("198/11 - ?", null, null),
         of("198/11 - -", null, null),
         of("198/11 - ..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("? - 198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -219,16 +247,19 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of(".. - 198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("? - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
-        of(".. - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR '-'
+  private static Stream<Arguments> yearMonth_DashArguments() {
+    return Stream.of(
         of("1989.11-1990.11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11-1990/11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11?-1990.11?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11?-1990/11?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/11-?1990/11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11-?1990.11", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/11-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11--", null, null),
         of("1989/11-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -241,22 +272,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--1989.11", null, null),
         of("..-1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198.11-?", null, null),
         of("198.11--", null, null),
         of("198.11-..", null, null),
         of("198/11-?", null, null),
         of("198/11--", null, null),
         of("198/11-..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?-198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--198.11", null, null),
         of("..-198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--198/11", null, null),
-        of("..-198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("..-198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' '(space)
+  private static Stream<Arguments> yearMonth_SpaceArguments() {
+    return Stream.of(
         of("1989-11 1990-11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11 1990.11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11 1990/11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -266,18 +300,18 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?1989-11 ?1990-11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989.11 ?1990.11", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?1989/11 ?1990/11", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/11 ", null, null),
         of(" 1989/11", null, null),
         of("1989-11 ", null, null),
         of(" 1989-11", null, null),
         of("1989.11 ", null, null),
         of(" 1989.11", null, null),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198/11 ", null, null),
         of("198-11 ", null, null),
         of("198.11 ", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of(" 198/11", null, null),
         of(" 198-11", null, null),
         of(" 198.11", null, null)
@@ -286,7 +320,15 @@ class NumericRangeWithMissingPartsDateExtractorTest {
 
   private static Stream<Arguments> yearMonthDayArguments() {
     return Stream.of(
-        //DATE SEPARATOR '/'
+        yearMonthDay_SlashArguments(),
+        yearMonthDay_SpacedDashArguments(),
+        yearMonthDay_DashArguments(),
+        yearMonthDay_SpaceArguments()
+    ).flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> yearMonthDay_SlashArguments() {
+    return Stream.of(
         of("1989-11-01/1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01/1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         //Some missing digits are allowed
@@ -299,7 +341,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         //Combination of date parts separators
         of("1989-11-01/1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01?/1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989-11-01/?", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01/-", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01/..", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -312,22 +354,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("../1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198-11-01/?", null, null),
         of("198-11-01/-", null, null),
         of("198-11-01/..", null, null),
         of("198.11.01/?", null, null),
         of("198.11.01/-", null, null),
         of("198.11.01/..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?/198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("../198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("?/198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of("../198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' - '
+  private static Stream<Arguments> yearMonthDay_SpacedDashArguments() {
+    return Stream.of(
         of("1989-11-01 - 1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01 - 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11/01 - 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -346,7 +391,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989-11-01 - 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01? - 1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01? - 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/11/01 - ?", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11/01 - -", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11/01 - ..", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -365,7 +410,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198-11-01 - ?", null, null),
         of("198-11-01 - -", null, null),
         of("198-11-01 - ..", null, null),
@@ -375,7 +420,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("198/11/01 - ?", null, null),
         of("198/11/01 - -", null, null),
         of("198/11/01 - ..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("? - 198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -384,9 +429,12 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of(".. - 198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("? - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of(".. - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR '-'
+  private static Stream<Arguments> yearMonthDay_DashArguments() {
+    return Stream.of(
         of("1989/11/01-1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01-1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         //Some missing digits are allowed
@@ -399,7 +447,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         //Combination of date parts separators
         of("1989/11/01-1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11/01?-1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/11/01-?", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11/01--", null, null),
         of("1989/11/01-..", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -412,22 +460,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--1989.11.01", null, null),
         of("..-1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198.11.01-?", null, null),
         of("198.11.01--", null, null),
         of("198.11.01-..", null, null),
         of("198/11/01-?", null, null),
         of("198/11/01--", null, null),
         of("198/11/01-..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?-198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--198.11.01", null, null),
         of("..-198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--198/11/01", null, null),
-        of("..-198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("..-198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' '(space)
+  private static Stream<Arguments> yearMonthDay_SpaceArguments() {
+    return Stream.of(
         of("1989-11-01 1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01 1990.11.01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989/11/01 1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -448,18 +499,18 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989-11-01? 1990.11.01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989-11-01? 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("1989.11.01? 1990/11/01?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("1989/11/01 ", null, null),
         of(" 1989/11/01", null, null),
         of("1989-11-01 ", null, null),
         of(" 1989-11-01", null, null),
         of("1989.11.01 ", null, null),
         of(" 1989.11.01", null, null),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("198/11/01 ", null, null),
         of("198-11-01 ", null, null),
         of("198.11.01 ", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of(" 198/11/01", null, null),
         of(" 198-11-01", null, null),
         of(" 198.11.01", null, null)
@@ -483,14 +534,22 @@ class NumericRangeWithMissingPartsDateExtractorTest {
 
   private static Stream<Arguments> monthYearArguments() {
     return Stream.of(
-        //DATE SEPARATOR '/'
+        monthYear_SlashArguments(),
+        monthYear_SpacedDashArguments(),
+        monthYear_DashArguments(),
+        monthYear_SpaceArguments()
+    ).flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> monthYear_SlashArguments() {
+    return Stream.of(
         of("11-1989/11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11.1989/11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11-1989?/11-1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("11.1989?/11.1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?11-1989/?11-1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?11.1989/?11.1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("11-1989/?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("11-1989/-", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("11-1989/..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -503,22 +562,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("../11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("11-198/?", null, null),
         of("11-198/-", null, null),
         of("11-198/..", null, null),
         of("11.198/?", null, null),
         of("11.198/-", null, null),
         of("11.198/..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?/11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("../11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("?/11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
-        of("../11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' - '
+  private static Stream<Arguments> monthYear_SpacedDashArguments() {
+    return Stream.of(
         of("11-1989 - 11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11.1989 - 11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989 - 11/1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -528,7 +590,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?11-1989 - ?11-1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?11.1989 - ?11.1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?11/1989 - ?11/1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("11/1989 - ?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989 - -", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989 - ..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -547,7 +609,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("11-198 - ?", null, null),
         of("11-198 - -", null, null),
         of("11-198 - ..", null, null),
@@ -557,7 +619,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("11/198 - ?", null, null),
         of("11/198 - -", null, null),
         of("11/198 - ..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("? - 11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -566,16 +628,19 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of(".. - 11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("? - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
-        of(".. - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR '-'
+  private static Stream<Arguments> monthYear_DashArguments() {
+    return Stream.of(
         of("11.1989-11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989-11/1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11.1989?-11.1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989?-11/1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         of("?11/1989-?11/1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?11.1989-?11.1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("11/1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989--", null, null),
         of("11/1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -588,22 +653,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--11.1989", null, null),
         of("..-11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("11.198-?", null, null),
         of("11.198--", null, null),
         of("11.198-..", null, null),
         of("11/198-?", null, null),
         of("11/198--", null, null),
         of("11/198-..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?-11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--11.198", null, null),
         of("..-11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--11/198", null, null),
-        of("..-11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("..-11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' '(space)
+  private static Stream<Arguments> monthYear_SpaceArguments() {
+    return Stream.of(
         of("11-1989 11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11.1989 11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("11/1989 11/1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -613,18 +681,18 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?11-1989 ?11-1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?11.1989 ?11.1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         of("?11/1989 ?11/1990", null, NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("11/1989 ", null, null),
         of(" 11/1989", null, null),
         of("11-1989 ", null, null),
         of(" 11-1989", null, null),
         of("11.1989", null, null),
         of(" 11.1989", null, null),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("11/198/11 ", null, null),
         of("11-198-11 ", null, null),
         of("11.198.11 ", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of(" 11/198/11", null, null),
         of(" 11-198-11", null, null),
         of(" 11.198.11", null, null)
@@ -633,7 +701,15 @@ class NumericRangeWithMissingPartsDateExtractorTest {
 
   private static Stream<Arguments> dayMonthYearArguments() {
     return Stream.of(
-        //DATE SEPARATOR '/'
+        dayMonthYear_SlashArguments(),
+        dayMonthYear_SpacedDashArguments(),
+        dayMonthYear_DashArguments(),
+        dayMonthYear_SpaceArguments()
+    ).flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> dayMonthYear_SlashArguments() {
+    return Stream.of(
         of("01-11-1989/01-11-1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01.11.1989/01.11.1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         //Some missing digits are allowed
@@ -646,7 +722,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         //Combination of date parts separators
         of("01-11-1989/01.11.1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01-11-1989?/01.11.1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("01-11-1989/?", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("01-11-1989/-", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("01-11-1989/..", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -659,22 +735,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("../01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("01-11-198/?", null, null),
         of("01-11-198/-", null, null),
         of("01-11-198/..", null, null),
         of("01.11.198/?", null, null),
         of("01.11.198/-", null, null),
         of("01.11.198/..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?/01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("../01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("?/01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of("../01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' - '
+  private static Stream<Arguments> dayMonthYear_SpacedDashArguments() {
+    return Stream.of(
         of("01-11-1989 - 01-11-1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01.11.1989 - 01.11.1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01/11/1989 - 01/11/1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -693,7 +772,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("01-11-1989 - 01/11/1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01-11-1989? - 01.11.1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("01-11-1989? - 01/11/1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("01/11/1989 - ?", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("01/11/1989 - -", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("01/11/1989 - ..", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -712,7 +791,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("01-11-198 - ?", null, null),
         of("01-11-198 - -", null, null),
         of("01-11-198 - ..", null, null),
@@ -722,7 +801,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("01/11/198 - ?", null, null),
         of("01/11/198 - -", null, null),
         of("01/11/198 - ..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("? - 01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -731,9 +810,12 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of(".. - 01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("? - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        of(".. - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR '-'
+  private static Stream<Arguments> dayMonthYear_DashArguments() {
+    return Stream.of(
         of("01/11/1989-01/11/1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01.11.1989-01.11.1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         //Some missing digits are allowed
@@ -746,7 +828,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         //Combination of date parts separators
         of("01/11/1989-01.11.1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01/11/1989?-01.11.1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("01/11/1989-?", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("01/11/1989--", null, null),
         of("01/11/1989-..", "1989-11-01/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -759,22 +841,25 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--01.11.1989", null, null),
         of("..-01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("01.11.198-?", null, null),
         of("01.11.198--", null, null),
         of("01.11.198-..", null, null),
         of("01/11/198-?", null, null),
         of("01/11/198--", null, null),
         of("01/11/198-..", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of("?-01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--01.11.198", null, null),
         of("..-01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--01/11/198", null, null),
-        of("..-01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("..-01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS)
+    );
+  }
 
-        //DATE SEPARATOR ' '(space)
+  private static Stream<Arguments> dayMonthYear_SpaceArguments() {
+    return Stream.of(
         of("01-11-1989 01-11-1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01.11.1989 01.11.1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("01/11/1989 01/11/1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -795,18 +880,18 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("01-11-1989? 01.11.1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("01-11-1989? 01/11/1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
         of("01.11.1989? 01/11/1990?", "1989-11-01?/1990-11-01?", NUMERIC_RANGE_ALL_VARIANTS),
-        //--Unspecified
+        //Unspecified
         of("01/11/1989 ", null, null),
         of(" 01/11/1989", null, null),
         of("01-11-1989 ", null, null),
         of(" 01-11-1989", null, null),
         of("01.11.1989 ", null, null),
         of(" 01.11.1989", null, null),
-        //ambiguous under 1000(start year)
+        //--ambiguous under 1000(start year)
         of("01/11/198 ", null, null),
         of("01-11-198 ", null, null),
         of("01.11.198 ", null, null),
-        //NOT ambiguous under 1000(end year)
+        //--NOT ambiguous under 1000(end year)
         of(" 01/11/198", null, null),
         of(" 01-11-198", null, null),
         of(" 01.11.198", null, null)
