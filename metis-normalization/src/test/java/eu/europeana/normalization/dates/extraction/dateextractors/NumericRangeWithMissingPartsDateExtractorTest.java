@@ -46,12 +46,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
     // TODO: 17/10/2022 The '?' is not supported in the beginning of the date in ranges but in single dates it
     //  is(NumericWithMissingPartsDateExtractor). What should we follow?
     // TODO: 18/10/2022 The unspecified ""(empty) value for dates separator " "(space) does not work. Is that okay?
+    // TODO: 20/10/2022 Unspecified, ambiguous start year under a 1000 is returning null but the same for end does not work
 
     return Stream.of(
                      yearArguments(),
                      yearMonthArguments(),
                      yearMonthDayArguments(),
                      yearMonthDayInvalidArguments())
+                 .flatMap(Function.identity());
+  }
+
+  private static Stream<Arguments> extractDMY() {
+    return Stream.of(monthYearArguments(),
+                     dayMonthYearArguments(),
+                     dayMonthYearInvalidArguments())
                  .flatMap(Function.identity());
   }
 
@@ -68,6 +76,14 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("../1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198/?", null, null),
+        of("198/-", null, null),
+        of("198/..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?/198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR  ' - '
         of("1989 - 1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
@@ -80,6 +96,14 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198 - ?", null, null),
+        of("198 - -", null, null),
+        of("198 - ..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("? - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR '-'
         of("1989-1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
@@ -90,6 +114,12 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
         of("..-1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198-?", null, null),
+        of("198-..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?-198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
+        of("..-198", "../0198", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' '(space)
         of("1989 1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS),
@@ -97,7 +127,10 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?1989 ?1990", null, NUMERIC_RANGE_ALL_VARIANTS),
         //--Unspecified
         of("1989 ", null, null),
-        of(" 1989", null, null)
+        of(" 1989", null, null),
+        of("198 ", null, null),
+        of(" 198", null, null)
+
     );
   }
 
@@ -123,6 +156,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("../1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198-11/?", null, null),
+        of("198-11/-", null, null),
+        of("198-11/..", null, null),
+        of("198.11/?", null, null),
+        of("198.11/-", null, null),
+        of("198.11/..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?/198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?/198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' - '
         of("1989-11 - 1990-11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -153,6 +200,26 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198-11 - ?", null, null),
+        of("198-11 - -", null, null),
+        of("198-11 - ..", null, null),
+        of("198.11 - ?", null, null),
+        of("198.11 - -", null, null),
+        of("198.11 - ..", null, null),
+        of("198/11 - ?", null, null),
+        of("198/11 - -", null, null),
+        of("198/11 - ..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("? - 198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198-11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR '-'
         of("1989.11-1990.11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -174,6 +241,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--1989.11", null, null),
         of("..-1989.11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198.11-?", null, null),
+        of("198.11--", null, null),
+        of("198.11-..", null, null),
+        of("198/11-?", null, null),
+        of("198/11--", null, null),
+        of("198/11-..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?-198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--198.11", null, null),
+        of("..-198.11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?-198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--198/11", null, null),
+        of("..-198/11", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' '(space)
         of("1989-11 1990-11", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -191,7 +272,15 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989-11 ", null, null),
         of(" 1989-11", null, null),
         of("1989.11 ", null, null),
-        of(" 1989.11", null, null)
+        of(" 1989.11", null, null),
+        //ambiguous under 1000(start year)
+        of("198/11 ", null, null),
+        of("198-11 ", null, null),
+        of("198.11 ", null, null),
+        //NOT ambiguous under 1000(end year)
+        of(" 198/11", null, null),
+        of(" 198-11", null, null),
+        of(" 198.11", null, null)
     );
   }
 
@@ -223,6 +312,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("../1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198-11-01/?", null, null),
+        of("198-11-01/-", null, null),
+        of("198-11-01/..", null, null),
+        of("198.11.01/?", null, null),
+        of("198.11.01/-", null, null),
+        of("198.11.01/..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?/198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?/198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' - '
         of("1989-11-01 - 1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -262,6 +365,26 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198-11-01 - ?", null, null),
+        of("198-11-01 - -", null, null),
+        of("198-11-01 - ..", null, null),
+        of("198.11.01 - ?", null, null),
+        of("198.11.01 - -", null, null),
+        of("198.11.01 - ..", null, null),
+        of("198/11/01 - ?", null, null),
+        of("198/11/01 - -", null, null),
+        of("198/11/01 - ..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("? - 198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198-11-01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR '-'
         of("1989/11/01-1990/11/01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -289,6 +412,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--1989.11.01", null, null),
         of("..-1989.11.01", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("198.11.01-?", null, null),
+        of("198.11.01--", null, null),
+        of("198.11.01-..", null, null),
+        of("198/11/01-?", null, null),
+        of("198/11/01--", null, null),
+        of("198/11/01-..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?-198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--198.11.01", null, null),
+        of("..-198.11.01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?-198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--198/11/01", null, null),
+        of("..-198/11/01", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' '(space)
         of("1989-11-01 1990-11-01", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -317,7 +454,15 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("1989-11-01 ", null, null),
         of(" 1989-11-01", null, null),
         of("1989.11.01 ", null, null),
-        of(" 1989.11.01", null, null)
+        of(" 1989.11.01", null, null),
+        //ambiguous under 1000(start year)
+        of("198/11/01 ", null, null),
+        of("198-11-01 ", null, null),
+        of("198.11.01 ", null, null),
+        //NOT ambiguous under 1000(end year)
+        of(" 198/11/01", null, null),
+        of(" 198-11-01", null, null),
+        of(" 198.11.01", null, null)
     );
   }
 
@@ -334,13 +479,6 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         //Too many digits on day
         of("1234-12-123/1235-12-123", null, null)
     );
-  }
-
-  private static Stream<Arguments> extractDMY() {
-    return Stream.of(monthYearArguments(),
-                     dayMonthYearArguments(),
-                     dayMonthYearInvalidArguments())
-                 .flatMap(Function.identity());
   }
 
   private static Stream<Arguments> monthYearArguments() {
@@ -365,6 +503,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("../11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("11-198/?", null, null),
+        of("11-198/-", null, null),
+        of("11-198/..", null, null),
+        of("11.198/?", null, null),
+        of("11.198/-", null, null),
+        of("11.198/..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?/11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?/11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' - '
         of("11-1989 - 11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -395,6 +547,26 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("11-198 - ?", null, null),
+        of("11-198 - -", null, null),
+        of("11-198 - ..", null, null),
+        of("11.198 - ?", null, null),
+        of("11.198 - -", null, null),
+        of("11.198 - ..", null, null),
+        of("11/198 - ?", null, null),
+        of("11/198 - -", null, null),
+        of("11/198 - ..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("? - 11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 11-198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR '-'
         of("11.1989-11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -416,6 +588,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--11.1989", null, null),
         of("..-11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("11.198-?", null, null),
+        of("11.198--", null, null),
+        of("11.198-..", null, null),
+        of("11/198-?", null, null),
+        of("11/198--", null, null),
+        of("11/198-..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?-11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--11.198", null, null),
+        of("..-11.198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?-11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--11/198", null, null),
+        of("..-11/198", "../0198-11", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' '(space)
         of("11-1989 11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS),
@@ -433,7 +619,15 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("11-1989 ", null, null),
         of(" 11-1989", null, null),
         of("11.1989", null, null),
-        of(" 11.1989", null, null)
+        of(" 11.1989", null, null),
+        //ambiguous under 1000(start year)
+        of("11/198/11 ", null, null),
+        of("11-198-11 ", null, null),
+        of("11.198.11 ", null, null),
+        //NOT ambiguous under 1000(end year)
+        of(" 11/198/11", null, null),
+        of(" 11-198-11", null, null),
+        of(" 11.198.11", null, null)
     );
   }
 
@@ -465,6 +659,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?/01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("-/01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("../01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("01-11-198/?", null, null),
+        of("01-11-198/-", null, null),
+        of("01-11-198/..", null, null),
+        of("01.11.198/?", null, null),
+        of("01.11.198/-", null, null),
+        of("01.11.198/..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?/01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?/01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("-/01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("../01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' - '
         of("01-11-1989 - 01-11-1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -504,6 +712,26 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("? - 01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("- - 01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of(".. - 01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("01-11-198 - ?", null, null),
+        of("01-11-198 - -", null, null),
+        of("01-11-198 - ..", null, null),
+        of("01.11.198 - ?", null, null),
+        of("01.11.198 - -", null, null),
+        of("01.11.198 - ..", null, null),
+        of("01/11/198 - ?", null, null),
+        of("01/11/198 - -", null, null),
+        of("01/11/198 - ..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("? - 01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 01-11-198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("? - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("- - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of(".. - 01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR '-'
         of("01/11/1989-01/11/1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -531,6 +759,20 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?-01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
         of("--01.11.1989", null, null),
         of("..-01.11.1989", "../1989-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        //ambiguous under 1000(start year)
+        of("01.11.198-?", null, null),
+        of("01.11.198--", null, null),
+        of("01.11.198-..", null, null),
+        of("01/11/198-?", null, null),
+        of("01/11/198--", null, null),
+        of("01/11/198-..", null, null),
+        //NOT ambiguous under 1000(end year)
+        of("?-01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--01.11.198", null, null),
+        of("..-01.11.198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("?-01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
+        of("--01/11/198", null, null),
+        of("..-01/11/198", "../0198-11-01", NUMERIC_RANGE_ALL_VARIANTS),
 
         //DATE SEPARATOR ' '(space)
         of("01-11-1989 01-11-1990", "1989-11-01/1990-11-01", NUMERIC_RANGE_ALL_VARIANTS),
@@ -559,7 +801,15 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("01-11-1989 ", null, null),
         of(" 01-11-1989", null, null),
         of("01.11.1989 ", null, null),
-        of(" 01.11.1989", null, null)
+        of(" 01.11.1989", null, null),
+        //ambiguous under 1000(start year)
+        of("01/11/198 ", null, null),
+        of("01-11-198 ", null, null),
+        of("01.11.198 ", null, null),
+        //NOT ambiguous under 1000(end year)
+        of(" 01/11/198", null, null),
+        of(" 01-11-198", null, null),
+        of(" 01.11.198", null, null)
     );
   }
 
