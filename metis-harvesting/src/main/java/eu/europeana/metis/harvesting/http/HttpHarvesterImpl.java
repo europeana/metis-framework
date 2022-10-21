@@ -31,6 +31,7 @@ import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -182,6 +183,11 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     public FileIterator(Path extractedDirectory) {
       this.extractedDirectory = extractedDirectory;
+    }
+
+    @Override
+    public String getExtractedDirectory() {
+      return extractedDirectory != null ? extractedDirectory.toString() : "";
     }
 
     @Override
