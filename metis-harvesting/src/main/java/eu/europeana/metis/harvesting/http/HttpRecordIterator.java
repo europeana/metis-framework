@@ -13,6 +13,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public interface HttpRecordIterator {
 
+  /**
+   * Returns the extracted directory used to create the iterator if there is any
+   * @return The extracted directory as a string if there is any, empty string if there is none
+   */
+  String getExtractedDirectory();
+
   void deleteIteratorContent();
 
   /**

@@ -185,6 +185,11 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     @Override
+    public String getExtractedDirectory() {
+      return extractedDirectory != null ? extractedDirectory.toString() : "";
+    }
+
+    @Override
     public void deleteIteratorContent() {
       if (extractedDirectory != null) {
         try {
