@@ -4,7 +4,9 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.report.ErrorMessage;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +22,7 @@ public interface Enricher {
    * @param rdf The RDF to be processed
    * @throws EnrichmentException In case that something unexpected happened.
    */
-  void enrichment(final RDF rdf) throws EnrichmentException;
+  void enrichment(final RDF rdf, HashSet<ErrorMessage> errorMessages) throws EnrichmentException;
 
   /**
    * Retrieves information to enrich the RDF using extracted values

@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -11,6 +12,9 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import eu.europeana.enrichment.rest.client.report.ErrorMessage;
+import eu.europeana.enrichment.rest.client.report.ProcessEnriched;
+import eu.europeana.enrichment.rest.client.report.ProcessedEncrichment;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
@@ -20,6 +24,7 @@ import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.metis.schema.convert.SerializationException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
@@ -132,20 +137,22 @@ class EnrichmentWorkerImplTest {
   private void verifyEnrichmentHappyFlow(boolean doEnrichment, Enricher enricher,
       RDF inputRdf) throws EnrichmentException {
     if (doEnrichment) {
-      verify(enricher, times(1)).enrichment(inputRdf);
+      HashSet<ErrorMessage> errorMessages = new HashSet<>();
+      verify(enricher, times(1)).enrichment(inputRdf, errorMessages);
 
     } else {
-      verify(enricher, never()).enrichment(any());
+      verify(enricher, never()).enrichment(any(), any());
     }
   }
 
   private void verifyEnrichmentNullFlow(boolean doEnrichment, Enricher worker, RDF inputRdf)
       throws EnrichmentException {
     if (doEnrichment) {
-      verify(worker, times(1)).enrichment(inputRdf);
+      HashSet<ErrorMessage> errorMessages = new HashSet<>();
+      verify(worker, times(1)).enrichment(inputRdf, errorMessages);
 
     } else {
-      verify(worker, never()).enrichment(any());
+      verify(worker, never()).enrichment(any(), any());
     }
   }
 
@@ -161,13 +168,16 @@ class EnrichmentWorkerImplTest {
     final String outputString = "OutputString";
     doReturn(inputRdf).when(worker).convertStringToRdf(anyString());
     doReturn(outputString).when(worker).convertRdfToString(inputRdf);
-    doReturn(inputRdf).when(worker).process(any(RDF.class), any());
+
+    doReturn(new ProcessedEncrichment<>(inputRdf)).when(worker).process(any(RDF.class), any());
 
     // Perform the operations and verify the result
-    final RDF returnedRdf = worker.process(inputRdf);
+    final RDF returnedRdf = worker.process(inputRdf).getEnrichedRecord();
     assertEquals(inputRdf, returnedRdf);
-    final String returnedString = worker.process("");
+    //add messages
+    final String returnedString = worker.process("").getEnrichedRecord();
     assertEquals(outputString, returnedString);
+    //add messages
 
     TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
     modeSetWithBoth.add(Mode.ENRICHMENT);
@@ -187,7 +197,7 @@ class EnrichmentWorkerImplTest {
   }
 
   @Test
-  void testEnrichmentWorkerNullValues(){
+  void testEnrichmentWorkerNullValues() {
 
     // Create enrichment worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
@@ -213,5 +223,20 @@ class EnrichmentWorkerImplTest {
     } catch (IllegalArgumentException | EnrichmentException | DereferenceException e) {
       // This is expected
     }
+  }
+
+  @Test
+  void testEnrichment() throws DereferenceException, SerializationException, EnrichmentException {
+    // Create enrichment worker
+    final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
+
+    TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
+    modeSetWithBoth.add(Mode.ENRICHMENT);
+    modeSetWithBoth.add(Mode.DEREFERENCE);
+    assertThrows(SerializationException.class, () -> {
+          ProcessEnriched<String> enrichedData = worker.process((String) "");
+          //    assertEquals(enrichedData.getStatus());
+        }
+    );
   }
 }

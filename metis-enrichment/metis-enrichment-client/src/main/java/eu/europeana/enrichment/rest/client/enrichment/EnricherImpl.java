@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.report.ErrorMessage;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
@@ -18,6 +19,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -52,7 +54,7 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public void enrichment(RDF rdf) throws EnrichmentException {
+  public void enrichment(RDF rdf, HashSet<ErrorMessage> errorMessages) throws EnrichmentException {
 
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");

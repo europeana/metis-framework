@@ -20,6 +20,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.report.ErrorMessage;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
@@ -36,11 +37,9 @@ import org.mockito.Mockito;
 
 public class EnricherImplTest {
 
-  private final ArgumentCaptor<Set<SearchTerm>> enrichmentExtractionCaptor = ArgumentCaptor
-      .forClass(Set.class);
+  private final ArgumentCaptor<Set<SearchTerm>> enrichmentExtractionCaptor = ArgumentCaptor.forClass(Set.class);
 
-  private final ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
-      .forClass(List.class);
+  private final ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor.forClass(List.class);
 
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT;
 
@@ -87,7 +86,8 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    enricher.enrichment(inputRdf);
+    HashSet<ErrorMessage> errorMessages = new HashSet<>();
+    enricher.enrichment(inputRdf, errorMessages);
 
     verifyEnricherHappyFlow(recordParser, remoteEntityResolver, inputRdf);
     verifyMergeHappyFlow(entityMergeEngine);
@@ -108,7 +108,8 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    enricher.enrichment(inputRdf);
+    HashSet<ErrorMessage> errorMessages = new HashSet<>();
+    enricher.enrichment(inputRdf, errorMessages);
 
     verifyEnricherNullFlow(remoteEntityResolver, recordParser, inputRdf);
     verifyMergeNullFlow(entityMergeEngine);
