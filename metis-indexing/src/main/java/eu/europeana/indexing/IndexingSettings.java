@@ -97,6 +97,16 @@ public final class IndexingSettings {
   }
 
   /**
+   * Set the max number of connections pool size in mongo. Can be null, in which case a default generic
+   * application name is to be used.
+   *
+   * @param mongoMaxConnectionPoolSize The value as an integer for the number of max connections in mongo
+   */
+  public void setMongoMaxConnectionPoolSize(Integer mongoMaxConnectionPoolSize){
+    this.mongoProperties.setMaxConnectionPoolSize(mongoMaxConnectionPoolSize);
+  }
+
+  /**
    * Add a Zookeeper host. This method is optional. By default the list is empty, signifying that a
    * direct connection is to be made with Solr (i.e. not via zookeeper). Any value set through
    * {@link #setZookeeperChroot(String)} will be ignored in this case.
