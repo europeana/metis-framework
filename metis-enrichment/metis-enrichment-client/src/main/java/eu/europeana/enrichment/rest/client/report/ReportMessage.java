@@ -2,30 +2,32 @@ package eu.europeana.enrichment.rest.client.report;
 
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 
-public class ErrorMessage {
-  private String status;
+public class ReportMessage {
+
+  private int status;
   private Mode mode;
   private Type messageType;
   private String message;
 
-  private ErrorMessage(Builder builder) {
-    status = builder.status;
-    mode = builder.mode;
-    messageType = builder.messageType;
-    message = builder.message;
+  private ReportMessage(ReportMessageBuilder reportMessageBuilder) {
+    status = reportMessageBuilder.status;
+    mode = reportMessageBuilder.mode;
+    messageType = reportMessageBuilder.messageType;
+    message = reportMessageBuilder.message;
   }
 
   /**
-   * {@code ErrorMessage} builder static inner class.
+   * {@code ReportMessage} builder static inner class.
    */
-  public static final class Builder {
+  public static final class ReportMessageBuilder {
 
-    private String status;
+    private int status;
     private Mode mode;
     private Type messageType;
     private String message;
 
-    public Builder() {
+    public ReportMessageBuilder() {
+      // for builder
     }
 
     /**
@@ -34,7 +36,7 @@ public class ErrorMessage {
      * @param val the {@code status} to set
      * @return a reference to this Builder
      */
-    public Builder withStatus(String val) {
+    public ReportMessageBuilder withStatus(int val) {
       status = val;
       return this;
     }
@@ -45,7 +47,7 @@ public class ErrorMessage {
      * @param val the {@code mode} to set
      * @return a reference to this Builder
      */
-    public Builder withMode(Mode val) {
+    public ReportMessageBuilder withMode(Mode val) {
       mode = val;
       return this;
     }
@@ -56,7 +58,7 @@ public class ErrorMessage {
      * @param val the {@code messageType} to set
      * @return a reference to this Builder
      */
-    public Builder withMessageType(Type val) {
+    public ReportMessageBuilder withMessageType(Type val) {
       messageType = val;
       return this;
     }
@@ -67,7 +69,7 @@ public class ErrorMessage {
      * @param val the {@code message} to set
      * @return a reference to this Builder
      */
-    public Builder withMessage(String val) {
+    public ReportMessageBuilder withMessage(String val) {
       message = val;
       return this;
     }
@@ -77,8 +79,16 @@ public class ErrorMessage {
      *
      * @return a {@code ErrorMessage} built with parameters of this {@code ErrorMessage.Builder}
      */
-    public ErrorMessage build() {
-      return new ErrorMessage(this);
+    public ReportMessage build() {
+      return new ReportMessage(this);
     }
+  }
+
+  @Override
+  public String toString() {
+    return "[" + status
+        + "," + mode.name()
+        + "," + messageType.name()
+        + "," + message + "]";
   }
 }

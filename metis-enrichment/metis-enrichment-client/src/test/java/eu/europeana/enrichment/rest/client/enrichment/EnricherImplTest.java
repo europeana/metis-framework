@@ -20,7 +20,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.rest.client.report.ErrorMessage;
+import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
@@ -86,8 +86,8 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    HashSet<ErrorMessage> errorMessages = new HashSet<>();
-    enricher.enrichment(inputRdf, errorMessages);
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    reportMessages = enricher.enrichment(inputRdf);
 
     verifyEnricherHappyFlow(recordParser, remoteEntityResolver, inputRdf);
     verifyMergeHappyFlow(entityMergeEngine);
@@ -108,8 +108,8 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    HashSet<ErrorMessage> errorMessages = new HashSet<>();
-    enricher.enrichment(inputRdf, errorMessages);
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    reportMessages = enricher.enrichment(inputRdf);
 
     verifyEnricherNullFlow(remoteEntityResolver, recordParser, inputRdf);
     verifyMergeNullFlow(entityMergeEngine);

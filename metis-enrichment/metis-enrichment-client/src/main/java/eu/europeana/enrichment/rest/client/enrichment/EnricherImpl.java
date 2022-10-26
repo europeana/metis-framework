@@ -9,8 +9,11 @@ import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
+import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.rest.client.report.ErrorMessage;
+import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
+import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
@@ -54,8 +57,8 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public void enrichment(RDF rdf, HashSet<ErrorMessage> errorMessages) throws EnrichmentException {
-
+  public HashSet<ReportMessage> enrichment(RDF rdf) throws EnrichmentException {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
     final Set<SearchTermContext> searchTerms = recordParser.parseSearchTerms(rdf);
@@ -67,6 +70,8 @@ public class EnricherImpl implements Enricher {
     final Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = enrichReferences(
         references);
 
+    reportMessages.addAll(getSearchTermsReport(searchTerms, enrichedValues));
+    reportMessages.addAll(getSearchReferenceReport(references, enrichedReferences));
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichedValues != null) {
@@ -87,6 +92,40 @@ public class EnricherImpl implements Enricher {
 
     // Done.
     LOGGER.debug("Enrichment completed.");
+    return reportMessages;
+  }
+
+  private HashSet<ReportMessage> getSearchTermsReport(Set<SearchTermContext> searchTerms,
+      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues) {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    for (SearchTermContext searchTerm : searchTerms) {
+      if (enrichedValues.get(searchTerm).isEmpty()) {
+        reportMessages.add(new ReportMessageBuilder()
+            .withMessage("Enrichment: could not find an entity for the given search term \"" + searchTerm.getTextValue() + "\"")
+            .withMode(Mode.ENRICHMENT)
+            .withStatus(200)
+            .withMessageType(Type.IGNORE)
+            .build());
+      }
+    }
+    return reportMessages;
+  }
+
+  private HashSet<ReportMessage> getSearchReferenceReport(Set<ReferenceTermContext> references,
+      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences) {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    for (ReferenceTermContext reference : references) {
+      if (enrichedReferences.get(reference).isEmpty()) {
+        reportMessages.add(new ReportMessageBuilder()
+            .withMessage(
+                "Enrichment: could not find an entity for the given search reference \"" + reference.getReference() + "\"")
+            .withMode(Mode.ENRICHMENT)
+            .withStatus(200)
+            .withMessageType(Type.IGNORE)
+            .build());
+      }
+    }
+    return reportMessages;
   }
 
   @Override

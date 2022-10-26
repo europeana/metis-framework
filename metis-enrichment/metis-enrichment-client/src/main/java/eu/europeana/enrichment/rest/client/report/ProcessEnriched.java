@@ -4,5 +4,5 @@ import java.util.HashSet;
 
 public interface ProcessEnriched<T> {
   T getEnrichedRecord();
-  HashSet<ErrorMessage> getReport();
+  HashSet<ReportMessage> getReport();
 }

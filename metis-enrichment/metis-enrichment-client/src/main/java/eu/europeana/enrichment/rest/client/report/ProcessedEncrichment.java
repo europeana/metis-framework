@@ -4,20 +4,20 @@ import java.util.HashSet;
 
 public class ProcessedEncrichment<T> implements ProcessEnriched<T> {
   private final T enrichedRecord;
-  private HashSet<ErrorMessage> errorMessages;
+  private HashSet<ReportMessage> reportMessages;
 
   public ProcessedEncrichment(T enrichedRecord) {
     this.enrichedRecord = enrichedRecord;
   }
 
-  public ProcessedEncrichment(T enrichedRecord, HashSet<ErrorMessage> errorMessages) {
+  public ProcessedEncrichment(T enrichedRecord, HashSet<ReportMessage> reportMessages) {
     this.enrichedRecord = enrichedRecord;
-    this.errorMessages = errorMessages;
+    this.reportMessages = reportMessages;
   }
 
   public ProcessedEncrichment(ProcessedEncrichment<T> processedEncrichment) {
     this.enrichedRecord = processedEncrichment.enrichedRecord;
-    this.errorMessages = processedEncrichment.errorMessages;
+    this.reportMessages = processedEncrichment.reportMessages;
   }
 
   @Override
@@ -26,7 +26,7 @@ public class ProcessedEncrichment<T> implements ProcessEnriched<T> {
   }
 
   @Override
-  public HashSet<ErrorMessage> getReport() {
-    return errorMessages;
+  public HashSet<ReportMessage> getReport() {
+    return reportMessages;
   }
 }

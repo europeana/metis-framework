@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:svcs="http://rdfs.org/sioc/services#"
+  xmlns:oa="http://www.w3.org/ns/oa#" xmlns:dqv="http://www.w3.org/ns/dqv#">
+  <edm:ProvidedCHO rdf:about="/08635/7b498e8404a14793a79c67a3faaf5502"/>
+  <edm:Place rdf:about="https://sws.geonames.org/6695072/">
+    <wgs84_pos:lat>50.83857</wgs84_pos:lat>
+    <wgs84_pos:long>4.37599</wgs84_pos:long>
+    <skos:prefLabel xml:lang="nl">Europese Unie</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Evropská unie</skos:prefLabel>
+    <skos:altLabel xml:lang="fr">Union Européenne</skos:altLabel>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/"></dcterms:isPartOf>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/European_Union"/>
+  </edm:Place>
+  <edm:Place rdf:about="https://sws.geonames.org/7729883/">
+    <wgs84_pos:lat>61.68987</wgs84_pos:lat>
+    <wgs84_pos:long>2.90039</wgs84_pos:long>
+    <skos:prefLabel xml:lang="de">Nordeuropa</skos:prefLabel>
+    <skos:altLabel xml:lang="es">Europa septentrional</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Europa Setentrional</skos:altLabel>
+    <skos:altLabel xml:lang="it">Europa settentrionale</skos:altLabel>
+    <skos:altLabel xml:lang="fr">Europe du Nord</skos:altLabel>
+    <skos:altLabel xml:lang="lt">Šiaurės Europa</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Северная Европа</skos:altLabel>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/"></dcterms:isPartOf>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Northern_Europe"/>
+  </edm:Place>
+  <edm:Place rdf:about="https://sws.geonames.org/12217934/">
+    <wgs84_pos:lat>56.85514</wgs84_pos:lat>
+    <wgs84_pos:long>25.32515</wgs84_pos:long>
+    <skos:prefLabel>https://en.wikipedia.org/wiki/Baltic_states</skos:prefLabel>
+    <skos:altLabel xml:lang="en">https://en.wikipedia.org/wiki/Baltic_states</skos:altLabel>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/"></dcterms:isPartOf>
+  </edm:Place>
+  <edm:Place rdf:about="https://sws.geonames.org/12217933/">
+    <wgs84_pos:lat>57.29568</wgs84_pos:lat>
+    <wgs84_pos:long>19.48591</wgs84_pos:long>
+    <skos:prefLabel>Baltic Region</skos:prefLabel>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/"></dcterms:isPartOf>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Baltic_region"/>
+  </edm:Place>
+  <edm:Place rdf:about="https://sws.geonames.org/597427/">
+    <wgs84_pos:lat>55.41667</wgs84_pos:lat>
+    <wgs84_pos:long>24.0</wgs84_pos:long>
+    <skos:prefLabel xml:lang="ga">an Liotuáin</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">il-Litwanja</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Leedu</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Liettua</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Lietuva</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Lietuva</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="no">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Lithuania</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Litouwen</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Lituania</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Lituania</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Lituania</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Lituània</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Lituânia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Lituanie</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Litvánia</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Litwa</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Republic of Lithuania</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Λιθουανία</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Литва</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Литва</skos:prefLabel>
+    <skos:altLabel xml:lang="lt">Lietuvos Respublika</skos:altLabel>
+    <skos:altLabel xml:lang="en">Lithuanian Soviet Socialist Republic</skos:altLabel>
+    <skos:altLabel xml:lang="ro">Литуания</skos:altLabel>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6695072/"></dcterms:isPartOf>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/12217934/"></dcterms:isPartOf>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/12217933/"></dcterms:isPartOf>
+    <dcterms:isPartOf rdf:resource="https://sws.geonames.org/7729883/"></dcterms:isPartOf>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Lithuania"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Lithuanian_Soviet_Socialist_Republic_%281918%E2%80%931919%29"/>
+  </edm:Place>
+  <edm:Place rdf:about="http://data.europeana.eu/place/94">
+    <wgs84_pos:lat>55.2</wgs84_pos:lat>
+    <wgs84_pos:long>24.0</wgs84_pos:long>
+    <skos:prefLabel xml:lang="de">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Литва</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Liettua</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Lituânia</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Литва</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Lietuva</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Lietuva</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Lituanie</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Litvánia</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">An Liotuáin</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Lituània</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Λιθουανία</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">Litwanja</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Lithuania</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Lituania</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Lituania</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Leedu</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Litva</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Litwa</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Lituania</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Litauen</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Litouwen</skos:prefLabel>
+    <skos:altLabel xml:lang="de">Republik Litauen</skos:altLabel>
+    <skos:altLabel xml:lang="de">LT</skos:altLabel>
+    <skos:altLabel xml:lang="de">LTU</skos:altLabel>
+    <skos:altLabel xml:lang="fi">Lietuva</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Литовская Республика</skos:altLabel>
+    <skos:altLabel xml:lang="sv">Lietuva</skos:altLabel>
+    <skos:altLabel xml:lang="pt">República da Lituânia</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Categoria:Lituânia</skos:altLabel>
+    <skos:altLabel xml:lang="bg">Република Литва</skos:altLabel>
+    <skos:altLabel xml:lang="mt">Repubblika tal-Litwanja</skos:altLabel>
+    <skos:altLabel xml:lang="lt">Lietuvos Respublika</skos:altLabel>
+    <skos:altLabel xml:lang="en">LTU</skos:altLabel>
+    <skos:altLabel xml:lang="en">LT</skos:altLabel>
+    <skos:altLabel xml:lang="en">Cộng hòa Litva</skos:altLabel>
+    <skos:altLabel xml:lang="hr">Litvanija</skos:altLabel>
+    <skos:altLabel xml:lang="hr">Republika Litva</skos:altLabel>
+    <skos:altLabel xml:lang="fr">Lithuanie</skos:altLabel>
+    <skos:altLabel xml:lang="fr">LT</skos:altLabel>
+    <skos:altLabel xml:lang="fr">Cộng hòa Litva</skos:altLabel>
+    <skos:altLabel xml:lang="es">República de Lituania</skos:altLabel>
+    <skos:altLabel xml:lang="es">Republica de Lituania</skos:altLabel>
+    <skos:altLabel xml:lang="et">Leedu Vabariik</skos:altLabel>
+    <skos:altLabel xml:lang="pl">Litwie</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Lituania</skos:altLabel>
+    <skos:altLabel xml:lang="ca">República de Lituània</skos:altLabel>
+    <skos:altLabel xml:lang="nl">LT</skos:altLabel>
+    <skos:altLabel xml:lang="nl">LTU</skos:altLabel>
+    <skos:note xml:lang="de">Staat im Baltikum</skos:note>
+    <skos:note xml:lang="fi">Valtio Pohjois-Euroopassa</skos:note>
+    <skos:note xml:lang="ru">Страна в Европе</skos:note>
+    <skos:note xml:lang="sv">Republik i Nordeuropa</skos:note>
+    <skos:note xml:lang="pt">País da Europa</skos:note>
+    <skos:note xml:lang="bg">Държава в Източна Европа</skos:note>
+    <skos:note xml:lang="mt">Stat sovran fl-Ewropa tal-Grigal</skos:note>
+    <skos:note xml:lang="lt">Valstybė Europoje</skos:note>
+    <skos:note xml:lang="en">Sovereign state in northeastern Europe</skos:note>
+    <skos:note xml:lang="hr">Država u sjeveroistočnoj Europi</skos:note>
+    <skos:note xml:lang="lv">Valsts Eiropā, viena no trim Baltijas valstīm</skos:note>
+    <skos:note xml:lang="it">Stato dell'Europa settentrionale, membro dell'Unione europea</skos:note>
+    <skos:note xml:lang="fr">Pays d'Europe</skos:note>
+    <skos:note xml:lang="hu">Balti állam Észak-Európában</skos:note>
+    <skos:note xml:lang="es">País de Europa</skos:note>
+    <skos:note xml:lang="et">Vabariik Põhja-Euroopas</skos:note>
+    <skos:note xml:lang="cs">Stát v severní Evropě</skos:note>
+    <skos:note xml:lang="sk">Štát vo východnej Európe</skos:note>
+    <skos:note xml:lang="pl">Państwo w Europie Wschodniej</skos:note>
+    <skos:note xml:lang="ro">Stat baltic în Europa de Nord</skos:note>
+    <skos:note xml:lang="da">Republik i Nordeuropa</skos:note>
+    <skos:note xml:lang="nl">Land in Europa</skos:note>
+    <skos:note xml:lang="ca">Estat d'Europa, i el més al sud dels estats bàltics</skos:note>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/125422022"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/143794873"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/304910897"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/224684434"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/5465156133194258430003"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/155667568"/>
+    <owl:sameAs rdf:resource="http://d-nb.info/gnd/4074266-0"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n82209573"/>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb11947680h"/>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb15325877s"/>
+    <owl:sameAs rdf:resource="http://id.ndl.go.jp/auth/ndlna/00569565"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D008097"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/04gzd"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/04gzd"/>
+    <owl:sameAs rdf:resource="http://dewey.info/class/2--4793/"/>
+    <owl:sameAs rdf:resource="https://sws.geonames.org/597427/"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/tgn/7006542"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/1227863"/>
+    <owl:sameAs rdf:resource="http://www.yso.fi/onto/yso/p94268"/>
+    <owl:sameAs rdf:resource="http://babelnet.org/rdf/s00051034n"/>
+    <owl:sameAs rdf:resource="http://zbw.eu/stw/descriptor/17477-6"/>
+    <owl:sameAs rdf:resource="http://vocabularies.unesco.org/thesaurus/concept912"/>
+    <owl:sameAs rdf:resource="http://www.yso.fi/onto/ysa/Y94268"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Lithuania"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q37"/>
+  </edm:Place>
+  <skos:Concept rdf:about="http://vocab.getty.edu/aat/300136900">
+    <skos:note xml:lang="en">Works presented in the form of a series of pictures carried on photographic film or video tape,
+      presented to the eye in such rapid succession as to give the illusion of natural movement. For the study and practice of
+      filmmaking and motion pictures as an art and form of expression, use "film (performing arts)."
+    </skos:note>
+    <skos:note xml:lang="es">Úsese para obras presentadas en forma de series de imágenes llevadas a película fotográfica o cinta
+      de video, presentadas al ojo en una sucesión tan rápida como para dar la ilusión de movimiento natural. Para el estudio y
+      práctica de la realización de películas y la cinematográfia como un arte y forma de expresión, use "película (artes
+      interpretativas)".
+    </skos:note>
+    <skos:note xml:lang="nl">Te gebruiken voor werken die bestaan uit een reeks plaatjes op fotografische film, die zo snel achter
+      elkaar worden vertoond dat ze de illusie geven van een natuurlijke beweging. Voor het maken van films en de studie daarvan
+      en voor films als kunst en vorm van expressie wordt 'film (uitvoerende kunsten)' gebruikt.
+    </skos:note>
+    <skos:note xml:lang="zh-hant">運用攝影或錄影帶中一系列的圖做為表達形式呈現而出的作品，以極快的速度連續展現於人的肉眼之前，以製造出自然動作的錯覺。若指稱電影製作的研究、實作以及電影作為一種藝術與表達形式，則使用「電影
+      (表演藝術)」一詞。
+    </skos:note>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/84">
+    <skos:altLabel xml:lang="el">Πίστη</skos:altLabel>
+    <skos:altLabel xml:lang="en">Religious tradition</skos:altLabel>
+    <skos:altLabel xml:lang="lv">Ticība</skos:altLabel>
+    <skos:altLabel xml:lang="es">Religion</skos:altLabel>
+    <skos:altLabel xml:lang="nl">Godsdienst</skos:altLabel>
+    <skos:altLabel xml:lang="et">Usund</skos:altLabel>
+    <skos:exactMatch rdf:resource="http://d-nb.info/gnd/4049396-9"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh85112549"/>
+    <skos:exactMatch rdf:resource="http://data.bnf.fr/ark:/12148/cb11963568t"/>
+    <skos:exactMatch rdf:resource="http://id.ndl.go.jp/auth/ndlna/00572394"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D012067"/>
+    <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/7544"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/06bvp"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/06bvp"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/K01.844"/>
+    <skos:exactMatch rdf:resource="http://datos.bne.es/resource/XX524493"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300054300"/>
+    <skos:exactMatch rdf:resource="http://dewey.info/class/200/"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p6415"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s00032768n"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept290"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept289"/>
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q9174"/>
+    <skos:note xml:lang="de">Glaube mit metaphysischem oder transzendentem Inhalt</skos:note>
+    <skos:note xml:lang="ru">Система взглядов, обусловленная верой в сверхъестественное</skos:note>
+    <skos:note xml:lang="fi">Aatteellinen järjestelmä, johon kuuluu usko yliluonnolliseen</skos:note>
+    <skos:note xml:lang="sv">Trossuppfattningssystem</skos:note>
+    <skos:note xml:lang="pt">Conjunto de sistemas culturais, de crenças e visões de mundo</skos:note>
+    <skos:note xml:lang="en">Set of beliefs, practices and traditions for a group or community</skos:note>
+    <skos:note xml:lang="it">Sistema di credenze e attività umane nei confronti di una o più entità sovrannaturali</skos:note>
+    <skos:note xml:lang="fr">Système de pratiques et de croyances pour un groupe ou une communauté</skos:note>
+    <skos:note xml:lang="hu">Hitrendszer</skos:note>
+    <skos:note xml:lang="es">Sistema de creencias sagradas por quienes la practican</skos:note>
+    <skos:note xml:lang="et">Uskumuste, normide, tavade ja institutsioonide süsteem</skos:note>
+    <skos:note xml:lang="cs">Vztah člověka k posvátnému</skos:note>
+    <skos:note xml:lang="sk">Vzťah človeka k posvätnému</skos:note>
+    <skos:note xml:lang="pl">System wierzeń i praktyk</skos:note>
+    <skos:note xml:lang="ro">Sistemul sacru de credință</skos:note>
+    <skos:note xml:lang="da">Trossystem</skos:note>
+    <skos:note xml:lang="ca">Sistema de creences i pràctiques en qüestions de tipus sobrenatural</skos:note>
+    <skos:note xml:lang="nl">Vorm van zingeving, in bredere zin vorm van spiritualiteit</skos:note>
+    <skos:prefLabel xml:lang="de">Religion</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Uskonto</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Религия</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Religião</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Религия</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Religija</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Religija</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Reliģija</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Religion</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Vallás</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Náboženstvo</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Religija</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Creideamh</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Religió</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Religion</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Θρησκεία</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">Reliġjon</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Religion</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Religione</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Religión</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Religioon</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Náboženství</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Religia</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Religion</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Religie</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Religie</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/3331">
+    <skos:altLabel xml:lang="de">Kinofilm</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Кино</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Лента</skos:altLabel>
+    <skos:altLabel xml:lang="fi">Leffa</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Longa-metragem</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Curta-metragem</skos:altLabel>
+    <skos:altLabel xml:lang="el">Κινηματογραφική ταινία</skos:altLabel>
+    <skos:altLabel xml:lang="el">Έργο</skos:altLabel>
+    <skos:altLabel xml:lang="el">Κινηματογραφικό έργο</skos:altLabel>
+    <skos:altLabel xml:lang="el">Κινηματογράφος</skos:altLabel>
+    <skos:altLabel xml:lang="en">Movie</skos:altLabel>
+    <skos:altLabel xml:lang="en">Motion picture</skos:altLabel>
+    <skos:altLabel xml:lang="en">Cinematic work</skos:altLabel>
+    <skos:altLabel xml:lang="en">Films</skos:altLabel>
+    <skos:altLabel xml:lang="en">Flick</skos:altLabel>
+    <skos:altLabel xml:lang="en">Moving picture</skos:altLabel>
+    <skos:altLabel xml:lang="en">Cinema</skos:altLabel>
+    <skos:altLabel xml:lang="it">Pellicola</skos:altLabel>
+    <skos:altLabel xml:lang="it">Pellicola cinematografica</skos:altLabel>
+    <skos:altLabel xml:lang="it">Opera cinematografica</skos:altLabel>
+    <skos:altLabel xml:lang="fr">Film (cinéma)</skos:altLabel>
+    <skos:altLabel xml:lang="hu">Mozgókép</skos:altLabel>
+    <skos:altLabel xml:lang="es">Film</skos:altLabel>
+    <skos:altLabel xml:lang="es">Filme</skos:altLabel>
+    <skos:altLabel xml:lang="es">Obra cinematográfica</skos:altLabel>
+    <skos:altLabel xml:lang="es">Realización de cine</skos:altLabel>
+    <skos:altLabel xml:lang="es">Pelicula</skos:altLabel>
+    <skos:altLabel xml:lang="es">Películas</skos:altLabel>
+    <skos:altLabel xml:lang="es">Peliculas</skos:altLabel>
+    <skos:altLabel xml:lang="es">Films</skos:altLabel>
+    <skos:altLabel xml:lang="es">Filmes</skos:altLabel>
+    <skos:altLabel xml:lang="es">Largometraje</skos:altLabel>
+    <skos:altLabel xml:lang="es">Largometrajes</skos:altLabel>
+    <skos:altLabel xml:lang="es">Obra cinematografica</skos:altLabel>
+    <skos:altLabel xml:lang="es">Realizacion de cine</skos:altLabel>
+    <skos:altLabel xml:lang="et">Film</skos:altLabel>
+    <skos:altLabel xml:lang="sk">Filmové dielo</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Pel·lícula cinematogràfica</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Film</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Obra cinematogràfica</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Llargmetratge</skos:altLabel>
+    <skos:altLabel xml:lang="nl">Film (cinematografie)</skos:altLabel>
+    <skos:exactMatch rdf:resource="https://schema.org/Movie"/>
+    <skos:exactMatch rdf:resource="https://citationstyles.org/ontology/type/motion_picture"/>
+    <skos:exactMatch rdf:resource="http://d-nb.info/gnd/4017102-4"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh85088084"/>
+    <skos:exactMatch rdf:resource="http://data.bnf.fr/ark:/12148/cb120451373"/>
+    <skos:exactMatch rdf:resource="http://id.ndl.go.jp/auth/ndlna/00561772"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D009040"/>
+    <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/1122"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/02vxn"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/02vxn"/>
+    <skos:exactMatch rdf:resource="http://datos.bne.es/resource/XX4576234"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300136900"/>
+    <skos:exactMatch rdf:resource="http://dewey.info/class/791.43/"/>
+    <skos:exactMatch rdf:resource="http://iconclass.org/48C87"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p1235"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s00034471n"/>
+    <skos:exactMatch rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10311"/>
+    <skos:exactMatch rdf:resource="http://zbw.eu/stw/descriptor/29301-6"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept352"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/genreForms/gf2011026406"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/ysa/Y95002"/>
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q11424"/>
+    <skos:note xml:lang="de">Abfolge von Bildern, die ein Gefühl von Bewegung vermitteln und eine Geschichte oder ein reales
+      Ereignis erzählen
+    </skos:note>
+    <skos:note xml:lang="ru">Совокупность движущихся изображений, связанных единым сюжетом</skos:note>
+    <skos:note xml:lang="sv">Serie av bilder som ger intrycket av rörelse</skos:note>
+    <skos:note xml:lang="fi">Liikkuvan kuvan ja äänen tallenne</skos:note>
+    <skos:note xml:lang="pt">Produto audiovisual derivado de uma sequencia de imagens que gera uma impressão de movimento
+    </skos:note>
+    <skos:note xml:lang="el">Αλληλουχία εικόνων που δίνουν την εντύπωση κίνησης</skos:note>
+    <skos:note xml:lang="en">Sequence of images that give a sensation of movement and narrate a story or a real event</skos:note>
+    <skos:note xml:lang="hr">Niz slika koje daju dojam pokreta</skos:note>
+    <skos:note xml:lang="it">Sequenza di immagini dette fotogrammi</skos:note>
+    <skos:note xml:lang="fr">Séquence d'images qui donnent une impression de mouvement et racontent une histoire ou un événement
+      réel
+    </skos:note>
+    <skos:note xml:lang="hu">Alkotás</skos:note>
+    <skos:note xml:lang="es">Secuencia de imágenes que dan sensación de movimiento y narran una historia o un hecho real
+    </skos:note>
+    <skos:note xml:lang="cs">Audiovizuální dílo tvořené sekvencí obrázků vytvářejících dojem pohybu</skos:note>
+    <skos:note xml:lang="sk">Sekvencia obrázkov vytvárajúcich dojem pohybu</skos:note>
+    <skos:note xml:lang="pl">Utwór audiowizualny</skos:note>
+    <skos:note xml:lang="da">Kunstform med bevægende billeder</skos:note>
+    <skos:note xml:lang="nl">Audiovisueel werk</skos:note>
+    <skos:note xml:lang="ca">Obra cinematogràfica</skos:note>
+    <skos:prefLabel xml:lang="de">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Elokuva</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Фильм</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Filme</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Филм</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Filmas</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Kinofilma</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Scannán</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Pel·lícula</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Ταινία</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">Ċinema</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Película</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Film</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Film</skos:prefLabel>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/08635/7b498e8404a14793a79c67a3faaf5502">
+    <edm:aggregatedCHO rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000004507806"></edm:dataProvider>
+    <edm:isShownAt rdf:resource="http://www.e-kinas.lt/objektas/kinas/1382/consecration-of-the-church-foundation-in-klaipeda"/>
+    <edm:object rdf:resource="http://www.e-kinas.lt/search-results-order/ioresource/534?type=image"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000004671158"></edm:provider>
+    <dc:rights>Lietuvos Centrinis Valstybes Archyvas</dc:rights>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/08635/7b498e8404a14793a79c67a3faaf5502">
+    <dc:identifier>7b498e8404a14793a79c67a3faaf5502</dc:identifier>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/84"></dc:subject>
+    <dcterms:spatial rdf:resource="http://data.europeana.eu/place/94"></dcterms:spatial>
+    <dc:type rdf:resource="http://data.europeana.eu/concept/3331"></dc:type>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <edm:year>1957</edm:year>
+    <ore:proxyFor rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/08635/7b498e8404a14793a79c67a3faaf5502"/>
+    <ore:lineage rdf:resource="/proxy/provider/08635/7b498e8404a14793a79c67a3faaf5502"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/08635/7b498e8404a14793a79c67a3faaf5502">
+    <dc:contributor>Piotras Kalabuchovas</dc:contributor>
+    <dc:description>1957-06-30. Būsimos bažnyčios statybos aikštė, išpuošta berželiais, pilna tikinčiųjų. Lauko altorių puošia
+      didelis kryžius ir Dievo motinos Marijos skulptūra. Mišioms vadovauja Telšių vyskupas Petras Maželis. Eina procesija.
+      Vyskupas laimina tikinčiuosius. Jis laimina pasipuošusius vaikus, kurie priima pirmąją Komuniją. Vyskupas pašventina plytą,
+      kuri įmūrijama į būsimos bažnyčios pamatą. Aikštės vaizdas iš viršaus. Mišios baigėsi. Tikintieji skirstosi pagrindine
+      Klaipėdos miesto gatve. 2 dalis. Klebonas Liudvikas Povilionis skaito pamokslą iš sakyklos. Mišios. Gieda choristai .
+    </dc:description>
+    <dc:description xml:lang="en">The Klaipėda church construction square decorated with birch trees. Outdoor altar decorated with
+      a large cross and a statue of Mary, Mother of God. Mass led by Bishop Petras Maželis. The bishop blesses the faithful. He
+      blesses children who receive First Communion. Bishop consecrates the first brick of the church foundation. Mass is over.
+      Believers go the main street of the city of Klaipėda. Part 2. The pastor Liudvikas Povilionis reads a sermon from the
+      pulpit. Sings the choir.
+    </dc:description>
+    <dc:identifier>7b498e8404a14793a79c67a3faaf5502</dc:identifier>
+    <dc:subject xml:lang="lt">Religija</dc:subject>
+    <dc:subject xml:lang="en">Religion</dc:subject>
+    <dc:title>Klaipėdos bažnyčios pamatų įšventinimas</dc:title>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"></dc:type>
+    <dcterms:alternative xml:lang="en">Consecration of the Church Foundation in Klaipėda</dcterms:alternative>
+    <dcterms:created xml:lang="en">1957</dcterms:created>
+    <dcterms:provenance>Lietuvos Centrinis Valstybés Archyvas</dcterms:provenance>
+    <dcterms:spatial rdf:resource="https://sws.geonames.org/597427/"></dcterms:spatial>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/08635/7b498e8404a14793a79c67a3faaf5502"/>
+    <edm:type>VIDEO</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/08635/7b498e8404a14793a79c67a3faaf5502">
+    <edm:aggregatedCHO rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>08635_EFG_LCVA</edm:datasetName>
+    <edm:country>Lithuania</edm:country>
+    <edm:language>mul</edm:language>
+    <edm:completeness>10</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004507806">
+    <skos:prefLabel xml:lang="lt">Lietuvos Centrinis Valstybes Archyvas</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Lithuanian Central State Archives</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004671158">
+    <skos:prefLabel xml:lang="en">The European Film Gateway</skos:prefLabel>
+  </foaf:Organization>
+</rdf:RDF>

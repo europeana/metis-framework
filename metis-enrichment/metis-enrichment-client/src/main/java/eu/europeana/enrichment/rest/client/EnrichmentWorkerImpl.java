@@ -4,7 +4,7 @@ import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
-import eu.europeana.enrichment.rest.client.report.ErrorMessage;
+import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.ProcessedEncrichment;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -131,7 +131,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(rdf));
     }
-    HashSet<ErrorMessage> errorMessages = new HashSet<>();
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Dereferencing first: this is because we may enrich based on its results.
     if (modes.contains(Mode.DEREFERENCE)) {
       LOGGER.debug("Performing dereferencing...");
@@ -145,7 +145,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Enrichment second: we use the result of dereferencing as well.
     if (modes.contains(Mode.ENRICHMENT)) {
       LOGGER.debug("Performing enrichment...");
-      enricher.enrichment(rdf, errorMessages);
+      reportMessages = enricher.enrichment(rdf);
       LOGGER.debug("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
@@ -154,7 +154,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
     // Done
     LOGGER.debug("Processing complete.");
-    return new ProcessedEncrichment<>(rdf, errorMessages);
+    return new ProcessedEncrichment<>(rdf, reportMessages);
   }
 
   @Override
