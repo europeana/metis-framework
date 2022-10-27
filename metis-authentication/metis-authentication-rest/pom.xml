@@ -9,14 +9,15 @@
   <artifactId>metis-authentication-rest</artifactId>
   <packaging>war</packaging>
 
-  <properties>
-    <version.spring.boot>2.7.5</version.spring.boot>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
