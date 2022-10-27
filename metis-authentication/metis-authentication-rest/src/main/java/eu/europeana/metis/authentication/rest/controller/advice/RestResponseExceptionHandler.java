@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.rest.exception;
+package eu.europeana.metis.authentication.rest.controller.advice;
 
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
