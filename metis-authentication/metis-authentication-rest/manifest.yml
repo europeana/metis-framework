@@ -1,10 +1,18 @@
 ---
 applications:
-- name: metis-authentication-rest-test-compose
-  memory: 2048M
-  instances: 1
-  host: metis-authentication-rest-test-compose
-  path: target/metis-authentication-rest-1.0-SNAPSHOT.war
-  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
-  services:
-    - metis-authentication-test-psql-compose
+  - path: target/metis-authentication-rest-9-SNAPSHOT.jar
+    name: metis-authentication-rest-test
+    host: metis-authentication-rest-test
+    stack: cflinuxfs3
+    buildpack: https://github.com/cloudfoundry/java-buildpack
+    timeout: 240
+    memory: 1280M
+    random-route: true
+    instances: 2
+    services:
+      - log-drainer
+      - europeana-elastic-logstash
+      - europeana-elastic-apm
+    env:
+      JAVA_OPTS: '-Delastic.apm.service_name=metis-authentication-spring -Delastic.apm.application_packages=eu.europeana'
+      JBP_CONFIG_OPEN_JDK_JRE: '{ "jre": { version: 11.+ } }'
