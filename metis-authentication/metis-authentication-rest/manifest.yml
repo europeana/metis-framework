@@ -1,8 +1,8 @@
 ---
 applications:
   - path: target/metis-authentication-rest-9-SNAPSHOT.jar
-    name: metis-authentication-rest-test
-    host: metis-authentication-rest-test
+    name: metis-authentication-rest
+    host: metis-authentication-rest
     stack: cflinuxfs3
     buildpack: https://github.com/cloudfoundry/java-buildpack
     timeout: 240
