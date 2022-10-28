@@ -97,8 +97,8 @@ public final class IndexingSettings {
   }
 
   /**
-   * Set the max number of connections pool size in mongo. Can be null, in which case a default generic
-   * application name is to be used.
+   * Set the maximum number of connections pool size in mongo. Can be null, in which case a default generic
+   * number of connections will be used.
    *
    * @param mongoMaxConnectionPoolSize The value as an integer for the number of max connections in mongo
    */
