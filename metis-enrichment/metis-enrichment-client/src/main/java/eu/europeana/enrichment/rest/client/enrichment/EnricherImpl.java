@@ -134,6 +134,7 @@ public class EnricherImpl implements Enricher {
     if (CollectionUtils.isEmpty(searchTerms)) {
       return Collections.emptyMap();
     }
+    // TODO: handle this exceptions inside the report and return EnrichedRecord as null
     try {
       return entityResolver.resolveByText(Set.copyOf(searchTerms));
     } catch (RuntimeException e) {
@@ -147,6 +148,7 @@ public class EnricherImpl implements Enricher {
     if (CollectionUtils.isEmpty(references)) {
       return Collections.emptyMap();
     }
+    // TODO: handle this exceptions inside the report and return EnrichedRecord as null
     try {
       return entityResolver.resolveByUri(references);
 

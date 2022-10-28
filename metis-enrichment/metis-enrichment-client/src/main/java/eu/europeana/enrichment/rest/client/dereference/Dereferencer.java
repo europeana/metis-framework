@@ -1,8 +1,10 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +18,7 @@ public interface Dereferencer {
    * @param rdf The RDF to be processed
    * @throws DereferenceException In case there is a problem with dereferencing.
    */
-  void dereference(final RDF rdf) throws DereferenceException;
+  HashSet<ReportMessage> dereference(final RDF rdf) throws DereferenceException;
 
   /**
    * It gets the dereferenced information and adds it to the RDF using the extracted fields

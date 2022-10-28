@@ -2,7 +2,7 @@ package eu.europeana.enrichment.rest.client.report;
 
 import java.util.HashSet;
 
-public class ProcessedEncrichment<T> implements ProcessEnriched<T> {
+public class ProcessedEncrichment<T> {
   private final T enrichedRecord;
   private HashSet<ReportMessage> reportMessages;
 
@@ -20,12 +20,10 @@ public class ProcessedEncrichment<T> implements ProcessEnriched<T> {
     this.reportMessages = processedEncrichment.reportMessages;
   }
 
-  @Override
   public T getEnrichedRecord() {
     return enrichedRecord;
   }
 
-  @Override
   public HashSet<ReportMessage> getReport() {
     return reportMessages;
   }

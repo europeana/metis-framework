@@ -89,6 +89,6 @@ public class ReportMessage {
     return "[" + status
         + "," + mode.name()
         + "," + messageType.name()
-        + "," + message + "]";
+        + "," + message + "]\n";
   }
 }

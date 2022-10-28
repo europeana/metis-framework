@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="570.1579572446556" y="-173.52850356294536">eu.europeana.enrichment.rest.client.dereference.DereferencerImpl</node>
+    <node x="1499.0" y="666.4904988123515">eu.europeana.enrichment.rest.client.enrichment.EnricherImpl</node>
+    <node x="1049.0" y="890.5">eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder</node>
+    <node x="503.15795724465556" y="160.98337292161517">eu.europeana.enrichment.rest.client.EnrichmentWorkerImpl</node>
+    <node x="781.0" y="951.0">eu.europeana.enrichment.rest.client.report.ReportMessage</node>
+    <node x="1499.0" y="263.1710213776722">eu.europeana.enrichment.rest.client.enrichment.Enricher</node>
+    <node x="780.0" y="1126.5">eu.europeana.enrichment.rest.client.report.Type</node>
+    <node x="591.6579572446556" y="6.227434679334905">eu.europeana.enrichment.rest.client.dereference.Dereferencer</node>
+    <node x="202.5" y="666.5">eu.europeana.enrichment.rest.client.EnrichmentWorker</node>
+    <node x="-36.5" y="76.34619952494063">eu.europeana.enrichment.rest.client.report.ProcessEnriched</node>
+    <node x="-105.0" y="269.48337292161517">eu.europeana.enrichment.rest.client.report.ProcessedEncrichment</node>
+    <node x="776.5" y="726.5">eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder" target="eu.europeana.enrichment.rest.client.report.ReportMessage" relationship="INNER_CLASS">
+      <point x="0.0" y="5.0" />
+      <point x="92.0" y="5.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ReportMessage" target="eu.europeana.enrichment.rest.client.report.Type" relationship="TO_ONE">
+      <point x="0.0" y="29.0" />
+      <point x="0.0" y="-53.5" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.EnrichmentWorkerImpl" target="eu.europeana.enrichment.rest.client.dereference.Dereferencer" relationship="TO_ONE">
+      <point x="0.0" y="-186.0" />
+      <point x="808.1579572446556" y="173.5" />
+      <point x="808.1579572446556" y="173.5" />
+      <point x="0.0" y="53.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ReportMessage" target="eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode" relationship="TO_ONE">
+      <point x="0.0" y="-29.0" />
+      <point x="0.0" y="53.5" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.dereference.DereferencerImpl" target="eu.europeana.enrichment.rest.client.dereference.Dereferencer" relationship="REALIZATION">
+      <point x="0.0" y="65.5" />
+      <point x="0.0" y="-53.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder" target="eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode" relationship="TO_ONE">
+      <point x="0.0" y="-89.5" />
+      <point x="1233.0" y="780.0" />
+      <point x="96.5" y="-0.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder" target="eu.europeana.enrichment.rest.client.report.Type" relationship="TO_ONE">
+      <point x="0.0" y="89.5" />
+      <point x="1233.0" y="1180.0" />
+      <point x="93.0" y="-0.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.enrichment.EnricherImpl" target="eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder" relationship="CREATE">
+      <point x="-374.0" y="-0.0" />
+      <point x="1458.0" y="743.9904988123515" />
+      <point x="1458.0" y="980.0" />
+      <point x="184.0" y="-0.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.EnrichmentWorkerImpl" target="eu.europeana.enrichment.rest.client.report.ProcessedEncrichment" relationship="CREATE">
+      <point x="0.0" y="186.0" />
+      <point x="808.1579572446556" y="327.06413301662707" />
+      <point x="101.5" y="327.06413301662707" />
+      <point x="0.0" y="-77.5" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.EnrichmentWorkerImpl" target="eu.europeana.enrichment.rest.client.enrichment.Enricher" relationship="TO_ONE">
+      <point x="305.0" y="-0.0" />
+      <point x="708.5" y="346.98337292161517" />
+      <point x="708.5" y="328.1710213776722" />
+      <point x="-374.0" y="-0.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode" target="eu.europeana.enrichment.rest.client.EnrichmentWorker" relationship="INNER_CLASS">
+      <point x="-96.5" y="-0.0" />
+      <point x="250.5" y="-0.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ProcessedEncrichment" target="eu.europeana.enrichment.rest.client.report.ReportMessage" relationship="TO_MANY">
+      <point x="0.0" y="77.5" />
+      <point x="101.5" y="980.0" />
+      <point x="-92.0" y="-0.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.EnrichmentWorkerImpl" target="eu.europeana.enrichment.rest.client.EnrichmentWorker" relationship="REALIZATION">
+      <point x="305.0" y="40.0" />
+      <point x="453.0" y="386.98337292161517" />
+      <point x="0.0" y="-113.5" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.EnrichmentWorkerImpl" target="eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode" relationship="TO_MANY">
+      <point x="305.0" y="20.0" />
+      <point x="873.0" y="366.98337292161517" />
+      <point x="0.0" y="-53.5" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.enrichment.EnricherImpl" target="eu.europeana.enrichment.rest.client.enrichment.Enricher" relationship="REALIZATION">
+      <point x="0.0" y="-77.5" />
+      <point x="1873.0" y="683.75" />
+      <point x="1873.0" y="683.75" />
+      <point x="0.0" y="65.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder" target="eu.europeana.enrichment.rest.client.report.ReportMessage" relationship="CREATE">
+      <point x="-184.0" y="-5.0" />
+      <point x="92.0" y="-5.0" />
+    </edge>
+    <edge source="eu.europeana.enrichment.rest.client.report.ProcessedEncrichment" target="eu.europeana.enrichment.rest.client.report.ProcessEnriched" relationship="REALIZATION">
+      <point x="206.5" y="-0.0" />
+      <point x="101.5" y="346.98337292161517" />
+      <point x="101.5" y="117.34619952494063" />
+      <point x="-138.0" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="0.5847222222222223" showDependencies="true" x="787.5000000000002" y="534.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>packageLocal</VISIBILITY>
+</Diagram>
+

@@ -9,6 +9,7 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
+import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -54,7 +55,8 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public void dereference(RDF rdf) throws DereferenceException {
+  public HashSet<ReportMessage> dereference(RDF rdf) throws DereferenceException {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
     Set<String> resourceIds = extractReferencesForDereferencing(rdf);
@@ -69,7 +71,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Done.
     LOGGER.debug("Dereference completed.");
-
+    return reportMessages;
   }
 
   @Override

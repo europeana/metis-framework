@@ -135,7 +135,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Dereferencing first: this is because we may enrich based on its results.
     if (modes.contains(Mode.DEREFERENCE)) {
       LOGGER.debug("Performing dereferencing...");
-      dereferencer.dereference(rdf);
+      reportMessages.addAll(dereferencer.dereference(rdf));
       LOGGER.debug("Dereferencing completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(rdf));
@@ -145,7 +145,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Enrichment second: we use the result of dereferencing as well.
     if (modes.contains(Mode.ENRICHMENT)) {
       LOGGER.debug("Performing enrichment...");
-      reportMessages = enricher.enrichment(rdf);
+      reportMessages.addAll(enricher.enrichment(rdf));
       LOGGER.debug("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
