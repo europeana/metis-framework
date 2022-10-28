@@ -2,13 +2,12 @@ package eu.europeana.metis.authentication.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * The Spring boot application entry point.
  */
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer {
+public class Application {
 
   /**
    * The main spring boot method.
