@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -67,7 +67,7 @@ class IndexerImpl implements Indexer {
   @Override
   public void indexRdfs(List<RDF> records, IndexingProperties indexingProperties)
       throws IndexingException {
-    indexRecords(records, indexingProperties, tiers -> {});
+    indexRecords(records, indexingProperties, tiers -> true);
   }
 
   @Override
@@ -79,7 +79,7 @@ class IndexerImpl implements Indexer {
     for (String stringRdfRecord : records) {
       wrappedRecords.add(stringToRdfConverter.convertStringToRdf(stringRdfRecord));
     }
-    indexRecords(wrappedRecords, indexingProperties, tiers -> {});
+    indexRecords(wrappedRecords, indexingProperties, tiers -> true);
   }
 
   @Override
@@ -104,7 +104,7 @@ class IndexerImpl implements Indexer {
   }
 
   private void indexRecords(List<RDF> records, IndexingProperties properties,
-      Consumer<TierResults> tierResultsConsumer) throws IndexingException {
+      Predicate<TierResults> tierResultsConsumer) throws IndexingException {
     if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
       throw new SetupRelatedIndexingException(
           "Record redirect dao has not been initialized and performing redirects is requested");
@@ -114,13 +114,14 @@ class IndexerImpl implements Indexer {
         connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
 
     for (RDF rdfRecord : records) {
-      tierResultsConsumer.accept(preprocessRecord(rdfRecord, properties));
-      if (properties.isPerformRedirects()) {
-        publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
-            properties.getDatasetIdsForRedirection());
-      } else {
-        publisher.publish(new RdfWrapper(rdfRecord), properties.getRecordDate(),
-            properties.getDatasetIdsForRedirection());
+      if(tierResultsConsumer.test(preprocessRecord(rdfRecord, properties))) {
+        if (properties.isPerformRedirects()) {
+          publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
+              properties.getDatasetIdsForRedirection());
+        } else {
+          publisher.publish(new RdfWrapper(rdfRecord), properties.getRecordDate(),
+              properties.getDatasetIdsForRedirection());
+        }
       }
     }
 
@@ -130,6 +131,13 @@ class IndexerImpl implements Indexer {
   @Override
   public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
     index(List.of(stringRdfRecord), indexingProperties);
+  }
+
+  @Override
+  public void index(String stringRdfRecord, IndexingProperties indexingProperties,
+                    Predicate<TierResults> tierResultsConsumer) throws IndexingException {
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertStringToRdf(stringRdfRecord);
+    indexRecords(List.of(rdfRecord), indexingProperties, tierResultsConsumer);
   }
 
   private TierResults preprocessRecord(RDF rdf, IndexingProperties properties)
