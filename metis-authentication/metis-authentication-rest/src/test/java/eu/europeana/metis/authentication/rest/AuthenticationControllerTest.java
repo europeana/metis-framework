@@ -17,7 +17,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import eu.europeana.metis.authentication.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.authentication.rest.controller.AuthenticationController;
+import eu.europeana.metis.authentication.rest.controller.advice.RestResponseExceptionHandler;
 import eu.europeana.metis.authentication.rest.utils.TestUtils;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.Credentials;

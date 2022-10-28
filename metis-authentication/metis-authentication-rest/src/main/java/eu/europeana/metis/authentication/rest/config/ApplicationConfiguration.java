@@ -4,8 +4,8 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performA
 
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
@@ -47,11 +47,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2017-10-27
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest"})
+@ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest.controller"})
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
 @EnableScheduling
-public class Application implements WebMvcConfigurer {
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
   @Value("classpath:create_tables.sql")
   private Resource createTablesSqlResource;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.rest;
+package eu.europeana.metis.authentication.rest.controller;
 
 import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
