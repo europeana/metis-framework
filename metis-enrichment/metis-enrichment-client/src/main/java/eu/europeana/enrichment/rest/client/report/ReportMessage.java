@@ -7,13 +7,17 @@ public class ReportMessage {
   private int status;
   private Mode mode;
   private Type messageType;
+  private String value;
   private String message;
+  private String stackTrace;
 
   private ReportMessage(ReportMessageBuilder reportMessageBuilder) {
     status = reportMessageBuilder.status;
     mode = reportMessageBuilder.mode;
     messageType = reportMessageBuilder.messageType;
+    value = reportMessageBuilder.value;
     message = reportMessageBuilder.message;
+    stackTrace = reportMessageBuilder.stackTrace;
   }
 
   /**
@@ -24,7 +28,9 @@ public class ReportMessage {
     private int status;
     private Mode mode;
     private Type messageType;
+    private String value;
     private String message;
+    private String stackTrace;
 
     public ReportMessageBuilder() {
       // for builder
@@ -62,6 +68,15 @@ public class ReportMessage {
       messageType = val;
       return this;
     }
+    /**
+     * Sets the {@code value} and returns a reference to this Builder enabling method chaining.
+     * @param val the {@code value} to set
+     * @return a reference to this Builder
+     */
+    public ReportMessageBuilder withValue(String val) {
+      value = val;
+      return this;
+    }
 
     /**
      * Sets the {@code message} and returns a reference to this Builder enabling method chaining.
@@ -71,6 +86,16 @@ public class ReportMessage {
      */
     public ReportMessageBuilder withMessage(String val) {
       message = val;
+      return this;
+    }
+
+    /**
+     * Sets the {@code stackTrace} and returns a reference to this Builder enabling method chaining.
+     * @param val the {@code stackTrace} to set
+     * @return a reference to this Builder
+     */
+    public ReportMessageBuilder withStackTrace(String val) {
+      stackTrace = val;
       return this;
     }
 
@@ -89,6 +114,9 @@ public class ReportMessage {
     return "[" + status
         + "," + mode.name()
         + "," + messageType.name()
-        + "," + message + "]\n";
+        + "," + value
+        + "," + message
+        + "," + stackTrace
+        + "]\n";
   }
 }

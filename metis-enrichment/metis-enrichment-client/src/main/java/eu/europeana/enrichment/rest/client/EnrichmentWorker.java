@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.enrichment.rest.client.report.ProcessedEncrichment;
+import eu.europeana.enrichment.rest.client.report.ProcessedResult;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
@@ -39,7 +39,7 @@ public interface EnrichmentWorker {
    * @throws DereferenceException In case something goes wrong with processing the RDF
    * @throws SerializationException In case something goes wrong with processing the RDF.
    */
-  ProcessedEncrichment<byte[]> process(final InputStream inputStream)
+  ProcessedResult<byte[]> process(final InputStream inputStream)
       throws EnrichmentException, DereferenceException, SerializationException;
 
   /**
@@ -51,7 +51,7 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  ProcessedEncrichment<byte[]> process(final InputStream inputStream, Set<Mode> modes)
+  ProcessedResult<byte[]> process(final InputStream inputStream, Set<Mode> modes)
       throws SerializationException, EnrichmentException, DereferenceException;
 
   /**
@@ -65,7 +65,7 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  ProcessedEncrichment<String> process(final String inputString)
+  ProcessedResult<String> process(final String inputString)
       throws  EnrichmentException, DereferenceException, SerializationException;
 
   /**
@@ -77,7 +77,7 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  ProcessedEncrichment<String> process(final String inputString, Set<Mode> modes)
+  ProcessedResult<String> process(final String inputString, Set<Mode> modes)
       throws SerializationException, EnrichmentException, DereferenceException;
 
   /**
@@ -90,7 +90,7 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  ProcessedEncrichment<RDF> process(final RDF inputRdf) throws EnrichmentException, DereferenceException;
+  ProcessedResult<RDF> process(final RDF inputRdf) throws EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
@@ -101,7 +101,7 @@ public interface EnrichmentWorker {
    * @throws EnrichmentException In case something goes wrong with processing the RDF.
    * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  ProcessedEncrichment<RDF> process(final RDF rdf, Set<Mode> modes) throws EnrichmentException, DereferenceException;
+  ProcessedResult<RDF> process(final RDF rdf, Set<Mode> modes) throws EnrichmentException, DereferenceException;
 
   /**
    * Cleanups/Removes enrichment entities from a previous enrichment.

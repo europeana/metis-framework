@@ -14,9 +14,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.enrichment.rest.client.dereference.DereferencerProvider;
 import eu.europeana.enrichment.rest.client.enrichment.EnricherProvider;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ProcessEnriched;
-import eu.europeana.enrichment.rest.client.report.ProcessedEncrichment;
+import eu.europeana.enrichment.rest.client.report.ProcessedResult;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
@@ -28,8 +26,6 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.metis.schema.convert.SerializationException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -86,10 +82,10 @@ class EnrichmentWorkerImplTest {
     RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
     final RDF inputRdf = rdfConversionUtils.convertStringToRdf(inputRecord);
     worker.cleanupPreviousEnrichmentEntities(inputRdf);
-    ProcessedEncrichment<RDF> output = worker.process(inputRdf, modeSetWithBoth);
+    ProcessedResult<RDF> output = worker.process(inputRdf, modeSetWithBoth);
 
     LOGGER.info("REPORT: {}\n\n", output.getReport());
-    LOGGER.info("RECORD: {}", rdfConversionUtils.convertRdfToString(output.getEnrichedRecord()));
+    LOGGER.info("RECORD: {}", rdfConversionUtils.convertRdfToString(output.getProcessedRecord()));
   }
 
   @Test
@@ -227,13 +223,13 @@ class EnrichmentWorkerImplTest {
     doReturn(inputRdf).when(worker).convertStringToRdf(anyString());
     doReturn(outputString).when(worker).convertRdfToString(inputRdf);
 
-    doReturn(new ProcessedEncrichment<>(inputRdf)).when(worker).process(any(RDF.class), any());
+    doReturn(new ProcessedResult<>(inputRdf)).when(worker).process(any(RDF.class), any());
 
     // Perform the operations and verify the result
-    final RDF returnedRdf = worker.process(inputRdf).getEnrichedRecord();
+    final RDF returnedRdf = worker.process(inputRdf).getProcessedRecord();
     assertEquals(inputRdf, returnedRdf);
     //add messages
-    final String returnedString = worker.process("").getEnrichedRecord();
+    final String returnedString = worker.process("").getProcessedRecord();
     assertEquals(outputString, returnedString);
     //add messages
 
@@ -292,7 +288,7 @@ class EnrichmentWorkerImplTest {
     modeSetWithBoth.add(Mode.ENRICHMENT);
     modeSetWithBoth.add(Mode.DEREFERENCE);
     assertThrows(SerializationException.class, () -> {
-          ProcessEnriched<String> enrichedData = worker.process((String) "");
+          ProcessedResult<String> enrichedData = worker.process((String) "");
           //    assertEquals(enrichedData.getStatus());
         }
     );
