@@ -44,7 +44,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
 
   // TODO: 17/10/2022 The '?' is not supported in the beginning of the date in ranges but in single dates it
   //  is(NumericWithMissingPartsDateExtractor). What should we follow?
-  // TODO: 18/10/2022 The unspecified ""(empty) value for dates separator " "(space) does not work. Is that okay?
+  // TODO: 18/10/2022 The unspecified ""(empty) value for dates separator " "(space) does not work. Is that okay?(in other cases other characters are used)
   // TODO: 20/10/2022 Unspecified, ambiguous start year under a 1000 is returning null but the same for end does not work
 
   private static Stream<Arguments> extractYMD() {

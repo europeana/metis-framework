@@ -1,136 +1,57 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
+
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 
 /**
- * Patterns for numeric date ranges with variations in the separators of date components
+ * Patterns for numeric date ranges with variations in the separators of date components.
+ * <p>We reuse the already existent {@link NumericWithMissingPartsDateExtractor} code for the edges.</p>
  */
 public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor {
 
-  Pattern cleanSeparator = Pattern.compile("[\\-./]");
-
-  ArrayList<Pattern> patterns = new ArrayList<>();
-
-  public NumericRangeWithMissingPartsDateExtractor() {
-    String dateSep = "/";
-    String componentSep = "[\\-.]";
-    String unsepecifiedVals = "\\?|-|\\.\\.";
-    String dateYmd = "\\s*("
-        + "(?<year>\\d\\d\\d\\d?)"
-        + "(?<month>" + componentSep + "\\d\\d?)?"
-        + "(?<day>" + componentSep + "\\d\\d?)?"
-        + "(?<uncertain>\\?)?"
-        + "|(?<unspecified>" + unsepecifiedVals + ")"
-        + ")\\s*";
-    String dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
-        + ")?(?<year>\\d\\d\\d\\d?)(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    patterns.add(Pattern.compile(dateYmd + dateSep + dateYmd.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-    patterns.add(Pattern.compile(dateDmy + dateSep + dateDmy.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-
-    dateSep = " - ";
-    componentSep = "[\\-./]";
-    unsepecifiedVals = "\\?|-|\\.\\.";
-    dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
-        + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
-        + ")?(?<year>\\d\\d\\d\\d?)(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    patterns.add(Pattern.compile(dateYmd + dateSep + dateYmd.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-    patterns.add(Pattern.compile(dateDmy + dateSep + dateDmy.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-
-    dateSep = "-";
-    componentSep = "[./]";
-    unsepecifiedVals = "\\?|\\.\\.";
-    dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
-        + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
-        + ")?(?<year>\\d\\d\\d\\d?)(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    patterns.add(Pattern.compile(dateYmd + dateSep + dateYmd.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-    patterns.add(Pattern.compile(dateDmy + dateSep + dateDmy.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-
-    dateSep = " ";
-    componentSep = "[./\\-]";
-    unsepecifiedVals = "";
-    dateYmd = "\\s*((?<year>\\d\\d\\d\\d?)(?<month>" + componentSep + "\\d\\d?)?(?<day>" + componentSep
-        + "\\d\\d?)?(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    dateDmy = "\\s*((?<day>\\d\\d?" + componentSep + ")?(?<month>\\d\\d?" + componentSep
-        + ")?(?<year>\\d\\d\\d\\d?)(?<uncertain>\\?)?|(?<unspecified>" + unsepecifiedVals + "))\\s*";
-    patterns.add(Pattern.compile(dateYmd + dateSep + dateYmd.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-    patterns.add(Pattern.compile(dateDmy + dateSep + dateDmy.replace("year", "year2").replace("month", "month2")
-                                                            .replace("day", "day2").replace("uncertain", "uncertain2")
-                                                            .replace("unspecified", "unspecified2")));
-  }
+  private static final NumericWithMissingPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericWithMissingPartsDateExtractor();
 
   public DateNormalizationResult extract(String inputValue) {
-    for (Pattern pat : patterns) {
-      Matcher m = pat.matcher(inputValue.trim());
-      if (m.matches()) {
-        EdtfDatePart dStart = new EdtfDatePart();
-        if (m.group("unspecified") != null) {
-          dStart = EdtfDatePart.getUnspecifiedInstance();
-        } else {
-          dStart.setYear(Integer.parseInt(m.group("year")));
-          if (m.group("month") != null && m.group("day") != null) {
-            dStart.setMonth(Integer.parseInt(clean(m.group("month"))));
-            dStart.setDay(Integer.parseInt(clean(m.group("day"))));
-          } else if (m.group("month") != null) {
-            dStart.setMonth(Integer.parseInt(clean(m.group("month"))));
-          } else if (m.group("day") != null) {
-            dStart.setMonth(Integer.parseInt(clean(m.group("day"))));
-          }
-          if (m.group("uncertain") != null) {
-            dStart.setUncertain(true);
-          }
+    // TODO: 01/11/2022 Add support for below 1000 years???
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
+    DateNormalizationResult startDate;
+    DateNormalizationResult endDate;
+    DateNormalizationResult rangeDate = null;
+    for (NumericRangeSpecialCharacters numericRangeSpecialCharacters : NumericRangeSpecialCharacters.values()) {
+      final String[] split = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator());
+      //The split has to be exactly in two, and then we can verify
+      if (split.length == 2) {
+        //Try extraction and verify
+        startDate = extractDateNormalizationResult(split[0], numericRangeSpecialCharacters);
+        endDate = extractDateNormalizationResult(split[1], numericRangeSpecialCharacters);
+        if (startDate != null && endDate != null) {
+          rangeDate = new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS, inputValue,
+              new IntervalEdtfDate((InstantEdtfDate) startDate.getEdtfDate(), (InstantEdtfDate) endDate.getEdtfDate()));
+          break;
         }
-        EdtfDatePart dEnd = new EdtfDatePart();
-        if (m.group("unspecified2") != null) {
-          dEnd = EdtfDatePart.getUnspecifiedInstance();
-        } else {
-          dEnd.setYear(Integer.parseInt(m.group("year2")));
-          if (m.group("month2") != null && m.group("day2") != null) {
-            dEnd.setMonth(Integer.parseInt(clean(m.group("month2"))));
-            dEnd.setDay(Integer.parseInt(clean(m.group("day2"))));
-          } else if (m.group("month2") != null) {
-            dEnd.setMonth(Integer.parseInt(clean(m.group("month2"))));
-          } else if (m.group("day2") != null) {
-            dEnd.setMonth(Integer.parseInt(clean(m.group("day2"))));
-          }
-          if (m.group("uncertain2") != null) {
-            dEnd.setUncertain(true);
-          }
-        }
-
-        if (dEnd.isUnspecified() && dStart.getYear() != null && dStart.getYear() < 1000) {
-          return null;// these cases are ambiguous. Example '187-?'
-        }
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS, inputValue,
-            new IntervalEdtfDate(new InstantEdtfDate(dStart), new InstantEdtfDate(dEnd)));
       }
     }
-    return null;
+    return rangeDate;
   }
 
-  private String clean(String group) {
-    return cleanSeparator.matcher(group).replaceFirst("");
+  private DateNormalizationResult extractDateNormalizationResult(String dateString,
+      NumericRangeSpecialCharacters numericRangeSpecialCharacters) {
+    DateNormalizationResult dateNormalizationResult;
+    // TODO: 01/11/2022 Potentially the unspecified part could be part of the NumericWithMissingPartsDateExtractor
+    if (dateString.matches(numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
+      dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString,
+          new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()));
+    } else {
+      dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString,
+          NumericRangeWithMissingPartsPattern.values());
+    }
+    return dateNormalizationResult;
   }
 }
