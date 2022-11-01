@@ -4,6 +4,7 @@ import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkP
 import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
@@ -26,9 +27,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,22 +71,22 @@ public class EnricherImpl implements Enricher {
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
-    final Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = enrichValues(searchTerms);
-    final Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = enrichReferences(
-        references);
+    final Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedValues = enrichValues(searchTerms);
+    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedReferences = enrichReferences(references);
 
-    reportMessages.addAll(getSearchTermsReport(searchTerms, enrichedValues));
-    reportMessages.addAll(getSearchReferenceReport(references, enrichedReferences));
+    //Add the report messages from the enrichment process
+    reportMessages.addAll(enrichedValues.getRight());
+    reportMessages.addAll(enrichedReferences.getRight());
+
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
-    if (enrichedValues != null) {
-      for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.entrySet()) {
+    if (enrichedValues.getLeft() != null) {
+      for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.getLeft().entrySet()) {
         entityMergeEngine.mergeSearchEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
-    if (enrichedReferences != null) {
-      for (Entry<ReferenceTermContext, List<EnrichmentBase>> entry : enrichedReferences
-          .entrySet()) {
+    if (enrichedReferences.getLeft() != null) {
+      for (Entry<ReferenceTermContext, List<EnrichmentBase>> entry : enrichedReferences.getLeft().entrySet()) {
         entityMergeEngine.mergeReferenceEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
@@ -101,10 +106,12 @@ public class EnricherImpl implements Enricher {
     for (SearchTermContext searchTerm : searchTerms) {
       if (enrichedValues.get(searchTerm).isEmpty()) {
         reportMessages.add(new ReportMessageBuilder()
-            .withMessage("Enrichment: could not find an entity for the given search term \"" + searchTerm.getTextValue() + "\"")
+            .withMessage("Could not find an entity for the given search term.")
             .withMode(Mode.ENRICHMENT)
             .withStatus(200)
+            .withValue(searchTerm.getTextValue())
             .withMessageType(Type.IGNORE)
+            .withStackTrace("")
             .build());
       }
     }
@@ -117,11 +124,12 @@ public class EnricherImpl implements Enricher {
     for (ReferenceTermContext reference : references) {
       if (enrichedReferences.get(reference).isEmpty()) {
         reportMessages.add(new ReportMessageBuilder()
-            .withMessage(
-                "Enrichment: could not find an entity for the given search reference \"" + reference.getReference() + "\"")
+            .withMessage("Could not find an entity for the given search reference.")
             .withMode(Mode.ENRICHMENT)
             .withStatus(200)
+            .withValue(reference.getReferenceAsString())
             .withMessageType(Type.IGNORE)
+            .withStackTrace("")
             .build());
       }
     }
@@ -129,31 +137,69 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public Map<SearchTermContext, List<EnrichmentBase>> enrichValues(
-      Set<SearchTermContext> searchTerms) throws EnrichmentException {
+  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms) {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
-      return Collections.emptyMap();
+      reportMessages.add(new ReportMessageBuilder()
+          .withMessage("Empty search terms.")
+          .withMode(Mode.ENRICHMENT)
+          .withStatus(200)
+          .withValue(searchTerms.toString())
+          .withMessageType(Type.IGNORE)
+          .withStackTrace("")
+          .build());
+      return new ImmutablePair<>(Collections.emptyMap(), reportMessages);
     }
-    // TODO: handle this exceptions inside the report and return EnrichedRecord as null
     try {
-      return entityResolver.resolveByText(Set.copyOf(searchTerms));
+      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
+      return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException e) {
-      throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
+      reportMessages.add(new ReportMessageBuilder()
+          .withMessage("Occurred while trying to perform enrichment of terms.")
+          .withMode(Mode.ENRICHMENT)
+          .withStatus(999)
+          .withValue(searchTerms.stream()
+                                .map(AbstractSearchTerm::getTextValue)
+                                .collect(Collectors.joining(",")))
+          .withMessageType(Type.ERROR)
+          .withMessage(ExceptionUtils.getMessage(e))
+          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .build());
+      return new ImmutablePair<>(null, reportMessages);
     }
   }
 
   @Override
-  public Map<ReferenceTermContext, List<EnrichmentBase>> enrichReferences(
-      Set<ReferenceTermContext> references) throws EnrichmentException {
+  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(Set<ReferenceTermContext> references) {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
-      return Collections.emptyMap();
+      reportMessages.add(new ReportMessageBuilder()
+          .withMessage("Empty search reference.")
+          .withMode(Mode.ENRICHMENT)
+          .withStatus(200)
+          .withValue(references.toString())
+          .withMessageType(Type.IGNORE)
+          .withStackTrace("")
+          .build());
+      return new ImmutablePair<>(Collections.emptyMap(), reportMessages);
     }
-    // TODO: handle this exceptions inside the report and return EnrichedRecord as null
     try {
-      return entityResolver.resolveByUri(references);
+      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolver.resolveByUri(references);
+      return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException e) {
-      throw new EnrichmentException("Exception occurred while trying to perform enrichment.", e);
+      reportMessages.add(new ReportMessageBuilder()
+          .withMessage("Occurred while trying to perform enrichment of reference.")
+          .withMode(Mode.ENRICHMENT)
+          .withStatus(999)
+          .withValue(references.stream()
+                               .map(ReferenceTermContext::getReferenceAsString)
+                               .collect(Collectors.joining(",")))
+          .withMessageType(Type.ERROR)
+          .withMessage(ExceptionUtils.getMessage(e))
+          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .build());
+      return new ImmutablePair<>(null, reportMessages);
     }
   }
 

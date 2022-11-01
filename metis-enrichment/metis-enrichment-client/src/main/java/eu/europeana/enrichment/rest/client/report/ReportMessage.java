@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.rest.client.report;
 
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
+import java.util.Objects;
 
 public class ReportMessage {
 
@@ -18,6 +19,24 @@ public class ReportMessage {
     value = reportMessageBuilder.value;
     message = reportMessageBuilder.message;
     stackTrace = reportMessageBuilder.stackTrace;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof ReportMessage)) {
+      return false;
+    }
+    ReportMessage that = (ReportMessage) o;
+    return status == that.status && mode == that.mode && messageType == that.messageType && Objects.equals(value,
+        that.value) && Objects.equals(message, that.message) && Objects.equals(stackTrace, that.stackTrace);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(status, mode, messageType, value, message, stackTrace);
   }
 
   /**

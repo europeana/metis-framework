@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Instances of this class can perform enrichment.
@@ -32,8 +33,7 @@ public interface Enricher {
    * @return For each search term a list with entities retrieved.
    * @throws EnrichmentException In case that something unexpected happened.
    */
-  Map<SearchTermContext, List<EnrichmentBase>> enrichValues(Set<SearchTermContext> searchTerms)
-      throws EnrichmentException;
+  Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms);
 
   /**
    * Retrieves information to enrich the RDF using extracted references
@@ -42,11 +42,12 @@ public interface Enricher {
    * @return For each reference a list with entities retrieved.
    * @throws EnrichmentException In case that something unexpected happened.
    */
-  Map<ReferenceTermContext, List<EnrichmentBase>> enrichReferences(
-      Set<ReferenceTermContext> references) throws EnrichmentException;
+  Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(
+      Set<ReferenceTermContext> references);
 
   /**
    * Cleanups/Removes enrichment entities from a previous enrichment.
+   *
    * @param rdf the RDF to be processed
    */
   void cleanupPreviousEnrichmentEntities(RDF rdf);
