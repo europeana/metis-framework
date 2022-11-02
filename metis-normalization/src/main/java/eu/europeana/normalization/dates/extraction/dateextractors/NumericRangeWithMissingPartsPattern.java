@@ -66,12 +66,17 @@ enum NumericRangeWithMissingPartsPattern implements NumericPattern {
   }
 
   /**
-   * Enum that contains the special characters(dates separator, dates delimeters, unspecified range edge) for each range
+   * Enum that contains the special characters(dates separator, dates delimiters, unspecified range edge) for each range
    * separator.
+   * <p>
+   * Each separator has an entry and each accepts its own date delimiters as well as the unspecified characters supported for
+   * edges.
+   * </p>
    */
   enum NumericRangeSpecialCharacters {
     SPACED_DASH_RANGE(" - ", "[\\-./]", "\\?|-|\\.\\."),
-    SPACE_RANGE(" ", "[\\-./]", ""),
+    //For space separator we don't accept unspecified edges
+    SPACE_RANGE(" ", "[\\-./]", null),
     DASH_RANGE("-", "[./]", "\\?|\\.\\."),
     SLASH_RANGE("/", "[\\-.]", "\\?|-|\\.\\.");
 

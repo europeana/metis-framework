@@ -19,7 +19,6 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
   private static final NumericWithMissingPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericWithMissingPartsDateExtractor();
 
   public DateNormalizationResult extract(String inputValue) {
-    // TODO: 01/11/2022 Add support for below 1000 years???
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
@@ -45,7 +44,8 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
       NumericRangeSpecialCharacters numericRangeSpecialCharacters) {
     DateNormalizationResult dateNormalizationResult;
     // TODO: 01/11/2022 Potentially the unspecified part could be part of the NumericWithMissingPartsDateExtractor
-    if (dateString.matches(numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
+    if (numericRangeSpecialCharacters.getUnspecifiedCharacters() != null && dateString.matches(
+        numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
       dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString,
           new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()));
     } else {

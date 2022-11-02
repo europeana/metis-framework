@@ -19,7 +19,6 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
   YMD_XX(NumericWithMissingPartsPattern.DELIMITERS, true, NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
   DMY_XX(NumericWithMissingPartsPattern.DELIMITERS, true, NUMERIC_ALL_VARIANTS_XX, 3, 2, 1);
 
-  private static final String OPTIONAL_QUESTION_MARK = "\\??";
   private static final String DELIMITERS = "[\\-./]";
 
   private final Pattern pattern;
@@ -41,6 +40,7 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
 
   // TODO: 28/09/2022 Perhaps the missing and XX can be combined in one and then identified from the UNKNOWN_CHARACTERS cleanup??
   public static Pattern generatePattern(String dateDelimiters, boolean isXX, int yearIndex) {
+    final String optionalQuestionMark = "\\??";
     final String year;
     final String delimiterDigits;
     final String digitsDelimiter;
@@ -61,9 +61,7 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
       dateRegex = digitsDelimiter + digitsDelimiter + year;
     }
 
-    return compile(
-        NumericWithMissingPartsPattern.OPTIONAL_QUESTION_MARK + dateRegex
-            + NumericWithMissingPartsPattern.OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE);
+    return compile(optionalQuestionMark + dateRegex + optionalQuestionMark, CASE_INSENSITIVE);
   }
 
   public Pattern getPattern() {
