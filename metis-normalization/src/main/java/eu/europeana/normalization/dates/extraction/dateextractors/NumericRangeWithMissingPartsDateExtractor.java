@@ -25,7 +25,7 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
     DateNormalizationResult rangeDate = null;
     for (NumericRangeSpecialCharacters numericRangeSpecialCharacters : NumericRangeSpecialCharacters.values()) {
       final String[] split = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator());
-      //The split has to be exactly in two, and then we can verify
+      //The split has to be exactly in two, and then we can verify. This also guarantees that the separator used is not used for unknown characters
       if (split.length == 2) {
         //Try extraction and verify
         startDate = extractDateNormalizationResult(split[0], numericRangeSpecialCharacters);

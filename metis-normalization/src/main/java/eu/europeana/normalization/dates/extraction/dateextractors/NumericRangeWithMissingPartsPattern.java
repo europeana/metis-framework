@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters.DASH_RANGE;
 import static eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters.SLASH_RANGE;
 import static eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters.SPACED_DASH_RANGE;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
  * using the provided range date delimiters from {@link NumericRangeSpecialCharacters#getDatesDelimiters()}.</p>
  */
 // TODO: 01/11/2022 Support XX cases too, with a flag perhaps
+// TODO: 04/11/2022 Check if this enum and NumericWithMissingPartsPattern can be reduced and/or moved to other package?
 enum NumericRangeWithMissingPartsPattern implements NumericPattern {
   YMD_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), false, NUMERIC_ALL_VARIANTS, 1, 2, 3),
   DMY_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), false, NUMERIC_ALL_VARIANTS, 3, 2, 1),
@@ -26,7 +28,19 @@ enum NumericRangeWithMissingPartsPattern implements NumericPattern {
   DMY_DASH(DASH_RANGE.getDatesDelimiters(), false, NUMERIC_ALL_VARIANTS, 3, 2, 1),
 
   YMD_SLASH(SLASH_RANGE.getDatesDelimiters(), false, NUMERIC_ALL_VARIANTS, 1, 2, 3),
-  DMY_SLASH(SLASH_RANGE.getDatesDelimiters(), false, NUMERIC_ALL_VARIANTS, 3, 2, 1);
+  DMY_SLASH(SLASH_RANGE.getDatesDelimiters(), false, NUMERIC_ALL_VARIANTS, 3, 2, 1),
+
+  YMD_XX_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
+  DMY_XX_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+
+  YMD_XX_SPACE(SPACE_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
+  DMY_XX_SPACE(SPACE_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+
+  YMD_XX_DASH(DASH_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
+  DMY_XX_DASH(DASH_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+
+  YMD_XX_SLASH(SLASH_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
+  DMY_XX_SLASH(SLASH_RANGE.getDatesDelimiters(), true, NUMERIC_ALL_VARIANTS_XX, 3, 2, 1);
 
   private final Pattern pattern;
   private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
