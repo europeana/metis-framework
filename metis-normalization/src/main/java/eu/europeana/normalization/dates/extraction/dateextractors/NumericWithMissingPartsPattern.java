@@ -9,7 +9,10 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import java.util.regex.Pattern;
 
 /**
- * Enum with all the acceptable date patterns used in the surrounding class.
+ * Enum with all the acceptable date patterns used for numeric dates.
+ * <p>This is the main general enum. Furthermore the method {@link #generatePattern(String, boolean, int)} can be used to
+ * generate other enums and gives more control on the date delimiters used, the option of XX dates and the order of the year,
+ * month, day of the date</p>
  */
 // TODO: 01/11/2022 Update the constructor similar to the ranges, but we need to support XX cases too first, with a flag perhaps
 public enum NumericWithMissingPartsPattern implements NumericPattern {

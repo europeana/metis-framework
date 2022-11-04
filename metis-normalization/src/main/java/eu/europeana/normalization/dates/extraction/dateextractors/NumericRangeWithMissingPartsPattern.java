@@ -74,10 +74,14 @@ enum NumericRangeWithMissingPartsPattern implements NumericPattern {
    * </p>
    */
   enum NumericRangeSpecialCharacters {
+    //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
     SPACED_DASH_RANGE(" - ", "[\\-./]", "\\?|-|\\.\\."),
     //For space separator we don't accept unspecified edges
+    //Does not exist in XX
     SPACE_RANGE(" ", "[\\-./]", null),
+    //"[XU]"
     DASH_RANGE("-", "[./]", "\\?|\\.\\."),
+    //"[XU]" with "-" delimiter, "[\\-XU]" with "." delimiter
     SLASH_RANGE("/", "[\\-.]", "\\?|-|\\.\\.");
 
     private final String datesSeparator;
