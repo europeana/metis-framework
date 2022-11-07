@@ -1,4 +1,4 @@
-package eu.europeana.normalization.dates.extraction.dateextractors;
+package eu.europeana.normalization.dates.extraction;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import java.util.regex.Pattern;

@@ -7,6 +7,8 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.extraction.NumericPattern;
+import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
 import java.util.Optional;

@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class NumericRangeWithMissingPartsAndXXDateExtractorTest {
 
-  private static final NumericRangeWithMissingPartsAndXxDateExtractor NUMERIC_RANGE_WITH_MISSING_PARTS_AND_XX_DATE_EXTRACTOR = new NumericRangeWithMissingPartsAndXxDateExtractor();
+  private static final NumericRangeWithMissingPartsDateExtractor NUMERIC_RANGE_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericRangeWithMissingPartsDateExtractor();
 
   @ParameterizedTest
   @MethodSource
@@ -30,7 +30,7 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
   }
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NUMERIC_RANGE_WITH_MISSING_PARTS_AND_XX_DATE_EXTRACTOR.extract(input);
+    final DateNormalizationResult dateNormalizationResult = NUMERIC_RANGE_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
     } else {
@@ -56,12 +56,12 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
     ).flatMap(Function.identity());
   }
 
-  //  private static Stream<Arguments> extractDMY() {
-  //    return Stream.of(
-  //        monthYearArguments(),
-  //        dayMonthYearArguments()
-  //    ).flatMap(Function.identity());
-  //  }
+  private static Stream<Arguments> extractDMY() {
+    return Stream.of(
+        monthYearArguments(),
+        dayMonthYearArguments()
+    ).flatMap(Function.identity());
+  }
 
   private static Stream<Arguments> yearArguments() {
     return Stream.of(
@@ -104,7 +104,6 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("?/19UU", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?/19??", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified '-'
-        of("1989/-", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("198U/-", "198X/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19--/-", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19XX/-", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -117,7 +116,6 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("-/19UU", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("-/19??", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified ..'
-        of("1989/..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("198U/..", "198X/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19--/..", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19XX/..", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -165,7 +163,6 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("? - 19??", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
 
         //Unspecified '-'
-        of("1989 - -", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("198U - -", "198X/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19-- - -", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19XX - -", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -179,7 +176,6 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("- - 19??", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
 
         //Unspecified '..'
-        of("1989 - ..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("198U - ..", "198X/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19-- - ..", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19XX - ..", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -227,7 +223,6 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("? - 19??", "../19XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
 
         //Unspecified '-'
-        of("1989--", null, null),
         of("198U--", null, null),
         of("19----", null, null),
         of("19XX--", null, null),
@@ -241,7 +236,6 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("--19??", null, null),
 
         //Unspecified '..'
-        of("1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("198U-..", "198X/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("19---..", null, null),
         of("19XX-..", "19XX/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1247,7 +1241,7 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         //Unknown month and also some unknown digits on the year
         of("XX.198X - XX.199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU.198X - UU.199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--.19XX - --.20XX.--", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--.19XX - --.20XX", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified
         of("XX.1989 - ?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("XX.1989 - -", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1336,22 +1330,22 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("UU.198X-199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified
         of("XX.1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("XX.1989--", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("XX.1989--", null, null),
         of("XX.1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU.1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("UU.1989--", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("UU.1989--", null, null),
         of("UU.1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??.1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("??.1989--", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("??.1989--", null, null),
         of("??.1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-XX.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--XX.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--XX.1989", null, null),
         of("..-XX.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-UU.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--UU.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--UU.1989", null, null),
         of("..-UU.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-??.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--??.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--??.1989", null, null),
         of("..-??.1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //"[XU]" with "/" delimiter
         of("XX/1989-XX/1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1368,22 +1362,22 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("UU/198X-UU/199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified
         of("XX/1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("XX/1989--", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("XX/1989--", null, null),
         of("XX/1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU/1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("UU/1989--", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("UU/1989--", null, null),
         of("UU/1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??/1989-?", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("??/1989--", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("??/1989--", null, null),
         of("??/1989-..", "1989/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-XX/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--XX/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--XX/1989", null, null),
         of("..-XX/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-UU/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--UU/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--UU/1989", null, null),
         of("..-UU/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-??/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--??/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--??/1989", null, null),
         of("..-??/1989", "../1989", NUMERIC_RANGE_ALL_VARIANTS_XX)
     );
   }
@@ -1395,15 +1389,15 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("XX-1989 XX-1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU-1989 UU-1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??-1989 ??-1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("---1989 ---1990", "1989/1990", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("---1989 ---1990", null, null),
         of("?XX-1989 ?XX-1990", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?UU-1989 ?UU-1990", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("???-1989 ???-1990", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("?---1989 ?---1990", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("?---1989 ?---1990", null, null),
         of("XX-1989? XX-1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU-1989? UU-1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??-1989? ??-1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("---1989? ---1990?", "1989?/1990?", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("---1989? ---1990?", null, null),
         //Unspecified does not apply on space separator
         of("XX-1989 ", null, null),
         of("UU-1989 ", null, null),
@@ -1522,7 +1516,7 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         //"[-XU]" with "." delimiter
         of("XX.11.1989/XX.11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU.11.1989/UU.11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("??.11.1989?/??.11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("??.11.1989?/??.11.1990", "1989-11?/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("--.11.1989/--.11.1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?XX.11.1989/?XX.11.1990", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?UU.11.1989/?UU.11.1990", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1730,22 +1724,22 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("??.??.19??-??.??.20??", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified
         of("XX.11.1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("XX.11.1989--", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("XX.11.1989--", null, null),
         of("XX.11.1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU.11.1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("UU.11.1989--", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("UU.11.1989--", null, null),
         of("UU.11.1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??.11.1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("??.11.1989--", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("??.11.1989--", null, null),
         of("??.11.1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-XX.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--XX.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--XX.11.1989", null, null),
         of("..-XX.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-UU.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--UU.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--UU.11.1989", null, null),
         of("..-UU.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-??.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--??.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--??.11.1989", null, null),
         of("..-??.11.1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //"[-XU]" with "/" delimiter
         of("XX/11/1989-XX/11/1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1759,7 +1753,7 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("??/11/1989?-??/11/1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unknown month and day as well as some unknown digits on the year
         of("XX/11/198X-XX/11/199X", "198X-11/199X-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("UU/11/198X-11/UU/199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("11/UU/198X-11/UU/199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("XX/UU/198X-XX/UU/199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??/UU/198X-??/UU/199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("XX/??/198X-XX/??/199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1767,22 +1761,22 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("??/??/19??-??/??/20??", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         //Unspecified
         of("XX/11/1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("XX/11/1989--", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("XX/11/1989--", null, null),
         of("XX/11/1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU/11/1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("UU/11/1989--", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("UU/11/1989--", null, null),
         of("UU/11/1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??/11/1989-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("??/11/1989--", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("??/11/1989--", null, null),
         of("??/11/1989-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-XX/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--XX/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--XX/11/1989", null, null),
         of("..-XX/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-UU/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--UU/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--UU/11/1989", null, null),
         of("..-UU/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?-??/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("--??/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("--??/11/1989", null, null),
         of("..-??/11/1989", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS_XX)
     );
   }
@@ -1794,15 +1788,15 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("XX-11-1989 XX-11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU-11-1989 UU-11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??-11-1989 ??-11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("---11-1989 ---11-1990", "1989-11/1990-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("---11-1989 ---11-1990", null, null),
         of("?XX-11-1989 ?XX-11-1990", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("?UU-11-1989 ?UU-11-1990", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("???-11-1989 ???-11-1990", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("?---11-1989 ?---11-1990", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("?---11-1989 ?---11-1990", null, null),
         of("XX-11-1989? XX-11-1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("UU-11-1989? UU-11-1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??-11-1989? ??-11-1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("---11-1989? ---11-1990?", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("---11-1989? ---11-1990?", null, null),
         //Unknown month and day as well as some unknown digits on the year
         of("XX-11-198X XX-11-199X", "198X-11/199X-11", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("11-UU-198X 11-UU-199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
@@ -1811,7 +1805,7 @@ class NumericRangeWithMissingPartsAndXXDateExtractorTest {
         of("XX-??-198X XX-??-199X", "198X/199X", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("XX-XX-19XX XX-XX-20XX", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("??-??-19?? ??-??-20??", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
-        of("------19-- ------20--", "19XX/20XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
+        of("------19-- ------20--", null, null),
         //Unspecified does not apply on space separator
         of("XX-11-1989 ", null, null),
         of("UU-11-1989 ", null, null),

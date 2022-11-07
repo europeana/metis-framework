@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS_XX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -211,7 +212,8 @@ class NumericRangeWithMissingPartsDateExtractorTest {
         of("?1989.11-?1990.11", "1989-11?/1990-11?", NUMERIC_RANGE_ALL_VARIANTS),
         //Unspecified
         of("1989/11-?", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1989/11--", null, null),
+        //This is a special case, because the "-" separator does not support "-" unspecified, so it is caught from a later pattern
+        of("1989/11--", "1989/11XX", NUMERIC_RANGE_ALL_VARIANTS_XX),
         of("1989/11-..", "1989-11/..", NUMERIC_RANGE_ALL_VARIANTS),
         of("?-1989/11", "../1989-11", NUMERIC_RANGE_ALL_VARIANTS),
         of("--1989/11", null, null),

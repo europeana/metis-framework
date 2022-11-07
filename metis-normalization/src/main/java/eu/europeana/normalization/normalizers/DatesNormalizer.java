@@ -12,7 +12,6 @@ import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExt
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DecadeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsAndXxDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericWithMissingPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
@@ -126,7 +125,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new CenturyDateExtractor(),
         new DecadeDateExtractor(),
         new NumericRangeWithMissingPartsDateExtractor(),
-        new NumericRangeWithMissingPartsAndXxDateExtractor(),
         new NumericWithMissingPartsDateExtractor(),
         new PatternDateExtractorYyyyMmDdSpacesDateExtractor(),
         new DcmiPeriodDateExtractor(),

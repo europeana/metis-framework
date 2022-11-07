@@ -1,13 +1,16 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS_XX;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters;
+import eu.europeana.normalization.dates.extraction.NumericRangeWithMissingPartsPattern;
+import eu.europeana.normalization.dates.extraction.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 
 /**
@@ -17,6 +20,12 @@ import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor {
 
   private static final NumericWithMissingPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericWithMissingPartsDateExtractor();
+
+  // TODO: 04/11/2022 Verify the below of 1000 year edges from previous code. Same applies for NumericRangeWithMissingPartsDateExtractor.
+  // TODO: 04/11/2022 Also check EdtfDatePartNormalizerTest cases that are temporarily commented out
+  //  if (dEnd.isUnspecified() && dStart.getYear() != null && dStart.getYear() < 1000) {
+  //    return null;// these cases are ambiguous. Example '187-?'
+  //  }
 
   public DateNormalizationResult extract(String inputValue) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
@@ -31,7 +40,9 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
         startDate = extractDateNormalizationResult(split[0], numericRangeSpecialCharacters);
         endDate = extractDateNormalizationResult(split[1], numericRangeSpecialCharacters);
         if (startDate != null && endDate != null) {
-          rangeDate = new DateNormalizationResult(DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS, inputValue,
+          final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
+              getDateNormalizationExtractorId(startDate, endDate);
+          rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue,
               new IntervalEdtfDate((InstantEdtfDate) startDate.getEdtfDate(), (InstantEdtfDate) endDate.getEdtfDate()));
           break;
         }
@@ -53,5 +64,17 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
           NumericRangeWithMissingPartsPattern.values());
     }
     return dateNormalizationResult;
+  }
+
+  private static DateNormalizationExtractorMatchId getDateNormalizationExtractorId(DateNormalizationResult startDate,
+      DateNormalizationResult endDate) {
+    final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
+    if (startDate.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX
+        || endDate.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX) {
+      dateNormalizationExtractorMatchId = NUMERIC_RANGE_ALL_VARIANTS_XX;
+    } else {
+      dateNormalizationExtractorMatchId = DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
+    }
+    return dateNormalizationExtractorMatchId;
   }
 }
