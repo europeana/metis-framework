@@ -1,8 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -12,22 +11,22 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.enrichment.rest.client.dereference.DereferencerProvider;
-import eu.europeana.enrichment.rest.client.enrichment.EnricherProvider;
-import eu.europeana.enrichment.rest.client.report.ProcessedResult;
-import eu.europeana.enrichment.rest.client.report.RecordStatus;
-import eu.europeana.metis.schema.convert.RdfConversionUtils;
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.dereference.DereferencerImpl;
+import eu.europeana.enrichment.rest.client.dereference.DereferencerProvider;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
+import eu.europeana.enrichment.rest.client.enrichment.EnricherProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.report.ProcessedResult;
+import eu.europeana.enrichment.rest.client.report.RecordStatus;
+import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.metis.schema.convert.SerializationException;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -59,6 +58,7 @@ class EnrichmentWorkerImplTest {
       return "";
     }
   }
+
   @ParameterizedTest
   @MethodSource("providedInputRecords")
   void testEnrichmentWorkerHappyFlow(String inputRecord)
@@ -83,9 +83,9 @@ class EnrichmentWorkerImplTest {
 
     // Execute the worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);
-  //  RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
-  //  final RDF inputRdf = rdfConversionUtils.convertStringToRdf(inputRecord);
-  //  worker.cleanupPreviousEnrichmentEntities(inputRdf);
+    //  RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+    //  final RDF inputRdf = rdfConversionUtils.convertStringToRdf(inputRecord);
+    //  worker.cleanupPreviousEnrichmentEntities(inputRdf);
     ProcessedResult<String> output = worker.process(inputRecord, modeSetWithBoth);
 
     LOGGER.info("REPORT: {}\n\n", output.getReport());
@@ -217,8 +217,7 @@ class EnrichmentWorkerImplTest {
 
 
   @Test
-  void testProcessWrapperMethods()
-      throws DereferenceException, EnrichmentException, SerializationException {
+  void testProcessWrapperMethods() throws SerializationException {
 
     // Create enrichment worker and mock the actual worker method as well as the RDF conversion
     // methods.
@@ -231,12 +230,17 @@ class EnrichmentWorkerImplTest {
     doReturn(new ProcessedResult<>(inputRdf)).when(worker).process(any(RDF.class), any());
 
     // Perform the operations and verify the result
-    final RDF returnedRdf = worker.process(inputRdf).getProcessedRecord();
+    final ProcessedResult<RDF> rdfProcessedResult = worker.process(inputRdf);
+    final RDF returnedRdf = rdfProcessedResult.getProcessedRecord();
     assertEquals(inputRdf, returnedRdf);
-    //add messages
-    final String returnedString = worker.process("").getProcessedRecord();
+    assertTrue(rdfProcessedResult.getReport().isEmpty());
+    assertEquals(RecordStatus.CONTINUE, rdfProcessedResult.getRecordStatus());
+
+    final ProcessedResult<String> stringProcessedResult = worker.process("");
+    final String returnedString = stringProcessedResult.getProcessedRecord();
     assertEquals(outputString, returnedString);
-    //add messages
+    assertTrue(rdfProcessedResult.getReport().isEmpty());
+    assertEquals(RecordStatus.CONTINUE, rdfProcessedResult.getRecordStatus());
 
     TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
     modeSetWithBoth.add(Mode.ENRICHMENT);
@@ -247,17 +251,19 @@ class EnrichmentWorkerImplTest {
     verify(worker, times(2)).process(inputRdf, modeSetWithBoth);
 
     // Test null string input
-    try {
-      worker.process((String) null);
-      fail("Expected an exception to occur.");
-    } catch (IllegalArgumentException e) {
-      // This is expected
+    ProcessedResult<String> resultString = worker.process((String) null);
+    assertEquals(resultString.getRecordStatus(), RecordStatus.STOP);
+    for (ReportMessage reportMessage : resultString.getReport()) {
+      assertEquals(Type.ERROR, reportMessage.getMessageType());
+      assertTrue(reportMessage.getMessage().contains("Input RDF string cannot be null."));
+      assertTrue(reportMessage.getStackTrace().contains("IllegalArgumentException"));
     }
+    assertEquals(1, resultString.getReport().size());
+    assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
   }
 
   @Test
-  void testEnrichmentWorkerNullValues() {
-
+  void testEnrichmentWorkerInputNullValues() {
     // Create enrichment worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
 
@@ -266,37 +272,31 @@ class EnrichmentWorkerImplTest {
     modeSetWithBoth.add(Mode.DEREFERENCE);
 
     // Test null string input
-//    try {
-     ProcessedResult<String> result = worker.process((String) null, modeSetWithBoth);
-     assertEquals(result.getRecordStatus(), RecordStatus.CONTINUE);
-//      fail("Expected an exception to occur.");
-//    } catch (IllegalArgumentException e) {
-//      // This is expected
-//    } catch (DereferenceException | SerializationException | EnrichmentException e) {
-//      e.printStackTrace();
-//    }
-
-    // Test empty RDF input
-//    try {
-      worker.process(new RDF(), null);
-//      fail("Expected an exception to occur.");
-//    } catch (IllegalArgumentException | EnrichmentException | DereferenceException e) {
-//      // This is expected
-//    }
+    ProcessedResult<String> resultString = worker.process((String) null, modeSetWithBoth);
+    assertEquals(resultString.getRecordStatus(), RecordStatus.STOP);
+    for (ReportMessage reportMessage : resultString.getReport()) {
+      assertEquals(Type.ERROR, reportMessage.getMessageType());
+      assertTrue(reportMessage.getMessage().contains("Input RDF string cannot be null."));
+      assertTrue(reportMessage.getStackTrace().contains("IllegalArgumentException"));
+    }
+    assertEquals(1, resultString.getReport().size());
+    assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
   }
 
   @Test
-  void testEnrichment() throws DereferenceException, SerializationException, EnrichmentException {
+  void testEnrichmentWorkerModeNullValues() {
     // Create enrichment worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(null, null);
 
-    TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
-    modeSetWithBoth.add(Mode.ENRICHMENT);
-    modeSetWithBoth.add(Mode.DEREFERENCE);
-    assertThrows(SerializationException.class, () -> {
-          ProcessedResult<String> enrichedData = worker.process((String) "");
-          //    assertEquals(enrichedData.getStatus());
-        }
-    );
+    // Test empty RDF input
+    ProcessedResult<RDF> resultRdf = worker.process(new RDF(), null);
+    assertEquals(resultRdf.getRecordStatus(), RecordStatus.STOP);
+    for (ReportMessage reportMessage : resultRdf.getReport()) {
+      assertEquals(Type.ERROR, reportMessage.getMessageType());
+      assertTrue(reportMessage.getMessage().contains("Set of Modes cannot be null"));
+      assertTrue(reportMessage.getStackTrace().contains("IllegalArgumentException"));
+    }
+    assertEquals(1, resultRdf.getReport().size());
+    assertEquals(RecordStatus.STOP, resultRdf.getRecordStatus());
   }
 }

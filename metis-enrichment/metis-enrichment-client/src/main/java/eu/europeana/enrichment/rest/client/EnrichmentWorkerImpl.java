@@ -111,6 +111,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
           .withStatus(999)
           .withMessageType(Type.ERROR)
           .withMode(Mode.ENRICHMENT)
+          .withValue(inputString)
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
           .build());
