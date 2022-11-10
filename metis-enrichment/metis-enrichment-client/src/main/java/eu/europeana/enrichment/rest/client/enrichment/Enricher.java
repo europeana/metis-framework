@@ -22,16 +22,14 @@ public interface Enricher {
    *
    * @param rdf The RDF to be processed
    * @return HashSet The messages encountered during enrichment
-   * @throws EnrichmentException In case that something unexpected happened.
    */
-  HashSet<ReportMessage> enrichment(final RDF rdf) throws EnrichmentException;
+  HashSet<ReportMessage> enrichment(final RDF rdf);
 
   /**
    * Retrieves information to enrich the RDF using extracted values
    *
    * @param searchTerms The values extracted to enrich the RDF
    * @return For each search term a list with entities retrieved.
-   * @throws EnrichmentException In case that something unexpected happened.
    */
   Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms);
 
@@ -40,7 +38,6 @@ public interface Enricher {
    *
    * @param references The references extracted to enrich the RDF
    * @return For each reference a list with entities retrieved.
-   * @throws EnrichmentException In case that something unexpected happened.
    */
   Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(
       Set<ReferenceTermContext> references);

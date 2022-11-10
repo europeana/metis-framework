@@ -21,6 +21,30 @@ public class ReportMessage {
     stackTrace = reportMessageBuilder.stackTrace;
   }
 
+  public int getStatus() {
+    return status;
+  }
+
+  public Mode getMode() {
+    return mode;
+  }
+
+  public Type getMessageType() {
+    return messageType;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public String getStackTrace() {
+    return stackTrace;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

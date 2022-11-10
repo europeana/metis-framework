@@ -54,15 +54,14 @@ public class EnricherImpl implements Enricher {
    * @param entityResolver the entity resolver
    * @param entityMergeEngine the entity merge engine
    */
-  public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver,
-      EntityMergeEngine entityMergeEngine) {
+  public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver, EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.entityResolver = entityResolver;
     this.entityMergeEngine = entityMergeEngine;
   }
 
   @Override
-  public HashSet<ReportMessage> enrichment(RDF rdf) throws EnrichmentException {
+  public HashSet<ReportMessage> enrichment(RDF rdf) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");

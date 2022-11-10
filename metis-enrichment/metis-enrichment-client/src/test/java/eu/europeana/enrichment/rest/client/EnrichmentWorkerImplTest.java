@@ -15,6 +15,7 @@ import static org.mockito.Mockito.verify;
 import eu.europeana.enrichment.rest.client.dereference.DereferencerProvider;
 import eu.europeana.enrichment.rest.client.enrichment.EnricherProvider;
 import eu.europeana.enrichment.rest.client.report.ProcessedResult;
+import eu.europeana.enrichment.rest.client.report.RecordStatus;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
@@ -26,6 +27,7 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.metis.schema.convert.SerializationException;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -42,6 +44,8 @@ class EnrichmentWorkerImplTest {
 
   private static Stream<Arguments> providedInputRecords() {
     return Stream.of(
+        Arguments.of(getResourceFileContent("sample_for_exception.rdf")),
+        Arguments.of(getResourceFileContent("sample_no_dereference.rdf")),
         Arguments.of(getResourceFileContent("sample_no_reference.rdf"))
     );
   }
@@ -79,13 +83,14 @@ class EnrichmentWorkerImplTest {
 
     // Execute the worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);
-    RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
-    final RDF inputRdf = rdfConversionUtils.convertStringToRdf(inputRecord);
-    worker.cleanupPreviousEnrichmentEntities(inputRdf);
-    ProcessedResult<RDF> output = worker.process(inputRdf, modeSetWithBoth);
+  //  RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
+  //  final RDF inputRdf = rdfConversionUtils.convertStringToRdf(inputRecord);
+  //  worker.cleanupPreviousEnrichmentEntities(inputRdf);
+    ProcessedResult<String> output = worker.process(inputRecord, modeSetWithBoth);
 
     LOGGER.info("REPORT: {}\n\n", output.getReport());
-    LOGGER.info("RECORD: {}", rdfConversionUtils.convertRdfToString(output.getProcessedRecord()));
+    LOGGER.info("RECORD: {}\n\n", output.getProcessedRecord());
+    LOGGER.info("STATUS: {}", output.getRecordStatus());
   }
 
   @Test
@@ -261,22 +266,23 @@ class EnrichmentWorkerImplTest {
     modeSetWithBoth.add(Mode.DEREFERENCE);
 
     // Test null string input
-    try {
-      worker.process((String) null, modeSetWithBoth);
-      fail("Expected an exception to occur.");
-    } catch (IllegalArgumentException e) {
-      // This is expected
-    } catch (DereferenceException | SerializationException | EnrichmentException e) {
-      e.printStackTrace();
-    }
+//    try {
+     ProcessedResult<String> result = worker.process((String) null, modeSetWithBoth);
+     assertEquals(result.getRecordStatus(), RecordStatus.CONTINUE);
+//      fail("Expected an exception to occur.");
+//    } catch (IllegalArgumentException e) {
+//      // This is expected
+//    } catch (DereferenceException | SerializationException | EnrichmentException e) {
+//      e.printStackTrace();
+//    }
 
     // Test empty RDF input
-    try {
+//    try {
       worker.process(new RDF(), null);
-      fail("Expected an exception to occur.");
-    } catch (IllegalArgumentException | EnrichmentException | DereferenceException e) {
-      // This is expected
-    }
+//      fail("Expected an exception to occur.");
+//    } catch (IllegalArgumentException | EnrichmentException | DereferenceException e) {
+//      // This is expected
+//    }
   }
 
   @Test

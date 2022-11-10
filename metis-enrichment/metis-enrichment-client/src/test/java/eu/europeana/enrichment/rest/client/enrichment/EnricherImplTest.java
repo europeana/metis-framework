@@ -78,7 +78,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  void testEnricherHappyFlow() throws EnrichmentException {
+  void testEnricherHappyFlow() {
 
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
@@ -100,7 +100,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  void testEnricherNullFlow() throws EnrichmentException {
+  void testEnricherNullFlow() {
 
     // Create mocks of the dependencies
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
@@ -121,7 +121,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  void testEnricherExceptionFlow() throws EnrichmentException {
+  void testEnricherExceptionFlow() {
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
