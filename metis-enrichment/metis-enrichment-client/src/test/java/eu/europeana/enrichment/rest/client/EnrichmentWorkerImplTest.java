@@ -43,9 +43,9 @@ class EnrichmentWorkerImplTest {
 
   private static Stream<Arguments> providedInputRecords() {
     return Stream.of(
-        Arguments.of(getResourceFileContent("sample_for_exception.rdf")),
-        Arguments.of(getResourceFileContent("sample_no_dereference.rdf")),
-        Arguments.of(getResourceFileContent("sample_no_reference.rdf"))
+        Arguments.of(getResourceFileContent("sample_for_exception.rdf"), RecordStatus.STOP),
+        Arguments.of(getResourceFileContent("sample_no_dereference.rdf"), RecordStatus.CONTINUE),
+        Arguments.of(getResourceFileContent("sample_no_reference.rdf"), RecordStatus.CONTINUE)
     );
   }
 
@@ -61,8 +61,8 @@ class EnrichmentWorkerImplTest {
 
   @ParameterizedTest
   @MethodSource("providedInputRecords")
-  void testEnrichmentWorkerHappyFlow(String inputRecord)
-      throws DereferenceException, EnrichmentException, SerializationException {
+  void testEnrichmentWorkerHappyFlow(String inputRecord, RecordStatus recordStatus)
+      throws DereferenceException, EnrichmentException {
     TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
     modeSetWithBoth.add(Mode.ENRICHMENT);
     modeSetWithBoth.add(Mode.DEREFERENCE);
@@ -91,7 +91,7 @@ class EnrichmentWorkerImplTest {
     LOGGER.info("REPORT: {}\n\n", output.getReport());
     LOGGER.info("RECORD: {}\n\n", output.getProcessedRecord());
     LOGGER.info("STATUS: {}", output.getRecordStatus());
-    assertEquals(RecordStatus.CONTINUE, output.getRecordStatus());
+    assertEquals(recordStatus, output.getRecordStatus());
   }
 
   @Test
