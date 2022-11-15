@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_DB=metis-authentication_local
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - '5432:5432'
+  metis-authentication-local:
+    image: europeana/metis-authentication:latest
+    container_name: metis-authentication
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    #uncomment this if an .env file is to be used instead of a application.properties.
+    #    env_file:
+    #      - /data/metis-properties/test/metis-authentication-rest/.metis-authentication-test.env
+    volumes:
+      - /data/certificates/ibm-ca-truststore.jks:/data/certificates/ibm-ca-truststore.jks
+      - /data/metis-properties/test/metis-authentication-rest/application-test.properties:/application.properties
+      - /data/logging/log4j2.xml:/log4j2.xml
+    depends_on:
+      - postgres
