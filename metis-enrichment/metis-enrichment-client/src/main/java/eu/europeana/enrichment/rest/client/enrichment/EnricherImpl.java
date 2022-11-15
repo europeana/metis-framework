@@ -11,7 +11,6 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
-import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
 import eu.europeana.enrichment.rest.client.report.Type;
@@ -27,7 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -71,7 +69,8 @@ public class EnricherImpl implements Enricher {
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedValues = enrichValues(searchTerms);
-    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedReferences = enrichReferences(references);
+    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedReferences = enrichReferences(
+        references);
 
     //Add the report messages from the enrichment process
     reportMessages.addAll(enrichedValues.getRight());
@@ -136,7 +135,8 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms) {
+  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(
+      Set<SearchTermContext> searchTerms) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
       reportMessages.add(new ReportMessageBuilder()
@@ -159,6 +159,7 @@ public class EnricherImpl implements Enricher {
           .withStatus(999)
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
+                                .sorted(String::compareToIgnoreCase)
                                 .collect(Collectors.joining(",")))
           .withMessageType(Type.ERROR)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -169,7 +170,8 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(Set<ReferenceTermContext> references) {
+  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(
+      Set<ReferenceTermContext> references) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
       reportMessages.add(new ReportMessageBuilder()
@@ -193,6 +195,7 @@ public class EnricherImpl implements Enricher {
           .withStatus(999)
           .withValue(references.stream()
                                .map(ReferenceTermContext::getReferenceAsString)
+                               .sorted(String::compareToIgnoreCase)
                                .collect(Collectors.joining(",")))
           .withMessageType(Type.ERROR)
           .withMessage(ExceptionUtils.getMessage(e))

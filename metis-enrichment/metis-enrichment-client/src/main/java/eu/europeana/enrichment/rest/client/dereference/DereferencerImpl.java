@@ -209,7 +209,7 @@ public class DereferencerImpl implements Dereferencer {
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(200)
+          .withStatus(400)
           .withValue(resourceId)
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))

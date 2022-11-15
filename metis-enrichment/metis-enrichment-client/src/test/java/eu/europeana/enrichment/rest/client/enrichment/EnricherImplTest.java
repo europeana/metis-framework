@@ -21,7 +21,6 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
-import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
 import eu.europeana.enrichment.rest.client.report.Type;
@@ -35,7 +34,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.httpclient.HttpClientError;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -70,11 +68,11 @@ public class EnricherImplTest {
     ENRICHMENT_RESULT.put(searchTerm2, Collections.emptyList());
     ENRICHMENT_RESULT.put(searchTerm3, List.of(place2));
     ENRICHMENT_EXTRACT_RESULT
-            .add(new SearchTermContext("value1", "en", Set.of(ProxyFieldType.DC_CREATOR)));
+        .add(new SearchTermContext("value1", "en", Set.of(ProxyFieldType.DC_CREATOR)));
     ENRICHMENT_EXTRACT_RESULT
-            .add(new SearchTermContext("value2", null, Set.of(ProxyFieldType.DC_SUBJECT)));
+        .add(new SearchTermContext("value2", null, Set.of(ProxyFieldType.DC_SUBJECT)));
     ENRICHMENT_EXTRACT_RESULT
-            .add(new SearchTermContext("value3", "pt", Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
+        .add(new SearchTermContext("value3", "pt", Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
   }
 
   @Test
@@ -88,7 +86,7 @@ public class EnricherImplTest {
 
     // Create enricher.
     final Enricher enricher = spy(
-            new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+        new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
     doReturn(ENRICHMENT_EXTRACT_RESULT).when(recordParser).parseSearchTerms(any());
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
@@ -109,7 +107,7 @@ public class EnricherImplTest {
 
     //Create enricher
     final Enricher enricher = spy(
-            new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+        new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
     doReturn(Collections.emptySet()).when(recordParser).parseSearchTerms(any());
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
@@ -121,7 +119,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  void testEnricherExceptionFlow() {
+  void testEnricherHttpExceptionFlow() {
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -139,17 +137,15 @@ public class EnricherImplTest {
     verifyEnricherExeptionFlow(recordParser, entityResolver, inputRdf, reportMessages);
   }
 
-  private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver remoteEntityResolver,
+  private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver entityResolver,
       RDF inputRdf, HashSet<ReportMessage> reportMessages) {
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
-
-    for(ReportMessage expectedMessage : getExpectedReportMessagesExceptionFlow()) {
-      assertTrue(reportMessages.contains(expectedMessage));
-    }
-
+    verify(entityResolver, times(0)).resolveById(any());
+    assertEquals(getExpectedReportMessagesExceptionFlow(), reportMessages);
   }
+
   private void verifyEnricherHappyFlow(RecordParser recordParser, ClientEntityResolver remoteEntityResolver,
       RDF inputRdf, HashSet<ReportMessage> reportMessages) {
 
@@ -168,17 +164,14 @@ public class EnricherImplTest {
     expectedValue.sort(compareValue);
     actualResult.sort(compareValue);
 
-    for(int i = 0; i < expectedValue.size(); i++){
+    for (int i = 0; i < expectedValue.size(); i++) {
       SearchTerm expected = expectedValue.get(i);
       SearchTerm actual = actualResult.get(i);
       assertEquals(expected.getTextValue(), actual.getTextValue());
       assertEquals(expected.getLanguage(), actual.getLanguage());
       assertArrayEquals(expected.getCandidateTypes().toArray(), actual.getCandidateTypes().toArray());
     }
-
-    for(ReportMessage expectedMessage : getExpectedReportMessagesHappyFlow()) {
-      assertTrue(reportMessages.contains(expectedMessage));
-    }
+    assertEquals(getExpectedReportMessagesHappyFlow(), reportMessages);
   }
 
   // Verify merge calls
@@ -202,7 +195,7 @@ public class EnricherImplTest {
   }
 
   private void verifyEnricherNullFlow(ClientEntityResolver remoteEntityResolver,
-          RecordParser recordParser, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      RecordParser recordParser, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
 
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
@@ -210,14 +203,12 @@ public class EnricherImplTest {
 
     // Actually enriching
     verify(remoteEntityResolver, never()).resolveByText(any());
-
-    for(ReportMessage expectedMessage : getExpectedReportMessagesNullFlow()) {
-      assertTrue(reportMessages.contains(expectedMessage));
-    }
+    assertEquals(getExpectedReportMessagesNullFlow(), reportMessages);
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), eq(Collections.emptyList()), any(ReferenceTermContext.class));
+    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), eq(Collections.emptyList()),
+        any(ReferenceTermContext.class));
     verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), any(), any(ReferenceTermContext.class));
   }
 
@@ -232,13 +223,13 @@ public class EnricherImplTest {
         .withStackTrace("")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-            .withStatus(200)
-            .withMode(Mode.ENRICHMENT)
-            .withMessageType(Type.IGNORE)
-            .withValue("[]")
-            .withMessage("Empty search reference.")
-            .withStackTrace("")
-            .build());
+        .withStatus(200)
+        .withMode(Mode.ENRICHMENT)
+        .withMessageType(Type.IGNORE)
+        .withValue("[]")
+        .withMessage("Empty search reference.")
+        .withStackTrace("")
+        .build());
     return reportMessages;
   }
 
@@ -269,79 +260,9 @@ public class EnricherImplTest {
         .withStatus(999)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.ERROR)
-        .withValue("value1,value3,value2")
+        .withValue("value1,value2,value3")
         .withMessage("HttpClientErrorException: 400 BAD_REQUEST")
-        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST\n"
-            + "\tat eu.europeana.enrichment.rest.client.enrichment.EnricherImpl.enrichValues(EnricherImpl.java:154)\n"
-            + "\tat eu.europeana.enrichment.rest.client.enrichment.EnricherImpl.enrichment(EnricherImpl.java:74)\n"
-            + "\tat eu.europeana.enrichment.rest.client.enrichment.EnricherImplTest.testEnricherExceptionFlow(EnricherImplTest.java:138)\n"
-            + "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n"
-            + "\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n"
-            + "\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n"
-            + "\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\n"
-            + "\tat org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:688)\n"
-            + "\tat org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)\n"
-            + "\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)\n"
-            + "\tat org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)\n"
-            + "\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)\n"
-            + "\tat org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)\n"
-            + "\tat org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)\n"
-            + "\tat org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)\n"
-            + "\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)\n"
-            + "\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)\n"
-            + "\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)\n"
-            + "\tat org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)\n"
-            + "\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)\n"
-            + "\tat org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)\n"
-            + "\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:210)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:206)\n"
-            + "\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:131)\n"
-            + "\tat org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:65)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)\n"
-            + "\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1541)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)\n"
-            + "\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1541)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)\n"
-            + "\tat org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)\n"
-            + "\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)\n"
-            + "\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)\n"
-            + "\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)\n"
-            + "\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)\n"
-            + "\tat org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)\n"
-            + "\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)\n"
-            + "\tat org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)\n"
-            + "\tat com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)\n"
-            + "\tat com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)\n"
-            + "\tat com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)\n"
-            + "\tat com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)\n"
-            + "\tat com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:235)\n"
-            + "\tat com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:54)\n")
+        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST")
         .build());
     reportMessages.add(new ReportMessageBuilder()
         .withStatus(200)

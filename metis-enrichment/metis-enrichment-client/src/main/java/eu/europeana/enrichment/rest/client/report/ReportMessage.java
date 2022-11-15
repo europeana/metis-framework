@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client.report;
 
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 
 public class ReportMessage {
 
@@ -55,12 +56,13 @@ public class ReportMessage {
     }
     ReportMessage that = (ReportMessage) o;
     return status == that.status && mode == that.mode && messageType == that.messageType && Objects.equals(value,
-        that.value) && Objects.equals(message, that.message) && Objects.equals(stackTrace, that.stackTrace);
+        that.value) && Objects.equals(message, that.message) && Objects.equals(StringUtils.substring(stackTrace, 1, 50),
+        StringUtils.substring(that.stackTrace, 1, 50));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, mode, messageType, value, message, stackTrace);
+    return Objects.hash(status, mode, messageType, value, message, StringUtils.substring(stackTrace, 1, 50));
   }
 
   /**
@@ -111,8 +113,10 @@ public class ReportMessage {
       messageType = val;
       return this;
     }
+
     /**
      * Sets the {@code value} and returns a reference to this Builder enabling method chaining.
+     *
      * @param val the {@code value} to set
      * @return a reference to this Builder
      */
@@ -134,6 +138,7 @@ public class ReportMessage {
 
     /**
      * Sets the {@code stackTrace} and returns a reference to this Builder enabling method chaining.
+     *
      * @param val the {@code stackTrace} to set
      * @return a reference to this Builder
      */

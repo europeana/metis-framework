@@ -1,6 +1,17 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.badRequest;
+import static com.github.tomakehurst.wiremock.client.WireMock.containing;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.serverError;
+import static com.github.tomakehurst.wiremock.client.WireMock.temporaryRedirect;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anySet;
 import static org.mockito.Mockito.anyString;
@@ -10,7 +21,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
+import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -20,12 +35,11 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
-import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,22 +50,44 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Spy;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 
 public class DereferencerImplTest {
 
-  private static final String[] DEREFERENCE_EXTRACT_RESULT_INVALID = {"http://example.com/about",
-      "http://example.com/concept", "http://example.com/place"};
+  private static final String[] DEREFERENCE_EXTRACT_RESULT_INVALID = {
+      "http://invalid-example.host/about",
+      "http://invalid-example.host/concept",
+      "http://invalid-example.host/place"};
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT_VALID = {
-      "https://pro.europeana.eu/",
-      "https://www.europeana.eu/nl",
-      "https://www.europeana.eu/en"};
+      "http://valid-example.host/about",
+      "http://valid-example.host/concept",
+      "http://valid-example.host/place"};
 
   private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
+
+  private static WireMockServer wireMockServer;
+
+  @BeforeAll
+  static void createWireMock() {
+    wireMockServer = new WireMockServer(wireMockConfig()
+        .dynamicPort()
+        .enableBrowserProxying(true)
+        .notifier(new ConsoleNotifier(true)));
+    wireMockServer.start();
+    JvmProxyConfigurer.configureFor(wireMockServer);
+  }
+
+  @AfterAll
+  static void tearDownWireMock() {
+    wireMockServer.stop();
+  }
 
   static {
     final Agent agent1 = new Agent();
@@ -83,7 +119,6 @@ public class DereferencerImplTest {
     ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
     ENRICHMENT_RESULT.put(searchTerm2, null);
     ENRICHMENT_RESULT.put(searchTerm3, List.of(place2));
-
   }
 
   @Test
@@ -94,13 +129,23 @@ public class DereferencerImplTest {
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
     doReturn(DEREFERENCE_RESULT.get(0),
         DEREFERENCE_RESULT.subList(1, DEREFERENCE_RESULT.size()).toArray()).when(dereferenceClient)
-        .dereference(any());
+                                                                           .dereference(any());
     final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_VALID).collect(Collectors.toSet()))
         .when(dereferencer).extractReferencesForDereferencing(any());
+
+    wireMockServer.stubFor(get("/about")
+        .withHost(equalTo("valid-example.host"))
+        .willReturn(ok("about")));
+    wireMockServer.stubFor(get("/concept")
+        .withHost(equalTo("valid-example.host"))
+        .willReturn(ok("concept")));
+    wireMockServer.stubFor(get("/place")
+        .withHost(equalTo("valid-example.host"))
+        .willReturn(ok("place")));
 
     final RDF inputRdf = new RDF();
     HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
@@ -121,7 +166,7 @@ public class DereferencerImplTest {
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, entityResolver, dereferenceClient));
     doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
-        .extractReferencesForDereferencing(any());
+                                                                      .extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
     dereferencer.dereference(inputRdf);
@@ -145,6 +190,16 @@ public class DereferencerImplTest {
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_INVALID).collect(Collectors.toSet()))
         .when(dereferencer).extractReferencesForDereferencing(any());
+    wireMockServer.stubFor(get("/about")
+        .withHost(equalTo("invalid-example.host"))
+        .willReturn(serverError()));
+    wireMockServer.stubFor(get("/concept")
+        .withHost(equalTo("invalid-example.host"))
+        .willReturn(temporaryRedirect("")));
+    wireMockServer.stubFor(get("/place")
+        .withHost(equalTo("invalid-example.host"))
+        .willReturn(badRequest()));
+
 
     final RDF inputRdf = new RDF();
     HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
@@ -153,32 +208,69 @@ public class DereferencerImplTest {
     verifyMergeNullFlow(entityMergeEngine);
   }
 
+  @Test
+  void testDereferenceHttpException() {
+    // Create mocks of the dependencies
+    final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+    doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
+    final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
+    when(dereferenceClient.dereference(any()))
+        .thenThrow(HttpClientErrorException.create(HttpStatus.BAD_REQUEST, "", null, null, null));
+    final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+
+    final Dereferencer dereferencer = spy(
+        new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_VALID).collect(Collectors.toSet()))
+        .when(dereferencer).extractReferencesForDereferencing(any());
+
+    final RDF inputRdf = new RDF();
+    HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+
+    verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
+    verifyMergeNullFlow(entityMergeEngine);
+  }
+
   private void verifyDereferenceHappyFlow(DereferenceClient dereferenceClient,
       Dereferencer dereferencer, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
 
-    // Extracting values for dereferencing
-    verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
-    verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
+    verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing.
     verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
+
+    assertEquals(0, reportMessages.size());
     for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
     }
-    assertEquals(0, reportMessages.size());
   }
 
   private void verifyDereferenceInvalidUrlFlow(DereferenceClient dereferenceClient,
       Dereferencer dereferencer, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
 
     // Extracting values for dereferencing
-    verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
-    verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
+    verifyDerefencer(dereferencer, inputRdf);
 
-    // Actually dereferencing.
+    // Checking the report.
     assertEquals(3, reportMessages.size());
     for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_INVALID) {
       verify(dereferenceClient, times(0)).dereference(dereferenceUrl);
+    }
+  }
+
+  private void verifyDereferenceExceptionFlow(DereferenceClient dereferenceClient,
+      Dereferencer dereferencer, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+
+    // Extracting values for dereferencing
+    verifyDerefencer(dereferencer, inputRdf);
+
+    // Actually dereferencing.
+    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
+
+    // Checking the report.
+    assertEquals(3, reportMessages.size());
+    for (ReportMessage reportMessage : reportMessages) {
+      assertTrue(reportMessage.getMessage().contains("400 Bad Request"));
+      assertEquals(Type.WARN, reportMessage.getMessageType());
     }
   }
 
@@ -186,8 +278,8 @@ public class DereferencerImplTest {
   private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) {
     final List<EnrichmentBase> expectedMerges = new ArrayList<>();
     DEREFERENCE_RESULT.stream().filter(Objects::nonNull)
-        .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).filter(Objects::nonNull)
-        .flatMap(List::stream).forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
+                      .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).filter(Objects::nonNull)
+                      .flatMap(List::stream).forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
     verify(entityMergeEngine, times(1))
         .mergeReferenceEntities(any(), eq(expectedMerges));
   }
@@ -196,21 +288,30 @@ public class DereferencerImplTest {
       Dereferencer dereferencer, RDF inputRdf) {
 
     // Extracting values for dereferencing
-    verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
-    verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
+    verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing: don't use the null values.
     final Set<String> dereferenceUrls = Arrays.stream(new String[0]).filter(Objects::nonNull)
-        .collect(Collectors.toSet());
+                                              .collect(Collectors.toSet());
     verify(dereferenceClient, times(dereferenceUrls.size())).dereference(anyString());
     for (String dereferenceUrl : dereferenceUrls) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
     }
   }
 
+  private void verifyDerefencer(Dereferencer dereferencer, RDF inputRdf) {
+    // Extracting values for dereferencing
+    verify(dereferencer, times(1)).extractReferencesForDereferencing(any());
+    verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
+  }
+
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
     verify(entityMergeEngine, times(1))
         .mergeReferenceEntities(any(), eq(Collections.emptyList()));
     verify(entityMergeEngine, times(1)).mergeReferenceEntities(any(), any());
+  }
+
+  private void setupWireMockServer(String value) {
+
   }
 }
