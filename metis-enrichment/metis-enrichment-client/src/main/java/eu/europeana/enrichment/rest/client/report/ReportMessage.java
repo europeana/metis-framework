@@ -4,7 +4,10 @@ import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
-public class ReportMessage {
+/**
+ * ReportMessage class used to inform processed results
+ */
+public final class ReportMessage {
 
   private int status;
   private Mode mode;
@@ -12,6 +15,7 @@ public class ReportMessage {
   private String value;
   private String message;
   private String stackTrace;
+  private final static int MAX_COMPARE_STACK_TRACE = 50;
 
   private ReportMessage(ReportMessageBuilder reportMessageBuilder) {
     status = reportMessageBuilder.status;
@@ -51,18 +55,22 @@ public class ReportMessage {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof ReportMessage)) {
+    if (o != null) {
+      if (this.getClass() != o.getClass()) {
+        return false;
+      }
+      ReportMessage that = (ReportMessage) o;
+      return status == that.status && mode == that.mode && messageType == that.messageType && Objects.equals(value, that.value)
+          && Objects.equals(message, that.message) && Objects.equals(StringUtils.substring(stackTrace, 1, MAX_COMPARE_STACK_TRACE),
+          StringUtils.substring(that.stackTrace, 1, MAX_COMPARE_STACK_TRACE));
+    } else {
       return false;
     }
-    ReportMessage that = (ReportMessage) o;
-    return status == that.status && mode == that.mode && messageType == that.messageType && Objects.equals(value,
-        that.value) && Objects.equals(message, that.message) && Objects.equals(StringUtils.substring(stackTrace, 1, 50),
-        StringUtils.substring(that.stackTrace, 1, 50));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, mode, messageType, value, message, StringUtils.substring(stackTrace, 1, 50));
+    return Objects.hash(status, mode, messageType, value, message, StringUtils.substring(stackTrace, 1, MAX_COMPARE_STACK_TRACE));
   }
 
   /**
@@ -159,12 +167,6 @@ public class ReportMessage {
 
   @Override
   public String toString() {
-    return "[" + status
-        + "," + mode.name()
-        + "," + messageType.name()
-        + "," + value
-        + "," + message
-        + "," + stackTrace
-        + "]\n";
+    return "[" + status + "," + mode.name() + "," + messageType.name() + "," + value + "," + message + "," + stackTrace + "]\n";
   }
 }

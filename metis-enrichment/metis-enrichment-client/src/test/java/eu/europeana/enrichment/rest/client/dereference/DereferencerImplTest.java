@@ -1,14 +1,11 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.badRequest;
-import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.client.WireMock.serverError;
 import static com.github.tomakehurst.wiremock.client.WireMock.temporaryRedirect;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -200,7 +197,6 @@ public class DereferencerImplTest {
         .withHost(equalTo("invalid-example.host"))
         .willReturn(badRequest()));
 
-
     final RDF inputRdf = new RDF();
     HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
 
@@ -309,9 +305,5 @@ public class DereferencerImplTest {
     verify(entityMergeEngine, times(1))
         .mergeReferenceEntities(any(), eq(Collections.emptyList()));
     verify(entityMergeEngine, times(1)).mergeReferenceEntities(any(), any());
-  }
-
-  private void setupWireMockServer(String value) {
-
   }
 }

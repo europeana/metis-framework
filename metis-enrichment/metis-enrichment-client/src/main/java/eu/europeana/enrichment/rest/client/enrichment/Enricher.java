@@ -3,7 +3,6 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.HashSet;

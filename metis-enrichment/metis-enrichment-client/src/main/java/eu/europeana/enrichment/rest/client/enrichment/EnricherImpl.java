@@ -34,6 +34,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 /**
  * The default implementation for the enrichment functionality.
@@ -106,7 +107,7 @@ public class EnricherImpl implements Enricher {
         reportMessages.add(new ReportMessageBuilder()
             .withMessage("Could not find an entity for the given search term.")
             .withMode(Mode.ENRICHMENT)
-            .withStatus(200)
+            .withStatus(HttpStatus.OK.value())
             .withValue(searchTerm.getTextValue())
             .withMessageType(Type.IGNORE)
             .withStackTrace("")
@@ -124,7 +125,7 @@ public class EnricherImpl implements Enricher {
         reportMessages.add(new ReportMessageBuilder()
             .withMessage("Could not find an entity for the given search reference.")
             .withMode(Mode.ENRICHMENT)
-            .withStatus(200)
+            .withStatus(HttpStatus.OK.value())
             .withValue(reference.getReferenceAsString())
             .withMessageType(Type.IGNORE)
             .withStackTrace("")
@@ -142,7 +143,7 @@ public class EnricherImpl implements Enricher {
       reportMessages.add(new ReportMessageBuilder()
           .withMessage("Empty search terms.")
           .withMode(Mode.ENRICHMENT)
-          .withStatus(200)
+          .withStatus(HttpStatus.OK.value())
           .withValue(searchTerms.toString())
           .withMessageType(Type.IGNORE)
           .withStackTrace("")
@@ -156,7 +157,7 @@ public class EnricherImpl implements Enricher {
       reportMessages.add(new ReportMessageBuilder()
           .withMessage("Occurred while trying to perform enrichment of terms.")
           .withMode(Mode.ENRICHMENT)
-          .withStatus(999)
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
                                 .sorted(String::compareToIgnoreCase)
@@ -177,7 +178,7 @@ public class EnricherImpl implements Enricher {
       reportMessages.add(new ReportMessageBuilder()
           .withMessage("Empty search reference.")
           .withMode(Mode.ENRICHMENT)
-          .withStatus(200)
+          .withStatus(HttpStatus.OK.value())
           .withValue(references.toString())
           .withMessageType(Type.IGNORE)
           .withStackTrace("")
@@ -192,7 +193,7 @@ public class EnricherImpl implements Enricher {
       reportMessages.add(new ReportMessageBuilder()
           .withMessage("Occurred while trying to perform enrichment of reference.")
           .withMode(Mode.ENRICHMENT)
-          .withStatus(999)
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
           .withValue(references.stream()
                                .map(ReferenceTermContext::getReferenceAsString)
                                .sorted(String::compareToIgnoreCase)

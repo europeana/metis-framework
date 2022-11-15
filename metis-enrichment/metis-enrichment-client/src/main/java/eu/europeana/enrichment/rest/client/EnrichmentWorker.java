@@ -37,6 +37,7 @@ public interface EnrichmentWorker {
    * Performs dereference and enrichment on an input stream to produce a target byte array.
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
+   * @param modes enrichment, dereference mode or both.
    * @return The processed RDF as a byte array.
    */
   ProcessedResult<byte[]> process(final InputStream inputStream, Set<Mode> modes);
@@ -54,6 +55,7 @@ public interface EnrichmentWorker {
    * Performs dereference and enrichment on an input String to produce a target String.
    *
    * @param inputString The RDF to be processed as a String.
+   * @param modes enrichment, dereference mode or both.
    * @return The processed RDF as a String.
    */
   ProcessedResult<String> process(final String inputString, Set<Mode> modes);

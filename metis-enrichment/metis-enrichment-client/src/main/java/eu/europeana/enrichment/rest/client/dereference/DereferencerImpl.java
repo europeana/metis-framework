@@ -33,6 +33,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 /**
@@ -98,7 +99,7 @@ public class DereferencerImpl implements Dereferencer {
           } catch (MalformedURLException e) {
             reportMessages.add(new ReportMessageBuilder()
                 .withMode(Mode.DEREFERENCE)
-                .withStatus(400)
+                .withStatus(HttpStatus.BAD_REQUEST.value())
                 .withValue(id)
                 .withMessageType(Type.WARN)
                 .withMessage(ExceptionUtils.getMessage(e))
@@ -131,7 +132,7 @@ public class DereferencerImpl implements Dereferencer {
               } catch (IOException e) {
                 reportMessages.add(new ReportMessageBuilder()
                     .withMode(Mode.DEREFERENCE)
-                    .withStatus(400)
+                    .withStatus(HttpStatus.BAD_REQUEST.value())
                     .withValue(checkedUrl.toString())
                     .withMessageType(Type.WARN)
                     .withMessage(ExceptionUtils.getMessage(e))
@@ -179,7 +180,7 @@ public class DereferencerImpl implements Dereferencer {
           "Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(200)
+          .withStatus(HttpStatus.OK.value())
           .withValue(resourceIds.stream()
                                 .map(resourceId -> resourceId.getReference().toString())
                                 .collect(Collectors.joining(",")))
@@ -209,7 +210,7 @@ public class DereferencerImpl implements Dereferencer {
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(400)
+          .withStatus(HttpStatus.BAD_REQUEST.value())
           .withValue(resourceId)
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -220,7 +221,7 @@ public class DereferencerImpl implements Dereferencer {
       DereferenceException dereferenceException= new DereferenceException("Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(200)
+          .withStatus(HttpStatus.OK.value())
           .withValue(resourceId)
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(dereferenceException))

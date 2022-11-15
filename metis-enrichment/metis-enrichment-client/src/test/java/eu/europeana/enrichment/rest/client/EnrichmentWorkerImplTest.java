@@ -91,6 +91,7 @@ class EnrichmentWorkerImplTest {
     LOGGER.info("REPORT: {}\n\n", output.getReport());
     LOGGER.info("RECORD: {}\n\n", output.getProcessedRecord());
     LOGGER.info("STATUS: {}", output.getRecordStatus());
+    assertEquals(RecordStatus.CONTINUE, output.getRecordStatus());
   }
 
   @Test
@@ -252,7 +253,7 @@ class EnrichmentWorkerImplTest {
 
     // Test null string input
     ProcessedResult<String> resultString = worker.process((String) null);
-    assertEquals(resultString.getRecordStatus(), RecordStatus.STOP);
+    assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
     for (ReportMessage reportMessage : resultString.getReport()) {
       assertEquals(Type.ERROR, reportMessage.getMessageType());
       assertTrue(reportMessage.getMessage().contains("Input RDF string cannot be null."));
@@ -273,7 +274,7 @@ class EnrichmentWorkerImplTest {
 
     // Test null string input
     ProcessedResult<String> resultString = worker.process((String) null, modeSetWithBoth);
-    assertEquals(resultString.getRecordStatus(), RecordStatus.STOP);
+    assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
     for (ReportMessage reportMessage : resultString.getReport()) {
       assertEquals(Type.ERROR, reportMessage.getMessageType());
       assertTrue(reportMessage.getMessage().contains("Input RDF string cannot be null."));
@@ -290,7 +291,7 @@ class EnrichmentWorkerImplTest {
 
     // Test empty RDF input
     ProcessedResult<RDF> resultRdf = worker.process(new RDF(), null);
-    assertEquals(resultRdf.getRecordStatus(), RecordStatus.STOP);
+    assertEquals(RecordStatus.STOP, resultRdf.getRecordStatus());
     for (ReportMessage reportMessage : resultRdf.getReport()) {
       assertEquals(Type.ERROR, reportMessage.getMessageType());
       assertTrue(reportMessage.getMessage().contains("Set of Modes cannot be null"));
