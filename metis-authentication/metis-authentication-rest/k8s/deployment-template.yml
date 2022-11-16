@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: metis-authentication
-  strategy: { }
   template:
     metadata:
       labels:
@@ -67,7 +66,7 @@ spec:
       volumes:
         - name: ibm-ca-truststore-jks-volume
           configMap:
-            name: ${TRUSTSTORE_CONFIGMAP}ibm-ca-truststore-jks-config
+            name: ${TRUSTSTORE_CONFIGMAP}
         - name: log4j2-xml-volume
           configMap:
             name: ${LOG4J2_XML_CONFIGMAP}
@@ -79,8 +78,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: metis-authentication-svc
-  name: metis-authentication-svc
+    app: metis-authentication-service
+  name: metis-authentication-service
 spec:
   ports:
     - name: http
