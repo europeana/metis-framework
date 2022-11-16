@@ -10,7 +10,7 @@ services:
     ports:
       - '5432:5432'
   metis-authentication-local:
-    image: europeana/metis-authentication:latest
+    image: europeana/metis-authentication:develop
     container_name: metis-authentication
     build:
       context: ./
