@@ -31,9 +31,9 @@ spec:
               mountPath: "/data/logging/log4j2.xml"
               subPath: "log4j2.xml"
               readOnly: true
-            - name: authentication-volume
+            - name: properties-volume
               mountPath: "/application.properties"
-              subPath: "authentication.properties"
+              subPath: "application.properties"
               readOnly: true
           #Set imagePullPolicy properly for the running environment
           imagePullPolicy: Always
@@ -70,7 +70,7 @@ spec:
         - name: log4j2-xml-volume
           configMap:
             name: ${LOG4J2_XML_CONFIGMAP}
-        - name: authentication-volume
+        - name: properties-volume
           secret:
             secretName: ${PROPERTIES_SECRET}
 ---
