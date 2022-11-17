@@ -89,3 +89,27 @@ spec:
   selector:
     app: metis-authentication
   type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: metis-authentication-ingress
+  annotations:
+    cert-manager.io/issuer: letsencrypt-production
+spec:
+  ingressClassName: public-iks-k8s-nginx
+  tls:
+    - hosts:
+        - ${INGRESS_HOSTNAME}
+      secretName: ${INGRESS_HOSTNAME}
+  rules:
+    - host: ${INGRESS_HOSTNAME}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: metis-authentication-service
+                port:
+                  number: 8080
