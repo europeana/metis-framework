@@ -16,6 +16,8 @@ spec:
       labels:
         app: metis-authentication
         v: "2"
+      annotations:
+        v: "3"
     spec:
       containers:
         - image: ${IMAGE}
