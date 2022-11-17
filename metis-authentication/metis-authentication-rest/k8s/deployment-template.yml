@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: metis-authentication-deployment
-    v: "1"
+    v: "2"
   name: ${DEPLOYMENT_NAME}
 spec:
   replicas: ${REPLICAS}
