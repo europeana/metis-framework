@@ -9,6 +9,8 @@ spec:
   selector:
     matchLabels:
       app: metis-authentication
+  strategy:
+    type: ${STRATEGY_TYPE}
   template:
     metadata:
       labels:
