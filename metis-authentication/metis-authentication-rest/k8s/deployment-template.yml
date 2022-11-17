@@ -15,9 +15,8 @@ spec:
     metadata:
       labels:
         app: metis-authentication
-        v: "2"
       annotations:
-        v: "3"
+        deployDate: ${DEPLOY_DATE}
     spec:
       containers:
         - image: ${IMAGE}
