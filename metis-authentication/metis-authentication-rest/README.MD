@@ -45,11 +45,11 @@ To apply the files that are required for the application to be deployed we need 
 > - Fill in the Image tag
 > - Fill in the Container name
 > - Fill in the Run options:  
-    > `-p 8080:8080`    
+    `-p 8080:8080`    
     `-v /data/certificates/ibm-ca-truststore.jks:/data/certificates/ibm-ca-truststore.jks`    
     `-v /data/metis-properties/test/metis-authentication-rest/application-test.properties:/application.properties`    
     `-v /data/logging/log4j2.xml:/data/logging/log4j2.xml`  
-    > They should point to the custom certificate file, the application properties and the log4j2.xml configuration file.
+    They should point to the custom certificate file, the application properties and the log4j2.xml configuration file.
 
 ### Intellij Docker Compose
 
@@ -58,39 +58,41 @@ To apply that we need to do the following:
 > Edit configuration -> Select or create a `Docker-compose` configuration
 > - Fill in the Compose files
 > - At this point the volumes that need to be applied are inserted inside the `docker-compose.yml` file,  
-    > since they do not work similarly to the docker configuration with Run options.  
-    > In the `docker-compose.yml` file there is also an option(commented out) to apply an `env_file`
-    > if environment variables file is required instead.
+    since they do not work similarly to the docker configuration with Run options.    
+    In the `docker-compose.yml` file there is also an option(commented out) to apply an `env_file`
+    if environment variables file is required instead.
 
 ### General docker commands
 
-Building the image:  
-`docker build -t <imageName> .`
+Building the image from the current directory:
+> docker build -t <imageName> .
 
-Verifying the image creation:  
-`docker images <imageName>`
+Verifying the image creation:
+> docker images <imageName>
 
-Running a container:  
-`docker run --name=<containerName> -p 8080:8080 <imageName>`
+Running a container:
+> docker run --name=<containerName> -p 8080:8080 <imageName>
 
-Checking running container:  
-`docker container ls`
+Checking running container:
+> docker container ls
 
-Entering the container:      
-`docker exec -ti <containerName> /bin/sh`
+Entering the container:
+> docker exec -ti <containerName> /bin/sh
 
 #### <u>Cleaning:</u>
 
-Removing all exited containers:  
-`docker rm $(docker ps -a -f status=exited -q)`
+Removing all exited containers:
+> docker rm $(docker ps -a -f status=exited -q)
 
-Removing all images:  
-`docker rmi $(docker images -a -q)`
+Removing all images:
+> ocker rmi $(docker images -a -q)
 
 #### <u>Inspection(used for validating docker image contents):</u>
 
-Create container without starting it:  
-`docker create --name suspect-container suspect-image:latest`  
-Create a `.tar` from the filesystem of the container.  
-`docker export suspect-container > suspect-container.tar`  
+Create container without starting it:
+> docker create --name suspect-container suspect-image:latest
+
+Create a `.tar` from the filesystem of the container.
+> docker export suspect-container > suspect-container.tar
+
 Now the tarball can be inspected.
