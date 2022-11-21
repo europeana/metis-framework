@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -49,7 +51,7 @@ class DereferencingControllerTest {
   @Test
   void dereferenceGet_outputXML_expectSuccess() throws Exception {
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(
-        Collections.singletonList(getAgent("http://www.example.com")));
+        new ImmutablePair<>(Collections.singletonList(getAgent("http://www.example.com")), DereferenceResultStatus.SUCCESS));
 
     dereferencingControllerMock.perform(
                                    get(RestEndpoints.DEREFERENCE + "/?uri=http://www.example.com").accept(MediaType.APPLICATION_XML_VALUE))
@@ -75,7 +77,7 @@ class DereferencingControllerTest {
   @Test
   void dereferencePost_outputXML_expectSuccess() throws Exception {
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(
-        Collections.singletonList(getAgent("http://www.example.com")));
+        new ImmutablePair<>(Collections.singletonList(getAgent("http://www.example.com")), DereferenceResultStatus.SUCCESS));
 
     dereferencingControllerMock.perform(
                                    post(RestEndpoints.DEREFERENCE).accept(MediaType.APPLICATION_XML_VALUE).contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +100,8 @@ class DereferencingControllerTest {
                                .andExpect(xpath("//metis:results", namespaceMap).exists())
                                .andExpect(xpath("//metis:results", namespaceMap).nodeCount(1))
                                .andExpect(xpath("//metis:results/metis:result", namespaceMap).exists())
-                               .andExpect(xpath("//metis:results/metis:result[*]", namespaceMap).nodeCount(0));
+                               .andExpect(xpath("//metis:results/metis:result/metis:enrichmentStatus", namespaceMap).exists())
+                               .andExpect(xpath("//metis:results/metis:result/metis:enrichmentStatus", namespaceMap).string("INVALID_URL"));
   }
 
   @Test

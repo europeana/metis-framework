@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -59,7 +60,8 @@ public class EnrichmentService {
             Set.copyOf(search.getEntityTypes()))).collect(Collectors.toList());
     final Map<SearchTerm, List<EnrichmentBase>> result = entityResolver
         .resolveByText(new HashSet<>(orderedSearchTerms));
-    return orderedSearchTerms.stream().map(result::get).map(EnrichmentResultBaseWrapper::new)
+    return orderedSearchTerms.stream().map(result::get)
+                             .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS))
                              .collect(Collectors.toList());
   }
 

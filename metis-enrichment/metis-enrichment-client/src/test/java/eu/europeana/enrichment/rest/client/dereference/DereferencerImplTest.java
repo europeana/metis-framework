@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -100,11 +101,12 @@ public class DereferencerImplTest {
     final TimeSpan timeSpan2 = new TimeSpan();
     timeSpan2.setAbout("timespan2");
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList1 = EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)));
+        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(agent1, null, agent2)), DereferenceResultStatus.SUCCESS);
     final EnrichmentResultList dereferenceResult1 = new EnrichmentResultList(
         enrichmentResultBaseWrapperList1);
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList2 = EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(timeSpan1, timeSpan2, null)));
+        .createEnrichmentResultBaseWrapperList(List.of(Arrays.asList(timeSpan1, timeSpan2, null)),
+            DereferenceResultStatus.SUCCESS);
     final EnrichmentResultList dereferenceResult2 = new EnrichmentResultList(
         enrichmentResultBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);

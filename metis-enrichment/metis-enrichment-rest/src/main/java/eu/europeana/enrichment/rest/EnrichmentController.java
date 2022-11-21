@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.rest;
 
 import eu.europeana.enrichment.api.external.EnrichmentReference;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -8,9 +9,14 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.metis.utils.RestEndpoints;
-import io.swagger.annotations.*;
-
-import java.util.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -80,13 +86,12 @@ public class EnrichmentController {
   @Deprecated(since = "9.0", forRemoval = true)
   public EnrichmentBase equivalence(@ApiParam("uri") @RequestParam("uri") String uri) {
     List<EnrichmentBase> result = enrichmentService
-          .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
+        .enrichByEquivalenceValues(new ReferenceValue(uri, Collections.emptySet()));
     return result.stream().findFirst().orElse(null);
   }
 
   /**
-   * Get an enrichment providing a {@link EnrichmentReference} where each reference could match a
-   * codeUri or owlSameAs.
+   * Get an enrichment providing a {@link EnrichmentReference} where each reference could match a codeUri or owlSameAs.
    *
    * @param enrichmentReference The references to check for match
    * @return the structured result of the enrichment
@@ -104,7 +109,7 @@ public class EnrichmentController {
   public EnrichmentResultList equivalence(@RequestBody EnrichmentReference enrichmentReference) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
         .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
-        .map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList());
+        .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS)).collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 
@@ -125,10 +130,10 @@ public class EnrichmentController {
   public EnrichmentResultList entityId(@RequestBody List<String> uris) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers =
         uris.stream()
-        .map(enrichmentService::enrichById)
-        .map(result -> Optional.ofNullable(result).map(List::of).orElseGet(Collections::emptyList))
-        .map(EnrichmentResultBaseWrapper::new)
-        .collect(Collectors.toList());
+            .map(enrichmentService::enrichById)
+            .map(result -> Optional.ofNullable(result).map(List::of).orElseGet(Collections::emptyList))
+            .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS))
+            .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 }

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
@@ -39,7 +40,7 @@ class DereferenceClientTest {
     agentList.add(agent2);
     final List<EnrichmentResultBaseWrapper> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
         .createEnrichmentResultBaseWrapperList(
-            Collections.singletonList(new ArrayList<>(agentList)));
+            Collections.singletonList(new ArrayList<>(agentList)), DereferenceResultStatus.SUCCESS);
 
     final EnrichmentResultList enrichmentResultList = new EnrichmentResultList(
         enrichmentResultBaseWrapperList);
@@ -48,8 +49,8 @@ class DereferenceClientTest {
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
     doReturn(result).when(restTemplate)
-        .exchange(any(URI.class), any(HttpMethod.class), any(HttpEntity.class),
-            eq(EnrichmentResultList.class));
+                    .exchange(any(URI.class), any(HttpMethod.class), any(HttpEntity.class),
+                        eq(EnrichmentResultList.class));
 
     final DereferenceClient dereferenceClient = spy(
         new DereferenceClient(restTemplate, "http://dummy"));

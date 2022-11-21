@@ -114,6 +114,26 @@ public class DereferencerImpl implements Dereferencer {
               try {
                 HttpURLConnection validationClient = (HttpURLConnection) checkedUrl.openConnection();
                 int responseCode = validationClient.getResponseCode();
+
+                LOGGER.debug("A URL {} response code.: {}", checkedUrl, responseCode);
+                if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+                    || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                  // get redirect url from "location" header field
+                  String newUrl = validationClient.getHeaderField("Location");
+                  // get the cookie if needed, for login
+                  String cookies = validationClient.getHeaderField("Set-Cookie");
+
+                  // open the new connnection again
+                  validationClient = (HttpURLConnection) new URL(newUrl).openConnection();
+                  validationClient.setRequestProperty("Cookie", cookies);
+                  validationClient.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
+                  validationClient.addRequestProperty("User-Agent", "Mozilla");
+                  validationClient.addRequestProperty("Referer", "europeana.eu");
+                  responseCode = validationClient.getResponseCode();
+                  LOGGER.debug("Redirect to URL : {}", newUrl);
+                }
+
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                   LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
                   return checkedUrl;
@@ -218,7 +238,8 @@ public class DereferencerImpl implements Dereferencer {
           .build());
       result = null;
     } catch (Exception e) {
-      DereferenceException dereferenceException= new DereferenceException("Exception occurred while trying to perform dereferencing.", e);
+      DereferenceException dereferenceException = new DereferenceException(
+          "Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
           .withStatus(HttpStatus.OK.value())
@@ -232,9 +253,9 @@ public class DereferencerImpl implements Dereferencer {
 
     // Return the result.
     return new ImmutablePair<>(Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
-                   .orElseGet(Collections::emptyList).stream()
-                   .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
-                   .flatMap(List::stream).collect(Collectors.toList()), reportMessages);
+                                       .orElseGet(Collections::emptyList).stream()
+                                       .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
+                                       .flatMap(List::stream).collect(Collectors.toList()), reportMessages);
   }
 
   @Override

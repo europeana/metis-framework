@@ -12,6 +12,7 @@ import static org.mockito.Mockito.spy;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.metis.dereference.RdfRetriever;
@@ -28,6 +29,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,22 +86,24 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new ImmutablePair<>(place, geonames)).when(service)
-        .computeEnrichmentBaseVocabularyPair(entityId);
+    doReturn(new ImmutableTriple<>(place, geonames,DereferenceResultStatus.SUCCESS)).when(service)
+                                                                                  .computeEnrichmentBaseVocabularyTriple(entityId);
 
     // Test the method
-    final List<EnrichmentBase> result = service.dereference(entityId);
+    final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
     assertNotNull(result);
-    assertEquals(1, result.size());
-    assertSame(place, result.get(0));
+    assertEquals(1, result.getLeft().size());
+    assertSame(place, result.getLeft().get(0));
 
     // Test null argument
     assertThrows(IllegalArgumentException.class, () -> service.dereference(null));
 
     // Test absent object
-    doReturn(null).when(service).computeEnrichmentBaseVocabularyPair(entityId);
-    final List<EnrichmentBase> emptyResult = service.dereference(entityId);
+    doReturn(new ImmutableTriple<>(null, null, DereferenceResultStatus.SUCCESS))
+        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+    final Pair<List<EnrichmentBase>, DereferenceResultStatus> emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
-    assertTrue(emptyResult.isEmpty());
+    assertTrue(emptyResult.getLeft().isEmpty());
+    assertTrue(emptyResult.getRight().equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING));
   }
 }

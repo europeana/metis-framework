@@ -1,10 +1,12 @@
 package eu.europeana.metis.dereference.service;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import java.net.URISyntaxException;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Dereferencing service Created by ymamakis on 2/11/16.
@@ -21,6 +23,6 @@ public interface DereferenceService {
    * @throws JAXBException In case the data does not specify the expected format.
    * @throws URISyntaxException In case the resource ID could not be read as URI.
    */
-  List<EnrichmentBase> dereference(String resourceId)
+  Pair<List<EnrichmentBase>, DereferenceResultStatus> dereference(String resourceId)
       throws TransformerException, JAXBException, URISyntaxException;
 }

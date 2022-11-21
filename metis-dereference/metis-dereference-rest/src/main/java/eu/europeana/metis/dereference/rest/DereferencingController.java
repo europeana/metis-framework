@@ -1,5 +1,6 @@
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +63,15 @@ public class DereferencingController {
   @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
   public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) {
     try {
+      Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceResult = dereferenceInternal(resourceId);
       return new EnrichmentResultList(
-              List.of(new EnrichmentResultBaseWrapper(dereferenceInternal(resourceId))));
+          List.of(new EnrichmentResultBaseWrapper(dereferenceResult.getLeft(), dereferenceResult.getRight())));
     } catch (URISyntaxException e) {
       throw new DereferenceException(generateExceptionMessage(resourceId, e), e);
     }
   }
 
-  private List<EnrichmentBase> dereferenceInternal(String resourceId) throws URISyntaxException {
+  private Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceInternal(String resourceId) throws URISyntaxException {
     try {
       return dereferenceService.dereference(resourceId);
     } catch (RuntimeException | JAXBException | TransformerException e) {
@@ -77,8 +81,8 @@ public class DereferencingController {
 
   private static String generateExceptionMessage(String resourceId, Exception e) {
     return String.format("Dereferencing failed for uri: %s with root cause: %s",
-            resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
-            e.getMessage());
+        resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+        e.getMessage());
   }
 
   /**
@@ -97,8 +101,8 @@ public class DereferencingController {
         return dereferenceInternal(resourceId);
       } catch (URISyntaxException e) {
         LOGGER.info(generateExceptionMessage(resourceId, e), e);
-        return Collections.EMPTY_LIST;
+        return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.INVALID_URL);
       }
-    }).map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList()));
+    }).map(item -> new EnrichmentResultBaseWrapper((List<EnrichmentBase>) item.getLeft(), item.getRight())).collect(Collectors.toList()));
   }
 }

@@ -2,6 +2,8 @@ package eu.europeana.metis.dereference.service;
 
 import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -23,7 +25,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +32,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,8 +67,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
-  public MongoDereferenceService(ProcessedEntityDao processedEntityDao,
-      VocabularyDao vocabularyDao) {
+  public MongoDereferenceService(ProcessedEntityDao processedEntityDao, VocabularyDao vocabularyDao) {
     this(new RdfRetriever(), processedEntityDao, vocabularyDao);
   }
 
@@ -75,15 +78,14 @@ public class MongoDereferenceService implements DereferenceService {
    * @param processedEntityDao Object managing the processed entity cache.
    * @param vocabularyDao Object that accesses vocabularies.
    */
-  MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
-      VocabularyDao vocabularyDao) {
+  MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao, VocabularyDao vocabularyDao) {
     this.retriever = retriever;
     this.processedEntityDao = processedEntityDao;
     this.vocabularyDao = vocabularyDao;
   }
 
   @Override
-  public List<EnrichmentBase> dereference(String resourceId)
+  public Pair<List<EnrichmentBase>, DereferenceResultStatus> dereference(String resourceId)
       throws TransformerException, JAXBException, URISyntaxException {
 
     // Sanity check
@@ -92,7 +94,8 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Perform the actual dereferencing.
-    return new ArrayList<>(dereferenceResource(resourceId));
+    Pair<Collection<EnrichmentBase>, DereferenceResultStatus> dereferenceResult = dereferenceResource(resourceId);
+    return new ImmutablePair<>(new ArrayList<>(dereferenceResult.getLeft()), dereferenceResult.getRight());
   }
 
   /**
@@ -107,56 +110,73 @@ public class MongoDereferenceService implements DereferenceService {
    * </p>
    *
    * @param resourceId The resource to dereference.
-   * @return A collection of dereferenced resources. Is not null, but could be empty.
+   * @return A collection of Pair dereferenced resources and the status of dereference process. Is not null, but could be empty.
    */
-  private Collection<EnrichmentBase> dereferenceResource(String resourceId)
+  private Pair<Collection<EnrichmentBase>, DereferenceResultStatus> dereferenceResource(String resourceId)
       throws JAXBException, URISyntaxException {
 
     // Get the main object to dereference. If null, we are done.
-    final Pair<EnrichmentBase, Vocabulary> resource = computeEnrichmentBaseVocabularyPair(
+    final Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> resource = computeEnrichmentBaseVocabularyTriple(
         resourceId);
-    if (resource == null) {
-      return Collections.emptyList();
+
+    // No EnrichmentBase and No Vocabulary
+    if (resource.getLeft() == null && resource.getMiddle() == null) {
+      return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.NO_VOCABULARY_MATCHING);
     }
 
     // Create value resolver that catches exceptions and logs them.
-    final Function<String, EnrichmentBase> valueResolver = key -> {
-      Pair<EnrichmentBase, Vocabulary> result;
+    final Function<String, Pair<EnrichmentBase, DereferenceResultStatus>> valueResolver = key -> {
+      Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> result;
       try {
-        result = computeEnrichmentBaseVocabularyPair(key);
-        return result == null ? null : result.getLeft();
-      } catch (JAXBException | URISyntaxException e) {
-        LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key),
-            e);
-        return null;
+        result = computeEnrichmentBaseVocabularyTriple(key);
+        if (result.getLeft() == null && result.getMiddle() == null) {
+          // No EnrichmentBase + Status
+          return new ImmutablePair<>(null, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
+        } else {
+          // EnrichmentBase + Status
+          return new ImmutablePair<>(result.getLeft(), result.getRight());
+        }
+      } catch (JAXBException jaxbException) {
+        LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), jaxbException);
+        // No EnrichmentBase + Status
+        return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XLT_ERROR);
+      } catch (URISyntaxException uriSyntaxException) {
+        LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), uriSyntaxException);
+        // No EnrichmentBase + Status
+        return new ImmutablePair<>(null, DereferenceResultStatus.INVALID_URL);
       }
     };
 
     // Perform the breadth-first search to search for broader terms (if needed).
-    final int iterations = resource.getRight().getIterations();
-    final Map<String, EnrichmentBase> result;
+    final int iterations = resource.getMiddle().getIterations();
+    final Map<String, Pair<EnrichmentBase, DereferenceResultStatus>> result;
     if (iterations > 0) {
       result = GraphUtils
-          .breadthFirstSearch(resourceId, resource.getLeft(), resource.getRight().getIterations(),
+          .breadthFirstSearch(resourceId, new ImmutablePair<>(resource.getLeft(), DereferenceResultStatus.SUCCESS),
+              resource.getMiddle().getIterations(),
               valueResolver, this::extractBroaderResources);
     } else {
       result = new HashMap<>();
-      result.put(resourceId, resource.getLeft());
+      result.put(resourceId, new ImmutablePair<>(resource.getLeft(), DereferenceResultStatus.SUCCESS));
     }
 
     // Done
-    return result.values();
+    return new ImmutablePair<>(
+        result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
+        result.values().stream().map(Pair::getRight).findFirst()
+              .orElse(DereferenceResultStatus.ENTITY_FOUND_NO_CLASS)
+    );
   }
 
-  private void extractBroaderResources(EnrichmentBase resource, Set<String> destination) {
+  private void extractBroaderResources(Pair<EnrichmentBase, DereferenceResultStatus> resource, Set<String> destination) {
     final Stream<String> resourceIdStream;
-    if (resource instanceof Concept) {
-      resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
-    } else if (resource instanceof TimeSpan) {
-      resourceIdStream = Optional.ofNullable(((TimeSpan) resource).getIsPartOf()).stream()
+    if (resource.getLeft() instanceof Concept) {
+      resourceIdStream = getStream(((Concept) resource.getLeft()).getBroader()).map(Resource::getResource);
+    } else if (resource.getLeft() instanceof TimeSpan) {
+      resourceIdStream = Optional.ofNullable(((TimeSpan) resource.getLeft()).getIsPartOf()).stream()
                                  .flatMap(List::stream).map(LabelResource::getResource);
-    } else if (resource instanceof Place) {
-      resourceIdStream = Optional.ofNullable(((Place) resource).getIsPartOf()).stream()
+    } else if (resource.getLeft() instanceof Place) {
+      resourceIdStream = Optional.ofNullable(((Place) resource.getLeft()).getIsPartOf()).stream()
                                  .flatMap(Collection::stream).map(LabelResource::getResource);
     } else {
       resourceIdStream = Stream.empty();
@@ -186,14 +206,14 @@ public class MongoDereferenceService implements DereferenceService {
    *
    * @param resourceId the url of the provider entity
    * @param cachedEntity the cached entity object
-   * @return a pair with the computed values
+   * @return a triple with the computed values
    * @throws URISyntaxException if the resource identifier url is invalid
    * @throws TransformerException if an exception occurred during transformation of the original entity
    */
-  private Pair<String, Vocabulary> computeEntityVocabularyPair(String resourceId,
+  private Triple<String, Vocabulary, DereferenceResultStatus> computeEntityVocabularyPair(String resourceId,
       ProcessedEntity cachedEntity) throws URISyntaxException {
 
-    final Pair<String, Vocabulary> transformedEntityVocabularyPair;
+    final Triple<String, Vocabulary, DereferenceResultStatus> transformedEntityVocabularyTriple;
 
     //Check if vocabulary actually exists
     Vocabulary cachedVocabulary = null;
@@ -205,32 +225,36 @@ public class MongoDereferenceService implements DereferenceService {
 
     // If we do not have any cached entity, we need to compute it
     if (cachedEntity == null || cachedVocabularyChanged) {
-      transformedEntityVocabularyPair = retrieveAndTransformEntity(resourceId);
-      saveEntity(resourceId, cachedEntity, transformedEntityVocabularyPair);
+      transformedEntityVocabularyTriple = retrieveAndTransformEntity(resourceId);
+      saveEntity(resourceId, cachedEntity,
+          new ImmutablePair<>(transformedEntityVocabularyTriple.getLeft(),
+              transformedEntityVocabularyTriple.getMiddle()));
     } else {
       // If we have something in the cache we return that instead
-      transformedEntityVocabularyPair = new ImmutablePair<>(cachedEntity.getXml(),
-          cachedVocabulary);
+      transformedEntityVocabularyTriple = new ImmutableTriple<>(cachedEntity.getXml(),
+          cachedVocabulary, DereferenceResultStatus.SUCCESS);
     }
 
-    return transformedEntityVocabularyPair;
+    return transformedEntityVocabularyTriple;
   }
 
-  private Pair<String, Vocabulary> retrieveAndTransformEntity(String resourceId) throws URISyntaxException {
+  private Triple<String, Vocabulary, DereferenceResultStatus> retrieveAndTransformEntity(String resourceId)
+      throws URISyntaxException {
 
     final VocabularyCandidates vocabularyCandidates = VocabularyCandidates
         .findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
 
     String transformedEntity = null;
     Vocabulary chosenVocabulary = null;
+    Pair<String, DereferenceResultStatus> originalEntity = new ImmutablePair<>(resourceId, DereferenceResultStatus.SUCCESS);
     //Only if we have vocabularies we continue
     if (!vocabularyCandidates.isEmpty()) {
-      String originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
+      originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
       //If original entity exists, try transformation
-      if (originalEntity != null) {
+      if (originalEntity.getLeft() != null) {
         // Transform the original entity and find vocabulary if applicable.
         for (Vocabulary vocabulary : vocabularyCandidates.getVocabularies()) {
-          transformedEntity = transformEntity(vocabulary, originalEntity, resourceId);
+          transformedEntity = transformEntity(vocabulary, originalEntity.getLeft(), resourceId);
           if (transformedEntity != null) {
             chosenVocabulary = vocabulary;
             break;
@@ -239,16 +263,16 @@ public class MongoDereferenceService implements DereferenceService {
       }
     }
 
-    final ImmutablePair<String, Vocabulary> entityVocabularyPair;
+    final ImmutableTriple<String, Vocabulary, DereferenceResultStatus> entityVocabularyTriple;
     // If retrieval or transformation of entity failed and we have one vocabulary then we store that
     if (transformedEntity == null && vocabularyCandidates.getVocabularies().size() == 1) {
-      entityVocabularyPair = new ImmutablePair<>(null,
-          vocabularyCandidates.getVocabularies().get(0));
+      entityVocabularyTriple = new ImmutableTriple<>(null,
+          vocabularyCandidates.getVocabularies().get(0), originalEntity.getRight());
     } else {
-      entityVocabularyPair = new ImmutablePair<>(transformedEntity, chosenVocabulary);
+      entityVocabularyTriple = new ImmutableTriple<>(transformedEntity, chosenVocabulary, originalEntity.getRight());
     }
 
-    return entityVocabularyPair;
+    return entityVocabularyTriple;
   }
 
   private void saveEntity(String resourceId, ProcessedEntity cachedEntity,
@@ -292,12 +316,13 @@ public class MongoDereferenceService implements DereferenceService {
     return result.orElse(null);
   }
 
-  private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
+  private Pair<String, DereferenceResultStatus> retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
       throws URISyntaxException {
-
+    DereferenceResultStatus dereferenceResultStatus = DereferenceResultStatus.SUCCESS;
     // Check the input (check the resource ID for URI syntax).
     if (candidates.isEmpty()) {
-      return null;
+      dereferenceResultStatus = DereferenceResultStatus.NO_VOCABULARY_MATCHING;
+      return new ImmutablePair<>(null, dereferenceResultStatus);
     }
     new URI(resourceId);
 
@@ -315,26 +340,33 @@ public class MongoDereferenceService implements DereferenceService {
     // Evaluate the result.
     if (originalEntity == null && LOGGER.isInfoEnabled()) {
       LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+      dereferenceResultStatus = DereferenceResultStatus.UNKNOWN_ENTITY;
     }
-    return originalEntity;
+    return new ImmutablePair<>(originalEntity, dereferenceResultStatus);
   }
 
-  Pair<EnrichmentBase, Vocabulary> computeEnrichmentBaseVocabularyPair(String resourceId)
+  Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> computeEnrichmentBaseVocabularyTriple(String resourceId)
       throws JAXBException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
     final ProcessedEntity cachedEntity = processedEntityDao.getByResourceId(resourceId);
-    final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
+    final Triple<String, Vocabulary, DereferenceResultStatus> entityVocabularyTriple = computeEntityVocabularyPair(resourceId,
         cachedEntity);
 
     // Parse the entity.
     final Pair<EnrichmentBase, Vocabulary> enrichmentBaseVocabularyPair;
-    if (entityVocabularyPair.getLeft() == null || entityVocabularyPair.getRight() == null) {
+    if (entityVocabularyTriple.getLeft() == null || entityVocabularyTriple.getMiddle() == null) {
       enrichmentBaseVocabularyPair = null;
     } else {
       enrichmentBaseVocabularyPair = convertToEnrichmentBaseVocabularyPair(
-          entityVocabularyPair.getLeft(), entityVocabularyPair.getRight());
+          entityVocabularyTriple.getLeft(), entityVocabularyTriple.getMiddle());
     }
-    return enrichmentBaseVocabularyPair;
+    if (enrichmentBaseVocabularyPair == null) {
+      return new ImmutableTriple<>(null, null, entityVocabularyTriple.getRight());
+    } else {
+      return new ImmutableTriple<>(enrichmentBaseVocabularyPair.getLeft(),
+          enrichmentBaseVocabularyPair.getRight(),
+          entityVocabularyTriple.getRight());
+    }
   }
 }

@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +29,10 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "TimeSpan", namespace = "http://www.europeana.eu/schemas/edm/", type = TimeSpan.class)})
   private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
+  private DereferenceResultStatus enrichmentStatus;
+
   public EnrichmentResultBaseWrapper() {
+    this.enrichmentStatus = DereferenceResultStatus.SUCCESS;
   }
 
   /**
@@ -36,8 +40,9 @@ public class EnrichmentResultBaseWrapper {
    *
    * @param enrichmentBase the enrichment information class generated
    */
-  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase) {
+  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase, DereferenceResultStatus enrichmentStatus) {
     this.enrichmentBase = new ArrayList<>(enrichmentBase);
+    this.enrichmentStatus = enrichmentStatus;
   }
 
   public List<EnrichmentBase> getEnrichmentBaseList() {
@@ -53,8 +58,15 @@ public class EnrichmentResultBaseWrapper {
    * @return the converted list
    */
   public static List<EnrichmentResultBaseWrapper> createEnrichmentResultBaseWrapperList(
-      Collection<List<EnrichmentBase>> resultList) {
-    return resultList.stream().map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList());
+      Collection<List<EnrichmentBase>> resultList, DereferenceResultStatus enrichmentStatus) {
+    return resultList.stream().map( item -> new EnrichmentResultBaseWrapper(item, enrichmentStatus)).collect(Collectors.toList());
   }
 
+  public void setEnrichmentStatus(DereferenceResultStatus enrichmentStatus) {
+    this.enrichmentStatus = enrichmentStatus;
+  }
+
+  public DereferenceResultStatus getEnrichmentStatus() {
+    return enrichmentStatus;
+  }
 }
