@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
@@ -16,8 +16,26 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.MetisUserView;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.rest.ListOfIds;
+import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
+import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.RecordsResponse;
+import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.core.rest.stats.AttributeStatistics;
+import eu.europeana.metis.core.rest.stats.NodePathStatistics;
+import eu.europeana.metis.core.rest.stats.NodeValueStatistics;
+import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.rest.utils.TestObjectFactory;
+import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,20 +48,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.metis.utils.RestEndpoints;
-import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
-import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
-import eu.europeana.metis.core.rest.stats.AttributeStatistics;
-import eu.europeana.metis.core.rest.stats.NodePathStatistics;
-import eu.europeana.metis.core.rest.stats.NodeValueStatistics;
-import eu.europeana.metis.core.rest.stats.RecordStatistics;
-import eu.europeana.metis.core.service.ProxiesService;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.exception.UserUnauthorizedException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)

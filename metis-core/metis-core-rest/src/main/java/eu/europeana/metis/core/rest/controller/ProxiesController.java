@@ -1,17 +1,20 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUserView;
+import eu.europeana.metis.core.rest.ListOfIds;
+import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.RecordsResponse;
 import eu.europeana.metis.core.rest.stats.NodePathStatistics;
 import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.GenericMetisException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

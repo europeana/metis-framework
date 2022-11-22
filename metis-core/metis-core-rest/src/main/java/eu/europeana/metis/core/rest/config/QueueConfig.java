@@ -37,7 +37,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
+@ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 @EnableScheduling
 public class QueueConfig implements WebMvcConfigurer {
 

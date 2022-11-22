@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
-import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUserView;
@@ -37,21 +36,23 @@ import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
+import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
-import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.rest.utils.TestObjectFactory;
 import eu.europeana.metis.core.rest.utils.TestUtils;
+import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
