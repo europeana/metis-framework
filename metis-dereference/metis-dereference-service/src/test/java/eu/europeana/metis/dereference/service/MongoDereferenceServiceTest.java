@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
@@ -28,7 +29,6 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterEach;
@@ -67,9 +67,7 @@ class MongoDereferenceServiceTest {
   }
 
   @Test
-  void testDereference()
-      throws TransformerException, JAXBException, IOException, URISyntaxException {
-
+  void testDereference() throws TransformerException, JAXBException, IOException, URISyntaxException {
     // Create vocabulary for geonames and save it.
     final Vocabulary geonames = new Vocabulary();
     geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
@@ -86,14 +84,16 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new ImmutableTriple<>(place, geonames,DereferenceResultStatus.SUCCESS)).when(service)
-                                                                                  .computeEnrichmentBaseVocabularyTriple(entityId);
+    doReturn(new ImmutableTriple<>(place, geonames, DereferenceResultStatus.SUCCESS)).when(service)
+                                                                                     .computeEnrichmentBaseVocabularyTriple(
+                                                                                         entityId);
 
     // Test the method
     final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
     assertNotNull(result);
     assertEquals(1, result.getLeft().size());
     assertSame(place, result.getLeft().get(0));
+    assertEquals(DereferenceResultStatus.SUCCESS, result.getRight());
 
     // Test null argument
     assertThrows(IllegalArgumentException.class, () -> service.dereference(null));
@@ -104,6 +104,36 @@ class MongoDereferenceServiceTest {
     final Pair<List<EnrichmentBase>, DereferenceResultStatus> emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
     assertTrue(emptyResult.getLeft().isEmpty());
-    assertTrue(emptyResult.getRight().equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING));
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, emptyResult.getRight());
+  }
+
+  @Test
+  void testDereference_InvalidUrl() throws TransformerException, JAXBException, IOException, URISyntaxException {
+    final String entityId = "http://sws.geonames.org/3020251/";
+
+    // Mock the service
+    doThrow(new URISyntaxException("uri","is invalid"))
+        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+
+    // Test the method
+    final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getLeft().isEmpty());
+    assertEquals(DereferenceResultStatus.INVALID_URL, result.getRight());
+  }
+
+  @Test
+  void testDereference_XmlXltError() throws TransformerException, JAXBException, URISyntaxException {
+    final String entityId = "http://sws.geonames.org/3020251/";
+
+    // Mock the service
+    doThrow(new JAXBException("xml or xlst","is invalid"))
+        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+
+    // Test the method
+    final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getLeft().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR, result.getRight());
   }
 }

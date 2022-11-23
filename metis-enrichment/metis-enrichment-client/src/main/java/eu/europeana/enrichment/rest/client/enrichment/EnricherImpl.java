@@ -59,6 +59,11 @@ public class EnricherImpl implements Enricher {
     this.entityMergeEngine = entityMergeEngine;
   }
 
+  /**
+   * Enrichment
+   * @param rdf The RDF to be processed
+   * @return Set of a report containing messages during the enrichment processing.
+   */
   @Override
   public HashSet<ReportMessage> enrichment(RDF rdf) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();

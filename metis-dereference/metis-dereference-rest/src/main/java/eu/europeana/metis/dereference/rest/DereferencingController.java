@@ -11,13 +11,8 @@ import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +50,7 @@ public class DereferencingController {
    * Dereference a record given a URI
    *
    * @param resourceId The resource ID (URI) of the entity to dereference
-   * @return The dereferenced entities
+   * @return The dereferenced entities and status
    */
   @GetMapping(value = RestEndpoints.DEREFERENCE, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
@@ -66,43 +61,39 @@ public class DereferencingController {
       Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceResult = dereferenceInternal(resourceId);
       return new EnrichmentResultList(
           List.of(new EnrichmentResultBaseWrapper(dereferenceResult.getLeft(), dereferenceResult.getRight())));
-    } catch (URISyntaxException e) {
+    } catch (RuntimeException e) {
       throw new DereferenceException(generateExceptionMessage(resourceId, e), e);
     }
   }
 
-  private Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceInternal(String resourceId) throws URISyntaxException {
-    try {
-      return dereferenceService.dereference(resourceId);
-    } catch (RuntimeException | JAXBException | TransformerException e) {
-      throw new DereferenceException(generateExceptionMessage(resourceId, e), e);
-    }
+  private Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceInternal(String resourceId) {
+    return dereferenceService.dereference(resourceId);
   }
 
   private static String generateExceptionMessage(String resourceId, Exception e) {
     return String.format("Dereferencing failed for uri: %s with root cause: %s",
-        resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
-        e.getMessage());
+        resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""), e.getMessage());
   }
 
   /**
    * Dereference a record given a URI
    *
    * @param resourceIds The resource IDs to dereference
-   * @return The dereferenced entities
+   * @return The dereferenced entities and status
    */
   @PostMapping(value = RestEndpoints.DEREFERENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
   public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
-    return new EnrichmentResultList(resourceIds.stream().map(resourceId -> {
-      try {
-        return dereferenceInternal(resourceId);
-      } catch (URISyntaxException e) {
-        LOGGER.info(generateExceptionMessage(resourceId, e), e);
-        return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.INVALID_URL);
-      }
-    }).map(item -> new EnrichmentResultBaseWrapper((List<EnrichmentBase>) item.getLeft(), item.getRight())).collect(Collectors.toList()));
+    try {
+      return new EnrichmentResultList(resourceIds.stream()
+                                                 .map(this::dereferenceInternal)
+                                                 .map(item -> new EnrichmentResultBaseWrapper(
+                                                     (List<EnrichmentBase>) item.getLeft(), item.getRight()))
+                                                 .collect(Collectors.toList()));
+    } catch (RuntimeException e) {
+      throw new DereferenceException(generateExceptionMessage(resourceIds.stream().collect(Collectors.joining(",")), e), e);
+    }
   }
 }

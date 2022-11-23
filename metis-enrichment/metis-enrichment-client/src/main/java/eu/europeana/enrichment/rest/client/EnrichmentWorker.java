@@ -29,7 +29,7 @@ public interface EnrichmentWorker {
    * {@link #process(InputStream, Set)} where the mode set has both {@link Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
-   * @return The processed RDF as a byte array.
+   * @return The ProcessedResult contains the processed RDF as a byte array and a report of messages.
    */
   ProcessedResult<byte[]> process(final InputStream inputStream);
 
@@ -38,7 +38,7 @@ public interface EnrichmentWorker {
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
    * @param modes enrichment, dereference mode or both.
-   * @return The processed RDF as a byte array.
+   * @return The ProcessedResult contains The processed RDF as a byte array and a report of messages.
    */
   ProcessedResult<byte[]> process(final InputStream inputStream, Set<Mode> modes);
 
@@ -47,7 +47,7 @@ public interface EnrichmentWorker {
    * {@link #process(String, Set)} where the mode set has both @link Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputString The RDF to be processed as a String.
-   * @return The processed RDF as a String.
+   * @return The ProcessedResult contains the processed RDF as a String and a report of messages.
    */
   ProcessedResult<String> process(final String inputString);
 
@@ -56,7 +56,7 @@ public interface EnrichmentWorker {
    *
    * @param inputString The RDF to be processed as a String.
    * @param modes enrichment, dereference mode or both.
-   * @return The processed RDF as a String.
+   * @return The ProcessedResult contains the processed RDF as a String and a report of messages.
    */
   ProcessedResult<String> process(final String inputString, Set<Mode> modes);
 
@@ -65,7 +65,8 @@ public interface EnrichmentWorker {
    * where the mode set has both is @link Mode#ENRICHMENT} and {@link Mode#DEREFERENCE}.
    *
    * @param inputRdf The RDF to be processed.
-   * @return The processed RDF. Note: this may be the same object as the input object.
+   * @return The ProcessedResult contains the processed RDF and a report of messages.
+   * Note: this may be the same object as the input object.
    */
   ProcessedResult<RDF> process(final RDF inputRdf);
 
@@ -74,7 +75,8 @@ public interface EnrichmentWorker {
    *
    * @param rdf The RDF to be processed.
    * @param modes A set of the processing modes to be applied.
-   * @return The processed RDF. Note: this will be the same object as the input object.
+   * @return The ProcessedResult contains the processed RDF and a report of messages.
+   * Note: this will be the same object as the input object.
    */
   ProcessedResult<RDF> process(final RDF rdf, Set<Mode> modes);
 
