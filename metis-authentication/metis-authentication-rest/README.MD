@@ -17,7 +17,11 @@ It can be applied in Intellij from the:
 
 Alternatively an environment variables file can be created.  
 Spring boot accepts environment variables that can be created using the same names as in the `.properties` file,
-with their names upper-cased and punctuation characters replaced with "_".
+with their names upper-cased and punctuation characters replaced with "_".  
+For example a property named:  
+`hibernate.c3p0.min_size`  
+Would then become an environment variable named:  
+`HIBERNATE_C3P0_MIN_SIZE`
 
 #### Environment variables file with Intellij
 

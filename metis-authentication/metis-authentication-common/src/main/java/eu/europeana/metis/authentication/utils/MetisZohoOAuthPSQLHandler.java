@@ -41,16 +41,6 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
   private static String clientId;
   private static String clientSecret;
 
-  //  static {
-  //    org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-  //    configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
-  //    configuration.configure();
-  //    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-  //        .applySettings(configuration.getProperties()).build();
-  //    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-  //  }
-
-
   public MetisZohoOAuthPSQLHandler(SessionFactory sessionFactory) {
     MetisZohoOAuthPSQLHandler.sessionFactory = sessionFactory;
   }
