@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS_XX;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -42,8 +43,9 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
         if (startDate != null && endDate != null) {
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startDate, endDate);
-          rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue,
-              new IntervalEdtfDate((InstantEdtfDate) startDate.getEdtfDate(), (InstantEdtfDate) endDate.getEdtfDate()));
+          final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate((InstantEdtfDate) startDate.getEdtfDate(),
+              (InstantEdtfDate) endDate.getEdtfDate());
+          rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }
       }
@@ -53,8 +55,7 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
 
   private DateNormalizationResult extractDateNormalizationResult(String dateString,
       NumericRangeSpecialCharacters numericRangeSpecialCharacters) {
-    DateNormalizationResult dateNormalizationResult;
-    // TODO: 01/11/2022 Potentially the unspecified part could be part of the NumericWithMissingPartsDateExtractor
+    final DateNormalizationResult dateNormalizationResult;
     if (numericRangeSpecialCharacters.getUnspecifiedCharacters() != null && dateString.matches(
         numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
       dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString,
@@ -68,13 +69,8 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
 
   private static DateNormalizationExtractorMatchId getDateNormalizationExtractorId(DateNormalizationResult startDate,
       DateNormalizationResult endDate) {
-    final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
-    if (startDate.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX
-        || endDate.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX) {
-      dateNormalizationExtractorMatchId = NUMERIC_RANGE_ALL_VARIANTS_XX;
-    } else {
-      dateNormalizationExtractorMatchId = DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
-    }
-    return dateNormalizationExtractorMatchId;
+    final boolean isStartXX = startDate.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX;
+    final boolean isEndXX = endDate.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX;
+    return isStartXX || isEndXX ? NUMERIC_RANGE_ALL_VARIANTS_XX : NUMERIC_RANGE_ALL_VARIANTS;
   }
 }
