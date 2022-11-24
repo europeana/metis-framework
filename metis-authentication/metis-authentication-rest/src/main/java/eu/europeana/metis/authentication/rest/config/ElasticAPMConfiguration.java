@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 public class ElasticAPMConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ElasticAPMConfiguration.class);
-  private final Map<String, String> apmProperties = new HashMap<>();
+  private Map<String, String> apmProperties;
 
   /**
    * The name of this method has to be as the key in the application.yml elastic: apm: ...
@@ -30,6 +30,10 @@ public class ElasticAPMConfiguration {
    */
   public Map<String, String> getApm() {
     return SerializationUtils.clone(new HashMap<>(apmProperties));
+  }
+
+  public void setApm(Map<String, String> apmProperties) {
+    this.apmProperties = SerializationUtils.clone(new HashMap<>(apmProperties));
   }
 
   /**
