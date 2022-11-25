@@ -88,7 +88,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
-      <version>${version.spring-boot-autoconfigure}</version>
+      <version>${version.spring.boot}</version>
     </dependency>
     <dependency>
       <groupId>com.jayway.jsonpath</groupId>
