@@ -126,9 +126,12 @@ public class MongoDereferenceService implements DereferenceService {
       // Get the main object to dereference. If null, we are done.
       final Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> resource = computeEnrichmentBaseVocabularyTriple(resourceId);
 
-      // No EnrichmentBase and No Vocabulary
-      if (resource.getLeft() == null && resource.getMiddle() == null) {
+      // No EnrichmentBase and no Vocabulary.
+      if (resource.getLeft() == null && resource.getMiddle() == null && resource.getRight() == DereferenceResultStatus.SUCCESS) {
         return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+      // No EnrichmentBase, no Vocabulary and an error occurred.
+      } else if (resource.getLeft() == null && resource.getMiddle() == null) {
+        return new ImmutablePair<>(Collections.emptyList(), resource.getRight());
       }
 
       // Create value resolver that catches exceptions and logs them.
@@ -136,7 +139,7 @@ public class MongoDereferenceService implements DereferenceService {
         Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> result;
         try {
           result = computeEnrichmentBaseVocabularyTriple(key);
-          if (result.getLeft() == null && result.getMiddle() == null) {
+          if (result.getLeft() == null && result.getMiddle() == null && result.getRight() == DereferenceResultStatus.SUCCESS) {
             // No EnrichmentBase + Status
             return new ImmutablePair<>(null, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
           } else {
@@ -169,7 +172,7 @@ public class MongoDereferenceService implements DereferenceService {
       // Done
       return new ImmutablePair<>(
           result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
-          result.values().stream().map(Pair::getRight).findFirst()
+          result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
                 .orElse(DereferenceResultStatus.UNKNOWN_ENTITY)
       );
     } catch (JAXBException jaxbException) {
@@ -261,13 +264,13 @@ public class MongoDereferenceService implements DereferenceService {
 
     String transformedEntity = null;
     Vocabulary chosenVocabulary = null;
-    Pair<String, DereferenceResultStatus> originalEntity = new ImmutablePair<>(resourceId, DereferenceResultStatus.SUCCESS);
+    Pair<String, DereferenceResultStatus> originalEntity = new ImmutablePair<>(resourceId, null);
     Pair<String, DereferenceResultStatus> entityTransformed = new ImmutablePair<>(null, null);
     //Only if we have vocabularies we continue
     if (!vocabularyCandidates.isEmpty()) {
       originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
       //If original entity exists, try transformation
-      if (originalEntity.getLeft() != null) {
+      if (originalEntity.getLeft() != null && originalEntity.getRight() == DereferenceResultStatus.SUCCESS) {
         // Transform the original entity and find vocabulary if applicable.
         for (Vocabulary vocabulary : vocabularyCandidates.getVocabularies()) {
           entityTransformed = transformEntity(vocabulary, originalEntity.getLeft(), resourceId);
@@ -277,12 +280,13 @@ public class MongoDereferenceService implements DereferenceService {
             break;
           }
         }
+        // There was an update in transforming, so we update the result status.
+        if (originalEntity.getRight() != entityTransformed.getRight()) {
+          originalEntity = new ImmutablePair<>(originalEntity.getLeft(), entityTransformed.getRight());
+        }
       }
     }
-    // There was an update in transforming, so we update the result status.
-    if (originalEntity.getRight() != entityTransformed.getRight()) {
-      originalEntity = new ImmutablePair<>(originalEntity.getLeft(), entityTransformed.getRight());
-    }
+
 
     final ImmutableTriple<String, Vocabulary, DereferenceResultStatus> entityVocabularyTriple;
     // If retrieval or transformation of entity failed, and we have one vocabulary then we store that

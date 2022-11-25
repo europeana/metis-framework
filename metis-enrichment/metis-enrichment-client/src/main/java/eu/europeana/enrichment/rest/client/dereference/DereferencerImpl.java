@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -225,6 +226,14 @@ public class DereferencerImpl implements Dereferencer {
       LOGGER.debug("== Processing {}", resourceId);
       result = retryableExternalRequestForNetworkExceptions(
           () -> dereferenceClient.dereference(resourceId));
+      DereferenceResultStatus resultStatus = Optional.ofNullable(result)
+                                                     .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
+                                                     .orElseGet(Collections::emptyList).stream()
+                                                     .map(EnrichmentResultBaseWrapper::getEnrichmentStatus)
+                                                     .filter(Objects::nonNull).findFirst()
+                                                     .orElse(DereferenceResultStatus.UNKNOWN_ENTITY);
+
+      setDereferenceStatusInReport(resourceId, reportMessages, resultStatus);
     } catch (BadRequest e) {
       // We are forgiving for these errors
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
@@ -256,6 +265,40 @@ public class DereferencerImpl implements Dereferencer {
                                        .orElseGet(Collections::emptyList).stream()
                                        .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
                                        .flatMap(List::stream).collect(Collectors.toList()), reportMessages);
+  }
+
+  private static void setDereferenceStatusInReport(String resourceId, HashSet<ReportMessage> reportMessages,
+      DereferenceResultStatus resultStatus) {
+    if (!resultStatus.equals(DereferenceResultStatus.SUCCESS)) {
+      String resultMessage;
+      switch (resultStatus) {
+        case ENTITY_FOUND_XML_XLT_ERROR:
+          resultMessage = "The entity was found, but applying the XSLT results in an XML error (either because the entity is malformed or the XSLT is malformed).";
+          break;
+        case INVALID_URL:
+          resultMessage = "A URL to be dereferenced is invalid.";
+          break;
+        case NO_VOCABULARY_MATCHING:
+          resultMessage = "Could not find a vocabulary matching the URL.";
+          break;
+        case UNKNOWN_ENTITY:
+          resultMessage = "Dereferencing or Coreferencing: the europeana entity does not exist.";
+          break;
+        case NO_ENTITY_FOR_VOCABULARY:
+          resultMessage = "Could not find an entity for a known vocabulary.";
+          break;
+        default:
+          resultMessage = "";
+      }
+      reportMessages.add(new ReportMessageBuilder()
+          .withMode(Mode.DEREFERENCE)
+          .withStatus(HttpStatus.OK.value())
+          .withValue(resourceId)
+          .withMessageType(Type.WARN)
+          .withMessage(resultMessage)
+          .withStackTrace("")
+          .build());
+    }
   }
 
   @Override

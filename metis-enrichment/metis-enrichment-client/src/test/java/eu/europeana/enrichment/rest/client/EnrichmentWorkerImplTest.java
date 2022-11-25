@@ -46,6 +46,7 @@ class EnrichmentWorkerImplTest {
         Arguments.of(getResourceFileContent("sample_enrichment_exception.rdf"), RecordStatus.STOP),
         Arguments.of(getResourceFileContent("sample_dereference_not_found.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("sample_dereference_redirect.rdf"), RecordStatus.CONTINUE),
+        Arguments.of(getResourceFileContent("sample_enrichment_noentity.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("sample_enrichment_success.rdf"), RecordStatus.CONTINUE)
     );
   }
@@ -84,9 +85,7 @@ class EnrichmentWorkerImplTest {
 
     // Execute the worker
     final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);
-    //  RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
-    //  final RDF inputRdf = rdfConversionUtils.convertStringToRdf(inputRecord);
-    //  worker.cleanupPreviousEnrichmentEntities(inputRdf);
+
     ProcessedResult<String> output = worker.process(inputRecord, modeSetWithBoth);
 
     LOGGER.info("REPORT: {}\n\n", output.getReport());
