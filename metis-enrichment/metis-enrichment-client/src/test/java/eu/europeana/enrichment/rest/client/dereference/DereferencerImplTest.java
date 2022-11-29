@@ -33,6 +33,7 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
+import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
@@ -236,7 +237,14 @@ public class DereferencerImplTest {
     // Actually dereferencing.
     verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
 
-    assertEquals(0, reportMessages.size());
+    assertEquals(1, reportMessages.size());
+    for(ReportMessage reportMessage: reportMessages) {
+      assertTrue(reportMessage.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
+      assertEquals(Type.WARN, reportMessage.getMessageType());
+      assertEquals(Mode.DEREFERENCE, reportMessage.getMode());
+      assertEquals("http://valid-example.host/place",reportMessage.getValue());
+      assertEquals("", reportMessage.getStackTrace());
+    }
     for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
     }

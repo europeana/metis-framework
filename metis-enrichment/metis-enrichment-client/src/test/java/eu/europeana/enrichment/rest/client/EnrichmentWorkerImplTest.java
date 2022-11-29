@@ -79,8 +79,7 @@ class EnrichmentWorkerImplTest {
     dereferencerProvider.setEnrichmentPropertiesValues("https://entity-management-production.eanadev.org/entity",
         "https://entity-api-v2-production.eanadev.org/entity",
         "api2demo");
-    //dereferencerProvider.setDereferenceUrl("https://metis-dereference-rest-production.eanadev.org/");
-    dereferencerProvider.setDereferenceUrl("http://localhost:8092/");
+    dereferencerProvider.setDereferenceUrl("https://metis-dereference-rest-production.eanadev.org/");
     final Dereferencer dereferencer = dereferencerProvider.create();
 
     // Execute the worker
