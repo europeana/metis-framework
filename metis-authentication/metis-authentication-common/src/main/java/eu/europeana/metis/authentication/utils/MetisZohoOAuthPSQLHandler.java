@@ -15,9 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.TransactionException;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-import org.hibernate.service.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -39,17 +37,12 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MetisZohoOAuthPSQLHandler.class);
   private static final String USER_IDENTIFIER_STRING = "userIdentifier";
-  private static final SessionFactory sessionFactory;
+  private static SessionFactory sessionFactory;
   private static String clientId;
   private static String clientSecret;
 
-  static {
-    org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-    configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
-    configuration.configure();
-    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-        .applySettings(configuration.getProperties()).build();
-    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+  public MetisZohoOAuthPSQLHandler(SessionFactory sessionFactory) {
+    MetisZohoOAuthPSQLHandler.sessionFactory = sessionFactory;
   }
 
   /**
