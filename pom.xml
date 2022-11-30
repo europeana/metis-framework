@@ -182,6 +182,7 @@
     <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.spring>5.3.7</version.spring>
     <version.spring-boot-autoconfigure>2.7.0</version.spring-boot-autoconfigure>
+    <version.spring.boot>2.7.6</version.spring.boot>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.security>5.5.0</version.spring.security>
