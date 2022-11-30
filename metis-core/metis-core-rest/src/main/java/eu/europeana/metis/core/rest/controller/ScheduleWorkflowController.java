@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
 import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
@@ -7,6 +7,7 @@ import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;

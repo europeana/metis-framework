@@ -1,9 +1,14 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
+import eu.europeana.metis.core.rest.ExecutionHistory;
+import eu.europeana.metis.core.rest.IncrementalHarvestingAllowedView;
+import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
+import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;

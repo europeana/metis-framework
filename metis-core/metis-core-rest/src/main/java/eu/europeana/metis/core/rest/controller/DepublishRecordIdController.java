@@ -1,10 +1,9 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.rest.DepublicationInfoView;
 import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
@@ -12,6 +11,8 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;

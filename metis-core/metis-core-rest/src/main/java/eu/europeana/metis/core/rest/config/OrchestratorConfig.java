@@ -26,13 +26,12 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.service.WorkflowExecutionFactory;
+import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
-
-import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -56,7 +55,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2017-11-22
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
+@ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 @EnableScheduling
 public class OrchestratorConfig implements WebMvcConfigurer {
 

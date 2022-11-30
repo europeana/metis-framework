@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.controller;
 
 import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
@@ -15,6 +15,8 @@ import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.exceptions.XsltSetupException;
+import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
@@ -23,7 +25,6 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;

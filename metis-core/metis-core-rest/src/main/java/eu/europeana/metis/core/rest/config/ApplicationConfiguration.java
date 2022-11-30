@@ -38,7 +38,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -47,9 +46,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * Entry class with configuration fields and beans initialization for the application.
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
-@EnableWebMvc
-public class Application implements WebMvcConfigurer {
+@ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
   private final MongoClient mongoClient;
@@ -64,7 +62,7 @@ public class Application implements WebMvcConfigurer {
    * @throws TrustStoreConfigurationException if the configuration of the truststore failed
    */
   @Autowired
-  public Application(ConfigurationPropertiesHolder propertiesHolder)
+  public ApplicationConfiguration(ConfigurationPropertiesHolder propertiesHolder)
       throws TrustStoreConfigurationException {
     this.propertiesHolder = propertiesHolder;
     this.mongoClient = ApplicationInitUtils.initializeApplication(propertiesHolder);
