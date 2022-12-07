@@ -34,9 +34,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
-    #uncomment this if an .env file is to be used instead of a application.properties.
-    #    env_file:
-    #      - /data/metis-properties/test/metis-core-rest/.metis-core-test.env
+    environment:
+      RABBITMQ_HOST: metis-core-rabbitmq
+      MONGO_HOSTS: metis-core-mongo
+      REDIS_HOST: metis-core-redis
     volumes:
       - /data/metis-configuration/metis-framework/metis-core/metis-core-rest/k8s/overlays/local/resources/custom-truststore.jks:/data/certificates/custom-truststore.jks
       - /data/metis-configuration/metis-framework/metis-core/metis-core-rest/k8s/overlays/local/resources/application.properties:/application.properties

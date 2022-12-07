@@ -9,9 +9,13 @@ When running the spring boot application we should, ideally, not create and use 
 and to also avoid accidental submission of configuration into version control.
 
 This can be applied with an environment variable pointing to the appropriate .properties file
-`SPRING_CONFIG_LOCATION=file:///path/to/file.properties`
+`SPRING_CONFIG_LOCATION=file:///data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties`
 It can be applied in Intellij from the:
 > Edit configurations -> Modify Options -> Environment Variables -> Add the SPRING_CONFIG_LOCATION variable
+
+Spring variables can be overwritten using environment variable, for example if local docker dbs are used we can overwrite the
+hosts:
+> HIBERNATE_CONNECTION_URL: jdbc:postgresql://localhost:5432/metis-authentication_local
 
 ### Environment variables
 
@@ -50,9 +54,9 @@ To apply the files that are required for the application to be deployed we need 
 > - Fill in the Container name
 > - Fill in the Run options:  
     `-p 8080:8080`    
-    `-v /data/certificates/ibm-ca-truststore.jks:/data/certificates/ibm-ca-truststore.jks`    
-    `-v /data/metis-properties/test/metis-authentication-rest/application-test.properties:/application.properties`    
-    `-v /data/logging/log4j2.xml:/data/logging/log4j2.xml`  
+    `-v /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/custom-truststore.jks:/data/certificates/custom-truststore.jks`      
+    `-v /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties:/application.properties`      
+    `-v /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/log4j2.xml:/data/logging/log4j2.xml`  
     They should point to the custom certificate file, the application properties and the log4j2.xml configuration file.
 
 ### Intellij Docker Compose
