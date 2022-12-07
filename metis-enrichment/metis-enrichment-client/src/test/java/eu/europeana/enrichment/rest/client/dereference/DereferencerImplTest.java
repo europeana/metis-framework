@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -55,7 +54,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
-
+/**
+ * Unit tests for {@link DereferencerImpl} class
+ */
 public class DereferencerImplTest {
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT_INVALID = {
@@ -148,7 +149,7 @@ public class DereferencerImplTest {
         .willReturn(ok("place")));
 
     final RDF inputRdf = new RDF();
-    HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+    Set<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
 
     verifyDereferenceHappyFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
     verifyMergeHappyFlow(entityMergeEngine);
@@ -201,7 +202,7 @@ public class DereferencerImplTest {
         .willReturn(badRequest()));
 
     final RDF inputRdf = new RDF();
-    HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+    Set<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
 
     verifyDereferenceInvalidUrlFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
     verifyMergeNullFlow(entityMergeEngine);
@@ -223,14 +224,14 @@ public class DereferencerImplTest {
         .when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
-    HashSet<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+    Set<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
 
     verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
     verifyMergeNullFlow(entityMergeEngine);
   }
 
   private void verifyDereferenceHappyFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      Dereferencer dereferencer, RDF inputRdf, Set<ReportMessage> reportMessages) {
 
     verifyDerefencer(dereferencer, inputRdf);
 
@@ -238,11 +239,11 @@ public class DereferencerImplTest {
     verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
 
     assertEquals(1, reportMessages.size());
-    for(ReportMessage reportMessage: reportMessages) {
+    for (ReportMessage reportMessage : reportMessages) {
       assertTrue(reportMessage.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
       assertEquals(Type.WARN, reportMessage.getMessageType());
       assertEquals(Mode.DEREFERENCE, reportMessage.getMode());
-      assertEquals("http://valid-example.host/place",reportMessage.getValue());
+      assertEquals("http://valid-example.host/place", reportMessage.getValue());
       assertEquals("", reportMessage.getStackTrace());
     }
     for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
@@ -251,7 +252,7 @@ public class DereferencerImplTest {
   }
 
   private void verifyDereferenceInvalidUrlFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      Dereferencer dereferencer, RDF inputRdf, Set<ReportMessage> reportMessages) {
 
     // Extracting values for dereferencing
     verifyDerefencer(dereferencer, inputRdf);
@@ -264,7 +265,7 @@ public class DereferencerImplTest {
   }
 
   private void verifyDereferenceExceptionFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      Dereferencer dereferencer, RDF inputRdf, Set<ReportMessage> reportMessages) {
 
     // Extracting values for dereferencing
     verifyDerefencer(dereferencer, inputRdf);

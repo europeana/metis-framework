@@ -19,7 +19,7 @@ public interface Dereferencer {
    * @param rdf The RDF to be processed
    * @return A report containing messages of dereference process
    */
-  HashSet<ReportMessage> dereference(final RDF rdf);
+  Set<ReportMessage> dereference(final RDF rdf);
 
   /**
    * It gets the dereferenced information and adds it to the RDF using the extracted fields
@@ -27,7 +27,7 @@ public interface Dereferencer {
    * @return Pair of A list of RDF field names with the information associated with it
    * and a report containing messages of dereference process
    */
-  Pair<List<EnrichmentBase>, HashSet<ReportMessage>> dereferenceEntities(Set<String> resourceIds);
+  Pair<List<EnrichmentBase>, Set<ReportMessage>> dereferenceEntities(Set<String> resourceIds);
 
   /**
    * It extracts the references for dereferencing from a RDF file

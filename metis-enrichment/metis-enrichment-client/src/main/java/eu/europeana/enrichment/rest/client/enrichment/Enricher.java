@@ -22,7 +22,7 @@ public interface Enricher {
    * @param rdf The RDF to be processed
    * @return HashSet The messages encountered during enrichment
    */
-  HashSet<ReportMessage> enrichment(final RDF rdf);
+  Set<ReportMessage> enrichment(final RDF rdf);
 
   /**
    * Retrieves information to enrich the RDF using extracted values
@@ -30,7 +30,7 @@ public interface Enricher {
    * @param searchTerms The values extracted to enrich the RDF
    * @return For each search term a list with entities retrieved.
    */
-  Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms);
+  Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms);
 
   /**
    * Retrieves information to enrich the RDF using extracted references
@@ -38,7 +38,7 @@ public interface Enricher {
    * @param references The references extracted to enrich the RDF
    * @return For each reference a list with entities retrieved.
    */
-  Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(
+  Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences(
       Set<ReferenceTermContext> references);
 
   /**

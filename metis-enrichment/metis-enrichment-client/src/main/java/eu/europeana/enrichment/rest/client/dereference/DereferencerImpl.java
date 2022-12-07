@@ -63,7 +63,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public HashSet<ReportMessage> dereference(RDF rdf) {
+  public Set<ReportMessage> dereference(RDF rdf) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
@@ -71,7 +71,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    Pair<List<EnrichmentBase>, HashSet<ReportMessage>> dereferenceInformation = dereferenceEntities(resourceIds);
+    Pair<List<EnrichmentBase>, Set<ReportMessage>> dereferenceInformation = dereferenceEntities(resourceIds);
     reportMessages.addAll(dereferenceInformation.getRight());
 
     // Merge the acquired information into the RDF
@@ -84,7 +84,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public Pair<List<EnrichmentBase>, HashSet<ReportMessage>> dereferenceEntities(Set<String> resourceIds) {
+  public Pair<List<EnrichmentBase>, Set<ReportMessage>> dereferenceEntities(Set<String> resourceIds) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Sanity check.
     if (resourceIds.isEmpty()) {

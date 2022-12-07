@@ -65,7 +65,7 @@ public class EnricherImpl implements Enricher {
    * @return Set of a report containing messages during the enrichment processing.
    */
   @Override
-  public HashSet<ReportMessage> enrichment(RDF rdf) {
+  public Set<ReportMessage> enrichment(RDF rdf) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
@@ -74,8 +74,8 @@ public class EnricherImpl implements Enricher {
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
-    final Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedValues = enrichValues(searchTerms);
-    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichedReferences = enrichReferences(
+    final Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichedValues = enrichValues(searchTerms);
+    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichedReferences = enrichReferences(
         references);
 
     //Add the report messages from the enrichment process
@@ -141,7 +141,7 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichValues(
+  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichValues(
       Set<SearchTermContext> searchTerms) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
@@ -176,7 +176,7 @@ public class EnricherImpl implements Enricher {
   }
 
   @Override
-  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, HashSet<ReportMessage>> enrichReferences(
+  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences(
       Set<ReferenceTermContext> references) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {

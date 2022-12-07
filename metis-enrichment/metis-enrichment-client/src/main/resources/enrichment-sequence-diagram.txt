@@ -7,6 +7,8 @@ sequenceDiagram
     EnrichmentWorker->>+Enrichment: 1.3 enrich RDF
     Enrichment->>+EntityResolver: 1.3.1 Search Terms & Search References
     EntityResolver-->>-Enrichment: 1.3.2 Enriched Terms & Enriched References
+    Enrichment->>Enrichment: 1.3.3 merge enriched entities into the RDF
+    Enrichment->>Enrichment: 1.3.4 set additional field values into the RDF
     Enrichment->>-EnrichmentWorker: 1.4 enriched RDF
     EnrichmentWorker->>-ProcessedEnrichment: 1.5 enriched record & enrichment report
     ProcessedEnrichment-->>EnrichmentBolt: 2. enriched fileContent & provided enrichment report

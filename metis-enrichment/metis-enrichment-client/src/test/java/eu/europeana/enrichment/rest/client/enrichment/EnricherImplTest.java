@@ -91,7 +91,7 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    HashSet<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
+    Set<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
 
     verifyEnricherHappyFlow(recordParser, entityResolver, inputRdf, reportMessages);
     verifyMergeHappyFlow(entityMergeEngine);
@@ -112,7 +112,7 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    HashSet<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
+    Set<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
 
     verifyEnricherNullFlow(entityResolver, recordParser, inputRdf, reportMessages);
     verifyMergeNullFlow(entityMergeEngine);
@@ -133,12 +133,12 @@ public class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    HashSet<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
+    Set<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
     verifyEnricherExeptionFlow(recordParser, entityResolver, inputRdf, reportMessages);
   }
 
   private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver entityResolver,
-      RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      RDF inputRdf, Set<ReportMessage> reportMessages) {
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
@@ -147,7 +147,7 @@ public class EnricherImplTest {
   }
 
   private void verifyEnricherHappyFlow(RecordParser recordParser, ClientEntityResolver remoteEntityResolver,
-      RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      RDF inputRdf, Set<ReportMessage> reportMessages) {
 
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
@@ -195,7 +195,7 @@ public class EnricherImplTest {
   }
 
   private void verifyEnricherNullFlow(ClientEntityResolver remoteEntityResolver,
-      RecordParser recordParser, RDF inputRdf, HashSet<ReportMessage> reportMessages) {
+      RecordParser recordParser, RDF inputRdf, Set<ReportMessage> reportMessages) {
 
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
