@@ -94,76 +94,9 @@ public class DereferencerImpl implements Dereferencer {
     // First try to get them from our own entity collection database.
     Set<ReferenceTerm> referenceTermSet = resourceIds
         .stream()
-        .map(id -> {
-          try {
-            return new URL(id);
-          } catch (MalformedURLException e) {
-            reportMessages.add(new ReportMessageBuilder()
-                .withMode(Mode.DEREFERENCE)
-                .withStatus(HttpStatus.BAD_REQUEST.value())
-                .withValue(id)
-                .withMessageType(Type.WARN)
-                .withMessage(ExceptionUtils.getMessage(e))
-                .withStackTrace(ExceptionUtils.getStackTrace(e))
-                .build());
-            LOGGER.debug("Invalid enrichment reference found: {}", id);
-            return null;
-          }
-        })
+        .map(id -> checkIfUrlIsValid(reportMessages, id))
         .filter(Objects::nonNull)
-        .map(checkedUrl -> {
-              try {
-                HttpURLConnection validationClient = (HttpURLConnection) checkedUrl.openConnection();
-                int responseCode = validationClient.getResponseCode();
-
-                LOGGER.debug("A URL {} response code.: {}", checkedUrl, responseCode);
-                if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-                    || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
-                  // get redirect url from "location" header field
-                  String newUrl = validationClient.getHeaderField("Location");
-                  // get the cookie if needed, for login
-                  String cookies = validationClient.getHeaderField("Set-Cookie");
-
-                  // open the new connnection again
-                  validationClient = (HttpURLConnection) new URL(newUrl).openConnection();
-                  validationClient.setRequestProperty("Cookie", cookies);
-                  validationClient.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
-                  validationClient.addRequestProperty("User-Agent", "Mozilla");
-                  validationClient.addRequestProperty("Referer", "europeana.eu");
-                  responseCode = validationClient.getResponseCode();
-                  LOGGER.debug("Redirect to URL : {}", newUrl);
-                }
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                  LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
-                  return checkedUrl;
-                } else {
-                  reportMessages.add(new ReportMessageBuilder()
-                      .withMode(Mode.DEREFERENCE)
-                      .withStatus(responseCode)
-                      .withValue(checkedUrl.toString())
-                      .withMessageType(Type.WARN)
-                      .withMessage("A URL to be dereferenced is invalid.")
-                      .withStackTrace("")
-                      .build());
-                  LOGGER.debug("A URL to be dereferenced is invalid.: {} {}", checkedUrl, responseCode);
-                  return null;
-                }
-              } catch (IOException e) {
-                reportMessages.add(new ReportMessageBuilder()
-                    .withMode(Mode.DEREFERENCE)
-                    .withStatus(HttpStatus.BAD_REQUEST.value())
-                    .withValue(checkedUrl.toString())
-                    .withMessageType(Type.WARN)
-                    .withMessage(ExceptionUtils.getMessage(e))
-                    .withStackTrace(ExceptionUtils.getStackTrace(e))
-                    .build());
-                LOGGER.debug("A URL to be dereferenced is invalid.: {}", checkedUrl);
-                return null;
-              }
-            }
-        )
+        .map(checkedUrl -> validateIfUrlToDereferenceExists(reportMessages, checkedUrl))
         .filter(Objects::nonNull)
         .map(validatedUrl -> new ReferenceTermImpl(validatedUrl, new HashSet<>()))
         .collect(Collectors.toSet());
@@ -187,6 +120,76 @@ public class DereferencerImpl implements Dereferencer {
     }
     // Done.
     return new ImmutablePair<>(deferencedOwnEntities.getLeft(), reportMessages);
+  }
+
+  private static URL checkIfUrlIsValid(HashSet<ReportMessage> reportMessages, String id) {
+    try {
+      return new URL(id);
+    } catch (MalformedURLException e) {
+      reportMessages.add(new ReportMessageBuilder()
+          .withMode(Mode.DEREFERENCE)
+          .withStatus(HttpStatus.BAD_REQUEST.value())
+          .withValue(id)
+          .withMessageType(Type.WARN)
+          .withMessage(ExceptionUtils.getMessage(e))
+          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .build());
+      LOGGER.debug("Invalid enrichment reference found: {}", id);
+      return null;
+    }
+  }
+
+  private static URL validateIfUrlToDereferenceExists(HashSet<ReportMessage> reportMessages, URL checkedUrl) {
+    try {
+      HttpURLConnection validationClient = (HttpURLConnection) checkedUrl.openConnection();
+      int responseCode = validationClient.getResponseCode();
+
+      LOGGER.debug("A URL {} response code.: {}", checkedUrl, responseCode);
+      if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+          || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+          || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+        // get redirect url from "location" header field
+        String newUrl = validationClient.getHeaderField("Location");
+        // get the cookie if needed, for login
+        String cookies = validationClient.getHeaderField("Set-Cookie");
+
+        // open the new connnection again
+        validationClient = (HttpURLConnection) new URL(newUrl).openConnection();
+        validationClient.setRequestProperty("Cookie", cookies);
+        validationClient.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
+        validationClient.addRequestProperty("User-Agent", "Mozilla");
+        validationClient.addRequestProperty("Referer", "europeana.eu");
+        responseCode = validationClient.getResponseCode();
+        LOGGER.debug("Redirect to URL : {}", newUrl);
+      }
+
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+        LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
+        return checkedUrl;
+      } else {
+        reportMessages.add(new ReportMessageBuilder()
+            .withMode(Mode.DEREFERENCE)
+            .withStatus(responseCode)
+            .withValue(checkedUrl.toString())
+            .withMessageType(Type.WARN)
+            .withMessage("A URL to be dereferenced is invalid.")
+            .withStackTrace("")
+            .build());
+        LOGGER.debug("A URL to be dereferenced is invalid.: {} {}", checkedUrl, responseCode);
+        return null;
+      }
+    } catch (IOException e) {
+      reportMessages.add(new ReportMessageBuilder()
+          .withMode(Mode.DEREFERENCE)
+          .withStatus(HttpStatus.BAD_REQUEST.value())
+          .withValue(checkedUrl.toString())
+          .withMessageType(Type.WARN)
+          .withMessage(ExceptionUtils.getMessage(e))
+          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .build());
+      LOGGER.debug("A URL to be dereferenced is invalid.: {}", checkedUrl);
+      return null;
+    }
   }
 
   private Pair<List<EnrichmentBase>, HashSet<ReportMessage>> dereferenceOwnEntities(Set<ReferenceTerm> resourceIds) {
