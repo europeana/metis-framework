@@ -9,13 +9,13 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class ReportMessage {
 
-  private int status;
-  private Mode mode;
-  private Type messageType;
-  private String value;
-  private String message;
-  private String stackTrace;
-  private final static int MAX_COMPARE_STACK_TRACE = 50;
+  private final int status;
+  private final Mode mode;
+  private final Type messageType;
+  private final String value;
+  private final String message;
+  private final String stackTrace;
+  private static final int MAX_COMPARE_STACK_TRACE = 50;
 
   private ReportMessage(ReportMessageBuilder reportMessageBuilder) {
     status = reportMessageBuilder.status;
