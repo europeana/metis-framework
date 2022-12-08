@@ -215,7 +215,7 @@ public class EnricherImplTest {
   private HashSet<ReportMessage> getExpectedReportMessagesHappyFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK.value())
+        .withStatus(HttpStatus.OK)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.IGNORE)
         .withValue("value2")
@@ -223,7 +223,7 @@ public class EnricherImplTest {
         .withStackTrace("")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK.value())
+        .withStatus(HttpStatus.OK)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.IGNORE)
         .withValue("[]")
@@ -236,7 +236,7 @@ public class EnricherImplTest {
   private HashSet<ReportMessage> getExpectedReportMessagesNullFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK.value())
+        .withStatus(HttpStatus.OK)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.IGNORE)
         .withValue("[]")
@@ -244,7 +244,7 @@ public class EnricherImplTest {
         .withStackTrace("")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK.value())
+        .withStatus(HttpStatus.OK)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.IGNORE)
         .withValue("[]")
@@ -257,7 +257,7 @@ public class EnricherImplTest {
   private HashSet<ReportMessage> getExpectedReportMessagesExceptionFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.ERROR)
         .withValue("value1,value2,value3")
@@ -265,7 +265,7 @@ public class EnricherImplTest {
         .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK.value())
+        .withStatus(HttpStatus.OK)
         .withMode(Mode.ENRICHMENT)
         .withMessageType(Type.IGNORE)
         .withValue("[]")

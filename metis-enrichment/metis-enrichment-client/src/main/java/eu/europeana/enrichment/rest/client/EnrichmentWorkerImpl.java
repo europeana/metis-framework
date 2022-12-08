@@ -18,7 +18,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -69,7 +68,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (inputStream == null) {
       IllegalArgumentException e = new IllegalArgumentException("The input stream cannot be null.");
       reportMessages.add(new ReportMessageBuilder()
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
           .withMessageType(Type.ERROR)
           .withMode(Mode.ENRICHMENT)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -83,7 +82,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
         return result;
       } catch (SerializationException e) {
         reportMessages.add(new ReportMessageBuilder()
-            .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
             .withMessageType(Type.ERROR)
             .withMode(Mode.ENRICHMENT)
             .withValue("")
@@ -108,7 +107,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (inputString == null) {
       IllegalArgumentException e = new IllegalArgumentException("Input RDF string cannot be null.");
       reportMessages.add(new ReportMessageBuilder()
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
           .withMessageType(Type.ERROR)
           .withMode(Mode.ENRICHMENT)
           .withValue(inputString)
@@ -122,7 +121,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
         result = new ProcessedResult<>(convertRdfToString(process(inputRdf, modes)));
       } catch (SerializationException e) {
         reportMessages.add(new ReportMessageBuilder()
-            .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
             .withMessageType(Type.ERROR)
             .withMode(Mode.ENRICHMENT)
             .withValue(inputString)
@@ -148,7 +147,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (rdf == null) {
       e = new IllegalArgumentException("Input RDF cannot be null.");
       reportMessages.add(new ReportMessageBuilder()
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
           .withMessageType(Type.ERROR)
           .withMode(Mode.ENRICHMENT)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -159,7 +158,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (modes == null) {
       e = new IllegalArgumentException("Set of Modes cannot be null.");
       reportMessages.add(new ReportMessageBuilder()
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
           .withMessageType(Type.ERROR)
           .withMode(Mode.ENRICHMENT)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -170,7 +169,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     if (!getSupportedModes().containsAll(modes)) {
       e = new IllegalArgumentException("The requested mode(s) is not supported by this instance.");
       reportMessages.add(new ReportMessageBuilder()
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
           .withMessageType(Type.ERROR)
           .withMode(Mode.ENRICHMENT)
           .withMessage(ExceptionUtils.getMessage(e))

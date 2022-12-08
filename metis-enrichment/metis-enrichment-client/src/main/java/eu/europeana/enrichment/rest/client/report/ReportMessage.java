@@ -3,13 +3,14 @@ package eu.europeana.enrichment.rest.client.report;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 
 /**
  * ReportMessage class used to inform processed results
  */
 public final class ReportMessage {
 
-  private final int status;
+  private final HttpStatus status;
   private final Mode mode;
   private final Type messageType;
   private final String value;
@@ -26,7 +27,7 @@ public final class ReportMessage {
     stackTrace = reportMessageBuilder.stackTrace;
   }
 
-  public int getStatus() {
+  public HttpStatus getStatus() {
     return status;
   }
 
@@ -78,7 +79,7 @@ public final class ReportMessage {
    */
   public static final class ReportMessageBuilder {
 
-    private int status;
+    private HttpStatus status;
     private Mode mode;
     private Type messageType;
     private String value;
@@ -95,7 +96,7 @@ public final class ReportMessage {
      * @param val the {@code status} to set
      * @return a reference to this Builder
      */
-    public ReportMessageBuilder withStatus(int val) {
+    public ReportMessageBuilder withStatus(HttpStatus val) {
       status = val;
       return this;
     }

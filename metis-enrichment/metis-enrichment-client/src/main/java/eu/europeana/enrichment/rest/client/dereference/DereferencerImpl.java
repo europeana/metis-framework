@@ -128,7 +128,7 @@ public class DereferencerImpl implements Dereferencer {
     } catch (MalformedURLException e) {
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.BAD_REQUEST.value())
+          .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(id)
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -142,12 +142,12 @@ public class DereferencerImpl implements Dereferencer {
   private static URL validateIfUrlToDereferenceExists(HashSet<ReportMessage> reportMessages, URL checkedUrl) {
     try {
       HttpURLConnection validationClient = (HttpURLConnection) checkedUrl.openConnection();
-      int responseCode = validationClient.getResponseCode();
+      HttpStatus responseCode = HttpStatus.resolve(validationClient.getResponseCode());
 
       LOGGER.debug("A URL {} response code.: {}", checkedUrl, responseCode);
-      if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-          || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-          || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+      if (responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_MOVED_TEMP)
+          || responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_MOVED_PERM)
+          || responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_SEE_OTHER)) {
         // get redirect url from "location" header field
         String newUrl = validationClient.getHeaderField("Location");
         // get the cookie if needed, for login
@@ -159,11 +159,11 @@ public class DereferencerImpl implements Dereferencer {
         validationClient.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
         validationClient.addRequestProperty("User-Agent", "Mozilla");
         validationClient.addRequestProperty("Referer", "europeana.eu");
-        responseCode = validationClient.getResponseCode();
+        responseCode = HttpStatus.resolve(validationClient.getResponseCode());
         LOGGER.debug("Redirect to URL : {}", newUrl);
       }
 
-      if (responseCode == HttpURLConnection.HTTP_OK) {
+      if (responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_OK)) {
         LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
         return checkedUrl;
       } else {
@@ -181,7 +181,7 @@ public class DereferencerImpl implements Dereferencer {
     } catch (IOException e) {
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.BAD_REQUEST.value())
+          .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(checkedUrl.toString())
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -204,7 +204,7 @@ public class DereferencerImpl implements Dereferencer {
           "Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.OK.value())
+          .withStatus(HttpStatus.OK)
           .withValue(resourceIds.stream()
                                 .map(resourceId -> resourceId.getReference().toString())
                                 .collect(Collectors.joining(",")))
@@ -242,7 +242,7 @@ public class DereferencerImpl implements Dereferencer {
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.BAD_REQUEST.value())
+          .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(resourceId)
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -254,7 +254,7 @@ public class DereferencerImpl implements Dereferencer {
           "Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.OK.value())
+          .withStatus(HttpStatus.OK)
           .withValue(resourceId)
           .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(dereferenceException))
@@ -295,7 +295,7 @@ public class DereferencerImpl implements Dereferencer {
       }
       reportMessages.add(new ReportMessageBuilder()
           .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.OK.value())
+          .withStatus(HttpStatus.OK)
           .withValue(resourceId)
           .withMessageType(Type.WARN)
           .withMessage(resultMessage)
