@@ -21,7 +21,7 @@ import eu.europeana.enrichment.rest.client.enrichment.EnricherProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.report.ProcessedResult;
-import eu.europeana.enrichment.rest.client.report.RecordStatus;
+import eu.europeana.enrichment.rest.client.report.ProcessedResult.RecordStatus;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.metis.schema.convert.SerializationException;

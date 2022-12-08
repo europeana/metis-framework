@@ -232,7 +232,7 @@ public class DereferencerImpl implements Dereferencer {
       DereferenceResultStatus resultStatus = Optional.ofNullable(result)
                                                      .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
                                                      .orElseGet(Collections::emptyList).stream()
-                                                     .map(EnrichmentResultBaseWrapper::getEnrichmentStatus)
+                                                     .map(EnrichmentResultBaseWrapper::getDereferenceStatus)
                                                      .filter(Objects::nonNull).findFirst()
                                                      .orElse(DereferenceResultStatus.UNKNOWN_ENTITY);
 

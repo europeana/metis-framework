@@ -59,7 +59,7 @@ class DereferencingControllerTest {
                                    xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap).string("labelNl")).andExpect(
                                    xpath("metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap).string("10-10-10"))
                                .andExpect(
-                                   xpath("//metis:results/metis:result/metis:enrichmentStatus", namespaceMap).string("SUCCESS")
+                                   xpath("//metis:results/metis:result/metis:dereferenceStatus", namespaceMap).string("SUCCESS")
                                );
   }
 
@@ -94,7 +94,7 @@ class DereferencingControllerTest {
                                    xpath("metis:results/metis:result/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap).string("labelNl")).andExpect(
                                    xpath("metis:results/metis:result/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap).string("10-10-10"))
                                .andExpect(
-                                   xpath("//metis:results/metis:result/metis:enrichmentStatus", namespaceMap).string("SUCCESS"));
+                                   xpath("//metis:results/metis:result/metis:dereferenceStatus", namespaceMap).string("SUCCESS"));
   }
 
   @Test
@@ -109,8 +109,8 @@ class DereferencingControllerTest {
                                .andExpect(xpath("//metis:results", namespaceMap).exists())
                                .andExpect(xpath("//metis:results", namespaceMap).nodeCount(1))
                                .andExpect(xpath("//metis:results/metis:result", namespaceMap).exists())
-                               .andExpect(xpath("//metis:results/metis:result/metis:enrichmentStatus", namespaceMap).exists())
-                               .andExpect(xpath("//metis:results/metis:result/metis:enrichmentStatus", namespaceMap).string(
+                               .andExpect(xpath("//metis:results/metis:result/metis:dereferenceStatus", namespaceMap).exists())
+                               .andExpect(xpath("//metis:results/metis:result/metis:dereferenceStatus", namespaceMap).string(
                                    "INVALID_URL"));
   }
 

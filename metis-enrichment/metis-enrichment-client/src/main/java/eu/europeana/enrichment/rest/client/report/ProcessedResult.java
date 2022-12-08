@@ -13,6 +13,14 @@ public class ProcessedResult<T> {
   private final T processedRecord;
   private HashSet<ReportMessage> reportMessages;
   private final RecordStatus recordStatus;
+  /**
+   * RecordStatus
+   * This is use to know if a processing needs to STOP or CONTINUE for a record.
+   */
+  public enum RecordStatus {
+    CONTINUE,
+    STOP
+  }
 
   /**
    * Constructor with record of type T

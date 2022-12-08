@@ -29,10 +29,10 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "TimeSpan", namespace = "http://www.europeana.eu/schemas/edm/", type = TimeSpan.class)})
   private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
-  private DereferenceResultStatus enrichmentStatus;
+  private DereferenceResultStatus dereferenceStatus;
 
   public EnrichmentResultBaseWrapper() {
-    this.enrichmentStatus = DereferenceResultStatus.SUCCESS;
+    this.dereferenceStatus = DereferenceResultStatus.SUCCESS;
   }
 
   /**
@@ -40,9 +40,9 @@ public class EnrichmentResultBaseWrapper {
    *
    * @param enrichmentBase the enrichment information class generated
    */
-  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase, DereferenceResultStatus enrichmentStatus) {
+  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase, DereferenceResultStatus dereferenceStatus) {
     this.enrichmentBase = new ArrayList<>(enrichmentBase);
-    this.enrichmentStatus = enrichmentStatus;
+    this.dereferenceStatus = dereferenceStatus;
   }
 
   public List<EnrichmentBase> getEnrichmentBaseList() {
@@ -62,11 +62,11 @@ public class EnrichmentResultBaseWrapper {
     return resultList.stream().map( item -> new EnrichmentResultBaseWrapper(item, enrichmentStatus)).collect(Collectors.toList());
   }
 
-  public void setEnrichmentStatus(DereferenceResultStatus enrichmentStatus) {
-    this.enrichmentStatus = enrichmentStatus;
+  public void setDereferenceStatus(DereferenceResultStatus dereferenceStatus) {
+    this.dereferenceStatus = dereferenceStatus;
   }
 
-  public DereferenceResultStatus getEnrichmentStatus() {
-    return enrichmentStatus;
+  public DereferenceResultStatus getDereferenceStatus() {
+    return dereferenceStatus;
   }
 }
