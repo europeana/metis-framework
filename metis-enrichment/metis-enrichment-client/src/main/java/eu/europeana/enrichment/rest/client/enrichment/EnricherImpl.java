@@ -182,41 +182,41 @@ public class EnricherImpl implements Enricher {
 
     } catch (RuntimeException e) {
       Throwable rootCause = findRootCause(e);
-      if (containsWarningStatus(rootCause.getMessage())) {
+      HttpStatus warningStatus = containsWarningStatus(rootCause.getMessage());
+      String referenceValue = references.stream()
+                                        .map(ReferenceTermContext::getReferenceAsString)
+                                        .sorted(String::compareToIgnoreCase)
+                                        .collect(Collectors.joining(","));
+      if (warningStatus == null) {
         reportMessages.add(new ReportMessageBuilder()
-            .buildEnrichmentWarn()
-            .withValue(references.stream()
-                                 .map(ReferenceTermContext::getReferenceAsString)
-                                 .sorted(String::compareToIgnoreCase)
-                                 .collect(Collectors.joining(",")))
-            .withMessage(ExceptionUtils.getMessage(rootCause))
-            .withStackTrace(ExceptionUtils.getStackTrace(rootCause))
+            .buildEnrichmentError()
+            .withValue(referenceValue)
+            .withMessage(ExceptionUtils.getMessage(e))
+            .withStackTrace(ExceptionUtils.getStackTrace(e))
             .build());
       } else {
         reportMessages.add(new ReportMessageBuilder()
-            .buildEnrichmentError()
-            .withValue(references.stream()
-                                 .map(ReferenceTermContext::getReferenceAsString)
-                                 .sorted(String::compareToIgnoreCase)
-                                 .collect(Collectors.joining(",")))
-            .withMessage(ExceptionUtils.getMessage(e))
-            .withStackTrace(ExceptionUtils.getStackTrace(e))
+            .buildEnrichmentWarn()
+            .withStatus(warningStatus)
+            .withValue(referenceValue)
+            .withMessage(ExceptionUtils.getMessage(rootCause))
+            .withStackTrace(ExceptionUtils.getStackTrace(rootCause))
             .build());
       }
       return new ImmutablePair<>(null, reportMessages);
     }
   }
 
-  private static boolean containsWarningStatus(String message) {
+  private static HttpStatus containsWarningStatus(String message) {
     List<HttpStatus> warningStatuses = Arrays.stream(HttpStatus.values())
                                              .filter(httpStatus -> httpStatus.value() >= 300
                                                  && httpStatus.value() < 500).collect(Collectors.toList());
     for (HttpStatus status : warningStatuses) {
       if (message.contains(status.toString())) {
-        return true;
+        return status;
       }
     }
-    return false;
+    return null;
   }
 
   private static Throwable findRootCause(Throwable throwable) {

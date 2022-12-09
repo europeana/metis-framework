@@ -111,6 +111,17 @@ public final class ReportMessage {
                  .withMessageType(Type.ERROR);
     }
 
+    public ReportMessageBuilder buildDereferenceIgnore() {
+      return this.withMode(Mode.DEREFERENCE)
+                 .withStatus(HttpStatus.OK)
+                 .withMessageType(Type.IGNORE);
+    }
+
+    public ReportMessageBuilder buildDereferenceWarn() {
+      return this.withMode(Mode.DEREFERENCE)
+                 .withMessageType(Type.WARN);
+    }
+
     /**
      * Sets the {@code status} and returns a reference to this Builder enabling method chaining.
      *

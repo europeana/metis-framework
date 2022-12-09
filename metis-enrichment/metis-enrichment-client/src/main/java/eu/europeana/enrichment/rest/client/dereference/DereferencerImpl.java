@@ -127,10 +127,9 @@ public class DereferencerImpl implements Dereferencer {
       return new URL(id);
     } catch (MalformedURLException e) {
       reportMessages.add(new ReportMessageBuilder()
-          .withMode(Mode.DEREFERENCE)
+          .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(id)
-          .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
           .build());
@@ -168,22 +167,19 @@ public class DereferencerImpl implements Dereferencer {
         return checkedUrl;
       } else {
         reportMessages.add(new ReportMessageBuilder()
-            .withMode(Mode.DEREFERENCE)
+            .buildDereferenceWarn()
             .withStatus(responseCode)
             .withValue(checkedUrl.toString())
-            .withMessageType(Type.WARN)
             .withMessage("A URL to be dereferenced is invalid.")
-            .withStackTrace("")
             .build());
         LOGGER.debug("A URL to be dereferenced is invalid.: {} {}", checkedUrl, responseCode);
         return null;
       }
     } catch (IOException e) {
       reportMessages.add(new ReportMessageBuilder()
-          .withMode(Mode.DEREFERENCE)
+          .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(checkedUrl.toString())
-          .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
           .build());
@@ -203,12 +199,11 @@ public class DereferencerImpl implements Dereferencer {
       DereferenceException dereferenceException = new DereferenceException(
           "Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
-          .withMode(Mode.DEREFERENCE)
+          .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceIds.stream()
                                 .map(resourceId -> resourceId.getReference().toString())
                                 .collect(Collectors.joining(",")))
-          .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(dereferenceException))
           .withStackTrace(ExceptionUtils.getStackTrace(dereferenceException))
           .build());
@@ -241,10 +236,9 @@ public class DereferencerImpl implements Dereferencer {
       // We are forgiving for these errors
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
       reportMessages.add(new ReportMessageBuilder()
-          .withMode(Mode.DEREFERENCE)
+          .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(resourceId)
-          .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
           .build());
@@ -253,10 +247,9 @@ public class DereferencerImpl implements Dereferencer {
       DereferenceException dereferenceException = new DereferenceException(
           "Exception occurred while trying to perform dereferencing.", e);
       reportMessages.add(new ReportMessageBuilder()
-          .withMode(Mode.DEREFERENCE)
+          .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceId)
-          .withMessageType(Type.WARN)
           .withMessage(ExceptionUtils.getMessage(dereferenceException))
           .withStackTrace(ExceptionUtils.getStackTrace(dereferenceException))
           .build());
@@ -293,14 +286,21 @@ public class DereferencerImpl implements Dereferencer {
         default:
           resultMessage = "";
       }
-      reportMessages.add(new ReportMessageBuilder()
-          .withMode(Mode.DEREFERENCE)
-          .withStatus(HttpStatus.OK)
-          .withValue(resourceId)
-          .withMessageType(Type.WARN)
-          .withMessage(resultMessage)
-          .withStackTrace("")
-          .build());
+      if (resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING)) {
+        reportMessages.add(new ReportMessageBuilder()
+            .buildDereferenceIgnore()
+            .withStatus(HttpStatus.OK)
+            .withValue(resourceId)
+            .withMessage(resultMessage)
+            .build());
+      } else {
+        reportMessages.add(new ReportMessageBuilder()
+            .buildDereferenceWarn()
+            .withStatus(HttpStatus.OK)
+            .withValue(resourceId)
+            .withMessage(resultMessage)
+            .build());
+      }
     }
   }
 

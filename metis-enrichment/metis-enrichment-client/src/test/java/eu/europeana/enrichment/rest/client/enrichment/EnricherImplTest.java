@@ -170,7 +170,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  public void testEnrichReferenceWarn() throws MalformedURLException {
+  public void testEnrichReferenceWarnFlow() throws MalformedURLException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -327,6 +327,7 @@ public class EnricherImplTest {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
         .buildEnrichmentWarn()
+        .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
         .withMessage("HttpClientErrorException: 301 MOVED_PERMANENTLY")
         .withStackTrace("org.springframework.web.client.HttpClientErrorException: 301 MOVED_PERMANENTLY")
@@ -338,6 +339,7 @@ public class EnricherImplTest {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
         .buildEnrichmentWarn()
+        .withStatus(HttpStatus.BAD_REQUEST)
         .withValue("http://urlValue2")
         .withMessage("HttpClientErrorException: 400 BAD_REQUEST")
         .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST")
