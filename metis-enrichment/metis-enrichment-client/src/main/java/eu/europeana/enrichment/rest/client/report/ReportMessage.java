@@ -62,7 +62,8 @@ public final class ReportMessage {
       }
       ReportMessage that = (ReportMessage) o;
       return status == that.status && mode == that.mode && messageType == that.messageType && Objects.equals(value, that.value)
-          && Objects.equals(message, that.message) && Objects.equals(StringUtils.substring(stackTrace, 1, MAX_COMPARE_STACK_TRACE),
+          && Objects.equals(message, that.message) && Objects.equals(
+          StringUtils.substring(stackTrace, 1, MAX_COMPARE_STACK_TRACE),
           StringUtils.substring(that.stackTrace, 1, MAX_COMPARE_STACK_TRACE));
     } else {
       return false;
@@ -88,6 +89,26 @@ public final class ReportMessage {
 
     public ReportMessageBuilder() {
       // for builder
+      value = "";
+      message = "";
+      stackTrace = "";
+    }
+
+    public ReportMessageBuilder buildEnrichmentIgnore() {
+      return this.withMode(Mode.ENRICHMENT)
+                 .withStatus(HttpStatus.OK)
+                 .withMessageType(Type.IGNORE);
+    }
+
+    public ReportMessageBuilder buildEnrichmentWarn() {
+      return this.withMode(Mode.ENRICHMENT)
+                 .withMessageType(Type.WARN);
+    }
+
+    public ReportMessageBuilder buildEnrichmentError() {
+      return this.withMode(Mode.ENRICHMENT)
+                 .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                 .withMessageType(Type.ERROR);
     }
 
     /**

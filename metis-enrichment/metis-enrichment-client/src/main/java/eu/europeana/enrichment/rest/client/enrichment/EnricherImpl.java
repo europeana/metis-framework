@@ -10,10 +10,8 @@ import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
-import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
@@ -26,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -61,6 +60,7 @@ public class EnricherImpl implements Enricher {
 
   /**
    * Enrichment
+   *
    * @param rdf The RDF to be processed
    * @return Set of a report containing messages during the enrichment processing.
    */
@@ -110,12 +110,9 @@ public class EnricherImpl implements Enricher {
     for (SearchTermContext searchTerm : searchTerms) {
       if (enrichedValues.get(searchTerm).isEmpty()) {
         reportMessages.add(new ReportMessageBuilder()
+            .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search term.")
-            .withMode(Mode.ENRICHMENT)
-            .withStatus(HttpStatus.OK)
             .withValue(searchTerm.getTextValue())
-            .withMessageType(Type.IGNORE)
-            .withStackTrace("")
             .build());
       }
     }
@@ -128,12 +125,9 @@ public class EnricherImpl implements Enricher {
     for (ReferenceTermContext reference : references) {
       if (enrichedReferences.get(reference).isEmpty()) {
         reportMessages.add(new ReportMessageBuilder()
+            .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search reference.")
-            .withMode(Mode.ENRICHMENT)
-            .withStatus(HttpStatus.OK)
             .withValue(reference.getReferenceAsString())
-            .withMessageType(Type.IGNORE)
-            .withStackTrace("")
             .build());
       }
     }
@@ -146,12 +140,9 @@ public class EnricherImpl implements Enricher {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
       reportMessages.add(new ReportMessageBuilder()
+          .buildEnrichmentIgnore()
           .withMessage("Empty search terms.")
-          .withMode(Mode.ENRICHMENT)
-          .withStatus(HttpStatus.OK)
           .withValue(searchTerms.toString())
-          .withMessageType(Type.IGNORE)
-          .withStackTrace("")
           .build());
       return new ImmutablePair<>(Collections.emptyMap(), reportMessages);
     }
@@ -160,14 +151,12 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException e) {
       reportMessages.add(new ReportMessageBuilder()
+          .buildEnrichmentError()
           .withMessage("Occurred while trying to perform enrichment of terms.")
-          .withMode(Mode.ENRICHMENT)
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
                                 .sorted(String::compareToIgnoreCase)
                                 .collect(Collectors.joining(",")))
-          .withMessageType(Type.ERROR)
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
           .build());
@@ -181,12 +170,9 @@ public class EnricherImpl implements Enricher {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
       reportMessages.add(new ReportMessageBuilder()
-          .withMessage("Empty search reference.")
-          .withMode(Mode.ENRICHMENT)
-          .withStatus(HttpStatus.OK)
+          .buildEnrichmentIgnore()
           .withValue(references.toString())
-          .withMessageType(Type.IGNORE)
-          .withStackTrace("")
+          .withMessage("Empty search reference.")
           .build());
       return new ImmutablePair<>(Collections.emptyMap(), reportMessages);
     }
@@ -195,20 +181,51 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException e) {
-      reportMessages.add(new ReportMessageBuilder()
-          .withMessage("Occurred while trying to perform enrichment of reference.")
-          .withMode(Mode.ENRICHMENT)
-          .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-          .withValue(references.stream()
-                               .map(ReferenceTermContext::getReferenceAsString)
-                               .sorted(String::compareToIgnoreCase)
-                               .collect(Collectors.joining(",")))
-          .withMessageType(Type.ERROR)
-          .withMessage(ExceptionUtils.getMessage(e))
-          .withStackTrace(ExceptionUtils.getStackTrace(e))
-          .build());
+      Throwable rootCause = findRootCause(e);
+      if (containsWarningStatus(rootCause.getMessage())) {
+        reportMessages.add(new ReportMessageBuilder()
+            .buildEnrichmentWarn()
+            .withValue(references.stream()
+                                 .map(ReferenceTermContext::getReferenceAsString)
+                                 .sorted(String::compareToIgnoreCase)
+                                 .collect(Collectors.joining(",")))
+            .withMessage(ExceptionUtils.getMessage(rootCause))
+            .withStackTrace(ExceptionUtils.getStackTrace(rootCause))
+            .build());
+      } else {
+        reportMessages.add(new ReportMessageBuilder()
+            .buildEnrichmentError()
+            .withValue(references.stream()
+                                 .map(ReferenceTermContext::getReferenceAsString)
+                                 .sorted(String::compareToIgnoreCase)
+                                 .collect(Collectors.joining(",")))
+            .withMessage(ExceptionUtils.getMessage(e))
+            .withStackTrace(ExceptionUtils.getStackTrace(e))
+            .build());
+      }
       return new ImmutablePair<>(null, reportMessages);
     }
+  }
+
+  private static boolean containsWarningStatus(String message) {
+    List<HttpStatus> warningStatuses = Arrays.stream(HttpStatus.values())
+                                             .filter(httpStatus -> httpStatus.value() >= 300
+                                                 && httpStatus.value() < 500).collect(Collectors.toList());
+    for (HttpStatus status : warningStatuses) {
+      if (message.contains(status.toString())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static Throwable findRootCause(Throwable throwable) {
+    Objects.requireNonNull(throwable);
+    Throwable rootCause = throwable;
+    while (rootCause.getCause() != null && rootCause.getCause() != rootCause) {
+      rootCause = rootCause.getCause();
+    }
+    return rootCause;
   }
 
   @Override

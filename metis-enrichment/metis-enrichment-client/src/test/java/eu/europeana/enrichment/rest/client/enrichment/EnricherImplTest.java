@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -20,12 +21,13 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
-import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.entity.client.exception.TechnicalRuntimeException;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,6 +36,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -47,6 +50,8 @@ public class EnricherImplTest {
   private final ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor.forClass(List.class);
 
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT;
+
+  private static final Map<ReferenceTermContext, List<EnrichmentBase>> REFERENCE_ENRICHMENT_RESULT;
 
   private static final Set<SearchTermContext> ENRICHMENT_EXTRACT_RESULT = new HashSet<>();
 
@@ -73,11 +78,19 @@ public class EnricherImplTest {
         .add(new SearchTermContext("value2", null, Set.of(ProxyFieldType.DC_SUBJECT)));
     ENRICHMENT_EXTRACT_RESULT
         .add(new SearchTermContext("value3", "pt", Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
+
+    try {
+      final URL reference = new URL("http://urlValue");
+      REFERENCE_ENRICHMENT_RESULT = new HashMap<>();
+      ReferenceTermContext referenceTermContext = new ReferenceTermContext(reference, Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+      REFERENCE_ENRICHMENT_RESULT.put(referenceTermContext, List.of(place1));
+    } catch (MalformedURLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Test
   void testEnricherHappyFlow() {
-
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -99,7 +112,6 @@ public class EnricherImplTest {
 
   @Test
   void testEnricherNullFlow() {
-
     // Create mocks of the dependencies
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
@@ -123,7 +135,7 @@ public class EnricherImplTest {
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
-    doThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST)).when(entityResolver).resolveByText(any());
+    doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(entityResolver).resolveByText(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
     // Create enricher.
@@ -137,6 +149,61 @@ public class EnricherImplTest {
     verifyEnricherExeptionFlow(recordParser, entityResolver, inputRdf, reportMessages);
   }
 
+  @Test
+  public void testEnrichReferencesHappyFlow() throws MalformedURLException {
+    // Given the mocks
+    final RecordParser recordParser = Mockito.mock(RecordParser.class);
+    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
+    doReturn(REFERENCE_ENRICHMENT_RESULT).when(entityResolver).resolveByUri(any());
+
+    // When the enricher
+    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+    ReferenceTermContext referenceTermContext = new ReferenceTermContext(new URL("http://urlValue"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences = enricher.enrichReferences(
+        Set.of(referenceTermContext));
+
+    // Then verify
+    assertEquals(REFERENCE_ENRICHMENT_RESULT, enrichReferences.getLeft());
+    assertTrue(enrichReferences.getRight().isEmpty());
+  }
+
+  @Test
+  public void testEnrichReferenceWarn() throws MalformedURLException {
+    // Given the mocks
+    final RecordParser recordParser = Mockito.mock(RecordParser.class);
+    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
+    doThrow(new TechnicalRuntimeException("Error", new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY)),
+        new HttpClientErrorException(HttpStatus.BAD_REQUEST))
+        .when(entityResolver)
+        .resolveByUri(any());
+
+    // When the enricher a 301
+    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+
+    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URL("http://urlValue1"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+
+    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences = enricher.enrichReferences(
+        Set.of(referenceTermContext1));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesWarning1Flow(), enrichReferences.getRight());
+
+    // When the enricher a 400
+    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URL("http://urlValue2"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+    enrichReferences = enricher.enrichReferences(
+        Set.of(referenceTermContext2));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesWarning2Flow(), enrichReferences.getRight());
+  }
+
   private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver entityResolver,
       RDF inputRdf, Set<ReportMessage> reportMessages) {
     // Extracting values for enrichment
@@ -148,7 +215,6 @@ public class EnricherImplTest {
 
   private void verifyEnricherHappyFlow(RecordParser recordParser, ClientEntityResolver remoteEntityResolver,
       RDF inputRdf, Set<ReportMessage> reportMessages) {
-
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
@@ -196,7 +262,6 @@ public class EnricherImplTest {
 
   private void verifyEnricherNullFlow(ClientEntityResolver remoteEntityResolver,
       RecordParser recordParser, RDF inputRdf, Set<ReportMessage> reportMessages) {
-
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
@@ -215,20 +280,14 @@ public class EnricherImplTest {
   private HashSet<ReportMessage> getExpectedReportMessagesHappyFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK)
-        .withMode(Mode.ENRICHMENT)
-        .withMessageType(Type.IGNORE)
+        .buildEnrichmentIgnore()
         .withValue("value2")
         .withMessage("Could not find an entity for the given search term.")
-        .withStackTrace("")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK)
-        .withMode(Mode.ENRICHMENT)
-        .withMessageType(Type.IGNORE)
+        .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
-        .withStackTrace("")
         .build());
     return reportMessages;
   }
@@ -236,20 +295,14 @@ public class EnricherImplTest {
   private HashSet<ReportMessage> getExpectedReportMessagesNullFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK)
-        .withMode(Mode.ENRICHMENT)
-        .withMessageType(Type.IGNORE)
+        .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search terms.")
-        .withStackTrace("")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK)
-        .withMode(Mode.ENRICHMENT)
-        .withMessageType(Type.IGNORE)
+        .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
-        .withStackTrace("")
         .build());
     return reportMessages;
   }
@@ -257,20 +310,37 @@ public class EnricherImplTest {
   private HashSet<ReportMessage> getExpectedReportMessagesExceptionFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-        .withMode(Mode.ENRICHMENT)
-        .withMessageType(Type.ERROR)
+        .buildEnrichmentError()
         .withValue("value1,value2,value3")
-        .withMessage("HttpClientErrorException: 400 BAD_REQUEST")
-        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST")
+        .withMessage("HttpClientErrorException: 500 INTERNAL_SERVER_ERROR")
+        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 500 INTERNAL_SERVER_ERROR")
         .build());
     reportMessages.add(new ReportMessageBuilder()
-        .withStatus(HttpStatus.OK)
-        .withMode(Mode.ENRICHMENT)
-        .withMessageType(Type.IGNORE)
+        .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
-        .withStackTrace("")
+        .build());
+    return reportMessages;
+  }
+
+  private HashSet<ReportMessage> getExpectedReportMessagesWarning1Flow() {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    reportMessages.add(new ReportMessageBuilder()
+        .buildEnrichmentWarn()
+        .withValue("http://urlValue1")
+        .withMessage("HttpClientErrorException: 301 MOVED_PERMANENTLY")
+        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 301 MOVED_PERMANENTLY")
+        .build());
+    return reportMessages;
+  }
+
+  private HashSet<ReportMessage> getExpectedReportMessagesWarning2Flow() {
+    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    reportMessages.add(new ReportMessageBuilder()
+        .buildEnrichmentWarn()
+        .withValue("http://urlValue2")
+        .withMessage("HttpClientErrorException: 400 BAD_REQUEST")
+        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST")
         .build());
     return reportMessages;
   }
