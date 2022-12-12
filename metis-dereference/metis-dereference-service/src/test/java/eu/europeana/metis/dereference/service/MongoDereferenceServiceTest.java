@@ -17,6 +17,7 @@ import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
@@ -89,11 +90,11 @@ class MongoDereferenceServiceTest {
                                                                                          entityId);
 
     // Test the method
-    final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
+    final DereferenceResult result = service.dereference(entityId);
     assertNotNull(result);
-    assertEquals(1, result.getLeft().size());
-    assertSame(place, result.getLeft().get(0));
-    assertEquals(DereferenceResultStatus.SUCCESS, result.getRight());
+    assertEquals(1, result.getEnrichmentBasesAsList().size());
+    assertSame(place, result.getEnrichmentBasesAsList().get(0));
+    assertEquals(DereferenceResultStatus.SUCCESS, result.getDereferenceStatus());
   }
 
   @Test
@@ -107,10 +108,10 @@ class MongoDereferenceServiceTest {
     final String entityId = "http://sws.geonames.org/3020251/";
     doReturn(new ImmutableTriple<>(null, null, DereferenceResultStatus.SUCCESS))
         .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
-    final Pair<List<EnrichmentBase>, DereferenceResultStatus> emptyResult = service.dereference(entityId);
+    final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
-    assertTrue(emptyResult.getLeft().isEmpty());
-    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, emptyResult.getRight());
+    assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, emptyResult.getDereferenceStatus());
   }
 
   @Test
@@ -131,10 +132,10 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
     doReturn(new ImmutableTriple<>(place, geonames, null))
         .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
-    final Pair<List<EnrichmentBase>, DereferenceResultStatus> emptyResult = service.dereference(entityId);
+    final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
-    assertFalse(emptyResult.getLeft().isEmpty());
-    assertEquals(DereferenceResultStatus.UNKNOWN_ENTITY, emptyResult.getRight());
+    assertFalse(emptyResult.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.UNKNOWN_ENTITY, emptyResult.getDereferenceStatus());
   }
 
   @Test
@@ -146,10 +147,10 @@ class MongoDereferenceServiceTest {
         .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
 
     // Test the method
-    final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
+    final DereferenceResult result = service.dereference(entityId);
     assertNotNull(result);
-    assertTrue(result.getLeft().isEmpty());
-    assertEquals(DereferenceResultStatus.INVALID_URL, result.getRight());
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.INVALID_URL, result.getDereferenceStatus());
   }
 
   @Test
@@ -161,9 +162,9 @@ class MongoDereferenceServiceTest {
         .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
 
     // Test the method
-    final Pair<List<EnrichmentBase>, DereferenceResultStatus> result = service.dereference(entityId);
+    final DereferenceResult result = service.dereference(entityId);
     assertNotNull(result);
-    assertTrue(result.getLeft().isEmpty());
-    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR, result.getRight());
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR, result.getDereferenceStatus());
   }
 }

@@ -11,6 +11,7 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
+import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.IncomingRecordToEdmTransformer;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
@@ -88,19 +89,17 @@ public class MongoDereferenceService implements DereferenceService {
    * Mongo dereference implementation
    *
    * @param resourceId The resource ID (URI) to dereference
-   * @return Pair of enrichment results, dereference status.
+   * @return Dereference results with dereference status.
    * @throws IllegalArgumentException In case the Parameter is null.
    */
   @Override
-  public Pair<List<EnrichmentBase>, DereferenceResultStatus> dereference(String resourceId) {
+  public DereferenceResult dereference(String resourceId) {
     // Sanity check
     if (resourceId == null) {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
 
-    // Perform the actual dereferencing.
-    Pair<Collection<EnrichmentBase>, DereferenceResultStatus> dereferenceResult = dereferenceResource(resourceId);
-    return new ImmutablePair<>(new ArrayList<>(dereferenceResult.getLeft()), dereferenceResult.getRight());
+    return dereferenceResource(resourceId);
   }
 
   /**
@@ -121,69 +120,73 @@ public class MongoDereferenceService implements DereferenceService {
    * ENTITY_FOUND_XLT_ERROR, this occurs when an JAXBExcetion happens. INVALID_URL, this occurs when an URIException happens.
    * UNKNOWN_ENTITY, this occurs is the entity is unknown.
    */
-  private Pair<Collection<EnrichmentBase>, DereferenceResultStatus> dereferenceResource(String resourceId) {
+  private DereferenceResult dereferenceResource(String resourceId) {
+    DereferenceResult dereferenceResult = null;
     try {
       // Get the main object to dereference. If null, we are done.
-      final Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> resource = computeEnrichmentBaseVocabularyTriple(resourceId);
+      final Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> resource = computeEnrichmentBaseVocabularyTriple(
+          resourceId);
 
       // No EnrichmentBase and no Vocabulary.
       if (resource.getLeft() == null && resource.getMiddle() == null && resource.getRight() == DereferenceResultStatus.SUCCESS) {
-        return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.NO_VOCABULARY_MATCHING);
-      // No EnrichmentBase, no Vocabulary and an error occurred.
+        dereferenceResult = new DereferenceResult(Collections.emptyList(), DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+        // No EnrichmentBase, no Vocabulary and an error occurred.
       } else if (resource.getLeft() == null && resource.getMiddle() == null) {
-        return new ImmutablePair<>(Collections.emptyList(), resource.getRight());
+        dereferenceResult = new DereferenceResult(Collections.emptyList(), resource.getRight());
       }
 
-      // Create value resolver that catches exceptions and logs them.
-      final Function<String, Pair<EnrichmentBase, DereferenceResultStatus>> valueResolver = key -> {
-        Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> result;
-        try {
-          result = computeEnrichmentBaseVocabularyTriple(key);
-          if (result.getLeft() == null && result.getMiddle() == null && result.getRight() == DereferenceResultStatus.SUCCESS) {
+      if (dereferenceResult == null) {
+        // Create value resolver that catches exceptions and logs them.
+        final Function<String, Pair<EnrichmentBase, DereferenceResultStatus>> valueResolver = key -> {
+          Triple<EnrichmentBase, Vocabulary, DereferenceResultStatus> result;
+          try {
+            result = computeEnrichmentBaseVocabularyTriple(key);
+            if (result.getLeft() == null && result.getMiddle() == null && result.getRight() == DereferenceResultStatus.SUCCESS) {
+              // No EnrichmentBase + Status
+              return new ImmutablePair<>(null, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
+            } else {
+              // EnrichmentBase + Status
+              return new ImmutablePair<>(result.getLeft(), result.getRight());
+            }
+          } catch (JAXBException jaxbException) {
+            LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), jaxbException);
             // No EnrichmentBase + Status
-            return new ImmutablePair<>(null, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
-          } else {
-            // EnrichmentBase + Status
-            return new ImmutablePair<>(result.getLeft(), result.getRight());
+            return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR);
+          } catch (URISyntaxException uriSyntaxException) {
+            LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), uriSyntaxException);
+            // No EnrichmentBase + Status
+            return new ImmutablePair<>(null, DereferenceResultStatus.INVALID_URL);
           }
-        } catch (JAXBException jaxbException) {
-          LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), jaxbException);
-          // No EnrichmentBase + Status
-          return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR);
-        } catch (URISyntaxException uriSyntaxException) {
-          LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), uriSyntaxException);
-          // No EnrichmentBase + Status
-          return new ImmutablePair<>(null, DereferenceResultStatus.INVALID_URL);
-        }
-      };
+        };
 
-      // Perform the breadth-first search to search for broader terms (if needed).
-      final int iterations = resource.getMiddle().getIterations();
-      final Map<String, Pair<EnrichmentBase, DereferenceResultStatus>> result;
-      if (iterations > 0) {
-        result = GraphUtils
-            .breadthFirstSearch(resourceId, new ImmutablePair<>(resource.getLeft(), resource.getRight()),
-                resource.getMiddle().getIterations(),
-                valueResolver, this::extractBroaderResources);
-      } else {
-        result = new HashMap<>();
-        result.put(resourceId, new ImmutablePair<>(resource.getLeft(), resource.getRight()));
+        // Perform the breadth-first search to search for broader terms (if needed).
+        final int iterations = resource.getMiddle().getIterations();
+        final Map<String, Pair<EnrichmentBase, DereferenceResultStatus>> result;
+        if (iterations > 0) {
+          result = GraphUtils
+              .breadthFirstSearch(resourceId, new ImmutablePair<>(resource.getLeft(), resource.getRight()),
+                  resource.getMiddle().getIterations(),
+                  valueResolver, this::extractBroaderResources);
+        } else {
+          result = new HashMap<>();
+          result.put(resourceId, new ImmutablePair<>(resource.getLeft(), resource.getRight()));
+        }
+        // Done
+        dereferenceResult = new DereferenceResult(
+            result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
+            result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
+                  .orElse(DereferenceResultStatus.UNKNOWN_ENTITY));
       }
-      // Done
-      return new ImmutablePair<>(
-          result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
-          result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
-                .orElse(DereferenceResultStatus.UNKNOWN_ENTITY)
-      );
     } catch (JAXBException jaxbException) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId), jaxbException);
       // No EnrichmentBase + Status
-      return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR);
+      dereferenceResult = new DereferenceResult(Collections.emptyList(), DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR);
     } catch (URISyntaxException uriSyntaxException) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId), uriSyntaxException);
       // No EnrichmentBase + Status
-      return new ImmutablePair<>(Collections.emptyList(), DereferenceResultStatus.INVALID_URL);
+      dereferenceResult = new DereferenceResult(Collections.emptyList(), DereferenceResultStatus.INVALID_URL);
     }
+    return dereferenceResult;
   }
 
   private void extractBroaderResources(Pair<EnrichmentBase, DereferenceResultStatus> resource, Set<String> destination) {
@@ -286,7 +289,6 @@ public class MongoDereferenceService implements DereferenceService {
         }
       }
     }
-
 
     final ImmutableTriple<String, Vocabulary, DereferenceResultStatus> entityVocabularyTriple;
     // If retrieval or transformation of entity failed, and we have one vocabulary then we store that

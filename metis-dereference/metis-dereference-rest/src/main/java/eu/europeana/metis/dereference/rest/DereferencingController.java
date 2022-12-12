@@ -1,9 +1,8 @@
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.enrichment.api.external.DereferenceResultStatus;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.utils.CommonStringValues;
@@ -13,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -54,15 +52,16 @@ public class DereferencingController {
   @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
   public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) {
     try {
-      Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceResult = dereferenceInternal(resourceId);
+      DereferenceResult dereferenceResult = dereferenceInternal(resourceId);
       return new EnrichmentResultList(
-          List.of(new EnrichmentResultBaseWrapper(dereferenceResult.getLeft(), dereferenceResult.getRight())));
+          List.of(new EnrichmentResultBaseWrapper(dereferenceResult.getEnrichmentBasesAsList(),
+              dereferenceResult.getDereferenceStatus())));
     } catch (RuntimeException e) {
       throw new DereferenceException(generateExceptionMessage(resourceId, e), e);
     }
   }
 
-  private Pair<List<EnrichmentBase>, DereferenceResultStatus> dereferenceInternal(String resourceId) {
+  private DereferenceResult dereferenceInternal(String resourceId) {
     return dereferenceService.dereference(resourceId);
   }
 
@@ -85,7 +84,8 @@ public class DereferencingController {
     try {
       return new EnrichmentResultList(resourceIds.stream()
                                                  .map(this::dereferenceInternal)
-                                                 .map(item -> new EnrichmentResultBaseWrapper(item.getLeft(), item.getRight()))
+                                                 .map(item -> new EnrichmentResultBaseWrapper(item.getEnrichmentBasesAsList(),
+                                                     item.getDereferenceStatus()))
                                                  .collect(Collectors.toList()));
     } catch (RuntimeException e) {
       throw new DereferenceException(generateExceptionMessage(resourceIds.stream().collect(Collectors.joining(",")), e), e);
