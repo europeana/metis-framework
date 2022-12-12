@@ -22,7 +22,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
+import eu.europeana.enrichment.rest.client.report.ReportMessageBuilder;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.exception.TechnicalRuntimeException;
 import eu.europeana.metis.schema.jibx.RDF;
