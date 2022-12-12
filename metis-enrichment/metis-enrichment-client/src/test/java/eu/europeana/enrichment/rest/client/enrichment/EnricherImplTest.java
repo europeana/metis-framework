@@ -43,7 +43,7 @@ import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
-public class EnricherImplTest {
+class EnricherImplTest {
 
   private final ArgumentCaptor<Set<SearchTerm>> enrichmentExtractionCaptor = ArgumentCaptor.forClass(Set.class);
 
@@ -150,7 +150,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  public void testEnrichReferencesHappyFlow() throws MalformedURLException {
+  void testEnrichReferencesHappyFlow() throws MalformedURLException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -170,7 +170,7 @@ public class EnricherImplTest {
   }
 
   @Test
-  public void testEnrichReferenceWarnFlow() throws MalformedURLException {
+  void testEnrichReferenceWarnFlow() throws MalformedURLException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -279,12 +279,12 @@ public class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesHappyFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentIgnore()
         .withValue("value2")
         .withMessage("Could not find an entity for the given search term.")
         .build());
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
@@ -294,12 +294,12 @@ public class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesNullFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search terms.")
         .build());
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
@@ -309,13 +309,13 @@ public class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesExceptionFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentError()
         .withValue("value1,value2,value3")
         .withMessage("HttpClientErrorException: 500 INTERNAL_SERVER_ERROR")
         .withStackTrace("org.springframework.web.client.HttpClientErrorException: 500 INTERNAL_SERVER_ERROR")
         .build());
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
@@ -325,7 +325,7 @@ public class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesWarning1Flow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
@@ -337,7 +337,7 @@ public class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesWarning2Flow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(new ReportMessageBuilder()
+    reportMessages.add(ReportMessageBuilder
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.BAD_REQUEST)
         .withValue("http://urlValue2")

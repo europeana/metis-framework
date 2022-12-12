@@ -83,42 +83,36 @@ public final class ReportMessage {
     private HttpStatus status;
     private Mode mode;
     private Type messageType;
-    private String value;
-    private String message;
-    private String stackTrace;
+    private String value = "";
+    private String message = "";
+    private String stackTrace = "";
 
     public ReportMessageBuilder() {
       // for builder
-      value = "";
-      message = "";
-      stackTrace = "";
     }
 
-    public ReportMessageBuilder buildEnrichmentIgnore() {
-      return this.withMode(Mode.ENRICHMENT)
-                 .withStatus(HttpStatus.OK)
+    public static ReportMessageBuilder buildEnrichmentIgnore() {
+      return new ReportMessageBuilder().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.OK)
                  .withMessageType(Type.IGNORE);
     }
 
-    public ReportMessageBuilder buildEnrichmentWarn() {
-      return this.withMode(Mode.ENRICHMENT)
+    public static ReportMessageBuilder buildEnrichmentWarn() {
+      return new ReportMessageBuilder().withMode(Mode.ENRICHMENT)
                  .withMessageType(Type.WARN);
     }
 
-    public ReportMessageBuilder buildEnrichmentError() {
-      return this.withMode(Mode.ENRICHMENT)
-                 .withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public static ReportMessageBuilder buildEnrichmentError() {
+      return new ReportMessageBuilder().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
                  .withMessageType(Type.ERROR);
     }
 
-    public ReportMessageBuilder buildDereferenceIgnore() {
-      return this.withMode(Mode.DEREFERENCE)
-                 .withStatus(HttpStatus.OK)
+    public static ReportMessageBuilder buildDereferenceIgnore() {
+      return new ReportMessageBuilder().withMode(Mode.DEREFERENCE).withStatus(HttpStatus.OK)
                  .withMessageType(Type.IGNORE);
     }
 
-    public ReportMessageBuilder buildDereferenceWarn() {
-      return this.withMode(Mode.DEREFERENCE)
+    public static ReportMessageBuilder buildDereferenceWarn() {
+      return new ReportMessageBuilder().withMode(Mode.DEREFERENCE)
                  .withMessageType(Type.WARN);
     }
 

@@ -65,7 +65,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (inputStream == null) {
       IllegalArgumentException e = new IllegalArgumentException("The input stream cannot be null.");
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
@@ -77,7 +77,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
         result = new ProcessedResult<>(convertRdfToBytes(process(inputRdf, modes)));
         return result;
       } catch (SerializationException e) {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildEnrichmentError()
             .withMessage(ExceptionUtils.getMessage(e))
             .withStackTrace(ExceptionUtils.getStackTrace(e))
@@ -99,7 +99,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (inputString == null) {
       IllegalArgumentException e = new IllegalArgumentException("Input RDF string cannot be null.");
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
           .withValue(inputString)
           .withMessage(ExceptionUtils.getMessage(e))
@@ -111,7 +111,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
         final RDF inputRdf = convertStringToRdf(inputString);
         result = new ProcessedResult<>(convertRdfToString(process(inputRdf, modes)));
       } catch (SerializationException e) {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildEnrichmentError()
             .withValue(inputString)
             .withMessage(ExceptionUtils.getMessage(e))
@@ -135,7 +135,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Sanity checks
     if (rdf == null) {
       e = new IllegalArgumentException("Input RDF cannot be null.");
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
@@ -144,7 +144,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
     if (modes == null) {
       e = new IllegalArgumentException("Set of Modes cannot be null.");
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))
@@ -153,7 +153,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
     if (!getSupportedModes().containsAll(modes)) {
       e = new IllegalArgumentException("The requested mode(s) is not supported by this instance.");
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
           .withMessage(ExceptionUtils.getMessage(e))
           .withStackTrace(ExceptionUtils.getStackTrace(e))

@@ -109,7 +109,7 @@ public class EnricherImpl implements Enricher {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     for (SearchTermContext searchTerm : searchTerms) {
       if (enrichedValues.get(searchTerm).isEmpty()) {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search term.")
             .withValue(searchTerm.getTextValue())
@@ -124,7 +124,7 @@ public class EnricherImpl implements Enricher {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     for (ReferenceTermContext reference : references) {
       if (enrichedReferences.get(reference).isEmpty()) {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search reference.")
             .withValue(reference.getReferenceAsString())
@@ -139,7 +139,7 @@ public class EnricherImpl implements Enricher {
       Set<SearchTermContext> searchTerms) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentIgnore()
           .withMessage("Empty search terms.")
           .withValue(searchTerms.toString())
@@ -150,7 +150,7 @@ public class EnricherImpl implements Enricher {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException e) {
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
           .withMessage("Occurred while trying to perform enrichment of terms.")
           .withValue(searchTerms.stream()
@@ -169,7 +169,7 @@ public class EnricherImpl implements Enricher {
       Set<ReferenceTermContext> references) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildEnrichmentIgnore()
           .withValue(references.toString())
           .withMessage("Empty search reference.")
@@ -188,14 +188,14 @@ public class EnricherImpl implements Enricher {
                                         .sorted(String::compareToIgnoreCase)
                                         .collect(Collectors.joining(","));
       if (warningStatus == null) {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildEnrichmentError()
             .withValue(referenceValue)
             .withMessage(ExceptionUtils.getMessage(e))
             .withStackTrace(ExceptionUtils.getStackTrace(e))
             .build());
       } else {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildEnrichmentWarn()
             .withStatus(warningStatus)
             .withValue(referenceValue)

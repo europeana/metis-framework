@@ -124,7 +124,7 @@ public class DereferencerImpl implements Dereferencer {
     try {
       return new URL(id);
     } catch (MalformedURLException e) {
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(id)
@@ -164,7 +164,7 @@ public class DereferencerImpl implements Dereferencer {
         LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
         return checkedUrl;
       } else {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildDereferenceWarn()
             .withStatus(responseCode)
             .withValue(checkedUrl.toString())
@@ -174,7 +174,7 @@ public class DereferencerImpl implements Dereferencer {
         return null;
       }
     } catch (IOException e) {
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(checkedUrl.toString())
@@ -196,7 +196,7 @@ public class DereferencerImpl implements Dereferencer {
     } catch (Exception e) {
       DereferenceException dereferenceException = new DereferenceException(
           "Exception occurred while trying to perform dereferencing.", e);
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceIds.stream()
@@ -233,7 +233,7 @@ public class DereferencerImpl implements Dereferencer {
     } catch (BadRequest e) {
       // We are forgiving for these errors
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(resourceId)
@@ -244,7 +244,7 @@ public class DereferencerImpl implements Dereferencer {
     } catch (Exception e) {
       DereferenceException dereferenceException = new DereferenceException(
           "Exception occurred while trying to perform dereferencing.", e);
-      reportMessages.add(new ReportMessageBuilder()
+      reportMessages.add(ReportMessageBuilder
           .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceId)
@@ -285,14 +285,14 @@ public class DereferencerImpl implements Dereferencer {
           resultMessage = "";
       }
       if (resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING)) {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildDereferenceIgnore()
             .withStatus(HttpStatus.OK)
             .withValue(resourceId)
             .withMessage(resultMessage)
             .build());
       } else {
-        reportMessages.add(new ReportMessageBuilder()
+        reportMessages.add(ReportMessageBuilder
             .buildDereferenceWarn()
             .withStatus(HttpStatus.OK)
             .withValue(resourceId)
