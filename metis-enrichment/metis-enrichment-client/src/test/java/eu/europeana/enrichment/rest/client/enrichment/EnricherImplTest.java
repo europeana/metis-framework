@@ -312,8 +312,7 @@ class EnricherImplTest {
     reportMessages.add(ReportMessageBuilder
         .buildEnrichmentError()
         .withValue("value1,value2,value3")
-        .withMessage("HttpClientErrorException: 500 INTERNAL_SERVER_ERROR")
-        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 500 INTERNAL_SERVER_ERROR")
+        .withException(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
         .build());
     reportMessages.add(ReportMessageBuilder
         .buildEnrichmentIgnore()
@@ -329,8 +328,7 @@ class EnricherImplTest {
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
-        .withMessage("HttpClientErrorException: 301 MOVED_PERMANENTLY")
-        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 301 MOVED_PERMANENTLY")
+        .withException(new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY))
         .build());
     return reportMessages;
   }
@@ -341,8 +339,7 @@ class EnricherImplTest {
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.BAD_REQUEST)
         .withValue("http://urlValue2")
-        .withMessage("HttpClientErrorException: 400 BAD_REQUEST")
-        .withStackTrace("org.springframework.web.client.HttpClientErrorException: 400 BAD_REQUEST")
+        .withException(new HttpClientErrorException(HttpStatus.BAD_REQUEST))
         .build());
     return reportMessages;
   }

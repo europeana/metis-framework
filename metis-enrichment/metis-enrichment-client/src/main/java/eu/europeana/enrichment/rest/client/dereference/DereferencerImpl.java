@@ -27,7 +27,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -128,8 +127,7 @@ public class DereferencerImpl implements Dereferencer {
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(id)
-          .withMessage(ExceptionUtils.getMessage(e))
-          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .withException(e)
           .build());
       LOGGER.debug("Invalid enrichment reference found: {}", id);
       return null;
@@ -178,8 +176,7 @@ public class DereferencerImpl implements Dereferencer {
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(checkedUrl.toString())
-          .withMessage(ExceptionUtils.getMessage(e))
-          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .withException(e)
           .build());
       LOGGER.debug("A URL to be dereferenced is invalid.: {}", checkedUrl);
       return null;
@@ -202,8 +199,7 @@ public class DereferencerImpl implements Dereferencer {
           .withValue(resourceIds.stream()
                                 .map(resourceId -> resourceId.getReference().toString())
                                 .collect(Collectors.joining(",")))
-          .withMessage(ExceptionUtils.getMessage(dereferenceException))
-          .withStackTrace(ExceptionUtils.getStackTrace(dereferenceException))
+          .withException(dereferenceException)
           .build());
       return new ImmutablePair<>(new ArrayList<>(), reportMessages);
     }
@@ -237,8 +233,7 @@ public class DereferencerImpl implements Dereferencer {
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(resourceId)
-          .withMessage(ExceptionUtils.getMessage(e))
-          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .withException(e)
           .build());
       result = null;
     } catch (Exception e) {
@@ -248,8 +243,7 @@ public class DereferencerImpl implements Dereferencer {
           .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceId)
-          .withMessage(ExceptionUtils.getMessage(dereferenceException))
-          .withStackTrace(ExceptionUtils.getStackTrace(dereferenceException))
+          .withException(dereferenceException)
           .build());
       result = null;
     }

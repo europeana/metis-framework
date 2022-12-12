@@ -28,7 +28,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -152,13 +151,11 @@ public class EnricherImpl implements Enricher {
     } catch (RuntimeException e) {
       reportMessages.add(ReportMessageBuilder
           .buildEnrichmentError()
-          .withMessage("Occurred while trying to perform enrichment of terms.")
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
                                 .sorted(String::compareToIgnoreCase)
                                 .collect(Collectors.joining(",")))
-          .withMessage(ExceptionUtils.getMessage(e))
-          .withStackTrace(ExceptionUtils.getStackTrace(e))
+          .withException(e)
           .build());
       return new ImmutablePair<>(null, reportMessages);
     }
@@ -191,16 +188,14 @@ public class EnricherImpl implements Enricher {
         reportMessages.add(ReportMessageBuilder
             .buildEnrichmentError()
             .withValue(referenceValue)
-            .withMessage(ExceptionUtils.getMessage(e))
-            .withStackTrace(ExceptionUtils.getStackTrace(e))
+            .withException(e)
             .build());
       } else {
         reportMessages.add(ReportMessageBuilder
             .buildEnrichmentWarn()
             .withStatus(warningStatus)
             .withValue(referenceValue)
-            .withMessage(ExceptionUtils.getMessage(rootCause))
-            .withStackTrace(ExceptionUtils.getStackTrace(rootCause))
+            .withException(rootCause)
             .build());
       }
       return new ImmutablePair<>(null, reportMessages);

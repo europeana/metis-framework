@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.report;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -93,27 +94,27 @@ public final class ReportMessage {
 
     public static ReportMessageBuilder buildEnrichmentIgnore() {
       return new ReportMessageBuilder().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.OK)
-                 .withMessageType(Type.IGNORE);
+                                       .withMessageType(Type.IGNORE);
     }
 
     public static ReportMessageBuilder buildEnrichmentWarn() {
       return new ReportMessageBuilder().withMode(Mode.ENRICHMENT)
-                 .withMessageType(Type.WARN);
+                                       .withMessageType(Type.WARN);
     }
 
     public static ReportMessageBuilder buildEnrichmentError() {
       return new ReportMessageBuilder().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                 .withMessageType(Type.ERROR);
+                                       .withMessageType(Type.ERROR);
     }
 
     public static ReportMessageBuilder buildDereferenceIgnore() {
       return new ReportMessageBuilder().withMode(Mode.DEREFERENCE).withStatus(HttpStatus.OK)
-                 .withMessageType(Type.IGNORE);
+                                       .withMessageType(Type.IGNORE);
     }
 
     public static ReportMessageBuilder buildDereferenceWarn() {
       return new ReportMessageBuilder().withMode(Mode.DEREFERENCE)
-                 .withMessageType(Type.WARN);
+                                       .withMessageType(Type.WARN);
     }
 
     /**
@@ -172,13 +173,14 @@ public final class ReportMessage {
     }
 
     /**
-     * Sets the {@code stackTrace} and returns a reference to this Builder enabling method chaining.
+     * Sets the {@code Throwable} and returns a reference to this Builder enabling method chaining.
      *
-     * @param val the {@code stackTrace} to set
+     * @param val the {@code Throwable} to set
      * @return a reference to this Builder
      */
-    public ReportMessageBuilder withStackTrace(String val) {
-      stackTrace = val;
+    public ReportMessageBuilder withException(Throwable e) {
+      message = ExceptionUtils.getMessage(e);
+      stackTrace = ExceptionUtils.getStackTrace(e);
       return this;
     }
 
