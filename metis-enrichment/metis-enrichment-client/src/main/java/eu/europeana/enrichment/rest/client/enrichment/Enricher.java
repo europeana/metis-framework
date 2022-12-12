@@ -5,7 +5,6 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

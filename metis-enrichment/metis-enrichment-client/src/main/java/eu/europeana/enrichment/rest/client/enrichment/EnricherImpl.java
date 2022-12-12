@@ -11,7 +11,7 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
+import eu.europeana.enrichment.rest.client.report.ReportMessageBuilder;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
@@ -204,8 +204,9 @@ public class EnricherImpl implements Enricher {
 
   private static HttpStatus containsWarningStatus(String message) {
     List<HttpStatus> warningStatuses = Arrays.stream(HttpStatus.values())
-                                             .filter(httpStatus -> httpStatus.value() >= 300
-                                                 && httpStatus.value() < 500).collect(Collectors.toList());
+                                             .filter(httpStatus -> httpStatus.value() >= HttpStatus.MULTIPLE_CHOICES.value()
+                                                 && httpStatus.value() < HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                             .collect(Collectors.toList());
     for (HttpStatus status : warningStatuses) {
       if (message.contains(status.toString())) {
         return status;

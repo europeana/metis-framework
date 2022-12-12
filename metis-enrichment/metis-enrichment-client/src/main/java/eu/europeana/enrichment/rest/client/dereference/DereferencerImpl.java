@@ -11,7 +11,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ReportMessage.ReportMessageBuilder;
+import eu.europeana.enrichment.rest.client.report.ReportMessageBuilder;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -261,7 +261,7 @@ public class DereferencerImpl implements Dereferencer {
       String resultMessage;
       switch (resultStatus) {
         case ENTITY_FOUND_XML_XLT_ERROR:
-          resultMessage = "The entity was found, but applying the XSLT results in an XML error (either because the entity is malformed or the XSLT is malformed).";
+          resultMessage = "Entity was found, applying the XSLT results in an XML error (either because the entity is malformed or the XSLT is malformed).";
           break;
         case INVALID_URL:
           resultMessage = "A URL to be dereferenced is invalid.";

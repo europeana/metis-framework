@@ -73,7 +73,7 @@ public class ProcessedResult<T> {
    * @return report messages after processing is completed
    */
   public Set<ReportMessage> getReport() {
-    return reportMessages;
+    return new HashSet<>(reportMessages);
   }
 
   /**
