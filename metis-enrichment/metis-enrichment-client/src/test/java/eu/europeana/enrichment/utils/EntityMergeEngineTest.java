@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.CollectionUtils;
 
-public class EntityMergeEngineTest {
+class EntityMergeEngineTest {
 
   private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
@@ -568,7 +568,7 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergePlace() throws SerializationException {
+  void testMergePlace() throws SerializationException {
 
     // Create input
     final List<EnrichmentBase> inputList = new ArrayList<>();
@@ -596,7 +596,7 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergeOtherTypes() throws SerializationException {
+  void testMergeOtherTypes() throws SerializationException {
 
     // Create input
     final List<EnrichmentBase> inputList = new ArrayList<>();
@@ -635,7 +635,7 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergeUnknownType() {
+  void testMergeUnknownType() {
     final List<EnrichmentBase> inputList = new ArrayList<>();
     inputList.add(new EnrichmentBase() {
     });
@@ -643,7 +643,9 @@ public class EntityMergeEngineTest {
         Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
         EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
     RDF rdf = new RDF();
-    assertThrows(IllegalArgumentException.class,
-        () -> new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
+    EntityMergeEngine entityMergeEngine = new EntityMergeEngine();
+    IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+        () -> entityMergeEngine.mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
+    assertTrue( illegalArgumentException.getMessage().contains("Unknown entity type"));
   }
 }

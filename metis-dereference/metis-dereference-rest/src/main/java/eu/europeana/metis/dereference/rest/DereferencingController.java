@@ -14,8 +14,6 @@ import io.swagger.annotations.ApiParam;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -31,8 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @Api("/")
 public class DereferencingController {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingController.class);
 
   private final DereferenceService dereferenceService;
 
@@ -89,8 +85,7 @@ public class DereferencingController {
     try {
       return new EnrichmentResultList(resourceIds.stream()
                                                  .map(this::dereferenceInternal)
-                                                 .map(item -> new EnrichmentResultBaseWrapper(
-                                                     (List<EnrichmentBase>) item.getLeft(), item.getRight()))
+                                                 .map(item -> new EnrichmentResultBaseWrapper(item.getLeft(), item.getRight()))
                                                  .collect(Collectors.toList()));
     } catch (RuntimeException e) {
       throw new DereferenceException(generateExceptionMessage(resourceIds.stream().collect(Collectors.joining(",")), e), e);
