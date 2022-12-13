@@ -1,11 +1,8 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.util.List;
 import java.util.Set;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Instances of this class can perform dereferencing.
@@ -24,10 +21,10 @@ public interface Dereferencer {
    * It gets the dereferenced information and adds it to the RDF using the extracted fields
    *
    * @param resourceIds The extracted fields to add the dereferenced information to the RDF
-   * @return Pair of A list of RDF field names with the information associated with it and a report containing messages of
-   * dereference process
+   * @return DereferencedEntity which contains a list of RDF field names with the information associated with it and a report
+   * containing messages of dereference process.
    */
-  Pair<List<EnrichmentBase>, Set<ReportMessage>> dereferenceEntities(Set<String> resourceIds);
+  DereferencedEntity dereferenceEntities(Set<String> resourceIds);
 
   /**
    * It extracts the references for dereferencing from a RDF file

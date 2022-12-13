@@ -4,7 +4,6 @@ import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.report.ProcessedResult;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ReportMessageBuilder;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -64,7 +63,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (inputStream == null) {
       IllegalArgumentException e = new IllegalArgumentException("The input stream cannot be null.");
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentError()
           .withException(e)
           .build());
@@ -75,7 +74,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
         result = new ProcessedResult<>(convertRdfToBytes(process(inputRdf, modes)));
         return result;
       } catch (SerializationException e) {
-        reportMessages.add(ReportMessageBuilder
+        reportMessages.add(ReportMessage
             .buildEnrichmentError()
             .withException(e)
             .build());
@@ -96,7 +95,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (inputString == null) {
       IllegalArgumentException e = new IllegalArgumentException("Input RDF string cannot be null.");
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentError()
           .withValue(inputString)
           .withException(e)
@@ -107,7 +106,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
         final RDF inputRdf = convertStringToRdf(inputString);
         result = new ProcessedResult<>(convertRdfToString(process(inputRdf, modes)));
       } catch (SerializationException e) {
-        reportMessages.add(ReportMessageBuilder
+        reportMessages.add(ReportMessage
             .buildEnrichmentError()
             .withValue(inputString)
             .withException(e)
@@ -130,7 +129,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Sanity checks
     if (rdf == null) {
       e = new IllegalArgumentException("Input RDF cannot be null.");
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentError()
           .withException(e)
           .build());
@@ -138,7 +137,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
     if (modes == null) {
       e = new IllegalArgumentException("Set of Modes cannot be null.");
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentError()
           .withException(e)
           .build());
@@ -146,7 +145,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
     if (!getSupportedModes().containsAll(modes)) {
       e = new IllegalArgumentException("The requested mode(s) is not supported by this instance.");
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentError()
           .withException(e)
           .build());

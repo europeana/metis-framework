@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.report;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -11,20 +12,24 @@ import org.springframework.http.HttpStatus;
 public final class ReportMessage {
 
   private static final int MAX_COMPARE_STACK_TRACE = 50;
-  private final HttpStatus status;
-  private final Mode mode;
-  private final Type messageType;
-  private final String value;
-  private final String message;
-  private final String stackTrace;
+  private HttpStatus status;
+  private Mode mode;
+  private Type messageType;
+  private String value = "";
+  private String message = "";
+  private String stackTrace = "";
 
-  ReportMessage(ReportMessageBuilder reportMessageBuilder) {
-    status = reportMessageBuilder.getStatus();
-    mode = reportMessageBuilder.getMode();
-    messageType = reportMessageBuilder.getMessageType();
-    value = reportMessageBuilder.getValue();
-    message = reportMessageBuilder.getMessage();
-    stackTrace = reportMessageBuilder.getStackTrace();
+  private ReportMessage() {
+    //for builder
+  }
+
+  private ReportMessage(ReportMessage val) {
+    this.status = val.status;
+    this.mode = val.mode;
+    this.messageType = val.messageType;
+    this.value = val.value;
+    this.message = val.message;
+    this.stackTrace = val.stackTrace;
   }
 
   public HttpStatus getStatus() {
@@ -78,5 +83,131 @@ public final class ReportMessage {
   @Override
   public String toString() {
     return "[" + status + "," + mode.name() + "," + messageType.name() + "," + value + "," + message + "," + stackTrace + "]\n";
+  }
+
+  /**
+   * Create a report message for enrichment with ok status and ignore type
+   *
+   * @return a reference to this Builder
+   */
+  public static ReportMessage buildEnrichmentIgnore() {
+    return new ReportMessage().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.OK)
+                              .withMessageType(Type.IGNORE);
+  }
+
+  /**
+   * Create a report message for enrichment with warn type
+   *
+   * @return a reference to this Builder
+   */
+  public static ReportMessage buildEnrichmentWarn() {
+    return new ReportMessage().withMode(Mode.ENRICHMENT)
+                              .withMessageType(Type.WARN);
+  }
+
+  /**
+   * Create a report message for enrichment with error status and error type
+   *
+   * @return a reference to this Builder
+   */
+  public static ReportMessage buildEnrichmentError() {
+    return new ReportMessage().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                              .withMessageType(Type.ERROR);
+  }
+
+  /**
+   * Create a report message for dereference with ok status and ignore type
+   *
+   * @return a reference to this Builder
+   */
+  public static ReportMessage buildDereferenceIgnore() {
+    return new ReportMessage().withMode(Mode.DEREFERENCE).withStatus(HttpStatus.OK)
+                              .withMessageType(Type.IGNORE);
+  }
+
+  /**
+   * Create a report message for dereference with warn type
+   *
+   * @return a reference to this Builder
+   */
+  public static ReportMessage buildDereferenceWarn() {
+    return new ReportMessage().withMode(Mode.DEREFERENCE)
+                              .withMessageType(Type.WARN);
+  }
+
+  /**
+   * Sets the {@code status} and returns a reference to this Builder enabling method chaining.
+   *
+   * @param val the {@code status} to set
+   * @return a reference to this Builder
+   */
+  public ReportMessage withStatus(HttpStatus val) {
+    status = val;
+    return this;
+  }
+
+  /**
+   * Sets the {@code mode} and returns a reference to this Builder enabling method chaining.
+   *
+   * @param val the {@code mode} to set
+   * @return a reference to this Builder
+   */
+  public ReportMessage withMode(Mode val) {
+    mode = val;
+    return this;
+  }
+
+  /**
+   * Sets the {@code messageType} and returns a reference to this Builder enabling method chaining.
+   *
+   * @param val the {@code messageType} to set
+   * @return a reference to this Builder
+   */
+  public ReportMessage withMessageType(Type val) {
+    messageType = val;
+    return this;
+  }
+
+  /**
+   * Sets the {@code value} and returns a reference to this Builder enabling method chaining.
+   *
+   * @param val the {@code value} to set
+   * @return a reference to this Builder
+   */
+  public ReportMessage withValue(String val) {
+    value = val;
+    return this;
+  }
+
+  /**
+   * Sets the {@code message} and returns a reference to this Builder enabling method chaining.
+   *
+   * @param val the {@code message} to set
+   * @return a reference to this Builder
+   */
+  public ReportMessage withMessage(String val) {
+    message = val;
+    return this;
+  }
+
+  /**
+   * Sets the {@code Throwable} and returns a reference to this Builder enabling method chaining.
+   *
+   * @param val the {@code Throwable} to set
+   * @return a reference to this Builder
+   */
+  public ReportMessage withException(Throwable val) {
+    message = ExceptionUtils.getMessage(val);
+    stackTrace = ExceptionUtils.getStackTrace(val);
+    return this;
+  }
+
+  /**
+   * Returns a {@code ErrorMessage} built from the parameters previously set.
+   *
+   * @return a {@code ErrorMessage} built with parameters of this {@code ErrorMessage.Builder}
+   */
+  public ReportMessage build() {
+    return new ReportMessage(this);
   }
 }

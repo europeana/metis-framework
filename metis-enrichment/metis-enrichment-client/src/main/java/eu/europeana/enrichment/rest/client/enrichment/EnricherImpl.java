@@ -11,7 +11,6 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ReportMessageBuilder;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
@@ -108,7 +107,7 @@ public class EnricherImpl implements Enricher {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     for (SearchTermContext searchTerm : searchTerms) {
       if (enrichedValues.get(searchTerm).isEmpty()) {
-        reportMessages.add(ReportMessageBuilder
+        reportMessages.add(ReportMessage
             .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search term.")
             .withValue(searchTerm.getTextValue())
@@ -123,7 +122,7 @@ public class EnricherImpl implements Enricher {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     for (ReferenceTermContext reference : references) {
       if (enrichedReferences.get(reference).isEmpty()) {
-        reportMessages.add(ReportMessageBuilder
+        reportMessages.add(ReportMessage
             .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search reference.")
             .withValue(reference.getReferenceAsString())
@@ -138,7 +137,7 @@ public class EnricherImpl implements Enricher {
       Set<SearchTermContext> searchTerms) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentIgnore()
           .withMessage("Empty search terms.")
           .withValue(searchTerms.toString())
@@ -149,7 +148,7 @@ public class EnricherImpl implements Enricher {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException e) {
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentError()
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
@@ -166,7 +165,7 @@ public class EnricherImpl implements Enricher {
       Set<ReferenceTermContext> references) {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
-      reportMessages.add(ReportMessageBuilder
+      reportMessages.add(ReportMessage
           .buildEnrichmentIgnore()
           .withValue(references.toString())
           .withMessage("Empty search reference.")
@@ -185,13 +184,13 @@ public class EnricherImpl implements Enricher {
                                         .sorted(String::compareToIgnoreCase)
                                         .collect(Collectors.joining(","));
       if (warningStatus == null) {
-        reportMessages.add(ReportMessageBuilder
+        reportMessages.add(ReportMessage
             .buildEnrichmentError()
             .withValue(referenceValue)
             .withException(e)
             .build());
       } else {
-        reportMessages.add(ReportMessageBuilder
+        reportMessages.add(ReportMessage
             .buildEnrichmentWarn()
             .withStatus(warningStatus)
             .withValue(referenceValue)

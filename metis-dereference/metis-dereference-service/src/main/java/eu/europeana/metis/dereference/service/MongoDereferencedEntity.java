@@ -5,7 +5,7 @@ import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 /**
  * Dereferenced entity with status
  */
-public class DereferencedEntity {
+public class MongoDereferencedEntity {
 
   private final String entity;
   private final DereferenceResultStatus dereferenceResultStatus;
@@ -15,7 +15,7 @@ public class DereferencedEntity {
    * @param entity dereferenced entity
    * @param dereferenceResultStatus status of the entity
    */
-  public DereferencedEntity(String entity, DereferenceResultStatus dereferenceResultStatus) {
+  public MongoDereferencedEntity(String entity, DereferenceResultStatus dereferenceResultStatus) {
     this.entity = entity;
     this.dereferenceResultStatus = dereferenceResultStatus;
   }

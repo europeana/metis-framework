@@ -22,7 +22,6 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.ReportMessage;
-import eu.europeana.enrichment.rest.client.report.ReportMessageBuilder;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.exception.TechnicalRuntimeException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -279,12 +278,12 @@ class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesHappyFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentIgnore()
         .withValue("value2")
         .withMessage("Could not find an entity for the given search term.")
         .build());
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
@@ -294,12 +293,12 @@ class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesNullFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search terms.")
         .build());
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
@@ -309,12 +308,12 @@ class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesExceptionFlow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentError()
         .withValue("value1,value2,value3")
         .withException(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
         .build());
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
@@ -324,7 +323,7 @@ class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesWarning1Flow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
@@ -335,7 +334,7 @@ class EnricherImplTest {
 
   private HashSet<ReportMessage> getExpectedReportMessagesWarning2Flow() {
     HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessageBuilder
+    reportMessages.add(ReportMessage
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.BAD_REQUEST)
         .withValue("http://urlValue2")

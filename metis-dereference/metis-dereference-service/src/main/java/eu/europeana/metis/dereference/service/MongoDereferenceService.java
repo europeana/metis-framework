@@ -277,8 +277,8 @@ public class MongoDereferenceService implements DereferenceService {
     String transformedEntity = null;
     Vocabulary chosenVocabulary = null;
     //Pair<String, DereferenceResultStatus>
-    DereferencedEntity originalEntity = new DereferencedEntity(resourceId, null);
-    DereferencedEntity entityTransformed = new DereferencedEntity(null, null);
+    MongoDereferencedEntity originalEntity = new MongoDereferencedEntity(resourceId, null);
+    MongoDereferencedEntity entityTransformed = new MongoDereferencedEntity(null, null);
     //Only if we have vocabularies we continue
     if (!vocabularyCandidates.isEmpty()) {
       originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
@@ -295,7 +295,7 @@ public class MongoDereferenceService implements DereferenceService {
         }
         // There was an update in transforming, so we update the result status.
         if (originalEntity.getDereferenceResultStatus() != entityTransformed.getDereferenceResultStatus()) {
-          originalEntity = new DereferencedEntity(originalEntity.getEntity(), entityTransformed.getDereferenceResultStatus());
+          originalEntity = new MongoDereferencedEntity(originalEntity.getEntity(), entityTransformed.getDereferenceResultStatus());
         }
       }
     }
@@ -304,7 +304,7 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   private static EnrichmentEntityVocabulary evaluateTransformedEntityAndVocabulary(VocabularyCandidates vocabularyCandidates,
-      String transformedEntity, Vocabulary chosenVocabulary, DereferencedEntity originalEntity) {
+      String transformedEntity, Vocabulary chosenVocabulary, MongoDereferencedEntity originalEntity) {
     final EnrichmentEntityVocabulary enrichmentEntityVocabulary;
     // If retrieval or transformation of entity failed, and we have one vocabulary then we store that
     if (transformedEntity == null && vocabularyCandidates.getVocabularies().size() == 1) {
@@ -344,7 +344,7 @@ public class MongoDereferenceService implements DereferenceService {
     return result;
   }
 
-  private DereferencedEntity transformEntity(Vocabulary vocabulary,
+  private MongoDereferencedEntity transformEntity(Vocabulary vocabulary,
       final String originalEntity, final String resourceId) {
     Optional<String> result;
     DereferenceResultStatus resultStatus;
@@ -359,16 +359,16 @@ public class MongoDereferenceService implements DereferenceService {
       resultStatus = DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR;
       result = Optional.empty();
     }
-    return new DereferencedEntity(result.orElse(null), resultStatus);
+    return new MongoDereferencedEntity(result.orElse(null), resultStatus);
   }
 
-  private DereferencedEntity retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
+  private MongoDereferencedEntity retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates)
       throws URISyntaxException {
     DereferenceResultStatus dereferenceResultStatus = DereferenceResultStatus.SUCCESS;
     // Check the input (check the resource ID for URI syntax).
     if (candidates.isEmpty()) {
       dereferenceResultStatus = DereferenceResultStatus.NO_VOCABULARY_MATCHING;
-      return new DereferencedEntity(null, dereferenceResultStatus);
+      return new MongoDereferencedEntity(null, dereferenceResultStatus);
     }
     new URI(resourceId);
 
@@ -388,7 +388,7 @@ public class MongoDereferenceService implements DereferenceService {
       LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
       dereferenceResultStatus = DereferenceResultStatus.UNKNOWN_ENTITY;
     }
-    return new DereferencedEntity(originalEntity, dereferenceResultStatus);
+    return new MongoDereferencedEntity(originalEntity, dereferenceResultStatus);
   }
 
   EnrichmentEntityVocabulary computeEnrichmentBaseVocabularyTriple(String resourceId)
