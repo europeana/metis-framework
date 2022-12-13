@@ -16,8 +16,9 @@ public class EnrichmentEntityVocabulary {
 
   /**
    * Constructor for result including enrichment and vocabulary
-   * @param enrichmentBase
-   * @param vocabulary
+   *
+   * @param enrichmentBase enrichment base
+   * @param vocabulary vocabulary related to dereferenced entity
    */
   public EnrichmentEntityVocabulary(EnrichmentBase enrichmentBase, Vocabulary vocabulary) {
     this.enrichmentBase = enrichmentBase;
@@ -28,9 +29,10 @@ public class EnrichmentEntityVocabulary {
 
   /**
    * Constructor for result including enrichment, vocabulary and status
-   * @param enrichmentBase
-   * @param vocabulary
-   * @param dereferenceResultStatus
+   *
+   * @param enrichmentBase enrichment base
+   * @param vocabulary vocabulary related to dereferenced entity
+   * @param dereferenceResultStatus status of the dereference process
    */
   public EnrichmentEntityVocabulary(EnrichmentBase enrichmentBase, Vocabulary vocabulary,
       DereferenceResultStatus dereferenceResultStatus) {
@@ -42,7 +44,8 @@ public class EnrichmentEntityVocabulary {
 
   /**
    * Constructor for including status
-   * @param dereferenceResultStatus
+   *
+   * @param dereferenceResultStatus status of the dereference process
    */
   public EnrichmentEntityVocabulary(DereferenceResultStatus dereferenceResultStatus) {
     this.enrichmentBase = null;
@@ -53,8 +56,9 @@ public class EnrichmentEntityVocabulary {
 
   /**
    * Constructor for including entity and vocabulary
-   * @param entity
-   * @param vocabulary
+   *
+   * @param entity entity dereferenced
+   * @param vocabulary vocabulary related to dereferenced entity
    */
   public EnrichmentEntityVocabulary(String entity, Vocabulary vocabulary) {
     this.entity = entity;
@@ -65,8 +69,9 @@ public class EnrichmentEntityVocabulary {
 
   /**
    * Constructor for including vocabulary and status
-   * @param vocabulary
-   * @param dereferenceResultStatus
+   *
+   * @param vocabulary vocabulary related to dereferenced entity
+   * @param dereferenceResultStatus status of the dereference process
    */
   public EnrichmentEntityVocabulary(Vocabulary vocabulary, DereferenceResultStatus dereferenceResultStatus) {
     this.enrichmentBase = null;
@@ -76,10 +81,11 @@ public class EnrichmentEntityVocabulary {
   }
 
   /**
-   *  Constructor for including entity and vocabulary
-   * @param entity
-   * @param vocabulary
-   * @param dereferenceResultStatus
+   * Constructor for including entity and vocabulary
+   *
+   * @param entity entity dereferenced
+   * @param vocabulary vocabulary related to dereferenced entity
+   * @param dereferenceResultStatus status of the dereference process
    */
   public EnrichmentEntityVocabulary(String entity, Vocabulary vocabulary, DereferenceResultStatus dereferenceResultStatus) {
     this.entity = entity;
