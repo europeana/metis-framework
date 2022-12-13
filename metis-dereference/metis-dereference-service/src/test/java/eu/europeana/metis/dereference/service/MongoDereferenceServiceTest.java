@@ -15,7 +15,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.RdfRetriever;
@@ -27,12 +26,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,9 +81,9 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new ImmutableTriple<>(place, geonames, DereferenceResultStatus.SUCCESS)).when(service)
-                                                                                     .computeEnrichmentBaseVocabularyTriple(
-                                                                                         entityId);
+    doReturn(new EnrichmentEntityVocabulary(place, geonames, DereferenceResultStatus.SUCCESS)).when(service)
+                                                                                              .computeEnrichmentBaseVocabularyTriple(
+                                                                                                  entityId);
 
     // Test the method
     final DereferenceResult result = service.dereference(entityId);
@@ -106,7 +102,7 @@ class MongoDereferenceServiceTest {
   @Test
   void testDereference_AbsentObject() throws JAXBException, URISyntaxException {
     final String entityId = "http://sws.geonames.org/3020251/";
-    doReturn(new ImmutableTriple<>(null, null, DereferenceResultStatus.SUCCESS))
+    doReturn(new EnrichmentEntityVocabulary(DereferenceResultStatus.SUCCESS))
         .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
     final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
@@ -130,7 +126,7 @@ class MongoDereferenceServiceTest {
     final Place place = new Place();
     final String entityId = "http://sws.geonames.org/3020251/";
     place.setAbout(entityId);
-    doReturn(new ImmutableTriple<>(place, geonames, null))
+    doReturn(new EnrichmentEntityVocabulary(place, geonames, null))
         .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
     final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
