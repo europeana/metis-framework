@@ -1,7 +1,7 @@
 [![CI](https://github.com/europeana/metis-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/ci.yml)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)
 
-## Metis Services repository
+## Metis framework services repository
 
 This repository contains the code developed as part of Europeana Metis.  
 The software is developed on Java and uses Maven as its dependency management system.
@@ -13,15 +13,18 @@ These application support both environment variables and spring boot .properties
 
 ### Spring configuration .properties
 
-When running the spring boot application we should, ideally, not create and use an
-`application.properties` inside the project so that the project can be easily re-cloned
-and to also avoid accidental submission of configuration into version control.
+ATTENTION:   
+When running the spring boot application we should, ideally, NOT create `application.properties` inside the project so
+that the project can be easily re-cloned and to also avoid accidental submission of configuration into version control.
 
-This can be applied with an environment variable pointing to the appropriate .properties file
+The suggested alternative is to apply the configuration with an environment variable pointing to the appropriate
+.properties file
 `SPRING_CONFIG_LOCATION=file:///data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties`
 It can be applied in Intellij from the:
 > Edit configurations -> Modify Options -> Environment Variables -> Add the SPRING_CONFIG_LOCATION variable
 
+If the spring application is to be run command line and we don't want to setup the environment variable beforehand,
+then an argument can be set up during execution of the command e.g. `mvn spring-boot:run -Dspring.config.location=`.
 Spring variables can be overwritten using environment variable, for example if local docker dbs are used we can
 overwrite the
 hosts(That can happen if we use Spring boot through the IDE instead of deploying in docker/minikube):
@@ -42,8 +45,7 @@ Would then become an environment variable named:
 - Install the env file plugin in intellij:  
   [envfile plugin](https://plugins.jetbrains.com/plugin/7861-envfile)  
   This is to assist updating the intellij run configurations to add the env file, instead of manually(or with a script)
-  creating
-  the environment variables inside the configuration.  
+  creating the environment variables inside the configuration.  
   As before the environment variables file should exist externally of the project.
 
 It can be applied in Intellij from the:
@@ -105,7 +107,7 @@ Removing all exited containers:
 > docker rm $(docker ps -a -f status=exited -q)
 
 Removing all images:
-> ocker rmi $(docker images -a -q)
+> docker rmi $(docker images -a -q)
 
 #### <u>Inspection(used for validating docker image contents):</u>
 
