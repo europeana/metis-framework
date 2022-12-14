@@ -3,6 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:14-alpine
+    container_name: metis-authentication-postgres
     environment:
       - POSTGRES_DB=metis-authentication_local
       - POSTGRES_USER=test
@@ -11,18 +12,17 @@ services:
       - '5432:5432'
   metis-authentication-local:
     image: europeana/metis-authentication:develop
-    container_name: metis-authentication
+    container_name: metis-authentication-local
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
-    #uncomment this if an .env file is to be used instead of a application.properties.
-    #    env_file:
-    #      - /data/metis-properties/test/metis-authentication-rest/.metis-authentication-test.env
+    environment:
+      HIBERNATE_CONNECTION_URL: jdbc:postgresql://metis-authentication-postgres:5432/metis-authentication_local
     volumes:
-      - /data/certificates/ibm-ca-truststore.jks:/data/certificates/ibm-ca-truststore.jks
-      - /data/metis-properties/test/metis-authentication-rest/application-test.properties:/application.properties
-      - /data/logging/log4j2.xml:/log4j2.xml
+      - /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/custom-truststore.jks:/data/certificates/custom-truststore.jks
+      - /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties:/application.properties
+      - /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/log4j2.xml:/data/logging/log4j2.xml
     depends_on:
       - postgres

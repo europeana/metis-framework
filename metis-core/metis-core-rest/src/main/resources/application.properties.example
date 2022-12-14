@@ -1,10 +1,15 @@
 #Spring
+logging.config=/data/logging/log4j2.xml
 spring.servlet.multipart.max-file-size=5MB
 spring.servlet.multipart.max-request-size=5MB
 spring.autoconfigure.exclude=\
   org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration, \
   org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration, \
   org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+
+#Truststore
+truststore.path=
+truststore.password=
 
 #Orchestration
 max.concurrent.threads=
@@ -27,10 +32,6 @@ socks.proxy.host=
 socks.proxy.port=
 socks.proxy.username=
 socks.proxy.password=
-
-#Truststore
-truststore.path=
-truststore.password=
 
 #RabbitMq
 rabbitmq.host=
@@ -100,3 +101,21 @@ metis.core.baseUrl=
 metis.core.max.served.execution.list.length=
 metis.core.max.depublish.record.ids.per.dataset=
 metis.link.checking.default.sampling.size=
+
+#Actuator health probes
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+
+#Elastic APM
+elastic.apm.enabled=false
+elastic.apm.recording=true
+elastic.apm.instrument=true
+elastic.apm.service_name=metis-core-local
+elastic.apm.server_url=
+elastic.apm.environment=test
+elastic.apm.application_packages=eu.europeana
+elastic.apm.log_level=ERROR
+elastic.apm.capture_body=all
+elastic.apm.capture_headers=true
+elastic.apm.metrics_interval=5s
