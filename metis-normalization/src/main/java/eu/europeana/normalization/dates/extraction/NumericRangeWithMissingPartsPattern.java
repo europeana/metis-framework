@@ -89,6 +89,8 @@ public enum NumericRangeWithMissingPartsPattern implements NumericPattern {
   public enum NumericRangeSpecialCharacters {
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
     SPACED_DASH_RANGE(" - ", "[\\-./]", "\\?|-|\\.\\."),
+    //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
+    PIPE_RANGE("\\|", "[\\-./]", "\\?|-|\\.\\."),
     //For space separator we don't accept unspecified edges
     //Does not exist in XX
     SPACE_RANGE(" ", "[\\-./]", null),

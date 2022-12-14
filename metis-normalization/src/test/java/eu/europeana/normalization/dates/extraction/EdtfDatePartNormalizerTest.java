@@ -207,5 +207,4 @@ class EdtfDatePartNormalizerTest {
       }
     }
   }
-
 }
