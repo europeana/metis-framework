@@ -14,43 +14,45 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
+import org.apache.commons.lang3.tuple.Triple;
 
 /**
  * Enum with all the acceptable date patterns used for numeric dates.
  * <p>This is the main general enum. Furthermore the method
- * {@link #generatePattern(String, DateNormalizationExtractorMatchId, int)} can be used to generate other enums and gives more
+ * {@link #generatePattern(String, DateNormalizationExtractorMatchId, Triple)}  can be used to generate other enums and gives more
  * control on the date delimiters used, the option of XX dates and the order of the year, month, day of the date</p>
  */
 public enum NumericWithMissingPartsPattern implements NumericPattern {
-  YMD(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, NUMERIC_ALL_VARIANTS, 1, 2, 3),
-  DMY(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, NUMERIC_ALL_VARIANTS, 3, 2, 1),
+  YMD(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, getYmdIndices(), NUMERIC_ALL_VARIANTS),
+  DMY(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, getDmyIndices(), NUMERIC_ALL_VARIANTS),
 
-  YMD_XX(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-  DMY_XX(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+  YMD_XX(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, getYmdIndices(), NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, getDmyIndices(), NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 1, 2, 3),
-  DMY_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 3, 2, 1),
+  YMD_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS),
+  DMY_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS),
 
-  YMD_SPACE(SPACE_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 1, 2, 3),
-  DMY_SPACE(SPACE_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 3, 2, 1),
+  YMD_SPACE(SPACE_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS),
+  DMY_SPACE(SPACE_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS),
 
-  YMD_DASH(DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 1, 2, 3),
-  DMY_DASH(DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 3, 2, 1),
+  YMD_DASH(DASH_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS),
+  DMY_DASH(DASH_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS),
 
-  YMD_SLASH(SLASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 1, 2, 3),
-  DMY_SLASH(SLASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS, 3, 2, 1),
+  YMD_SLASH(SLASH_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS),
+  DMY_SLASH(SLASH_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS),
 
-  YMD_XX_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-  DMY_XX_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+  YMD_XX_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_SPACED_DASH(SPACED_DASH_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_XX_SPACE(SPACE_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-  DMY_XX_SPACE(SPACE_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+  YMD_XX_SPACE(SPACE_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_SPACE(SPACE_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_XX_DASH(DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-  DMY_XX_DASH(DASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 3, 2, 1),
+  YMD_XX_DASH(DASH_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_DASH(DASH_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_XX_SLASH(SLASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-  DMY_XX_SLASH(SLASH_RANGE.getDatesDelimiters(), NUMERIC_ALL_VARIANTS_XX, 3, 2, 1);
+  YMD_XX_SLASH(SLASH_RANGE.getDatesDelimiters(), getYmdIndices(), NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_SLASH(SLASH_RANGE.getDatesDelimiters(), getDmyIndices(), NUMERIC_ALL_VARIANTS_XX);
 
   public static final Set<NumericWithMissingPartsPattern> NUMERIC_SET = unmodifiableSet(EnumSet.of(YMD, DMY, YMD_XX, DMY_XX));
   public static final Set<NumericWithMissingPartsPattern> NUMERIC_RANGE_SET = unmodifiableSet(EnumSet.of(
@@ -72,6 +74,7 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
    * For the 3 digits we make sure there is no question mark in front, using a lookahead
    */
   private static final String YEAR_XX = "(\\d{2}(?:XX|UU|--|\\?\\?)|\\d{3}(?!\\?)[XU]|\\d{4})";
+  private static final int DAY_INDEX = 3;
 
   private final Pattern pattern;
   private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
@@ -79,20 +82,32 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
   private final int monthIndex;
   private final int dayIndex;
 
-  NumericWithMissingPartsPattern(String dateDelimiters, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
-      int yearIndex, int monthIndex, int dayIndex) {
+  NumericWithMissingPartsPattern(String dateDelimiters, Triple<Integer, Integer, Integer> dateFormatIndices,
+      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
-    this.yearIndex = yearIndex;
-    this.monthIndex = monthIndex;
-    this.dayIndex = dayIndex;
+    this.yearIndex = dateFormatIndices.getLeft();
+    this.monthIndex = dateFormatIndices.getMiddle();
+    this.dayIndex = dateFormatIndices.getRight();
 
     this.pattern = NumericWithMissingPartsPattern.generatePattern(dateDelimiters, dateNormalizationExtractorMatchId,
-        yearIndex);
+        dateFormatIndices);
   }
 
-  // TODO: 28/09/2022 Perhaps the missing and XX can be combined in one and then identified from the UNKNOWN_CHARACTERS cleanup??
+  /**
+   * Generates the pattern according to the parameters provided.
+   * <p>
+   * For XX date regex and the double dash case we make sure there isn't a third dash with a regex lookbehind for delimiter digits
+   * order, and with a regex lookahead for digits delimiter order.
+   * </p>
+   *
+   * @param dateDelimiters the date delimiters for the pattern
+   * @param dateNormalizationExtractorMatchId the date normalization extractor id
+   * @param dateFormatIndices the indices based on the format of the provided date
+   * @return the generated pattern
+   */
   private static Pattern generatePattern(String dateDelimiters,
-      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId, int yearIndex) {
+      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
+      Triple<Integer, Integer, Integer> dateFormatIndices) {
     final String optionalQuestionMark = "\\??";
     final String year;
     final String delimiterDigits;
@@ -108,7 +123,7 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
     }
 
     final String dateRegex;
-    if (yearIndex == 1) {
+    if (dateFormatIndices.equals(getYmdIndices())) {
       dateRegex = year + delimiterDigits + delimiterDigits;
     } else {
       dateRegex = digitsDelimiter + digitsDelimiter + year;
@@ -117,6 +132,13 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
     return compile(optionalQuestionMark + dateRegex + optionalQuestionMark, CASE_INSENSITIVE);
   }
 
+  private static Triple<Integer, Integer, Integer> getDmyIndices() {
+    return ImmutableTriple.of(DAY_INDEX, 2, 1);
+  }
+
+  private static Triple<Integer, Integer, Integer> getYmdIndices() {
+    return ImmutableTriple.of(1, 2, DAY_INDEX);
+  }
 
   public Pattern getPattern() {
     return pattern;
@@ -148,16 +170,18 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
    */
   public enum NumericRangeSpecialCharacters {
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
-    SPACED_DASH_RANGE(" - ", DEFAULT_DELIMITERS, Constants.DEFAULT_UNSPECIFIED_CHARACTERS),
+    SPACED_DASH_RANGE(" - ", DEFAULT_DELIMITERS, NumericRangeSpecialCharacters.DEFAULT_UNSPECIFIED_CHARACTERS),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
-    PIPE_RANGE("\\|", DEFAULT_DELIMITERS, Constants.DEFAULT_UNSPECIFIED_CHARACTERS),
+    PIPE_RANGE("\\|", DEFAULT_DELIMITERS, NumericRangeSpecialCharacters.DEFAULT_UNSPECIFIED_CHARACTERS),
     //For space separator we don't accept unspecified edges
     //Does not exist in XX
     SPACE_RANGE(" ", DEFAULT_DELIMITERS, null),
     //"[XU]"
     DASH_RANGE("-", "[./]", "\\?|\\.\\."),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "." delimiter
-    SLASH_RANGE("/", "[\\-.]", Constants.DEFAULT_UNSPECIFIED_CHARACTERS);
+    SLASH_RANGE("/", "[\\-.]", NumericRangeSpecialCharacters.DEFAULT_UNSPECIFIED_CHARACTERS);
+
+    public static final String DEFAULT_UNSPECIFIED_CHARACTERS = "\\?|-|\\.\\.";
 
     private final String datesSeparator;
     private final String datesDelimiters;
@@ -179,11 +203,6 @@ public enum NumericWithMissingPartsPattern implements NumericPattern {
 
     public String getUnspecifiedCharacters() {
       return unspecifiedCharacters;
-    }
-
-    private static class Constants {
-
-      public static final String DEFAULT_UNSPECIFIED_CHARACTERS = "\\?|-|\\.\\.";
     }
   }
 }

@@ -22,25 +22,23 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
 
   private static final NumericWithMissingPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericWithMissingPartsDateExtractor();
 
-  // TODO: 04/11/2022 Verify the below of 1000 year edges from previous code. Same applies for NumericRangeWithMissingPartsDateExtractor.
-  // TODO: 04/11/2022 Also check EdtfDatePartNormalizerTest cases that are temporarily commented out
-  //  if (dEnd.isUnspecified() && dStart.getYear() != null && dStart.getYear() < 1000) {
-  //    return null;// these cases are ambiguous. Example '187-?'
-  //  }
-
   public DateNormalizationResult extract(String inputValue) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
     DateNormalizationResult rangeDate = null;
     for (NumericRangeSpecialCharacters numericRangeSpecialCharacters : NumericRangeSpecialCharacters.values()) {
-      final String[] split = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator());
+      //Split with -1 limit does not discard empty splits
+      final String[] split = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator(), -1);
       //The split has to be exactly in two, and then we can verify. This also guarantees that the separator used is not used for unknown characters
       if (split.length == 2) {
         //Try extraction and verify
         startDate = extractDateNormalizationResult(split[0], numericRangeSpecialCharacters);
         endDate = extractDateNormalizationResult(split[1], numericRangeSpecialCharacters);
-        if (startDate != null && endDate != null) {
+        if (startDate != null && endDate != null && !areYearsAmbiguous((InstantEdtfDate) startDate.getEdtfDate(),
+            (InstantEdtfDate) endDate.getEdtfDate(),
+            numericRangeSpecialCharacters)) {
+
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startDate, endDate);
           final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate((InstantEdtfDate) startDate.getEdtfDate(),
@@ -51,6 +49,27 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
       }
     }
     return rangeDate;
+  }
+
+  /**
+   * Captures the ambiguous case of "198-?".
+   *
+   * @param startDate the start date of a range
+   * @param endDate the end date of the range
+   * @param numericRangeSpecialCharacters the date separator of the range
+   * @return true if the range is ambiguous
+   */
+  private boolean areYearsAmbiguous(InstantEdtfDate startDate, InstantEdtfDate endDate,
+      NumericRangeSpecialCharacters numericRangeSpecialCharacters) {
+    boolean isAmbiguous = false;
+    if (numericRangeSpecialCharacters == NumericRangeSpecialCharacters.DASH_RANGE) {
+      final boolean isStartSpecified = !startDate.getEdtfDatePart().isUnspecified();
+      final boolean isStartThreeDigit = isStartSpecified && startDate.getEdtfDatePart().getYear().toString().matches("\\d{3}");
+      if (isStartThreeDigit && endDate.isUnspecified()) {
+        isAmbiguous = true;
+      }
+    }
+    return isAmbiguous;
   }
 
   private DateNormalizationResult extractDateNormalizationResult(String dateString,

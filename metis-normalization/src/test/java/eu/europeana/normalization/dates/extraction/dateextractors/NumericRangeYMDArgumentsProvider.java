@@ -88,6 +88,10 @@ class NumericRangeYMDArgumentsProvider implements ArgumentsProvider {
         of("198-199", "0198/0199"),
         of("1989?-1990?", "1989?/1990?"),
         of("?1989-?1990", "1989?/1990?"),
+        of("?-198", "../0198"),
+        of("1871 - 191-", null),
+        //Ambiguous
+        of("198-?", null),
         //Unspecified
         of("1989-?", "1989/.."),
         of("1989-..", "1989/.."),
