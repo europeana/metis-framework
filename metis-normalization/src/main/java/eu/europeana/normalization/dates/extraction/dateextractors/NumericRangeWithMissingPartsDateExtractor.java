@@ -10,8 +10,8 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import eu.europeana.normalization.dates.extraction.NumericRangeWithMissingPartsPattern;
-import eu.europeana.normalization.dates.extraction.NumericRangeWithMissingPartsPattern.NumericRangeSpecialCharacters;
+import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern;
+import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.NumericRangeSpecialCharacters;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 
 /**
@@ -62,7 +62,7 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
           new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()));
     } else {
       dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString,
-          NumericRangeWithMissingPartsPattern.values());
+          NumericWithMissingPartsPattern.NUMERIC_RANGE_SET);
     }
     return dateNormalizationResult;
   }

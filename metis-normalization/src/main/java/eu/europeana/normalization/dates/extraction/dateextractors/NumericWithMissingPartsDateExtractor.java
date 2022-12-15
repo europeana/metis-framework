@@ -12,6 +12,7 @@ import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPatter
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
@@ -38,7 +39,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue) {
-    return extract(inputValue, NumericWithMissingPartsPattern.values());
+    return extract(inputValue, NumericWithMissingPartsPattern.NUMERIC_SET);
   }
 
   /**
@@ -48,7 +49,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param numericPatternValues the patterns to check against
    * @return the date normalization result
    */
-  public DateNormalizationResult extract(String inputValue, NumericPattern[] numericPatternValues) {
+  public DateNormalizationResult extract(String inputValue, Set<NumericWithMissingPartsPattern> numericPatternValues) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain =
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
