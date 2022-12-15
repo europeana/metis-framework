@@ -7,7 +7,6 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.extraction.NumericPattern;
 import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
@@ -55,12 +54,12 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
 
     DateNormalizationResult dateNormalizationResult = null;
-    for (NumericPattern numericPatternValue : numericPatternValues) {
-      final Matcher matcher = numericPatternValue.getPattern().matcher(sanitizedValue);
+    for (NumericWithMissingPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
+      final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
-        EdtfDatePart edtfDatePart = extractDate(numericPatternValue, matcher, uncertain);
+        EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsPattern, matcher, uncertain);
         dateNormalizationResult = new DateNormalizationResult(
-            numericPatternValue.getDateNormalizationExtractorMatchId(), inputValue,
+            numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
             new InstantEdtfDate(edtfDatePart));
         break;
       }
@@ -70,10 +69,10 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   }
 
   private EdtfDatePart extractDate(
-      NumericPattern numericPatternValue, Matcher matcher, boolean uncertain) {
-    final String year = getYear(numericPatternValue, matcher);
-    final String month = getMonth(numericPatternValue, matcher);
-    final String day = getDay(numericPatternValue, matcher);
+      NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) {
+    final String year = getYear(numericWithMissingPartsPattern, matcher);
+    final String month = getMonth(numericWithMissingPartsPattern, matcher);
+    final String day = getDay(numericWithMissingPartsPattern, matcher);
 
     final String yearSanitized = getFieldSanitized(year);
     final String monthSanitized = getFieldSanitized(month);
@@ -102,37 +101,37 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   /**
    * Get the year from the matcher.
    *
-   * @param numericPatternValue the pattern that contains the indices
+   * @param numericWithMissingPartsPattern the pattern that contains the indices
    * @param matcher the matcher
    * @return the year
    */
-  private String getYear(NumericPattern numericPatternValue, Matcher matcher) {
-    return matcher.group(numericPatternValue.getYearIndex());
+  private String getYear(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+    return matcher.group(numericWithMissingPartsPattern.getYearIndex());
   }
 
   /**
    * Checks if the month is null and if the day is not null it will get its value instead.
    * <p>That occurs with the DMY pattern when there is no day e.g. 11-1989</p>
    *
-   * @param numericPatternValue the pattern that contains the indices
+   * @param numericWithMissingPartsPattern the pattern that contains the indices
    * @param matcher the matcher
    * @return the month
    */
-  private String getMonth(NumericPattern numericPatternValue, Matcher matcher) {
-    return ofNullable(ofNullable(matcher.group(numericPatternValue.getMonthIndex()))
-        .orElseGet(() -> matcher.group(numericPatternValue.getDayIndex()))).orElse("0");
+  private String getMonth(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+    return ofNullable(ofNullable(matcher.group(numericWithMissingPartsPattern.getMonthIndex()))
+        .orElseGet(() -> matcher.group(numericWithMissingPartsPattern.getDayIndex()))).orElse("0");
   }
 
   /**
    * Checks if month is null, it then returns the default value, otherwise gets the value of day.
    *
-   * @param numericPatternValue the pattern that contains the indices
+   * @param numericWithMissingPartsPattern the pattern that contains the indices
    * @param matcher the matcher
    * @return the day
    */
-  private String getDay(NumericPattern numericPatternValue, Matcher matcher) {
-    return ofNullable(matcher.group(numericPatternValue.getMonthIndex()))
-        .map(optional -> matcher.group(numericPatternValue.getDayIndex()))
+  private String getDay(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+    return ofNullable(matcher.group(numericWithMissingPartsPattern.getMonthIndex()))
+        .map(optional -> matcher.group(numericWithMissingPartsPattern.getDayIndex()))
         .orElse("0");
   }
 }

@@ -23,7 +23,7 @@ import org.apache.commons.lang3.tuple.Triple;
  * {@link #generatePattern(String, DateNormalizationExtractorMatchId, Triple)}  can be used to generate other enums and gives more
  * control on the date delimiters used, the option of XX dates and the order of the year, month, day of the date</p>
  */
-public enum NumericWithMissingPartsPattern implements NumericPattern {
+public enum NumericWithMissingPartsPattern {
   YMD(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, getYmdIndices(), NUMERIC_ALL_VARIANTS),
   DMY(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, getDmyIndices(), NUMERIC_ALL_VARIANTS),
 
