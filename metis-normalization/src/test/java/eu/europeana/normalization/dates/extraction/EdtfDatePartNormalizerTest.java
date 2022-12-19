@@ -43,6 +43,7 @@ class EdtfDatePartNormalizerTest {
     datePropertyTestCases.put("S. XVI-XVIII", "15XX/17XX");
     datePropertyTestCases.put("S. XVIII-", null); // open-ended period
     datePropertyTestCases.put("[XVI-XIX]", "15XX/18XX");
+    datePropertyTestCases.put("SVV", null);
 
     //Unknown/Unspecified start or end of range
     datePropertyTestCases.put("1907/?", "1907/..");
@@ -100,6 +101,30 @@ class EdtfDatePartNormalizerTest {
     // this may not be a 100% correct normalisation, maybe it is not a range but two dates
     datePropertyTestCases.put("1651 [ca. 1656]", "1651~/1656~");
 
+    //Numeric year
+    datePropertyTestCases.put("(17--?)", "17XX?");
+    datePropertyTestCases.put("[19--?]", "19XX?");
+
+    //Numeric date with dot "."
+    datePropertyTestCases.put("21.1.1921", "1921-01-21");
+    datePropertyTestCases.put("12.10.1690", "1690-10-12");
+    datePropertyTestCases.put("26.4.1828", "1828-04-26");
+    datePropertyTestCases.put("28.05.1969", "1969-05-28");
+    datePropertyTestCases.put("11.11.1947", "1947-11-11");
+    datePropertyTestCases.put("23.02.[18--]", "18XX-02-23");
+    datePropertyTestCases.put("28. 1. 1240", null);
+
+    //Numeric date with dash "-"
+    datePropertyTestCases.put("1941-22-06", "1941-06-22");
+    datePropertyTestCases.put("1937-10-??", "1937-10");
+    datePropertyTestCases.put("199--09-28", null);
+    datePropertyTestCases.put("01?-1905", null);
+    datePropertyTestCases.put("02?-1915", null);
+
+    //Numeric date with space " "
+    datePropertyTestCases.put("1905 09 01", "1905-09-01");
+    datePropertyTestCases.put("0 2 1980", "1980-02");
+
     //More than 4 digits year
     datePropertyTestCases.put("-701950/-251950", "Y-701950/Y-251950");
     datePropertyTestCases.put("-123456/-12345", "Y-123456/Y-12345");
@@ -107,7 +132,6 @@ class EdtfDatePartNormalizerTest {
     datePropertyTestCases.put("19471950/19501953", null);
 
     datePropertyTestCases.put("-2100/-1550", "-2100/-1550");
-    datePropertyTestCases.put("1905 09 01", "1905-09-01");
     datePropertyTestCases.put("1952-02-25T00:00:00Z-1952-02-25T23:59:59Z", null);
     datePropertyTestCases.put("2013-09-07 09:31:51 UTC", "2013-09-07");
     datePropertyTestCases.put("1997-07-18T00:00:00 [Create]", "1997-07-18");
@@ -133,36 +157,22 @@ class EdtfDatePartNormalizerTest {
     datePropertyTestCases.put("imp. 1901", null);
     datePropertyTestCases.put("u.1707-1739", null);// what does 'u.' mean?
     datePropertyTestCases.put("22.07.1971 (identification)", "1971-07-22");
-    // ambiguous pattern
+
+    //Ambiguous pattern
     datePropertyTestCases.put("187-?]", null);
+
     datePropertyTestCases.put("18. September 1914", "1914-09-18");
-    datePropertyTestCases.put("21.1.1921", "1921-01-21");
-    datePropertyTestCases.put("12.10.1690", "1690-10-12");
-    datePropertyTestCases.put("26.4.1828", "1828-04-26");
-    datePropertyTestCases.put("28.05.1969", "1969-05-28");
-    datePropertyTestCases.put("28. 1. 1240", null);
-    datePropertyTestCases.put("01?-1905", null);
-    datePropertyTestCases.put("199--09-28", null);
     datePropertyTestCases.put("19960216-19960619", null);
     datePropertyTestCases.put("-0549-01-01T00:00:00Z", "-0549-01-01");
     datePropertyTestCases.put("1942-1943 c.", null);
     datePropertyTestCases.put("(1942)", "1942");
     datePropertyTestCases.put("-3.6982", null);
     datePropertyTestCases.put("[ca. 16??]", "16XX~");
-    datePropertyTestCases.put("[19--?]", "19XX?");
     datePropertyTestCases.put("ISO9126", null);
-    datePropertyTestCases.put("SVV", null);
     datePropertyTestCases.put("1985-10-xx", "1985-10");
     datePropertyTestCases.put("14:27", null);
-    datePropertyTestCases.put("11.11.1947", "1947-11-11");
     datePropertyTestCases.put("c.6 Nov 1902", "1902-11-06~");
-    datePropertyTestCases.put("1941-22-06", "1941-06-22");
     datePropertyTestCases.put("-1234", "-1234");
-    datePropertyTestCases.put("(17--?)", "17XX?");
-    datePropertyTestCases.put("23.02.[18--]", "18XX-02-23");
-    datePropertyTestCases.put("0 2 1980", "1980-02");
-    datePropertyTestCases.put("02?-1915", null);
-    datePropertyTestCases.put("1937-10-??", "1937-10");
     datePropertyTestCases.put("09.1972 (gathering)", "1972-09");
 
     //GENERIC PROPERTY

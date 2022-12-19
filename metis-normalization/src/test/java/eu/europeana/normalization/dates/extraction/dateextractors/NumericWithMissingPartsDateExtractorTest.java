@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -19,26 +20,32 @@ class NumericWithMissingPartsDateExtractorTest {
 
   @ParameterizedTest
   @MethodSource
-  void extractYMD(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    extract(input, expected, dateNormalizationExtractorMatchId);
+  void extractYMD(String input, String expected) {
+    extract(input, expected, NUMERIC_ALL_VARIANTS);
   }
 
   @ParameterizedTest
   @MethodSource
-  void extractDMY(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    extract(input, expected, dateNormalizationExtractorMatchId);
+  void extractDMY(String input, String expected) {
+    extract(input, expected, NUMERIC_ALL_VARIANTS);
   }
 
   @ParameterizedTest
   @MethodSource
-  void extractYMD_XX(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    extract(input, expected, dateNormalizationExtractorMatchId);
+  void extractYMD_XX(String input, String expected) {
+    extract(input, expected, NUMERIC_ALL_VARIANTS_XX);
   }
 
   @ParameterizedTest
   @MethodSource
-  void extractDMY_XX(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    extract(input, expected, dateNormalizationExtractorMatchId);
+  void extractDMY_XX(String input, String expected) {
+    extract(input, expected, NUMERIC_ALL_VARIANTS_XX);
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void extractDateSpaces(String input, String expected) {
+    extract(input, expected, YYYY_MM_DD_SPACES);
   }
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
@@ -53,59 +60,79 @@ class NumericWithMissingPartsDateExtractorTest {
     }
   }
 
+  private static Stream<Arguments> extractDateSpaces() {
+
+    return Stream.of(
+        of("1989 11 01", "1989-11-01"),
+        of("1989 11 01?", "1989-11-01?"),
+        of("?1989 11 01", "1989-11-01?"),
+        of("1989 1 1", "1989-01-01"),
+        of("1989 1 1?", "1989-01-01?"),
+        of("?1989 1 1", "1989-01-01?"),
+        of("1989 1", null),
+        of("01 11 1989", "1989-11-01"),
+        of("01 11 1989?", "1989-11-01?"),
+        of("?01 11 1989", "1989-11-01?"),
+        of("1 1 1989", "1989-01-01"),
+        of("1 1 1989?", "1989-01-01?"),
+        of("?1 1 1989", "1989-01-01?"),
+        of("1 1989", null)
+    );
+  }
+
   private static Stream<Arguments> extractYMD() {
 
     return Stream.of(
         //YEAR
         //A month and day can be missing
-        of("1989", "1989", NUMERIC_ALL_VARIANTS),
-        of("?1989", "1989?", NUMERIC_ALL_VARIANTS),
-        of("1989?", "1989?", NUMERIC_ALL_VARIANTS),
-        of("?1989?", "1989?", NUMERIC_ALL_VARIANTS),
+        of("1989", "1989"),
+        of("?1989", "1989?"),
+        of("1989?", "1989?"),
+        of("?1989?", "1989?"),
 
         //YEAR-MONTH
-        of("1989-11", "1989-11", NUMERIC_ALL_VARIANTS),
-        of("1989.11", "1989-11", NUMERIC_ALL_VARIANTS),
-        of("1989/11", "1989-11", NUMERIC_ALL_VARIANTS),
-        of("?1989-11", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?1989.11", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?1989/11", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("1989-11?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("1989.11?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("1989/11?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?1989-11?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?1989.11?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?1989/11?", "1989-11?", NUMERIC_ALL_VARIANTS),
+        of("1989-11", "1989-11"),
+        of("1989.11", "1989-11"),
+        of("1989/11", "1989-11"),
+        of("?1989-11", "1989-11?"),
+        of("?1989.11", "1989-11?"),
+        of("?1989/11", "1989-11?"),
+        of("1989-11?", "1989-11?"),
+        of("1989.11?", "1989-11?"),
+        of("1989/11?", "1989-11?"),
+        of("?1989-11?", "1989-11?"),
+        of("?1989.11?", "1989-11?"),
+        of("?1989/11?", "1989-11?"),
 
         //YEAR-MONTH-DAY
-        of("1989-11-01", "1989-11-01", NUMERIC_ALL_VARIANTS),
+        of("1989-11-01", "1989-11-01"),
         // TODO: 26/09/2022 Make sure this is checked later on, on validation code
-        of("1989-13-32", "1989-13-32", NUMERIC_ALL_VARIANTS),
+        of("1989-13-32", "1989-13-32"),
         //Some missing digits are allowed
-        of("989-1-1", "0989-01-01", NUMERIC_ALL_VARIANTS),
-        of("?1989-11-01", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("1989-11-01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("?1989-11-01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("1989.11.01", "1989-11-01", NUMERIC_ALL_VARIANTS),
-        of("?1989.11.01", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("?1989.11.01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
+        of("989-1-1", "0989-01-01"),
+        of("?1989-11-01", "1989-11-01?"),
+        of("1989-11-01?", "1989-11-01?"),
+        of("?1989-11-01?", "1989-11-01?"),
+        of("1989.11.01", "1989-11-01"),
+        of("?1989.11.01", "1989-11-01?"),
+        of("1989.11.01?", "1989-11-01?"),
+        of("?1989.11.01?", "1989-11-01?"),
         //Some missing digits are allowed
-        of("989.1.1", "0989-01-01", NUMERIC_ALL_VARIANTS),
-        of("1989/11/01", "1989-11-01", NUMERIC_ALL_VARIANTS),
-        of("?1989/11/01", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("1989/11/01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("?1989/11/01?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
+        of("989.1.1", "0989-01-01"),
+        of("1989/11/01", "1989-11-01"),
+        of("?1989/11/01", "1989-11-01?"),
+        of("1989/11/01?", "1989-11-01?"),
+        of("?1989/11/01?", "1989-11-01?"),
         //Some missing digits are allowed
-        of("989/1/1", "0989-01-01", NUMERIC_ALL_VARIANTS),
-        of("?989.1.1", "0989-01-01?", NUMERIC_ALL_VARIANTS),
+        of("989/1/1", "0989-01-01"),
+        of("?989.1.1", "0989-01-01?"),
         //Combination of separators
-        of("?989/1-1", "0989-01-01?", NUMERIC_ALL_VARIANTS),
-        of("?989-1/1", "0989-01-01?", NUMERIC_ALL_VARIANTS),
-        of("9989-99/99", "9989-99-99", NUMERIC_ALL_VARIANTS),
-        of("9989/99-99", "9989-99-99", NUMERIC_ALL_VARIANTS),
-        of("?989-99/99", "0989-99-99?", NUMERIC_ALL_VARIANTS),
-        of("?989-99/99?", "0989-99-99?", NUMERIC_ALL_VARIANTS),
+        of("?989/1-1", "0989-01-01?"),
+        of("?989-1/1", "0989-01-01?"),
+        of("9989-99/99", "9989-99-99"),
+        of("9989/99-99", "9989-99-99"),
+        of("?989-99/99", "0989-99-99?"),
+        of("?989-99/99?", "0989-99-99?"),
 
         //Too few digits on year
         of("89-01-01", null, null),
@@ -124,47 +151,47 @@ class NumericWithMissingPartsDateExtractorTest {
 
     return Stream.of(
         //MONTH-YEAR
-        of("11-1989", "1989-11", NUMERIC_ALL_VARIANTS),
-        of("11.1989", "1989-11", NUMERIC_ALL_VARIANTS),
-        of("11/1989", "1989-11", NUMERIC_ALL_VARIANTS),
-        of("?11-1989", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?11.1989", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?11/1989", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("11-1989?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("11.1989?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("11/1989?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?11-1989?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?11.1989?", "1989-11?", NUMERIC_ALL_VARIANTS),
-        of("?11/1989?", "1989-11?", NUMERIC_ALL_VARIANTS),
+        of("11-1989", "1989-11"),
+        of("11.1989", "1989-11"),
+        of("11/1989", "1989-11"),
+        of("?11-1989", "1989-11?"),
+        of("?11.1989", "1989-11?"),
+        of("?11/1989", "1989-11?"),
+        of("11-1989?", "1989-11?"),
+        of("11.1989?", "1989-11?"),
+        of("11/1989?", "1989-11?"),
+        of("?11-1989?", "1989-11?"),
+        of("?11.1989?", "1989-11?"),
+        of("?11/1989?", "1989-11?"),
 
         //DAY-MONTH-YEAR
-        of("01-11-1989", "1989-11-01", NUMERIC_ALL_VARIANTS),
+        of("01-11-1989", "1989-11-01"),
         // TODO: 26/09/2022 Make sure this is checked later on, on validation code
-        of("32-13-1989", "1989-13-32", NUMERIC_ALL_VARIANTS),
+        of("32-13-1989", "1989-13-32"),
         //Some missing digits are allowed
-        of("1-1-989", "0989-01-01", NUMERIC_ALL_VARIANTS),
-        of("?01-11-1989", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("01-11-1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("?01-11-1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("01.11.1989", "1989-11-01", NUMERIC_ALL_VARIANTS),
-        of("?01.11.1989", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("01.11.1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("?01.11.1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
+        of("1-1-989", "0989-01-01"),
+        of("?01-11-1989", "1989-11-01?"),
+        of("01-11-1989?", "1989-11-01?"),
+        of("?01-11-1989?", "1989-11-01?"),
+        of("01.11.1989", "1989-11-01"),
+        of("?01.11.1989", "1989-11-01?"),
+        of("01.11.1989?", "1989-11-01?"),
+        of("?01.11.1989?", "1989-11-01?"),
         //Some missing digits are allowed
-        of("1.1.989", "0989-01-01", NUMERIC_ALL_VARIANTS),
-        of("01/11/1989", "1989-11-01", NUMERIC_ALL_VARIANTS),
-        of("?01/11/1989", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("01/11/1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
-        of("?01/11/1989?", "1989-11-01?", NUMERIC_ALL_VARIANTS),
+        of("1.1.989", "0989-01-01"),
+        of("01/11/1989", "1989-11-01"),
+        of("?01/11/1989", "1989-11-01?"),
+        of("01/11/1989?", "1989-11-01?"),
+        of("?01/11/1989?", "1989-11-01?"),
         //Some missing digits are allowed
-        of("1/1/989", "0989-01-01", NUMERIC_ALL_VARIANTS),
-        of("?1.1.989", "0989-01-01?", NUMERIC_ALL_VARIANTS),
+        of("1/1/989", "0989-01-01"),
+        of("?1.1.989", "0989-01-01?"),
         //Combination of separators
-        of("?1-1/989", "0989-01-01?", NUMERIC_ALL_VARIANTS),
-        of("?1/1-989", "0989-01-01?", NUMERIC_ALL_VARIANTS),
-        of("99/99-9989", "9989-99-99", NUMERIC_ALL_VARIANTS),
-        of("99-99/9989", "9989-99-99", NUMERIC_ALL_VARIANTS),
-        of("?99/99-989", "0989-99-99?", NUMERIC_ALL_VARIANTS),
+        of("?1-1/989", "0989-01-01?"),
+        of("?1/1-989", "0989-01-01?"),
+        of("99/99-9989", "9989-99-99"),
+        of("99-99/9989", "9989-99-99"),
+        of("?99/99-989", "0989-99-99?"),
 
         //Too few digits on year
         of("01-01-89", null, null),
@@ -178,8 +205,6 @@ class NumericWithMissingPartsDateExtractorTest {
         of("123-12-1234", null, null),
 
         //Other invalids
-        //Spaces should not match
-        of("1989 11 01", null, null),
         //Double dashes should not match
         of("1989--11--01", null, null),
         //Double dots should not match
@@ -196,13 +221,13 @@ class NumericWithMissingPartsDateExtractorTest {
 
     return Stream.of(
         //YEAR
-        of("198X", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("198U", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("19--", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19UU", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19??", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19???", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("198X", "198X"),
+        of("198U", "198X"),
+        of("19--", "19XX"),
+        of("19XX", "19XX"),
+        of("19UU", "19XX"),
+        of("19??", "19XX"),
+        of("19???", "19XX?"),
         //3 digits and question mark is ambiguous
         of("198?", null, null),
         //3 digits and dash is ambiguous
@@ -211,47 +236,47 @@ class NumericWithMissingPartsDateExtractorTest {
         of("198-?", null, null),
 
         //YEAR-MONTH
-        of("1989.XX", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.UU", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.??", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.--", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/XX", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/UU", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/??", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/--", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-XX", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-UU", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-??", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989.XX", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989.UU", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989.??", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989.--", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989/XX", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989/UU", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989/??", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989/--", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989-XX", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989-UU", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?1989-??", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.XX?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.UU?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.???", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.--?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/XX?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/UU?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/???", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/--?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-XX?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-UU?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-???", "1989?", NUMERIC_ALL_VARIANTS_XX),
+        of("1989.XX", "1989"),
+        of("1989.UU", "1989"),
+        of("1989.??", "1989"),
+        of("1989.--", "1989"),
+        of("1989/XX", "1989"),
+        of("1989/UU", "1989"),
+        of("1989/??", "1989"),
+        of("1989/--", "1989"),
+        of("1989-XX", "1989"),
+        of("1989-UU", "1989"),
+        of("1989-??", "1989"),
+        of("?1989.XX", "1989?"),
+        of("?1989.UU", "1989?"),
+        of("?1989.??", "1989?"),
+        of("?1989.--", "1989?"),
+        of("?1989/XX", "1989?"),
+        of("?1989/UU", "1989?"),
+        of("?1989/??", "1989?"),
+        of("?1989/--", "1989?"),
+        of("?1989-XX", "1989?"),
+        of("?1989-UU", "1989?"),
+        of("?1989-??", "1989?"),
+        of("1989.XX?", "1989?"),
+        of("1989.UU?", "1989?"),
+        of("1989.???", "1989?"),
+        of("1989.--?", "1989?"),
+        of("1989/XX?", "1989?"),
+        of("1989/UU?", "1989?"),
+        of("1989/???", "1989?"),
+        of("1989/--?", "1989?"),
+        of("1989-XX?", "1989?"),
+        of("1989-UU?", "1989?"),
+        of("1989-???", "1989?"),
         //Unknown month and also some unknown digits on the year
-        of("198X.XX", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("198X.UU", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("198X/UU", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("198X/--", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX/XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX/--", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX.--", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("198X.XX", "198X"),
+        of("198X.UU", "198X"),
+        of("198X/UU", "198X"),
+        of("198X/--", "198X"),
+        of("19XX/XX", "19XX"),
+        of("19XX/--", "19XX"),
+        of("19XX.--", "19XX"),
 
         //If delimiter is dash, then dashes cannot be on month
         of("1989---", null, null),
@@ -259,38 +284,38 @@ class NumericWithMissingPartsDateExtractorTest {
         of("1989---?", null, null),
 
         //YEAR-MONTH-DAY
-        of("1989.11.XX", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.11.UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.11.??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.11.--", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/XX", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/--", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-11-XX", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-11-UU", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-11-??", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("1989.11.XX", "1989-11"),
+        of("1989.11.UU", "1989-11"),
+        of("1989.11.??", "1989-11"),
+        of("1989.11.--", "1989-11"),
+        of("1989/11/XX", "1989-11"),
+        of("1989/11/UU", "1989-11"),
+        of("1989/11/??", "1989-11"),
+        of("1989/11/--", "1989-11"),
+        of("1989-11-XX", "1989-11"),
+        of("1989-11-UU", "1989-11"),
+        of("1989-11-??", "1989-11"),
         //Unknown month and day as well as some unknown digits on the year
-        of("198X.11.XX", "198X-11", NUMERIC_ALL_VARIANTS_XX),
-        of("198X.UU.11", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("198X/UU/XX", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("198X/--/xx", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX/XX/99", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX/--/--", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX.--.--", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19XX-11-99?", "19XX-11-99?", NUMERIC_ALL_VARIANTS_XX),
-        of("19UU-XX-99?", "19XX?", NUMERIC_ALL_VARIANTS_XX),
-        of("19UU-??-99?", "19XX?", NUMERIC_ALL_VARIANTS_XX),
-        of("19UU/--/99?", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("198X.11.XX", "198X-11"),
+        of("198X.UU.11", "198X"),
+        of("198X/UU/XX", "198X"),
+        of("198X/--/xx", "198X"),
+        of("19XX/XX/99", "19XX"),
+        of("19XX/--/--", "19XX"),
+        of("19XX.--.--", "19XX"),
+        of("19XX-11-99?", "19XX-11-99?"),
+        of("19UU-XX-99?", "19XX?"),
+        of("19UU-??-99?", "19XX?"),
+        of("19UU/--/99?", "19XX?"),
         //Both month and day unknown
-        of("1989-??-??", "1989", NUMERIC_ALL_VARIANTS_XX),
+        of("1989-??-??", "1989"),
         //Lowercase
-        of("1989.11.xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989.11.uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989/11/uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-11-xx", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("1989-11-uu", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("1989.11.xx", "1989-11"),
+        of("1989.11.uu", "1989-11"),
+        of("1989/11/xx", "1989-11"),
+        of("1989/11/uu", "1989-11"),
+        of("1989-11-xx", "1989-11"),
+        of("1989-11-uu", "1989-11"),
 
         //Invalids
         of("1989-11---", null, null),
@@ -312,77 +337,77 @@ class NumericWithMissingPartsDateExtractorTest {
 
     return Stream.of(
         //YEAR-MONTH
-        of("XX.1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("UU.1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("??.1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("--.1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("XX/1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("UU/1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("??/1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("--/1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("XX-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("UU-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("??-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
-        of("?XX.1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?UU.1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("???.1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?--.1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?XX/1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?UU/1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("???/1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?--/1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?XX-1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("?UU-1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("???-1989", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("XX.1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("UU.1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("??.1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("--.1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("XX/1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("UU/1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("??/1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("--/1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("XX-1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("UU-1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
-        of("??-1989?", "1989?", NUMERIC_ALL_VARIANTS_XX),
+        of("XX.1989", "1989"),
+        of("UU.1989", "1989"),
+        of("??.1989", "1989"),
+        of("--.1989", "1989"),
+        of("XX/1989", "1989"),
+        of("UU/1989", "1989"),
+        of("??/1989", "1989"),
+        of("--/1989", "1989"),
+        of("XX-1989", "1989"),
+        of("UU-1989", "1989"),
+        of("??-1989", "1989"),
+        of("?XX.1989", "1989?"),
+        of("?UU.1989", "1989?"),
+        of("???.1989", "1989?"),
+        of("?--.1989", "1989?"),
+        of("?XX/1989", "1989?"),
+        of("?UU/1989", "1989?"),
+        of("???/1989", "1989?"),
+        of("?--/1989", "1989?"),
+        of("?XX-1989", "1989?"),
+        of("?UU-1989", "1989?"),
+        of("???-1989", "1989?"),
+        of("XX.1989?", "1989?"),
+        of("UU.1989?", "1989?"),
+        of("??.1989?", "1989?"),
+        of("--.1989?", "1989?"),
+        of("XX/1989?", "1989?"),
+        of("UU/1989?", "1989?"),
+        of("??/1989?", "1989?"),
+        of("--/1989?", "1989?"),
+        of("XX-1989?", "1989?"),
+        of("UU-1989?", "1989?"),
+        of("??-1989?", "1989?"),
         //If delimiter is dash, then dashes cannot be on month
         of("---1989", null, null),
         of("?---1989", null, null),
         of("---1989?", null, null),
 
         //YEAR-MONTH-DAY
-        of("XX.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("UU.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("??.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("--.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("XX/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("UU/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("??/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("--/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("XX-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("UU-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("??-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("XX.11.1989", "1989-11"),
+        of("UU.11.1989", "1989-11"),
+        of("??.11.1989", "1989-11"),
+        of("--.11.1989", "1989-11"),
+        of("XX/11/1989", "1989-11"),
+        of("UU/11/1989", "1989-11"),
+        of("??/11/1989", "1989-11"),
+        of("--/11/1989", "1989-11"),
+        of("XX-11-1989", "1989-11"),
+        of("UU-11-1989", "1989-11"),
+        of("??-11-1989", "1989-11"),
         //Unknown month and day as well as some unknown digits on the year
-        of("XX.11.198X", "198X-11", NUMERIC_ALL_VARIANTS_XX),
-        of("11.UU.198X", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("XX/UU/198X", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("xx/--/198X", "198X", NUMERIC_ALL_VARIANTS_XX),
-        of("99/XX/19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("--/--/19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("--.--.19XX", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("?99-11-19XX", "19XX-11-99?", NUMERIC_ALL_VARIANTS_XX),
-        of("?99-XX-19UU", "19XX?", NUMERIC_ALL_VARIANTS_XX),
-        of("?99-??-19UU", "19XX?", NUMERIC_ALL_VARIANTS_XX),
-        of("?99/--/19UU", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("XX.11.198X", "198X-11"),
+        of("11.UU.198X", "198X"),
+        of("XX/UU/198X", "198X"),
+        of("xx/--/198X", "198X"),
+        of("99/XX/19XX", "19XX"),
+        of("--/--/19XX", "19XX"),
+        of("--.--.19XX", "19XX"),
+        of("?99-11-19XX", "19XX-11-99?"),
+        of("?99-XX-19UU", "19XX?"),
+        of("?99-??-19UU", "19XX?"),
+        of("?99/--/19UU", "19XX?"),
         //Both month and day unknown
-        of("??-??-1989", "1989", NUMERIC_ALL_VARIANTS_XX),
+        of("??-??-1989", "1989"),
         //Lowercase
-        of("xx.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("uu.11.1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("xx/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("uu/11/1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("xx-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
-        of("uu-11-1989", "1989-11", NUMERIC_ALL_VARIANTS_XX),
+        of("xx.11.1989", "1989-11"),
+        of("uu.11.1989", "1989-11"),
+        of("xx/11/1989", "1989-11"),
+        of("uu/11/1989", "1989-11"),
+        of("xx-11-1989", "1989-11"),
+        of("uu-11-1989", "1989-11"),
 
         //Invalids
         of("---11-1989", null, null),
