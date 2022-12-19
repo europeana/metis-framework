@@ -67,7 +67,10 @@ public class EnrichmentController {
   public EnrichmentResultList search(
       @ApiParam("SearchTerms") @RequestBody EnrichmentSearch enrichmentSearch) {
     return new EnrichmentResultList(enrichmentService
-        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues()));
+        .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues())
+        .stream()
+        .map(item -> new EnrichmentResultBaseWrapper(item.getEnrichmentBaseList(), DereferenceResultStatus.SUCCESS))
+        .collect(Collectors.toList()));
   }
 
   /**
@@ -109,7 +112,8 @@ public class EnrichmentController {
   public EnrichmentResultList equivalence(@RequestBody EnrichmentReference enrichmentReference) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
         .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
-        .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS)).collect(Collectors.toList());
+        .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS))
+        .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 

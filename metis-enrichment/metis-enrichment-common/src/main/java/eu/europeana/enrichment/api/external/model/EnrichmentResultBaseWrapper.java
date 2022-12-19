@@ -49,6 +49,15 @@ public class EnrichmentResultBaseWrapper {
     this.dereferenceStatus = dereferenceStatus;
   }
 
+  /**
+   * Constructor with enrichment base
+   * @param enrichmentBase the enrichment information class generated
+   */
+  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase) {
+    this.enrichmentBase = new ArrayList<>(enrichmentBase);
+    this.dereferenceStatus = null;
+  }
+
   public List<EnrichmentBase> getEnrichmentBaseList() {
     return new ArrayList<>(enrichmentBase);
   }

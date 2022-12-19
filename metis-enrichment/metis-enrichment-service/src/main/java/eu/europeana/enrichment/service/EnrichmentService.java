@@ -60,8 +60,7 @@ public class EnrichmentService {
             Set.copyOf(search.getEntityTypes()))).collect(Collectors.toList());
     final Map<SearchTerm, List<EnrichmentBase>> result = entityResolver
         .resolveByText(new HashSet<>(orderedSearchTerms));
-    return orderedSearchTerms.stream().map(result::get)
-                             .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS))
+    return orderedSearchTerms.stream().map(result::get).map(EnrichmentResultBaseWrapper::new)
                              .collect(Collectors.toList());
   }
 
