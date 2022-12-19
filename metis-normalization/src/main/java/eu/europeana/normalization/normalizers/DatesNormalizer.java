@@ -12,8 +12,8 @@ import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExt
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DecadeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericRangeWithMissingPartsDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericWithMissingPartsDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBriefDateRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternEdtfDateExtractor;
@@ -123,8 +123,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new PatternEdtfDateExtractor(),
         new CenturyDateExtractor(),
         new DecadeDateExtractor(),
-        new NumericRangeWithMissingPartsDateExtractor(),
-        new NumericWithMissingPartsDateExtractor(),
+        new NumericPartsRangeDateExtractor(),
+        new NumericPartsDateExtractor(),
         new DcmiPeriodDateExtractor(),
         new PatternMonthNameDateExtractor(),
         new PatternFormatedFullDateDateExtractor(),
@@ -228,6 +228,12 @@ public class DatesNormalizer implements RecordNormalizeAction {
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
   }
 
+  /**
+   * Normalizer a property that is expected to be a date.
+   *
+   * @param input the date
+   * @return the date normalization result
+   */
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false, //No extra check
@@ -236,6 +242,13 @@ public class DatesNormalizer implements RecordNormalizeAction {
         this::noMatchIfValidAndTimeOnly);
   }
 
+  /**
+   * Normalizer a property that is expected to be a generic property, so the process is more strict than properties that are
+   * expected to be a date.
+   *
+   * @param input the date
+   * @return the date normalization result
+   */
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),

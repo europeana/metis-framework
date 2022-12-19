@@ -3,12 +3,12 @@ package eu.europeana.normalization.dates.extraction;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
-import static eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.DatePartsIndices.DMY_INDICES;
-import static eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.DatePartsIndices.YMD_INDICES;
-import static eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.NumericRangeSpecialCharacters.DASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.NumericRangeSpecialCharacters.SLASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.NumericRangeSpecialCharacters.SPACED_DASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.NumericRangeSpecialCharacters.SPACE_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.DMY_INDICES;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.YMD_INDICES;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.DASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.SLASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.SPACED_DASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.SPACE_RANGE;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
@@ -26,12 +26,12 @@ import org.apache.commons.lang3.tuple.Triple;
  * {@link #generatePattern(String, DateNormalizationExtractorMatchId, DatePartsIndices)}   can be used to generate other enums and
  * gives more control on the date delimiters used, the option of XX dates and the order of the year, month, day of the date</p>
  */
-public enum NumericWithMissingPartsPattern {
-  YMD(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS),
-  DMY(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS),
+public enum NumericPartsPattern {
+  YMD(NumericPartsPattern.DEFAULT_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS),
+  DMY(NumericPartsPattern.DEFAULT_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS),
 
-  YMD_XX(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
-  DMY_XX(NumericWithMissingPartsPattern.DEFAULT_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  YMD_XX(NumericPartsPattern.DEFAULT_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX(NumericPartsPattern.DEFAULT_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
 
   YMD_SPACES(" ", YMD_INDICES, YYYY_MM_DD_SPACES),
   DMY_SPACES(" ", DMY_INDICES, YYYY_MM_DD_SPACES),
@@ -60,11 +60,11 @@ public enum NumericWithMissingPartsPattern {
   YMD_XX_SLASH_RANGE(SLASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
   DMY_XX_SLASH_RANGE(SLASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS_XX);
 
-  public static final Set<NumericWithMissingPartsPattern> NUMERIC_SET = unmodifiableSet(EnumSet.of(
+  public static final Set<NumericPartsPattern> NUMERIC_SET = unmodifiableSet(EnumSet.of(
       YMD, DMY,
       YMD_XX, DMY_XX,
       YMD_SPACES, DMY_SPACES));
-  public static final Set<NumericWithMissingPartsPattern> NUMERIC_RANGE_SET = unmodifiableSet(EnumSet.of(
+  public static final Set<NumericPartsPattern> NUMERIC_RANGE_SET = unmodifiableSet(EnumSet.of(
       YMD_SPACED_DASH_RANGE, DMY_SPACED_DASH_RANGE,
       YMD_SPACE_RANGE, DMY_SPACE_RANGE,
       YMD_DASH_RANGE, DMY_DASH_RANGE,
@@ -82,14 +82,14 @@ public enum NumericWithMissingPartsPattern {
   private final int monthIndex;
   private final int dayIndex;
 
-  NumericWithMissingPartsPattern(String dateDelimiters, DatePartsIndices dateFormatIndices,
+  NumericPartsPattern(String dateDelimiters, DatePartsIndices dateFormatIndices,
       DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
     this.yearIndex = dateFormatIndices.tripleIndices.getLeft();
     this.monthIndex = dateFormatIndices.tripleIndices.getMiddle();
     this.dayIndex = dateFormatIndices.tripleIndices.getRight();
 
-    this.pattern = NumericWithMissingPartsPattern.generatePattern(dateDelimiters, dateNormalizationExtractorMatchId,
+    this.pattern = NumericPartsPattern.generatePattern(dateDelimiters, dateNormalizationExtractorMatchId,
         dateFormatIndices);
   }
 

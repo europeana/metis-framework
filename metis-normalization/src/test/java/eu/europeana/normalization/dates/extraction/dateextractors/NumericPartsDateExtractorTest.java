@@ -14,9 +14,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class NumericWithMissingPartsDateExtractorTest {
+class NumericPartsDateExtractorTest {
 
-  private static final NumericWithMissingPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericWithMissingPartsDateExtractor();
+  private static final NumericPartsDateExtractor NUMERIC_PARTS_DATE_EXTRACTOR = new NumericPartsDateExtractor();
 
   @ParameterizedTest
   @MethodSource
@@ -49,7 +49,7 @@ class NumericWithMissingPartsDateExtractorTest {
   }
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(input);
+    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extract(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
     } else {

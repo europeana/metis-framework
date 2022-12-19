@@ -10,17 +10,17 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern;
-import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern.NumericRangeSpecialCharacters;
+import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
+import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 
 /**
  * Patterns for numeric date ranges with variations in the separators of date components.
- * <p>We reuse the already existent {@link NumericWithMissingPartsDateExtractor} code for the edges.</p>
+ * <p>We reuse the already existent {@link NumericPartsDateExtractor} code for the edges.</p>
  */
-public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor {
+public class NumericPartsRangeDateExtractor implements DateExtractor {
 
-  private static final NumericWithMissingPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericWithMissingPartsDateExtractor();
+  private static final NumericPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericPartsDateExtractor();
 
   public DateNormalizationResult extract(String inputValue) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
@@ -81,7 +81,7 @@ public class NumericRangeWithMissingPartsDateExtractor implements DateExtractor 
           new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()));
     } else {
       dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString,
-          NumericWithMissingPartsPattern.NUMERIC_RANGE_SET);
+          NumericPartsPattern.NUMERIC_RANGE_SET);
     }
     return dateNormalizationResult;
   }

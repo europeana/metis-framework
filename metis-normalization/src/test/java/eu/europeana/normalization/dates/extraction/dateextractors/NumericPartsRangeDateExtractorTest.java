@@ -11,9 +11,9 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-class NumericRangeWithMissingPartsDateExtractorTest {
+class NumericPartsRangeDateExtractorTest {
 
-  private static final NumericRangeWithMissingPartsDateExtractor NUMERIC_RANGE_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericRangeWithMissingPartsDateExtractor();
+  private static final NumericPartsRangeDateExtractor NUMERIC_PARTS_RANGE_DATE_EXTRACTOR = new NumericPartsRangeDateExtractor();
 
   @ParameterizedTest
   @ArgumentsSource(NumericRangeYMDArgumentsProvider.class)
@@ -40,7 +40,7 @@ class NumericRangeWithMissingPartsDateExtractorTest {
   }
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NUMERIC_RANGE_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(input);
+    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_RANGE_DATE_EXTRACTOR.extract(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
     } else {

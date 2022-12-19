@@ -7,7 +7,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.extraction.NumericWithMissingPartsPattern;
+import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
  * Patterns for numeric dates with variations in the separators of date components.
  * <p>For Patterns pay attentions on the use of {@link Matcher#matches()} or {@link Matcher#find()} in this method.</p>
  */
-public class NumericWithMissingPartsDateExtractor implements DateExtractor {
+public class NumericPartsDateExtractor implements DateExtractor {
 
   /**
    * The start of the string can be one or three question marks but not two.
@@ -38,7 +38,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue) {
-    return extract(inputValue, NumericWithMissingPartsPattern.NUMERIC_SET);
+    return extract(inputValue, NumericPartsPattern.NUMERIC_SET);
   }
 
   /**
@@ -48,13 +48,13 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param numericPatternValues the patterns to check against
    * @return the date normalization result
    */
-  public DateNormalizationResult extract(String inputValue, Set<NumericWithMissingPartsPattern> numericPatternValues) {
+  public DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain =
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
 
     DateNormalizationResult dateNormalizationResult = null;
-    for (NumericWithMissingPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
+    for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
         EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsPattern, matcher, uncertain);
@@ -69,7 +69,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   }
 
   private EdtfDatePart extractDate(
-      NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) {
+      NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) {
     final String year = getYear(numericWithMissingPartsPattern, matcher);
     final String month = getMonth(numericWithMissingPartsPattern, matcher);
     final String day = getDay(numericWithMissingPartsPattern, matcher);
@@ -105,7 +105,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param matcher the matcher
    * @return the year
    */
-  private String getYear(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+  private String getYear(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     return matcher.group(numericWithMissingPartsPattern.getYearIndex());
   }
 
@@ -117,7 +117,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param matcher the matcher
    * @return the month
    */
-  private String getMonth(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+  private String getMonth(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     return ofNullable(ofNullable(matcher.group(numericWithMissingPartsPattern.getMonthIndex()))
         .orElseGet(() -> matcher.group(numericWithMissingPartsPattern.getDayIndex()))).orElse("0");
   }
@@ -129,7 +129,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param matcher the matcher
    * @return the day
    */
-  private String getDay(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+  private String getDay(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     return ofNullable(matcher.group(numericWithMissingPartsPattern.getMonthIndex()))
         .map(optional -> matcher.group(numericWithMissingPartsPattern.getDayIndex()))
         .orElse("0");
