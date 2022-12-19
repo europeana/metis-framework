@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metis:results xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:metis="http://www.europeana.eu/schemas/metis">
+  <metis:result>
+    <edm:Place rdf:about="https://sws.geonames.org/6695072/">
+      <skos:altLabel xml:lang="fr">Union Européenne</skos:altLabel>
+      <skos:prefLabel xml:lang="nl">Europese Unie</skos:prefLabel>
+      <skos:prefLabel xml:lang="cs">Evropská unie</skos:prefLabel>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/">
+      </dcterms:isPartOf>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/European_Union"/>
+      <wgs84_pos:lat>50.83857</wgs84_pos:lat>
+      <wgs84_pos:long>4.37599</wgs84_pos:long>
+    </edm:Place>
+    <edm:Place rdf:about="https://sws.geonames.org/7729883/">
+      <skos:altLabel xml:lang="es">Europa septentrional</skos:altLabel>
+      <skos:altLabel xml:lang="pt">Europa Setentrional</skos:altLabel>
+      <skos:altLabel xml:lang="it">Europa settentrionale</skos:altLabel>
+      <skos:altLabel xml:lang="fr">Europe du Nord</skos:altLabel>
+      <skos:altLabel xml:lang="lt">Šiaurės Europa</skos:altLabel>
+      <skos:altLabel xml:lang="ru">Северная Европа</skos:altLabel>
+      <skos:prefLabel xml:lang="de">Nordeuropa</skos:prefLabel>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/">
+      </dcterms:isPartOf>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/Northern_Europe"/>
+      <wgs84_pos:lat>61.68987</wgs84_pos:lat>
+      <wgs84_pos:long>2.90039</wgs84_pos:long>
+    </edm:Place>
+    <edm:Place rdf:about="https://sws.geonames.org/12217934/">
+      <skos:altLabel xml:lang="en">https://en.wikipedia.org/wiki/Baltic_states</skos:altLabel>
+      <skos:prefLabel>https://en.wikipedia.org/wiki/Baltic_states</skos:prefLabel>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/">
+      </dcterms:isPartOf>
+      <wgs84_pos:lat>56.85514</wgs84_pos:lat>
+      <wgs84_pos:long>25.32515</wgs84_pos:long>
+    </edm:Place>
+    <edm:Place rdf:about="https://sws.geonames.org/12217933/">
+      <skos:prefLabel>Baltic Region</skos:prefLabel>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6255148/">
+      </dcterms:isPartOf>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/Baltic_region"/>
+      <wgs84_pos:lat>57.29568</wgs84_pos:lat>
+      <wgs84_pos:long>19.48591</wgs84_pos:long>
+    </edm:Place>
+    <edm:Place rdf:about="https://sws.geonames.org/597427/">
+      <skos:altLabel xml:lang="lt">Lietuvos Respublika</skos:altLabel>
+      <skos:altLabel xml:lang="en">Lithuanian Soviet Socialist Republic</skos:altLabel>
+      <skos:altLabel xml:lang="ro">Литуания</skos:altLabel>
+      <skos:prefLabel xml:lang="ga">an Liotuáin</skos:prefLabel>
+      <skos:prefLabel xml:lang="mt">il-Litwanja</skos:prefLabel>
+      <skos:prefLabel xml:lang="et">Leedu</skos:prefLabel>
+      <skos:prefLabel xml:lang="fi">Liettua</skos:prefLabel>
+      <skos:prefLabel xml:lang="lt">Lietuva</skos:prefLabel>
+      <skos:prefLabel xml:lang="lv">Lietuva</skos:prefLabel>
+      <skos:prefLabel xml:lang="da">Litauen</skos:prefLabel>
+      <skos:prefLabel xml:lang="de">Litauen</skos:prefLabel>
+      <skos:prefLabel xml:lang="no">Litauen</skos:prefLabel>
+      <skos:prefLabel xml:lang="sv">Litauen</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Lithuania</skos:prefLabel>
+      <skos:prefLabel xml:lang="nl">Litouwen</skos:prefLabel>
+      <skos:prefLabel xml:lang="es">Lituania</skos:prefLabel>
+      <skos:prefLabel xml:lang="it">Lituania</skos:prefLabel>
+      <skos:prefLabel xml:lang="ro">Lituania</skos:prefLabel>
+      <skos:prefLabel xml:lang="ca">Lituània</skos:prefLabel>
+      <skos:prefLabel xml:lang="pt">Lituânia</skos:prefLabel>
+      <skos:prefLabel xml:lang="fr">Lituanie</skos:prefLabel>
+      <skos:prefLabel xml:lang="cs">Litva</skos:prefLabel>
+      <skos:prefLabel xml:lang="hr">Litva</skos:prefLabel>
+      <skos:prefLabel xml:lang="sk">Litva</skos:prefLabel>
+      <skos:prefLabel xml:lang="sl">Litva</skos:prefLabel>
+      <skos:prefLabel xml:lang="hu">Litvánia</skos:prefLabel>
+      <skos:prefLabel xml:lang="pl">Litwa</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">Republic of Lithuania</skos:prefLabel>
+      <skos:prefLabel xml:lang="el">Λιθουανία</skos:prefLabel>
+      <skos:prefLabel xml:lang="bg">Литва</skos:prefLabel>
+      <skos:prefLabel xml:lang="ru">Литва</skos:prefLabel>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/6695072/">
+      </dcterms:isPartOf>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/12217934/">
+      </dcterms:isPartOf>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/12217933/">
+      </dcterms:isPartOf>
+      <dcterms:isPartOf rdf:resource="https://sws.geonames.org/7729883/">
+      </dcterms:isPartOf>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/Lithuania"/>
+      <owl:sameAs rdf:resource="http://dbpedia.org/resource/Lithuanian_Soviet_Socialist_Republic_%281918%E2%80%931919%29"/>
+      <wgs84_pos:lat>55.41667</wgs84_pos:lat>
+      <wgs84_pos:long>24</wgs84_pos:long>
+    </edm:Place>
+    <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>
+  </metis:result>
+</metis:results>

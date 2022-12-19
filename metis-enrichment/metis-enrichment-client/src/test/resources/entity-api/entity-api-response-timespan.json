@@ -1,0 +1,11 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&text=1957&lang=en&type=timespan&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 0,
+  "partOf": {
+    "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&text=1957&lang=en&type=timespan",
+    "type": "ResultList",
+    "total": 0
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "apikey": "api2demo",
+  "action": "/entity/resolve",
+  "success": false,
+  "error": "No entity found for sameAs/exactMatch URI : http://dbpedia.org/resource/Lithuanian_Soviet_Socialist_Republic_%281918%E2%80%931919%29"
+}

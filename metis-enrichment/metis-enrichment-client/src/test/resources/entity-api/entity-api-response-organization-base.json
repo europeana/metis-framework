@@ -1,0 +1,61 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://data.europeana.eu/organization/1482250000004671158",
+  "type": "Organization",
+  "prefLabel": {
+    "en": "The European Film Gateway"
+  },
+  "acronym": {
+    "en": [
+      "EFG"
+    ]
+  },
+  "hiddenLabel": [
+    "EFG - The European Film Gateway"
+  ],
+  "europeanaRole": {
+    "en": [
+      "Aggregator",
+      "Data Partner"
+    ]
+  },
+  "organizationDomain": {
+    "en": [
+      "Film"
+    ]
+  },
+  "geographicLevel": {
+    "en": "European"
+  },
+  "country": "DE",
+  "language": [
+    "en"
+  ],
+  "homepage": "http://www.europeanfilmgateway.eu",
+  "hasAddress": {
+    "id": "https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000004671158#address",
+    "streetAddress": "Schaumainkai 41",
+    "postalCode": "60596",
+    "locality": "Frankfurt am Main",
+    "countryName": "Germany"
+  },
+  "identifier": [
+    "1482250000004671158"
+  ],
+  "sameAs": [
+    "https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000004671158"
+  ],
+  "isAggregatedBy": {
+    "id": "http://data.europeana.eu/organization/1482250000004671158#aggregation",
+    "type": "Aggregation",
+    "created": "2022-10-17T15:41:19Z",
+    "modified": "2022-12-05T17:18:33Z",
+    "pageRank": 0.0,
+    "recordCount": 624987,
+    "score": 2829,
+    "aggregates": [
+      "http://data.europeana.eu/organization/1482250000004671158#aggr_europeana",
+      "http://data.europeana.eu/organization/1482250000004671158#aggr_source_1"
+    ]
+  }
+}

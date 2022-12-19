@@ -35,17 +35,13 @@
       choir.
     </dc:description>
     <dc:identifier>7b498e8404a14793a79c67a3faaf5502</dc:identifier>
-    <dc:subject xml:lang="lt">Religija</dc:subject>
     <dc:subject xml:lang="en">Religion</dc:subject>
     <dc:subject xml:lang="en">Paranguaricutirimicuaro</dc:subject>
     <dc:title>Klaipėdos bažnyčios pamatų įšventinimas</dc:title>
     <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"/>
-    <dc:type rdf:resource="htp://vocab.getty.edu/aat/300136900"/>
     <dcterms:alternative xml:lang="en">Consecration of the Church Foundation in Klaipėda</dcterms:alternative>
     <dcterms:created xml:lang="en">1957</dcterms:created>
-    <dcterms:provenance>Lietuvos Centrinis Valstybés Archyvas</dcterms:provenance>
     <dcterms:spatial rdf:resource="https://sws.geonames.org/597427/"/>
-    <dcterms:references rdf:resource="http://semantics.gr/authorities/thematic_tags/994210004"/>
     <edm:europeanaProxy>false</edm:europeanaProxy>
     <ore:proxyFor rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
     <ore:proxyIn rdf:resource="/aggregation/provider/08635/7b498e8404a14793a79c67a3faaf5502"/>

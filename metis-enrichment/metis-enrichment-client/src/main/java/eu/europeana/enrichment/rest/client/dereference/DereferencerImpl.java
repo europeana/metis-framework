@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,6 +28,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -71,9 +77,20 @@ public class DereferencerImpl implements Dereferencer {
     }
   }
 
+  private static HttpURLConnection getClient(URL checkedUrl) throws IOException {
+    if (checkedUrl.getProtocol().equals("https")) {
+      HttpsURLConnection validationClient = (HttpsURLConnection) checkedUrl.openConnection();
+      skipSSLValidationCertificate(validationClient);
+      return validationClient;
+    } else {
+      return (HttpURLConnection) checkedUrl.openConnection();
+    }
+  }
+
   private static URL validateIfUrlToDereferenceExists(HashSet<ReportMessage> reportMessages, URL checkedUrl) {
     try {
-      HttpURLConnection validationClient = (HttpURLConnection) checkedUrl.openConnection();
+      HttpURLConnection validationClient = getClient(checkedUrl);
+
       HttpStatus responseCode = HttpStatus.resolve(validationClient.getResponseCode());
 
       LOGGER.debug("A URL {} response code.: {}", checkedUrl, responseCode);
@@ -86,7 +103,7 @@ public class DereferencerImpl implements Dereferencer {
         String cookies = validationClient.getHeaderField("Set-Cookie");
 
         // open the new connnection again
-        validationClient = (HttpURLConnection) new URL(newUrl).openConnection();
+        validationClient = getClient(new URL(newUrl));
         validationClient.setRequestProperty("Cookie", cookies);
         validationClient.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
         validationClient.addRequestProperty("User-Agent", "Mozilla");
@@ -117,6 +134,55 @@ public class DereferencerImpl implements Dereferencer {
           .build());
       LOGGER.debug("A URL to be dereferenced is invalid.: {}", checkedUrl);
       return null;
+    }
+  }
+
+  private static void skipSSLValidationCertificate(HttpsURLConnection validationClient) {
+    TrustManager[] trustAllCerts = new TrustManager[]{
+        new X509TrustManager() {
+          /**
+           * accepted issuers
+           * @return empty accepted issuers.
+           */
+          @Override
+          public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[]{};
+          }
+
+          /**
+           * checkClientTrusted
+           * @param certs certificates
+           * @param authType authentication type
+           */
+          @Override
+          public void checkClientTrusted(
+              java.security.cert.X509Certificate[] certs, String authType) throws CertificateException {
+            // Empty for validation purposes
+            if (certs.length == -1) {
+              throw new CertificateException("This is just endpoint validation");
+            }
+          }
+
+          /**
+           * checkServerTrusted
+           * @param certs certificates
+           * @param authType authentication type
+           */
+          public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
+              throws CertificateException {
+            // Empty for validation purposes
+            if (certs.length == -1) {
+              throw new CertificateException("This is just endpoint validation");
+            }
+          }
+        }
+    };
+    try {
+      SSLContext sc = SSLContext.getInstance("TLSv1.2");
+      sc.init(null, trustAllCerts, new java.security.SecureRandom());
+      validationClient.setSSLSocketFactory(sc.getSocketFactory());
+    } catch (Exception e) {
+      LOGGER.error(",Setting dereference url validation", e);
     }
   }
 

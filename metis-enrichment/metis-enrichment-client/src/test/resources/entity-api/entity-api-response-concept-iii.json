@@ -1,0 +1,11 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&text=G%C3%BCiro&lang=es&type=concept&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 0,
+  "partOf": {
+    "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&text=G%C3%BCiro&lang=es&type=concept",
+    "type": "ResultList",
+    "total": 0
+  }
+}

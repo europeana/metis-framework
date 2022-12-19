@@ -35,13 +35,15 @@
       choir.
     </dc:description>
     <dc:identifier>7b498e8404a14793a79c67a3faaf5502</dc:identifier>
-    <dc:subject xml:lang="es" rdf:resource="http://www.mimo-db.eu/InstrumentsKeywords/3052">Güiro</dc:subject>
-    <dc:subject xml:lang="nl" rdf:resource="http://www.mimo-db.eu/InstrumentsKeywords/0">Muziek</dc:subject>
+    <dc:subject xml:lang="en">Religion</dc:subject>
     <dc:subject xml:lang="en">Paranguaricutirimicuaro</dc:subject>
     <dc:title>Klaipėdos bažnyčios pamatų įšventinimas</dc:title>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"/>
+    <dc:type rdf:resource="htp://vocab.getty.edu/aat/300136900"/>
     <dcterms:alternative xml:lang="en">Consecration of the Church Foundation in Klaipėda</dcterms:alternative>
     <dcterms:created xml:lang="en">1957</dcterms:created>
-    <dcterms:provenance>Lietuvos Centrinis Valstybés Archyvas</dcterms:provenance>
+    <dcterms:spatial rdf:resource="https://sws.geonames.org/597427/"/>
+    <dcterms:spatial rdf:resource="https://sws.geonames.org/597427/1"/>
     <edm:europeanaProxy>false</edm:europeanaProxy>
     <ore:proxyFor rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
     <ore:proxyIn rdf:resource="/aggregation/provider/08635/7b498e8404a14793a79c67a3faaf5502"/>

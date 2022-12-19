@@ -1,0 +1,6 @@
+{
+  "apikey": "api2demo",
+  "action": "/entity/resolve",
+  "success": false,
+  "error": "No entity found for sameAs/exactMatch URI : {{request.query}}"
+}
