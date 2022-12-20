@@ -5,10 +5,14 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.DMY_INDICES;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.YMD_INDICES;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.DASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.SLASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.SPACED_DASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters.SPACE_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DASH_DOT_DELIMITERS;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DASH_DOT_SLASH_DELIMITERS;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DOT_SLASH_DELIMITERS;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.SPACE_DELIMITER;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.DASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.SLASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.SPACED_DASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.SPACE_RANGE;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
@@ -27,38 +31,38 @@ import org.apache.commons.lang3.tuple.Triple;
  * gives more control on the date delimiters used, the option of XX dates and the order of the year, month, day of the date</p>
  */
 public enum NumericPartsPattern {
-  YMD(NumericPartsPattern.DEFAULT_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS),
-  DMY(NumericPartsPattern.DEFAULT_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS),
+  YMD(DASH_DOT_SLASH_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS),
+  DMY(DASH_DOT_SLASH_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS),
 
-  YMD_XX(NumericPartsPattern.DEFAULT_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
-  DMY_XX(NumericPartsPattern.DEFAULT_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  YMD_XX(DASH_DOT_SLASH_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX(DASH_DOT_SLASH_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_SPACES(" ", YMD_INDICES, YYYY_MM_DD_SPACES),
-  DMY_SPACES(" ", DMY_INDICES, YYYY_MM_DD_SPACES),
+  YMD_SPACES(SPACE_DELIMITER, YMD_INDICES, YYYY_MM_DD_SPACES),
+  DMY_SPACES(SPACE_DELIMITER, DMY_INDICES, YYYY_MM_DD_SPACES),
 
-  YMD_SPACED_DASH_RANGE(SPACED_DASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS),
-  DMY_SPACED_DASH_RANGE(SPACED_DASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS),
+  YMD_SPACED_DASH_RANGE(SPACED_DASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS),
+  DMY_SPACED_DASH_RANGE(SPACED_DASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS),
 
-  YMD_SPACE_RANGE(SPACE_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS),
-  DMY_SPACE_RANGE(SPACE_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS),
+  YMD_SPACE_RANGE(SPACE_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS),
+  DMY_SPACE_RANGE(SPACE_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS),
 
-  YMD_DASH_RANGE(DASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS),
-  DMY_DASH_RANGE(DASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS),
+  YMD_DASH_RANGE(DASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS),
+  DMY_DASH_RANGE(DASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS),
 
-  YMD_SLASH_RANGE(SLASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS),
-  DMY_SLASH_RANGE(SLASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS),
+  YMD_SLASH_RANGE(SLASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS),
+  DMY_SLASH_RANGE(SLASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS),
 
-  YMD_XX_SPACED_DASH_RANGE(SPACED_DASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
-  DMY_XX_SPACED_DASH_RANGE(SPACED_DASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  YMD_XX_SPACED_DASH_RANGE(SPACED_DASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_SPACED_DASH_RANGE(SPACED_DASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_XX_SPACE_RANGE(SPACE_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
-  DMY_XX_SPACE_RANGE(SPACE_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  YMD_XX_SPACE_RANGE(SPACE_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_SPACE_RANGE(SPACE_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_XX_DASH_RANGE(DASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
-  DMY_XX_DASH_RANGE(DASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  YMD_XX_DASH_RANGE(DASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_DASH_RANGE(DASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_XX_SLASH_RANGE(SLASH_RANGE.getDatesDelimiters(), YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
-  DMY_XX_SLASH_RANGE(SLASH_RANGE.getDatesDelimiters(), DMY_INDICES, NUMERIC_ALL_VARIANTS_XX);
+  YMD_XX_SLASH_RANGE(SLASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
+  DMY_XX_SLASH_RANGE(SLASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX);
 
   public static final Set<NumericPartsPattern> NUMERIC_SET = unmodifiableSet(EnumSet.of(
       YMD, DMY,
@@ -74,7 +78,6 @@ public enum NumericPartsPattern {
       YMD_XX_SPACE_RANGE, DMY_XX_SPACE_RANGE,
       YMD_XX_DASH_RANGE, DMY_XX_DASH_RANGE,
       YMD_XX_SLASH_RANGE, DMY_XX_SLASH_RANGE));
-  private static final String DEFAULT_DELIMITERS = "[\\-./]";
 
   private final Pattern pattern;
   private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
@@ -82,14 +85,14 @@ public enum NumericPartsPattern {
   private final int monthIndex;
   private final int dayIndex;
 
-  NumericPartsPattern(String dateDelimiters, DatePartsIndices dateFormatIndices,
+  NumericPartsPattern(DateDelimiters dateDelimiters, DatePartsIndices dateFormatIndices,
       DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
     this.yearIndex = dateFormatIndices.tripleIndices.getLeft();
     this.monthIndex = dateFormatIndices.tripleIndices.getMiddle();
     this.dayIndex = dateFormatIndices.tripleIndices.getRight();
 
-    this.pattern = NumericPartsPattern.generatePattern(dateDelimiters, dateNormalizationExtractorMatchId,
+    this.pattern = NumericPartsPattern.generatePattern(dateDelimiters.getDatesDelimiters(), dateNormalizationExtractorMatchId,
         dateFormatIndices);
   }
 
@@ -161,6 +164,30 @@ public enum NumericPartsPattern {
     return dayIndex;
   }
 
+
+  private interface DateDelimiters {
+    String getDatesDelimiters();
+  }
+
+  public enum NumericDateDelimiters implements DateDelimiters {
+    DASH_DOT_SLASH_DELIMITERS("[\\-./]"),
+    DOT_SLASH_DELIMITERS("[./]"),
+    DASH_DOT_DELIMITERS("[\\-.]"),
+    SPACE_DELIMITER(" ");
+
+    private final String datesDelimiters;
+
+    NumericDateDelimiters(String datesDelimiters) {
+      this.datesDelimiters = datesDelimiters;
+    }
+
+
+    @Override
+    public String getDatesDelimiters() {
+      return datesDelimiters;
+    }
+  }
+
   /**
    * Enum that contains the special characters(dates separator, dates delimiters, unspecified range edge) for each range
    * separator.
@@ -169,18 +196,18 @@ public enum NumericPartsPattern {
    * edges.
    * </p>
    */
-  public enum NumericRangeSpecialCharacters {
+  public enum NumericRangeDateDelimiters implements DateDelimiters {
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
-    SPACED_DASH_RANGE(" - ", DEFAULT_DELIMITERS, NumericRangeSpecialCharacters.DEFAULT_UNSPECIFIED_CHARACTERS),
+    SPACED_DASH_RANGE(" - ", DASH_DOT_SLASH_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
-    PIPE_RANGE("\\|", DEFAULT_DELIMITERS, NumericRangeSpecialCharacters.DEFAULT_UNSPECIFIED_CHARACTERS),
+    PIPE_RANGE("\\|", DASH_DOT_SLASH_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS),
     //For space separator we don't accept unspecified edges
     //Does not exist in XX
-    SPACE_RANGE(" ", DEFAULT_DELIMITERS, null),
+    SPACE_RANGE(" ", DASH_DOT_SLASH_DELIMITERS, null),
     //"[XU]"
-    DASH_RANGE("-", "[./]", "\\?|\\.\\."),
+    DASH_RANGE("-", DOT_SLASH_DELIMITERS, "\\?|\\.\\."),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "." delimiter
-    SLASH_RANGE("/", "[\\-.]", NumericRangeSpecialCharacters.DEFAULT_UNSPECIFIED_CHARACTERS);
+    SLASH_RANGE("/", DASH_DOT_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS);
 
     public static final String DEFAULT_UNSPECIFIED_CHARACTERS = "\\?|-|\\.\\.";
 
@@ -188,9 +215,9 @@ public enum NumericPartsPattern {
     private final String datesDelimiters;
     private final String unspecifiedCharacters;
 
-    NumericRangeSpecialCharacters(String datesSeparator, String datesDelimiters, String unspecifiedCharacters) {
+    NumericRangeDateDelimiters(String datesSeparator, NumericDateDelimiters datesDelimiters, String unspecifiedCharacters) {
       this.datesSeparator = datesSeparator;
-      this.datesDelimiters = datesDelimiters;
+      this.datesDelimiters = datesDelimiters.getDatesDelimiters();
       this.unspecifiedCharacters = unspecifiedCharacters;
     }
 
@@ -198,6 +225,7 @@ public enum NumericPartsPattern {
       return datesSeparator;
     }
 
+    @Override
     public String getDatesDelimiters() {
       return datesDelimiters;
     }

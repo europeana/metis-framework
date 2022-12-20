@@ -11,7 +11,7 @@ import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
-import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeSpecialCharacters;
+import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 
 /**
@@ -27,7 +27,7 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
     DateNormalizationResult rangeDate = null;
-    for (NumericRangeSpecialCharacters numericRangeSpecialCharacters : NumericRangeSpecialCharacters.values()) {
+    for (NumericRangeDateDelimiters numericRangeSpecialCharacters : NumericRangeDateDelimiters.values()) {
       //Split with -1 limit does not discard empty splits
       final String[] split = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator(), -1);
       //The split has to be exactly in two, and then we can verify. This also guarantees that the separator used is not used for unknown characters
@@ -60,9 +60,9 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
    * @return true if the range is ambiguous
    */
   private boolean areYearsAmbiguous(InstantEdtfDate startDate, InstantEdtfDate endDate,
-      NumericRangeSpecialCharacters numericRangeSpecialCharacters) {
+      NumericRangeDateDelimiters numericRangeSpecialCharacters) {
     boolean isAmbiguous = false;
-    if (numericRangeSpecialCharacters == NumericRangeSpecialCharacters.DASH_RANGE) {
+    if (numericRangeSpecialCharacters == NumericRangeDateDelimiters.DASH_RANGE) {
       final boolean isStartSpecified = !startDate.getEdtfDatePart().isUnspecified();
       final boolean isStartThreeDigit = isStartSpecified && startDate.getEdtfDatePart().getYear().toString().matches("\\d{3}");
       if (isStartThreeDigit && endDate.isUnspecified()) {
@@ -73,7 +73,7 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
   }
 
   private DateNormalizationResult extractDateNormalizationResult(String dateString,
-      NumericRangeSpecialCharacters numericRangeSpecialCharacters) {
+      NumericRangeDateDelimiters numericRangeSpecialCharacters) {
     final DateNormalizationResult dateNormalizationResult;
     if (numericRangeSpecialCharacters.getUnspecifiedCharacters() != null && dateString.matches(
         numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
