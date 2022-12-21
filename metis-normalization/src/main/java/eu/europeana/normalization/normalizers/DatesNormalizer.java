@@ -29,7 +29,6 @@ import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -188,7 +187,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private void normalizeElement(Document document, Element element, Namespace.Element elementType,
       Element europeanaProxy, Function<String, DateNormalizationResult> normalizationFunction,
-      InternalNormalizationReport report) throws NormalizationException {
+      InternalNormalizationReport report) {
 
     // Apply the normalization. If nothing can be done, we return.
     final String elementText = XmlUtil.getElementText(element);
@@ -203,13 +202,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     // Compute the timespan ID we need.
-    final String timespanId;
-    try {
-      timespanId = String.format("#%s", URLEncoder.encode(
-          dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8.name()));
-    } catch (UnsupportedEncodingException e) {
-      throw new NormalizationException(e.getMessage(), e);
-    }
+    final String timespanId = String.format("#%s", URLEncoder.encode(
+        dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8));
 
     // Append the timespan to the document.
     appendTimespanEntity(document, dateNormalizationResult.getEdtfDate(), timespanId);
@@ -313,13 +307,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
       dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString());
       if (dateNormalizationResult != null) {
-        dateNormalizationResult.setCleanOperationMatchId(sanitizedDate.getSanitizeOperation());
-
-        // TODO: 21/07/2022 Perhaps this should be done differently, because it pollutes the map of the extractor and its id
-        //Update the extractor match id.
-        if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.EDTF) {
-          dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.EDTF_CLEANED);
-        }
+        dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }
     }
     return dateNormalizationResult;
