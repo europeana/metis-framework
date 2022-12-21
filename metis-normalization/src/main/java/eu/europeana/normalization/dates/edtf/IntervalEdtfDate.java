@@ -87,16 +87,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
     return end == null ? null : end.getLastDay();
   }
 
-  @Override
-  public void removeTime() {
-    if (start != null) {
-      start.removeTime();
-    }
-    if (end != null) {
-      end.removeTime();
-    }
-  }
-
   public InstantEdtfDate getStart() {
     return start;
   }

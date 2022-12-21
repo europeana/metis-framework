@@ -4,6 +4,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -38,81 +39,81 @@ class DcmiPeriodDateExtractorTest {
 
   private static Stream<Arguments> extractData() {
     return Stream.of(
-        Arguments.of("name=The Great Depression; start=1929; end=1939;",
+        of("name=The Great Depression; start=1929; end=1939;",
             "The Great Depression", "1929", "1939"),
-        Arguments.of("name=Haagse International Arts Festival, 2000; start=2000-01-26; end=2000-02-20;",
+        of("name=Haagse International Arts Festival, 2000; start=2000-01-26; end=2000-02-20;",
             "Haagse International Arts Festival, 2000", "2000-01-26", "2000-02-20"),
-        Arguments.of("start=1998-09-25T14:20:00+10:00; end=1998-09-25T16:40:00+10:00; scheme=W3C-DTF;",
-            null, "1998-09-25T14:20:00", "1998-09-25T16:40:00"),
-        Arguments.of("start=1998-09-25T14:20:00+10:00;  scheme=W3C-DTF;",
-            null, "1998-09-25T14:20:00", ".."),
-        Arguments.of("end=1998-09-25T16:40:00+10:00; scheme=W3C-DTF;",
-            null, "..", "1998-09-25T16:40:00"),
-        Arguments.of("end=1998-09-25T16:40+10:00; start=1998/01/01 scheme=W3C-DTF;", null, null, null),
+        of("start=1998-09-25; end=1998-09-25; scheme=W3C-DTF;",
+            null, "1998-09-25", "1998-09-25"),
+        of("start=1998-09-25T14:20:00+10:00;  scheme=W3C-DTF;",
+            null, "1998-09-25", ".."),
+        of("end=1998-09-25T16:40:00+10:00; scheme=W3C-DTF;",
+            null, "..", "1998-09-25"),
+        of("end=1998-09-25T16:40+10:00; start=1998/01/01 scheme=W3C-DTF;", null, "..", "1998-09-25"),
 
         //Scheme checks
-        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3CDTF;",
+        of("name=The Great Depression; start=1929; end=1939; scheme=W3CDTF;",
             "The Great Depression", "1929", "1939"),
-        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3C-DTF;",
+        of("name=The Great Depression; start=1929; end=1939; scheme=W3C-DTF;",
             "The Great Depression", "1929", "1939"),
-        Arguments.of("scheme=W3C-DTF; name=The Great Depression; start=1929; end=1939;",
+        of("scheme=W3C-DTF; name=The Great Depression; start=1929; end=1939;",
             "The Great Depression", "1929", "1939"),
-        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3C-DTF",
+        of("name=The Great Depression; start=1929; end=1939; scheme=W3C-DTF",
             "The Great Depression", "1929", "1939"),
-        Arguments.of("name=The Great Depression; start=1929; end=1939; scheme=W3C-", null, null, null),
+        of("name=The Great Depression; start=1929; end=1939; scheme=W3C-", null, null, null),
 
         //double fields should be false
-        Arguments.of("name=The Great Depression; start=1929; end=1939; name=The Great Depression;", null, null, null),
-        Arguments.of("name=The Great Depression; start=1929; end=1939; start=1929;", null, null, null),
-        Arguments.of("name=The Great Depression; end=1939; start=1929; end=1939;", null, null, null),
+        of("name=The Great Depression; start=1929; end=1939; name=The Great Depression;", null, null, null),
+        of("name=The Great Depression; start=1929; end=1939; start=1929;", null, null, null),
+        of("name=The Great Depression; end=1939; start=1929; end=1939;", null, null, null),
 
         //Both start and end null then false
-        Arguments.of("name=The Great Depression; start=; end=;", null, null, null),
-        Arguments.of("name=The Great Depression;", null, null, null),
+        of("name=The Great Depression; start=; end=;", null, null, null),
+        of("name=The Great Depression;", null, null, null),
 
         //One end bounded
-        Arguments.of("name=The Great Depression; start=; end=1939;",
+        of("name=The Great Depression; start=; end=1939;",
             "The Great Depression", "..", "1939"),
-        Arguments.of("name=The Great Depression; start=1929; end=;",
+        of("name=The Great Depression; start=1929; end=;",
             "The Great Depression", "1929", ".."),
 
         //Full date
-        Arguments.of("name=Haagse International Arts Festival, 2000; start=2000-01-26; end=2000-02-20;",
+        of("name=Haagse International Arts Festival, 2000; start=2000-01-26; end=2000-02-20;",
             "Haagse International Arts Festival, 2000", "2000-01-26", "2000-02-20"),
 
         //Full date and time
-        Arguments.of("start=1999-09-25T14:20:00+10:00; end=1999-09-25T16:40:00+10:00; scheme=W3C-DTF;",
-            null, "1999-09-25T14:20:00", "1999-09-25T16:40:00"),
-        Arguments.of("start=1999-09-25T14:20:00+10:00;  scheme=W3C-DTF;",
-            null, "1999-09-25T14:20:00", ".."),
-        Arguments.of("end=1999-09-25T16:40:00+10:00; scheme=W3C-DTF;",
-            null, "..", "1999-09-25T16:40:00"),
+        of("start=1999-09-25T14:20:00+10:00; end=1999-09-25T16:40:00+10:00; scheme=W3C-DTF;",
+            null, "1999-09-25", "1999-09-25"),
+        of("start=1999-09-25T14:20:00+10:00;  scheme=W3C-DTF;",
+            null, "1999-09-25", ".."),
+        of("end=1999-09-25T16:40:00+10:00; scheme=W3C-DTF;",
+            null, "..", "1999-09-25"),
 
         //Missing semicolon
-        Arguments.of("end=1998-09-25T16:40:00+10:00; start=1998 scheme=W3C-DTF;",
-            null, "..", "1998-09-25T16:40:00"),
+        of("end=1998-09-25T16:40:00+10:00; start=1998 scheme=W3C-DTF;",
+            null, "..", "1998-09-25"),
 
         //Invalid date
-        Arguments.of("end=1998-09-25T16:40+10:00; start=1998-1986; scheme=W3C-DTF;", null, null, null),
+        of("end=1998-09-25T16:40+10:00; start=1998-1986; scheme=W3C-DTF;", null, null, null),
         //
         //Spaces at the end of the name are cleaned up
-        Arguments.of("name=The Great Depression          ; start=1929; end=1939;",
+        of("name=The Great Depression          ; start=1929; end=1939;",
             "The Great Depression", "1929", "1939"),
 
         //Spaces at the beginning of the name are cleaned up
-        Arguments.of("name=     The Great Depression; start=1929; end=1939;",
+        of("name=     The Great Depression; start=1929; end=1939;",
             "The Great Depression", "1929", "1939"),
 
         //Name at the beginning without field name
-        Arguments.of("The Great Depression; start=1929; end=1939;",
+        of("The Great Depression; start=1929; end=1939;",
             null, "1929", "1939"),
 
         //Name at the beginning without field name and spaces at wrapped
-        Arguments.of("   The Great Depression   ; start=1929; end=1939;",
+        of("   The Great Depression   ; start=1929; end=1939;",
             null, "1929", "1939"),
 
         //Normal case
-        Arguments.of("name=The Great Depression; start=1929; end=1939;",
+        of("name=The Great Depression; start=1929; end=1939;",
             "The Great Depression", "1929", "1939")
     );
   }

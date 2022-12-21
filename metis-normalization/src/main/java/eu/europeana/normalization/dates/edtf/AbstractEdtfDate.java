@@ -42,6 +42,4 @@ public abstract class AbstractEdtfDate implements Serializable {
 
   public abstract InstantEdtfDate getLastDay();
 
-  public abstract void removeTime();
-
 }
