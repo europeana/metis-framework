@@ -336,18 +336,6 @@ public class MongoDereferenceService implements DereferenceService {
     processedEntityDao.save(entityToCache);
   }
 
-  private DereferenceResultWrapper convertToEnrichmentBaseVocabulary(String entityXml,
-      Vocabulary entityVocabulary) throws JAXBException {
-    final DereferenceResultWrapper result;
-    if (entityXml == null || entityVocabulary == null) {
-      result = null;
-    } else {
-      result = new DereferenceResultWrapper(EnrichmentBaseConverter.convertToEnrichmentBase(entityXml),
-          entityVocabulary);
-    }
-    return result;
-  }
-
   private MongoDereferencedEntity transformEntity(Vocabulary vocabulary,
       final String originalEntity, final String resourceId) {
     Optional<String> result;

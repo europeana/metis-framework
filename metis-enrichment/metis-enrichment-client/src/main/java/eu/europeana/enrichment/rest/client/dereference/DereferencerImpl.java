@@ -43,6 +43,7 @@ import org.springframework.web.client.HttpClientErrorException.BadRequest;
 public class DereferencerImpl implements Dereferencer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
+  public static final String HTTPS = "https";
 
   private final EntityMergeEngine entityMergeEngine;
   private final EntityResolver entityResolver;
@@ -78,7 +79,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   private static HttpURLConnection getClient(URL checkedUrl) throws IOException {
-    if (checkedUrl.getProtocol().equals("https")) {
+    if (checkedUrl.getProtocol().equals(HTTPS)) {
       HttpsURLConnection validationClient = (HttpsURLConnection) checkedUrl.openConnection();
       skipSSLValidationCertificate(validationClient);
       return validationClient;
@@ -145,7 +146,7 @@ public class DereferencerImpl implements Dereferencer {
            * @return empty accepted issuers.
            */
           @Override
-          public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+          public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[]{};
           }
 
@@ -156,7 +157,7 @@ public class DereferencerImpl implements Dereferencer {
            */
           @Override
           public void checkClientTrusted(
-              java.security.cert.X509Certificate[] certs, String authType) throws CertificateException {
+              X509Certificate[] certs, String authType) throws CertificateException {
             // Empty for validation purposes
             if (certs.length == -1) {
               throw new CertificateException("This is just endpoint validation");
@@ -168,7 +169,7 @@ public class DereferencerImpl implements Dereferencer {
            * @param certs certificates
            * @param authType authentication type
            */
-          public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
+          public void checkServerTrusted(X509Certificate[] certs, String authType)
               throws CertificateException {
             // Empty for validation purposes
             if (certs.length == -1) {
