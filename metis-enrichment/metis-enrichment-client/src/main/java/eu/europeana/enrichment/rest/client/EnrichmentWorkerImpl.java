@@ -3,7 +3,7 @@ package eu.europeana.enrichment.rest.client;
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.report.ProcessedResult;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -60,25 +60,25 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public ProcessedResult<byte[]> process(final InputStream inputStream, Set<Mode> modes) {
     ProcessedResult<byte[]> result;
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     if (inputStream == null) {
       IllegalArgumentException e = new IllegalArgumentException("The input stream cannot be null.");
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildEnrichmentError()
           .withException(e)
           .build());
-      result = new ProcessedResult<>(null, reportMessages);
+      result = new ProcessedResult<>(null, reports);
     } else {
       try {
         final RDF inputRdf = convertInputStreamToRdf(inputStream);
         result = new ProcessedResult<>(convertRdfToBytes(process(inputRdf, modes)));
         return result;
       } catch (SerializationException e) {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildEnrichmentError()
             .withException(e)
             .build());
-        result = new ProcessedResult<>(null, reportMessages);
+        result = new ProcessedResult<>(null, reports);
       }
     }
     return result;
@@ -92,26 +92,26 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   @Override
   public ProcessedResult<String> process(final String inputString, Set<Mode> modes) {
     ProcessedResult<String> result;
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     if (inputString == null) {
       IllegalArgumentException e = new IllegalArgumentException("Input RDF string cannot be null.");
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildEnrichmentError()
           .withValue(inputString)
           .withException(e)
           .build());
-      result = new ProcessedResult<>(null, reportMessages);
+      result = new ProcessedResult<>(null, reports);
     } else {
       try {
         final RDF inputRdf = convertStringToRdf(inputString);
         result = new ProcessedResult<>(convertRdfToString(process(inputRdf, modes)));
       } catch (SerializationException e) {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildEnrichmentError()
             .withValue(inputString)
             .withException(e)
             .build());
-        result = new ProcessedResult<>(null, reportMessages);
+        result = new ProcessedResult<>(null, reports);
       }
     }
     return result;
@@ -124,32 +124,16 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   @Override
   public ProcessedResult<RDF> process(final RDF rdf, Set<Mode> modes) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    IllegalArgumentException e;
+    HashSet<Report> reports = new HashSet<>();
     // Sanity checks
     if (rdf == null) {
-      e = new IllegalArgumentException("Input RDF cannot be null.");
-      reportMessages.add(ReportMessage
-          .buildEnrichmentError()
-          .withException(e)
-          .build());
-      return new ProcessedResult<>(null, reportMessages);
+      return illegalArgument("Input RDF cannot be null.", reports);
     }
     if (modes == null) {
-      e = new IllegalArgumentException("Set of Modes cannot be null.");
-      reportMessages.add(ReportMessage
-          .buildEnrichmentError()
-          .withException(e)
-          .build());
-      return new ProcessedResult<>(null, reportMessages);
+      return illegalArgument("Set of Modes cannot be null.", reports);
     }
     if (!getSupportedModes().containsAll(modes)) {
-      e = new IllegalArgumentException("The requested mode(s) is not supported by this instance.");
-      reportMessages.add(ReportMessage
-          .buildEnrichmentError()
-          .withException(e)
-          .build());
-      return new ProcessedResult<>(null, reportMessages);
+      return illegalArgument("The requested mode(s) is not supported by this instance.", reports);
     }
 
     // Preparation
@@ -161,7 +145,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Dereferencing first: this is because we may enrich based on its results.
     if (modes.contains(Mode.DEREFERENCE)) {
       LOGGER.debug("Performing dereferencing...");
-      reportMessages.addAll(dereferencer.dereference(rdf));
+      reports.addAll(dereferencer.dereference(rdf));
       LOGGER.debug("Dereferencing completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(rdf));
@@ -171,7 +155,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Enrichment second: we use the result of dereferencing as well.
     if (modes.contains(Mode.ENRICHMENT)) {
       LOGGER.debug("Performing enrichment...");
-      reportMessages.addAll(enricher.enrichment(rdf));
+      reports.addAll(enricher.enrichment(rdf));
       LOGGER.debug("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
@@ -180,7 +164,13 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
     // Done
     LOGGER.debug("Processing complete.");
-    return new ProcessedResult<>(rdf, reportMessages);
+    return new ProcessedResult<>(rdf, reports);
+  }
+
+  private static ProcessedResult<RDF> illegalArgument(String s, HashSet<Report> reports) {
+    IllegalArgumentException e = new IllegalArgumentException(s);
+    reports.add(Report.buildEnrichmentError().withException(e).build());
+    return new ProcessedResult<>(null, reports);
   }
 
   @Override

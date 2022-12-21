@@ -3,6 +3,7 @@ package eu.europeana.metis.dereference;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +22,16 @@ public class DereferenceResult {
    */
   public DereferenceResult(List<EnrichmentBase> enrichmentBases, DereferenceResultStatus dereferenceStatus) {
     this.enrichmentBases = new ArrayList<>(enrichmentBases);
+    this.dereferenceStatus = dereferenceStatus;
+  }
+
+  /**
+   * Constructor to return an empty enrichment base collection and status of dereference process
+   *
+   * @param dereferenceStatus status of dereference
+   */
+  public DereferenceResult(DereferenceResultStatus dereferenceStatus) {
+    this.enrichmentBases = Collections.emptyList();
     this.dereferenceStatus = dereferenceStatus;
   }
 

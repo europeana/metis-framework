@@ -30,7 +30,7 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.rest.client.report.ProcessedResult;
 import eu.europeana.enrichment.rest.client.report.ProcessedResult.RecordStatus;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -414,10 +414,10 @@ class EnrichmentWorkerImplTest {
     // Test null string input
     ProcessedResult<String> resultString = worker.process((String) null);
     assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
-    for (ReportMessage reportMessage : resultString.getReport()) {
-      assertEquals(Type.ERROR, reportMessage.getMessageType());
-      assertTrue(reportMessage.getMessage().contains("Input RDF string cannot be null."));
-      assertTrue(reportMessage.getStackTrace().contains("IllegalArgumentException"));
+    for (Report report : resultString.getReport()) {
+      assertEquals(Type.ERROR, report.getMessageType());
+      assertTrue(report.getMessage().contains("Input RDF string cannot be null."));
+      assertTrue(report.getStackTrace().contains("IllegalArgumentException"));
     }
     assertEquals(1, resultString.getReport().size());
     assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
@@ -435,10 +435,10 @@ class EnrichmentWorkerImplTest {
     // Test null string input
     ProcessedResult<String> resultString = worker.process((String) null, modeSetWithBoth);
     assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
-    for (ReportMessage reportMessage : resultString.getReport()) {
-      assertEquals(Type.ERROR, reportMessage.getMessageType());
-      assertTrue(reportMessage.getMessage().contains("Input RDF string cannot be null."));
-      assertTrue(reportMessage.getStackTrace().contains("IllegalArgumentException"));
+    for (Report report : resultString.getReport()) {
+      assertEquals(Type.ERROR, report.getMessageType());
+      assertTrue(report.getMessage().contains("Input RDF string cannot be null."));
+      assertTrue(report.getStackTrace().contains("IllegalArgumentException"));
     }
     assertEquals(1, resultString.getReport().size());
     assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
@@ -452,10 +452,10 @@ class EnrichmentWorkerImplTest {
     // Test empty RDF input
     ProcessedResult<RDF> resultRdf = worker.process(new RDF(), null);
     assertEquals(RecordStatus.STOP, resultRdf.getRecordStatus());
-    for (ReportMessage reportMessage : resultRdf.getReport()) {
-      assertEquals(Type.ERROR, reportMessage.getMessageType());
-      assertTrue(reportMessage.getMessage().contains("Set of Modes cannot be null"));
-      assertTrue(reportMessage.getStackTrace().contains("IllegalArgumentException"));
+    for (Report report : resultRdf.getReport()) {
+      assertEquals(Type.ERROR, report.getMessageType());
+      assertTrue(report.getMessage().contains("Set of Modes cannot be null"));
+      assertTrue(report.getStackTrace().contains("IllegalArgumentException"));
     }
     assertEquals(1, resultRdf.getReport().size());
     assertEquals(RecordStatus.STOP, resultRdf.getRecordStatus());

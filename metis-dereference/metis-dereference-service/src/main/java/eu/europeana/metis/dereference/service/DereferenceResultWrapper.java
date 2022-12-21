@@ -5,9 +5,9 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.metis.dereference.Vocabulary;
 
 /**
- * Result of enrichment base or enrichment entity
+ * Dereference result of enrichment base or enrichment entity
  */
-public class EnrichmentEntityVocabulary {
+public class DereferenceResultWrapper {
 
   private final EnrichmentBase enrichmentBase;
   private final Vocabulary vocabulary;
@@ -20,7 +20,7 @@ public class EnrichmentEntityVocabulary {
    * @param enrichmentBase enrichment base
    * @param vocabulary vocabulary related to dereferenced entity
    */
-  public EnrichmentEntityVocabulary(EnrichmentBase enrichmentBase, Vocabulary vocabulary) {
+  public DereferenceResultWrapper(EnrichmentBase enrichmentBase, Vocabulary vocabulary) {
     this.enrichmentBase = enrichmentBase;
     this.vocabulary = vocabulary;
     this.entity = null;
@@ -34,7 +34,7 @@ public class EnrichmentEntityVocabulary {
    * @param vocabulary vocabulary related to dereferenced entity
    * @param dereferenceResultStatus status of the dereference process
    */
-  public EnrichmentEntityVocabulary(EnrichmentBase enrichmentBase, Vocabulary vocabulary,
+  public DereferenceResultWrapper(EnrichmentBase enrichmentBase, Vocabulary vocabulary,
       DereferenceResultStatus dereferenceResultStatus) {
     this.enrichmentBase = enrichmentBase;
     this.vocabulary = vocabulary;
@@ -47,7 +47,7 @@ public class EnrichmentEntityVocabulary {
    *
    * @param dereferenceResultStatus status of the dereference process
    */
-  public EnrichmentEntityVocabulary(DereferenceResultStatus dereferenceResultStatus) {
+  public DereferenceResultWrapper(DereferenceResultStatus dereferenceResultStatus) {
     this.enrichmentBase = null;
     this.vocabulary = null;
     this.entity = null;
@@ -60,7 +60,7 @@ public class EnrichmentEntityVocabulary {
    * @param entity entity dereferenced
    * @param vocabulary vocabulary related to dereferenced entity
    */
-  public EnrichmentEntityVocabulary(String entity, Vocabulary vocabulary) {
+  public DereferenceResultWrapper(String entity, Vocabulary vocabulary) {
     this.entity = entity;
     this.vocabulary = vocabulary;
     this.enrichmentBase = null;
@@ -73,7 +73,7 @@ public class EnrichmentEntityVocabulary {
    * @param vocabulary vocabulary related to dereferenced entity
    * @param dereferenceResultStatus status of the dereference process
    */
-  public EnrichmentEntityVocabulary(Vocabulary vocabulary, DereferenceResultStatus dereferenceResultStatus) {
+  public DereferenceResultWrapper(Vocabulary vocabulary, DereferenceResultStatus dereferenceResultStatus) {
     this.enrichmentBase = null;
     this.vocabulary = vocabulary;
     this.entity = null;
@@ -87,7 +87,7 @@ public class EnrichmentEntityVocabulary {
    * @param vocabulary vocabulary related to dereferenced entity
    * @param dereferenceResultStatus status of the dereference process
    */
-  public EnrichmentEntityVocabulary(String entity, Vocabulary vocabulary, DereferenceResultStatus dereferenceResultStatus) {
+  public DereferenceResultWrapper(String entity, Vocabulary vocabulary, DereferenceResultStatus dereferenceResultStatus) {
     this.entity = entity;
     this.vocabulary = vocabulary;
     this.dereferenceResultStatus = dereferenceResultStatus;

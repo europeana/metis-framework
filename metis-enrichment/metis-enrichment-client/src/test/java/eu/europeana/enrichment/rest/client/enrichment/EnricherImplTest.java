@@ -21,7 +21,7 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.exception.TechnicalRuntimeException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -103,9 +103,9 @@ class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    Set<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
+    Set<Report> reports = enricher.enrichment(inputRdf);
 
-    verifyEnricherHappyFlow(recordParser, entityResolver, inputRdf, reportMessages);
+    verifyEnricherHappyFlow(recordParser, entityResolver, inputRdf, reports);
     verifyMergeHappyFlow(entityMergeEngine);
   }
 
@@ -123,9 +123,9 @@ class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    Set<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
+    Set<Report> reports = enricher.enrichment(inputRdf);
 
-    verifyEnricherNullFlow(entityResolver, recordParser, inputRdf, reportMessages);
+    verifyEnricherNullFlow(entityResolver, recordParser, inputRdf, reports);
     verifyMergeNullFlow(entityMergeEngine);
   }
 
@@ -144,8 +144,8 @@ class EnricherImplTest {
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
-    Set<ReportMessage> reportMessages = enricher.enrichment(inputRdf);
-    verifyEnricherExeptionFlow(recordParser, entityResolver, inputRdf, reportMessages);
+    Set<Report> reports = enricher.enrichment(inputRdf);
+    verifyEnricherExeptionFlow(recordParser, entityResolver, inputRdf, reports);
   }
 
   @Test
@@ -160,7 +160,7 @@ class EnricherImplTest {
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
     ReferenceTermContext referenceTermContext = new ReferenceTermContext(new URL("http://urlValue"),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
-    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences = enricher.enrichReferences(
+    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
         Set.of(referenceTermContext));
 
     // Then verify
@@ -185,7 +185,7 @@ class EnricherImplTest {
     ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URL("http://urlValue1"),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
 
-    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences = enricher.enrichReferences(
+    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
         Set.of(referenceTermContext1));
 
     // Then verify
@@ -204,16 +204,16 @@ class EnricherImplTest {
   }
 
   private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver entityResolver,
-      RDF inputRdf, Set<ReportMessage> reportMessages) {
+      RDF inputRdf, Set<Report> reports) {
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
     verify(entityResolver, times(0)).resolveById(any());
-    assertEquals(getExpectedReportMessagesExceptionFlow(), reportMessages);
+    assertEquals(getExpectedReportMessagesExceptionFlow(), reports);
   }
 
   private void verifyEnricherHappyFlow(RecordParser recordParser, ClientEntityResolver remoteEntityResolver,
-      RDF inputRdf, Set<ReportMessage> reportMessages) {
+      RDF inputRdf, Set<Report> reports) {
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
@@ -236,7 +236,7 @@ class EnricherImplTest {
       assertEquals(expected.getLanguage(), actual.getLanguage());
       assertArrayEquals(expected.getCandidateTypes().toArray(), actual.getCandidateTypes().toArray());
     }
-    assertEquals(getExpectedReportMessagesHappyFlow(), reportMessages);
+    assertEquals(getExpectedReportMessagesHappyFlow(), reports);
   }
 
   // Verify merge calls
@@ -260,14 +260,14 @@ class EnricherImplTest {
   }
 
   private void verifyEnricherNullFlow(ClientEntityResolver remoteEntityResolver,
-      RecordParser recordParser, RDF inputRdf, Set<ReportMessage> reportMessages) {
+      RecordParser recordParser, RDF inputRdf, Set<Report> reports) {
     // Extracting values for enrichment
     verify(recordParser, times(1)).parseSearchTerms(any());
     verify(recordParser, times(1)).parseSearchTerms(inputRdf);
 
     // Actually enriching
     verify(remoteEntityResolver, never()).resolveByText(any());
-    assertEquals(getExpectedReportMessagesNullFlow(), reportMessages);
+    assertEquals(getExpectedReportMessagesNullFlow(), reports);
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
@@ -276,70 +276,70 @@ class EnricherImplTest {
     verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), any(), any(ReferenceTermContext.class));
   }
 
-  private HashSet<ReportMessage> getExpectedReportMessagesHappyFlow() {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessage
+  private HashSet<Report> getExpectedReportMessagesHappyFlow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
         .buildEnrichmentIgnore()
         .withValue("value2")
         .withMessage("Could not find an entity for the given search term.")
         .build());
-    reportMessages.add(ReportMessage
+    reports.add(Report
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
         .build());
-    return reportMessages;
+    return reports;
   }
 
-  private HashSet<ReportMessage> getExpectedReportMessagesNullFlow() {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessage
+  private HashSet<Report> getExpectedReportMessagesNullFlow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search terms.")
         .build());
-    reportMessages.add(ReportMessage
+    reports.add(Report
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
         .build());
-    return reportMessages;
+    return reports;
   }
 
-  private HashSet<ReportMessage> getExpectedReportMessagesExceptionFlow() {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessage
+  private HashSet<Report> getExpectedReportMessagesExceptionFlow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
         .buildEnrichmentError()
         .withValue("value1,value2,value3")
         .withException(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
         .build());
-    reportMessages.add(ReportMessage
+    reports.add(Report
         .buildEnrichmentIgnore()
         .withValue("[]")
         .withMessage("Empty search reference.")
         .build());
-    return reportMessages;
+    return reports;
   }
 
-  private HashSet<ReportMessage> getExpectedReportMessagesWarning1Flow() {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessage
+  private HashSet<Report> getExpectedReportMessagesWarning1Flow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
         .withException(new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY))
         .build());
-    return reportMessages;
+    return reports;
   }
 
-  private HashSet<ReportMessage> getExpectedReportMessagesWarning2Flow() {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    reportMessages.add(ReportMessage
+  private HashSet<Report> getExpectedReportMessagesWarning2Flow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
         .buildEnrichmentWarn()
         .withStatus(HttpStatus.BAD_REQUEST)
         .withValue("http://urlValue2")
         .withException(new HttpClientErrorException(HttpStatus.BAD_REQUEST))
         .build());
-    return reportMessages;
+    return reports;
   }
 }

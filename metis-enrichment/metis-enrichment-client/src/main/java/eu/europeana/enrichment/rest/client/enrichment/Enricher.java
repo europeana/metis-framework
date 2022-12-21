@@ -3,7 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ public interface Enricher {
    * @param rdf The RDF to be processed
    * @return HashSet The messages encountered during enrichment
    */
-  Set<ReportMessage> enrichment(final RDF rdf);
+  Set<Report> enrichment(final RDF rdf);
 
   /**
    * Retrieves information to enrich the RDF using extracted values
@@ -29,7 +29,7 @@ public interface Enricher {
    * @param searchTerms The values extracted to enrich the RDF
    * @return For each search term a list with entities retrieved.
    */
-  Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichValues(Set<SearchTermContext> searchTerms);
+  Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(Set<SearchTermContext> searchTerms);
 
   /**
    * Retrieves information to enrich the RDF using extracted references
@@ -37,7 +37,7 @@ public interface Enricher {
    * @param references The references extracted to enrich the RDF
    * @return For each reference a list with entities retrieved.
    */
-  Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences(
+  Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
       Set<ReferenceTermContext> references);
 
   /**

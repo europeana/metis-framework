@@ -81,9 +81,9 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new EnrichmentEntityVocabulary(place, geonames, DereferenceResultStatus.SUCCESS)).when(service)
-                                                                                              .computeEnrichmentBaseVocabularyTriple(
-                                                                                                  entityId);
+    doReturn(new DereferenceResultWrapper(place, geonames, DereferenceResultStatus.SUCCESS)).when(service)
+                                                                                            .computeEnrichmentBaseVocabulary(
+                                                                                                entityId);
 
     // Test the method
     final DereferenceResult result = service.dereference(entityId);
@@ -102,8 +102,8 @@ class MongoDereferenceServiceTest {
   @Test
   void testDereference_AbsentObject() throws JAXBException, URISyntaxException {
     final String entityId = "http://sws.geonames.org/3020251/";
-    doReturn(new EnrichmentEntityVocabulary(DereferenceResultStatus.SUCCESS))
-        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+    doReturn(new DereferenceResultWrapper(DereferenceResultStatus.SUCCESS))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
     final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
     assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
@@ -126,8 +126,8 @@ class MongoDereferenceServiceTest {
     final Place place = new Place();
     final String entityId = "http://sws.geonames.org/3020251/";
     place.setAbout(entityId);
-    doReturn(new EnrichmentEntityVocabulary(place, geonames, null))
-        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+    doReturn(new DereferenceResultWrapper(place, geonames, null))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
     final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
     assertFalse(emptyResult.getEnrichmentBasesAsList().isEmpty());
@@ -140,7 +140,7 @@ class MongoDereferenceServiceTest {
 
     // Mock the service
     doThrow(new URISyntaxException("uri", "is invalid"))
-        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
 
     // Test the method
     final DereferenceResult result = service.dereference(entityId);
@@ -155,7 +155,7 @@ class MongoDereferenceServiceTest {
 
     // Mock the service
     doThrow(new JAXBException("xml or xlst", "is invalid"))
-        .when(service).computeEnrichmentBaseVocabularyTriple(entityId);
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
 
     // Test the method
     final DereferenceResult result = service.dereference(entityId);

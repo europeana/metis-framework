@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.api.external;
 
 /**
- * Enrichment result status
+ * Dereference result status
  */
 public enum DereferenceResultStatus {
   SUCCESS,

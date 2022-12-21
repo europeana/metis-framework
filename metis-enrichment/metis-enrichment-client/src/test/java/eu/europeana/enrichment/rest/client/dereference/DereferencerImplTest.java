@@ -34,7 +34,7 @@ import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
@@ -149,9 +149,9 @@ public class DereferencerImplTest {
         .willReturn(ok("place")));
 
     final RDF inputRdf = new RDF();
-    Set<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+    Set<Report> reports = dereferencer.dereference(inputRdf);
 
-    verifyDereferenceHappyFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
+    verifyDereferenceHappyFlow(dereferenceClient, dereferencer, inputRdf, reports);
     verifyMergeHappyFlow(entityMergeEngine);
   }
 
@@ -202,9 +202,9 @@ public class DereferencerImplTest {
         .willReturn(badRequest()));
 
     final RDF inputRdf = new RDF();
-    Set<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+    Set<Report> reports = dereferencer.dereference(inputRdf);
 
-    verifyDereferenceInvalidUrlFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
+    verifyDereferenceInvalidUrlFlow(dereferenceClient, dereferencer, inputRdf, reports);
     verifyMergeNullFlow(entityMergeEngine);
   }
 
@@ -224,27 +224,27 @@ public class DereferencerImplTest {
         .when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
-    Set<ReportMessage> reportMessages = dereferencer.dereference(inputRdf);
+    Set<Report> reports = dereferencer.dereference(inputRdf);
 
-    verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reportMessages);
+    verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reports);
     verifyMergeNullFlow(entityMergeEngine);
   }
 
   private void verifyDereferenceHappyFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer, RDF inputRdf, Set<ReportMessage> reportMessages) {
+      Dereferencer dereferencer, RDF inputRdf, Set<Report> reports) {
 
     verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing.
     verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
 
-    assertEquals(1, reportMessages.size());
-    for (ReportMessage reportMessage : reportMessages) {
-      assertTrue(reportMessage.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
-      assertEquals(Type.WARN, reportMessage.getMessageType());
-      assertEquals(Mode.DEREFERENCE, reportMessage.getMode());
-      assertEquals("http://valid-example.host/place", reportMessage.getValue());
-      assertEquals("", reportMessage.getStackTrace());
+    assertEquals(1, reports.size());
+    for (Report report : reports) {
+      assertTrue(report.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
+      assertEquals(Type.WARN, report.getMessageType());
+      assertEquals(Mode.DEREFERENCE, report.getMode());
+      assertEquals("http://valid-example.host/place", report.getValue());
+      assertEquals("", report.getStackTrace());
     }
     for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
@@ -252,20 +252,20 @@ public class DereferencerImplTest {
   }
 
   private void verifyDereferenceInvalidUrlFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer, RDF inputRdf, Set<ReportMessage> reportMessages) {
+      Dereferencer dereferencer, RDF inputRdf, Set<Report> reports) {
 
     // Extracting values for dereferencing
     verifyDerefencer(dereferencer, inputRdf);
 
     // Checking the report.
-    assertEquals(3, reportMessages.size());
+    assertEquals(3, reports.size());
     for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_INVALID) {
       verify(dereferenceClient, times(0)).dereference(dereferenceUrl);
     }
   }
 
   private void verifyDereferenceExceptionFlow(DereferenceClient dereferenceClient,
-      Dereferencer dereferencer, RDF inputRdf, Set<ReportMessage> reportMessages) {
+      Dereferencer dereferencer, RDF inputRdf, Set<Report> reports) {
 
     // Extracting values for dereferencing
     verifyDerefencer(dereferencer, inputRdf);
@@ -274,10 +274,10 @@ public class DereferencerImplTest {
     verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
 
     // Checking the report.
-    assertEquals(3, reportMessages.size());
-    for (ReportMessage reportMessage : reportMessages) {
-      assertTrue(reportMessage.getMessage().contains("400 Bad Request"));
-      assertEquals(Type.WARN, reportMessage.getMessageType());
+    assertEquals(3, reports.size());
+    for (Report report : reports) {
+      assertTrue(report.getMessage().contains("400 Bad Request"));
+      assertEquals(Type.WARN, report.getMessageType());
     }
   }
 

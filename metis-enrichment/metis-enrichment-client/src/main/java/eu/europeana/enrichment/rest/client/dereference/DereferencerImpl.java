@@ -10,7 +10,7 @@ import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -62,11 +62,11 @@ public class DereferencerImpl implements Dereferencer {
     this.dereferenceClient = dereferenceClient;
   }
 
-  private static URL checkIfUrlIsValid(HashSet<ReportMessage> reportMessages, String id) {
+  private static URL checkIfUrlIsValid(HashSet<Report> reports, String id) {
     try {
       return new URL(id);
     } catch (MalformedURLException e) {
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(id)
@@ -87,7 +87,7 @@ public class DereferencerImpl implements Dereferencer {
     }
   }
 
-  private static URL validateIfUrlToDereferenceExists(HashSet<ReportMessage> reportMessages, URL checkedUrl) {
+  private static URL validateIfUrlToDereferenceExists(HashSet<Report> reports, URL checkedUrl) {
     try {
       HttpURLConnection validationClient = getClient(checkedUrl);
 
@@ -116,7 +116,7 @@ public class DereferencerImpl implements Dereferencer {
         LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
         return checkedUrl;
       } else {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildDereferenceWarn()
             .withStatus(responseCode)
             .withValue(checkedUrl.toString())
@@ -126,7 +126,7 @@ public class DereferencerImpl implements Dereferencer {
         return null;
       }
     } catch (IOException e) {
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(checkedUrl.toString())
@@ -186,7 +186,7 @@ public class DereferencerImpl implements Dereferencer {
     }
   }
 
-  private static void setDereferenceStatusInReport(String resourceId, HashSet<ReportMessage> reportMessages,
+  private static void setDereferenceStatusInReport(String resourceId, HashSet<Report> reports,
       DereferenceResultStatus resultStatus) {
     if (!resultStatus.equals(DereferenceResultStatus.SUCCESS)) {
       String resultMessage;
@@ -210,14 +210,14 @@ public class DereferencerImpl implements Dereferencer {
           resultMessage = "";
       }
       if (resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING)) {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildDereferenceIgnore()
             .withStatus(HttpStatus.OK)
             .withValue(resourceId)
             .withMessage(resultMessage)
             .build());
       } else {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildDereferenceWarn()
             .withStatus(HttpStatus.OK)
             .withValue(resourceId)
@@ -228,8 +228,8 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public Set<ReportMessage> dereference(RDF rdf) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+  public Set<Report> dereference(RDF rdf) {
+    HashSet<Report> reports = new HashSet<>();
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
     Set<String> resourceIds = extractReferencesForDereferencing(rdf);
@@ -237,7 +237,7 @@ public class DereferencerImpl implements Dereferencer {
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
     DereferencedEntity dereferenceInformation = dereferenceEntities(resourceIds);
-    reportMessages.addAll(dereferenceInformation.getReportMessages());
+    reports.addAll(dereferenceInformation.getReportMessages());
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
@@ -245,29 +245,29 @@ public class DereferencerImpl implements Dereferencer {
 
     // Done.
     LOGGER.debug("Dereference completed.");
-    return reportMessages;
+    return reports;
   }
 
   @Override
   public DereferencedEntity dereferenceEntities(Set<String> resourceIds) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     // Sanity check.
     if (resourceIds.isEmpty()) {
-      return new DereferencedEntity(Collections.emptyList(), reportMessages);
+      return new DereferencedEntity(Collections.emptyList(), reports);
     }
 
     // First try to get them from our own entity collection database.
     Set<ReferenceTerm> referenceTermSet = resourceIds
         .stream()
-        .map(id -> checkIfUrlIsValid(reportMessages, id))
+        .map(id -> checkIfUrlIsValid(reports, id))
         .filter(Objects::nonNull)
-        .map(checkedUrl -> validateIfUrlToDereferenceExists(reportMessages, checkedUrl))
+        .map(checkedUrl -> validateIfUrlToDereferenceExists(reports, checkedUrl))
         .filter(Objects::nonNull)
         .map(validatedUrl -> new ReferenceTermImpl(validatedUrl, new HashSet<>()))
         .collect(Collectors.toSet());
 
     final DereferencedEntity deferencedOwnEntities = dereferenceOwnEntities(referenceTermSet);
-    reportMessages.addAll(deferencedOwnEntities.getReportMessages());
+    reports.addAll(deferencedOwnEntities.getReportMessages());
 
     final Set<String> foundOwnEntityIds = deferencedOwnEntities.getEnrichmentBaseList()
                                                                .stream()
@@ -279,12 +279,12 @@ public class DereferencerImpl implements Dereferencer {
       if (!foundOwnEntityIds.contains(resourceId.getReference().toString())) {
         DereferencedEntity deferencedExternalEntities =
             dereferenceExternalEntity(resourceId.getReference().toString());
-        reportMessages.addAll(deferencedExternalEntities.getReportMessages());
+        reports.addAll(deferencedExternalEntities.getReportMessages());
         deferencedOwnEntities.getEnrichmentBaseList().addAll(deferencedExternalEntities.getEnrichmentBaseList());
       }
     }
     // Done.
-    return new DereferencedEntity(deferencedOwnEntities.getEnrichmentBaseList(), reportMessages);
+    return new DereferencedEntity(deferencedOwnEntities.getEnrichmentBaseList(), reports);
   }
 
   @Override
@@ -293,16 +293,16 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   private DereferencedEntity dereferenceOwnEntities(Set<ReferenceTerm> resourceIds) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     if (entityResolver == null) {
-      return new DereferencedEntity(Collections.emptyList(), reportMessages);
+      return new DereferencedEntity(Collections.emptyList(), reports);
     }
     try {
-      return new DereferencedEntity(new ArrayList<>(entityResolver.resolveById(resourceIds).values()), reportMessages);
+      return new DereferencedEntity(new ArrayList<>(entityResolver.resolveById(resourceIds).values()), reports);
     } catch (Exception e) {
       DereferenceException dereferenceException = new DereferenceException(
           "Exception occurred while trying to perform dereferencing.", e);
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceIds.stream()
@@ -310,15 +310,15 @@ public class DereferencerImpl implements Dereferencer {
                                 .collect(Collectors.joining(",")))
           .withException(dereferenceException)
           .build());
-      return new DereferencedEntity(new ArrayList<>(), reportMessages);
+      return new DereferencedEntity(new ArrayList<>(), reports);
     }
   }
 
   private DereferencedEntity dereferenceExternalEntity(String resourceId) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     // Check that there is something to do.
     if (dereferenceClient == null) {
-      return new DereferencedEntity(Collections.emptyList(), reportMessages);
+      return new DereferencedEntity(Collections.emptyList(), reports);
     }
 
     // Perform the dereferencing.
@@ -334,11 +334,11 @@ public class DereferencerImpl implements Dereferencer {
                                                      .filter(Objects::nonNull).findFirst()
                                                      .orElse(DereferenceResultStatus.UNKNOWN_ENTITY);
 
-      setDereferenceStatusInReport(resourceId, reportMessages, resultStatus);
+      setDereferenceStatusInReport(resourceId, reports, resultStatus);
     } catch (BadRequest e) {
       // We are forgiving for these errors
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
           .withValue(resourceId)
@@ -348,7 +348,7 @@ public class DereferencerImpl implements Dereferencer {
     } catch (Exception e) {
       DereferenceException dereferenceException = new DereferenceException(
           "Exception occurred while trying to perform dereferencing.", e);
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildDereferenceWarn()
           .withStatus(HttpStatus.OK)
           .withValue(resourceId)
@@ -361,6 +361,6 @@ public class DereferencerImpl implements Dereferencer {
     return new DereferencedEntity(Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
                                           .orElseGet(Collections::emptyList).stream()
                                           .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
-                                          .flatMap(List::stream).collect(Collectors.toList()), reportMessages);
+                                          .flatMap(List::stream).collect(Collectors.toList()), reports);
   }
 }

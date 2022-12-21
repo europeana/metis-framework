@@ -92,7 +92,7 @@ class DereferencingControllerTest {
   @Test
   void dereferencePost_outputXML_expectEmptyList_invalid_url() throws Exception {
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(
-        new DereferenceResult(Collections.emptyList(), DereferenceResultStatus.INVALID_URL));
+        new DereferenceResult(DereferenceResultStatus.INVALID_URL));
 
     dereferencingControllerMock.perform(
                                    MockMvcRequestBuilders.post(RestEndpoints.DEREFERENCE).accept(MediaType.APPLICATION_XML_VALUE)

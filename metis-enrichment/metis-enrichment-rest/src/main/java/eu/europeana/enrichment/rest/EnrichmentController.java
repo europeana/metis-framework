@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.rest;
 
 import eu.europeana.enrichment.api.external.EnrichmentReference;
-import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.EnrichmentSearch;
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -69,7 +68,7 @@ public class EnrichmentController {
     return new EnrichmentResultList(enrichmentService
         .enrichByEnrichmentSearchValues(enrichmentSearch.getSearchValues())
         .stream()
-        .map(item -> new EnrichmentResultBaseWrapper(item.getEnrichmentBaseList(), DereferenceResultStatus.SUCCESS))
+        .map(item -> new EnrichmentResultBaseWrapper(item.getEnrichmentBaseList(), null))
         .collect(Collectors.toList()));
   }
 
@@ -112,7 +111,7 @@ public class EnrichmentController {
   public EnrichmentResultList equivalence(@RequestBody EnrichmentReference enrichmentReference) {
     final List<EnrichmentResultBaseWrapper> enrichmentBaseWrappers = enrichmentReference
         .getReferenceValues().stream().map(enrichmentService::enrichByEquivalenceValues)
-        .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS))
+        .map(item -> new EnrichmentResultBaseWrapper(item, null))
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
@@ -136,7 +135,7 @@ public class EnrichmentController {
         uris.stream()
             .map(enrichmentService::enrichById)
             .map(result -> Optional.ofNullable(result).map(List::of).orElseGet(Collections::emptyList))
-            .map(item -> new EnrichmentResultBaseWrapper(item, DereferenceResultStatus.SUCCESS))
+            .map(item -> new EnrichmentResultBaseWrapper(item, null))
             .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }

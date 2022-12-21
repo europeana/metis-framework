@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public interface Dereferencer {
    * @param rdf The RDF to be processed
    * @return A report containing messages of dereference process
    */
-  Set<ReportMessage> dereference(final RDF rdf);
+  Set<Report> dereference(final RDF rdf);
 
   /**
    * It gets the dereferenced information and adds it to the RDF using the extracted fields

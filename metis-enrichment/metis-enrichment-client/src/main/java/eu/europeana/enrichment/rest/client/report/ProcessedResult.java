@@ -6,16 +6,17 @@ import java.util.Set;
 
 /**
  * Processed result class
+ *
  * @param <T> type of object to process and return
  */
 public class ProcessedResult<T> {
 
   private final T processedRecord;
-  private HashSet<ReportMessage> reportMessages;
+  private HashSet<Report> reports;
   private final RecordStatus recordStatus;
+
   /**
-   * RecordStatus
-   * This is use to know if a processing needs to STOP or CONTINUE for a record.
+   * RecordStatus This is used to know if a processing needs to STOP or CONTINUE for a record.
    */
   public enum RecordStatus {
     CONTINUE,
@@ -24,44 +25,48 @@ public class ProcessedResult<T> {
 
   /**
    * Constructor with record of type T
+   *
    * @param processedRecord record that has been processed as result.
    */
   public ProcessedResult(T processedRecord) {
     this.processedRecord = processedRecord;
-    this.reportMessages = new HashSet<>();
+    this.reports = new HashSet<>();
     this.recordStatus = RecordStatus.CONTINUE;
   }
 
   /**
    * Constructor with record of type T and report messages
+   *
    * @param processedRecord record that has been processed as result.
-   * @param reportMessages report of the processing of the record as result.
+   * @param reports report of the processing of the record as result.
    */
-  public ProcessedResult(T processedRecord, Set<ReportMessage> reportMessages) {
+  public ProcessedResult(T processedRecord, Set<Report> reports) {
     this.processedRecord = processedRecord;
-    this.reportMessages = (HashSet<ReportMessage>) reportMessages;
-    if (reportMessages.isEmpty()) {
-      this.recordStatus =  RecordStatus.CONTINUE;
-    } else if (reportMessages.stream()
-                             .anyMatch(reportMessage -> Objects.equals(reportMessage.getMessageType(), Type.ERROR))) {
-      this.recordStatus =  RecordStatus.STOP;
+    this.reports = (HashSet<Report>) reports;
+    if (reports.isEmpty()) {
+      this.recordStatus = RecordStatus.CONTINUE;
+    } else if (reports.stream()
+                      .anyMatch(reportMessage -> Objects.equals(reportMessage.getMessageType(), Type.ERROR))) {
+      this.recordStatus = RecordStatus.STOP;
     } else {
-      this.recordStatus =  RecordStatus.CONTINUE;
+      this.recordStatus = RecordStatus.CONTINUE;
     }
   }
 
   /**
    * Constructor with a Processed Result
+   *
    * @param processedResult contains a record, a report messages and record status encapsulated within.
    */
   public ProcessedResult(ProcessedResult<T> processedResult) {
     this.processedRecord = processedResult.processedRecord;
-    this.reportMessages = processedResult.reportMessages;
+    this.reports = processedResult.reports;
     this.recordStatus = processedResult.recordStatus;
   }
 
   /**
    * Obtain the record
+   *
    * @return record that has been set as a result of processing.
    */
   public T getProcessedRecord() {
@@ -70,22 +75,24 @@ public class ProcessedResult<T> {
 
   /**
    * Obtain the report
+   *
    * @return report messages after processing is completed
    */
-  public Set<ReportMessage> getReport() {
-    return new HashSet<>(reportMessages);
+  public Set<Report> getReport() {
+    return new HashSet<>(reports);
   }
 
   /**
    * Obtain record status
-   * @return status of overall the processed result if there is an error in the report messages
-   * returns STOP, otherwise it returns CONTINUE.
+   *
+   * @return status of overall the processed result if there is an error in the report messages returns STOP, otherwise it returns
+   * CONTINUE.
    */
   public RecordStatus getRecordStatus() {
-    if (reportMessages.isEmpty()) {
+    if (reports.isEmpty()) {
       return RecordStatus.CONTINUE;
-    } else if (reportMessages.stream()
-                             .anyMatch(reportMessage -> Objects.equals(reportMessage.getMessageType(), Type.ERROR))) {
+    } else if (reports.stream()
+                      .anyMatch(reportMessage -> Objects.equals(reportMessage.getMessageType(), Type.ERROR))) {
       return RecordStatus.STOP;
     } else {
       return RecordStatus.CONTINUE;

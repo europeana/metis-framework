@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.ReferenceValue;
 import eu.europeana.enrichment.api.external.SearchValue;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -98,5 +97,4 @@ public class EnrichmentService {
       throw new IllegalArgumentException("The input values are invalid", e);
     }
   }
-
 }

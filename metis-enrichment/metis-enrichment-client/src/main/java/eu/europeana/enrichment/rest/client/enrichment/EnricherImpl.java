@@ -10,7 +10,7 @@ import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
-import eu.europeana.enrichment.rest.client.report.ReportMessage;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
@@ -23,10 +23,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -39,6 +39,12 @@ import org.springframework.http.HttpStatus;
 public class EnricherImpl implements Enricher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnricherImpl.class);
+  private static final List<HttpStatus> WARNING_STATUSES = Arrays.stream(HttpStatus.values())
+                                                                 .filter(httpStatus ->
+                                                                     httpStatus.value() >= HttpStatus.MULTIPLE_CHOICES.value()
+                                                                         && httpStatus.value()
+                                                                         < HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                                                 .collect(Collectors.toList());
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
   private final EntityMergeEngine entityMergeEngine;
@@ -56,6 +62,15 @@ public class EnricherImpl implements Enricher {
     this.entityMergeEngine = entityMergeEngine;
   }
 
+  private static HttpStatus containsWarningStatus(String message) {
+    for (HttpStatus status : WARNING_STATUSES) {
+      if (message.contains(status.toString())) {
+        return status;
+      }
+    }
+    return null;
+  }
+
   /**
    * Enrichment
    *
@@ -63,8 +78,8 @@ public class EnricherImpl implements Enricher {
    * @return Set of a report containing messages during the enrichment processing.
    */
   @Override
-  public Set<ReportMessage> enrichment(RDF rdf) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+  public Set<Report> enrichment(RDF rdf) {
+    HashSet<Report> reports = new HashSet<>();
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
     final Set<SearchTermContext> searchTerms = recordParser.parseSearchTerms(rdf);
@@ -72,13 +87,13 @@ public class EnricherImpl implements Enricher {
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
-    final Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichedValues = enrichValues(searchTerms);
-    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichedReferences = enrichReferences(
+    final Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichedValues = enrichValues(searchTerms);
+    final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichedReferences = enrichReferences(
         references);
 
     //Add the report messages from the enrichment process
-    reportMessages.addAll(enrichedValues.getRight());
-    reportMessages.addAll(enrichedReferences.getRight());
+    reports.addAll(enrichedValues.getRight());
+    reports.addAll(enrichedReferences.getRight());
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
@@ -99,56 +114,26 @@ public class EnricherImpl implements Enricher {
 
     // Done.
     LOGGER.debug("Enrichment completed.");
-    return reportMessages;
-  }
-
-  private HashSet<ReportMessage> getSearchTermsReport(Set<SearchTermContext> searchTerms,
-      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    for (SearchTermContext searchTerm : searchTerms) {
-      if (enrichedValues.get(searchTerm).isEmpty()) {
-        reportMessages.add(ReportMessage
-            .buildEnrichmentIgnore()
-            .withMessage("Could not find an entity for the given search term.")
-            .withValue(searchTerm.getTextValue())
-            .build());
-      }
-    }
-    return reportMessages;
-  }
-
-  private HashSet<ReportMessage> getSearchReferenceReport(Set<ReferenceTermContext> references,
-      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
-    for (ReferenceTermContext reference : references) {
-      if (enrichedReferences.get(reference).isEmpty()) {
-        reportMessages.add(ReportMessage
-            .buildEnrichmentIgnore()
-            .withMessage("Could not find an entity for the given search reference.")
-            .withValue(reference.getReferenceAsString())
-            .build());
-      }
-    }
-    return reportMessages;
+    return reports;
   }
 
   @Override
-  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichValues(
+  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
       Set<SearchTermContext> searchTerms) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildEnrichmentIgnore()
           .withMessage("Empty search terms.")
           .withValue(searchTerms.toString())
           .build());
-      return new ImmutablePair<>(Collections.emptyMap(), reportMessages);
+      return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
     try {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException e) {
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildEnrichmentError()
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
@@ -156,71 +141,49 @@ public class EnricherImpl implements Enricher {
                                 .collect(Collectors.joining(",")))
           .withException(e)
           .build());
-      return new ImmutablePair<>(null, reportMessages);
+      return new ImmutablePair<>(null, reports);
     }
   }
 
   @Override
-  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<ReportMessage>> enrichReferences(
+  public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
       Set<ReferenceTermContext> references) {
-    HashSet<ReportMessage> reportMessages = new HashSet<>();
+    HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
-      reportMessages.add(ReportMessage
+      reports.add(Report
           .buildEnrichmentIgnore()
           .withValue(references.toString())
           .withMessage("Empty search reference.")
           .build());
-      return new ImmutablePair<>(Collections.emptyMap(), reportMessages);
+      return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
     try {
       Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolver.resolveByUri(references);
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException e) {
-      Throwable rootCause = findRootCause(e);
+      Throwable rootCause = ExceptionUtils.getRootCause(e);
       HttpStatus warningStatus = containsWarningStatus(rootCause.getMessage());
       String referenceValue = references.stream()
                                         .map(ReferenceTermContext::getReferenceAsString)
                                         .sorted(String::compareToIgnoreCase)
                                         .collect(Collectors.joining(","));
       if (warningStatus == null) {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildEnrichmentError()
             .withValue(referenceValue)
             .withException(e)
             .build());
       } else {
-        reportMessages.add(ReportMessage
+        reports.add(Report
             .buildEnrichmentWarn()
             .withStatus(warningStatus)
             .withValue(referenceValue)
             .withException(rootCause)
             .build());
       }
-      return new ImmutablePair<>(null, reportMessages);
+      return new ImmutablePair<>(null, reports);
     }
-  }
-
-  private static HttpStatus containsWarningStatus(String message) {
-    List<HttpStatus> warningStatuses = Arrays.stream(HttpStatus.values())
-                                             .filter(httpStatus -> httpStatus.value() >= HttpStatus.MULTIPLE_CHOICES.value()
-                                                 && httpStatus.value() < HttpStatus.INTERNAL_SERVER_ERROR.value())
-                                             .collect(Collectors.toList());
-    for (HttpStatus status : warningStatuses) {
-      if (message.contains(status.toString())) {
-        return status;
-      }
-    }
-    return null;
-  }
-
-  private static Throwable findRootCause(Throwable throwable) {
-    Objects.requireNonNull(throwable);
-    Throwable rootCause = throwable;
-    while (rootCause.getCause() != null && rootCause.getCause() != rootCause) {
-      rootCause = rootCause.getCause();
-    }
-    return rootCause;
   }
 
   @Override
@@ -233,5 +196,35 @@ public class EnricherImpl implements Enricher {
                                             .filter(europeanaLinkPattern.asPredicate().or(semiumLinkPattern.asPredicate()))
                                             .collect(Collectors.toSet());
     RdfEntityUtils.removeMatchingEntities(rdf, matchingLinks);
+  }
+
+  private HashSet<Report> getSearchTermsReport(Set<SearchTermContext> searchTerms,
+      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues) {
+    HashSet<Report> reports = new HashSet<>();
+    for (SearchTermContext searchTerm : searchTerms) {
+      if (enrichedValues.get(searchTerm).isEmpty()) {
+        reports.add(Report
+            .buildEnrichmentIgnore()
+            .withMessage("Could not find an entity for the given search term.")
+            .withValue(searchTerm.getTextValue())
+            .build());
+      }
+    }
+    return reports;
+  }
+
+  private HashSet<Report> getSearchReferenceReport(Set<ReferenceTermContext> references,
+      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences) {
+    HashSet<Report> reports = new HashSet<>();
+    for (ReferenceTermContext reference : references) {
+      if (enrichedReferences.get(reference).isEmpty()) {
+        reports.add(Report
+            .buildEnrichmentIgnore()
+            .withMessage("Could not find an entity for the given search reference.")
+            .withValue(reference.getReferenceAsString())
+            .build());
+      }
+    }
+    return reports;
   }
 }

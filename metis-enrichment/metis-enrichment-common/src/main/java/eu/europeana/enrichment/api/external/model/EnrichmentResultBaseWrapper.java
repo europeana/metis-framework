@@ -51,6 +51,7 @@ public class EnrichmentResultBaseWrapper {
 
   /**
    * Constructor with enrichment base
+   *
    * @param enrichmentBase the enrichment information class generated
    */
   public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase) {
@@ -63,8 +64,7 @@ public class EnrichmentResultBaseWrapper {
   }
 
   /**
-   * Convert a collection of {@link EnrichmentBase} to a list of {@link
-   * EnrichmentResultBaseWrapper}.
+   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentResultBaseWrapper}.
    * <p>This is mostly used for dereferencing.</p>
    *
    * @param resultList the collection of {@link EnrichmentBase}
@@ -73,11 +73,7 @@ public class EnrichmentResultBaseWrapper {
    */
   public static List<EnrichmentResultBaseWrapper> createEnrichmentResultBaseWrapperList(
       Collection<List<EnrichmentBase>> resultList, DereferenceResultStatus dereferenceStatus) {
-    return resultList.stream().map( item -> new EnrichmentResultBaseWrapper(item, dereferenceStatus)).collect(Collectors.toList());
-  }
-
-  public void setDereferenceStatus(DereferenceResultStatus dereferenceStatus) {
-    this.dereferenceStatus = dereferenceStatus;
+    return resultList.stream().map(item -> new EnrichmentResultBaseWrapper(item, dereferenceStatus)).collect(Collectors.toList());
   }
 
   public DereferenceResultStatus getDereferenceStatus() {

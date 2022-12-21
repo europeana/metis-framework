@@ -7,9 +7,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 
 /**
- * ReportMessage class used to inform processed results
+ * Report class used to inform processed results
  */
-public final class ReportMessage {
+public final class Report {
 
   private static final int MAX_COMPARE_STACK_TRACE = 50;
   private HttpStatus status;
@@ -19,11 +19,11 @@ public final class ReportMessage {
   private String message = "";
   private String stackTrace = "";
 
-  private ReportMessage() {
+  private Report() {
     //for builder
   }
 
-  private ReportMessage(ReportMessage val) {
+  private Report(Report val) {
     this.status = val.status;
     this.mode = val.mode;
     this.messageType = val.messageType;
@@ -65,7 +65,7 @@ public final class ReportMessage {
       if (this.getClass() != o.getClass()) {
         return false;
       }
-      ReportMessage that = (ReportMessage) o;
+      Report that = (Report) o;
       return status == that.status && mode == that.mode && messageType == that.messageType && Objects.equals(value, that.value)
           && Objects.equals(message, that.message) && Objects.equals(
           StringUtils.substring(stackTrace, 1, MAX_COMPARE_STACK_TRACE),
@@ -90,9 +90,9 @@ public final class ReportMessage {
    *
    * @return a reference to this Builder
    */
-  public static ReportMessage buildEnrichmentIgnore() {
-    return new ReportMessage().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.OK)
-                              .withMessageType(Type.IGNORE);
+  public static Report buildEnrichmentIgnore() {
+    return new Report().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.OK)
+                       .withMessageType(Type.IGNORE);
   }
 
   /**
@@ -100,9 +100,9 @@ public final class ReportMessage {
    *
    * @return a reference to this Builder
    */
-  public static ReportMessage buildEnrichmentWarn() {
-    return new ReportMessage().withMode(Mode.ENRICHMENT)
-                              .withMessageType(Type.WARN);
+  public static Report buildEnrichmentWarn() {
+    return new Report().withMode(Mode.ENRICHMENT)
+                       .withMessageType(Type.WARN);
   }
 
   /**
@@ -110,9 +110,9 @@ public final class ReportMessage {
    *
    * @return a reference to this Builder
    */
-  public static ReportMessage buildEnrichmentError() {
-    return new ReportMessage().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                              .withMessageType(Type.ERROR);
+  public static Report buildEnrichmentError() {
+    return new Report().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                       .withMessageType(Type.ERROR);
   }
 
   /**
@@ -120,9 +120,9 @@ public final class ReportMessage {
    *
    * @return a reference to this Builder
    */
-  public static ReportMessage buildDereferenceIgnore() {
-    return new ReportMessage().withMode(Mode.DEREFERENCE).withStatus(HttpStatus.OK)
-                              .withMessageType(Type.IGNORE);
+  public static Report buildDereferenceIgnore() {
+    return new Report().withMode(Mode.DEREFERENCE).withStatus(HttpStatus.OK)
+                       .withMessageType(Type.IGNORE);
   }
 
   /**
@@ -130,9 +130,9 @@ public final class ReportMessage {
    *
    * @return a reference to this Builder
    */
-  public static ReportMessage buildDereferenceWarn() {
-    return new ReportMessage().withMode(Mode.DEREFERENCE)
-                              .withMessageType(Type.WARN);
+  public static Report buildDereferenceWarn() {
+    return new Report().withMode(Mode.DEREFERENCE)
+                       .withMessageType(Type.WARN);
   }
 
   /**
@@ -141,7 +141,7 @@ public final class ReportMessage {
    * @param val the {@code status} to set
    * @return a reference to this Builder
    */
-  public ReportMessage withStatus(HttpStatus val) {
+  public Report withStatus(HttpStatus val) {
     status = val;
     return this;
   }
@@ -152,7 +152,7 @@ public final class ReportMessage {
    * @param val the {@code mode} to set
    * @return a reference to this Builder
    */
-  public ReportMessage withMode(Mode val) {
+  public Report withMode(Mode val) {
     mode = val;
     return this;
   }
@@ -163,7 +163,7 @@ public final class ReportMessage {
    * @param val the {@code messageType} to set
    * @return a reference to this Builder
    */
-  public ReportMessage withMessageType(Type val) {
+  public Report withMessageType(Type val) {
     messageType = val;
     return this;
   }
@@ -174,7 +174,7 @@ public final class ReportMessage {
    * @param val the {@code value} to set
    * @return a reference to this Builder
    */
-  public ReportMessage withValue(String val) {
+  public Report withValue(String val) {
     value = val;
     return this;
   }
@@ -185,7 +185,7 @@ public final class ReportMessage {
    * @param val the {@code message} to set
    * @return a reference to this Builder
    */
-  public ReportMessage withMessage(String val) {
+  public Report withMessage(String val) {
     message = val;
     return this;
   }
@@ -196,7 +196,7 @@ public final class ReportMessage {
    * @param val the {@code Throwable} to set
    * @return a reference to this Builder
    */
-  public ReportMessage withException(Throwable val) {
+  public Report withException(Throwable val) {
     message = ExceptionUtils.getMessage(val);
     stackTrace = ExceptionUtils.getStackTrace(val);
     return this;
@@ -207,7 +207,7 @@ public final class ReportMessage {
    *
    * @return a {@code ErrorMessage} built with parameters of this {@code ErrorMessage.Builder}
    */
-  public ReportMessage build() {
-    return new ReportMessage(this);
+  public Report build() {
+    return new Report(this);
   }
 }
