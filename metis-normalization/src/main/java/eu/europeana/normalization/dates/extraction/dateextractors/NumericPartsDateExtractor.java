@@ -42,7 +42,7 @@ public class NumericPartsDateExtractor implements DateExtractor {
   }
 
   /**
-   * Validates an returns a date normalization result of provided input value.
+   * Validates and returns a date normalization result of provided input value.
    *
    * @param inputValue the input value
    * @param numericPatternValues the patterns to check against
