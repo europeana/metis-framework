@@ -22,19 +22,31 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
 
   private static final NumericPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericPartsDateExtractor();
 
+  /**
+   * Extract the date normalization result for a range.
+   * <p>
+   * The date is split in two edges using the {@link NumericRangeDateDelimiters#values()} as a separator. The result will contain
+   * the first split that is exactly splitting the original value in two parts(edges) and those two edge are valid parsable edges
+   * or null if none found.
+   * </p>
+   *
+   * @param inputValue the range value to attempt parsing
+   * @return the date normalization result
+   */
   public DateNormalizationResult extract(String inputValue) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
     DateNormalizationResult rangeDate = null;
     for (NumericRangeDateDelimiters numericRangeSpecialCharacters : NumericRangeDateDelimiters.values()) {
-      //Split with -1 limit does not discard empty splits
-      final String[] split = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator(), -1);
-      //The split has to be exactly in two, and then we can verify. This also guarantees that the separator used is not used for unknown characters
-      if (split.length == 2) {
-        //Try extraction and verify
-        startDate = extractDateNormalizationResult(split[0], numericRangeSpecialCharacters);
-        endDate = extractDateNormalizationResult(split[1], numericRangeSpecialCharacters);
+      // Split with -1 limit does not discard empty splits
+      final String[] sanitizedDateSplitArray = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator(), -1);
+      // The sanitizedDateSplitArray has to be exactly in two, and then we can verify.
+      // This also guarantees that the separator used is not used for unknown characters.
+      if (sanitizedDateSplitArray.length == 2) {
+        // Try extraction and verify
+        startDate = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeSpecialCharacters);
+        endDate = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters);
         if (startDate != null && endDate != null && !areYearsAmbiguous((InstantEdtfDate) startDate.getEdtfDate(),
             (InstantEdtfDate) endDate.getEdtfDate(),
             numericRangeSpecialCharacters)) {
