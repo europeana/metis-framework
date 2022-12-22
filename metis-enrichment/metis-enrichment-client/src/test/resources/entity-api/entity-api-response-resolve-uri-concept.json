@@ -1,0 +1,198 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://data.europeana.eu/concept/3331",
+  "type": "Concept",
+  "prefLabel": {
+    "de": "Film",
+    "fi": "Elokuva",
+    "ru": "Фильм",
+    "pt": "Filme",
+    "bg": "Филм",
+    "lt": "Filmas",
+    "hr": "Film",
+    "lv": "Kinofilma",
+    "fr": "Film",
+    "hu": "Film",
+    "sk": "Film",
+    "sl": "Film",
+    "ga": "Scannán",
+    "ca": "Pel·lícula",
+    "sv": "Film",
+    "el": "Ταινία",
+    "mt": "Ċinema",
+    "en": "Film",
+    "it": "Film",
+    "es": "Película",
+    "et": "Film",
+    "cs": "Film",
+    "pl": "Film",
+    "da": "Film",
+    "ro": "Film",
+    "nl": "Film"
+  },
+  "altLabel": {
+    "de": [
+      "Kinofilm"
+    ],
+    "ru": [
+      "Кино",
+      "Лента"
+    ],
+    "fi": [
+      "Leffa"
+    ],
+    "pt": [
+      "Longa-metragem",
+      "Curta-metragem"
+    ],
+    "el": [
+      "Κινηματογραφική ταινία",
+      "Έργο",
+      "Κινηματογραφικό έργο",
+      "Κινηματογράφος"
+    ],
+    "en": [
+      "Movie",
+      "Motion picture",
+      "Cinematic work",
+      "Films",
+      "Flick",
+      "Moving picture",
+      "Cinema"
+    ],
+    "it": [
+      "Pellicola",
+      "Pellicola cinematografica",
+      "Opera cinematografica"
+    ],
+    "fr": [
+      "Film (cinéma)"
+    ],
+    "hu": [
+      "Mozgókép"
+    ],
+    "es": [
+      "Film",
+      "Filme",
+      "Obra cinematográfica",
+      "Realización de cine",
+      "Pelicula",
+      "Películas",
+      "Peliculas",
+      "Films",
+      "Filmes",
+      "Largometraje",
+      "Largometrajes",
+      "Obra cinematografica",
+      "Realizacion de cine"
+    ],
+    "et": [
+      "Film"
+    ],
+    "sk": [
+      "Filmové dielo"
+    ],
+    "ca": [
+      "Pel·lícula cinematogràfica",
+      "Film",
+      "Obra cinematogràfica",
+      "Llargmetratge"
+    ],
+    "nl": [
+      "Film (cinematografie)"
+    ]
+  },
+  "note": {
+    "de": [
+      "Abfolge von Bildern, die ein Gefühl von Bewegung vermitteln und eine Geschichte oder ein reales Ereignis erzählen"
+    ],
+    "ru": [
+      "Совокупность движущихся изображений, связанных единым сюжетом"
+    ],
+    "sv": [
+      "Serie av bilder som ger intrycket av rörelse"
+    ],
+    "fi": [
+      "Liikkuvan kuvan ja äänen tallenne"
+    ],
+    "pt": [
+      "Produto audiovisual derivado de uma sequencia de imagens que gera uma impressão de movimento"
+    ],
+    "el": [
+      "Αλληλουχία εικόνων που δίνουν την εντύπωση κίνησης"
+    ],
+    "en": [
+      "Sequence of images that give a sensation of movement and narrate a story or a real event"
+    ],
+    "hr": [
+      "Niz slika koje daju dojam pokreta"
+    ],
+    "it": [
+      "Sequenza di immagini dette fotogrammi"
+    ],
+    "fr": [
+      "Séquence d'images qui donnent une impression de mouvement et racontent une histoire ou un événement réel"
+    ],
+    "hu": [
+      "Alkotás"
+    ],
+    "es": [
+      "Secuencia de imágenes que dan sensación de movimiento y narran una historia o un hecho real"
+    ],
+    "cs": [
+      "Audiovizuální dílo tvořené sekvencí obrázků vytvářejících dojem pohybu"
+    ],
+    "sk": [
+      "Sekvencia obrázkov vytvárajúcich dojem pohybu"
+    ],
+    "pl": [
+      "Utwór audiowizualny"
+    ],
+    "da": [
+      "Kunstform med bevægende billeder"
+    ],
+    "nl": [
+      "Audiovisueel werk"
+    ],
+    "ca": [
+      "Obra cinematogràfica"
+    ]
+  },
+  "exactMatch": [
+    "https://schema.org/Movie",
+    "https://citationstyles.org/ontology/type/motion_picture",
+    "http://d-nb.info/gnd/4017102-4",
+    "http://id.loc.gov/authorities/names/sh85088084",
+    "http://data.bnf.fr/ark:/12148/cb120451373",
+    "http://id.ndl.go.jp/auth/ndlna/00561772",
+    "http://id.nlm.nih.gov/mesh/D009040",
+    "http://purl.org/bncf/tid/1122",
+    "https://www.freebase.com/m/02vxn",
+    "https://g.co/kg/m/02vxn",
+    "http://datos.bne.es/resource/XX4576234",
+    "http://vocab.getty.edu/aat/300136900",
+    "http://dewey.info/class/791.43/",
+    "http://iconclass.org/48C87",
+    "http://www.yso.fi/onto/yso/p1235",
+    "http://babelnet.org/rdf/s00034471n",
+    "http://thesaurus.europeanafashion.eu/thesaurus/10311",
+    "http://zbw.eu/stw/descriptor/29301-6",
+    "http://vocabularies.unesco.org/thesaurus/concept352",
+    "http://id.loc.gov/authorities/genreForms/gf2011026406",
+    "http://www.yso.fi/onto/ysa/Y95002",
+    "http://www.wikidata.org/entity/Q11424"
+  ],
+  "isAggregatedBy": {
+    "id": "http://data.europeana.eu/concept/3331#aggregation",
+    "type": "Aggregation",
+    "created": "2022-06-22T19:06:50Z",
+    "modified": "2022-12-05T17:18:05Z",
+    "pageRank": 1559.0,
+    "recordCount": 12610,
+    "score": 927810,
+    "aggregates": [
+      "http://data.europeana.eu/concept/3331#aggr_europeana",
+      "http://data.europeana.eu/concept/3331#aggr_source_1"
+    ]
+  }
+}

@@ -1,19 +1,22 @@
 package eu.europeana.metis.dereference.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
@@ -23,15 +26,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for {@link MongoDereferenceService}
+ */
 class MongoDereferenceServiceTest {
 
   private MongoDereferenceService service;
@@ -44,18 +48,14 @@ class MongoDereferenceServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-    MongoClient mongoClient = MongoClients
-        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
+    MongoClient mongoClient = MongoClients.create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     VocabularyDao vocabularyDao = new VocabularyDao(mongoClient, "voctest") {
       {
         vocabularyDaoDatastore = this.getDatastore();
       }
     };
-
     ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
-
-    service = spy(
-        new MongoDereferenceService(new RdfRetriever(), processedEntityDao, vocabularyDao));
+    service = spy(new MongoDereferenceService(new RdfRetriever(), processedEntityDao, vocabularyDao));
   }
 
   @AfterEach
@@ -64,14 +64,12 @@ class MongoDereferenceServiceTest {
   }
 
   @Test
-  void testDereference()
-      throws TransformerException, JAXBException, IOException, URISyntaxException {
-
+  void testDereference_Success() throws JAXBException, IOException, URISyntaxException {
     // Create vocabulary for geonames and save it.
     final Vocabulary geonames = new Vocabulary();
     geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
     geonames.setXslt(IOUtils
-        .toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
+        .toString(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")),
             StandardCharsets.UTF_8));
     geonames.setName("Geonames");
     geonames.setIterations(0);
@@ -83,22 +81,86 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new ImmutablePair<>(place, geonames)).when(service)
-        .computeEnrichmentBaseVocabularyPair(entityId);
+    doReturn(new DereferenceResultWrapper(place, geonames, DereferenceResultStatus.SUCCESS)).when(service)
+                                                                                            .computeEnrichmentBaseVocabulary(
+                                                                                                entityId);
 
     // Test the method
-    final List<EnrichmentBase> result = service.dereference(entityId);
+    final DereferenceResult result = service.dereference(entityId);
     assertNotNull(result);
-    assertEquals(1, result.size());
-    assertSame(place, result.get(0));
+    assertEquals(1, result.getEnrichmentBasesAsList().size());
+    assertSame(place, result.getEnrichmentBasesAsList().get(0));
+    assertEquals(DereferenceResultStatus.SUCCESS, result.getDereferenceStatus());
+  }
 
-    // Test null argument
-    assertThrows(IllegalArgumentException.class, () -> service.dereference(null));
+  @Test
+  void testDereference_IllegalArgument() {
+    final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> service.dereference(null));
+    assertEquals("Parameter resourceId cannot be null.", exception.getMessage());
+  }
 
-    // Test absent object
-    doReturn(null).when(service).computeEnrichmentBaseVocabularyPair(entityId);
-    final List<EnrichmentBase> emptyResult = service.dereference(entityId);
+  @Test
+  void testDereference_AbsentObject() throws JAXBException, URISyntaxException {
+    final String entityId = "http://sws.geonames.org/3020251/";
+    doReturn(new DereferenceResultWrapper(DereferenceResultStatus.SUCCESS))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
+    final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
-    assertTrue(emptyResult.isEmpty());
+    assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, emptyResult.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_UnknownEntity() throws JAXBException, URISyntaxException, IOException {
+    // Create vocabulary for geonames and save it.
+    final Vocabulary geonames = new Vocabulary();
+    geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
+    geonames.setXslt(IOUtils
+        .toString(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")),
+            StandardCharsets.UTF_8));
+    geonames.setName("Geonames");
+    geonames.setIterations(0);
+    vocabularyDaoDatastore.save(geonames);
+
+    // Create geonames entity
+    final Place place = new Place();
+    final String entityId = "http://sws.geonames.org/3020251/";
+    place.setAbout(entityId);
+    doReturn(new DereferenceResultWrapper(place, geonames, null))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
+    final DereferenceResult emptyResult = service.dereference(entityId);
+    assertNotNull(emptyResult);
+    assertFalse(emptyResult.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.UNKNOWN_ENTITY, emptyResult.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_InvalidUrl() throws JAXBException, URISyntaxException {
+    final String entityId = "http://sws.geonames.org/3020251/";
+
+    // Mock the service
+    doThrow(new URISyntaxException("uri", "is invalid"))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
+
+    // Test the method
+    final DereferenceResult result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.INVALID_URL, result.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_XmlXltError() throws JAXBException, URISyntaxException {
+    final String entityId = "http://sws.geonames.org/3020251/";
+
+    // Mock the service
+    doThrow(new JAXBException("xml or xlst", "is invalid"))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
+
+    // Test the method
+    final DereferenceResult result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR, result.getDereferenceStatus());
   }
 }

@@ -1,0 +1,160 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://data.europeana.eu/concept/62",
+  "type": "Concept",
+  "isShownBy": {
+    "id": "http://mm.dimu.org/image/022yizbtvn7G?dimension=1200x1200",
+    "type": "WebResource",
+    "source": "http://data.europeana.eu/item/916124/S_XLM_photo_XLMB1900",
+    "thumbnail": "https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fmm.dimu.org%2Fimage%2F022yizbtvn7G%3Fdimension%3D1200x1200&type=IMAGE"
+  },
+  "prefLabel": {
+    "de": "Musik",
+    "fi": "Musiikki",
+    "ru": "Музыка",
+    "pt": "Música",
+    "bg": "Музика",
+    "lt": "Muzika",
+    "hr": "Glazba",
+    "lv": "Mūzika",
+    "fr": "Musique",
+    "hu": "Zene",
+    "sk": "Hudba",
+    "sl": "Glasba",
+    "ga": "Ceol",
+    "ca": "Música",
+    "sv": "Musik",
+    "el": "Μουσική",
+    "mt": "Mużika",
+    "en": "Music",
+    "it": "Musica",
+    "es": "Música",
+    "et": "Muusika",
+    "cs": "Hudba",
+    "pl": "Muzyka",
+    "da": "Musik",
+    "ro": "Muzică",
+    "nl": "Muziek"
+  },
+  "altLabel": {
+    "fi": [
+      "Säveltaide"
+    ],
+    "sv": [
+      "Tonkonst"
+    ]
+  },
+  "note": {
+    "de": [
+      "Kunstgattung, deren Werke aus organisierten Schallereignissen bestehen"
+    ],
+    "ru": [
+      "Искусство, средство воплощения художественных образов"
+    ],
+    "fi": [
+      "Ääneen perustuva taiteen muoto"
+    ],
+    "sv": [
+      "Ljudkonstform"
+    ],
+    "pt": [
+      "Arte baseada no uso de som"
+    ],
+    "bg": [
+      "Абстрактно изкуство"
+    ],
+    "el": [
+      "Μορφή τέχνης που χρησιμοποιεί ήχους"
+    ],
+    "en": [
+      "Art form, and cultural activity, whose medium is sound"
+    ],
+    "lv": [
+      "Mākslas veids, kurā tēlainā atspoguļojuma līdzeklis ir skaņa"
+    ],
+    "it": [
+      "Arte che utilizza il suono degli strumenti musicali o della voce"
+    ],
+    "fr": [
+      "Art consistant à arranger et à ordonner ou désordonner sons et silences au cours du temps"
+    ],
+    "hu": [
+      "Művészeti kifejezési forma, a hangok tudatosan elrendezett folyamata"
+    ],
+    "es": [
+      "Forma de arte que usa sonidos y silencios"
+    ],
+    "cs": [
+      "Organizovaná forma zvuku"
+    ],
+    "sk": [
+      "Forma umenia zaoberajúca sa zvukom"
+    ],
+    "sl": [
+      "Umetnost, ki se izraža z zvokom"
+    ],
+    "pl": [
+      "Sztuka organizacji struktur dźwiękowych w czasie; jedna z dziedzin sztuk pięknych"
+    ],
+    "ro": [
+      "Formă de artă"
+    ],
+    "da": [
+      "Kunstform med anvendelse af lyd"
+    ],
+    "nl": [
+      "Kunstvorm die gebruikmaakt van klanken, geschikt in een bepaald ritme"
+    ],
+    "ca": [
+      "Forma d'art que utilitza sons i silencis"
+    ]
+  },
+  "broader": [
+    "http://data.europeana.eu/concept/190"
+  ],
+  "exactMatch": [
+    "http://cv.iptc.org/newscodes/subjectcode/01011000",
+    "http://id.loc.gov/authorities/subjects/sh85088762",
+    "http://id.loc.gov/entities/roles/music",
+    "http://data.culture.fr/thesaurus/resource/ark:/67717/T1-731",
+    "http://www.eionet.europa.eu/gemet/concept/5449",
+    "http://d-nb.info/gnd/4040802-4",
+    "http://id.loc.gov/authorities/names/sh85088762",
+    "http://data.bnf.fr/ark:/12148/cb133183660",
+    "http://id.ndl.go.jp/auth/ndlna/00568825",
+    "http://id.nlm.nih.gov/mesh/D009146",
+    "http://purl.org/bncf/tid/1676",
+    "https://www.freebase.com/m/04rlf",
+    "https://g.co/kg/m/04rlf",
+    "http://id.nlm.nih.gov/mesh/K01.602",
+    "http://datos.bne.es/resource/XX525209",
+    "http://vocab.getty.edu/aat/300054146",
+    "http://vocab.getty.edu/aat/300417584",
+    "http://dewey.info/class/780/",
+    "http://iconclass.org/48C7",
+    "http://id.worldcat.org/fast/1030269",
+    "http://www.yso.fi/onto/yso/p1808",
+    "http://babelnet.org/rdf/s00056443n",
+    "http://g.co/kg/g/11clszpdhg",
+    "http://thesaurus.europeanafashion.eu/thesaurus/10318",
+    "http://zbw.eu/stw/descriptor/15661-2",
+    "http://vocabularies.unesco.org/thesaurus/concept353",
+    "http://id.loc.gov/authorities/genreForms/gf2014026952",
+    "http://cv.iptc.org/newscodes/mediatopic/20000018",
+    "http://www.yso.fi/onto/ysa/Y97560",
+    "http://www.wikidata.org/entity/Q638"
+  ],
+  "isAggregatedBy": {
+    "id": "http://data.europeana.eu/concept/62#aggregation",
+    "type": "Aggregation",
+    "created": "2022-06-10T17:52:33Z",
+    "modified": "2022-12-05T17:18:05Z",
+    "pageRank": 1507.0,
+    "recordCount": 55982,
+    "score": 1059493,
+    "aggregates": [
+      "http://data.europeana.eu/concept/62#aggr_europeana",
+      "http://data.europeana.eu/concept/62#aggr_source_1"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metis:results xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:metis="http://www.europeana.eu/schemas/metis">
+  <metis:result>
+    <skos:Concept rdf:about="http://vocab.getty.edu/aat/300136900">
+      <skos:note xml:lang="en">Works presented in the form of a series of pictures carried on photographic film or video tape,
+        presented to the eye in such rapid succession as to give the illusion of natural movement. For the study and practice of
+        filmmaking and motion pictures as an art and form of expression, use "film (performing arts)."
+      </skos:note>
+      <skos:note xml:lang="es">Úsese para obras presentadas en forma de series de imágenes llevadas a película fotográfica o cinta
+        de video, presentadas al ojo en una sucesión tan rápida como para dar la ilusión de movimiento natural. Para el estudio y
+        práctica de la realización de películas y la cinematográfia como un arte y forma de expresión, use "película (artes
+        interpretativas)".
+      </skos:note>
+      <skos:note xml:lang="nl">Te gebruiken voor werken die bestaan uit een reeks plaatjes op fotografische film, die zo snel
+        achter elkaar worden vertoond dat ze de illusie geven van een natuurlijke beweging. Voor het maken van films en de studie
+        daarvan en voor films als kunst en vorm van expressie wordt 'film (uitvoerende kunsten)' gebruikt.
+      </skos:note>
+      <skos:note xml:lang="zh-hant">運用攝影或錄影帶中一系列的圖做為表達形式呈現而出的作品，以極快的速度連續展現於人的肉眼之前，以製造出自然動作的錯覺。若指稱電影製作的研究、實作以及電影作為一種藝術與表達形式，則使用「電影
+        (表演藝術)」一詞。
+      </skos:note>
+    </skos:Concept>
+    <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>
+  </metis:result>
+</metis:results>

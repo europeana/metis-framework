@@ -97,5 +97,4 @@ public class EnrichmentService {
       throw new IllegalArgumentException("The input values are invalid", e);
     }
   }
-
 }

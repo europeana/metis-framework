@@ -1,0 +1,146 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://entity-api.mock/entity/search?lang=en&text=Religion&type=concept&wskey=api2demo&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 1,
+  "partOf": {
+    "id": "http://entity-api.mock/search?lang=en&text=Religion&type=concept&wskey=api2demo",
+    "type": "ResultList",
+    "total": 1
+  },
+  "items": [
+    {
+      "id": "http://data.europeana.eu/concept/84",
+      "type": "Concept",
+      "isShownBy": {
+        "id": "https://www.dropbox.com/s/rpv24ftoz01e9s9/Belgium_MAR-BVM-1-384.jpg?raw=1",
+        "type": "WebResource",
+        "source": "http://data.europeana.eu/item/2063627/BEL_280_008",
+        "thumbnail": "https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.dropbox.com%2Fs%2Frpv24ftoz01e9s9%2FBelgium_MAR-BVM-1-384.jpg%3Fraw%3D1&type=IMAGE"
+      },
+      "prefLabel": {
+        "bg": "Религия",
+        "ca": "Religió",
+        "cs": "Náboženství",
+        "da": "Religion",
+        "de": "Religion",
+        "el": "Θρησκεία",
+        "en": "Religion",
+        "es": "Religión",
+        "et": "Religioon",
+        "fi": "Uskonto",
+        "fr": "Religion",
+        "ga": "Creideamh",
+        "hr": "Religija",
+        "hu": "Vallás",
+        "it": "Religione",
+        "lt": "Religija",
+        "lv": "Reliģija",
+        "mt": "Reliġjon",
+        "nl": "Religie",
+        "pl": "Religia",
+        "pt": "Religião",
+        "ro": "Religie",
+        "ru": "Религия",
+        "sk": "Náboženstvo",
+        "sl": "Religija",
+        "sv": "Religion"
+      },
+      "altLabel": {
+        "el": [
+          "Πίστη"
+        ],
+        "en": [
+          "Religious tradition"
+        ],
+        "es": [
+          "Religion"
+        ],
+        "et": [
+          "Usund"
+        ],
+        "lv": [
+          "Ticība"
+        ],
+        "nl": [
+          "Godsdienst"
+        ]
+      },
+      "note": {
+        "ca": [
+          "Sistema de creences i pràctiques en qüestions de tipus sobrenatural"
+        ],
+        "cs": [
+          "Vztah člověka k posvátnému"
+        ],
+        "da": [
+          "Trossystem"
+        ],
+        "de": [
+          "Glaube mit metaphysischem oder transzendentem Inhalt"
+        ],
+        "en": [
+          "Set of beliefs, practices and traditions for a group or community"
+        ],
+        "es": [
+          "Sistema de creencias sagradas por quienes la practican"
+        ],
+        "et": [
+          "Uskumuste, normide, tavade ja institutsioonide süsteem"
+        ],
+        "fi": [
+          "Aatteellinen järjestelmä, johon kuuluu usko yliluonnolliseen"
+        ],
+        "fr": [
+          "Système de pratiques et de croyances pour un groupe ou une communauté"
+        ],
+        "hu": [
+          "Hitrendszer"
+        ],
+        "it": [
+          "Sistema di credenze e attività umane nei confronti di una o più entità sovrannaturali"
+        ],
+        "nl": [
+          "Vorm van zingeving, in bredere zin vorm van spiritualiteit"
+        ],
+        "pl": [
+          "System wierzeń i praktyk"
+        ],
+        "pt": [
+          "Conjunto de sistemas culturais, de crenças e visões de mundo"
+        ],
+        "ro": [
+          "Sistemul sacru de credință"
+        ],
+        "ru": [
+          "Система взглядов, обусловленная верой в сверхъестественное"
+        ],
+        "sk": [
+          "Vzťah človeka k posvätnému"
+        ],
+        "sv": [
+          "Trossuppfattningssystem"
+        ]
+      },
+      "exactMatch": [
+        "http://d-nb.info/gnd/4049396-9",
+        "http://id.loc.gov/authorities/names/sh85112549",
+        "http://data.bnf.fr/ark:/12148/cb11963568t",
+        "http://id.ndl.go.jp/auth/ndlna/00572394",
+        "http://id.nlm.nih.gov/mesh/D012067",
+        "http://purl.org/bncf/tid/7544",
+        "https://www.freebase.com/m/06bvp",
+        "https://g.co/kg/m/06bvp",
+        "http://id.nlm.nih.gov/mesh/K01.844",
+        "http://datos.bne.es/resource/XX524493",
+        "http://vocab.getty.edu/aat/300054300",
+        "http://dewey.info/class/200/",
+        "http://www.yso.fi/onto/yso/p6415",
+        "http://babelnet.org/rdf/s00032768n",
+        "http://vocabularies.unesco.org/thesaurus/concept290",
+        "http://vocabularies.unesco.org/thesaurus/concept289",
+        "http://www.wikidata.org/entity/Q9174"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "https://entity-api-v2-production.eanadev.org/entity/search?{{request.query}}&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 1,
+  "partOf": {
+    "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&text=Muziek&lang=nl&type=concept",
+    "type": "ResultList",
+    "total": 1
+  },
+  "items": [
+    {
+      "id": "http://data.europeana.eu/concept/62",
+      "type": "Concept",
+      "isShownBy": {
+        "id": "http://mm.dimu.org/image/022yizbtvn7G?dimension=1200x1200",
+        "type": "WebResource",
+        "source": "http://data.europeana.eu/item/916124/S_XLM_photo_XLMB1900",
+        "thumbnail": "https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fmm.dimu.org%2Fimage%2F022yizbtvn7G%3Fdimension%3D1200x1200&type=IMAGE"
+      },
+      "prefLabel": {
+        "bg": "Музика",
+        "ca": "Música",
+        "cs": "Hudba",
+        "da": "Musik",
+        "de": "Musik",
+        "el": "Μουσική",
+        "en": "Music",
+        "es": "Música",
+        "et": "Muusika",
+        "fi": "Musiikki",
+        "fr": "Musique",
+        "ga": "Ceol",
+        "hr": "Glazba",
+        "hu": "Zene",
+        "it": "Musica",
+        "lt": "Muzika",
+        "lv": "Mūzika",
+        "mt": "Mużika",
+        "nl": "Muziek",
+        "pl": "Muzyka",
+        "pt": "Música",
+        "ro": "Muzică",
+        "ru": "Музыка",
+        "sk": "Hudba",
+        "sl": "Glasba",
+        "sv": "Musik"
+      },
+      "altLabel": {
+        "fi": [
+          "Säveltaide"
+        ],
+        "sv": [
+          "Tonkonst"
+        ]
+      },
+      "note": {
+        "bg": [
+          "Абстрактно изкуство"
+        ],
+        "ca": [
+          "Forma d'art que utilitza sons i silencis"
+        ],
+        "cs": [
+          "Organizovaná forma zvuku"
+        ],
+        "da": [
+          "Kunstform med anvendelse af lyd"
+        ],
+        "de": [
+          "Kunstgattung, deren Werke aus organisierten Schallereignissen bestehen"
+        ],
+        "el": [
+          "Μορφή τέχνης που χρησιμοποιεί ήχους"
+        ],
+        "en": [
+          "Art form, and cultural activity, whose medium is sound"
+        ],
+        "es": [
+          "Forma de arte que usa sonidos y silencios"
+        ],
+        "fi": [
+          "Ääneen perustuva taiteen muoto"
+        ],
+        "fr": [
+          "Art consistant à arranger et à ordonner ou désordonner sons et silences au cours du temps"
+        ],
+        "hu": [
+          "Művészeti kifejezési forma, a hangok tudatosan elrendezett folyamata"
+        ],
+        "it": [
+          "Arte che utilizza il suono degli strumenti musicali o della voce"
+        ],
+        "lv": [
+          "Mākslas veids, kurā tēlainā atspoguļojuma līdzeklis ir skaņa"
+        ],
+        "nl": [
+          "Kunstvorm die gebruikmaakt van klanken, geschikt in een bepaald ritme"
+        ],
+        "pl": [
+          "Sztuka organizacji struktur dźwiękowych w czasie; jedna z dziedzin sztuk pięknych"
+        ],
+        "pt": [
+          "Arte baseada no uso de som"
+        ],
+        "ro": [
+          "Formă de artă"
+        ],
+        "ru": [
+          "Искусство, средство воплощения художественных образов"
+        ],
+        "sk": [
+          "Forma umenia zaoberajúca sa zvukom"
+        ],
+        "sl": [
+          "Umetnost, ki se izraža z zvokom"
+        ],
+        "sv": [
+          "Ljudkonstform"
+        ]
+      },
+      "broader": [
+        "http://data.europeana.eu/concept/190"
+      ],
+      "exactMatch": [
+        "http://cv.iptc.org/newscodes/subjectcode/01011000",
+        "http://id.loc.gov/authorities/subjects/sh85088762",
+        "http://id.loc.gov/entities/roles/music",
+        "http://data.culture.fr/thesaurus/resource/ark:/67717/T1-731",
+        "http://www.eionet.europa.eu/gemet/concept/5449",
+        "http://d-nb.info/gnd/4040802-4",
+        "http://id.loc.gov/authorities/names/sh85088762",
+        "http://data.bnf.fr/ark:/12148/cb133183660",
+        "http://id.ndl.go.jp/auth/ndlna/00568825",
+        "http://id.nlm.nih.gov/mesh/D009146",
+        "http://purl.org/bncf/tid/1676",
+        "https://www.freebase.com/m/04rlf",
+        "https://g.co/kg/m/04rlf",
+        "http://id.nlm.nih.gov/mesh/K01.602",
+        "http://datos.bne.es/resource/XX525209",
+        "http://vocab.getty.edu/aat/300054146",
+        "http://vocab.getty.edu/aat/300417584",
+        "http://dewey.info/class/780/",
+        "http://iconclass.org/48C7",
+        "http://id.worldcat.org/fast/1030269",
+        "http://www.yso.fi/onto/yso/p1808",
+        "http://babelnet.org/rdf/s00056443n",
+        "http://g.co/kg/g/11clszpdhg",
+        "http://thesaurus.europeanafashion.eu/thesaurus/10318",
+        "http://zbw.eu/stw/descriptor/15661-2",
+        "http://vocabularies.unesco.org/thesaurus/concept353",
+        "http://id.loc.gov/authorities/genreForms/gf2014026952",
+        "http://cv.iptc.org/newscodes/mediatopic/20000018",
+        "http://www.yso.fi/onto/ysa/Y97560",
+        "http://www.wikidata.org/entity/Q638"
+      ]
+    }
+  ]
+}

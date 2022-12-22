@@ -1,0 +1,207 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://data.europeana.eu/place/94",
+  "type": "Place",
+  "prefLabel": {
+    "de": "Litauen",
+    "ru": "Литва",
+    "fi": "Liettua",
+    "pt": "Lituânia",
+    "bg": "Литва",
+    "lt": "Lietuva",
+    "lv": "Lietuva",
+    "hr": "Litva",
+    "fr": "Lituanie",
+    "hu": "Litvánia",
+    "sk": "Litva",
+    "sl": "Litva",
+    "ga": "An Liotuáin",
+    "ca": "Lituània",
+    "sv": "Litauen",
+    "el": "Λιθουανία",
+    "mt": "Litwanja",
+    "en": "Lithuania",
+    "it": "Lituania",
+    "es": "Lituania",
+    "et": "Leedu",
+    "cs": "Litva",
+    "pl": "Litwa",
+    "ro": "Lituania",
+    "da": "Litauen",
+    "nl": "Litouwen"
+  },
+  "altLabel": {
+    "de": [
+      "Republik Litauen",
+      "LT",
+      "LTU"
+    ],
+    "fi": [
+      "Lietuva"
+    ],
+    "ru": [
+      "Литовская Республика"
+    ],
+    "sv": [
+      "Lietuva"
+    ],
+    "pt": [
+      "República da Lituânia",
+      "Categoria:Lituânia"
+    ],
+    "bg": [
+      "Република Литва"
+    ],
+    "mt": [
+      "Repubblika tal-Litwanja"
+    ],
+    "lt": [
+      "Lietuvos Respublika"
+    ],
+    "en": [
+      "LTU",
+      "LT",
+      "Cộng hòa Litva"
+    ],
+    "hr": [
+      "Litvanija",
+      "Republika Litva"
+    ],
+    "fr": [
+      "Lithuanie",
+      "LT",
+      "Cộng hòa Litva"
+    ],
+    "es": [
+      "República de Lituania",
+      "Republica de Lituania"
+    ],
+    "et": [
+      "Leedu Vabariik"
+    ],
+    "pl": [
+      "Litwie"
+    ],
+    "ca": [
+      "Lituania",
+      "República de Lituània"
+    ],
+    "nl": [
+      "LT",
+      "LTU"
+    ]
+  },
+  "lat": 55.2,
+  "long": 24.0,
+  "note": {
+    "de": [
+      "Staat im Baltikum"
+    ],
+    "fi": [
+      "Valtio Pohjois-Euroopassa"
+    ],
+    "ru": [
+      "Страна в Европе"
+    ],
+    "sv": [
+      "Republik i Nordeuropa"
+    ],
+    "pt": [
+      "País da Europa"
+    ],
+    "bg": [
+      "Държава в Източна Европа"
+    ],
+    "mt": [
+      "Stat sovran fl-Ewropa tal-Grigal"
+    ],
+    "lt": [
+      "Valstybė Europoje"
+    ],
+    "en": [
+      "Sovereign state in northeastern Europe"
+    ],
+    "hr": [
+      "Država u sjeveroistočnoj Europi"
+    ],
+    "lv": [
+      "Valsts Eiropā, viena no trim Baltijas valstīm"
+    ],
+    "it": [
+      "Stato dell'Europa settentrionale, membro dell'Unione europea"
+    ],
+    "fr": [
+      "Pays d'Europe"
+    ],
+    "hu": [
+      "Balti állam Észak-Európában"
+    ],
+    "es": [
+      "País de Europa"
+    ],
+    "et": [
+      "Vabariik Põhja-Euroopas"
+    ],
+    "cs": [
+      "Stát v severní Evropě"
+    ],
+    "sk": [
+      "Štát vo východnej Európe"
+    ],
+    "pl": [
+      "Państwo w Europie Wschodniej"
+    ],
+    "ro": [
+      "Stat baltic în Europa de Nord"
+    ],
+    "da": [
+      "Republik i Nordeuropa"
+    ],
+    "nl": [
+      "Land in Europa"
+    ],
+    "ca": [
+      "Estat d'Europa, i el més al sud dels estats bàltics"
+    ]
+  },
+  "sameAs": [
+    "http://viaf.org/viaf/125422022",
+    "http://viaf.org/viaf/143794873",
+    "http://viaf.org/viaf/304910897",
+    "http://viaf.org/viaf/224684434",
+    "http://viaf.org/viaf/5465156133194258430003",
+    "http://viaf.org/viaf/155667568",
+    "http://d-nb.info/gnd/4074266-0",
+    "http://id.loc.gov/authorities/names/n82209573",
+    "http://data.bnf.fr/ark:/12148/cb11947680h",
+    "http://data.bnf.fr/ark:/12148/cb15325877s",
+    "http://id.ndl.go.jp/auth/ndlna/00569565",
+    "http://id.nlm.nih.gov/mesh/D008097",
+    "https://www.freebase.com/m/04gzd",
+    "https://g.co/kg/m/04gzd",
+    "http://dewey.info/class/2--4793/",
+    "https://sws.geonames.org/597427/",
+    "http://vocab.getty.edu/tgn/7006542",
+    "http://id.worldcat.org/fast/1227863",
+    "http://www.yso.fi/onto/yso/p94268",
+    "http://babelnet.org/rdf/s00051034n",
+    "http://zbw.eu/stw/descriptor/17477-6",
+    "http://vocabularies.unesco.org/thesaurus/concept912",
+    "http://www.yso.fi/onto/ysa/Y94268",
+    "http://dbpedia.org/resource/Lithuania",
+    "http://www.wikidata.org/entity/Q37"
+  ],
+  "isAggregatedBy": {
+    "id": "http://data.europeana.eu/place/94#aggregation",
+    "type": "Aggregation",
+    "created": "2022-06-10T20:09:01Z",
+    "modified": "2022-12-05T17:44:29Z",
+    "pageRank": 1884.0,
+    "recordCount": 32705,
+    "score": 785200,
+    "aggregates": [
+      "http://data.europeana.eu/place/94#aggr_europeana",
+      "http://data.europeana.eu/place/94#aggr_source_1"
+    ]
+  }
+}

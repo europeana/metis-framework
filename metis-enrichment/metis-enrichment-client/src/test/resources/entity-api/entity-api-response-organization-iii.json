@@ -1,0 +1,52 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&type=organization&text=Lietuvos%20Centrinis%20Valstyb%C3%A9s%20Archyvas&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 1,
+  "partOf": {
+    "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&type=organization&text=Lietuvos%20Centrinis%20Valstyb%C3%A9s%20Archyvas",
+    "type": "ResultList",
+    "total": 1
+  },
+  "items": [
+    {
+      "id": "http://data.europeana.eu/organization/1482250000004507806",
+      "type": "Organization",
+      "prefLabel": {
+        "en": "Lithuanian Central State Archives",
+        "lt": "Lietuvos Centrinis Valstybes Archyvas"
+      },
+      "acronym": {
+        "lt": [
+          "LCVA"
+        ]
+      },
+      "description": {
+        "cs": "Litevský národní archiv",
+        "en": "Lithuanian   national archives"
+      },
+      "europeanaRole": [
+        "Data Provider"
+      ],
+      "organizationDomain": [
+        "Archive"
+      ],
+      "country": "LT",
+      "homepage": "http://www.archyvai.lt",
+      "mbox": [
+        "lcva@archyvai.lt"
+      ],
+      "identifier": [
+        "1482250000004507806"
+      ],
+      "sameAs": [
+        "https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000004507806",
+        "http://www.wikidata.org/entity/Q16458815",
+        "http://viaf.org/viaf/137563199",
+        "http://d-nb.info/gnd/1023214474",
+        "http://id.loc.gov/authorities/names/no2005018599",
+        "http://g.co/kg/g/12353pr3"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://entity-api.mock/entity/search?wskey=api2demo&text=Paranguaricutirimicuaro&type=concept&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 0,
+  "partOf": {
+    "id": "http://entity-api.mock/entity/search?wskey=api2demo&text=Paranguaricutirimicuaro&type=concept",
+    "type": "ResultList",
+    "total": 0
+  }
+}
