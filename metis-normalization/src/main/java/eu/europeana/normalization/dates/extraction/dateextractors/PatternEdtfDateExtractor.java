@@ -17,11 +17,9 @@ public class PatternEdtfDateExtractor implements DateExtractor {
   public DateNormalizationResult extract(String inputValue) {
     try {
       AbstractEdtfDate edtfDate = edtfParser.parse(inputValue);
-      edtfDate.removeTime();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
     } catch (ParseException | NumberFormatException e) {
       return null;
     }
   }
-
 }

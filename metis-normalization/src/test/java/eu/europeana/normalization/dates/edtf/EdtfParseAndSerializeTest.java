@@ -11,7 +11,6 @@ public class EdtfParseAndSerializeTest {
   void parseDate() throws ParseException {
     String dateStr = "2004-01-01";
     InstantEdtfDate parse = (InstantEdtfDate) parser.parse(dateStr);
-    assert (parse.getEdtfTimePart() == null);
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == 1);
@@ -19,7 +18,6 @@ public class EdtfParseAndSerializeTest {
 
     dateStr = "2004-01";
     parse = (InstantEdtfDate) parser.parse(dateStr);
-    assert (parse.getEdtfTimePart() == null);
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == null);
@@ -27,7 +25,6 @@ public class EdtfParseAndSerializeTest {
 
     dateStr = "2004";
     parse = (InstantEdtfDate) parser.parse(dateStr);
-    assert (parse.getEdtfTimePart() == null);
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == null);
     assert (parse.getEdtfDatePart().getDay() == null);
@@ -80,34 +77,28 @@ public class EdtfParseAndSerializeTest {
   @Test
   void parseTime() throws ParseException {
     String dateStr = "2004-01-01T23:05:02";
+    String resultString = "2004-01-01";
     InstantEdtfDate parse = (InstantEdtfDate) parser.parse(dateStr);
     assert (parse.getEdtfDatePart().getYear() == 2004);
     assert (parse.getEdtfDatePart().getMonth() == 1);
     assert (parse.getEdtfDatePart().getDay() == 1);
-    assert (parse.getEdtfTimePart().getHour() == 23);
-    assert (parse.getEdtfTimePart().getMinute() == 5);
-    assert (parse.getEdtfTimePart().getSecond() == 2);
-    assert (parse.toString().equals(dateStr));
+    assert (parse.toString().equals(resultString));
 
     dateStr = "2004-01-01T23:05";
+    resultString = "2004-01-01";
     parse = (InstantEdtfDate) parser.parse(dateStr);
-    assert (parse.getEdtfTimePart().getHour() == 23);
-    assert (parse.getEdtfTimePart().getMinute() == 5);
-    assert (parse.getEdtfTimePart().getSecond() == null);
-    assert (parse.toString().equals(dateStr));
+    assert (parse.toString().equals(resultString));
 
     dateStr = "2004-01-01T23";
+    resultString = "2004-01-01";
     parse = (InstantEdtfDate) parser.parse(dateStr);
-    assert (parse.getEdtfTimePart().getHour() == 23);
-    assert (parse.getEdtfTimePart().getMinute() == null);
-    assert (parse.toString().equals(dateStr));
+    assert (parse.toString().equals(resultString));
   }
 
   @Test
   void parseInterval() throws ParseException {
     String dateStr = "2004-01-01/2004-01-02";
     IntervalEdtfDate parse = (IntervalEdtfDate) parser.parse(dateStr);
-    assert (parse.getStart().getEdtfTimePart() == null);
     assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
     assert (parse.getStart().getEdtfDatePart().getMonth() == 1);
     assert (parse.getStart().getEdtfDatePart().getDay() == 1);
@@ -118,7 +109,6 @@ public class EdtfParseAndSerializeTest {
 
     dateStr = "2004-01-01/2005";
     parse = (IntervalEdtfDate) parser.parse(dateStr);
-    assert (parse.getStart().getEdtfTimePart() == null);
     assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
     assert (parse.getStart().getEdtfDatePart().getMonth() == 1);
     assert (parse.getStart().getEdtfDatePart().getDay() == 1);
@@ -129,7 +119,6 @@ public class EdtfParseAndSerializeTest {
 
     dateStr = "2004/2005";
     parse = (IntervalEdtfDate) parser.parse(dateStr);
-    assert (parse.getStart().getEdtfTimePart() == null);
     assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
     assert (parse.getStart().getEdtfDatePart().getMonth() == null);
     assert (parse.getStart().getEdtfDatePart().getDay() == null);
@@ -140,7 +129,6 @@ public class EdtfParseAndSerializeTest {
 
     dateStr = "2004?/2005~";
     parse = (IntervalEdtfDate) parser.parse(dateStr);
-    assert (parse.getStart().getEdtfTimePart() == null);
     assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
     assert (parse.getStart().getEdtfDatePart().getMonth() == null);
     assert (parse.getStart().getEdtfDatePart().getDay() == null);
@@ -150,16 +138,5 @@ public class EdtfParseAndSerializeTest {
     assert (parse.getEnd().getEdtfDatePart().getDay() == null);
     assert (parse.getEnd().getEdtfDatePart().isApproximate());
     assert (parse.toString().equals(dateStr));
-  }
-
-  @Test
-  void parseInvalid() throws ParseException {
-    String dateStr = "";
-    try {
-      IntervalEdtfDate parse = (IntervalEdtfDate) parser.parse(dateStr);
-      assert (false);
-    } catch (ParseException e) {
-      // OK
-    }
   }
 }

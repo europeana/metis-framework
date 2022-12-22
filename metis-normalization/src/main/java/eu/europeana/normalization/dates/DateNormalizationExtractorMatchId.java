@@ -12,7 +12,6 @@ public enum DateNormalizationExtractorMatchId {
   DCMI_PERIOD("normalisable: DCMI period"),
   DECADE("normalisable: decade"),
   EDTF("already normalised in EDTF"),
-  EDTF_CLEANED("normalisable: EDTF with data cleaning"),
   FORMATTED_FULL_DATE("normalisable: formatted timestamp"),
   INVALID("not normalisable: date apparently invalid"),
   LONG_YEAR("normalisable: long negative year"),

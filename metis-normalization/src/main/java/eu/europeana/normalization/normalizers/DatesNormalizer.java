@@ -11,17 +11,15 @@ import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericWithMissingPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DecadeDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBriefDateRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternDateExtractorYyyyMmDdSpacesDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternEdtfDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormatedFullDateDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternMonthNameDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsDateExtractor;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
 import eu.europeana.normalization.dates.sanitize.SanitizedDate;
@@ -31,7 +29,6 @@ import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -125,10 +122,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new PatternEdtfDateExtractor(),
         new CenturyDateExtractor(),
         new DecadeDateExtractor(),
-        new PatternNumericDateRangeExtractorWithMissingPartsDateExtractor(),
-        new PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor(),
-        new NumericWithMissingPartsDateExtractor(),
-        new PatternDateExtractorYyyyMmDdSpacesDateExtractor(),
+        new NumericPartsRangeDateExtractor(),
+        new NumericPartsDateExtractor(),
         new DcmiPeriodDateExtractor(),
         new PatternMonthNameDateExtractor(),
         new PatternFormatedFullDateDateExtractor(),
@@ -192,7 +187,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private void normalizeElement(Document document, Element element, Namespace.Element elementType,
       Element europeanaProxy, Function<String, DateNormalizationResult> normalizationFunction,
-      InternalNormalizationReport report) throws NormalizationException {
+      InternalNormalizationReport report) {
 
     // Apply the normalization. If nothing can be done, we return.
     final String elementText = XmlUtil.getElementText(element);
@@ -207,13 +202,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     // Compute the timespan ID we need.
-    final String timespanId;
-    try {
-      timespanId = String.format("#%s", URLEncoder.encode(
-          dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8.name()));
-    } catch (UnsupportedEncodingException e) {
-      throw new NormalizationException(e.getMessage(), e);
-    }
+    final String timespanId = String.format("#%s", URLEncoder.encode(
+        dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8));
 
     // Append the timespan to the document.
     appendTimespanEntity(document, dateNormalizationResult.getEdtfDate(), timespanId);
@@ -232,6 +222,12 @@ public class DatesNormalizer implements RecordNormalizeAction {
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
   }
 
+  /**
+   * Normalizer a property that is expected to be a date.
+   *
+   * @param input the date
+   * @return the date normalization result
+   */
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false, //No extra check
@@ -240,6 +236,13 @@ public class DatesNormalizer implements RecordNormalizeAction {
         this::noMatchIfValidAndTimeOnly);
   }
 
+  /**
+   * Normalizer a property that is expected to be a generic property, so the process is more strict than properties that are
+   * expected to be a date.
+   *
+   * @param input the date
+   * @return the date normalization result
+   */
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),
@@ -304,13 +307,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
       dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString());
       if (dateNormalizationResult != null) {
-        dateNormalizationResult.setCleanOperationMatchId(sanitizedDate.getSanitizeOperation());
-
-        // TODO: 21/07/2022 Perhaps this should be done differently, because it pollutes the map of the extractor and its id
-        //Update the extractor match id.
-        if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.EDTF) {
-          dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.EDTF_CLEANED);
-        }
+        dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }
     }
     return dateNormalizationResult;

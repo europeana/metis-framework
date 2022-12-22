@@ -1,18 +1,17 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static java.util.Optional.ofNullable;
-import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
 
-import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
  * Patterns for numeric dates with variations in the separators of date components.
  * <p>For Patterns pay attentions on the use of {@link Matcher#matches()} or {@link Matcher#find()} in this method.</p>
  */
-public class NumericWithMissingPartsDateExtractor implements DateExtractor {
+public class NumericPartsDateExtractor implements DateExtractor {
 
   /**
    * The start of the string can be one or three question marks but not two.
@@ -32,93 +31,30 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    */
   private static final Pattern ENDING_UNCERTAIN_PATTERN = compile("(?:(?<!\\?)\\?|\\?{3})$");
 
-  private static final String DELIMITERS = "[\\-./]";
-  private static final String OPTIONAL_QUESTION_MARK = "\\??";
-
-  // TODO: 28/09/2022 Perhaps the missing and XX can be combined in one and then identified from the UNKNOWN_CHARACTERS cleanup??
-  /**
-   * For the 3 digits we make sure there is no question mark in front, using a lookahead
-   */
-  private static final String YEAR = "(\\d{3}(?!\\?)|\\d{4})";
-  private static final String DELIMITER_DIGITS = "(?:" + DELIMITERS + "(\\d{1,2}))?";
-  private static final String DIGITS_DELIMITER = "(?:(\\d{1,2})" + DELIMITERS + ")?";
-
   /**
    * Those are characters that indicate unknowns on year, month or day
    */
   private static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
-  /**
-   * For the 3 digits we make sure there is no question mark in front, using a lookahead
-   */
-  private static final String YEAR_XX = "(\\d{2}(?:XX|UU|--|\\?\\?)|\\d{3}(?!\\?)[XU]|\\d{4})";
-  /**
-   * For the double dash case we make sure there isn't a third dash with a lookbehind
-   */
-  private static final String DELIMITER_DIGITS_XX = "(?:" + DELIMITERS + "(\\d{2}|XX|UU|(?<!-)--|\\?\\?))?";
-  /**
-   * For the double dash case we make sure there isn't a third dash with a lookahead
-   */
-  private static final String DIGITS_DELIMITER_XX = "(?:(\\d{2}|XX|UU|--(?!-)|\\?\\?)" + DELIMITERS + ")?";
 
-  /**
-   * Enum with all the acceptable date patterns used in the surrounding class.
-   */
-  private enum NumericWithMissingPartsPattern {
-    YMD(compile(OPTIONAL_QUESTION_MARK + YEAR + DELIMITER_DIGITS + DELIMITER_DIGITS + OPTIONAL_QUESTION_MARK,
-        CASE_INSENSITIVE), NUMERIC_ALL_VARIANTS, 1, 2, 3),
-
-    DMY(compile(OPTIONAL_QUESTION_MARK + DIGITS_DELIMITER + DIGITS_DELIMITER + YEAR + OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE),
-        NUMERIC_ALL_VARIANTS, 3, 2, 1),
-
-    YMD_XX(compile(OPTIONAL_QUESTION_MARK + YEAR_XX + DELIMITER_DIGITS_XX + DELIMITER_DIGITS_XX + OPTIONAL_QUESTION_MARK,
-        CASE_INSENSITIVE), NUMERIC_ALL_VARIANTS_XX, 1, 2, 3),
-
-    DMY_XX(compile(OPTIONAL_QUESTION_MARK + DIGITS_DELIMITER_XX + DIGITS_DELIMITER_XX + YEAR_XX + OPTIONAL_QUESTION_MARK,
-        CASE_INSENSITIVE), NUMERIC_ALL_VARIANTS_XX, 3, 2, 1);
-
-    private final Pattern pattern;
-    private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
-    private final int yearIndex;
-    private final int monthIndex;
-    private final int dayIndex;
-
-    NumericWithMissingPartsPattern(Pattern pattern, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
-        int yearIndex, int monthIndex, int dayIndex) {
-      this.pattern = pattern;
-      this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
-      this.yearIndex = yearIndex;
-      this.monthIndex = monthIndex;
-      this.dayIndex = dayIndex;
-    }
-
-    public Pattern getPattern() {
-      return pattern;
-    }
-
-    public DateNormalizationExtractorMatchId getDateNormalizationExtractorMatchId() {
-      return dateNormalizationExtractorMatchId;
-    }
-
-    public int getYearIndex() {
-      return yearIndex;
-    }
-
-    public int getMonthIndex() {
-      return monthIndex;
-    }
-
-    public int getDayIndex() {
-      return dayIndex;
-    }
+  @Override
+  public DateNormalizationResult extract(String inputValue) {
+    return extract(inputValue, NumericPartsPattern.NUMERIC_SET);
   }
 
-  public DateNormalizationResult extract(String inputValue) {
-    final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
+  /**
+   * Validates and returns a date normalization result of provided input value.
+   *
+   * @param inputValue the input value
+   * @param numericPatternValues the patterns to check against
+   * @return the date normalization result
+   */
+  public DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues) {
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain =
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
 
     DateNormalizationResult dateNormalizationResult = null;
-    for (NumericWithMissingPartsPattern numericWithMissingPartsPattern : NumericWithMissingPartsPattern.values()) {
+    for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
         EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsPattern, matcher, uncertain);
@@ -133,7 +69,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
   }
 
   private EdtfDatePart extractDate(
-      NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) {
+      NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) {
     final String year = getYear(numericWithMissingPartsPattern, matcher);
     final String month = getMonth(numericWithMissingPartsPattern, matcher);
     final String day = getDay(numericWithMissingPartsPattern, matcher);
@@ -169,7 +105,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param matcher the matcher
    * @return the year
    */
-  private String getYear(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+  private String getYear(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     return matcher.group(numericWithMissingPartsPattern.getYearIndex());
   }
 
@@ -181,7 +117,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param matcher the matcher
    * @return the month
    */
-  private String getMonth(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+  private String getMonth(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     return ofNullable(ofNullable(matcher.group(numericWithMissingPartsPattern.getMonthIndex()))
         .orElseGet(() -> matcher.group(numericWithMissingPartsPattern.getDayIndex()))).orElse("0");
   }
@@ -193,7 +129,7 @@ public class NumericWithMissingPartsDateExtractor implements DateExtractor {
    * @param matcher the matcher
    * @return the day
    */
-  private String getDay(NumericWithMissingPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
+  private String getDay(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     return ofNullable(matcher.group(numericWithMissingPartsPattern.getMonthIndex()))
         .map(optional -> matcher.group(numericWithMissingPartsPattern.getDayIndex()))
         .orElse("0");

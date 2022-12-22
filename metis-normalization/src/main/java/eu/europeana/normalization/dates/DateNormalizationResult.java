@@ -20,6 +20,13 @@ public class DateNormalizationResult {
   private String originalInput;
   private AbstractEdtfDate edtfDate;
 
+  /**
+   * Constructor with all parameters.
+   *
+   * @param dateNormalizationExtractorMatchId the date normalization extractor match identifier
+   * @param originalInput the original input value
+   * @param edtfDate the date result
+   */
   public DateNormalizationResult(DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
       String originalInput, AbstractEdtfDate edtfDate) {
     this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
@@ -27,6 +34,12 @@ public class DateNormalizationResult {
     this.edtfDate = edtfDate;
   }
 
+  /**
+   * Get an instance of a date normalization result for no matches.
+   *
+   * @param originalInput the original input value
+   * @return the no match result
+   */
   public static DateNormalizationResult getNoMatchResult(String originalInput) {
     return new DateNormalizationResult(DateNormalizationExtractorMatchId.NO_MATCH, originalInput, null);
   }
@@ -43,7 +56,7 @@ public class DateNormalizationResult {
     return sanitizeOperation;
   }
 
-  public void setCleanOperationMatchId(SanitizeOperation sanitizeOperation) {
+  public void setCleanOperation(SanitizeOperation sanitizeOperation) {
     this.sanitizeOperation = sanitizeOperation;
   }
 

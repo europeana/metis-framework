@@ -11,6 +11,7 @@ import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.ToIntFunction;
@@ -90,8 +91,8 @@ public class CenturyDateExtractor implements DateExtractor {
   }
 
   private DateNormalizationResult extractInstance(String inputValue, PatternCenturyDateOperation patternCenturyDateOperation) {
-    final boolean uncertain = inputValue.startsWith("?") || inputValue.endsWith("?");
-    final String sanitizedValue = inputValue.replaceAll("\\s", " ").trim();
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
+    final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
 
     final Matcher matcher = patternCenturyDateOperation.getPattern().matcher(sanitizedValue);
     DateNormalizationResult dateNormalizationResult = null;

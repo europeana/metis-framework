@@ -14,19 +14,9 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   private EdtfDatePart edtfDatePart;
-  private EdtfTimePart edtfTimePart;
-
-  public InstantEdtfDate(EdtfDatePart edtfDatePart, EdtfTimePart edtfTimePart) {
-    this.edtfDatePart = edtfDatePart;
-    this.edtfTimePart = edtfTimePart;
-  }
 
   public InstantEdtfDate(EdtfDatePart edtfDatePart) {
     this.edtfDatePart = edtfDatePart;
-  }
-
-  public InstantEdtfDate(EdtfTimePart parseEdtfTimePart) {
-    this(null, parseEdtfTimePart);
   }
 
   @Override
@@ -40,14 +30,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   public void setEdtfDatePart(EdtfDatePart edtfDatePart) {
     this.edtfDatePart = edtfDatePart;
-  }
-
-  public EdtfTimePart getEdtfTimePart() {
-    return edtfTimePart;
-  }
-
-  public void setEdtfTimePart(EdtfTimePart edtfTimePart) {
-    this.edtfTimePart = edtfTimePart;
   }
 
   @Override
@@ -71,6 +53,11 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
+  public boolean isUnspecified() {
+    return edtfDatePart.isUnspecified();
+  }
+
+  @Override
   public void switchDayAndMonth() {
     if (edtfDatePart != null) {
       edtfDatePart.switchDayAndMonth();
@@ -82,7 +69,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     InstantEdtfDate firstDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
       firstDay = SerializationUtils.clone(this);
-      firstDay.setEdtfTimePart(null);
       firstDay.setApproximate(false);
       firstDay.setUncertain(false);
       firstDay.getEdtfDatePart().setYearPrecision(null);
@@ -119,7 +105,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     InstantEdtfDate lastDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
       lastDay = SerializationUtils.clone(this);
-      lastDay.setEdtfTimePart(null);
       lastDay.setApproximate(false);
       lastDay.setUncertain(false);
       lastDay.getEdtfDatePart().setYearPrecision(null);
@@ -154,11 +139,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     return Month.of(getEdtfDatePart().getMonth()).length(Year.isLeap(getEdtfDatePart().getYear()));
   }
 
-  @Override
-  public void removeTime() {
-    edtfTimePart = null;
-  }
-
   public Integer getCentury() {
     final int century;
 
@@ -182,10 +162,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     StringBuilder stringBuilder = new StringBuilder();
     if (this.getEdtfDatePart() != null) {
       stringBuilder.append(edtfDatePart.toString());
-    }
-
-    if (this.getEdtfTimePart() != null) {
-      stringBuilder.append(edtfTimePart.toString());
     }
     return stringBuilder.toString();
   }
