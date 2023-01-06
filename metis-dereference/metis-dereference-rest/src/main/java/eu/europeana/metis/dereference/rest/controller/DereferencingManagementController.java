@@ -1,11 +1,10 @@
-package eu.europeana.metis.dereference.rest;
+package eu.europeana.metis.dereference.rest.controller;
 
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.RestEndpoints;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -34,7 +33,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * REST controller for managing vocabularies and entities Created by gmamakis on 12-2-16.
  */
 @Controller
-@Api("/")
 public class DereferencingManagementController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);

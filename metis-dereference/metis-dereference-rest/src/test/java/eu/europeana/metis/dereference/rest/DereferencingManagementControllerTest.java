@@ -19,6 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.rest.controller.DereferencingController;
+import eu.europeana.metis.dereference.rest.controller.DereferencingManagementController;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.dereference.rest;
+package eu.europeana.metis.dereference.rest.controller;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -7,7 +7,6 @@ import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Dereferencing REST endpoint Created by gmamakis on 12-2-16.
  */
 @Controller
-@Api("/")
 public class DereferencingController {
 
   private final DereferenceService dereferenceService;
@@ -88,7 +86,7 @@ public class DereferencingController {
                                                      item.getDereferenceStatus()))
                                                  .collect(Collectors.toList()));
     } catch (RuntimeException e) {
-      throw new DereferenceException(generateExceptionMessage(resourceIds.stream().collect(Collectors.joining(",")), e), e);
+      throw new DereferenceException(generateExceptionMessage(String.join(",", resourceIds), e), e);
     }
   }
 }
