@@ -2,11 +2,15 @@ package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.dereference.service.DereferenceService;
+import eu.europeana.metis.dereference.service.DereferencingManagementService;
+import eu.europeana.metis.dereference.service.MongoDereferenceService;
+import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
-import java.util.Collections;
 import java.util.Set;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,32 +19,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Spring configuration class Created by ymamakis on 12-2-16.
+ * Entry class with configuration fields and beans initialization for the application.
  */
 @Configuration
 @EnableScheduling
-@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest",
+@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest.controller",
     "eu.europeana.metis.dereference.rest.exceptions"})
 @PropertySource("classpath:dereferencing.properties")
 @EnableWebMvc
-@EnableSwagger2
-public class Application implements WebMvcConfigurer, InitializingBean {
+public class ApplicationConfiguration implements WebMvcConfigurer, InitializingBean {
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -93,11 +88,42 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     mongoClientVocabulary = new MongoClientProvider<>(mongoProperties).createMongoClient();
   }
 
+  /**
+   * Get a dereference service instance bean.
+   *
+   * @param processedEntityDao the processed entity dao
+   * @param vocabularyDao the vocabulary dao
+   * @return a dereference service bean
+   */
+  @Bean
+  public DereferenceService getDereferenceService(ProcessedEntityDao processedEntityDao, VocabularyDao vocabularyDao) {
+    return new MongoDereferenceService(processedEntityDao, vocabularyDao);
+  }
+
+  /**
+   * Get a dereferencing management service instance bean.
+   *
+   * @param processedEntityDao the processed entity dao
+   * @param vocabularyDao the vocabulary dao
+   * @param vocabularyCollectionImporterFactory the vocabulary collection importer factory
+   * @return a dereferencing management service instance bean
+   */
+  @Bean
+  public DereferencingManagementService getDereferencingManagementService(ProcessedEntityDao processedEntityDao,
+      VocabularyDao vocabularyDao, VocabularyCollectionImporterFactory vocabularyCollectionImporterFactory) {
+    return new MongoDereferencingManagementService(vocabularyDao, processedEntityDao, vocabularyCollectionImporterFactory);
+  }
+
+  @Bean
+  public VocabularyCollectionImporterFactory getVocabularyCollectionImporterFactory() {
+    return new VocabularyCollectionImporterFactory();
+  }
+
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/swagger-ui/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-        .resourceChain(false);
+            .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+            .resourceChain(false);
   }
 
   @Override
@@ -128,28 +154,25 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return Set.of(allowedUrlDomains);
   }
 
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
-
   /**
-   * Empty Cache with XML entries null or empty.
-   * This will remove entries with null or empty XML in the cache (Redis). If the same redis instance/cluster is used for multiple
-   * services then the cache for other services is cleared as well.
-   * This task is scheduled by a cron expression.
+   * Empty Cache with XML entries null or empty. This will remove entries with null or empty XML in the cache (Redis). If the same
+   * redis instance/cluster is used for multiple services then the cache for other services is cleared as well. This task is
+   * scheduled by a cron expression.
    */
 
   @Scheduled(cron = "${dereference.purge.emptyxml.frequency}")
-  public void dereferenceCacheNullOrEmpty(){ getProcessedEntityDao().purgeByNullOrEmptyXml(); }
+  public void dereferenceCacheNullOrEmpty() {
+    getProcessedEntityDao().purgeByNullOrEmptyXml();
+  }
 
   /**
    * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster is used for multiple
-   * services then the cache for other services is cleared as well.
-   * This task is scheduled by a cron expression.
+   * services then the cache for other services is cleared as well. This task is scheduled by a cron expression.
    */
   @Scheduled(cron = "${dereference.purge.all.frequency}")
-  public void dereferenceCachePurgeAll(){ getProcessedEntityDao().purgeAll(); }
+  public void dereferenceCachePurgeAll() {
+    getProcessedEntityDao().purgeAll();
+  }
 
   /**
    * Closes any connections previous acquired.
@@ -162,27 +185,5 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (mongoClientEntity != null) {
       mongoClientEntity.close();
     }
-  }
-
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .useDefaultResponseMessages(false)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*"))
-        .build()
-        .apiInfo(apiInfo());
-  }
-
-  private ApiInfo apiInfo() {
-    return new ApiInfo(
-        "Dereference REST API",
-        "Dereference REST API for Europeana",
-        "v1",
-        "API TOS",
-        new Contact("development", "europeana.eu", "development@europeana.eu"),
-        "EUPL Licence v1.2",
-        "https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12", Collections.emptyList());
   }
 }

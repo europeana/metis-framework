@@ -11,6 +11,7 @@ import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.metis.dereference.DereferenceResult;
+import eu.europeana.metis.dereference.rest.controller.DereferencingController;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.utils.RestEndpoints;
