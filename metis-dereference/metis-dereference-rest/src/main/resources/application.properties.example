@@ -30,3 +30,24 @@ allowed.url.domains=
 dereference.purge.all.frequency=@monthly
 # purge empty xml
 dereference.purge.emptyxml.frequency=@daily
+
+#Actuator
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+
+#Logging
+logging.config=
+
+# Elastic APM
+elastic.apm.enabled=false
+elastic.apm.recording: true
+elastic.apm.instrument: true
+elastic.apm.service_name=metis-dereference
+elastic.apm.server_url=
+elastic.apm.environment=test
+elastic.apm.application_packages=eu.europeana
+elastic.apm.log_level=ERROR
+elastic.apm.capture_body: all
+elastic.apm.capture_headers: true
+elastic.apm.metrics_interval: 5s
