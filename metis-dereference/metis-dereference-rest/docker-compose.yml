@@ -21,7 +21,7 @@ services:
     environment:
       MONGO_HOSTS: metis-core-mongo
     volumes:
-      - /data/metis-configuration/metis-framework/metis-dereference/metis-dereference-rest/k8s/overlays/local/components/properties/resources/application.properties:/application.properties
+      - /data/metis-configuration/metis-framework/metis-dereference/metis-dereference-rest/k8s/overlays/local/components/properties/application.properties:/application.properties
       - /data/metis-configuration/k8s/custom-truststore-jks/custom-truststore.jks:/data/certificates/custom-truststore.jks
       - /data/metis-configuration/k8s/log4j2-xml/log4j2.xml:/data/logging/log4j2.xml
     depends_on:

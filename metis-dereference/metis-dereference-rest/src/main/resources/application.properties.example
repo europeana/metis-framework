@@ -13,11 +13,17 @@ socks.proxy.port=
 socks.proxy.username=
 socks.proxy.password=
 
+##Truststore
+truststore.path=
+truststore.password=
+
 #Mongo
 mongo.hosts=
 mongo.port=
+mongo.authentication.db=admin
 mongo.username=
 mongo.password=
+mongo.enableSSL=false
 mongo.application.name=
 entity.db=
 vocabulary.db=

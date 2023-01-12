@@ -74,6 +74,10 @@
           <groupId>org.mongodb.morphia</groupId>
           <artifactId>morphia</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webflux</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -86,16 +90,6 @@
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>${version.swagger}</version>
-    </dependency>
-    <!--
-    This is required by springfox-swagger2. That is because Swagger2ControllerWebMvc and Swagger2ControllerWebFlux contain the
-    annotation ConditionalOnWebApplication.
-    Because the entity-api-client uses spring-webflux the @Conditional({OnReactiveWebApplication.class}) is not enough and if the
-    dependency is missing, it is then not checking for the extra ConditionalOnWebApplication condition.
-    -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
     </dependency>
     <dependency>
       <groupId>com.jayway.jsonpath</groupId>
