@@ -22,6 +22,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -151,6 +152,16 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   @Bean
   Set<String> getAllowedUrlDomains() {
     return Set.of(propertiesHolder.getAllowedUrlDomains());
+  }
+
+  /**
+   * Used to allow x-forwarded-prefix header for applications behind a reverse proxy
+   *
+   * @return the forwarded header filter
+   */
+  @Bean
+  ForwardedHeaderFilter forwardedHeaderFilter() {
+    return new ForwardedHeaderFilter();
   }
 
   /**
