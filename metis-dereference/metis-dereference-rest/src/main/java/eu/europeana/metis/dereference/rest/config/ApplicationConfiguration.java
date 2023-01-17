@@ -155,7 +155,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   }
 
   /**
-   * Used to allow x-forwarded-prefix header for applications behind a reverse proxy
+   * Used to allow x-forwarded-prefix header for applications behind a reverse proxy.
+   * <p>This is required for springdoc/swagger internal redirects if the application is for example deployed with a context
+   * path</p>
    *
    * @return the forwarded header filter
    */
