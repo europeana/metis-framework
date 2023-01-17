@@ -19,7 +19,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      MONGO_HOSTS: metis-core-mongo
+      MONGO_HOSTS: metis-dereference-mongo
     volumes:
       - /data/metis-configuration/metis-framework/metis-dereference/metis-dereference-rest/k8s/overlays/local/components/properties/application.properties:/application.properties
       - /data/metis-configuration/k8s/custom-truststore-jks/custom-truststore.jks:/data/certificates/custom-truststore.jks

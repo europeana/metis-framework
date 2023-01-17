@@ -41,8 +41,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
 
   private final ConfigurationPropertiesHolder propertiesHolder;
-  private final MongoClient mongoClientEntity;
-  private final MongoClient mongoClientVocabulary;
+  private final MongoClient mongoClient;
 
   /**
    * Autowired constructor for Spring Configuration class.
@@ -51,8 +50,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * @throws TrustStoreConfigurationException if the configuration of the truststore failed
    */
   public ApplicationConfiguration(ConfigurationPropertiesHolder propertiesHolder) throws TrustStoreConfigurationException {
-    mongoClientEntity = ApplicationConfiguration.initializeApplication(propertiesHolder);
-    mongoClientVocabulary = ApplicationConfiguration.initializeApplication(propertiesHolder);
+    mongoClient = ApplicationConfiguration.initializeApplication(propertiesHolder);
     this.propertiesHolder = propertiesHolder;
   }
 
@@ -131,22 +129,14 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
-  MongoClient getEntityMongoClient() {
-    return mongoClientEntity;
-  }
-
-  MongoClient getVocabularyMongoClient() {
-    return mongoClientVocabulary;
-  }
-
   @Bean
   ProcessedEntityDao getProcessedEntityDao() {
-    return new ProcessedEntityDao(getEntityMongoClient(), propertiesHolder.getEntityDb());
+    return new ProcessedEntityDao(mongoClient, propertiesHolder.getEntityDb());
   }
 
   @Bean
   VocabularyDao getVocabularyDao() {
-    return new VocabularyDao(getVocabularyMongoClient(), propertiesHolder.getVocabularyDb());
+    return new VocabularyDao(mongoClient, propertiesHolder.getVocabularyDb());
   }
 
   @Bean
@@ -191,11 +181,8 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    */
   @PreDestroy
   public void close() {
-    if (mongoClientVocabulary != null) {
-      mongoClientVocabulary.close();
-    }
-    if (mongoClientEntity != null) {
-      mongoClientEntity.close();
+    if (mongoClient != null) {
+      mongoClient.close();
     }
   }
 }
