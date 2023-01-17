@@ -1,0 +1,65 @@
+#Spring
+spring.servlet.multipart.max-file-size=5MB
+spring.servlet.multipart.max-request-size=5MB
+spring.autoconfigure.exclude=\
+  org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration, \
+  org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration, \
+  org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+
+#Server
+##Should be '/' for deployments with a host. Should have a value for local deployments without a host
+server.servlet.context-path=/metis-dereference
+##X-forward-header to allow springdoc/swagger to work behind a reverse proxy
+server.forward-headers-strategy=framework
+
+#Socks Proxy
+socks.proxy.enabled=
+socks.proxy.host=
+socks.proxy.port=
+socks.proxy.username=
+socks.proxy.password=
+
+##Truststore
+truststore.path=
+truststore.password=
+
+#Mongo
+mongo.hosts=
+mongo.port=
+mongo.authentication.db=admin
+mongo.username=
+mongo.password=
+mongo.enableSSL=false
+mongo.application.name=
+entity.db=
+vocabulary.db=
+
+#The allowed domains for vocabularies loading without the scheme(always validated against https). e.g. raw.githubusercontent.com
+allowed.url.domains=
+
+# Dereferencing cache cron expressions,
+# refer to Spring Framework CronExpression for documentation
+dereference.purge.all.frequency=@monthly
+# purge empty xml
+dereference.purge.emptyxml.frequency=@daily
+
+#Actuator
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+
+#Logging
+logging.config=
+
+# Elastic APM
+elastic.apm.enabled=false
+elastic.apm.recording: true
+elastic.apm.instrument: true
+elastic.apm.service_name=metis-dereference
+elastic.apm.server_url=
+elastic.apm.environment=test
+elastic.apm.application_packages=eu.europeana
+elastic.apm.log_level=ERROR
+elastic.apm.capture_body: all
+elastic.apm.capture_headers: true
+elastic.apm.metrics_interval: 5s

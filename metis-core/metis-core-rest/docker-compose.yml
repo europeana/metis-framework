@@ -27,7 +27,7 @@ services:
     ports:
       - '27017:27017'
   metis-core-local:
-    image: europeana/metis-core:feat-MET-4984-dockerize-metis-core
+    image: europeana/metis-core:develop
     container_name: metis-core-local
     build:
       context: ./

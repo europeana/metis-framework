@@ -10,17 +10,19 @@ import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
-import eu.europeana.metis.mongo.connection.MongoProperties;
+import eu.europeana.metis.utils.CustomTruststoreAppender;
+import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import java.util.Set;
 import javax.annotation.PreDestroy;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -33,59 +35,55 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableScheduling
 @ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest.controller",
     "eu.europeana.metis.dereference.rest.exceptions"})
-@PropertySource("classpath:dereferencing.properties")
 @EnableWebMvc
-public class ApplicationConfiguration implements WebMvcConfigurer, InitializingBean {
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
-  //Socks proxy
-  @Value("${socks.proxy.enabled}")
-  private boolean socksProxyEnabled;
-  @Value("${socks.proxy.host}")
-  private String socksProxyHost;
-  @Value("${socks.proxy.port}")
-  private String socksProxyPort;
-  @Value("${socks.proxy.username}")
-  private String socksProxyUsername;
-  @Value("${socks.proxy.password}")
-  private String socksProxyPassword;
+  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
 
-  //Mongo
-  @Value("${mongo.hosts}")
-  private String[] mongoHosts;
-  @Value("${mongo.port}")
-  private int mongoPort;
-  @Value("${mongo.username}")
-  private String mongoUsername;
-  @Value("${mongo.password}")
-  private String mongoPassword;
-  @Value("${mongo.application.name}")
-  private String mongoApplicationName;
-  @Value("${entity.db}")
-  private String entityDb;
-  @Value("${vocabulary.db}")
-  private String vocabularyDb;
-
-  //Valid directories list
-  @Value("${allowed.url.domains}")
-  private String[] allowedUrlDomains;
-  private MongoClient mongoClientEntity;
-  private MongoClient mongoClientVocabulary;
+  private final ConfigurationPropertiesHolder propertiesHolder;
+  private final MongoClient mongoClient;
 
   /**
-   * Used for overwriting properties if cloud foundry environment is used
+   * Autowired constructor for Spring Configuration class.
+   *
+   * @param propertiesHolder the object that holds all boot configuration values
+   * @throws TrustStoreConfigurationException if the configuration of the truststore failed
    */
-  @Override
-  public void afterPropertiesSet() {
-    if (socksProxyEnabled) {
-      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+  public ApplicationConfiguration(ConfigurationPropertiesHolder propertiesHolder) throws TrustStoreConfigurationException {
+    mongoClient = ApplicationConfiguration.initializeApplication(propertiesHolder);
+    this.propertiesHolder = propertiesHolder;
+  }
+
+  /**
+   * This method performs the initializing tasks for the application.
+   *
+   * @param propertiesHolder The properties.
+   * @return The Mongo client that can be used to access the mongo database.
+   * @throws TrustStoreConfigurationException In case a problem occurred with the truststore.
+   */
+  static MongoClient initializeApplication(ConfigurationPropertiesHolder propertiesHolder)
+      throws TrustStoreConfigurationException {
+
+    // Load the trust store file.
+    if (StringUtils.isNotEmpty(propertiesHolder.getTruststorePath()) && StringUtils
+        .isNotEmpty(propertiesHolder.getTruststorePassword())) {
+      CustomTruststoreAppender
+          .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(),
+              propertiesHolder.getTruststorePassword());
+      LOGGER.info("Custom truststore appended to default truststore");
     }
 
-    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
-        IllegalArgumentException::new);
-    mongoProperties.setMongoHosts(mongoHosts, new int[]{mongoPort});
-    mongoProperties.setApplicationName(mongoApplicationName);
-    mongoClientEntity = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    mongoClientVocabulary = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    // Initialize the socks proxy.
+    if (propertiesHolder.isSocksProxyEnabled()) {
+      new SocksProxy(propertiesHolder.getSocksProxyHost(), propertiesHolder.getSocksProxyPort(),
+          propertiesHolder
+              .getSocksProxyUsername(),
+          propertiesHolder.getSocksProxyPassword()).init();
+      LOGGER.info("Socks proxy enabled");
+    }
+
+    // Initialize the Mongo connection
+    return new MongoClientProvider<>(propertiesHolder.getMongoProperties()).createMongoClient();
   }
 
   /**
@@ -131,27 +129,31 @@ public class ApplicationConfiguration implements WebMvcConfigurer, InitializingB
     registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
-  MongoClient getEntityMongoClient() {
-    return mongoClientEntity;
-  }
-
-  MongoClient getVocabularyMongoClient() {
-    return mongoClientVocabulary;
-  }
-
   @Bean
   ProcessedEntityDao getProcessedEntityDao() {
-    return new ProcessedEntityDao(getEntityMongoClient(), entityDb);
+    return new ProcessedEntityDao(mongoClient, propertiesHolder.getEntityDb());
   }
 
   @Bean
   VocabularyDao getVocabularyDao() {
-    return new VocabularyDao(getVocabularyMongoClient(), vocabularyDb);
+    return new VocabularyDao(mongoClient, propertiesHolder.getVocabularyDb());
   }
 
   @Bean
   Set<String> getAllowedUrlDomains() {
-    return Set.of(allowedUrlDomains);
+    return Set.of(propertiesHolder.getAllowedUrlDomains());
+  }
+
+  /**
+   * Used to allow x-forwarded-prefix header for applications behind a reverse proxy.
+   * <p>This is required for springdoc/swagger internal redirects if the application is for example deployed with a context
+   * path</p>
+   *
+   * @return the forwarded header filter
+   */
+  @Bean
+  ForwardedHeaderFilter forwardedHeaderFilter() {
+    return new ForwardedHeaderFilter();
   }
 
   /**
@@ -179,11 +181,8 @@ public class ApplicationConfiguration implements WebMvcConfigurer, InitializingB
    */
   @PreDestroy
   public void close() {
-    if (mongoClientVocabulary != null) {
-      mongoClientVocabulary.close();
-    }
-    if (mongoClientEntity != null) {
-      mongoClientEntity.close();
+    if (mongoClient != null) {
+      mongoClient.close();
     }
   }
 }

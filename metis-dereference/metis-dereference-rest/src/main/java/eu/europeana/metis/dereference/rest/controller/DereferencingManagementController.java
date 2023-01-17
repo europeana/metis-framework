@@ -5,10 +5,11 @@ import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.RestEndpoints;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +43,8 @@ public class DereferencingManagementController {
   private final Set<String> allowedUrlDomains;
 
   /**
+   * Constructor parameterized.
+   *
    * @param service the dereferencing management service
    * @param allowedUrlDomains the allowed valid url prefixes
    */
@@ -57,7 +61,13 @@ public class DereferencingManagementController {
    */
   @GetMapping(value = RestEndpoints.VOCABULARIES, produces = "application/json")
   @ResponseBody
-  @ApiOperation(value = "Retrieve all the vocabularies", response = List.class)
+  @Operation(description = "Retrieve all the vocabularies", responses = {
+      @ApiResponse(responseCode = "200", content = {
+          @Content(
+              mediaType = MediaType.APPLICATION_JSON_VALUE,
+              schema = @Schema(hidden = true))
+      }),
+  })
   public List<Vocabulary> getAllVocabularies() {
     return service.getAllVocabularies();
   }
@@ -68,42 +78,44 @@ public class DereferencingManagementController {
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY)
   @ResponseBody
-  @ApiOperation(value = "Empty the cache")
+  @Operation(description = "Empty the cache")
   public void emptyCache() {
     service.emptyCache();
   }
 
   /**
    * Empty the cache for all Resources without an XML representation
-   * */
+   */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_XML)
   @ResponseBody
-  @ApiOperation(value = "Empty the cache without XML representations")
+  @Operation(description = "Empty the cache without XML representations")
   public void emptyCacheByEmptyXml() {
     service.purgeByNullOrEmptyXml();
   }
 
   /**
    * Empty the cache for a specific resource
+   *
    * @param resourceId The resourceId to empty the cache for
-  * */
+   */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_RESOURCE)
   @ResponseBody
-  @ApiOperation(value = "Empty the cache by resource Id")
+  @Operation(description = "Empty the cache by resource Id")
   public void emptyCacheByResourceId(
-      @ApiParam(value = "Id (URI) of resource to clear cache", required = true) @RequestParam(value = "resourceId") String resourceId) {
+      @Parameter(description = "Id (URI) of resource to clear cache", required = true) @RequestParam(value = "resourceId") String resourceId) {
     service.purgeByResourceId(resourceId);
   }
 
   /**
    * Empty the cache for a specific vocabulary, with all associated entities
+   *
    * @param vocabularyId The vocabularyId to empty the cache for
-   * */
+   */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_VOCABULARY)
   @ResponseBody
-  @ApiOperation(value = "Empty the cache by vocabulary Id")
+  @Operation(description = "Empty the cache by vocabulary Id")
   public void emptyCacheByVocabularyId(
-      @ApiParam(value = "Id of vocabulary to clear cache", required = true) @RequestParam(value = "vocabularyId") String vocabularyId) {
+      @Parameter(description = "Id of vocabulary to clear cache", required = true) @RequestParam(value = "vocabularyId") String vocabularyId) {
     service.purgeByVocabularyId(vocabularyId);
   }
 
@@ -116,14 +128,14 @@ public class DereferencingManagementController {
    */
   @PostMapping(value = RestEndpoints.LOAD_VOCABULARIES)
   @ResponseBody
-  @ApiOperation(value = "Load and replace the vocabularies listed by the given vocabulary directory. Does NOT purge the cache.")
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Vocabularies loaded successfully."),
-      @ApiResponse(code = 400, message = "Bad request parameters."),
-      @ApiResponse(code = 502, message = "Problem accessing vocabulary repository.")
-  })
+  @Operation(description = "Load and replace the vocabularies listed by the given vocabulary directory. Does NOT purge the cache.",
+      responses = {
+          @ApiResponse(responseCode = "200", description = "Vocabularies loaded successfully."),
+          @ApiResponse(responseCode = "400", description = "Bad request parameters."),
+          @ApiResponse(responseCode = "502", description = "Problem accessing vocabulary repository.")
+      })
   public ResponseEntity<String> loadVocabularies(
-      @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
+      @Parameter(name = "directory_url") @RequestParam("directory_url") String directoryUrl) {
     try {
       final Optional<URL> validatedLocationUrl = getValidatedLocationUrl(directoryUrl);
       if (validatedLocationUrl.isPresent()) {

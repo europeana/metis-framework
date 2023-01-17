@@ -20,7 +20,21 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>co.elastic.apm</groupId>
+      <artifactId>apm-agent-attach</artifactId>
+      <version>${version.elastic.apm}</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
@@ -60,28 +74,17 @@
           <groupId>org.mongodb.morphia</groupId>
           <artifactId>morphia</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webflux</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
-      <version>${version.swagger}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>${version.swagger}</version>
-    </dependency>
-    <!--
-    This is required by springfox-swagger2. That is because Swagger2ControllerWebMvc and Swagger2ControllerWebFlux contain the
-    annotation ConditionalOnWebApplication.
-    Because the entity-api-client uses spring-webflux the @Conditional({OnReactiveWebApplication.class}) is not enough and if the
-    dependency is missing, it is then not checking for the extra ConditionalOnWebApplication condition.
-    -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${version.springdoc.openapi}</version>
     </dependency>
     <dependency>
       <groupId>com.jayway.jsonpath</groupId>
