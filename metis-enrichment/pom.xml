@@ -12,7 +12,6 @@
   <modules>
     <module>metis-enrichment-service</module>
     <module>metis-enrichment-common</module>
-    <module>metis-enrichment-rest</module>
     <module>metis-enrichment-client</module>
   </modules>
 
