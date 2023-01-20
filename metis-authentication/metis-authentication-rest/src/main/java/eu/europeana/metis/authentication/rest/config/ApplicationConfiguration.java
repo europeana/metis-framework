@@ -10,6 +10,7 @@ import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
+import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoException;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -45,6 +47,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2017-10-27
  */
 @Configuration
+@Import({ElasticAPMConfiguration.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest.controller"})
 @EnableScheduling
 public class ApplicationConfiguration implements WebMvcConfigurer {

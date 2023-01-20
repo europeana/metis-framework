@@ -18,6 +18,7 @@ import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.mongo.utils.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
+import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -28,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -46,6 +48,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  * Entry class with configuration fields and beans initialization for the application.
  */
 @Configuration
+@Import({ElasticAPMConfiguration.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 public class ApplicationConfiguration implements WebMvcConfigurer {
 
@@ -71,7 +74,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-        .allowedOrigins(propertiesHolder.getAllowedCorsHosts());
+            .allowedOrigins(propertiesHolder.getAllowedCorsHosts());
   }
 
   @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)

@@ -12,6 +12,7 @@ import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFact
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
+import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import java.util.Set;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.filter.ForwardedHeaderFilter;
@@ -32,6 +34,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Entry class with configuration fields and beans initialization for the application.
  */
 @Configuration
+@Import({ElasticAPMConfiguration.class})
 @EnableScheduling
 @ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest.controller",
     "eu.europeana.metis.dereference.rest.exceptions"})
