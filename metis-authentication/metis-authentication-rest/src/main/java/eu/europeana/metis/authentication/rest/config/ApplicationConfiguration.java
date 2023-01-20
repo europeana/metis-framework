@@ -101,6 +101,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
+  private MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler;
 
   @Bean
   public SessionFactory getSessionFactory() throws TrustStoreConfigurationException, IOException {
@@ -165,13 +166,17 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     return authenticationService;
   }
 
+  /**
+   * Get the zoho access client.
+   *
+   * @param sessionFactory the session factory
+   * @return the zoho access client
+   * @throws ZohoException if a zoho configuration error occurred
+   */
   @Bean
   public ZohoAccessClient getZohoAccessClient(SessionFactory sessionFactory) throws ZohoException {
-    final MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler(sessionFactory);
-    //Initialize Zoho handler
-    MetisZohoOAuthPSQLHandler
-        .initializeWithRefreshToken(zohoCurrentUserEmail, zohoRefreshToken, zohoClientId,
-            zohoClientSecret);
+    metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler(sessionFactory, zohoCurrentUserEmail, zohoRefreshToken,
+        zohoClientId, zohoClientSecret);
 
     final ZohoAccessClient zohoAccessClient = new ZohoAccessClient(metisZohoOAuthPSQLHandler,
         zohoCurrentUserEmail, zohoClientId, zohoClientSecret, zohoInitialGrantToken,
@@ -210,8 +215,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     if (sessionFactory != null && !sessionFactory.isClosed()) {
       sessionFactory.close();
     }
-    //Close static session factory
-    MetisZohoOAuthPSQLHandler.close();
+    metisZohoOAuthPSQLHandler.close();
   }
 
   @Override

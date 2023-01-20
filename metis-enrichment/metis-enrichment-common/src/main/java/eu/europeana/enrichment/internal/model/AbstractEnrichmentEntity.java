@@ -1,10 +1,12 @@
 package eu.europeana.enrichment.internal.model;
 
-import dev.morphia.annotations.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.morphia.annotations.Entity;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * Abstract class representing an enrichment entity
@@ -34,42 +36,42 @@ public abstract class AbstractEnrichmentEntity implements eu.europeana.enrichmen
 
   @Override
   public Map<String, List<String>> getPrefLabel() {
-    return this.prefLabel;
+    return SerializationUtils.clone(new HashMap<>(this.prefLabel));
   }
 
   @Override
   public Map<String, List<String>> getHiddenLabel() {
-    return this.hiddenLabel;
+    return SerializationUtils.clone(new HashMap<>(this.hiddenLabel));
   }
 
   @Override
   public Map<String, List<String>> getAltLabel() {
-    return this.altLabel;
+    return SerializationUtils.clone(new HashMap<>(this.altLabel));
   }
 
   @Override
   public Map<String, List<String>> getNote() {
-    return this.note;
-  }
-
-  @Override
-  public void setAltLabel(Map<String, List<String>> altLabel) {
-    this.altLabel = altLabel;
+    return SerializationUtils.clone(new HashMap<>(this.note));
   }
 
   @Override
   public void setPrefLabel(Map<String, List<String>> prefLabel) {
-    this.prefLabel = prefLabel;
+    this.prefLabel = SerializationUtils.clone(new HashMap<>(prefLabel));
+  }
+
+  @Override
+  public void setAltLabel(Map<String, List<String>> altLabel) {
+    this.altLabel = SerializationUtils.clone(new HashMap<>(altLabel));
   }
 
   @Override
   public void setHiddenLabel(Map<String, List<String>> hiddenLabel) {
-    this.hiddenLabel = hiddenLabel;
+    this.hiddenLabel = SerializationUtils.clone(new HashMap<>(hiddenLabel));
   }
 
   @Override
   public void setNote(Map<String, List<String>> note) {
-    this.note = note;
+    this.note = SerializationUtils.clone(new HashMap<>(note));
   }
 
   @Override

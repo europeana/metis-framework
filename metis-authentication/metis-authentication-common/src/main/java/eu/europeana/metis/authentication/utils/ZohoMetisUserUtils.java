@@ -8,7 +8,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.zoho.ZohoConstants;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import org.springframework.util.CollectionUtils;
 
