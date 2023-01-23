@@ -9,7 +9,6 @@
   <artifactId>metis-validation</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>metis-validation-client</module>
     <module>metis-validation-common</module>
     <module>metis-validation-service</module>
   </modules>

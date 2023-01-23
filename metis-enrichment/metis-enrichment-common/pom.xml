@@ -19,18 +19,13 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-utils</artifactId>
+      <artifactId>metis-common-network</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-mongo</artifactId>
+      <artifactId>metis-common-utils</artifactId>
       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>dev.morphia.morphia</groupId>
-      <artifactId>morphia-core</artifactId>
-      <version>${version.morphia.core}</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>
@@ -65,11 +60,6 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>${version.swagger.annotations}</version>
     </dependency>
      <!-- Entity Client dependency. Includes Entity management Model classes used in common module-->
     <dependency>

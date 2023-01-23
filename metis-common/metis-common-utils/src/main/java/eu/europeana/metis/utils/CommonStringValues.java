@@ -3,10 +3,7 @@ package eu.europeana.metis.utils;
 import java.util.regex.Pattern;
 
 /**
- * Contains common used String values
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-01-02
+ * Contains common used String values.
  */
 public final class CommonStringValues {
 

@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * This class stores result of the parsing of XSLT/XML organization file with Wikidata content
  *
- * @author GrafR
  */
 @XmlRootElement(namespace = "http://xmlns.com/foaf/0.1/", name = "Organization")
 @XmlAccessorType(XmlAccessType.FIELD)

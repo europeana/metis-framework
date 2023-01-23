@@ -29,9 +29,6 @@ import static eu.europeana.metis.utils.RestEndpoints.DATASETS_XSLT_XSLTID;
 import static eu.europeana.metis.utils.RestEndpoints.DEPUBLISH_EXECUTE_DATASETID;
 import static eu.europeana.metis.utils.RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID;
 import static eu.europeana.metis.utils.RestEndpoints.DEREFERENCE;
-import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_EQUIVALENCE;
-import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_ID;
-import static eu.europeana.metis.utils.RestEndpoints.ENRICH_ENTITY_SEARCH;
 import static eu.europeana.metis.utils.RestEndpoints.LOAD_VOCABULARIES;
 import static eu.europeana.metis.utils.RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS;
 import static eu.europeana.metis.utils.RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS;
@@ -59,8 +56,6 @@ import static eu.europeana.metis.utils.RestEndpoints.REPOSITORY_OAI_ENDPOINT;
 import static eu.europeana.metis.utils.RestEndpoints.REPOSITORY_RECORDS;
 import static eu.europeana.metis.utils.RestEndpoints.REPOSITORY_RECORDS_RECORD_ID;
 import static eu.europeana.metis.utils.RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER;
-import static eu.europeana.metis.utils.RestEndpoints.SCHEMA_BATCH_VALIDATE;
-import static eu.europeana.metis.utils.RestEndpoints.SCHEMA_VALIDATE;
 import static eu.europeana.metis.utils.RestEndpoints.VOCABULARIES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -138,13 +133,6 @@ class RestEndpointsTest {
         Arguments.of(VOCABULARIES, List.of(""), "/vocabularies"),
         Arguments.of(CACHE_EMPTY, List.of(""), "/cache"),
         Arguments.of(LOAD_VOCABULARIES, List.of(""), "/load_vocabularies"),
-
-        Arguments.of(ENRICH_ENTITY_SEARCH, List.of(""), "/enrich/entity/search"),
-        Arguments.of(ENRICH_ENTITY_EQUIVALENCE, List.of(""), "/enrich/entity/equivalence"),
-        Arguments.of(ENRICH_ENTITY_ID, List.of(""), "/enrich/entity/id"),
-
-        Arguments.of(SCHEMA_VALIDATE, List.of("schema"), "/schema/validate/schema"),
-        Arguments.of(SCHEMA_BATCH_VALIDATE, List.of("schema"), "/schema/validate/batch/schema"),
 
         Arguments.of(REPOSITORY_RECORDS, List.of(""), "/repository/records"),
         Arguments.of(REPOSITORY_RECORDS_RECORD_ID, List.of("recordId"), "/repository/records/recordId"),

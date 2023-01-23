@@ -18,11 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A class with a static method to combine the default trustore with a custom trustore into one and
- * use that during the application lifecycle.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-02-06
+ * A class with a static method to combine the default trustore with a custom trustore into one and use that during the
+ * application lifecycle.
  */
 public final class CustomTruststoreAppender {
 
@@ -36,8 +33,7 @@ public final class CustomTruststoreAppender {
    *
    * @param trustorePath the path to the truststore file
    * @param trustorePassword the password to access the trustore file
-   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom
-   * trustore to the default
+   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom trustore to the default
    */
   public static void appendCustomTrustoreToDefault(String trustorePath, String trustorePassword)
       throws TrustStoreConfigurationException {

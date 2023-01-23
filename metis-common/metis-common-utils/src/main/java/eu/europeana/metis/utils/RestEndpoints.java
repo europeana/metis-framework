@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
  * Contains rest endpoint used throughout the applications.
  */
 public final class RestEndpoints {
-  /* METIS-CORE Endopoints*/
+  /* METIS-CORE ENDPOINTS */
 
   //DATASETS
   public static final String DATASETS = "/datasets";
@@ -71,7 +71,7 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_PROXIES_RECORD_SEARCH_BY_ID = "/orchestrator/proxies/recordsearchbyid";
   public static final String ORCHESTRATOR_PROXIES_RECORDS_FROM_PREDECESSOR_PLUGIN = "/orchestrator/proxies/recordfrompredecessorplugin";
 
-  /* METIS-DEREFERENCE Endpoints*/
+  /* METIS-DEREFERENCE ENDPOINTS */
   public static final String DEREFERENCE = "/dereference";
   public static final String VOCABULARIES = "/vocabularies";
   public static final String CACHE_EMPTY = "/cache";
@@ -79,15 +79,6 @@ public final class RestEndpoints {
   public static final String CACHE_EMPTY_RESOURCE = "/cache/resource";
   public static final String CACHE_EMPTY_XML = "/cache/emptyxml";
   public static final String LOAD_VOCABULARIES = "/load_vocabularies";
-
-  /* METIS ENRICHMENT Endpoint */
-  public static final String ENRICH_ENTITY_SEARCH = "/enrich/entity/search";
-  public static final String ENRICH_ENTITY_EQUIVALENCE = "/enrich/entity/equivalence";
-  public static final String ENRICH_ENTITY_ID = "/enrich/entity/id";
-
-  /* METIS SCHEMA VALIDATION ENDPOINT */
-  public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
-  public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";
 
   /* METIS REPOSITORY ENDPOINTS */
   public static final String REPOSITORY_RECORDS = "/repository/records";
