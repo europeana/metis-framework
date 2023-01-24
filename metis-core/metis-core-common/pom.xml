@@ -24,11 +24,6 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-authentication-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-utils</artifactId>
       <version>${project.version}</version>
     </dependency>
