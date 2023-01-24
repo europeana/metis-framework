@@ -215,7 +215,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     if (sessionFactory != null && !sessionFactory.isClosed()) {
       sessionFactory.close();
     }
-    metisZohoOAuthPSQLHandler.close();
+    if (metisZohoOAuthPSQLHandler != null) {
+      metisZohoOAuthPSQLHandler.close();
+    }
   }
 
   @Override
