@@ -7,8 +7,6 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -22,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,13 +58,7 @@ public class DereferencingManagementController {
    */
   @GetMapping(value = RestEndpoints.VOCABULARIES, produces = "application/json")
   @ResponseBody
-  @Operation(description = "Retrieve all the vocabularies", responses = {
-      @ApiResponse(responseCode = "200", content = {
-          @Content(
-              mediaType = MediaType.APPLICATION_JSON_VALUE,
-              schema = @Schema(hidden = true))
-      }),
-  })
+  @Operation(description = "Retrieve all the vocabularies", responses = {@ApiResponse(responseCode = "200")})
   public List<Vocabulary> getAllVocabularies() {
     return service.getAllVocabularies();
   }

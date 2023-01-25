@@ -9,8 +9,6 @@ import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,14 +48,7 @@ public class DereferencingController {
   @GetMapping(value = RestEndpoints.DEREFERENCE, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  @Operation(description = "Dereference a URI",
-      responses = {
-          @ApiResponse(responseCode = "200", content = {
-              @Content(
-                  mediaType = MediaType.APPLICATION_JSON_VALUE,
-                  schema = @Schema(implementation = EnrichmentResultList.class))
-          }),
-      })
+  @Operation(description = "Dereference a URI", responses = {@ApiResponse(responseCode = "200")})
   public EnrichmentResultList dereference(@Parameter(name = "uri") @RequestParam("uri") String resourceId) {
     try {
       DereferenceResult dereferenceResult = dereferenceInternal(resourceId);
@@ -87,14 +78,7 @@ public class DereferencingController {
   @PostMapping(value = RestEndpoints.DEREFERENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  @Operation(description = "Dereference a list URI",
-      responses = {
-          @ApiResponse(responseCode = "200", content = {
-              @Content(
-                  mediaType = MediaType.APPLICATION_JSON_VALUE,
-                  schema = @Schema(implementation = EnrichmentResultList.class))
-          }),
-      })
+  @Operation(description = "Dereference a list URI", responses = {@ApiResponse(responseCode = "200")})
   public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
     try {
       return new EnrichmentResultList(resourceIds.stream()
