@@ -13,6 +13,7 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -20,13 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -233,7 +228,7 @@ public class DereferencerImpl implements Dereferencer {
     HashSet<Report> reports = new HashSet<>();
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
-    Set<String> resourceIds = extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> resourceIds = extractReferencesForDereferencing(rdf);
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
@@ -250,7 +245,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public DereferencedEntity dereferenceEntities(Set<String> resourceIds) {
+  public DereferencedEntity dereferenceEntities(Map<Class<? extends AboutType>,Set<String>> resourceIds) {
     HashSet<Report> reports = new HashSet<>();
     // Sanity check.
     if (resourceIds.isEmpty()) {
@@ -258,8 +253,8 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     // First try to get them from our own entity collection database.
-    Set<ReferenceTerm> referenceTermSet = resourceIds
-        .stream()
+    Set<ReferenceTerm> referenceTermSet = resourceIds.values()
+        .stream().flatMap(Collection::stream)
         .map(id -> checkIfUrlIsValid(reports, id))
         .filter(Objects::nonNull)
         .map(checkedUrl -> validateIfUrlToDereferenceExists(reports, checkedUrl))
@@ -289,7 +284,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public Set<String> extractReferencesForDereferencing(RDF rdf) {
+  public Map<Class<? extends AboutType>,Set<String>> extractReferencesForDereferencing(RDF rdf) {
     return DereferenceUtils.extractReferencesForDereferencing(rdf);
   }
 

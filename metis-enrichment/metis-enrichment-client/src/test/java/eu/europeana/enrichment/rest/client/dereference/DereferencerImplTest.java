@@ -38,15 +38,9 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.RDF;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import eu.europeana.metis.schema.jibx.*;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -59,15 +53,15 @@ import org.springframework.web.client.HttpClientErrorException;
  */
 public class DereferencerImplTest {
 
-  private static final String[] DEREFERENCE_EXTRACT_RESULT_INVALID = {
-      "http://invalid-example.host/about",
-      "http://invalid-example.host/concept",
-      "http://invalid-example.host/place"};
+  private static final Map<Class<? extends AboutType>,Set<String>> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
+      AgentType.class, Set.of("http://invalid-example.host/about"),
+      Aggregation.class, Set.of("http://invalid-example.host/concept"),
+      ProxyType.class, Set.of("http://invalid-example.host/place"));
 
-  private static final String[] DEREFERENCE_EXTRACT_RESULT_VALID = {
-      "http://valid-example.host/about",
-      "http://valid-example.host/concept",
-      "http://valid-example.host/place"};
+  private static final Map<Class<? extends AboutType>,Set<String>> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
+          AgentType.class, Set.of("http://valid-example.host/about"),
+          Aggregation.class,Set.of("http://valid-example.host/concept"),
+          ProxyType.class, Set.of("http://valid-example.host/place"));
 
   private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
@@ -135,8 +129,7 @@ public class DereferencerImplTest {
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_VALID).collect(Collectors.toSet()))
-        .when(dereferencer).extractReferencesForDereferencing(any());
+    doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
     wireMockServer.stubFor(get("/about")
         .withHost(equalTo("valid-example.host"))
@@ -166,7 +159,7 @@ public class DereferencerImplTest {
     // Create dereferencer.
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, entityResolver, dereferenceClient));
-    doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
+    doReturn(Collections.emptyMap()).when(dereferencer)
                                                                       .extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
@@ -189,8 +182,7 @@ public class DereferencerImplTest {
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_INVALID).collect(Collectors.toSet()))
-        .when(dereferencer).extractReferencesForDereferencing(any());
+    doReturn(DEREFERENCE_EXTRACT_RESULT_INVALID).when(dereferencer).extractReferencesForDereferencing(any());
     wireMockServer.stubFor(get("/about")
         .withHost(equalTo("invalid-example.host"))
         .willReturn(serverError()));
@@ -220,8 +212,7 @@ public class DereferencerImplTest {
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_VALID).collect(Collectors.toSet()))
-        .when(dereferencer).extractReferencesForDereferencing(any());
+    doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = dereferencer.dereference(inputRdf);
@@ -236,17 +227,18 @@ public class DereferencerImplTest {
     verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing.
-    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
+    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
 
     assertEquals(1, reports.size());
     for (Report report : reports) {
       assertTrue(report.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
       assertEquals(Type.WARN, report.getMessageType());
       assertEquals(Mode.DEREFERENCE, report.getMode());
-      assertEquals("http://valid-example.host/place", report.getValue());
+      assertEquals("http://valid-example.host/concept", report.getValue());
       assertEquals("", report.getStackTrace());
     }
-    for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
+    Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
+    for (String dereferenceUrl : setOfValues) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
     }
   }
@@ -259,7 +251,8 @@ public class DereferencerImplTest {
 
     // Checking the report.
     assertEquals(3, reports.size());
-    for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_INVALID) {
+    Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
+    for (String dereferenceUrl : setOfValues) {
       verify(dereferenceClient, times(0)).dereference(dereferenceUrl);
     }
   }
@@ -271,7 +264,7 @@ public class DereferencerImplTest {
     verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing.
-    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
+    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
 
     // Checking the report.
     assertEquals(3, reports.size());
