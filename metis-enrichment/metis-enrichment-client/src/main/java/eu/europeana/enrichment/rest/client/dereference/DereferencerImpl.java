@@ -192,8 +192,11 @@ public class DereferencerImpl implements Dereferencer {
     if (!resultStatus.equals(DereferenceResultStatus.SUCCESS)) {
       String resultMessage;
       switch (resultStatus) {
-        case ENTITY_FOUND_XML_XLT_ERROR:
+        case ENTITY_FOUND_XML_XSLT_ERROR:
           resultMessage = "Entity was found, applying the XSLT results in an XML error (either because the entity is malformed or the XSLT is malformed).";
+          break;
+        case ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS:
+          resultMessage = "Entity was found, but the XSLT mapping did not produce a contextual class.";
           break;
         case INVALID_URL:
           resultMessage = "A URL to be dereferenced is invalid.";
@@ -210,7 +213,8 @@ public class DereferencerImpl implements Dereferencer {
         default:
           resultMessage = "";
       }
-      if (resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING)) {
+      if (resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING) ||
+          resultStatus.equals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS)) {
         reports.add(Report
             .buildDereferenceIgnore()
             .withStatus(HttpStatus.OK)
