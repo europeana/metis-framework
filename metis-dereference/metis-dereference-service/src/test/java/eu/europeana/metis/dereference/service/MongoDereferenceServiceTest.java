@@ -175,7 +175,7 @@ class MongoDereferenceServiceTest {
     //Test the method
     final DereferenceResult result = service.dereference(entityId);
     assertNotNull(result);
-    assertNotNull(result.getEnrichmentBasesAsList().isEmpty());
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result.getDereferenceStatus());
   }
 }
