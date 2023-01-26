@@ -234,7 +234,7 @@ public class DereferencerImplTest {
       assertTrue(report.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
       assertEquals(Type.WARN, report.getMessageType());
       assertEquals(Mode.DEREFERENCE, report.getMode());
-      assertEquals("http://valid-example.host/concept", report.getValue());
+      assertEquals("http://valid-example.host/place", report.getValue());
       assertEquals("", report.getStackTrace());
     }
     Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
