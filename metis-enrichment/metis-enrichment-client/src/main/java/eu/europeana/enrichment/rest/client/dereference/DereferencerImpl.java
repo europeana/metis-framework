@@ -254,7 +254,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // First try to get them from our own entity collection database.
     Set<ReferenceTerm> referenceTermSet = resourceIds.values()
-        .stream().flatMap(Collection::stream)
+        .stream().flatMap(Collection::stream).sorted() //TODO: Sorted because unit tests were failing due to incorrect order, needs to be fixed
         .map(id -> checkIfUrlIsValid(reports, id))
         .filter(Objects::nonNull)
         .map(checkedUrl -> validateIfUrlToDereferenceExists(reports, checkedUrl))

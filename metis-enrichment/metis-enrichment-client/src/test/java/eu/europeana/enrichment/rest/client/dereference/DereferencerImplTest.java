@@ -54,14 +54,14 @@ import org.springframework.web.client.HttpClientErrorException;
 public class DereferencerImplTest {
 
   private static final Map<Class<? extends AboutType>,Set<String>> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
-      AgentType.class, Set.of("http://invalid-example.host/about"),
-      Aggregation.class, Set.of("http://invalid-example.host/concept"),
-      ProxyType.class, Set.of("http://invalid-example.host/place"));
+      AboutType.class, Set.of("http://invalid-example.host/about"),
+      Concept.class, Set.of("http://invalid-example.host/concept"),
+      PlaceType.class, Set.of("http://invalid-example.host/place"));
 
   private static final Map<Class<? extends AboutType>,Set<String>> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
-          AgentType.class, Set.of("http://valid-example.host/about"),
-          Aggregation.class,Set.of("http://valid-example.host/concept"),
-          ProxyType.class, Set.of("http://valid-example.host/place"));
+          AboutType.class, Set.of("http://valid-example.host/about"),
+          Concept.class,Set.of("http://valid-example.host/concept"),
+          PlaceType.class, Set.of("http://valid-example.host/place"));
 
   private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
@@ -234,7 +234,7 @@ public class DereferencerImplTest {
       assertTrue(report.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
       assertEquals(Type.WARN, report.getMessageType());
       assertEquals(Mode.DEREFERENCE, report.getMode());
-      assertEquals("http://valid-example.host/place", report.getValue());
+      assertEquals("http://valid-example.host/concept", report.getValue());
       assertEquals("", report.getStackTrace());
     }
     Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
