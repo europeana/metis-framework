@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * Part model class. Basically encapsulating a resource field.
- * <p>
+ * <p/>
  * TODO the definition is identical to that of Resource. This object (and the super interface)
  * should be decommissioned.
  */

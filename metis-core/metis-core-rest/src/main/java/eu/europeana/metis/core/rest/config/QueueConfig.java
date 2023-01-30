@@ -77,7 +77,8 @@ public class QueueConfig implements WebMvcConfigurer {
         // Load the ssl context with the provided truststore
         final KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
         // This file is determined in the config files, it does not pose a risk.
-        @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") final Path trustStoreFile = Paths.get(
+        @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
+        final Path trustStoreFile = Paths.get(
             propertiesHolder.getTruststorePath());
         try (final InputStream inputStream = Files.newInputStream(trustStoreFile)) {
           keyStore.load(inputStream, propertiesHolder.getTruststorePassword().toCharArray());

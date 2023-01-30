@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 
 /**
- * Metis specific psql handler for persisting Zoho related oauth tokes.
+ * Metis specific psql handler for persisting Zoho related oauth tokens.
  * <p>Uses a single {@link SessionFactory} for all instances.
  * This class is used from zoho libraries internally. Make sure to call {@link MetisZohoOAuthPSQLHandler#close()} when completed,
  * but keep in mind that it is used inside the zoho libraries.</p>
