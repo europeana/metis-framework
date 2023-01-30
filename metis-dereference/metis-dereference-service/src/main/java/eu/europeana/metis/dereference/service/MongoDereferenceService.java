@@ -157,7 +157,7 @@ public class MongoDereferenceService implements DereferenceService {
     } catch (JAXBException jaxbException) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId), jaxbException);
       // No EnrichmentBase + Status
-      dereferenceResult = new DereferenceResult(DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR);
+      dereferenceResult = new DereferenceResult(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
     } catch (URISyntaxException uriSyntaxException) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId), uriSyntaxException);
       // No EnrichmentBase + Status
@@ -182,7 +182,7 @@ public class MongoDereferenceService implements DereferenceService {
       } catch (JAXBException jaxbException) {
         LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), jaxbException);
         // No EnrichmentBase + Status
-        return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR);
+        return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
       } catch (URISyntaxException uriSyntaxException) {
         LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key), uriSyntaxException);
         // No EnrichmentBase + Status
@@ -344,11 +344,15 @@ public class MongoDereferenceService implements DereferenceService {
       final IncomingRecordToEdmTransformer incomingRecordToEdmTransformer = new IncomingRecordToEdmTransformer(
           vocabulary.getXslt());
       result = incomingRecordToEdmTransformer.transform(originalEntity, resourceId);
-      resultStatus = DereferenceResultStatus.SUCCESS;
+      if (result.isEmpty()) {
+        resultStatus = DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS;
+      } else {
+        resultStatus = DereferenceResultStatus.SUCCESS;
+      }
     } catch (TransformerException | BadContentException | ParserConfigurationException e) {
       LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());
       LOGGER.debug("Transformation issue: ", e);
-      resultStatus = DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR;
+      resultStatus = DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR;
       result = Optional.empty();
     }
     return new MongoDereferencedEntity(result.orElse(null), resultStatus);

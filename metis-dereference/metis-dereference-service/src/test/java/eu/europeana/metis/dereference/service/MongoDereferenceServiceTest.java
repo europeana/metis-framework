@@ -150,17 +150,32 @@ class MongoDereferenceServiceTest {
   }
 
   @Test
-  void testDereference_XmlXltError() throws JAXBException, URISyntaxException {
+  void testDereference_XmlXsltError() throws JAXBException, URISyntaxException {
     final String entityId = "http://sws.geonames.org/3020251/";
 
     // Mock the service
-    doThrow(new JAXBException("xml or xlst", "is invalid"))
+    doThrow(new JAXBException("xml or xslt", "is invalid"))
         .when(service).computeEnrichmentBaseVocabulary(entityId);
 
     // Test the method
     final DereferenceResult result = service.dereference(entityId);
     assertNotNull(result);
     assertTrue(result.getEnrichmentBasesAsList().isEmpty());
-    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XLT_ERROR, result.getDereferenceStatus());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_XmlXsltProduceNoContextualClass() throws JAXBException, URISyntaxException {
+    final String entityId = "http://www.yso.fi/onto/yso/p105069";
+
+    // Mock the service
+    doReturn(new DereferenceResultWrapper(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS))
+        .when(service).computeEnrichmentBaseVocabulary(entityId);
+
+    //Test the method
+    final DereferenceResult result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result.getDereferenceStatus());
   }
 }
