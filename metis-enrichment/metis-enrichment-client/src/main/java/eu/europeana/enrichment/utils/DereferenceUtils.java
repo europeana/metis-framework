@@ -30,12 +30,6 @@ public final class DereferenceUtils {
      */
     public static Map<Class<? extends AboutType>,Set<String>> extractReferencesForDereferencing(RDF rdf) {
 
-        // Map<Class<? extends AboutType>,Set<String>>
-        // map.put(Aggregation.class, HashSet):
-        //map.put(Agent.class, HashSet);
-        //Set<String> = map.get(Aggregation.class);
-
-
         // Get all the links we are interested in.
         final Map<Class<? extends AboutType>,Set<String>> result = new HashMap<>();
         extractValues(rdf.getAgentList(), item -> dereferenceAgent(item, result));

@@ -4,6 +4,7 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.RDF;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public interface Dereferencer {
    * @return DereferencedEntity which contains a list of RDF field names with the information associated with it and a report
    * containing messages of dereference process.
    */
-  DereferencedEntity dereferenceEntities(Map<Class<? extends AboutType>,Set<String>> resourceIds);
+  List<DereferencedEntity> dereferenceEntities(Map<Class<? extends AboutType>,Set<String>> resourceIds);
 
   /**
    * It extracts the references for dereferencing from a RDF file

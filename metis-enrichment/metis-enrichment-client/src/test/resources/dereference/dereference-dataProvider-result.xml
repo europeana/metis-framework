@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <metis:results xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema" xmlns:cc="http://creativecommons.org/ns" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:metis="http://www.europeana.eu/schemas/metis" xmlns:ns13="http://www.w3.org/2006/vcard/ns#">
     <metis:result>
-        <skos:Concept rdf:about="http://www.wikidata.org/entity/Q638395">
+        <edm:Agent rdf:about="http://www.wikidata.org/entity/Q638395">
             <skos:altLabel xml:lang="de">Universiteitsbibliotheek Leiden</skos:altLabel>
             <skos:altLabel xml:lang="de">UB Leiden</skos:altLabel>
             <skos:altLabel xml:lang="nl">UBL</skos:altLabel>
@@ -31,7 +31,20 @@
             <skos:note xml:lang="bg">библиотека</skos:note>
             <skos:note xml:lang="ca">biblioteca universitària</skos:note>
             <skos:note xml:lang="it">biblioteca</skos:note>
-        </skos:Concept>
+            <owl:sameAs rdf:resource="http://viaf.org/viaf/133132602"/>
+            <owl:sameAs rdf:resource="https://d-nb.info/gnd/1167737725"/>
+            <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n50056708"/>
+            <owl:sameAs rdf:resource="http://vocab.getty.edu/ulan/500301300"/>
+            <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb12101155d"/>
+            <owl:sameAs rdf:resource="http://www.idref.fr/029370469/id"/>
+            <owl:sameAs rdf:resource="https://www.freebase.com/m/05tbjn"/>
+            <owl:sameAs rdf:resource="https://g.co/kg/m/05tbjn"/>
+            <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX254368"/>
+            <owl:sameAs rdf:resource="https://livedata.bibsys.no/authority/90326775"/>
+            <owl:sameAs rdf:resource="http://babelnet.org/rdf/s00994410n"/>
+            <owl:sameAs rdf:resource="http://dbpedia.org/resource/Leiden_University_Library"/>
+            <!--            http://data.europeana.eu/agent/149160-->
+        </edm:Agent>
         <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>
     </metis:result>
 </metis:results>
