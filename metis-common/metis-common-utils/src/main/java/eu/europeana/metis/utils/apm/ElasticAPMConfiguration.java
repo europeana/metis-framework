@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.rest.config;
+package eu.europeana.metis.utils.apm;
 
 import co.elastic.apm.attach.ElasticApmAttacher;
 import java.util.HashMap;
@@ -13,7 +13,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Elastic apm configuration
+ * Elastic apm configuration.
+ * <p>
+ * This configuration can be imported ({@code @Import({ElasticAPMConfiguration.class})}) in any spring boot application. To enable
+ * the apm capturing the field in the .properties configuration {@code elastic.apm.enabled=true} should be set to true.
+ * </p>
+ * <p>
+ * The fields in the .properties files should follow the construct for example {@code elastic.apm.service_name=value}.
+ * </p>
  */
 @Configuration
 @ConfigurationProperties(prefix = "elastic")

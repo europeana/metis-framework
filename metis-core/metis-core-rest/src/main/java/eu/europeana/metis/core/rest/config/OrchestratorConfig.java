@@ -106,11 +106,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     }
 
     singleServerConfig.setConnectionPoolSize(propertiesHolder.getRedissonConnectionPoolSize())
-        .setConnectionMinimumIdleSize(propertiesHolder.getRedissonConnectionPoolSize())
-        .setConnectTimeout(propertiesHolder.getRedissonConnectTimeoutInMillisecs())
-        .setDnsMonitoringInterval(propertiesHolder.getRedissonDnsMonitorIntervalInMillisecs())
-        .setIdleConnectionTimeout(propertiesHolder.getRedissonIdleConnectionTimeoutInMillisecs())
-        .setRetryAttempts(propertiesHolder.getRedissonRetryAttempts());
+                      .setConnectionMinimumIdleSize(propertiesHolder.getRedissonConnectionPoolSize())
+                      .setConnectTimeout(propertiesHolder.getRedissonConnectTimeoutInMillisecs())
+                      .setDnsMonitoringInterval(propertiesHolder.getRedissonDnsMonitorIntervalInMillisecs())
+                      .setIdleConnectionTimeout(propertiesHolder.getRedissonIdleConnectionTimeoutInMillisecs())
+                      .setRetryAttempts(propertiesHolder.getRedissonRetryAttempts());
     config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(propertiesHolder
         .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
@@ -156,11 +156,20 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public ProxiesService getProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
-      FileServiceClient fileServiceClient, DpsClient dpsClient, UISClient uisClient,Authorizer authorizer) {
+      FileServiceClient fileServiceClient, DpsClient dpsClient, UISClient uisClient, Authorizer authorizer) {
     return new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient,
-        fileServiceClient, dpsClient, uisClient , propertiesHolder.getEcloudProvider(), authorizer);
+        fileServiceClient, dpsClient, uisClient, propertiesHolder.getEcloudProvider(), authorizer);
   }
 
+  /**
+   * Bean workflow execution post processor.
+   *
+   * @param depublishRecordIdDao the depublish record id dao
+   * @param datasetDao the dataset dao
+   * @param workflowExecutionDao the workflow execution dao
+   * @param dpsClient the dps client
+   * @return the workflow post processor
+   */
   @Bean
   public WorkflowPostProcessor workflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
       DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao, DpsClient dpsClient) {
@@ -168,6 +177,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
         dpsClient);
   }
 
+  /**
+   * Bean semaphore plugin manager.
+   *
+   * @return the semaphore plugin manager
+   */
   @Bean
   public SemaphoresPerPluginManager semaphoresPerPluginManager() {
     return new SemaphoresPerPluginManager(propertiesHolder.getMaxConcurrentThreads());
@@ -256,10 +270,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  public ThrottlingValues getThrottlingValues(){
+  public ThrottlingValues getThrottlingValues() {
     return new ThrottlingValues(propertiesHolder.getThreadLimitThrottlingLevelWeak(),
-            propertiesHolder.getThreadLimitThrottlingLevelMedium(),
-            propertiesHolder.getThreadLimitThrottlingLevelStrong());
+        propertiesHolder.getThreadLimitThrottlingLevelMedium(),
+        propertiesHolder.getThreadLimitThrottlingLevelStrong());
   }
 
   /**

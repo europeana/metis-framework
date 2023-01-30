@@ -84,6 +84,9 @@ public class ECloudConfig implements WebMvcConfigurer {
     return uisClient;
   }
 
+  /**
+   * Close all open clients.
+   */
   @PreDestroy
   public void close() {
     if (dataSetServiceClient != null) {

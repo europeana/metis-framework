@@ -35,6 +35,7 @@
       <groupId>co.elastic.apm</groupId>
       <artifactId>apm-agent-attach</artifactId>
       <version>${version.elastic.apm}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>eu.europeana.cloud</groupId>
@@ -104,10 +105,6 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

@@ -1,5 +1,9 @@
-[![CI](https://github.com/europeana/metis-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/ci.yml)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)
+[![CI](https://github.com/europeana/metis-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/europeana/metis-framework/actions/workflows/ci.yml) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=bugs)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)  
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)  
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)  
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=europeana_metis-framework&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=europeana_metis-framework)
 
 ## Metis framework services repository
 

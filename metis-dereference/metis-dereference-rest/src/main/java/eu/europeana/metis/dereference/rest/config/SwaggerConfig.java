@@ -19,12 +19,13 @@ public class SwaggerConfig {
    */
   @Bean
   public OpenAPI openAPI() {
-    return new OpenAPI().info(
-        new Info().title("Dereference REST API")
-                  .description("Dereference REST API for Europeana")
-                  .version("v1")
-                  .license(
-                      new License().name("EUPL Licence v1.2")
-                                   .url("https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12")));
+    return new OpenAPI()
+        .info(new Info()
+            .title("Dereference REST API")
+            .description("Dereference REST API for Europeana")
+            .version("v1")
+            .license(new License()
+                .name("EUPL Licence v1.2")
+                .url("https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12")));
   }
 }

@@ -6,11 +6,9 @@ import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-
-import java.util.Properties;
-
 import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.web.EntityClientApiImpl;
+import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -80,6 +78,7 @@ public class EnricherProvider extends ConnectionProvider {
      *
      * @return An instance.
      * @throws IllegalStateException When both the enrichment and dereference URLs are blank.
+     * @throws EnrichmentException if there was an error during initialization
      */
     public Enricher create() throws EnrichmentException {
 

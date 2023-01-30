@@ -25,6 +25,7 @@
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -35,7 +36,6 @@
           <artifactId>commons-text</artifactId>
           <version>${version.apache.commons.text}</version>
       </dependency>
-
 
       <dependency>
         <groupId>org.junit.jupiter</groupId>

@@ -21,14 +21,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 
 /**
- * Metis specific psql handler for persisting Zoho related oauth tokes.
- * <p>Use the static method {@link MetisZohoOAuthPSQLHandler#initializeWithRefreshToken(String,
- * String, String, String)} if a refresh token needs to be injected in the database, before any other
- * operation.</p>
+ * Metis specific psql handler for persisting Zoho related oauth tokens.
  * <p>Uses a single {@link SessionFactory} for all instances.
- * This class is used from zoho libraries internally. Make sure to call {@link
- * MetisZohoOAuthPSQLHandler#close()} when completed, but keep in mind that it is used inside the
- * zoho libraries.</p>
+ * This class is used from zoho libraries internally. Make sure to call {@link MetisZohoOAuthPSQLHandler#close()} when completed,
+ * but keep in mind that it is used inside the zoho libraries.</p>
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-20
@@ -37,12 +33,25 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MetisZohoOAuthPSQLHandler.class);
   private static final String USER_IDENTIFIER_STRING = "userIdentifier";
-  private static SessionFactory sessionFactory;
-  private static String clientId;
-  private static String clientSecret;
+  private final SessionFactory sessionFactory;
+  private final String clientId;
+  private final String clientSecret;
 
-  public MetisZohoOAuthPSQLHandler(SessionFactory sessionFactory) {
-    MetisZohoOAuthPSQLHandler.sessionFactory = sessionFactory;
+  /**
+   * Parameterize constructor
+   *
+   * @param sessionFactory the session factory
+   * @param userEmailId the zoho user email
+   * @param refreshToken the zoho refresh token
+   * @param clientId the client id
+   * @param clientSecret the client secret
+   */
+  public MetisZohoOAuthPSQLHandler(SessionFactory sessionFactory, @Nullable String userEmailId,
+      @Nullable String refreshToken, String clientId, String clientSecret) {
+    this.sessionFactory = sessionFactory;
+    this.clientId = clientId;
+    this.clientSecret = clientSecret;
+    initializeWithRefreshToken(userEmailId, refreshToken);
   }
 
   /**
@@ -51,13 +60,9 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
    *
    * @param userEmailId the user email.
    * @param refreshToken the refresh token.
-   * @param clientId the client id
-   * @param clientSecret the client secret
    */
-  public static void initializeWithRefreshToken(@Nullable String userEmailId,
-      @Nullable String refreshToken, String clientId, String clientSecret) {
-    MetisZohoOAuthPSQLHandler.clientId = clientId;
-    MetisZohoOAuthPSQLHandler.clientSecret = clientSecret;
+  private void initializeWithRefreshToken(@Nullable String userEmailId,
+      @Nullable String refreshToken) {
     if (StringUtils.isNotBlank(userEmailId) && StringUtils.isNotBlank(refreshToken)) {
       final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(userEmailId,
           StringUtils.EMPTY, refreshToken, 0L);
@@ -92,9 +97,7 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
         return foundToken;
       });
     }
-    return metisZohoOAuthToken == null ? null : metisZohoOAuthToken
-        .convertToZohoOAuthToken(MetisZohoOAuthPSQLHandler.clientId,
-            MetisZohoOAuthPSQLHandler.clientSecret);
+    return metisZohoOAuthToken == null ? null : metisZohoOAuthToken.convertToZohoOAuthToken(clientId, clientSecret);
   }
 
   @Override
@@ -115,7 +118,7 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
 
   @Override
   public void deleteToken(Token token) {
-    String userIdentifier = ((OAuthToken)token).getUserMail();
+    String userIdentifier = ((OAuthToken) token).getUserMail();
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
         Transaction tx = session.beginTransaction();
@@ -146,8 +149,7 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
   }
 
   /**
-   * It will try to commit the transaction. If the transaction fails, it will rollback to previous
-   * state.
+   * It will try to commit the transaction. If the transaction fails, it will rollback to previous state.
    *
    * @param tx the transaction to commit
    */
@@ -166,7 +168,7 @@ public class MetisZohoOAuthPSQLHandler implements TokenStore {
   /**
    * Call this method before application shutdown, to gracefully close the internal connections
    */
-  public static void close() {
+  public void close() {
     if (sessionFactory != null && !sessionFactory.isClosed()) {
       sessionFactory.close();
     }

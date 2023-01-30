@@ -29,7 +29,7 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "TimeSpan", namespace = "http://www.europeana.eu/schemas/edm/", type = TimeSpan.class)})
   private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
-  private DereferenceResultStatus dereferenceStatus;
+  private final DereferenceResultStatus dereferenceStatus;
 
   /**
    * Default Constructor

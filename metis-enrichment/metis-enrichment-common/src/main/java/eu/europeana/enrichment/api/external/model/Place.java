@@ -31,7 +31,8 @@ public class Place extends EnrichmentBase {
   @XmlElement(name = "alt", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String alt;
 
-  public  Place() {}
+  public Place() {
+  }
 
   // Used for creating XML entity from EM model class
   public Place(eu.europeana.entitymanagement.definitions.model.Place place) {

@@ -10,6 +10,7 @@ import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
+import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoException;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -45,6 +47,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2017-10-27
  */
 @Configuration
+@Import({ElasticAPMConfiguration.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest.controller"})
 @EnableScheduling
 public class ApplicationConfiguration implements WebMvcConfigurer {
@@ -98,6 +101,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
+  private MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler;
 
   @Bean
   public SessionFactory getSessionFactory() throws TrustStoreConfigurationException, IOException {
@@ -162,13 +166,17 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     return authenticationService;
   }
 
+  /**
+   * Get the zoho access client.
+   *
+   * @param sessionFactory the session factory
+   * @return the zoho access client
+   * @throws ZohoException if a zoho configuration error occurred
+   */
   @Bean
   public ZohoAccessClient getZohoAccessClient(SessionFactory sessionFactory) throws ZohoException {
-    final MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler(sessionFactory);
-    //Initialize Zoho handler
-    MetisZohoOAuthPSQLHandler
-        .initializeWithRefreshToken(zohoCurrentUserEmail, zohoRefreshToken, zohoClientId,
-            zohoClientSecret);
+    metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler(sessionFactory, zohoCurrentUserEmail, zohoRefreshToken,
+        zohoClientId, zohoClientSecret);
 
     final ZohoAccessClient zohoAccessClient = new ZohoAccessClient(metisZohoOAuthPSQLHandler,
         zohoCurrentUserEmail, zohoClientId, zohoClientSecret, zohoInitialGrantToken,
@@ -207,8 +215,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
     if (sessionFactory != null && !sessionFactory.isClosed()) {
       sessionFactory.close();
     }
-    //Close static session factory
-    MetisZohoOAuthPSQLHandler.close();
+    if (metisZohoOAuthPSQLHandler != null) {
+      metisZohoOAuthPSQLHandler.close();
+    }
   }
 
   @Override

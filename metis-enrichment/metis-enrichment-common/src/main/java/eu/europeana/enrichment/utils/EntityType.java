@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Enumeration that holds the different vocabularies supported for enrichment
- *
- * @author Yorgos.Mamakis@ europeana.eu
  */
 @XmlRootElement
 @JsonInclude

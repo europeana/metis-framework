@@ -17,5 +17,4 @@ public class EnricherProviderTest {
             provider.create();
     });
   }
-
 }

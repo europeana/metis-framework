@@ -5,9 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * General {@link Date} utilities methods
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-05-31
  */
 public final class DateUtils {
 
@@ -23,8 +20,8 @@ public final class DateUtils {
    * @return the amount of {@link TimeUnit}s of the difference
    */
   public static long calculateDateDifference(Date pastDate, Date futureDate, TimeUnit timeUnit) {
-    long diffInMillies = futureDate.getTime() - pastDate.getTime();
-    return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    long diffInMillis = futureDate.getTime() - pastDate.getTime();
+    return timeUnit.convert(diffInMillis, TimeUnit.MILLISECONDS);
   }
 
   /**
