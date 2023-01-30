@@ -230,8 +230,8 @@ public class DereferencerImpl implements Dereferencer {
 
         // Get the dereferenced information to add to the RDF using the extracted fields
         LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-        List<DereferencedEntity> dereferenceInformation = dereferenceEntities(resourceIds);
-        HashSet<Report> reports = dereferenceInformation.stream().map(DereferencedEntity::getReportMessages)
+        Map<Class<? extends AboutType>, DereferencedEntity> dereferenceInformation = dereferenceEntities(resourceIds);
+        HashSet<Report> reports = dereferenceInformation.values().stream().map(DereferencedEntity::getReportMessages)
                 .flatMap(Collection::stream).collect(Collectors.toCollection(HashSet::new));
 
         // Merge the acquired information into the RDF
@@ -244,26 +244,26 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     @Override
-    public List<DereferencedEntity> dereferenceEntities(Map<Class<? extends AboutType>, Set<String>> resourceIds) {
+    public Map<Class<? extends AboutType>, DereferencedEntity> dereferenceEntities(Map<Class<? extends AboutType>, Set<String>> resourceIds) {
 
         // Sanity check.
         if (resourceIds.isEmpty()) {
-            return List.of(new DereferencedEntity(Collections.emptyList(), new HashSet<>()));
+            return Map.of(AboutType.class, new DereferencedEntity(Collections.emptyList(), new HashSet<>()));
         }
 
         // First try to get them from our own entity collection database.
         HashMap<Class<? extends AboutType>, Set<ReferenceTerm>> mappedReferenceTerms = new HashMap<>();
-        List<DereferencedEntity> dereferencedEntities = new ArrayList<>();
+        HashMap<Class<? extends AboutType>, DereferencedEntity> dereferencedEntities = new HashMap<>();
         resourceIds.forEach((key, value) -> {
             HashSet<Report> reports = new HashSet<>();
             Set<ReferenceTerm> referenceTermSet = setUpReferenceTermSet(value, reports);
             mappedReferenceTerms.put(key, referenceTermSet);
-            final DereferencedEntity dereferencedOwnEntities = dereferenceOwnEntities(key, referenceTermSet, reports);
-            dereferencedEntities.add(dereferencedOwnEntities);
+            final DereferencedEntity dereferencedOwnEntities = dereferenceOwnEntities(referenceTermSet, reports);
+            dereferencedEntities.put(key, dereferencedOwnEntities);
         });
 
         final Set<String> foundOwnEntityIds = dereferencedEntities
-                .stream()
+                .values().stream()
                 .map(DereferencedEntity::getEnrichmentBaseList)
                 .flatMap(Collection::stream)
                 .map(EnrichmentBase::getAbout)
@@ -278,17 +278,14 @@ public class DereferencerImpl implements Dereferencer {
 
                     if(entry.getKey().equals(Aggregation.class)){
                         Optional<DereferencedEntity> aggregationDereferenceResult =
-                                dereferenceSameAsLinks(dereferencedExternalEntities.getEnrichmentBaseList(), entry.getKey());
-                        aggregationDereferenceResult.ifPresent(entity -> {
-                            updateDereferencedEntitiesList(dereferencedEntities, entry.getKey(), entity);
-                        });
-
+                                dereferenceSameAsLinks(dereferencedExternalEntities.getEnrichmentBaseList());
+                        aggregationDereferenceResult.ifPresent(entity -> updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), entity));
                         if (aggregationDereferenceResult.isPresent()){
                             break;
                         }
                     }
 
-                    updateDereferencedEntitiesList(dereferencedEntities, entry.getKey(), dereferencedExternalEntities);
+                    updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedExternalEntities);
                 }
             }
         }
@@ -302,13 +299,13 @@ public class DereferencerImpl implements Dereferencer {
         return DereferenceUtils.extractReferencesForDereferencing(rdf);
     }
 
-    private DereferencedEntity dereferenceOwnEntities(Class<? extends AboutType> classType, Set<ReferenceTerm> resourceIds,
+    private DereferencedEntity dereferenceOwnEntities(Set<ReferenceTerm> resourceIds,
                                                       HashSet<Report> reports) {
         if (entityResolver == null) {
-            return new DereferencedEntity(Collections.emptyList(), new HashSet<>(), classType);
+            return new DereferencedEntity(Collections.emptyList(), new HashSet<>());
         }
         try {
-            return new DereferencedEntity(new ArrayList<>(entityResolver.resolveById(resourceIds).values()), reports, classType);
+            return new DereferencedEntity(new ArrayList<>(entityResolver.resolveById(resourceIds).values()), reports);
         } catch (Exception e) {
             DereferenceException dereferenceException = new DereferenceException(
                     "Exception occurred while trying to perform dereferencing.", e);
@@ -384,12 +381,11 @@ public class DereferencerImpl implements Dereferencer {
                 .collect(Collectors.toSet());
     }
 
-    private Optional<DereferencedEntity> dereferenceSameAsLinks(List<EnrichmentBase> enrichmentBaseList,
-                                                                Class<? extends AboutType> classType){
+    private Optional<DereferencedEntity> dereferenceSameAsLinks(List<EnrichmentBase> enrichmentBaseList){
         HashSet<Report> reports = new HashSet<>();
         Set<String> sameAsLinks = extractSameAsLinks(enrichmentBaseList);
         Set<ReferenceTerm> referenceTermSet = setUpReferenceTermSet(sameAsLinks, reports);
-        final DereferencedEntity dereferencedOwnEntities = dereferenceOwnEntities(classType, referenceTermSet, reports);
+        final DereferencedEntity dereferencedOwnEntities = dereferenceOwnEntities(referenceTermSet, reports);
 
         if(dereferencedOwnEntities.getEnrichmentBaseList().isEmpty()){
             return Optional.empty();
@@ -414,15 +410,18 @@ public class DereferencerImpl implements Dereferencer {
         return result;
     }
 
-    private void updateDereferencedEntitiesList(List<DereferencedEntity> listToUpdate, Class<? extends AboutType> classType,
-                                                DereferencedEntity elementToUpdateWith){
-        DereferencedEntity foundEntity = listToUpdate
-                .stream()
-                .filter(entityToFind -> entityToFind.getClassType().equals(classType))
-                .findAny().orElse(new DereferencedEntity(Collections.emptyList(), new HashSet<>()));
-        int index = listToUpdate.indexOf(foundEntity);
-        foundEntity.getEnrichmentBaseList().addAll(elementToUpdateWith.getEnrichmentBaseList());
-        foundEntity.getReportMessages().addAll(elementToUpdateWith.getReportMessages());
-        listToUpdate.add(index, foundEntity);
+    private void updateDereferencedEntitiesMap(HashMap<Class<? extends AboutType>, DereferencedEntity> mapToUpdate,
+                                               Class<? extends AboutType> classType,
+                                               DereferencedEntity elementToUpdateWith){
+
+        //TODO What if it's null??
+        DereferencedEntity foundEntity = mapToUpdate.get(classType);
+        List<EnrichmentBase> copyOfListEnrichmentBase = new ArrayList<>(foundEntity.getEnrichmentBaseList());
+        Set<Report> copyOfReports = new HashSet<>(foundEntity.getReportMessages());
+        copyOfListEnrichmentBase.addAll(elementToUpdateWith.getEnrichmentBaseList());
+        copyOfReports.addAll(elementToUpdateWith.getReportMessages());
+        DereferencedEntity entityToReplace = new DereferencedEntity(copyOfListEnrichmentBase, copyOfReports);
+        mapToUpdate.replace(classType, entityToReplace);
+
     }
 }
