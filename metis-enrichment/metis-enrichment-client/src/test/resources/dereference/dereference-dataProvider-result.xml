@@ -31,11 +31,10 @@
             <skos:note xml:lang="bg">библиотека</skos:note>
             <skos:note xml:lang="ca">biblioteca universitària</skos:note>
             <skos:note xml:lang="it">biblioteca</skos:note>
-            <owl:sameAs rdf:resource="http://viaf.org/viaf/133132602"/>
-            <owl:sameAs rdf:resource="https://d-nb.info/gnd/1167737725"/>
-            <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n50056708"/>
-            <owl:sameAs rdf:resource="http://vocab.getty.edu/ulan/500301300"/>
-            <!--            http://data.europeana.eu/agent/149160-->
+            <owl:sameAs rdf:resource="http://data.europeana.eu/agent/149160"/>
+            <owl:sameAs rdf:resource="http://data.europeana.eu/place/40578"/>
+            <owl:sameAs rdf:resource="http://data.europeana.eu/concept/2956"/>
+            <owl:sameAs rdf:resource="http://data.europeana.eu/concept/47"/>
         </edm:Agent>
         <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>
     </metis:result>

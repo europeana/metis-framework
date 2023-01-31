@@ -271,23 +271,24 @@ public class DereferencerImpl implements Dereferencer {
 
         // For the remaining ones, get them from the dereference service.
         for (Map.Entry<Class<? extends AboutType>, Set<ReferenceTerm>> entry : mappedReferenceTerms.entrySet()) {
-            DereferencedEntity dereferencedExternalEntities = new DereferencedEntity(new ArrayList<>(), new HashSet<>());
+            DereferencedEntity dereferencedResultEntities = new DereferencedEntity(new ArrayList<>(), new HashSet<>());
             for(ReferenceTerm referenceTerm : entry.getValue()) {
                 if (!foundOwnEntityIds.contains(referenceTerm.getReference().toString())) {
-                    dereferencedExternalEntities =
+                    DereferencedEntity dereferencedExternalEntities =
                             dereferenceExternalEntity(referenceTerm.getReference().toString());
 
                     if(entry.getKey().equals(Aggregation.class)){
                         Optional<DereferencedEntity> aggregationDereferenceResult =
                                 dereferenceSameAsLinks(dereferencedExternalEntities.getEnrichmentBaseList());
                         if (aggregationDereferenceResult.isPresent()){
-                            updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), aggregationDereferenceResult.get());
+                            dereferencedResultEntities.getEnrichmentBaseList().addAll(aggregationDereferenceResult.get().getEnrichmentBaseList());
                             break;
                         }
                     }
+                    dereferencedResultEntities.getEnrichmentBaseList().addAll(dereferencedExternalEntities.getEnrichmentBaseList());
                 }
-                updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedExternalEntities);
             }
+            updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedResultEntities);
         }
         // Done.
         //TODO: We need to pay attention to the reports
