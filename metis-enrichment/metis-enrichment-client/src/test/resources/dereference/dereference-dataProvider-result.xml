@@ -35,14 +35,6 @@
             <owl:sameAs rdf:resource="https://d-nb.info/gnd/1167737725"/>
             <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n50056708"/>
             <owl:sameAs rdf:resource="http://vocab.getty.edu/ulan/500301300"/>
-            <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb12101155d"/>
-            <owl:sameAs rdf:resource="http://www.idref.fr/029370469/id"/>
-            <owl:sameAs rdf:resource="https://www.freebase.com/m/05tbjn"/>
-            <owl:sameAs rdf:resource="https://g.co/kg/m/05tbjn"/>
-            <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX254368"/>
-            <owl:sameAs rdf:resource="https://livedata.bibsys.no/authority/90326775"/>
-            <owl:sameAs rdf:resource="http://babelnet.org/rdf/s00994410n"/>
-            <owl:sameAs rdf:resource="http://dbpedia.org/resource/Leiden_University_Library"/>
             <!--            http://data.europeana.eu/agent/149160-->
         </edm:Agent>
         <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>

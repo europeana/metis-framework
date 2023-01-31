@@ -262,8 +262,32 @@ class EnrichmentWorkerImplTest {
                 .withHost(equalTo("dereference-rest.mock"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/xml")
+//                        .withBody(getResourceFileContent("dereference/dereference-dataProvider-result.xml"))
+                        .withStatus(HttpStatus.OK.value())));
+        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
+                .withHost(equalTo("dereference-rest.mock"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/xml")
                         .withBody(getResourceFileContent("dereference/dereference-dataProvider-result.xml"))
                         .withStatus(HttpStatus.OK.value())));
+//        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
+//                .withHost(equalTo("dereference-rest.mock"))
+//                .willReturn(aResponse()
+//                        .withHeader("Content-Type", "application/xml")
+//                        .withBody(getResourceFileContent("dereference-dataprovider-sameas-response1.xml"))
+//                        .withStatus(HttpStatus.OK.value())));
+//        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
+//                .withHost(equalTo("dereference-rest.mock"))
+//                .willReturn(aResponse()
+//                        .withHeader("Content-Type", "application/xml")
+//                        .withBody(getResourceFileContent("dereference-dataprovider-sameas-response2.xml"))
+//                        .withStatus(HttpStatus.OK.value())));
+//        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
+//                .withHost(equalTo("dereference-rest.mock"))
+//                .willReturn(aResponse()
+//                        .withHeader("Content-Type", "application/xml")
+//                        .withBody(getResourceFileContent("dereference-dataprovider-sameas-response3.xml"))
+//                        .withStatus(HttpStatus.OK.value())));
     }
 
     @Test

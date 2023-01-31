@@ -271,22 +271,22 @@ public class DereferencerImpl implements Dereferencer {
 
         // For the remaining ones, get them from the dereference service.
         for (Map.Entry<Class<? extends AboutType>, Set<ReferenceTerm>> entry : mappedReferenceTerms.entrySet()) {
+            DereferencedEntity dereferencedExternalEntities = new DereferencedEntity(new ArrayList<>(), new HashSet<>());
             for(ReferenceTerm referenceTerm : entry.getValue()) {
                 if (!foundOwnEntityIds.contains(referenceTerm.getReference().toString())) {
-                    DereferencedEntity dereferencedExternalEntities =
+                    dereferencedExternalEntities =
                             dereferenceExternalEntity(referenceTerm.getReference().toString());
 
                     if(entry.getKey().equals(Aggregation.class)){
                         Optional<DereferencedEntity> aggregationDereferenceResult =
                                 dereferenceSameAsLinks(dereferencedExternalEntities.getEnrichmentBaseList());
-                        aggregationDereferenceResult.ifPresent(entity -> updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), entity));
                         if (aggregationDereferenceResult.isPresent()){
+                            updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), aggregationDereferenceResult.get());
                             break;
                         }
                     }
-
-                    updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedExternalEntities);
                 }
+                updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedExternalEntities);
             }
         }
         // Done.

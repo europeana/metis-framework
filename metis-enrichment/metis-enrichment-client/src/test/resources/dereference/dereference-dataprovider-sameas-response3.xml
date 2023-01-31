@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metis:results xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema" xmlns:cc="http://creativecommons.org/ns" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:metis="http://www.europeana.eu/schemas/metis" xmlns:ns13="http://www.w3.org/2006/vcard/ns#">
+    <metis:result>
+        <edm:Agent rdf:about="https://d-nb.info/gnd/1167737725">
+            <skos:altLabel>Universiteitsbibliotheek Leiden (1999-)</skos:altLabel>
+            <skos:altLabel>Universiteitsbibliotheek (Leiden, 1999-)</skos:altLabel>
+            <skos:altLabel>University Library of Leiden University (auv)</skos:altLabel>
+            <skos:prefLabel>Universiteit Leiden. Bibliotheek</skos:prefLabel>
+            <owl:sameAs rdf:resource="http://viaf.org/viaf/9444148997620659870004"/>
+            <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q638395"/>
+            <owl:sameAs rdf:resource="http://id.loc.gov/rwo/agents/no2020111346"/>
+        </edm:Agent>
+        <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>
+    </metis:result>
+</metis:results>
