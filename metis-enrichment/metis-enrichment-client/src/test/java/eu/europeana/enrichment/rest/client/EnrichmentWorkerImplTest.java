@@ -116,6 +116,21 @@ class EnrichmentWorkerImplTest {
 
         dereferencerProvider.setDereferenceUrl("http://dereference-rest.mock");
         final Dereferencer dereferencer = dereferencerProvider.create();
+//
+//        EnricherProvider enricherProvider = new EnricherProvider();
+//        enricherProvider.setEnrichmentPropertiesValues("https://entity-management-production.eanadev.org/entity",
+//                "https://entity-api-v2-production.eanadev.org/entity",
+//                "api2demo");
+//
+//        final Enricher enricher = enricherProvider.create();
+//
+//        DereferencerProvider dereferencerProvider = new DereferencerProvider();
+//        dereferencerProvider.setEnrichmentPropertiesValues("https://entity-management-production.eanadev.org/entity",
+//                "https://entity-api-v2-production.eanadev.org/entity",
+//                "api2demo");
+//
+//        dereferencerProvider.setDereferenceUrl("https://metis-dereference-rest.test.eanadev.org");
+//        final Dereferencer dereferencer = dereferencerProvider.create();
 
         // Execute the worker
         final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);
@@ -258,36 +273,6 @@ class EnrichmentWorkerImplTest {
                         .withHeader("Content-Type", "application/xml")
                         .withBody(getResourceFileContent("dereference/dereference-normal-redirect.xml"))
                         .withStatus(HttpStatus.OK.value())));
-        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
-                .withHost(equalTo("dereference-rest.mock"))
-                .willReturn(aResponse()
-                        .withHeader("Content-Type", "application/xml")
-//                        .withBody(getResourceFileContent("dereference/dereference-dataProvider-result.xml"))
-                        .withStatus(HttpStatus.OK.value())));
-        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
-                .withHost(equalTo("dereference-rest.mock"))
-                .willReturn(aResponse()
-                        .withHeader("Content-Type", "application/xml")
-                        .withBody(getResourceFileContent("dereference/dereference-dataProvider-result.xml"))
-                        .withStatus(HttpStatus.OK.value())));
-//        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
-//                .withHost(equalTo("dereference-rest.mock"))
-//                .willReturn(aResponse()
-//                        .withHeader("Content-Type", "application/xml")
-//                        .withBody(getResourceFileContent("dereference-dataprovider-sameas-response1.xml"))
-//                        .withStatus(HttpStatus.OK.value())));
-//        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
-//                .withHost(equalTo("dereference-rest.mock"))
-//                .willReturn(aResponse()
-//                        .withHeader("Content-Type", "application/xml")
-//                        .withBody(getResourceFileContent("dereference-dataprovider-sameas-response2.xml"))
-//                        .withStatus(HttpStatus.OK.value())));
-//        wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.wikidata.org%2Fentity%2FQ638395"))
-//                .withHost(equalTo("dereference-rest.mock"))
-//                .willReturn(aResponse()
-//                        .withHeader("Content-Type", "application/xml")
-//                        .withBody(getResourceFileContent("dereference-dataprovider-sameas-response3.xml"))
-//                        .withStatus(HttpStatus.OK.value())));
     }
 
     @Test

@@ -28,7 +28,7 @@ public interface Dereferencer {
    * @return DereferencedEntity which contains a list of RDF field names with the information associated with it and a report
    * containing messages of dereference process.
    */
-  Map<Class<? extends AboutType>, DereferencedEntity> dereferenceEntities(Map<Class<? extends AboutType>,Set<String>> resourceIds);
+  List<DereferencedEntities> dereferenceEntities(Map<Class<? extends AboutType>,Set<String>> resourceIds);
 
   /**
    * It extracts the references for dereferencing from a RDF file

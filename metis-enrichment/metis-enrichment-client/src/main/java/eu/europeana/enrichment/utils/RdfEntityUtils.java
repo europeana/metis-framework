@@ -1,10 +1,6 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.internal.AggregationFieldType;
-import eu.europeana.enrichment.api.internal.FieldType;
-import eu.europeana.enrichment.api.internal.ProxyFieldType;
-import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermContext;
+import eu.europeana.enrichment.api.internal.*;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
@@ -83,6 +79,31 @@ public final class RdfEntityUtils {
         resourceOrLiteralType.setString("");
       });
     }
+  }
+
+  /**
+   * Replace matching aggregation values with their found corresponding links.
+   *
+   * @param rdf the rdf to update
+   * @param link the about value to use
+   * @param referenceTerm the aggregation search term to use for finding the matched values
+   */
+  public static void replaceValueWithLinkInAggregation(RDF rdf, String link, ReferenceTerm referenceTerm) {
+    final List<Aggregation> aggregationList = rdf.getAggregationList();
+
+//    for (FieldType<? extends AboutType> aggregationFieldType : searchTermAggregation
+//            .getFieldTypes()) {
+//      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
+//              .filter(
+//                      resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
+//                              searchTermAggregation)).forEach(resourceOrLiteralType -> {
+//                final Resource resource = new Resource();
+//                resource.setResource(link);
+//                resourceOrLiteralType.setResource(resource);
+//                resourceOrLiteralType.setLang(new Lang());
+//                resourceOrLiteralType.setString("");
+//              });
+//    }
   }
 
   private static boolean resourceOrLiteralAndSearchTermEquality(

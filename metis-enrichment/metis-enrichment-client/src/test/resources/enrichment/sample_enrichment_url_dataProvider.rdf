@@ -13,6 +13,8 @@
   <ore:Aggregation rdf:about="/aggregation/provider/08635/7b498e8404a14793a79c67a3faaf5502">
     <edm:aggregatedCHO rdf:resource="/08635/7b498e8404a14793a79c67a3faaf5502"/>
     <edm:dataProvider rdf:resource="http://www.wikidata.org/entity/Q638395"/>
+<!-- <edm:dataProvider rdf:resource="http://www.wikidata.org/entity/Q309"/> -->
+<!-- <edm:dataProvider rdf:resource="http://data.europeana.eu/timespan/19"/> -->
     <edm:isShownAt rdf:resource="http://www.e-kinas.lt/objektas/kinas/1382/consecration-of-the-church-foundation-in-klaipeda"/>
     <edm:object rdf:resource="http://www.e-kinas.lt/search-results-order/ioresource/534?type=image"/>
     <edm:provider xml:lang="en">EFG - The European Film Gateway</edm:provider>
