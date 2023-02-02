@@ -1,8 +1,5 @@
 package eu.europeana.enrichment.utils;
 
-import static eu.europeana.enrichment.utils.RdfEntityUtils.appendLinkToEuropeanaProxy;
-import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkInAggregation;
-
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -21,6 +18,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static eu.europeana.enrichment.utils.RdfEntityUtils.*;
 
 /**
  * Class that contains logic for converting class entity types and/or merging entities to {@link
@@ -396,18 +395,6 @@ public class EntityMergeEngine {
 
   /**
    * Merge entities in a record.
-   * <p>This method is when dereference is performed where we do not want to add the generated
-   * links to the europeana proxy</p>
-   *
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
-   */
-  public void mergeReferenceEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
-    mergeReferenceEntities(rdf, enrichmentBaseList, null);
-  }
-
-  /**
-   * Merge entities in a record.
    * <p>This method is when enrichment is performed where we <b>do</b> want to add the generated
    * links to the europeana proxy</p>
    *
@@ -422,7 +409,7 @@ public class EntityMergeEngine {
                 .map(base -> convertAndAddEntity(rdf, base))
                 .collect(Collectors.toList());
         if(dereferencedEntities.getClassType().equals(Aggregation.class)){
-
+          replaceResourceWithLinkInAggregation(rdf, aboutTypeList.get(0).getAbout(), entry.getKey());
         }
       }
     }

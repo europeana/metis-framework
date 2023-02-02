@@ -88,22 +88,18 @@ public final class RdfEntityUtils {
    * @param link the about value to use
    * @param referenceTerm the aggregation search term to use for finding the matched values
    */
-  public static void replaceValueWithLinkInAggregation(RDF rdf, String link, ReferenceTerm referenceTerm) {
+  public static void replaceResourceWithLinkInAggregation(RDF rdf, String link, ReferenceTerm referenceTerm) {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
 
-//    for (FieldType<? extends AboutType> aggregationFieldType : searchTermAggregation
-//            .getFieldTypes()) {
-//      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
-//              .filter(
-//                      resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
-//                              searchTermAggregation)).forEach(resourceOrLiteralType -> {
-//                final Resource resource = new Resource();
-//                resource.setResource(link);
-//                resourceOrLiteralType.setResource(resource);
-//                resourceOrLiteralType.setLang(new Lang());
-//                resourceOrLiteralType.setString("");
-//              });
-//    }
+    for(AggregationFieldType aggregationFieldType : AggregationFieldType.values()){
+      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
+              .filter(resourceOrLiteralType -> isResourceEqualToUri(resourceOrLiteralType, referenceTerm.getReference().toString()))
+              .forEach(resourceOrLiteralType -> {
+                final Resource resource = new Resource();
+                resource.setResource(link);
+                resourceOrLiteralType.setResource(resource);
+              });
+    }
   }
 
   private static boolean resourceOrLiteralAndSearchTermEquality(
@@ -125,6 +121,11 @@ public final class RdfEntityUtils {
       }
     }
     return areEqual;
+  }
+
+  private static boolean isResourceEqualToUri(ResourceOrLiteralType resourceOrLiteralType, String uri){
+    return resourceOrLiteralType.getResource() != null &&
+            resourceOrLiteralType.getResource().getResource().equals(uri);
   }
 
   private static Map<ProxyFieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
