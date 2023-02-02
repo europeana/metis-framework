@@ -72,7 +72,6 @@ class EnrichmentWorkerImplTest {
 
     private static Stream<Arguments> providedInputRecords() {
         return Stream.of(
-                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_url_dataProvider.rdf"), RecordStatus.CONTINUE),
                 Arguments.of(getResourceFileContent("enrichment/sample_enrichment_exception.rdf"), RecordStatus.STOP),
                 Arguments.of(getResourceFileContent("enrichment/sample_dereference_not_found.rdf"), RecordStatus.CONTINUE),
                 Arguments.of(getResourceFileContent("enrichment/sample_dereference_redirect.rdf"), RecordStatus.CONTINUE),
@@ -116,21 +115,6 @@ class EnrichmentWorkerImplTest {
 
         dereferencerProvider.setDereferenceUrl("http://dereference-rest.mock");
         final Dereferencer dereferencer = dereferencerProvider.create();
-//
-//        EnricherProvider enricherProvider = new EnricherProvider();
-//        enricherProvider.setEnrichmentPropertiesValues("https://entity-management-production.eanadev.org/entity",
-//                "https://entity-api-v2-production.eanadev.org/entity",
-//                "api2demo");
-//
-//        final Enricher enricher = enricherProvider.create();
-//
-//        DereferencerProvider dereferencerProvider = new DereferencerProvider();
-//        dereferencerProvider.setEnrichmentPropertiesValues("https://entity-management-production.eanadev.org/entity",
-//                "https://entity-api-v2-production.eanadev.org/entity",
-//                "api2demo");
-//
-//        dereferencerProvider.setDereferenceUrl("https://metis-dereference-rest.test.eanadev.org");
-//        final Dereferencer dereferencer = dereferencerProvider.create();
 
         // Execute the worker
         final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);

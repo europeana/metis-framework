@@ -271,8 +271,13 @@ public class DereferencerImpl implements Dereferencer {
                 .map(EnrichmentBase::getAbout)
                 .collect(Collectors.toSet());
 
+        //TODO Sorted because unit tests were failing due to "incorrect" order
+        List<Map.Entry<Class<? extends AboutType>, Set<ReferenceTerm>>> sortedList = mappedReferenceTerms.entrySet()
+                .stream().sorted(Comparator.comparing(entry -> entry.getKey().getName()))
+                .collect(Collectors.toList());
+
         // For the remaining ones, get them from the dereference service.
-        for (Map.Entry<Class<? extends AboutType>, Set<ReferenceTerm>> entry : mappedReferenceTerms.entrySet()) {
+        for (Map.Entry<Class<? extends AboutType>, Set<ReferenceTerm>> entry : sortedList) {
             DereferencedEntities dereferencedResultEntities = new DereferencedEntities(new HashMap<>(), new HashSet<>());
 
             if(entry.getKey().equals(Aggregation.class)){
@@ -288,12 +293,12 @@ public class DereferencerImpl implements Dereferencer {
                     DereferencedEntities dereferencedExternalEntities =
                             dereferenceExternalEntity(referenceTerm, entry.getKey());
                     dereferencedResultEntities.getReferenceTermListMap().putAll(dereferencedExternalEntities.getReferenceTermListMap());
+                    dereferencedResultEntities.getReportMessages().addAll(dereferencedExternalEntities.getReportMessages());
                 }
             }
             updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedResultEntities);
         }
         // Done.
-        //TODO: We need to pay attention to the reports
         return new ArrayList<>(dereferencedEntities.values());
     }
 
@@ -411,7 +416,6 @@ public class DereferencerImpl implements Dereferencer {
                                                Class<? extends AboutType> classType,
                                                DereferencedEntities elementToUpdateWith){
 
-        //TODO What if it's null??
         DereferencedEntities foundEntity = mapToUpdate.get(classType);
         Map<ReferenceTerm, List<EnrichmentBase>> copyReferenceTermListMap = new HashMap<>(foundEntity.getReferenceTermListMap());
         Set<Report> copyOfReports = new HashSet<>(foundEntity.getReportMessages());
