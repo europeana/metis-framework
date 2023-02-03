@@ -299,7 +299,10 @@ public class DereferencerImpl implements Dereferencer {
             updateDereferencedEntitiesMap(dereferencedEntities, entry.getKey(), dereferencedResultEntities);
         }
         // Done.
-        return new ArrayList<>(dereferencedEntities.values());
+        //TODO Sorted because unit tests were failing due to "incorrect" order
+        return dereferencedEntities.values().stream()
+                .sorted(Comparator.comparing(elem -> elem.getClassType().getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
