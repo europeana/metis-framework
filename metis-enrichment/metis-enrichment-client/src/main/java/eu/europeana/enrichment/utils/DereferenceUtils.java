@@ -80,16 +80,15 @@ public final class DereferenceUtils {
             final String target = conversion.apply(source);
             if (StringUtils.isNotEmpty(target)) {
                 result.add(target);
+                //If Map already contains key with 'classType', then just add the new values into existing Set
+                if(resultMap.containsKey(classType)) {
+                    Set<String> value = resultMap.get(classType);
+                    value.addAll(result);
+                    resultMap.put(classType, value);
+                } else {
+                    resultMap.put(classType, result);
+                }
             }
-        }
-
-        //If Map already contains key with 'classType', then just add the new values into existing Set
-        if(resultMap.containsKey(classType)) {
-            Set<String> value = resultMap.get(classType);
-            value.addAll(result);
-            resultMap.put(classType, value);
-        } else {
-            resultMap.put(classType, result);
         }
     }
 
