@@ -272,6 +272,8 @@ public class DereferencerImpl implements Dereferencer {
                 .collect(Collectors.toSet());
 
         //TODO Sorted because unit tests were failing due to "incorrect" order
+        //TODO The order should not matter, the unit tests need fixing
+        //TODO There's already ticket MET-5056 to handle it
         List<Map.Entry<Class<? extends AboutType>, Set<ReferenceTerm>>> sortedList = mappedReferenceTerms.entrySet()
                 .stream().sorted(Comparator.comparing(entry -> entry.getKey().getName()))
                 .collect(Collectors.toList());
@@ -300,6 +302,8 @@ public class DereferencerImpl implements Dereferencer {
         }
         // Done.
         //TODO Sorted because unit tests were failing due to "incorrect" order
+        //TODO The order should not matter, the unit tests need fixing
+        //TODO There's already ticket MET-5056 to handle it
         return dereferencedEntities.values().stream()
                 .sorted(Comparator.comparing(elem -> elem.getClassType().getName()))
                 .collect(Collectors.toList());
