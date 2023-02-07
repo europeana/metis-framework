@@ -3,7 +3,10 @@ package eu.europeana.enrichment.rest.client.dereference;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
-import eu.europeana.enrichment.api.external.model.*;
+
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
@@ -11,15 +14,30 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.metis.schema.jibx.*;
 
+
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.Collection;
 import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;

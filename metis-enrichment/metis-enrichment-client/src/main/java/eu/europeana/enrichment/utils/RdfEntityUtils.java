@@ -1,6 +1,12 @@
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.internal.*;
+
+import eu.europeana.enrichment.api.internal.AggregationFieldType;
+import eu.europeana.enrichment.api.internal.FieldType;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.SearchTerm;
+import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;

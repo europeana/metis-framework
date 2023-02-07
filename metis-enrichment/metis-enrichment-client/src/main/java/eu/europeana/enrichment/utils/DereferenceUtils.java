@@ -1,10 +1,27 @@
 package eu.europeana.enrichment.utils;
 
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
-import eu.europeana.metis.schema.jibx.*;
+
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Aggregation;
+import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 
-import java.util.*;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.ProxyType;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceType;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
+import eu.europeana.metis.schema.jibx.WebResourceType;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
