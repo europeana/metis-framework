@@ -14,7 +14,7 @@ public class DereferencedEntities {
 
   private final Map<ReferenceTerm, List<EnrichmentBase>> referenceTermListMap;
   private final Set<Report> reports;
-  Class<? extends AboutType> classType;
+  private final Class<? extends AboutType> classType;
 
   /**
    * Constructor with an enrichment base a report of messages
@@ -31,9 +31,10 @@ public class DereferencedEntities {
    *
    * @param referenceTermListMap enrichment base list mapped to a referenceterm
    * @param reports report messages
+   * @param classType the class type associated with these reference terms
    */
   public DereferencedEntities(Map<ReferenceTerm, List<EnrichmentBase>> referenceTermListMap, Set<Report> reports,
-                              Class<? extends AboutType> classType) {
+      Class<? extends AboutType> classType) {
     this.referenceTermListMap = new HashMap<>(referenceTermListMap);
     this.reports = new HashSet<>(reports);
     this.classType = classType;

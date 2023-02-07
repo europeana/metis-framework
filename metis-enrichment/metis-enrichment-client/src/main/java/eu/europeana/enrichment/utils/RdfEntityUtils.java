@@ -92,7 +92,7 @@ public final class RdfEntityUtils {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
 
     for(AggregationFieldType aggregationFieldType : AggregationFieldType.values()){
-      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
+      aggregationList.stream().flatMap(aggregationFieldType::extractFields)
               .filter(resourceOrLiteralType -> isResourceEqualToUri(resourceOrLiteralType, referenceTerm.getReference().toString()))
               .forEach(resourceOrLiteralType -> {
                 final Resource resource = new Resource();

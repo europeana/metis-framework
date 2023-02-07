@@ -1,5 +1,9 @@
 package eu.europeana.enrichment.utils;
 
+import static eu.europeana.enrichment.utils.RdfEntityUtils.appendLinkToEuropeanaProxy;
+import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceResourceWithLinkInAggregation;
+import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkInAggregation;
+
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -19,11 +23,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static eu.europeana.enrichment.utils.RdfEntityUtils.*;
+
 
 /**
- * Class that contains logic for converting class entity types and/or merging entities to {@link
- * RDF}
+ * Class that contains logic for converting class entity types and/or merging entities to {@link RDF}
  */
 public class EntityMergeEngine {
 
@@ -47,12 +50,12 @@ public class EntityMergeEngine {
 
     // hasPartList
     placeType.setHasPartList(
-            ItemExtractorUtils.extractLabelResources(place.getHasPartsList(), HasPart::new));
+        ItemExtractorUtils.extractLabelResources(place.getHasPartsList(), HasPart::new));
 
     // isPartOf
     if (place.getIsPartOf() != null) {
       placeType.setIsPartOfList(
-              ItemExtractorUtils.extractLabelResources(place.getIsPartOf(), IsPartOf::new));
+          ItemExtractorUtils.extractLabelResources(place.getIsPartOf(), IsPartOf::new));
     }
 
     // lat
@@ -101,8 +104,8 @@ public class EntityMergeEngine {
 
     // biographicalInformation
     agentType.setBiographicalInformationList(ItemExtractorUtils
-            .extractLabelResources(agent.getBiographicalInformation(),
-                    BiographicalInformation::new));
+        .extractLabelResources(agent.getBiographicalInformation(),
+            BiographicalInformation::new));
     agentType.setProfessionOrOccupationList(ItemExtractorUtils
         .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
@@ -258,7 +261,7 @@ public class EntityMergeEngine {
 
     // hasPartList
     timeSpanType.setHasPartList(
-            ItemExtractorUtils.extractLabelResources(timespan.getHasPartsList(), HasPart::new));
+        ItemExtractorUtils.extractLabelResources(timespan.getHasPartsList(), HasPart::new));
 
     // isNextInSequence
     if (timespan.getIsNextInSequence() != null) {
@@ -270,7 +273,7 @@ public class EntityMergeEngine {
     // isPartOf
     if (timespan.getIsPartOf() != null) {
       timeSpanType.setIsPartOfList(
-              ItemExtractorUtils.extractLabelResources(timespan.getIsPartOf(), IsPartOf::new));
+          ItemExtractorUtils.extractLabelResources(timespan.getIsPartOf(), IsPartOf::new));
     }
 
     // noteList
@@ -282,7 +285,7 @@ public class EntityMergeEngine {
 
     // sameAsList
     timeSpanType
-            .setSameAList(ItemExtractorUtils.extractResources(timespan.getSameAs(), SameAs::new));
+        .setSameAList(ItemExtractorUtils.extractResources(timespan.getSameAs(), SameAs::new));
 
     // hiddenLabelList
     timeSpanType.setHiddenLabelList(
@@ -307,9 +310,9 @@ public class EntityMergeEngine {
 
     // Check if Entity already exists in the list. If so, return it. We don't overwrite.
     final T existingEntity = Optional.ofNullable(listGetter.get()).stream()
-        .flatMap(Collection::stream)
-        .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
-        .orElse(null);
+                                     .flatMap(Collection::stream)
+                                     .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
+                                     .orElse(null);
     if (existingEntity != null) {
       return existingEntity;
     }
@@ -364,7 +367,7 @@ public class EntityMergeEngine {
       if (isProxyFieldType(searchTermContext.getFieldTypes())) {
         appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
             searchTermContext.getFieldTypes().stream().map(ProxyFieldType.class::cast)
-                .collect(Collectors.toSet()));
+                             .collect(Collectors.toSet()));
       } else {
         //Replace matching values in Aggregation
         replaceValueWithLinkInAggregation(rdf, aboutType.getAbout(), searchTermContext);
@@ -388,7 +391,7 @@ public class EntityMergeEngine {
       if (referenceTermContext != null) {
         appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
             referenceTermContext.getProxyFieldTypes().stream().map(ProxyFieldType.class::cast)
-                .collect(Collectors.toSet()));
+                                .collect(Collectors.toSet()));
       }
     }
   }
@@ -403,12 +406,12 @@ public class EntityMergeEngine {
    */
   public void mergeReferenceEntitiesFromDereferencedEntities(RDF rdf, List<DereferencedEntities> dereferencedEntitiesList) {
     for (DereferencedEntities dereferencedEntities : dereferencedEntitiesList) {
-      for(Map.Entry<ReferenceTerm, List<EnrichmentBase>> entry : dereferencedEntities.getReferenceTermListMap().entrySet()) {
+      for (Map.Entry<ReferenceTerm, List<EnrichmentBase>> entry : dereferencedEntities.getReferenceTermListMap().entrySet()) {
         List<AboutType> aboutTypeList = entry.getValue()
-                .stream()
-                .map(base -> convertAndAddEntity(rdf, base))
-                .collect(Collectors.toList());
-        if(dereferencedEntities.getClassType().equals(Aggregation.class)){
+                                             .stream()
+                                             .map(base -> convertAndAddEntity(rdf, base))
+                                             .collect(Collectors.toList());
+        if (dereferencedEntities.getClassType().equals(Aggregation.class)) {
           replaceResourceWithLinkInAggregation(rdf, aboutTypeList.get(0).getAbout(), entry.getKey());
         }
       }
@@ -422,7 +425,7 @@ public class EntityMergeEngine {
     }
     final boolean allProxyFieldTypes = set.stream().allMatch(ProxyFieldType.class::isInstance);
     final boolean allAggregationFieldTypes = set.stream()
-        .allMatch(AggregationFieldType.class::isInstance);
+                                                .allMatch(AggregationFieldType.class::isInstance);
 
     if (!allProxyFieldTypes && !allAggregationFieldTypes) {
       throw new IllegalArgumentException("Invalid set");
