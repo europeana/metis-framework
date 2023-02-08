@@ -5,12 +5,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anySet;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -28,6 +28,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
+import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
@@ -35,9 +36,15 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.Concept;
+import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -45,9 +52,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -56,15 +65,15 @@ import org.springframework.web.client.HttpClientErrorException;
  */
 public class DereferencerImplTest {
 
-  private static final String[] DEREFERENCE_EXTRACT_RESULT_INVALID = {
-      "htt://invalid-example.host/about",
-      "httpx://invalid-example.host/concept",
-      "invalid-example.host/place?val=a|b"};
+  private static final Map<Class<? extends AboutType>, Set<String>> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
+      AboutType.class, Set.of("htt://invalid-example.host/about"),
+      Concept.class, Set.of("httpx://invalid-example.host/concept"),
+      PlaceType.class, Set.of("http://invalid-example host/place?val=ab"));
 
-  private static final String[] DEREFERENCE_EXTRACT_RESULT_VALID = {
-      "http://valid-example.host/about",
-      "http://valid-example.host/concept",
-      "http://valid-example.host/place"};
+  private static final Map<Class<? extends AboutType>, Set<String>> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
+      AboutType.class, Set.of("http://valid-example.host/about"),
+      Concept.class, Set.of("http://valid-example.host/concept"),
+      PlaceType.class, Set.of("http://valid-example.host/place"));
 
   private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
   private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
@@ -120,7 +129,7 @@ public class DereferencerImplTest {
   }
 
   @Test
-  void testDereferencerHappyFlow() {
+  void testDereferencerHappyFlow() throws MalformedURLException {
     // Create mocks of the dependencies
     final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
     doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
@@ -132,8 +141,7 @@ public class DereferencerImplTest {
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_VALID).collect(Collectors.toSet()))
-        .when(dereferencer).extractReferencesForDereferencing(any());
+    doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
     wireMockServer.stubFor(get("/about")
         .withHost(equalTo("valid-example.host"))
@@ -153,7 +161,7 @@ public class DereferencerImplTest {
   }
 
   @Test
-  void testDereferencerNullFlow() {
+  void testDereferencerNullFlow() throws MalformedURLException {
     // Create mocks of the dependencies
     final ClientEntityResolver entityResolver = mock(ClientEntityResolver.class);
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
@@ -163,8 +171,7 @@ public class DereferencerImplTest {
     // Create dereferencer.
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, entityResolver, dereferenceClient));
-    doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(dereferencer)
-                                                                      .extractReferencesForDereferencing(any());
+    doReturn(Collections.emptyMap()).when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
     dereferencer.dereference(inputRdf);
@@ -174,7 +181,7 @@ public class DereferencerImplTest {
   }
 
   @Test
-  void testDereferenceInvalidUrl() {
+  void testDereferenceInvalidUrl() throws MalformedURLException {
     // Create mocks of the dependencies
     final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
     doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
@@ -186,18 +193,17 @@ public class DereferencerImplTest {
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_INVALID).collect(Collectors.toSet()))
-        .when(dereferencer).extractReferencesForDereferencing(any());
+    doReturn(DEREFERENCE_EXTRACT_RESULT_INVALID).when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = dereferencer.dereference(inputRdf);
 
     verifyDereferenceInvalidUrlFlow(dereferenceClient, dereferencer, inputRdf, reports);
-    verifyMergeNullFlow(entityMergeEngine);
+    verifyMergeExceptionFlow(entityMergeEngine);
   }
 
   @Test
-  void testDereferenceHttpException() {
+  void testDereferenceHttpException() throws MalformedURLException {
     // Create mocks of the dependencies
     final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
     doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
@@ -208,14 +214,13 @@ public class DereferencerImplTest {
 
     final Dereferencer dereferencer = spy(
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-    doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_VALID).collect(Collectors.toSet()))
-        .when(dereferencer).extractReferencesForDereferencing(any());
+    doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = dereferencer.dereference(inputRdf);
 
     verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reports);
-    verifyMergeNullFlow(entityMergeEngine);
+    verifyMergeExceptionFlow(entityMergeEngine);
   }
 
   private void verifyDereferenceHappyFlow(DereferenceClient dereferenceClient,
@@ -224,17 +229,19 @@ public class DereferencerImplTest {
     verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing.
-    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
+    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
 
     assertEquals(1, reports.size());
     for (Report report : reports) {
       assertTrue(report.getMessage().contains("Dereferencing or Coreferencing: the europeana entity does not exist"));
       assertEquals(Type.WARN, report.getMessageType());
       assertEquals(Mode.DEREFERENCE, report.getMode());
-      assertEquals("http://valid-example.host/place", report.getValue());
+      assertEquals("http://valid-example.host/concept", report.getValue());
       assertEquals("", report.getStackTrace());
     }
-    for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
+    Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream)
+                                                              .collect(Collectors.toSet());
+    for (String dereferenceUrl : setOfValues) {
       verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
     }
   }
@@ -247,7 +254,9 @@ public class DereferencerImplTest {
 
     // Checking the report.
     assertEquals(3, reports.size());
-    for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_INVALID) {
+    Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream)
+                                                              .collect(Collectors.toSet());
+    for (String dereferenceUrl : setOfValues) {
       verify(dereferenceClient, times(0)).dereference(dereferenceUrl);
     }
   }
@@ -259,7 +268,7 @@ public class DereferencerImplTest {
     verifyDerefencer(dereferencer, inputRdf);
 
     // Actually dereferencing.
-    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.length)).dereference(anyString());
+    verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
 
     // Checking the report.
     assertEquals(3, reports.size());
@@ -270,13 +279,23 @@ public class DereferencerImplTest {
   }
 
   // Verify merge calls
-  private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) {
-    final List<EnrichmentBase> expectedMerges = new ArrayList<>();
-    DEREFERENCE_RESULT.stream().filter(Objects::nonNull)
-                      .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList).filter(Objects::nonNull)
-                      .flatMap(List::stream).forEach(list -> expectedMerges.addAll(list.getEnrichmentBaseList()));
+  private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) throws MalformedURLException {
+    ArgumentCaptor<List<DereferencedEntities>> argumentCaptor = ArgumentCaptor.forClass(List.class);
+    List<DereferencedEntities> expectedList = prepareExpectedList();
     verify(entityMergeEngine, times(1))
-        .mergeReferenceEntities(any(), eq(expectedMerges));
+        .mergeReferenceEntitiesFromDereferencedEntities(any(), argumentCaptor.capture());
+    assertEquals(expectedList.size(), argumentCaptor.getValue().size());
+    for (int i = 0; i < expectedList.size(); i++) {
+      DereferencedEntities expectedElement = expectedList.get(i);
+      DereferencedEntities capturedElement = argumentCaptor.getValue().get(i);
+      assertEquals(expectedElement.getClassType(), capturedElement.getClassType());
+      assertEquals(expectedElement.getReportMessages().size(), capturedElement.getReportMessages().size());
+      assertTrue(CollectionUtils.isEqualCollection(expectedElement.getReportMessages(), capturedElement.getReportMessages()));
+      assertTrue(CollectionUtils.isEqualCollection(expectedElement.getReferenceTermListMap().keySet(),
+          capturedElement.getReferenceTermListMap().keySet()));
+      assertTrue(CollectionUtils.isEqualCollection(expectedElement.getReferenceTermListMap().values(),
+          capturedElement.getReferenceTermListMap().values()));
+    }
   }
 
   private void verifyDereferenceNullFlow(DereferenceClient dereferenceClient,
@@ -300,9 +319,92 @@ public class DereferencerImplTest {
     verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
   }
 
-  private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
+  private void verifyMergeExceptionFlow(EntityMergeEngine entityMergeEngine) throws MalformedURLException {
+    ArgumentCaptor<List<DereferencedEntities>> argumentCaptor = ArgumentCaptor.forClass((Class) List.class);
+    List<DereferencedEntities> expectedList = prepareExpectedListMergeNull();
     verify(entityMergeEngine, times(1))
-        .mergeReferenceEntities(any(), eq(Collections.emptyList()));
-    verify(entityMergeEngine, times(1)).mergeReferenceEntities(any(), any());
+        .mergeReferenceEntitiesFromDereferencedEntities(any(), argumentCaptor.capture());
+    assertEquals(expectedList.size(), argumentCaptor.getValue().size());
+    for (int i = 0; i < expectedList.size(); i++) {
+      DereferencedEntities expectedElement = expectedList.get(i);
+      DereferencedEntities capturedElement = argumentCaptor.getValue().get(i);
+      assertEquals(expectedElement.getClassType(), capturedElement.getClassType());
+      assertEquals(expectedElement.getReportMessages().size(), capturedElement.getReportMessages().size());
+
+    }
+
+  }
+
+  private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
+    ArgumentCaptor<List<DereferencedEntities>> argumentCaptor = ArgumentCaptor.forClass((Class) List.class);
+    verify(entityMergeEngine, times(1))
+        .mergeReferenceEntitiesFromDereferencedEntities(any(), argumentCaptor.capture());
+    assertEquals(1, argumentCaptor.getValue().size());
+    assertNull(argumentCaptor.getValue().get(0).getClassType());
+    assertTrue(argumentCaptor.getValue().get(0).getReferenceTermListMap().isEmpty());
+    assertTrue(argumentCaptor.getValue().get(0).getReportMessages().isEmpty());
+  }
+
+  private List<DereferencedEntities> prepareExpectedList() throws MalformedURLException {
+    ReferenceTermImpl expectedReferenceTerm1 = new ReferenceTermImpl(new URL("http://valid-example.host/concept"));
+    Set<Report> expectedReports1 = Set.of(Report.buildDereferenceWarn().withStatus(HttpStatus.OK)
+                                                .withValue("http://valid-example.host/concept")
+                                                .withMessage(
+                                                    "Dereferencing or Coreferencing: the europeana entity does not exist."));
+    DereferencedEntities expectedDereferencedEntities1 = new DereferencedEntities(
+        Map.of(expectedReferenceTerm1, new ArrayList<>()),
+        expectedReports1, Concept.class);
+
+    ReferenceTermImpl expectedReferenceTerm2 = new ReferenceTermImpl(new URL("http://valid-example.host/place"));
+    List<EnrichmentBase> expectedEnrichmentBaseList2 = new ArrayList<>();
+    expectedEnrichmentBaseList2.add(
+        DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
+    expectedEnrichmentBaseList2.add(
+        DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(1));
+    expectedEnrichmentBaseList2.add(null);
+    DereferencedEntities expectedDereferencedEntities2 = new DereferencedEntities(
+        Map.of(expectedReferenceTerm2, expectedEnrichmentBaseList2),
+        Collections.emptySet(), PlaceType.class);
+
+    ReferenceTermImpl expectedReferenceTerm3 = new ReferenceTermImpl(new URL("http://valid-example.host/about"));
+    List<EnrichmentBase> expectedEnrichmentBaseList3 = new ArrayList<>();
+    expectedEnrichmentBaseList3.add(
+        DEREFERENCE_RESULT.get(0).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
+    expectedEnrichmentBaseList3.add(null);
+    expectedEnrichmentBaseList3.add(
+        DEREFERENCE_RESULT.get(0).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(2));
+    DereferencedEntities expectedDereferencedEntities3 = new DereferencedEntities(
+        Map.of(expectedReferenceTerm3, expectedEnrichmentBaseList3),
+        Collections.emptySet(), AboutType.class);
+
+    return List.of(expectedDereferencedEntities3, expectedDereferencedEntities1, expectedDereferencedEntities2);
+  }
+
+  private List<DereferencedEntities> prepareExpectedListMergeNull() throws MalformedURLException {
+    Report expectedReportConcept = Report.buildDereferenceWarn()
+                                         .withStatus(HttpStatus.BAD_REQUEST)
+                                         .withValue("http://valid-example.host/concept")
+                                         .withMessage("HttpClientErrorException.BadRequest: 400 Bad Request");
+    Report expectedReportPlace = Report.buildDereferenceWarn()
+                                       .withStatus(HttpStatus.BAD_REQUEST)
+                                       .withValue("http://valid-example.host/place")
+                                       .withMessage("HttpClientErrorException.BadRequest: 400 Bad Request");
+    Report expectedReportAbout = Report.buildDereferenceWarn()
+                                       .withStatus(HttpStatus.BAD_REQUEST)
+                                       .withValue("http://valid-example.host/about")
+                                       .withMessage("HttpClientErrorException.BadRequest: 400 Bad Request");
+
+    ReferenceTermImpl referenceTerm1 = new ReferenceTermImpl(new URL("http://valid-example.host/about"));
+    ReferenceTermImpl referenceTerm2 = new ReferenceTermImpl(new URL("http://valid-example.host/concept"));
+    ReferenceTermImpl referenceTerm3 = new ReferenceTermImpl(new URL("http://valid-example.host/place"));
+
+    DereferencedEntities dereferencedEntities1 = new DereferencedEntities(Map.of(referenceTerm1, Collections.emptyList()),
+        Set.of(expectedReportAbout), AboutType.class);
+    DereferencedEntities dereferencedEntities2 = new DereferencedEntities(Map.of(referenceTerm2, Collections.emptyList()),
+        Set.of(expectedReportConcept), Concept.class);
+    DereferencedEntities dereferencedEntities3 = new DereferencedEntities(Map.of(referenceTerm3, Collections.emptyList()),
+        Set.of(expectedReportPlace), PlaceType.class);
+
+    return List.of(dereferencedEntities1, dereferencedEntities2, dereferencedEntities3);
   }
 }
