@@ -44,6 +44,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -273,7 +274,7 @@ public class DereferencerImpl implements Dereferencer {
 
     //TODO Using TreeMap to sort out the elements because unit tests were failing due to "incorrect" order
     //TODO The order should not matter, the unit tests need fixing
-    //TODO There's already ticket MET-5056 to handle it
+    //TODO There's already ticket MET-5065 to handle it
 
     // First try to get them from our own entity collection database.
     TreeMap<Class<? extends AboutType>, Set<ReferenceTerm>> mappedReferenceTerms = new TreeMap<>(
@@ -322,11 +323,13 @@ public class DereferencerImpl implements Dereferencer {
     DereferencedEntities result = dereferenceEntitiesWithUri(referenceTerms,
         new HashSet<>(), classType);
 
+    //Collect references that returned empty lists values for references that we checked with uri
     Set<ReferenceTerm> remainingReferences = referenceTerms.stream().filter(
-                                                               elem -> !result.getReferenceTermListMap().containsKey(elem))
+                                                               referenceTerm -> result.getReferenceTermListMap().get(referenceTerm).isEmpty())
                                                            .collect(Collectors.toSet());
 
-    if (!remainingReferences.isEmpty()) {
+    //If there are any remaining references then do external dereferencing
+    if (CollectionUtils.isNotEmpty(remainingReferences)) {
       DereferencedEntities aggregationRemainingDereferencingResult =
           dereferenceExternalEntity(remainingReferences, classType);
       result.getReferenceTermListMap().putAll(aggregationRemainingDereferencingResult.getReferenceTermListMap());

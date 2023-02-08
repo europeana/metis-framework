@@ -465,7 +465,7 @@ public class EntityMergeEngine {
                                              .map(base -> convertAndAddEntity(rdf, base))
                                              .collect(Collectors.toList());
         if (dereferencedEntities.getClassType().equals(Aggregation.class)) {
-          replaceResourceWithLinkInAggregation(rdf, aboutTypeList.get(0).getAbout(), entry.getKey());
+          replaceResourceWithLinkInAggregation(rdf, aboutTypeList, entry.getKey());
         }
       }
     }

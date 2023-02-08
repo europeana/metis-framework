@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -91,20 +92,23 @@ public final class RdfEntityUtils {
    * Replace matching aggregation values with their found corresponding links.
    *
    * @param rdf the rdf to update
-   * @param link the about value to use
+   * @param listOfAboutTypes the list containing the about types relevant to the referenceTerm
    * @param referenceTerm the aggregation search term to use for finding the matched values
    */
-  public static void replaceResourceWithLinkInAggregation(RDF rdf, String link, ReferenceTerm referenceTerm) {
-    final List<Aggregation> aggregationList = rdf.getAggregationList();
+  public static void replaceResourceWithLinkInAggregation(RDF rdf, List<AboutType> listOfAboutTypes, ReferenceTerm referenceTerm) {
+    if(CollectionUtils.isNotEmpty(listOfAboutTypes)) {
+      final List<Aggregation> aggregationList = rdf.getAggregationList();
 
-    for(AggregationFieldType aggregationFieldType : AggregationFieldType.values()){
-      aggregationList.stream().flatMap(aggregationFieldType::extractFields)
-              .filter(resourceOrLiteralType -> isResourceEqualToUri(resourceOrLiteralType, referenceTerm.getReference().toString()))
-              .forEach(resourceOrLiteralType -> {
-                final Resource resource = new Resource();
-                resource.setResource(link);
-                resourceOrLiteralType.setResource(resource);
-              });
+      for (AggregationFieldType aggregationFieldType : AggregationFieldType.values()) {
+        aggregationList.stream().flatMap(aggregationFieldType::extractFields)
+                       .filter(resourceOrLiteralType -> isResourceEqualToUri(resourceOrLiteralType,
+                           referenceTerm.getReference().toString()))
+                       .forEach(resourceOrLiteralType -> {
+                         final Resource resource = new Resource();
+                         resource.setResource(listOfAboutTypes.get(0).getAbout());
+                         resourceOrLiteralType.setResource(resource);
+                       });
+      }
     }
   }
 
