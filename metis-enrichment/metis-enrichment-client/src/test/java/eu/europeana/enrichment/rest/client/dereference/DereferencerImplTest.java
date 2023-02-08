@@ -1,11 +1,8 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.badRequest;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
-import static com.github.tomakehurst.wiremock.client.WireMock.serverError;
-import static com.github.tomakehurst.wiremock.client.WireMock.temporaryRedirect;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,9 +57,9 @@ import org.springframework.web.client.HttpClientErrorException;
 public class DereferencerImplTest {
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT_INVALID = {
-      "http://invalid-example.host/about",
-      "http://invalid-example.host/concept",
-      "http://invalid-example.host/place"};
+      "htt://invalid-example.host/about",
+      "httpx://invalid-example.host/concept",
+      "invalid-example.host/place?val=a|b"};
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT_VALID = {
       "http://valid-example.host/about",
@@ -191,15 +188,6 @@ public class DereferencerImplTest {
         new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT_INVALID).collect(Collectors.toSet()))
         .when(dereferencer).extractReferencesForDereferencing(any());
-    wireMockServer.stubFor(get("/about")
-        .withHost(equalTo("invalid-example.host"))
-        .willReturn(serverError()));
-    wireMockServer.stubFor(get("/concept")
-        .withHost(equalTo("invalid-example.host"))
-        .willReturn(temporaryRedirect("")));
-    wireMockServer.stubFor(get("/place")
-        .withHost(equalTo("invalid-example.host"))
-        .willReturn(badRequest()));
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = dereferencer.dereference(inputRdf);
