@@ -4,60 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.schema.jibx.AgentType;
-import eu.europeana.metis.schema.jibx.Alternative;
-import eu.europeana.metis.schema.jibx.BitRate;
-import eu.europeana.metis.schema.jibx.BroadMatch;
-import eu.europeana.metis.schema.jibx.Broader;
-import eu.europeana.metis.schema.jibx.CloseMatch;
-import eu.europeana.metis.schema.jibx.Concept;
+import eu.europeana.metis.schema.jibx.*;
 import eu.europeana.metis.schema.jibx.Concept.Choice;
-import eu.europeana.metis.schema.jibx.Created;
-import eu.europeana.metis.schema.jibx.CurrentLocation;
-import eu.europeana.metis.schema.jibx.ExactMatch;
-import eu.europeana.metis.schema.jibx.Extent;
-import eu.europeana.metis.schema.jibx.Format;
-import eu.europeana.metis.schema.jibx.HasFormat;
-import eu.europeana.metis.schema.jibx.HasMet;
-import eu.europeana.metis.schema.jibx.HasPart;
-import eu.europeana.metis.schema.jibx.HasType;
-import eu.europeana.metis.schema.jibx.HasVersion;
-import eu.europeana.metis.schema.jibx.Incorporates;
-import eu.europeana.metis.schema.jibx.IsDerivativeOf;
-import eu.europeana.metis.schema.jibx.IsFormatOf;
-import eu.europeana.metis.schema.jibx.IsPartOf;
-import eu.europeana.metis.schema.jibx.IsReferencedBy;
-import eu.europeana.metis.schema.jibx.IsRelatedTo;
-import eu.europeana.metis.schema.jibx.IsReplacedBy;
-import eu.europeana.metis.schema.jibx.IsRequiredBy;
-import eu.europeana.metis.schema.jibx.IsSimilarTo;
-import eu.europeana.metis.schema.jibx.IsSuccessorOf;
-import eu.europeana.metis.schema.jibx.IsVersionOf;
-import eu.europeana.metis.schema.jibx.Issued;
-import eu.europeana.metis.schema.jibx.Medium;
-import eu.europeana.metis.schema.jibx.NarrowMatch;
-import eu.europeana.metis.schema.jibx.Note;
-import eu.europeana.metis.schema.jibx.PlaceType;
-import eu.europeana.metis.schema.jibx.ProfessionOrOccupation;
-import eu.europeana.metis.schema.jibx.ProxyType;
-import eu.europeana.metis.schema.jibx.Publisher;
-import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.metis.schema.jibx.Realizes;
-import eu.europeana.metis.schema.jibx.References;
-import eu.europeana.metis.schema.jibx.Related;
-import eu.europeana.metis.schema.jibx.RelatedMatch;
-import eu.europeana.metis.schema.jibx.Relation;
-import eu.europeana.metis.schema.jibx.Replaces;
-import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
-import eu.europeana.metis.schema.jibx.SameAs;
-import eu.europeana.metis.schema.jibx.Source;
-import eu.europeana.metis.schema.jibx.Temporal;
-import eu.europeana.metis.schema.jibx.TimeSpanType;
-import eu.europeana.metis.schema.jibx.WebResourceType;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 class DereferenceUtilsTest {
@@ -108,12 +61,13 @@ class DereferenceUtilsTest {
 
     rdf.setPlaceList(placeList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Set<String> setOfValues = result.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
 
     assertNotNull(result);
-    assertEquals(1, result.size());
+    assertEquals(1, setOfValues.size());
 
-    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(setOfValues.contains("http://dummy2.dum"));
   }
 
   @Test
@@ -167,13 +121,14 @@ class DereferenceUtilsTest {
 
     rdf.setAgentList(agentList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Set<String> setOfValues = result.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
 
     assertNotNull(result);
-    assertEquals(2, result.size());
+    assertEquals(2, setOfValues.size());
 
-    assertTrue(result.contains("http://dummy4.dum"));
-    assertTrue(result.contains("http://dummy5.dum"));
+    assertTrue(setOfValues.contains("http://dummy4.dum"));
+    assertTrue(setOfValues.contains("http://dummy5.dum"));
   }
 
   @Test
@@ -244,12 +199,13 @@ class DereferenceUtilsTest {
 
     rdf.setConceptList(conceptList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Set<String> setOfValues = result.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
 
     assertNotNull(result);
-    assertEquals(1, result.size());
+    assertEquals(1, setOfValues.size());
 
-    assertTrue(result.contains("http://dummy8.dum"));
+    assertTrue(setOfValues.contains("http://dummy8.dum"));
   }
 
   @Test
@@ -298,12 +254,13 @@ class DereferenceUtilsTest {
 
     rdf.setTimeSpanList(timeSpanList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Set<String> setOfValues = result.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
 
     assertNotNull(result);
-    assertEquals(1, result.size());
+    assertEquals(1, setOfValues.size());
 
-    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(setOfValues.contains("http://dummy4.dum"));
   }
 
   @Test
@@ -375,16 +332,17 @@ class DereferenceUtilsTest {
 
     rdf.setWebResourceList(webResourceList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Set<String> setOfValues = result.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
 
     assertNotNull(result);
-    assertEquals(5, result.size());
+    assertEquals(5, setOfValues.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
-    assertTrue(result.contains("http://dummy2.dum"));
-    assertTrue(result.contains("http://dummy3.dum"));
-    assertTrue(result.contains("http://dummy5.dum"));
-    assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(setOfValues.contains("http://dummy1.dum"));
+    assertTrue(setOfValues.contains("http://dummy2.dum"));
+    assertTrue(setOfValues.contains("http://dummy3.dum"));
+    assertTrue(setOfValues.contains("http://dummy5.dum"));
+    assertTrue(setOfValues.contains("http://dummy6.dum"));
   }
 
   @Test
@@ -612,35 +570,36 @@ class DereferenceUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<Class<? extends AboutType>,Set<String>> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Set<String> setOfValues = result.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
 
     assertNotNull(result);
-    assertEquals(25, result.size());
+    assertEquals(25, setOfValues.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
-    assertTrue(result.contains("http://dummy2.dum"));
-    assertTrue(result.contains("http://dummy3.dum"));
-    assertTrue(result.contains("http://dummy4.dum"));
-    assertTrue(result.contains("http://dummy5.dum"));
-    assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(setOfValues.contains("http://dummy1.dum"));
+    assertTrue(setOfValues.contains("http://dummy2.dum"));
+    assertTrue(setOfValues.contains("http://dummy3.dum"));
+    assertTrue(setOfValues.contains("http://dummy4.dum"));
+    assertTrue(setOfValues.contains("http://dummy5.dum"));
+    assertTrue(setOfValues.contains("http://dummy6.dum"));
 
-    assertTrue(result.contains("http://dummy7.dum"));
-    assertTrue(result.contains("http://dummy8.dum"));
-    assertTrue(result.contains("http://dummy9.dum"));
+    assertTrue(setOfValues.contains("http://dummy7.dum"));
+    assertTrue(setOfValues.contains("http://dummy8.dum"));
+    assertTrue(setOfValues.contains("http://dummy9.dum"));
 
-    assertTrue(result.contains("http://dummy20.dum"));
-    assertTrue(result.contains("http://dummy22.dum"));
+    assertTrue(setOfValues.contains("http://dummy20.dum"));
+    assertTrue(setOfValues.contains("http://dummy22.dum"));
 
-    assertTrue(result.contains("http://dummy25.dum"));
-    assertTrue(result.contains("http://dummy28.dum"));
-    assertTrue(result.contains("http://dummy30.dum"));
+    assertTrue(setOfValues.contains("http://dummy25.dum"));
+    assertTrue(setOfValues.contains("http://dummy28.dum"));
+    assertTrue(setOfValues.contains("http://dummy30.dum"));
 
-    assertTrue(result.contains("http://dummy31.dum"));
-    assertTrue(result.contains("http://dummy33.dum"));
-    assertTrue(result.contains("http://dummy36.dum"));
-    assertTrue(result.contains("http://dummy37.dum"));
-    assertTrue(result.contains("http://dummy38.dum"));
-    assertTrue(result.contains("http://dummy39.dum"));
-    assertTrue(result.contains("http://dummy40.dum"));
+    assertTrue(setOfValues.contains("http://dummy31.dum"));
+    assertTrue(setOfValues.contains("http://dummy33.dum"));
+    assertTrue(setOfValues.contains("http://dummy36.dum"));
+    assertTrue(setOfValues.contains("http://dummy37.dum"));
+    assertTrue(setOfValues.contains("http://dummy38.dum"));
+    assertTrue(setOfValues.contains("http://dummy39.dum"));
+    assertTrue(setOfValues.contains("http://dummy40.dum"));
   }
 }

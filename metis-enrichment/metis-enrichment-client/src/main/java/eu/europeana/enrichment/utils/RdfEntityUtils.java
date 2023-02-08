@@ -1,8 +1,10 @@
 package eu.europeana.enrichment.utils;
 
+
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
@@ -26,6 +28,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -85,6 +88,30 @@ public final class RdfEntityUtils {
     }
   }
 
+  /**
+   * Replace matching aggregation values with their found corresponding links.
+   *
+   * @param rdf the rdf to update
+   * @param listOfAboutTypes the list containing the about types relevant to the referenceTerm
+   * @param referenceTerm the aggregation search term to use for finding the matched values
+   */
+  public static void replaceResourceWithLinkInAggregation(RDF rdf, List<AboutType> listOfAboutTypes, ReferenceTerm referenceTerm) {
+    if(CollectionUtils.isNotEmpty(listOfAboutTypes)) {
+      final List<Aggregation> aggregationList = rdf.getAggregationList();
+
+      for (AggregationFieldType aggregationFieldType : AggregationFieldType.values()) {
+        aggregationList.stream().flatMap(aggregationFieldType::extractFields)
+                       .filter(resourceOrLiteralType -> isResourceEqualToUri(resourceOrLiteralType,
+                           referenceTerm.getReference().toString()))
+                       .forEach(resourceOrLiteralType -> {
+                         final Resource resource = new Resource();
+                         resource.setResource(listOfAboutTypes.get(0).getAbout());
+                         resourceOrLiteralType.setResource(resource);
+                       });
+      }
+    }
+  }
+
   private static boolean resourceOrLiteralAndSearchTermEquality(
       ResourceOrLiteralType resourceOrLiteralType, SearchTerm searchTerm) {
 
@@ -104,6 +131,11 @@ public final class RdfEntityUtils {
       }
     }
     return areEqual;
+  }
+
+  private static boolean isResourceEqualToUri(ResourceOrLiteralType resourceOrLiteralType, String uri){
+    return resourceOrLiteralType.getResource() != null &&
+            resourceOrLiteralType.getResource().getResource().equals(uri);
   }
 
   private static Map<ProxyFieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
