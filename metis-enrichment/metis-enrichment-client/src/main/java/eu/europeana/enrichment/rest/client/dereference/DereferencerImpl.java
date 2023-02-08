@@ -3,10 +3,9 @@ package eu.europeana.enrichment.rest.client.dereference;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
-
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
@@ -14,19 +13,15 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-
-
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -37,13 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Collection;
 import java.util.stream.Collectors;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +45,6 @@ import org.springframework.web.client.HttpClientErrorException.BadRequest;
 public class DereferencerImpl implements Dereferencer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
-  public static final String HTTPS = "https";
 
   private final EntityMergeEngine entityMergeEngine;
   private final EntityResolver entityResolver;
@@ -78,8 +66,9 @@ public class DereferencerImpl implements Dereferencer {
 
   private static URL checkIfUrlIsValid(HashSet<Report> reports, String id) {
     try {
-      return new URL(id);
-    } catch (MalformedURLException e) {
+      URI uri = new URI(id);
+      return new URL(uri.toString());
+    } catch (URISyntaxException | MalformedURLException e) {
       reports.add(Report
           .buildDereferenceWarn()
           .withStatus(HttpStatus.BAD_REQUEST)
@@ -88,115 +77,6 @@ public class DereferencerImpl implements Dereferencer {
           .build());
       LOGGER.debug("Invalid enrichment reference found: {}", id);
       return null;
-    }
-  }
-
-  private static HttpURLConnection getClient(URL checkedUrl) throws IOException {
-    if (checkedUrl.getProtocol().equals(HTTPS)) {
-      HttpsURLConnection validationClient = (HttpsURLConnection) checkedUrl.openConnection();
-      skipSSLValidationCertificate(validationClient);
-      return validationClient;
-    } else {
-      return (HttpURLConnection) checkedUrl.openConnection();
-    }
-  }
-
-  private static URL validateIfUrlToDereferenceExists(HashSet<Report> reports, URL checkedUrl) {
-    try {
-      HttpURLConnection validationClient = getClient(checkedUrl);
-
-      HttpStatus responseCode = HttpStatus.resolve(validationClient.getResponseCode());
-
-      LOGGER.debug("A URL {} response code.: {}", checkedUrl, responseCode);
-      if (responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_MOVED_TEMP)
-          || responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_MOVED_PERM)
-          || responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_SEE_OTHER)) {
-        // get redirect url from "location" header field
-        String newUrl = validationClient.getHeaderField("Location");
-        // get the cookie if needed, for login
-        String cookies = validationClient.getHeaderField("Set-Cookie");
-
-        // open the new connnection again
-        validationClient = getClient(new URL(newUrl));
-        validationClient.setRequestProperty("Cookie", cookies);
-        validationClient.addRequestProperty("Accept-Language", "en-US,en;q=0.8");
-        validationClient.addRequestProperty("User-Agent", "Mozilla");
-        validationClient.addRequestProperty("Referer", "europeana.eu");
-        responseCode = HttpStatus.resolve(validationClient.getResponseCode());
-        LOGGER.debug("Redirect to URL : {}", newUrl);
-      }
-
-      if (responseCode == HttpStatus.resolve(HttpURLConnection.HTTP_OK)) {
-        LOGGER.debug("A URL to be dereferenced is valid.: {}", checkedUrl);
-        return checkedUrl;
-      } else {
-        reports.add(Report
-            .buildDereferenceWarn()
-            .withStatus(responseCode)
-            .withValue(checkedUrl.toString())
-            .withMessage("A URL to be dereferenced is invalid.")
-            .build());
-        LOGGER.debug("A URL to be dereferenced is invalid.: {} {}", checkedUrl, responseCode);
-        return null;
-      }
-    } catch (IOException e) {
-      reports.add(Report
-          .buildDereferenceWarn()
-          .withStatus(HttpStatus.BAD_REQUEST)
-          .withValue(checkedUrl.toString())
-          .withException(e)
-          .build());
-      LOGGER.debug("A URL to be dereferenced is invalid.: {}", checkedUrl);
-      return null;
-    }
-  }
-
-  private static void skipSSLValidationCertificate(HttpsURLConnection validationClient) {
-    TrustManager[] trustAllCerts = new TrustManager[]{
-        new X509TrustManager() {
-          /**
-           * accepted issuers
-           * @return empty accepted issuers.
-           */
-          @Override
-          public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[]{};
-          }
-
-          /**
-           * checkClientTrusted
-           * @param certs certificates
-           * @param authType authentication type
-           */
-          @Override
-          public void checkClientTrusted(
-              X509Certificate[] certs, String authType) throws CertificateException {
-            // Empty for validation purposes
-            if (certs.length == -1) {
-              throw new CertificateException("This is just endpoint validation");
-            }
-          }
-
-          /**
-           * checkServerTrusted
-           * @param certs certificates
-           * @param authType authentication type
-           */
-          public void checkServerTrusted(X509Certificate[] certs, String authType)
-              throws CertificateException {
-            // Empty for validation purposes
-            if (certs.length == -1) {
-              throw new CertificateException("This is just endpoint validation");
-            }
-          }
-        }
-    };
-    try {
-      SSLContext sc = SSLContext.getInstance("TLSv1.2");
-      sc.init(null, trustAllCerts, new java.security.SecureRandom());
-      validationClient.setSSLSocketFactory(sc.getSocketFactory());
-    } catch (Exception e) {
-      LOGGER.error(",Setting dereference url validation", e);
     }
   }
 
@@ -306,7 +186,7 @@ public class DereferencerImpl implements Dereferencer {
       Set<ReferenceTerm> notFoundOwnReferenceTerms = entry.getValue().stream().filter(
           referenceTerm -> !foundOwnEntityIds.contains(referenceTerm.getReference().toString())).collect(
           Collectors.toSet());
-      if(notFoundOwnReferenceTerms.isEmpty()){
+      if (notFoundOwnReferenceTerms.isEmpty()) {
         continue;
       }
 
@@ -334,8 +214,7 @@ public class DereferencerImpl implements Dereferencer {
 
     //If there are any remaining references then do external dereferencing
     if (CollectionUtils.isNotEmpty(remainingReferences)) {
-      DereferencedEntities aggregationRemainingDereferencingResult =
-          dereferenceExternalEntity(remainingReferences, classType);
+      DereferencedEntities aggregationRemainingDereferencingResult = dereferenceExternalEntity(remainingReferences, classType);
       result.getReferenceTermListMap().putAll(aggregationRemainingDereferencingResult.getReferenceTermListMap());
       result.getReportMessages().addAll(aggregationRemainingDereferencingResult.getReportMessages());
     }
@@ -435,8 +314,6 @@ public class DereferencerImpl implements Dereferencer {
   private Set<ReferenceTerm> setUpReferenceTermSet(Set<String> resourcesIds, HashSet<Report> reports) {
     return resourcesIds.stream()
                        .map(id -> checkIfUrlIsValid(reports, id))
-                       .filter(Objects::nonNull)
-                       .map(checkedUrl -> validateIfUrlToDereferenceExists(reports, checkedUrl))
                        .filter(Objects::nonNull)
                        .map(validateUrl -> new ReferenceTermImpl(validateUrl, new HashSet<>()))
                        .collect(Collectors.toSet());
