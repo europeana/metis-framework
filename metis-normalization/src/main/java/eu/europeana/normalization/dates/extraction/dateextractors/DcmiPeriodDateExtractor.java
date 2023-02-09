@@ -15,7 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Date extractor for DCMI Period
+ * Date extractor for DCMI Period.
+ *
+ * @see <a href="https://www.dublincore.org/specifications/dublin-core/dcmi-period/">DCMI Period Encoding Scheme</a>
  */
 public class DcmiPeriodDateExtractor implements DateExtractor {
 
