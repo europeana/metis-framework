@@ -63,7 +63,7 @@ import org.springframework.web.client.HttpClientErrorException;
 /**
  * Unit tests for {@link DereferencerImpl} class
  */
-public class DereferencerImplTest {
+class DereferencerImplTest {
 
   private static final Map<Class<? extends AboutType>, Set<String>> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
       AboutType.class, Set.of("htt://invalid-example.host/about"),
@@ -161,7 +161,7 @@ public class DereferencerImplTest {
   }
 
   @Test
-  void testDereferencerNullFlow() throws MalformedURLException {
+  void testDereferencerNullFlow() {
     // Create mocks of the dependencies
     final ClientEntityResolver entityResolver = mock(ClientEntityResolver.class);
     final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
@@ -254,6 +254,10 @@ public class DereferencerImplTest {
 
     // Checking the report.
     assertEquals(3, reports.size());
+    for (Report report : reports) {
+      assertEquals(Type.IGNORE, report.getMessageType());
+      assertEquals(Mode.DEREFERENCE, report.getMode());
+    }
     Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream)
                                                               .collect(Collectors.toSet());
     for (String dereferenceUrl : setOfValues) {

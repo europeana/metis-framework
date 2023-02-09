@@ -164,6 +164,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
     // Done
     LOGGER.debug("Processing complete.");
+    LOGGER.debug("REPORT: {}", reports);
     return new ProcessedResult<>(rdf, reports);
   }
 

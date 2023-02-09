@@ -70,8 +70,8 @@ public class DereferencerImpl implements Dereferencer {
       return new URL(uri.toString());
     } catch (URISyntaxException | MalformedURLException e) {
       reports.add(Report
-          .buildDereferenceWarn()
-          .withStatus(HttpStatus.BAD_REQUEST)
+          .buildDereferenceIgnore()
+          .withStatus(HttpStatus.OK)
           .withValue(id)
           .withException(e)
           .build());
@@ -106,7 +106,8 @@ public class DereferencerImpl implements Dereferencer {
         default:
           resultMessage = "";
       }
-      if (resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING) ||
+      if (resultStatus.equals(DereferenceResultStatus.INVALID_URL) ||
+          resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING) ||
           resultStatus.equals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS)) {
         reports.add(Report
             .buildDereferenceIgnore()
