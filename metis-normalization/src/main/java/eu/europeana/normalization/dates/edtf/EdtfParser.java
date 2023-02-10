@@ -1,92 +1,53 @@
 package eu.europeana.normalization.dates.edtf;
 
-import static java.lang.String.format;
-
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import java.text.ParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * This class implements the deserialization of EDTF strings into the EDTF structure.
+ * EDTF parser with implementation for Level 0 and Level 1 with bypassing time part parsing.
+ * <p>
+ * For more information check here <a href="https://www.loc.gov/standards/datetime/">EDTF library specification</a>
+ * </p>
  */
 public class EdtfParser {
 
-  // TODO: 21/12/2022 This is used transparently for both EDTF parsing as well as Dcmi parsing which is probably
-  //  incorrect, because of the allowance of the [?%~] modifiers(part of EDTF level1 https://www.loc.gov/standards/datetime/).
-  // TODO: 19/07/2022 Simplify regex by potentially splitting it
-  private static final Pattern DATE_PATTERN = Pattern
-      .compile("((?<year1>-?\\d{4})-(?<month1>\\d{2})-(?<day1>\\d{2})|"
-          + "(?<year2>-?\\d{4})-(?<month2>\\d{2})|" + "(?<year3>-?\\d{4})" + ")(?<modifier>[?%~]?)");
+  private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
-
-  public AbstractEdtfDate parse(String edtfString) throws ParseException {
-    if (StringUtils.isEmpty(edtfString)) {
+  public AbstractEdtfDate parse(String dateInput) throws ParseException {
+    if (StringUtils.isEmpty(dateInput)) {
       throw new ParseException("Empty argument", 0);
     }
-    if (edtfString.contains("/")) {
-      return parseInterval(edtfString);
+    if (dateInput.contains("/")) {
+      return parseInterval(dateInput);
     }
-    return parseInstant(edtfString);
+    return parseInstant(dateInput);
   }
 
-  protected InstantEdtfDate parseInstant(String edtfString) throws ParseException {
-    if (edtfString.contains("T")) {
-      String datePart = edtfString.substring(0, edtfString.indexOf('T'));
-      if (datePart.isEmpty()) {
-        throw new ParseException("Date part is empty which is not allowed", 0);
-      }
-      return new InstantEdtfDate(parseDate(datePart));
-    } else {
-      return new InstantEdtfDate(parseDate(edtfString));
-    }
-  }
-
-  protected IntervalEdtfDate parseInterval(String edtfString) throws ParseException {
-    String startPart = edtfString.substring(0, edtfString.indexOf('/'));
-    String endPart = edtfString.substring(edtfString.indexOf('/') + 1);
-    InstantEdtfDate start = parseInstant(startPart);
-    InstantEdtfDate end = parseInstant(endPart);
-    if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
-        || start.getEdtfDatePart().isUnspecified())) {
-      throw new ParseException(edtfString, 0);
-    }
-    return new IntervalEdtfDate(start, end);
-  }
-
-  protected EdtfDatePart parseDate(String edtfString) throws ParseException {
-    final EdtfDatePart edtfDatePart;
-    if (edtfString.isEmpty()) {
+  protected InstantEdtfDate parseInstant(String dateInput) throws ParseException {
+    EdtfDatePart edtfDatePart;
+    if (dateInput.isEmpty()) {
       edtfDatePart = EdtfDatePart.getUnknownInstance();
-    } else if ("..".equals(edtfString)) {
+    } else if ("..".equals(dateInput)) {
       edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
-    } else if (edtfString.startsWith("Y")) {
-      edtfDatePart = new EdtfDatePart();
-      edtfDatePart.setYear(Integer.parseInt(edtfString.substring(1)));
+    } else if (dateInput.startsWith("Y")) {
+      edtfDatePart = new EdtfDatePartBuilder().withYear(Integer.parseInt(dateInput.substring(1))).build();
+      //      edtfDatePart = new EdtfDatePart();
+      //      edtfDatePart.setYear(Integer.parseInt(dateInput.substring(1)));
     } else {
-      edtfDatePart = getRegexParsedEdtfDatePart(edtfString);
-    }
-    return edtfDatePart;
-  }
 
-  private EdtfDatePart getRegexParsedEdtfDatePart(String edtfString) throws ParseException {
-    final EdtfDatePart edtfDatePart = new EdtfDatePart();
-    Matcher matcher = DATE_PATTERN.matcher(edtfString);
-    if (matcher.matches()) {
-      //Select data based on the name of the regex group matching
-      if (StringUtils.isNotEmpty(matcher.group("year3"))) {
-        edtfDatePart.setYear(Integer.parseInt(matcher.group("year3")));
-      } else if (StringUtils.isNotEmpty(matcher.group("year2"))) {
-        edtfDatePart.setYear(Integer.parseInt(matcher.group("year2")));
-        edtfDatePart.setMonth(Integer.parseInt(matcher.group("month2")));
-      } else {
-        edtfDatePart.setYear(Integer.parseInt(matcher.group("year1")));
-        edtfDatePart.setMonth(Integer.parseInt(matcher.group("month1")));
-        edtfDatePart.setDay(Integer.parseInt(matcher.group("day1")));
-      }
-      //Check modifier value
-      if (StringUtils.isNotEmpty(matcher.group("modifier"))) {
-        String modifier = matcher.group("modifier");
+      Pattern pattern = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
+      Matcher matcher = pattern.matcher(dateInput);
+      if (matcher.matches() && StringUtils.isNotEmpty(matcher.group(1))) {
+        //Check modifier value
+        String dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
+        TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
+        edtfDatePart = new EdtfDatePart(temporalAccessor);
+
+        String modifier = matcher.group(1);
         if ("?".equals(modifier)) {
           edtfDatePart.setUncertain(true);
         } else if ("~".equals(modifier)) {
@@ -95,11 +56,25 @@ public class EdtfParser {
           edtfDatePart.setApproximate(true);
           edtfDatePart.setUncertain(true);
         }
+      } else {
+        TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInput);
+        edtfDatePart = new EdtfDatePart(temporalAccessor);
       }
-    } else {
-      throw new ParseException(format("Date parsing does not match for input: %s", edtfString), 0);
     }
-    return edtfDatePart;
+
+    return new InstantEdtfDate(edtfDatePart);
   }
 
+  protected IntervalEdtfDate parseInterval(String dateInput) throws ParseException {
+    String startPart = dateInput.substring(0, dateInput.indexOf('/'));
+    String endPart = dateInput.substring(dateInput.indexOf('/') + 1);
+    InstantEdtfDate start = parseInstant(startPart);
+    InstantEdtfDate end = parseInstant(endPart);
+
+    if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
+        || start.getEdtfDatePart().isUnspecified())) {
+      throw new ParseException(dateInput, 0);
+    }
+    return new IntervalEdtfDate(start, end);
+  }
 }

@@ -3,10 +3,11 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
-import eu.europeana.normalization.dates.edtf.EdtfParser;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import java.text.ParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public class DcmiPeriodDateExtractor implements DateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DcmiPeriodDateExtractor.class);
-
+  private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
   private static final String NON_SPACE_NON_SEMICOLON = "[^\\s;]*";
   private static final String NON_SPACE_NON_LINE_END = "[^\\s$]*";
   private static final String VALUE_ENDING = "(?:;|$)";
@@ -45,7 +46,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       "name" + EQUALS_SPACES_WRAPPED + "([^;]*|[^$]*)" + VALUE_ENDING);
 
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
-  private static final EdtfParser EDTF_PARSER = new EdtfParser();
 
   @Override
   public DateNormalizationResult extract(String value) {
@@ -102,7 +102,9 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
-        instantEdtfDate = (InstantEdtfDate) EDTF_PARSER.parse(fieldValue);
+        TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
+        EdtfDatePart edtfDatePartNew = new EdtfDatePart(temporalAccessor);
+        instantEdtfDate = new InstantEdtfDate(edtfDatePartNew);
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

@@ -1,19 +1,29 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 import eu.europeana.normalization.dates.YearPrecision;
-import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 
 /**
  * Class representing the date part an EDTF date.
  * <p>
- * Support partial dates, including only centuries or decades (e.g., 19XX)
+ * Support partial dates, including only centuries or decades (e.g., 19XX). The uncertain and approximate qualifiers, '?' and '~',
+ * when applied together, are combined into a single qualifier character '%';
  * </p>
  */
-public class EdtfDatePart implements Serializable {
+public class EdtfDatePart {
 
-  private static final long serialVersionUID = -7497880706682687923L;
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
+
+  private TemporalAccessor temporalAccessor;
 
   private boolean uncertain;
   private boolean approximate;
@@ -65,6 +75,7 @@ public class EdtfDatePart implements Serializable {
   }
 
   public void setYear(Integer year) {
+    this.temporalAccessor = Year.of(year);
     this.year = year;
   }
 
@@ -73,6 +84,7 @@ public class EdtfDatePart implements Serializable {
   }
 
   public void setMonth(Integer month) {
+    this.temporalAccessor = (month == null || month == 0) ? Year.of(this.year) : YearMonth.of(this.year, month);
     this.month = month == null || month == 0 ? null : month;
   }
 
@@ -81,7 +93,12 @@ public class EdtfDatePart implements Serializable {
   }
 
   public void setDay(Integer day) {
-    this.day = day == null || day == 0 ? null : day;
+    if (day == null || day == 0) {
+      this.temporalAccessor = (month == null || month == 0) ? Year.of(this.year) : YearMonth.of(this.year, month);
+    } else {
+      this.temporalAccessor = (month == null || month == 0) ? Year.of(this.year) : LocalDate.of(this.year, this.month, day);
+      this.day = day;
+    }
   }
 
   public boolean isUnspecified() {
@@ -97,6 +114,33 @@ public class EdtfDatePart implements Serializable {
   }
 
   public void setYearPrecision(YearPrecision yearPrecision) {
+    this.yearPrecision = yearPrecision;
+  }
+
+  public EdtfDatePart() {
+  }
+
+  public EdtfDatePart(TemporalAccessor temporalAccessor) throws ParseException {
+    this(temporalAccessor, null);
+  }
+
+  public EdtfDatePart(TemporalAccessor temporalAccessor, YearPrecision yearPrecision) throws ParseException {
+    try {
+      this.temporalAccessor = temporalAccessor;
+      this.day = this.temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+          this.temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+      this.month = this.temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+          this.temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+      this.year = this.temporalAccessor.isSupported(ChronoField.YEAR) ?
+          this.temporalAccessor.get(ChronoField.YEAR) : null;
+    } catch (DateTimeException e) {
+      throw new ParseException(format("TemporalAccessor could not parse value %s", "sd"), 0);
+    }
+
+    if (year == null) {
+      throw new ParseException("Temporal accessor must at least have a year field", 0);
+    }
+
     this.yearPrecision = yearPrecision;
   }
 
@@ -126,6 +170,15 @@ public class EdtfDatePart implements Serializable {
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
+    //    if (temporalAccessor != null) {
+    //      //          temporalAccessor.get(ChronoField.YEAR);
+    //      //          temporalAccessor.get(ChronoField.MONTH_OF_YEAR);
+    //      //          temporalAccessor.get(ChronoField.DAY_OF_MONTH);
+    //
+    //      stringBuilder.append(iso8601Parser.temporalAccessorToString(temporalAccessor));
+    //    }
+    //    else {
+    // TODO: 10/02/2023 Can we also use Temporal here?
     if (unknown || unspecified) {
       stringBuilder.append("..");
     } else if (year < -THRESHOLD_4_DIGITS_YEAR || year > THRESHOLD_4_DIGITS_YEAR) {
@@ -141,14 +194,16 @@ public class EdtfDatePart implements Serializable {
           stringBuilder.append("-").append(decimalFormat.format(day));
         }
       }
-      //Append approximate/uncertain
-      if (approximate && uncertain) {
-        stringBuilder.append("%");
-      } else if (approximate) {
-        stringBuilder.append("~");
-      } else if (uncertain) {
-        stringBuilder.append("?");
-      }
+    }
+    //    }
+    // TODO: 10/02/2023 Perhaps those should be centralized somehow
+    //Append approximate/uncertain
+    if (approximate && uncertain) {
+      stringBuilder.append("%");
+    } else if (approximate) {
+      stringBuilder.append("~");
+    } else if (uncertain) {
+      stringBuilder.append("?");
     }
     return stringBuilder.toString();
   }
@@ -180,4 +235,58 @@ public class EdtfDatePart implements Serializable {
     }
     return prefix + yearAdjusted;
   }
+
+  public static class EdtfDatePartBuilder {
+
+    private Integer year;
+    private Integer month;
+    private Integer day;
+
+    private YearPrecision yearPrecision;
+
+    public EdtfDatePartBuilder() {
+    }
+
+    public EdtfDatePart build() throws ParseException {
+      TemporalAccessor temporalAccessor;
+      if (year != null && year > 0) {
+        if (month == null || month <= 0) {
+          temporalAccessor = Year.of(year);
+        } else if (day == null || day <= 0) {
+          temporalAccessor = YearMonth.of(year, month);
+        } else {
+          try {
+            temporalAccessor = LocalDate.of(year, month, day);
+          } catch (DateTimeException e) {
+            //Try switching month and day
+            temporalAccessor = LocalDate.of(year, day, month);
+          }
+        }
+      } else {
+        throw new IllegalArgumentException("");
+      }
+      return new EdtfDatePart(temporalAccessor, yearPrecision);
+    }
+
+    public EdtfDatePartBuilder withYear(int year) {
+      this.year = year;
+      return this;
+    }
+
+    public EdtfDatePartBuilder withMonth(int month) {
+      this.month = month;
+      return this;
+    }
+
+    public EdtfDatePartBuilder withDay(int day) {
+      this.day = day;
+      return this;
+    }
+
+    public EdtfDatePartBuilder withYearPrecision(YearPrecision yearPrecision) {
+      this.yearPrecision = yearPrecision;
+      return this;
+    }
+  }
+
 }

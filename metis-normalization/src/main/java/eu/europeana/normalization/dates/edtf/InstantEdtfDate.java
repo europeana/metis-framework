@@ -3,20 +3,26 @@ package eu.europeana.normalization.dates.edtf;
 import eu.europeana.normalization.dates.YearPrecision;
 import java.time.Month;
 import java.time.Year;
-import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * Part of an EDTF date that represents a point in time with various degrees of precision
  */
 public class InstantEdtfDate extends AbstractEdtfDate {
 
-  private static final long serialVersionUID = -4111050222535744456L;
-
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   private EdtfDatePart edtfDatePart;
 
   public InstantEdtfDate(EdtfDatePart edtfDatePart) {
     this.edtfDatePart = edtfDatePart;
+  }
+
+  /**
+   * Copy constructor.
+   *
+   * @param instantEdtfDate the internal instant date to copy
+   */
+  public InstantEdtfDate(InstantEdtfDate instantEdtfDate) {
+    this(instantEdtfDate.getEdtfDatePart());
   }
 
   @Override
@@ -68,7 +74,8 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   public InstantEdtfDate getFirstDay() {
     InstantEdtfDate firstDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      firstDay = SerializationUtils.clone(this);
+
+      firstDay = new InstantEdtfDate(this);
       firstDay.setApproximate(false);
       firstDay.setUncertain(false);
       firstDay.getEdtfDatePart().setYearPrecision(null);
@@ -104,7 +111,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      lastDay = SerializationUtils.clone(this);
+      lastDay = new InstantEdtfDate(this);
       lastDay.setApproximate(false);
       lastDay.setUncertain(false);
       lastDay.getEdtfDatePart().setYearPrecision(null);
@@ -159,10 +166,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
-    if (this.getEdtfDatePart() != null) {
-      stringBuilder.append(edtfDatePart.toString());
-    }
-    return stringBuilder.toString();
+    return this.edtfDatePart.toString();
   }
 }

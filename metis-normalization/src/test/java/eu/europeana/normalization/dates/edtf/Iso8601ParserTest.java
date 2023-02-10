@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.ParseException;
-import java.time.format.DateTimeParseException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,9 +45,9 @@ class Iso8601ParserTest {
 
   private void parse(String input, String expected) throws ParseException {
     if (expected == null) {
-      assertThrows(DateTimeParseException.class, () -> iso8601Parser.parseDatePart(input));
+      assertThrows(ParseException.class, () -> iso8601Parser.parseDatePart(input));
     } else {
-      assertEquals(expected, iso8601Parser.parseDatePart(input).toString());
+      assertEquals(expected, iso8601Parser.temporalAccessorToString(iso8601Parser.parseDatePart(input)));
     }
   }
 

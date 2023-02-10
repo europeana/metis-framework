@@ -1,15 +1,12 @@
 package eu.europeana.normalization.dates.edtf;
 
-import java.io.Serializable;
-
 /**
  * An abstract class that contains the template that an EDTF date with compliance level 1 should implement.
  * <p>See more in the specification of <a href="https://www.loc.gov/standards/datetime/">EDTF</a></p>
  * <p>The date can contain a label, but can also be null</p>
  */
-public abstract class AbstractEdtfDate implements Serializable {
+public abstract class AbstractEdtfDate {
 
-  private static final long serialVersionUID = -4111050222535744456L;
   private final String label;
 
   public AbstractEdtfDate() {

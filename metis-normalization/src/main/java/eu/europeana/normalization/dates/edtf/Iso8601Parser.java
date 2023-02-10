@@ -1,5 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 import java.text.ParseException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -7,6 +9,7 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +37,7 @@ public class Iso8601Parser {
    * @return the string result if the parse succeeded
    * @throws ParseException if the parsing failed
    */
-  public String parseDatePart(String dateInput) throws ParseException {
+  public TemporalAccessor parseDatePart(String dateInput) throws ParseException {
 
     final String datePartInput;
     //Strip the time part if present, we are not interested in it
@@ -49,11 +52,25 @@ public class Iso8601Parser {
 
     DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
         .appendOptional(DateTimeFormatter.ISO_LOCAL_DATE)
-        .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM"))
-        .appendOptional(DateTimeFormatter.ofPattern("yyyy"))
+        .appendOptional(DateTimeFormatter.ofPattern("uuuu-MM"))
+        .appendOptional(DateTimeFormatter.ofPattern("uuuu"))
         .toFormatter();
 
-    TemporalAccessor temporalAccessor = dateTimeFormatter.parse(datePartInput);
+    final TemporalAccessor temporalAccessor;
+    try {
+      temporalAccessor = dateTimeFormatter.parse(datePartInput);
+    } catch (DateTimeParseException e) {
+      throw new ParseException(format("TemporalAccessor could not parse value %s", dateInput), 0);
+    }
+    return temporalAccessor;
+  }
+
+  public String temporalAccessorToString(TemporalAccessor temporalAccessor) {
+    //    temporalAccessor.get(ChronoField.YEAR);
+    //    temporalAccessor.get(ChronoField.MONTH_OF_YEAR);
+    //    temporalAccessor.get(ChronoField.DAY_OF_MONTH);
+    //    String resultDateString = printTemporalAccessor(temporalAccessor);
+
     String resultDateString;
     try {
       resultDateString = LocalDate.from(temporalAccessor).toString();
@@ -66,7 +83,6 @@ public class Iso8601Parser {
         resultDateString = StringUtils.leftPad(Year.from(temporalAccessor).toString(), 4, "0");
       }
     }
-
     return resultDateString;
   }
 }
