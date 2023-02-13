@@ -4,10 +4,13 @@ import eu.europeana.normalization.dates.YearPrecision;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +28,9 @@ public class EdtfDatePart {
 
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
 
-  private TemporalAccessor temporalAccessor;
+  private Year yearObj;
+  private YearMonth yearMonthObj;
+  private LocalDate yearMonthDayObj;
 
   private boolean uncertain;
   private boolean approximate;
@@ -77,7 +82,6 @@ public class EdtfDatePart {
   }
 
   public void setYear(Integer year) {
-    this.temporalAccessor = Year.of(year);
     this.year = year;
   }
 
@@ -86,7 +90,6 @@ public class EdtfDatePart {
   }
 
   public void setMonth(Integer month) {
-    this.temporalAccessor = (month == null || month == 0) ? Year.of(this.year) : YearMonth.of(this.year, month);
     this.month = month == null || month == 0 ? null : month;
   }
 
@@ -96,9 +99,7 @@ public class EdtfDatePart {
 
   public void setDay(Integer day) {
     if (day == null || day == 0) {
-      this.temporalAccessor = (month == null || month == 0) ? Year.of(this.year) : YearMonth.of(this.year, month);
     } else {
-      this.temporalAccessor = (month == null || month == 0) ? Year.of(this.year) : LocalDate.of(this.year, this.month, day);
       this.day = day;
     }
   }
@@ -122,32 +123,54 @@ public class EdtfDatePart {
   public EdtfDatePart() {
   }
 
-  // TODO: 13/02/2023 This should be part of the builder
-  public EdtfDatePart(TemporalAccessor temporalAccessor) throws DateTimeException {
-    this(temporalAccessor, null);
+  public EdtfDatePart(EdtfDatePartBuilder edtfDatePartBuilder) {
+    this.yearPrecision = edtfDatePartBuilder.yearPrecision;
+
+    yearObj = edtfDatePartBuilder.yearObj;
+    yearMonthObj = edtfDatePartBuilder.yearMonthObj;
+    yearMonthDayObj = edtfDatePartBuilder.yearMonthDayObj;
+    this.year = yearObj.getValue();
+    this.month = yearMonthObj == null ? null : yearMonthObj.getMonthValue();
+    this.day = yearMonthDayObj == null ? null : yearMonthDayObj.getDayOfMonth();
+
   }
 
-  // TODO: 13/02/2023 This should also probably be part of the builder
-  private EdtfDatePart(TemporalAccessor temporalAccessor, YearPrecision yearPrecision) {
-    //    try {
-    this.temporalAccessor = temporalAccessor;
-    this.day = this.temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-        this.temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-    this.month = this.temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-        this.temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-    this.year = this.temporalAccessor.isSupported(ChronoField.YEAR) ?
-        this.temporalAccessor.get(ChronoField.YEAR) : null;
-    //    } catch (DateTimeException e) {
-    //      throw new ParseException(format("TemporalAccessor could not parse value %s", "sd"), 0);
-    //    }
-
-    if (year == null) {
-      throw new DateTimeException("Temporal accessor must at least have a year field");
-      //      throw new ParseException("Temporal accessor must at least have a year field", 0);
+  public EdtfDatePart firstDayOfYearDatePart() {
+    final TemporalAccessor temporalAccessorFirstDay;
+    if (yearMonthDayObj != null) {
+      temporalAccessorFirstDay = yearMonthDayObj.with(TemporalAdjusters.firstDayOfYear());
+    } else if (yearMonthObj != null) {
+      temporalAccessorFirstDay = yearMonthObj.atDay(1);
+    } else {
+      // TODO: 13/02/2023 Check with Nuno why when it's CENTURY precision we add a year?
+      temporalAccessorFirstDay = yearObj
+          .plusYears(yearPrecision == YearPrecision.CENTURY ? 1 : 0)
+          .atMonthDay(MonthDay.of(1, 1));
     }
-
-    this.yearPrecision = yearPrecision;
+    return new EdtfDatePartBuilder(temporalAccessorFirstDay).build();
   }
+
+  public EdtfDatePart lastDayOfYearDatePart() {
+    final TemporalAccessor temporalAccessorLastDay;
+    if (yearMonthDayObj != null) {
+      temporalAccessorLastDay = yearMonthDayObj.with(TemporalAdjusters.lastDayOfYear());
+    } else if (yearMonthObj != null) {
+      temporalAccessorLastDay = yearMonthObj.atEndOfMonth();
+    } else {
+      // TODO: 13/02/2023 Check with Nuno the year additions.
+      if (yearPrecision == YearPrecision.CENTURY) {
+        temporalAccessorLastDay = yearObj.plusYears(100).atMonthDay(MonthDay.of(Month.DECEMBER, 31));
+      } else if (yearPrecision == YearPrecision.DECADE) {
+        temporalAccessorLastDay = yearObj.plusYears(9).atMonthDay(MonthDay.of(Month.DECEMBER, 31));
+      } else {
+        temporalAccessorLastDay = yearObj.atMonthDay(MonthDay.of(Month.DECEMBER, 31));
+      }
+    }
+    return new EdtfDatePartBuilder(temporalAccessorLastDay).build();
+
+  }
+
+  // TODO: 13/02/2023 Check if this is still required, since we are validating the switch during build(on the builder class) now
 
   /**
    * Switches the values of the day and month.
@@ -175,14 +198,6 @@ public class EdtfDatePart {
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
-    //    if (temporalAccessor != null) {
-    //      //          temporalAccessor.get(ChronoField.YEAR);
-    //      //          temporalAccessor.get(ChronoField.MONTH_OF_YEAR);
-    //      //          temporalAccessor.get(ChronoField.DAY_OF_MONTH);
-    //
-    //      stringBuilder.append(iso8601Parser.temporalAccessorToString(temporalAccessor));
-    //    }
-    //    else {
     // TODO: 10/02/2023 Can we also use Temporal here?
     if (unknown || unspecified) {
       stringBuilder.append("..");
@@ -200,7 +215,6 @@ public class EdtfDatePart {
         }
       }
     }
-    //    }
     // TODO: 10/02/2023 Perhaps those should be centralized somehow
     //Append approximate/uncertain
     if (approximate && uncertain) {
@@ -243,39 +257,71 @@ public class EdtfDatePart {
 
   public static class EdtfDatePartBuilder {
 
-    private final Integer year;
+    private Year yearObj;
+    private YearMonth yearMonthObj;
+    private LocalDate yearMonthDayObj;
+    private Integer year;
     private Integer month;
     private Integer day;
-
     private YearPrecision yearPrecision;
+    private TemporalAccessor temporalAccessor;
+
+    public EdtfDatePartBuilder(EdtfDatePart edtfDatePart) throws DateTimeException {
+      yearPrecision = edtfDatePart.yearPrecision;
+      year = edtfDatePart.year;
+      month = edtfDatePart.month;
+      day = edtfDatePart.day;
+    }
+
+    public EdtfDatePartBuilder(TemporalAccessor temporalAccessor) throws DateTimeException {
+      this.temporalAccessor = temporalAccessor;
+    }
 
     public EdtfDatePartBuilder(final Integer year) {
-      this.year = Objects.requireNonNull(year, "Year value can never be null");
+      this.year = year;
     }
 
     public EdtfDatePart build() throws DateTimeException {
-      TemporalAccessor temporalAccessor;
-      //Validation during build
-      if (month == null || month <= 0) {
-        temporalAccessor = Year.of(year);
-      } else if (day == null || day <= 0) {
-        temporalAccessor = YearMonth.of(year, month);
-      } else {
-        try {
-          temporalAccessor = LocalDate.of(year, month, day);
-        } catch (DateTimeException e1) {
-          LOGGER.debug("LocalDate failed to be created, trying switch day and month", e1);
-          //Try switching month and day
-          temporalAccessor = LocalDate.of(year, day, month);
-        }
+
+      if (temporalAccessor != null) {
+        LOGGER.debug("TemporalAccessor present. Overwriting values.");
+        // TODO: 13/02/2023 Check TemporalQuery alternative option
+        day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+            temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+        month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+            temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+        year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+            temporalAccessor.get(ChronoField.YEAR) : null;
       }
-      return new EdtfDatePart(temporalAccessor, yearPrecision);
+
+      Objects.requireNonNull(year, "Year value can never be null");
+      yearObj = Year.of(year);
+
+      try {
+        parseMonthDay();
+      } catch (DateTimeException e) {
+        LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
+        //Retry with switching month and day
+        swapMonthDay();
+        parseMonthDay();
+      }
+      return new EdtfDatePart(this);
     }
 
-    //    public EdtfDatePartBuilder withYear(int year) {
-    //      this.year = year;
-    //      return this;
-    //    }
+    private void swapMonthDay() {
+      Integer tempMonth = month;
+      month = day;
+      day = tempMonth;
+    }
+
+    private void parseMonthDay() {
+      if (month != null && month >= 1) {
+        yearMonthObj = YearMonth.of(yearObj.getValue(), month);
+        if (day != null && day >= 1) {
+          yearMonthDayObj = LocalDate.of(yearMonthObj.getYear(), yearMonthObj.getMonth(), day);
+        }
+      }
+    }
 
     public EdtfDatePartBuilder withMonth(int month) {
       this.month = month;
@@ -283,6 +329,7 @@ public class EdtfDatePart {
     }
 
     public EdtfDatePartBuilder withDay(int day) {
+
       this.day = day;
       return this;
     }

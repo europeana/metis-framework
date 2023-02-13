@@ -35,8 +35,6 @@ public class EdtfParser {
       edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
     } else if (dateInput.startsWith("Y")) {
       edtfDatePart = new EdtfDatePartBuilder(Integer.parseInt(dateInput.substring(1))).build();
-      //      edtfDatePart = new EdtfDatePart();
-      //      edtfDatePart.setYear(Integer.parseInt(dateInput.substring(1)));
     } else {
 
       Pattern pattern = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
@@ -45,7 +43,7 @@ public class EdtfParser {
         //Check modifier value
         String dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
-        edtfDatePart = new EdtfDatePart(temporalAccessor);
+        edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build();
 
         String modifier = matcher.group(1);
         if ("?".equals(modifier)) {
@@ -58,7 +56,7 @@ public class EdtfParser {
         }
       } else {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInput);
-        edtfDatePart = new EdtfDatePart(temporalAccessor);
+        edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build();
       }
     }
 

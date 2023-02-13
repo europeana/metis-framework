@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +19,8 @@ import org.slf4j.LoggerFactory;
 public class Iso8601Parser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Iso8601Parser.class);
+  private static final DateTimeFormatter dateTimeFormatterUUUMM = DateTimeFormatter.ofPattern("uuuu-MM");
+  private static final DateTimeFormatter dateTimeFormatterUUUU = DateTimeFormatter.ofPattern("uuuu");
 
   /**
    * Parser for the iso8601 date part only. The time part if existent is stripped away.
@@ -49,27 +50,31 @@ public class Iso8601Parser {
       datePartInput = dateInput;
     }
 
-    DateTimeFormatter dateTimeFormatter = new DateTimeFormatterBuilder()
-        .appendOptional(DateTimeFormatter.ISO_LOCAL_DATE)
-        .appendOptional(DateTimeFormatter.ofPattern("uuuu-MM"))
-        .appendOptional(DateTimeFormatter.ofPattern("uuuu"))
-        .toFormatter();
-
     final TemporalAccessor temporalAccessor;
     try {
-      temporalAccessor = dateTimeFormatter.parse(datePartInput);
+      temporalAccessor = getTemporalAccessor(datePartInput);
     } catch (DateTimeParseException e) {
-      throw new DateTimeException(format("TemporalAccessor could not parse value %s", dateInput));
+      throw new DateTimeException(format("TemporalAccessor could not parse value %s", dateInput), e);
     }
     return temporalAccessor;
   }
 
-  public String temporalAccessorToString(TemporalAccessor temporalAccessor) {
-    //    temporalAccessor.get(ChronoField.YEAR);
-    //    temporalAccessor.get(ChronoField.MONTH_OF_YEAR);
-    //    temporalAccessor.get(ChronoField.DAY_OF_MONTH);
-    //    String resultDateString = printTemporalAccessor(temporalAccessor);
+  // TODO: 13/02/2023 Fix this complexity(Perhaps allow Parsed returned class and check during date part creation)
+  private TemporalAccessor getTemporalAccessor(String input) {
+    try {
+      return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
+    } catch (DateTimeParseException e1) {
+      LOGGER.debug("Parsing date failed", e1);
+      try {
+        return YearMonth.parse(input, dateTimeFormatterUUUMM);
+      } catch (DateTimeParseException e2) {
+        LOGGER.debug("Parsing date failed", e2);
+        return Year.parse(input, dateTimeFormatterUUUU);
+      }
+    }
+  }
 
+  public String temporalAccessorToString(TemporalAccessor temporalAccessor) {
     String resultDateString;
     try {
       resultDateString = LocalDate.from(temporalAccessor).toString();
