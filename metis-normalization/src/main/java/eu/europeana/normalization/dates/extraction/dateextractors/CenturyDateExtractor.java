@@ -8,6 +8,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
@@ -116,11 +117,18 @@ public class CenturyDateExtractor implements DateExtractor {
 
   private EdtfDatePart extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation, boolean uncertain,
       Matcher matcher, int group) {
-    EdtfDatePart datePart = new EdtfDatePart();
-    datePart.setYearPrecision(YearPrecision.CENTURY);
     final String century = matcher.group(group);
-    datePart.setYear(patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century));
+    EdtfDatePart datePart = new EdtfDatePartBuilder(
+        patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century))
+        .withYearPrecision(YearPrecision.CENTURY)
+        .build();
     datePart.setUncertain(uncertain);
+
+    //    EdtfDatePart datePart = new EdtfDatePart();
+    //    datePart.setYearPrecision(YearPrecision.CENTURY);
+    //    final String century = matcher.group(group);
+    //    datePart.setYear(patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century));
+    //    datePart.setUncertain(uncertain);
     return datePart;
   }
 }

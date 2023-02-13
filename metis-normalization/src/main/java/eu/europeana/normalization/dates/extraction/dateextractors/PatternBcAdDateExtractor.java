@@ -2,7 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.HashSet;
@@ -72,31 +72,41 @@ public class PatternBcAdDateExtractor implements DateExtractor {
   public DateNormalizationResult extract(String inputValue) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
+      //      EdtfDatePart datePart = new EdtfDatePart();
+      final EdtfDatePartBuilder edtfDatePartBuilder;
       if (bcAbbreviations.contains(m.group("era").toLowerCase())) {
-        d.setYear(-Integer.parseInt(m.group("year")));
+        edtfDatePartBuilder = new EdtfDatePartBuilder(-Integer.parseInt(m.group("year")));
+        //        datePart.setYear(-Integer.parseInt(m.group("year")));
       } else {
-        d.setYear(Integer.parseInt(m.group("year")));
+        edtfDatePartBuilder = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")));
+        //        datePart.setYear(Integer.parseInt(m.group("year")));
       }
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
+          new InstantEdtfDate(edtfDatePartBuilder.build()));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
+      //      EdtfDatePart d = new EdtfDatePart();
+      final EdtfDatePartBuilder startDatePartBuilder;
       if (isBc(m.group("era"))) {
-        d.setYear(-Integer.parseInt(m.group("year")));
+        startDatePartBuilder = new EdtfDatePartBuilder(-Integer.parseInt(m.group("year")));
+        //        d.setYear(-Integer.parseInt(m.group("year")));
       } else {
-        d.setYear(Integer.parseInt(m.group("year")));
+        startDatePartBuilder = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")));
+        //        d.setYear(Integer.parseInt(m.group("year")));
       }
-      InstantEdtfDate start = new InstantEdtfDate(d);
+      InstantEdtfDate start = new InstantEdtfDate(startDatePartBuilder.build());
 
-      d = new EdtfDatePart();
+      //      d = new EdtfDatePart();
+      final EdtfDatePartBuilder endDatePartBuilder;
       if (isBc(m.group("era2"))) {
-        d.setYear(-Integer.parseInt(m.group("year2")));
+        endDatePartBuilder = new EdtfDatePartBuilder(-Integer.parseInt(m.group("year2")));
+        //        d.setYear(-Integer.parseInt(m.group("year2")));
       } else {
-        d.setYear(Integer.parseInt(m.group("year2")));
+        endDatePartBuilder = new EdtfDatePartBuilder(Integer.parseInt(m.group("year2")));
+        //        d.setYear(Integer.parseInt(m.group("year2")));
       }
-      InstantEdtfDate end = new InstantEdtfDate(d);
+      InstantEdtfDate end = new InstantEdtfDate(endDatePartBuilder.build());
 
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
     }

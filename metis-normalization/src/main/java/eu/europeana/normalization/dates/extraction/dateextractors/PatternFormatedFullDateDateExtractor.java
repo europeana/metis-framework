@@ -32,30 +32,27 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
   public DateNormalizationResult extract(String inputValue) {
     Matcher m = patFormatedDate2.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
-      d.setYear(Integer.parseInt(m.group(1)));
-      d.setMonth(Integer.parseInt(m.group(2)));
-      d.setDay(Integer.parseInt(m.group(3)));
+      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
+          .withMonth(Integer.parseInt(m.group(2)))
+          .withDay(Integer.parseInt(m.group(3))).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
-          new InstantEdtfDate(d));
+          new InstantEdtfDate(datePart));
     }
     m = patFormatedDate.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
-      d.setYear(Integer.parseInt(m.group(6)));
-      d.setMonth(monthNames.getMonthIndexValue(m.group(1)));
-      d.setDay(Integer.parseInt(m.group(2)));
+      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(6)))
+          .withMonth(monthNames.getMonthIndexValue(m.group(1)))
+          .withDay(Integer.parseInt(m.group(2))).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
-          new InstantEdtfDate(d));
+          new InstantEdtfDate(datePart));
     }
     m = patFormatedDate3.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
-      d.setYear(Integer.parseInt(m.group(1)));
-      d.setMonth(Integer.parseInt(m.group(2)));
-      d.setDay(Integer.parseInt(m.group(3)));
+      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
+          .withMonth(Integer.parseInt(m.group(2)))
+          .withDay(Integer.parseInt(m.group(3))).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
-          new InstantEdtfDate(d));
+          new InstantEdtfDate(datePart));
     }
     return null;
   }

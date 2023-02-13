@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.regex.Matcher;
@@ -24,20 +25,18 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
     Matcher m;
     m = patYyyyyy.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
-      d.setYear(Integer.parseInt(m.group("year")));
+      final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year"))).build();
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-        d.setUncertain(true);
+        datePart.setUncertain(true);
       }
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, new InstantEdtfDate(datePart));
     }
     m = patYyyyyyRange.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart start = new EdtfDatePart();
-      start.setYear(Integer.parseInt(m.group("year")));
-      EdtfDatePart end = new EdtfDatePart();
-      end.setYear(Integer.parseInt(m.group("year2")));
-      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(start), new InstantEdtfDate(end));
+      final EdtfDatePart startDatePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year"))).build();
+      final EdtfDatePart endDatePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year2"))).build();
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(startDatePart),
+          new InstantEdtfDate(endDatePart));
       if (m.group("uncertain") != null || m.group("uncertain2") != null) {
         intervalEdtfDate.setUncertain(true);
       }

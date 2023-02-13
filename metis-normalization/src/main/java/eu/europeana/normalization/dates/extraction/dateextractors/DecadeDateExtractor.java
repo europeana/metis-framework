@@ -39,10 +39,15 @@ public class DecadeDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
     if (matcher.matches()) {
-      EdtfDatePart datePart = new EdtfDatePart();
-      datePart.setYearPrecision(YearPrecision.DECADE);
-      datePart.setYear(Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration());
+      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(
+          Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
+          .withYearPrecision(YearPrecision.DECADE).build();
       datePart.setUncertain(uncertain);
+
+      //      EdtfDatePart datePart = new EdtfDatePart();
+      //      datePart.setYearPrecision(YearPrecision.DECADE);
+      //      datePart.setYear(Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration());
+      //      datePart.setUncertain(uncertain);
       dateNormalizationResult = new DateNormalizationResult(
           DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart));
     }

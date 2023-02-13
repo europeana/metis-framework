@@ -3,7 +3,7 @@ package eu.europeana.normalization.dates.edtf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,35 +17,35 @@ class Iso8601ParserTest {
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year][“-”][month][“-”][day] Complete representation")
-  void completeDateRepresentation(String input, String expected) throws ParseException {
+  void completeDateRepresentation(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year][“-”][month] Reduced precision for year and month")
-  void reducedPrecisionForYearAndMonth(String input, String expected) throws ParseException {
+  void reducedPrecisionForYearAndMonth(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year] Reduced precision for year")
-  void reducedPrecisionForYear(String input, String expected) throws ParseException {
+  void reducedPrecisionForYear(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
-  void dateAndTimeRepresentation(String input, String expected) throws ParseException {
+  void dateAndTimeRepresentation(String input, String expected) {
     parse(input, expected);
   }
 
   //  EDTF Level 0 adopts representations of a time interval where both the start and end are dates: start and end date only; that is, both start and duration, and duration and end, are excluded. Time of day is excluded.
 
-  private void parse(String input, String expected) throws ParseException {
+  private void parse(String input, String expected) {
     if (expected == null) {
-      assertThrows(ParseException.class, () -> iso8601Parser.parseDatePart(input));
+      assertThrows(DateTimeException.class, () -> iso8601Parser.parseDatePart(input));
     } else {
       assertEquals(expected, iso8601Parser.temporalAccessorToString(iso8601Parser.parseDatePart(input)));
     }

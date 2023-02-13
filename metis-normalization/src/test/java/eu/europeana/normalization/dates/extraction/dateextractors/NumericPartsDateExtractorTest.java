@@ -106,8 +106,7 @@ class NumericPartsDateExtractorTest {
 
         //YEAR-MONTH-DAY
         of("1989-11-01", "1989-11-01"),
-        // TODO: 26/09/2022 Make sure this is checked later on, on validation code
-        of("1989-13-32", "1989-13-32"),
+        of("1989-13-32", null),
         //Some missing digits are allowed
         of("989-1-1", "0989-01-01"),
         of("?1989-11-01", "1989-11-01?"),
@@ -129,10 +128,10 @@ class NumericPartsDateExtractorTest {
         //Combination of separators
         of("?989/1-1", "0989-01-01?"),
         of("?989-1/1", "0989-01-01?"),
-        of("9989-99/99", "9989-99-99"),
-        of("9989/99-99", "9989-99-99"),
-        of("?989-99/99", "0989-99-99?"),
-        of("?989-99/99?", "0989-99-99?"),
+        of("9989-99/99", null),
+        of("9989/99-99", null),
+        of("?989-99/99", null),
+        of("?989-99/99?", null),
 
         //Too few digits on year
         of("89-01-01", null, null),
@@ -166,8 +165,7 @@ class NumericPartsDateExtractorTest {
 
         //DAY-MONTH-YEAR
         of("01-11-1989", "1989-11-01"),
-        // TODO: 26/09/2022 Make sure this is checked later on, on validation code
-        of("32-13-1989", "1989-13-32"),
+        of("32-13-1989", null),
         //Some missing digits are allowed
         of("1-1-989", "0989-01-01"),
         of("?01-11-1989", "1989-11-01?"),
@@ -189,9 +187,9 @@ class NumericPartsDateExtractorTest {
         //Combination of separators
         of("?1-1/989", "0989-01-01?"),
         of("?1/1-989", "0989-01-01?"),
-        of("99/99-9989", "9989-99-99"),
-        of("99-99/9989", "9989-99-99"),
-        of("?99/99-989", "0989-99-99?"),
+        of("99/99-9989", null),
+        of("99-99/9989", null),
+        of("?99/99-989", null),
 
         //Too few digits on year
         of("01-01-89", null, null),
@@ -303,7 +301,7 @@ class NumericPartsDateExtractorTest {
         of("19XX/XX/99", "19XX"),
         of("19XX/--/--", "19XX"),
         of("19XX.--.--", "19XX"),
-        of("19XX-11-99?", "19XX-11-99?"),
+        of("19XX-11-99?", null),
         of("19UU-XX-99?", "19XX?"),
         of("19UU-??-99?", "19XX?"),
         of("19UU/--/99?", "19XX?"),
@@ -395,7 +393,7 @@ class NumericPartsDateExtractorTest {
         of("99/XX/19XX", "19XX"),
         of("--/--/19XX", "19XX"),
         of("--.--.19XX", "19XX"),
-        of("?99-11-19XX", "19XX-11-99?"),
+        of("?99-11-19XX", null),
         of("?99-XX-19UU", "19XX?"),
         of("?99-??-19UU", "19XX?"),
         of("?99/--/19UU", "19XX?"),

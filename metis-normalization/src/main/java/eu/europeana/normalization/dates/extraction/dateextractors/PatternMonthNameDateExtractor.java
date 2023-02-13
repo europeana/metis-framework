@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
 import java.time.Month;
@@ -53,26 +54,29 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
     for (Month month : Month.values()) {
       Matcher m = patternDayMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-        d.setYear(Integer.parseInt(m.group("year")));
-        d.setMonth(month.getValue());
-        d.setDay(Integer.parseInt(m.group("day")));
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
+        final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")))
+            .withMonth(month.getValue())
+            .withDay(Integer.parseInt(m.group("day")))
+            .build();
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,
+            new InstantEdtfDate(datePart));
       }
       m = patternMonthDayYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-        d.setYear(Integer.parseInt(m.group("year")));
-        d.setMonth(month.getValue());
-        d.setDay(Integer.parseInt(m.group("day")));
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
+        final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")))
+            .withMonth(month.getValue())
+            .withDay(Integer.parseInt(m.group("day")))
+            .build();
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,
+            new InstantEdtfDate(datePart));
       }
       m = patternMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-        d.setYear(Integer.parseInt(m.group("year")));
-        d.setMonth(month.getValue());
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
+        final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")))
+            .withMonth(month.getValue())
+            .build();
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,
+            new InstantEdtfDate(datePart));
       }
     }
     return null;

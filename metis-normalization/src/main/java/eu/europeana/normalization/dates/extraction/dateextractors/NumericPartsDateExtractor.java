@@ -6,21 +6,27 @@ import static java.util.regex.Pattern.compile;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
+import java.time.DateTimeException;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Patterns for numeric dates with variations in the separators of date components.
  * <p>For Patterns pay attentions on the use of {@link Matcher#matches()} or {@link Matcher#find()} in this method.</p>
  */
 public class NumericPartsDateExtractor implements DateExtractor {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(NumericPartsDateExtractor.class);
 
   /**
    * The start of the string can be one or three question marks but not two.
@@ -57,11 +63,15 @@ public class NumericPartsDateExtractor implements DateExtractor {
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
-        EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsPattern, matcher, uncertain);
-        dateNormalizationResult = new DateNormalizationResult(
-            numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
-            new InstantEdtfDate(edtfDatePart));
-        break;
+        try {
+          EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsPattern, matcher, uncertain);
+          dateNormalizationResult = new DateNormalizationResult(
+              numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
+              new InstantEdtfDate(edtfDatePart));
+          break;
+        } catch (DateTimeException e) {
+          LOGGER.debug(String.format("Date extraction failed %s: ", inputValue), e);
+        }
       }
     }
 
@@ -69,7 +79,7 @@ public class NumericPartsDateExtractor implements DateExtractor {
   }
 
   private EdtfDatePart extractDate(
-      NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) {
+      NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) throws DateTimeException {
     final String year = getYear(numericWithMissingPartsPattern, matcher);
     final String month = getMonth(numericWithMissingPartsPattern, matcher);
     final String day = getDay(numericWithMissingPartsPattern, matcher);
@@ -78,18 +88,18 @@ public class NumericPartsDateExtractor implements DateExtractor {
     final String monthSanitized = getFieldSanitized(month);
     final String daySanitized = getFieldSanitized(day);
 
-    final EdtfDatePart edtfDatePart = new EdtfDatePart();
     final int unknownYearCharacters = year.length() - yearSanitized.length();
-    edtfDatePart.setYearPrecision(YearPrecision.getYearPrecisionByOrdinal(unknownYearCharacters));
-    edtfDatePart.setYear(adjustYearWithPrecision(yearSanitized, edtfDatePart));
-    edtfDatePart.setMonth(Integer.parseInt(monthSanitized));
-    edtfDatePart.setDay(Integer.parseInt(daySanitized));
+    YearPrecision yearPrecision = YearPrecision.getYearPrecisionByOrdinal(unknownYearCharacters);
+    final EdtfDatePart edtfDatePart = new EdtfDatePartBuilder(adjustYearWithPrecision(yearSanitized, yearPrecision))
+        .withYearPrecision(yearPrecision)
+        .withMonth(Integer.parseInt(monthSanitized))
+        .withDay(Integer.parseInt(daySanitized)).build();
     edtfDatePart.setUncertain(uncertain);
     return edtfDatePart;
   }
 
-  private int adjustYearWithPrecision(String yearSanitized, EdtfDatePart edtfDatePart) {
-    return Integer.parseInt(yearSanitized) * Optional.ofNullable(edtfDatePart.getYearPrecision()).map(YearPrecision::getDuration)
+  private int adjustYearWithPrecision(String yearSanitized, YearPrecision yearPrecision) {
+    return Integer.parseInt(yearSanitized) * Optional.ofNullable(yearPrecision).map(YearPrecision::getDuration)
                                                      .orElse(1);
   }
 

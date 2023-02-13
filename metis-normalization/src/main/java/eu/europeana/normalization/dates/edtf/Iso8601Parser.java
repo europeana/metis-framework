@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.edtf;
 
 import static java.lang.String.format;
 
-import java.text.ParseException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Year;
@@ -35,16 +34,16 @@ public class Iso8601Parser {
    *
    * @param dateInput the input date
    * @return the string result if the parse succeeded
-   * @throws ParseException if the parsing failed
+   * @throws DateTimeException if the parsing failed
    */
-  public TemporalAccessor parseDatePart(String dateInput) throws ParseException {
+  public TemporalAccessor parseDatePart(String dateInput) throws DateTimeException {
 
     final String datePartInput;
     //Strip the time part if present, we are not interested in it
     if (dateInput.contains("T")) {
       datePartInput = dateInput.substring(0, dateInput.indexOf('T'));
       if (datePartInput.isEmpty()) {
-        throw new ParseException("Date part is empty which is not allowed", 0);
+        throw new DateTimeException("Date part is empty which is not allowed");
       }
     } else {
       datePartInput = dateInput;
@@ -60,7 +59,7 @@ public class Iso8601Parser {
     try {
       temporalAccessor = dateTimeFormatter.parse(datePartInput);
     } catch (DateTimeParseException e) {
-      throw new ParseException(format("TemporalAccessor could not parse value %s", dateInput), 0);
+      throw new DateTimeException(format("TemporalAccessor could not parse value %s", dateInput));
     }
     return temporalAccessor;
   }

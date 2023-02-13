@@ -6,7 +6,7 @@ import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -64,7 +64,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
               intervalEdtfDate);
         }
-      } catch (DuplicateFieldException | ParseException e) {
+      } catch (DuplicateFieldException | DateTimeException e) {
         LOGGER.warn("Exception during dcmi field extraction", e);
       }
     }
@@ -97,7 +97,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     return isValidScheme;
   }
 
-  private static InstantEdtfDate extractDate(Matcher matcher) throws DuplicateFieldException, ParseException {
+  private static InstantEdtfDate extractDate(Matcher matcher) throws DuplicateFieldException, DateTimeException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);

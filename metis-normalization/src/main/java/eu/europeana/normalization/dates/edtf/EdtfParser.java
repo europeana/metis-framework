@@ -1,7 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
 import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,9 +17,9 @@ public class EdtfParser {
 
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
-  public AbstractEdtfDate parse(String dateInput) throws ParseException {
+  public AbstractEdtfDate parse(String dateInput) throws DateTimeException {
     if (StringUtils.isEmpty(dateInput)) {
-      throw new ParseException("Empty argument", 0);
+      throw new DateTimeException("Empty argument");
     }
     if (dateInput.contains("/")) {
       return parseInterval(dateInput);
@@ -27,14 +27,14 @@ public class EdtfParser {
     return parseInstant(dateInput);
   }
 
-  protected InstantEdtfDate parseInstant(String dateInput) throws ParseException {
+  protected InstantEdtfDate parseInstant(String dateInput) throws DateTimeException {
     EdtfDatePart edtfDatePart;
     if (dateInput.isEmpty()) {
       edtfDatePart = EdtfDatePart.getUnknownInstance();
     } else if ("..".equals(dateInput)) {
       edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
     } else if (dateInput.startsWith("Y")) {
-      edtfDatePart = new EdtfDatePartBuilder().withYear(Integer.parseInt(dateInput.substring(1))).build();
+      edtfDatePart = new EdtfDatePartBuilder(Integer.parseInt(dateInput.substring(1))).build();
       //      edtfDatePart = new EdtfDatePart();
       //      edtfDatePart.setYear(Integer.parseInt(dateInput.substring(1)));
     } else {
@@ -65,7 +65,7 @@ public class EdtfParser {
     return new InstantEdtfDate(edtfDatePart);
   }
 
-  protected IntervalEdtfDate parseInterval(String dateInput) throws ParseException {
+  protected IntervalEdtfDate parseInterval(String dateInput) throws DateTimeException {
     String startPart = dateInput.substring(0, dateInput.indexOf('/'));
     String endPart = dateInput.substring(dateInput.indexOf('/') + 1);
     InstantEdtfDate start = parseInstant(startPart);
@@ -73,7 +73,7 @@ public class EdtfParser {
 
     if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
         || start.getEdtfDatePart().isUnspecified())) {
-      throw new ParseException(dateInput, 0);
+      throw new DateTimeException(dateInput);
     }
     return new IntervalEdtfDate(start, end);
   }

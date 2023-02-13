@@ -99,9 +99,12 @@ public class InstantEdtfDate extends AbstractEdtfDate {
       //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
       //Verify though that the contents of this class are always considered valid before the call of this method.
       else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-        EdtfDatePart newEdtfDatePart = new EdtfDatePart();
-        newEdtfDatePart.setYear(getEdtfDatePart().getYear());
+        final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build();
         firstDay = new InstantEdtfDate(newEdtfDatePart);
+
+        //        EdtfDatePart newEdtfDatePart = new EdtfDatePart();
+        //        newEdtfDatePart.setYear(getEdtfDatePart().getYear());
+        //        firstDay = new InstantEdtfDate(newEdtfDatePart);
       }
     }
     return firstDay;
@@ -134,9 +137,12 @@ public class InstantEdtfDate extends AbstractEdtfDate {
           lastDay.getEdtfDatePart().setDay(31);
         }
       } else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-        EdtfDatePart newEdtfDatePart = new EdtfDatePart();
-        newEdtfDatePart.setYear(getEdtfDatePart().getYear());
+        final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build();
         lastDay = new InstantEdtfDate(newEdtfDatePart);
+
+        //        EdtfDatePart newEdtfDatePart = new EdtfDatePart();
+        //        newEdtfDatePart.setYear(getEdtfDatePart().getYear());
+        //        lastDay = new InstantEdtfDate(newEdtfDatePart);
       }
     }
     return lastDay;

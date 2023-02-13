@@ -4,6 +4,7 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.time.Month;
@@ -33,15 +34,17 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
     Matcher matcher = briefDateRangePattern.matcher(inputValue.trim());
     DateNormalizationResult dateNormalizationResult = null;
     if (matcher.matches()) {
-      EdtfDatePart startDatePart = new EdtfDatePart();
-      startDatePart.setYear(Integer.parseInt(matcher.group("start")));
+      int startYear = Integer.parseInt(matcher.group("start"));
       int endYear = Integer.parseInt(matcher.group("end"));
+
       if (endYear > Month.DECEMBER.getValue()) {
-        int startYear = startDatePart.getYear() % YearPrecision.CENTURY.getDuration();
-        if (startYear < endYear) {
-          EdtfDatePart endDatePart = new EdtfDatePart();
-          endDatePart.setYear(
-              (startDatePart.getYear() / YearPrecision.CENTURY.getDuration()) * YearPrecision.CENTURY.getDuration() + endYear);
+        int startYearAdjusted = startYear % YearPrecision.CENTURY.getDuration();
+        if (startYearAdjusted < endYear) {
+
+          EdtfDatePart startDatePart = new EdtfDatePartBuilder(startYear).build();
+          EdtfDatePart endDatePart = new EdtfDatePartBuilder(
+              (startDatePart.getYear() / YearPrecision.CENTURY.getDuration()) * YearPrecision.CENTURY.getDuration() + endYear)
+              .build();
 
           updateUncertain(matcher, startDatePart, endDatePart);
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
@@ -60,3 +63,4 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
   }
 
 }
+

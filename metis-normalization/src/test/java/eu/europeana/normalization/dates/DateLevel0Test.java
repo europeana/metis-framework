@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,9 +16,9 @@ class DateLevel0Test {
 
   private EdtfParser edtfParser = new EdtfParser();
 
-  private void parse(String input, String expected) throws ParseException {
+  private void parse(String input, String expected) throws DateTimeException {
     if (expected == null) {
-      assertThrows(ParseException.class, () -> edtfParser.parse(input));
+      assertThrows(DateTimeException.class, () -> edtfParser.parse(input));
     } else {
       assertEquals(expected, edtfParser.parse(input).toString());
     }
