@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.edtf;
 
-import eu.europeana.normalization.dates.YearPrecision;
 import java.time.Year;
 
 /**
@@ -51,21 +50,13 @@ public final class EdtfValidator {
     final InstantEdtfDate startDate = intervalEdtfDate.getStart();
     final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
     final boolean isIntervalValid;
-    //    if (startDate != null && validateInstantOfInterval(startDate) && endDate != null && validateInstantOfInterval(endDate)) {
     if (startDate != null && endDate != null) {
       EdtfDatePart startDatePart = startDate.getEdtfDatePart();
       EdtfDatePart endDatePart = endDate.getEdtfDatePart();
       final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
       final boolean isEndDatePartSpecific = !endDatePart.isUnknown() && !endDatePart.isUnspecified();
       if (isStartDatePartSpecific && isEndDatePartSpecific) {
-        if (startDatePart.getYearPrecision() == null && endDatePart.getYearPrecision() == null) {
-          isIntervalValid = validateSpecificIntervalDates(startDatePart, endDatePart);
-        } else {
-          //Validate year using precision instead
-          final Integer adjustedStartYear = adjustYearWithPrecision(startDatePart.getYear(), startDatePart.getYearPrecision());
-          final Integer adjustedEndYear = adjustYearWithPrecision(endDatePart.getYear(), endDatePart.getYearPrecision());
-          isIntervalValid = adjustedStartYear <= adjustedEndYear;
-        }
+        isIntervalValid = startDatePart.compareTo(endDatePart) <= 0;
       } else {
         isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
       }
@@ -74,54 +65,6 @@ public final class EdtfValidator {
     }
 
     return isIntervalValid;
-  }
-
-  private static boolean validateSpecificIntervalDates(EdtfDatePart startDatePart, EdtfDatePart endDatePart) {
-    // TODO: 20/07/2022 Should we be using the java.time classes Year, YearMonth, LocalDate etc? (to be handled with MET-4726)
-    //Sanity check: years should not be null at this stage, but we check to be sure
-    if (startDatePart.getYear() == null || endDatePart.getYear() == null) {
-      throw new IllegalArgumentException("Year cannot be null for start or end dates");
-    }
-    boolean isDatesValid = false;
-    if (startDatePart.getYear().equals(endDatePart.getYear())) {
-      if (startDatePart.getMonth() == null || endDatePart.getMonth() == null
-          || startDatePart.getMonth() < endDatePart.getMonth()) {
-        isDatesValid = true;
-      } else if (startDatePart.getMonth().equals(endDatePart.getMonth())) {
-        isDatesValid =
-            startDatePart.getDay() == null || endDatePart.getDay() == null || startDatePart.getDay() <= endDatePart.getDay();
-      }
-    } else {
-      isDatesValid = startDatePart.getYear() < endDatePart.getYear();
-    }
-    return isDatesValid;
-  }
-
-  /**
-   * Adjusts the year value based on the {@link YearPrecision} supplied.
-   * <p>The adjustment is not a rounding operation but a discarding operation of the right most digits</p>
-   * <p>
-   * Examples of discarding operations for {@link YearPrecision#CENTURY}:
-   *   <ul>
-   *     <li>1325/100 * 100 = 1300</li>
-   *     <li>-1325/100 * 100 = -1300</li>
-   *     <li>1375/100 * 100 = 1300</li>
-   *   </ul>
-   * </p>
-   *
-   * @param year the year to adjust
-   * @param yearPrecision the year precision to use for the adjustment
-   * @return the adjusted year
-   */
-  private static Integer adjustYearWithPrecision(Integer year, YearPrecision yearPrecision) {
-    final Integer adjustedYear;
-    if (yearPrecision != null) {
-      final int precisionAdjust = yearPrecision.getDuration();
-      adjustedYear = (year / precisionAdjust) * precisionAdjust;
-    } else {
-      adjustedYear = year;
-    }
-    return adjustedYear;
   }
 
   /**
@@ -146,6 +89,7 @@ public final class EdtfValidator {
   //  (this probably won't capture a dates that is days/months in the future but on the current year?)
   //  Fix this to also check the other parts of the date as well.
   //  Perhaps the already existent validation of interval dates should be reused instead, with the end date the current date.
+  // TODO: 14/02/2023 Also this can be done internally in the edtfDatePart during creation or in InstantEdtfDate part during creation
   private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;
     //If null or not specific it's valid
@@ -154,12 +98,8 @@ public final class EdtfValidator {
       isYearInPast = true;
     } else {
       int currentYear = Year.now().getValue();
-      final Integer edtfYear = instantEdtfDate.getEdtfDatePart().getYear();
-      final YearPrecision yearPrecision = instantEdtfDate.getEdtfDatePart().getYearPrecision();
-
-      final Integer adjustedCurrentYear = adjustYearWithPrecision(currentYear, yearPrecision);
-      final Integer adjustedEdtfYear = adjustYearWithPrecision(edtfYear, yearPrecision);
-      isYearInPast = adjustedEdtfYear <= adjustedCurrentYear;
+      final Integer edtfYear = instantEdtfDate.getEdtfDatePart().getYear().getValue();
+      isYearInPast = edtfYear <= currentYear;
     }
     return isYearInPast;
   }

@@ -43,11 +43,6 @@ public class DecadeDateExtractor implements DateExtractor {
           Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
           .withYearPrecision(YearPrecision.DECADE).build(allowSwitchMonthDay);
       datePart.setUncertain(uncertain);
-
-      //      EdtfDatePart datePart = new EdtfDatePart();
-      //      datePart.setYearPrecision(YearPrecision.DECADE);
-      //      datePart.setYear(Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration());
-      //      datePart.setUncertain(uncertain);
       dateNormalizationResult = new DateNormalizationResult(
           DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart));
     }

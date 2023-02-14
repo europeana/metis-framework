@@ -32,10 +32,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     return edtfDatePart;
   }
 
-  public void setEdtfDatePart(EdtfDatePart edtfDatePart) {
-    this.edtfDatePart = edtfDatePart;
-  }
-
   @Override
   public void setApproximate(boolean approximate) {
     edtfDatePart.setApproximate(approximate);
@@ -65,16 +61,18 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   public InstantEdtfDate getFirstDay() {
     InstantEdtfDate firstDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-      EdtfDatePart firstDayNew = getEdtfDatePart().firstDayOfYearDatePart();
-      firstDay = new InstantEdtfDate(firstDayNew);
-    }
 
-    // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
-    //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
-    //Verify though that the contents of this class are always considered valid before the call of this method.
-    else if (getEdtfDatePart().getYear() != null && getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-      final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build(false);
-      firstDay = new InstantEdtfDate(newEdtfDatePart);
+      // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
+      //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
+      //Verify though that the contents of this class are always considered valid before the call of this method.
+      if (getEdtfDatePart().getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+        final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(
+            getEdtfDatePart().getYear().getValue()).build(false);
+        firstDay = new InstantEdtfDate(newEdtfDatePart);
+      } else {
+        EdtfDatePart firstDayNew = getEdtfDatePart().firstDayOfYearDatePart();
+        firstDay = new InstantEdtfDate(firstDayNew);
+      }
     }
 
     return firstDay;
@@ -84,32 +82,20 @@ public class InstantEdtfDate extends AbstractEdtfDate {
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
     if (getEdtfDatePart() != null && !getEdtfDatePart().isUnknown() && !getEdtfDatePart().isUnspecified()) {
-
-      EdtfDatePart lastDayNew = getEdtfDatePart().lastDayOfYearDatePart();
-      lastDay = new InstantEdtfDate(lastDayNew);
-    } else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-      final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build(false);
-      lastDay = new InstantEdtfDate(newEdtfDatePart);
+      if (getEdtfDatePart().getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+        final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(
+            getEdtfDatePart().getYear().getValue()).build(false);
+        lastDay = new InstantEdtfDate(newEdtfDatePart);
+      } else {
+        EdtfDatePart lastDayNew = getEdtfDatePart().lastDayOfYearDatePart();
+        lastDay = new InstantEdtfDate(lastDayNew);
+      }
     }
     return lastDay;
   }
 
   public Integer getCentury() {
-    final int century;
-
-    // TODO: 25/07/2022 getEdtfDatePart() or getEdtfDatePart().getYear() might be null??
-    //Better to check both for nullity and if they are null we then throw an exception.
-    if (getEdtfDatePart().getYear() < 0) {
-      century = -1;
-    } else if (getEdtfDatePart().getYearPrecision() == null) {
-      int hundreds = getEdtfDatePart().getYear() / 100;
-      int remainder = getEdtfDatePart().getYear() % 100;
-      century = (remainder == 0) ? hundreds : (hundreds + 1);
-    } else {
-      int hundreds = getEdtfDatePart().getYear() / 100;
-      century = hundreds + 1;
-    }
-    return century;
+    return edtfDatePart.getCentury();
   }
 
   @Override

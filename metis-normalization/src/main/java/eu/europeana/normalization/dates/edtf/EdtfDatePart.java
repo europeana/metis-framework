@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * when applied together, are combined into a single qualifier character '%';
  * </p>
  */
-public class EdtfDatePart {
+public class EdtfDatePart implements Comparable<EdtfDatePart> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EdtfDatePart.class);
 
@@ -46,11 +46,6 @@ public class EdtfDatePart {
    * '<code>1900/</code>').
    */
   private boolean unspecified;
-
-  private Integer year;
-  private Integer month;
-  private Integer day;
-
   private YearPrecision yearPrecision;
 
   public boolean isUncertain() {
@@ -77,35 +72,24 @@ public class EdtfDatePart {
     this.unknown = unknown;
   }
 
-  public Integer getYear() {
-    return year;
-  }
-
-  public Integer getMonth() {
-    return month;
-  }
-
-  public void setMonth(Integer month) {
-    this.month = month == null || month == 0 ? null : month;
-  }
-
-  public Integer getDay() {
-    return day;
-  }
-
-  public void setDay(Integer day) {
-    if (day == null || day == 0) {
-    } else {
-      this.day = day;
-    }
-  }
-
   public boolean isUnspecified() {
     return unspecified;
   }
 
   public void setUnspecified(boolean unspecified) {
     this.unspecified = unspecified;
+  }
+
+  public Year getYear() {
+    return yearObj;
+  }
+
+  public YearMonth getYearMonth() {
+    return yearMonthObj;
+  }
+
+  public LocalDate getYearMonthDay() {
+    return yearMonthDayObj;
   }
 
   public YearPrecision getYearPrecision() {
@@ -117,13 +101,9 @@ public class EdtfDatePart {
 
   public EdtfDatePart(EdtfDatePartBuilder edtfDatePartBuilder) {
     this.yearPrecision = edtfDatePartBuilder.yearPrecision;
-
     yearObj = edtfDatePartBuilder.yearObj;
     yearMonthObj = edtfDatePartBuilder.yearMonthObj;
     yearMonthDayObj = edtfDatePartBuilder.yearMonthDayObj;
-    this.year = yearObj.getValue();
-    this.month = yearMonthObj == null ? null : yearMonthObj.getMonthValue();
-    this.day = yearMonthDayObj == null ? null : yearMonthDayObj.getDayOfMonth();
 
   }
 
@@ -162,6 +142,14 @@ public class EdtfDatePart {
 
   }
 
+  public Integer getCentury() {
+    int century = (yearObj.getValue() / YearPrecision.CENTURY.getDuration()) + 1;
+    if (yearPrecision == null) {
+      century += 1;
+    }
+    return century;
+  }
+
   public static EdtfDatePart getUnknownInstance() {
     final EdtfDatePart edtfDatePart = new EdtfDatePart();
     edtfDatePart.setUnknown(true);
@@ -180,17 +168,17 @@ public class EdtfDatePart {
     // TODO: 10/02/2023 Can we also use Temporal here?
     if (unknown || unspecified) {
       stringBuilder.append("..");
-    } else if (year < -THRESHOLD_4_DIGITS_YEAR || year > THRESHOLD_4_DIGITS_YEAR) {
-      stringBuilder.append("Y").append(year);
+    } else if (yearObj.getValue() < -THRESHOLD_4_DIGITS_YEAR || yearObj.getValue() > THRESHOLD_4_DIGITS_YEAR) {
+      stringBuilder.append("Y").append(yearObj.getValue());
     } else {
       stringBuilder.append(serializeYear());
 
       //Append Month and day
       final DecimalFormat decimalFormat = new DecimalFormat("00");
-      if (month != null && month > 0) {
-        stringBuilder.append("-").append(decimalFormat.format(month));
-        if (day != null && day > 0) {
-          stringBuilder.append("-").append(decimalFormat.format(day));
+      if (yearMonthObj != null) {
+        stringBuilder.append("-").append(decimalFormat.format(yearMonthObj.getMonthValue()));
+        if (yearMonthDayObj != null) {
+          stringBuilder.append("-").append(decimalFormat.format(yearMonthDayObj.getDayOfMonth()));
         }
       }
     }
@@ -204,6 +192,18 @@ public class EdtfDatePart {
       stringBuilder.append("?");
     }
     return stringBuilder.toString();
+  }
+
+  @Override
+  public int compareTo(EdtfDatePart other) {
+    int comparatorValue = this.yearObj.compareTo(other.yearObj);
+    if (comparatorValue == 0 && this.yearMonthObj != null && other.yearMonthObj != null) {
+      comparatorValue = this.yearMonthObj.compareTo(other.yearMonthObj);
+      if (comparatorValue == 0 && this.yearMonthDayObj != null && other.yearMonthDayObj != null) {
+        comparatorValue = this.yearMonthDayObj.compareTo(other.yearMonthDayObj);
+      }
+    }
+    return comparatorValue;
   }
 
   /**
@@ -221,9 +221,9 @@ public class EdtfDatePart {
    */
   private String serializeYear() {
     final DecimalFormat decimalFormat = new DecimalFormat("0000");
-    final String paddedYear = decimalFormat.format(Math.abs(year));
+    final String paddedYear = decimalFormat.format(Math.abs(yearObj.getValue()));
 
-    final String prefix = year < 0 ? "-" : "";
+    final String prefix = yearObj.getValue() < 0 ? "-" : "";
     final String yearAdjusted;
     if (yearPrecision == null) {
       yearAdjusted = paddedYear;
@@ -247,9 +247,9 @@ public class EdtfDatePart {
 
     public EdtfDatePartBuilder(EdtfDatePart edtfDatePart) throws DateTimeException {
       yearPrecision = edtfDatePart.yearPrecision;
-      year = edtfDatePart.year;
-      month = edtfDatePart.month;
-      day = edtfDatePart.day;
+      yearObj = edtfDatePart.yearObj;
+      yearMonthObj = edtfDatePart.yearMonthObj;
+      yearMonthDayObj = edtfDatePart.yearMonthDayObj;
     }
 
     public EdtfDatePartBuilder(TemporalAccessor temporalAccessor) throws DateTimeException {
@@ -290,10 +290,12 @@ public class EdtfDatePart {
         year = temporalAccessor.isSupported(ChronoField.YEAR) ?
             temporalAccessor.get(ChronoField.YEAR) : null;
       }
-
-      Objects.requireNonNull(year, "Year value can never be null");
-      yearObj = Year.of(year);
-      parseMonthDay();
+      //Try initialization only if it is not a copy object
+      if (yearObj == null) {
+        Objects.requireNonNull(year, "Year value can never be null");
+        yearObj = Year.of(year);
+        parseMonthDay();
+      }
       return new EdtfDatePart(this);
     }
 
@@ -328,5 +330,4 @@ public class EdtfDatePart {
       return this;
     }
   }
-
 }

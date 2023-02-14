@@ -133,12 +133,6 @@ public class CenturyDateExtractor implements DateExtractor {
         .withYearPrecision(YearPrecision.CENTURY)
         .build(allowSwitchMonthDay);
     datePart.setUncertain(uncertain);
-
-    //    EdtfDatePart datePart = new EdtfDatePart();
-    //    datePart.setYearPrecision(YearPrecision.CENTURY);
-    //    final String century = matcher.group(group);
-    //    datePart.setYear(patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century));
-    //    datePart.setUncertain(uncertain);
     return datePart;
   }
 }

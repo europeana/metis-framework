@@ -105,7 +105,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
         EdtfDatePart edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
-        //        EdtfDatePart edtfDatePartNew = new EdtfDatePart(temporalAccessor);
         instantEdtfDate = new InstantEdtfDate(edtfDatePart);
       }
       //if we find it again we declare invalid

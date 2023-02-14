@@ -132,12 +132,11 @@ public class DateNormalizationResult {
   }
 
   private boolean isMonthDayComplete(EdtfDatePart edtfDatePart) {
-    return edtfDatePart.getMonth() != null && edtfDatePart.getDay() != null;
+    return edtfDatePart.getYearMonthDay() != null;
   }
 
   private boolean isOnlyYearsOrComplete(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
-    final boolean isOnlyYear = startEdtfDatePart.getMonth() == null && endEdtfDatePart.getMonth() == null &&
-        startEdtfDatePart.getDay() == null && endEdtfDatePart.getDay() == null;
+    final boolean isOnlyYear = startEdtfDatePart.getYearMonth() == null && endEdtfDatePart.getYearMonth() == null;
     final boolean isCompleteDate = isMonthDayComplete(startEdtfDatePart) && isMonthDayComplete(endEdtfDatePart);
 
     return isOnlyYear || isCompleteDate;

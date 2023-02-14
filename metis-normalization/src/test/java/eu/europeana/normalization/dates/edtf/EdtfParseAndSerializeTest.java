@@ -1,142 +1,100 @@
 package eu.europeana.normalization.dates.edtf;
 
-import java.text.ParseException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-public class EdtfParseAndSerializeTest {
+class EdtfParseAndSerializeTest {
 
+  // TODO: 14/02/2023 Can be simplified with parameterized tests
   EdtfParser parser = new EdtfParser();
 
   @Test
-  void parseDate() throws ParseException {
-    String dateStr = "2004-01-01";
-    InstantEdtfDate parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == 1);
-    assert (parse.getEdtfDatePart().getDay() == 1);
-    assert (parse.toString().equals(dateStr));
+  void parseDate() {
+    String dateString = "2004-01-01";
+    String expectedResultString = "2004-01-01";
+    InstantEdtfDate instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004-01";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == 1);
-    assert (parse.getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004-01";
+    expectedResultString = "2004-01";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == null);
-    assert (parse.getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004";
+    expectedResultString = "2004";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004-01?";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().isUncertain());
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == 1);
-    assert (parse.getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004-01?";
+    expectedResultString = "2004-01?";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004~";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().isApproximate());
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == null);
-    assert (parse.getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004~";
+    expectedResultString = "2004~";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004-01-01%";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().isUncertain());
-    assert (parse.getEdtfDatePart().isApproximate());
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == 1);
-    assert (parse.getEdtfDatePart().getDay() == 1);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004-01-01%";
+    expectedResultString = "2004-01-01%";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "Y-200000";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().getYear() == -200000);
-    assert (parse.toString().equals(dateStr));
+    dateString = "Y-200000";
+    expectedResultString = "Y-200000";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "Y200000";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().getYear() == 200000);
-    assert (parse.toString().equals(dateStr));
+    dateString = "Y200000";
+    expectedResultString = "Y200000";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "..";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().isUnspecified());
-    assert (parse.getEdtfDatePart().getYear() == null);
-    assert (parse.getEdtfDatePart().getMonth() == null);
-    assert (parse.getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "..";
+    expectedResultString = "..";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
   }
 
   @Test
-  void parseTime() throws ParseException {
-    String dateStr = "2004-01-01T23:05:02";
-    String resultString = "2004-01-01";
-    InstantEdtfDate parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEdtfDatePart().getMonth() == 1);
-    assert (parse.getEdtfDatePart().getDay() == 1);
-    assert (parse.toString().equals(resultString));
+  void parseTime() {
+    String dateString = "2004-01-01T23:05:02";
+    String expectedResultString = "2004-01-01";
+    InstantEdtfDate instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004-01-01T23:05";
-    resultString = "2004-01-01";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.toString().equals(resultString));
+    dateString = "2004-01-01T23:05";
+    expectedResultString = "2004-01-01";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
 
-    dateStr = "2004-01-01T23";
-    resultString = "2004-01-01";
-    parse = (InstantEdtfDate) parser.parse(dateStr, true);
-    assert (parse.toString().equals(resultString));
+    dateString = "2004-01-01T23";
+    expectedResultString = "2004-01-01";
+    instantEdtfDate = (InstantEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, instantEdtfDate.toString());
   }
 
   @Test
-  void parseInterval() throws ParseException {
-    String dateStr = "2004-01-01/2004-01-02";
-    IntervalEdtfDate parse = (IntervalEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
-    assert (parse.getStart().getEdtfDatePart().getMonth() == 1);
-    assert (parse.getStart().getEdtfDatePart().getDay() == 1);
-    assert (parse.getEnd().getEdtfDatePart().getYear() == 2004);
-    assert (parse.getEnd().getEdtfDatePart().getMonth() == 1);
-    assert (parse.getEnd().getEdtfDatePart().getDay() == 2);
-    assert (parse.toString().equals(dateStr));
+  void parseInterval() {
+    String dateString = "2004-01-01/2004-01-02";
+    String expectedResultString = "2004-01-01/2004-01-02";
+    IntervalEdtfDate intervalEdtfDate = (IntervalEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, intervalEdtfDate.toString());
 
-    dateStr = "2004-01-01/2005";
-    parse = (IntervalEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
-    assert (parse.getStart().getEdtfDatePart().getMonth() == 1);
-    assert (parse.getStart().getEdtfDatePart().getDay() == 1);
-    assert (parse.getEnd().getEdtfDatePart().getYear() == 2005);
-    assert (parse.getEnd().getEdtfDatePart().getMonth() == null);
-    assert (parse.getEnd().getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004-01-01/2005";
+    expectedResultString = "2004-01-01/2005";
+    intervalEdtfDate = (IntervalEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, intervalEdtfDate.toString());
 
-    dateStr = "2004/2005";
-    parse = (IntervalEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
-    assert (parse.getStart().getEdtfDatePart().getMonth() == null);
-    assert (parse.getStart().getEdtfDatePart().getDay() == null);
-    assert (parse.getEnd().getEdtfDatePart().getYear() == 2005);
-    assert (parse.getEnd().getEdtfDatePart().getMonth() == null);
-    assert (parse.getEnd().getEdtfDatePart().getDay() == null);
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004/2005";
+    expectedResultString = "2004/2005";
+    intervalEdtfDate = (IntervalEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, intervalEdtfDate.toString());
 
-    dateStr = "2004?/2005~";
-    parse = (IntervalEdtfDate) parser.parse(dateStr, true);
-    assert (parse.getStart().getEdtfDatePart().getYear() == 2004);
-    assert (parse.getStart().getEdtfDatePart().getMonth() == null);
-    assert (parse.getStart().getEdtfDatePart().getDay() == null);
-    assert (parse.getStart().getEdtfDatePart().isUncertain());
-    assert (parse.getEnd().getEdtfDatePart().getYear() == 2005);
-    assert (parse.getEnd().getEdtfDatePart().getMonth() == null);
-    assert (parse.getEnd().getEdtfDatePart().getDay() == null);
-    assert (parse.getEnd().getEdtfDatePart().isApproximate());
-    assert (parse.toString().equals(dateStr));
+    dateString = "2004?/2005~";
+    expectedResultString = "2004?/2005~";
+    intervalEdtfDate = (IntervalEdtfDate) parser.parse(dateString, true);
+    assertEquals(expectedResultString, intervalEdtfDate.toString());
   }
 }

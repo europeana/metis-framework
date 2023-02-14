@@ -42,7 +42,8 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
 
           EdtfDatePart startDatePart = new EdtfDatePartBuilder(startYear).build(allowSwitchMonthDay);
           EdtfDatePart endDatePart = new EdtfDatePartBuilder(
-              (startDatePart.getYear() / YearPrecision.CENTURY.getDuration()) * YearPrecision.CENTURY.getDuration() + endYear)
+              (startDatePart.getYear().getValue() / YearPrecision.CENTURY.getDuration())
+                  * YearPrecision.CENTURY.getDuration() + endYear)
               .build(allowSwitchMonthDay);
 
           updateUncertain(matcher, startDatePart, endDatePart);
