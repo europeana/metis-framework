@@ -352,20 +352,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
       if (!EdtfValidator.validate(edtfDate, false)) {
         //Revert the start/end
         ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
-        switchDayWithMonthAndValidate(dateNormalizationResult, edtfDate);
       }
-    } else {
-      switchDayWithMonthAndValidate(dateNormalizationResult, edtfDate);
-    }
-  }
-
-  private void switchDayWithMonthAndValidate(DateNormalizationResult dateNormalizationResult, AbstractEdtfDate edtfDate) {
-    edtfDate.switchDayAndMonth();
-    if (EdtfValidator.validate(edtfDate, false)) {
-      dateNormalizationResult.setEdtfDate(edtfDate);
-    } else {
-      edtfDate.switchDayAndMonth();
-      dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
     }
   }
 

@@ -112,10 +112,6 @@ public class EdtfDatePart {
     return yearPrecision;
   }
 
-  public void setYearPrecision(YearPrecision yearPrecision) {
-    this.yearPrecision = yearPrecision;
-  }
-
   public EdtfDatePart() {
   }
 
@@ -164,19 +160,6 @@ public class EdtfDatePart {
     }
     return new EdtfDatePartBuilder(temporalAccessorLastDay).build();
 
-  }
-
-  // TODO: 13/02/2023 Check if this is still required, since we are validating the switch during build(on the builder class) now
-
-  /**
-   * Switches the values of the day and month.
-   */
-  public void switchDayAndMonth() {
-    if (day != null) {
-      int tempDay = day;
-      setDay(month);
-      setMonth(tempDay);
-    }
   }
 
   public static EdtfDatePart getUnknownInstance() {

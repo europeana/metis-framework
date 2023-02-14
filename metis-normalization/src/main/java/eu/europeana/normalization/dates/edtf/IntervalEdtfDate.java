@@ -5,8 +5,6 @@ package eu.europeana.normalization.dates.edtf;
  */
 public class IntervalEdtfDate extends AbstractEdtfDate {
 
-  private static final long serialVersionUID = -8754610674192759880L;
-
   private InstantEdtfDate start;
   private InstantEdtfDate end;
 
@@ -65,16 +63,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   @Override
   public boolean isUnspecified() {
     return (start != null && start.isUnspecified()) || (end != null && end.isUnspecified());
-  }
-
-  @Override
-  public void switchDayAndMonth() {
-    //    if (start != null) {
-    //      start.switchDayAndMonth();
-    //    }
-    //    if (end != null) {
-    //      end.switchDayAndMonth();
-    //    }
   }
 
   @Override

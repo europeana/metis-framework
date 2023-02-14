@@ -1,9 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
 import eu.europeana.normalization.dates.YearPrecision;
-import java.time.Month;
 import java.time.Year;
-import java.util.EnumSet;
 
 /**
  * This class validates instances of EDTF dates.
@@ -18,9 +16,6 @@ import java.util.EnumSet;
  * </p>
  */
 public final class EdtfValidator {
-
-  private static final EnumSet<Month> MONTHS_WITH_31_DAYS = EnumSet.of(Month.JANUARY, Month.MARCH, Month.MAY, Month.JULY,
-      Month.AUGUST, Month.OCTOBER, Month.DECEMBER);
 
   private EdtfValidator() {
   }
@@ -56,7 +51,8 @@ public final class EdtfValidator {
     final InstantEdtfDate startDate = intervalEdtfDate.getStart();
     final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
     final boolean isIntervalValid;
-    if (startDate != null && validateInstantOfInterval(startDate) && endDate != null && validateInstantOfInterval(endDate)) {
+    //    if (startDate != null && validateInstantOfInterval(startDate) && endDate != null && validateInstantOfInterval(endDate)) {
+    if (startDate != null && endDate != null) {
       EdtfDatePart startDatePart = startDate.getEdtfDatePart();
       EdtfDatePart endDatePart = endDate.getEdtfDatePart();
       final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
@@ -137,49 +133,8 @@ public final class EdtfValidator {
    * @return true if the instant is valid
    */
   private static boolean validateInstant(InstantEdtfDate instantEdtfDate) {
-    return validateInstantOfInterval(instantEdtfDate)
-        && instantEdtfDate.getEdtfDatePart() != null
+    return instantEdtfDate.getEdtfDatePart() != null
         && !instantEdtfDate.getEdtfDatePart().isUnknown();
-  }
-
-  private static boolean validateInstantOfInterval(InstantEdtfDate instantEdtfDate) {
-    return validateDatePart(instantEdtfDate.getEdtfDatePart());
-  }
-
-  private static boolean validateDatePart(EdtfDatePart edtfDatePart) {
-    boolean isDatePartValid = true;
-    if (edtfDatePart != null && !(edtfDatePart.isUnknown() || edtfDatePart.isUnspecified())) {
-      if (edtfDatePart.getYear() == null) {
-        isDatePartValid = false;
-      }
-      if (edtfDatePart.getYearPrecision() == null && edtfDatePart.getMonth() != null) {
-        if (edtfDatePart.getMonth() < 1 || edtfDatePart.getMonth() > 12) {
-          isDatePartValid = false;
-        } else {
-          isDatePartValid = isDatePartDayValid(edtfDatePart);
-        }
-      }
-    }
-    return isDatePartValid;
-  }
-
-  private static boolean isDatePartDayValid(EdtfDatePart edtfDatePart) {
-    final boolean isDayValid;
-    if (edtfDatePart.getDay() == null) {
-      isDayValid = true;
-    } else {
-      final boolean isValidDayRange = edtfDatePart.getDay() > 0 && edtfDatePart.getDay() <= 31;
-      final boolean isNot31Or31AndValid =
-          edtfDatePart.getDay() != 31 || MONTHS_WITH_31_DAYS.contains(Month.of(edtfDatePart.getMonth()));
-      final boolean isNotFebruaryOrFebruaryAndValidDay = edtfDatePart.getMonth() != 2 || isValidFebruaryDay(edtfDatePart);
-      isDayValid = isValidDayRange && isNot31Or31AndValid && isNotFebruaryOrFebruaryAndValidDay;
-    }
-    return isDayValid;
-  }
-
-  private static boolean isValidFebruaryDay(EdtfDatePart edtfDatePart) {
-    return (edtfDatePart.getDay() > 0 && edtfDatePart.getDay() < 30 && edtfDatePart.getDay() != 29) || Year.isLeap(
-        edtfDatePart.getYear());
   }
 
   private static boolean validateIntervalNotInFuture(IntervalEdtfDate intervalEdtfDate) {

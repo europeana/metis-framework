@@ -33,8 +33,6 @@ public abstract class AbstractEdtfDate {
 
   public abstract boolean isTimeOnly();
 
-  public abstract void switchDayAndMonth();
-
   public abstract InstantEdtfDate getFirstDay();
 
   public abstract InstantEdtfDate getLastDay();
