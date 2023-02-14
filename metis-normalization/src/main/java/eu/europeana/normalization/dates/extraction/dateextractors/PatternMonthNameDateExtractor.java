@@ -49,15 +49,14 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
     }
   }
 
-  @Override
-  public DateNormalizationResult extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     for (Month month : Month.values()) {
       Matcher m = patternDayMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
         final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
-            .build();
+            .build(allowSwitchMonthDay);
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,
             new InstantEdtfDate(datePart));
       }
@@ -66,7 +65,7 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
         final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
-            .build();
+            .build(allowSwitchMonthDay);
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,
             new InstantEdtfDate(datePart));
       }
@@ -74,11 +73,21 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
       if (m.matches()) {
         final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
-            .build();
+            .build(allowSwitchMonthDay);
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,
             new InstantEdtfDate(datePart));
       }
     }
     return null;
+  }
+
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
   }
 }

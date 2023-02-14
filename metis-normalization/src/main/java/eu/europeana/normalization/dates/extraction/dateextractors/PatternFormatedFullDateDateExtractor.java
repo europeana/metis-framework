@@ -29,12 +29,12 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
   // year month day hour minute second
   Pattern patFormatedDate3 = Pattern.compile("(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})(\\.\\d{1,3})?");
 
-  public DateNormalizationResult extract(String inputValue) {
+  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     Matcher m = patFormatedDate2.matcher(inputValue);
     if (m.matches()) {
       final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
-          .withDay(Integer.parseInt(m.group(3))).build();
+          .withDay(Integer.parseInt(m.group(3))).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
           new InstantEdtfDate(datePart));
     }
@@ -42,7 +42,7 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
     if (m.matches()) {
       final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(6)))
           .withMonth(monthNames.getMonthIndexValue(m.group(1)))
-          .withDay(Integer.parseInt(m.group(2))).build();
+          .withDay(Integer.parseInt(m.group(2))).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
           new InstantEdtfDate(datePart));
     }
@@ -50,11 +50,20 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
     if (m.matches()) {
       final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
-          .withDay(Integer.parseInt(m.group(3))).build();
+          .withDay(Integer.parseInt(m.group(3))).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
           new InstantEdtfDate(datePart));
     }
     return null;
   }
 
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
+  }
 }

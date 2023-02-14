@@ -43,8 +43,13 @@ public class NumericPartsDateExtractor implements DateExtractor {
   private static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
 
   @Override
-  public DateNormalizationResult extract(String inputValue) {
-    return extract(inputValue, NumericPartsPattern.NUMERIC_SET);
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, false);
   }
 
   /**
@@ -52,9 +57,11 @@ public class NumericPartsDateExtractor implements DateExtractor {
    *
    * @param inputValue the input value
    * @param numericPatternValues the patterns to check against
+   * @param allowSwitchMonthDay
    * @return the date normalization result
    */
-  public DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues) {
+  protected DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues,
+      boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain =
         STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find();
@@ -64,7 +71,8 @@ public class NumericPartsDateExtractor implements DateExtractor {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
         try {
-          EdtfDatePart edtfDatePart = extractDate(numericWithMissingPartsPattern, matcher, uncertain);
+          EdtfDatePart edtfDatePart = extractDateProperty(numericWithMissingPartsPattern, matcher, uncertain,
+              allowSwitchMonthDay);
           dateNormalizationResult = new DateNormalizationResult(
               numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
               new InstantEdtfDate(edtfDatePart));
@@ -78,8 +86,9 @@ public class NumericPartsDateExtractor implements DateExtractor {
     return dateNormalizationResult;
   }
 
-  private EdtfDatePart extractDate(
-      NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain) throws DateTimeException {
+  private EdtfDatePart extractDateProperty(
+      NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher, boolean uncertain, boolean allowSwitchMonthDay)
+      throws DateTimeException {
     final String year = getYear(numericWithMissingPartsPattern, matcher);
     final String month = getMonth(numericWithMissingPartsPattern, matcher);
     final String day = getDay(numericWithMissingPartsPattern, matcher);
@@ -90,10 +99,10 @@ public class NumericPartsDateExtractor implements DateExtractor {
 
     final int unknownYearCharacters = year.length() - yearSanitized.length();
     YearPrecision yearPrecision = YearPrecision.getYearPrecisionByOrdinal(unknownYearCharacters);
-    final EdtfDatePart edtfDatePart = new EdtfDatePartBuilder(adjustYearWithPrecision(yearSanitized, yearPrecision))
+    EdtfDatePart edtfDatePart = new EdtfDatePartBuilder(adjustYearWithPrecision(yearSanitized, yearPrecision))
         .withYearPrecision(yearPrecision)
         .withMonth(Integer.parseInt(monthSanitized))
-        .withDay(Integer.parseInt(daySanitized)).build();
+        .withDay(Integer.parseInt(daySanitized)).build(allowSwitchMonthDay);
     edtfDatePart.setUncertain(uncertain);
     return edtfDatePart;
   }

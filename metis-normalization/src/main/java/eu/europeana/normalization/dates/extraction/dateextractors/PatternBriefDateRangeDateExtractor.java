@@ -29,8 +29,7 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
   private final Pattern briefDateRangePattern = Pattern.compile(
       "(?<startsWithQuestionMark>\\?\\s*)?(?<start>\\d{3,4})[\\-/](?<end>\\d{2})(?<endsWithQuestionMark>\\s*\\?)?");
 
-  @Override
-  public DateNormalizationResult extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     Matcher matcher = briefDateRangePattern.matcher(inputValue.trim());
     DateNormalizationResult dateNormalizationResult = null;
     if (matcher.matches()) {
@@ -41,10 +40,10 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
         int startYearAdjusted = startYear % YearPrecision.CENTURY.getDuration();
         if (startYearAdjusted < endYear) {
 
-          EdtfDatePart startDatePart = new EdtfDatePartBuilder(startYear).build();
+          EdtfDatePart startDatePart = new EdtfDatePartBuilder(startYear).build(allowSwitchMonthDay);
           EdtfDatePart endDatePart = new EdtfDatePartBuilder(
               (startDatePart.getYear() / YearPrecision.CENTURY.getDuration()) * YearPrecision.CENTURY.getDuration() + endYear)
-              .build();
+              .build(allowSwitchMonthDay);
 
           updateUncertain(matcher, startDatePart, endDatePart);
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
@@ -53,6 +52,16 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
       }
     }
     return dateNormalizationResult;
+  }
+
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
   }
 
   private void updateUncertain(Matcher matcher, EdtfDatePart startDatePart, EdtfDatePart endDatePart) {

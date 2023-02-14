@@ -32,7 +32,7 @@ public class DecadeDateExtractor implements DateExtractor {
 
   private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
-  public DateNormalizationResult extract(String inputValue) {
+  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
 
@@ -41,7 +41,7 @@ public class DecadeDateExtractor implements DateExtractor {
     if (matcher.matches()) {
       final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(
           Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
-          .withYearPrecision(YearPrecision.DECADE).build();
+          .withYearPrecision(YearPrecision.DECADE).build(allowSwitchMonthDay);
       datePart.setUncertain(uncertain);
 
       //      EdtfDatePart datePart = new EdtfDatePart();
@@ -52,5 +52,15 @@ public class DecadeDateExtractor implements DateExtractor {
           DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart));
     }
     return dateNormalizationResult;
+  }
+
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
   }
 }

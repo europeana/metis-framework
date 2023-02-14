@@ -43,6 +43,16 @@ public class CenturyDateExtractor implements DateExtractor {
   private static final String CENTURY_PREFIX = "(?:(?:s|sec|saec)\\s|(?:s|sec|saec)\\.\\s?)?";
   private static final String QUESTION_MARK = "\\??";
 
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
+  }
+
   enum PatternCenturyDateOperation {
     PATTERN_YYYY(
         compile(QUESTION_MARK + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
@@ -84,14 +94,14 @@ public class CenturyDateExtractor implements DateExtractor {
     }
   }
 
-  @Override
-  public DateNormalizationResult extract(String inputValue) {
+  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     return Arrays.stream(PatternCenturyDateOperation.values())
-                 .map(operation -> extractInstance(inputValue, operation))
+                 .map(operation -> extractInstance(inputValue, operation, allowSwitchMonthDay))
                  .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
-  private DateNormalizationResult extractInstance(String inputValue, PatternCenturyDateOperation patternCenturyDateOperation) {
+  private DateNormalizationResult extractInstance(String inputValue, PatternCenturyDateOperation patternCenturyDateOperation,
+      boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
 
@@ -99,11 +109,11 @@ public class CenturyDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     if (matcher.matches()) {
       AbstractEdtfDate abstractEdtfDate;
-      EdtfDatePart datePart1 = extractEdtfDatePart(patternCenturyDateOperation, uncertain, matcher, 1);
+      EdtfDatePart datePart1 = extractEdtfDatePart(patternCenturyDateOperation, uncertain, matcher, 1, allowSwitchMonthDay);
 
       //Check if we have an interval or instance
       if (matcher.groupCount() == 2) {
-        EdtfDatePart datePart2 = extractEdtfDatePart(patternCenturyDateOperation, uncertain, matcher, 2);
+        EdtfDatePart datePart2 = extractEdtfDatePart(patternCenturyDateOperation, uncertain, matcher, 2, allowSwitchMonthDay);
         abstractEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(datePart1), new InstantEdtfDate(datePart2));
       } else {
         abstractEdtfDate = new InstantEdtfDate(datePart1);
@@ -116,12 +126,12 @@ public class CenturyDateExtractor implements DateExtractor {
   }
 
   private EdtfDatePart extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation, boolean uncertain,
-      Matcher matcher, int group) {
+      Matcher matcher, int group, boolean allowSwitchMonthDay) {
     final String century = matcher.group(group);
     EdtfDatePart datePart = new EdtfDatePartBuilder(
         patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century))
         .withYearPrecision(YearPrecision.CENTURY)
-        .build();
+        .build(allowSwitchMonthDay);
     datePart.setUncertain(uncertain);
 
     //    EdtfDatePart datePart = new EdtfDatePart();

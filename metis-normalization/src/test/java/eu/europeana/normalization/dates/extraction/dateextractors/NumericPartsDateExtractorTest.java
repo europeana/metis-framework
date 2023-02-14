@@ -49,7 +49,7 @@ class NumericPartsDateExtractorTest {
   }
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extract(input);
+    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extractDateProperty(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
     } else {

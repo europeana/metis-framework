@@ -24,7 +24,7 @@ class DcmiPeriodDateExtractorTest {
   @DisplayName("Extract DCMI Period")
   void extract(String actualDcmiPeriod, String expectedLabel, String expectedStartDate, String expectedEndDate) {
     DcmiPeriodDateExtractor periodDateExtractor = new DcmiPeriodDateExtractor();
-    DateNormalizationResult result = periodDateExtractor.extract(actualDcmiPeriod);
+    DateNormalizationResult result = periodDateExtractor.extractDateProperty(actualDcmiPeriod);
     if (expectedStartDate == null || expectedEndDate == null) {
       assertNull(result);
     } else {

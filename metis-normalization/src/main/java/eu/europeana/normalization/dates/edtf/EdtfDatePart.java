@@ -81,10 +81,6 @@ public class EdtfDatePart {
     return year;
   }
 
-  public void setYear(Integer year) {
-    this.year = year;
-  }
-
   public Integer getMonth() {
     return month;
   }
@@ -281,7 +277,25 @@ public class EdtfDatePart {
       this.year = year;
     }
 
-    public EdtfDatePart build() throws DateTimeException {
+    public EdtfDatePart build(boolean allowSwitchMonthDay) throws DateTimeException {
+      EdtfDatePart edtfDatePart;
+      try {
+        edtfDatePart = build();
+      } catch (DateTimeException e) {
+        LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
+        if (allowSwitchMonthDay) {
+          //Retry with switching month and day
+          swapMonthDay();
+          parseMonthDay();
+          edtfDatePart = new EdtfDatePart(this);
+        } else {
+          throw e;
+        }
+      }
+      return edtfDatePart;
+    }
+
+    private EdtfDatePart build() throws DateTimeException {
 
       if (temporalAccessor != null) {
         LOGGER.debug("TemporalAccessor present. Overwriting values.");
@@ -296,15 +310,7 @@ public class EdtfDatePart {
 
       Objects.requireNonNull(year, "Year value can never be null");
       yearObj = Year.of(year);
-
-      try {
-        parseMonthDay();
-      } catch (DateTimeException e) {
-        LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
-        //Retry with switching month and day
-        swapMonthDay();
-        parseMonthDay();
-      }
+      parseMonthDay();
       return new EdtfDatePart(this);
     }
 

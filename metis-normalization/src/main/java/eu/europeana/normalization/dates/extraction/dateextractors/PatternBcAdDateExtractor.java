@@ -69,7 +69,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         Pattern.CASE_INSENSITIVE);
   }
 
-  public DateNormalizationResult extract(String inputValue) {
+  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
       //      EdtfDatePart datePart = new EdtfDatePart();
@@ -82,7 +82,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         //        datePart.setYear(Integer.parseInt(m.group("year")));
       }
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
-          new InstantEdtfDate(edtfDatePartBuilder.build()));
+          new InstantEdtfDate(edtfDatePartBuilder.build(allowSwitchMonthDay)));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
@@ -95,7 +95,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         startDatePartBuilder = new EdtfDatePartBuilder(Integer.parseInt(m.group("year")));
         //        d.setYear(Integer.parseInt(m.group("year")));
       }
-      InstantEdtfDate start = new InstantEdtfDate(startDatePartBuilder.build());
+      InstantEdtfDate start = new InstantEdtfDate(startDatePartBuilder.build(allowSwitchMonthDay));
 
       //      d = new EdtfDatePart();
       final EdtfDatePartBuilder endDatePartBuilder;
@@ -106,11 +106,21 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         endDatePartBuilder = new EdtfDatePartBuilder(Integer.parseInt(m.group("year2")));
         //        d.setYear(Integer.parseInt(m.group("year2")));
       }
-      InstantEdtfDate end = new InstantEdtfDate(endDatePartBuilder.build());
+      InstantEdtfDate end = new InstantEdtfDate(endDatePartBuilder.build(allowSwitchMonthDay));
 
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
     }
     return null;
+  }
+
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
   }
 
   private boolean isBc(String abbreviation) {

@@ -17,24 +17,24 @@ public class EdtfParser {
 
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
-  public AbstractEdtfDate parse(String dateInput) throws DateTimeException {
+  public AbstractEdtfDate parse(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {
     if (StringUtils.isEmpty(dateInput)) {
       throw new DateTimeException("Empty argument");
     }
     if (dateInput.contains("/")) {
-      return parseInterval(dateInput);
+      return parseInterval(dateInput, allowSwitchMonthDay);
     }
-    return parseInstant(dateInput);
+    return parseInstant(dateInput, allowSwitchMonthDay);
   }
 
-  protected InstantEdtfDate parseInstant(String dateInput) throws DateTimeException {
+  protected InstantEdtfDate parseInstant(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {
     EdtfDatePart edtfDatePart;
     if (dateInput.isEmpty()) {
       edtfDatePart = EdtfDatePart.getUnknownInstance();
     } else if ("..".equals(dateInput)) {
       edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
     } else if (dateInput.startsWith("Y")) {
-      edtfDatePart = new EdtfDatePartBuilder(Integer.parseInt(dateInput.substring(1))).build();
+      edtfDatePart = new EdtfDatePartBuilder(Integer.parseInt(dateInput.substring(1))).build(allowSwitchMonthDay);
     } else {
 
       Pattern pattern = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
@@ -43,7 +43,7 @@ public class EdtfParser {
         //Check modifier value
         String dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
-        edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build();
+        edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
 
         String modifier = matcher.group(1);
         if ("?".equals(modifier)) {
@@ -56,18 +56,18 @@ public class EdtfParser {
         }
       } else {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInput);
-        edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build();
+        edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
       }
     }
 
     return new InstantEdtfDate(edtfDatePart);
   }
 
-  protected IntervalEdtfDate parseInterval(String dateInput) throws DateTimeException {
+  protected IntervalEdtfDate parseInterval(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {
     String startPart = dateInput.substring(0, dateInput.indexOf('/'));
     String endPart = dateInput.substring(dateInput.indexOf('/') + 1);
-    InstantEdtfDate start = parseInstant(startPart);
-    InstantEdtfDate end = parseInstant(endPart);
+    InstantEdtfDate start = parseInstant(startPart, allowSwitchMonthDay);
+    InstantEdtfDate end = parseInstant(endPart, allowSwitchMonthDay);
 
     if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
         || start.getEdtfDatePart().isUnspecified())) {

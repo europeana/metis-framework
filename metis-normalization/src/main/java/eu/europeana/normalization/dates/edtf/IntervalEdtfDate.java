@@ -69,12 +69,12 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public void switchDayAndMonth() {
-    if (start != null) {
-      start.switchDayAndMonth();
-    }
-    if (end != null) {
-      end.switchDayAndMonth();
-    }
+    //    if (start != null) {
+    //      start.switchDayAndMonth();
+    //    }
+    //    if (end != null) {
+    //      end.switchDayAndMonth();
+    //    }
   }
 
   @Override

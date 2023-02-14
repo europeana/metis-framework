@@ -7,6 +7,9 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
  */
 public interface DateExtractor {
 
-  DateNormalizationResult extract(String inputValue);
+  DateNormalizationResult extractDateProperty(String inputValue);
+
+  DateNormalizationResult extractGenericProperty(String inputValue);
 
 }
+

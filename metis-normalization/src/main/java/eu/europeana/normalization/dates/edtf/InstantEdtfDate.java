@@ -20,7 +20,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
    * @param instantEdtfDate the internal instant date to copy
    */
   public InstantEdtfDate(InstantEdtfDate instantEdtfDate) {
-    this(new EdtfDatePartBuilder(instantEdtfDate.getEdtfDatePart()).build());
+    this(new EdtfDatePartBuilder(instantEdtfDate.getEdtfDatePart()).build(false));
   }
 
   @Override
@@ -63,9 +63,9 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   @Override
   public void switchDayAndMonth() {
-    if (edtfDatePart != null) {
-      edtfDatePart.switchDayAndMonth();
-    }
+    //    if (edtfDatePart != null) {
+    //      edtfDatePart.switchDayAndMonth();
+    //    }
   }
 
   @Override
@@ -80,7 +80,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
     //Verify though that the contents of this class are always considered valid before the call of this method.
     else if (getEdtfDatePart().getYear() != null && getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-      final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build();
+      final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build(false);
       firstDay = new InstantEdtfDate(newEdtfDatePart);
     }
 
@@ -95,7 +95,7 @@ public class InstantEdtfDate extends AbstractEdtfDate {
       EdtfDatePart lastDayNew = getEdtfDatePart().lastDayOfYearDatePart();
       lastDay = new InstantEdtfDate(lastDayNew);
     } else if (getEdtfDatePart().getYear() < -THRESHOLD_4_DIGITS_YEAR) {
-      final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build();
+      final EdtfDatePart newEdtfDatePart = new EdtfDatePart.EdtfDatePartBuilder(getEdtfDatePart().getYear()).build(false);
       lastDay = new InstantEdtfDate(newEdtfDatePart);
     }
     return lastDay;

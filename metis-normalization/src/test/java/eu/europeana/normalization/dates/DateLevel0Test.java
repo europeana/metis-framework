@@ -18,9 +18,9 @@ class DateLevel0Test {
 
   private void parse(String input, String expected) throws DateTimeException {
     if (expected == null) {
-      assertThrows(DateTimeException.class, () -> edtfParser.parse(input));
+      assertThrows(DateTimeException.class, () -> edtfParser.parse(input, true));
     } else {
-      assertEquals(expected, edtfParser.parse(input).toString());
+      assertEquals(expected, edtfParser.parse(input, true).toString());
     }
   }
 

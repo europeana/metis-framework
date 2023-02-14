@@ -48,15 +48,14 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
 
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
 
-  @Override
-  public DateNormalizationResult extract(String value) {
+  private DateNormalizationResult extract(String value, boolean allowSwitchMonthDay) {
     DateNormalizationResult dateNormalizationResult = null;
     if (isValidScheme(value)) {
       try {
         Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-        InstantEdtfDate start = extractDate(matcher);
+        InstantEdtfDate start = extractDate(matcher, allowSwitchMonthDay);
         matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-        InstantEdtfDate end = extractDate(matcher);
+        InstantEdtfDate end = extractDate(matcher, allowSwitchMonthDay);
         String name = extractName(value);
 
         //At least one end has to be specified
@@ -98,13 +97,14 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     return isValidScheme;
   }
 
-  private static InstantEdtfDate extractDate(Matcher matcher) throws DuplicateFieldException, DateTimeException {
+  private static InstantEdtfDate extractDate(Matcher matcher, boolean allowSwitchMonthDay)
+      throws DuplicateFieldException, DateTimeException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
-        EdtfDatePart edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build();
+        EdtfDatePart edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
         //        EdtfDatePart edtfDatePartNew = new EdtfDatePart(temporalAccessor);
         instantEdtfDate = new InstantEdtfDate(edtfDatePart);
       }
@@ -127,6 +127,16 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       }
     }
     return name;
+  }
+
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
   }
 
   private static class DuplicateFieldException extends Exception {

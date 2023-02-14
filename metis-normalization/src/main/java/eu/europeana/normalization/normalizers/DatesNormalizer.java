@@ -142,8 +142,9 @@ public class DatesNormalizer implements RecordNormalizeAction {
         input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize2ndTimeDateProperty));
 
     normalizationOperationsInOrderGenericProperty = List.of(
-        input -> normalizeInput(extractorsInOrderForGenericProperties, input),
-        input -> normalizeInput(extractorsInOrderForGenericProperties, input, dateFieldSanitizer::sanitizeGenericProperty));
+        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input),
+        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input,
+            dateFieldSanitizer::sanitizeGenericProperty));
   }
 
   private static Pair<Namespace.Element, XpathQuery> getProxySubtagQuery(Namespace.Element subtag) {
@@ -296,7 +297,12 @@ public class DatesNormalizer implements RecordNormalizeAction {
   }
 
   private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input) {
-    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extract(input))
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractDateProperty(input))
+                         .filter(Objects::nonNull).findFirst().orElse(null);
+  }
+
+  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input) {
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractGenericProperty(input))
                          .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
@@ -306,6 +312,19 @@ public class DatesNormalizer implements RecordNormalizeAction {
     DateNormalizationResult dateNormalizationResult = null;
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
       dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString());
+      if (dateNormalizationResult != null) {
+        dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
+      }
+    }
+    return dateNormalizationResult;
+  }
+
+  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input,
+      Function<String, SanitizedDate> sanitizeFunction) {
+    final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
+    DateNormalizationResult dateNormalizationResult = null;
+    if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
+      dateNormalizationResult = normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString());
       if (dateNormalizationResult != null) {
         dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }

@@ -13,13 +13,22 @@ public class PatternEdtfDateExtractor implements DateExtractor {
 
   final EdtfParser edtfParser = new EdtfParser();
 
-  @Override
-  public DateNormalizationResult extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     try {
-      AbstractEdtfDate edtfDate = edtfParser.parse(inputValue);
+      AbstractEdtfDate edtfDate = edtfParser.parse(inputValue, allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
     } catch (DateTimeException | NumberFormatException e) {
       return null;
     }
+  }
+
+  @Override
+  public DateNormalizationResult extractDateProperty(String inputValue) {
+    return extract(inputValue, true);
+  }
+
+  @Override
+  public DateNormalizationResult extractGenericProperty(String inputValue) {
+    return extract(inputValue, false);
   }
 }

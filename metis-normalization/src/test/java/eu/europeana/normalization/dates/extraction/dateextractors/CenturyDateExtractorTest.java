@@ -18,7 +18,7 @@ class CenturyDateExtractorTest {
   private static final CenturyDateExtractor CENTURY_DATE_EXTRACTOR = new CenturyDateExtractor();
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = CENTURY_DATE_EXTRACTOR.extract(input);
+    final DateNormalizationResult dateNormalizationResult = CENTURY_DATE_EXTRACTOR.extractDateProperty(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
     } else {
