@@ -23,11 +23,6 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     this(new EdtfDatePartBuilder(instantEdtfDate.getEdtfDatePart()).build(false));
   }
 
-  @Override
-  public boolean isTimeOnly() {
-    return edtfDatePart == null;
-  }
-
   public EdtfDatePart getEdtfDatePart() {
     return edtfDatePart;
   }

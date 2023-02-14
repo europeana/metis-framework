@@ -31,8 +31,6 @@ public abstract class AbstractEdtfDate {
 
   public abstract boolean isUnspecified();
 
-  public abstract boolean isTimeOnly();
-
   public abstract InstantEdtfDate getFirstDay();
 
   public abstract InstantEdtfDate getLastDay();

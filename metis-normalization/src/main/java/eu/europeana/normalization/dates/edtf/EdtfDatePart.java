@@ -25,28 +25,36 @@ import org.slf4j.LoggerFactory;
 public class EdtfDatePart implements Comparable<EdtfDatePart> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EdtfDatePart.class);
-
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
 
+  private YearPrecision yearPrecision;
   private Year yearObj;
   private YearMonth yearMonthObj;
   private LocalDate yearMonthDayObj;
 
+  /**
+   * Uncertain character '?'. If uncertain & approximate then character is '%'.
+   */
   private boolean uncertain;
+  /**
+   * Approximate character '~'. If uncertain & approximate then character is '%'.
+   */
   private boolean approximate;
 
   /**
    * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string was equal to
-   * '<code>1900/?</code>').
+   * '<code>1900/</code>').
    */
   private boolean unknown;
 
+  // TODO: 14/02/2023 To check validity of naming and usage of unkown and unspecified
   /**
    * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval string was equal to
-   * '<code>1900/</code>').
+   * '<code>1900/..</code>'). It is also used on the DcmiPeriodExtractor when the start of end was not parsable and then the value
+   * is used to generate the date result. Further it is also used at NumericPartsRangeDateExtractor for dates that edges that are
+   * not declared for example "\\?|-|\\.\\.", and nothing related to XX unspecified month, day digits etc..
    */
   private boolean unspecified;
-  private YearPrecision yearPrecision;
 
   public boolean isUncertain() {
     return uncertain;

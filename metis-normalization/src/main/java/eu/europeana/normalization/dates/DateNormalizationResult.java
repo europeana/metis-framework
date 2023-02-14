@@ -92,7 +92,7 @@ public class DateNormalizationResult {
    */
   public boolean isCompleteDate() {
     boolean isCompleteDate = true;
-    if (edtfDate == null || edtfDate.isTimeOnly()) {
+    if (edtfDate == null) {
       isCompleteDate = false;
     } else if (edtfDate instanceof InstantEdtfDate) {
       final EdtfDatePart edtfDatePart = ((InstantEdtfDate) edtfDate).getEdtfDatePart();

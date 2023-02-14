@@ -286,7 +286,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private void noMatchIfValidAndTimeOnly(DateNormalizationResult dateNormalizationResult) {
     if (dateNormalizationResult.getDateNormalizationExtractorMatchId() != DateNormalizationExtractorMatchId.INVALID
-        && dateNormalizationResult.getEdtfDate().isTimeOnly()) {
+        && dateNormalizationResult.getEdtfDate() == null) {
 
       // TODO: 21/07/2022 In the result only the match id is declared NO_MATCH but the contents are
       //  still present in the object. Is that okay?

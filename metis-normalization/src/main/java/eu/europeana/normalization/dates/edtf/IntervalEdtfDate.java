@@ -26,11 +26,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
-  public boolean isTimeOnly() {
-    return (start == null || start.isTimeOnly()) && (end == null || end.isTimeOnly());
-  }
-
-  @Override
   public void setApproximate(boolean approx) {
     if (start != null && start.getEdtfDatePart() != null) {
       start.getEdtfDatePart().setApproximate(approx);
