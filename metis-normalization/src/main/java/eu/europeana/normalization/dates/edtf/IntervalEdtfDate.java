@@ -53,8 +53,9 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
-  public boolean isUnspecified() {
-    return (start != null && start.isUnspecified()) || (end != null && end.isUnspecified());
+  public boolean isOpen() {
+    return (start != null && start.getDateEdgeType() == DateEdgeType.OPEN) || (end != null
+        && end.getDateEdgeType() == DateEdgeType.OPEN);
   }
 
   @Override

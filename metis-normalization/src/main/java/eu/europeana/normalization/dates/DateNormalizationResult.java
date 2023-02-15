@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates;
 
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -105,8 +106,9 @@ public class DateNormalizationResult {
   }
 
   private boolean areBothDatesSpecified(InstantEdtfDate startInstantEdtfDate, InstantEdtfDate endInstantEdtfDate) {
-    return startInstantEdtfDate != null && endInstantEdtfDate != null && !startInstantEdtfDate.isUnspecified()
-        && !endInstantEdtfDate.isUnspecified();
+    return startInstantEdtfDate != null && endInstantEdtfDate != null &&
+        startInstantEdtfDate.getDateEdgeType() == DateEdgeType.DECLARED
+        && endInstantEdtfDate.getDateEdgeType() == DateEdgeType.DECLARED;
   }
 
   private boolean areDatesNonPrecise(InstantEdtfDate startInstantEdtfDate, InstantEdtfDate endInstantEdtfDate) {

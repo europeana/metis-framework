@@ -28,12 +28,13 @@ public class EdtfParser {
   }
 
   protected InstantEdtfDate parseInstant(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {
-    EdtfDatePart edtfDatePart;
+    EdtfDatePart edtfDatePart = null;
+    InstantEdtfDate instantEdtfDate = null;
     DateQualification dateQualification = null;
     if (dateInput.isEmpty()) {
-      edtfDatePart = EdtfDatePart.getUnknownInstance();
+      instantEdtfDate = InstantEdtfDate.getUnknownInstance();
     } else if ("..".equals(dateInput)) {
-      edtfDatePart = EdtfDatePart.getUnspecifiedInstance();
+      instantEdtfDate = InstantEdtfDate.getOpenInstance();
     } else if (dateInput.startsWith("Y")) {
       edtfDatePart = new EdtfDatePartBuilder(Integer.parseInt(dateInput.substring(1))).build(allowSwitchMonthDay);
     } else {
@@ -54,7 +55,7 @@ public class EdtfParser {
       }
     }
 
-    return new InstantEdtfDate(edtfDatePart, dateQualification);
+    return instantEdtfDate == null ? new InstantEdtfDate(edtfDatePart, dateQualification) : instantEdtfDate;
   }
 
   protected IntervalEdtfDate parseInterval(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {
@@ -63,8 +64,9 @@ public class EdtfParser {
     InstantEdtfDate start = parseInstant(startPart, allowSwitchMonthDay);
     InstantEdtfDate end = parseInstant(endPart, allowSwitchMonthDay);
 
-    if ((end.getEdtfDatePart().isUnknown() || end.getEdtfDatePart().isUnspecified()) && (start.getEdtfDatePart().isUnknown()
-        || start.getEdtfDatePart().isUnspecified())) {
+    if ((end.getDateEdgeType() == DateEdgeType.UNKNOWN || end.getDateEdgeType() == DateEdgeType.OPEN) && (
+        start.getDateEdgeType() == DateEdgeType.UNKNOWN
+            || start.getDateEdgeType() == DateEdgeType.OPEN)) {
       throw new DateTimeException(dateInput);
     }
     return new IntervalEdtfDate(start, end);

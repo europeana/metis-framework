@@ -53,8 +53,8 @@ public final class EdtfValidator {
     if (startDate != null && endDate != null) {
       EdtfDatePart startDatePart = startDate.getEdtfDatePart();
       EdtfDatePart endDatePart = endDate.getEdtfDatePart();
-      final boolean isStartDatePartSpecific = !startDatePart.isUnknown() && !startDatePart.isUnspecified();
-      final boolean isEndDatePartSpecific = !endDatePart.isUnknown() && !endDatePart.isUnspecified();
+      final boolean isStartDatePartSpecific = startDate.getDateEdgeType() == DateEdgeType.DECLARED;
+      final boolean isEndDatePartSpecific = endDate.getDateEdgeType() == DateEdgeType.DECLARED;
       if (isStartDatePartSpecific && isEndDatePartSpecific) {
         isIntervalValid = startDatePart.compareTo(endDatePart) <= 0;
       } else {
@@ -76,8 +76,7 @@ public final class EdtfValidator {
    * @return true if the instant is valid
    */
   private static boolean validateInstant(InstantEdtfDate instantEdtfDate) {
-    return instantEdtfDate.getEdtfDatePart() != null
-        && !instantEdtfDate.getEdtfDatePart().isUnknown();
+    return instantEdtfDate.getDateEdgeType() == DateEdgeType.DECLARED || instantEdtfDate.getDateEdgeType() == DateEdgeType.OPEN;
   }
 
   private static boolean validateIntervalNotInFuture(IntervalEdtfDate intervalEdtfDate) {
@@ -92,9 +91,7 @@ public final class EdtfValidator {
   // TODO: 14/02/2023 Also this can be done internally in the edtfDatePart during creation or in InstantEdtfDate part during creation
   private static boolean validateInstantNotInFuture(InstantEdtfDate instantEdtfDate) {
     final boolean isYearInPast;
-    //If null or not specific it's valid
-    if (instantEdtfDate.getEdtfDatePart() == null || instantEdtfDate.getEdtfDatePart().isUnknown()
-        || instantEdtfDate.getEdtfDatePart().isUnspecified()) {
+    if (instantEdtfDate.getDateEdgeType() != DateEdgeType.DECLARED) {
       isYearInPast = true;
     } else {
       int currentYear = Year.now().getValue();

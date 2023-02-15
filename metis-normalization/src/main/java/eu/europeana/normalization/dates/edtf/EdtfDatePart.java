@@ -32,36 +32,6 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
   private YearMonth yearMonthObj;
   private LocalDate yearMonthDayObj;
 
-  /**
-   * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string was equal to
-   * '<code>1900/</code>').
-   */
-  private boolean unknown;
-
-  /**
-   * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval string was equal to
-   * '<code>1900/..</code>'). It is also used on the DcmiPeriodExtractor when the start of end was not parsable and then the value
-   * is used to generate the date result. Further it is also used at NumericPartsRangeDateExtractor for dates that edges that are
-   * not declared for example "\\?|-|\\.\\.", and nothing related to XX unspecified month, day digits etc..
-   */
-  private boolean unspecified;
-
-  public boolean isUnknown() {
-    return unknown;
-  }
-
-  public void setUnknown(boolean unknown) {
-    this.unknown = unknown;
-  }
-
-  public boolean isUnspecified() {
-    return unspecified;
-  }
-
-  public void setUnspecified(boolean unspecified) {
-    this.unspecified = unspecified;
-  }
-
   public Year getYear() {
     return yearObj;
   }
@@ -76,9 +46,6 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
 
   public YearPrecision getYearPrecision() {
     return yearPrecision;
-  }
-
-  public EdtfDatePart() {
   }
 
   public EdtfDatePart(EdtfDatePartBuilder edtfDatePartBuilder) {
@@ -131,25 +98,11 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
     return century;
   }
 
-  public static EdtfDatePart getUnknownInstance() {
-    final EdtfDatePart edtfDatePart = new EdtfDatePart();
-    edtfDatePart.setUnknown(true);
-    return edtfDatePart;
-  }
-
-  public static EdtfDatePart getUnspecifiedInstance() {
-    final EdtfDatePart edtfDatePart = new EdtfDatePart();
-    edtfDatePart.setUnspecified(true);
-    return edtfDatePart;
-  }
-
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
     // TODO: 10/02/2023 Can we also use Temporal here?
-    if (unknown || unspecified) {
-      stringBuilder.append("..");
-    } else if (yearObj.getValue() < -THRESHOLD_4_DIGITS_YEAR || yearObj.getValue() > THRESHOLD_4_DIGITS_YEAR) {
+    if (yearObj.getValue() < -THRESHOLD_4_DIGITS_YEAR || yearObj.getValue() > THRESHOLD_4_DIGITS_YEAR) {
       stringBuilder.append("Y").append(yearObj.getValue());
     } else {
       stringBuilder.append(serializeYear());

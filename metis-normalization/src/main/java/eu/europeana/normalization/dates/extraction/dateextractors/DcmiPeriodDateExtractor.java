@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -59,7 +60,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         String name = extractName(value);
 
         //At least one end has to be specified
-        if (!start.getEdtfDatePart().isUnspecified() || !end.getEdtfDatePart().isUnspecified()) {
+        if (start.getDateEdgeType() == DateEdgeType.DECLARED || end.getDateEdgeType() == DateEdgeType.DECLARED) {
           IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(name, start, end);
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
               intervalEdtfDate);
@@ -112,7 +113,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         throw new DuplicateFieldException("Found duplicate field");
       }
     }
-    return instantEdtfDate == null ? new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()) : instantEdtfDate;
+    return instantEdtfDate == null ? InstantEdtfDate.getOpenInstance() : instantEdtfDate;
   }
 
   private static String extractName(String value) throws DuplicateFieldException {

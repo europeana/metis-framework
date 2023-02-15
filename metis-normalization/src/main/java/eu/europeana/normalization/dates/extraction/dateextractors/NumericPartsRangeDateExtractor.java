@@ -7,7 +7,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
@@ -86,10 +86,10 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
       NumericRangeDateDelimiters numericRangeSpecialCharacters) {
     boolean isAmbiguous = false;
     if (numericRangeSpecialCharacters == NumericRangeDateDelimiters.DASH_RANGE) {
-      final boolean isStartSpecified = !startDate.getEdtfDatePart().isUnspecified();
+      final boolean isStartDeclared = startDate.getDateEdgeType() == DateEdgeType.DECLARED;
       final boolean isStartThreeDigit =
-          isStartSpecified && Integer.toString(startDate.getEdtfDatePart().getYear().getValue()).toString().matches("\\d{3}");
-      if (isStartThreeDigit && endDate.isUnspecified()) {
+          isStartDeclared && Integer.toString(startDate.getEdtfDatePart().getYear().getValue()).matches("\\d{3}");
+      if (isStartThreeDigit && endDate.getDateEdgeType() == DateEdgeType.OPEN) {
         isAmbiguous = true;
       }
     }
@@ -101,8 +101,7 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
     final DateNormalizationResult dateNormalizationResult;
     if (numericRangeSpecialCharacters.getUnspecifiedCharacters() != null && dateString.matches(
         numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
-      dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString,
-          new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()));
+      dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString, InstantEdtfDate.getOpenInstance());
     } else {
       dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString,
           NumericPartsPattern.NUMERIC_RANGE_SET, allowSwitchMonthDay);

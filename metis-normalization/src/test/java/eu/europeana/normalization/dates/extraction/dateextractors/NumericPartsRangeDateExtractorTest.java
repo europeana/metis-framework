@@ -49,7 +49,7 @@ class NumericPartsRangeDateExtractorTest {
       assertEquals(expected, actual);
       assertEquals(actual.contains("?"),
           dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
-      assertEquals(actual.contains(".."), dateNormalizationResult.getEdtfDate().isUnspecified());
+      assertEquals(actual.contains(".."), dateNormalizationResult.getEdtfDate().isOpen());
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }

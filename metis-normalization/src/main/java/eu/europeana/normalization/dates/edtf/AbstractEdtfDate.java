@@ -27,7 +27,7 @@ public abstract class AbstractEdtfDate {
 
   public abstract boolean isYearPrecision();
 
-  public abstract boolean isUnspecified();
+  public abstract boolean isOpen();
 
   public abstract InstantEdtfDate getFirstDay();
 
