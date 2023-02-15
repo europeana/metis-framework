@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
 import java.util.regex.Matcher;
@@ -32,27 +31,24 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
   private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     Matcher m = patFormatedDate2.matcher(inputValue);
     if (m.matches()) {
-      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
+      final InstantEdtfDate datePart = new InstantEdtfDate.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
           .withDay(Integer.parseInt(m.group(3))).build(allowSwitchMonthDay);
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
-          new InstantEdtfDate(datePart));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate.matcher(inputValue);
     if (m.matches()) {
-      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(6)))
+      final InstantEdtfDate datePart = new InstantEdtfDate.EdtfDatePartBuilder(Integer.parseInt(m.group(6)))
           .withMonth(monthNames.getMonthIndexValue(m.group(1)))
           .withDay(Integer.parseInt(m.group(2))).build(allowSwitchMonthDay);
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
-          new InstantEdtfDate(datePart));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate3.matcher(inputValue);
     if (m.matches()) {
-      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
+      final InstantEdtfDate datePart = new InstantEdtfDate.EdtfDatePartBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
           .withDay(Integer.parseInt(m.group(3))).build(allowSwitchMonthDay);
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue,
-          new InstantEdtfDate(datePart));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     return null;
   }

@@ -27,20 +27,20 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public void setDateQualification(DateQualification dateQualification) {
-    if (start != null && start.getEdtfDatePart() != null) {
+    if (start != null) {
       start.setDateQualification(dateQualification);
     }
-    if (end != null && end.getEdtfDatePart() != null) {
+    if (end != null) {
       end.setDateQualification(dateQualification);
     }
   }
 
   @Override
   public DateQualification getDateQualification() {
-    if (start != null && start.getEdtfDatePart() != null) {
+    if (start != null) {
       return start.getDateQualification();
     }
-    if (end != null && end.getEdtfDatePart() != null) {
+    if (end != null) {
       return end.getDateQualification();
     }
     return null;
@@ -48,8 +48,8 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public boolean isYearPrecision() {
-    return (start != null && start.getEdtfDatePart().getYearPrecision() != null) || (end != null
-        && end.getEdtfDatePart().getYearPrecision() != null);
+    return (start != null && start.getYearPrecision() != null) || (end != null
+        && end.getYearPrecision() != null);
   }
 
   @Override

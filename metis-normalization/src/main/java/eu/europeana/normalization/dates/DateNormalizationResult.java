@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
@@ -123,19 +122,19 @@ public class DateNormalizationResult {
     return (dateQualification == DateQualification.UNCERTAIN) || abstractEdtfDate.isYearPrecision();
   }
 
-  private boolean isMonthDayNotComplete(InstantEdtfDate edtfDatePart) {
-    return !isMonthDayComplete(edtfDatePart.getEdtfDatePart());
+  private boolean isMonthDayNotComplete(InstantEdtfDate instantEdtfDate) {
+    return !isMonthDayComplete(instantEdtfDate);
   }
 
-  private boolean isMonthDayComplete(EdtfDatePart edtfDatePart) {
-    return edtfDatePart.getYearMonthDay() != null;
+  private boolean isMonthDayComplete(InstantEdtfDate instantEdtfDate) {
+    return instantEdtfDate.getYearMonthDay() != null;
   }
 
-  private boolean isOnlyYearsOrComplete(InstantEdtfDate startEdtfDatePart, InstantEdtfDate endEdtfDatePart) {
+  private boolean isOnlyYearsOrComplete(InstantEdtfDate startInstantEdtfDate, InstantEdtfDate endInstantEdtfDate) {
     final boolean isOnlyYear =
-        startEdtfDatePart.getEdtfDatePart().getYearMonth() == null && endEdtfDatePart.getEdtfDatePart().getYearMonth() == null;
+        startInstantEdtfDate.getYearMonth() == null && endInstantEdtfDate.getYearMonth() == null;
     final boolean isCompleteDate =
-        isMonthDayComplete(startEdtfDatePart.getEdtfDatePart()) && isMonthDayComplete(endEdtfDatePart.getEdtfDatePart());
+        isMonthDayComplete(startInstantEdtfDate) && isMonthDayComplete(endInstantEdtfDate);
 
     return isOnlyYear || isCompleteDate;
   }

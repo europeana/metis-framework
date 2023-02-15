@@ -12,22 +12,22 @@ import java.util.Map;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
-class EdtfDatePartNormalizerTest {
+class InstantEdtfDateNormalizerTest {
 
-  final HashMap<String, String> datePropertyTestCases = new HashMap<>();
-  final HashMap<String, String> genericPropertyTestCases = new HashMap<>();
+    final HashMap<String, String> datePropertyTestCases = new HashMap<>();
+    final HashMap<String, String> genericPropertyTestCases = new HashMap<>();
 
-  public EdtfDatePartNormalizerTest() {
-      //DATE PROPERTY
-      //DCMI
-      datePropertyTestCases.put("name=Prehistoric Period; end=-5300", "../-5300");
-      datePropertyTestCases.put("Byzantine Period; start=0395; end=0641", "0395/0641");
-      datePropertyTestCases.put("Modern era; start=1975;", "1975/..");
+    public InstantEdtfDateNormalizerTest() {
+        //DATE PROPERTY
+        //DCMI
+        datePropertyTestCases.put("name=Prehistoric Period; end=-5300", "../-5300");
+        datePropertyTestCases.put("Byzantine Period; start=0395; end=0641", "0395/0641");
+        datePropertyTestCases.put("Modern era; start=1975;", "1975/..");
 
-      //Centuries numeric
-      datePropertyTestCases.put("18..", "18XX");
-      datePropertyTestCases.put("19??", "19XX");
-      datePropertyTestCases.put("192?", null);// ambiguous
+        //Centuries numeric
+        datePropertyTestCases.put("18..", "18XX");
+        datePropertyTestCases.put("19??", "19XX");
+        datePropertyTestCases.put("192?", null);// ambiguous
       datePropertyTestCases.put("[171-]", null); // ambiguous
       datePropertyTestCases.put("19th century", "18XX");
       datePropertyTestCases.put("2nd century", "01XX");

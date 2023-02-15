@@ -51,12 +51,10 @@ public final class EdtfValidator {
     final InstantEdtfDate endDate = intervalEdtfDate.getEnd();
     final boolean isIntervalValid;
     if (startDate != null && endDate != null) {
-      EdtfDatePart startDatePart = startDate.getEdtfDatePart();
-      EdtfDatePart endDatePart = endDate.getEdtfDatePart();
       final boolean isStartDatePartSpecific = startDate.getDateEdgeType() == DateEdgeType.DECLARED;
       final boolean isEndDatePartSpecific = endDate.getDateEdgeType() == DateEdgeType.DECLARED;
       if (isStartDatePartSpecific && isEndDatePartSpecific) {
-        isIntervalValid = startDatePart.compareTo(endDatePart) <= 0;
+        isIntervalValid = startDate.compareTo(endDate) <= 0;
       } else {
         isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
       }
@@ -95,7 +93,7 @@ public final class EdtfValidator {
       isYearInPast = true;
     } else {
       int currentYear = Year.now().getValue();
-      final Integer edtfYear = instantEdtfDate.getEdtfDatePart().getYear().getValue();
+      final Integer edtfYear = instantEdtfDate.getYear().getValue();
       isYearInPast = edtfYear <= currentYear;
     }
     return isYearInPast;

@@ -8,9 +8,8 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
@@ -111,15 +110,16 @@ public class CenturyDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     if (matcher.matches()) {
       AbstractEdtfDate abstractEdtfDate;
-      EdtfDatePart datePart1 = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1, allowSwitchMonthDay);
+      EdtfDatePartBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);
+      InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay);
 
       //Check if we have an interval or instance
       if (matcher.groupCount() == 2) {
-        EdtfDatePart datePart2 = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2, allowSwitchMonthDay);
-        abstractEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(datePart1, dateQualification),
-            new InstantEdtfDate(datePart2, dateQualification));
+        EdtfDatePartBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
+        InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay);
+        abstractEdtfDate = new IntervalEdtfDate(startEdtfDate, endEdtfDate);
       } else {
-        abstractEdtfDate = new InstantEdtfDate(datePart1, dateQualification);
+        abstractEdtfDate = startEdtfDate;
       }
 
       dateNormalizationResult = new DateNormalizationResult(patternCenturyDateOperation.getDateNormalizationExtractorMatchId(),
@@ -128,12 +128,11 @@ public class CenturyDateExtractor implements DateExtractor {
     return dateNormalizationResult;
   }
 
-  private EdtfDatePart extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation,
-      Matcher matcher, int group, boolean allowSwitchMonthDay) {
+  private EdtfDatePartBuilder extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation,
+      Matcher matcher, int group) {
     final String century = matcher.group(group);
     return new EdtfDatePartBuilder(
         patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century))
-        .withYearPrecision(YearPrecision.CENTURY)
-        .build(allowSwitchMonthDay);
+        .withYearPrecision(YearPrecision.CENTURY);
   }
 }

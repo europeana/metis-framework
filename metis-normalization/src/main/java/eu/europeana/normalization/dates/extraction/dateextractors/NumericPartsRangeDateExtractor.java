@@ -88,7 +88,7 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
     if (numericRangeSpecialCharacters == NumericRangeDateDelimiters.DASH_RANGE) {
       final boolean isStartDeclared = startDate.getDateEdgeType() == DateEdgeType.DECLARED;
       final boolean isStartThreeDigit =
-          isStartDeclared && Integer.toString(startDate.getEdtfDatePart().getYear().getValue()).matches("\\d{3}");
+          isStartDeclared && Integer.toString(startDate.getYear().getValue()).matches("\\d{3}");
       if (isStartThreeDigit && endDate.getDateEdgeType() == DateEdgeType.OPEN) {
         isAmbiguous = true;
       }

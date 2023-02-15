@@ -4,7 +4,6 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.regex.Matcher;
@@ -41,12 +40,13 @@ public class DecadeDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
     if (matcher.matches()) {
-      final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(
+      final InstantEdtfDate datePart = new InstantEdtfDate.EdtfDatePartBuilder(
           Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
           .withYearPrecision(YearPrecision.DECADE)
+          .withDateQualification(dateQualification)
           .build(allowSwitchMonthDay);
       dateNormalizationResult = new DateNormalizationResult(
-          DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart, dateQualification));
+          DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }
     return dateNormalizationResult;
   }
