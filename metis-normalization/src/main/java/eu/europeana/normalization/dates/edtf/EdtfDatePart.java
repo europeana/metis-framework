@@ -33,21 +33,11 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
   private LocalDate yearMonthDayObj;
 
   /**
-   * Uncertain character '?'. If uncertain & approximate then character is '%'.
-   */
-  private boolean uncertain;
-  /**
-   * Approximate character '~'. If uncertain & approximate then character is '%'.
-   */
-  private boolean approximate;
-
-  /**
    * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string was equal to
    * '<code>1900/</code>').
    */
   private boolean unknown;
 
-  // TODO: 14/02/2023 To check validity of naming and usage of unkown and unspecified
   /**
    * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval string was equal to
    * '<code>1900/..</code>'). It is also used on the DcmiPeriodExtractor when the start of end was not parsable and then the value
@@ -55,22 +45,6 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
    * not declared for example "\\?|-|\\.\\.", and nothing related to XX unspecified month, day digits etc..
    */
   private boolean unspecified;
-
-  public boolean isUncertain() {
-    return uncertain;
-  }
-
-  public void setUncertain(boolean uncertain) {
-    this.uncertain = uncertain;
-  }
-
-  public boolean isApproximate() {
-    return approximate;
-  }
-
-  public void setApproximate(boolean approximate) {
-    this.approximate = approximate;
-  }
 
   public boolean isUnknown() {
     return unknown;
@@ -112,7 +86,6 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
     yearObj = edtfDatePartBuilder.yearObj;
     yearMonthObj = edtfDatePartBuilder.yearMonthObj;
     yearMonthDayObj = edtfDatePartBuilder.yearMonthDayObj;
-
   }
 
   public EdtfDatePart firstDayOfYearDatePart() {
@@ -190,15 +163,6 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
         }
       }
     }
-    // TODO: 10/02/2023 Perhaps those should be centralized somehow
-    //Append approximate/uncertain
-    if (approximate && uncertain) {
-      stringBuilder.append("%");
-    } else if (approximate) {
-      stringBuilder.append("~");
-    } else if (uncertain) {
-      stringBuilder.append("?");
-    }
     return stringBuilder.toString();
   }
 
@@ -242,6 +206,13 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
     return prefix + yearAdjusted;
   }
 
+  /**
+   * Builder class for {@link EdtfDatePart}.
+   * <p>During {@link #build()} it will verify all the parameters that have been requested.
+   * The {@link #build(boolean)} will also attempt a second time by switching month and day values if the original value were
+   * invalid. Furthermore if the constructor {@link EdtfDatePartBuilder#EdtfDatePartBuilder(TemporalAccessor)} is used, it will
+   * overwrite any previous values added with the {@code .with} prefixed methods.</p>
+   */
   public static class EdtfDatePartBuilder {
 
     private Year yearObj;
@@ -328,7 +299,6 @@ public class EdtfDatePart implements Comparable<EdtfDatePart> {
     }
 
     public EdtfDatePartBuilder withDay(int day) {
-
       this.day = day;
       return this;
     }

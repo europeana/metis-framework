@@ -5,6 +5,7 @@ import static java.util.function.Predicate.not;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfValidator;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -275,13 +276,15 @@ public class DatesNormalizer implements RecordNormalizeAction {
     } else {
       //Check if we did a sanitize operation and update approximate
       if (dateNormalizationResult.getSanitizeOperation() != null) {
-        dateNormalizationResult.getEdtfDate().setApproximate(
-            checkIfApproximateCleanOperationId.test(dateNormalizationResult.getSanitizeOperation()));
+        // TODO: 15/02/2023 What if the result already specifies it as UNCERTAIN, do we add the APPROXIMATE or replace it?
+        if (checkIfApproximateCleanOperationId.test(dateNormalizationResult.getSanitizeOperation())) {
+          dateNormalizationResult.getEdtfDate().setDateQualification(DateQualification.APPROXIMATE);
+        }
       }
-      validationOperation.accept(dateNormalizationResult);
-      postProcessingMatchId.accept(dateNormalizationResult);
-      return dateNormalizationResult;
     }
+    validationOperation.accept(dateNormalizationResult);
+    postProcessingMatchId.accept(dateNormalizationResult);
+    return dateNormalizationResult;
   }
 
   private void noMatchIfValidAndTimeOnly(DateNormalizationResult dateNormalizationResult) {
@@ -301,6 +304,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
                          .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
+  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, SanitizedDate sanitizedDate) {
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractDateProperty(sanitizedDate.getSanitizedDateString()))
+                         .filter(Objects::nonNull).findFirst().orElse(null);
+  }
+
   private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input) {
     return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractGenericProperty(input))
                          .filter(Objects::nonNull).findFirst().orElse(null);
@@ -311,7 +319,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = null;
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
-      dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString());
+      dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate);
       if (dateNormalizationResult != null) {
         dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }
@@ -335,7 +343,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
     final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
     if (!EdtfValidator.validate(edtfDate, false)) {
-      switchAndValidate(dateNormalizationResult, edtfDate);
+      switchAndValidate(edtfDate);
     }
   }
 
@@ -346,7 +354,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
   }
 
-  private void switchAndValidate(DateNormalizationResult dateNormalizationResult, AbstractEdtfDate edtfDate) {
+  private void switchAndValidate(AbstractEdtfDate edtfDate) {
     if (edtfDate instanceof IntervalEdtfDate) {
       ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
       if (!EdtfValidator.validate(edtfDate, false)) {
@@ -406,11 +414,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     // Create and add skosNote elements to timespan in case of approximate or uncertain dates.
-    if (edtfDate.isApproximate()) {
+    if (edtfDate.getDateQualification() == DateQualification.APPROXIMATE) {
       final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("approximate"));
     }
-    if (edtfDate.isUncertain()) {
+    if (edtfDate.getDateQualification() == DateQualification.UNCERTAIN) {
       final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("uncertain"));
     }

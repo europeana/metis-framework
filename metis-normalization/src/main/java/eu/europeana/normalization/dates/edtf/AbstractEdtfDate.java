@@ -21,13 +21,11 @@ public abstract class AbstractEdtfDate {
     return label;
   }
 
-  public abstract void setApproximate(boolean approx);
+  public abstract void setDateQualification(DateQualification dateQualification);
 
-  public abstract boolean isApproximate();
+  public abstract DateQualification getDateQualification();
 
-  public abstract void setUncertain(boolean uncertain);
-
-  public abstract boolean isUncertain();
+  public abstract boolean isYearPrecision();
 
   public abstract boolean isUnspecified();
 

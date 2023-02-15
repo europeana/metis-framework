@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,7 +25,8 @@ class CenturyDateExtractorTest {
     } else {
       final String actual = dateNormalizationResult.getEdtfDate().toString();
       assertEquals(expected, actual);
-      assertEquals(actual.contains("?"), dateNormalizationResult.getEdtfDate().isUncertain());
+      assertEquals(actual.contains("?"),
+          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }

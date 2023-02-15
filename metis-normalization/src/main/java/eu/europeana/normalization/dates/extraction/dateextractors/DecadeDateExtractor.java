@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
@@ -34,17 +35,18 @@ public class DecadeDateExtractor implements DateExtractor {
 
   private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
+    final DateQualification dateQualification =
+        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null;
 
     DateNormalizationResult dateNormalizationResult = null;
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
     if (matcher.matches()) {
       final EdtfDatePart datePart = new EdtfDatePart.EdtfDatePartBuilder(
           Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
-          .withYearPrecision(YearPrecision.DECADE).build(allowSwitchMonthDay);
-      datePart.setUncertain(uncertain);
+          .withYearPrecision(YearPrecision.DECADE)
+          .build(allowSwitchMonthDay);
       dateNormalizationResult = new DateNormalizationResult(
-          DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart));
+          DateNormalizationExtractorMatchId.DECADE, inputValue, new InstantEdtfDate(datePart, dateQualification));
     }
     return dateNormalizationResult;
   }

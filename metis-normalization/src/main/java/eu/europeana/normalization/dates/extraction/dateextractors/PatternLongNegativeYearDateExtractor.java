@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -25,21 +26,22 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
     Matcher m;
     m = patYyyyyy.matcher(inputValue);
     if (m.matches()) {
+      final DateQualification dateQualification =
+          (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null;
+
       final EdtfDatePart datePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year"))).build(allowSwitchMonthDay);
-      if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-        datePart.setUncertain(true);
-      }
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, new InstantEdtfDate(datePart));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue,
+          new InstantEdtfDate(datePart, dateQualification));
     }
     m = patYyyyyyRange.matcher(inputValue);
     if (m.matches()) {
+      final DateQualification dateQualification =
+          (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null;
+
       final EdtfDatePart startDatePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year"))).build(allowSwitchMonthDay);
       final EdtfDatePart endDatePart = new EdtfDatePartBuilder(Integer.parseInt(m.group("year2"))).build(allowSwitchMonthDay);
-      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(startDatePart),
-          new InstantEdtfDate(endDatePart));
-      if (m.group("uncertain") != null || m.group("uncertain2") != null) {
-        intervalEdtfDate.setUncertain(true);
-      }
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(startDatePart, dateQualification),
+          new InstantEdtfDate(endDatePart, dateQualification));
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }
     return null;
@@ -47,11 +49,11 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extractDateProperty(String inputValue) {
-    return null;
+    return extract(inputValue, true);
   }
 
   @Override
   public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return null;
+    return extract(inputValue, false);
   }
 }

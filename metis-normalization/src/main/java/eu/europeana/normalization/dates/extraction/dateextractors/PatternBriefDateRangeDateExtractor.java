@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart.EdtfDatePartBuilder;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -40,15 +41,19 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
         int startYearAdjusted = startYear % YearPrecision.CENTURY.getDuration();
         if (startYearAdjusted < endYear) {
 
+          final DateQualification dateQualification =
+              (matcher.group("startsWithQuestionMark") != null || matcher.group("endsWithQuestionMark") != null)
+                  ? DateQualification.UNCERTAIN : null;
+
           EdtfDatePart startDatePart = new EdtfDatePartBuilder(startYear).build(allowSwitchMonthDay);
           EdtfDatePart endDatePart = new EdtfDatePartBuilder(
               (startDatePart.getYear().getValue() / YearPrecision.CENTURY.getDuration())
                   * YearPrecision.CENTURY.getDuration() + endYear)
               .build(allowSwitchMonthDay);
 
-          updateUncertain(matcher, startDatePart, endDatePart);
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
-              new IntervalEdtfDate(new InstantEdtfDate(startDatePart), new InstantEdtfDate(endDatePart)));
+              new IntervalEdtfDate(new InstantEdtfDate(startDatePart, dateQualification),
+                  new InstantEdtfDate(endDatePart, dateQualification)));
         }
       }
     }
@@ -64,13 +69,5 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
   public DateNormalizationResult extractGenericProperty(String inputValue) {
     return extract(inputValue, false);
   }
-
-  private void updateUncertain(Matcher matcher, EdtfDatePart startDatePart, EdtfDatePart endDatePart) {
-    if (matcher.group("startsWithQuestionMark") != null || matcher.group("endsWithQuestionMark") != null) {
-      startDatePart.setUncertain(true);
-      endDatePart.setUncertain(true);
-    }
-  }
-
 }
 

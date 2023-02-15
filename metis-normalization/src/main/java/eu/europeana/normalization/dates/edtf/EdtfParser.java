@@ -29,6 +29,7 @@ public class EdtfParser {
 
   protected InstantEdtfDate parseInstant(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {
     EdtfDatePart edtfDatePart;
+    DateQualification dateQualification = null;
     if (dateInput.isEmpty()) {
       edtfDatePart = EdtfDatePart.getUnknownInstance();
     } else if ("..".equals(dateInput)) {
@@ -41,26 +42,19 @@ public class EdtfParser {
       Matcher matcher = pattern.matcher(dateInput);
       if (matcher.matches() && StringUtils.isNotEmpty(matcher.group(1))) {
         //Check modifier value
+        String modifier = matcher.group(1);
+        dateQualification = DateQualification.fromCharacter(modifier.charAt(0));
         String dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
         edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
 
-        String modifier = matcher.group(1);
-        if ("?".equals(modifier)) {
-          edtfDatePart.setUncertain(true);
-        } else if ("~".equals(modifier)) {
-          edtfDatePart.setApproximate(true);
-        } else if ("%".equals(modifier)) {
-          edtfDatePart.setApproximate(true);
-          edtfDatePart.setUncertain(true);
-        }
       } else {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInput);
         edtfDatePart = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
       }
     }
 
-    return new InstantEdtfDate(edtfDatePart);
+    return new InstantEdtfDate(edtfDatePart, dateQualification);
   }
 
   protected IntervalEdtfDate parseInterval(String dateInput, boolean allowSwitchMonthDay) throws DateTimeException {

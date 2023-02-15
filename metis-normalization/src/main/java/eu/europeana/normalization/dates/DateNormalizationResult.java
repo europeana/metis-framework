@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates;
 
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfDatePart;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -17,8 +18,8 @@ public class DateNormalizationResult {
 
   private DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
   private SanitizeOperation sanitizeOperation;
-  private String originalInput;
-  private AbstractEdtfDate edtfDate;
+  private final String originalInput;
+  private final AbstractEdtfDate edtfDate;
 
   /**
    * Constructor with all parameters.
@@ -64,16 +65,8 @@ public class DateNormalizationResult {
     return originalInput;
   }
 
-  public void setOriginalInput(String originalInput) {
-    this.originalInput = originalInput;
-  }
-
   public AbstractEdtfDate getEdtfDate() {
     return edtfDate;
-  }
-
-  public void setEdtfDate(AbstractEdtfDate edtfDate) {
-    this.edtfDate = edtfDate;
   }
 
   /**
@@ -95,49 +88,52 @@ public class DateNormalizationResult {
     if (edtfDate == null) {
       isCompleteDate = false;
     } else if (edtfDate instanceof InstantEdtfDate) {
-      final EdtfDatePart edtfDatePart = ((InstantEdtfDate) edtfDate).getEdtfDatePart();
-      if (isDateNonPrecise(edtfDatePart) || isMonthDayNotComplete(edtfDatePart)) {
+      if (isDateNonPrecise(edtfDate) || isMonthDayNotComplete((InstantEdtfDate) edtfDate)) {
         isCompleteDate = false;
       }
     } else {
-      final EdtfDatePart startEdtfDatePart = ((IntervalEdtfDate) edtfDate).getStart()
-                                                                          .getEdtfDatePart();
-      final EdtfDatePart endEdtfDatePart = ((IntervalEdtfDate) edtfDate).getEnd()
-                                                                        .getEdtfDatePart();
+      final InstantEdtfDate startInstantEdtfDate = ((IntervalEdtfDate) edtfDate).getStart();
+      final InstantEdtfDate endInstantEdtfDate = ((IntervalEdtfDate) edtfDate).getEnd();
 
-      if (areBothDatesSpecified(startEdtfDatePart, endEdtfDatePart) &&
-          (areDatesNonPrecise(startEdtfDatePart, endEdtfDatePart) || !isOnlyYearsOrComplete(startEdtfDatePart,
-              endEdtfDatePart))) {
+      if (areBothDatesSpecified(startInstantEdtfDate, endInstantEdtfDate) &&
+          (areDatesNonPrecise(startInstantEdtfDate, endInstantEdtfDate) || !isOnlyYearsOrComplete(startInstantEdtfDate,
+              endInstantEdtfDate))) {
         isCompleteDate = false;
       }
     }
     return isCompleteDate;
   }
 
-  private boolean areBothDatesSpecified(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
-    return startEdtfDatePart != null && endEdtfDatePart != null && !startEdtfDatePart.isUnspecified()
-        && !endEdtfDatePart.isUnspecified();
+  private boolean areBothDatesSpecified(InstantEdtfDate startInstantEdtfDate, InstantEdtfDate endInstantEdtfDate) {
+    return startInstantEdtfDate != null && endInstantEdtfDate != null && !startInstantEdtfDate.isUnspecified()
+        && !endInstantEdtfDate.isUnspecified();
   }
 
-  private boolean areDatesNonPrecise(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
-    return isDateNonPrecise(startEdtfDatePart) || isDateNonPrecise(endEdtfDatePart);
+  private boolean areDatesNonPrecise(InstantEdtfDate startInstantEdtfDate, InstantEdtfDate endInstantEdtfDate) {
+    return isDateNonPrecise(startInstantEdtfDate) || isDateNonPrecise(endInstantEdtfDate);
   }
 
-  private boolean isDateNonPrecise(EdtfDatePart edtfDatePart) {
-    return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
+  private boolean isDateNonPrecise(AbstractEdtfDate abstractEdtfDate) {
+    DateQualification dateQualification = abstractEdtfDate.getDateQualification();
+    // TODO: 15/02/2023 Check this instruction. It used to be like that
+    //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
+    //  but do we actually need the check on unknown?
+    return (dateQualification == DateQualification.UNCERTAIN) || abstractEdtfDate.isYearPrecision();
   }
 
-  private boolean isMonthDayNotComplete(EdtfDatePart edtfDatePart) {
-    return !isMonthDayComplete(edtfDatePart);
+  private boolean isMonthDayNotComplete(InstantEdtfDate edtfDatePart) {
+    return !isMonthDayComplete(edtfDatePart.getEdtfDatePart());
   }
 
   private boolean isMonthDayComplete(EdtfDatePart edtfDatePart) {
     return edtfDatePart.getYearMonthDay() != null;
   }
 
-  private boolean isOnlyYearsOrComplete(EdtfDatePart startEdtfDatePart, EdtfDatePart endEdtfDatePart) {
-    final boolean isOnlyYear = startEdtfDatePart.getYearMonth() == null && endEdtfDatePart.getYearMonth() == null;
-    final boolean isCompleteDate = isMonthDayComplete(startEdtfDatePart) && isMonthDayComplete(endEdtfDatePart);
+  private boolean isOnlyYearsOrComplete(InstantEdtfDate startEdtfDatePart, InstantEdtfDate endEdtfDatePart) {
+    final boolean isOnlyYear =
+        startEdtfDatePart.getEdtfDatePart().getYearMonth() == null && endEdtfDatePart.getEdtfDatePart().getYearMonth() == null;
+    final boolean isCompleteDate =
+        isMonthDayComplete(startEdtfDatePart.getEdtfDatePart()) && isMonthDayComplete(endEdtfDatePart.getEdtfDatePart());
 
     return isOnlyYear || isCompleteDate;
   }

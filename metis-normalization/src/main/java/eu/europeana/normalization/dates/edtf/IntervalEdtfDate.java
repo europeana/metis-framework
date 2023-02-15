@@ -26,33 +26,30 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
-  public void setApproximate(boolean approx) {
+  public void setDateQualification(DateQualification dateQualification) {
     if (start != null && start.getEdtfDatePart() != null) {
-      start.getEdtfDatePart().setApproximate(approx);
+      start.setDateQualification(dateQualification);
     }
     if (end != null && end.getEdtfDatePart() != null) {
-      end.getEdtfDatePart().setApproximate(approx);
+      end.setDateQualification(dateQualification);
     }
   }
 
   @Override
-  public void setUncertain(boolean uncertain) {
+  public DateQualification getDateQualification() {
     if (start != null && start.getEdtfDatePart() != null) {
-      start.getEdtfDatePart().setUncertain(uncertain);
+      return start.getDateQualification();
     }
     if (end != null && end.getEdtfDatePart() != null) {
-      end.getEdtfDatePart().setUncertain(uncertain);
+      return end.getDateQualification();
     }
+    return null;
   }
 
   @Override
-  public boolean isApproximate() {
-    return (start != null && start.isApproximate()) || (end != null && end.isApproximate());
-  }
-
-  @Override
-  public boolean isUncertain() {
-    return (start != null && start.isUncertain()) || (end != null && end.isUncertain());
+  public boolean isYearPrecision() {
+    return (start != null && start.getEdtfDatePart().getYearPrecision() != null) || (end != null
+        && end.getEdtfDatePart().getYearPrecision() != null);
   }
 
   @Override

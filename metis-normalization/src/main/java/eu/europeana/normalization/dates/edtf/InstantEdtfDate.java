@@ -9,9 +9,15 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   private EdtfDatePart edtfDatePart;
+  private DateQualification dateQualification = DateQualification.EMPTY;
 
   public InstantEdtfDate(EdtfDatePart edtfDatePart) {
     this.edtfDatePart = edtfDatePart;
+  }
+
+  public InstantEdtfDate(EdtfDatePart edtfDatePart, DateQualification dateQualification) {
+    this.edtfDatePart = edtfDatePart;
+    this.dateQualification = dateQualification;
   }
 
   /**
@@ -27,24 +33,17 @@ public class InstantEdtfDate extends AbstractEdtfDate {
     return edtfDatePart;
   }
 
-  @Override
-  public void setApproximate(boolean approximate) {
-    edtfDatePart.setApproximate(approximate);
+  public void setDateQualification(DateQualification dateQualification) {
+    this.dateQualification = dateQualification;
+  }
+
+  public DateQualification getDateQualification() {
+    return dateQualification;
   }
 
   @Override
-  public void setUncertain(boolean uncertain) {
-    edtfDatePart.setUncertain(uncertain);
-  }
-
-  @Override
-  public boolean isApproximate() {
-    return edtfDatePart.isApproximate();
-  }
-
-  @Override
-  public boolean isUncertain() {
-    return edtfDatePart.isUncertain();
+  public boolean isYearPrecision() {
+    return edtfDatePart.getYearPrecision() != null;
   }
 
   @Override
@@ -95,6 +94,12 @@ public class InstantEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    return this.edtfDatePart.toString();
+    final StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(this.edtfDatePart.toString());
+    if (dateQualification != null && dateQualification != DateQualification.EMPTY) {
+      stringBuilder.append(dateQualification.getCharacter());
+    }
+    return stringBuilder.toString();
+
   }
 }

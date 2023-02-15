@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -46,7 +47,8 @@ class NumericPartsRangeDateExtractorTest {
     } else {
       final String actual = dateNormalizationResult.getEdtfDate().toString();
       assertEquals(expected, actual);
-      assertEquals(actual.contains("?"), dateNormalizationResult.getEdtfDate().isUncertain());
+      assertEquals(actual.contains("?"),
+          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
       assertEquals(actual.contains(".."), dateNormalizationResult.getEdtfDate().isUnspecified());
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
