@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.edtf;
 
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate.EdtfDatePartBuilder;
 import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
@@ -35,7 +34,7 @@ public class EdtfParser {
     } else if ("..".equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getOpenInstance();
     } else if (dateInput.startsWith("Y")) {
-      instantEdtfDate = new EdtfDatePartBuilder(Integer.parseInt(dateInput.substring(1))).build(allowSwitchMonthDay);
+      instantEdtfDate = new InstantEdtfDateBuilder(Integer.parseInt(dateInput.substring(1))).build(allowSwitchMonthDay);
     } else {
 
       Pattern pattern = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
@@ -46,12 +45,12 @@ public class EdtfParser {
         dateQualification = DateQualification.fromCharacter(modifier.charAt(0));
         String dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
-        instantEdtfDate = new EdtfDatePartBuilder(temporalAccessor).withDateQualification(dateQualification)
-                                                                   .build(allowSwitchMonthDay);
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
+                                                                      .build(allowSwitchMonthDay);
 
       } else {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInput);
-        instantEdtfDate = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).build(allowSwitchMonthDay);
       }
     }
     return instantEdtfDate;

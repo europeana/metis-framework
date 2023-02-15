@@ -5,7 +5,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate.EdtfDatePartBuilder;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.time.Month;
 import java.util.regex.Matcher;
@@ -44,9 +44,9 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
               (matcher.group("startsWithQuestionMark") != null || matcher.group("endsWithQuestionMark") != null)
                   ? DateQualification.UNCERTAIN : null;
 
-          InstantEdtfDate startDatePart = new EdtfDatePartBuilder(startYear).withDateQualification(dateQualification)
-                                                                            .build(allowSwitchMonthDay);
-          InstantEdtfDate endDatePart = new EdtfDatePartBuilder(
+          InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(startYear).withDateQualification(dateQualification)
+                                                                               .build(allowSwitchMonthDay);
+          InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(
               (startDatePart.getYear().getValue() / YearPrecision.CENTURY.getDuration())
                   * YearPrecision.CENTURY.getDuration() + endYear)
               .withDateQualification(dateQualification)

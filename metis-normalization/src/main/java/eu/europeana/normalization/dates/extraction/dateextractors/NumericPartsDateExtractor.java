@@ -6,7 +6,7 @@ import static java.util.regex.Pattern.compile;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate.EdtfDatePartBuilder;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.time.DateTimeException;
@@ -71,10 +71,10 @@ public class NumericPartsDateExtractor implements DateExtractor {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
         try {
-          EdtfDatePartBuilder edtfDatePartBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
+          InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
           dateNormalizationResult = new DateNormalizationResult(
               numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
-              edtfDatePartBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay));
+              instantEdtfDateBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay));
           break;
         } catch (DateTimeException e) {
           LOGGER.debug(String.format("Date extraction failed %s: ", inputValue), e);
@@ -85,7 +85,7 @@ public class NumericPartsDateExtractor implements DateExtractor {
     return dateNormalizationResult;
   }
 
-  private EdtfDatePartBuilder extractDateProperty(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher)
+  private InstantEdtfDateBuilder extractDateProperty(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher)
       throws DateTimeException {
     final String year = getYear(numericWithMissingPartsPattern, matcher);
     final String month = getMonth(numericWithMissingPartsPattern, matcher);
@@ -97,7 +97,7 @@ public class NumericPartsDateExtractor implements DateExtractor {
 
     final int unknownYearCharacters = year.length() - yearSanitized.length();
     YearPrecision yearPrecision = YearPrecision.getYearPrecisionByOrdinal(unknownYearCharacters);
-    return new EdtfDatePartBuilder(adjustYearWithPrecision(yearSanitized, yearPrecision))
+    return new InstantEdtfDateBuilder(adjustYearWithPrecision(yearSanitized, yearPrecision))
         .withYearPrecision(yearPrecision)
         .withMonth(Integer.parseInt(monthSanitized))
         .withDay(Integer.parseInt(daySanitized));

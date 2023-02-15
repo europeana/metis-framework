@@ -59,7 +59,7 @@ public class Iso8601Parser {
     return temporalAccessor;
   }
 
-  // TODO: 13/02/2023 Fix this complexity(Perhaps allow Parsed returned class and check during date part creation)
+  // TODO: 13/02/2023 Check maybe fix this complexity(Perhaps allow Parsed returned class and check during date part creation)
   private TemporalAccessor getTemporalAccessor(String input) {
     try {
       return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);

@@ -4,7 +4,7 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate.EdtfDatePartBuilder;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import java.time.DateTimeException;
@@ -104,7 +104,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
-        instantEdtfDate = new EdtfDatePartBuilder(temporalAccessor).build(allowSwitchMonthDay);
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).build(allowSwitchMonthDay);
       }
       //if we find it again we declare invalid
       if (matcher.find()) {
