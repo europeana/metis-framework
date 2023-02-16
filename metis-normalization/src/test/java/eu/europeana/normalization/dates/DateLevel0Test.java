@@ -1,11 +1,9 @@
 package eu.europeana.normalization.dates;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import eu.europeana.normalization.dates.edtf.EdtfParser;
-import java.text.ParseException;
-import java.time.DateTimeException;
+import eu.europeana.normalization.dates.extraction.dateextractors.PatternEdtfDateExtractor;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,46 +12,46 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class DateLevel0Test {
 
-  private EdtfParser edtfParser = new EdtfParser();
+  private PatternEdtfDateExtractor patternEdtfDateExtractor = new PatternEdtfDateExtractor();
 
-  private void parse(String input, String expected) throws DateTimeException {
+  private void parse(String input, String expected) {
     if (expected == null) {
-      assertThrows(DateTimeException.class, () -> edtfParser.parse(input, true));
+      assertNull(patternEdtfDateExtractor.extractDateProperty(input));
     } else {
-      assertEquals(expected, edtfParser.parse(input, true).toString());
+      assertEquals(expected, patternEdtfDateExtractor.extractDateProperty(input).getEdtfDate().toString());
     }
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year][“-”][month][“-”][day] Complete representation")
-  void completeDateRepresentation(String input, String expected) throws ParseException {
+  void completeDateRepresentation(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year][“-”][month] Reduced precision for year and month")
-  void reducedPrecisionForYearAndMonth(String input, String expected) throws ParseException {
+  void reducedPrecisionForYearAndMonth(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year] Reduced precision for year")
-  void reducedPrecisionForYear(String input, String expected) throws ParseException {
+  void reducedPrecisionForYear(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
-  void dateAndTimeRepresentation(String input, String expected) throws ParseException {
+  void dateAndTimeRepresentation(String input, String expected) {
     parse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
-  void dateIntervalRepresentation(String input, String expected) throws ParseException {
+  void dateIntervalRepresentation(String input, String expected) {
     parse(input, expected);
   }
 
