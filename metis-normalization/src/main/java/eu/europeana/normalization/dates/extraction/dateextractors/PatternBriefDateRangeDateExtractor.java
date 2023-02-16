@@ -29,7 +29,8 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
   private final Pattern briefDateRangePattern = Pattern.compile(
       "(?<startsWithQuestionMark>\\?\\s*)?(?<start>\\d{3,4})[\\-/](?<end>\\d{2})(?<endsWithQuestionMark>\\s*\\?)?");
 
-  public DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     Matcher matcher = briefDateRangePattern.matcher(inputValue.trim());
     DateNormalizationResult dateNormalizationResult = null;
     if (matcher.matches()) {
@@ -40,9 +41,9 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
         int startYearAdjusted = startYear % YearPrecision.CENTURY.getDuration();
         if (startYearAdjusted < endYear) {
 
-          final DateQualification dateQualification =
+          final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
               (matcher.group("startsWithQuestionMark") != null || matcher.group("endsWithQuestionMark") != null)
-                  ? DateQualification.UNCERTAIN : null;
+                  ? DateQualification.UNCERTAIN : null);
 
           InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(startYear).withDateQualification(dateQualification)
                                                                                .build(allowSwitchMonthDay);
@@ -58,16 +59,6 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
       }
     }
     return dateNormalizationResult;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 }
 

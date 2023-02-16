@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.EdtfParser;
 import java.time.DateTimeException;
 
@@ -13,22 +14,14 @@ public class PatternEdtfDateExtractor implements DateExtractor {
 
   final EdtfParser edtfParser = new EdtfParser();
 
-  public DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     try {
-      AbstractEdtfDate edtfDate = edtfParser.parse(inputValue, allowSwitchMonthDay);
+      AbstractEdtfDate edtfDate = edtfParser.parse(inputValue, requestedDateQualification, allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
     } catch (DateTimeException | NumberFormatException e) {
       return null;
     }
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 }

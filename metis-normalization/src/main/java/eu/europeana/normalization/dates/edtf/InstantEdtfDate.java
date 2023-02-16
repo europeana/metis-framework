@@ -26,7 +26,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   private YearMonth yearMonth;
   private LocalDate yearMonthDay;
 
-  private DateQualification dateQualification = DateQualification.EMPTY;
+  private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
   private DateEdgeType dateEdgeType = DateEdgeType.DECLARED;
 
   public Year getYear() {
@@ -43,10 +43,6 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
 
   public YearPrecision getYearPrecision() {
     return yearPrecision;
-  }
-
-  public void setDateQualification(DateQualification dateQualification) {
-    this.dateQualification = dateQualification;
   }
 
   public DateQualification getDateQualification() {
@@ -181,7 +177,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
         }
       }
     }
-    if (dateQualification != null && dateQualification != DateQualification.EMPTY) {
+    if (dateQualification != null && dateQualification != DateQualification.NO_QUALIFICATION) {
       stringBuilder.append(dateQualification.getCharacter());
     }
     return stringBuilder.toString();

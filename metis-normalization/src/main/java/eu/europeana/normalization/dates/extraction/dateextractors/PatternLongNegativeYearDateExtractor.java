@@ -21,39 +21,34 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
       "\\s*(?<uncertain>\\?)?(?<year>-\\d{5,9})\\s*/\\s*(?<year2>-\\d{5,9})(?<uncertain2>\\?)?\\s*",
       Pattern.CASE_INSENSITIVE);
 
-  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
-    Matcher m;
-    m = patYyyyyy.matcher(inputValue);
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
+    final DateQualification dateQualification;
+
+    final Matcher m = patYyyyyy.matcher(inputValue);
     if (m.matches()) {
-      final DateQualification dateQualification =
-          (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null;
+      dateQualification =
+          computeDateQualification(requestedDateQualification,
+              () -> (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
           dateQualification).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, datePart);
     }
-    m = patYyyyyyRange.matcher(inputValue);
-    if (m.matches()) {
-      final DateQualification dateQualification =
-          (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null;
+    final Matcher m2 = patYyyyyyRange.matcher(inputValue);
+    if (m2.matches()) {
+      dateQualification =
+          computeDateQualification(requestedDateQualification,
+              () -> (m2.group("uncertain") != null || m2.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
 
-      final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
+      final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year"))).withDateQualification(
           dateQualification).build(allowSwitchMonthDay);
-      final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year2"))).withDateQualification(
+      final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year2"))).withDateQualification(
           dateQualification).build(allowSwitchMonthDay);
       IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(startDatePart, endDatePart);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }
     return null;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 }

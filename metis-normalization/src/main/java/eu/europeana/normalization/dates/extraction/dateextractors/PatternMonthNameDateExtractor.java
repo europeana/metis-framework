@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
@@ -48,13 +49,19 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
     }
   }
 
-  public DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
+        () -> DateQualification.NO_QUALIFICATION);
+
     for (Month month : Month.values()) {
       Matcher m = patternDayMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
         final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
+            .withDateQualification(dateQualification)
             .build(allowSwitchMonthDay);
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
@@ -63,6 +70,7 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
         final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
+            .withDateQualification(dateQualification)
             .build(allowSwitchMonthDay);
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
@@ -70,20 +78,11 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
       if (m.matches()) {
         final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
+            .withDateQualification(dateQualification)
             .build(allowSwitchMonthDay);
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
     }
     return null;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 }

@@ -30,7 +30,7 @@ public class InstantEdtfDateBuilder {
   private YearPrecision yearPrecision;
   private TemporalAccessor temporalAccessor;
 
-  private DateQualification dateQualification = DateQualification.EMPTY;
+  private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
 
   public InstantEdtfDateBuilder(InstantEdtfDate instantEdtfDate) throws DateTimeException {
     yearPrecision = instantEdtfDate.getYearPrecision();

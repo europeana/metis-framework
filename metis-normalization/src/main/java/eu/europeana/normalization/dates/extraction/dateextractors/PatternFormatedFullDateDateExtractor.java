@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
@@ -29,38 +30,36 @@ public class PatternFormatedFullDateDateExtractor implements DateExtractor {
   // year month day hour minute second
   Pattern patFormatedDate3 = Pattern.compile("(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})(\\.\\d{1,3})?");
 
-  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
+        () -> DateQualification.NO_QUALIFICATION);
+
     Matcher m = patFormatedDate2.matcher(inputValue);
     if (m.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
-          .withDay(Integer.parseInt(m.group(3))).build(allowSwitchMonthDay);
+          .withDay(Integer.parseInt(m.group(3)))
+          .withDateQualification(dateQualification).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate.matcher(inputValue);
     if (m.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(6)))
           .withMonth(monthNames.getMonthIndexValue(m.group(1)))
-          .withDay(Integer.parseInt(m.group(2))).build(allowSwitchMonthDay);
+          .withDay(Integer.parseInt(m.group(2)))
+          .withDateQualification(dateQualification).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate3.matcher(inputValue);
     if (m.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
-          .withDay(Integer.parseInt(m.group(3))).build(allowSwitchMonthDay);
+          .withDay(Integer.parseInt(m.group(3)))
+          .withDateQualification(dateQualification).build(allowSwitchMonthDay);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     return null;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 }

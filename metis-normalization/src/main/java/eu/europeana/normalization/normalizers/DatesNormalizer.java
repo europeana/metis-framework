@@ -138,14 +138,16 @@ public class DatesNormalizer implements RecordNormalizeAction {
                                           .collect(Collectors.toList());
 
     normalizationOperationsInOrderDateProperty = List.of(
-        input -> normalizeInput(extractorsInOrderForDateProperties, input),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize1stTimeDateProperty),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize2ndTimeDateProperty));
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, DateQualification.NO_QUALIFICATION),
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize1stTimeDateProperty,
+            SanitizeOperation::isApproximateSanitizeOperationForDateProperty),
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize2ndTimeDateProperty,
+            SanitizeOperation::isApproximateSanitizeOperationForDateProperty));
 
     normalizationOperationsInOrderGenericProperty = List.of(
-        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input),
+        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input, DateQualification.NO_QUALIFICATION),
         input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input,
-            dateFieldSanitizer::sanitizeGenericProperty));
+            dateFieldSanitizer::sanitizeGenericProperty, SanitizeOperation::isApproximateSanitizeOperationForGenericProperty));
   }
 
   private static Pair<Namespace.Element, XpathQuery> getProxySubtagQuery(Namespace.Element subtag) {
@@ -233,7 +235,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false, //No extra check
-        SanitizeOperation::isApproximateSanitizeOperationForDateProperty,
         this::validateAndFix,
         this::noMatchIfValidAndTimeOnly);
   }
@@ -248,7 +249,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),
-        SanitizeOperation::isApproximateSanitizeOperationForGenericProperty,
         this::validate, //If invalid we don't perform a fixing to retry validation
         dateNormalizationResult -> {//NOOP
         });
@@ -257,7 +257,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private DateNormalizationResult normalizeProperty(
       String input, final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder,
       Predicate<DateNormalizationResult> extraCheckForNoMatch,
-      Predicate<SanitizeOperation> checkIfApproximateCleanOperationId,
       Consumer<DateNormalizationResult> validationOperation,
       Consumer<DateNormalizationResult> postProcessingMatchId) {
 
@@ -273,14 +272,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
     //Check if we have a match
     if (Objects.isNull(dateNormalizationResult) || extraCheckForNoMatch.test(dateNormalizationResult)) {
       return DateNormalizationResult.getNoMatchResult(input);
-    } else {
-      //Check if we did a sanitize operation and update approximate
-      if (dateNormalizationResult.getSanitizeOperation() != null) {
-        // TODO: 15/02/2023 What if the result already specifies it as UNCERTAIN, do we add the APPROXIMATE or replace it?
-        if (checkIfApproximateCleanOperationId.test(dateNormalizationResult.getSanitizeOperation())) {
-          dateNormalizationResult.getEdtfDate().setDateQualification(DateQualification.APPROXIMATE);
-        }
-      }
     }
     validationOperation.accept(dateNormalizationResult);
     postProcessingMatchId.accept(dateNormalizationResult);
@@ -299,27 +290,32 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
   }
 
-  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input) {
-    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractDateProperty(input))
+  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String inputDate,
+      DateQualification dateQualification) {
+    return dateExtractors.stream().map(
+                             dateExtractor -> dateExtractor.extractDateProperty(inputDate, dateQualification))
                          .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
-  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, SanitizedDate sanitizedDate) {
-    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractDateProperty(sanitizedDate.getSanitizedDateString()))
-                         .filter(Objects::nonNull).findFirst().orElse(null);
-  }
-
-  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input) {
-    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractGenericProperty(input))
+  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input,
+      DateQualification dateQualification) {
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractGenericProperty(input, dateQualification))
                          .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
   private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input,
-      Function<String, SanitizedDate> sanitizeFunction) {
+      Function<String, SanitizedDate> sanitizeFunction, Predicate<SanitizeOperation> checkIfApproximateCleanOperationId) {
     final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = null;
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
-      dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate);
+      final DateQualification dateQualification;
+      if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
+        dateQualification = DateQualification.APPROXIMATE;
+      } else {
+        dateQualification = DateQualification.NO_QUALIFICATION;
+      }
+      dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString(), dateQualification);
+
       if (dateNormalizationResult != null) {
         dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }
@@ -328,11 +324,18 @@ public class DatesNormalizer implements RecordNormalizeAction {
   }
 
   private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input,
-      Function<String, SanitizedDate> sanitizeFunction) {
+      Function<String, SanitizedDate> sanitizeFunction, Predicate<SanitizeOperation> checkIfApproximateCleanOperationId) {
     final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = null;
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
-      dateNormalizationResult = normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString());
+      if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
+        dateNormalizationResult = normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString(),
+            DateQualification.APPROXIMATE);
+      } else {
+        dateNormalizationResult = normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString(),
+            DateQualification.NO_QUALIFICATION);
+      }
+
       if (dateNormalizationResult != null) {
         dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }

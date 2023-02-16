@@ -8,7 +8,10 @@ import java.util.Arrays;
  */
 public enum DateQualification {
 
-  EMPTY('\0'), UNCERTAIN('?'), APPROXIMATE('~'), UNCERTAIN_APPROXIMATE('%');
+  NO_QUALIFICATION('\0'),
+  UNCERTAIN('?'),
+  APPROXIMATE('~'),
+  UNCERTAIN_APPROXIMATE('%');
 
   private final char character;
 
@@ -17,7 +20,8 @@ public enum DateQualification {
   }
 
   public static DateQualification fromCharacter(char character) {
-    return Arrays.stream(DateQualification.values()).filter(value -> value.character == character).findFirst().orElse(EMPTY);
+    return Arrays.stream(DateQualification.values()).filter(value -> value.character == character).findFirst().orElse(
+        NO_QUALIFICATION);
   }
 
   public char getCharacter() {

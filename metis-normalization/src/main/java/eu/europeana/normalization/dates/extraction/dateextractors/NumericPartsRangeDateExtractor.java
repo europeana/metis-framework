@@ -8,6 +8,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
@@ -33,7 +34,9 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
    * @param inputValue the range value to attempt parsing
    * @return the date normalization result
    */
-  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
@@ -46,8 +49,10 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
       if (sanitizedDateSplitArray.length == 2) {
         // Try extraction and verify
         startDate = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeSpecialCharacters,
+            requestedDateQualification,
             allowSwitchMonthDay);
-        endDate = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters, allowSwitchMonthDay);
+        endDate = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters,
+            requestedDateQualification, allowSwitchMonthDay);
         if (startDate != null && endDate != null && !areYearsAmbiguous((InstantEdtfDate) startDate.getEdtfDate(),
             (InstantEdtfDate) endDate.getEdtfDate(),
             numericRangeSpecialCharacters)) {
@@ -62,16 +67,6 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
       }
     }
     return rangeDate;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 
   /**
@@ -97,13 +92,14 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
   }
 
   private DateNormalizationResult extractDateNormalizationResult(String dateString,
-      NumericRangeDateDelimiters numericRangeSpecialCharacters, boolean allowSwitchMonthDay) {
+      NumericRangeDateDelimiters numericRangeSpecialCharacters, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     final DateNormalizationResult dateNormalizationResult;
     if (numericRangeSpecialCharacters.getUnspecifiedCharacters() != null && dateString.matches(
         numericRangeSpecialCharacters.getUnspecifiedCharacters())) {
       dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString, InstantEdtfDate.getOpenInstance());
     } else {
-      dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString,
+      dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString, requestedDateQualification,
           NumericPartsPattern.NUMERIC_RANGE_SET, allowSwitchMonthDay);
     }
     return dateNormalizationResult;

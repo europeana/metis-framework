@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -69,7 +70,9 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         Pattern.CASE_INSENSITIVE);
   }
 
-  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
       final InstantEdtfDateBuilder instantEdtfDateBuilder;
@@ -79,7 +82,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         instantEdtfDateBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
-          instantEdtfDateBuilder.build(allowSwitchMonthDay));
+          instantEdtfDateBuilder.withDateQualification(requestedDateQualification).build(allowSwitchMonthDay));
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
@@ -89,7 +92,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       } else {
         startDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
-      InstantEdtfDate start = startDatePartBuilder.build(allowSwitchMonthDay);
+      InstantEdtfDate start = startDatePartBuilder.withDateQualification(requestedDateQualification).build(allowSwitchMonthDay);
 
       final InstantEdtfDateBuilder endDatePartBuilder;
       if (isBc(m.group("era2"))) {
@@ -97,21 +100,11 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       } else {
         endDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year2")));
       }
-      InstantEdtfDate end = endDatePartBuilder.build(allowSwitchMonthDay);
+      InstantEdtfDate end = endDatePartBuilder.withDateQualification(requestedDateQualification).build(allowSwitchMonthDay);
 
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
     }
     return null;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 
   private boolean isBc(String abbreviation) {

@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -48,14 +49,16 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
 
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
 
-  private DateNormalizationResult extract(String value, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String value, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     DateNormalizationResult dateNormalizationResult = null;
     if (isValidScheme(value)) {
       try {
         Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-        InstantEdtfDate start = extractDate(matcher, allowSwitchMonthDay);
+        InstantEdtfDate start = extractDate(matcher, requestedDateQualification, allowSwitchMonthDay);
         matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-        InstantEdtfDate end = extractDate(matcher, allowSwitchMonthDay);
+        InstantEdtfDate end = extractDate(matcher, requestedDateQualification, allowSwitchMonthDay);
         String name = extractName(value);
 
         //At least one end has to be specified
@@ -97,14 +100,18 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     return isValidScheme;
   }
 
-  private static InstantEdtfDate extractDate(Matcher matcher, boolean allowSwitchMonthDay)
+  private InstantEdtfDate extractDate(Matcher matcher, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay)
       throws DuplicateFieldException, DateTimeException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
-        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).build(allowSwitchMonthDay);
+        DateQualification dateQualification = computeDateQualification(requestedDateQualification,
+            () -> DateQualification.NO_QUALIFICATION);
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
+                                                                      .build(allowSwitchMonthDay);
       }
       //if we find it again we declare invalid
       if (matcher.find()) {
@@ -125,16 +132,6 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       }
     }
     return name;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 
   private static class DuplicateFieldException extends Exception {

@@ -26,16 +26,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
-  public void setDateQualification(DateQualification dateQualification) {
-    if (start != null) {
-      start.setDateQualification(dateQualification);
-    }
-    if (end != null) {
-      end.setDateQualification(dateQualification);
-    }
-  }
-
-  @Override
   public DateQualification getDateQualification() {
     if (start != null) {
       return start.getDateQualification();

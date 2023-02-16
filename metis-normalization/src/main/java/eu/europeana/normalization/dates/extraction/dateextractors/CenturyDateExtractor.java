@@ -43,16 +43,6 @@ public class CenturyDateExtractor implements DateExtractor {
   private static final String CENTURY_PREFIX = "(?:(?:s|sec|saec)\\s|(?:s|sec|saec)\\.\\s?)?";
   private static final String QUESTION_MARK = "\\??";
 
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
-  }
-
   enum PatternCenturyDateOperation {
     PATTERN_YYYY(
         compile(QUESTION_MARK + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
@@ -94,17 +84,20 @@ public class CenturyDateExtractor implements DateExtractor {
     }
   }
 
-  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     return Arrays.stream(PatternCenturyDateOperation.values())
-                 .map(operation -> extractInstance(inputValue, operation, allowSwitchMonthDay))
+                 .map(operation -> extractInstance(inputValue, requestedDateQualification, operation, allowSwitchMonthDay))
                  .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
-  private DateNormalizationResult extractInstance(String inputValue, PatternCenturyDateOperation patternCenturyDateOperation,
+  private DateNormalizationResult extractInstance(String inputValue, DateQualification requestedDateQualification,
+      PatternCenturyDateOperation patternCenturyDateOperation,
       boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final DateQualification dateQualification =
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null;
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
+        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);
 
     final Matcher matcher = patternCenturyDateOperation.getPattern().matcher(sanitizedValue);
     DateNormalizationResult dateNormalizationResult = null;

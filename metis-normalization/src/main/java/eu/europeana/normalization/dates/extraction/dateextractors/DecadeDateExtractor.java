@@ -33,10 +33,12 @@ public class DecadeDateExtractor implements DateExtractor {
 
   private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
-  private DateNormalizationResult extract(String inputValue, boolean allowSwitchMonthDay) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final DateQualification dateQualification =
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null;
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
+        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);
 
     DateNormalizationResult dateNormalizationResult = null;
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
@@ -50,15 +52,5 @@ public class DecadeDateExtractor implements DateExtractor {
           DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }
     return dateNormalizationResult;
-  }
-
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, false);
   }
 }

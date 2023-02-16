@@ -42,13 +42,9 @@ public class NumericPartsDateExtractor implements DateExtractor {
   private static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
 
   @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, true);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, false);
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) {
+    return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, allowSwitchMonthDay);
   }
 
   /**
@@ -59,12 +55,13 @@ public class NumericPartsDateExtractor implements DateExtractor {
    * @param allowSwitchMonthDay allow switching month and day values if month and day original values are not valid
    * @return the date normalization result
    */
-  protected DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues,
+  protected DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      Set<NumericPartsPattern> numericPatternValues,
       boolean allowSwitchMonthDay) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final DateQualification dateQualification =
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find())
-            ? DateQualification.UNCERTAIN : null;
+            ? DateQualification.UNCERTAIN : null);
 
     DateNormalizationResult dateNormalizationResult = null;
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {

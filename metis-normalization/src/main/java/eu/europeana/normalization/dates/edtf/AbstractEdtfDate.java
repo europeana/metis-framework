@@ -9,19 +9,17 @@ public abstract class AbstractEdtfDate {
 
   private final String label;
 
-  public AbstractEdtfDate() {
+  protected AbstractEdtfDate() {
     this.label = null;
   }
 
-  public AbstractEdtfDate(String label) {
+  protected AbstractEdtfDate(String label) {
     this.label = label;
   }
 
   public String getLabel() {
     return label;
   }
-
-  public abstract void setDateQualification(DateQualification dateQualification);
 
   public abstract DateQualification getDateQualification();
 
