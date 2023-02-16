@@ -9,6 +9,7 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Objects;
 
 /**
  * Class representing the date part an EDTF date.
@@ -193,6 +194,25 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       }
     }
     return comparatorValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InstantEdtfDate that = (InstantEdtfDate) o;
+    return yearPrecision == that.yearPrecision && Objects.equals(year, that.year) && Objects.equals(yearMonth,
+        that.yearMonth) && Objects.equals(yearMonthDay, that.yearMonthDay) && dateQualification == that.dateQualification
+        && dateEdgeType == that.dateEdgeType;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(yearPrecision, year, yearMonth, yearMonthDay, dateQualification, dateEdgeType);
   }
 
   /**
