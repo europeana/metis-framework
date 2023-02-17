@@ -46,12 +46,14 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
                   ? DateQualification.UNCERTAIN : null);
 
           InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(startYear).withDateQualification(dateQualification)
-                                                                               .build(allowSwitchMonthDay);
+                                                                               .withAllowSwitchMonthDay(allowSwitchMonthDay)
+                                                                               .build();
           InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(
               (startDatePart.getYear().getValue() / YearPrecision.CENTURY.getDuration())
                   * YearPrecision.CENTURY.getDuration() + endYear)
               .withDateQualification(dateQualification)
-              .build(allowSwitchMonthDay);
+              .withAllowSwitchMonthDay(allowSwitchMonthDay)
+              .build();
 
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
               new IntervalEdtfDate(startDatePart, endDatePart));

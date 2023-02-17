@@ -13,10 +13,15 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Builder class for {@link InstantEdtfDate}.
- * <p>During {@link #buildInternal()} it will verify all the parameters that have been requested.
- * The {@link #build(boolean)} will also attempt a second time by switching month and day values if the original value were
- * invalid. Furthermore if the constructor {@link InstantEdtfDateBuilder#InstantEdtfDateBuilder(TemporalAccessor)} is used, it
- * will overwrite any previous values added with the {@code .with} prefixed methods.</p>
+ * <p>During {@link #build()} it will verify all the parameters that have been requested.
+ * The {@link #build()}, if {@link #withAllowSwitchMonthDay(boolean)} was called with {@code true}, will also attempt a second
+ * time by switching month and day values if the original values were invalid. Furthermore, there are a set of constructors that
+ * can start the builder and will perform a build with specific characteristics:
+ * <ul>
+ *   <li>{@link InstantEdtfDateBuilder#InstantEdtfDateBuilder(Integer)} which initializes the builder with the minimum requirement of year value.</li>
+ *   <li>{@link InstantEdtfDateBuilder#InstantEdtfDateBuilder(TemporalAccessor)} can be used instead to pass multiple values through a {@link TemporalAccessor}.
+ *   This object during build will overwrite the date parts, if any <@code>.with</@code> methods were called, from the {@link TemporalAccessor}</li>
+ * </ul>
  */
 public class InstantEdtfDateBuilder {
 
@@ -31,24 +36,36 @@ public class InstantEdtfDateBuilder {
   private TemporalAccessor temporalAccessor;
 
   private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
+  private boolean allowSwitchMonthDay = false;
 
-  public InstantEdtfDateBuilder(InstantEdtfDate instantEdtfDate) throws DateTimeException {
-    yearPrecision = instantEdtfDate.getYearPrecision();
-    yearObj = instantEdtfDate.getYear();
-    yearMonthObj = instantEdtfDate.getYearMonth();
-    yearMonthDayObj = instantEdtfDate.getYearMonthDay();
-    dateQualification = instantEdtfDate.getDateQualification();
-  }
-
-  public InstantEdtfDateBuilder(TemporalAccessor temporalAccessor) throws DateTimeException {
-    this.temporalAccessor = temporalAccessor;
-  }
-
+  /**
+   * Constructor which initializes the builder with the minimum requirement of year value.
+   *
+   * @param year the year value
+   */
   public InstantEdtfDateBuilder(final Integer year) {
     this.year = year;
   }
 
-  public InstantEdtfDate build(boolean allowSwitchMonthDay) throws DateTimeException {
+  /**
+   * Constructor with {@link TemporalAccessor}.
+   * <p>This object during build will overwrite the date parts, if any <@code>.with</@code> methods were called, from the
+   * {@link TemporalAccessor}
+   * </p>
+   *
+   * @param temporalAccessor the temporal accessor
+   */
+  public InstantEdtfDateBuilder(TemporalAccessor temporalAccessor) {
+    this.temporalAccessor = temporalAccessor;
+  }
+
+  /**
+   * Returns an instance of {@link InstantEdtfDate} created and validated from the fields set on this builder.
+   *
+   * @return the new instant edtf date
+   * @throws DateTimeException if something went wrong during date validation
+   */
+  public InstantEdtfDate build() throws DateTimeException {
     InstantEdtfDate instantEdtfDate;
     try {
       instantEdtfDate = buildInternal();
@@ -67,23 +84,19 @@ public class InstantEdtfDateBuilder {
   }
 
   private InstantEdtfDate buildInternal() throws DateTimeException {
-
-    //Try initialization only if it is not a copy object
-    if (yearObj == null) {
-      if (temporalAccessor != null) {
-        LOGGER.debug("TemporalAccessor present. Overwriting values.");
-        day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-            temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-        month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-            temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-        year = temporalAccessor.isSupported(ChronoField.YEAR) ?
-            temporalAccessor.get(ChronoField.YEAR) : null;
-      }
-
-      Objects.requireNonNull(year, "Year value can never be null");
-      yearObj = Year.of(year);
-      parseMonthDay();
+    if (temporalAccessor != null) {
+      LOGGER.debug("TemporalAccessor present. Overwriting values.");
+      day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+          temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+      month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+          temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+      year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+          temporalAccessor.get(ChronoField.YEAR) : null;
     }
+
+    Objects.requireNonNull(year, "Year value can never be null");
+    yearObj = Year.of(year);
+    parseMonthDay();
     return new InstantEdtfDate(this);
   }
 
@@ -119,6 +132,11 @@ public class InstantEdtfDateBuilder {
 
   public InstantEdtfDateBuilder withDateQualification(DateQualification dateQualification) {
     this.dateQualification = dateQualification;
+    return this;
+  }
+
+  public InstantEdtfDateBuilder withAllowSwitchMonthDay(boolean allowSwitchMonthDay) {
+    this.allowSwitchMonthDay = allowSwitchMonthDay;
     return this;
   }
 

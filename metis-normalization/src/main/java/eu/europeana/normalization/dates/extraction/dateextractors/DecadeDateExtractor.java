@@ -47,7 +47,8 @@ public class DecadeDateExtractor implements DateExtractor {
           Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
           .withYearPrecision(YearPrecision.DECADE)
           .withDateQualification(dateQualification)
-          .build(allowSwitchMonthDay);
+          .withAllowSwitchMonthDay(allowSwitchMonthDay)
+          .build();
       dateNormalizationResult = new DateNormalizationResult(
           DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }

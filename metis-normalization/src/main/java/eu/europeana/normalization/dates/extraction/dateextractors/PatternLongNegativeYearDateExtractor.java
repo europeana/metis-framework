@@ -33,7 +33,7 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
               () -> (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
-          dateQualification).build(allowSwitchMonthDay);
+          dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, datePart);
     }
     final Matcher m2 = patYyyyyyRange.matcher(inputValue);
@@ -43,9 +43,9 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
               () -> (m2.group("uncertain") != null || m2.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
 
       final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year"))).withDateQualification(
-          dateQualification).build(allowSwitchMonthDay);
+          dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay).build();
       final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year2"))).withDateQualification(
-          dateQualification).build(allowSwitchMonthDay);
+          dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay).build();
       IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(startDatePart, endDatePart);
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }

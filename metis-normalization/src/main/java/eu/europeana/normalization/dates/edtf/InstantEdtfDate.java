@@ -1,5 +1,11 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
+import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
+import static eu.europeana.normalization.dates.edtf.Iso8601Parser.ISO_8601_MINIMUM_YEAR_DIGITS;
+import static java.util.Optional.ofNullable;
+
 import eu.europeana.normalization.dates.YearPrecision;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -21,13 +27,14 @@ import java.util.Objects;
 public final class InstantEdtfDate extends AbstractEdtfDate implements Comparable<InstantEdtfDate> {
 
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
+  public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
 
   private YearPrecision yearPrecision;
   private Year year;
   private YearMonth yearMonth;
   private LocalDate yearMonthDay;
 
-  private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
+  private DateQualification dateQualification = NO_QUALIFICATION;
   private DateEdgeType dateEdgeType = DateEdgeType.DECLARED;
 
   public InstantEdtfDate(InstantEdtfDateBuilder instantEdtfDateBuilder) {
@@ -62,6 +69,18 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return dateQualification;
   }
 
+  public DateEdgeType getDateEdgeType() {
+    return dateEdgeType;
+  }
+
+  public static InstantEdtfDate getUnknownInstance() {
+    return new InstantEdtfDate(UNKNOWN);
+  }
+
+  public static InstantEdtfDate getOpenInstance() {
+    return new InstantEdtfDate(OPEN);
+  }
+
   @Override
   public boolean isYearPrecision() {
     return yearPrecision != null;
@@ -75,27 +94,13 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
       //Verify though that the contents of this class are always considered valid before the call of this method.
       if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
-        firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build(false);
+        firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
       } else {
         firstDay = this.firstDayOfYearDatePart();
       }
     }
 
     return firstDay;
-  }
-
-  @Override
-  public InstantEdtfDate getLastDay() {
-    InstantEdtfDate lastDay = null;
-    if (dateEdgeType == DateEdgeType.DECLARED) {
-      if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
-        lastDay = new InstantEdtfDateBuilder(
-            this.getYear().getValue()).build(false);
-      } else {
-        lastDay = this.lastDayOfYearDatePart();
-      }
-    }
-    return lastDay;
   }
 
   public InstantEdtfDate firstDayOfYearDatePart() {
@@ -110,7 +115,20 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
           .plusYears(yearPrecision == YearPrecision.CENTURY ? 1 : 0)
           .atMonthDay(MonthDay.of(1, 1));
     }
-    return new InstantEdtfDateBuilder(temporalAccessorFirstDay).build(false);
+    return new InstantEdtfDateBuilder(temporalAccessorFirstDay).build();
+  }
+
+  @Override
+  public InstantEdtfDate getLastDay() {
+    InstantEdtfDate lastDay = null;
+    if (dateEdgeType == DateEdgeType.DECLARED) {
+      if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+        lastDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
+      } else {
+        lastDay = this.lastDayOfYearDatePart();
+      }
+    }
+    return lastDay;
   }
 
   public InstantEdtfDate lastDayOfYearDatePart() {
@@ -129,25 +147,13 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
         temporalAccessorLastDay = year.atMonthDay(MonthDay.of(Month.DECEMBER, 31));
       }
     }
-    return new InstantEdtfDateBuilder(temporalAccessorLastDay).build(false);
+    return new InstantEdtfDateBuilder(temporalAccessorLastDay).build();
 
   }
 
   @Override
   public boolean isOpen() {
-    return dateEdgeType == DateEdgeType.OPEN;
-  }
-
-  public DateEdgeType getDateEdgeType() {
-    return dateEdgeType;
-  }
-
-  public static InstantEdtfDate getUnknownInstance() {
-    return new InstantEdtfDate(DateEdgeType.UNKNOWN);
-  }
-
-  public static InstantEdtfDate getOpenInstance() {
-    return new InstantEdtfDate(DateEdgeType.OPEN);
+    return dateEdgeType == OPEN;
   }
 
   public Integer getCentury() {
@@ -161,26 +167,21 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
-    // TODO: 10/02/2023 Can we also use Temporal here?
-    if (dateEdgeType == DateEdgeType.OPEN || dateEdgeType == DateEdgeType.UNKNOWN) {
-      stringBuilder.append("..");
+    if (dateEdgeType == OPEN || dateEdgeType == UNKNOWN) {
+      stringBuilder.append(OPEN.getStringRepresentation());
     } else if (year.getValue() < -THRESHOLD_4_DIGITS_YEAR || year.getValue() > THRESHOLD_4_DIGITS_YEAR) {
-      stringBuilder.append("Y").append(year.getValue());
+      stringBuilder.append(OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
     } else {
       stringBuilder.append(serializeYear());
 
-      //Append Month and day
       final DecimalFormat decimalFormat = new DecimalFormat("00");
-      if (yearMonth != null) {
-        stringBuilder.append("-").append(decimalFormat.format(yearMonth.getMonthValue()));
-        if (yearMonthDay != null) {
-          stringBuilder.append("-").append(decimalFormat.format(yearMonthDay.getDayOfMonth()));
-        }
-      }
+      stringBuilder.append(
+          ofNullable(yearMonth).map(YearMonth::getMonthValue).map(decimalFormat::format).map(month -> "-" + month).orElse(""));
+      stringBuilder.append(
+          ofNullable(yearMonthDay).map(LocalDate::getDayOfMonth).map(decimalFormat::format).map(month -> "-" + month).orElse(""));
     }
-    if (dateQualification != null && dateQualification != DateQualification.NO_QUALIFICATION) {
-      stringBuilder.append(dateQualification.getCharacter());
-    }
+    stringBuilder.append(ofNullable(dateQualification).filter(dq -> dq != NO_QUALIFICATION).map(DateQualification::getCharacter)
+                                                      .map(Objects::toString).orElse(""));
     return stringBuilder.toString();
   }
 
@@ -222,7 +223,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
    *   <ul>
    *     <li>The year is precise therefore it will be left padded with 0 to the max of 4 digits in total</li>
    *     <li>The year is not precise which will be left padded with 0 to the max of 4 digits in total and then the right most
-   *     digits are replaces with 'X's based on the year precision. Eg. a year -900 with century precision will become -09XX</li>
+   *     digits are replaced with 'X's based on the year precision. Eg. a year -900 with century precision will become -09XX</li>
    *   </ul>
    * </p>
    *
@@ -238,7 +239,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       yearAdjusted = paddedYear;
     } else {
       final int trailingZeros = Integer.numberOfTrailingZeros(yearPrecision.getDuration());
-      yearAdjusted = paddedYear.substring(0, 4 - trailingZeros) + "X".repeat(trailingZeros);
+      yearAdjusted = paddedYear.substring(0, ISO_8601_MINIMUM_YEAR_DIGITS - trailingZeros) + "X".repeat(trailingZeros);
     }
     return prefix + yearAdjusted;
   }

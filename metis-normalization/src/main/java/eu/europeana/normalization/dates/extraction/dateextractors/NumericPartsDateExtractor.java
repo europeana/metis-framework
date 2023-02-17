@@ -71,7 +71,8 @@ public class NumericPartsDateExtractor implements DateExtractor {
           InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
           dateNormalizationResult = new DateNormalizationResult(
               numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
-              instantEdtfDateBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay));
+              instantEdtfDateBuilder.withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay)
+                                    .build());
           break;
         } catch (DateTimeException e) {
           LOGGER.debug(String.format("Date extraction failed %s: ", inputValue), e);

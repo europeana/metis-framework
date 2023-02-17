@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.edtf;
 
 import static java.lang.String.format;
 
+import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Year;
@@ -9,7 +10,6 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 public class Iso8601Parser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Iso8601Parser.class);
+  public static final int ISO_8601_MINIMUM_YEAR_DIGITS = 4;
   private static final DateTimeFormatter dateTimeFormatterUUUMM = DateTimeFormatter.ofPattern("uuuu-MM");
   private static final DateTimeFormatter dateTimeFormatterUUUU = DateTimeFormatter.ofPattern("uuuu");
 
@@ -59,7 +60,6 @@ public class Iso8601Parser {
     return temporalAccessor;
   }
 
-  // TODO: 13/02/2023 Check maybe fix this complexity(Perhaps allow Parsed returned class and check during date part creation)
   private TemporalAccessor getTemporalAccessor(String input) {
     try {
       return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
@@ -84,7 +84,8 @@ public class Iso8601Parser {
         resultDateString = YearMonth.from(temporalAccessor).toString();
       } catch (DateTimeException exception2) {
         LOGGER.debug("YearMonth parsing failed", exception2);
-        resultDateString = StringUtils.leftPad(Year.from(temporalAccessor).toString(), 4, "0");
+        final DecimalFormat decimalFormat = new DecimalFormat("0000");
+        resultDateString = decimalFormat.format(Year.from(temporalAccessor).getValue());
       }
     }
     return resultDateString;

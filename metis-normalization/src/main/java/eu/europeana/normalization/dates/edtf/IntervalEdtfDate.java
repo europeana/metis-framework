@@ -1,10 +1,13 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 /**
  * An EDTF date that represents a period of time specified by a start and end date with various degrees of precision
  */
 public class IntervalEdtfDate extends AbstractEdtfDate {
 
+  public static final String DATES_SEPARATOR = "/";
   private InstantEdtfDate start;
   private InstantEdtfDate end;
 
@@ -76,6 +79,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    return String.format("%s/%s", start.toString(), end.toString());
+    return format("%s%s%s", start.toString(), DATES_SEPARATOR, end.toString());
   }
 }

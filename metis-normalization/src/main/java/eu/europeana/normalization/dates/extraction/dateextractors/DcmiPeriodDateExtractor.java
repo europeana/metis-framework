@@ -111,7 +111,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
         DateQualification dateQualification = computeDateQualification(requestedDateQualification,
             () -> DateQualification.NO_QUALIFICATION);
         instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
-                                                                      .build(allowSwitchMonthDay);
+                                                                      .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

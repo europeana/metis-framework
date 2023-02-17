@@ -104,12 +104,14 @@ public class CenturyDateExtractor implements DateExtractor {
     if (matcher.matches()) {
       AbstractEdtfDate abstractEdtfDate;
       InstantEdtfDateBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);
-      InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay);
+      InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification)
+                                                          .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
 
       //Check if we have an interval or instance
       if (matcher.groupCount() == 2) {
         InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
-        InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification).build(allowSwitchMonthDay);
+        InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
+                                                        .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
         abstractEdtfDate = new IntervalEdtfDate(startEdtfDate, endEdtfDate);
       } else {
         abstractEdtfDate = startEdtfDate;
