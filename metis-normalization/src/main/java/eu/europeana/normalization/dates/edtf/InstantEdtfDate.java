@@ -30,6 +30,18 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
   private DateEdgeType dateEdgeType = DateEdgeType.DECLARED;
 
+  public InstantEdtfDate(InstantEdtfDateBuilder instantEdtfDateBuilder) {
+    yearPrecision = instantEdtfDateBuilder.getYearPrecision();
+    year = instantEdtfDateBuilder.getYearObj();
+    yearMonth = instantEdtfDateBuilder.getYearMonthObj();
+    yearMonthDay = instantEdtfDateBuilder.getYearMonthDayObj();
+    dateQualification = instantEdtfDateBuilder.getDateQualification();
+  }
+
+  private InstantEdtfDate(DateEdgeType dateEdgeType) {
+    this.dateEdgeType = dateEdgeType;
+  }
+
   public Year getYear() {
     return year;
   }
@@ -53,18 +65,6 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   @Override
   public boolean isYearPrecision() {
     return yearPrecision != null;
-  }
-
-  public InstantEdtfDate(InstantEdtfDateBuilder instantEdtfDateBuilder) {
-    yearPrecision = instantEdtfDateBuilder.getYearPrecision();
-    year = instantEdtfDateBuilder.getYearObj();
-    yearMonth = instantEdtfDateBuilder.getYearMonthObj();
-    yearMonthDay = instantEdtfDateBuilder.getYearMonthDayObj();
-    dateQualification = instantEdtfDateBuilder.getDateQualification();
-  }
-
-  private InstantEdtfDate(DateEdgeType dateEdgeType) {
-    this.dateEdgeType = dateEdgeType;
   }
 
   @Override

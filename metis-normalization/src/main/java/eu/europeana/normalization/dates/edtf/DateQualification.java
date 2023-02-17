@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * Date qualification characters according to <a href="https://www.loc.gov/standards/datetime/">Extended Date/Time Format (EDTF)
@@ -13,12 +14,20 @@ public enum DateQualification {
   APPROXIMATE('~'),
   UNCERTAIN_APPROXIMATE('%');
 
+  public static final Pattern CHECK_QUALIFICATION_PATTERN = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
   private final char character;
 
   DateQualification(char character) {
     this.character = character;
   }
 
+  /**
+   * Get the enum value based on the character provided.
+   * <p>It will return a matched enum value or {@link #NO_QUALIFICATION}.</p>
+   *
+   * @param character the provided character
+   * @return the enum value
+   */
   public static DateQualification fromCharacter(char character) {
     return Arrays.stream(DateQualification.values()).filter(value -> value.character == character).findFirst().orElse(
         NO_QUALIFICATION);

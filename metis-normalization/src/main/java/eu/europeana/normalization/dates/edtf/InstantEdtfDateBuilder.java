@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Builder class for {@link InstantEdtfDate}.
- * <p>During {@link #build()} it will verify all the parameters that have been requested.
+ * <p>During {@link #buildInternal()} it will verify all the parameters that have been requested.
  * The {@link #build(boolean)} will also attempt a second time by switching month and day values if the original value were
  * invalid. Furthermore if the constructor {@link InstantEdtfDateBuilder#InstantEdtfDateBuilder(TemporalAccessor)} is used, it
  * will overwrite any previous values added with the {@code .with} prefixed methods.</p>
@@ -51,7 +51,7 @@ public class InstantEdtfDateBuilder {
   public InstantEdtfDate build(boolean allowSwitchMonthDay) throws DateTimeException {
     InstantEdtfDate instantEdtfDate;
     try {
-      instantEdtfDate = build();
+      instantEdtfDate = buildInternal();
     } catch (DateTimeException e) {
       LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
       if (allowSwitchMonthDay) {
@@ -66,20 +66,20 @@ public class InstantEdtfDateBuilder {
     return instantEdtfDate;
   }
 
-  private InstantEdtfDate build() throws DateTimeException {
+  private InstantEdtfDate buildInternal() throws DateTimeException {
 
-    if (temporalAccessor != null) {
-      LOGGER.debug("TemporalAccessor present. Overwriting values.");
-      // TODO: 13/02/2023 Check TemporalQuery alternative option
-      day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-          temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-      month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-          temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-      year = temporalAccessor.isSupported(ChronoField.YEAR) ?
-          temporalAccessor.get(ChronoField.YEAR) : null;
-    }
     //Try initialization only if it is not a copy object
     if (yearObj == null) {
+      if (temporalAccessor != null) {
+        LOGGER.debug("TemporalAccessor present. Overwriting values.");
+        day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+            temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+        month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+            temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+        year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+            temporalAccessor.get(ChronoField.YEAR) : null;
+      }
+
       Objects.requireNonNull(year, "Year value can never be null");
       yearObj = Year.of(year);
       parseMonthDay();

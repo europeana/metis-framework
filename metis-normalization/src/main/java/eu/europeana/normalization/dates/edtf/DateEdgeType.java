@@ -15,6 +15,15 @@ package eu.europeana.normalization.dates.edtf;
  * </p>
  */
 public enum DateEdgeType {
-  DECLARED, OPEN, UNKNOWN;
+  DECLARED(""), OPEN(".."), UNKNOWN("");
 
+  private String stringRepresentation;
+
+  DateEdgeType(String stringRepresentation) {
+    this.stringRepresentation = stringRepresentation;
+  }
+
+  public String getStringRepresentation() {
+    return stringRepresentation;
+  }
 }
