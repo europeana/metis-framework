@@ -4,35 +4,31 @@ import static java.util.function.Predicate.not;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.cleaning.CleanOperation;
-import eu.europeana.normalization.dates.cleaning.CleanResult;
-import eu.europeana.normalization.dates.cleaning.Cleaner;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.EdtfValidator;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.DecadeDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBriefDateRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternCenturyDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternDateExtractorYyyyMmDdSpacesDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternDecadeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternEdtfDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormatedFullDateDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternMonthNameDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateExtractorWithMissingPartsDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternNumericDateRangeExtractorWithMissingPartsDateExtractor;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
+import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
+import eu.europeana.normalization.dates.sanitize.SanitizedDate;
 import eu.europeana.normalization.model.ConfidenceLevel;
 import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -106,7 +102,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private static final XpathQuery EUROPEANA_PROXY = new XpathQuery("/%s/%s[%s='true']",
       XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY);
 
-  private final Cleaner cleaner = new Cleaner();
+  private final DateFieldSanitizer dateFieldSanitizer = new DateFieldSanitizer();
 
   private final List<DateExtractor> extractorsInOrderForDateProperties;
   private final List<DateExtractor> extractorsInOrderForGenericProperties;
@@ -124,13 +120,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
     extractorsInOrderForDateProperties = List.of(
         new PatternBriefDateRangeDateExtractor(),
         new PatternEdtfDateExtractor(),
-        new PatternCenturyDateExtractor(),
-        new PatternDecadeDateExtractor(),
-        new PatternNumericDateRangeExtractorWithMissingPartsDateExtractor(),
-        new PatternNumericDateRangeExtractorWithMissingPartsAndXxDateExtractor(),
-        new PatternNumericDateExtractorWithMissingPartsDateExtractor(),
-        new PatternNumericDateExtractorWithMissingPartsAndXxDateExtractor(),
-        new PatternDateExtractorYyyyMmDdSpacesDateExtractor(),
+        new CenturyDateExtractor(),
+        new DecadeDateExtractor(),
+        new NumericPartsRangeDateExtractor(),
+        new NumericPartsDateExtractor(),
         new DcmiPeriodDateExtractor(),
         new PatternMonthNameDateExtractor(),
         new PatternFormatedFullDateDateExtractor(),
@@ -145,12 +138,12 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     normalizationOperationsInOrderDateProperty = List.of(
         input -> normalizeInput(extractorsInOrderForDateProperties, input),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean1stTime),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, cleaner::clean2ndTime));
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize1stTimeDateProperty),
+        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize2ndTimeDateProperty));
 
     normalizationOperationsInOrderGenericProperty = List.of(
         input -> normalizeInput(extractorsInOrderForGenericProperties, input),
-        input -> normalizeInput(extractorsInOrderForGenericProperties, input, cleaner::cleanGenericProperty));
+        input -> normalizeInput(extractorsInOrderForGenericProperties, input, dateFieldSanitizer::sanitizeGenericProperty));
   }
 
   private static Pair<Namespace.Element, XpathQuery> getProxySubtagQuery(Namespace.Element subtag) {
@@ -194,25 +187,23 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private void normalizeElement(Document document, Element element, Namespace.Element elementType,
       Element europeanaProxy, Function<String, DateNormalizationResult> normalizationFunction,
-      InternalNormalizationReport report) throws NormalizationException {
+      InternalNormalizationReport report) {
 
     // Apply the normalization. If nothing can be done, we return.
     final String elementText = XmlUtil.getElementText(element);
-    final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(
-        elementText);
-    if (dateNormalizationResult.getDateNormalizationExtractorMatchId()
-        == DateNormalizationExtractorMatchId.NO_MATCH) {
+    // TODO: 11/10/2022 Check if this can be more securely structured.
+    //  Currently the class InstantEdtfDate is allowed to contain invalid values for day, month, year and therefore a call
+    //  to some of it's functions, for example getLastDay which internally triggers a call to lastDayBasedOnMonth can fail if the values are invalid.
+    //  Probably a better approach is to not allow the object to be created with invalid values in the first place.
+    final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
+    if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.NO_MATCH
+        || dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.INVALID) {
       return;
     }
 
     // Compute the timespan ID we need.
-    final String timespanId;
-    try {
-      timespanId = String.format("#%s", URLEncoder.encode(
-          dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8.name()));
-    } catch (UnsupportedEncodingException e) {
-      throw new NormalizationException(e.getMessage(), e);
-    }
+    final String timespanId = String.format("#%s", URLEncoder.encode(
+        dateNormalizationResult.getEdtfDate().toString(), StandardCharsets.UTF_8));
 
     // Append the timespan to the document.
     appendTimespanEntity(document, dateNormalizationResult.getEdtfDate(), timespanId);
@@ -231,22 +222,31 @@ public class DatesNormalizer implements RecordNormalizeAction {
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
   }
 
-
-  // TODO: 25/07/2022 This could be made private
+  /**
+   * Normalizer a property that is expected to be a date.
+   *
+   * @param input the date
+   * @return the date normalization result
+   */
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false, //No extra check
-        CleanOperation::isApproximateCleanOperationIdForDateProperty,
+        SanitizeOperation::isApproximateSanitizeOperationForDateProperty,
         this::validateAndFix,
         this::noMatchIfValidAndTimeOnly);
   }
 
-
-  // TODO: 25/07/2022 This could be made private
+  /**
+   * Normalizer a property that is expected to be a generic property, so the process is more strict than properties that are
+   * expected to be a date.
+   *
+   * @param input the date
+   * @return the date normalization result
+   */
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),
-        CleanOperation::isApproximateCleanOperationIdForGenericProperty,
+        SanitizeOperation::isApproximateSanitizeOperationForGenericProperty,
         this::validate, //If invalid we don't perform a fixing to retry validation
         dateNormalizationResult -> {//NOOP
         });
@@ -255,7 +255,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private DateNormalizationResult normalizeProperty(
       String input, final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder,
       Predicate<DateNormalizationResult> extraCheckForNoMatch,
-      Predicate<CleanOperation> checkIfApproximateCleanOperationId,
+      Predicate<SanitizeOperation> checkIfApproximateCleanOperationId,
       Consumer<DateNormalizationResult> validationOperation,
       Consumer<DateNormalizationResult> postProcessingMatchId) {
 
@@ -272,10 +272,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
     if (Objects.isNull(dateNormalizationResult) || extraCheckForNoMatch.test(dateNormalizationResult)) {
       return DateNormalizationResult.getNoMatchResult(input);
     } else {
-      //Check if we did a clean operation and update approximate
-      if (dateNormalizationResult.getCleanOperationMatchId() != null) {
+      //Check if we did a sanitize operation and update approximate
+      if (dateNormalizationResult.getSanitizeOperation() != null) {
         dateNormalizationResult.getEdtfDate().setApproximate(
-            checkIfApproximateCleanOperationId.test(dateNormalizationResult.getCleanOperationMatchId()));
+            checkIfApproximateCleanOperationId.test(dateNormalizationResult.getSanitizeOperation()));
       }
       validationOperation.accept(dateNormalizationResult);
       postProcessingMatchId.accept(dateNormalizationResult);
@@ -301,19 +301,13 @@ public class DatesNormalizer implements RecordNormalizeAction {
   }
 
   private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input,
-      Function<String, CleanResult> cleanFunction) {
-    final CleanResult cleanedInput = cleanFunction.apply(input);
+      Function<String, SanitizedDate> sanitizeFunction) {
+    final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = null;
-    if (cleanedInput != null && StringUtils.isNotEmpty(cleanedInput.getCleanedValue())) {
-      dateNormalizationResult = normalizeInput(dateExtractors, cleanedInput.getCleanedValue());
+    if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
+      dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString());
       if (dateNormalizationResult != null) {
-        dateNormalizationResult.setCleanOperationMatchId(cleanedInput.getCleanOperation());
-
-        // TODO: 21/07/2022 Perhaps this should be done differently, because it pollutes the map of the extractor and its id
-        //Update the extractor match id.
-        if (dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.EDTF) {
-          dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.EDTF_CLEANED);
-        }
+        dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
       }
     }
     return dateNormalizationResult;

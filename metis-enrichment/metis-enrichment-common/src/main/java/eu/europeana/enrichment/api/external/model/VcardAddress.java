@@ -31,14 +31,14 @@ public class VcardAddress {
 
   @XmlElement(name = "hasGeo", namespace = "http://www.w3.org/2006/vcard/ns#")
   private Resource hasGeo;
-  
+
   /**
    * Default constructor
    */
   public VcardAddress() {
     super();
   }
-  
+
   public String getCountryName() {
     return countryName;
   }
@@ -86,5 +86,5 @@ public class VcardAddress {
   public void setHasGeo(Resource hasGeo) {
     this.hasGeo = hasGeo;
   }
-  
+
 }

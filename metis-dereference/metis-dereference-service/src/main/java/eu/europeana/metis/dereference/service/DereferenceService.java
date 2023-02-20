@@ -1,10 +1,6 @@
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import java.net.URISyntaxException;
-import java.util.List;
-import javax.xml.bind.JAXBException;
-import javax.xml.transform.TransformerException;
+import eu.europeana.metis.dereference.DereferenceResult;
 
 /**
  * Dereferencing service Created by ymamakis on 2/11/16.
@@ -15,12 +11,9 @@ public interface DereferenceService {
    * Dereference a URI
    *
    * @param resourceId The resource ID (URI) to dereference
-   * @return The dereferenced entity (or multiple in case of parent entities). List is not null, but
-   * could be empty.
-   * @throws TransformerException In case the data does not satisfy the expected format.
-   * @throws JAXBException In case the data does not specify the expected format.
-   * @throws URISyntaxException In case the resource ID could not be read as URI.
+   * @return Dereferenceresult contains of the dereferenced entity (or multiple in case of parent entities). List is not null, but
+   * could be empty and the dereference result status of enrichment. If an exception occurs the status is not set, it should be
+   * captured by the callee.
    */
-  List<EnrichmentBase> dereference(String resourceId)
-      throws TransformerException, JAXBException, URISyntaxException;
+  DereferenceResult dereference(String resourceId);
 }

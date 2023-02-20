@@ -37,7 +37,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
+@ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 @EnableScheduling
 public class QueueConfig implements WebMvcConfigurer {
 
@@ -78,7 +78,8 @@ public class QueueConfig implements WebMvcConfigurer {
         final KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
         // This file is determined in the config files, it does not pose a risk.
         @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-        final Path trustStoreFile = Paths.get(propertiesHolder.getTruststorePath());
+        final Path trustStoreFile = Paths.get(
+            propertiesHolder.getTruststorePath());
         try (final InputStream inputStream = Files.newInputStream(trustStoreFile)) {
           keyStore.load(inputStream, propertiesHolder.getTruststorePassword().toCharArray());
         }
@@ -134,7 +135,8 @@ public class QueueConfig implements WebMvcConfigurer {
     return queueConsumer;
   }
 
-  @Scheduled(fixedDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}", initialDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}")
+  @Scheduled(fixedDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}",
+      initialDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}")
   public void runQueueConsumerCleanup() throws InterruptedException {
     LOGGER.debug("Queue consumer cleanup started (runs every {} milliseconds).",
         propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInMillisecs());

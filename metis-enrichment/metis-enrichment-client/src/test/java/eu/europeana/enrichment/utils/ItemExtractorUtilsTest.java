@@ -25,9 +25,8 @@ import org.junit.jupiter.api.Test;
 
 public class ItemExtractorUtilsTest {
 
-
   @Test
-  void testSetAbout(){
+  void testSetAbout() {
 
     EnrichmentBase enrichmentBase = new Agent();
     AboutType aboutType = new AboutType();
@@ -37,37 +36,33 @@ public class ItemExtractorUtilsTest {
     ItemExtractorUtils.setAbout(enrichmentBase, aboutType);
 
     assertEquals("About", aboutType.getAbout());
-
   }
 
   @Test
-  void testExtractItems(){
+  void testExtractItems() {
     List<Integer> inputList = new ArrayList<>();
-    Integer integer1  = 1;
-    Integer integer2  = 2;
-    Integer integer3  = 3;
+    Integer integer1 = 1;
+    Integer integer2 = 2;
+    Integer integer3 = 3;
     inputList.add(integer1);
     inputList.add(integer2);
     inputList.add(integer3);
 
     List<Double> output = ItemExtractorUtils.extractItems(inputList, Double::valueOf);
 
-    for(Integer elem: inputList){
+    for (Integer elem : inputList) {
       assertTrue(output.contains(Double.valueOf(elem)));
     }
-
   }
 
   @Test
-  void testExtractItemsReturnEmpty(){
+  void testExtractItemsReturnEmpty() {
     List<String> output = ItemExtractorUtils.extractItems(null, String::valueOf);
     assertTrue(output.isEmpty());
-
   }
 
   @Test
-  void testExtractLabels(){
-
+  void testExtractLabels() {
     List<Label> labels = new ArrayList<>();
     Label label1 = new Label("lang1", "value1");
     Label label2 = new Label("lang2", "value2");
@@ -78,19 +73,17 @@ public class ItemExtractorUtilsTest {
 
     List<LiteralType> output = ItemExtractorUtils.extractLabels(labels, LiteralType::new);
 
-    for(Label label: labels){
+    for (Label label : labels) {
       List<LiteralType> result = output.stream().filter(x -> x.getString().equals(label.getValue())).collect(
           Collectors.toList());
 
       assertEquals(1, result.size());
       assertEquals(label.getLang(), result.get(0).getLang().getLang());
     }
-
   }
 
   @Test
-  void testExtractResources(){
-
+  void testExtractResources() {
     List<Resource> resources = new ArrayList<>();
     Resource resource1 = new Resource("resource1");
     Resource resource2 = new Resource("resource2");
@@ -101,7 +94,7 @@ public class ItemExtractorUtilsTest {
 
     List<ResourceType> output = ItemExtractorUtils.extractResources(resources, ResourceType::new);
 
-    for(Resource resource: resources) {
+    for (Resource resource : resources) {
       List<ResourceType> result = output
           .stream()
           .filter(x -> x.getResource().equals(resource.getResource()))
@@ -109,12 +102,10 @@ public class ItemExtractorUtilsTest {
 
       assertEquals(1, result.size());
     }
-
   }
 
   @Test
-  void extractLabelResources(){
-
+  void extractLabelResources() {
     List<LabelResource> labelResources = new ArrayList<>();
     LabelResource labelResource1 = new LabelResource("resource1");
     LabelResource labelResource2 = new LabelResource("resource2");
@@ -126,7 +117,7 @@ public class ItemExtractorUtilsTest {
     List<ResourceOrLiteralType> output =
         ItemExtractorUtils.extractLabelResources(labelResources, ResourceOrLiteralType::new);
 
-    for(LabelResource labelResource: labelResources) {
+    for (LabelResource labelResource : labelResources) {
       List<ResourceOrLiteralType> result = output
           .stream()
           .filter(x -> x.getResource().getResource().equals(labelResource.getResource()))
@@ -134,12 +125,10 @@ public class ItemExtractorUtilsTest {
 
       assertEquals(1, result.size());
     }
-
   }
 
   @Test
-  void testExtractFirstLabel(){
-
+  void testExtractFirstLabel() {
     List<Label> labels = new ArrayList<>();
     Label label1 = new Label("lang1", "value1");
     Label label2 = new Label("lang2", "value2");
@@ -154,12 +143,10 @@ public class ItemExtractorUtilsTest {
     assertNotNull(output);
     assertEquals("value1", output.getString());
     assertEquals("lang1", output.getLang().getLang());
-
   }
 
   @Test
-  void testExtractFirstLabelReturnNextNonNull(){
-
+  void testExtractFirstLabelReturnNextNonNull() {
     List<Label> labels = new ArrayList<>();
     Label label2 = new Label("lang2", "value2");
     Label label3 = new Label("lang3", "value3");
@@ -173,62 +160,48 @@ public class ItemExtractorUtilsTest {
     assertNotNull(output);
     assertEquals("value2", output.getString());
     assertEquals("lang2", output.getLang().getLang());
-
   }
 
   @Test
-  void testExtractFirstLabelReturnNull(){
-
+  void testExtractFirstLabelReturnNull() {
     LiteralType output = ItemExtractorUtils.extractFirstLabel(null, LiteralType::new);
     assertNull(output);
-
   }
 
   @Test
-  void testExtractLabel(){
-
+  void testExtractLabel() {
     Label label = new Label("lang1", "value1");
-
     LiteralType output = ItemExtractorUtils.extractLabel(label, LiteralType::new);
 
     assertNotNull(output);
     assertEquals("value1", output.getString());
     assertEquals("lang1", output.getLang().getLang());
-
   }
 
   @Test
-  void testExtractLabelReturnEmpty(){
-
+  void testExtractLabelReturnEmpty() {
     Label label = new Label(null);
-
     LiteralType output = ItemExtractorUtils.extractLabel(label, LiteralType::new);
 
     assertNotNull(output);
     assertEquals("", output.getString());
     assertNull(output.getLang());
-
   }
 
   @Test
-  void testExtractLabelToResourceOrLiteralEmpty(){
-
+  void testExtractLabelToResourceOrLiteralEmpty() {
     Label label = new Label(null);
-
     LiteralType output = ItemExtractorUtils.extractLabel(label, LiteralType::new);
 
     assertNotNull(output);
     assertEquals("", output.getString());
     assertNull(output.getLang());
-
   }
 
   @Test
-  void testExtractLabelResource(){
-
+  void testExtractLabelResource() {
     LabelResource label = new LabelResource("lang1", "value1");
     label.setResource("resource1");
-
     ResourceOrLiteralType output =
         ItemExtractorUtils.extractLabelResource(label, ResourceOrLiteralType::new);
 
@@ -236,15 +209,11 @@ public class ItemExtractorUtilsTest {
     assertEquals("value1", output.getString());
     assertEquals("lang1", output.getLang().getLang());
     assertEquals("resource1", output.getResource().getResource());
-
-
   }
 
   @Test
-  void testExtractLabelResourceWithoutResource(){
-
+  void testExtractLabelResourceWithoutResource() {
     LabelResource label = new LabelResource("lang1", "value1");
-
     ResourceOrLiteralType output =
         ItemExtractorUtils.extractLabelResource(label, ResourceOrLiteralType::new);
 
@@ -252,15 +221,12 @@ public class ItemExtractorUtilsTest {
     assertEquals("value1", output.getString());
     assertEquals("lang1", output.getLang().getLang());
     assertNull(output.getResource());
-
   }
 
   @Test
-  void testExtractLabelResourceWithoutLanguage(){
-
+  void testExtractLabelResourceWithoutLanguage() {
     LabelResource label = new LabelResource(null, "value1");
     label.setResource("resource1");
-
     ResourceOrLiteralType output =
         ItemExtractorUtils.extractLabelResource(label, ResourceOrLiteralType::new);
 
@@ -268,15 +234,12 @@ public class ItemExtractorUtilsTest {
     assertEquals("value1", output.getString());
     assertNull(output.getLang());
     assertEquals("resource1", output.getResource().getResource());
-
   }
 
   @Test
-  void testExtractLabelResourceWithoutValue(){
-
+  void testExtractLabelResourceWithoutValue() {
     LabelResource label = new LabelResource("lang1", null);
     label.setResource("resource1");
-
     ResourceOrLiteralType output =
         ItemExtractorUtils.extractLabelResource(label, ResourceOrLiteralType::new);
 
@@ -284,14 +247,11 @@ public class ItemExtractorUtilsTest {
     assertEquals("", output.getString());
     assertEquals("lang1", output.getLang().getLang());
     assertEquals("resource1", output.getResource().getResource());
-
   }
 
   @Test
-  void testExtractLabelResourceReturnNull(){
-
+  void testExtractLabelResourceReturnNull() {
     LabelResource label = new LabelResource(null);
-
     ResourceOrLiteralType output =
         ItemExtractorUtils.extractLabelResource(label, ResourceOrLiteralType::new);
 
@@ -299,62 +259,48 @@ public class ItemExtractorUtilsTest {
     assertEquals("", output.getString());
     assertNull(output.getLang());
     assertNull(output.getResource());
-
   }
 
   @Test
-  void testExtractPart(){
-
+  void testExtractPart() {
     Part part = new Part("resource");
-
     ResourceOrLiteralType output = ItemExtractorUtils.extractPart(part, ResourceOrLiteralType::new);
 
     assertNotNull(output);
     assertEquals("", output.getString());
     assertEquals("resource", output.getResource().getResource());
-
   }
 
   @Test
-  void testExtractPartNullResource(){
-
+  void testExtractPartNullResource() {
     Part part = new Part(null);
-
     ResourceOrLiteralType output = ItemExtractorUtils.extractPart(part, ResourceOrLiteralType::new);
 
     assertNotNull(output);
     assertEquals("", output.getString());
     assertNull(output.getResource());
-
   }
 
   @Test
-  void testExtractAsResource(){
-
+  void testExtractAsResource() {
     String string = "resource";
-
     ResourceType output =
         ItemExtractorUtils.extractAsResource(string, ResourceType::new, String::toUpperCase);
 
     assertNotNull(output);
     assertEquals(string.toUpperCase(), output.getResource());
-
   }
 
   @Test
-  void testExtractAsResourceNullValue(){
-
-    ResourceType output =
-        ItemExtractorUtils.extractAsResource(null, ResourceType::new, x -> null);
+  void testExtractAsResourceNullValue() {
+    ResourceType output = ItemExtractorUtils.extractAsResource(null, ResourceType::new, x -> null);
 
     assertNotNull(output);
     assertEquals("", output.getResource());
-
   }
 
   @Test
-  void testToChoices(){
-
+  void testToChoices() {
     List<Choice> choices = new ArrayList<>();
 
     List<AltLabel> altLabels = new ArrayList<>();
@@ -384,13 +330,11 @@ public class ItemExtractorUtilsTest {
 
     assertTrue(choices.size() > 0);
 
-    for (AltLabel label : altLabels){
+    for (AltLabel label : altLabels) {
       List<Choice> result = choices.stream().filter(x -> x.getAltLabel().equals(label)).collect(
           Collectors.toList());
 
       assertTrue(result.size() > 0);
     }
-
   }
-
 }

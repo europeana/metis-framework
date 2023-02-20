@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2017-11-22
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
+@ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 public class ECloudConfig implements WebMvcConfigurer {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
@@ -84,6 +84,9 @@ public class ECloudConfig implements WebMvcConfigurer {
     return uisClient;
   }
 
+  /**
+   * Close all open clients.
+   */
   @PreDestroy
   public void close() {
     if (dataSetServiceClient != null) {

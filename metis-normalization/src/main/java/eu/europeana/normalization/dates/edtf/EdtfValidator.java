@@ -46,9 +46,8 @@ public final class EdtfValidator {
   /**
    * The interval validation only checks for the date part and not the time part of the date.
    * <p>It has been decided that only the date part should be checked, ignoring the time part. This
-   * could mean that the interval is technically not valid (e.g. start and end are on the same date
-   * but the start is later than the end). But since we are only interested in dates, we accept
-   * this.</p>
+   * could mean that the interval is technically not valid (e.g. start and end are on the same date but the start is later than
+   * the end). But since we are only interested in dates, we accept this.</p>
    *
    * @param intervalEdtfDate the interval date to check
    * @return true if it's valid
@@ -131,24 +130,20 @@ public final class EdtfValidator {
 
   /**
    * Validates an instant date.
-   * <p>It contains general validity of date and time parts and in addition it <b>cannot</b> have both parts(date,time) null or
+   * <p>It contains general validity of date part and in addition it <b>cannot</b> have date part null or
    * unknown.</p>
    *
    * @param instantEdtfDate the instant date to validate
    * @return true if the instant is valid
    */
   private static boolean validateInstant(InstantEdtfDate instantEdtfDate) {
-    boolean isInstantValid = false;
-    if (validateInstantOfInterval(instantEdtfDate)) {
-      final boolean datePartValid = instantEdtfDate.getEdtfDatePart() != null && !instantEdtfDate.getEdtfDatePart().isUnknown();
-      final boolean timePartValid = instantEdtfDate.getEdtfTimePart() != null;
-      isInstantValid = datePartValid || timePartValid;
-    }
-    return isInstantValid;
+    return validateInstantOfInterval(instantEdtfDate)
+        && instantEdtfDate.getEdtfDatePart() != null
+        && !instantEdtfDate.getEdtfDatePart().isUnknown();
   }
 
   private static boolean validateInstantOfInterval(InstantEdtfDate instantEdtfDate) {
-    return validateDatePart(instantEdtfDate.getEdtfDatePart()) && validateTimePart(instantEdtfDate.getEdtfTimePart());
+    return validateDatePart(instantEdtfDate.getEdtfDatePart());
   }
 
   private static boolean validateDatePart(EdtfDatePart edtfDatePart) {
@@ -185,23 +180,6 @@ public final class EdtfValidator {
   private static boolean isValidFebruaryDay(EdtfDatePart edtfDatePart) {
     return (edtfDatePart.getDay() > 0 && edtfDatePart.getDay() < 30 && edtfDatePart.getDay() != 29) || Year.isLeap(
         edtfDatePart.getYear());
-  }
-
-  private static boolean validateTimePart(EdtfTimePart edtfTimePart) {
-    final boolean isTimePartValid;
-    if (edtfTimePart == null) {
-      isTimePartValid = true;
-    } else {
-      final boolean isHourValid = edtfTimePart.getHour() >= 0 && edtfTimePart.getHour() < 24;
-      final boolean isMinuteValid =
-          edtfTimePart.getMinute() != null && (edtfTimePart.getMinute() >= 0 && edtfTimePart.getMinute() < 60);
-      final boolean isSecondValid =
-          edtfTimePart.getSecond() != null && (edtfTimePart.getSecond() >= 0 && edtfTimePart.getSecond() < 60);
-      final boolean isMillisecondValid =
-          edtfTimePart.getMillisecond() != null && (edtfTimePart.getMillisecond() >= 0 && edtfTimePart.getMillisecond() < 1000);
-      isTimePartValid = isHourValid && isMinuteValid && isSecondValid && isMillisecondValid;
-    }
-    return isTimePartValid;
   }
 
   private static boolean validateIntervalNotInFuture(IntervalEdtfDate intervalEdtfDate) {

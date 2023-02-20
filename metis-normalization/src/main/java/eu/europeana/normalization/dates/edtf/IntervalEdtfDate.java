@@ -63,6 +63,11 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
+  public boolean isUnspecified() {
+    return (start != null && start.isUnspecified()) || (end != null && end.isUnspecified());
+  }
+
+  @Override
   public void switchDayAndMonth() {
     if (start != null) {
       start.switchDayAndMonth();
@@ -80,16 +85,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   @Override
   public InstantEdtfDate getLastDay() {
     return end == null ? null : end.getLastDay();
-  }
-
-  @Override
-  public void removeTime() {
-    if (start != null) {
-      start.removeTime();
-    }
-    if (end != null) {
-      end.removeTime();
-    }
   }
 
   public InstantEdtfDate getStart() {

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>8</version>
+    <version>9</version>
   </parent>
   <artifactId>metis-normalization</artifactId>
 
@@ -12,6 +12,7 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-schema</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

@@ -19,14 +19,14 @@ public class EdtfDatePart implements Serializable {
   private boolean approximate;
 
   /**
-   * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string
-   * was equal to '<code>1900/?</code>').
+   * Indicates whether the date is unknown (e.g. if the input EDTF-compliant date interval string was equal to
+   * '<code>1900/?</code>').
    */
   private boolean unknown;
 
   /**
-   * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval
-   * string was equal to '<code>1900/</code>').
+   * Indicates whether the date is unspecified (e.g. if the input EDTF-compliant date interval string was equal to
+   * '<code>1900/</code>').
    */
   private boolean unspecified;
 
@@ -126,7 +126,7 @@ public class EdtfDatePart implements Serializable {
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
-    if (unspecified) {
+    if (unknown || unspecified) {
       stringBuilder.append("..");
     } else if (year < -THRESHOLD_4_DIGITS_YEAR || year > THRESHOLD_4_DIGITS_YEAR) {
       stringBuilder.append("Y").append(year);

@@ -27,6 +27,4 @@ public class VcardAddresses {
     this.vcardAddressesList =
         vcardAddressesList == null ? null : new ArrayList<>(vcardAddressesList);
   }
-
-
 }

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -42,7 +43,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.CollectionUtils;
 
-public class EntityMergeEngineTest {
+class EntityMergeEngineTest {
 
   private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
@@ -339,17 +340,14 @@ public class EntityMergeEngineTest {
     verifyString(original.getAbout(), copy.getAbout(), true);
     verifyList(original.getAltLabelList(), copy.getAltLabelList(), this::verifyLabel);
     verifyFirstListItem(original.getBeginList(), copy.getBegin(), this::verifyLabel);
-    verifyList(original.getBiographicalInformation(), copy.getBiographicalInformationList(),
-        this::verifyLabelResource);
+    verifyList(original.getBiographicalInformation(), copy.getBiographicalInformationList(), this::verifyLabelResource);
     verifyList(original.getDate(), copy.getDateList(), this::verifyLabelResource);
     verifyList(original.getPlaceOfBirth(), copy.getPlaceOfBirthList(), this::verifyLabelResource);
     verifyList(original.getPlaceOfDeath(), copy.getPlaceOfDeathList(), this::verifyLabelResource);
     verifyFirstListItem(original.getDateOfBirth(), copy.getDateOfBirth(), this::verifyLabel);
     verifyFirstListItem(original.getDateOfDeath(), copy.getDateOfDeath(), this::verifyLabel);
-    verifyFirstListItem(original.getDateOfEstablishment(), copy.getDateOfEstablishment(),
-        this::verifyLabel);
-    verifyFirstListItem(original.getDateOfTermination(), copy.getDateOfTermination(),
-        this::verifyLabel);
+    verifyFirstListItem(original.getDateOfEstablishment(), copy.getDateOfEstablishment(), this::verifyLabel);
+    verifyFirstListItem(original.getDateOfTermination(), copy.getDateOfTermination(), this::verifyLabel);
     verifyFirstListItem(original.getEndList(), copy.getEnd(), this::verifyLabel);
     verifyFirstListItem(original.getGender(), copy.getGender(), this::verifyLabel);
     verifyList(original.getHasMet(), copy.getHasMetList(), this::verifyResource);
@@ -357,8 +355,7 @@ public class EntityMergeEngineTest {
     verifyList(original.getIsRelatedTo(), copy.getIsRelatedToList(), this::verifyLabelResource);
     verifyList(original.getNotes(), copy.getNoteList(), this::verifyLabel);
     verifyList(original.getPrefLabelList(), copy.getPrefLabelList(), this::verifyLabel);
-    verifyList(original.getProfessionOrOccupation(), copy.getProfessionOrOccupationList(),
-        this::verifyLabelResource);
+    verifyList(original.getProfessionOrOccupation(), copy.getProfessionOrOccupationList(), this::verifyLabelResource);
     verifyList(original.getSameAs(), copy.getSameAList(), this::verifyPart);
     assertTrue(copy.getHasPartList().isEmpty());
     assertTrue(copy.getIsPartOfList().isEmpty());
@@ -379,32 +376,26 @@ public class EntityMergeEngineTest {
     assertNotNull(copy);
     verifyString(original.getAbout(), copy.getAbout(), true);
     int choicesCount = 0;
-    choicesCount += verifyChoiceList(original.getAltLabelList(), copy, Choice::ifAltLabel,
-        Choice::getAltLabel, this::verifyLabel);
-    choicesCount += verifyChoiceList(original.getBroader(), copy, Choice::ifBroader,
-        Choice::getBroader, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getBroadMatch(), copy, Choice::ifBroadMatch,
-        Choice::getBroadMatch, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getCloseMatch(), copy, Choice::ifCloseMatch,
-        Choice::getCloseMatch, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getExactMatch(), copy, Choice::ifExactMatch,
-        Choice::getExactMatch, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getInScheme(), copy, Choice::ifInScheme,
-        Choice::getInScheme, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getNarrower(), copy, Choice::ifNarrower,
-        Choice::getNarrower, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getNarrowMatch(), copy, Choice::ifNarrowMatch,
-        Choice::getNarrowMatch, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getNotation(), copy, Choice::ifNotation,
-        Choice::getNotation, this::verifyLabel);
-    choicesCount += verifyChoiceList(original.getNotes(), copy, Choice::ifNote, Choice::getNote,
+    choicesCount += verifyChoiceList(original.getAltLabelList(), copy, Choice::ifAltLabel, Choice::getAltLabel,
         this::verifyLabel);
-    choicesCount += verifyChoiceList(original.getPrefLabelList(), copy, Choice::ifPrefLabel,
-        Choice::getPrefLabel, this::verifyLabel);
-    choicesCount += verifyChoiceList(original.getRelated(), copy, Choice::ifRelated,
-        Choice::getRelated, this::verifyResource);
-    choicesCount += verifyChoiceList(original.getRelatedMatch(), copy, Choice::ifRelatedMatch,
-        Choice::getRelatedMatch, this::verifyResource);
+    choicesCount += verifyChoiceList(original.getBroader(), copy, Choice::ifBroader, Choice::getBroader, this::verifyResource);
+    choicesCount += verifyChoiceList(original.getBroadMatch(), copy, Choice::ifBroadMatch, Choice::getBroadMatch,
+        this::verifyResource);
+    choicesCount += verifyChoiceList(original.getCloseMatch(), copy, Choice::ifCloseMatch, Choice::getCloseMatch,
+        this::verifyResource);
+    choicesCount += verifyChoiceList(original.getExactMatch(), copy, Choice::ifExactMatch, Choice::getExactMatch,
+        this::verifyResource);
+    choicesCount += verifyChoiceList(original.getInScheme(), copy, Choice::ifInScheme, Choice::getInScheme, this::verifyResource);
+    choicesCount += verifyChoiceList(original.getNarrower(), copy, Choice::ifNarrower, Choice::getNarrower, this::verifyResource);
+    choicesCount += verifyChoiceList(original.getNarrowMatch(), copy, Choice::ifNarrowMatch, Choice::getNarrowMatch,
+        this::verifyResource);
+    choicesCount += verifyChoiceList(original.getNotation(), copy, Choice::ifNotation, Choice::getNotation, this::verifyLabel);
+    choicesCount += verifyChoiceList(original.getNotes(), copy, Choice::ifNote, Choice::getNote, this::verifyLabel);
+    choicesCount += verifyChoiceList(original.getPrefLabelList(), copy, Choice::ifPrefLabel, Choice::getPrefLabel,
+        this::verifyLabel);
+    choicesCount += verifyChoiceList(original.getRelated(), copy, Choice::ifRelated, Choice::getRelated, this::verifyResource);
+    choicesCount += verifyChoiceList(original.getRelatedMatch(), copy, Choice::ifRelatedMatch, Choice::getRelatedMatch,
+        this::verifyResource);
     // Checks for choices with unsupported types set.
     assertEquals(0, copy.getChoiceList().size() - choicesCount);
   }
@@ -426,17 +417,14 @@ public class EntityMergeEngineTest {
 
   // Compares those choices of the right type. Returns the number of choices covered.
   private <O, C> int verifyChoiceList(List<O> original, eu.europeana.metis.schema.jibx.Concept copy,
-      Predicate<Choice> choiceFilter, Function<Choice, C> choiceGetter,
-      BiConsumer<O, C> objectVerification) {
-    final List<C> items = copy.getChoiceList().stream().filter(choiceFilter).map(choiceGetter)
-        .collect(Collectors.toList());
+      Predicate<Choice> choiceFilter, Function<Choice, C> choiceGetter, BiConsumer<O, C> objectVerification) {
+    final List<C> items = copy.getChoiceList().stream().filter(choiceFilter).map(choiceGetter).collect(Collectors.toList());
     verifyList(original, items, objectVerification);
     return items.size();
   }
 
   // Compares an original list with a copied list.
-  private <O, C> void verifyList(List<O> original, List<C> copy,
-      BiConsumer<O, C> objectVerification) {
+  private <O, C> void verifyList(List<O> original, List<C> copy, BiConsumer<O, C> objectVerification) {
 
     // We compare all non-null originals.
     final List<O> filteredOriginal;
@@ -455,8 +443,7 @@ public class EntityMergeEngineTest {
   }
 
   // Compares an original list where only the first entry is copied.
-  private <O, C> void verifyFirstListItem(List<O> original, C copy,
-      BiConsumer<O, C> objectVerification) {
+  private <O, C> void verifyFirstListItem(List<O> original, C copy, BiConsumer<O, C> objectVerification) {
 
     // Find the first non-null item.
     O firstItem = null;
@@ -526,8 +513,7 @@ public class EntityMergeEngineTest {
     }
   }
 
-  private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount,
-      int timeSpanCount, int organizationCount) {
+  private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount, int timeSpanCount, int organizationCount) {
 
     // Four main lists.
     if (agentCount == 0) {
@@ -582,17 +568,16 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergePlace() throws SerializationException {
+  void testMergePlace() throws SerializationException {
 
     // Create input
     final List<EnrichmentBase> inputList = new ArrayList<>();
     inputList.add(createPlace());
     inputList.add(createFirstPlaceWithNullValues());
     inputList.add(createSecondPlaceWithNullValues());
-    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
-        .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
-        .collect(Collectors.toList());
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
+        Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
 
     // Perform merge
     RDF rdf = new RDF();
@@ -611,7 +596,7 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergeOtherTypes() throws SerializationException {
+  void testMergeOtherTypes() throws SerializationException {
 
     // Create input
     final List<EnrichmentBase> inputList = new ArrayList<>();
@@ -621,10 +606,9 @@ public class EntityMergeEngineTest {
     inputList.add(createAgentWithNullValues());
     inputList.add(createConceptWithNullValues());
     inputList.add(createOrganization());
-    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
-        .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
-        .collect(Collectors.toList());
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
+        Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
 
     // Perform merge
     RDF rdf = new RDF();
@@ -651,16 +635,17 @@ public class EntityMergeEngineTest {
   }
 
   @Test
-  public void testMergeUnknownType() {
+  void testMergeUnknownType() {
     final List<EnrichmentBase> inputList = new ArrayList<>();
     inputList.add(new EnrichmentBase() {
     });
-    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper
-        .createEnrichmentResultBaseWrapperList(Collections.singletonList(inputList))
-        .stream().map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream)
-        .collect(Collectors.toList());
+    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
+        Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
     RDF rdf = new RDF();
-    assertThrows(IllegalArgumentException.class, () -> new EntityMergeEngine()
-        .mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
+    EntityMergeEngine entityMergeEngine = new EntityMergeEngine();
+    IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+        () -> entityMergeEngine.mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
+    assertTrue( illegalArgumentException.getMessage().contains("Unknown entity type"));
   }
 }

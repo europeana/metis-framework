@@ -12,15 +12,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EdtfParser {
 
-
+  // TODO: 21/12/2022 This is used transparently for both EDTF parsing as well as Dcmi parsing which is probably
+  //  incorrect, because of the allowance of the [?%~] modifiers(part of EDTF level1 https://www.loc.gov/standards/datetime/).
   // TODO: 19/07/2022 Simplify regex by potentially splitting it
   private static final Pattern DATE_PATTERN = Pattern
       .compile("((?<year1>-?\\d{4})-(?<month1>\\d{2})-(?<day1>\\d{2})|"
           + "(?<year2>-?\\d{4})-(?<month2>\\d{2})|" + "(?<year3>-?\\d{4})" + ")(?<modifier>[?%~]?)");
-  private static final Pattern TIME_PATTERN = Pattern
-      .compile("((?<hour1>\\d{2}):(?<minute1>\\d{2}):(?<second1>\\d{2})|" + "(?<hour2>\\d{2}):(?<minute2>\\d{2})|"
-          + "(?<hour3>\\d{2})|"
-          + "(?<hour4>\\d{2}):(?<minute4>\\d{2}):(?<second4>\\d{2})(\\.(?<millis>\\d{1,3}))?(Z|[+\\-]\\d{2}:?\\d{0,2})?)");
 
 
   public AbstractEdtfDate parse(String edtfString) throws ParseException {
@@ -36,13 +33,10 @@ public class EdtfParser {
   protected InstantEdtfDate parseInstant(String edtfString) throws ParseException {
     if (edtfString.contains("T")) {
       String datePart = edtfString.substring(0, edtfString.indexOf('T'));
-      String timePart = edtfString.substring(edtfString.indexOf('T') + 1);
       if (datePart.isEmpty()) {
-        return new InstantEdtfDate(parseTime(timePart));
+        throw new ParseException("Date part is empty which is not allowed", 0);
       }
-      return new InstantEdtfDate(parseDate(datePart), parseTime(timePart));
-    } else if (edtfString.contains(":")) {
-      return new InstantEdtfDate(parseTime(edtfString));
+      return new InstantEdtfDate(parseDate(datePart));
     } else {
       return new InstantEdtfDate(parseDate(edtfString));
     }
@@ -58,31 +52,6 @@ public class EdtfParser {
       throw new ParseException(edtfString, 0);
     }
     return new IntervalEdtfDate(start, end);
-  }
-
-  protected EdtfTimePart parseTime(String edtfString) throws ParseException {
-    Matcher matcher = TIME_PATTERN.matcher(edtfString);
-    final EdtfTimePart edtfTimePart;
-    if (matcher.matches()) {
-      edtfTimePart = new EdtfTimePart();
-      if (!StringUtils.isEmpty(matcher.group("hour3"))) {
-        edtfTimePart.setHour(Integer.parseInt(matcher.group("hour3")));
-      } else if (!StringUtils.isEmpty(matcher.group("hour2"))) {
-        edtfTimePart.setHour(Integer.parseInt(matcher.group("hour2")));
-        edtfTimePart.setMinute(Integer.parseInt(matcher.group("minute2")));
-      } else if (!StringUtils.isEmpty(matcher.group("hour1"))) {
-        edtfTimePart.setHour(Integer.parseInt(matcher.group("hour1")));
-        edtfTimePart.setMinute(Integer.parseInt(matcher.group("minute1")));
-        edtfTimePart.setSecond(Integer.parseInt(matcher.group("second1")));
-      } else {
-        edtfTimePart.setHour(Integer.parseInt(matcher.group("hour4")));
-        edtfTimePart.setMinute(Integer.parseInt(matcher.group("minute4")));
-        edtfTimePart.setSecond(Integer.parseInt(matcher.group("second4")));
-      }
-    } else {
-      throw new ParseException(format("Time parsing does not match for input: %s", edtfString), 0);
-    }
-    return edtfTimePart;
   }
 
   protected EdtfDatePart parseDate(String edtfString) throws ParseException {

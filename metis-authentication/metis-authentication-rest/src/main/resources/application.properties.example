@@ -1,0 +1,48 @@
+#Truststore configuration
+truststore.path=
+truststore.password=
+
+#Zoho configuration
+#It's retrieved when registering the application on Zoho. It's one use only and every subsequent use shouldn't impact the application
+zoho.initial.grant.token=
+zoho.refresh.token=
+zoho.current.user.email=
+zoho.client.id=
+zoho.client.secret=
+zoho.redirect.uri=
+
+#Hibernate configuration
+hibernate.connection.driver_class=org.postgresql.Driver
+hibernate.connection.url=jdbc:
+hibernate.dialect=org.hibernate.dialect.PostgreSQL82Dialect
+hibernate.connection.username=
+hibernate.connection.password=
+hibernate.c3p0.min_size=5
+hibernate.c3p0.max_size=20
+hibernate.c3p0.timeout=1800
+hibernate.c3p0.max_statements=50
+
+#Miscellaneus
+metis.access.token.expire.time.in.mins=10
+allowed.cors.hosts=*
+
+#Actuator
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+
+#Logging
+logging.config=
+
+# Elastic APM
+elastic.apm.enabled=false
+elastic.apm.recording=true
+elastic.apm.instrument=true
+elastic.apm.service_name=metis-authentication
+elastic.apm.server_url=
+elastic.apm.environment=test
+elastic.apm.application_packages=eu.europeana
+elastic.apm.log_level=ERROR
+elastic.apm.capture_body=all
+elastic.apm.capture_headers=true
+elastic.apm.metrics_interval=5s

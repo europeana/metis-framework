@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: metis-authentication-postgres
+    environment:
+      - POSTGRES_DB=metis-authentication_local
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - '5432:5432'
+  metis-authentication-local:
+    image: europeana/metis-authentication:develop
+    container_name: metis-authentication-local
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      HIBERNATE_CONNECTION_URL: jdbc:postgresql://metis-authentication-postgres:5432/metis-authentication_local
+    volumes:
+      - /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/custom-truststore.jks:/data/certificates/custom-truststore.jks
+      - /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties:/application.properties
+      - /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/log4j2.xml:/data/logging/log4j2.xml
+    depends_on:
+      - postgres

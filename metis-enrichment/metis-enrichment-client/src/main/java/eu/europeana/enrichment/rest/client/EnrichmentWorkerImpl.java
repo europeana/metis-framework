@@ -2,14 +2,15 @@ package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.enrichment.rest.client.dereference.Dereferencer;
 import eu.europeana.enrichment.rest.client.enrichment.Enricher;
-import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
-import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.report.ProcessedResult;
+import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,75 +53,87 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   }
 
   @Override
-  public byte[] process(InputStream inputStream)
-      throws EnrichmentException, DereferenceException, SerializationException {
+  public ProcessedResult<byte[]> process(InputStream inputStream) {
     return process(inputStream, EnumSet.allOf(Mode.class));
   }
 
   @Override
-  public byte[] process(final InputStream inputStream, Set<Mode> modes)
-      throws SerializationException, EnrichmentException, DereferenceException {
+  public ProcessedResult<byte[]> process(final InputStream inputStream, Set<Mode> modes) {
+    ProcessedResult<byte[]> result;
+    HashSet<Report> reports = new HashSet<>();
     if (inputStream == null) {
-      throw new IllegalArgumentException("The input stream cannot be null.");
+      IllegalArgumentException e = new IllegalArgumentException("The input stream cannot be null.");
+      reports.add(Report
+          .buildEnrichmentError()
+          .withException(e)
+          .build());
+      result = new ProcessedResult<>(null, reports);
+    } else {
+      try {
+        final RDF inputRdf = convertInputStreamToRdf(inputStream);
+        result = new ProcessedResult<>(convertRdfToBytes(process(inputRdf, modes)));
+        return result;
+      } catch (SerializationException e) {
+        reports.add(Report
+            .buildEnrichmentError()
+            .withException(e)
+            .build());
+        result = new ProcessedResult<>(null, reports);
+      }
     }
-    try {
-      final RDF inputRdf = convertInputStreamToRdf(inputStream);
-      final RDF resultRdf = process(inputRdf, modes);
-      return convertRdfToBytes(resultRdf);
-    } catch (EnrichmentException e){
-      throw new EnrichmentException(
-          "Something went wrong with the enrichment from the RDF file.", e);
-    } catch (DereferenceException e){
-      throw new DereferenceException(
-          "Something went wrong with the dereference from the RDF file.", e);
-    }
+    return result;
   }
 
   @Override
-  public String process(String inputString)
-      throws EnrichmentException, DereferenceException, SerializationException {
+  public ProcessedResult<String> process(String inputString) {
     return process(inputString, EnumSet.allOf(Mode.class));
   }
 
   @Override
-  public String process(final String inputString, Set<Mode> modes)
-      throws SerializationException, EnrichmentException, DereferenceException {
+  public ProcessedResult<String> process(final String inputString, Set<Mode> modes) {
+    ProcessedResult<String> result;
+    HashSet<Report> reports = new HashSet<>();
     if (inputString == null) {
-      throw new IllegalArgumentException("Input RDF string cannot be null.");
+      IllegalArgumentException e = new IllegalArgumentException("Input RDF string cannot be null.");
+      reports.add(Report
+          .buildEnrichmentError()
+          .withValue(inputString)
+          .withException(e)
+          .build());
+      result = new ProcessedResult<>(null, reports);
+    } else {
+      try {
+        final RDF inputRdf = convertStringToRdf(inputString);
+        result = new ProcessedResult<>(convertRdfToString(process(inputRdf, modes)));
+      } catch (SerializationException e) {
+        reports.add(Report
+            .buildEnrichmentError()
+            .withValue(inputString)
+            .withException(e)
+            .build());
+        result = new ProcessedResult<>(null, reports);
+      }
     }
-    try {
-      final RDF inputRdf = convertStringToRdf(inputString);
-      final RDF resultRdf = process(inputRdf, modes);
-      return convertRdfToString(resultRdf);
-    } catch (EnrichmentException e){
-      throw new EnrichmentException(
-          "Something went wrong with the enrichment from the RDF file.", e);
-    } catch (DereferenceException e){
-      throw new DereferenceException(
-          "Something went wrong with the dereference from the RDF file.", e);
-    }
+    return result;
   }
 
   @Override
-  public RDF process(final RDF inputRdf)
-      throws  EnrichmentException, DereferenceException {
+  public ProcessedResult<RDF> process(final RDF inputRdf) {
     return process(inputRdf, EnumSet.allOf(Mode.class));
   }
 
   @Override
-  public RDF process(final RDF rdf, Set<Mode> modes)
-      throws EnrichmentException, DereferenceException {
-
+  public ProcessedResult<RDF> process(final RDF rdf, Set<Mode> modes) {
+    HashSet<Report> reports = new HashSet<>();
     // Sanity checks
     if (rdf == null) {
-      throw new IllegalArgumentException("Input RDF cannot be null.");
+      return illegalArgument("Input RDF cannot be null.", reports);
     }
     if (modes == null) {
-      throw new IllegalArgumentException("Set of Modes cannot be null.");
+      return illegalArgument("Set of Modes cannot be null.", reports);
     }
     if (!getSupportedModes().containsAll(modes)) {
-      throw new IllegalArgumentException(
-          "The requested mode(s) is not supported by this instance.");
+      return illegalArgument("The requested mode(s) is not supported by this instance.", reports);
     }
 
     // Preparation
@@ -132,7 +145,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Dereferencing first: this is because we may enrich based on its results.
     if (modes.contains(Mode.DEREFERENCE)) {
       LOGGER.debug("Performing dereferencing...");
-      dereferencer.dereference(rdf);
+      reports.addAll(dereferencer.dereference(rdf));
       LOGGER.debug("Dereferencing completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(rdf));
@@ -142,7 +155,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Enrichment second: we use the result of dereferencing as well.
     if (modes.contains(Mode.ENRICHMENT)) {
       LOGGER.debug("Performing enrichment...");
-      enricher.enrichment(rdf);
+      reports.addAll(enricher.enrichment(rdf));
       LOGGER.debug("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
@@ -151,7 +164,14 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
     // Done
     LOGGER.debug("Processing complete.");
-    return rdf;
+    LOGGER.debug("REPORT: {}", reports);
+    return new ProcessedResult<>(rdf, reports);
+  }
+
+  private static ProcessedResult<RDF> illegalArgument(String s, HashSet<Report> reports) {
+    IllegalArgumentException e = new IllegalArgumentException(s);
+    reports.add(Report.buildEnrichmentError().withException(e).build());
+    return new ProcessedResult<>(null, reports);
   }
 
   @Override
@@ -168,13 +188,20 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
   }
 
-
   String convertRdfToString(RDF rdf) throws SerializationException {
     return rdfConversionUtils.convertRdfToString(rdf);
   }
 
-  byte[] convertRdfToBytes(RDF rdf) throws SerializationException {
-    return rdfConversionUtils.convertRdfToBytes(rdf);
+  ProcessedResult<String> convertRdfToString(ProcessedResult<RDF> rdfProcessedResult) throws SerializationException {
+    return new ProcessedResult<>(
+        this.convertRdfToString(rdfProcessedResult.getProcessedRecord()),
+        rdfProcessedResult.getReport());
+  }
+
+  ProcessedResult<byte[]> convertRdfToBytes(ProcessedResult<RDF> rdfProcessedResult) throws SerializationException {
+    return new ProcessedResult<>(
+        rdfConversionUtils.convertRdfToBytes(rdfProcessedResult.getProcessedRecord()),
+        rdfProcessedResult.getReport());
   }
 
   RDF convertStringToRdf(String xml) throws SerializationException {

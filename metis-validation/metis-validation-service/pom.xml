@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>8</version>
+    <version>9</version>
   </parent>
   <artifactId>metis-validation-service</artifactId>
   <dependencies>
@@ -21,12 +21,10 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-utils</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-network</artifactId>
-      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 

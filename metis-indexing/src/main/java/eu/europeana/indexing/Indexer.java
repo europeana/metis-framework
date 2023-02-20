@@ -9,6 +9,7 @@ import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -69,6 +70,23 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case a problem occurred during indexing.
    */
   void index(String record, IndexingProperties indexingProperties) throws IndexingException;
+
+  /**
+   * <p>
+   * This method indexes a single record, publishing it to the provided data stores.
+   * </p>
+   * <p>
+   * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
+   * not done within a transaction.
+   * </p>
+   *
+   * @param stringRdfRecord The record to index (can be parsed to RDF).
+   * @param indexingProperties The properties of this indexing operation.
+   * @param tierResultsConsumer The predicate deciding if the record should be published based on evaluated tier.
+   * @throws IndexingException In case a problem occurred during indexing.
+   */
+  void index(String stringRdfRecord, IndexingProperties indexingProperties,
+                    Predicate<TierResults> tierResultsConsumer) throws IndexingException;
 
   /**
    * <p>

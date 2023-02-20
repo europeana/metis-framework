@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,16 +29,34 @@ public class EnrichmentResultBaseWrapper {
       @XmlElement(name = "TimeSpan", namespace = "http://www.europeana.eu/schemas/edm/", type = TimeSpan.class)})
   private List<EnrichmentBase> enrichmentBase = new ArrayList<>();
 
+  private final DereferenceResultStatus dereferenceStatus;
+
+  /**
+   * Default Constructor
+   */
   public EnrichmentResultBaseWrapper() {
+    this.dereferenceStatus = DereferenceResultStatus.SUCCESS;
   }
 
   /**
    * Constructor with all fields
    *
    * @param enrichmentBase the enrichment information class generated
+   * @param dereferenceStatus the status of the dereference process
+   */
+  public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase, DereferenceResultStatus dereferenceStatus) {
+    this.enrichmentBase = new ArrayList<>(enrichmentBase);
+    this.dereferenceStatus = dereferenceStatus;
+  }
+
+  /**
+   * Constructor with enrichment base
+   *
+   * @param enrichmentBase the enrichment information class generated
    */
   public EnrichmentResultBaseWrapper(List<EnrichmentBase> enrichmentBase) {
     this.enrichmentBase = new ArrayList<>(enrichmentBase);
+    this.dereferenceStatus = null;
   }
 
   public List<EnrichmentBase> getEnrichmentBaseList() {
@@ -45,16 +64,19 @@ public class EnrichmentResultBaseWrapper {
   }
 
   /**
-   * Convert a collection of {@link EnrichmentBase} to a list of {@link
-   * EnrichmentResultBaseWrapper}.
+   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentResultBaseWrapper}.
    * <p>This is mostly used for dereferencing.</p>
    *
    * @param resultList the collection of {@link EnrichmentBase}
+   * @param dereferenceStatus the status of dereferencing process
    * @return the converted list
    */
   public static List<EnrichmentResultBaseWrapper> createEnrichmentResultBaseWrapperList(
-      Collection<List<EnrichmentBase>> resultList) {
-    return resultList.stream().map(EnrichmentResultBaseWrapper::new).collect(Collectors.toList());
+      Collection<List<EnrichmentBase>> resultList, DereferenceResultStatus dereferenceStatus) {
+    return resultList.stream().map(item -> new EnrichmentResultBaseWrapper(item, dereferenceStatus)).collect(Collectors.toList());
   }
 
+  public DereferenceResultStatus getDereferenceStatus() {
+    return dereferenceStatus;
+  }
 }

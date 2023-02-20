@@ -13,8 +13,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Contains fields to be inherited by other subclasses e.g.
- * {@link Agent}, {@link Concept}, {@link Place}, {@link TimeSpan}
+ * Contains fields to be inherited by other subclasses e.g. {@link Agent}, {@link Concept}, {@link Place}, {@link TimeSpan}
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlTransient

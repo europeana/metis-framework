@@ -1,0 +1,11 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "http://entity-api.mock/entity/search?wskey=api2demo&text=Piotras%20Kalabuchovas&type=agent&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 0,
+  "partOf": {
+    "id": "http://entity-api.mock/entity/search?wskey=api2demo&text=Piotras%20Kalabuchovas&type=agent",
+    "type": "ResultList",
+    "total": 0
+  }
+}

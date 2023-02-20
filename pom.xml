@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>8</version>
+  <version>9</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -27,7 +27,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v8</tag>
+    <tag>v9</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -135,7 +135,7 @@
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
     <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
-    <version.apache.commons.text>1.9</version.apache.commons.text>
+    <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commonscompress>1.21</version.commonscompress>
     <version.corelib>2.15.8-SNAPSHOT</version.corelib>
 
@@ -148,15 +148,16 @@
     <version.hibernate.core>5.4.32.Final</version.hibernate.core>
     <version.ibm.icu4j>69.1</version.ibm.icu4j>
     <version.itextpdf>5.5.13.2</version.itextpdf>
-    <version.jackson>2.12.3</version.jackson>
+    <version.jackson>2.13.0</version.jackson>
+    <version.elastic.apm>1.34.1</version.elastic.apm>
     <version.javax.annotation>1.3.2</version.javax.annotation>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.javax.ws.rs.api>2.1.1</version.javax.ws.rs.api>
     <version.jaxb.api>2.3.1</version.jaxb.api>
     <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
-    <version.jena.iri>4.1.0</version.jena.iri>
-    <version.jena.core>3.11.0</version.jena.core>
+    <version.jena.iri>4.7.0</version.jena.iri>
+    <version.jena.core>4.7.0</version.jena.core>
     <version.jersey>2.21</version.jersey>
     <version.json>20210307</version.json>
     <version.json.path>2.5.0</version.json.path>
@@ -172,7 +173,7 @@
     <version.mockito.core>4.3.1</version.mockito.core>
     <version.morphia.core>2.2.1</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
-    <version.postgresql>42.2.20</version.postgresql>
+    <version.postgresql>42.5.1</version.postgresql>
     <version.powermock>2.0.9</version.powermock>
     <version.rabbitmq>5.12.0</version.rabbitmq>
     <version.redisson>3.15.5</version.redisson>
@@ -181,15 +182,17 @@
     <version.slf4j>1.7.30</version.slf4j>
     <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.spring>5.3.7</version.spring>
-    <version.spring-boot-autoconfigure>2.7.0</version.spring-boot-autoconfigure>
+    <version.spring.boot>2.7.8</version.spring.boot>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.security>5.5.0</version.spring.security>
     <version.spring.test>${version.spring}</version.spring.test>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
+    <version.springdoc.openapi>1.6.14</version.springdoc.openapi>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
     <version.tika.core>1.26</version.tika.core>
+    <version.wiremock-jre>2.34.0</version.wiremock-jre>
     <version.xerces>2.12.2</version.xerces>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
     <version.xsom>20140925</version.xsom>
@@ -198,6 +201,33 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- METIS COMMONS -->
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-mongo</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-network</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-solr</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-zoho</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>

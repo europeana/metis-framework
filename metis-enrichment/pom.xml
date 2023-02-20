@@ -4,15 +4,13 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>8</version>
+    <version>9</version>
   </parent>
   <artifactId>metis-enrichment</artifactId>
   <packaging>pom</packaging>
 
   <modules>
-    <module>metis-enrichment-service</module>
     <module>metis-enrichment-common</module>
-    <module>metis-enrichment-rest</module>
     <module>metis-enrichment-client</module>
   </modules>
 

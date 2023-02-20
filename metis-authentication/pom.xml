@@ -4,10 +4,11 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>8</version>
+    <version>9</version>
   </parent>
   <artifactId>metis-authentication</artifactId>
   <packaging>pom</packaging>
+
   <modules>
     <module>metis-authentication-common</module>
     <module>metis-authentication-rest</module>

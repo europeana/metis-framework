@@ -12,12 +12,8 @@ import org.springframework.stereotype.Component;
  * <p>
  * It uses {@link PropertySource} to identify the properties on application startup
  * </p>
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-03-13
  */
 @Component
-@PropertySource({"classpath:metis.properties"})
 public class ConfigurationPropertiesHolder {
 
   //Orchestration

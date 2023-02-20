@@ -102,10 +102,11 @@ public class DataEvolutionUtils {
     }
 
     // Find the latest successful plugin of one of these types. If none found, throw exception.
-    final List<ExecutablePlugin> candidates = workflowExecution.getMetisPlugins().stream()
-        .filter(plugin -> plugin instanceof AbstractExecutablePlugin).map(plugin -> (AbstractExecutablePlugin<?>) plugin)
-        .filter(plugin -> predecessorTypes.contains(plugin.getPluginMetadata().getExecutablePluginType()))
-        .filter(plugin -> plugin.getPluginStatus() == PluginStatus.FINISHED).collect(Collectors.toList());
+    final List<ExecutablePlugin> candidates =
+        workflowExecution.getMetisPlugins().stream()
+                         .filter(AbstractExecutablePlugin.class::isInstance).map(plugin -> (AbstractExecutablePlugin<?>) plugin)
+                         .filter(plugin -> predecessorTypes.contains(plugin.getPluginMetadata().getExecutablePluginType()))
+                         .filter(plugin -> plugin.getPluginStatus() == PluginStatus.FINISHED).collect(Collectors.toList());
     if (!candidates.isEmpty()) {
       return candidates.get(candidates.size() - 1);
     }
@@ -164,7 +165,7 @@ public class DataEvolutionUtils {
       final PluginWithExecutionId<ExecutablePlugin> successfulPublish = workflowExecutionDao.getLatestSuccessfulExecutablePlugin(
           datasetId, EnumSet.of(ExecutablePluginType.PUBLISH), false);
       final boolean hasAtLeastOneSuccessfulPlugin = Optional.ofNullable(successfulPublish)
-          .filter(DataEvolutionUtils::pluginHasSuccessfulRecords).isPresent();
+                                                            .filter(DataEvolutionUtils::pluginHasSuccessfulRecords).isPresent();
       if (!hasAtLeastOneSuccessfulPlugin) {
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
@@ -176,18 +177,21 @@ public class DataEvolutionUtils {
 
       // Determine which predecessor plugin types are permissible (list is never empty).
       final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
-          .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
+                                                                 .<Set<ExecutablePluginType>>map(EnumSet::of)
+                                                                 .orElse(defaultPredecessorTypes);
 
       // Find the latest successful harvest to compare with. If none exist, throw exception.
-      final PluginWithExecutionId<ExecutablePlugin> latestHarvest = Optional.ofNullable(
-              workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_PLUGIN_GROUP, true))
-          .orElseThrow(() -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+      final PluginWithExecutionId<ExecutablePlugin> latestHarvest =
+          Optional.ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_PLUGIN_GROUP, true))
+                  .orElseThrow(() -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
 
       // Find the latest successful plugin of each type and filter on existence of successful records.
-      final Stream<PluginWithExecutionId<ExecutablePlugin>> latestSuccessfulPlugins = predecessorTypes.stream()
-          .map(Collections::singleton)
-          .map(type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true)).filter(Objects::nonNull)
-          .filter(DataEvolutionUtils::pluginHasSuccessfulRecords);
+      final Stream<PluginWithExecutionId<ExecutablePlugin>> latestSuccessfulPlugins =
+          predecessorTypes.stream()
+                          .map(Collections::singleton)
+                          .map(type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true))
+                          .filter(Objects::nonNull)
+                          .filter(DataEvolutionUtils::pluginHasSuccessfulRecords);
 
       // Sort on finished state, so that the root check occurs as little as possible.
       final Stream<PluginWithExecutionId<ExecutablePlugin>> sortedSuccessfulPlugins = latestSuccessfulPlugins.sorted(
@@ -199,7 +203,8 @@ public class DataEvolutionUtils {
       final Predicate<PluginWithExecutionId<ExecutablePlugin>> rootCheck = plugin -> getRootAncestor(plugin).equals(
           latestHarvest);
       predecessorPlugin = sortedSuccessfulPlugins.filter(rootCheck).findFirst()
-          .orElseThrow(() -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+                                                 .orElseThrow(() -> new PluginExecutionNotAllowed(
+                                                     CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
     }
     return predecessorPlugin;
   }
@@ -207,7 +212,8 @@ public class DataEvolutionUtils {
   private static Boolean pluginHasSuccessfulRecords(PluginWithExecutionId<ExecutablePlugin> plugin) {
     final ExecutionProgress executionProgress = plugin.getPlugin().getExecutionProgress();
     return Optional.ofNullable(executionProgress)
-        .map(progress -> progress.getProcessedRecords() > progress.getErrors() || progress.getDeletedRecords() > 0).orElse(Boolean.FALSE);
+                   .map(progress -> progress.getProcessedRecords() > progress.getErrors() || progress.getDeletedRecords() > 0)
+                   .orElse(Boolean.FALSE);
   }
 
   /**
@@ -343,9 +349,10 @@ public class DataEvolutionUtils {
     // Extract all (finished) publish plugins inversely sorted by started date (most recent first).
     final List<PluginWithExecutionId<IndexToPublishPlugin>> publishOperations = new ArrayList<>();
     executionsWithPublishOperations.getResults().stream().map(ExecutionDatasetPair::getExecution).forEach(
-        execution -> execution.getMetisPlugins().stream().filter(plugin -> plugin instanceof IndexToPublishPlugin)
-            .map(plugin -> (IndexToPublishPlugin) plugin)
-            .map(plugin -> new PluginWithExecutionId<>(execution.getId().toString(), plugin)).forEach(publishOperations::add));
+        execution -> execution.getMetisPlugins().stream().filter(IndexToPublishPlugin.class::isInstance)
+                              .map(IndexToPublishPlugin.class::cast)
+                              .map(plugin -> new PluginWithExecutionId<>(execution.getId().toString(), plugin))
+                              .forEach(publishOperations::add));
     final Comparator<PluginWithExecutionId<IndexToPublishPlugin>> comparator = Comparator.comparing(
         pair -> pair.getPlugin().getStartedDate());
     publishOperations.sort(comparator.reversed());

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-transformation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>8</version>
+    <version>9</version>
   </parent>
   <artifactId>metis-transformation-service</artifactId>
   <dependencies>
@@ -33,10 +33,6 @@
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
       <version>${version.saxon.he}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
