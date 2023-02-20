@@ -10,6 +10,9 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.BiFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +23,11 @@ public class Iso8601Parser {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Iso8601Parser.class);
   public static final int ISO_8601_MINIMUM_YEAR_DIGITS = 4;
-  private static final DateTimeFormatter dateTimeFormatterUUUMM = DateTimeFormatter.ofPattern("uuuu-MM");
-  private static final DateTimeFormatter dateTimeFormatterUUUU = DateTimeFormatter.ofPattern("uuuu");
+
+  private static final Map<DateTimeFormatter, BiFunction<CharSequence, DateTimeFormatter, TemporalAccessor>> DATE_TIME_FORMATTERS =
+      Map.of(DateTimeFormatter.ISO_LOCAL_DATE, LocalDate::parse,
+          DateTimeFormatter.ofPattern("uuuu-MM"), YearMonth::parse,
+          DateTimeFormatter.ofPattern("uuuu"), Year::parse);
 
   /**
    * Parser for the iso8601 date part only. The time part if existent is stripped away.
@@ -61,32 +67,32 @@ public class Iso8601Parser {
   }
 
   private TemporalAccessor getTemporalAccessor(String input) {
-    try {
-      return LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
-    } catch (DateTimeParseException e1) {
-      LOGGER.debug("Parsing date failed", e1);
+    final TemporalAccessor temporalAccessor = DATE_TIME_FORMATTERS.entrySet().stream().map(entry -> {
       try {
-        return YearMonth.parse(input, dateTimeFormatterUUUMM);
-      } catch (DateTimeParseException e2) {
-        LOGGER.debug("Parsing date failed", e2);
-        return Year.parse(input, dateTimeFormatterUUUU);
+        return entry.getValue().apply(input, entry.getKey());
+      } catch (DateTimeParseException e) {
+        LOGGER.debug("Parsing date failed", e);
       }
+      return null;
+    }).filter(Objects::nonNull).findFirst().orElse(null);
+
+    if (temporalAccessor == null) {
+      throw new DateTimeException("Parsing date failed");
     }
+    return temporalAccessor;
   }
 
-  public String temporalAccessorToString(TemporalAccessor temporalAccessor) {
-    String resultDateString;
-    try {
+  protected String temporalAccessorToString(TemporalAccessor temporalAccessor) {
+    final String resultDateString;
+    if (temporalAccessor instanceof LocalDate) {
       resultDateString = LocalDate.from(temporalAccessor).toString();
-    } catch (DateTimeException exception1) {
-      LOGGER.debug("LocalDate parsing failed", exception1);
-      try {
-        resultDateString = YearMonth.from(temporalAccessor).toString();
-      } catch (DateTimeException exception2) {
-        LOGGER.debug("YearMonth parsing failed", exception2);
-        final DecimalFormat decimalFormat = new DecimalFormat("0000");
-        resultDateString = decimalFormat.format(Year.from(temporalAccessor).getValue());
-      }
+    } else if (temporalAccessor instanceof YearMonth) {
+      resultDateString = YearMonth.from(temporalAccessor).toString();
+    } else if (temporalAccessor instanceof Year) {
+      final DecimalFormat decimalFormat = new DecimalFormat("0000");
+      resultDateString = decimalFormat.format(Year.from(temporalAccessor).getValue());
+    } else {
+      resultDateString = null;
     }
     return resultDateString;
   }
