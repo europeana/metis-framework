@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>9</version>
+    <version>10-SNAPSHOT</version>
   </parent>
   <artifactId>metis-core-service</artifactId>
 
