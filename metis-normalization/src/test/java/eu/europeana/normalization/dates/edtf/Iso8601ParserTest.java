@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class Iso8601ParserTest {
 
-  private Iso8601Parser iso8601Parser = new Iso8601Parser();
+  private final Iso8601Parser iso8601Parser = new Iso8601Parser();
 
   @ParameterizedTest
   @MethodSource

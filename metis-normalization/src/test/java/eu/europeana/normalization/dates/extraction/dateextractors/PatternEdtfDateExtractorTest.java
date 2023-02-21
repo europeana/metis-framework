@@ -1,28 +1,23 @@
-package eu.europeana.normalization.dates;
+package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
+import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternEdtfDateExtractor;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-/**
- * Unit tests to validate EDTF format patternEdtfDateExtractor Level 1
- *
- * @see <a href="https://www.loc.gov/standards/datetime/">EDTF library specification</a>
- */
-class DateLevel1Test {
+class PatternEdtfDateExtractorTest {
 
   private final PatternEdtfDateExtractor patternEdtfDateExtractor = new PatternEdtfDateExtractor();
 
@@ -56,64 +51,154 @@ class DateLevel1Test {
 
   @ParameterizedTest
   @MethodSource
+  @DisplayName("[year][“-”][month][“-”][day] Complete representation")
+  void completeDateRepresentationLevel0(String input, String expected) {
+    extract(input, expected);
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  @DisplayName("[year][“-”][month] Reduced precision for year and month")
+  void reducedPrecisionForYearAndMonthLevel0(String input, String expected) {
+    extract(input, expected);
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  @DisplayName("[year] Reduced precision for year")
+  void reducedPrecisionForYearLevel0(String input, String expected) {
+    extract(input, expected);
+  }
+
+  @ParameterizedTest
+  @MethodSource
+  void dateIntervalRepresentationLevel0(String input, String expected) {
+    extract(input, expected);
+  }
+
+  @ParameterizedTest
+  @MethodSource
   @DisplayName("Letter-prefixed calendar year")
-  void letterPrefixedCalendarYear(String input, String expected) {
+  void letterPrefixedCalendarYearLevel1(String input, String expected) {
     extract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("The characters '?', '~' and '%' are used to mean \"uncertain\", \"approximate\", and \"uncertain\" as well as \"approximate\", respectively")
-  void dateQualification(String input, String expected) {
-    extract(input, expected);
-  }
-
-
-  @ParameterizedTest
-  @MethodSource
-  @DisplayName("The character 'X' may be used in place of one or more rightmost digits to indicate that the value of that digit is unspecified")
-  void unspecifiedDigitsFromTheRight(String input, String expected) {
+  void dateQualificationLevel1(String input, String expected) {
     extract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("Negative Calendar Year")
-  void negativeCalendarYear(String input, String expected) {
+  void negativeCalendarYearLevel1(String input, String expected) {
     extract(input, expected);
   }
 
 
   @ParameterizedTest
   @MethodSource
-  @DisplayName("Open start time interval")
-  void openStartTimeInterval(String input, String expected) {
-    extract(input, expected);
-  }
-
-  @ParameterizedTest
-  @MethodSource
-  @DisplayName("Open end time interval")
-  void openEndTimeInterval(String input, String expected) {
+  @DisplayName("Open time interval")
+  void openTimeIntervalLevel1(String input, String expected) {
     extract(input, expected);
   }
 
 
   @ParameterizedTest
   @MethodSource
-  @DisplayName("Time interval with unknown start")
-  void timeIntervalWithUnknownStart(String input, String expected) {
+  @DisplayName("Unknown time interval")
+  void unknownTimeIntervalLevel1(String input, String expected) {
     extract(input, expected);
   }
 
-  @ParameterizedTest
-  @MethodSource
-  @DisplayName("Time interval with unknown end")
-  void timeIntervalWithUnknownEnd(String input, String expected) {
-    extract(input, expected);
+  private static Stream<Arguments> completeDateRepresentationLevel0() {
+    return Stream.of(
+        of("1989-11-01", "1989-11-01"),
+        of("0989-11-01", "0989-11-01"),
+        of("0989-11-01", "0989-11-01"),
+        //Digits missing on year
+        of("198-11-01", null),
+        //Digits missing on month or day
+        of("1989-11-1", null),
+        of("1989-1-01", null),
+        //Anything other than hyphen "-" is not valid
+        of("1989/11/01", null),
+
+        //Complete representations for calendar date and (local) time of day
+        of("1989-11-01T23:59:59", "1989-11-01"),
+        of("1989-11-01T23:59", "1989-11-01"),
+        of("1989-11-01T23", "1989-11-01"),
+        of("1989-11-01T", "1989-11-01"),
+        of("1989-11-01T23:59:5", "1989-11-01"),
+        of("1989-11-01T23:5:59", "1989-11-01"),
+        of("1989-11-01t23:59:59", null),
+        of("1989-11-01 23:59:59", null),
+
+        //Complete representations for calendar date and UTC time of day
+        of("1989-11-01T23:59:59Z", "1989-11-01"),
+        of("1989-11-01t23:59:59Z", null),
+        of("1989-11-01 23:59:59Z", null),
+
+        //Date and time with time shift in hours (only)
+        of("1989-11-01T23:59:59-04", "1989-11-01"),
+        of("1989-11-01T23:59:59+04", "1989-11-01"),
+        of("1989-11-01t23:59:59-04", null),
+        of("1989-11-01 23:59:59-04", null),
+
+        //Date and time with time shift in hours and minutes
+        of("1989-11-01T23:59:59-04:44", "1989-11-01"),
+        of("1989-11-01T23:59:59+04:44", "1989-11-01"),
+        of("1989-11-01t23:59:59-04:44", null),
+        of("1989-11-01 23:59:59-04:44", null)
+    );
   }
 
-  private static Stream<Arguments> letterPrefixedCalendarYear() {
+  private static Stream<Arguments> reducedPrecisionForYearAndMonthLevel0() {
+    return Stream.of(
+        of("1989-11", "1989-11"),
+        of("0989-11", "0989-11"),
+        //Digits missing on year
+        of("198-11", null),
+        //Digits missing on month
+        of("1989-1", null),
+        //Anything other than hyphen "-" is not valid
+        of("1989/11", null)
+    );
+  }
+
+  private static Stream<Arguments> reducedPrecisionForYearLevel0() {
+    return Stream.of(
+        of("1989", "1989"),
+        of("0989", "0989"),
+        //Digits missing on year
+        of("198", null)
+    );
+  }
+
+  private static Stream<Arguments> dateIntervalRepresentationLevel0() {
+    return Stream.of(
+        of("1989/1990", "1989/1990"),
+        of("1989-11/1990-11", "1989-11/1990-11"),
+        of("1989-11-01/1990-11-01", "1989-11-01/1990-11-01"),
+        of("1989-11-01/1990-11", "1989-11-01/1990-11"),
+        of("1989-11-01/1990", "1989-11-01/1990"),
+        of("1989/1990-11", "1989/1990-11"),
+        of("1989/1990-11-01", "1989/1990-11-01"),
+        of("1989-00/1990-00", null),
+        of("1989-00-00/1990-00-00", null),
+        //Spaces not valid
+        of("1989 / 1990", null),
+        //Dash not valid
+        of("1989-1990", null),
+        //Missing digits
+        of("989-1990", null),
+        of("1989-990", null)
+    );
+  }
+
+  private static Stream<Arguments> letterPrefixedCalendarYearLevel1() {
     return Stream.of(
         of("Y170000002", "Y170000002"),
         of("Y-170000002", "Y-170000002"),
@@ -128,7 +213,7 @@ class DateLevel1Test {
     );
   }
 
-  private static Stream<Arguments> dateQualification() {
+  private static Stream<Arguments> dateQualificationLevel1() {
     return Stream.of(
         of("1989?", "1989?"),
         of("1989~", "1989~"),
@@ -138,17 +223,7 @@ class DateLevel1Test {
     );
   }
 
-  private static Stream<Arguments> unspecifiedDigitsFromTheRight() {
-    return Stream.of(
-        of("201X", null),
-        of("20XX", null),
-        of("1989-XX", null),
-        of("1989-11-XX", null),
-        of("1989-XX-XX", null)
-    );
-  }
-
-  private static Stream<Arguments> negativeCalendarYear() {
+  private static Stream<Arguments> negativeCalendarYearLevel1() {
     return Stream.of(
         of("-1989", "-1989"),
         of("-9999", "-9999"),
@@ -157,9 +232,9 @@ class DateLevel1Test {
     );
   }
 
-
-  private static Stream<Arguments> openStartTimeInterval() {
+  private static Stream<Arguments> openTimeIntervalLevel1() {
     return Stream.of(
+        //Open start
         of("../1989-11-01", "../1989-11-01"),
         of("../1989-11", "../1989-11"),
         of("../1989", "../1989"),
@@ -174,12 +249,9 @@ class DateLevel1Test {
         of("../1989%", "../1989%"),
         of(".. / 1989-11-01", null),
         of("../ 1989-11-01", null),
-        of(".. /1989-11-01", null)
-    );
-  }
+        of(".. /1989-11-01", null),
 
-  private static Stream<Arguments> openEndTimeInterval() {
-    return Stream.of(
+        //Open end
         of("1989-11-01/..", "1989-11-01/.."),
         of("1989-11/..", "1989-11/.."),
         of("1989/..", "1989/.."),
@@ -194,13 +266,15 @@ class DateLevel1Test {
         of("1989%/..", "1989%/.."),
         of("1989-11-01 / ..", null),
         of("1989-11-01 /..", null),
-        of("1989-11-01/ ..", null)
+        of("1989-11-01/ ..", null),
+        of("../..", null)
     );
   }
 
 
-  private static Stream<Arguments> timeIntervalWithUnknownStart() {
+  private static Stream<Arguments> unknownTimeIntervalLevel1() {
     return Stream.of(
+        //Unknown start
         of("/1989-11-01", "../1989-11-01"),
         of("/1989-11", "../1989-11"),
         of("/1989", "../1989"),
@@ -215,12 +289,9 @@ class DateLevel1Test {
         of("/1989%", "../1989%"),
         of(" / 1989-11-01", null),
         of("/ 1989-11-01", null),
-        of(" /1989-11-01", null)
-    );
-  }
+        of(" /1989-11-01", null),
 
-  private static Stream<Arguments> timeIntervalWithUnknownEnd() {
-    return Stream.of(
+        //Unknown end
         of("1989-11-01/", "1989-11-01/.."),
         of("1989-11/", "1989-11/.."),
         of("1989/", "1989/.."),
@@ -235,9 +306,8 @@ class DateLevel1Test {
         of("1989%/", "1989%/.."),
         of("1989-11-01 / ", null),
         of("1989-11-01 /", null),
-        of("1989-11-01/ ", null)
+        of("1989-11-01/ ", null),
+        of("/", null)
     );
   }
-
-
 }
