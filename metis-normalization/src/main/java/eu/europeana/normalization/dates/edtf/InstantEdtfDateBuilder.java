@@ -71,8 +71,8 @@ public class InstantEdtfDateBuilder {
       instantEdtfDate = buildInternal();
     } catch (DateTimeException e) {
       LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
-      if (allowSwitchMonthDay) {
-        //Retry with switching month and day
+      if (allowSwitchMonthDay && month != null && month >= 1 && day != null && day >= 1) {
+        //Retry with swapping month and day
         swapMonthDay();
         parseMonthDay();
         instantEdtfDate = new InstantEdtfDate(this);

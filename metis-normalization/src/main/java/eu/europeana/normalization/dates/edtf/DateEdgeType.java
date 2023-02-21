@@ -17,13 +17,13 @@ package eu.europeana.normalization.dates.edtf;
 public enum DateEdgeType {
   DECLARED(""), OPEN(".."), UNKNOWN("");
 
-  private String stringRepresentation;
+  private String serializedRepresentation;
 
-  DateEdgeType(String stringRepresentation) {
-    this.stringRepresentation = stringRepresentation;
+  DateEdgeType(String serializedRepresentation) {
+    this.serializedRepresentation = serializedRepresentation;
   }
 
-  public String getStringRepresentation() {
-    return stringRepresentation;
+  public String getSerializedRepresentation() {
+    return serializedRepresentation;
   }
 }

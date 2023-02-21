@@ -4,6 +4,7 @@ import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
 import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.Iso8601Parser.ISO_8601_MINIMUM_YEAR_DIGITS;
+import static java.lang.Math.abs;
 import static java.util.Optional.ofNullable;
 
 import eu.europeana.normalization.dates.YearPrecision;
@@ -168,8 +169,8 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
     if (dateEdgeType == OPEN || dateEdgeType == UNKNOWN) {
-      stringBuilder.append(OPEN.getStringRepresentation());
-    } else if (year.getValue() < -THRESHOLD_4_DIGITS_YEAR || year.getValue() > THRESHOLD_4_DIGITS_YEAR) {
+      stringBuilder.append(OPEN.getSerializedRepresentation());
+    } else if (abs(year.getValue()) > THRESHOLD_4_DIGITS_YEAR) {
       stringBuilder.append(OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
     } else {
       stringBuilder.append(serializeYear());
