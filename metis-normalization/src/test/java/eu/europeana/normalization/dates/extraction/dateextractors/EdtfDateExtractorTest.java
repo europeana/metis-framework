@@ -17,12 +17,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class PatternEdtfDateExtractorTest {
+class EdtfDateExtractorTest {
 
-  private final PatternEdtfDateExtractor patternEdtfDateExtractor = new PatternEdtfDateExtractor();
+  private final EdtfDateExtractor edtfDateExtractor = new EdtfDateExtractor();
 
   private void extract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = patternEdtfDateExtractor.extractDateProperty(input);
+    final DateNormalizationResult dateNormalizationResult = edtfDateExtractor.extractDateProperty(input);
     if (expected == null) {
       assertNull(dateNormalizationResult);
     } else {

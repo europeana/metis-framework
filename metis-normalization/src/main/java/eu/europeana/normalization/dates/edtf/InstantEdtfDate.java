@@ -27,8 +27,6 @@ import java.util.Objects;
  */
 public final class InstantEdtfDate extends AbstractEdtfDate implements Comparable<InstantEdtfDate> {
 
-  public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
-
   private YearPrecision yearPrecision;
   private Year year;
   private YearMonth yearMonth;
@@ -170,7 +168,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     if (dateEdgeType == OPEN || dateEdgeType == UNKNOWN) {
       stringBuilder.append(OPEN.getSerializedRepresentation());
     } else if (abs(year.getValue()) > InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR) {
-      stringBuilder.append(OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
+      stringBuilder.append(InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
     } else {
       stringBuilder.append(serializeYear());
 

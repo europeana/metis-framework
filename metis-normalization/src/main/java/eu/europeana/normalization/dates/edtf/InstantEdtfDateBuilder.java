@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 public class InstantEdtfDateBuilder {
 
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
+  public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
   private static final Logger LOGGER = LoggerFactory.getLogger(InstantEdtfDateBuilder.class);
   private Year yearObj;
   private YearMonth yearMonthObj;
@@ -74,7 +75,7 @@ public class InstantEdtfDateBuilder {
       instantEdtfDate = buildInternal();
     } catch (DateTimeException e) {
       LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
-      if (allowSwitchMonthDay && month != null && month >= 1 && day != null && day >= 1) {
+      if (allowSwitchMonthDay) {
         //Retry with swapping month and day
         swapMonthDay();
       } else {

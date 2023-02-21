@@ -4,7 +4,7 @@ import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
 import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.CHECK_QUALIFICATION_PATTERN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static eu.europeana.normalization.dates.edtf.InstantEdtfDate.OVER_4_DIGITS_YEAR_PREFIX;
+import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX;
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
 import static java.lang.String.format;
 
@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
  * Specifically from Level1, seasons and Unspecified digit(s) from the right are not supported
  * </p>
  */
-public class PatternEdtfDateExtractor implements DateExtractor {
+public class EdtfDateExtractor implements DateExtractor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(PatternEdtfDateExtractor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EdtfDateExtractor.class);
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
   @Override
@@ -60,8 +60,8 @@ public class PatternEdtfDateExtractor implements DateExtractor {
       boolean allowSwitchMonthDay) throws DateTimeException {
     String startPart = dateInput.substring(0, dateInput.indexOf(DATES_SEPARATOR));
     String endPart = dateInput.substring(dateInput.indexOf(DATES_SEPARATOR) + 1);
-    InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
-    InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
+    final InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
+    final InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
 
     //Are both ends unknown or open, then it is not a date
     if ((end.getDateEdgeType() == UNKNOWN || end.getDateEdgeType() == OPEN) &&
@@ -96,11 +96,12 @@ public class PatternEdtfDateExtractor implements DateExtractor {
     if (matcher.matches() && StringUtils.isNotEmpty(matcher.group(1))) {
       //Check modifier value
       final String modifier = matcher.group(1);
+      //Overwrite date qualification if requested
       dateQualification = requestedDateQualification != null && requestedDateQualification != NO_QUALIFICATION
           ? requestedDateQualification : DateQualification.fromCharacter(modifier.charAt(0));
       dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
     }
-    TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
+    final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualification)
         .withAllowSwitchMonthDay(allowSwitchMonthDay)

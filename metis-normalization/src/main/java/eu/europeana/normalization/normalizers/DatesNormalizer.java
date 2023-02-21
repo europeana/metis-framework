@@ -13,11 +13,11 @@ import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExt
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DecadeDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.EdtfDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBriefDateRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternEdtfDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormatedFullDateDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternMonthNameDateExtractor;
@@ -120,7 +120,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     // This pattern only matches values that would not be valid EDTF dates.
     extractorsInOrderForDateProperties = List.of(
         new PatternBriefDateRangeDateExtractor(),
-        new PatternEdtfDateExtractor(),
+        new EdtfDateExtractor(),
         new CenturyDateExtractor(),
         new DecadeDateExtractor(),
         new NumericPartsRangeDateExtractor(),
