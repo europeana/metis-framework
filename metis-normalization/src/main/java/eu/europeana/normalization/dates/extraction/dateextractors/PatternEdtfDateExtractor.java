@@ -5,7 +5,6 @@ import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.CHECK_QUALIFICATION_PATTERN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDate.OVER_4_DIGITS_YEAR_PREFIX;
-import static eu.europeana.normalization.dates.edtf.InstantEdtfDate.THRESHOLD_4_DIGITS_YEAR;
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
 import static java.lang.String.format;
 
@@ -18,7 +17,6 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import java.time.DateTimeException;
-import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +40,15 @@ public class PatternEdtfDateExtractor implements DateExtractor {
       boolean allowSwitchMonthDay) {
     DateNormalizationResult dateNormalizationResult = null;
     try {
-      AbstractEdtfDate edtfDate = parse(inputValue, requestedDateQualification, allowSwitchMonthDay);
+      if (StringUtils.isEmpty(inputValue)) {
+        throw new DateTimeException("Empty argument");
+      }
+      final AbstractEdtfDate edtfDate;
+      if (inputValue.contains(DATES_SEPARATOR)) {
+        edtfDate = extractInterval(inputValue, requestedDateQualification, allowSwitchMonthDay);
+      } else {
+        edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchMonthDay);
+      }
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
     } catch (DateTimeException | NumberFormatException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
@@ -50,18 +56,22 @@ public class PatternEdtfDateExtractor implements DateExtractor {
     return dateNormalizationResult;
   }
 
-  private AbstractEdtfDate parse(String dateInput, DateQualification requestedDateQualification, boolean allowSwitchMonthDay)
-      throws DateTimeException {
-    if (StringUtils.isEmpty(dateInput)) {
-      throw new DateTimeException("Empty argument");
+  protected IntervalEdtfDate extractInterval(String dateInput, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) throws DateTimeException {
+    String startPart = dateInput.substring(0, dateInput.indexOf(DATES_SEPARATOR));
+    String endPart = dateInput.substring(dateInput.indexOf(DATES_SEPARATOR) + 1);
+    InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
+    InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
+
+    //Are both ends unknown or open, then it is not a date
+    if ((end.getDateEdgeType() == UNKNOWN || end.getDateEdgeType() == OPEN) &&
+        (start.getDateEdgeType() == UNKNOWN || start.getDateEdgeType() == OPEN)) {
+      throw new DateTimeException(dateInput);
     }
-    if (dateInput.contains(DATES_SEPARATOR)) {
-      return parseInterval(dateInput, requestedDateQualification, allowSwitchMonthDay);
-    }
-    return parseInstant(dateInput, requestedDateQualification, allowSwitchMonthDay);
+    return new IntervalEdtfDate(start, end);
   }
 
-  protected InstantEdtfDate parseInstant(String dateInput, DateQualification requestedDateQualification,
+  protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
       boolean allowSwitchMonthDay) throws DateTimeException {
     final InstantEdtfDate instantEdtfDate;
     if (UNKNOWN.getSerializedRepresentation().equals(dateInput)) {
@@ -69,58 +79,32 @@ public class PatternEdtfDateExtractor implements DateExtractor {
     } else if (OPEN.getSerializedRepresentation().equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getOpenInstance();
     } else if (dateInput.startsWith(String.valueOf(OVER_4_DIGITS_YEAR_PREFIX))) {
-      instantEdtfDate = getInstantEdtfDateLongYear(dateInput, requestedDateQualification);
+      int year = Integer.parseInt(dateInput.substring(1));
+      instantEdtfDate = new InstantEdtfDateBuilder(year).withLongYearPrefixedWithY()
+                                                        .withDateQualification(requestedDateQualification).build();
     } else {
-      instantEdtfDate = getInstantEdtfDate(dateInput, requestedDateQualification, allowSwitchMonthDay);
+      instantEdtfDate = extractInstantEdtfDate(dateInput, requestedDateQualification, allowSwitchMonthDay);
     }
     return instantEdtfDate;
   }
 
-  private static InstantEdtfDate getInstantEdtfDate(String dateInput, DateQualification requestedDateQualification,
+  private static InstantEdtfDate extractInstantEdtfDate(String dateInput, DateQualification requestedDateQualification,
       boolean allowSwitchMonthDay) {
     Matcher matcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
     String dateInputStrippedModifier = dateInput;
     DateQualification dateQualification = requestedDateQualification;
     if (matcher.matches() && StringUtils.isNotEmpty(matcher.group(1))) {
       //Check modifier value
-      String modifier = matcher.group(1);
+      final String modifier = matcher.group(1);
       dateQualification = requestedDateQualification != null && requestedDateQualification != NO_QUALIFICATION
           ? requestedDateQualification : DateQualification.fromCharacter(modifier.charAt(0));
       dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
     }
     TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
-    if (Math.abs(temporalAccessor.get(ChronoField.YEAR)) > THRESHOLD_4_DIGITS_YEAR) {
-      throw new DateTimeException(
-          format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
-    }
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualification)
         .withAllowSwitchMonthDay(allowSwitchMonthDay)
         .build();
-  }
-
-  private static InstantEdtfDate getInstantEdtfDateLongYear(String dateInput, DateQualification requestedDateQualification) {
-    int year = Integer.parseInt(dateInput.substring(1));
-    if (Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
-      throw new DateTimeException(
-          format("Prefixed year with 'Y' should have absolute value greater than %s", THRESHOLD_4_DIGITS_YEAR));
-    }
-    return new InstantEdtfDateBuilder(year).withDateQualification(requestedDateQualification).build();
-  }
-
-  protected IntervalEdtfDate parseInterval(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateTimeException {
-    String startPart = dateInput.substring(0, dateInput.indexOf(DATES_SEPARATOR));
-    String endPart = dateInput.substring(dateInput.indexOf(DATES_SEPARATOR) + 1);
-    InstantEdtfDate start = parseInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
-    InstantEdtfDate end = parseInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
-
-    if ((end.getDateEdgeType() == UNKNOWN || end.getDateEdgeType() == OPEN) && (
-        start.getDateEdgeType() == UNKNOWN
-            || start.getDateEdgeType() == OPEN)) {
-      throw new DateTimeException(dateInput);
-    }
-    return new IntervalEdtfDate(start, end);
   }
 
 }

@@ -1,5 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 import eu.europeana.normalization.dates.YearPrecision;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InstantEdtfDateBuilder {
 
+  public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   private static final Logger LOGGER = LoggerFactory.getLogger(InstantEdtfDateBuilder.class);
   private Year yearObj;
   private YearMonth yearMonthObj;
@@ -34,9 +37,9 @@ public class InstantEdtfDateBuilder {
   private Integer day;
   private YearPrecision yearPrecision;
   private TemporalAccessor temporalAccessor;
-
   private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
   private boolean allowSwitchMonthDay = false;
+  private boolean longDatePrefixedWithY = false;
 
   /**
    * Constructor which initializes the builder with the minimum requirement of year value.
@@ -74,11 +77,10 @@ public class InstantEdtfDateBuilder {
       if (allowSwitchMonthDay && month != null && month >= 1 && day != null && day >= 1) {
         //Retry with swapping month and day
         swapMonthDay();
-        parseMonthDay();
-        instantEdtfDate = new InstantEdtfDate(this);
       } else {
         throw e;
       }
+      instantEdtfDate = buildInternal();
     }
     return instantEdtfDate;
   }
@@ -93,11 +95,22 @@ public class InstantEdtfDateBuilder {
       year = temporalAccessor.isSupported(ChronoField.YEAR) ?
           temporalAccessor.get(ChronoField.YEAR) : null;
     }
-
-    Objects.requireNonNull(year, "Year value can never be null");
+    validateYear();
     yearObj = Year.of(year);
     parseMonthDay();
     return new InstantEdtfDate(this);
+  }
+
+  private void validateYear() {
+    Objects.requireNonNull(year, "Year value can never be null");
+    if (longDatePrefixedWithY && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
+      throw new DateTimeException(
+          format("Prefixed year with 'Y' is enabled indicating that year should have absolute value greater than %s",
+              THRESHOLD_4_DIGITS_YEAR));
+    } else if (!longDatePrefixedWithY && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
+      throw new DateTimeException(
+          format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
+    }
   }
 
   private void swapMonthDay() {
@@ -137,6 +150,11 @@ public class InstantEdtfDateBuilder {
 
   public InstantEdtfDateBuilder withAllowSwitchMonthDay(boolean allowSwitchMonthDay) {
     this.allowSwitchMonthDay = allowSwitchMonthDay;
+    return this;
+  }
+
+  public InstantEdtfDateBuilder withLongYearPrefixedWithY() {
+    this.longDatePrefixedWithY = true;
     return this;
   }
 

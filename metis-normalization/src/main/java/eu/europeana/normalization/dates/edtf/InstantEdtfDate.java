@@ -27,7 +27,6 @@ import java.util.Objects;
  */
 public final class InstantEdtfDate extends AbstractEdtfDate implements Comparable<InstantEdtfDate> {
 
-  public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
 
   private YearPrecision yearPrecision;
@@ -94,7 +93,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
       //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
       //Verify though that the contents of this class are always considered valid before the call of this method.
-      if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+      if (this.getYear().getValue() < -InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR) {
         firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
       } else {
         firstDay = this.firstDayOfYearDatePart();
@@ -123,7 +122,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
     if (dateEdgeType == DateEdgeType.DECLARED) {
-      if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+      if (this.getYear().getValue() < -InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR) {
         lastDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
       } else {
         lastDay = this.lastDayOfYearDatePart();
@@ -170,7 +169,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     final StringBuilder stringBuilder = new StringBuilder();
     if (dateEdgeType == OPEN || dateEdgeType == UNKNOWN) {
       stringBuilder.append(OPEN.getSerializedRepresentation());
-    } else if (abs(year.getValue()) > THRESHOLD_4_DIGITS_YEAR) {
+    } else if (abs(year.getValue()) > InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR) {
       stringBuilder.append(OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
     } else {
       stringBuilder.append(serializeYear());

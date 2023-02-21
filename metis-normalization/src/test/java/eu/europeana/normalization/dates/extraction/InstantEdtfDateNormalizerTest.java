@@ -126,8 +126,6 @@ class InstantEdtfDateNormalizerTest {
     datePropertyTestCases.put("0 2 1980", "1980-02");
 
     //More than 4 digits year
-    datePropertyTestCases.put("-701950/-251950", "Y-701950/Y-251950");
-    datePropertyTestCases.put("-123456/-12345", "Y-123456/Y-12345");
     datePropertyTestCases.put("18720601/18720630", null);
     datePropertyTestCases.put("19471950/19501953", null);
 
@@ -152,7 +150,6 @@ class InstantEdtfDateNormalizerTest {
     datePropertyTestCases.put("Sat Jan 01 01:00:00 CET 1701", "1701-01-01");
     datePropertyTestCases.put("2013-03-21 18:45:36 UTC", "2013-03-21");
     datePropertyTestCases.put("15.02.1985 (identification)", "1985-02-15");
-    datePropertyTestCases.put("-500000", "Y-500000");
     datePropertyTestCases.put("091090", null);
     datePropertyTestCases.put("-0043-12-07", "-0043-12-07");
     datePropertyTestCases.put("imp. 1901", null);
