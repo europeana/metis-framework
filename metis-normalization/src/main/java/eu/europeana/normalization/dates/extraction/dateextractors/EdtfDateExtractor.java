@@ -74,9 +74,9 @@ public class EdtfDateExtractor implements DateExtractor {
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
       boolean allowSwitchMonthDay) throws DateTimeException {
     final InstantEdtfDate instantEdtfDate;
-    if (UNKNOWN.getSerializedRepresentation().equals(dateInput)) {
+    if (UNKNOWN.getDeserializedRepresentation().equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getUnknownInstance();
-    } else if (OPEN.getSerializedRepresentation().equals(dateInput)) {
+    } else if (OPEN.getDeserializedRepresentation().equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getOpenInstance();
     } else if (dateInput.startsWith(String.valueOf(OVER_4_DIGITS_YEAR_PREFIX))) {
       int year = Integer.parseInt(dateInput.substring(1));

@@ -1,5 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static eu.europeana.normalization.dates.edtf.DateEdgeType.DECLARED;
 import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
 import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
@@ -37,7 +38,12 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   private DateQualification dateQualification = NO_QUALIFICATION;
   private DateEdgeType dateEdgeType = DateEdgeType.DECLARED;
 
-  public InstantEdtfDate(InstantEdtfDateBuilder instantEdtfDateBuilder) {
+  /**
+   * Restricted constructor by provided {@link InstantEdtfDateBuilder}.
+   *
+   * @param instantEdtfDateBuilder the builder with all content verified
+   */
+  InstantEdtfDate(InstantEdtfDateBuilder instantEdtfDateBuilder) {
     yearPrecision = instantEdtfDateBuilder.getYearPrecision();
     year = instantEdtfDateBuilder.getYearObj();
     month = instantEdtfDateBuilder.getMonthObj();
@@ -111,10 +117,10 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       temporalAccessorFirstDay = YearMonth.of(year.getValue(), month).atDay(1);
     } else {
       // TODO: 13/02/2023 Check with Nuno why when it's CENTURY precision we add a year?
-      temporalAccessorFirstDay = year
-          .plusYears(yearPrecision == YearPrecision.CENTURY ? 1 : 0)
-          .atMonthDay(MonthDay.of(1, 1));
+      final MonthDay january01 = MonthDay.of(Month.JANUARY, Month.JANUARY.minLength());
+      temporalAccessorFirstDay = year.plusYears(yearPrecision == YearPrecision.CENTURY ? 1 : 0).atMonthDay(january01);
     }
+
     return new InstantEdtfDateBuilder(temporalAccessorFirstDay).build();
   }
 
@@ -140,13 +146,16 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       temporalAccessorLastDay = YearMonth.of(year.getValue(), month).atEndOfMonth();
     } else {
       // TODO: 13/02/2023 Check with Nuno the year additions.
+      final Year adjustedYear;
       if (yearPrecision == YearPrecision.CENTURY) {
-        temporalAccessorLastDay = year.plusYears(100).atMonthDay(MonthDay.of(Month.DECEMBER, 31));
+        adjustedYear = year.plusYears(yearPrecision.getDuration());
       } else if (yearPrecision == YearPrecision.DECADE) {
-        temporalAccessorLastDay = year.plusYears(9).atMonthDay(MonthDay.of(Month.DECEMBER, 31));
+        adjustedYear = year.plusYears(yearPrecision.getDuration() - 1L);
       } else {
-        temporalAccessorLastDay = year.atMonthDay(MonthDay.of(Month.DECEMBER, 31));
+        adjustedYear = year;
       }
+      final MonthDay december31 = MonthDay.of(Month.DECEMBER, Month.DECEMBER.maxLength());
+      temporalAccessorLastDay = adjustedYear.atMonthDay(december31);
     }
     return new InstantEdtfDateBuilder(temporalAccessorLastDay).build();
 
@@ -168,8 +177,8 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
-    if (dateEdgeType == OPEN || dateEdgeType == UNKNOWN) {
-      stringBuilder.append(OPEN.getSerializedRepresentation());
+    if (dateEdgeType != DECLARED) {
+      stringBuilder.append(dateEdgeType.getSerializedRepresentation());
     } else if (abs(year.getValue()) > THRESHOLD_4_DIGITS_YEAR) {
       stringBuilder.append(InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
     } else {
