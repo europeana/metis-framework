@@ -131,10 +131,8 @@ public class DateNormalizationResult {
   }
 
   private boolean isOnlyYearsOrComplete(InstantEdtfDate startInstantEdtfDate, InstantEdtfDate endInstantEdtfDate) {
-    final boolean isOnlyYear =
-        startInstantEdtfDate.getYearMonth() == null && endInstantEdtfDate.getYearMonth() == null;
-    final boolean isCompleteDate =
-        isMonthDayComplete(startInstantEdtfDate) && isMonthDayComplete(endInstantEdtfDate);
+    final boolean isOnlyYear = startInstantEdtfDate.getMonth() == null && endInstantEdtfDate.getMonth() == null;
+    final boolean isCompleteDate = isMonthDayComplete(startInstantEdtfDate) && isMonthDayComplete(endInstantEdtfDate);
 
     return isOnlyYear || isCompleteDate;
   }

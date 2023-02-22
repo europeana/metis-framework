@@ -5,8 +5,8 @@ import static java.lang.String.format;
 import eu.europeana.normalization.dates.YearPrecision;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Year;
-import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
@@ -31,7 +31,7 @@ public class InstantEdtfDateBuilder {
   public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
   private static final Logger LOGGER = LoggerFactory.getLogger(InstantEdtfDateBuilder.class);
   private Year yearObj;
-  private YearMonth yearMonthObj;
+  private Month monthObj;
   private LocalDate yearMonthDayObj;
   private Integer year;
   private Integer month;
@@ -122,9 +122,9 @@ public class InstantEdtfDateBuilder {
 
   private void parseMonthDay() {
     if (month != null && month >= 1) {
-      yearMonthObj = YearMonth.of(yearObj.getValue(), month);
+      monthObj = Month.of(month);
       if (day != null && day >= 1) {
-        yearMonthDayObj = LocalDate.of(yearMonthObj.getYear(), yearMonthObj.getMonth(), day);
+        yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
       }
     }
   }
@@ -163,8 +163,8 @@ public class InstantEdtfDateBuilder {
     return yearObj;
   }
 
-  public YearMonth getYearMonthObj() {
-    return yearMonthObj;
+  public Month getMonthObj() {
+    return monthObj;
   }
 
   public LocalDate getYearMonthDayObj() {
