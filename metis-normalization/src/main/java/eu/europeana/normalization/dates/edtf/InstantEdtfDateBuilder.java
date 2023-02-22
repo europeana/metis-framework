@@ -7,6 +7,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
@@ -99,7 +100,17 @@ public class InstantEdtfDateBuilder {
     validateYear();
     yearObj = Year.of(year);
     parseMonthDay();
+    validateDateNotInFuture();
     return new InstantEdtfDate(this);
+  }
+
+  private void validateDateNotInFuture() {
+    final boolean isYearMonthDayInTheFuture = yearMonthDayObj != null && yearMonthDayObj.isAfter(LocalDate.now());
+    final boolean isYearMonthInTheFuture = monthObj != null && YearMonth.of(yearObj.getValue(), month).isAfter(YearMonth.now());
+    final boolean isYearInTheFuture = yearObj != null && yearObj.isAfter(Year.now());
+    if (isYearMonthDayInTheFuture || isYearMonthInTheFuture || isYearInTheFuture) {
+      throw new DateTimeException("Date cannot be in the future");
+    }
   }
 
   private void validateYear() {
@@ -129,31 +140,66 @@ public class InstantEdtfDateBuilder {
     }
   }
 
+  /**
+   * Add month value.
+   *
+   * @param month the month value
+   * @return the extended builder
+   */
   public InstantEdtfDateBuilder withMonth(int month) {
     this.month = month;
     return this;
   }
 
+  /**
+   * Add day value.
+   *
+   * @param day the day value
+   * @return the extended builder
+   */
   public InstantEdtfDateBuilder withDay(int day) {
     this.day = day;
     return this;
   }
 
+  /**
+   * Add year precision.
+   *
+   * @param yearPrecision the year precision
+   * @return the extended builder
+   */
   public InstantEdtfDateBuilder withYearPrecision(YearPrecision yearPrecision) {
     this.yearPrecision = yearPrecision;
     return this;
   }
 
+  /**
+   * Add date qualification.
+   *
+   * @param dateQualification the date qualification
+   * @return the extended builder
+   */
   public InstantEdtfDateBuilder withDateQualification(DateQualification dateQualification) {
     this.dateQualification = dateQualification;
     return this;
   }
 
+  /**
+   * Add allowance of switching month and day during build if original order fails.
+   *
+   * @param allowSwitchMonthDay the boolean (dis|en)abling the switch
+   * @return the extended builder
+   */
   public InstantEdtfDateBuilder withAllowSwitchMonthDay(boolean allowSwitchMonthDay) {
     this.allowSwitchMonthDay = allowSwitchMonthDay;
     return this;
   }
 
+  /**
+   * Declare the date is of long year format, prefixed with 'Y'.
+   *
+   * @return the extended builder
+   */
   public InstantEdtfDateBuilder withLongYearPrefixedWithY() {
     this.longDatePrefixedWithY = true;
     return this;

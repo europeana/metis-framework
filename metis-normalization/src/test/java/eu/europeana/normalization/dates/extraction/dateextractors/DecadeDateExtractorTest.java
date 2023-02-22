@@ -48,7 +48,8 @@ class DecadeDateExtractorTest {
         of("?180u?", "180X?", DECADE),
         of("?180??", "180X?", DECADE),
 
-        of("222u", "222X", DECADE),
+        //Future dates not allowed
+        of("222u", null, null),
         //This is an ambiguous case because hyphen can be used as a separator
         of("180-?", null, null),
         //Ambiguous, possible open end

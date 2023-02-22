@@ -200,7 +200,8 @@ class EdtfDateExtractorTest {
 
   private static Stream<Arguments> letterPrefixedCalendarYearLevel1() {
     return Stream.of(
-        of("Y170000002", "Y170000002"),
+        //Future dates are not valid
+        of("Y170000002", null),
         of("Y-170000002", "Y-170000002"),
         //Overflow, max is +-999999999
         of("Y1700000002", null),

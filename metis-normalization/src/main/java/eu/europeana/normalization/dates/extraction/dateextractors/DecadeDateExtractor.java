@@ -1,5 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static java.lang.String.format;
+
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
@@ -7,8 +9,11 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
+import java.time.DateTimeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extractor that matches a decade of the format YYY[ux].
@@ -31,6 +36,7 @@ import java.util.regex.Pattern;
  */
 public class DecadeDateExtractor implements DateExtractor {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(DecadeDateExtractor.class);
   private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   @Override
@@ -41,16 +47,20 @@ public class DecadeDateExtractor implements DateExtractor {
         (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);
 
     DateNormalizationResult dateNormalizationResult = null;
-    final Matcher matcher = decadePattern.matcher(sanitizedValue);
-    if (matcher.matches()) {
-      final InstantEdtfDate datePart = new InstantEdtfDateBuilder(
-          Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
-          .withYearPrecision(YearPrecision.DECADE)
-          .withDateQualification(dateQualification)
-          .withAllowSwitchMonthDay(allowSwitchMonthDay)
-          .build();
-      dateNormalizationResult = new DateNormalizationResult(
-          DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
+    try {
+      final Matcher matcher = decadePattern.matcher(sanitizedValue);
+      if (matcher.matches()) {
+        final InstantEdtfDate datePart = new InstantEdtfDateBuilder(
+            Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
+            .withYearPrecision(YearPrecision.DECADE)
+            .withDateQualification(dateQualification)
+            .withAllowSwitchMonthDay(allowSwitchMonthDay)
+            .build();
+        dateNormalizationResult = new DateNormalizationResult(
+            DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
+      }
+    } catch (DateTimeException e) {
+      LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
     }
     return dateNormalizationResult;
   }

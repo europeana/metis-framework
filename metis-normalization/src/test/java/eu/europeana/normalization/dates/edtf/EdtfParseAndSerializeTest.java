@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import eu.europeana.normalization.dates.extraction.dateextractors.EdtfDateExtractor;
 import org.junit.jupiter.api.Test;
@@ -48,9 +49,7 @@ class EdtfParseAndSerializeTest {
     assertEquals(expectedResultString, instantEdtfDate.toString());
 
     dateString = "Y200000";
-    expectedResultString = "Y200000";
-    instantEdtfDate = (InstantEdtfDate) edtfDateExtractor.extractDateProperty(dateString).getEdtfDate();
-    assertEquals(expectedResultString, instantEdtfDate.toString());
+    assertNull(edtfDateExtractor.extractDateProperty(dateString));
 
     dateString = "..";
     expectedResultString = "..";

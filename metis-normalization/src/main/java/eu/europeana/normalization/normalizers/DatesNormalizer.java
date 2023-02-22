@@ -345,14 +345,14 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
     final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
-    if (!EdtfValidator.validate(edtfDate, false)) {
+    if (!EdtfValidator.validate(edtfDate)) {
       switchAndValidate(edtfDate);
     }
   }
 
   private void validate(DateNormalizationResult dateNormalizationResult) {
     final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
-    if (!EdtfValidator.validate(edtfDate, false)) {
+    if (!EdtfValidator.validate(edtfDate)) {
       dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
     }
   }
@@ -360,7 +360,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private void switchAndValidate(AbstractEdtfDate edtfDate) {
     if (edtfDate instanceof IntervalEdtfDate) {
       ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
-      if (!EdtfValidator.validate(edtfDate, false)) {
+      if (!EdtfValidator.validate(edtfDate)) {
         //Revert the start/end
         ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
       }
