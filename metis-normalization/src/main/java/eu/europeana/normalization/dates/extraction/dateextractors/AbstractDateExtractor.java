@@ -4,7 +4,7 @@ import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateQualification;
-import java.time.DateTimeException;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public abstract class AbstractDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     try {
       dateNormalizationResult = extract(inputValue, dateQualification, true);
-    } catch (DateTimeException e) {
+    } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
     }
     return dateNormalizationResult;
@@ -58,7 +58,7 @@ public abstract class AbstractDateExtractor implements DateExtractor {
     DateNormalizationResult dateNormalizationResult = null;
     try {
       dateNormalizationResult = extract(inputValue, dateQualification, false);
-    } catch (DateTimeException e) {
+    } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
     }
     return dateNormalizationResult;

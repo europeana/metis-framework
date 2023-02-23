@@ -16,13 +16,11 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
-import java.time.DateTimeException;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The pattern for EDTF dates and compatible with ISO 8601 dates.
@@ -32,29 +30,27 @@ import org.slf4j.LoggerFactory;
  * </p>
  */
 public class EdtfDateExtractor extends AbstractDateExtractor {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(EdtfDateExtractor.class);
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) {
+      boolean allowSwitchesDuringValidation) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult;
     if (StringUtils.isEmpty(inputValue)) {
-      throw new DateTimeException("Empty argument");
-      }
-      final AbstractEdtfDate edtfDate;
-      if (inputValue.contains(DATES_SEPARATOR)) {
-        edtfDate = extractInterval(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
-      } else {
-        edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
-      }
+      throw new DateExtractionException("Empty argument");
+    }
+    final AbstractEdtfDate edtfDate;
+    if (inputValue.contains(DATES_SEPARATOR)) {
+      edtfDate = extractInterval(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
+    } else {
+      edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
+    }
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
     return dateNormalizationResult;
   }
 
   protected IntervalEdtfDate extractInterval(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     String startPart = dateInput.substring(0, dateInput.indexOf(DATES_SEPARATOR));
     String endPart = dateInput.substring(dateInput.indexOf(DATES_SEPARATOR) + 1);
     final InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
@@ -63,13 +59,13 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     //Are both ends unknown or open, then it is not a date
     if ((end.getDateEdgeType() == UNKNOWN || end.getDateEdgeType() == OPEN) &&
         (start.getDateEdgeType() == UNKNOWN || start.getDateEdgeType() == OPEN)) {
-      throw new DateTimeException(dateInput);
+      throw new DateExtractionException(dateInput);
     }
     return new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchMonthDay).build();
   }
 
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     final InstantEdtfDate instantEdtfDate;
     if (UNKNOWN.getDeserializedRepresentation().equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getUnknownInstance();
@@ -86,7 +82,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
   }
 
   private static InstantEdtfDate extractInstantEdtfDate(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     Matcher matcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
     String dateInputStrippedModifier = dateInput;
     DateQualification dateQualification = requestedDateQualification;

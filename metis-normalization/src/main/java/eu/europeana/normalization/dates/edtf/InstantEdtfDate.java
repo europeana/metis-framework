@@ -10,6 +10,7 @@ import static java.lang.Math.abs;
 import static java.util.Optional.ofNullable;
 
 import eu.europeana.normalization.dates.YearPrecision;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -95,21 +96,25 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   @Override
   public InstantEdtfDate getFirstDay() {
     InstantEdtfDate firstDay = null;
-    if (dateEdgeType == DateEdgeType.DECLARED) {
-      // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
-      //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
-      //Verify though that the contents of this class are always considered valid before the call of this method.
-      if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
-        firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
-      } else {
-        firstDay = this.firstDayOfYearDatePart();
+    try {
+      if (dateEdgeType == DateEdgeType.DECLARED) {
+        // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
+        //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
+        //Verify though that the contents of this class are always considered valid before the call of this method.
+        if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+          firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
+        } else {
+          firstDay = this.firstDayOfYearDatePart();
+        }
       }
+    } catch (DateExtractionException e) {
+      throw new RuntimeException(e);
     }
 
     return firstDay;
   }
 
-  private InstantEdtfDate firstDayOfYearDatePart() {
+  private InstantEdtfDate firstDayOfYearDatePart() throws DateExtractionException {
     final TemporalAccessor temporalAccessorFirstDay;
     if (yearMonthDay != null) {
       temporalAccessorFirstDay = yearMonthDay.with(TemporalAdjusters.firstDayOfYear());
@@ -127,18 +132,22 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   @Override
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
-    if (dateEdgeType == DateEdgeType.DECLARED) {
-      // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
-      if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
-        lastDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
-      } else {
-        lastDay = this.lastDayOfYearDatePart();
+    try {
+      if (dateEdgeType == DateEdgeType.DECLARED) {
+        // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
+        if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
+          lastDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
+        } else {
+          lastDay = this.lastDayOfYearDatePart();
+        }
       }
+    } catch (DateExtractionException e) {
+      throw new RuntimeException(e);
     }
     return lastDay;
   }
 
-  private InstantEdtfDate lastDayOfYearDatePart() {
+  private InstantEdtfDate lastDayOfYearDatePart() throws DateExtractionException {
     final TemporalAccessor temporalAccessorLastDay;
     if (yearMonthDay != null) {
       temporalAccessorLastDay = yearMonthDay.with(TemporalAdjusters.lastDayOfYear());

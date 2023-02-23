@@ -1,12 +1,16 @@
 package eu.europeana.normalization.dates.edtf;
 
-import java.time.DateTimeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 
+/**
+ * Builder class for {@link IntervalEdtfDate}.
+ * <p>
+ * During {@link #build()} it will verify all the parameters that have been requested. The {@link #build()}, if
+ * {@link #withAllowSwitchStartEnd(boolean)} was called with {@code true}, will also attempt a second time by switching start and
+ * end values if the original values were invalid.
+ * </p>
+ */
 public class IntervalEdtfDateBuilder {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(IntervalEdtfDateBuilder.class);
 
   private InstantEdtfDate start;
   private InstantEdtfDate end;
@@ -14,6 +18,12 @@ public class IntervalEdtfDateBuilder {
 
   private boolean allowSwitchStartEnd = false;
 
+  /**
+   * Constructor which initializes the builder with the the start and end date edges.
+   *
+   * @param start the start date
+   * @param end the end date
+   */
   public IntervalEdtfDateBuilder(InstantEdtfDate start, InstantEdtfDate end) {
     this.start = start;
     this.end = end;
@@ -29,20 +39,21 @@ public class IntervalEdtfDateBuilder {
     return this;
   }
 
-  public IntervalEdtfDate build() {
-    try {
-      validateInterval();
-    } catch (DateTimeException e) {
-      LOGGER.debug("Start and End dates failed. Trying switching Start nad End", e);
-      if (allowSwitchStartEnd) {
-        //Retry with swapping month and day
-        switchStartWithEnd();
-      } else {
-        throw e;
-      }
-      validateInterval();
+  public IntervalEdtfDate build() throws DateExtractionException {
+    IntervalEdtfDate intervalEdtfDate;
+    intervalEdtfDate = buildInternal();
+    //Try once more if switching allowed
+    if (intervalEdtfDate == null && allowSwitchStartEnd) {
+      //Retry with swapping month and day
+      switchStartWithEnd();
+      intervalEdtfDate = buildInternal();
     }
-    return new IntervalEdtfDate(this);
+
+    //Still nothing, we are done.
+    if (intervalEdtfDate == null) {
+      throw new DateExtractionException("Could not instantiate date");
+    }
+    return intervalEdtfDate;
   }
 
   private void switchStartWithEnd() {
@@ -52,7 +63,7 @@ public class IntervalEdtfDateBuilder {
   }
 
   /**
-   * Validate interval.
+   * Returns an instance of {@link IntervalEdtfDate} created and validated from the fields set on this builder.
    * <p>It validates:
    * <ul>
    *   <li>that edges are not null</li>
@@ -62,23 +73,26 @@ public class IntervalEdtfDateBuilder {
    * </ul>
    *  and that the period is valid(e.g start is not after end).</p>
    */
-  private void validateInterval() {
-    if (start == null || end == null) {
-      throw new DateTimeException("Interval date edges should not be null");
-    }
-
+  private IntervalEdtfDate buildInternal() {
+    IntervalEdtfDate intervalEdtfDate = null;
     final boolean isIntervalValid;
-    final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateEdgeType.DECLARED;
-    final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateEdgeType.DECLARED;
-    if (isStartDatePartSpecific && isEndDatePartSpecific) {
-      isIntervalValid = start.compareTo(end) <= 0;
+    if (start == null || end == null) {
+      isIntervalValid = false;
     } else {
-      isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
+      final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateEdgeType.DECLARED;
+      final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateEdgeType.DECLARED;
+      if (isStartDatePartSpecific && isEndDatePartSpecific) {
+        isIntervalValid = start.compareTo(end) <= 0;
+      } else {
+        isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
+      }
     }
 
-    if (!isIntervalValid) {
-      throw new DateTimeException("Interval date edges were not valid");
+    if (isIntervalValid) {
+      intervalEdtfDate = new IntervalEdtfDate(this);
     }
+
+    return intervalEdtfDate;
   }
 
   public InstantEdtfDate getStart() {

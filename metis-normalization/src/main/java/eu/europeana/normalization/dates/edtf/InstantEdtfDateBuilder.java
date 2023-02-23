@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.edtf;
 import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.YearPrecision;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -70,57 +71,69 @@ public class InstantEdtfDateBuilder {
    * @return the new instant edtf date
    * @throws DateTimeException if something went wrong during date validation
    */
-  public InstantEdtfDate build() throws DateTimeException {
+  public InstantEdtfDate build() throws DateExtractionException {
     InstantEdtfDate instantEdtfDate;
-    try {
+    instantEdtfDate = buildInternal();
+    //Try once more if switching allowed
+    if (instantEdtfDate == null && allowSwitchMonthDay) {
+      swapMonthDay();
       instantEdtfDate = buildInternal();
-    } catch (DateTimeException e) {
-      LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
-      if (allowSwitchMonthDay) {
-        //Retry with swapping month and day
-        swapMonthDay();
-      } else {
-        throw e;
-      }
-      instantEdtfDate = buildInternal();
+    }
+
+    //Still nothing, we are done.
+    if (instantEdtfDate == null) {
+      throw new DateExtractionException("Could not instantiate date");
     }
     return instantEdtfDate;
   }
 
-  private InstantEdtfDate buildInternal() throws DateTimeException {
-    if (temporalAccessor != null) {
-      LOGGER.debug("TemporalAccessor present. Overwriting values.");
-      day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-          temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-      month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-          temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-      year = temporalAccessor.isSupported(ChronoField.YEAR) ?
-          temporalAccessor.get(ChronoField.YEAR) : null;
+  private InstantEdtfDate buildInternal() {
+    InstantEdtfDate instantEdtfDate = null;
+    try {
+      if (temporalAccessor != null) {
+        LOGGER.debug("TemporalAccessor present. Overwriting values.");
+        day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+            temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+        month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+            temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+        year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+            temporalAccessor.get(ChronoField.YEAR) : null;
+      }
+      validateYear();
+      yearObj = Year.of(year);
+      parseMonthDay();
+      validateDateNotInFuture();
+
+      instantEdtfDate = new InstantEdtfDate(this);
+    } catch (DateTimeException | DateExtractionException e) {
+      LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
     }
-    validateYear();
-    yearObj = Year.of(year);
-    parseMonthDay();
-    validateDateNotInFuture();
-    return new InstantEdtfDate(this);
+    return instantEdtfDate;
   }
 
-  private void validateDateNotInFuture() {
-    final boolean isYearMonthDayInTheFuture = yearMonthDayObj != null && yearMonthDayObj.isAfter(LocalDate.now());
-    final boolean isYearMonthInTheFuture = monthObj != null && YearMonth.of(yearObj.getValue(), month).isAfter(YearMonth.now());
-    final boolean isYearInTheFuture = yearObj != null && yearObj.isAfter(Year.now());
-    if (isYearMonthDayInTheFuture || isYearMonthInTheFuture || isYearInTheFuture) {
-      throw new DateTimeException("Date cannot be in the future");
+  private void validateDateNotInFuture() throws DateExtractionException {
+    try {
+      final boolean isYearMonthDayInTheFuture = yearMonthDayObj != null && yearMonthDayObj.isAfter(LocalDate.now());
+      final boolean isYearMonthInTheFuture = monthObj != null && YearMonth.of(yearObj.getValue(), month).isAfter(YearMonth.now());
+      final boolean isYearInTheFuture = yearObj != null && yearObj.isAfter(Year.now());
+
+      if (isYearMonthDayInTheFuture || isYearMonthInTheFuture || isYearInTheFuture) {
+        throw new DateExtractionException("Date cannot be in the future");
+      }
+
+    } catch (DateTimeException e) {
+      throw new DateExtractionException("Failed to instantiate month and day", e);
     }
   }
 
-  private void validateYear() {
+  private void validateYear() throws DateExtractionException {
     Objects.requireNonNull(year, "Year value can never be null");
     if (longDatePrefixedWithY && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
-      throw new DateTimeException(
+      throw new DateExtractionException(
           format("Prefixed year with 'Y' is enabled indicating that year should have absolute value greater than %s",
               THRESHOLD_4_DIGITS_YEAR));
     } else if (!longDatePrefixedWithY && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
-      throw new DateTimeException(
+      throw new DateExtractionException(
           format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
     }
   }
@@ -131,12 +144,16 @@ public class InstantEdtfDateBuilder {
     day = tempMonth;
   }
 
-  private void parseMonthDay() {
-    if (month != null && month >= 1) {
-      monthObj = Month.of(month);
-      if (day != null && day >= 1) {
-        yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
+  private void parseMonthDay() throws DateExtractionException {
+    try {
+      if (month != null && month >= 1) {
+        monthObj = Month.of(month);
+        if (day != null && day >= 1) {
+          yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
+        }
       }
+    } catch (DateTimeException e) {
+      throw new DateExtractionException("Failed to instantiate month and day", e);
     }
   }
 

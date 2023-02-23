@@ -12,6 +12,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
@@ -37,7 +38,7 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
    */
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) {
+      boolean allowSwitchesDuringValidation) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
@@ -94,7 +95,7 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
 
   private DateNormalizationResult extractDateNormalizationResult(String dateString,
       NumericRangeDateDelimiters numericRangeSpecialCharacters, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     final DateNormalizationResult dateNormalizationResult;
     if (numericRangeSpecialCharacters.getUnspecifiedCharacters() != null && dateString.matches(
         numericRangeSpecialCharacters.getUnspecifiedCharacters())) {

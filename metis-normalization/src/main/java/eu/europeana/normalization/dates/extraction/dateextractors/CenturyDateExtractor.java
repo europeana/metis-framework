@@ -11,6 +11,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Arrays;
@@ -88,14 +89,20 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean allowSwitchesDuringValidation) {
     return Arrays.stream(PatternCenturyDateOperation.values())
-                 .map(operation -> extractInstance(inputValue, requestedDateQualification, operation,
-                     allowSwitchesDuringValidation))
+                 .map(operation -> {
+                   try {
+                     return extractInstance(inputValue, requestedDateQualification, operation,
+                         allowSwitchesDuringValidation);
+                   } catch (DateExtractionException e) {
+                     throw new RuntimeException(e);
+                   }
+                 })
                  .filter(Objects::nonNull).findFirst().orElse(null);
   }
 
   private DateNormalizationResult extractInstance(String inputValue, DateQualification requestedDateQualification,
       PatternCenturyDateOperation patternCenturyDateOperation,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);

@@ -7,6 +7,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
@@ -15,16 +16,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Patterns for numeric dates with variations in the separators of date components.
  * <p>For Patterns pay attentions on the use of {@link Matcher#matches()} or {@link Matcher#find()} in this method.</p>
  */
 public class NumericPartsDateExtractor extends AbstractDateExtractor {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(NumericPartsDateExtractor.class);
 
   /**
    * The start of the string can be one or three question marks but not two.
@@ -42,7 +39,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) {
+      boolean allowSwitchesDuringValidation) throws DateExtractionException {
     return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, allowSwitchesDuringValidation);
   }
 
@@ -56,7 +53,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
    */
   protected DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       Set<NumericPartsPattern> numericPatternValues,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find())
@@ -66,7 +63,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
-          InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
+        InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
           dateNormalizationResult = new DateNormalizationResult(
               numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
               instantEdtfDateBuilder.withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay)

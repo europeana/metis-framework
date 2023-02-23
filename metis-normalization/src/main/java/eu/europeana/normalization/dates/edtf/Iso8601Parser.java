@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.edtf;
 
 import static java.lang.String.format;
 
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -44,14 +45,14 @@ public class Iso8601Parser {
    * @return the string result if the parse succeeded
    * @throws DateTimeException if the parsing failed
    */
-  public TemporalAccessor parseDatePart(String dateInput) throws DateTimeException {
+  public TemporalAccessor parseDatePart(String dateInput) throws DateExtractionException {
 
     final String datePartInput;
     //Strip the time part if present, we are not interested in it
     if (dateInput.contains("T")) {
       datePartInput = dateInput.substring(0, dateInput.indexOf('T'));
       if (datePartInput.isEmpty()) {
-        throw new DateTimeException("Date part is empty which is not allowed");
+        throw new DateExtractionException("Date part is empty which is not allowed");
       }
     } else {
       datePartInput = dateInput;
@@ -60,13 +61,13 @@ public class Iso8601Parser {
     final TemporalAccessor temporalAccessor;
     try {
       temporalAccessor = getTemporalAccessor(datePartInput);
-    } catch (DateTimeParseException e) {
-      throw new DateTimeException(format("TemporalAccessor could not parse value %s", dateInput), e);
+    } catch (DateTimeParseException | DateExtractionException e) {
+      throw new DateExtractionException(format("TemporalAccessor could not parse value %s", dateInput), e);
     }
     return temporalAccessor;
   }
 
-  private TemporalAccessor getTemporalAccessor(String input) {
+  private TemporalAccessor getTemporalAccessor(String input) throws DateExtractionException {
     final TemporalAccessor temporalAccessor = DATE_TIME_FORMATTERS.entrySet().stream().map(entry -> {
       try {
         return entry.getValue().apply(input, entry.getKey());
@@ -77,7 +78,7 @@ public class Iso8601Parser {
     }).filter(Objects::nonNull).findFirst().orElse(null);
 
     if (temporalAccessor == null) {
-      throw new DateTimeException("Parsing date failed");
+      throw new DateExtractionException("Parsing date failed");
     }
     return temporalAccessor;
   }
