@@ -86,9 +86,10 @@ public class CenturyDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     return Arrays.stream(PatternCenturyDateOperation.values())
-                 .map(operation -> extractInstance(inputValue, requestedDateQualification, operation, allowSwitchMonthDay))
+                 .map(operation -> extractInstance(inputValue, requestedDateQualification, operation,
+                     allowSwitchesDuringValidation))
                  .filter(Objects::nonNull).findFirst().orElse(null);
   }
 

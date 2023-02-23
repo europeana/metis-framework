@@ -17,10 +17,11 @@ public interface DateExtractor {
     return extractGenericProperty(inputValue, DateQualification.NO_QUALIFICATION);
   }
 
-  DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification, boolean allowSwitchMonthDay);
+  DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean allowSwitchesDuringValidation);
 
   /**
-   * Utility method for calling {@link #extract(String, DateQualification, boolean)} with allowSwitchMonthDay as true.
+   * Utility method for calling {@link #extract(String, DateQualification, boolean)} with allowSwitchesDuringValidation as true.
    *
    * @param inputValue the input value
    * @param dateQualification the date qualification requested
@@ -31,7 +32,7 @@ public interface DateExtractor {
   }
 
   /**
-   * Utility method for calling {@link #extract(String, DateQualification, boolean)} with allowSwitchMonthDay as false.
+   * Utility method for calling {@link #extract(String, DateQualification, boolean)} with allowSwitchesDuringValidation as false.
    *
    * @param inputValue the input value
    * @param dateQualification the date qualification requested

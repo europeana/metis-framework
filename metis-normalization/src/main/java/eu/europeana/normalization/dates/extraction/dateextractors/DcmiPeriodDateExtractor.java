@@ -52,20 +52,21 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String value, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     DateNormalizationResult dateNormalizationResult = null;
     if (isValidScheme(value)) {
       try {
         Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-        InstantEdtfDate start = extractDate(matcher, requestedDateQualification, allowSwitchMonthDay);
+        InstantEdtfDate start = extractDate(matcher, requestedDateQualification, allowSwitchesDuringValidation);
         matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-        InstantEdtfDate end = extractDate(matcher, requestedDateQualification, allowSwitchMonthDay);
+        InstantEdtfDate end = extractDate(matcher, requestedDateQualification, allowSwitchesDuringValidation);
         String name = extractName(value);
 
         //At least one end has to be specified
         if (start.getDateEdgeType() == DateEdgeType.DECLARED || end.getDateEdgeType() == DateEdgeType.DECLARED) {
           IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
-                                                                                     .withAllowSwitchStartEnd(allowSwitchMonthDay)
+                                                                                     .withAllowSwitchStartEnd(
+                                                                                         allowSwitchesDuringValidation)
                                                                                      .build();
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
               intervalEdtfDate);

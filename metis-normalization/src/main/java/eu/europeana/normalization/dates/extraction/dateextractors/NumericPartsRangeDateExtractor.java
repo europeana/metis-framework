@@ -37,7 +37,7 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
    */
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDate;
     DateNormalizationResult endDate;
@@ -51,9 +51,9 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
         // Try extraction and verify
         startDate = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeSpecialCharacters,
             requestedDateQualification,
-            allowSwitchMonthDay);
+            allowSwitchesDuringValidation);
         endDate = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters,
-            requestedDateQualification, allowSwitchMonthDay);
+            requestedDateQualification, allowSwitchesDuringValidation);
         if (startDate != null && endDate != null && !areYearsAmbiguous((InstantEdtfDate) startDate.getEdtfDate(),
             (InstantEdtfDate) endDate.getEdtfDate(),
             numericRangeSpecialCharacters)) {
@@ -61,7 +61,7 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startDate, endDate);
           final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder((InstantEdtfDate) startDate.getEdtfDate(),
-              (InstantEdtfDate) endDate.getEdtfDate()).withAllowSwitchStartEnd(allowSwitchMonthDay).build();
+              (InstantEdtfDate) endDate.getEdtfDate()).withAllowSwitchStartEnd(allowSwitchesDuringValidation).build();
           rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }

@@ -30,7 +30,7 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
       "(?<startsWithQuestionMark>\\?\\s*)?(?<start>\\d{3,4})[\\-/](?<end>\\d{2})(?<endsWithQuestionMark>\\s*\\?)?");
 
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     Matcher matcher = briefDateRangePattern.matcher(inputValue.trim());
     DateNormalizationResult dateNormalizationResult = null;
     if (matcher.matches()) {
@@ -46,17 +46,19 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
                   ? DateQualification.UNCERTAIN : null);
 
           InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(startYear).withDateQualification(dateQualification)
-                                                                               .withAllowSwitchMonthDay(allowSwitchMonthDay)
+                                                                               .withAllowSwitchMonthDay(
+                                                                                   allowSwitchesDuringValidation)
                                                                                .build();
           InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(
               (startDatePart.getYear().getValue() / YearPrecision.CENTURY.getDuration())
                   * YearPrecision.CENTURY.getDuration() + endYear)
               .withDateQualification(dateQualification)
-              .withAllowSwitchMonthDay(allowSwitchMonthDay)
+              .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
               .build();
 
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
-              new IntervalEdtfDateBuilder(startDatePart, endDatePart).withAllowSwitchStartEnd(allowSwitchMonthDay).build());
+              new IntervalEdtfDateBuilder(startDatePart, endDatePart).withAllowSwitchStartEnd(allowSwitchesDuringValidation)
+                                                                     .build());
         }
       }
     }

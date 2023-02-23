@@ -72,7 +72,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
       final InstantEdtfDateBuilder instantEdtfDateBuilder;
@@ -82,7 +82,8 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         instantEdtfDateBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
-          instantEdtfDateBuilder.withDateQualification(requestedDateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay)
+          instantEdtfDateBuilder.withDateQualification(requestedDateQualification).withAllowSwitchMonthDay(
+                                    allowSwitchesDuringValidation)
                                 .build());
     }
     m = patRange.matcher(inputValue);
@@ -94,7 +95,7 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         startDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
       InstantEdtfDate start = startDatePartBuilder.withDateQualification(requestedDateQualification)
-                                                  .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
+                                                  .withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
 
       final InstantEdtfDateBuilder endDatePartBuilder;
       if (isBc(m.group("era2"))) {
@@ -103,10 +104,10 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         endDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year2")));
       }
       InstantEdtfDate end = endDatePartBuilder.withDateQualification(requestedDateQualification)
-                                              .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
+                                              .withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
 
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
-          new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchMonthDay).build());
+          new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchesDuringValidation).build());
     }
     return null;
   }

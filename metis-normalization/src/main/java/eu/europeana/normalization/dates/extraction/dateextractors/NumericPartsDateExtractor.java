@@ -43,8 +43,8 @@ public class NumericPartsDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
-    return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, allowSwitchMonthDay);
+      boolean allowSwitchesDuringValidation) {
+    return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, allowSwitchesDuringValidation);
   }
 
   /**

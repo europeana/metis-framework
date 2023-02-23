@@ -51,7 +51,7 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
         () -> DateQualification.NO_QUALIFICATION);
 
@@ -62,7 +62,7 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
             .withDateQualification(dateQualification)
-            .withAllowSwitchMonthDay(allowSwitchMonthDay)
+            .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
@@ -72,7 +72,7 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
             .withDateQualification(dateQualification)
-            .withAllowSwitchMonthDay(allowSwitchMonthDay)
+            .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
@@ -81,7 +81,7 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
         final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
             .withDateQualification(dateQualification)
-            .withAllowSwitchMonthDay(allowSwitchMonthDay)
+            .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }

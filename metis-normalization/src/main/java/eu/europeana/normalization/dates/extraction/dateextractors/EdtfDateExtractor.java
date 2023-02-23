@@ -21,6 +21,7 @@ import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,7 @@ public class EdtfDateExtractor implements DateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) {
+      boolean allowSwitchesDuringValidation) {
     DateNormalizationResult dateNormalizationResult = null;
     try {
       if (StringUtils.isEmpty(inputValue)) {
@@ -46,12 +47,12 @@ public class EdtfDateExtractor implements DateExtractor {
       }
       final AbstractEdtfDate edtfDate;
       if (inputValue.contains(DATES_SEPARATOR)) {
-        edtfDate = extractInterval(inputValue, requestedDateQualification, allowSwitchMonthDay);
+        edtfDate = extractInterval(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
       } else {
-        edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchMonthDay);
+        edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
       }
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
-    } catch (DateTimeException | NumberFormatException e) {
+    } catch (DateTimeException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
     }
     return dateNormalizationResult;
@@ -80,7 +81,7 @@ public class EdtfDateExtractor implements DateExtractor {
     } else if (OPEN.getDeserializedRepresentation().equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getOpenInstance();
     } else if (dateInput.startsWith(String.valueOf(OVER_4_DIGITS_YEAR_PREFIX))) {
-      int year = Integer.parseInt(dateInput.substring(1));
+      int year = NumberUtils.toInt(dateInput.substring(1));
       instantEdtfDate = new InstantEdtfDateBuilder(year).withLongYearPrefixedWithY()
                                                         .withDateQualification(requestedDateQualification).build();
     } else {
