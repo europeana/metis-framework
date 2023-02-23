@@ -15,6 +15,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
@@ -68,7 +69,7 @@ public class EdtfDateExtractor implements DateExtractor {
         (start.getDateEdgeType() == UNKNOWN || start.getDateEdgeType() == OPEN)) {
       throw new DateTimeException(dateInput);
     }
-    return new IntervalEdtfDate(start, end);
+    return new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchMonthDay).build();
   }
 
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,

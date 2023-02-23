@@ -6,7 +6,7 @@ import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import java.time.Month;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +56,7 @@ public class PatternBriefDateRangeDateExtractor implements DateExtractor {
               .build();
 
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
-              new IntervalEdtfDate(startDatePart, endDatePart));
+              new IntervalEdtfDateBuilder(startDatePart, endDatePart).withAllowSwitchStartEnd(allowSwitchMonthDay).build());
         }
       }
     }

@@ -11,6 +11,7 @@ import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
@@ -59,8 +60,8 @@ public class NumericPartsRangeDateExtractor implements DateExtractor {
 
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startDate, endDate);
-          final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate((InstantEdtfDate) startDate.getEdtfDate(),
-              (InstantEdtfDate) endDate.getEdtfDate());
+          final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder((InstantEdtfDate) startDate.getEdtfDate(),
+              (InstantEdtfDate) endDate.getEdtfDate()).withAllowSwitchStartEnd(allowSwitchMonthDay).build();
           rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }

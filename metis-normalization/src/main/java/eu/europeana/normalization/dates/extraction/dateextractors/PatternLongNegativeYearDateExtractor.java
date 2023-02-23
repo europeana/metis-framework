@@ -6,6 +6,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +47,8 @@ public class PatternLongNegativeYearDateExtractor implements DateExtractor {
           dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay).build();
       final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year2"))).withDateQualification(
           dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay).build();
-      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(startDatePart, endDatePart);
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(startDatePart, endDatePart).withAllowSwitchStartEnd(
+          allowSwitchMonthDay).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }
     return null;

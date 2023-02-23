@@ -6,9 +6,7 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
-import eu.europeana.normalization.dates.edtf.EdtfValidator;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
@@ -235,7 +233,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
   public DateNormalizationResult normalizeDateProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderDateProperty,
         dateNormalizationResult -> false, //No extra check
-        this::validateAndFix,
         this::noMatchIfValidAndTimeOnly);
   }
 
@@ -249,7 +246,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
   public DateNormalizationResult normalizeGenericProperty(String input) {
     return normalizeProperty(input, normalizationOperationsInOrderGenericProperty,
         dateNormalizationResult -> !dateNormalizationResult.isCompleteDate(),
-        this::validate, //If invalid we don't perform a fixing to retry validation
         dateNormalizationResult -> {//NOOP
         });
   }
@@ -257,7 +253,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private DateNormalizationResult normalizeProperty(
       String input, final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder,
       Predicate<DateNormalizationResult> extraCheckForNoMatch,
-      Consumer<DateNormalizationResult> validationOperation,
       Consumer<DateNormalizationResult> postProcessingMatchId) {
 
     DateNormalizationResult dateNormalizationResult;
@@ -273,7 +268,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
     if (Objects.isNull(dateNormalizationResult) || extraCheckForNoMatch.test(dateNormalizationResult)) {
       return DateNormalizationResult.getNoMatchResult(input);
     }
-    validationOperation.accept(dateNormalizationResult);
     postProcessingMatchId.accept(dateNormalizationResult);
     return dateNormalizationResult;
   }
@@ -341,30 +335,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
       }
     }
     return dateNormalizationResult;
-  }
-
-  private void validateAndFix(DateNormalizationResult dateNormalizationResult) {
-    final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
-    if (!EdtfValidator.validate(edtfDate)) {
-      switchAndValidate(edtfDate);
-    }
-  }
-
-  private void validate(DateNormalizationResult dateNormalizationResult) {
-    final AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
-    if (!EdtfValidator.validate(edtfDate)) {
-      dateNormalizationResult.setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId.INVALID);
-    }
-  }
-
-  private void switchAndValidate(AbstractEdtfDate edtfDate) {
-    if (edtfDate instanceof IntervalEdtfDate) {
-      ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
-      if (!EdtfValidator.validate(edtfDate)) {
-        //Revert the start/end
-        ((IntervalEdtfDate) edtfDate).switchStartWithEnd();
-      }
-    }
   }
 
   /**

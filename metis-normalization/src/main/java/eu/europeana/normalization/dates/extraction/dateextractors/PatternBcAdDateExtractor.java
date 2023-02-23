@@ -5,7 +5,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -105,7 +105,8 @@ public class PatternBcAdDateExtractor implements DateExtractor {
       InstantEdtfDate end = endDatePartBuilder.withDateQualification(requestedDateQualification)
                                               .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
 
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
+          new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchMonthDay).build());
     }
     return null;
   }

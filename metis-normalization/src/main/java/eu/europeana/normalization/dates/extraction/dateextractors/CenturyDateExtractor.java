@@ -10,7 +10,7 @@ import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Arrays;
@@ -112,7 +112,8 @@ public class CenturyDateExtractor implements DateExtractor {
         InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
         InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
                                                         .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
-        abstractEdtfDate = new IntervalEdtfDate(startEdtfDate, endEdtfDate);
+        abstractEdtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withAllowSwitchStartEnd(allowSwitchMonthDay)
+                                                                                  .build();
       } else {
         abstractEdtfDate = startEdtfDate;
       }

@@ -7,6 +7,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
@@ -63,7 +64,9 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
 
         //At least one end has to be specified
         if (start.getDateEdgeType() == DateEdgeType.DECLARED || end.getDateEdgeType() == DateEdgeType.DECLARED) {
-          IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(name, start, end);
+          IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
+                                                                                     .withAllowSwitchStartEnd(allowSwitchMonthDay)
+                                                                                     .build();
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
               intervalEdtfDate);
         }
