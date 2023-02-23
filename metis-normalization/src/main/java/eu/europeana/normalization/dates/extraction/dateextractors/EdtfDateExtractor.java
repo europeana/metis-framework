@@ -6,7 +6,6 @@ import static eu.europeana.normalization.dates.edtf.DateQualification.CHECK_QUAL
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX;
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
-import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * Specifically from Level1, seasons and Unspecified digit(s) from the right are not supported
  * </p>
  */
-public class EdtfDateExtractor implements DateExtractor {
+public class EdtfDateExtractor extends AbstractDateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EdtfDateExtractor.class);
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
@@ -40,10 +39,9 @@ public class EdtfDateExtractor implements DateExtractor {
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean allowSwitchesDuringValidation) {
-    DateNormalizationResult dateNormalizationResult = null;
-    try {
-      if (StringUtils.isEmpty(inputValue)) {
-        throw new DateTimeException("Empty argument");
+    DateNormalizationResult dateNormalizationResult;
+    if (StringUtils.isEmpty(inputValue)) {
+      throw new DateTimeException("Empty argument");
       }
       final AbstractEdtfDate edtfDate;
       if (inputValue.contains(DATES_SEPARATOR)) {
@@ -52,14 +50,11 @@ public class EdtfDateExtractor implements DateExtractor {
         edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
       }
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
-    } catch (DateTimeException e) {
-      LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
-    }
     return dateNormalizationResult;
   }
 
   protected IntervalEdtfDate extractInterval(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateTimeException {
+      boolean allowSwitchMonthDay) {
     String startPart = dateInput.substring(0, dateInput.indexOf(DATES_SEPARATOR));
     String endPart = dateInput.substring(dateInput.indexOf(DATES_SEPARATOR) + 1);
     final InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
@@ -74,7 +69,7 @@ public class EdtfDateExtractor implements DateExtractor {
   }
 
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateTimeException {
+      boolean allowSwitchMonthDay) {
     final InstantEdtfDate instantEdtfDate;
     if (UNKNOWN.getDeserializedRepresentation().equals(dateInput)) {
       instantEdtfDate = InstantEdtfDate.getUnknownInstance();

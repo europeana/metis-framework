@@ -20,7 +20,7 @@ import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
  * Patterns for numeric date ranges with variations in the separators of date components.
  * <p>We reuse the already existent {@link NumericPartsDateExtractor} code for the edges.</p>
  */
-public class NumericPartsRangeDateExtractor implements DateExtractor {
+public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
 
   private static final NumericPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericPartsDateExtractor();
 

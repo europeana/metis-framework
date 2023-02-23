@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * A year before 1 AD with more than 4 digits. This pattern is typically used in archaeological contexts. The year may contain
  * between 5 and 9 digits. Aso includes the pattern for ranges of this kind of years.
  */
-public class PatternLongNegativeYearDateExtractor implements DateExtractor {
+public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor {
 
   Pattern patYyyyyy = Pattern.compile("\\s*(?<uncertain>\\?)?(?<year>-\\d{5,9})(?<uncertain2>\\?)?\\s*",
       Pattern.CASE_INSENSITIVE);

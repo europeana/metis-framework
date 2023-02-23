@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * <p>Most values that match this pattern also match the EDTF pattern, but would result in an invalid date.</p>
  * <p>This pattern only matches values that would not be valid EDTF dates.</p>
  */
-public class PatternBriefDateRangeDateExtractor implements DateExtractor {
+public class PatternBriefDateRangeDateExtractor extends AbstractDateExtractor {
 
   private final Pattern briefDateRangePattern = Pattern.compile(
       "(?<startsWithQuestionMark>\\?\\s*)?(?<start>\\d{3,4})[\\-/](?<end>\\d{2})(?<endsWithQuestionMark>\\s*\\?)?");

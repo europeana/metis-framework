@@ -9,7 +9,6 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
-import java.time.DateTimeException;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * Patterns for numeric dates with variations in the separators of date components.
  * <p>For Patterns pay attentions on the use of {@link Matcher#matches()} or {@link Matcher#find()} in this method.</p>
  */
-public class NumericPartsDateExtractor implements DateExtractor {
+public class NumericPartsDateExtractor extends AbstractDateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(NumericPartsDateExtractor.class);
 
@@ -67,24 +66,19 @@ public class NumericPartsDateExtractor implements DateExtractor {
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
-        try {
           InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
           dateNormalizationResult = new DateNormalizationResult(
               numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
               instantEdtfDateBuilder.withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay)
                                     .build());
           break;
-        } catch (DateTimeException e) {
-          LOGGER.debug(String.format("Date extraction failed %s: ", inputValue), e);
-        }
       }
     }
 
     return dateNormalizationResult;
   }
 
-  private InstantEdtfDateBuilder extractDateProperty(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher)
-      throws DateTimeException {
+  private InstantEdtfDateBuilder extractDateProperty(NumericPartsPattern numericWithMissingPartsPattern, Matcher matcher) {
     final String year = getYear(numericWithMissingPartsPattern, matcher);
     final String month = getMonth(numericWithMissingPartsPattern, matcher);
     final String day = getDay(numericWithMissingPartsPattern, matcher);

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * ‘AC/DC’, but the abbreviations used in other languages will be supported in the future. Or a date range where the start/end
  * years contain an indication of the era.
  */
-public class PatternBcAdDateExtractor implements DateExtractor {
+public class PatternBcAdDateExtractor extends AbstractDateExtractor {
 
   static final HashSet<String> bcAbbreviations = new HashSet<>();
 

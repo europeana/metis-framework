@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * A date where the month is specified by its name or an abbreviation. Supports all the official languages of the European Union
  */
-public class PatternMonthNameDateExtractor implements DateExtractor {
+public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
 
   HashMap<Month, Pattern> patternDayMonthYear = new HashMap<>(12);
   HashMap<Month, Pattern> patternMonthDayYear = new HashMap<>(12);

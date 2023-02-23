@@ -9,7 +9,6 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
-import java.time.DateTimeException;
 import java.time.temporal.TemporalAccessor;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -23,7 +22,7 @@ import org.slf4j.LoggerFactory;
  *
  * @see <a href="https://www.dublincore.org/specifications/dublin-core/dcmi-period/">DCMI Period Encoding Scheme</a>
  */
-public class DcmiPeriodDateExtractor implements DateExtractor {
+public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DcmiPeriodDateExtractor.class);
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
@@ -71,7 +70,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
               intervalEdtfDate);
         }
-      } catch (DuplicateFieldException | DateTimeException e) {
+      } catch (DuplicateFieldException e) {
         LOGGER.warn("Exception during dcmi field extraction", e);
       }
     }
@@ -105,8 +104,7 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
   }
 
   private InstantEdtfDate extractDate(Matcher matcher, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay)
-      throws DuplicateFieldException, DateTimeException {
+      boolean allowSwitchMonthDay) throws DuplicateFieldException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);

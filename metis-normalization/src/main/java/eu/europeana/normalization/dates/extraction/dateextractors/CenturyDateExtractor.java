@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  * <p>The Roman numerals may also be preceded by an abbreviation of century, for example ‘s. XIX’.</p>
  * <p>Also supports ranges.</p>
  */
-public class CenturyDateExtractor implements DateExtractor {
+public class CenturyDateExtractor extends AbstractDateExtractor {
 
   private static final String NUMERIC_10_TO_21_ENDING_DOTS_REGEX = "(1\\d|2[0-1])\\.{2}";
   private static final String NUMERIC_1_TO_21_SUFFIXED_REGEX = "(2?1st|2nd|3rd|(?:1\\d|[4-9]|20)th)\\scentury";
