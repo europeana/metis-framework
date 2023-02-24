@@ -22,8 +22,6 @@ class CleanMarkupTagsNormalizerTest {
     CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.HTML_ONLY);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
                                   .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
-    System.out.println(html);
-    System.out.println(cleaned);
     assertEquals(1, cleaned.size());
     assertTrue(cleaned.get(0).contains("ire this"));
     assertTrue(cleaned.get(0).contains("<made-up-tag>guy</made-up-tag>"));
@@ -38,7 +36,6 @@ class CleanMarkupTagsNormalizerTest {
     CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.ALL_MARKUP);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
                                   .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
-    System.out.println(cleaned);
     assertEquals(1, cleaned.size());
     assertTrue(cleaned.get(0).contains("ire this guy"));
     assertFalse(cleaned.get(0).contains("this is ugly html"));

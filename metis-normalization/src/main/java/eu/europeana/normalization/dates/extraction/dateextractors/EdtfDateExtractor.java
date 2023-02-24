@@ -30,12 +30,12 @@ import org.apache.commons.lang3.math.NumberUtils;
  * </p>
  */
 public class EdtfDateExtractor extends AbstractDateExtractor {
+
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean allowSwitchesDuringValidation) throws DateExtractionException {
-    DateNormalizationResult dateNormalizationResult;
     if (StringUtils.isEmpty(inputValue)) {
       throw new DateExtractionException("Empty argument");
     }
@@ -45,8 +45,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     } else {
       edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
     }
-      dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
-    return dateNormalizationResult;
+    return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
   }
 
   protected IntervalEdtfDate extractInterval(String dateInput, DateQualification requestedDateQualification,
