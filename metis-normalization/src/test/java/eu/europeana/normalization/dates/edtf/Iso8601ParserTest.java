@@ -105,13 +105,13 @@ class Iso8601ParserTest {
         Arguments.of("1989-11-01t23:59:59Z", null),
         Arguments.of("1989-11-01 23:59:59Z", null),
 
-        //Date and time with timeshift in hours (only)
+        //Date and time with time shift in hours (only)
         Arguments.of("1989-11-01T23:59:59-04", "1989-11-01"),
         Arguments.of("1989-11-01T23:59:59+04", "1989-11-01"),
         Arguments.of("1989-11-01t23:59:59-04", null),
         Arguments.of("1989-11-01 23:59:59-04", null),
 
-        //Date and time with timeshift in hours and minutes
+        //Date and time with time shift in hours and minutes
         Arguments.of("1989-11-01T23:59:59-04:44", "1989-11-01"),
         Arguments.of("1989-11-01T23:59:59+04:44", "1989-11-01"),
         Arguments.of("1989-11-01t23:59:59-04:44", null),
