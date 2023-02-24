@@ -14,11 +14,14 @@ import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
+import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.ToIntFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extractor that matches a century with a decimal or Roman numerals
@@ -38,6 +41,7 @@ import java.util.regex.Pattern;
  */
 public class CenturyDateExtractor extends AbstractDateExtractor {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
   private static final String NUMERIC_10_TO_21_ENDING_DOTS_REGEX = "(1\\d|2[0-1])\\.{2}";
   private static final String NUMERIC_1_TO_21_SUFFIXED_REGEX = "(2?1st|2nd|3rd|(?:1\\d|[4-9]|20)th)\\scentury";
   private static final String ROMAN_1_TO_21_REGEX = "(X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
@@ -94,8 +98,9 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
                      return extractInstance(inputValue, requestedDateQualification, operation,
                          allowSwitchesDuringValidation);
                    } catch (DateExtractionException e) {
-                     throw new RuntimeException(e);
+                     LOGGER.warn("Failed instance extraction!", e);
                    }
+                   return null;
                  })
                  .filter(Objects::nonNull).findFirst().orElse(null);
   }

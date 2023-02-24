@@ -11,6 +11,7 @@ import static java.util.Optional.ofNullable;
 
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -20,6 +21,8 @@ import java.time.YearMonth;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class representing the date part an EDTF date.
@@ -30,6 +33,8 @@ import java.util.Objects;
  */
 public final class InstantEdtfDate extends AbstractEdtfDate implements Comparable<InstantEdtfDate> {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
   private YearPrecision yearPrecision;
   private Year year;
 
@@ -37,7 +42,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   private LocalDate yearMonthDay;
 
   private DateQualification dateQualification = NO_QUALIFICATION;
-  private DateEdgeType dateEdgeType = DateEdgeType.DECLARED;
+  private DateEdgeType dateEdgeType = DECLARED;
 
   /**
    * Restricted constructor by provided {@link InstantEdtfDateBuilder}.
@@ -54,6 +59,24 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
 
   private InstantEdtfDate(DateEdgeType dateEdgeType) {
     this.dateEdgeType = dateEdgeType;
+  }
+
+  /**
+   * Create an {@link DateEdgeType#UNKNOWN} instant.
+   *
+   * @return the instant date created
+   */
+  public static InstantEdtfDate getUnknownInstance() {
+    return new InstantEdtfDate(UNKNOWN);
+  }
+
+  /**
+   * Create an {@link DateEdgeType#OPEN} instant.
+   *
+   * @return the instant date created
+   */
+  public static InstantEdtfDate getOpenInstance() {
+    return new InstantEdtfDate(OPEN);
   }
 
   public Year getYear() {
@@ -80,14 +103,6 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return dateEdgeType;
   }
 
-  public static InstantEdtfDate getUnknownInstance() {
-    return new InstantEdtfDate(UNKNOWN);
-  }
-
-  public static InstantEdtfDate getOpenInstance() {
-    return new InstantEdtfDate(OPEN);
-  }
-
   @Override
   public boolean isYearPrecision() {
     return yearPrecision != null;
@@ -97,10 +112,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   public InstantEdtfDate getFirstDay() {
     InstantEdtfDate firstDay = null;
     try {
-      if (dateEdgeType == DateEdgeType.DECLARED) {
-        // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
-        //The part where > THRESHOLD_4_DIGITS_YEAR is not possible because it's in the future, so we don't have to check it.
-        //Verify though that the contents of this class are always considered valid before the call of this method.
+      if (dateEdgeType == DECLARED) {
         if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
           firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
         } else {
@@ -108,7 +120,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
         }
       }
     } catch (DateExtractionException e) {
-      throw new RuntimeException(e);
+      LOGGER.error("Creating first day of instant failed!", e);
     }
 
     return firstDay;
@@ -133,8 +145,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
     try {
-      if (dateEdgeType == DateEdgeType.DECLARED) {
-        // TODO: 25/07/2022 What about > THRESHOLD_4_DIGITS_YEAR??
+      if (dateEdgeType == DECLARED) {
         if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
           lastDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
         } else {
@@ -142,7 +153,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
         }
       }
     } catch (DateExtractionException e) {
-      throw new RuntimeException(e);
+      LOGGER.error("Creating last day of instant failed!", e);
     }
     return lastDay;
   }

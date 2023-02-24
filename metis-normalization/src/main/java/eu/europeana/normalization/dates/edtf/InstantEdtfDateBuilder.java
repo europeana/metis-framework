@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import java.lang.invoke.MethodHandles;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -29,9 +30,9 @@ import org.slf4j.LoggerFactory;
  */
 public class InstantEdtfDateBuilder {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
-  private static final Logger LOGGER = LoggerFactory.getLogger(InstantEdtfDateBuilder.class);
   private Year yearObj;
   private Month monthObj;
   private LocalDate yearMonthDayObj;

@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.edtf;
 import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Iso8601Parser {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Iso8601Parser.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
   public static final int ISO_8601_MINIMUM_YEAR_DIGITS = 4;
 
   private static final Map<DateTimeFormatter, BiFunction<CharSequence, DateTimeFormatter, TemporalAccessor>> DATE_TIME_FORMATTERS =

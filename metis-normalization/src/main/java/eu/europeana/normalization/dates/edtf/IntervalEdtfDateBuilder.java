@@ -19,7 +19,8 @@ public class IntervalEdtfDateBuilder {
   private boolean allowSwitchStartEnd = false;
 
   /**
-   * Constructor which initializes the builder with the the start and end date edges.
+   * Constructor which initializes the builder with the start and end date edges.
+   * <p>Edges should never be null</p>
    *
    * @param start the start date
    * @param end the end date

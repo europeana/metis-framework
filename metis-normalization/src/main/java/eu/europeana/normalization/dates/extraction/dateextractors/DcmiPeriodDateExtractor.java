@@ -15,8 +15,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Date extractor for DCMI Period.
@@ -25,7 +23,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DcmiPeriodDateExtractor.class);
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
   private static final String NON_SPACE_NON_SEMICOLON = "[^\\s;]*";
   private static final String NON_SPACE_NON_LINE_END = "[^\\s$]*";

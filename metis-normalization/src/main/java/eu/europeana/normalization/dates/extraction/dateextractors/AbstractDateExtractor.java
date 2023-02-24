@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import java.lang.invoke.MethodHandles;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractDateExtractor implements DateExtractor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDateExtractor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
   @Override
   public DateNormalizationResult extractDateProperty(String inputValue) {

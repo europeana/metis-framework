@@ -19,35 +19,32 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public DateQualification getDateQualification() {
-    if (start != null) {
+    // TODO: 24/02/2023 To verify what this should return.
+    if (start.getDateQualification() != DateQualification.NO_QUALIFICATION) {
       return start.getDateQualification();
-    }
-    if (end != null) {
+    } else {
       return end.getDateQualification();
     }
-    return null;
   }
 
   @Override
   public boolean isYearPrecision() {
-    return (start != null && start.getYearPrecision() != null) || (end != null
-        && end.getYearPrecision() != null);
+    return start.getYearPrecision() != null || end.getYearPrecision() != null;
   }
 
   @Override
   public boolean isOpen() {
-    return (start != null && start.getDateEdgeType() == DateEdgeType.OPEN) || (end != null
-        && end.getDateEdgeType() == DateEdgeType.OPEN);
+    return start.getDateEdgeType() == DateEdgeType.OPEN || end.getDateEdgeType() == DateEdgeType.OPEN;
   }
 
   @Override
   public InstantEdtfDate getFirstDay() {
-    return start == null ? null : start.getFirstDay();
+    return start.getFirstDay();
   }
 
   @Override
   public InstantEdtfDate getLastDay() {
-    return end == null ? null : end.getLastDay();
+    return end.getLastDay();
   }
 
   public InstantEdtfDate getStart() {
