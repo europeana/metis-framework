@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.DCMI_PERIOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -27,14 +26,12 @@ class DcmiPeriodDateExtractorTest {
     DateNormalizationResult dateNormalizationResult = periodDateExtractor.extractDateProperty(actualDcmiPeriod);
     if (expectedStartDate == null || expectedEndDate == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-      //      assertNull(dateNormalizationResult);
     } else {
       IntervalEdtfDate interval = (IntervalEdtfDate) dateNormalizationResult.getEdtfDate();
       assertEquals(expectedLabel, interval.getLabel());
       assertEquals(expectedStartDate, interval.getStart() != null ? interval.getStart().toString() : null);
       assertEquals(expectedEndDate, interval.getEnd() != null ? interval.getEnd().toString() : null);
       assertEquals(DCMI_PERIOD, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-      assertTrue(dateNormalizationResult.isCompleteDate());
     }
   }
 

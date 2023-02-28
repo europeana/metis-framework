@@ -52,7 +52,7 @@ public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
         () -> DateQualification.NO_QUALIFICATION);
 
@@ -63,7 +63,7 @@ public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
             .withDateQualification(dateQualification)
-            .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
+            .withFlexibleDateBuild(flexibleDateBuild)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
@@ -73,7 +73,7 @@ public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
             .withMonth(month.getValue())
             .withDay(Integer.parseInt(m.group("day")))
             .withDateQualification(dateQualification)
-            .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
+            .withFlexibleDateBuild(flexibleDateBuild)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
@@ -82,7 +82,7 @@ public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
         final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
             .withMonth(month.getValue())
             .withDateQualification(dateQualification)
-            .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
+            .withFlexibleDateBuild(flexibleDateBuild)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }

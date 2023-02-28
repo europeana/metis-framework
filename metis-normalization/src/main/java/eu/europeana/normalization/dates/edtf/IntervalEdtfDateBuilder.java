@@ -1,22 +1,27 @@
 package eu.europeana.normalization.dates.edtf;
 
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import java.lang.invoke.MethodHandles;
+import java.time.DateTimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Builder class for {@link IntervalEdtfDate}.
  * <p>
  * During {@link #build()} it will verify all the parameters that have been requested. The {@link #build()}, if
- * {@link #withAllowSwitchStartEnd(boolean)} was called with {@code true}, will also attempt a second time by switching start and
+ * {@link #withFlexibleDateBuild(boolean)} was called with {@code true}, will also attempt a second time by switching start and
  * end values if the original values were invalid.
  * </p>
  */
 public class IntervalEdtfDateBuilder {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
   private InstantEdtfDate start;
   private InstantEdtfDate end;
   private String label;
 
-  private boolean allowSwitchStartEnd = false;
+  private boolean flexibleDateBuild = false;
 
   /**
    * Constructor which initializes the builder with the start and end date edges.
@@ -35,8 +40,8 @@ public class IntervalEdtfDateBuilder {
     return this;
   }
 
-  public IntervalEdtfDateBuilder withAllowSwitchStartEnd(boolean allowSwitchStartEnd) {
-    this.allowSwitchStartEnd = allowSwitchStartEnd;
+  public IntervalEdtfDateBuilder withFlexibleDateBuild(boolean flexibleDateBuild) {
+    this.flexibleDateBuild = flexibleDateBuild;
     return this;
   }
 
@@ -44,7 +49,7 @@ public class IntervalEdtfDateBuilder {
     IntervalEdtfDate intervalEdtfDate;
     intervalEdtfDate = buildInternal();
     //Try once more if switching allowed
-    if (intervalEdtfDate == null && allowSwitchStartEnd) {
+    if (intervalEdtfDate == null && flexibleDateBuild) {
       //Retry with swapping month and day
       switchStartWithEnd();
       intervalEdtfDate = buildInternal();
@@ -76,21 +81,25 @@ public class IntervalEdtfDateBuilder {
    */
   private IntervalEdtfDate buildInternal() {
     IntervalEdtfDate intervalEdtfDate = null;
-    final boolean isIntervalValid;
-    if (start == null || end == null) {
-      isIntervalValid = false;
-    } else {
-      final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateEdgeType.DECLARED;
-      final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateEdgeType.DECLARED;
-      if (isStartDatePartSpecific && isEndDatePartSpecific) {
-        isIntervalValid = start.compareTo(end) <= 0;
+    try {
+      final boolean isIntervalValid;
+      if (start == null || end == null) {
+        isIntervalValid = false;
       } else {
-        isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
+        final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateEdgeType.DECLARED;
+        final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateEdgeType.DECLARED;
+        if (isStartDatePartSpecific && isEndDatePartSpecific) {
+          isIntervalValid = start.compareTo(end) <= 0;
+        } else {
+          isIntervalValid = isStartDatePartSpecific || isEndDatePartSpecific;
+        }
       }
-    }
 
-    if (isIntervalValid) {
-      intervalEdtfDate = new IntervalEdtfDate(this);
+      if (isIntervalValid) {
+        intervalEdtfDate = new IntervalEdtfDate(this);
+      }
+    } catch (DateTimeException e) {
+      LOGGER.debug("Date build failed.", e);
     }
 
     return intervalEdtfDate;

@@ -39,7 +39,7 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
    */
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDateResult;
     DateNormalizationResult endDateResult;
@@ -53,9 +53,9 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
         // Try extraction and verify
         startDateResult = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeSpecialCharacters,
             requestedDateQualification,
-            allowSwitchesDuringValidation);
+            flexibleDateBuild);
         endDateResult = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters,
-            requestedDateQualification, allowSwitchesDuringValidation);
+            requestedDateQualification, flexibleDateBuild);
         if (startDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
             && endDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
             && !areYearsAmbiguous((InstantEdtfDate) startDateResult.getEdtfDate(), (InstantEdtfDate) endDateResult.getEdtfDate(),
@@ -64,7 +64,7 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startDateResult, endDateResult);
           final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder((InstantEdtfDate) startDateResult.getEdtfDate(),
-              (InstantEdtfDate) endDateResult.getEdtfDate()).withAllowSwitchStartEnd(allowSwitchesDuringValidation).build();
+              (InstantEdtfDate) endDateResult.getEdtfDate()).withFlexibleDateBuild(flexibleDateBuild).build();
           rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }

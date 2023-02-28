@@ -31,7 +31,7 @@ public class PatternBriefDateRangeDateExtractor extends AbstractDateExtractor {
       "(?<startsWithQuestionMark>\\?\\s*)?(?<start>\\d{3,4})[\\-/](?<end>\\d{2})(?<endsWithQuestionMark>\\s*\\?)?");
 
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     Matcher matcher = briefDateRangePattern.matcher(inputValue.trim());
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     if (matcher.matches()) {
@@ -47,18 +47,18 @@ public class PatternBriefDateRangeDateExtractor extends AbstractDateExtractor {
                   ? DateQualification.UNCERTAIN : null);
 
           InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(startYear).withDateQualification(dateQualification)
-                                                                               .withAllowSwitchMonthDay(
-                                                                                   allowSwitchesDuringValidation)
+                                                                               .withFlexibleDateBuild(
+                                                                                   flexibleDateBuild)
                                                                                .build();
           InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(
               (startDatePart.getYear().getValue() / YearPrecision.CENTURY.getDuration())
                   * YearPrecision.CENTURY.getDuration() + endYear)
               .withDateQualification(dateQualification)
-              .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
+              .withFlexibleDateBuild(flexibleDateBuild)
               .build();
 
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
-              new IntervalEdtfDateBuilder(startDatePart, endDatePart).withAllowSwitchStartEnd(allowSwitchesDuringValidation)
+              new IntervalEdtfDateBuilder(startDatePart, endDatePart).withFlexibleDateBuild(flexibleDateBuild)
                                                                      .build());
         }
       }

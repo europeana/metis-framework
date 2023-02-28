@@ -33,7 +33,7 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
         () -> DateQualification.NO_QUALIFICATION);
 
@@ -42,7 +42,7 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
           .withDay(Integer.parseInt(m.group(3)))
-          .withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
+          .withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate.matcher(inputValue);
@@ -50,7 +50,7 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(6)))
           .withMonth(monthNames.getMonthIndexValue(m.group(1)))
           .withDay(Integer.parseInt(m.group(2)))
-          .withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
+          .withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate3.matcher(inputValue);
@@ -58,7 +58,7 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
           .withDay(Integer.parseInt(m.group(3)))
-          .withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
+          .withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     return DateNormalizationResult.getNoMatchResult(inputValue);

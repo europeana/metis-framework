@@ -55,10 +55,10 @@ public abstract class AbstractDateExtractor implements DateExtractor {
   }
 
   private DateNormalizationResult getDateNormalizationResult(String inputValue, DateQualification dateQualification,
-      boolean allowSwitchesDuringValidation) {
+      boolean flexibleDateBuild) {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
     try {
-      dateNormalizationResult = extract(inputValue, dateQualification, allowSwitchesDuringValidation);
+      dateNormalizationResult = extract(inputValue, dateQualification, flexibleDateBuild);
     } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
     }

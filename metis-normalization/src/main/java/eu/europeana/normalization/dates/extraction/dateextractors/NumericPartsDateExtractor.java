@@ -39,8 +39,8 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
-    return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, allowSwitchesDuringValidation);
+      boolean flexibleDateBuild) throws DateExtractionException {
+    return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, flexibleDateBuild);
   }
 
   /**
@@ -66,7 +66,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
         InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
           dateNormalizationResult = new DateNormalizationResult(
               numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
-              instantEdtfDateBuilder.withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchMonthDay)
+              instantEdtfDateBuilder.withDateQualification(dateQualification).withFlexibleDateBuild(allowSwitchMonthDay)
                                     .build());
           break;
       }

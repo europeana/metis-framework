@@ -35,15 +35,15 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     if (StringUtils.isEmpty(inputValue)) {
       throw new DateExtractionException("Empty argument");
     }
     final AbstractEdtfDate edtfDate;
     if (inputValue.contains(DATES_SEPARATOR)) {
-      edtfDate = extractInterval(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
+      edtfDate = extractInterval(inputValue, requestedDateQualification, flexibleDateBuild);
     } else {
-      edtfDate = extractInstant(inputValue, requestedDateQualification, allowSwitchesDuringValidation);
+      edtfDate = extractInstant(inputValue, requestedDateQualification, flexibleDateBuild);
     }
     return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, edtfDate);
   }
@@ -60,7 +60,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
         (start.getDateEdgeType() == UNKNOWN || start.getDateEdgeType() == OPEN)) {
       throw new DateExtractionException(dateInput);
     }
-    return new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchMonthDay).build();
+    return new IntervalEdtfDateBuilder(start, end).withFlexibleDateBuild(allowSwitchMonthDay).build();
   }
 
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
@@ -96,7 +96,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualification)
-        .withAllowSwitchMonthDay(allowSwitchMonthDay)
+        .withFlexibleDateBuild(allowSwitchMonthDay)
         .build();
   }
 

@@ -35,7 +35,7 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);
@@ -47,7 +47,7 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
           Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
           .withYearPrecision(YearPrecision.DECADE)
           .withDateQualification(dateQualification)
-          .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
+          .withFlexibleDateBuild(flexibleDateBuild)
           .build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }

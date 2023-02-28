@@ -9,8 +9,8 @@ import eu.europeana.normalization.dates.extraction.DateExtractionException;
  */
 public interface DateExtractor {
 
-  DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException;
+  DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      throws DateExtractionException;
 
   DateNormalizationResult extractDateProperty(String inputValue);
 

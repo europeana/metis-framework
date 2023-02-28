@@ -49,20 +49,20 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String value, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(value);
     if (isValidScheme(value)) {
       Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-      InstantEdtfDate start = extractDate(matcher, requestedDateQualification, allowSwitchesDuringValidation);
+      InstantEdtfDate start = extractDate(matcher, requestedDateQualification, flexibleDateBuild);
       matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-      InstantEdtfDate end = extractDate(matcher, requestedDateQualification, allowSwitchesDuringValidation);
+      InstantEdtfDate end = extractDate(matcher, requestedDateQualification, flexibleDateBuild);
       String name = extractName(value);
 
       //At least one end has to be specified
       if (start.getDateEdgeType() == DateEdgeType.DECLARED || end.getDateEdgeType() == DateEdgeType.DECLARED) {
         IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
-                                                                                   .withAllowSwitchStartEnd(
-                                                                                       allowSwitchesDuringValidation)
+                                                                                   .withFlexibleDateBuild(
+                                                                                       flexibleDateBuild)
                                                                                    .build();
         dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
             intervalEdtfDate);
@@ -107,7 +107,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
         DateQualification dateQualification = computeDateQualification(requestedDateQualification,
             () -> DateQualification.NO_QUALIFICATION);
         instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
-                                                                      .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
+                                                                      .withFlexibleDateBuild(allowSwitchMonthDay).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

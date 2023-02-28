@@ -19,9 +19,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Builder class for {@link InstantEdtfDate}.
  * <p>During {@link #build()} it will verify all the parameters that have been requested.
- * The {@link #build()}, if {@link #withAllowSwitchMonthDay(boolean)} was called with {@code true}, will also attempt a second
- * time by switching month and day values if the original values were invalid. Furthermore, there are a set of constructors that
- * can start the builder and will perform a build with specific characteristics:
+ * The {@link #build()}, if {@link #withFlexibleDateBuild(boolean)} was called with {@code true}, will also attempt a second time
+ * by switching month and day values if the original values were invalid. Furthermore, there are a set of constructors that can
+ * start the builder and will perform a build with specific characteristics:
  * <ul>
  *   <li>{@link InstantEdtfDateBuilder#InstantEdtfDateBuilder(Integer)} which initializes the builder with the minimum requirement of year value.</li>
  *   <li>{@link InstantEdtfDateBuilder#InstantEdtfDateBuilder(TemporalAccessor)} can be used instead to pass multiple values through a {@link TemporalAccessor}.
@@ -42,7 +42,7 @@ public class InstantEdtfDateBuilder {
   private YearPrecision yearPrecision;
   private TemporalAccessor temporalAccessor;
   private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
-  private boolean allowSwitchMonthDay = false;
+  private boolean flexibleDateBuild = true;
   private boolean longDatePrefixedWithY = false;
 
   /**
@@ -76,7 +76,7 @@ public class InstantEdtfDateBuilder {
     InstantEdtfDate instantEdtfDate;
     instantEdtfDate = buildInternal();
     //Try once more if switching allowed
-    if (instantEdtfDate == null && allowSwitchMonthDay) {
+    if (instantEdtfDate == null && flexibleDateBuild) {
       swapMonthDay();
       instantEdtfDate = buildInternal();
     }
@@ -103,13 +103,31 @@ public class InstantEdtfDateBuilder {
       validateYear();
       yearObj = Year.of(year);
       parseMonthDay();
+
       validateDateNotInFuture();
+      validateStrict();
 
       instantEdtfDate = new InstantEdtfDate(this);
     } catch (DateTimeException | DateExtractionException e) {
-      LOGGER.debug("Year-Month-Day failed. Trying switching Month and Day", e);
+      LOGGER.debug("Date build failed.", e);
     }
     return instantEdtfDate;
+  }
+
+  private void validateStrict() throws DateExtractionException {
+    //If it is not a long year, and we want to be strict we further validate
+    if (!longDatePrefixedWithY && !flexibleDateBuild) {
+      if (isDateNonPrecise() || monthObj == null || yearMonthDayObj == null) {
+        throw new DateExtractionException("Date is invalid according to our strict profile!");
+      }
+    }
+  }
+
+  private boolean isDateNonPrecise() {
+    // TODO: 15/02/2023 Check this instruction. It used to be like that
+    //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
+    //  but do we actually need the check on unknown?
+    return dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
   }
 
   private void validateDateNotInFuture() throws DateExtractionException {
@@ -203,13 +221,13 @@ public class InstantEdtfDateBuilder {
   }
 
   /**
-   * Add allowance of switching month and day during build if original order fails.
+   * Opt in/out for flexible date building.
    *
-   * @param allowSwitchMonthDay the boolean (dis|en)abling the switch
+   * @param flexibleDateBuild the boolean (dis|en)abling the flexibility
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withAllowSwitchMonthDay(boolean allowSwitchMonthDay) {
-    this.allowSwitchMonthDay = allowSwitchMonthDay;
+  public InstantEdtfDateBuilder withFlexibleDateBuild(boolean flexibleDateBuild) {
+    this.flexibleDateBuild = flexibleDateBuild;
     return this;
   }
 

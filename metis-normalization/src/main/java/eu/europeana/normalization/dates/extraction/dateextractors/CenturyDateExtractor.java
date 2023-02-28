@@ -91,12 +91,12 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) {
+      boolean flexibleDateBuild) {
     return Arrays.stream(PatternCenturyDateOperation.values())
                  .map(operation -> {
                    try {
                      return extractInstance(inputValue, requestedDateQualification, operation,
-                         allowSwitchesDuringValidation);
+                         flexibleDateBuild);
                    } catch (DateExtractionException e) {
                      LOGGER.warn("Failed instance extraction!", e);
                    }
@@ -120,14 +120,14 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
       AbstractEdtfDate abstractEdtfDate;
       InstantEdtfDateBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);
       InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification)
-                                                          .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
+                                                          .withFlexibleDateBuild(allowSwitchMonthDay).build();
 
       //Check if we have an interval or instance
       if (matcher.groupCount() == 2) {
         InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
         InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
-                                                        .withAllowSwitchMonthDay(allowSwitchMonthDay).build();
-        abstractEdtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withAllowSwitchStartEnd(allowSwitchMonthDay)
+                                                        .withFlexibleDateBuild(allowSwitchMonthDay).build();
+        abstractEdtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withFlexibleDateBuild(allowSwitchMonthDay)
                                                                                   .build();
       } else {
         abstractEdtfDate = startEdtfDate;

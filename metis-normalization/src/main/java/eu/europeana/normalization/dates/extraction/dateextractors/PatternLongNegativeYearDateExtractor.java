@@ -25,7 +25,7 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean allowSwitchesDuringValidation) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final DateQualification dateQualification;
 
     final Matcher m = patYyyyyy.matcher(inputValue);
@@ -35,7 +35,7 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
               () -> (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
-          dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
+          dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, datePart);
     }
     final Matcher m2 = patYyyyyyRange.matcher(inputValue);
@@ -45,11 +45,11 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
               () -> (m2.group("uncertain") != null || m2.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
 
       final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year"))).withDateQualification(
-          dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
+          dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year2"))).withDateQualification(
-          dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
-      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(startDatePart, endDatePart).withAllowSwitchStartEnd(
-          allowSwitchesDuringValidation).build();
+          dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+      IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(startDatePart, endDatePart).withFlexibleDateBuild(
+          flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }
     return DateNormalizationResult.getNoMatchResult(inputValue);

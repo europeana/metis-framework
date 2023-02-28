@@ -225,7 +225,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
    * @return the date normalization result
    */
   public DateNormalizationResult normalizeDateProperty(String input) {
-    return normalizeProperty(input, normalizationOperationsInOrderDateProperty, dateNormalizationResult -> true);
+    return normalizeProperty(input, normalizationOperationsInOrderDateProperty);
   }
 
   /**
@@ -236,12 +236,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
    * @return the date normalization result
    */
   public DateNormalizationResult normalizeGenericProperty(String input) {
-    return normalizeProperty(input, normalizationOperationsInOrderGenericProperty, DateNormalizationResult::isCompleteDate);
+    return normalizeProperty(input, normalizationOperationsInOrderGenericProperty);
   }
 
   private DateNormalizationResult normalizeProperty(
-      String input, final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder,
-      Predicate<DateNormalizationResult> isResultAcceptablePredicate) {
+      String input, final List<Function<String, DateNormalizationResult>> normalizationOperationsInOrder) {
 
     DateNormalizationResult dateNormalizationResult;
     String sanitizedInput = sanitizeCharacters(input);
@@ -251,7 +250,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
         .stream()
         .map(operation -> operation.apply(sanitizedInput))
         .filter(result -> result.getDateNormalizationResultStatus() == MATCHED)
-        .filter(isResultAcceptablePredicate)
+        //        .filter(isResultAcceptablePredicate)
         .findFirst()
         .orElse(DateNormalizationResult.getNoMatchResult(input));
 
