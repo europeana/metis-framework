@@ -5,6 +5,5 @@ package eu.europeana.normalization.dates;
  */
 public enum DateNormalizationResultStatus {
   MATCHED,
-  NO_MATCH,
-  INVALID
+  NO_MATCH
 }

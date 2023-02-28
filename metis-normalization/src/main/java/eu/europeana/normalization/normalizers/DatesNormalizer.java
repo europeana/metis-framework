@@ -1,11 +1,10 @@
 package eu.europeana.normalization.normalizers;
 
 import static eu.europeana.normalization.dates.DateNormalizationResultStatus.MATCHED;
+import static eu.europeana.normalization.dates.DateNormalizationResultStatus.NO_MATCH;
 import static java.util.function.Predicate.not;
 
-import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -193,13 +192,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     // Apply the normalization. If nothing can be done, we return.
     final String elementText = XmlUtil.getElementText(element);
-    // TODO: 11/10/2022 Check if this can be more securely structured.
-    //  Currently the class InstantEdtfDate is allowed to contain invalid values for day, month, year and therefore a call
-    //  to some of it's functions, for example getLastDay which internally triggers a call to lastDayBasedOnMonth can fail if the values are invalid.
-    //  Probably a better approach is to not allow the object to be created with invalid values in the first place.
     final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
-    if (dateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.NO_MATCH
-        || dateNormalizationResult.getDateNormalizationExtractorMatchId() == DateNormalizationExtractorMatchId.INVALID) {
+    if (dateNormalizationResult.getDateNormalizationResultStatus() == NO_MATCH) {
       return;
     }
 
@@ -295,7 +289,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
       dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString(), dateQualification);
 
       if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED) {
-        dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
+        //Re-create result containing sanitization operation.
+        dateNormalizationResult = new DateNormalizationResult(dateNormalizationResult, sanitizedDate.getSanitizeOperation());
       }
     }
     return dateNormalizationResult;
@@ -315,7 +310,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
       }
 
       if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED) {
-        dateNormalizationResult.setCleanOperation(sanitizedDate.getSanitizeOperation());
+        //Re-create result containing sanitization operation.
+        dateNormalizationResult = new DateNormalizationResult(dateNormalizationResult, sanitizedDate.getSanitizeOperation());
       }
     }
     return dateNormalizationResult;

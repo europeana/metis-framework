@@ -49,8 +49,7 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
           .withDateQualification(dateQualification)
           .withAllowSwitchMonthDay(allowSwitchesDuringValidation)
           .build();
-      dateNormalizationResult = new DateNormalizationResult(
-          DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
+      dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }
     return dateNormalizationResult;
   }

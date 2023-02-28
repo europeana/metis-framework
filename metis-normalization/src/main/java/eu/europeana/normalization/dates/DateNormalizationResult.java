@@ -19,9 +19,8 @@ import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
 public class DateNormalizationResult {
 
   private DateNormalizationResultStatus dateNormalizationResultStatus = MATCHED;
-
-  private DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
   private SanitizeOperation sanitizeOperation;
+  private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
   private final String originalInput;
   private final AbstractEdtfDate edtfDate;
 
@@ -40,9 +39,14 @@ public class DateNormalizationResult {
   }
 
   private DateNormalizationResult(DateNormalizationResultStatus dateNormalizationResultStatus, String originalInput) {
+    this(null, originalInput, null);
     this.dateNormalizationResultStatus = dateNormalizationResultStatus;
-    this.originalInput = originalInput;
-    this.edtfDate = null;
+  }
+
+  public DateNormalizationResult(DateNormalizationResult dateNormalizationResult, SanitizeOperation sanitizeOperation) {
+    this(dateNormalizationResult.getDateNormalizationExtractorMatchId(), dateNormalizationResult.getOriginalInput(),
+        dateNormalizationResult.getEdtfDate());
+    this.sanitizeOperation = sanitizeOperation;
   }
 
   public DateNormalizationResultStatus getDateNormalizationResultStatus() {
@@ -63,16 +67,8 @@ public class DateNormalizationResult {
     return dateNormalizationExtractorMatchId;
   }
 
-  public void setDateNormalizationExtractorMatchId(DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
-  }
-
   public SanitizeOperation getSanitizeOperation() {
     return sanitizeOperation;
-  }
-
-  public void setCleanOperation(SanitizeOperation sanitizeOperation) {
-    this.sanitizeOperation = sanitizeOperation;
   }
 
   public String getOriginalInput() {

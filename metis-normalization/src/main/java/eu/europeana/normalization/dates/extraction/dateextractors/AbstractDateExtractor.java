@@ -1,5 +1,6 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.DateNormalizationResult.getNoMatchResult;
 import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -37,16 +38,7 @@ public abstract class AbstractDateExtractor implements DateExtractor {
    */
   @Override
   public DateNormalizationResult extractDateProperty(String inputValue, DateQualification dateQualification) {
-    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    try {
-      dateNormalizationResult = extract(inputValue, dateQualification, true);
-    } catch (DateExtractionException e) {
-      LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
-    }
-    if (dateNormalizationResult == null) {
-      dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    }
-    return dateNormalizationResult;
+    return getDateNormalizationResult(inputValue, dateQualification, true);
   }
 
   /**
@@ -59,14 +51,20 @@ public abstract class AbstractDateExtractor implements DateExtractor {
    */
   @Override
   public DateNormalizationResult extractGenericProperty(String inputValue, DateQualification dateQualification) {
-    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
+    return getDateNormalizationResult(inputValue, dateQualification, false);
+  }
+
+  private DateNormalizationResult getDateNormalizationResult(String inputValue, DateQualification dateQualification,
+      boolean allowSwitchesDuringValidation) {
+    DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
     try {
-      dateNormalizationResult = extract(inputValue, dateQualification, false);
+      dateNormalizationResult = extract(inputValue, dateQualification, allowSwitchesDuringValidation);
     } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
     }
+    //Sanity check to avoid null return.
     if (dateNormalizationResult == null) {
-      dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
+      dateNormalizationResult = getNoMatchResult(inputValue);
     }
     return dateNormalizationResult;
   }
