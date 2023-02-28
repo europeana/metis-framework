@@ -33,7 +33,7 @@ public class PatternBriefDateRangeDateExtractor extends AbstractDateExtractor {
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean allowSwitchesDuringValidation) throws DateExtractionException {
     Matcher matcher = briefDateRangePattern.matcher(inputValue.trim());
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     if (matcher.matches()) {
       int startYear = Integer.parseInt(matcher.group("start"));
       int endYear = Integer.parseInt(matcher.group("end"));

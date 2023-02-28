@@ -50,7 +50,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
   @Override
   public DateNormalizationResult extract(String value, DateQualification requestedDateQualification,
       boolean allowSwitchesDuringValidation) throws DateExtractionException {
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(value);
     if (isValidScheme(value)) {
       Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
       InstantEdtfDate start = extractDate(matcher, requestedDateQualification, allowSwitchesDuringValidation);

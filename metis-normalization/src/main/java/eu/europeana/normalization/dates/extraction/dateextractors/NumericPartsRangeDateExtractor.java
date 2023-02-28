@@ -7,6 +7,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -40,9 +41,9 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean allowSwitchesDuringValidation) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    DateNormalizationResult startDate;
-    DateNormalizationResult endDate;
-    DateNormalizationResult rangeDate = null;
+    DateNormalizationResult startDateResult;
+    DateNormalizationResult endDateResult;
+    DateNormalizationResult rangeDate = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericRangeDateDelimiters numericRangeSpecialCharacters : NumericRangeDateDelimiters.values()) {
       // Split with -1 limit does not discard empty splits
       final String[] sanitizedDateSplitArray = sanitizedValue.split(numericRangeSpecialCharacters.getDatesSeparator(), -1);
@@ -50,19 +51,20 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
       // This also guarantees that the separator used is not used for unknown characters.
       if (sanitizedDateSplitArray.length == 2) {
         // Try extraction and verify
-        startDate = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeSpecialCharacters,
+        startDateResult = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeSpecialCharacters,
             requestedDateQualification,
             allowSwitchesDuringValidation);
-        endDate = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters,
+        endDateResult = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeSpecialCharacters,
             requestedDateQualification, allowSwitchesDuringValidation);
-        if (startDate != null && endDate != null && !areYearsAmbiguous((InstantEdtfDate) startDate.getEdtfDate(),
-            (InstantEdtfDate) endDate.getEdtfDate(),
+        if (startDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
+            && endDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
+            && !areYearsAmbiguous((InstantEdtfDate) startDateResult.getEdtfDate(), (InstantEdtfDate) endDateResult.getEdtfDate(),
             numericRangeSpecialCharacters)) {
 
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
-              getDateNormalizationExtractorId(startDate, endDate);
-          final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder((InstantEdtfDate) startDate.getEdtfDate(),
-              (InstantEdtfDate) endDate.getEdtfDate()).withAllowSwitchStartEnd(allowSwitchesDuringValidation).build();
+              getDateNormalizationExtractorId(startDateResult, endDateResult);
+          final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder((InstantEdtfDate) startDateResult.getEdtfDate(),
+              (InstantEdtfDate) endDateResult.getEdtfDate()).withAllowSwitchStartEnd(allowSwitchesDuringValidation).build();
           rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }

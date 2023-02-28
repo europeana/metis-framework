@@ -2,10 +2,10 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -24,7 +24,7 @@ class EdtfDateExtractorTest {
   private void extract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = edtfDateExtractor.extractDateProperty(input);
     if (expected == null) {
-      assertNull(dateNormalizationResult);
+      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {

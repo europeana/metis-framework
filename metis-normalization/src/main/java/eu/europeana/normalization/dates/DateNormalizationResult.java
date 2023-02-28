@@ -1,5 +1,7 @@
 package eu.europeana.normalization.dates;
 
+import static eu.europeana.normalization.dates.DateNormalizationResultStatus.MATCHED;
+
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -15,6 +17,8 @@ import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
  * </p>
  */
 public class DateNormalizationResult {
+
+  private DateNormalizationResultStatus dateNormalizationResultStatus = MATCHED;
 
   private DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
   private SanitizeOperation sanitizeOperation;
@@ -35,6 +39,16 @@ public class DateNormalizationResult {
     this.edtfDate = edtfDate;
   }
 
+  private DateNormalizationResult(DateNormalizationResultStatus dateNormalizationResultStatus, String originalInput) {
+    this.dateNormalizationResultStatus = dateNormalizationResultStatus;
+    this.originalInput = originalInput;
+    this.edtfDate = null;
+  }
+
+  public DateNormalizationResultStatus getDateNormalizationResultStatus() {
+    return dateNormalizationResultStatus;
+  }
+
   /**
    * Get an instance of a date normalization result for no matches.
    *
@@ -42,7 +56,7 @@ public class DateNormalizationResult {
    * @return the no match result
    */
   public static DateNormalizationResult getNoMatchResult(String originalInput) {
-    return new DateNormalizationResult(DateNormalizationExtractorMatchId.NO_MATCH, originalInput, null);
+    return new DateNormalizationResult(DateNormalizationResultStatus.NO_MATCH, originalInput);
   }
 
   public DateNormalizationExtractorMatchId getDateNormalizationExtractorMatchId() {
@@ -83,6 +97,7 @@ public class DateNormalizationResult {
    *
    * @return true if the date is complete
    */
+  // TODO: 28/02/2023 Check if this is still relevant and create some test cases if so.
   public boolean isCompleteDate() {
     boolean isCompleteDate = true;
     if (edtfDate == null) {

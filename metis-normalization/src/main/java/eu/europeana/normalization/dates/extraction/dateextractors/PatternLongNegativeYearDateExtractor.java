@@ -52,6 +52,6 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
           allowSwitchesDuringValidation).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
     }
-    return null;
+    return DateNormalizationResult.getNoMatchResult(inputValue);
   }
 }

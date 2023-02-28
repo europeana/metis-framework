@@ -59,7 +59,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
         (STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find())
             ? DateQualification.UNCERTAIN : null);
 
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {

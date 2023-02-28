@@ -37,11 +37,14 @@ public abstract class AbstractDateExtractor implements DateExtractor {
    */
   @Override
   public DateNormalizationResult extractDateProperty(String inputValue, DateQualification dateQualification) {
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     try {
       dateNormalizationResult = extract(inputValue, dateQualification, true);
     } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
+    }
+    if (dateNormalizationResult == null) {
+      dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     }
     return dateNormalizationResult;
   }
@@ -56,11 +59,14 @@ public abstract class AbstractDateExtractor implements DateExtractor {
    */
   @Override
   public DateNormalizationResult extractGenericProperty(String inputValue, DateQualification dateQualification) {
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     try {
       dateNormalizationResult = extract(inputValue, dateQualification, false);
     } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
+    }
+    if (dateNormalizationResult == null) {
+      dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     }
     return dateNormalizationResult;
   }

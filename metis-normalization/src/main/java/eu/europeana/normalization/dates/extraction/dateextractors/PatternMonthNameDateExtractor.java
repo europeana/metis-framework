@@ -87,6 +87,6 @@ public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
     }
-    return null;
+    return DateNormalizationResult.getNoMatchResult(inputValue);
   }
 }

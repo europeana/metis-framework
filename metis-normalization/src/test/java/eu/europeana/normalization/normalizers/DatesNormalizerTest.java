@@ -9,7 +9,6 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.EDTF;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.MONTH_NAME;
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NO_MATCH;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
@@ -20,6 +19,7 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateEdgeType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -38,8 +38,8 @@ class DatesNormalizerTest {
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId, String label) {
     final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeDateProperty(input);
-    assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     if (expected != null) {
+      assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
       assertEquals(label, dateNormalizationResult.getEdtfDate().getLabel());
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {
@@ -53,6 +53,8 @@ class DatesNormalizerTest {
         assertEdtfDate(expected, (InstantEdtfDate) dateNormalizationResult.getEdtfDate());
       }
       assertEquals(expected, edtfDate.toString());
+    } else {
+      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     }
 
   }
@@ -98,23 +100,23 @@ class DatesNormalizerTest {
         //Centuries numeric
         of("18..", "18XX", CENTURY_NUMERIC),
         of("19??", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("192?", null, NO_MATCH),// ambiguous
-        of("[171-]", null, NO_MATCH), // ambiguous
+        of("192?", null, null),// ambiguous
+        of("[171-]", null, null), // ambiguous
         of("19th century", "18XX", CENTURY_NUMERIC),
         of("2nd century", "01XX", CENTURY_NUMERIC),
         of("[10th century]", "09XX", CENTURY_NUMERIC), // not supported
-        of("12th century BC", null, NO_MATCH), // not supported
+        of("12th century BC", null, null), // not supported
 
         //Centuries roman
         of("XIV", "13XX", CENTURY_ROMAN),
-        of("MDCLXX", null, NO_MATCH),
-        of("MDCVII", null, NO_MATCH),
+        of("MDCLXX", null, null),
+        of("MDCVII", null, null),
         of("S. XVI-XX", "15XX/19XX", CENTURY_RANGE_ROMAN),
         of("S.VIII-XV", "07XX/14XX", CENTURY_RANGE_ROMAN),
         of("S. XVI-XVIII", "15XX/17XX", CENTURY_RANGE_ROMAN),
-        of("S. XVIII-", null, NO_MATCH), // open-ended period
+        of("S. XVIII-", null, null), // open-ended period
         of("[XVI-XIX]", "15XX/18XX", CENTURY_RANGE_ROMAN),
-        of("SVV", null, NO_MATCH),
+        of("SVV", null, null),
 
         //Unknown/Unspecified start or end of range
         of("1907/?", "1907/..", NUMERIC_RANGE_ALL_VARIANTS),
@@ -142,24 +144,24 @@ class DatesNormalizerTest {
         of("1889/98? (Herstellung)", "1889?/1898?", BRIEF_DATE_RANGE),
         of("?/1807", "../1807", NUMERIC_RANGE_ALL_VARIANTS),
         //Incorrect day values
-        of("1947-19-50/1950-19-53", null, NO_MATCH),
-        of("15/21-8-1918", null, NO_MATCH),
-        of("1.1848/49[?]", null, NO_MATCH),
+        of("1947-19-50/1950-19-53", null, null),
+        of("15/21-8-1918", null, null),
+        of("1.1848/49[?]", null, null),
 
         //Numeric range ' - '(spaces around hyphen)
         of("1851-01-01  - 1851-12-31", "1851-01-01/1851-12-31", NUMERIC_RANGE_ALL_VARIANTS),
         of("1650? - 1700?", "1650?/1700?", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1871 - 191-", null, NO_MATCH),
+        of("1871 - 191-", null, null),
 
         //Numeric range '-'
         of("1918-20", "1918/1920", BRIEF_DATE_RANGE),
         of("[1942-1943]", "1942/1943", NUMERIC_RANGE_ALL_VARIANTS),
         of("(1942-1943)", "1942/1943", NUMERIC_RANGE_ALL_VARIANTS),
-        of("192?-1958", null, NO_MATCH),
+        of("192?-1958", null, null),
         of("[ca. 1920-1930]", "1920~/1930~", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1937--1938", null, NO_MATCH),
-        of("[ca. 193-]", null, NO_MATCH),// ambiguous
-        of("1990-", null, NO_MATCH), // open-ended period not supported
+        of("1937--1938", null, null),
+        of("[ca. 193-]", null, null),// ambiguous
+        of("1990-", null, null), // open-ended period not supported
 
         //Numeric range '|'
         of("1910/05/31 | 1910/05/01", "1910-05-01/1910-05-31", NUMERIC_RANGE_ALL_VARIANTS),
@@ -183,63 +185,63 @@ class DatesNormalizerTest {
         of("28.05.1969", "1969-05-28", NUMERIC_ALL_VARIANTS),
         of("11.11.1947", "1947-11-11", NUMERIC_ALL_VARIANTS),
         of("23.02.[18--]", "18XX-02-23", NUMERIC_ALL_VARIANTS_XX),
-        of("28. 1. 1240", null, NO_MATCH),
+        of("28. 1. 1240", null, null),
 
         //Numeric date with dash "-"
         of("1941-22-06", "1941-06-22", NUMERIC_ALL_VARIANTS),
         of("1937-10-??", "1937-10", NUMERIC_ALL_VARIANTS_XX),
-        of("199--09-28", null, NO_MATCH),
-        of("01?-1905", null, NO_MATCH),
-        of("02?-1915", null, NO_MATCH),
+        of("199--09-28", null, null),
+        of("01?-1905", null, null),
+        of("02?-1915", null, null),
 
         //Numeric date with space " "
         of("1905 09 01", "1905-09-01", YYYY_MM_DD_SPACES),
         of("0 2 1980", "1980-02", YYYY_MM_DD_SPACES),
 
         //More than 4 digits year
-        of("18720601/18720630", null, NO_MATCH),
-        of("19471950/19501953", null, NO_MATCH),
+        of("18720601/18720630", null, null),
+        of("19471950/19501953", null, null),
 
         of("-2100/-1550", "-2100/-1550", EDTF),
         // TODO: 21/12/2022 Check the below, expected null but returns 1952-02-25 instead
         //    of("1952-02-25T00:00:00Z-1952-02-25T23:59:59Z", null),
         of("2013-09-07 09:31:51 UTC", "2013-09-07", FORMATTED_FULL_DATE),
         of("1997-07-18T00:00:00 [Create]", "1997-07-18", EDTF),
-        of("1924 ca.", null, NO_MATCH),
+        of("1924 ca.", null, null),
         of("[1712?]", "1712?", EDTF),
         of("circa 1712", "1712~", EDTF),
         of("[ca. 1946]", "1946~", EDTF),
         of("1651?]", "1651?", EDTF),
         of("19--?]", "19XX?", NUMERIC_ALL_VARIANTS_XX),
-        of(". 1885", null, NO_MATCH),
-        of("- 1885", null, NO_MATCH),
+        of(". 1885", null, null),
+        of("- 1885", null, null),
         of("1749 (Herstellung (Werk))", "1749", EDTF),
-        of("1939; 1954; 1955; 1978; 1939-1945", null, NO_MATCH), // multiple dates no suported
-        of("[17__]", null, NO_MATCH),// this pattern is not supported (this pattern was never tested
+        of("1939; 1954; 1955; 1978; 1939-1945", null, null), // multiple dates no suported
+        of("[17__]", null, null),// this pattern is not supported (this pattern was never tested
         of("19--]", "19XX", NUMERIC_ALL_VARIANTS_XX),
         of("19xx", "19XX", NUMERIC_ALL_VARIANTS_XX),
         of("Sat Jan 01 01:00:00 CET 1701", "1701-01-01", FORMATTED_FULL_DATE),
         of("2013-03-21 18:45:36 UTC", "2013-03-21", FORMATTED_FULL_DATE),
         of("15.02.1985 (identification)", "1985-02-15", NUMERIC_ALL_VARIANTS),
-        of("091090", null, NO_MATCH),
+        of("091090", null, null),
         of("-0043-12-07", "-0043-12-07", EDTF),
-        of("imp. 1901", null, NO_MATCH),
-        of("u.1707-1739", null, NO_MATCH),// what does 'u.' mean?
+        of("imp. 1901", null, null),
+        of("u.1707-1739", null, null),// what does 'u.' mean?
         of("22.07.1971 (identification)", "1971-07-22", NUMERIC_ALL_VARIANTS),
 
         //Ambiguous pattern
-        of("187-?]", null, NO_MATCH),
+        of("187-?]", null, null),
 
         of("18. September 1914", "1914-09-18", MONTH_NAME),
-        of("19960216-19960619", null, NO_MATCH),
+        of("19960216-19960619", null, null),
         of("-0549-01-01T00:00:00Z", "-0549-01-01", EDTF),
-        of("1942-1943 c.", null, NO_MATCH),
+        of("1942-1943 c.", null, null),
         of("(1942)", "1942", EDTF),
-        of("-3.6982", null, NO_MATCH),
+        of("-3.6982", null, null),
         of("[ca. 16??]", "16XX~", NUMERIC_ALL_VARIANTS_XX),
-        of("ISO9126", null, NO_MATCH),
+        of("ISO9126", null, null),
         of("1985-10-xx", "1985-10", NUMERIC_ALL_VARIANTS_XX),
-        of("14:27", null, NO_MATCH),
+        of("14:27", null, null),
         of("c.6 Nov 1902", "1902-11-06~", MONTH_NAME),
         of("-1234", "-1234", EDTF),
         of("09.1972 (gathering)", "1972-09", NUMERIC_ALL_VARIANTS)

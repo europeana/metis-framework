@@ -110,7 +110,7 @@ public class PatternBcAdDateExtractor extends AbstractDateExtractor {
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
           new IntervalEdtfDateBuilder(start, end).withAllowSwitchStartEnd(allowSwitchesDuringValidation).build());
     }
-    return null;
+    return DateNormalizationResult.getNoMatchResult(inputValue);
   }
 
   private boolean isBc(String abbreviation) {

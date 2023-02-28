@@ -2,11 +2,11 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.DCMI_PERIOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -24,16 +24,17 @@ class DcmiPeriodDateExtractorTest {
   @DisplayName("Extract DCMI Period")
   void extract(String actualDcmiPeriod, String expectedLabel, String expectedStartDate, String expectedEndDate) {
     DcmiPeriodDateExtractor periodDateExtractor = new DcmiPeriodDateExtractor();
-    DateNormalizationResult result = periodDateExtractor.extractDateProperty(actualDcmiPeriod);
+    DateNormalizationResult dateNormalizationResult = periodDateExtractor.extractDateProperty(actualDcmiPeriod);
     if (expectedStartDate == null || expectedEndDate == null) {
-      assertNull(result);
+      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
+      //      assertNull(dateNormalizationResult);
     } else {
-      IntervalEdtfDate interval = (IntervalEdtfDate) result.getEdtfDate();
+      IntervalEdtfDate interval = (IntervalEdtfDate) dateNormalizationResult.getEdtfDate();
       assertEquals(expectedLabel, interval.getLabel());
       assertEquals(expectedStartDate, interval.getStart() != null ? interval.getStart().toString() : null);
       assertEquals(expectedEndDate, interval.getEnd() != null ? interval.getEnd().toString() : null);
-      assertEquals(DCMI_PERIOD, result.getDateNormalizationExtractorMatchId());
-      assertTrue(result.isCompleteDate());
+      assertEquals(DCMI_PERIOD, dateNormalizationResult.getDateNormalizationExtractorMatchId());
+      assertTrue(dateNormalizationResult.isCompleteDate());
     }
   }
 

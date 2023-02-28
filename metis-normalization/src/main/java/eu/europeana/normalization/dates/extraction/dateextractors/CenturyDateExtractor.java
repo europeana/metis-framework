@@ -5,6 +5,7 @@ import static java.util.regex.Pattern.compile;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -16,7 +17,6 @@ import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.function.ToIntFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -100,9 +100,11 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
                    } catch (DateExtractionException e) {
                      LOGGER.warn("Failed instance extraction!", e);
                    }
-                   return null;
+                   return DateNormalizationResult.getNoMatchResult(inputValue);
                  })
-                 .filter(Objects::nonNull).findFirst().orElse(null);
+                 .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()
+                     == DateNormalizationResultStatus.MATCHED).findFirst()
+                 .orElse(DateNormalizationResult.getNoMatchResult(inputValue));
   }
 
   private DateNormalizationResult extractInstance(String inputValue, DateQualification requestedDateQualification,
@@ -113,7 +115,7 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
         (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);
 
     final Matcher matcher = patternCenturyDateOperation.getPattern().matcher(sanitizedValue);
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     if (matcher.matches()) {
       AbstractEdtfDate abstractEdtfDate;
       InstantEdtfDateBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);

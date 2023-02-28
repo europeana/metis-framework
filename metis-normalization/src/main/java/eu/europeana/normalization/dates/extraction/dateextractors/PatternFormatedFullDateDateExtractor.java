@@ -61,6 +61,6 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
           .withDateQualification(dateQualification).withAllowSwitchMonthDay(allowSwitchesDuringValidation).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
-    return null;
+    return DateNormalizationResult.getNoMatchResult(inputValue);
   }
 }

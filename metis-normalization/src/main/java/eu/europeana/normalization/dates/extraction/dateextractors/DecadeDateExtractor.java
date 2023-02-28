@@ -40,7 +40,7 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? DateQualification.UNCERTAIN : null);
 
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
     if (matcher.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(

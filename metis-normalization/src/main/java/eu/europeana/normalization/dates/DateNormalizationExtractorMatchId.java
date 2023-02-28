@@ -16,7 +16,6 @@ public enum DateNormalizationExtractorMatchId {
   INVALID("not normalisable: date apparently invalid"),
   LONG_YEAR("normalisable: long negative year"),
   MONTH_NAME("normalisable: date with month name"),
-  NO_MATCH("not normalisable: no match with existing patterns"),
   NUMERIC_ALL_VARIANTS("normalisable: numeric date (various separators)"),
   NUMERIC_ALL_VARIANTS_XX("normalisable: numeric date (various separators and unknown parts)"),
   NUMERIC_RANGE_ALL_VARIANTS("normalisable: numeric date interval (various separators)"),
