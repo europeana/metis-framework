@@ -21,6 +21,7 @@ class EdtfDateExtractorTest {
 
   private final EdtfDateExtractor edtfDateExtractor = new EdtfDateExtractor();
 
+  // TODO: 01/03/2023 Possible reuse of the test code here for all extractors
   private void extract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = edtfDateExtractor.extractDateProperty(input);
     if (expected == null) {

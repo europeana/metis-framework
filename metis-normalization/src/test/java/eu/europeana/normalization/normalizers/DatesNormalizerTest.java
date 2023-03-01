@@ -97,6 +97,11 @@ class DatesNormalizerTest {
 
   private static Stream<Arguments> extractDatePropertiesWithoutLabel() {
     return Stream.of(
+        //Brief dates. Those are similar to EDFT but should match first.
+        of("2014/15", "2014/2015", BRIEF_DATE_RANGE),
+        of("1889/98? (Herstellung)", "1889?/1898?", BRIEF_DATE_RANGE),
+        of("1918-20", "1918/1920", BRIEF_DATE_RANGE),
+
         //Centuries numeric
         of("18..", "18XX", CENTURY_NUMERIC),
         of("19??", "19XX", NUMERIC_ALL_VARIANTS_XX),
@@ -129,7 +134,6 @@ class DatesNormalizerTest {
         of(" 1820/1820", "1820/1820", NUMERIC_RANGE_ALL_VARIANTS),
         of("1918 / 1919", "1918/1919", NUMERIC_RANGE_ALL_VARIANTS),
         of("1205/1215 [Herstellung]", "1205/1215", EDTF),
-        of("2014/15", "2014/2015", BRIEF_DATE_RANGE),
         of(" 1757/1757", "1757/1757", NUMERIC_RANGE_ALL_VARIANTS),
         of("ca 1757/1757", "1757~/1757~", EDTF),
         of("2000 vC - 2002 nC", "-2000/2002", BC_AD),
@@ -141,7 +145,6 @@ class DatesNormalizerTest {
         of("235 AD – 236 AD", "0235/0236", BC_AD),
         of("168 B.C.-135 A.D.", "-0168/0135", BC_AD),
         of("20/09/18XX", "18XX-09-20", NUMERIC_ALL_VARIANTS_XX),
-        of("1889/98? (Herstellung)", "1889?/1898?", BRIEF_DATE_RANGE),
         of("?/1807", "../1807", NUMERIC_RANGE_ALL_VARIANTS),
         //Incorrect day values
         of("1947-19-50/1950-19-53", null, null),
@@ -154,7 +157,6 @@ class DatesNormalizerTest {
         of("1871 - 191-", null, null),
 
         //Numeric range '-'
-        of("1918-20", "1918/1920", BRIEF_DATE_RANGE),
         of("[1942-1943]", "1942/1943", NUMERIC_RANGE_ALL_VARIANTS),
         of("(1942-1943)", "1942/1943", NUMERIC_RANGE_ALL_VARIANTS),
         of("192?-1958", null, null),
