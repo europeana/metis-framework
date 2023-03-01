@@ -41,7 +41,7 @@ public class ECloudConfig implements WebMvcConfigurer {
 
   @Bean
   DataSetServiceClient dataSetServiceClient() {
-    dataSetServiceClient = new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
+    dataSetServiceClient = new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(),
         propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
         propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
@@ -50,7 +50,7 @@ public class ECloudConfig implements WebMvcConfigurer {
 
   @Bean
   RecordServiceClient recordServiceClient() {
-    recordServiceClient = new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
+    recordServiceClient = new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(),
         propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
         propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
@@ -59,7 +59,7 @@ public class ECloudConfig implements WebMvcConfigurer {
 
   @Bean
   FileServiceClient fileServiceClient() {
-    fileServiceClient = new FileServiceClient(propertiesHolder.getEcloudBaseUrl(), null,
+    fileServiceClient = new FileServiceClient(propertiesHolder.getEcloudBaseUrl(),
         propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
         propertiesHolder.getDpsConnectTimeoutInMillisecs(),
         propertiesHolder.getDpsReadTimeoutInMillisecs());
