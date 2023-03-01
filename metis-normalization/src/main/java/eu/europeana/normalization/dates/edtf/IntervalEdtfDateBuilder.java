@@ -35,16 +35,34 @@ public class IntervalEdtfDateBuilder {
     this.end = end;
   }
 
+  /**
+   * Add label if any for the interval
+   *
+   * @param label the interval specific label
+   * @return the extended builder
+   */
   public IntervalEdtfDateBuilder withLabel(String label) {
     this.label = label;
     return this;
   }
 
+  /**
+   * Opt in/out for flexible date building.
+   *
+   * @param flexibleDateBuild the boolean (dis|en)abling the flexibility
+   * @return the extended builder
+   */
   public IntervalEdtfDateBuilder withFlexibleDateBuild(boolean flexibleDateBuild) {
     this.flexibleDateBuild = flexibleDateBuild;
     return this;
   }
 
+  /**
+   * Returns an instance of {@link IntervalEdtfDate} created and validated from the fields set on this builder.
+   *
+   * @return the new interval edtf date
+   * @throws DateExtractionException if something went wrong during date validation
+   */
   public IntervalEdtfDate build() throws DateExtractionException {
     IntervalEdtfDate intervalEdtfDate;
     intervalEdtfDate = buildInternal();

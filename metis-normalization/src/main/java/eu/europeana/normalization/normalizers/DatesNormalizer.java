@@ -8,6 +8,7 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.extraction.dateextractors.BriefRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
@@ -16,7 +17,6 @@ import eu.europeana.normalization.dates.extraction.dateextractors.EdtfDateExtrac
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternBriefDateRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormatedFullDateDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternMonthNameDateExtractor;
@@ -116,7 +116,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     // Most values that match this pattern also match the EDTF pattern, but would result in an invalid date.
     // This pattern only matches values that would not be valid EDTF dates.
     extractorsInOrderForDateProperties = List.of(
-        new PatternBriefDateRangeDateExtractor(),
+        new BriefRangeDateExtractor(),
         new EdtfDateExtractor(),
         new CenturyDateExtractor(),
         new DecadeDateExtractor(),
@@ -131,7 +131,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     extractorsInOrderForGenericProperties =
         extractorsInOrderForDateProperties.stream()
                                           .filter(
-                                              not(PatternBriefDateRangeDateExtractor.class::isInstance))
+                                              not(BriefRangeDateExtractor.class::isInstance))
                                           .collect(Collectors.toList());
 
     normalizationOperationsInOrderDateProperty = List.of(

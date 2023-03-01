@@ -16,12 +16,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class PatternBriefDateRangeDateExtractorTest {
+class BriefRangeDateExtractorTest {
 
-  private final PatternBriefDateRangeDateExtractor patternBriefDateRangeDateExtractor = new PatternBriefDateRangeDateExtractor();
+  private final BriefRangeDateExtractor briefRangeDateExtractor = new BriefRangeDateExtractor();
 
   private void extract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = patternBriefDateRangeDateExtractor.extractDateProperty(input);
+    final DateNormalizationResult dateNormalizationResult = briefRangeDateExtractor.extractDateProperty(input);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {
@@ -74,8 +74,10 @@ class PatternBriefDateRangeDateExtractorTest {
 
         //End year cannot be lower or equal than 12
         of("1900/01", null),
-        of("1900-12", null)
+        of("1900-12", null),
 
+        //Less than three digits on start year
+        of("89-90", null)
     );
   }
 
