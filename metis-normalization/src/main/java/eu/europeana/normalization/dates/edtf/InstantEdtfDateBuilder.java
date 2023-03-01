@@ -70,12 +70,12 @@ public class InstantEdtfDateBuilder {
    * Returns an instance of {@link InstantEdtfDate} created and validated from the fields set on this builder.
    *
    * @return the new instant edtf date
-   * @throws DateTimeException if something went wrong during date validation
+   * @throws DateExtractionException if something went wrong during date validation
    */
   public InstantEdtfDate build() throws DateExtractionException {
     InstantEdtfDate instantEdtfDate;
     instantEdtfDate = buildInternal();
-    //Try once more if switching allowed
+    //Try once more if flexible date
     if (instantEdtfDate == null && flexibleDateBuild) {
       swapMonthDay();
       instantEdtfDate = buildInternal();
@@ -116,18 +116,15 @@ public class InstantEdtfDateBuilder {
 
   private void validateStrict() throws DateExtractionException {
     //If it is not a long year, and we want to be strict we further validate
-    if (!longDatePrefixedWithY && !flexibleDateBuild) {
-      if (isDateNonPrecise() || monthObj == null || yearMonthDayObj == null) {
-        throw new DateExtractionException("Date is invalid according to our strict profile!");
-      }
-    }
-  }
-
-  private boolean isDateNonPrecise() {
+    boolean notLongYearAndStrictBuild = !longDatePrefixedWithY && !flexibleDateBuild;
     // TODO: 15/02/2023 Check this instruction. It used to be like that
     //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
     //  but do we actually need the check on unknown?
-    return dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
+    boolean isDateNonPrecise = dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
+    boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
+    if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
+      throw new DateExtractionException("Date is invalid according to our strict profile!");
+    }
   }
 
   private void validateDateNotInFuture() throws DateExtractionException {
