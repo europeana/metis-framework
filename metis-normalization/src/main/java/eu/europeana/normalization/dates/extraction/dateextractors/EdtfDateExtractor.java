@@ -90,7 +90,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
       final String modifier = matcher.group(1);
       //Overwrite date qualification if requested
       dateQualification = requestedDateQualification != null && requestedDateQualification != NO_QUALIFICATION
-          ? requestedDateQualification : DateQualification.fromCharacter(modifier.charAt(0));
+          ? requestedDateQualification : DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
       dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
     }
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);

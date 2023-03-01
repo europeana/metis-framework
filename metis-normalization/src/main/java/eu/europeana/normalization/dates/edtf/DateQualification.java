@@ -9,15 +9,15 @@ import java.util.regex.Pattern;
  */
 public enum DateQualification {
 
-  NO_QUALIFICATION('\0'),
-  UNCERTAIN('?'),
-  APPROXIMATE('~'),
-  UNCERTAIN_APPROXIMATE('%');
+  NO_QUALIFICATION(""),
+  UNCERTAIN("?"),
+  APPROXIMATE("~"),
+  UNCERTAIN_APPROXIMATE("%");
 
   public static final Pattern CHECK_QUALIFICATION_PATTERN = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
-  private final char character;
+  private final String character;
 
-  DateQualification(char character) {
+  DateQualification(String character) {
     this.character = character;
   }
 
@@ -28,12 +28,12 @@ public enum DateQualification {
    * @param character the provided character
    * @return the enum value
    */
-  public static DateQualification fromCharacter(char character) {
-    return Arrays.stream(DateQualification.values()).filter(value -> value.character == character).findFirst().orElse(
+  public static DateQualification fromCharacter(String character) {
+    return Arrays.stream(DateQualification.values()).filter(value -> value.character.equals(character)).findFirst().orElse(
         NO_QUALIFICATION);
   }
 
-  public char getCharacter() {
+  public String getCharacter() {
     return character;
   }
 }

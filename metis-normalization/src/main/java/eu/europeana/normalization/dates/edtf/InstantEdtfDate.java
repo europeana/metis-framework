@@ -202,8 +202,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       stringBuilder.append(
           ofNullable(yearMonthDay).map(LocalDate::getDayOfMonth).map(decimalFormat::format).map(d -> "-" + d).orElse(""));
     }
-    stringBuilder.append(ofNullable(dateQualification).filter(dq -> dq != NO_QUALIFICATION).map(DateQualification::getCharacter)
-                                                      .map(Objects::toString).orElse(""));
+    stringBuilder.append(dateQualification.getCharacter());
     return stringBuilder.toString();
   }
 

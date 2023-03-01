@@ -1,5 +1,8 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
+import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
+
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -32,7 +35,7 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
     if (m.matches()) {
       dateQualification =
           computeDateQualification(requestedDateQualification,
-              () -> (m.group("uncertain") != null || m.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
+              () -> (m.group("uncertain") != null || m.group("uncertain2") != null) ? UNCERTAIN : NO_QUALIFICATION);
 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
           dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
@@ -42,7 +45,7 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
     if (m2.matches()) {
       dateQualification =
           computeDateQualification(requestedDateQualification,
-              () -> (m2.group("uncertain") != null || m2.group("uncertain2") != null) ? DateQualification.UNCERTAIN : null);
+              () -> (m2.group("uncertain") != null || m2.group("uncertain2") != null) ? UNCERTAIN : NO_QUALIFICATION);
 
       final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year"))).withDateQualification(
           dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();

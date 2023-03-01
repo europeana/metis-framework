@@ -1,5 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
+import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static java.util.Optional.ofNullable;
 import static java.util.regex.Pattern.compile;
 
@@ -56,7 +58,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find())
-            ? DateQualification.UNCERTAIN : null);
+            ? UNCERTAIN : NO_QUALIFICATION);
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
@@ -90,11 +92,6 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
         .withMonth(Integer.parseInt(monthSanitized))
         .withDay(Integer.parseInt(daySanitized));
   }
-
-  //  private int adjustYearWithPrecision(String yearSanitized, YearPrecision yearPrecision) {
-  //    return Integer.parseInt(yearSanitized) * Optional.ofNullable(yearPrecision).map(YearPrecision::getDuration)
-  //                                                     .orElse(1);
-  //  }
 
   private String getFieldSanitized(String stringField) {
     return StringUtils.defaultIfEmpty(stringField.toUpperCase(Locale.US).replaceAll(UNKNOWN_CHARACTERS_REGEX, ""),

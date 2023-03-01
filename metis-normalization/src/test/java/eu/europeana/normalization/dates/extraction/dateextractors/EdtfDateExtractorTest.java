@@ -1,5 +1,10 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
+import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
+import static eu.europeana.normalization.dates.edtf.DateQualification.APPROXIMATE;
+import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
+import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN_APPROXIMATE;
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -7,8 +12,6 @@ import static org.junit.jupiter.params.provider.Arguments.of;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
-import eu.europeana.normalization.dates.edtf.DateEdgeType;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import java.util.stream.Stream;
@@ -43,11 +46,11 @@ class EdtfDateExtractorTest {
   }
 
   private static void assertEdtfDate(String expected, InstantEdtfDate instantEdtfDate) {
-    assertEquals(expected.contains("?"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN);
-    assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == DateQualification.APPROXIMATE);
-    assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN_APPROXIMATE);
-    assertEquals(expected.equals(DateEdgeType.OPEN.getSerializedRepresentation()),
-        instantEdtfDate.getDateEdgeType() == DateEdgeType.OPEN || instantEdtfDate.getDateEdgeType() == DateEdgeType.UNKNOWN);
+    assertEquals(expected.contains("?"), instantEdtfDate.getDateQualification() == UNCERTAIN);
+    assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == APPROXIMATE);
+    assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == UNCERTAIN_APPROXIMATE);
+    assertEquals(expected.equals(OPEN.getSerializedRepresentation()),
+        instantEdtfDate.getDateEdgeType() == OPEN || instantEdtfDate.getDateEdgeType() == UNKNOWN);
   }
 
   @ParameterizedTest

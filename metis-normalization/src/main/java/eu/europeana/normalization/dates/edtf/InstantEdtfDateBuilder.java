@@ -1,6 +1,8 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -13,7 +15,6 @@ import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +42,8 @@ public class InstantEdtfDateBuilder {
   private Integer month;
   private Integer day;
   private TemporalAccessor temporalAccessor;
-  private YearPrecision yearPrecision = YearPrecision.YEAR;
-  private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
+  private YearPrecision yearPrecision;
+  private DateQualification dateQualification;
   private boolean flexibleDateBuild = true;
   private boolean longDatePrefixedWithY = false;
 
@@ -91,23 +92,18 @@ public class InstantEdtfDateBuilder {
 
   private InstantEdtfDate buildInternal() {
     InstantEdtfDate instantEdtfDate = null;
+    //Setup defaults
+    yearPrecision = ofNullable(yearPrecision).orElse(YearPrecision.YEAR);
+    dateQualification = ofNullable(dateQualification).orElse(NO_QUALIFICATION);
+
     try {
       if (temporalAccessor != null) {
-        LOGGER.debug("TemporalAccessor present. Overwriting values.");
-        day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-            temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-        month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-            temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-        year = temporalAccessor.isSupported(ChronoField.YEAR) ?
-            temporalAccessor.get(ChronoField.YEAR) : null;
+        parseTemporalAccessor();
       }
-      validateYear();
-      yearObj = Year.of(year * Optional.ofNullable(yearPrecision).map(YearPrecision::getDuration).orElse(1));
+      parseYear();
       parseMonthDay();
-
       validateDateNotInFuture();
       validateStrict();
-
       instantEdtfDate = new InstantEdtfDate(this);
     } catch (DateTimeException | DateExtractionException e) {
       LOGGER.debug("Date build failed.", e);
@@ -115,16 +111,39 @@ public class InstantEdtfDateBuilder {
     return instantEdtfDate;
   }
 
-  private void validateStrict() throws DateExtractionException {
-    //If it is not a long year, and we want to be strict we further validate
-    boolean notLongYearAndStrictBuild = !longDatePrefixedWithY && !flexibleDateBuild;
-    // TODO: 15/02/2023 Check this instruction. It used to be like that
-    //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
-    //  but do we actually need the check on unknown?
-    boolean isDateNonPrecise = dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
-    boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
-    if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
-      throw new DateExtractionException("Date is invalid according to our strict profile!");
+  private void parseTemporalAccessor() {
+    LOGGER.debug("TemporalAccessor present. Overwriting values.");
+    day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+        temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+    month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+        temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+    year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+        temporalAccessor.get(ChronoField.YEAR) : null;
+  }
+
+  private void parseYear() throws DateExtractionException {
+    Objects.requireNonNull(year, "Year value can never be null");
+    if (longDatePrefixedWithY && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
+      throw new DateExtractionException(
+          format("Prefixed year with 'Y' is enabled indicating that year should have absolute value greater than %s",
+              THRESHOLD_4_DIGITS_YEAR));
+    } else if (!longDatePrefixedWithY && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
+      throw new DateExtractionException(
+          format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
+    }
+    yearObj = Year.of(year * yearPrecision.getDuration());
+  }
+
+  private void parseMonthDay() throws DateExtractionException {
+    try {
+      if (month != null && month >= 1) {
+        monthObj = Month.of(month);
+        if (day != null && day >= 1) {
+          yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
+        }
+      }
+    } catch (DateTimeException e) {
+      throw new DateExtractionException("Failed to instantiate month and day", e);
     }
   }
 
@@ -143,15 +162,16 @@ public class InstantEdtfDateBuilder {
     }
   }
 
-  private void validateYear() throws DateExtractionException {
-    Objects.requireNonNull(year, "Year value can never be null");
-    if (longDatePrefixedWithY && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
-      throw new DateExtractionException(
-          format("Prefixed year with 'Y' is enabled indicating that year should have absolute value greater than %s",
-              THRESHOLD_4_DIGITS_YEAR));
-    } else if (!longDatePrefixedWithY && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
-      throw new DateExtractionException(
-          format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
+  private void validateStrict() throws DateExtractionException {
+    //If it is not a long year, and we want to be strict we further validate
+    boolean notLongYearAndStrictBuild = !longDatePrefixedWithY && !flexibleDateBuild;
+    // TODO: 15/02/2023 Check this instruction. It used to be like that
+    //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
+    //  but do we actually need the check on unknown?
+    boolean isDateNonPrecise = dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
+    boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
+    if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
+      throw new DateExtractionException("Date is invalid according to our strict profile!");
     }
   }
 
@@ -159,19 +179,6 @@ public class InstantEdtfDateBuilder {
     Integer tempMonth = month;
     month = day;
     day = tempMonth;
-  }
-
-  private void parseMonthDay() throws DateExtractionException {
-    try {
-      if (month != null && month >= 1) {
-        monthObj = Month.of(month);
-        if (day != null && day >= 1) {
-          yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
-        }
-      }
-    } catch (DateTimeException e) {
-      throw new DateExtractionException("Failed to instantiate month and day", e);
-    }
   }
 
   /**
