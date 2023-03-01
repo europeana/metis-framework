@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.rest;
+package eu.europeana.metis.repository.rest.controller;
 
 import com.lyncode.xml.exceptions.XmlWriteException;
 import eu.europeana.metis.repository.dao.Record;
@@ -54,7 +54,7 @@ public class OaiPmhController {
   private RecordDao recordDao;
 
   @Autowired
-  void setRecordDao(RecordDao recordDao) {
+  public void setRecordDao(RecordDao recordDao) {
     this.recordDao = recordDao;
   }
 

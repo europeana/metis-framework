@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.config;
+package eu.europeana.metis.repository.rest.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
  * Holder for the property values from Spring injection/property loading.
  */
 @Component
-@PropertySource({"classpath:application.properties"})
-public class ApplicationPropertiesHolder {
+public class ConfigurationPropertiesHolder {
 
   // Socks proxy
   @Value("${socks.proxy.enabled}")

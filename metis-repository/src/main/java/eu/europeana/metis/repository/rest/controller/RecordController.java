@@ -1,9 +1,11 @@
-package eu.europeana.metis.repository.rest;
+package eu.europeana.metis.repository.rest.controller;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.repository.rest.view.InsertionResult;
+import eu.europeana.metis.repository.rest.view.RecordView;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.annotations.Api;
@@ -59,7 +61,7 @@ public class RecordController {
   private RecordDao recordDao;
 
   @Autowired
-  void setRecordDao(RecordDao recordDao){
+  public void setRecordDao(RecordDao recordDao){
     this.recordDao = recordDao;
   }
 

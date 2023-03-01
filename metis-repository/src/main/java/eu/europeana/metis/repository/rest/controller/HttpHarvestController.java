@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.rest;
+package eu.europeana.metis.repository.rest.controller;
 
 import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
@@ -44,7 +44,7 @@ public class HttpHarvestController {
   private RecordDao recordDao;
 
   @Autowired
-  void setRecordDao(RecordDao recordDao) {
+  public void setRecordDao(RecordDao recordDao) {
     this.recordDao = recordDao;
   }
 

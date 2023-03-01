@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.rest;
+package eu.europeana.metis.repository.rest.view;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

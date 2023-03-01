@@ -2,6 +2,7 @@ package eu.europeana.metis.repository.rest;
 
 import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.repository.rest.controller.HttpHarvestController;
 import eu.europeana.metis.utils.RestEndpoints;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

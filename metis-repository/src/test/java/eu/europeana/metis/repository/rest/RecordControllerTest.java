@@ -22,6 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.repository.rest.controller.RecordController;
+import eu.europeana.metis.repository.rest.view.RecordView;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.InputStream;
 import java.time.Instant;
