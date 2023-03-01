@@ -44,7 +44,7 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
     if (matcher.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(
-          Integer.parseInt(matcher.group(1)) * YearPrecision.DECADE.getDuration())
+          Integer.parseInt(matcher.group(1)))
           .withYearPrecision(YearPrecision.DECADE)
           .withDateQualification(dateQualification)
           .withFlexibleDateBuild(flexibleDateBuild)

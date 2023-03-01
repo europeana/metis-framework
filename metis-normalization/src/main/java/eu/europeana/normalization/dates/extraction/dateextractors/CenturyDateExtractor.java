@@ -51,28 +51,28 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
   enum PatternCenturyDateOperation {
     PATTERN_YYYY(
         compile(QUESTION_MARK + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
-        century -> Integer.parseInt(century) * 100, DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
+        Integer::parseInt, DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ENGLISH(
         compile(QUESTION_MARK + NUMERIC_1_TO_21_SUFFIXED_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
-        century -> (Integer.parseInt(century.substring(0, century.length() - 2)) - 1) * 100,
+        century -> (Integer.parseInt(century.substring(0, century.length() - 2)) - 1),
         DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ROMAN(
         compile(QUESTION_MARK + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
-        century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
+        century -> (RomanToNumber.romanToDecimal(century) - 1),
         DateNormalizationExtractorMatchId.CENTURY_ROMAN),
     PATTERN_ROMAN_RANGE(
         compile(QUESTION_MARK + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + "\\s?-\\s?" + ROMAN_1_TO_21_REGEX + QUESTION_MARK,
-            CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
+            CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1),
         DateNormalizationExtractorMatchId.CENTURY_RANGE_ROMAN);
 
     private final Pattern pattern;
-    private final ToIntFunction<String> centuryAdjustmentFunction;
+    private final ToIntFunction<String> centuryExtractorFunction;
     private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
 
-    PatternCenturyDateOperation(Pattern pattern, ToIntFunction<String> centuryAdjustmentFunction,
+    PatternCenturyDateOperation(Pattern pattern, ToIntFunction<String> centuryExtractorFunction,
         DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
       this.pattern = pattern;
-      this.centuryAdjustmentFunction = centuryAdjustmentFunction;
+      this.centuryExtractorFunction = centuryExtractorFunction;
       this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
     }
 
@@ -80,8 +80,8 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
       return pattern;
     }
 
-    public ToIntFunction<String> getCenturyAdjustmentFunction() {
-      return centuryAdjustmentFunction;
+    public ToIntFunction<String> getCenturyExtractorFunction() {
+      return centuryExtractorFunction;
     }
 
     public DateNormalizationExtractorMatchId getDateNormalizationExtractorMatchId() {
@@ -142,8 +142,7 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
   private InstantEdtfDateBuilder extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation,
       Matcher matcher, int group) {
     final String century = matcher.group(group);
-    return new InstantEdtfDateBuilder(
-        patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century))
+    return new InstantEdtfDateBuilder(patternCenturyDateOperation.getCenturyExtractorFunction().applyAsInt(century))
         .withYearPrecision(YearPrecision.CENTURY);
   }
 }

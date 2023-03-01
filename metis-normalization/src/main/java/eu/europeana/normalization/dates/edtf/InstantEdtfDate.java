@@ -35,12 +35,10 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
-  private YearPrecision yearPrecision;
   private Year year;
-
   private Month month;
   private LocalDate yearMonthDay;
-
+  private YearPrecision yearPrecision;
   private DateQualification dateQualification = NO_QUALIFICATION;
   private DateEdgeType dateEdgeType = DECLARED;
 
@@ -77,35 +75,6 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
    */
   public static InstantEdtfDate getOpenInstance() {
     return new InstantEdtfDate(OPEN);
-  }
-
-  public Year getYear() {
-    return year;
-  }
-
-  public Month getMonth() {
-    return month;
-  }
-
-  public LocalDate getYearMonthDay() {
-    return yearMonthDay;
-  }
-
-  public YearPrecision getYearPrecision() {
-    return yearPrecision;
-  }
-
-  public DateQualification getDateQualification() {
-    return dateQualification;
-  }
-
-  public DateEdgeType getDateEdgeType() {
-    return dateEdgeType;
-  }
-
-  @Override
-  public boolean isYearPrecision() {
-    return yearPrecision != null;
   }
 
   @Override
@@ -188,10 +157,33 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
 
   public Integer getCentury() {
     int century = (year.getValue() / YearPrecision.CENTURY.getDuration()) + 1;
-    if (yearPrecision == null) {
+    if (yearPrecision == YearPrecision.YEAR) {
       century += 1;
     }
     return century;
+  }
+
+  /**
+   * Adjusts a year with padding and optional precision that replace right most digits with 'X's.
+   * <p>
+   * There are two possibilities:
+   *   <ul>
+   *     <li>The year is precise therefore it will be left padded with 0 to the max of 4 digits in total</li>
+   *     <li>The year is not precise which will be left padded with 0 to the max of 4 digits in total and then the right most
+   *     digits are replaced with 'X's based on the year precision. Eg. a year -900 with century precision will become -09XX</li>
+   *   </ul>
+   * </p>
+   *
+   * @return the adjusted year
+   */
+  private String serializeYear() {
+    final DecimalFormat decimalFormat = new DecimalFormat("0000");
+    final String paddedYear = decimalFormat.format(Math.abs(year.getValue()));
+
+    final String prefix = year.getValue() < 0 ? "-" : "";
+    final int trailingZeros = Integer.numberOfTrailingZeros(yearPrecision.getDuration());
+    final String yearAdjusted = paddedYear.substring(0, ISO_8601_MINIMUM_YEAR_DIGITS - trailingZeros) + "X".repeat(trailingZeros);
+    return prefix + yearAdjusted;
   }
 
   @Override
@@ -246,32 +238,27 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return Objects.hash(yearPrecision, year, month, yearMonthDay, dateQualification, dateEdgeType);
   }
 
-  /**
-   * Adjusts a year with padding and optional precision that replace right most digits with 'X's.
-   * <p>
-   * There are two possibilities:
-   *   <ul>
-   *     <li>The year is precise therefore it will be left padded with 0 to the max of 4 digits in total</li>
-   *     <li>The year is not precise which will be left padded with 0 to the max of 4 digits in total and then the right most
-   *     digits are replaced with 'X's based on the year precision. Eg. a year -900 with century precision will become -09XX</li>
-   *   </ul>
-   * </p>
-   *
-   * @return the adjusted year
-   */
-  private String serializeYear() {
-    final DecimalFormat decimalFormat = new DecimalFormat("0000");
-    final String paddedYear = decimalFormat.format(Math.abs(year.getValue()));
-
-    final String prefix = year.getValue() < 0 ? "-" : "";
-    final String yearAdjusted;
-    if (yearPrecision == null) {
-      yearAdjusted = paddedYear;
-    } else {
-      final int trailingZeros = Integer.numberOfTrailingZeros(yearPrecision.getDuration());
-      yearAdjusted = paddedYear.substring(0, ISO_8601_MINIMUM_YEAR_DIGITS - trailingZeros) + "X".repeat(trailingZeros);
-    }
-    return prefix + yearAdjusted;
+  public Year getYear() {
+    return year;
   }
 
+  public Month getMonth() {
+    return month;
+  }
+
+  public LocalDate getYearMonthDay() {
+    return yearMonthDay;
+  }
+
+  public YearPrecision getYearPrecision() {
+    return yearPrecision;
+  }
+
+  public DateQualification getDateQualification() {
+    return dateQualification;
+  }
+
+  public DateEdgeType getDateEdgeType() {
+    return dateEdgeType;
+  }
 }

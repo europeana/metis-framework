@@ -28,11 +28,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
-  public boolean isYearPrecision() {
-    return start.getYearPrecision() != null || end.getYearPrecision() != null;
-  }
-
-  @Override
   public boolean isOpen() {
     return start.getDateEdgeType() == DateEdgeType.OPEN || end.getDateEdgeType() == DateEdgeType.OPEN;
   }

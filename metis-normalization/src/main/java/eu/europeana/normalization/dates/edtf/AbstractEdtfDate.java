@@ -23,8 +23,6 @@ public abstract class AbstractEdtfDate {
 
   public abstract DateQualification getDateQualification();
 
-  public abstract boolean isYearPrecision();
-
   public abstract boolean isOpen();
 
   public abstract InstantEdtfDate getFirstDay();

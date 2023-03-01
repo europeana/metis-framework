@@ -11,7 +11,6 @@ import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,16 +85,16 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
 
     final int unknownYearCharacters = year.length() - yearSanitized.length();
     YearPrecision yearPrecision = YearPrecision.getYearPrecisionByOrdinal(unknownYearCharacters);
-    return new InstantEdtfDateBuilder(adjustYearWithPrecision(yearSanitized, yearPrecision))
+    return new InstantEdtfDateBuilder(Integer.parseInt(yearSanitized))
         .withYearPrecision(yearPrecision)
         .withMonth(Integer.parseInt(monthSanitized))
         .withDay(Integer.parseInt(daySanitized));
   }
 
-  private int adjustYearWithPrecision(String yearSanitized, YearPrecision yearPrecision) {
-    return Integer.parseInt(yearSanitized) * Optional.ofNullable(yearPrecision).map(YearPrecision::getDuration)
-                                                     .orElse(1);
-  }
+  //  private int adjustYearWithPrecision(String yearSanitized, YearPrecision yearPrecision) {
+  //    return Integer.parseInt(yearSanitized) * Optional.ofNullable(yearPrecision).map(YearPrecision::getDuration)
+  //                                                     .orElse(1);
+  //  }
 
   private String getFieldSanitized(String stringField) {
     return StringUtils.defaultIfEmpty(stringField.toUpperCase(Locale.US).replaceAll(UNKNOWN_CHARACTERS_REGEX, ""),

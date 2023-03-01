@@ -13,6 +13,7 @@ import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +40,8 @@ public class InstantEdtfDateBuilder {
   private Integer year;
   private Integer month;
   private Integer day;
-  private YearPrecision yearPrecision;
   private TemporalAccessor temporalAccessor;
+  private YearPrecision yearPrecision = YearPrecision.YEAR;
   private DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
   private boolean flexibleDateBuild = true;
   private boolean longDatePrefixedWithY = false;
@@ -101,7 +102,7 @@ public class InstantEdtfDateBuilder {
             temporalAccessor.get(ChronoField.YEAR) : null;
       }
       validateYear();
-      yearObj = Year.of(year);
+      yearObj = Year.of(year * Optional.ofNullable(yearPrecision).map(YearPrecision::getDuration).orElse(1));
       parseMonthDay();
 
       validateDateNotInFuture();
