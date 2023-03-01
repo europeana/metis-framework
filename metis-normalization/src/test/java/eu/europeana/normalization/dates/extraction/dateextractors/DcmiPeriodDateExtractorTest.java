@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.DCMI_PERIOD;
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
@@ -23,7 +24,7 @@ class DcmiPeriodDateExtractorTest {
   @DisplayName("Extract DCMI Period")
   void extract(String actualDcmiPeriod, String expectedLabel, String expectedStartDate, String expectedEndDate) {
     DcmiPeriodDateExtractor periodDateExtractor = new DcmiPeriodDateExtractor();
-    DateNormalizationResult dateNormalizationResult = periodDateExtractor.extractDateProperty(actualDcmiPeriod);
+    DateNormalizationResult dateNormalizationResult = periodDateExtractor.extractDateProperty(actualDcmiPeriod, NO_QUALIFICATION);
     if (expectedStartDate == null || expectedEndDate == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {

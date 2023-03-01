@@ -18,16 +18,6 @@ public abstract class AbstractDateExtractor implements DateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
-  @Override
-  public DateNormalizationResult extractDateProperty(String inputValue) {
-    return extractDateProperty(inputValue, DateQualification.NO_QUALIFICATION);
-  }
-
-  @Override
-  public DateNormalizationResult extractGenericProperty(String inputValue) {
-    return extractGenericProperty(inputValue, DateQualification.NO_QUALIFICATION);
-  }
-
   /**
    * Utility method for calling {@link #extract(String, DateQualification, boolean)} with allowSwitchesDuringValidation as true.
    * <p>It also captures relevant exceptions so that return is performed</p>

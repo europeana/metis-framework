@@ -5,7 +5,6 @@ import static java.lang.String.format;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
@@ -44,7 +43,7 @@ public class Iso8601Parser {
    *
    * @param dateInput the input date
    * @return the string result if the parse succeeded
-   * @throws DateTimeException if the parsing failed
+   * @throws DateExtractionException if the parsing failed
    */
   public TemporalAccessor parseDatePart(String dateInput) throws DateExtractionException {
 

@@ -3,6 +3,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
 import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.APPROXIMATE;
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN_APPROXIMATE;
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
@@ -24,7 +25,7 @@ class BriefRangeDateExtractorTest {
   private final BriefRangeDateExtractor briefRangeDateExtractor = new BriefRangeDateExtractor();
 
   private void extract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = briefRangeDateExtractor.extractDateProperty(input);
+    final DateNormalizationResult dateNormalizationResult = briefRangeDateExtractor.extractDateProperty(input, NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {

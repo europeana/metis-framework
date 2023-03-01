@@ -1,5 +1,6 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.YearPrecision.CENTURY;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
@@ -8,7 +9,6 @@ import static java.util.regex.Pattern.compile;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
@@ -145,6 +145,6 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
       Matcher matcher, int group) {
     final String century = matcher.group(group);
     return new InstantEdtfDateBuilder(patternCenturyDateOperation.getCenturyExtractorFunction().applyAsInt(century))
-        .withYearPrecision(YearPrecision.CENTURY);
+        .withYearPrecision(CENTURY);
   }
 }

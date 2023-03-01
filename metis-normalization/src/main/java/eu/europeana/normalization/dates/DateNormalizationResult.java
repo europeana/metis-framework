@@ -34,15 +34,21 @@ public class DateNormalizationResult {
     this.edtfDate = edtfDate;
   }
 
-  private DateNormalizationResult(DateNormalizationResultStatus dateNormalizationResultStatus, String originalInput) {
-    this(null, originalInput, null);
-    this.dateNormalizationResultStatus = dateNormalizationResultStatus;
-  }
-
+  /**
+   * Copy constructor with adding {@link SanitizeOperation}
+   *
+   * @param dateNormalizationResult the date normalization result to copy
+   * @param sanitizeOperation the sanitization operation
+   */
   public DateNormalizationResult(DateNormalizationResult dateNormalizationResult, SanitizeOperation sanitizeOperation) {
     this(dateNormalizationResult.getDateNormalizationExtractorMatchId(), dateNormalizationResult.getOriginalInput(),
         dateNormalizationResult.getEdtfDate());
     this.sanitizeOperation = sanitizeOperation;
+  }
+
+  private DateNormalizationResult(DateNormalizationResultStatus dateNormalizationResultStatus, String originalInput) {
+    this(null, originalInput, null);
+    this.dateNormalizationResultStatus = dateNormalizationResultStatus;
   }
 
   public DateNormalizationResultStatus getDateNormalizationResultStatus() {

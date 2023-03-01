@@ -1,11 +1,11 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.YearPrecision.DECADE;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
@@ -34,7 +34,8 @@ import java.util.regex.Pattern;
  * indicate a decade or a time period with an open end
  */
 public class DecadeDateExtractor extends AbstractDateExtractor {
-  private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[ux]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
+
+  private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[XU]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
@@ -46,9 +47,8 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = decadePattern.matcher(sanitizedValue);
     if (matcher.matches()) {
-      final InstantEdtfDate datePart = new InstantEdtfDateBuilder(
-          Integer.parseInt(matcher.group(1)))
-          .withYearPrecision(YearPrecision.DECADE)
+      final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(matcher.group(1)))
+          .withYearPrecision(DECADE)
           .withDateQualification(dateQualification)
           .withFlexibleDateBuild(flexibleDateBuild)
           .build();
