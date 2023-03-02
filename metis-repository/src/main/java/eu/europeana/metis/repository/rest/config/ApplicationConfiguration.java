@@ -44,6 +44,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * Constructor.
    *
    * @param propertiesHolder The properties.
+   * @throws TrustStoreConfigurationException If something goes wrong initializing the application
    */
   @Autowired
   public ApplicationConfiguration(ConfigurationPropertiesHolder propertiesHolder) throws TrustStoreConfigurationException {

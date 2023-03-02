@@ -11,6 +11,8 @@ public class Application {
 
   /**
    * The main spring boot method
+   *
+   * @param args application arguments
    */
   public static void main(String[] args){
     SpringApplication.run(Application.class, args);
