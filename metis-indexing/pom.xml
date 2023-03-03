@@ -10,6 +10,11 @@
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-base</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-utils</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -69,6 +74,10 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
     </dependency>
   </dependencies>
 

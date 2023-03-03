@@ -21,6 +21,7 @@
     <module>metis-harvesting</module>
     <module>metis-repository</module>
     <module>metis-pattern-analysis</module>
+    <module>metis-common/metis-common-base</module>
   </modules>
 
   <!-- Github connection -->
@@ -170,7 +171,7 @@
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.resources.plugin>3.2.0</version.maven.resources.plugin>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
-    <version.mockito.core>4.3.1</version.mockito.core>
+    <version.mockito.core>4.5.1</version.mockito.core>
     <version.morphia.core>2.2.1</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.postgresql>42.5.1</version.postgresql>
@@ -202,6 +203,11 @@
   <dependencyManagement>
     <dependencies>
       <!-- METIS COMMONS -->
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-base</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-mongo</artifactId>
@@ -528,7 +534,12 @@
         <version>${version.mockito.core}</version>
         <scope>test</scope>
       </dependency>
-
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${version.mockito.core}</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>

@@ -12,6 +12,7 @@ import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.solr.client.CompoundSolrClient;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
+import eu.europeana.metis.solr.connection.SolrProperties;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,14 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     } catch (RuntimeException e) {
       throw new IndexerRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
     }
+  }
+
+  public SettingsConnectionProvider(SolrProperties<SetupRelatedIndexingException> solrProperties)
+      throws SetupRelatedIndexingException {
+    this.solrClient = new SolrClientProvider<>(solrProperties).createSolrClient();
+    this.mongoClient = null;
+    this.recordDao = null;
+    this.recordRedirectDao = null;
   }
 
   private static MongoClient createMongoClient(IndexingSettings settings)

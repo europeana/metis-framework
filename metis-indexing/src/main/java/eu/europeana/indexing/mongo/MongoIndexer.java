@@ -12,6 +12,10 @@ public class MongoIndexer implements SimpleIndexer {
 
   @Override
   public void indexRecord(RDF record) {
+    // Sanity checks
+    if (record == null) {
+      throw new IllegalArgumentException("Input RDF cannot be null.");
+    }
 
   }
 

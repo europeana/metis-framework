@@ -1,5 +1,6 @@
 package eu.europeana.metis.solr.connection;
 
+import eu.europeana.metis.common.PropertyHolder;
 import eu.europeana.metis.network.InetAddressUtil;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @param <E> The type of exception thrown when the properties are not valid.
  */
-public class SolrProperties<E extends Exception> {
+public class SolrProperties<E extends Exception> implements PropertyHolder {
 
   // Default settings
   private static final int DEFAULT_ZOOKEEPER_TIMEOUT_IN_SECONDS = 30;
@@ -41,18 +42,17 @@ public class SolrProperties<E extends Exception> {
   }
 
   /**
-   * Setter for all properties. This is a convenience method for {@link
-   * #addZookeeperHost(InetSocketAddress)}. It clears the list of hosts (removing all added hosts)
-   * and adds the given ones.
+   * Setter for all properties. This is a convenience method for {@link #addZookeeperHost(InetSocketAddress)}. It clears the list
+   * of hosts (removing all added hosts) and adds the given ones.
    *
    * @param hosts The hosts. This cannot be null.
-   * @param ports The ports. This cannot be null. Must contain either the same number of elements as
-   * the hosts array, or exactly 1 element (which will then apply to all hosts).
+   * @param ports The ports. This cannot be null. Must contain either the same number of elements as the hosts array, or exactly 1
+   * element (which will then apply to all hosts).
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */
   public void setZookeeperHosts(String[] hosts, int[] ports) throws E {
     final List<InetSocketAddress> addresses = new InetAddressUtil<>(this.exceptionCreator)
-            .getAddressesFromHostsAndPorts(nonNull(hosts, "hosts"), nonNull(ports, "ports"));
+        .getAddressesFromHostsAndPorts(nonNull(hosts, "hosts"), nonNull(ports, "ports"));
     zookeeperHosts.clear();
     for (InetSocketAddress address : nonNull(addresses, "addresses")) {
       addZookeeperHost(address);
@@ -60,9 +60,9 @@ public class SolrProperties<E extends Exception> {
   }
 
   /**
-   * Add a Zookeeper host. This method is optional. By default the list is empty, signifying that a
-   * direct connection is to be made with Solr (i.e. not via zookeeper). Any value set through
-   * {@link #setZookeeperChroot(String)} will be ignored in this case.
+   * Add a Zookeeper host. This method is optional. By default the list is empty, signifying that a direct connection is to be
+   * made with Solr (i.e. not via zookeeper). Any value set through {@link #setZookeeperChroot(String)} will be ignored in this
+   * case.
    *
    * @param host Zookeeper host.
    * @throws E In case the provided value is null.
@@ -72,12 +72,11 @@ public class SolrProperties<E extends Exception> {
   }
 
   /**
-   * Set the Zookeeper chroot (which would apply to all the zookeeper hosts). See the documentation
-   * of {@link org.apache.zookeeper.ZooKeeper} constructors, for instance {@link
-   * org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}. The
-   * chroot must start with a '/' character. This method is optional: by default, there is no
-   * chroot. This method has effect only if zookeeper is to be used (i.e. if {@link
-   * #addZookeeperHost(InetSocketAddress)} is called).
+   * Set the Zookeeper chroot (which would apply to all the zookeeper hosts). See the documentation of
+   * {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
+   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}. The chroot must start with a '/'
+   * character. This method is optional: by default, there is no chroot. This method has effect only if zookeeper is to be used
+   * (i.e. if {@link #addZookeeperHost(InetSocketAddress)} is called).
    *
    * @param chroot The chroot.
    * @throws E If the chroot does not start with a '/'.
@@ -93,24 +92,23 @@ public class SolrProperties<E extends Exception> {
   }
 
   /**
-   * Set the Zookeeper default collection name. This method must be called if zookeeper is to be
-   * used (i.e. if {@link #addZookeeperHost(InetSocketAddress)} is called).
+   * Set the Zookeeper default collection name. This method must be called if zookeeper is to be used (i.e. if
+   * {@link #addZookeeperHost(InetSocketAddress)} is called).
    *
    * @param zookeeperDefaultCollection Zookeeper default collection. Cannot be null.
    * @throws E In case the provided value is null.
    */
   public void setZookeeperDefaultCollection(String zookeeperDefaultCollection) throws E {
     this.zookeeperDefaultCollection =
-            nonNull(zookeeperDefaultCollection, "zookeeperDefaultCollection");
+        nonNull(zookeeperDefaultCollection, "zookeeperDefaultCollection");
   }
 
   /**
-   * Set the Zookeeper connection time-out . This method is optional: by default, there is no
-   * connection time-out. This method has effect only if zookeeper is to be used (i.e. if {@link
-   * #addZookeeperHost(InetSocketAddress)} is called).
+   * Set the Zookeeper connection time-out . This method is optional: by default, there is no connection time-out. This method has
+   * effect only if zookeeper is to be used (i.e. if {@link #addZookeeperHost(InetSocketAddress)} is called).
    *
-   * @param zookeeperTimeoutInSecs The time-out (in seconds) to be applied to Zookeeper connections.
-   * If this number is zero or negative, the default value will be applied.
+   * @param zookeeperTimeoutInSecs The time-out (in seconds) to be applied to Zookeeper connections. If this number is zero or
+   * negative, the default value will be applied.
    */
   public void setZookeeperTimeoutInSecs(int zookeeperTimeoutInSecs) {
     this.zookeeperTimeoutInSecs = zookeeperTimeoutInSecs <= 0 ? null : zookeeperTimeoutInSecs;
@@ -145,8 +143,8 @@ public class SolrProperties<E extends Exception> {
   /**
    * This method returns the Zookeeper chroot.
    *
-   * @return The Zookeeper chroot, or null if no Zookeeper chroot is to be applied (or if no
-   * Zookeeper connection is to be established).
+   * @return The Zookeeper chroot, or null if no Zookeeper chroot is to be applied (or if no Zookeeper connection is to be
+   * established).
    */
   public String getZookeeperChroot() {
     return hasZookeeperConnection() ? zookeeperChroot : null;
@@ -155,10 +153,8 @@ public class SolrProperties<E extends Exception> {
   /**
    * This method returns the Zookeeper default collection name.
    *
-   * @return The Zookeeper default collection name, or null if no Zookeeper connection is to be
-   * established.
-   * @throws E In case a Zookeeper connection is to be established, but no default collection name
-   * was set.
+   * @return The Zookeeper default collection name, or null if no Zookeeper connection is to be established.
+   * @throws E In case a Zookeeper connection is to be established, but no default collection name was set.
    */
   public String getZookeeperDefaultCollection() throws E {
     if (!hasZookeeperConnection()) {
@@ -173,8 +169,8 @@ public class SolrProperties<E extends Exception> {
   /**
    * This method returns the Zookeeper connection time-out in seconds.
    *
-   * @return The Zookeeper connection time-out in seconds, or null if the default Zookeeper
-   * connection time-out is to be applied (or if no Zookeeper connection is to be established).
+   * @return The Zookeeper connection time-out in seconds, or null if the default Zookeeper connection time-out is to be applied
+   * (or if no Zookeeper connection is to be established).
    */
   public Integer getZookeeperTimeoutInSecs() {
     return hasZookeeperConnection() ? zookeeperTimeoutInSecs : null;
