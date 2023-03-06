@@ -1,15 +1,15 @@
-package eu.europeana.metis.repository.config;
+package eu.europeana.metis.repository.rest.config;
 
+import eu.europeana.metis.mongo.connection.MongoProperties;
+import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
  * Holder for the property values from Spring injection/property loading.
  */
 @Component
-@PropertySource({"classpath:application.properties"})
-public class ApplicationPropertiesHolder {
+public class ConfigurationPropertiesHolder {
 
   // Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -27,7 +27,7 @@ public class ApplicationPropertiesHolder {
   @Value("${mongo.hosts}")
   private String[] mongoHosts;
   @Value("${mongo.port}")
-  private int mongoPort;
+  private int[] mongoPorts;
   @Value("${mongo.authentication.db}")
   private String mongoAuthenticationDb;
   @Value("${mongo.username}")
@@ -35,13 +35,13 @@ public class ApplicationPropertiesHolder {
   @Value("${mongo.password}")
   private String mongoPassword;
   @Value("${mongo.enable.ssl}")
-  private boolean mongoEnableSsl;
+  private boolean mongoEnableSSL;
   @Value("${mongo.application.name}")
   private String mongoApplicationName;
   @Value("${mongo.record.db}")
   private String mongoRecordDb;
 
-  // truststore
+  // Truststore
   @Value("${truststore.path}")
   private String truststorePath;
   @Value("${truststore.password}")
@@ -67,34 +67,6 @@ public class ApplicationPropertiesHolder {
     return socksProxyPassword;
   }
 
-  public String[] getMongoHosts() {
-    return mongoHosts.clone();
-  }
-
-  public int getMongoPort() {
-    return mongoPort;
-  }
-
-  public String getMongoAuthenticationDb() {
-    return mongoAuthenticationDb;
-  }
-
-  public String getMongoUsername() {
-    return mongoUsername;
-  }
-
-  public String getMongoPassword() {
-    return mongoPassword;
-  }
-
-  public boolean isMongoEnableSsl() {
-    return mongoEnableSsl;
-  }
-
-  public String getMongoApplicationName() {
-    return mongoApplicationName;
-  }
-
   public String getMongoRecordDb() {
     return mongoRecordDb;
   }
@@ -105,5 +77,13 @@ public class ApplicationPropertiesHolder {
 
   public String getTruststorePassword() {
     return truststorePassword;
+  }
+
+  public MongoProperties<IllegalArgumentException> getMongoProperties() {
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
+        mongoPassword, mongoEnableSSL, ReadPreferenceValue.PRIMARY_PREFERRED, mongoApplicationName);
+    return mongoProperties;
   }
 }

@@ -1,5 +1,6 @@
 package eu.europeana.metis.repository.rest;
 
+import eu.europeana.metis.repository.rest.view.InsertionResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
