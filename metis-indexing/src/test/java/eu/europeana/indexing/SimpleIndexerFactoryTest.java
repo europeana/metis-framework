@@ -7,6 +7,8 @@ import eu.europeana.indexing.mongo.MongoIndexer;
 import eu.europeana.indexing.solr.SolrIndexer;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.solr.connection.SolrProperties;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 
 class SimpleIndexerFactoryTest {
@@ -14,13 +16,14 @@ class SimpleIndexerFactoryTest {
   private final SimpleIndexerFactory simpleIndexerFactory = new SimpleIndexerFactory();
 
   @Test
-  void getSolrIndexer() {
+  void getSolrIndexer() throws SetupRelatedIndexingException, URISyntaxException {
     SolrProperties<SetupRelatedIndexingException> solrProperties = new SolrProperties<>(SetupRelatedIndexingException::new);
+    solrProperties.addSolrHost(new URI("http://localhost:8983"));
     assertTrue(simpleIndexerFactory.getIndexer(solrProperties) instanceof SolrIndexer);
   }
 
   @Test
-  void getMongoIndexer() {
+  void getMongoIndexer() throws SetupRelatedIndexingException {
     MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(SetupRelatedIndexingException::new);
     assertTrue(simpleIndexerFactory.getIndexer(mongoProperties) instanceof MongoIndexer);
   }

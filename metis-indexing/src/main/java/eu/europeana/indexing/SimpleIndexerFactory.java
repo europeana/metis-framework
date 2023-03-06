@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.mongo.MongoIndexer;
 import eu.europeana.indexing.solr.SolrIndexer;
 import eu.europeana.metis.common.PropertyHolder;
@@ -13,7 +14,7 @@ public class SimpleIndexerFactory {
    * @param properties can be eiather a SolrProperties or MongoProperties object.
    * @return SimpleIndexer pointing to mongo or solr.
    */
-  public SimpleIndexer getIndexer(PropertyHolder properties) {
+  public SimpleIndexer getIndexer(PropertyHolder properties) throws SetupRelatedIndexingException {
     if (properties instanceof SolrProperties) {
       return new SolrIndexer((SolrProperties) properties);
     } else if (properties instanceof MongoProperties) {

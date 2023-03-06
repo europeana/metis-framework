@@ -7,6 +7,7 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
@@ -71,6 +72,14 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   public SettingsConnectionProvider(SolrProperties<SetupRelatedIndexingException> solrProperties)
       throws SetupRelatedIndexingException {
     this.solrClient = new SolrClientProvider<>(solrProperties).createSolrClient();
+    this.mongoClient = null;
+    this.recordDao = null;
+    this.recordRedirectDao = null;
+  }
+
+  public SettingsConnectionProvider(MongoProperties<SetupRelatedIndexingException> mongoProperties)
+      throws SetupRelatedIndexingException {
+    this.solrClient = null;
     this.mongoClient = null;
     this.recordDao = null;
     this.recordRedirectDao = null;
