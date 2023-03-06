@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.rest;
+package eu.europeana.metis.repository.rest.controller;
 
 import com.lyncode.xml.exceptions.XmlWriteException;
 import eu.europeana.metis.repository.dao.Record;
@@ -28,8 +28,6 @@ import org.dspace.xoai.model.oaipmh.Verb;
 import org.dspace.xoai.services.impl.SimpleResumptionTokenFormat;
 import org.dspace.xoai.xml.XmlWriter;
 import org.dspace.xoai.xml.XmlWriter.WriterContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,12 +47,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class OaiPmhController {
 
   public static final String CONTROLLER_TAG_NAME = "OaiPmhController";
-  private static final Logger LOGGER = LoggerFactory.getLogger(OaiPmhController.class);
 
   private RecordDao recordDao;
 
   @Autowired
-  void setRecordDao(RecordDao recordDao) {
+  public void setRecordDao(RecordDao recordDao) {
     this.recordDao = recordDao;
   }
 
@@ -64,18 +61,18 @@ public class OaiPmhController {
   @ResponseBody
   @ApiOperation(value = "OAI endpoint (supporting only the ListIdentifiers and GetRecord verbs)")
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Illegal OAI request"),
-          @ApiResponse(code = 404, message = "Unknown dataset or record ID"),
-          @ApiResponse(code = 500, message = "Error processing the request")})
+      @ApiResponse(code = 404, message = "Unknown dataset or record ID"),
+      @ApiResponse(code = 500, message = "Error processing the request")})
   public String oaiPmh(
-          @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @QueryParam("verb") String verb,
-          @ApiParam(value = "The set (required for ListIdentifiers)") @QueryParam("set") String set,
-          @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @QueryParam("metadataPrefix") String metadataPrefix,
-          @ApiParam(value = "The record identifier (required for GetRecord)") @QueryParam("identifier") String identifier) {
+      @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @QueryParam("verb") String verb,
+      @ApiParam(value = "The set (required for ListIdentifiers)") @QueryParam("set") String set,
+      @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @QueryParam("metadataPrefix") String metadataPrefix,
+      @ApiParam(value = "The record identifier (required for GetRecord)") @QueryParam("identifier") String identifier) {
 
     // Check the metadata prefix
     if (!"edm".equals(metadataPrefix)) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-              "Unsupported metadataPrefix value: " + metadataPrefix);
+          "Unsupported metadataPrefix value: " + metadataPrefix);
     }
 
     // Check the verb and delegate
@@ -90,7 +87,8 @@ public class OaiPmhController {
 
     // Compile the result
     final OAIPMH result = new OAIPMH().withVerb(verbResult).withResponseDate(new Date())
-            .withRequest(new Request(RestEndpoints.REPOSITORY_OAI_ENDPOINT).withVerbType(verbResult.getType()));
+                                      .withRequest(
+                                          new Request(RestEndpoints.REPOSITORY_OAI_ENDPOINT).withVerbType(verbResult.getType()));
     try {
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       final WriterContext context = new WriterContext(Granularity.Day, new SimpleResumptionTokenFormat());
@@ -102,9 +100,8 @@ public class OaiPmhController {
       }
       return outputStream.toString();
     } catch (XMLStreamException | XmlWriteException e) {
-      LOGGER.warn("A problem occurred while serializing the response.", e);
-      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-              "A problem occurred while serializing the response.", e);
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A problem occurred while serializing the response.",
+          e);
     }
   }
 
@@ -114,7 +111,7 @@ public class OaiPmhController {
     }
     final ListIdentifiers result = new ListIdentifiers();
     recordDao.getAllRecordsFromDataset(setSpec)
-            .forEach(record -> result.getHeaders().add(createHeader(record)));
+             .forEach(datasetRecord -> result.getHeaders().add(createHeader(datasetRecord)));
     if (result.getHeaders().isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No records found for this dataset.");
     }
@@ -125,20 +122,20 @@ public class OaiPmhController {
     if (StringUtils.isBlank(identifier)) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please provide an identifier");
     }
-    final Record record = recordDao.getRecord(identifier);
-    if (record == null) {
+    final Record oaiRecord = recordDao.getRecord(identifier);
+    if (oaiRecord == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-              "No record found for this identifier.");
+          "No record found for this identifier.");
     }
     final org.dspace.xoai.model.oaipmh.Record resultRecord = new org.dspace.xoai.model.oaipmh.Record()
-            .withHeader(createHeader(record)).withMetadata(new Metadata(record.getEdmRecord()));
+        .withHeader(createHeader(oaiRecord)).withMetadata(new Metadata(oaiRecord.getEdmRecord()));
     return new GetRecord(resultRecord);
   }
 
-  private static Header createHeader(Record record) {
-    final Header result = new Header().withDatestamp(Date.from(record.getDateStamp()))
-        .withSetSpec(record.getDatasetId()).withIdentifier(record.getRecordId());
-    if (record.isDeleted()) {
+  private static Header createHeader(Record oaiRecord) {
+    final Header result = new Header().withDatestamp(Date.from(oaiRecord.getDateStamp()))
+                                      .withSetSpec(oaiRecord.getDatasetId()).withIdentifier(oaiRecord.getRecordId());
+    if (oaiRecord.isDeleted()) {
       result.withStatus(Status.DELETED);
     }
     return result;

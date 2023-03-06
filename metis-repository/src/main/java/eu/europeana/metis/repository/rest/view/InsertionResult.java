@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.rest;
+package eu.europeana.metis.repository.rest.view;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.Instant;
@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-class InsertionResult {
+public class InsertionResult {
 
   private final String datasetId;
   @JsonSerialize(using = InstantSerializer.class)

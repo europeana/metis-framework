@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import eu.europeana.metis.repository.dao.Record;
 import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.repository.rest.controller.OaiPmhController;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;
 import java.net.URI;
