@@ -3,8 +3,6 @@ package eu.europeana.metis.repository.rest.config;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
-import eu.europeana.metis.mongo.connection.MongoProperties;
-import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import eu.europeana.metis.repository.dao.RecordDao;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
@@ -76,17 +74,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
               propertiesHolder.getTruststorePassword());
     }
 
-    // Create the mongo connection
+    // Initialize the Mongo connection
     LOGGER.info("Creating Mongo connection");
-    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
-            IllegalArgumentException::new);
-    mongoProperties
-            .setAllProperties(propertiesHolder.getMongoHosts(), new int[]{propertiesHolder.getMongoPort()},
-                    propertiesHolder.getMongoAuthenticationDb(), propertiesHolder.getMongoUsername(),
-                    propertiesHolder.getMongoPassword(), propertiesHolder.isMongoEnableSsl(),
-                    ReadPreferenceValue.PRIMARY_PREFERRED, propertiesHolder.getMongoApplicationName());
-
-    return new MongoClientProvider<>(mongoProperties).createMongoClient();
+    return new MongoClientProvider<>(propertiesHolder.getMongoProperties()).createMongoClient();
   }
 
   @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)

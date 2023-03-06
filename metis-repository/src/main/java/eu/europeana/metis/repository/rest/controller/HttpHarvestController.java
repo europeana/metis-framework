@@ -17,8 +17,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +37,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class HttpHarvestController {
 
   public static final String CONTROLLER_TAG_NAME = "HttpHarvestController";
-  private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvestController.class);
 
   private RecordDao recordDao;
 
@@ -60,28 +57,25 @@ public class HttpHarvestController {
   @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis. Records "
       + "that are marked as deleted will be excluded from the resulting zip file.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "No records for this dataset."),
-          @ApiResponse(code = 500, message = "Error obtaining the records.")})
+      @ApiResponse(code = 500, message = "Error obtaining the records.")})
   public ResponseEntity<byte[]> getDatasetRecords(
-          @ApiParam(value = "Dataset ID (new or existing)", required = true) @PathVariable("dataset") String datasetId) {
+      @ApiParam(value = "Dataset ID (new or existing)", required = true) @PathVariable("dataset") String datasetId) {
 
     // Create zip file in memory (and keep track on whether there are any records).
     final AtomicBoolean recordsFound = new AtomicBoolean(false);
     final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-      final Stream<Record> recordList = recordDao.getAllRecordsFromDataset(datasetId);
-      recordList.forEach(record -> {
-        if (!record.isDeleted()) {
-          addRecordToZipFile(record, zipOutputStream);
+      final Stream<Record> allRecordsFromDataset = recordDao.getAllRecordsFromDataset(datasetId);
+      allRecordsFromDataset.forEach(datasetRecord -> {
+        if (!datasetRecord.isDeleted()) {
+          addRecordToZipFile(datasetRecord, zipOutputStream);
           recordsFound.set(true);
         }
       });
       zipOutputStream.finish();
       zipOutputStream.flush();
     } catch (RuntimeException | IOException e) {
-
-      // Report any problems (also for individual records) as 500 code.
-      LOGGER.warn("There was problems while zipping the records.", e);
-      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "There was problems while zipping the records.", e);
     }
 
     // If there are no records found, we return a 404 code.
@@ -91,18 +85,18 @@ public class HttpHarvestController {
 
     // Return bytes as zip file.
     return ResponseEntity.ok()
-        .header("Content-Disposition", "attachment; filename=\"" + datasetId + ".zip\"")
-        .body(byteArrayOutputStream.toByteArray());
+                         .header("Content-Disposition", "attachment; filename=\"" + datasetId + ".zip\"")
+                         .body(byteArrayOutputStream.toByteArray());
   }
 
-  private static void addRecordToZipFile(Record record, ZipOutputStream zipOutputStream) {
+  private static void addRecordToZipFile(Record oaiRecord, ZipOutputStream zipOutputStream) {
     try {
-      zipOutputStream.putNextEntry(new ZipEntry(record.getRecordId() + ".xml"));
-      zipOutputStream.write(record.getEdmRecord().getBytes(StandardCharsets.UTF_8));
+      zipOutputStream.putNextEntry(new ZipEntry(oaiRecord.getRecordId() + ".xml"));
+      zipOutputStream.write(oaiRecord.getEdmRecord().getBytes(StandardCharsets.UTF_8));
       zipOutputStream.closeEntry();
     } catch (IOException e) {
       throw new IllegalStateException(
-              "There was a problem while preparing the records to be zipped.", e);
+          "There was a problem while preparing the records to be zipped.", e);
     }
   }
 }
