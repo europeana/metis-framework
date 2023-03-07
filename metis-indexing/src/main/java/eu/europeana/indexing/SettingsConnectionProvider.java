@@ -69,16 +69,14 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     }
   }
 
-  public SettingsConnectionProvider(SolrProperties<SetupRelatedIndexingException> solrProperties)
-      throws SetupRelatedIndexingException {
+  public SettingsConnectionProvider(SolrProperties<SetupRelatedIndexingException> solrProperties) throws SetupRelatedIndexingException {
     this.solrClient = new SolrClientProvider<>(solrProperties).createSolrClient();
     this.mongoClient = null;
     this.recordDao = null;
     this.recordRedirectDao = null;
   }
 
-  public SettingsConnectionProvider(MongoProperties<SetupRelatedIndexingException> mongoProperties)
-      throws SetupRelatedIndexingException {
+  public SettingsConnectionProvider(MongoProperties<SetupRelatedIndexingException> mongoProperties) throws SetupRelatedIndexingException {
     this.solrClient = null;
     this.mongoClient = null;
     this.recordDao = null;

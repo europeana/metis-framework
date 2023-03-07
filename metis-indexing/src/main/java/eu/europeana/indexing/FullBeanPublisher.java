@@ -219,18 +219,12 @@ public class FullBeanPublisher {
   public void publishSolr(RdfWrapper rdf, Date recordDate) throws IndexingException {
     final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
     if (!preserveUpdateAndCreateTimesFromRdf){
-      final Date createdDate = recordDate; // TODO perform Solr Query
-      setUpdateAndCreateTime(null, fullBean, Pair.of(recordDate, createdDate));
-    }
-
-    if (!preserveUpdateAndCreateTimesFromRdf) {
-      fullBean.setTimestampUpdated(recordDate);
-
+      final Date createdDate = recordDate;
       //TODO: quick query to solr to get timestamp of the record when it was created.
       // if not exists then use recordDate.
       // fullBean.setTimestampCreated(recordDate);
+      setUpdateAndCreateTime(null, fullBean, Pair.of(recordDate, createdDate));
     }
-
     publishToSolrFinal(rdf, fullBean);
   }
 
