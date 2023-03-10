@@ -8,7 +8,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateEdgeType;
+import eu.europeana.normalization.dates.edtf.DateBoundaryType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -85,10 +85,10 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
       NumericRangeDateDelimiters numericRangeSpecialCharacters) {
     boolean isAmbiguous = false;
     if (numericRangeSpecialCharacters == NumericRangeDateDelimiters.DASH_RANGE) {
-      final boolean isStartDeclared = startDate.getDateEdgeType() == DateEdgeType.DECLARED;
+      final boolean isStartDeclared = startDate.getDateEdgeType() == DateBoundaryType.DECLARED;
       final boolean isStartThreeDigit =
           isStartDeclared && Integer.toString(startDate.getYear().getValue()).matches("\\d{3}");
-      if (isStartThreeDigit && endDate.getDateEdgeType() == DateEdgeType.OPEN) {
+      if (isStartThreeDigit && endDate.getDateEdgeType() == DateBoundaryType.OPEN) {
         isAmbiguous = true;
       }
     }

@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  */
 public final class XmlUtil {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final DocumentBuilderFactory FACTORY = DocumentBuilderFactory.newInstance();
 
   static {

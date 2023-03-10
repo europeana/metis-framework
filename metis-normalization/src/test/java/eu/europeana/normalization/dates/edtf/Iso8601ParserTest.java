@@ -19,32 +19,30 @@ class Iso8601ParserTest {
   @MethodSource
   @DisplayName("[year][“-”][month][“-”][day] Complete representation")
   void completeDateRepresentation(String input, String expected) throws DateExtractionException {
-    parse(input, expected);
+    assertParse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year][“-”][month] Reduced precision for year and month")
   void reducedPrecisionForYearAndMonth(String input, String expected) throws DateExtractionException {
-    parse(input, expected);
+    assertParse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year] Reduced precision for year")
   void reducedPrecisionForYear(String input, String expected) throws DateExtractionException {
-    parse(input, expected);
+    assertParse(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   void dateAndTimeRepresentation(String input, String expected) throws DateExtractionException {
-    parse(input, expected);
+    assertParse(input, expected);
   }
 
-  //  EDTF Level 0 adopts representations of a time interval where both the start and end are dates: start and end date only; that is, both start and duration, and duration and end, are excluded. Time of day is excluded.
-
-  private void parse(String input, String expected) throws DateExtractionException {
+  private void assertParse(String input, String expected) throws DateExtractionException {
     if (expected == null) {
       assertThrows(DateExtractionException.class, () -> iso8601Parser.parseDatePart(input));
     } else {

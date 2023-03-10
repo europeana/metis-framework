@@ -17,10 +17,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class CenturyDateExtractorTest {
-
   private static final CenturyDateExtractor CENTURY_DATE_EXTRACTOR = new CenturyDateExtractor();
 
-  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+  void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = CENTURY_DATE_EXTRACTOR.extractDateProperty(input, NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
@@ -36,13 +35,13 @@ class CenturyDateExtractorTest {
   @ParameterizedTest
   @MethodSource("extractNumericData")
   void extractNumeric(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    extract(input, expected, dateNormalizationExtractorMatchId);
+    assertExtract(input, expected, dateNormalizationExtractorMatchId);
   }
 
   @ParameterizedTest
   @MethodSource("extractRomanData")
   void extractRoman(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    extract(input, expected, dateNormalizationExtractorMatchId);
+    assertExtract(input, expected, dateNormalizationExtractorMatchId);
   }
 
   private static Stream<Arguments> extractNumericData() {

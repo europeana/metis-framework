@@ -2,7 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateEdgeType;
+import eu.europeana.normalization.dates.edtf.DateBoundaryType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
@@ -59,7 +59,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
       String name = extractName(value);
 
       //At least one end has to be specified
-      if (start.getDateEdgeType() == DateEdgeType.DECLARED || end.getDateEdgeType() == DateEdgeType.DECLARED) {
+      if (start.getDateEdgeType() == DateBoundaryType.DECLARED || end.getDateEdgeType() == DateBoundaryType.DECLARED) {
         IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
                                                                                    .withFlexibleDateBuild(
                                                                                        flexibleDateBuild)

@@ -1,8 +1,8 @@
 package eu.europeana.normalization.dates.edtf;
 
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.DECLARED;
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.DECLARED;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.OPEN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR;
 import static eu.europeana.normalization.dates.edtf.Iso8601Parser.ISO_8601_MINIMUM_YEAR_DIGITS;
@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class representing the date part an EDTF date.
+ * Class representing the date part of an EDTF date.
  * <p>
  * Support partial dates, including only centuries or decades (e.g., 19XX). The uncertain and approximate qualifiers, '?' and '~',
  * when applied together, are combined into a single qualifier character '%';
@@ -33,14 +33,14 @@ import org.slf4j.LoggerFactory;
  */
 public final class InstantEdtfDate extends AbstractEdtfDate implements Comparable<InstantEdtfDate> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Year year;
   private Month month;
   private LocalDate yearMonthDay;
   private YearPrecision yearPrecision;
   private DateQualification dateQualification = NO_QUALIFICATION;
-  private DateEdgeType dateEdgeType = DECLARED;
+  private DateBoundaryType dateBoundaryType = DECLARED;
 
   /**
    * Restricted constructor by provided {@link InstantEdtfDateBuilder}.
@@ -55,12 +55,12 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     dateQualification = instantEdtfDateBuilder.getDateQualification();
   }
 
-  private InstantEdtfDate(DateEdgeType dateEdgeType) {
-    this.dateEdgeType = dateEdgeType;
+  private InstantEdtfDate(DateBoundaryType dateBoundaryType) {
+    this.dateBoundaryType = dateBoundaryType;
   }
 
   /**
-   * Create an {@link DateEdgeType#UNKNOWN} instant.
+   * Create an {@link DateBoundaryType#UNKNOWN} instant.
    *
    * @return the instant date created
    */
@@ -69,7 +69,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   }
 
   /**
-   * Create an {@link DateEdgeType#OPEN} instant.
+   * Create an {@link DateBoundaryType#OPEN} instant.
    *
    * @return the instant date created
    */
@@ -81,7 +81,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   public InstantEdtfDate getFirstDay() {
     InstantEdtfDate firstDay = null;
     try {
-      if (dateEdgeType == DECLARED) {
+      if (dateBoundaryType == DECLARED) {
         if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
           firstDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
         } else {
@@ -114,7 +114,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   public InstantEdtfDate getLastDay() {
     InstantEdtfDate lastDay = null;
     try {
-      if (dateEdgeType == DECLARED) {
+      if (dateBoundaryType == DECLARED) {
         if (this.getYear().getValue() < -THRESHOLD_4_DIGITS_YEAR) {
           lastDay = new InstantEdtfDateBuilder(this.getYear().getValue()).build();
         } else {
@@ -152,7 +152,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
 
   @Override
   public boolean isOpen() {
-    return dateEdgeType == OPEN;
+    return dateBoundaryType == OPEN;
   }
 
   public Integer getCentury() {
@@ -189,8 +189,8 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   @Override
   public String toString() {
     final StringBuilder stringBuilder = new StringBuilder();
-    if (dateEdgeType != DECLARED) {
-      stringBuilder.append(dateEdgeType.getSerializedRepresentation());
+    if (dateBoundaryType != DECLARED) {
+      stringBuilder.append(dateBoundaryType.getSerializedRepresentation());
     } else if (abs(year.getValue()) > THRESHOLD_4_DIGITS_YEAR) {
       stringBuilder.append(InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX).append(year.getValue());
     } else {
@@ -229,12 +229,12 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     InstantEdtfDate that = (InstantEdtfDate) o;
     return yearPrecision == that.yearPrecision && Objects.equals(year, that.year) && Objects.equals(month,
         that.month) && Objects.equals(yearMonthDay, that.yearMonthDay) && dateQualification == that.dateQualification
-        && dateEdgeType == that.dateEdgeType;
+        && dateBoundaryType == that.dateBoundaryType;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(yearPrecision, year, month, yearMonthDay, dateQualification, dateEdgeType);
+    return Objects.hash(yearPrecision, year, month, yearMonthDay, dateQualification, dateBoundaryType);
   }
 
   public Year getYear() {
@@ -257,7 +257,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return dateQualification;
   }
 
-  public DateEdgeType getDateEdgeType() {
-    return dateEdgeType;
+  public DateBoundaryType getDateEdgeType() {
+    return dateBoundaryType;
   }
 }

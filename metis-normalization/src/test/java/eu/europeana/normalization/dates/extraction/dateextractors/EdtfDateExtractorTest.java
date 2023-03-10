@@ -1,12 +1,12 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.OPEN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.APPROXIMATE;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN_APPROXIMATE;
-import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
+import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
@@ -26,15 +26,15 @@ class EdtfDateExtractorTest {
   private final EdtfDateExtractor edtfDateExtractor = new EdtfDateExtractor();
 
   // TODO: 01/03/2023 Possible reuse of the test code here for all extractors
-  private void extract(String input, String expected) {
+  private void assertExtract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = edtfDateExtractor.extractDateProperty(input, NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {
-        String startPart = expected.substring(0, expected.indexOf(DATES_SEPARATOR));
-        String endPart = expected.substring(expected.indexOf(DATES_SEPARATOR) + 1);
+        String startPart = expected.substring(0, expected.indexOf(DATE_INTERVAL_SEPARATOR));
+        String endPart = expected.substring(expected.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
         InstantEdtfDate start = ((IntervalEdtfDate) edtfDate).getStart();
         InstantEdtfDate end = ((IntervalEdtfDate) edtfDate).getEnd();
         assertEdtfDate(startPart, start);
@@ -58,48 +58,48 @@ class EdtfDateExtractorTest {
   @MethodSource
   @DisplayName("[year][“-”][month][“-”][day] Complete representation")
   void completeDateRepresentationLevel0(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year][“-”][month] Reduced precision for year and month")
   void reducedPrecisionForYearAndMonthLevel0(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("[year] Reduced precision for year")
   void reducedPrecisionForYearLevel0(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   void dateIntervalRepresentationLevel0(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("Letter-prefixed calendar year")
   void letterPrefixedCalendarYearLevel1(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("The characters '?', '~' and '%' are used to mean \"uncertain\", \"approximate\", and \"uncertain\" as well as \"approximate\", respectively")
   void dateQualificationLevel1(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   @DisplayName("Negative Calendar Year")
   void negativeCalendarYearLevel1(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
 
@@ -107,7 +107,7 @@ class EdtfDateExtractorTest {
   @MethodSource
   @DisplayName("Open time interval")
   void openTimeIntervalLevel1(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
 
@@ -115,7 +115,7 @@ class EdtfDateExtractorTest {
   @MethodSource
   @DisplayName("Unknown time interval")
   void unknownTimeIntervalLevel1(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   private static Stream<Arguments> completeDateRepresentationLevel0() {

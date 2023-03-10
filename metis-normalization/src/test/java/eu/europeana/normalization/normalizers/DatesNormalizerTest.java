@@ -13,7 +13,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
-import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
+import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
@@ -21,7 +21,7 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
-import eu.europeana.normalization.dates.edtf.DateEdgeType;
+import eu.europeana.normalization.dates.edtf.DateBoundaryType;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -36,15 +36,16 @@ class DatesNormalizerTest {
 
   private final static DatesNormalizer NORMALIZER = new DatesNormalizer();
 
-  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId, String label) {
+  void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
+      String label) {
     final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeDateProperty(input);
     if (expected != null) {
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
       assertEquals(label, dateNormalizationResult.getEdtfDate().getLabel());
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {
-        String startPart = expected.substring(0, expected.indexOf(DATES_SEPARATOR));
-        String endPart = expected.substring(expected.indexOf(DATES_SEPARATOR) + 1);
+        String startPart = expected.substring(0, expected.indexOf(DATE_INTERVAL_SEPARATOR));
+        String endPart = expected.substring(expected.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
         InstantEdtfDate start = ((IntervalEdtfDate) edtfDate).getStart();
         InstantEdtfDate end = ((IntervalEdtfDate) edtfDate).getEnd();
         assertEdtfDate(startPart, start);
@@ -63,15 +64,16 @@ class DatesNormalizerTest {
     assertEquals(expected.contains("?"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN);
     assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == DateQualification.APPROXIMATE);
     assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN_APPROXIMATE);
-    assertEquals(expected.equals(DateEdgeType.OPEN.getSerializedRepresentation()),
-        instantEdtfDate.getDateEdgeType() == DateEdgeType.OPEN || instantEdtfDate.getDateEdgeType() == DateEdgeType.UNKNOWN);
+    assertEquals(expected.equals(DateBoundaryType.OPEN.getSerializedRepresentation()),
+        instantEdtfDate.getDateEdgeType() == DateBoundaryType.OPEN
+            || instantEdtfDate.getDateEdgeType() == DateBoundaryType.UNKNOWN);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDateProperties(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
       String label) {
-    extract(input, expected, dateNormalizationExtractorMatchId, label);
+    assertExtract(input, expected, dateNormalizationExtractorMatchId, label);
   }
 
   private static Stream<Arguments> extractDateProperties() {
@@ -251,6 +253,7 @@ class DatesNormalizerTest {
 
   }
 
+  // TODO: 10/03/2023 Don't forget to add specific to generic properties normalization
   //    //GENERIC PROPERTY
   //    genericPropertyTestCases.put("XIV", null);
   //    genericPropertyTestCases.put("1905 09 01", "1905-09-01");

@@ -1,11 +1,11 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.OPEN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.CHECK_QUALIFICATION_PATTERN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX;
-import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
+import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -40,7 +40,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
       throw new DateExtractionException("Empty argument");
     }
     final AbstractEdtfDate edtfDate;
-    if (inputValue.contains(DATES_SEPARATOR)) {
+    if (inputValue.contains(DATE_INTERVAL_SEPARATOR)) {
       edtfDate = extractInterval(inputValue, requestedDateQualification, flexibleDateBuild);
     } else {
       edtfDate = extractInstant(inputValue, requestedDateQualification, flexibleDateBuild);
@@ -50,8 +50,8 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
 
   protected IntervalEdtfDate extractInterval(String dateInput, DateQualification requestedDateQualification,
       boolean allowSwitchMonthDay) throws DateExtractionException {
-    String startPart = dateInput.substring(0, dateInput.indexOf(DATES_SEPARATOR));
-    String endPart = dateInput.substring(dateInput.indexOf(DATES_SEPARATOR) + 1);
+    String startPart = dateInput.substring(0, dateInput.indexOf(DATE_INTERVAL_SEPARATOR));
+    String endPart = dateInput.substring(dateInput.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
     final InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
     final InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
 
@@ -85,14 +85,16 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     Matcher matcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
     String dateInputStrippedModifier = dateInput;
     DateQualification dateQualification = requestedDateQualification;
-    if (matcher.matches() && StringUtils.isNotEmpty(matcher.group(1))) {
-      //Check modifier value
+
+    boolean containsQualification = matcher.matches();
+    if (containsQualification && (requestedDateQualification == null || requestedDateQualification == NO_QUALIFICATION)) {
       final String modifier = matcher.group(1);
-      //Overwrite date qualification if requested
-      dateQualification = requestedDateQualification != null && requestedDateQualification != NO_QUALIFICATION
-          ? requestedDateQualification : DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
-      dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
+      if (StringUtils.isNotEmpty(modifier)) {
+        dateQualification = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
+        dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
+      }
     }
+
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualification)

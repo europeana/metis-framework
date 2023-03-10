@@ -250,7 +250,6 @@ public class DatesNormalizer implements RecordNormalizeAction {
         .stream()
         .map(operation -> operation.apply(sanitizedInput))
         .filter(result -> result.getDateNormalizationResultStatus() == MATCHED)
-        //        .filter(isResultAcceptablePredicate)
         .findFirst()
         .orElse(DateNormalizationResult.getNoMatchResult(input));
 

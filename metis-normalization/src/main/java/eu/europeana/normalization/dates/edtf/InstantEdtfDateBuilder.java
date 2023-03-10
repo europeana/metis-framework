@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InstantEdtfDateBuilder {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   public static final int THRESHOLD_4_DIGITS_YEAR = 9999;
   public static final char OVER_4_DIGITS_YEAR_PREFIX = 'Y';
   private Year yearObj;

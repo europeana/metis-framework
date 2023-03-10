@@ -23,7 +23,7 @@ import org.w3c.dom.Document;
  */
 class NormalizerImpl implements Normalizer {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final RecordNormalizeAction recordNormalizer;
 

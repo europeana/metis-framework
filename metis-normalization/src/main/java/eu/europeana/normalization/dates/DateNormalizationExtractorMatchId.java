@@ -13,7 +13,7 @@ public enum DateNormalizationExtractorMatchId {
   DECADE("decade"),
   EDTF("already normalised in EDTF"),
   FORMATTED_FULL_DATE("formatted timestamp"),
-  LONG_YEAR("long negative year"),
+  LONG_NEGATIVE_YEAR("long negative year"),
   MONTH_NAME("date with month name"),
   NUMERIC_ALL_VARIANTS("numeric date (various separators)"),
   NUMERIC_ALL_VARIANTS_XX("numeric date (various separators and unknown parts)"),

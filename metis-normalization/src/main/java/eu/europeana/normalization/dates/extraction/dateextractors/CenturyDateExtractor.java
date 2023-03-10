@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CenturyDateExtractor extends AbstractDateExtractor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final String NUMERIC_10_TO_21_ENDING_DOTS_REGEX = "(1\\d|2[0-1])\\.{2}";
   private static final String NUMERIC_1_TO_21_SUFFIXED_REGEX = "(2?1st|2nd|3rd|(?:1\\d|[4-9]|20)th)\\scentury";
   private static final String ROMAN_1_TO_21_REGEX = "(X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
@@ -124,8 +124,8 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
       InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification)
                                                           .withFlexibleDateBuild(allowSwitchMonthDay).build();
 
-      //Check if we have an interval or instance
-      if (matcher.groupCount() == 2) {
+      boolean isInterval = matcher.groupCount() == 2;
+      if (isInterval) {
         InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
         InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
                                                         .withFlexibleDateBuild(allowSwitchMonthDay).build();

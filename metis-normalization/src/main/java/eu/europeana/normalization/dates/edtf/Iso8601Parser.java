@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Iso8601Parser {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   public static final int ISO_8601_MINIMUM_YEAR_DIGITS = 4;
 
   private static final Map<DateTimeFormatter, BiFunction<CharSequence, DateTimeFormatter, TemporalAccessor>> DATE_TIME_FORMATTERS =

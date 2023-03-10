@@ -23,34 +23,34 @@ class NumericPartsDateExtractorTest {
   @ParameterizedTest
   @MethodSource
   void extractYMD(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDMY(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractYMD_XX(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS_XX);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS_XX);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDMY_XX(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS_XX);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS_XX);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDateSpaces(String input, String expected) {
-    extract(input, expected, YYYY_MM_DD_SPACES);
+    assertExtract(input, expected, YYYY_MM_DD_SPACES);
   }
 
-  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+  void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
     if (expected == null) {

@@ -7,7 +7,7 @@ import static java.lang.String.format;
  */
 public class IntervalEdtfDate extends AbstractEdtfDate {
 
-  public static final String DATES_SEPARATOR = "/";
+  public static final String DATE_INTERVAL_SEPARATOR = "/";
   private InstantEdtfDate start;
   private InstantEdtfDate end;
 
@@ -20,16 +20,16 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   @Override
   public DateQualification getDateQualification() {
     // TODO: 24/02/2023 To verify what this should return.
-    if (start.getDateQualification() != DateQualification.NO_QUALIFICATION) {
-      return start.getDateQualification();
-    } else {
+    if (start.getDateQualification() == DateQualification.NO_QUALIFICATION) {
       return end.getDateQualification();
+    } else {
+      return start.getDateQualification();
     }
   }
 
   @Override
   public boolean isOpen() {
-    return start.getDateEdgeType() == DateEdgeType.OPEN || end.getDateEdgeType() == DateEdgeType.OPEN;
+    return start.getDateEdgeType() == DateBoundaryType.OPEN || end.getDateEdgeType() == DateBoundaryType.OPEN;
   }
 
   @Override
@@ -60,6 +60,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    return format("%s%s%s", start.toString(), DATES_SEPARATOR, end.toString());
+    return format("%s%s%s", start.toString(), DATE_INTERVAL_SEPARATOR, end.toString());
   }
 }

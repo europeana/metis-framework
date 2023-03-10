@@ -14,16 +14,16 @@ package eu.europeana.normalization.dates.edtf;
  *   </ul>
  * </p>
  */
-public enum DateEdgeType {
+public enum DateBoundaryType {
   DECLARED(null, null),
-  OPEN(DateEdgeType.DEFAULT_OPEN_STRING, DateEdgeType.DEFAULT_OPEN_STRING),
-  UNKNOWN("", DateEdgeType.DEFAULT_OPEN_STRING);
+  OPEN(DateBoundaryType.DEFAULT_OPEN_STRING, DateBoundaryType.DEFAULT_OPEN_STRING),
+  UNKNOWN("", DateBoundaryType.DEFAULT_OPEN_STRING);
 
   public static final String DEFAULT_OPEN_STRING = "..";
   private final String deserializedRepresentation;
   private final String serializedRepresentation;
 
-  DateEdgeType(String deserializedRepresentation, String serializedRepresentation) {
+  DateBoundaryType(String deserializedRepresentation, String serializedRepresentation) {
     this.deserializedRepresentation = deserializedRepresentation;
     this.serializedRepresentation = serializedRepresentation;
   }

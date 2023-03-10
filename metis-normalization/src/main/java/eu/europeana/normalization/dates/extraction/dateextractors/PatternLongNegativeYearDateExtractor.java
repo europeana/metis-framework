@@ -39,7 +39,7 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
           dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, datePart);
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue, datePart);
     }
     final Matcher m2 = patYyyyyyRange.matcher(inputValue);
     if (m2.matches()) {
@@ -53,7 +53,7 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
           dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(startDatePart, endDatePart).withFlexibleDateBuild(
           flexibleDateBuild).build();
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_YEAR, inputValue, intervalEdtfDate);
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue, intervalEdtfDate);
     }
     return DateNormalizationResult.getNoMatchResult(inputValue);
   }

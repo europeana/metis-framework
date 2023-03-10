@@ -1,12 +1,12 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.OPEN;
-import static eu.europeana.normalization.dates.edtf.DateEdgeType.UNKNOWN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.OPEN;
+import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.APPROXIMATE;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN_APPROXIMATE;
-import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATES_SEPARATOR;
+import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
@@ -24,15 +24,15 @@ class BriefRangeDateExtractorTest {
 
   private final BriefRangeDateExtractor briefRangeDateExtractor = new BriefRangeDateExtractor();
 
-  private void extract(String input, String expected) {
+  private void assertExtract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = briefRangeDateExtractor.extractDateProperty(input, NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {
-        String startPart = expected.substring(0, expected.indexOf(DATES_SEPARATOR));
-        String endPart = expected.substring(expected.indexOf(DATES_SEPARATOR) + 1);
+        String startPart = expected.substring(0, expected.indexOf(DATE_INTERVAL_SEPARATOR));
+        String endPart = expected.substring(expected.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
         InstantEdtfDate start = ((IntervalEdtfDate) edtfDate).getStart();
         InstantEdtfDate end = ((IntervalEdtfDate) edtfDate).getEnd();
         assertEdtfDate(startPart, start);
@@ -55,7 +55,7 @@ class BriefRangeDateExtractorTest {
   @ParameterizedTest
   @MethodSource
   void extractBrief(String input, String expected) {
-    extract(input, expected);
+    assertExtract(input, expected);
   }
 
   private static Stream<Arguments> extractBrief() {

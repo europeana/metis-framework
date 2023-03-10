@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IntervalEdtfDateBuilder {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private InstantEdtfDate start;
   private InstantEdtfDate end;
   private String label;
@@ -91,8 +91,8 @@ public class IntervalEdtfDateBuilder {
    * <p>It validates:
    * <ul>
    *   <li>that edges are not null</li>
-   *   <li>If both dates are {@link DateEdgeType#DECLARED} then the period has to be valid. The start must be before the end.</li>
-   *   <li>If any of the dates are not marked as {@link DateEdgeType#DECLARED}, then no further validation is performed and the
+   *   <li>If both dates are {@link DateBoundaryType#DECLARED} then the period has to be valid. The start must be before the end.</li>
+   *   <li>If any of the dates are not marked as {@link DateBoundaryType#DECLARED}, then no further validation is performed and the
    *   period is considered valid(For example a period ../1989-11-01).</li>
    * </ul>
    *  and that the period is valid(e.g start is not after end).</p>
@@ -104,8 +104,8 @@ public class IntervalEdtfDateBuilder {
       if (start == null || end == null) {
         isIntervalValid = false;
       } else {
-        final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateEdgeType.DECLARED;
-        final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateEdgeType.DECLARED;
+        final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateBoundaryType.DECLARED;
+        final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateBoundaryType.DECLARED;
         if (isStartDatePartSpecific && isEndDatePartSpecific) {
           isIntervalValid = start.compareTo(end) <= 0;
         } else {

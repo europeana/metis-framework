@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractDateExtractor implements DateExtractor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * Utility method for calling {@link #extract(String, DateQualification, boolean)} with allowSwitchesDuringValidation as true.
