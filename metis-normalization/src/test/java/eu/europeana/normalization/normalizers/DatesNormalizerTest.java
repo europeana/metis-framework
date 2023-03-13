@@ -65,8 +65,8 @@ class DatesNormalizerTest {
     assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == DateQualification.APPROXIMATE);
     assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN_APPROXIMATE);
     assertEquals(expected.equals(DateBoundaryType.OPEN.getSerializedRepresentation()),
-        instantEdtfDate.getDateEdgeType() == DateBoundaryType.OPEN
-            || instantEdtfDate.getDateEdgeType() == DateBoundaryType.UNKNOWN);
+        instantEdtfDate.getDateBoundaryType() == DateBoundaryType.OPEN
+            || instantEdtfDate.getDateBoundaryType() == DateBoundaryType.UNKNOWN);
   }
 
   @ParameterizedTest

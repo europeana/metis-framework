@@ -24,8 +24,8 @@ public class IntervalEdtfDateBuilder {
   private boolean flexibleDateBuild = false;
 
   /**
-   * Constructor which initializes the builder with the start and end date edges.
-   * <p>Edges should never be null</p>
+   * Constructor which initializes the builder with the start and end date boundaries.
+   * <p>Boundaries should never be null</p>
    *
    * @param start the start date
    * @param end the end date
@@ -90,7 +90,7 @@ public class IntervalEdtfDateBuilder {
    * Returns an instance of {@link IntervalEdtfDate} created and validated from the fields set on this builder.
    * <p>It validates:
    * <ul>
-   *   <li>that edges are not null</li>
+   *   <li>that boundaries are not null</li>
    *   <li>If both dates are {@link DateBoundaryType#DECLARED} then the period has to be valid. The start must be before the end.</li>
    *   <li>If any of the dates are not marked as {@link DateBoundaryType#DECLARED}, then no further validation is performed and the
    *   period is considered valid(For example a period ../1989-11-01).</li>
@@ -104,8 +104,8 @@ public class IntervalEdtfDateBuilder {
       if (start == null || end == null) {
         isIntervalValid = false;
       } else {
-        final boolean isStartDatePartSpecific = start.getDateEdgeType() == DateBoundaryType.DECLARED;
-        final boolean isEndDatePartSpecific = end.getDateEdgeType() == DateBoundaryType.DECLARED;
+        final boolean isStartDatePartSpecific = start.getDateBoundaryType() == DateBoundaryType.DECLARED;
+        final boolean isEndDatePartSpecific = end.getDateBoundaryType() == DateBoundaryType.DECLARED;
         if (isStartDatePartSpecific && isEndDatePartSpecific) {
           isIntervalValid = start.compareTo(end) <= 0;
         } else {

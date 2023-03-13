@@ -20,7 +20,7 @@ import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 
 /**
  * Patterns for numeric date ranges with variations in the separators of date components.
- * <p>We reuse the already existent {@link NumericPartsDateExtractor} code for the edges.</p>
+ * <p>We reuse the already existent {@link NumericPartsDateExtractor} code for the boundaries.</p>
  */
 public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
 
@@ -29,9 +29,9 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
   /**
    * Extract the date normalization result for a range.
    * <p>
-   * The date is split in two edges using the {@link NumericRangeDateDelimiters#values()} as a separator. The result will contain
-   * the first split that is exactly splitting the original value in two parts(edges) and those two edge are valid parsable edges
-   * or null if none found.
+   * The date is split in two boundaries using the {@link NumericRangeDateDelimiters#values()} as a separator. The result will
+   * contain the first split that is exactly splitting the original value in two parts(boundaries) and those two boundaries are
+   * valid parsable boundaries or null if none found.
    * </p>
    *
    * @param inputValue the range value to attempt parsing
@@ -85,10 +85,10 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor {
       NumericRangeDateDelimiters numericRangeSpecialCharacters) {
     boolean isAmbiguous = false;
     if (numericRangeSpecialCharacters == NumericRangeDateDelimiters.DASH_RANGE) {
-      final boolean isStartDeclared = startDate.getDateEdgeType() == DateBoundaryType.DECLARED;
+      final boolean isStartDeclared = startDate.getDateBoundaryType() == DateBoundaryType.DECLARED;
       final boolean isStartThreeDigit =
           isStartDeclared && Integer.toString(startDate.getYear().getValue()).matches("\\d{3}");
-      if (isStartThreeDigit && endDate.getDateEdgeType() == DateBoundaryType.OPEN) {
+      if (isStartThreeDigit && endDate.getDateBoundaryType() == DateBoundaryType.OPEN) {
         isAmbiguous = true;
       }
     }

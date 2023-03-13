@@ -257,7 +257,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return dateQualification;
   }
 
-  public DateBoundaryType getDateEdgeType() {
+  public DateBoundaryType getDateBoundaryType() {
     return dateBoundaryType;
   }
 }

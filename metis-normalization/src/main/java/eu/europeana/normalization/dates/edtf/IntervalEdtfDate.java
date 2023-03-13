@@ -29,7 +29,7 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public boolean isOpen() {
-    return start.getDateEdgeType() == DateBoundaryType.OPEN || end.getDateEdgeType() == DateBoundaryType.OPEN;
+    return start.getDateBoundaryType() == DateBoundaryType.OPEN || end.getDateBoundaryType() == DateBoundaryType.OPEN;
   }
 
   @Override

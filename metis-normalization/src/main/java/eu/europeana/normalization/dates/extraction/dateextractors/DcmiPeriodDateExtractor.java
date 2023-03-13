@@ -59,7 +59,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
       String name = extractName(value);
 
       //At least one end has to be specified
-      if (start.getDateEdgeType() == DateBoundaryType.DECLARED || end.getDateEdgeType() == DateBoundaryType.DECLARED) {
+      if (start.getDateBoundaryType() == DateBoundaryType.DECLARED || end.getDateBoundaryType() == DateBoundaryType.DECLARED) {
         IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
                                                                                    .withFlexibleDateBuild(
                                                                                        flexibleDateBuild)

@@ -51,7 +51,7 @@ class EdtfDateExtractorTest {
     assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == APPROXIMATE);
     assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == UNCERTAIN_APPROXIMATE);
     assertEquals(expected.equals(OPEN.getSerializedRepresentation()),
-        instantEdtfDate.getDateEdgeType() == OPEN || instantEdtfDate.getDateEdgeType() == UNKNOWN);
+        instantEdtfDate.getDateBoundaryType() == OPEN || instantEdtfDate.getDateBoundaryType() == UNKNOWN);
   }
 
   @ParameterizedTest

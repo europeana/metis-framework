@@ -56,8 +56,8 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     final InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
 
     //Are both ends unknown or open, then it is not a date
-    if ((end.getDateEdgeType() == UNKNOWN || end.getDateEdgeType() == OPEN) &&
-        (start.getDateEdgeType() == UNKNOWN || start.getDateEdgeType() == OPEN)) {
+    if ((end.getDateBoundaryType() == UNKNOWN || end.getDateBoundaryType() == OPEN) &&
+        (start.getDateBoundaryType() == UNKNOWN || start.getDateBoundaryType() == OPEN)) {
       throw new DateExtractionException(dateInput);
     }
     return new IntervalEdtfDateBuilder(start, end).withFlexibleDateBuild(allowSwitchMonthDay).build();
