@@ -78,7 +78,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   public SettingsConnectionProvider(MongoProperties<SetupRelatedIndexingException> mongoProperties) throws SetupRelatedIndexingException {
     this.solrClient = null;
-    this.mongoClient = null;
+    this.mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     this.recordDao = null;
     this.recordRedirectDao = null;
   }
