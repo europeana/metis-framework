@@ -2,25 +2,28 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
-import eu.europeana.normalization.dates.edtf.EdtfParser;
+import eu.europeana.normalization.dates.edtf.DateBoundaryType;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import java.text.ParseException;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
+import eu.europeana.normalization.dates.edtf.Iso8601Parser;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import java.time.temporal.TemporalAccessor;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * Date extractor for DCMI Period
+ * Date extractor for DCMI Period.
+ *
+ * @see <a href="https://www.dublincore.org/specifications/dublin-core/dcmi-period/">DCMI Period Encoding Scheme</a>
  */
-public class DcmiPeriodDateExtractor implements DateExtractor {
+public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DcmiPeriodDateExtractor.class);
-
+  private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
   private static final String NON_SPACE_NON_SEMICOLON = "[^\\s;]*";
   private static final String NON_SPACE_NON_LINE_END = "[^\\s$]*";
   private static final String VALUE_ENDING = "(?:;|$)";
@@ -43,27 +46,26 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
       "name" + EQUALS_SPACES_WRAPPED + "([^;]*|[^$]*)" + VALUE_ENDING);
 
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
-  private static final EdtfParser EDTF_PARSER = new EdtfParser();
 
   @Override
-  public DateNormalizationResult extract(String value) {
-    DateNormalizationResult dateNormalizationResult = null;
+  public DateNormalizationResult extract(String value, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) throws DateExtractionException {
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(value);
     if (isValidScheme(value)) {
-      try {
-        Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-        InstantEdtfDate start = extractDate(matcher);
-        matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-        InstantEdtfDate end = extractDate(matcher);
-        String name = extractName(value);
+      Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
+      InstantEdtfDate start = extractDate(matcher, requestedDateQualification, flexibleDateBuild);
+      matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
+      InstantEdtfDate end = extractDate(matcher, requestedDateQualification, flexibleDateBuild);
+      String name = extractName(value);
 
-        //At least one end has to be specified
-        if (!start.getEdtfDatePart().isUnspecified() || !end.getEdtfDatePart().isUnspecified()) {
-          IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDate(name, start, end);
-          dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
-              intervalEdtfDate);
-        }
-      } catch (DuplicateFieldException | ParseException e) {
-        LOGGER.warn("Exception during dcmi field extraction", e);
+      //At least one end has to be specified
+      if (start.getDateBoundaryType() == DateBoundaryType.DECLARED || end.getDateBoundaryType() == DateBoundaryType.DECLARED) {
+        IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
+                                                                                   .withFlexibleDateBuild(
+                                                                                       flexibleDateBuild)
+                                                                                   .build();
+        dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
+            intervalEdtfDate);
       }
     }
     return dateNormalizationResult;
@@ -95,40 +97,36 @@ public class DcmiPeriodDateExtractor implements DateExtractor {
     return isValidScheme;
   }
 
-  private static InstantEdtfDate extractDate(Matcher matcher) throws DuplicateFieldException, ParseException {
+  private InstantEdtfDate extractDate(Matcher matcher, DateQualification requestedDateQualification,
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
-        instantEdtfDate = (InstantEdtfDate) EDTF_PARSER.parse(fieldValue);
+        TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
+        DateQualification dateQualification = computeDateQualification(requestedDateQualification,
+            () -> DateQualification.NO_QUALIFICATION);
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
+                                                                      .withFlexibleDateBuild(allowSwitchMonthDay).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {
-        throw new DuplicateFieldException("Found duplicate field");
+        throw new DateExtractionException("Found duplicate field");
       }
     }
-    return instantEdtfDate == null ? new InstantEdtfDate(EdtfDatePart.getUnspecifiedInstance()) : instantEdtfDate;
+    return instantEdtfDate == null ? InstantEdtfDate.getOpenInstance() : instantEdtfDate;
   }
 
-  private static String extractName(String value) throws DuplicateFieldException {
+  private static String extractName(String value) throws DateExtractionException {
     String name = null;
     Matcher matcher = DCMI_PERIOD_NAME_PATTERN.matcher(value);
     if (matcher.find()) {
       name = matcher.group(1).trim();
       //if we find it again we declare invalid
       if (matcher.find()) {
-        throw new DuplicateFieldException("Found duplicate field");
+        throw new DateExtractionException("Found duplicate field");
       }
     }
     return name;
-  }
-
-  private static class DuplicateFieldException extends Exception {
-
-    private static final long serialVersionUID = 4414946393408812953L;
-
-    public DuplicateFieldException(String message) {
-      super(message);
-    }
   }
 }

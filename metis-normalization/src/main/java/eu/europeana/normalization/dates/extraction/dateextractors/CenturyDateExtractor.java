@@ -1,22 +1,29 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.YearPrecision.CENTURY;
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
+import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.YearPrecision;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
+import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.function.ToIntFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extractor that matches a century with a decimal or Roman numerals
@@ -34,8 +41,9 @@ import java.util.regex.Pattern;
  * <p>The Roman numerals may also be preceded by an abbreviation of century, for example ‘s. XIX’.</p>
  * <p>Also supports ranges.</p>
  */
-public class CenturyDateExtractor implements DateExtractor {
+public class CenturyDateExtractor extends AbstractDateExtractor {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final String NUMERIC_10_TO_21_ENDING_DOTS_REGEX = "(1\\d|2[0-1])\\.{2}";
   private static final String NUMERIC_1_TO_21_SUFFIXED_REGEX = "(2?1st|2nd|3rd|(?:1\\d|[4-9]|20)th)\\scentury";
   private static final String ROMAN_1_TO_21_REGEX = "(X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
@@ -45,28 +53,28 @@ public class CenturyDateExtractor implements DateExtractor {
   enum PatternCenturyDateOperation {
     PATTERN_YYYY(
         compile(QUESTION_MARK + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
-        century -> Integer.parseInt(century) * 100, DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
+        Integer::parseInt, DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ENGLISH(
         compile(QUESTION_MARK + NUMERIC_1_TO_21_SUFFIXED_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
-        century -> (Integer.parseInt(century.substring(0, century.length() - 2)) - 1) * 100,
+        century -> (Integer.parseInt(century.substring(0, century.length() - 2)) - 1),
         DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ROMAN(
         compile(QUESTION_MARK + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
-        century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
+        century -> (RomanToNumber.romanToDecimal(century) - 1),
         DateNormalizationExtractorMatchId.CENTURY_ROMAN),
     PATTERN_ROMAN_RANGE(
         compile(QUESTION_MARK + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + "\\s?-\\s?" + ROMAN_1_TO_21_REGEX + QUESTION_MARK,
-            CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1) * 100,
+            CASE_INSENSITIVE), century -> (RomanToNumber.romanToDecimal(century) - 1),
         DateNormalizationExtractorMatchId.CENTURY_RANGE_ROMAN);
 
     private final Pattern pattern;
-    private final ToIntFunction<String> centuryAdjustmentFunction;
+    private final ToIntFunction<String> centuryExtractorFunction;
     private final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId;
 
-    PatternCenturyDateOperation(Pattern pattern, ToIntFunction<String> centuryAdjustmentFunction,
+    PatternCenturyDateOperation(Pattern pattern, ToIntFunction<String> centuryExtractorFunction,
         DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
       this.pattern = pattern;
-      this.centuryAdjustmentFunction = centuryAdjustmentFunction;
+      this.centuryExtractorFunction = centuryExtractorFunction;
       this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
     }
 
@@ -74,8 +82,8 @@ public class CenturyDateExtractor implements DateExtractor {
       return pattern;
     }
 
-    public ToIntFunction<String> getCenturyAdjustmentFunction() {
-      return centuryAdjustmentFunction;
+    public ToIntFunction<String> getCenturyExtractorFunction() {
+      return centuryExtractorFunction;
     }
 
     public DateNormalizationExtractorMatchId getDateNormalizationExtractorMatchId() {
@@ -84,28 +92,47 @@ public class CenturyDateExtractor implements DateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) {
     return Arrays.stream(PatternCenturyDateOperation.values())
-                 .map(operation -> extractInstance(inputValue, operation))
-                 .filter(Objects::nonNull).findFirst().orElse(null);
+                 .map(operation -> {
+                   try {
+                     return extractInstance(inputValue, requestedDateQualification, operation,
+                         flexibleDateBuild);
+                   } catch (DateExtractionException e) {
+                     LOGGER.warn("Failed instance extraction!", e);
+                   }
+                   return DateNormalizationResult.getNoMatchResult(inputValue);
+                 })
+                 .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()
+                     == DateNormalizationResultStatus.MATCHED).findFirst()
+                 .orElse(DateNormalizationResult.getNoMatchResult(inputValue));
   }
 
-  private DateNormalizationResult extractInstance(String inputValue, PatternCenturyDateOperation patternCenturyDateOperation) {
+  private DateNormalizationResult extractInstance(String inputValue, DateQualification requestedDateQualification,
+      PatternCenturyDateOperation patternCenturyDateOperation,
+      boolean allowSwitchMonthDay) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final boolean uncertain = sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?");
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
+        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
 
     final Matcher matcher = patternCenturyDateOperation.getPattern().matcher(sanitizedValue);
-    DateNormalizationResult dateNormalizationResult = null;
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     if (matcher.matches()) {
       AbstractEdtfDate abstractEdtfDate;
-      EdtfDatePart datePart1 = extractEdtfDatePart(patternCenturyDateOperation, uncertain, matcher, 1);
+      InstantEdtfDateBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);
+      InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification)
+                                                          .withFlexibleDateBuild(allowSwitchMonthDay).build();
 
-      //Check if we have an interval or instance
-      if (matcher.groupCount() == 2) {
-        EdtfDatePart datePart2 = extractEdtfDatePart(patternCenturyDateOperation, uncertain, matcher, 2);
-        abstractEdtfDate = new IntervalEdtfDate(new InstantEdtfDate(datePart1), new InstantEdtfDate(datePart2));
+      boolean isInterval = matcher.groupCount() == 2;
+      if (isInterval) {
+        InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
+        InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
+                                                        .withFlexibleDateBuild(allowSwitchMonthDay).build();
+        abstractEdtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withFlexibleDateBuild(allowSwitchMonthDay)
+                                                                                  .build();
       } else {
-        abstractEdtfDate = new InstantEdtfDate(datePart1);
+        abstractEdtfDate = startEdtfDate;
       }
 
       dateNormalizationResult = new DateNormalizationResult(patternCenturyDateOperation.getDateNormalizationExtractorMatchId(),
@@ -114,13 +141,10 @@ public class CenturyDateExtractor implements DateExtractor {
     return dateNormalizationResult;
   }
 
-  private EdtfDatePart extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation, boolean uncertain,
+  private InstantEdtfDateBuilder extractEdtfDatePart(PatternCenturyDateOperation patternCenturyDateOperation,
       Matcher matcher, int group) {
-    EdtfDatePart datePart = new EdtfDatePart();
-    datePart.setYearPrecision(YearPrecision.CENTURY);
     final String century = matcher.group(group);
-    datePart.setYear(patternCenturyDateOperation.getCenturyAdjustmentFunction().applyAsInt(century));
-    datePart.setUncertain(uncertain);
-    return datePart;
+    return new InstantEdtfDateBuilder(patternCenturyDateOperation.getCenturyExtractorFunction().applyAsInt(century))
+        .withYearPrecision(CENTURY);
   }
 }

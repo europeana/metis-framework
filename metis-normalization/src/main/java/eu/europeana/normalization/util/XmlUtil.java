@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ import org.xml.sax.SAXException;
  */
 public final class XmlUtil {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(XmlUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final DocumentBuilderFactory FACTORY = DocumentBuilderFactory.newInstance();
 
   static {
