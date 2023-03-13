@@ -25,6 +25,7 @@ class SimpleIndexerFactoryTest {
   @Test
   void getMongoIndexer() throws SetupRelatedIndexingException {
     MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(SetupRelatedIndexingException::new);
+    mongoProperties.setMongoHosts(new String[]{"localhost"},new int[]{27001});
     assertTrue(simpleIndexerFactory.getIndexer(mongoProperties) instanceof MongoIndexer);
   }
 }
