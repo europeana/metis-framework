@@ -2,9 +2,11 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
  * ‘AC/DC’, but the abbreviations used in other languages will be supported in the future. Or a date range where the start/end
  * years contain an indication of the era.
  */
-public class PatternBcAdDateExtractor implements DateExtractor {
+public class PatternBcAdDateExtractor extends AbstractDateExtractor {
 
   static final HashSet<String> bcAbbreviations = new HashSet<>();
 
@@ -69,38 +71,46 @@ public class PatternBcAdDateExtractor implements DateExtractor {
         Pattern.CASE_INSENSITIVE);
   }
 
-  public DateNormalizationResult extract(String inputValue) {
+  @Override
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) throws DateExtractionException {
     Matcher m = patYyyy.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
+      final InstantEdtfDateBuilder instantEdtfDateBuilder;
       if (bcAbbreviations.contains(m.group("era").toLowerCase())) {
-        d.setYear(-Integer.parseInt(m.group("year")));
+        instantEdtfDateBuilder = new InstantEdtfDateBuilder(-Integer.parseInt(m.group("year")));
       } else {
-        d.setYear(Integer.parseInt(m.group("year")));
+        instantEdtfDateBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new InstantEdtfDate(d));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
+          instantEdtfDateBuilder.withDateQualification(requestedDateQualification).withFlexibleDateBuild(
+                                    flexibleDateBuild)
+                                .build());
     }
     m = patRange.matcher(inputValue);
     if (m.matches()) {
-      EdtfDatePart d = new EdtfDatePart();
+      final InstantEdtfDateBuilder startDatePartBuilder;
       if (isBc(m.group("era"))) {
-        d.setYear(-Integer.parseInt(m.group("year")));
+        startDatePartBuilder = new InstantEdtfDateBuilder(-Integer.parseInt(m.group("year")));
       } else {
-        d.setYear(Integer.parseInt(m.group("year")));
+        startDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
-      InstantEdtfDate start = new InstantEdtfDate(d);
+      InstantEdtfDate start = startDatePartBuilder.withDateQualification(requestedDateQualification)
+                                                  .withFlexibleDateBuild(flexibleDateBuild).build();
 
-      d = new EdtfDatePart();
+      final InstantEdtfDateBuilder endDatePartBuilder;
       if (isBc(m.group("era2"))) {
-        d.setYear(-Integer.parseInt(m.group("year2")));
+        endDatePartBuilder = new InstantEdtfDateBuilder(-Integer.parseInt(m.group("year2")));
       } else {
-        d.setYear(Integer.parseInt(m.group("year2")));
+        endDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year2")));
       }
-      InstantEdtfDate end = new InstantEdtfDate(d);
+      InstantEdtfDate end = endDatePartBuilder.withDateQualification(requestedDateQualification)
+                                              .withFlexibleDateBuild(flexibleDateBuild).build();
 
-      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue, new IntervalEdtfDate(start, end));
+      return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
+          new IntervalEdtfDateBuilder(start, end).withFlexibleDateBuild(flexibleDateBuild).build());
     }
-    return null;
+    return DateNormalizationResult.getNoMatchResult(inputValue);
   }
 
   private boolean isBc(String abbreviation) {

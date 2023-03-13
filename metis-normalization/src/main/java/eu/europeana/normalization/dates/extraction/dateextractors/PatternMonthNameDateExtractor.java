@@ -2,8 +2,10 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.EdtfDatePart;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
+import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
 import java.time.Month;
 import java.util.HashMap;
@@ -13,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * A date where the month is specified by its name or an abbreviation. Supports all the official languages of the European Union
  */
-public class PatternMonthNameDateExtractor implements DateExtractor {
+public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
 
   HashMap<Month, Pattern> patternDayMonthYear = new HashMap<>(12);
   HashMap<Month, Pattern> patternMonthDayYear = new HashMap<>(12);
@@ -49,32 +51,42 @@ public class PatternMonthNameDateExtractor implements DateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue) {
+  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) throws DateExtractionException {
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
+        () -> DateQualification.NO_QUALIFICATION);
+
     for (Month month : Month.values()) {
       Matcher m = patternDayMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-        d.setYear(Integer.parseInt(m.group("year")));
-        d.setMonth(month.getValue());
-        d.setDay(Integer.parseInt(m.group("day")));
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
+        final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
+            .withMonth(month.getValue())
+            .withDay(Integer.parseInt(m.group("day")))
+            .withDateQualification(dateQualification)
+            .withFlexibleDateBuild(flexibleDateBuild)
+            .build();
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
       m = patternMonthDayYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-        d.setYear(Integer.parseInt(m.group("year")));
-        d.setMonth(month.getValue());
-        d.setDay(Integer.parseInt(m.group("day")));
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
+        final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
+            .withMonth(month.getValue())
+            .withDay(Integer.parseInt(m.group("day")))
+            .withDateQualification(dateQualification)
+            .withFlexibleDateBuild(flexibleDateBuild)
+            .build();
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
       m = patternMonthYear.get(month).matcher(inputValue);
       if (m.matches()) {
-        EdtfDatePart d = new EdtfDatePart();
-        d.setYear(Integer.parseInt(m.group("year")));
-        d.setMonth(month.getValue());
-        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, new InstantEdtfDate(d));
+        final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
+            .withMonth(month.getValue())
+            .withDateQualification(dateQualification)
+            .withFlexibleDateBuild(flexibleDateBuild)
+            .build();
+        return new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue, datePart);
       }
     }
-    return null;
+    return DateNormalizationResult.getNoMatchResult(inputValue);
   }
 }

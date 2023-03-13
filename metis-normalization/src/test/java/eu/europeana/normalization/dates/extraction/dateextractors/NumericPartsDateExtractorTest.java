@@ -3,12 +3,14 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
+import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
+import eu.europeana.normalization.dates.edtf.DateQualification;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,41 +23,43 @@ class NumericPartsDateExtractorTest {
   @ParameterizedTest
   @MethodSource
   void extractYMD(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDMY(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractYMD_XX(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS_XX);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS_XX);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDMY_XX(String input, String expected) {
-    extract(input, expected, NUMERIC_ALL_VARIANTS_XX);
+    assertExtract(input, expected, NUMERIC_ALL_VARIANTS_XX);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDateSpaces(String input, String expected) {
-    extract(input, expected, YYYY_MM_DD_SPACES);
+    assertExtract(input, expected, YYYY_MM_DD_SPACES);
   }
 
-  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extract(input);
+  void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extractDateProperty(input,
+        NO_QUALIFICATION);
     if (expected == null) {
-      assertNull(dateNormalizationResult);
+      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {
       final String actual = dateNormalizationResult.getEdtfDate().toString();
       assertEquals(expected, actual);
-      assertEquals(actual.contains("?"), dateNormalizationResult.getEdtfDate().isUncertain());
+      assertEquals(actual.contains("?"),
+          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }
@@ -106,8 +110,7 @@ class NumericPartsDateExtractorTest {
 
         //YEAR-MONTH-DAY
         of("1989-11-01", "1989-11-01"),
-        // TODO: 26/09/2022 Make sure this is checked later on, on validation code
-        of("1989-13-32", "1989-13-32"),
+        of("1989-13-32", null),
         //Some missing digits are allowed
         of("989-1-1", "0989-01-01"),
         of("?1989-11-01", "1989-11-01?"),
@@ -129,10 +132,10 @@ class NumericPartsDateExtractorTest {
         //Combination of separators
         of("?989/1-1", "0989-01-01?"),
         of("?989-1/1", "0989-01-01?"),
-        of("9989-99/99", "9989-99-99"),
-        of("9989/99-99", "9989-99-99"),
-        of("?989-99/99", "0989-99-99?"),
-        of("?989-99/99?", "0989-99-99?"),
+        of("9989-99/99", null),
+        of("9989/99-99", null),
+        of("?989-99/99", null),
+        of("?989-99/99?", null),
 
         //Too few digits on year
         of("89-01-01", null, null),
@@ -166,8 +169,7 @@ class NumericPartsDateExtractorTest {
 
         //DAY-MONTH-YEAR
         of("01-11-1989", "1989-11-01"),
-        // TODO: 26/09/2022 Make sure this is checked later on, on validation code
-        of("32-13-1989", "1989-13-32"),
+        of("32-13-1989", null),
         //Some missing digits are allowed
         of("1-1-989", "0989-01-01"),
         of("?01-11-1989", "1989-11-01?"),
@@ -189,9 +191,9 @@ class NumericPartsDateExtractorTest {
         //Combination of separators
         of("?1-1/989", "0989-01-01?"),
         of("?1/1-989", "0989-01-01?"),
-        of("99/99-9989", "9989-99-99"),
-        of("99-99/9989", "9989-99-99"),
-        of("?99/99-989", "0989-99-99?"),
+        of("99/99-9989", null),
+        of("99-99/9989", null),
+        of("?99/99-989", null),
 
         //Too few digits on year
         of("01-01-89", null, null),
@@ -303,7 +305,7 @@ class NumericPartsDateExtractorTest {
         of("19XX/XX/99", "19XX"),
         of("19XX/--/--", "19XX"),
         of("19XX.--.--", "19XX"),
-        of("19XX-11-99?", "19XX-11-99?"),
+        of("19XX-11-99?", null),
         of("19UU-XX-99?", "19XX?"),
         of("19UU-??-99?", "19XX?"),
         of("19UU/--/99?", "19XX?"),
@@ -395,7 +397,7 @@ class NumericPartsDateExtractorTest {
         of("99/XX/19XX", "19XX"),
         of("--/--/19XX", "19XX"),
         of("--.--.19XX", "19XX"),
-        of("?99-11-19XX", "19XX-11-99?"),
+        of("?99-11-19XX", null),
         of("?99-XX-19UU", "19XX?"),
         of("?99-??-19UU", "19XX?"),
         of("?99/--/19UU", "19XX?"),

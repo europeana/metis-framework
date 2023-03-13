@@ -711,7 +711,7 @@ class NumericRangeYMDXXArgumentsProvider implements ArgumentsProvider {
         of("198X/XX-199X/XX", "198X/199X"),
         of("198X/UU-199X/UU", "198X/199X"),
         //This is a special numeric case, because the "-" separator does not support "-" unspecified, so it is caught from a later pattern
-        of("1989/11--", "1989/11XX"),
+        of("1989/11--", "11XX/1989"),
         //Unspecified
         of("1989/XX-?", "1989/.."),
         of("1989/XX--", null, null),

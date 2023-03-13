@@ -1,14 +1,5 @@
 package eu.europeana.normalization;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 import eu.europeana.normalization.model.NormalizationBatchResult;
 import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.model.NormalizationResult;
@@ -16,13 +7,23 @@ import eu.europeana.normalization.normalizers.RecordNormalizeAction;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlException;
 import eu.europeana.normalization.util.XmlUtil;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 /**
  * This class is the implementation of the {@link Normalizer} interface.
  */
 class NormalizerImpl implements Normalizer {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(NormalizerImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final RecordNormalizeAction recordNormalizer;
 

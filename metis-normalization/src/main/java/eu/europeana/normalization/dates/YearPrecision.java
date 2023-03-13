@@ -4,9 +4,9 @@ package eu.europeana.normalization.dates;
  * Enum indicating the year precision that can be used to adjust a year.
  */
 public enum YearPrecision {
+  YEAR(1),
   DECADE(10),
-  CENTURY(100),
-  MILLENNIUM(1000);
+  CENTURY(100);
 
   static final YearPrecision[] values = YearPrecision.values();
   final int duration;
@@ -30,10 +30,10 @@ public enum YearPrecision {
    */
   public static YearPrecision getYearPrecisionByOrdinal(int ordinal) {
     final YearPrecision yearPrecision;
-    if (ordinal < 1 || ordinal > values().length) {
-      yearPrecision = null;
+    if (ordinal < 0 || ordinal > values.length) {
+      yearPrecision = YEAR;
     } else {
-      yearPrecision = values()[ordinal - 1];
+      yearPrecision = values[ordinal];
     }
     return yearPrecision;
   }
