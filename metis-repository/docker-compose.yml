@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:4.2.9
+    container_name: metis-statistics-dashboard-mongo
+    environment:
+      MONGO_INITDB_DATABASE: statistics-dashboard
+      MONGO_INITDB_ROOT_USERNAME: guest
+      MONGO_INITDB_ROOT_PASSWORD: guest
+    ports:
+      - '27017:27017'
+  statistics-dashboard-local:
+    image: europeana/metis-statistics-dashboard:develop
+    container_name: metis-statistics-dashboard-local
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      MONGO_HOSTS: metis-statistics-dashboard-mongo
+    volumes:
+      - /data/metis-configuration/metis-statistics-dashboard/metis-statistics-dashboard-rest/k8s/overlays/local/components/properties/application.properties:/application.properties
+      - /data/metis-configuration/k8s/common-components/log4j2-xml/log4j2.xml:/data/logging/log4j2.xml
+    depends_on:
+      - mongo
