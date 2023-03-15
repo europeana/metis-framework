@@ -6,11 +6,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.MongoDBContainer;
 
+/**
+ * The type Mongo db container it.
+ */
 public class MongoDBContainerIT extends TestContainer {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBContainerIT.class);
   private static MongoDBContainer mongoDBContainer;
+  /**
+   * The constant MONGO_VERSION.
+   */
   public static final String MONGO_VERSION = "mongo:5.0.12";
 
+  /**
+   * Instantiates a new Mongo db container it.
+   */
   public MongoDBContainerIT() {
     mongoDBContainer = new MongoDBContainer(MONGO_VERSION);
     mongoDBContainer.start();

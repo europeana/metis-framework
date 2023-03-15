@@ -12,7 +12,6 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.lang.invoke.MethodHandles;
 import java.time.Instant;
@@ -56,7 +55,7 @@ public class MongoIndexer implements SimpleIndexer {
   @Override
   public void indexRecord(RDF rdfRecord) throws IndexingException {
     // Sanity checks
-    rdfRecord = nonNullIllegal(rdfRecord,"Input RDF cannot be null.");
+    rdfRecord = nonNullIllegal(rdfRecord, "Input RDF cannot be null.");
 
     LOGGER.info("Processing record {}", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);

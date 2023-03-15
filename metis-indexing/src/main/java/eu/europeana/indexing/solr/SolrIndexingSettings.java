@@ -10,6 +10,7 @@ import eu.europeana.metis.solr.connection.SolrProperties;
  * The type Solr indexing settings.
  */
 public class SolrIndexingSettings implements SettingsHolder {
+
   private final SolrProperties<SetupRelatedIndexingException> solrProperties;
 
   /**
@@ -19,7 +20,7 @@ public class SolrIndexingSettings implements SettingsHolder {
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
   public SolrIndexingSettings(SolrProperties<SetupRelatedIndexingException> properties) throws SetupRelatedIndexingException {
-    this. solrProperties = nonNullFieldName(properties,"properties");
+    this.solrProperties = nonNullFieldName(properties, "properties");
   }
 
   /**

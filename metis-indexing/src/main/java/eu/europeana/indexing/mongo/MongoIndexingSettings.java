@@ -22,7 +22,7 @@ public class MongoIndexingSettings implements SettingsHolder {
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
   public MongoIndexingSettings(MongoProperties<SetupRelatedIndexingException> properties) throws SetupRelatedIndexingException {
-    this.mongoProperties = nonNullFieldName(properties,"properties");
+    this.mongoProperties = nonNullFieldName(properties, "properties");
   }
 
   /**

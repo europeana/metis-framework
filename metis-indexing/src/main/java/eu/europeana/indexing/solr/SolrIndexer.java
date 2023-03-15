@@ -3,7 +3,6 @@ package eu.europeana.indexing.solr;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
-import eu.europeana.indexing.SettingsConnectionProvider;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -12,7 +11,6 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.metis.solr.connection.SolrProperties;
 import java.lang.invoke.MethodHandles;
 import java.time.Instant;
 import java.util.Date;
@@ -30,6 +28,7 @@ public class SolrIndexer implements SimpleIndexer {
 
   /**
    * Create SolrIndexer object indicating solr connection properties
+   *
    * @param settings solr settings
    * @throws SetupRelatedIndexingException in case an error occurred during indexing setup
    */
