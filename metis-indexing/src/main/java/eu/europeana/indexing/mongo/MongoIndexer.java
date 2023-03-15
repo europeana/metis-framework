@@ -1,9 +1,10 @@
 package eu.europeana.indexing.mongo;
 
+import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
+
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
-import eu.europeana.indexing.SettingsConnectionProvider;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -18,6 +19,7 @@ import java.time.Instant;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  * Creates a record for indexing in Mongo
  */
@@ -27,13 +29,15 @@ public class MongoIndexer implements SimpleIndexer {
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
 
+
   /**
-   * Create MongoIndexer object indicating mongo connection properties
-   * @param properties mongo properties
-   * @throws SetupRelatedIndexingException in case an error occurred during indexing setup
+   * Instantiates a new Mongo indexer.
+   *
+   * @param settings the mongo indexer settings
+   * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public MongoIndexer(MongoProperties<SetupRelatedIndexingException> properties) throws SetupRelatedIndexingException {
-    this.connectionProvider = new SettingsConnectionProvider(properties);
+  public MongoIndexer(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
+    this.connectionProvider = new MongoConnectionProvider(settings);
     this.stringToRdfConverterSupplier = StringToFullBeanConverter::new;
   }
 
@@ -52,9 +56,8 @@ public class MongoIndexer implements SimpleIndexer {
   @Override
   public void indexRecord(RDF rdfRecord) throws IndexingException {
     // Sanity checks
-    if (rdfRecord == null) {
-      throw new IllegalArgumentException("Input RDF cannot be null.");
-    }
+    rdfRecord = nonNullIllegal(rdfRecord,"Input RDF cannot be null.");
+
     LOGGER.info("Processing record {}", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
     publisher.publishMongo(new RdfWrapper(rdfRecord), Date.from(Instant.now()));

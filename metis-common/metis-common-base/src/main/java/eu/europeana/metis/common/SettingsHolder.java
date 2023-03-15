@@ -1,4 +1,4 @@
 package eu.europeana.metis.common;
 
-public interface PropertyHolder {
+public interface SettingsHolder {
 }

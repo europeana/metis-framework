@@ -4,16 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.mongodb.client.MongoClient;
+import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
 import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.mongo.MongoIndexerTest.MongoIndexerLocalConfigTest;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
+import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +51,19 @@ class MongoIndexerTest {
   }
 
   @Test
-  void indexRecord() throws IndexingException {
-    //    final RDF inputRdf = new RDF();
-    //    indexer.indexRecord(inputRdf);
+  void indexRecord() throws IndexingException, SerializationException {
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
+    indexer.indexRecord(inputRdf);
+
   }
 
   @Test
-  void testIndexRecord() {
+  void testIndexRecord() throws IndexingException {
+    final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
+
+    indexer.indexRecord(stringRdfRecord);
   }
 
   @Configuration
@@ -62,11 +71,9 @@ class MongoIndexerTest {
 
     @Bean
     MongoProperties<SetupRelatedIndexingException> mongoProperties(@Value("${mongo.hosts}") String mongoHost,
-        @Value("${mongo.port}") int mongoPort)
-        throws URISyntaxException, SetupRelatedIndexingException {
+        @Value("${mongo.port}") int mongoPort) throws SetupRelatedIndexingException {
       MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(SetupRelatedIndexingException::new);
       mongoProperties.setMongoHosts(new String[]{mongoHost}, new int[]{mongoPort});
-
       return mongoProperties;
     }
 
@@ -76,8 +83,17 @@ class MongoIndexerTest {
     }
 
     @Bean
-    MongoIndexer indexer(MongoProperties mongoProperties) throws SetupRelatedIndexingException {
-      return new MongoIndexer(mongoProperties);
+    MongoIndexingSettings mongoIndexingSettings(MongoProperties mongoProperties, @Value("${mongo.db}") String mongoDatabase,
+        @Value("${mongo.redirect.db}") String mongoRedirectDatabase) throws SetupRelatedIndexingException {
+      MongoIndexingSettings mongoIndexingSettings = new MongoIndexingSettings(mongoProperties);
+      mongoIndexingSettings.setMongoDatabaseName(mongoDatabase);
+      mongoIndexingSettings.setRecordRedirectDatabaseName(mongoRedirectDatabase);
+      return mongoIndexingSettings;
+    }
+
+    @Bean
+    MongoIndexer indexer(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
+      return new MongoIndexer(settings);
     }
   }
 }

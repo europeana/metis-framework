@@ -3,7 +3,7 @@ package eu.europeana.metis.mongo.connection;
 import com.mongodb.MongoCredential;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.common.PropertyHolder;
+import eu.europeana.metis.common.SettingsHolder;
 import eu.europeana.metis.network.InetAddressUtil;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @param <E> The type of exception thrown when the properties are not valid.
  */
-public class MongoProperties<E extends Exception> implements PropertyHolder {
+public class MongoProperties<E extends Exception> {
 
   // Exception creator
   private final Function<String, E> exceptionCreator;

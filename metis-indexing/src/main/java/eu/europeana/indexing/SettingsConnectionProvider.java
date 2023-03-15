@@ -1,5 +1,7 @@
 package eu.europeana.indexing;
 
+import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullMessage;
+
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
 import com.mongodb.MongoSecurityException;
@@ -7,13 +9,11 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.metis.mongo.connection.MongoProperties;
-import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.solr.client.CompoundSolrClient;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
-import eu.europeana.metis.solr.connection.SolrProperties;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -46,13 +46,9 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
    * @throws SetupRelatedIndexingException In case the connections could not be set up.
    * @throws IndexerRelatedIndexingException In case the connection could not be established.
    */
-  public SettingsConnectionProvider(IndexingSettings settings)
-      throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
-
+  public SettingsConnectionProvider(IndexingSettings settings) throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
     // Sanity check
-    if (settings == null) {
-      throw new SetupRelatedIndexingException("The provided settings object is null.");
-    }
+    settings = nonNullMessage(settings,"The provided settings object is null.");
 
     // Create Solr and Zookeeper connections.
     this.solrClient = new SolrClientProvider<>(settings.getSolrProperties()).createSolrClient();
@@ -69,23 +65,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     }
   }
 
-  public SettingsConnectionProvider(SolrProperties<SetupRelatedIndexingException> solrProperties) throws SetupRelatedIndexingException {
-    this.solrClient = new SolrClientProvider<>(solrProperties).createSolrClient();
-    this.mongoClient = null;
-    this.recordDao = null;
-    this.recordRedirectDao = null;
-  }
-
-  public SettingsConnectionProvider(MongoProperties<SetupRelatedIndexingException> mongoProperties) throws SetupRelatedIndexingException {
-    this.solrClient = null;
-    this.mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    this.recordDao = null;
-    this.recordRedirectDao = null;
-  }
-
-  private static MongoClient createMongoClient(IndexingSettings settings)
-      throws SetupRelatedIndexingException {
-
+  private static MongoClient createMongoClient(IndexingSettings settings) throws SetupRelatedIndexingException {
     // Perform logging unecessary
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
@@ -101,8 +81,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
   }
 
-  private static RecordDao setUpEdmMongoConnection(IndexingSettings settings,
-      MongoClient client)
+  private static RecordDao setUpEdmMongoConnection(IndexingSettings settings, MongoClient client)
       throws SetupRelatedIndexingException {
     try {
       return new RecordDao(client, settings.getMongoDatabaseName());
@@ -112,8 +91,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   private static RecordRedirectDao setUpRecordRedirectDaoConnection(IndexingSettings settings,
-      MongoClient client)
-      throws SetupRelatedIndexingException {
+      MongoClient client) throws SetupRelatedIndexingException {
     try {
       RecordRedirectDao recordRedirectDao = null;
       if (StringUtils.isNotBlank(settings.getRecordRedirectDatabaseName())) {

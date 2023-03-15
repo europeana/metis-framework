@@ -30,11 +30,11 @@ public class SolrIndexer implements SimpleIndexer {
 
   /**
    * Create SolrIndexer object indicating solr connection properties
-   * @param properties solr properties
+   * @param settings solr settings
    * @throws SetupRelatedIndexingException in case an error occurred during indexing setup
    */
-  public SolrIndexer(SolrProperties<SetupRelatedIndexingException> properties) throws SetupRelatedIndexingException {
-    this.connectionProvider = new SettingsConnectionProvider(properties);
+  public SolrIndexer(SolrIndexingSettings settings) throws SetupRelatedIndexingException {
+    this.connectionProvider = new SolrConnectionProvider(settings);
     this.stringToRdfConverterSupplier = StringToFullBeanConverter::new;
   }
 

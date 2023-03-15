@@ -28,13 +28,9 @@ public class MongoDBContainerIT extends TestContainer {
 
   @Override
   public void dynamicProperties(DynamicPropertyRegistry registry) {
-    registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
-    registry.add("spring.data.mongodb.port", mongoDBContainer::getFirstMappedPort);
-    registry.add("spring.data.mongodb.host", mongoDBContainer::getHost);
-    registry.add("spring.data.mongodb.db", () -> "test");
-
     registry.add("mongo.application-name", () -> "mongo-testcontainer-test");
     registry.add("mongo.db", () -> "test");
+    registry.add("mongo.redirect.db", () -> "test_redirect");
     registry.add("mongo.hosts", mongoDBContainer::getHost);
     registry.add("mongo.port", mongoDBContainer::getFirstMappedPort);
   }

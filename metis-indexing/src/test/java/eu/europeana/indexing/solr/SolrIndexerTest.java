@@ -105,15 +105,19 @@ class SolrIndexerTest {
       solrProperties.addSolrHost(new URI(solrHost));
       return solrProperties;
     }
-
     @Bean
-    SolrClient solrClient(SolrProperties solrProperties) throws Exception {
-      return new SolrClientProvider<>(solrProperties).createSolrClient().getSolrClient();
+    SolrIndexingSettings solrIndexingSettings(SolrProperties properties) throws SetupRelatedIndexingException {
+      return new SolrIndexingSettings(properties);
     }
 
     @Bean
-    SolrIndexer indexer(SolrProperties solrProperties) throws SetupRelatedIndexingException {
-      return new SolrIndexer(solrProperties);
+    SolrClient solrClient(SolrProperties properties) throws Exception {
+      return new SolrClientProvider<>(properties).createSolrClient().getSolrClient();
+    }
+
+    @Bean
+    SolrIndexer indexer(SolrIndexingSettings settings) throws SetupRelatedIndexingException {
+      return new SolrIndexer(settings);
     }
   }
 }
