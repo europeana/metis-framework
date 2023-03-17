@@ -1,72 +1,20 @@
 name: CI
 
-on: push
+on:
+#to add when release build ready
+#  push:
+#    #Do not run on main to avoid duplicate builds during release
+#    branches-ignore:
+#      - '!master'
+#      - '!main'
+#    #Run on release tags
+#    tags:
+#      - 'v*'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Build - Clean Jacoco Verify
-        run: >
-          mvn --batch-mode --update-snapshots
-          clean
-          org.jacoco:jacoco-maven-plugin:prepare-agent
-          verify
-          org.jacoco:jacoco-maven-plugin:report
-      - name: Sonar Analyze
-        run: >
-          mvn --batch-mode
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.organization=europeana
-          -Dsonar.projectKey=europeana_metis-framework
-          sonar:sonar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  deploy_libraries:
-    needs: build
-    if: ${{ github.ref == 'refs/heads/develop' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-      - name: Prepare Settings Deploy
-        run: >
-          mkdir -p ~/.m2 &&
-          echo "<settings><servers><server><id>${REPOSITORY_ID}</id><username>${REPOSITORY_USERNAME}</username><password>${REPOSITORY_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
-        env:
-          REPOSITORY_ID: artifactory.eanadev.org
-          REPOSITORY_USERNAME: ${{ secrets.REPOSITORY_USERNAME }}
-          REPOSITORY_PASSWORD: ${{ secrets.REPOSITORY_PASSWORD }}
-      - name: Deploy
-        run: >
-          mvn --batch-mode
-          -Dmaven.test.skip=true
-          -Dmaven.install.skip=true
-          deploy
+  ci-reuse:
+    uses: europeana/metis-actions/.github/workflows/ci.yml@main
+    with:
+      sonar_organization: europeana
+      sonar_project_key: europeana_metis-framework
+    secrets: inherit
