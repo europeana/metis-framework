@@ -1,0 +1,24 @@
+name: RELEASE
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: 'The version of the intended release, should be just a number'
+        required: true
+      new-snapshot-version:
+        description: 'The version of the intended new snapshot'
+        required: true
+      commit-hash-branch:
+        description: 'The commit hash or branch to use as a base for the merge and release(default: develop)'
+        required: false
+        default: develop
+
+jobs:
+  ci-release:
+    uses: europeana/metis-actions/.github/workflows/release.yml@main
+    with:
+      release-version: ${{ github.event.inputs.release-version }}
+      commit-hash-branch: ${{ github.event.inputs.commit-hash-branch }}
+      new-snapshot-version: ${{ github.event.inputs.new-snapshot-version }}
+    secrets: inherit
