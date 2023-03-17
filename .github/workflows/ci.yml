@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  push:
 #to add when release build ready
 #  push:
 #    #Do not run on main to avoid duplicate builds during release
