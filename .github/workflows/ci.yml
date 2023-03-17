@@ -2,15 +2,13 @@ name: CI
 
 on:
   push:
-#to add when release build ready
-#  push:
-#    #Do not run on main to avoid duplicate builds during release
-#    branches-ignore:
-#      - '!master'
-#      - '!main'
-#    #Run on release tags
-#    tags:
-#      - 'v*'
+    #Do not run on main to avoid duplicate builds during release
+    branches-ignore:
+      - '!master'
+      - '!main'
+    #Run on release tags
+    tags:
+      - 'v*'
 
 jobs:
   ci-reuse:
