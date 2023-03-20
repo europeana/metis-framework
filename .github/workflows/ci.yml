@@ -17,3 +17,11 @@ jobs:
       sonar_organization: europeana
       sonar_project_key: europeana_metis-framework
     secrets: inherit
+  docker-build:
+    needs: ci-reuse
+    uses: europeana/metis-actions/.github/workflows/docker-image-build.yml@main
+    with:
+      docker-organization: europeana
+      docker-image-name: metis-core
+      project-path: metis-core/metis-core-rest/
+    secrets: inherit
