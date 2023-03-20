@@ -17,7 +17,7 @@ jobs:
       sonar_organization: europeana
       sonar_project_key: europeana_metis-framework
     secrets: inherit
-  docker-build/metis-authentication:
+  docker-build_metis-authentication:
     needs: ci-reuse
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
     with:
@@ -25,7 +25,7 @@ jobs:
       docker-image-name: metis-authentication
       project-path: metis-authentication/metis-authentication-rest/
     secrets: inherit
-  docker-build/metis-core:
+  docker-build_metis-core:
     needs: ci-reuse
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
     with:
@@ -33,7 +33,7 @@ jobs:
       docker-image-name: metis-core
       project-path: metis-core/metis-core-rest/
     secrets: inherit
-  docker-build/metis-dereference:
+  docker-build_metis-dereference:
     needs: ci-reuse
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
     with:
