@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
-import eu.europeana.metis.repository.dao.Record;
-import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.repository.rest.dao.Record;
+import eu.europeana.metis.repository.rest.dao.RecordDao;
 import eu.europeana.metis.repository.rest.controller.OaiPmhController;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;

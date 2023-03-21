@@ -3,7 +3,7 @@ package eu.europeana.metis.repository.rest.config;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
-import eu.europeana.metis.repository.dao.RecordDao;
+import eu.europeana.metis.repository.rest.dao.RecordDao;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
