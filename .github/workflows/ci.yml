@@ -16,7 +16,9 @@ jobs:
     with:
       sonar_organization: europeana
       sonar_project_key: europeana_metis-framework
-    secrets: inherit
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
   deploy-artifacts:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/deploy-artifacts.yml@main
