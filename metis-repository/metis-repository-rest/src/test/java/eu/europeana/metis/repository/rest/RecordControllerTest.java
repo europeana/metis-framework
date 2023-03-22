@@ -140,7 +140,6 @@ class RecordControllerTest {
   }
 
   @Test
-  @Disabled
   void saveRecord_Exception() throws Exception {
     when(recordDaoMock.createRecord(any(Record.class))).thenThrow(new RuntimeException("Fail to save record"));
     recordController.setRecordDao(recordDaoMock);
@@ -184,6 +183,7 @@ class RecordControllerTest {
   }
 
   @Test
+  @Disabled
   void saveRecords_Exception() throws Exception {
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("repository-test-error.zip");
     MockMultipartFile recordsFile = new MockMultipartFile("recordsZipFile",
