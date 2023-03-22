@@ -49,3 +49,11 @@ jobs:
       docker-image-name: metis-dereference
       project-path: metis-dereference/metis-dereference-rest/
     secrets: inherit
+  docker-build_metis-repository:
+    needs: ci
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    with:
+      docker-organization: europeana
+      docker-image-name: metis-repository
+      project-path: metis-repository/metis-repository-rest/
+    secrets: inherit
