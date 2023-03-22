@@ -32,7 +32,9 @@ jobs:
       docker-organization: europeana
       docker-image-name: metis-authentication
       project-path: metis-authentication/metis-authentication-rest/
-    secrets: inherit
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-core:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
@@ -40,7 +42,9 @@ jobs:
       docker-organization: europeana
       docker-image-name: metis-core
       project-path: metis-core/metis-core-rest/
-    secrets: inherit
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-dereference:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
@@ -48,7 +52,9 @@ jobs:
       docker-organization: europeana
       docker-image-name: metis-dereference
       project-path: metis-dereference/metis-dereference-rest/
-    secrets: inherit
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-repository:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
@@ -56,4 +62,6 @@ jobs:
       docker-organization: europeana
       docker-image-name: metis-repository
       project-path: metis-repository/metis-repository-rest/
-    secrets: inherit
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}

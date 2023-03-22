@@ -1,14 +1,13 @@
 package eu.europeana.metis.repository.rest;
 
-import eu.europeana.metis.repository.rest.view.InsertionResult;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.time.Instant;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.metis.repository.rest.view.InsertionResult;
+import java.time.Instant;
+import java.util.Set;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class InsertionResultTest {
 
