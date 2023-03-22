@@ -13,9 +13,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import eu.europeana.metis.repository.rest.controller.HttpHarvestController;
 import eu.europeana.metis.repository.rest.dao.Record;
 import eu.europeana.metis.repository.rest.dao.RecordDao;
-import eu.europeana.metis.repository.rest.controller.HttpHarvestController;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;

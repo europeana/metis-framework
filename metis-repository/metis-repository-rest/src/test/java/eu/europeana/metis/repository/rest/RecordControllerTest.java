@@ -20,9 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import eu.europeana.metis.repository.rest.controller.RecordController;
 import eu.europeana.metis.repository.rest.dao.Record;
 import eu.europeana.metis.repository.rest.dao.RecordDao;
-import eu.europeana.metis.repository.rest.controller.RecordController;
 import eu.europeana.metis.repository.rest.view.RecordView;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.InputStream;

@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:doap="http://usefulinc.com/ns/doap#"
-  xmlns:svcs="http://rdfs.org/sioc/services#"
-  xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
-  xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+<rdf:RDF
   xmlns:edm="http://www.europeana.eu/schemas/edm/"
-  xmlns:adms="http://www.w3.org/ns/adms#"
-  xmlns:foaf="http://xmlns.com/foaf/0.1/"
-  xmlns:odrl="http://www.w3.org/ns/odrl/2/"
   xmlns:ore="http://www.openarchives.org/ore/terms/"
-  xmlns:cc="http://creativecommons.org/ns#"
-  xmlns:owl="http://www.w3.org/2002/07/owl#"
-  xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
-  xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:dcat="http://www.w3.org/ns/dcat#"
-  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-  xmlns:dcterms="http://purl.org/dc/terms/"
-  xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+>
   <edm:ProvidedCHO rdf:about="#nhwSbs6">
     <dc:creator xml:lang="en">Wosiewicz Leszek</dc:creator>
     <dc:creator xml:lang="en">Januszewicz Marek</dc:creator>
