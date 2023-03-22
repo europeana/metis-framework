@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.dao;
+package eu.europeana.metis.repository.rest.dao;
 
 import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 

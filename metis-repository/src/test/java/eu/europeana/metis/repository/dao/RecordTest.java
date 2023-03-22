@@ -1,5 +1,6 @@
 package eu.europeana.metis.repository.dao;
 
+import eu.europeana.metis.repository.rest.dao.Record;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
