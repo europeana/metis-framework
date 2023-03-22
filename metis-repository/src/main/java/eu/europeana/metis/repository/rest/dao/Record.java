@@ -1,4 +1,4 @@
-package eu.europeana.metis.repository.dao;
+package eu.europeana.metis.repository.rest.dao;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
