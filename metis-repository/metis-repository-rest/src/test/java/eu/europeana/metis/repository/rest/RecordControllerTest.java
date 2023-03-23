@@ -29,8 +29,7 @@ import java.io.InputStream;
 import java.time.Instant;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -48,8 +47,8 @@ class RecordControllerTest {
   private static MockMvc recordControllerMock;
   private static RecordController recordController;
 
-  @BeforeAll
-  static void setup() {
+  @BeforeEach
+  void setup() {
     recordDaoMock = mock(RecordDao.class);
     recordController = new RecordController();
     recordControllerMock = MockMvcBuilders.standaloneSetup(recordController).build();
@@ -155,7 +154,6 @@ class RecordControllerTest {
   }
 
   @Test
-  @Disabled
   void saveRecords() throws Exception {
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("repository-test.zip");
     MockMultipartFile recordsFile = new MockMultipartFile("recordsZipFile",
@@ -183,7 +181,6 @@ class RecordControllerTest {
   }
 
   @Test
-  @Disabled
   void saveRecords_Exception() throws Exception {
     InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("repository-test-error.zip");
     MockMultipartFile recordsFile = new MockMultipartFile("recordsZipFile",
