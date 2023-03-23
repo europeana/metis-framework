@@ -1,1 +1,3 @@
 /src/main/resources/application.properties
+!/src/test/resources/repository-test.zip
+!/src/test/resources/repository-test-error.zip

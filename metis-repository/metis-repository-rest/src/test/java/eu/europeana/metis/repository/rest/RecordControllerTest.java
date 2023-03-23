@@ -29,7 +29,7 @@ import java.io.InputStream;
 import java.time.Instant;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -47,8 +47,8 @@ class RecordControllerTest {
   private static MockMvc recordControllerMock;
   private static RecordController recordController;
 
-  @BeforeEach
-  void setup() {
+  @BeforeAll
+  static void setup() {
     recordDaoMock = mock(RecordDao.class);
     recordController = new RecordController();
     recordControllerMock = MockMvcBuilders.standaloneSetup(recordController).build();

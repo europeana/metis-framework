@@ -8,6 +8,7 @@
       <env name="server.servlet.context-path" value="/metis-core"/>
       <env name="spring.config.location"
         value="file:///data/metis-configuration/metis-framework/metis-core/metis-core-rest/k8s/overlays/local/components/properties/application.properties"/>
+      <env name="logging.config" value="file:///data/metis-configuration/k8s/common-components/log4j2-xml/log4j2.xml"/>
     </envs>
     <module name="metis-core-rest"/>
     <option name="SPRING_BOOT_MAIN_CLASS" value="eu.europeana.metis.core.rest.Application"/>
