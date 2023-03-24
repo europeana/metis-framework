@@ -64,7 +64,7 @@ public class EnricherImpl implements Enricher {
 
   private static HttpStatus containsWarningStatus(String message) {
     for (HttpStatus status : WARNING_STATUSES) {
-      if (message.contains(status.toString())) {
+      if (message != null && message.contains(status.toString())) {
         return status;
       }
     }
@@ -132,14 +132,14 @@ public class EnricherImpl implements Enricher {
     try {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
-    } catch (RuntimeException e) {
+    } catch (RuntimeException runtimeException) {
       reports.add(Report
           .buildEnrichmentError()
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
                                 .sorted(String::compareToIgnoreCase)
                                 .collect(Collectors.joining(",")))
-          .withException(e)
+          .withException(runtimeException)
           .build());
       return new ImmutablePair<>(null, reports);
     }
@@ -161,29 +161,46 @@ public class EnricherImpl implements Enricher {
       Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolver.resolveByUri(references);
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
-    } catch (RuntimeException e) {
-      Throwable rootCause = ExceptionUtils.getRootCause(e);
-      HttpStatus warningStatus = containsWarningStatus(rootCause.getMessage());
+    } catch (RuntimeException runtimeException) {
       String referenceValue = references.stream()
                                         .map(ReferenceTermContext::getReferenceAsString)
                                         .sorted(String::compareToIgnoreCase)
                                         .collect(Collectors.joining(","));
-      if (warningStatus == null) {
-        reports.add(Report
-            .buildEnrichmentError()
-            .withValue(referenceValue)
-            .withException(e)
-            .build());
-      } else {
-        reports.add(Report
-            .buildEnrichmentWarn()
-            .withStatus(warningStatus)
-            .withValue(referenceValue)
-            .withException(rootCause)
-            .build());
-      }
+      reports.addAll(getWarningsOrErrors(runtimeException, referenceValue));
       return new ImmutablePair<>(null, reports);
     }
+  }
+
+  private Set<Report> getWarningsOrErrors(Throwable throwable, String referenceValue) {
+    HttpStatus warningStatus;
+    Throwable rootCause = ExceptionUtils.getRootCause(throwable);
+    HashSet<Report> reports = new HashSet<>();
+    if (rootCause == null) {
+      warningStatus = containsWarningStatus(throwable.getMessage());
+      reports.add(warningStatus == null ?
+          Report.buildEnrichmentError()
+                .withValue(referenceValue)
+                .withException(throwable)
+                .build() :
+          Report.buildEnrichmentWarn()
+                .withStatus(warningStatus)
+                .withValue(referenceValue)
+                .withException(throwable)
+                .build());
+    } else {
+      warningStatus = containsWarningStatus(rootCause.getMessage());
+      reports.add(warningStatus == null ?
+          Report.buildEnrichmentError()
+                .withValue(referenceValue)
+                .withException(throwable)
+                .build() :
+          Report.buildEnrichmentWarn()
+                .withStatus(warningStatus)
+                .withValue(referenceValue)
+                .withException(rootCause)
+                .build());
+    }
+    return reports;
   }
 
   @Override

@@ -203,6 +203,62 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesWarning2Flow(), enrichReferences.getRight());
   }
 
+  @Test
+  void testEnrichReferenceExceptionFlow() throws MalformedURLException {
+    // Given the mocks
+    final RecordParser recordParser = Mockito.mock(RecordParser.class);
+    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
+    final Exception nullCause = new RuntimeException();
+    nullCause.initCause(null);
+    doThrow(new TechnicalRuntimeException("Error", null),
+        new TechnicalRuntimeException("Error", new HttpClientErrorException(HttpStatus.TEMPORARY_REDIRECT)),
+        new NullPointerException(),
+        nullCause)
+        .when(entityResolver)
+        .resolveByUri(any());
+
+    // When the enricher a null nested exception
+    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+
+    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URL("http://urlValue1"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+
+    Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
+        Set.of(referenceTermContext1));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesError1Flow(), enrichReferences.getRight());
+
+    // When the enricher a nested 307 exception
+    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URL("http://urlValue2"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+    enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext2));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesWarnError2Flow(), enrichReferences.getRight());
+
+    // When the enricher with a NullPointerException
+    ReferenceTermContext referenceTermContext3 = new ReferenceTermContext(new URL("http://urlValue3"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+    enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext3));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesError3Flow(),enrichReferences.getRight());
+
+    // When the enricher with a Null Cause
+    ReferenceTermContext referenceTermContext4 = new ReferenceTermContext(new URL("http://urlValue4"),
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+    enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext4));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesError4Flow(),enrichReferences.getRight());
+  }
+
   private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver entityResolver,
       RDF inputRdf, Set<Report> reports) {
     // Extracting values for enrichment
@@ -328,6 +384,49 @@ class EnricherImplTest {
         .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
         .withException(new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY))
+        .build());
+    return reports;
+  }
+
+  private HashSet<Report> getExpectedReportMessagesError1Flow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
+        .buildEnrichmentError()
+        .withValue("http://urlValue1")
+        .withException(new TechnicalRuntimeException("Error", null))
+        .build());
+    return reports;
+  }
+
+  private HashSet<Report> getExpectedReportMessagesWarnError2Flow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
+        .buildEnrichmentWarn()
+        .withStatus(HttpStatus.TEMPORARY_REDIRECT)
+        .withValue("http://urlValue2")
+        .withException(new HttpClientErrorException(HttpStatus.TEMPORARY_REDIRECT))
+        .build());
+    return reports;
+  }
+
+  private HashSet<Report> getExpectedReportMessagesError3Flow() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
+        .buildEnrichmentError()
+        .withValue("http://urlValue3")
+        .withException(new NullPointerException())
+        .build());
+    return reports;
+  }
+
+  private HashSet<Report> getExpectedReportMessagesError4Flow() {
+    HashSet<Report> reports = new HashSet<>();
+    Exception nullCause = new RuntimeException();
+    nullCause.initCause(null);
+    reports.add(Report
+        .buildEnrichmentError()
+        .withValue("http://urlValue4")
+        .withException(nullCause)
         .build());
     return reports;
   }
