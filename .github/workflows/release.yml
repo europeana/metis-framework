@@ -21,5 +21,6 @@ jobs:
       release-version: ${{ github.event.inputs.release-version }}
       commit-hash-branch: ${{ github.event.inputs.commit-hash-branch }}
       new-snapshot-version: ${{ github.event.inputs.new-snapshot-version }}
+      target-merge-branch: master
     secrets:
       METIS_PERSONAL_ACCESS_TOKEN: ${{ secrets.METIS_PERSONAL_ACCESS_TOKEN }}
