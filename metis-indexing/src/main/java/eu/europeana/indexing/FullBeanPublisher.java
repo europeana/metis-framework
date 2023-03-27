@@ -24,6 +24,7 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.TriConsumer;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ import org.apache.solr.common.params.MapSolrParams;
  *
  * @author jochen
  */
-class FullBeanPublisher {
+public class FullBeanPublisher {
 
   private static final String REDIRECT_PUBLISH_ERROR = "Could not publish the redirection changes.";
 
@@ -168,39 +169,72 @@ class FullBeanPublisher {
   private void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
       boolean performRedirects) throws IndexingException {
 
-    // Convert RDF to Full Bean.
-    final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
-    final FullBeanImpl fullBean = fullBeanConverter.convertRdfToFullBean(rdf);
+    final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
 
+    final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor = providePreprocessor();
+
+    final List<Pair<String, Date>> recordsForRedirection = performRedirection(rdf,
+        recordDate, datasetIdsToRedirectFrom, performRedirects);
+
+    final FullBeanImpl savedFullBean = publishToMongo(recordDate, fullBean, fullBeanPreprocessor,
+        recordsForRedirection);
+
+    publishToSolrFinal(rdf, savedFullBean);
+  }
+
+  /**
+   * Publishes an RDF only to mongo server
+   *
+   * @param rdf RDF to publish.
+   * @param recordDate The date that would represent the created/updated date of a record
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
+   */
+  public void publishMongo(RdfWrapper rdf, Date recordDate) throws IndexingException {
+    final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
+
+    final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor = providePreprocessor();
+
+    publishToMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
+  }
+
+  /**
+   * Publishes an RDF to solr server
+   *
+   * @param rdf RDF to publish.
+   * @param recordDate The date that would represent the created/updated date of a record
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
+   */
+  public void publishSolr(RdfWrapper rdf, Date recordDate) throws IndexingException {
+    final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
+    if (!preserveUpdateAndCreateTimesFromRdf){
+      final Date createdDate = recordDate;
+      //TODO: quick query to solr to get timestamp of the record when it was created.
+      // if not exists then use recordDate.
+      // fullBean.setTimestampCreated(recordDate);
+      setUpdateAndCreateTime(null, fullBean, Pair.of(recordDate, createdDate));
+    }
+    publishToSolrFinal(rdf, fullBean);
+  }
+
+  private TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> providePreprocessor() {
     // Provide the preprocessor: this will set the created and updated timestamps as needed.
-    final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor =
-        preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
-            : (FullBeanPublisher::setUpdateAndCreateTime);
+    return preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
+        : (FullBeanPublisher::setUpdateAndCreateTime);
+  }
 
-    // Perform redirection
-    final List<Pair<String, Date>> recordsForRedirection;
-    try {
-      recordsForRedirection = RecordRedirectsUtil
-          .checkAndApplyRedirects(recordRedirectDao, rdf, recordDate, datasetIdsToRedirectFrom,
-              performRedirects, this::getSolrDocuments);
-    } catch (RuntimeException e) {
-      throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
-    }
-
-    // Publish to Mongo
-    final FullBeanImpl savedFullBean;
-    try {
-      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate,
-          recordsForRedirection.stream().map(Pair::getValue).min(Comparator.naturalOrder())
-              .orElse(null), edmMongoClient);
-    } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
-      throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
-    } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
-      throw new IndexerRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
-    } catch (RuntimeException e) {
-      throw new RecordRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
-    }
-
+  private void publishToSolrFinal(RdfWrapper rdf, FullBeanImpl savedFullBean) throws RecordRelatedIndexingException {
     // Publish to Solr
     try {
       retryableExternalRequestForNetworkExceptions(() -> {
@@ -214,6 +248,46 @@ class FullBeanPublisher {
     } catch (Exception e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     }
+  }
+
+  private FullBeanImpl publishToMongo(Date recordDate, FullBeanImpl fullBean,
+      TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
+      List<Pair<String, Date>> recordsForRedirection)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    // Publish to Mongo
+    final FullBeanImpl savedFullBean;
+    try {
+      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate,
+          recordsForRedirection.stream().map(Pair::getValue).min(Comparator.naturalOrder())
+                               .orElse(null), edmMongoClient);
+    } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
+      throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
+    } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
+      throw new IndexerRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
+    } catch (RuntimeException e) {
+      throw new RecordRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
+    }
+    return savedFullBean;
+  }
+
+  private List<Pair<String, Date>> performRedirection(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
+      boolean performRedirects) throws IndexingException {
+    // Perform redirection
+    final List<Pair<String, Date>> recordsForRedirection;
+    try {
+      recordsForRedirection = RecordRedirectsUtil
+          .checkAndApplyRedirects(recordRedirectDao, rdf, recordDate, datasetIdsToRedirectFrom,
+              performRedirects, this::getSolrDocuments);
+    } catch (RuntimeException e) {
+      throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
+    }
+    return recordsForRedirection;
+  }
+
+  private FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
+    // Convert RDF to Full Bean.
+    final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
+    return fullBeanConverter.convertRdfToFullBean(rdf);
   }
 
   private void publishToSolr(RdfWrapper rdf, FullBeanImpl fullBean) throws IndexingException {
