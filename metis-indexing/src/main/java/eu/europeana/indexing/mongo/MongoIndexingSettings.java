@@ -3,6 +3,7 @@ package eu.europeana.indexing.mongo;
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
 
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.common.DatabaseProperties;
 import eu.europeana.metis.common.SettingsHolder;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 
@@ -66,7 +67,8 @@ public class MongoIndexingSettings implements SettingsHolder {
    *
    * @return the mongo properties
    */
-  public MongoProperties<SetupRelatedIndexingException> getMongoProperties() {
+  @Override
+  public DatabaseProperties getDatabaseProperties() {
     return mongoProperties;
   }
 }

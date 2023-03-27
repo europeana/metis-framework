@@ -6,6 +6,7 @@ import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.solr.client.CompoundSolrClient;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
+import eu.europeana.metis.solr.connection.SolrProperties;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 
@@ -24,7 +25,7 @@ public final class SolrConnectionProvider implements AbstractConnectionProvider 
    */
   public SolrConnectionProvider(SolrIndexingSettings settings)
       throws SetupRelatedIndexingException {
-    this.solrClient = new SolrClientProvider<>(settings.getSolrProperties()).createSolrClient();
+    this.solrClient = new SolrClientProvider<>((SolrProperties<SetupRelatedIndexingException>)settings.getDatabaseProperties()).createSolrClient();
   }
 
   @Override

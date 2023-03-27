@@ -11,6 +11,7 @@ import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
+import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.lang.invoke.MethodHandles;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * The type Mongo connection provider.
@@ -41,28 +43,30 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
   public MongoConnectionProvider(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
 
     // Sanity check
-    settings = nonNullMessage(settings,"The provided mongo settings object is null.");
-   
+    settings = nonNullMessage(settings, "The provided mongo settings object is null.");
+
     try {
       this.mongoClient = createMongoClient(settings);
-      this.recordDao = new RecordDao(this.mongoClient, nonNullFieldName(settings.getMongoDatabaseName(),"mongoDatabaseName" ));
-      this.recordRedirectDao = new RecordRedirectDao(this.mongoClient, nonNullFieldName(settings.getRecordRedirectDatabaseName(),"recordRedirectDatabaseName"));
+      this.recordDao = new RecordDao(this.mongoClient, nonNullFieldName(settings.getMongoDatabaseName(), "mongoDatabaseName"));
+      this.recordRedirectDao = new RecordRedirectDao(this.mongoClient,
+          nonNullFieldName(settings.getRecordRedirectDatabaseName(), "recordRedirectDatabaseName"));
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
     }
   }
 
   private static MongoClient createMongoClient(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
+    MongoProperties<SetupRelatedIndexingException> properties = (MongoProperties<SetupRelatedIndexingException>) settings.getDatabaseProperties();
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
-          settings.getMongoProperties().getMongoHosts().stream().map(ServerAddress::toString)
-                  .collect(Collectors.joining(", ")),
+          properties.getMongoHosts().stream().map(ServerAddress::toString)
+                    .collect(Collectors.joining(", ")),
           settings.getMongoDatabaseName(),
-          settings.getMongoProperties().getMongoCredentials() == null ? "out" : "",
-          settings.getMongoProperties().mongoEnableSsl() ? "" : "out");
+          properties.getMongoCredentials() == null ? "out" : "",
+          properties.mongoEnableSsl() ? "" : "out");
     }
 
-    return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
+    return new MongoClientProvider<>(properties).createMongoClient();
   }
 
   @Override
