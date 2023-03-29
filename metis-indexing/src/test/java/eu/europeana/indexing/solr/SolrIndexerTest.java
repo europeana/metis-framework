@@ -2,7 +2,6 @@ package eu.europeana.indexing.solr;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
@@ -19,13 +18,18 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
 import eu.europeana.metis.solr.connection.SolrProperties;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.net.URISyntaxException;
+import org.apache.lucene.document.Document;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocumentList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +45,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = SolrIndexerLocalConfigTest.class)
 class SolrIndexerTest {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Autowired
   private SolrIndexer indexer;
@@ -79,11 +85,39 @@ class SolrIndexerTest {
   @Test
   void indexRecord() throws IndexingException, SerializationException, SolrServerException, IOException {
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
-    final RDF inputRdf =  conversionUtils.convertStringToRdf(IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
 
     indexer.indexRecord(inputRdf);
 
-    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7");
+    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
+  }
+
+  /**
+   * Index record.
+   *
+   * @throws IndexingException the indexing exception
+   * @throws SerializationException the serialization exception
+   * @throws SolrServerException the solr server exception
+   * @throws IOException the io exception
+   */
+  @Test
+  void indexExistingDateRecord() throws IndexingException, SerializationException, SolrServerException, IOException {
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_dup_rdf.xml"));
+    // add record
+    indexer.indexRecord(inputRdf);
+
+    // commit changes
+    solrClient.commit();
+    final RDF inputRdf2 = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_dup_rdf.xml"));
+
+    // add again record to get existing date
+    indexer.indexRecord(inputRdf2);
+
+    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_82_5", 2);
   }
 
   /**
@@ -99,14 +133,23 @@ class SolrIndexerTest {
 
     indexer.indexRecord(stringRdfRecord);
 
-    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_126_10");
+    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_126_10", 1);
   }
 
-  private void flushAndAssertDocumentInSolr(String expected)
+  private void flushAndAssertDocumentInSolr(String expectedId, int expectedSize)
       throws SolrServerException, IOException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
     solrClient.commit();
-    SolrDocumentList documents = IndexingTestUtils.getSolrDocuments(solrClient, "europeana_id:\""+expected+ "\"");
-    assertTrue(documents.size() == 1);
+    final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
+    SolrDocumentList documents = IndexingTestUtils.getSolrDocuments(solrClient, solrQuery);
+    LOGGER.info("documents");
+    documents.stream().forEach(document -> {
+      document.getFieldNames().stream().forEach(
+          field -> {
+            LOGGER.info("{}:{}",field,document.getFieldValue(field));
+          }
+      );
+    });
+    assertEquals(expectedSize, documents.size());
   }
 
   /**
@@ -115,7 +158,7 @@ class SolrIndexerTest {
   @Test
   void indexRecordEmptyRecord_ExpectException() {
     final RDF inputRdf = new RDF();
-    assertThrows(RecordRelatedIndexingException.class, ()-> indexer.indexRecord(inputRdf));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexRecord(inputRdf));
   }
 
   /**
@@ -124,7 +167,7 @@ class SolrIndexerTest {
   @Test
   void indexRecordEmptyStringRecord_ExpectException() {
     final String stringRdfRecord = "";
-    assertThrows(RecordRelatedIndexingException.class, ()-> indexer.indexRecord(stringRdfRecord));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexRecord(stringRdfRecord));
   }
 
   /**

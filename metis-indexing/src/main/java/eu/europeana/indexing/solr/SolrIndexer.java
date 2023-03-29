@@ -1,5 +1,7 @@
 package eu.europeana.indexing.solr;
 
+import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
+
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
@@ -52,9 +54,8 @@ public class SolrIndexer implements SimpleIndexer {
   @Override
   public void indexRecord(RDF rdfRecord) throws IndexingException {
     // Sanity checks
-    if (rdfRecord == null) {
-      throw new IllegalArgumentException("Input RDF cannot be null.");
-    }
+    rdfRecord = nonNullIllegal(rdfRecord, "Input RDF cannot be null.");
+
     LOGGER.info("Processing {} record...", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
     publisher.publishSolr(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
