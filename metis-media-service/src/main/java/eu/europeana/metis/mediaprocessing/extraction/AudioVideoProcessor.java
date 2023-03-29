@@ -274,10 +274,10 @@ class AudioVideoProcessor implements MediaProcessor {
 
       // Process the video or audio stream and create metadata
       final AbstractResourceMetadata metadata;
-      final Long fileSize = nullIfNegative(format.getLong("size"));
       if (isVideo) {
         // We have a video file
         final JSONObject[] candidates = new JSONObject[]{videoStream, format};
+        final Long fileSize = findLong("size", candidates);
         final Double duration = findDouble("duration", candidates);
         final Integer bitRate = findInt("bit_rate", candidates);
         final Integer width = findInt("width", candidates);
@@ -289,6 +289,7 @@ class AudioVideoProcessor implements MediaProcessor {
       } else if (isAudio) {
         // We have an audio file
         final JSONObject[] candidates = new JSONObject[]{audioStream, format};
+        final Long fileSize = findLong("size", candidates);
         final Double duration = findDouble("duration", candidates);
         final Integer bitRate = findInt("bit_rate", candidates);
         final Integer channels = findInt("channels", candidates);
@@ -338,6 +339,13 @@ class AudioVideoProcessor implements MediaProcessor {
     final int result = findValue(key, candidates,
         candidate -> candidate.optInt(key, Integer.MIN_VALUE),
         value -> Integer.MIN_VALUE != value);
+    return nullIfNegative(result);
+  }
+
+  Long findLong(String key, JSONObject[] candidates){
+    final long result = findValue(key, candidates,
+        candidate -> candidate.optLong(key, Long.MIN_VALUE),
+        value -> Long.MIN_VALUE != value);
     return nullIfNegative(result);
   }
 
