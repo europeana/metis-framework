@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="europeana-simplified" version="1.6">
+  <uniqueKey>europeana_id</uniqueKey>
+  <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+  <fieldType name="contentTier" class="solr.EnumFieldType" enumsConfig="enumsConfig.xml" enumName="content_tier"/>
+  <fieldType name="coordinates" class="solr.LatLonPointSpatialField"/>
+  <fieldType name="date" class="solr.DatePointField" positionIncrementGap="0"/>
+  <fieldType name="double" class="solr.DoublePointField" positionIncrementGap="0"/>
+  <fieldType name="float" class="solr.FloatPointField" positionIncrementGap="0"/>
+  <fieldType name="int" class="solr.IntPointField" positionIncrementGap="0"/>
+  <fieldType name="long" class="solr.LongPointField" positionIncrementGap="0"/>
+  <fieldType name="metadataTier" class="solr.EnumFieldType" enumsConfig="enumsConfig.xml" enumName="metadata_tier"/>
+  <fieldType name="random" class="solr.RandomSortField"/>
+  <fieldType name="sortable_text_general" class="solr.SortableTextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.WordDelimiterGraphFilterFactory" splitOnNumerics="0"/>
+      <filter class="solr.FlattenGraphFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.WordDelimiterGraphFilterFactory" splitOnNumerics="0"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.WordDelimiterGraphFilterFactory" splitOnNumerics="0"/>
+      <filter class="solr.FlattenGraphFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.WordDelimiterGraphFilterFactory" splitOnNumerics="0"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <field name="COMPLETENESS" type="string" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="CONTRIBUTOR" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="COUNTRY" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="CREATOR" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="DATA_PROVIDER" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="LANGUAGE" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="PROVIDER" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="RIGHTS" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="TYPE" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="UGC" type="string" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="YEAR" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="_version_" type="long" multiValued="false" indexed="true" stored="true"/>
+  <field name="ag_foaf_name" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_rdagr2_dateOfBirth" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_rdagr2_dateOfDeath" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_rdagr2_placeOfBirth" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_rdagr2_placeOfDeath" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_rdagr2_professionOrOccupation" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_skos_altLabel" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="ag_skos_prefLabel" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="cc_skos_altLabel" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="cc_skos_prefLabel" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="contentTier" type="contentTier" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="coverageLocation_wgs" type="coordinates" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="currentLocation_wgs" type="coordinates" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="dataProvider" type="string" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="edm_UGC" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="edm_agent" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="edm_datasetName" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="edm_place" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="edm_previewNoDistribute" type="boolean" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="edm_timespan" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="edm_webResource" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="europeana_aggregation_edm_country" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="europeana_aggregation_edm_language" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="europeana_aggregation_edm_preview" type="string" docValues="true" multiValued="false" indexed="false" stored="true"/>
+  <field name="europeana_collectionName" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="europeana_completeness" type="int" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="europeana_id" type="string" docValues="true" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="facet_tags" type="int" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="filter_tags" type="int" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="foaf_organization" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="has_landingpage" type="boolean" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="has_media" type="boolean" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="has_thumbnails" type="boolean" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="is_fulltext" type="boolean" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="location_wgs" type="coordinates" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="metadataTier" type="metadataTier" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="org_skos_altLabel" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="org_skos_prefLabel" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="pl_skos_altLabel" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="pl_skos_prefLabel" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="pl_wgs84_pos_alt" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="pl_wgs84_pos_lat" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="pl_wgs84_pos_long" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_cc_deprecated_on" type="date" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_cc_license" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_dc_rights" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_dataProvider" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_hasView" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_intermediateProvider" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_isShownAt" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_isShownBy" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_object" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_provider" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_edm_rights" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="provider_aggregation_odrl_inherited_from" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_contributor" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_coverage" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_creator" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_date" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_description" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_format" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_identifier" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_language" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_publisher" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_rights" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_source" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_subject" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_title" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_type" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dc_type_search" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_alternative" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_created" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_hasPart" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_isPartOf" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_issued" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_medium" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_provenance" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_spatial" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_dcterms_temporal" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_edm_currentLocation" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_edm_hasMet" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_edm_isRelatedTo" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_edm_type" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="proxy_edm_year" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="skos_concept" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="subject" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="sv_dcterms_conformsTo" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="svcs_service" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="text" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="false"/>
+  <field name="timestamp" type="date" default="NOW" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <field name="title" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="ts_skos_altLabel" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="ts_skos_prefLabel" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="what" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="when" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="where" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="who" type="sortable_text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_cc_deprecated_on" type="date" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_cc_license" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_cc_odrl_inherited_from" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_dc_rights" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_dcterms_isReferencedBy" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_edm_isNextInSequence" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_edm_rights" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="wr_svcs_hasservice" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="provider_aggregation_edm_intermediateProvider.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="provider_aggregation_edm_dataProvider.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="europeana_aggregation_edm_language.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="provider_aggregation_edm_provider.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="europeana_aggregation_edm_country.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_rdagr2_professionOrOccupation.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="provider_aggregation_edm_rights.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="provider_aggregation_dc_rights.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_alternative.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_edm_currentLocation.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="wr_dcterms_isReferencedBy.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_provenance.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_temporal.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_isPartOf.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_rdagr2_placeOfBirth.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_rdagr2_placeOfDeath.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_created.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_spatial.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_hasPart.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_edm_isRelatedTo.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_rdagr2_dateOfBirth.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_rdagr2_dateOfDeath.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_contributor.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_description.*" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_type_search.*" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_issued.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dcterms_medium.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_identifier.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_publisher.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="org_skos_prefLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="wr_svcs_hasservice.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_coverage.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_language.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_skos_prefLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ts_skos_prefLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="pl_skos_prefLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="cc_skos_prefLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="org_skos_altLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_creator.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_subject.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_skos_altLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ts_skos_altLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="pl_skos_altLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="cc_skos_altLabel.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_edm_hasMet.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_format.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_source.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_rights.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_title.*" type="text_general" uninvertible="false" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_edm_year.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="wr_edm_rights.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_date.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="proxy_dc_type.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="wr_dc_rights.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="ag_foaf_name.*" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <dynamicField name="timestamp_*" type="date" docValues="true" multiValued="false" indexed="true" stored="true"/>
+  <dynamicField name="random_*" type="random"/>
+  <dynamicField name="*" type="string" multiValued="true" indexed="false" stored="false"/>
+  <copyField source="dataProvider" dest="foaf_organization"/>
+  <copyField source="edm_UGC" dest="UGC"/>
+  <copyField source="europeana_collectionName" dest="edm_datasetName"/>
+  <copyField source="europeana_completeness" dest="COMPLETENESS"/>
+  <copyField source="provider" dest="foaf_organization"/>
+  <copyField source="provider_aggregation_odrl_inherited_from" dest="RIGHTS"/>
+  <copyField source="proxy_edm_type" dest="TYPE"/>
+  <copyField source="proxy_edm_type" dest="text"/>
+  <copyField source="proxy_dc_contributor.*" dest="CONTRIBUTOR"/>
+  <copyField source="europeana_aggregation_edm_country.*" dest="COUNTRY"/>
+  <copyField source="europeana_aggregation_edm_country.*" dest="europeana_aggregation_edm_country"/>
+  <copyField source="proxy_dc_creator.*" dest="CREATOR"/>
+  <copyField source="provider_aggregation_edm_dataProvider.*" dest="DATA_PROVIDER"/>
+  <copyField source="europeana_aggregation_edm_language.*" dest="LANGUAGE"/>
+  <copyField source="europeana_aggregation_edm_language.*" dest="europeana_aggregation_edm_language"/>
+  <copyField source="provider_aggregation_edm_provider.*" dest="PROVIDER"/>
+  <copyField source="provider_aggregation_edm_rights.*" dest="RIGHTS"/>
+  <copyField source="proxy_edm_year.*" dest="YEAR"/>
+  <copyField source="ag_foaf_name.*" dest="ag_foaf_name"/>
+  <copyField source="ag_rdagr2_dateOfBirth.*" dest="ag_rdagr2_dateOfBirth"/>
+  <copyField source="ag_rdagr2_dateOfDeath.*" dest="ag_rdagr2_dateOfDeath"/>
+  <copyField source="ag_rdagr2_placeOfBirth.*" dest="ag_rdagr2_placeOfBirth"/>
+  <copyField source="ag_rdagr2_placeOfDeath.*" dest="ag_rdagr2_placeOfDeath"/>
+  <copyField source="ag_rdagr2_professionOrOccupation.*" dest="ag_rdagr2_professionOrOccupation"/>
+  <copyField source="ag_skos_altLabel.*" dest="ag_skos_altLabel"/>
+  <copyField source="ag_skos_prefLabel.*" dest="ag_skos_prefLabel"/>
+  <copyField source="cc_skos_altLabel.*" dest="cc_skos_altLabel"/>
+  <copyField source="cc_skos_prefLabel.*" dest="cc_skos_prefLabel"/>
+  <copyField source="org_skos_altLabel.*" dest="org_skos_altLabel"/>
+  <copyField source="org_skos_prefLabel.*" dest="org_skos_prefLabel"/>
+  <copyField source="pl_skos_altLabel.*" dest="pl_skos_altLabel"/>
+  <copyField source="pl_skos_prefLabel.*" dest="pl_skos_prefLabel"/>
+  <copyField source="provider_aggregation_dc_rights.*" dest="provider_aggregation_dc_rights"/>
+  <copyField source="provider_aggregation_edm_dataProvider.*" dest="provider_aggregation_edm_dataProvider"/>
+  <copyField source="provider_aggregation_edm_intermediateProvider.*" dest="provider_aggregation_edm_intermediateProvider"/>
+  <copyField source="provider_aggregation_edm_provider.*" dest="provider_aggregation_edm_provider"/>
+  <copyField source="provider_aggregation_edm_rights.*" dest="provider_aggregation_edm_rights"/>
+  <copyField source="proxy_dc_contributor.*" dest="proxy_dc_contributor"/>
+  <copyField source="proxy_dc_coverage.*" dest="proxy_dc_coverage"/>
+  <copyField source="proxy_dc_creator.*" dest="proxy_dc_creator"/>
+  <copyField source="proxy_dc_date.*" dest="proxy_dc_date"/>
+  <copyField source="proxy_dc_description.*" dest="proxy_dc_description"/>
+  <copyField source="proxy_dc_format.*" dest="proxy_dc_format"/>
+  <copyField source="proxy_dc_identifier.*" dest="proxy_dc_identifier"/>
+  <copyField source="proxy_dc_language.*" dest="proxy_dc_language"/>
+  <copyField source="proxy_dc_publisher.*" dest="proxy_dc_publisher"/>
+  <copyField source="proxy_dc_rights.*" dest="proxy_dc_rights"/>
+  <copyField source="proxy_dc_source.*" dest="proxy_dc_source"/>
+  <copyField source="proxy_dc_subject.*" dest="proxy_dc_subject"/>
+  <copyField source="proxy_dc_title.*" dest="proxy_dc_title"/>
+  <copyField source="proxy_dc_type.*" dest="proxy_dc_type"/>
+  <copyField source="proxy_dc_type.*" dest="proxy_dc_type_search"/>
+  <copyField source="proxy_dc_type_search.*" dest="proxy_dc_type_search"/>
+  <copyField source="proxy_dcterms_alternative.*" dest="proxy_dcterms_alternative"/>
+  <copyField source="proxy_dcterms_created.*" dest="proxy_dcterms_created"/>
+  <copyField source="proxy_dcterms_hasPart.*" dest="proxy_dcterms_hasPart"/>
+  <copyField source="proxy_dcterms_isPartOf.*" dest="proxy_dcterms_isPartOf"/>
+  <copyField source="proxy_dcterms_issued.*" dest="proxy_dcterms_issued"/>
+  <copyField source="proxy_dcterms_medium.*" dest="proxy_dcterms_medium"/>
+  <copyField source="proxy_dcterms_provenance.*" dest="proxy_dcterms_provenance"/>
+  <copyField source="proxy_dcterms_spatial.*" dest="proxy_dcterms_spatial"/>
+  <copyField source="proxy_dcterms_temporal.*" dest="proxy_dcterms_temporal"/>
+  <copyField source="proxy_edm_currentLocation.*" dest="proxy_edm_currentLocation"/>
+  <copyField source="proxy_edm_hasMet.*" dest="proxy_edm_hasMet"/>
+  <copyField source="proxy_edm_isRelatedTo.*" dest="proxy_edm_isRelatedTo"/>
+  <copyField source="proxy_edm_year.*" dest="proxy_edm_year"/>
+  <copyField source="proxy_dc_subject.*" dest="subject"/>
+  <copyField source="proxy_dc_coverage.*" dest="subject"/>
+  <copyField source="proxy_dcterms_spatial.*" dest="subject"/>
+  <copyField source="proxy_dcterms_temporal.*" dest="subject"/>
+  <copyField source="provider_aggregation_edm_dataProvider.*" dest="text"/>
+  <copyField source="provider_aggregation_edm_intermediateProvider.*" dest="text"/>
+  <copyField source="provider_aggregation_edm_provider.*" dest="text"/>
+  <copyField source="proxy_dc_contributor.*" dest="text"/>
+  <copyField source="proxy_dc_coverage.*" dest="text"/>
+  <copyField source="proxy_dc_creator.*" dest="text"/>
+  <copyField source="proxy_dc_date.*" dest="text"/>
+  <copyField source="proxy_dc_description.*" dest="text"/>
+  <copyField source="proxy_dc_format.*" dest="text"/>
+  <copyField source="proxy_dc_language.*" dest="text"/>
+  <copyField source="proxy_dc_publisher.*" dest="text"/>
+  <copyField source="proxy_dc_source.*" dest="text"/>
+  <copyField source="proxy_dc_subject.*" dest="text"/>
+  <copyField source="proxy_dc_title.*" dest="text"/>
+  <copyField source="proxy_dc_type.*" dest="text"/>
+  <copyField source="proxy_dcterms_alternative.*" dest="text"/>
+  <copyField source="proxy_dcterms_created.*" dest="text"/>
+  <copyField source="proxy_dcterms_issued.*" dest="text"/>
+  <copyField source="proxy_dcterms_medium.*" dest="text"/>
+  <copyField source="proxy_dcterms_provenance.*" dest="text"/>
+  <copyField source="proxy_dcterms_spatial.*" dest="text"/>
+  <copyField source="proxy_dcterms_temporal.*" dest="text"/>
+  <copyField source="proxy_edm_currentLocation.*" dest="text"/>
+  <copyField source="ag_skos_altLabel.*" dest="text"/>
+  <copyField source="ag_skos_prefLabel.*" dest="text"/>
+  <copyField source="ag_foaf_name.*" dest="text"/>
+  <copyField source="ts_skos_altLabel.*" dest="text"/>
+  <copyField source="ts_skos_prefLabel.*" dest="text"/>
+  <copyField source="pl_skos_altLabel.*" dest="text"/>
+  <copyField source="pl_skos_prefLabel.*" dest="text"/>
+  <copyField source="cc_skos_altLabel.*" dest="text"/>
+  <copyField source="cc_skos_prefLabel.*" dest="text"/>
+  <copyField source="proxy_dc_type_search.*" dest="text"/>
+  <copyField source="proxy_dc_title.*" dest="title"/>
+  <copyField source="proxy_dcterms_alternative.*" dest="title"/>
+  <copyField source="ts_skos_altLabel.*" dest="ts_skos_altLabel"/>
+  <copyField source="ts_skos_prefLabel.*" dest="ts_skos_prefLabel"/>
+  <copyField source="proxy_dc_format.*" dest="what"/>
+  <copyField source="proxy_dc_type.*" dest="what"/>
+  <copyField source="proxy_dc_subject.*" dest="what"/>
+  <copyField source="proxy_dcterms_medium.*" dest="what"/>
+  <copyField source="cc_skos_prefLabel.*" dest="what"/>
+  <copyField source="cc_skos_altLabel.*" dest="what"/>
+  <copyField source="proxy_dcterms_created.*" dest="when"/>
+  <copyField source="proxy_dcterms_temporal.*" dest="when"/>
+  <copyField source="proxy_dc_date.*" dest="when"/>
+  <copyField source="ts_skos_prefLabel.*" dest="when"/>
+  <copyField source="ts_skos_altLabel.*" dest="when"/>
+  <copyField source="proxy_edm_year.*" dest="when"/>
+  <copyField source="proxy_dcterms_issued.*" dest="when"/>
+  <copyField source="proxy_dcterms_spatial.*" dest="where"/>
+  <copyField source="pl_skos_prefLabel.*" dest="where"/>
+  <copyField source="pl_skos_altLabel.*" dest="where"/>
+  <copyField source="proxy_dc_contributor.*" dest="who"/>
+  <copyField source="proxy_dc_creator.*" dest="who"/>
+  <copyField source="ag_skos_prefLabel.*" dest="who"/>
+  <copyField source="ag_skos_altLabel.*" dest="who"/>
+  <copyField source="ag_foaf_name.*" dest="who"/>
+  <copyField source="wr_dc_rights.*" dest="wr_dc_rights"/>
+  <copyField source="wr_dcterms_isReferencedBy.*" dest="wr_dcterms_isReferencedBy"/>
+  <copyField source="wr_edm_rights.*" dest="wr_edm_rights"/>
+  <copyField source="wr_svcs_hasservice.*" dest="wr_svcs_hasservice"/>
+</schema>

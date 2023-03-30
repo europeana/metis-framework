@@ -26,7 +26,6 @@ import eu.europeana.indexing.utils.TriConsumer;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -234,11 +233,10 @@ public class FullBeanPublisher {
         queryParamMap.put("q", solrQuery);
         queryParamMap.put("fl", EdmLabel.TIMESTAMP_CREATED + "," + EdmLabel.EUROPEANA_ID);
         SolrDocumentList solrDocuments = getExistingDocuments(queryParamMap);
-        List<Object> createdDates = (List<Object>) solrDocuments.stream()
-                                                                .map(document -> document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()))
-                                                                .collect(Collectors.toList())
-                                                                .stream().findFirst().orElse(new ArrayList<>());
-        createdDate = (Date) (createdDates).stream().findFirst().orElse(recordDate);
+        createdDate = (Date) solrDocuments.stream()
+                                          .map(document -> document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()))
+                                          .collect(Collectors.toList())
+                                          .stream().findFirst().orElse(recordDate);
       }
       setUpdateAndCreateTime(null, fullBean, Pair.of(recordDate, createdDate));
     }

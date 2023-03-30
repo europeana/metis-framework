@@ -114,10 +114,10 @@ class SolrIndexerTest {
     final RDF inputRdf2 = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_dup_rdf.xml"));
 
-    // add again record to get existing date
+    // add again same record to have created and update date
     indexer.indexRecord(inputRdf2);
 
-    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_82_5", 2);
+    flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_82_5", 1);
   }
 
   /**
