@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -234,6 +235,20 @@ class AudioVideoProcessorTest {
   }
 
   @Test
+  void testFindLong(){
+    final JSONObject object = mock(JSONObject.class);
+    final JSONObject[] objects = new JSONObject[]{object};
+    final String key = "key";
+    final long value = 1L;
+
+    doReturn(value).when(object).optLong(eq(key), anyLong());
+    assertEquals(value, audioVideoProcessor.findLong(key, objects));
+
+    doAnswer(invocation -> invocation.getArgument(1)).when(object).optLong(eq(key), anyLong());
+    assertThrows(JSONException.class, () -> audioVideoProcessor.findLong(key, objects));
+  }
+
+  @Test
   void testFindDouble() {
 
     // Set up values
@@ -297,7 +312,7 @@ class AudioVideoProcessorTest {
     final Integer bitsPerSample = 8;
     final Double duration = 180.062050;
     final Integer bitRate = 320000;
-    doReturn(size).when(format).getLong("size");
+    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(candidates));
     doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
     doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
     doReturn(bitsPerSample).when(audioVideoProcessor)
@@ -354,7 +369,7 @@ class AudioVideoProcessorTest {
     final Integer bitRate = 595283;
     final int frameRateNumerator = 629150;
     final int frameRateDenominator = 25181;
-    doReturn(size).when(format).getLong("size");
+    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(candidates));
     doReturn(width).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
     doReturn(height).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
     doReturn("h264").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
