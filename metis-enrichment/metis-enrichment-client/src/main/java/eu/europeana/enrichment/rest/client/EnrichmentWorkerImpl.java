@@ -76,6 +76,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       } catch (SerializationException e) {
         reports.add(Report
             .buildEnrichmentError()
+            .withMessage("Error serializing rdf input")
             .withException(e)
             .build());
         result = new ProcessedResult<>(null, reports);
@@ -108,6 +109,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       } catch (SerializationException e) {
         reports.add(Report
             .buildEnrichmentError()
+            .withMessage("Error serializing rdf input")
             .withValue(inputString)
             .withException(e)
             .build());

@@ -135,6 +135,7 @@ public class EnricherImpl implements Enricher {
     } catch (RuntimeException runtimeException) {
       reports.add(Report
           .buildEnrichmentError()
+          .withMessage("Error in process entity API resolveByText for enrich values")
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
                                 .sorted(String::compareToIgnoreCase)
@@ -179,6 +180,7 @@ public class EnricherImpl implements Enricher {
       warningStatus = containsWarningStatus(throwable.getMessage());
       reports.add(warningStatus == null ?
           Report.buildEnrichmentError()
+                .withMessage("Error in process entity API resolveByUri for enrich references")
                 .withValue(referenceValue)
                 .withException(throwable)
                 .build() :
@@ -191,6 +193,7 @@ public class EnricherImpl implements Enricher {
       warningStatus = containsWarningStatus(rootCause.getMessage());
       reports.add(warningStatus == null ?
           Report.buildEnrichmentError()
+                .withMessage("Error in process entity API resolveByUri for enrich references")
                 .withValue(referenceValue)
                 .withException(throwable)
                 .build() :

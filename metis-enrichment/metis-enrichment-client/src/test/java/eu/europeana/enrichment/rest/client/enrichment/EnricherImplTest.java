@@ -366,6 +366,7 @@ class EnricherImplTest {
     HashSet<Report> reports = new HashSet<>();
     reports.add(Report
         .buildEnrichmentError()
+        .withMessage("Error in process entity API resolveByText for enrich values")
         .withValue("value1,value2,value3")
         .withException(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR))
         .build());
@@ -392,6 +393,7 @@ class EnricherImplTest {
     HashSet<Report> reports = new HashSet<>();
     reports.add(Report
         .buildEnrichmentError()
+        .withMessage("Error in process entity API resolveByUri for enrich references")
         .withValue("http://urlValue1")
         .withException(new TechnicalRuntimeException("Error", null))
         .build());
@@ -413,6 +415,7 @@ class EnricherImplTest {
     HashSet<Report> reports = new HashSet<>();
     reports.add(Report
         .buildEnrichmentError()
+        .withMessage("Error in process entity API resolveByUri for enrich references")
         .withValue("http://urlValue3")
         .withException(new NullPointerException())
         .build());
@@ -425,6 +428,7 @@ class EnricherImplTest {
     nullCause.initCause(null);
     reports.add(Report
         .buildEnrichmentError()
+        .withMessage("Error in process entity API resolveByUri for enrich references")
         .withValue("http://urlValue4")
         .withException(nullCause)
         .build());

@@ -197,7 +197,7 @@ public final class Report {
    * @return a reference to this Builder
    */
   public Report withException(Throwable val) {
-    message = ExceptionUtils.getMessage(val);
+    message = message + " " + ExceptionUtils.getMessage(val);
     stackTrace = ExceptionUtils.getStackTrace(val);
     return this;
   }
