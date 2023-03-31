@@ -1,5 +1,6 @@
 package eu.europeana.metis.solr.connection;
 
+import eu.europeana.metis.common.DatabaseProperties;
 import eu.europeana.metis.network.InetAddressUtil;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @param <E> The type of exception thrown when the properties are not valid.
  */
-public class SolrProperties<E extends Exception> {
+public class SolrProperties<E extends Exception> implements DatabaseProperties {
 
   // Default settings
   private static final int DEFAULT_ZOOKEEPER_TIMEOUT_IN_SECONDS = 30;

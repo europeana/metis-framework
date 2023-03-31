@@ -1,5 +1,8 @@
 package eu.europeana.indexing;
 
+import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
+import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullMessage;
+
 import com.mongodb.ServerAddress;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.connection.MongoProperties;
@@ -44,12 +47,12 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException In case the provided value is null.
    */
   public void setMongoDatabaseName(String mongoDatabaseName) throws SetupRelatedIndexingException {
-    this.mongoDatabaseName = nonNull(mongoDatabaseName, "mongoDatabaseName");
+    this.mongoDatabaseName = nonNullFieldName(mongoDatabaseName, "mongoDatabaseName");
   }
 
   public void setRecordRedirectDatabaseName(String recordRedirectDatabaseName)
       throws SetupRelatedIndexingException {
-    this.recordRedirectDatabaseName = nonNull(recordRedirectDatabaseName,
+    this.recordRedirectDatabaseName = nonNullFieldName(recordRedirectDatabaseName,
         "recordRedirectDatabaseName");
   }
 
@@ -186,10 +189,7 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException In case no Mongo database name was set.
    */
   public String getMongoDatabaseName() throws SetupRelatedIndexingException {
-    if (mongoDatabaseName == null) {
-      throw new SetupRelatedIndexingException("Please provide a Mongo database name.");
-    }
-    return mongoDatabaseName;
+    return nonNullMessage(mongoDatabaseName, "Please provide a Mongo database name.");
   }
 
   /**
@@ -218,13 +218,5 @@ public final class IndexingSettings {
 
   public SolrProperties<SetupRelatedIndexingException> getSolrProperties() {
     return this.solrProperties;
-  }
-
-  private static <T> T nonNull(T value, String fieldName) throws SetupRelatedIndexingException {
-    if (value == null) {
-      throw new SetupRelatedIndexingException(
-          String.format("Value '%s' cannot be null.", fieldName));
-    }
-    return value;
   }
 }
