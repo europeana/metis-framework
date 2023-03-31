@@ -440,8 +440,8 @@ class EnrichmentWorkerImplTest {
     assertEquals(null, returnedString);
     for (Report report : stringProcessedResult.getReport()) {
       assertEquals(Type.ERROR, report.getMessageType());
-      assertTrue(report.getMessage().contains("Something went wrong with converting to or from the RDF format."));
-      assertTrue(report.getStackTrace().contains("SerializationException"));
+      assertTrue(report.getMessage().contains("Error serializing rdf"));
+      assertTrue(report.getStackTrace().contains("SerializationException: Something went wrong with converting to or from the RDF format."));
     }
     assertEquals(1, stringProcessedResult.getReport().size());
     assertEquals(RecordStatus.STOP, stringProcessedResult.getRecordStatus());
