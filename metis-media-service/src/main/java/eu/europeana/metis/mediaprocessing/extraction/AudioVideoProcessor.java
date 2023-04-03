@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -336,34 +337,33 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   Integer findInt(String key, JSONObject[] candidates) {
-    final int result = findValue(key, candidates,
+    final Integer result = findValue(candidates,
         candidate -> candidate.optInt(key, Integer.MIN_VALUE),
         value -> Integer.MIN_VALUE != value);
     return nullIfNegative(result);
   }
 
   Long findLong(String key, JSONObject[] candidates){
-    final long result = findValue(key, candidates,
+    final Long result = findValue(candidates,
         candidate -> candidate.optLong(key, Long.MIN_VALUE),
         value -> Long.MIN_VALUE != value);
     return nullIfNegative(result);
   }
 
   Double findDouble(String key, JSONObject[] candidates) {
-    final double result = findValue(key, candidates,
+    final Double result = findValue(candidates,
         candidate -> candidate.optDouble(key, Double.NaN), value -> !value.isNaN());
     return nullIfNegative(result);
   }
 
   String findString(String key, JSONObject[] candidates) {
-    return findValue(key, candidates, candidate -> candidate.optString(key, StringUtils.EMPTY),
+    return findValue(candidates, candidate -> candidate.optString(key, StringUtils.EMPTY),
         StringUtils::isNotBlank);
   }
 
-  <T> T findValue(String key, JSONObject[] candidates, Function<JSONObject, T> valueGetter,
+  <T> T findValue(JSONObject[] candidates, Function<JSONObject, T> valueGetter,
       Predicate<T> valueValidator) {
-    return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst()
-                 .orElseThrow(() -> new JSONException("Could not find value for field: " + key));
+    return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst().orElse(null);
   }
 
   JSONObject findStream(JSONObject data, String codecType) {

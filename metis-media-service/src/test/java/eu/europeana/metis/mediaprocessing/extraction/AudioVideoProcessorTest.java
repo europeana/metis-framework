@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -200,20 +201,19 @@ class AudioVideoProcessorTest {
 
     // Test first object only
     final Function<JSONObject, String> firstOnly = object -> object == object1 ? value : null;
-    assertEquals(value, audioVideoProcessor.findValue(key, objects, firstOnly, Objects::nonNull));
+    assertEquals(value, audioVideoProcessor.findValue(objects, firstOnly, Objects::nonNull));
 
     // Test second object only
     final Function<JSONObject, String> secondOnly = object -> object == object2 ? value : null;
-    assertEquals(value, audioVideoProcessor.findValue(key, objects, secondOnly, Objects::nonNull));
+    assertEquals(value, audioVideoProcessor.findValue(objects, secondOnly, Objects::nonNull));
 
     // Test both
     final Function<JSONObject, String> both = object -> value;
-    assertEquals(value, audioVideoProcessor.findValue(key, objects, both, Objects::nonNull));
+    assertEquals(value, audioVideoProcessor.findValue(objects, both, Objects::nonNull));
 
     // Test neither
     final Function<JSONObject, String> neither = object -> null;
-    assertThrows(JSONException.class,
-        () -> audioVideoProcessor.findValue(key, objects, neither, Objects::nonNull));
+    assertNull(audioVideoProcessor.findValue(objects, neither, Objects::nonNull));
   }
 
   @Test
@@ -231,7 +231,7 @@ class AudioVideoProcessorTest {
 
     // Check not available
     doAnswer(invocation -> invocation.getArgument(1)).when(object).optInt(eq(key), anyInt());
-    assertThrows(JSONException.class, () -> audioVideoProcessor.findInt(key, objects));
+    assertNull(audioVideoProcessor.findInt(key, objects));
   }
 
   @Test
@@ -244,8 +244,8 @@ class AudioVideoProcessorTest {
     doReturn(value).when(object).optLong(eq(key), anyLong());
     assertEquals(value, audioVideoProcessor.findLong(key, objects));
 
-    doAnswer(invocation -> invocation.getArgument(1)).when(object).optLong(eq(key), anyLong());
-    assertThrows(JSONException.class, () -> audioVideoProcessor.findLong(key, objects));
+    doReturn(Long.MIN_VALUE).when(object).optLong(eq(key), anyLong());
+    assertNull(audioVideoProcessor.findLong(key, objects));
   }
 
   @Test
@@ -262,8 +262,8 @@ class AudioVideoProcessorTest {
     assertEquals(value, audioVideoProcessor.findDouble(key, objects));
 
     // Check not available
-    doAnswer(invocation -> invocation.getArgument(1)).when(object).optDouble(eq(key), anyDouble());
-    assertThrows(JSONException.class, () -> audioVideoProcessor.findDouble(key, objects));
+    doReturn(Double.NaN).when(object).optDouble(eq(key), anyDouble());
+    assertNull(audioVideoProcessor.findDouble(key, objects));
   }
 
   @Test
@@ -280,8 +280,8 @@ class AudioVideoProcessorTest {
     assertEquals(value, audioVideoProcessor.findString(key, objects));
 
     // Check not available
-    doAnswer(invocation -> invocation.getArgument(1)).when(object).optString(eq(key), anyString());
-    assertThrows(JSONException.class, () -> audioVideoProcessor.findString(key, objects));
+    doReturn(StringUtils.EMPTY).when(object).optString(eq(key), anyString());
+    assertNull(audioVideoProcessor.findString(key, objects));
   }
 
   @Test
