@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -274,10 +275,10 @@ class AudioVideoProcessor implements MediaProcessor {
 
       // Process the video or audio stream and create metadata
       final AbstractResourceMetadata metadata;
-      final Long fileSize = nullIfNegative(format.getLong("size"));
       if (isVideo) {
         // We have a video file
         final JSONObject[] candidates = new JSONObject[]{videoStream, format};
+        final Long fileSize = findLong("size", candidates);
         final Double duration = findDouble("duration", candidates);
         final Integer bitRate = findInt("bit_rate", candidates);
         final Integer width = findInt("width", candidates);
@@ -289,6 +290,7 @@ class AudioVideoProcessor implements MediaProcessor {
       } else if (isAudio) {
         // We have an audio file
         final JSONObject[] candidates = new JSONObject[]{audioStream, format};
+        final Long fileSize = findLong("size", candidates);
         final Double duration = findDouble("duration", candidates);
         final Integer bitRate = findInt("bit_rate", candidates);
         final Integer channels = findInt("channels", candidates);
@@ -335,27 +337,33 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   Integer findInt(String key, JSONObject[] candidates) {
-    final int result = findValue(key, candidates,
+    final Integer result = findValue(candidates,
         candidate -> candidate.optInt(key, Integer.MIN_VALUE),
         value -> Integer.MIN_VALUE != value);
     return nullIfNegative(result);
   }
 
+  Long findLong(String key, JSONObject[] candidates){
+    final Long result = findValue(candidates,
+        candidate -> candidate.optLong(key, Long.MIN_VALUE),
+        value -> Long.MIN_VALUE != value);
+    return nullIfNegative(result);
+  }
+
   Double findDouble(String key, JSONObject[] candidates) {
-    final double result = findValue(key, candidates,
+    final Double result = findValue(candidates,
         candidate -> candidate.optDouble(key, Double.NaN), value -> !value.isNaN());
     return nullIfNegative(result);
   }
 
   String findString(String key, JSONObject[] candidates) {
-    return findValue(key, candidates, candidate -> candidate.optString(key, StringUtils.EMPTY),
+    return findValue(candidates, candidate -> candidate.optString(key, StringUtils.EMPTY),
         StringUtils::isNotBlank);
   }
 
-  <T> T findValue(String key, JSONObject[] candidates, Function<JSONObject, T> valueGetter,
+  <T> T findValue(JSONObject[] candidates, Function<JSONObject, T> valueGetter,
       Predicate<T> valueValidator) {
-    return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst()
-                 .orElseThrow(() -> new JSONException("Could not find value for field: " + key));
+    return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst().orElse(null);
   }
 
   JSONObject findStream(JSONObject data, String codecType) {
