@@ -16,25 +16,25 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import dev.morphia.DeleteOptions;
-import dev.morphia.aggregation.experimental.Aggregation;
-import dev.morphia.aggregation.experimental.expressions.ArrayExpressions;
-import dev.morphia.aggregation.experimental.expressions.ComparisonExpressions;
-import dev.morphia.aggregation.experimental.expressions.ConditionalExpressions;
-import dev.morphia.aggregation.experimental.expressions.Expressions;
-import dev.morphia.aggregation.experimental.expressions.MathExpressions;
-import dev.morphia.aggregation.experimental.expressions.impls.Expression;
-import dev.morphia.aggregation.experimental.expressions.impls.MathExpression;
-import dev.morphia.aggregation.experimental.stages.Lookup;
-import dev.morphia.aggregation.experimental.stages.Projection;
-import dev.morphia.aggregation.experimental.stages.Sort;
-import dev.morphia.aggregation.experimental.stages.Unwind;
+import dev.morphia.aggregation.Aggregation;
+import dev.morphia.aggregation.expressions.ArrayExpressions;
+import dev.morphia.aggregation.expressions.ComparisonExpressions;
+import dev.morphia.aggregation.expressions.ConditionalExpressions;
+import dev.morphia.aggregation.expressions.Expressions;
+import dev.morphia.aggregation.expressions.MathExpressions;
+import dev.morphia.aggregation.expressions.impls.Expression;
+import dev.morphia.aggregation.expressions.impls.MathExpression;
+import dev.morphia.aggregation.stages.Lookup;
+import dev.morphia.aggregation.stages.Projection;
+import dev.morphia.aggregation.stages.Sort;
+import dev.morphia.aggregation.stages.Unwind;
 import dev.morphia.annotations.Entity;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filter;
-import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.experimental.updates.UpdateOperator;
-import dev.morphia.query.experimental.updates.UpdateOperators;
+import dev.morphia.query.filters.Filter;
+import dev.morphia.query.filters.Filters;
+import dev.morphia.query.updates.UpdateOperator;
+import dev.morphia.query.updates.UpdateOperators;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -329,7 +329,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         getFirstOrLastFinishedPlugin(datasetId, convertedPluginTypes, false);
     final MetisPlugin uncastResult = Optional.ofNullable(uncastResultWrapper)
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    if (uncastResult == null) {
+    if (uncastResultWrapper == null || uncastResult == null) {
       return null;
     }
 
@@ -383,9 +383,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final String orderField =
         METIS_PLUGINS.getFieldName() + "." + FINISHED_DATE.getFieldName();
     aggregation.match(collectedFilters)
-        .unwind(Unwind.on(METIS_PLUGINS.getFieldName()))
+        .unwind(Unwind.unwind(METIS_PLUGINS.getFieldName()))
         .match(collectedFilters)
-        .sort(firstFinished ? Sort.on().ascending(orderField) : Sort.on().descending(orderField))
+        .sort(firstFinished ? Sort.sort().ascending(orderField) : Sort.sort().descending(orderField))
         .limit(1);
 
     final List<WorkflowExecution> metisPluginsIterator = MorphiaUtils
@@ -513,7 +513,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
       // Step 3: Sort - first on the status index, then on the createdDate.
       aggregation
-          .sort(Sort.on().ascending(statusIndexField).descending(CREATED_DATE.getFieldName()));
+          .sort(Sort.sort().ascending(statusIndexField).descending(CREATED_DATE.getFieldName()));
 
       // Step 4: Apply pagination
       aggregation.skip(pagination.getSkip()).limit(pagination.getLimit());
@@ -574,7 +574,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .condition(runningCheckExpression, Expressions.value(RUNNING_POSITION_IN_OVERVIEW),
             Expressions.value(0));
 
-    aggregation.project(Projection.of()
+    aggregation.project(Projection.project()
         .include(statusInQueueField, inqueueConditionExpression)
         .include(statusRunningField, runningConditionExpression)
         .include(CREATED_DATE.getFieldName())
@@ -591,7 +591,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .condition(sumCheckExpression, Expressions.value(DEFAULT_POSITION_IN_OVERVIEW),
             sumExpression);
 
-    aggregation.project(Projection.of()
+    aggregation.project(Projection.project()
         .include(statusIndexField, statusIndexExpression)
         .include(CREATED_DATE.getFieldName())
         .include(DATASET_ID.getFieldName()));
@@ -603,15 +603,15 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Step 1: Join with the dataset and the execution
     final String datasetListField = "datasetList";
     final String executionListField = "executionList";
-    aggregation.lookup(Lookup.from(Dataset.class).localField(DATASET_ID.getFieldName())
+    aggregation.lookup(Lookup.lookup(Dataset.class).localField(DATASET_ID.getFieldName())
         .foreignField(DATASET_ID.getFieldName()).as(datasetListField));
-    aggregation.lookup(Lookup.from(WorkflowExecution.class).localField(ID.getFieldName())
+    aggregation.lookup(Lookup.lookup(WorkflowExecution.class).localField(ID.getFieldName())
         .foreignField(ID.getFieldName()).as(executionListField));
 
     // Step 2: Keep only the first entry in the dataset and execution lists.
     final String datasetField = "dataset";
     final String executionField = "execution";
-    final Projection projection = Projection.of()
+    final Projection projection = Projection.project()
         .include(datasetField,
             ArrayExpressions.elementAt(Expressions.field(datasetListField), Expressions.value(0)))
         .include(executionField, ArrayExpressions
