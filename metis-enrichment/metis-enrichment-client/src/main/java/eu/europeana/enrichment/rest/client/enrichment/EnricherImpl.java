@@ -135,7 +135,7 @@ public class EnricherImpl implements Enricher {
     } catch (RuntimeException runtimeException) {
       reports.add(Report
           .buildEnrichmentError()
-          .withMessage("Error in process entity API resolveByText for enrich values")
+          .withMessage("Error while resolving values by text when enriching values")
           .withValue(searchTerms.stream()
                                 .map(AbstractSearchTerm::getTextValue)
                                 .sorted(String::compareToIgnoreCase)
@@ -172,37 +172,29 @@ public class EnricherImpl implements Enricher {
     }
   }
 
-  private Set<Report> getWarningsOrErrors(Throwable throwable, String referenceValue) {
+  private Set<Report> getWarningsOrErrors(Throwable exception, String referenceValue) {
     HttpStatus warningStatus;
-    Throwable rootCause = ExceptionUtils.getRootCause(throwable);
+    Throwable rootCause = ExceptionUtils.getRootCause(exception);
     HashSet<Report> reports = new HashSet<>();
     if (rootCause == null) {
-      warningStatus = containsWarningStatus(throwable.getMessage());
-      reports.add(warningStatus == null ?
-          Report.buildEnrichmentError()
-                .withMessage("Error in process entity API resolveByUri for enrich references")
-                .withValue(referenceValue)
-                .withException(throwable)
-                .build() :
-          Report.buildEnrichmentWarn()
-                .withStatus(warningStatus)
-                .withValue(referenceValue)
-                .withException(throwable)
-                .build());
+      warningStatus = containsWarningStatus(exception.getMessage());
     } else {
       warningStatus = containsWarningStatus(rootCause.getMessage());
-      reports.add(warningStatus == null ?
-          Report.buildEnrichmentError()
-                .withMessage("Error in process entity API resolveByUri for enrich references")
-                .withValue(referenceValue)
-                .withException(throwable)
-                .build() :
-          Report.buildEnrichmentWarn()
-                .withStatus(warningStatus)
-                .withValue(referenceValue)
-                .withException(rootCause)
-                .build());
+      if (warningStatus != null) {
+        exception = rootCause;
+      }
     }
+    reports.add(warningStatus == null ?
+        Report.buildEnrichmentError()
+              .withMessage("Error while resolving values by uri when enriching references")
+              .withValue(referenceValue)
+              .withException(exception)
+              .build() :
+        Report.buildEnrichmentWarn()
+              .withStatus(warningStatus)
+              .withValue(referenceValue)
+              .withException(exception)
+              .build());
     return reports;
   }
 
