@@ -379,7 +379,6 @@ class EnrichmentWorkerImplTest {
 
   @Test
   void testProcessWrapperMethods() throws SerializationException {
-
     // Create enrichment worker and mock the actual worker method as well as the RDF conversion
     // methods.
     final EnrichmentWorkerImpl worker = spy(new EnrichmentWorkerImpl(null, null));
@@ -421,6 +420,34 @@ class EnrichmentWorkerImplTest {
     }
     assertEquals(1, resultString.getReport().size());
     assertEquals(RecordStatus.STOP, resultString.getRecordStatus());
+  }
+
+  @Test
+  void testEnrichmentWorkerSerializationException() {
+    final EnrichmentWorkerImpl worker = spy(new EnrichmentWorkerImpl(null, null));
+
+    final ProcessedResult<String> stringProcessedResult = worker.process(
+        "<?xml version=\"1.0\"?>\n"
+        + "<rdf:RDF\n"
+        + "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+        + "xmlns:si=\"https://www.europeana.eu/rdf/\">\n"
+        + "<rdf:Description rdf:about=\"https://www.europeana.eu\">\n"
+        + "  <si:title>Europe Cultural Heritage</si:title>\n"
+        + "  <si:author>Europeana</si:author>\n"
+        + "</rdf:Description>\n"
+        + "</rdf:RDF>");
+    final String returnedString = stringProcessedResult.getProcessedRecord();
+    assertEquals(null, returnedString);
+    for (Report report : stringProcessedResult.getReport()) {
+      assertEquals(Type.ERROR, report.getMessageType());
+      assertTrue(report.getMessage().contains("Error serializing rdf"));
+      assertTrue(report.getStackTrace().contains("SerializationException: Something went wrong with converting to or from the RDF format."));
+    }
+    assertEquals(1, stringProcessedResult.getReport().size());
+    assertEquals(RecordStatus.STOP, stringProcessedResult.getRecordStatus());
+
+    // Validate the method calls to the actual worker method
+    verify(worker, times(1)).process(any(String.class), any());
   }
 
   @Test
