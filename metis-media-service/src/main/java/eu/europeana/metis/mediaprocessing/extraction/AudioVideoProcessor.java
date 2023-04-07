@@ -275,10 +275,10 @@ class AudioVideoProcessor implements MediaProcessor {
 
       // Process the video or audio stream and create metadata
       final AbstractResourceMetadata metadata;
+      final Long fileSize = findLong("size", new JSONObject[]{format});
       if (isVideo) {
         // We have a video file
         final JSONObject[] candidates = new JSONObject[]{videoStream, format};
-        final Long fileSize = findLong("size", candidates);
         final Double duration = findDouble("duration", candidates);
         final Integer bitRate = findInt("bit_rate", candidates);
         final Integer width = findInt("width", candidates);
@@ -290,7 +290,6 @@ class AudioVideoProcessor implements MediaProcessor {
       } else if (isAudio) {
         // We have an audio file
         final JSONObject[] candidates = new JSONObject[]{audioStream, format};
-        final Long fileSize = findLong("size", candidates);
         final Double duration = findDouble("duration", candidates);
         final Integer bitRate = findInt("bit_rate", candidates);
         final Integer channels = findInt("channels", candidates);

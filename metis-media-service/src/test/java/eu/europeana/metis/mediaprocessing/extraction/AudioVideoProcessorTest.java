@@ -300,6 +300,7 @@ class AudioVideoProcessorTest {
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
     doReturn(format).when(object).getJSONObject("format");
+    final JSONObject[] formatAsArray = new JSONObject[]{format};
     final JSONObject audioStream = mock(JSONObject.class);
     doReturn(audioStream).when(audioVideoProcessor).findStream(object, "audio");
     doReturn(null).when(audioVideoProcessor).findStream(object, "video");
@@ -312,7 +313,7 @@ class AudioVideoProcessorTest {
     final Integer bitsPerSample = 8;
     final Double duration = 180.062050;
     final Integer bitRate = 320000;
-    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(candidates));
+    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(formatAsArray));
     doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
     doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
     doReturn(bitsPerSample).when(audioVideoProcessor)
@@ -355,6 +356,7 @@ class AudioVideoProcessorTest {
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
     doReturn(format).when(object).getJSONObject("format");
+    final JSONObject[] formatAsArray = new JSONObject[]{format};
     final JSONObject audioStream = mock(JSONObject.class);
     doReturn(audioStream).when(audioVideoProcessor).findStream(object, "audio");
     final JSONObject videoStream = mock(JSONObject.class);
@@ -369,7 +371,7 @@ class AudioVideoProcessorTest {
     final Integer bitRate = 595283;
     final int frameRateNumerator = 629150;
     final int frameRateDenominator = 25181;
-    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(candidates));
+    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(formatAsArray));
     doReturn(width).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
     doReturn(height).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
     doReturn("h264").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
