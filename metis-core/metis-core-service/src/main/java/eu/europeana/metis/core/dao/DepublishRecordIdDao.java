@@ -377,7 +377,10 @@ public class DepublishRecordIdDao {
     if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
       updateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD));
     } else {
-      updateOperators.add(UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD, depublicationDate));
+      updateOperators.add(
+          UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD,
+          depublicationDate == null? Date.from(Instant.now()): depublicationDate)
+      );
     }
 
     // Apply the operations.
