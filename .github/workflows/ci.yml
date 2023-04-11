@@ -1,16 +1,9 @@
 name: CI
 
-on:
-  push:
-    #Do not run on main to avoid duplicate builds during release
-    branches-ignore:
-      - '!master'
-      - '!main'
-    #Run on release tags
-    tags:
-      - 'v*'
+on: push
 
 jobs:
+
   ci:
     uses: europeana/metis-actions/.github/workflows/ci.yml@main
     with:
@@ -18,12 +11,14 @@ jobs:
       sonar_project_key: europeana_metis-framework
     secrets:
       SONAR_TOKEN: ${{ secrets.METIS_SONAR_TOKEN }}
+
   deploy-artifacts:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/deploy-artifacts.yml@main
     secrets:
       ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
       ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+
   docker-build_metis-authentication:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main

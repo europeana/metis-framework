@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>metis-common-base</module>
     <module>metis-common-utils</module>
     <module>metis-common-mongo</module>
     <module>metis-common-solr</module>
