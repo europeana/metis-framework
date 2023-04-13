@@ -2,7 +2,6 @@
 <rdf:RDF
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:dcterms="http://purl.org/dc/terms/"
-  xmlns:doap="http://usefulinc.com/ns/doap#"
   xmlns:edm="http://www.europeana.eu/schemas/edm/"
   xmlns:ore="http://www.openarchives.org/ore/terms/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -44,7 +43,7 @@
   <ore:Proxy rdf:about="ivrla:3827">
     <dc:contributor rdf:resource="http://viaf.org/viaf/17227308" rdfs:label="Author"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/22950329" rdfs:label="Author"/>
-    <dc:date>January, 1765</dc:date>
+    <dc:date>190X</dc:date>
     <dc:description xml:lang="en">Physical location: UCD Library, UCD Library Special Collections,
       UCD Letters, UCD L 1
     </dc:description>
