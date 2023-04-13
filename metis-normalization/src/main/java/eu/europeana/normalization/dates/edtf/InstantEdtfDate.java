@@ -19,7 +19,6 @@ import java.time.MonthDay;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.TemporalAccessor;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,15 +94,30 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return firstDay;
   }
 
+  /**
+   * Get the date that correspond to the first day of the year.
+   * <p>
+   *   <ul>
+   *     <li>For full dates e.g. 1989-11-01 it is identical 1989-11-01</li>
+   *     <li>For dates without day e.g. 1989-11 it is 1989-11-01</li>
+   *     <li>For dates with only year e.g. 1989 it is 1989-01-01</li>
+   *     <li>For dates with only year and precision {@link YearPrecision#CENTURY} e.g. 1900 it is 1901-01-01</li>
+   *     <li>For dates with only year and precision {@link YearPrecision#DECADE} e.g. 1980 it is 1980-01-01</li>
+   *   </ul>
+   *   Century example range explained <a href="https://en.wikipedia.org/wiki/20th_century>20th_century</a>
+   * </p>
+   *
+   * @return the date instance corresponding to the first day of the year for this date
+   * @throws DateExtractionException if creation of the date failed
+   */
   private InstantEdtfDate firstDayOfYearDatePart() throws DateExtractionException {
     final TemporalAccessor temporalAccessorFirstDay;
     if (yearMonthDay != null) {
-      temporalAccessorFirstDay = yearMonthDay.with(TemporalAdjusters.firstDayOfYear());
+      temporalAccessorFirstDay = yearMonthDay;
     } else if (month != null) {
       temporalAccessorFirstDay = YearMonth.of(year.getValue(), month).atDay(1);
     } else {
-      // TODO: 13/02/2023 Check with Nuno why when it's CENTURY precision we add a year?
-      final MonthDay january01 = MonthDay.of(Month.JANUARY, Month.JANUARY.minLength());
+      final MonthDay january01 = MonthDay.of(Month.JANUARY, 1);
       temporalAccessorFirstDay = year.plusYears(yearPrecision == YearPrecision.CENTURY ? 1 : 0).atMonthDay(january01);
     }
 
@@ -127,14 +141,29 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return lastDay;
   }
 
+  /**
+   * Get the date that correspond to the last day of the year.
+   * <p>
+   *   <ul>
+   *     <li>For full dates e.g. 1989-11-01 it is identical 1989-11-01</li>
+   *     <li>For dates without day e.g. 1989-11 it is 1989-11-30</li>
+   *     <li>For dates with only year e.g. 1989 it is 1989-12-31</li>
+   *     <li>For dates with only year and precision {@link YearPrecision#CENTURY} e.g. 1900 it is 2000-12-31</li>
+   *     <li>For dates with only year and precision {@link YearPrecision#DECADE} e.g. 1980 it is 1989-12-31</li>
+   *   </ul>
+   *   Century example range explained <a href="https://en.wikipedia.org/wiki/20th_century>20th_century</a>
+   * </p>
+   *
+   * @return the date instance corresponding to the last day of the year for this date
+   * @throws DateExtractionException if creation of the date failed
+   */
   private InstantEdtfDate lastDayOfYearDatePart() throws DateExtractionException {
     final TemporalAccessor temporalAccessorLastDay;
     if (yearMonthDay != null) {
-      temporalAccessorLastDay = yearMonthDay.with(TemporalAdjusters.lastDayOfYear());
+      temporalAccessorLastDay = yearMonthDay;
     } else if (month != null) {
       temporalAccessorLastDay = YearMonth.of(year.getValue(), month).atEndOfMonth();
     } else {
-      // TODO: 13/02/2023 Check with Nuno the year additions.
       final Year adjustedYear;
       if (yearPrecision == YearPrecision.CENTURY) {
         adjustedYear = year.plusYears(yearPrecision.getDuration());
@@ -156,11 +185,10 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   }
 
   public Integer getCentury() {
-    int century = (year.getValue() / YearPrecision.CENTURY.getDuration()) + 1;
-    if (yearPrecision == YearPrecision.YEAR) {
-      century += 1;
-    }
-    return century;
+    int centuryDivision = year.getValue() / YearPrecision.CENTURY.getDuration();
+    int centuryModulo = year.getValue() % YearPrecision.CENTURY.getDuration();
+    //For case 1900 it is 19th. For case 1901 it is 20th century
+    return centuryModulo == 0 ? centuryDivision : centuryDivision + 1;
   }
 
   /**
