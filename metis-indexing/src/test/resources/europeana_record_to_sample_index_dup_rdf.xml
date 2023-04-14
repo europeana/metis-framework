@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:cc="http://creativecommons.org/ns#" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:oa="http://www.w3.org/ns/oa#" xmlns:dqv="http://www.w3.org/ns/dqv#">
+  <edm:ProvidedCHO rdf:about="/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+  <edm:WebResource rdf:about="https://archivesspace-ed.nl/digital_objects/258/222/062-007.pdf">
+    <dc:description xml:lang="nl">c1739a4bddc51ed13cbb57f9d911dae2 - 82-5</dc:description>
+    <edm:rights rdf:resource="http://creativecommons.org/publicdomain/mark/1.0/"/>
+    <ebucore:hasMimeType>application/pdf</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">13924049</ebucore:fileByteSize>
+    <edm:spatialResolution rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">300</edm:spatialResolution>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://archivesspace-pi.nl/repositories/11/archival_objects/42779">
+    <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">0</ebucore:fileByteSize>
+  </edm:WebResource>
+  <edm:Agent rdf:about="http://data.europeana.eu/agent/174106">
+    <skos:prefLabel xml:lang="de">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Тит Брандсма</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Tito de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Tytus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Titus de Boer</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Titus de Boer</skos:prefLabel>
+    <skos:altLabel xml:lang="de">Anno Sjoerd de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="de">F. Titus de Boer O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Брандсма, Титус</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Титус Брандсма</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Брандсма, Тит</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Tito de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Beato tito de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Anno Sjoerd Titus de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="en">Titus de Boer, O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="en">Anno Sjoerd de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="en">F. Titus de Boer O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="it">Titus de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="fr">Anno Sjoerd de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="pl">Bł. Tytus</skos:altLabel>
+    <skos:altLabel xml:lang="pl">Błogosławiony Tytus</skos:altLabel>
+    <skos:altLabel xml:lang="ro">Anno Sjoerd de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="ro">F. Titus de Boer O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="nl">Anno Sjoerd de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="nl">T. de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Tito de Boer</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Titus de Boer, O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="ca">F. Titus de Boer O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="ca">P. Titus de Boer O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Fra Titus de Boer O.Carm.</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Anno Sjoerd de Boer</skos:altLabel>
+    <skos:note xml:lang="de">Niederländischer Theologe im Widerstand gegen den Nationalsozialismus</skos:note>
+    <skos:note xml:lang="sv">Nederländsk karmelitermunk, präst, och professor i filosofi</skos:note>
+    <skos:note xml:lang="en">Dutch Carmelite friar, Catholic priest, professor of philosophy and saint</skos:note>
+    <skos:note xml:lang="it">Sacerdote olandese</skos:note>
+    <skos:note xml:lang="fr">Prêtre carme néerlandais, canonisé le 15 mai 2022</skos:note>
+    <skos:note xml:lang="ro">Călugăr carmelit, profesor de filozofie, victimă a regimului nazist</skos:note>
+    <skos:note xml:lang="nl">Nederlands priester, martelaar en heilige</skos:note>
+    <skos:note xml:lang="ca">Frare carmelita holandès, sacerdot catòlic, professor de filosofia i esperantista</skos:note>
+    <rdaGr2:dateOfBirth>1881-02-23</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>1942-07-26</rdaGr2:dateOfDeath>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2962"></rdaGr2:professionOrOccupation>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q454645"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/51745479"/>
+    <owl:sameAs rdf:resource="https://d-nb.info/gnd/11867322X"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n80119298"/>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb12249913m"/>
+    <owl:sameAs rdf:resource="http://www.idref.fr/031246303/id"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/0c3zfq"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/0c3zfq"/>
+    <owl:sameAs rdf:resource="http://openlibrary.org/works/OL1412317A"/>
+    <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX1084886"/>
+    <owl:sameAs rdf:resource="http://data.bibliotheken.nl/id/thes/p06947074X"/>
+    <owl:sameAs rdf:resource="https://livedata.bibsys.no/authority/15005059"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/60799"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Titus_de Boer"/>
+  </edm:Agent>
+  <edm:TimeSpan rdf:about="#1942%2F1942">
+    <skos:prefLabel xml:lang="zxx">1942/1942</skos:prefLabel>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1942-01-01</edm:begin>
+    <edm:end>1942-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1942/1942</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#1942%7E">
+    <skos:prefLabel xml:lang="zxx">1942~</skos:prefLabel>
+    <skos:note>approximate</skos:note>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1942-01-01</edm:begin>
+    <edm:end>1942-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1942~</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/20">
+    <skos:prefLabel xml:lang="de">20. Jahrhundert</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">1900-luku</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">XX век</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Século XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">20 век</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">XX amžius</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">20. stoljeće</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">20. gadsimts</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">XXe siècle</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">20. század</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">20. storočie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">20. stoletje</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">20ú haois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Segle XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">1900-talet</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">20ός αιώνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">20th century</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">XX secolo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Siglo XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">20. sajand</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">20. století</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">XX. mendea</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">XX wiek</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">20. århundrede</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Secolul al XX-lea</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">20e eeuw</skos:prefLabel>
+    <skos:altLabel xml:lang="sv">20:e århundradet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">20:e seklet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-tal</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (århundrade)</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (sekel)</skos:altLabel>
+    <skos:altLabel xml:lang="ru">20 век</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século 20</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século vinte</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Periodo 1901-2000</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Ciclo (1901-2000)</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">Twentieth century</skos:altLabel>
+    <skos:altLabel xml:lang="en">The past century</skos:altLabel>
+    <skos:altLabel xml:lang="en">History, 20th Century</skos:altLabel>
+    <skos:altLabel xml:lang="en">XX Century</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="it">20° secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">'900</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="fr">20e siècle</skos:altLabel>
+    <edm:begin>1901-01-01</edm:begin>
+    <edm:end>2000-12-31</edm:end>
+    <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/19"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q6927"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh2002012476"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh85139020"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D049673"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/089_x"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/089_x"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.504.968"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404514"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/20th_century"/>
+  </edm:TimeSpan>
+  <skos:Concept rdf:about="http://id.loc.gov/authorities/names/n80119298">
+    <skos:altLabel>de Boer, Anno Sjoerd, 1881-1942</skos:altLabel>
+    <skos:altLabel>de Boer, Titus, father, 1881-1942</skos:altLabel>
+    <skos:altLabel>de Boer, Titus, Saint, 1881-1942</skos:altLabel>
+    <skos:closeMatch rdf:resource="http://www.wikidata.org/entity/Q454645"/>
+    <skos:closeMatch rdf:resource="http://id.worldcat.org/fast/60799"/>
+    <skos:closeMatch rdf:resource="http://id.worldcat.org/fast/60799"/>
+    <skos:closeMatch rdf:resource="http://www.wikidata.org/entity/Q454645"/>
+    <skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/LC%7Cn++80119298#skos:Concept"/>
+    <skos:inScheme rdf:resource="http://id.loc.gov/authorities/names"/>
+    <skos:prefLabel>de Boer, Titus, 1881-1942</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://vocab.getty.edu/aat/300379505">
+    <skos:altLabel xml:lang="en">archival material</skos:altLabel>
+    <skos:broader rdf:resource="http://vocab.getty.edu/aat/300185712"/>
+    <skos:note xml:lang="en">The physical materials that make up the mass of an archive. Distinguished from AAT "archives (groupings)."</skos:note>
+    <skos:note xml:lang="nl">De fysieke materialen die samen een archief vormen. In de AAT te onderscheiden van 'archieven (groepen)'.</skos:note>
+    <skos:prefLabel xml:lang="en">archival materials</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">archiefmateriaal</skos:prefLabel>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/50/_providedCHO_NL_BwdADRKF_2_82_5">
+    <edm:aggregatedCHO rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000046543016"></edm:dataProvider>
+    <edm:isShownAt rdf:resource="https://archivesspace-pi.nl/repositories/11/archival_objects/42779"/>
+    <edm:isShownBy rdf:resource="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf"/>
+    <edm:object rdf:resource="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000004671077"></edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/publicdomain/mark/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/50/_providedCHO_NL_BwdADRKF_2_82_5">
+    <dc:date rdf:resource="#1942%7E"></dc:date>
+    <dcterms:created rdf:resource="#1942%2F1942"></dcterms:created>
+    <dc:identifier>#providedCHO_NL-BwdADRKF-2_62-7</dc:identifier>
+    <dc:language>nld</dc:language>
+    <dc:creator rdf:resource="http://data.europeana.eu/agent/174106"></dc:creator>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+    <ore:lineage rdf:resource="/proxy/provider/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/50/_providedCHO_NL_BwdADRKF_2_82_5">
+    <dc:creator xml:lang="nl">de Boer, Titus, O.Carm., 1881-1942</dc:creator>
+    <dc:creator rdf:resource="http://id.loc.gov/authorities/names/n80119298"></dc:creator>
+    <dc:date>[ca. 1942]</dc:date>
+    <dc:identifier>62-7</dc:identifier>
+    <dc:language>dut</dc:language>
+    <dc:title xml:lang="nl">Teksten (fotokopieën, vijf bladzijden), door
+      Titus geschreven voor zijn boek over de H. Theresia. (originelen aanwezig in
+      het N.C.I. te Boxmeer).</dc:title>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/300379505"></dc:type>
+    <dcterms:created>1942/1942</dcterms:created>
+    <dcterms:extent>1 omslag</dcterms:extent>
+    <dcterms:isPartOf rdf:resource="#providedCHO_NL-BwdADRKF-2"></dcterms:isPartOf>
+    <edm:isNextInSequence rdf:resource="#providedCHO_NL-BwdADRKF-2_62-6b"/>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+    <edm:type>TEXT</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/50/_providedCHO_NL_BwdADRKF_2_82_5">
+    <edm:aggregatedCHO rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_82_5"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>50_test_13032023_1018</edm:datasetName>
+    <edm:country>Netherlands</edm:country>
+    <edm:preview rdf:resource="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf"/>
+    <edm:language>nl</edm:language>
+    <edm:completeness>8</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000046543016">
+    <skos:prefLabel xml:lang="en">Archive and Documentation Center for RK Friesland</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Archief- en Documentatiecentrum voor R.K. Friesland</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004671077">
+    <skos:prefLabel xml:lang="en">Archives Portal Europe</skos:prefLabel>
+  </foaf:Organization>
+</rdf:RDF>

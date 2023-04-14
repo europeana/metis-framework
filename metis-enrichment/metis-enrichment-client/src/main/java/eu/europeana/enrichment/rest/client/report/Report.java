@@ -111,7 +111,7 @@ public final class Report {
    * @return a reference to this Builder
    */
   public static Report buildEnrichmentError() {
-    return new Report().withMode(Mode.ENRICHMENT).withStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    return new Report().withMode(Mode.ENRICHMENT)
                        .withMessageType(Type.ERROR);
   }
 
@@ -197,7 +197,7 @@ public final class Report {
    * @return a reference to this Builder
    */
   public Report withException(Throwable val) {
-    message = ExceptionUtils.getMessage(val);
+    message = String.join(message == null ? "" : message, " ", ExceptionUtils.getMessage(val)).trim();
     stackTrace = ExceptionUtils.getStackTrace(val);
     return this;
   }

@@ -4,11 +4,16 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>9</version>
+    <version>10</version>
   </parent>
   <artifactId>metis-common-solr</artifactId>
 
   <dependencies>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-base</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-network</artifactId>

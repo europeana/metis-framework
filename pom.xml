@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>9</version>
+  <version>10</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -27,7 +27,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v9</tag>
+    <tag>HEAD</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -121,8 +121,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.ecloud>7-SNAPSHOT</version.ecloud>
-    <version.metis-schema>7-SNAPSHOT</version.metis-schema>
+    <version.ecloud>10-SNAPSHOT</version.ecloud>
+    <version.metis-schema>8</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
@@ -137,7 +137,7 @@
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commonscompress>1.21</version.commonscompress>
-    <version.corelib>2.15.8-SNAPSHOT</version.corelib>
+    <version.corelib>2.16.2</version.corelib>
 
     <!-- These two versions are interdependent. -->
     <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
@@ -169,7 +169,6 @@
     <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.resources.plugin>3.2.0</version.maven.resources.plugin>
-    <version.maven.war.plugin>2.3</version.maven.war.plugin>
     <version.mockito.core>4.3.1</version.mockito.core>
     <version.morphia.core>2.2.1</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
@@ -202,6 +201,11 @@
   <dependencyManagement>
     <dependencies>
       <!-- METIS COMMONS -->
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-base</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-mongo</artifactId>

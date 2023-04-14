@@ -189,11 +189,11 @@ public enum NumericPartsPattern {
   }
 
   /**
-   * Enum that contains the special characters(dates separator, dates delimiters, unspecified range edge) for each range
+   * Enum that contains the special characters(dates separator, dates delimiters, unspecified range doundary) for each range
    * separator.
    * <p>
    * Each separator has an entry and each accepts its own date delimiters as well as the unspecified characters supported for
-   * edges.
+   * boundaries.
    * </p>
    */
   public enum NumericRangeDateDelimiters implements DateDelimiters {
@@ -201,7 +201,7 @@ public enum NumericPartsPattern {
     SPACED_DASH_RANGE(" - ", DASH_DOT_SLASH_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
     PIPE_RANGE("\\|", DASH_DOT_SLASH_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS),
-    //For space separator we don't accept unspecified edges
+    //For space separator we don't accept unspecified boundaries
     //Does not exist in XX
     SPACE_RANGE(" ", DASH_DOT_SLASH_DELIMITERS, null),
     //"[XU]"

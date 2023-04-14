@@ -4,12 +4,13 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>9</version>
+    <version>10</version>
   </parent>
   <artifactId>metis-common</artifactId>
   <packaging>pom</packaging>
 
   <modules>
+    <module>metis-common-base</module>
     <module>metis-common-utils</module>
     <module>metis-common-mongo</module>
     <module>metis-common-solr</module>

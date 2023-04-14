@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author jochen
  */
-class IndexerImpl implements Indexer {
+public class IndexerImpl implements Indexer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerImpl.class);
 
@@ -207,7 +207,7 @@ class IndexerImpl implements Indexer {
    * @author jochen
    */
   @FunctionalInterface
-  interface IndexingSupplier<T> {
+  public interface IndexingSupplier<T> {
 
     /**
      * Gets a result.

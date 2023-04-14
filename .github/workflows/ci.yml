@@ -3,70 +3,59 @@ name: CI
 on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Build - Clean Jacoco Verify
-        run: >
-          mvn --batch-mode --update-snapshots
-          clean
-          org.jacoco:jacoco-maven-plugin:prepare-agent
-          verify
-          org.jacoco:jacoco-maven-plugin:report
-      - name: Sonar Analyze
-        run: >
-          mvn --batch-mode
-          -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.organization=europeana
-          -Dsonar.projectKey=europeana_metis-framework
-          sonar:sonar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  deploy_libraries:
-    needs: build
-    if: ${{ github.ref == 'refs/heads/develop' }}
-    runs-on: ubuntu-latest
+  ci:
+    uses: europeana/metis-actions/.github/workflows/ci.yml@main
+    with:
+      sonar_organization: europeana
+      sonar_project_key: europeana_metis-framework
+    secrets:
+      SONAR_TOKEN: ${{ secrets.METIS_SONAR_TOKEN }}
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: maven
-      - name: Prepare Settings Deploy
-        run: >
-          mkdir -p ~/.m2 &&
-          echo "<settings><servers><server><id>${REPOSITORY_ID}</id><username>${REPOSITORY_USERNAME}</username><password>${REPOSITORY_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
-        env:
-          REPOSITORY_ID: artifactory.eanadev.org
-          REPOSITORY_USERNAME: ${{ secrets.REPOSITORY_USERNAME }}
-          REPOSITORY_PASSWORD: ${{ secrets.REPOSITORY_PASSWORD }}
-      - name: Deploy
-        run: >
-          mvn --batch-mode
-          -Dmaven.test.skip=true
-          -Dmaven.install.skip=true
-          deploy
+  deploy-artifacts:
+    needs: ci
+    uses: europeana/metis-actions/.github/workflows/deploy-artifacts.yml@main
+    secrets:
+      ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+      ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+
+  docker-build_metis-authentication:
+    needs: ci
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    with:
+      docker-organization: europeana
+      docker-image-name: metis-authentication
+      project-path: metis-authentication/metis-authentication-rest/
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  docker-build_metis-core:
+    needs: ci
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    with:
+      docker-organization: europeana
+      docker-image-name: metis-core
+      project-path: metis-core/metis-core-rest/
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  docker-build_metis-dereference:
+    needs: ci
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    with:
+      docker-organization: europeana
+      docker-image-name: metis-dereference
+      project-path: metis-dereference/metis-dereference-rest/
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  docker-build_metis-repository:
+    needs: ci
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    with:
+      docker-organization: europeana
+      docker-image-name: metis-repository
+      project-path: metis-repository/metis-repository-rest/
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}

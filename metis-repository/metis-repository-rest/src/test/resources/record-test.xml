@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <edm:ProvidedCHO rdf:about="#nhwSbs6">
+    <dc:creator xml:lang="en">Wosiewicz Leszek</dc:creator>
+    <dc:creator xml:lang="en">Januszewicz Marek</dc:creator>
+    <dc:date>1976</dc:date>
+    <dc:description xml:lang="en">The film is a portrayal of the life of the working-class district residents in Łódź. The individual sequences are observations of one of the working-class courtyards and fields.</dc:description>
+    <dc:format>video/quicktime</dc:format>
+    <dc:identifier>https://etiudy.filmschool.lodz.pl/material/Miejsce</dc:identifier>
+    <dc:identifier>http://media.etiudy.filmschool.lodz.pl/published_img/Miejsce/orig/00:01:33.02.png</dc:identifier>
+    <dc:language>pol</dc:language>
+    <dc:language>eng</dc:language>
+    <dc:publisher xml:lang="en">Lodz Film School</dc:publisher>
+    <dc:relation>http://media.etiudy.filmschool.lodz.pl/published/Miejsce.mov</dc:relation>
+    <dc:rights>http://rightsstatements.org/vocab/InC/1.0</dc:rights>
+    <dc:subject xml:lang="en">Poverty, Scheiblers Factory, Famula, Trade, The Working Class, Ksiezy Mlyn, Postman, Łódź, Post Office, Polish Red Cross, Socjety, fields</dc:subject>
+    <dc:title xml:lang="en">Place To live</dc:title>
+    <dc:type>film</dc:type>
+    <dc:type>video</dc:type>
+    <edm:type>VIDEO</edm:type>
+  </edm:ProvidedCHO>
+  <edm:WebResource rdf:about="http://media.etiudy.filmschool.lodz.pl/published/Miejsce.mov">
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </edm:WebResource>
+  <ore:Aggregation rdf:about="#aggregation:nhwSbs6">
+    <edm:aggregatedCHO rdf:resource="#nhwSbs6"/>
+    <edm:dataProvider>Archiwum Filmowe - Szkoła Filmowa w Łodzi</edm:dataProvider>
+    <edm:isShownAt rdf:resource="http://fbc.pionier.net.pl/id/oai:etiudy.filmschool.lodz.pl:instudio-205"/>
+    <edm:isShownBy rdf:resource="http://media.etiudy.filmschool.lodz.pl/published/Miejsce.mov"/>
+    <edm:object rdf:resource="http://media.etiudy.filmschool.lodz.pl/published_img/Miejsce/orig/00:01:33.02.png"/>
+    <edm:provider>Federacja Bibliotek Cyfrowych</edm:provider>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+</rdf:RDF>

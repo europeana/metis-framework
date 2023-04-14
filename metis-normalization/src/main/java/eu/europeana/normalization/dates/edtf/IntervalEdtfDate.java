@@ -1,90 +1,45 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static java.lang.String.format;
+
 /**
  * An EDTF date that represents a period of time specified by a start and end date with various degrees of precision
  */
 public class IntervalEdtfDate extends AbstractEdtfDate {
 
-  private static final long serialVersionUID = -8754610674192759880L;
-
+  public static final String DATE_INTERVAL_SEPARATOR = "/";
   private InstantEdtfDate start;
   private InstantEdtfDate end;
 
-  public IntervalEdtfDate(InstantEdtfDate start, InstantEdtfDate end) {
-    this.start = start;
-    this.end = end;
-  }
-
-  public IntervalEdtfDate(String label, InstantEdtfDate start, InstantEdtfDate end) {
-    super(label);
-    this.start = start;
-    this.end = end;
-  }
-
-  public void switchStartWithEnd() {
-    InstantEdtfDate tempStart = this.start;
-    this.start = this.end;
-    this.end = tempStart;
+  IntervalEdtfDate(IntervalEdtfDateBuilder intervalEdtfDateBuilder) {
+    super(intervalEdtfDateBuilder.getLabel());
+    this.start = intervalEdtfDateBuilder.getStart();
+    this.end = intervalEdtfDateBuilder.getEnd();
   }
 
   @Override
-  public boolean isTimeOnly() {
-    return (start == null || start.isTimeOnly()) && (end == null || end.isTimeOnly());
-  }
-
-  @Override
-  public void setApproximate(boolean approx) {
-    if (start != null && start.getEdtfDatePart() != null) {
-      start.getEdtfDatePart().setApproximate(approx);
-    }
-    if (end != null && end.getEdtfDatePart() != null) {
-      end.getEdtfDatePart().setApproximate(approx);
+  public DateQualification getDateQualification() {
+    // TODO: 24/02/2023 To verify what this should return.
+    if (start.getDateQualification() == DateQualification.NO_QUALIFICATION) {
+      return end.getDateQualification();
+    } else {
+      return start.getDateQualification();
     }
   }
 
   @Override
-  public void setUncertain(boolean uncertain) {
-    if (start != null && start.getEdtfDatePart() != null) {
-      start.getEdtfDatePart().setUncertain(uncertain);
-    }
-    if (end != null && end.getEdtfDatePart() != null) {
-      end.getEdtfDatePart().setUncertain(uncertain);
-    }
-  }
-
-  @Override
-  public boolean isApproximate() {
-    return (start != null && start.isApproximate()) || (end != null && end.isApproximate());
-  }
-
-  @Override
-  public boolean isUncertain() {
-    return (start != null && start.isUncertain()) || (end != null && end.isUncertain());
-  }
-
-  @Override
-  public boolean isUnspecified() {
-    return (start != null && start.isUnspecified()) || (end != null && end.isUnspecified());
-  }
-
-  @Override
-  public void switchDayAndMonth() {
-    if (start != null) {
-      start.switchDayAndMonth();
-    }
-    if (end != null) {
-      end.switchDayAndMonth();
-    }
+  public boolean isOpen() {
+    return start.getDateBoundaryType() == DateBoundaryType.OPEN || end.getDateBoundaryType() == DateBoundaryType.OPEN;
   }
 
   @Override
   public InstantEdtfDate getFirstDay() {
-    return start == null ? null : start.getFirstDay();
+    return start.getFirstDay();
   }
 
   @Override
   public InstantEdtfDate getLastDay() {
-    return end == null ? null : end.getLastDay();
+    return end.getLastDay();
   }
 
   public InstantEdtfDate getStart() {
@@ -105,6 +60,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    return String.format("%s/%s", start.toString(), end.toString());
+    return format("%s%s%s", start.toString(), DATE_INTERVAL_SEPARATOR, end.toString());
   }
 }
