@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>10-SNAPSHOT</version>
+  <version>11-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
