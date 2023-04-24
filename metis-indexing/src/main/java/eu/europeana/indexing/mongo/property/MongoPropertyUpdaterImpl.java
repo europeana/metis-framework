@@ -279,15 +279,14 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
   @Override
   public T applyOperations() {
-
     final UpdateOperator[] extraUpdateOperators = this.updateOperators.toArray(UpdateOperator[]::new);
     final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
-
+    final Query<T> update = queryCreator.get();
     try {
-      retryableExternalRequestForNetworkExceptions(() -> queryCreator.get().update(updateOptions, extraUpdateOperators));
+      retryableExternalRequestForNetworkExceptions(() -> update.update(updateOptions, extraUpdateOperators));
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      queryCreator.get().update(updateOptions, extraUpdateOperators);
+      update.update(updateOptions, extraUpdateOperators);
     }
     return queryCreator.get().first();
   }
