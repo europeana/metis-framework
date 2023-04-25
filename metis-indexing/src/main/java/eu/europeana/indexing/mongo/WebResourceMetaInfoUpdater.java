@@ -1,7 +1,7 @@
 package eu.europeana.indexing.mongo;
 
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;

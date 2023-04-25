@@ -4,7 +4,7 @@ import dev.morphia.Datastore;
 import dev.morphia.DeleteOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;

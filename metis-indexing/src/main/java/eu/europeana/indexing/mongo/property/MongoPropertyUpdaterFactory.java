@@ -1,9 +1,9 @@
 package eu.europeana.indexing.mongo.property;
 
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.experimental.updates.UpdateOperator;
-import dev.morphia.query.experimental.updates.UpdateOperators;
+import dev.morphia.query.filters.Filters;
+import dev.morphia.query.updates.UpdateOperator;
+import dev.morphia.query.updates.UpdateOperators;
 import eu.europeana.indexing.utils.TriConsumer;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.Date;

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.AltLabel;

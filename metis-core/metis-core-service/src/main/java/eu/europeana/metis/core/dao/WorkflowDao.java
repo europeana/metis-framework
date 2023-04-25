@@ -6,7 +6,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.network.ExternalRequestUtil;

@@ -6,7 +6,7 @@ import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.metis.mongo.model.RecordRedirect;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.List;

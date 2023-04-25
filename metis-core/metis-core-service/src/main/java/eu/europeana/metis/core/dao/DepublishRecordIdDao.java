@@ -7,9 +7,9 @@ import dev.morphia.DeleteOptions;
 import dev.morphia.UpdateOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.experimental.updates.UpdateOperator;
-import dev.morphia.query.experimental.updates.UpdateOperators;
+import dev.morphia.query.filters.Filters;
+import dev.morphia.query.updates.UpdateOperator;
+import dev.morphia.query.updates.UpdateOperators;
 import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -76,7 +76,7 @@ public class DepublishRecordIdDao {
 
       // Create query for existing records in list. Only return record IDs.
       final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-          .find(DepublishRecordId.class);
+                                                                     .find(DepublishRecordId.class);
       query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
       query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds));
 
@@ -86,27 +86,25 @@ public class DepublishRecordIdDao {
       findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
       final Set<String> existing;
       existing = getListOfQueryRetryable(query, findOptions).stream()
-          .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+                                                            .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
 
       // Return the other ones: the record IDs not found in the database.
       return recordIds.stream().filter(recordId -> !existing.contains(recordId))
-          .collect(Collectors.toSet());
+                      .collect(Collectors.toSet());
     });
   }
 
   /**
-   * Add depublished records to persistence. This method checks whether the depublished record
-   * already exists, and if so, doesn't add it again. All new records (but not the existing ones)
-   * will have the default depublication status ({@link DepublicationStatus#PENDING_DEPUBLICATION})
-   * and no depublication date.
+   * Add depublished records to persistence. This method checks whether the depublished record already exists, and if so, doesn't
+   * add it again. All new records (but not the existing ones) will have the default depublication status
+   * ({@link DepublicationStatus#PENDING_DEPUBLICATION}) and no depublication date.
    *
    * @param datasetId The dataset to which the records belong.
    * @param candidateRecordIds The IDs of the depublish record ids to add.
-   * @return How many of the passed records were in fact added. This counter is not thread-safe: if
-   * multiple threads try to add the same records, their combined counters may overrepresent the
-   * number of records that were actually added.
-   * @throws BadContentException In case adding the records would violate the maximum number of
-   * depublished records that each dataset can have.
+   * @return How many of the passed records were in fact added. This counter is not thread-safe: if multiple threads try to add
+   * the same records, their combined counters may overrepresent the number of records that were actually added.
+   * @throws BadContentException In case adding the records would violate the maximum number of depublished records that each
+   * dataset can have.
    */
   public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds)
       throws BadContentException {
@@ -150,14 +148,14 @@ public class DepublishRecordIdDao {
   }
 
   /**
-   * Deletes a list of record ids from the database. Only record ids that are in a {@link
-   * DepublicationStatus#PENDING_DEPUBLICATION} state will be removed.
+   * Deletes a list of record ids from the database. Only record ids that are in a
+   * {@link DepublicationStatus#PENDING_DEPUBLICATION} state will be removed.
    *
    * @param datasetId The dataset to which the depublish record ids belong.
    * @param recordIds The depublish record ids to be removed
    * @return The number or record ids that were removed.
-   * @throws BadContentException In case adding the records would violate the maximum number of
-   * depublished records that each dataset can have.
+   * @throws BadContentException In case adding the records would violate the maximum number of depublished records that each
+   * dataset can have.
    */
   public Long deletePendingRecordIds(String datasetId, Set<String> recordIds)
       throws BadContentException {
@@ -169,7 +167,7 @@ public class DepublishRecordIdDao {
     }
 
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-        .find(DepublishRecordId.class);
+                                                                   .find(DepublishRecordId.class);
     query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
     query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds));
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
@@ -187,12 +185,11 @@ public class DepublishRecordIdDao {
   long countDepublishRecordIdsForDataset(String datasetId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
-            .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());
+                                      .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());
   }
 
   /**
-   * Counts how many records we have for a given dataset that have the status {@link
-   * DepublicationStatus#DEPUBLISHED}.
+   * Counts how many records we have for a given dataset that have the status {@link DepublicationStatus#DEPUBLISHED}.
    *
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records.
@@ -200,9 +197,9 @@ public class DepublishRecordIdDao {
   public long countSuccessfullyDepublishedRecordIdsForDataset(String datasetId) {
     return retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
-            .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).filter(Filters
+                                      .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).filter(Filters
                 .eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, DepublicationStatus.DEPUBLISHED))
-            .count());
+                                      .count());
   }
 
   /**
@@ -236,16 +233,16 @@ public class DepublishRecordIdDao {
   /**
    * Get all depublished records for a given dataset.
    * <p>This method is to be used with caution since it doesn't have a limit on the returned items.
-   * It is mainly used to minimize, internal to the application, database requests. Ids are returned
-   * based on the provided status filter parameter</p>
+   * It is mainly used to minimize, internal to the application, database requests. Ids are returned based on the provided status
+   * filter parameter</p>
    *
    * @param datasetId The dataset for which to retrieve the records. Cannot be null.
    * @param sortField The sorting field. Cannot be null.
    * @param sortDirection The sorting direction. Cannot be null.
    * @param depublicationStatus The depublication status of the records. Can be null.
    * @return A (possibly empty) list of depublish record ids.
-   * @throws BadContentException In case the records would violate the maximum number of depublished
-   * records that each dataset can have.
+   * @throws BadContentException In case the records would violate the maximum number of depublished records that each dataset can
+   * have.
    */
   public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
@@ -258,8 +255,8 @@ public class DepublishRecordIdDao {
   /**
    * Get all depublished records for a given dataset.
    * <p>This method is to be used with caution since it doesn't have a limit on the returned items.
-   * It is mainly used to minimize, internal to the application, database requests. Ids are returned
-   * based on the provided status filter parameter</p>
+   * It is mainly used to minimize, internal to the application, database requests. Ids are returned based on the provided status
+   * filter parameter</p>
    *
    * @param datasetId The dataset for which to retrieve the records. Cannot be null.
    * @param sortField The sorting field. Cannot be null.
@@ -267,8 +264,8 @@ public class DepublishRecordIdDao {
    * @param depublicationStatus The depublication status of the records. Can be null.
    * @param recordIds The record ids provided, that are to be checked upon. Can be null/empty
    * @return A (possibly empty) list of depublish record ids.
-   * @throws BadContentException In case the records would violate the maximum number of depublished
-   * records that each dataset can have.
+   * @throws BadContentException In case the records would violate the maximum number of depublished records that each dataset can
+   * have.
    */
   public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
@@ -302,7 +299,7 @@ public class DepublishRecordIdDao {
       DepublicationStatus depublicationStatus, String searchQuery) {
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-        .find(DepublishRecordId.class);
+                                                                   .find(DepublishRecordId.class);
     query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
     if (Objects.nonNull(depublicationStatus)) {
       query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus));
@@ -316,16 +313,14 @@ public class DepublishRecordIdDao {
   }
 
   /**
-   * This method marks record ids with the provided {@link DepublicationStatus} and {@link Date}
-   * where appropriate.
+   * This method marks record ids with the provided {@link DepublicationStatus} and {@link Date} where appropriate.
    * <p>A {@link DepublicationStatus#PENDING_DEPUBLICATION} unsets the depublication date</p>
    * <p>A {@link DepublicationStatus#DEPUBLISHED} sets the depublication date with the one
    * provided</p>
    *
    * @param datasetId the dataset for which to do this. Cannot be null
-   * @param recordIds the records for which to set this. Can be null or empty, in which case the
-   * operation will be performed on all records. If it is not empty, a new record will be created if
-   * a record with the given record ID is not already present.
+   * @param recordIds the records for which to set this. Can be null or empty, in which case the operation will be performed on
+   * all records. If it is not empty, a new record will be created if a record with the given record ID is not already present.
    * @param depublicationStatus the depublication status. Cannot be null
    * @param depublicationDate the depublication date. Can be null only if depublicationStatus is
    * {@link DepublicationStatus#PENDING_DEPUBLICATION}
@@ -353,8 +348,9 @@ public class DepublishRecordIdDao {
       // Add the records that are missing.
       final Set<String> recordIdsToAdd = getNonExistingRecordIds(datasetId, recordIds);
       final Instant depublicationInstant = Optional.ofNullable(depublicationDate)
-          .filter(date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
-          .map(Date::toInstant).orElse(null);
+                                                   .filter(
+                                                       date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
+                                                   .map(Date::toInstant).orElse(null);
       addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant);
 
       // Compute the records to update - if there are none, we're done.
@@ -367,27 +363,29 @@ public class DepublishRecordIdDao {
 
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-        .find(DepublishRecordId.class);
+                                                                   .find(DepublishRecordId.class);
     query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
     if (recordIdsToUpdate != null) {
       query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIdsToUpdate));
     }
 
     // Define the update operations.
-    final UpdateOperator firstUpdateOperator = UpdateOperators
-        .set(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus);
-    final ArrayList<UpdateOperator> extraUpdateOperators = new ArrayList<>();
+    final ArrayList<UpdateOperator> updateOperators = new ArrayList<>();
+    updateOperators.add(UpdateOperators
+        .set(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
+            depublicationStatus));
     if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
-      extraUpdateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD));
+      updateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD));
     } else {
-      extraUpdateOperators
-          .add(UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD, depublicationDate));
+      updateOperators.add(
+          UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD,
+          depublicationDate == null? Date.from(Instant.now()): depublicationDate)
+      );
     }
 
     // Apply the operations.
     retryableExternalRequestForNetworkExceptions(
-        () -> query.update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
-            .execute(new UpdateOptions().multi(true)));
+        () -> query.update(new UpdateOptions().multi(true), updateOperators.toArray(UpdateOperator[]::new)));
   }
 
   /**

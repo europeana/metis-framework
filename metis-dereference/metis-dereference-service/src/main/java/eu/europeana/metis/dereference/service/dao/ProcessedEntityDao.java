@@ -10,7 +10,7 @@ import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import java.util.Optional;
 import org.bson.types.ObjectId;
