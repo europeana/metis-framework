@@ -115,7 +115,7 @@ public class MongoDereferenceService implements DereferenceService {
    * <li>NO_ENTITY_FOR_VOCABULARY, this means the resource was found but no vocabulary and enrichment was found.</li>
    * <li>ENTITY_FOUND_XLT_ERROR, this occurs when an JAXBExcetion happened.</li>
    * <li>INVALID_URL, this occurs when an URIException happened.</li>
-   * <li>UNKNOWN_ENTITY, this occurs is the entity is unknown.</li>
+   * <li>UNKNOWN_EUROPEANA_ENTITY, this occurs when the europeana entity is unknown.</li>
    * <li>SUCCESS, this means everything was processed successfully.</li>
    * </ul>
    * </p>
@@ -152,7 +152,7 @@ public class MongoDereferenceService implements DereferenceService {
         dereferenceResult = new DereferenceResult(
             result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
             result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
-                  .orElse(DereferenceResultStatus.UNKNOWN_ENTITY));
+                  .orElse(DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY));
       }
     } catch (JAXBException jaxbException) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId), jaxbException);
@@ -387,7 +387,7 @@ public class MongoDereferenceService implements DereferenceService {
       // Evaluate the result.
       if (originalEntity == null && LOGGER.isInfoEnabled()) {
         LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
-        dereferenceResultStatus = DereferenceResultStatus.UNKNOWN_ENTITY;
+        dereferenceResultStatus = DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY;
       }
       return new MongoDereferencedEntity(originalEntity, dereferenceResultStatus);
     }

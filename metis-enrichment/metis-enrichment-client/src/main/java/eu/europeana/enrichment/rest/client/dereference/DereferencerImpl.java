@@ -97,7 +97,7 @@ public class DereferencerImpl implements Dereferencer {
         case NO_VOCABULARY_MATCHING:
           resultMessage = "Could not find a vocabulary matching the URL.";
           break;
-        case UNKNOWN_ENTITY:
+        case UNKNOWN_EUROPEANA_ENTITY:
           resultMessage = "Dereferencing or Coreferencing: the europeana entity does not exist.";
           break;
         case NO_ENTITY_FOR_VOCABULARY:
@@ -270,7 +270,7 @@ public class DereferencerImpl implements Dereferencer {
     for (ReferenceTerm referenceTerm : referenceTerms) {
       String resourceId = referenceTerm.getReference().toString();
       try {
-        LOGGER.debug("== Processing {}", resourceId);
+        LOGGER.debug("Dereference external entity processing {}", resourceId);
         result = retryableExternalRequestForNetworkExceptions(
             () -> dereferenceClient.dereference(resourceId));
         DereferenceResultStatus resultStatus = Optional.ofNullable(result)
@@ -278,7 +278,7 @@ public class DereferencerImpl implements Dereferencer {
                                                        .orElseGet(Collections::emptyList).stream()
                                                        .map(EnrichmentResultBaseWrapper::getDereferenceStatus)
                                                        .filter(Objects::nonNull).findFirst()
-                                                       .orElse(DereferenceResultStatus.UNKNOWN_ENTITY);
+                                                       .orElse(DereferenceResultStatus.FAILURE);
 
         setDereferenceStatusInReport(resourceId, reports, resultStatus);
       } catch (BadRequest e) {
