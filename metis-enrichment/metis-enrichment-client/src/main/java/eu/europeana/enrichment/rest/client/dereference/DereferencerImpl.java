@@ -87,7 +87,8 @@ public class DereferencerImpl implements Dereferencer {
             String resultMessage;
             switch (resultStatus) {
                 case ENTITY_FOUND_XML_XSLT_ERROR:
-                    resultMessage = "Entity was found, applying the XSLT results in an XML error (either because the entity is malformed or the XSLT is malformed).";
+                    resultMessage = "Entity was found, applying the XSLT results in an XML error"
+                            .concat("either because the entity is malformed or the XSLT is malformed).");
                     break;
                 case ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS:
                     resultMessage = "Entity was found, but the XSLT mapping did not produce a contextual class.";
