@@ -74,6 +74,7 @@ class EnrichmentWorkerImplTest {
         Arguments.of(getResourceFileContent("enrichment/sample_dereference_not_found.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("enrichment/sample_dereference_redirect.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("enrichment/sample_enrichment_noentity.rdf"), RecordStatus.CONTINUE),
+        Arguments.of(getResourceFileContent("enrichment/sample_enrichment_failure.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("enrichment/sample_enrichment_success.rdf"), RecordStatus.CONTINUE)
     );
   }
@@ -222,6 +223,11 @@ class EnrichmentWorkerImplTest {
             .withHeader("Content-Type", "application/json")
             .withBody(getResourceFileContent("entity-api/entity-api-response-resolve-uri-concept-ii.json"))
             .withStatus(HttpStatus.OK.value())));
+    wireMockServer.stubFor(get(urlEqualTo("/entity/resolve?uri=http://vocab.getty.edu/aat/400136800&wskey=api2demo"))
+            .willReturn(aResponse()
+                    .withHeader("Content-Type", "application/json")
+                    .withBody(getResourceFileContent("entity-api/entity-api-response-resolve-uri-concept.json"))
+                    .withStatus(HttpStatus.OK.value())));
   }
 
   private static void setDereferenceMocks() {
@@ -255,6 +261,12 @@ class EnrichmentWorkerImplTest {
             .withHeader("Content-Type", "application/xml")
             .withBody(getResourceFileContent("dereference/dereference-normal-redirect.xml"))
             .withStatus(HttpStatus.OK.value())));
+    wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fvocab.getty.edu%2Faat%2F400136800"))
+            .withHost(equalTo("dereference-rest.mock"))
+            .willReturn(aResponse()
+                    .withHeader("Content-Type", "application/xml")
+                    .withBody(getResourceFileContent("dereference/dereference-failure.xml"))
+                    .withStatus(HttpStatus.OK.value())));
   }
 
   @Test
