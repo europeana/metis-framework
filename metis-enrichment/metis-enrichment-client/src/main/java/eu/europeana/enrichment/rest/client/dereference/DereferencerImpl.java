@@ -11,6 +11,7 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -38,6 +39,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 /**
@@ -299,12 +301,21 @@ public class DereferencerImpl implements Dereferencer {
             } catch (Exception e) {
                 DereferenceException dereferenceException = new DereferenceException(
                         "Exception occurred while trying to perform dereferencing.", e);
-                reports.add(Report
-                        .buildDereferenceWarn()
-                        .withStatus(HttpStatus.OK)
-                        .withValue(resourceId)
-                        .withException(dereferenceException)
-                        .build());
+                if (ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
+                        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e) ) {
+                    reports.add(Report
+                            .buildDereferenceError()
+                            .withValue(resourceId)
+                            .withException(dereferenceException)
+                            .build());
+                } else {
+                    reports.add(Report
+                            .buildDereferenceWarn()
+                            .withStatus(HttpStatus.OK)
+                            .withValue(resourceId)
+                            .withException(dereferenceException)
+                            .build());
+                }
                 result = null;
             }
             resultMap.put(referenceTerm, Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)

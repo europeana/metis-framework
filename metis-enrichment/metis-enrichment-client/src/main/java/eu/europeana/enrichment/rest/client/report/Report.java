@@ -136,6 +136,16 @@ public final class Report {
   }
 
   /**
+   * Create a report message for dereference with warn type
+   *
+   * @return a reference to this Builder
+   */
+  public static Report buildDereferenceError() {
+    return new Report().withMode(Mode.DEREFERENCE)
+            .withMessageType(Type.ERROR);
+  }
+
+  /**
    * Sets the {@code status} and returns a reference to this Builder enabling method chaining.
    *
    * @param val the {@code status} to set
