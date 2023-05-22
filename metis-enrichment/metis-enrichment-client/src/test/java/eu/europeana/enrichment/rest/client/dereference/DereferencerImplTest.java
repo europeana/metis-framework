@@ -235,7 +235,7 @@ class DereferencerImplTest {
         assertEquals(1, reports.size());
         for (Report report : reports) {
             assertTrue(report.getMessage().contains("Dereference or Coreferencing failed."));
-            assertEquals(Type.WARN, report.getMessageType());
+            assertEquals(Type.ERROR, report.getMessageType());
             assertEquals(Mode.DEREFERENCE, report.getMode());
             assertEquals("http://valid-example.host/concept", report.getValue());
             assertEquals("", report.getStackTrace());
@@ -352,7 +352,7 @@ class DereferencerImplTest {
 
     private List<DereferencedEntities> prepareExpectedList() throws MalformedURLException {
         ReferenceTermImpl expectedReferenceTerm1 = new ReferenceTermImpl(new URL("http://valid-example.host/concept"));
-        Set<Report> expectedReports1 = Set.of(Report.buildDereferenceWarn().withStatus(HttpStatus.OK)
+        Set<Report> expectedReports1 = Set.of(Report.buildDereferenceError()
                 .withValue("http://valid-example.host/concept")
                 .withMessage("Dereference or Coreferencing failed."));
         DereferencedEntities expectedDereferencedEntities1 = new DereferencedEntities(
