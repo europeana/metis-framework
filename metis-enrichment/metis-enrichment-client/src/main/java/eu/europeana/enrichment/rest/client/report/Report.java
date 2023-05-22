@@ -106,7 +106,7 @@ public final class Report {
   }
 
   /**
-   * Create a report message for enrichment with error status and error type
+   * Create a report message for enrichment with error type
    *
    * @return a reference to this Builder
    */
@@ -135,6 +135,15 @@ public final class Report {
                        .withMessageType(Type.WARN);
   }
 
+  /**
+   * Create a report message for dereference with error type
+   *
+   * @return a reference to this Builder
+   */
+  public static Report buildDereferenceError() {
+    return new Report().withMode(Mode.DEREFERENCE)
+            .withMessageType(Type.ERROR);
+  }
   /**
    * Sets the {@code status} and returns a reference to this Builder enabling method chaining.
    *
