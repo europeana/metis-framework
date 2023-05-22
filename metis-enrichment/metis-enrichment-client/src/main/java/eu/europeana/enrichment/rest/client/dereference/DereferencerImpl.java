@@ -113,7 +113,12 @@ public class DereferencerImpl implements Dereferencer {
                 default:
                     resultMessage = "";
             }
-            if (resultStatus.equals(DereferenceResultStatus.INVALID_URL) ||
+            if (resultStatus.equals(DereferenceResultStatus.FAILURE)) {
+                reports.add(Report.buildDereferenceError()
+                        .withValue(resourceId)
+                        .withMessage(resultMessage)
+                        .build());
+            } else if (resultStatus.equals(DereferenceResultStatus.INVALID_URL) ||
                     resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING) ||
                     resultStatus.equals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS)) {
                 reports.add(Report

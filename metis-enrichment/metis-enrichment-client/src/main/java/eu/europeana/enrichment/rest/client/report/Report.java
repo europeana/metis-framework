@@ -106,7 +106,7 @@ public final class Report {
   }
 
   /**
-   * Create a report message for enrichment with error status and error type
+   * Create a report message for enrichment with error type
    *
    * @return a reference to this Builder
    */
@@ -136,7 +136,7 @@ public final class Report {
   }
 
   /**
-   * Create a report message for dereference with warn type
+   * Create a report message for dereference with error type
    *
    * @return a reference to this Builder
    */
