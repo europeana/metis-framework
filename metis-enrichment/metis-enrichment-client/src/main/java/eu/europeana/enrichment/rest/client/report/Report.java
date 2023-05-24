@@ -144,6 +144,7 @@ public final class Report {
     return new Report().withMode(Mode.DEREFERENCE)
             .withMessageType(Type.ERROR);
   }
+
   /**
    * Sets the {@code status} and returns a reference to this Builder enabling method chaining.
    *
