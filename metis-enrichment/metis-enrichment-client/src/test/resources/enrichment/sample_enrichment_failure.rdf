@@ -1,0 +1,66 @@
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:adms="http://www.w3.org/ns/adms#"
+  xmlns:cc="http://creativecommons.org/ns#" xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <edm:ProvidedCHO rdf:about="/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+  <ore:Aggregation rdf:about="/aggregation/provider/08635/8b528e8504s24895b42c56a7fhaf5502">
+    <edm:aggregatedCHO rdf:resource="/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+    <edm:dataProvider>Lietuvos Centrinis Valstybés Archyvas</edm:dataProvider>
+    <edm:isShownAt rdf:resource="http://www.e-kinas.lt/objektas/kinas/1382/consecration-of-the-church-foundation-in-klaipeda"/>
+    <edm:object rdf:resource="http://www.e-kinas.lt/search-results-order/ioresource/534?type=image"/>
+    <edm:provider xml:lang="en">EFG - The European Film Gateway</edm:provider>
+    <dc:rights>Lietuvos Centrinis Valstybes Archyvas</dc:rights>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/provider/08635/8b528e8504s24895b42c56a7fhaf5502">
+    <dc:contributor>Piotras Kalabuchovas</dc:contributor>
+    <dc:description>1957-06-30. Būsimos bažnyčios statybos aikštė, išpuošta berželiais, pilna tikinčiųjų. Lauko altorių puošia
+      didelis kryžius ir Dievo motinos Marijos skulptūra. Mišioms vadovauja Telšių vyskupas Petras Maželis. Eina procesija. Vyskupas
+      laimina tikinčiuosius. Jis laimina pasipuošusius vaikus, kurie priima pirmąją Komuniją. Vyskupas pašventina plytą, kuri įmūrijama į
+      būsimos bažnyčios pamatą. Aikštės vaizdas iš viršaus. Mišios baigėsi. Tikintieji skirstosi pagrindine Klaipėdos miesto
+      gatve. 2 dalis. Klebonas Liudvikas Povilionis skaito pamokslą iš sakyklos. Mišios. Gieda choristai .
+    </dc:description>
+    <dc:description
+      xml:lang="en">The Klaipėda church construction square decorated with birch trees. Outdoor altar decorated with a large cross
+      and a statue of Mary, Mother of God. Mass led by Bishop Petras Maželis. The bishop blesses the faithful. He blesses children
+      who receive First Communion. Bishop consecrates the first brick of the church foundation. Mass is over. Believers go the
+      main street of the city of Klaipėda. Part 2. The pastor Liudvikas Povilionis reads a sermon from the pulpit. Sings the
+      choir.
+    </dc:description>
+    <dc:identifier>8b528e8504s24895b42c56a7fhaf5502</dc:identifier>
+    <dc:subject xml:lang="es" rdf:resource="http://www.mimo-db.eu/InstrumentsKeywords/3052">Güiro</dc:subject>
+    <dc:subject xml:lang="nl" rdf:resource="http://www.mimo-db.eu/InstrumentsKeywords/0">Muziek</dc:subject>
+    <dc:subject xml:lang="en">Paranguaricutirimicuaro</dc:subject>
+    <dc:title>Klaipėdos bažnyčios pamatų įšventinimas</dc:title>
+    <dc:type rdf:resource="http://vocab.getty.edu/aat/400136800"/>
+    <dcterms:alternative xml:lang="en">Consecration of the Church Foundation in Klaipėda</dcterms:alternative>
+    <dcterms:created xml:lang="en">1957</dcterms:created>
+    <dcterms:provenance>Lietuvos Centrinis Valstybés Archyvas</dcterms:provenance>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+    <edm:type>VIDEO</edm:type>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/europeana/08635/8b528e8504s24895b42c56a7fhaf5502">
+    <dc:identifier>8b528e8504s24895b42c56a7fhaf5502</dc:identifier>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+    <ore:lineage rdf:resource="/proxy/provider/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/08635/8b528e8504s24895b42c56a7fhaf5502">
+    <edm:aggregatedCHO rdf:resource="/08635/8b528e8504s24895b42c56a7fhaf5502"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>08635_EFG_LCVA</edm:datasetName>
+    <edm:country>Lithuania</edm:country>
+    <edm:language>mul</edm:language>
+  </edm:EuropeanaAggregation>
+</rdf:RDF>
