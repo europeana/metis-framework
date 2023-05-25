@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
@@ -63,6 +65,9 @@ public class CompressedFileHandler {
         break;
       case GZIP:
         extractGzFile(compressedFile, destinationFolder);
+        break;
+      case TAR:
+        extractTarFile(compressedFile, destinationFolder);
         break;
       case TGZIP:
       case TAR_GZ:
@@ -148,7 +153,7 @@ public class CompressedFileHandler {
 
   private static void extractTarGzFile(final Path compressedFile, final Path destinationFolder) throws IOException {
 
-    Set<Path> nestedCompressedFiles;
+    Set<Path> nestedCompressedFiles = new HashSet<>();
 
     try (InputStream fi = Files.newInputStream(compressedFile);
         BufferedInputStream bi = new BufferedInputStream(fi);
@@ -159,17 +164,13 @@ public class CompressedFileHandler {
       while ((entry = ti.getNextEntry()) != null) {
         // create a new path, protect against malicious zip files
         Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
+        if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
+          nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
+        }
         extract(ti, entry, newPath);
       }
     }
-    final Path newDestination = CompressedFileExtension
-        .removeExtension(destinationFolder.resolve(compressedFile.getFileName()));
 
-    try (Stream<Path> nestedFilesStream = Files.walk(newDestination)) {
-      nestedCompressedFiles = performFunction(nestedFilesStream, stream -> stream
-          .filter(CompressedFileExtension::hasCompressedFileExtension)
-          .collect(Collectors.toSet()));
-    }
     for (Path file : nestedCompressedFiles) {
       extractFile(file, file.getParent());
     }
@@ -184,6 +185,25 @@ public class CompressedFileHandler {
         Files.newInputStream(compressedFile));
         final OutputStream outputStream = Files.newOutputStream(destination)) {
       IOUtils.copy(inputStream, outputStream);
+    }
+  }
+
+  private static void extractTarFile(final Path compressedFile, final Path destinationFolder)
+      throws IOException {
+    final List<Path> nestedCompressedFiles = new ArrayList<>();
+    try (TarArchiveInputStream is = new TarArchiveInputStream(Files.newInputStream(compressedFile))) {
+      TarArchiveEntry entry;
+      while ((entry = is.getNextTarEntry()) != null) {
+        // create a new path, protect against malicious tar files
+        Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
+        if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
+          nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
+        }
+        extract(is, entry, newPath);
+      }
+    }
+    for (Path nestedCompressedFile : nestedCompressedFiles) {
+      extractFile(nestedCompressedFile, nestedCompressedFile.getParent());
     }
   }
 
