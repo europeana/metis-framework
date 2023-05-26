@@ -1,6 +1,5 @@
 package eu.europeana.metis.utils;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 import static eu.europeana.metis.utils.TempFileUtils.createSecureTempFile;
 
 import java.io.BufferedInputStream;
@@ -18,8 +17,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.compress.archivers.ArchiveEntry;
