@@ -22,6 +22,11 @@ public enum CompressedFileExtension {
   GZIP(".gz"),
 
   /**
+   * TAR files (only tar files)
+   */
+  TAR(".tar"),
+
+  /**
    * Tarred GZIP files.
    **/
   TAR_GZ(".tar.gz"),
