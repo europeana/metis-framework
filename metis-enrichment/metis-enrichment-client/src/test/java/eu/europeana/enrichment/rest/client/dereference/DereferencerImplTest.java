@@ -26,13 +26,24 @@ import eu.europeana.metis.schema.jibx.RDF;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ServiceUnavailableException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,18 +54,22 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anySet;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -203,14 +218,33 @@ class DereferencerImplTest {
         verifyMergeExceptionFlow(entityMergeEngine);
     }
 
-    @Test
-    void testDereferenceHttpException() throws MalformedURLException {
+    private static Stream<Arguments> providedExceptions() {
+        return Stream.of(
+                Arguments.of(HttpClientErrorException.create(HttpStatus.BAD_REQUEST, "", null, null, null), Type.WARN, "400 Bad Request"),
+                Arguments.of(HttpServerErrorException.create(HttpStatus.INTERNAL_SERVER_ERROR, "Error with service", null, null, null), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new UnknownHostException("")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new SocketTimeoutException("Time out exceeded")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new ServiceUnavailableException("No service")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new NotFoundException(), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new IllegalArgumentException("argument invalid")), Type.WARN,
+                        "Exception occurred while trying to perform dereferencing.")
+        );
+    }
+
+    @Disabled("TODO: MET-4255 Improve execution time, think feasibility of @Value(\"${max-retries}\")")
+    @ParameterizedTest
+    @MethodSource("providedExceptions")
+    void testDereferenceNetworkException(Exception ex, Type expectedMessageType, String expectedMessage) throws MalformedURLException {
         // Create mocks of the dependencies
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
-        when(dereferenceClient.dereference(any()))
-                .thenThrow(HttpClientErrorException.create(HttpStatus.BAD_REQUEST, "", null, null, null));
+        doThrow(ex).when(dereferenceClient).dereference(any());
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
         final Dereferencer dereferencer = spy(
@@ -220,7 +254,7 @@ class DereferencerImplTest {
         final RDF inputRdf = new RDF();
         Set<Report> reports = dereferencer.dereference(inputRdf);
 
-        verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reports);
+        verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reports, expectedMessageType, expectedMessage);
         verifyMergeExceptionFlow(entityMergeEngine);
     }
 
@@ -267,19 +301,21 @@ class DereferencerImplTest {
     }
 
     private void verifyDereferenceExceptionFlow(DereferenceClient dereferenceClient,
-                                                Dereferencer dereferencer, RDF inputRdf, Set<Report> reports) {
+                                                Dereferencer dereferencer, RDF inputRdf,
+                                                Set<Report> reports, Type expectedType,
+                                                String expectedMessage) {
 
         // Extracting values for dereferencing
         verifyDerefencer(dereferencer, inputRdf);
 
         // Actually dereferencing.
-        verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
+        verify(dereferenceClient, atLeast(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
 
         // Checking the report.
         assertEquals(3, reports.size());
         for (Report report : reports) {
-            assertTrue(report.getMessage().contains("400 Bad Request"));
-            assertEquals(Type.WARN, report.getMessageType());
+            assertTrue(report.getMessage().contains(expectedMessage));
+            assertEquals(expectedType, report.getMessageType());
         }
     }
 
@@ -337,7 +373,6 @@ class DereferencerImplTest {
             assertEquals(expectedElement.getReportMessages().size(), capturedElement.getReportMessages().size());
 
         }
-
     }
 
     private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {

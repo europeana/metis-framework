@@ -237,6 +237,11 @@ class EnrichmentWorkerImplTest {
             .withHeader("Content-Type", "application/xml")
             .withBody(getResourceFileContent("dereference/dereference-geoname.xml"))
             .withStatus(HttpStatus.OK.value())));
+    wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=https%3A%2F%2Fsws.geonames.org%2F597427%2F1"))
+            .withHost(equalTo("dereference-rest.mock"))
+            .willReturn(aResponse()
+                    .withHeader("Content-Type", "application/xml")
+                    .withStatus(HttpStatus.NOT_FOUND.value())));
     wireMockServer.stubFor(get(urlEqualTo("/dereference?uri=http%3A%2F%2Fvocab.getty.edu%2Faat%2F300136900"))
         .withHost(equalTo("dereference-rest.mock"))
         .willReturn(aResponse()
