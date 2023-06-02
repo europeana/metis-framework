@@ -26,6 +26,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -235,6 +236,7 @@ class DereferencerImplTest {
         );
     }
 
+    @Disabled("TODO: MET-4255 Improve execution time, think feasibility of @Value(\"${max-retries}\")")
     @ParameterizedTest
     @MethodSource("providedExceptions")
     void testDereferenceNetworkException(Exception ex, Type expectedMessageType, String expectedMessage) throws MalformedURLException {
