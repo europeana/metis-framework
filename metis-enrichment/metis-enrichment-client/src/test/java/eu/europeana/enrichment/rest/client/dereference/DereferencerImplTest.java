@@ -231,7 +231,7 @@ class DereferencerImplTest {
                         "Exception occurred while trying to perform dereferencing."),
                 Arguments.of(new NotFoundException(), Type.ERROR,
                         "Exception occurred while trying to perform dereferencing."),
-                Arguments.of(new RuntimeException(new IllegalArgumentException("argument invalid")), Type.WARN,
+                Arguments.of(new RuntimeException(new IllegalArgumentException("argument invalid")), Type.ERROR,
                         "Exception occurred while trying to perform dereferencing.")
         );
     }

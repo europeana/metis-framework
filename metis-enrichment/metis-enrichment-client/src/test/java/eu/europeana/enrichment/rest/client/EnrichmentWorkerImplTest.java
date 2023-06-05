@@ -71,7 +71,7 @@ class EnrichmentWorkerImplTest {
   private static Stream<Arguments> providedInputRecords() {
     return Stream.of(
         Arguments.of(getResourceFileContent("enrichment/sample_enrichment_exception.rdf"), RecordStatus.STOP),
-        Arguments.of(getResourceFileContent("enrichment/sample_dereference_not_found.rdf"), RecordStatus.CONTINUE),
+        Arguments.of(getResourceFileContent("enrichment/sample_dereference_not_found.rdf"), RecordStatus.STOP),
         Arguments.of(getResourceFileContent("enrichment/sample_dereference_redirect.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("enrichment/sample_enrichment_noentity.rdf"), RecordStatus.CONTINUE),
         Arguments.of(getResourceFileContent("enrichment/sample_enrichment_failure.rdf"), RecordStatus.STOP),
