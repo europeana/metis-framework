@@ -306,21 +306,11 @@ public class DereferencerImpl implements Dereferencer {
             } catch (Exception e) {
                 DereferenceException dereferenceException = new DereferenceException(
                         "Exception occurred while trying to perform dereferencing.", e);
-                if (ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
-                        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e) ) {
                     reports.add(Report
                             .buildDereferenceError()
                             .withValue(resourceId)
                             .withException(dereferenceException)
                             .build());
-                } else {
-                    reports.add(Report
-                            .buildDereferenceWarn()
-                            .withStatus(HttpStatus.OK)
-                            .withValue(resourceId)
-                            .withException(dereferenceException)
-                            .build());
-                }
                 result = null;
             }
             resultMap.put(referenceTerm, Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
