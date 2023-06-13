@@ -196,7 +196,7 @@ public class MongoDereferenceService implements DereferenceService {
                 dereferenceResult = new DereferenceResult(
                         result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
                         result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
-                                .orElse(DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY));
+                                .orElse(DereferenceResultStatus.SUCCESS));
             }
         } catch (JAXBException jaxbException) {
             LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId),

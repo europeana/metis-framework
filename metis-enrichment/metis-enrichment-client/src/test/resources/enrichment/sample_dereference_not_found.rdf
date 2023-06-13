@@ -38,8 +38,12 @@
     <dc:subject xml:lang="en">Religion</dc:subject>
     <dc:subject xml:lang="en">Paranguaricutirimicuaro</dc:subject>
     <dc:title>Klaipėdos bažnyčios pamatų įšventinimas</dc:title>
-    <dc:type rdf:resource="http://vocab.getty.edu/aat/300136900"/>
-    <dc:type rdf:resource="htp://vocab.getty.edu/aat/300136900"/>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300136900"/>
+    <dc:subject rdf:resource="htp://vocab.getty.edu/aat/300136900"/>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/3401"/>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/XXXXXXXXX"/>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300008372"/>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300000810"/>
     <dcterms:alternative xml:lang="en">Consecration of the Church Foundation in Klaipėda</dcterms:alternative>
     <dcterms:created xml:lang="en">1957</dcterms:created>
     <dcterms:spatial rdf:resource="https://sws.geonames.org/597427/"/>
