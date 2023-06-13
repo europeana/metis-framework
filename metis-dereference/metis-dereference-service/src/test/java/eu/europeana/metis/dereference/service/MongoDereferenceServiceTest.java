@@ -131,7 +131,7 @@ class MongoDereferenceServiceTest {
     final DereferenceResult emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
     assertFalse(emptyResult.getEnrichmentBasesAsList().isEmpty());
-    assertEquals(DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY, emptyResult.getDereferenceStatus());
+    assertEquals(DereferenceResultStatus.SUCCESS, emptyResult.getDereferenceStatus());
   }
 
   @Test
