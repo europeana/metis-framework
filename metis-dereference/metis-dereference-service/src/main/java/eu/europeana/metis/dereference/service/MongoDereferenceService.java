@@ -113,8 +113,14 @@ public class MongoDereferenceService implements DereferenceService {
                     vocabularyCandidates.getVocabularies().get(0),
                     originalEntity.getDereferenceResultStatus());
         } else {
-            dereferenceResultWrapper = new DereferenceResultWrapper(transformedEntity, chosenVocabulary,
-                    originalEntity.getDereferenceResultStatus());
+            if (transformedEntity == null && chosenVocabulary == null && originalEntity.getDereferenceResultStatus() == null) {
+                dereferenceResultWrapper = new DereferenceResultWrapper((EnrichmentBase) null,
+                        null,
+                        DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+            } else {
+                dereferenceResultWrapper = new DereferenceResultWrapper(transformedEntity, chosenVocabulary,
+                        originalEntity.getDereferenceResultStatus());
+            }
         }
         return dereferenceResultWrapper;
     }
