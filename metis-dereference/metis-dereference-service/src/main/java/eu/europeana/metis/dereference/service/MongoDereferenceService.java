@@ -307,9 +307,15 @@ public class MongoDereferenceService implements DereferenceService {
                     new DereferenceResultWrapper(transformedEntityVocabulary.getEntity(),
                             transformedEntityVocabulary.getVocabulary()));
         } else {
-            // If we have something in the cache we return that instead
-            transformedEntityVocabulary = new DereferenceResultWrapper(cachedEntity.getXml(),
-                    cachedVocabulary, DereferenceResultStatus.SUCCESS);
+            // if there was no xml entity but a vocabulary that means no entity for vocabulary
+            if (cachedEntity.getXml() == null && StringUtils.isNotBlank(cachedEntity.getVocabularyId())) {
+                transformedEntityVocabulary = new DereferenceResultWrapper((EnrichmentBase) null,
+                cachedVocabulary, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
+            } else {
+                // otherwise If we have something in the cache we return that instead
+                transformedEntityVocabulary = new DereferenceResultWrapper(cachedEntity.getXml(),
+                        cachedVocabulary, DereferenceResultStatus.SUCCESS);
+            }
         }
 
         return transformedEntityVocabulary;
