@@ -425,8 +425,10 @@ public class MongoDereferenceService implements DereferenceService {
             }).filter(Objects::nonNull).findAny().orElse(null);
 
             // Evaluate the result.
-            if (originalEntity == null && LOGGER.isInfoEnabled()) {
-                LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+            if (originalEntity == null) {
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+                }
                 dereferenceResultStatus = DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY;
             }
             return new MongoDereferencedEntity(originalEntity, dereferenceResultStatus);

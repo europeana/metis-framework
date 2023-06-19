@@ -15,6 +15,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
+import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.RdfRetriever;
@@ -111,7 +112,7 @@ class MongoDereferenceServiceTest {
   }
 
   @Test
-  void testDereference_UnknownEntity() throws JAXBException, URISyntaxException, IOException {
+  void testDereference_UnknownEuropeanaEntity() throws JAXBException, URISyntaxException, IOException {
     // Create vocabulary for geonames and save it.
     final Vocabulary geonames = new Vocabulary();
     geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
@@ -132,6 +133,42 @@ class MongoDereferenceServiceTest {
     assertNotNull(emptyResult);
     assertFalse(emptyResult.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.SUCCESS, emptyResult.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_NoVocabularyMatching() {
+     // Create concept
+    final Concept concept = new Concept();
+    final String entityId = "http://data.europeana.eu/concept/XXXXXXXXX";
+    concept.setAbout(entityId);
+
+    final DereferenceResult emptyResult = service.dereference(entityId);
+    assertNotNull(emptyResult);
+    assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, emptyResult.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_NoEntityForVocabulary() throws JAXBException, URISyntaxException, IOException {
+    // Create vocabulary for geonames and save it.
+    final Vocabulary geonames = new Vocabulary();
+    geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
+    geonames.setXslt(IOUtils
+            .toString(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")),
+                    StandardCharsets.UTF_8));
+    geonames.setName("Geonames");
+    geonames.setIterations(0);
+    vocabularyDaoDatastore.save(geonames);
+
+    // Create geonames entity
+    final Place place = new Place();
+    final String entityId = "http://sws.geonames.org/302025X/";
+    place.setAbout(entityId);
+
+    final DereferenceResult emptyResult = service.dereference(entityId);
+    assertNotNull(emptyResult);
+    assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, emptyResult.getDereferenceStatus());
   }
 
   @Test
