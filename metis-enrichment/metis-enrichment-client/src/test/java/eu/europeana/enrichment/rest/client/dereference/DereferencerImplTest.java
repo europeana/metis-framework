@@ -38,12 +38,10 @@ import org.springframework.web.client.HttpServerErrorException;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ServiceUnavailableException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -60,7 +58,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -74,7 +71,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for {@link DereferencerImpl} class
@@ -88,7 +84,7 @@ class DereferencerImplTest {
 
     private static final Map<Class<? extends AboutType>, Set<String>> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
             AboutType.class, Set.of("http://valid-example.host/about"),
-            Concept.class, Set.of("http://valid-example.host/concept"),
+            Concept.class, Set.of("http://data.europeana.eu.host/concept"),
             PlaceType.class, Set.of("http://valid-example.host/place"));
 
     private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
@@ -144,6 +140,24 @@ class DereferencerImplTest {
         wireMockServer.stop();
     }
 
+    private static Stream<Arguments> providedExceptions() {
+        return Stream.of(
+                Arguments.of(HttpClientErrorException.create(HttpStatus.BAD_REQUEST, "", null, null, null), Type.WARN, "400 Bad Request"),
+                Arguments.of(HttpServerErrorException.create(HttpStatus.INTERNAL_SERVER_ERROR, "Error with service", null, null, null), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new UnknownHostException("")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new SocketTimeoutException("Time out exceeded")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new ServiceUnavailableException("No service")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new NotFoundException(), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing."),
+                Arguments.of(new RuntimeException(new IllegalArgumentException("argument invalid")), Type.ERROR,
+                        "Exception occurred while trying to perform dereferencing.")
+        );
+    }
+
     @Test
     void testDereferencerHappyFlow() throws MalformedURLException {
         // Create mocks of the dependencies
@@ -163,7 +177,7 @@ class DereferencerImplTest {
                 .withHost(equalTo("valid-example.host"))
                 .willReturn(ok("about")));
         wireMockServer.stubFor(get("/concept")
-                .withHost(equalTo("valid-example.host"))
+                .withHost(equalTo("data.europeana.eu.host"))
                 .willReturn(ok("concept")));
         wireMockServer.stubFor(get("/place")
                 .withHost(equalTo("valid-example.host"))
@@ -218,24 +232,6 @@ class DereferencerImplTest {
         verifyMergeExceptionFlow(entityMergeEngine);
     }
 
-    private static Stream<Arguments> providedExceptions() {
-        return Stream.of(
-                Arguments.of(HttpClientErrorException.create(HttpStatus.BAD_REQUEST, "", null, null, null), Type.WARN, "400 Bad Request"),
-                Arguments.of(HttpServerErrorException.create(HttpStatus.INTERNAL_SERVER_ERROR, "Error with service", null, null, null), Type.ERROR,
-                        "Exception occurred while trying to perform dereferencing."),
-                Arguments.of(new RuntimeException(new UnknownHostException("")), Type.ERROR,
-                        "Exception occurred while trying to perform dereferencing."),
-                Arguments.of(new RuntimeException(new SocketTimeoutException("Time out exceeded")), Type.ERROR,
-                        "Exception occurred while trying to perform dereferencing."),
-                Arguments.of(new RuntimeException(new ServiceUnavailableException("No service")), Type.ERROR,
-                        "Exception occurred while trying to perform dereferencing."),
-                Arguments.of(new NotFoundException(), Type.ERROR,
-                        "Exception occurred while trying to perform dereferencing."),
-                Arguments.of(new RuntimeException(new IllegalArgumentException("argument invalid")), Type.ERROR,
-                        "Exception occurred while trying to perform dereferencing.")
-        );
-    }
-
     @Disabled("TODO: MET-4255 Improve execution time, think feasibility of @Value(\"${max-retries}\")")
     @ParameterizedTest
     @MethodSource("providedExceptions")
@@ -266,14 +262,18 @@ class DereferencerImplTest {
         // Actually dereferencing.
         verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT_VALID.size())).dereference(anyString());
 
-        assertEquals(1, reports.size());
-        for (Report report : reports) {
-            assertTrue(report.getMessage().contains("Dereference or Coreferencing failed."));
-            assertEquals(Type.ERROR, report.getMessageType());
-            assertEquals(Mode.DEREFERENCE, report.getMode());
-            assertEquals("http://valid-example.host/concept", report.getValue());
-            assertEquals("", report.getStackTrace());
-        }
+        assertEquals(2, reports.size());
+
+        Set<Report> expectedReports = Set.of(Report.buildDereferenceError()
+                        .withValue("http://data.europeana.eu.host/concept")
+                        .withMessage("Dereference or Coreferencing failed."),
+                Report.buildDereferenceWarn()
+                        .withStatus(HttpStatus.OK)
+                        .withValue("http://data.europeana.eu.host/concept")
+                        .withMessage("Dereferencing or Coreferencing: the europeana entity does not exist."));
+
+        assertTrue(CollectionUtils.isEqualCollection(expectedReports, reports));
+
         Set<String> setOfValues = DEREFERENCE_EXTRACT_RESULT_VALID.values().stream().flatMap(Collection::stream)
                 .collect(Collectors.toSet());
         for (String dereferenceUrl : setOfValues) {
@@ -386,10 +386,14 @@ class DereferencerImplTest {
     }
 
     private List<DereferencedEntities> prepareExpectedList() throws MalformedURLException {
-        ReferenceTermImpl expectedReferenceTerm1 = new ReferenceTermImpl(new URL("http://valid-example.host/concept"));
+        ReferenceTermImpl expectedReferenceTerm1 = new ReferenceTermImpl(new URL("http://data.europeana.eu.host/concept"));
         Set<Report> expectedReports1 = Set.of(Report.buildDereferenceError()
-                .withValue("http://valid-example.host/concept")
-                .withMessage("Dereference or Coreferencing failed."));
+                        .withValue("http://data.europeana.eu.host/concept")
+                        .withMessage("Dereference or Coreferencing failed."),
+                Report.buildDereferenceWarn()
+                        .withStatus(HttpStatus.OK)
+                        .withValue("http://data.europeana.eu.host/concept")
+                        .withMessage("Dereferencing or Coreferencing: the europeana entity does not exist."));
         DereferencedEntities expectedDereferencedEntities1 = new DereferencedEntities(
                 Map.of(expectedReferenceTerm1, new ArrayList<>()),
                 expectedReports1, Concept.class);
