@@ -1,5 +1,6 @@
 package eu.europeana.indexing.tiers.view;
 
+import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.metis.schema.model.MediaType;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class ContentTierBreakdown {
 
     private final MediaType recordType;
+    private final MediaTier mediaTierBeforeLicenseCorrection;
     private final LicenseType licenseType;
     private final boolean thumbnailAvailable;
     private final boolean landingPageAvailable;
@@ -30,6 +32,7 @@ public class ContentTierBreakdown {
     public ContentTierBreakdown(ContentTierBreakdown contentTierBreakdown, List<ProcessingError> processingErrorsList) {
         this(new Builder()
                 .setRecordType(contentTierBreakdown.getRecordType())
+                .setMediaTierBeforeLicenseCorrection(contentTierBreakdown.getMediaTierBeforeLicenseCorrection())
                 .setLicenseType(contentTierBreakdown.getLicenseType())
                 .setThumbnailAvailable(contentTierBreakdown.isThumbnailAvailable())
                 .setLandingPageAvailable(contentTierBreakdown.isLandingPageAvailable())
@@ -41,6 +44,7 @@ public class ContentTierBreakdown {
 
     private ContentTierBreakdown(Builder builder) {
         this.recordType = builder.recordType;
+        this.mediaTierBeforeLicenseCorrection = builder.mediaTierBeforeLicenseCorrection;
         this.licenseType = builder.licenseType;
         this.thumbnailAvailable = builder.thumbnailAvailable;
         this.landingPageAvailable = builder.landingPageAvailable;
@@ -53,6 +57,10 @@ public class ContentTierBreakdown {
 
     public MediaType getRecordType() {
         return recordType;
+    }
+
+    public MediaTier getMediaTierBeforeLicenseCorrection(){
+      return mediaTierBeforeLicenseCorrection;
     }
 
     public LicenseType getLicenseType() {
@@ -88,6 +96,7 @@ public class ContentTierBreakdown {
    */
   public static class Builder {
         private MediaType recordType;
+        private MediaTier mediaTierBeforeLicenseCorrection;
         private LicenseType licenseType;
         private boolean thumbnailAvailable;
         private boolean landingPageAvailable;
@@ -106,6 +115,11 @@ public class ContentTierBreakdown {
         public Builder setRecordType(MediaType recordType) {
             this.recordType = recordType;
             return this;
+        }
+
+        public Builder setMediaTierBeforeLicenseCorrection(MediaTier mediaTierBeforeLicenseCorrection){
+          this.mediaTierBeforeLicenseCorrection = mediaTierBeforeLicenseCorrection;
+          return this;
         }
 
         public Builder setLicenseType(LicenseType licenseType) {

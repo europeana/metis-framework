@@ -44,6 +44,8 @@ class MediaResourceTechnicalMetadataBuilderTest {
     assertThrows(NullPointerException.class, mediaResourceTechnicalMetadataBuilder::build);
     final MediaTier mediaTier = MediaTier.T0;
     mediaResourceTechnicalMetadataBuilder.setMediaTier(mediaTier);
+    final MediaTier mediaTierBeforeLicense = MediaTier.T1;
+    mediaResourceTechnicalMetadataBuilder.setMediaTierBeforeLicenseCorrection(mediaTierBeforeLicense);
 
     //Object should be valid now
     assertDoesNotThrow(mediaResourceTechnicalMetadataBuilder::build);

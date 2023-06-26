@@ -25,20 +25,23 @@ public final class MediaResourceTechnicalMetadata {
   private final Set<WebResourceLinkType> elementLinkTypes;
   private final LicenseType licenseType;
   private final MediaTier mediaTier;
+  private final MediaTier mediaTierBeforeLicenseCorrection;
   private final Long imageResolution;
   private final MediaTier imageResolutionTier;
   private final Long verticalResolution;
   private final MediaTier verticalResolutionTier;
 
-  private MediaResourceTechnicalMetadata(String resourceUrl, MediaType mediaType, String mimeType,
-      Set<WebResourceLinkType> elementLinkTypes, LicenseType licenseType,
-      MediaTier mediaTier, ResolutionTierMetadata resolutionTierMetadata) {
+  private MediaResourceTechnicalMetadata(String resourceUrl, MediaType mediaType,
+      String mimeType, Set<WebResourceLinkType> elementLinkTypes, LicenseType licenseType,
+      MediaTier mediaTier, MediaTier mediaTierBeforeLicenseCorrection,
+      ResolutionTierMetadata resolutionTierMetadata) {
     this.resourceUrl = resourceUrl;
     this.mediaType = mediaType;
     this.mimeType = mimeType;
     this.elementLinkTypes = elementLinkTypes == null ? new HashSet<>() : new HashSet<>(elementLinkTypes);
     this.licenseType = licenseType;
     this.mediaTier = mediaTier;
+    this.mediaTierBeforeLicenseCorrection = mediaTierBeforeLicenseCorrection;
     this.imageResolution = resolutionTierMetadata.getImageResolution();
     this.imageResolutionTier = resolutionTierMetadata.getImageResolutionTier();
     this.verticalResolution = resolutionTierMetadata.getVerticalResolution();
@@ -69,6 +72,10 @@ public final class MediaResourceTechnicalMetadata {
     return mediaTier;
   }
 
+  public MediaTier getMediaTierBeforeLicenseCorrection(){
+    return mediaTierBeforeLicenseCorrection;
+  }
+
   public Long getImageResolution() {
     return imageResolution;
   }
@@ -96,6 +103,7 @@ public final class MediaResourceTechnicalMetadata {
     private Set<WebResourceLinkType> elementLinkTypes = Collections.emptySet();
     private LicenseType licenseType;
     private MediaTier mediaTier;
+    private MediaTier mediaTierBeforeLicenseCorrection;
     private final ResolutionTierMetadata resolutionTierMetadata;
 
     /**
@@ -137,6 +145,11 @@ public final class MediaResourceTechnicalMetadata {
       return this;
     }
 
+    public MediaResourceTechnicalMetadataBuilder setMediaTierBeforeLicenseCorrection(MediaTier mediaTierBeforeLicenseCorrection) {
+      this.mediaTierBeforeLicenseCorrection = mediaTierBeforeLicenseCorrection;
+      return this;
+    }
+
     /**
      * Creates an instance of {@link MediaResourceTechnicalMetadata} by verifying collected parameters.
      *
@@ -151,7 +164,7 @@ public final class MediaResourceTechnicalMetadata {
       notNull(mediaTier);
 
       return new MediaResourceTechnicalMetadata(resourceUrl, mediaType, mimeType, elementLinkTypes, licenseType, mediaTier,
-          resolutionTierMetadata);
+          mediaTierBeforeLicenseCorrection, resolutionTierMetadata);
     }
   }
 }
