@@ -30,7 +30,7 @@ public class TierResults {
         TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification) {
         this.mediaTier = mediaTierClassification.getTier();
         this.metadataTier = metadataTierClassification.getTier();
-        contentTierLicenseCorrection = MediaTier.T0;
+        contentTierLicenseCorrection = mediaTierClassification.getClassification().getMediaTierBeforeLicenseCorrection();
         licenseType = mediaTierClassification.getClassification().getLicenseType();
         metadataTierLanguage = metadataTierClassification.getClassification().getLanguageBreakdown().getMetadataTier();
         metadataTierEnablingElements = metadataTierClassification.getClassification().getEnablingElements().getMetadataTier();
