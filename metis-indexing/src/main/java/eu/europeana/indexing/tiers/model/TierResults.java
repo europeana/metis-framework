@@ -13,7 +13,7 @@ import eu.europeana.indexing.utils.LicenseType;
 public class TierResults {
 
     private final MediaTier mediaTier;
-    private final MediaTier contentTierLicenseCorrection;
+    private final MediaTier contentTierBeforeLicenseCorrection;
     private final LicenseType licenseType;
     private final MetadataTier metadataTier;
     private final MetadataTier metadataTierLanguage;
@@ -30,7 +30,7 @@ public class TierResults {
         TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification) {
         this.mediaTier = mediaTierClassification.getTier();
         this.metadataTier = metadataTierClassification.getTier();
-        contentTierLicenseCorrection = mediaTierClassification.getClassification().getMediaTierBeforeLicenseCorrection();
+        contentTierBeforeLicenseCorrection = mediaTierClassification.getClassification().getMediaTierBeforeLicenseCorrection();
         licenseType = mediaTierClassification.getClassification().getLicenseType();
         metadataTierLanguage = metadataTierClassification.getClassification().getLanguageBreakdown().getMetadataTier();
         metadataTierEnablingElements = metadataTierClassification.getClassification().getEnablingElements().getMetadataTier();
@@ -49,8 +49,8 @@ public class TierResults {
      * Returns the value of content tier after license correction
      * @return the value of content tier after license correction
      */
-    public MediaTier getContentTierLicenseCorrection(){
-        return contentTierLicenseCorrection;
+    public MediaTier getContentTierBeforeLicenseCorrection(){
+        return contentTierBeforeLicenseCorrection;
     }
 
     /**
