@@ -49,10 +49,11 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     // Compute the media tier based on whether it has suitable web resources.
     final MediaTier mediaTier;
-    MediaTier mediaTierBeforeLicenseCorrection = null;
+    final MediaTier mediaTierBeforeLicenseCorrection;
     List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList = new LinkedList<>();
     if (webResources.isEmpty()) {
       mediaTier = classifyEntityWithoutWebResources(entity, hasLandingPage);
+      mediaTierBeforeLicenseCorrection = mediaTier;
     } else {
       final List<MediaResourceTechnicalMetadata> descendingMediaResourceTechnicalMetadata =
           webResources.stream().map(

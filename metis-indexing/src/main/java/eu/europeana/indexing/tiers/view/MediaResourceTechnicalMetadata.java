@@ -159,6 +159,7 @@ public final class MediaResourceTechnicalMetadata {
       //Verify fields that should not be blank/empty
       notBlank(resourceUrl);
       notNull(mediaType);
+      notNull(mediaTierBeforeLicenseCorrection);
       notNull(elementLinkTypes); //Can be empty but shouldn't be null
       notNull(licenseType);
       notNull(mediaTier);
