@@ -38,6 +38,19 @@ public class TierResults {
     }
 
     /**
+     * Constructor that initializes with null values
+     */
+    public TierResults() {
+        mediaTier = null;
+        metadataTier = null;
+        contentTierBeforeLicenseCorrection = null;
+        licenseType = null;
+        metadataTierLanguage = null;
+        metadataTierEnablingElements = null;
+        metadataTierContextualClasses = null;
+    }
+
+    /**
      * Returns the value of content tier
      * @return the value of content tier
      */

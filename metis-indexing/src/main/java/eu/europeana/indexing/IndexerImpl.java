@@ -145,10 +145,9 @@ public class IndexerImpl implements Indexer {
 
     // Perform the tier classification
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    TierResults tierCalculationsResult = new TierResults(null, null);
+    TierResults tierCalculationsResult = new TierResults();
     if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
                                                            .contains(rdfWrapper.getEdmType())) {
-      //TODO: get results from classify method. metadata already has all values
       tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
               metadataClassifier.classify(rdfWrapper));
       RdfTierUtils.setTier(rdf, tierCalculationsResult.getMediaTier());
