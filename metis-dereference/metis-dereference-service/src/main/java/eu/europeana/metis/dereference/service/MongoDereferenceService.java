@@ -113,8 +113,14 @@ public class MongoDereferenceService implements DereferenceService {
                     vocabularyCandidates.getVocabularies().get(0),
                     originalEntity.getDereferenceResultStatus());
         } else {
-            dereferenceResultWrapper = new DereferenceResultWrapper(transformedEntity, chosenVocabulary,
-                    originalEntity.getDereferenceResultStatus());
+            if (transformedEntity == null && chosenVocabulary == null && originalEntity.getDereferenceResultStatus() == null) {
+                dereferenceResultWrapper = new DereferenceResultWrapper((EnrichmentBase) null,
+                        null,
+                        DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+            } else {
+                dereferenceResultWrapper = new DereferenceResultWrapper(transformedEntity, chosenVocabulary,
+                        originalEntity.getDereferenceResultStatus());
+            }
         }
         return dereferenceResultWrapper;
     }
@@ -196,7 +202,7 @@ public class MongoDereferenceService implements DereferenceService {
                 dereferenceResult = new DereferenceResult(
                         result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
                         result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
-                                .orElse(DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY));
+                                .orElse(DereferenceResultStatus.SUCCESS));
             }
         } catch (JAXBException jaxbException) {
             LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.", resourceId),
@@ -301,9 +307,15 @@ public class MongoDereferenceService implements DereferenceService {
                     new DereferenceResultWrapper(transformedEntityVocabulary.getEntity(),
                             transformedEntityVocabulary.getVocabulary()));
         } else {
-            // If we have something in the cache we return that instead
-            transformedEntityVocabulary = new DereferenceResultWrapper(cachedEntity.getXml(),
-                    cachedVocabulary, DereferenceResultStatus.SUCCESS);
+            // if there was no xml entity but a vocabulary that means no entity for vocabulary
+            if (cachedEntity.getXml() == null && StringUtils.isNotBlank(cachedEntity.getVocabularyId())) {
+                transformedEntityVocabulary = new DereferenceResultWrapper((EnrichmentBase) null,
+                cachedVocabulary, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
+            } else {
+                // otherwise If we have something in the cache we return that instead
+                transformedEntityVocabulary = new DereferenceResultWrapper(cachedEntity.getXml(),
+                        cachedVocabulary, DereferenceResultStatus.SUCCESS);
+            }
         }
 
         return transformedEntityVocabulary;
@@ -413,8 +425,10 @@ public class MongoDereferenceService implements DereferenceService {
             }).filter(Objects::nonNull).findAny().orElse(null);
 
             // Evaluate the result.
-            if (originalEntity == null && LOGGER.isInfoEnabled()) {
-                LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+            if (originalEntity == null) {
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+                }
                 dereferenceResultStatus = DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY;
             }
             return new MongoDereferencedEntity(originalEntity, dereferenceResultStatus);

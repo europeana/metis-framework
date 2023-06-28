@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<metis:results xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+               xmlns:metis="http://www.europeana.eu/schemas/metis">
+    <metis:result>
+        <skos:Concept rdf:about="http://data.europeana.eu/concept/3401">
+            <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q9465"/>
+            <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4015602-3"/>
+            <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh85045096"/>
+            <skos:exactMatch rdf:resource="http://data.bnf.fr/ark:/12148/cb119756872"/>
+            <skos:exactMatch rdf:resource="http://id.ndl.go.jp/auth/ndlna/00569521"/>
+            <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D004989"/>
+            <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/761"/>
+            <skos:exactMatch rdf:resource="https://www.freebase.com/m/02jhc"/>
+            <skos:exactMatch rdf:resource="https://g.co/kg/m/02jhc"/>
+            <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/K01.752.566.479"/>
+            <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/N05.350"/>
+            <skos:exactMatch rdf:resource="http://datos.bne.es/resource/XX4583626"/>
+            <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300054290"/>
+            <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300055939"/>
+            <skos:exactMatch rdf:resource="http://iconclass.org/11L52"/>
+            <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p3166"/>
+            <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s00031712n"/>
+            <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept283"/>
+            <skos:exactMatch rdf:resource="http://cv.iptc.org/newscodes/mediatopic/20000814"/>
+            <skos:exactMatch rdf:resource="http://uri.gbv.de/terminology/bk/08.38"/>
+            <skos:note xml:lang="de">
+                Disziplin der praktischen Philosophie, die sich mit der Entscheidungsfindung befasst
+            </skos:note>
+            <skos:note xml:lang="fi">
+                Moraaliin, hyvyyteen ja hyvään elämään keskittyvä filosofian osa-alue
+            </skos:note>
+            <skos:note xml:lang="ru">Высокая нравственность</skos:note>
+            <skos:note xml:lang="sv">Läran om moraliskt gott och ont</skos:note>
+            <skos:note xml:lang="pt">Campo de estudo da moral</skos:note>
+            <skos:note xml:lang="bg">
+                От Древност до днешни разделения като Мета-етика; Нормативна етика и Приложна етища
+            </skos:note>
+            <skos:note xml:lang="en">
+                Branch of philosophy that systematizes, defends, and recommends concepts of right and wrong conduct
+            </skos:note>
+            <skos:note xml:lang="it">Ramo della filosofia</skos:note>
+            <skos:note xml:lang="fr">
+                Discipline philosophique pratique (action) et normative (règles) dans un milieu naturel et humain
+            </skos:note>
+            <skos:note xml:lang="es">Rama de la filosofía</skos:note>
+            <skos:note xml:lang="pl">Filozofia moralności</skos:note>
+            <skos:note xml:lang="da">
+                Filosoffisk disciplin - systematisering, forsvare og anbefaling af begreber om ret og forkert adfærd
+            </skos:note>
+            <skos:note xml:lang="ca">Branca de la filosofia</skos:note>
+            <skos:note xml:lang="nl">
+                Tak van de filosofie die zich bezighoudt met bezinning over het juiste handelen
+            </skos:note>
+            <skos:prefLabel xml:lang="de">Ethik</skos:prefLabel>
+            <skos:prefLabel xml:lang="fi">Etiikka</skos:prefLabel>
+            <skos:prefLabel xml:lang="ru">Этика</skos:prefLabel>
+            <skos:prefLabel xml:lang="pt">Ética</skos:prefLabel>
+            <skos:prefLabel xml:lang="bg">Етика</skos:prefLabel>
+            <skos:prefLabel xml:lang="lt">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="hr">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="lv">Ētika</skos:prefLabel>
+            <skos:prefLabel xml:lang="fr">Éthique</skos:prefLabel>
+            <skos:prefLabel xml:lang="hu">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="sk">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="sl">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="ga">Eitic</skos:prefLabel>
+            <skos:prefLabel xml:lang="ca">Ètica</skos:prefLabel>
+            <skos:prefLabel xml:lang="sv">Etik</skos:prefLabel>
+            <skos:prefLabel xml:lang="el">Ηθική</skos:prefLabel>
+            <skos:prefLabel xml:lang="en">Ethics</skos:prefLabel>
+            <skos:prefLabel xml:lang="it">Etica</skos:prefLabel>
+            <skos:prefLabel xml:lang="es">Ética</skos:prefLabel>
+            <skos:prefLabel xml:lang="et">Eetika</skos:prefLabel>
+            <skos:prefLabel xml:lang="cs">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="eu">Etika</skos:prefLabel>
+            <skos:prefLabel xml:lang="pl">Etyka</skos:prefLabel>
+            <skos:prefLabel xml:lang="da">Etik</skos:prefLabel>
+            <skos:prefLabel xml:lang="ro">Etică</skos:prefLabel>
+            <skos:prefLabel xml:lang="nl">Ethiek</skos:prefLabel>
+        </skos:Concept>
+        <metis:dereferenceStatus>SUCCESS</metis:dereferenceStatus>
+    </metis:result>
+</metis:results>

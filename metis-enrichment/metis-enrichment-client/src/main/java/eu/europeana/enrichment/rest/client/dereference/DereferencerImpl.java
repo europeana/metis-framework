@@ -248,7 +248,17 @@ public class DereferencerImpl implements Dereferencer {
         }
         try {
             Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
-            entityResolver.resolveById(resourceIds).forEach((key, value) -> result.put(key, List.of(value)));
+            Set<ReferenceTerm> ownEntities = resourceIds.stream()
+                    .filter(id -> EntityResolver.europeanaLinkPattern.matcher(id.getReference().toString()).matches())
+                    .collect(Collectors.toSet());
+            entityResolver.resolveById(ownEntities)
+                    .forEach((key, value) -> result.put(key, List.of(value)));
+            ownEntities.stream().filter(id -> result.get(id) == null || result.get(id).isEmpty())
+                    .forEach(notFoundOwnId -> {
+                        setDereferenceStatusInReport(notFoundOwnId.getReference().toString(),
+                                reports, DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY);
+                        result.putIfAbsent(notFoundOwnId, Collections.emptyList());
+                    });
             return new DereferencedEntities(result, reports, classType);
         } catch (Exception e) {
             return handleDereferencingException(resourceIds, reports, e, classType);
