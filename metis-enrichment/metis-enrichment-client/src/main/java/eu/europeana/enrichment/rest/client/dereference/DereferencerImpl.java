@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
@@ -11,16 +13,9 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.metis.network.ExternalRequestUtil;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.RDF;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,9 +33,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-
-import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
-import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 /**
  * The default implementation of the dereferencing function that accesses a server through HTTP/REST.
@@ -240,9 +237,9 @@ public class DereferencerImpl implements Dereferencer {
         return DereferenceUtils.extractReferencesForDereferencing(rdf);
     }
 
-    private DereferencedEntities dereferenceOwnEntities(Set<ReferenceTerm> resourceIds,
-                                                        HashSet<Report> reports,
-                                                        Class<? extends AboutType> classType) {
+    public DereferencedEntities dereferenceOwnEntities(Set<ReferenceTerm> resourceIds,
+        HashSet<Report> reports,
+        Class<? extends AboutType> classType) {
         if (entityResolver == null) {
             return new DereferencedEntities(Collections.emptyMap(), new HashSet<>());
         }
