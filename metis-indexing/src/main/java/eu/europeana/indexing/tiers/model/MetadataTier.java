@@ -27,4 +27,19 @@ public enum MetadataTier implements Tier {
   public String toString() {
     return stringRepresentation;
   }
+
+  public static MetadataTier getEnum(String value){
+    switch (value){
+    case "A":
+      return MetadataTier.TA;
+    case "B":
+      return MetadataTier.TB;
+    case "C":
+      return MetadataTier.TC;
+    case "0":
+      return MetadataTier.T0;
+    default:
+      throw new IllegalArgumentException("Nu such value " + value + " exists");
+    }
+  }
 }
