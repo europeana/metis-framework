@@ -338,6 +338,17 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
   private void appendTimespanEntity(Document document, AbstractEdtfDate edtfDate, String timespanId) {
 
+    //Check if element with the same id already exists, if so we need to remove it first.
+    List<Element> elements = XmlUtil.getAsElementList(document.getDocumentElement()
+                                                              .getElementsByTagNameNS(EDM_TIMESPAN.getNamespace().getUri(),
+                                                                  EDM_TIMESPAN.getElementName()));
+    for (Element element : elements) {
+      String aboutValue = element.getAttributeNS(RDF_ABOUT.getNamespace().getUri(), RDF_ABOUT.getElementName());
+      if (timespanId.equals(aboutValue)) {
+        document.getDocumentElement().removeChild(element);
+      }
+    }
+
     // TODO: 09/08/2022 All the element prefixes below are searched first and if not found then the suggested prefix is added.
     //  When it does not exist in the root the namespace is added in the element itself.
     //  Should we be adding it in the root element of the document instead?
