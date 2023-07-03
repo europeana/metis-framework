@@ -29,19 +29,18 @@ public enum MediaTier implements Tier {
   }
 
   public static MediaTier getEnum(String value){
-    switch(value){
-      case "1":
-        return MediaTier.T1;
-      case "2":
-        return MediaTier.T2;
-      case "3":
-        return MediaTier.T3;
-      case "4":
-        return MediaTier.T4;
-      case "0":
-        return MediaTier.T0;
-      default:
-        throw new IllegalArgumentException("No such value " + value + " exists");
+    MediaTier result = null;
+    for(MediaTier tier: MediaTier.values()) {
+      if(tier.stringRepresentation.equals(value)) {
+        result = tier;
+        break;
+      }
+    }
+
+    if(result == null){
+      throw new IllegalArgumentException("Nu such value " + value + " exists");
+    } else {
+      return result;
     }
   }
 }

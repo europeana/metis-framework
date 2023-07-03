@@ -29,17 +29,18 @@ public enum MetadataTier implements Tier {
   }
 
   public static MetadataTier getEnum(String value){
-    switch (value){
-    case "A":
-      return MetadataTier.TA;
-    case "B":
-      return MetadataTier.TB;
-    case "C":
-      return MetadataTier.TC;
-    case "0":
-      return MetadataTier.T0;
-    default:
+    MetadataTier result = null;
+    for(MetadataTier tier: MetadataTier.values()) {
+      if(tier.stringRepresentation.equals(value)) {
+        result = tier;
+        break;
+      }
+    }
+
+    if(result == null){
       throw new IllegalArgumentException("Nu such value " + value + " exists");
+    } else {
+      return result;
     }
   }
 }
