@@ -61,6 +61,7 @@ class MediaResourceTechnicalMetadataBuilderTest {
     mediaResourceTechnicalMetadata = mediaResourceTechnicalMetadataBuilder.build();
     assertEquals(resourceUrl, mediaResourceTechnicalMetadata.getResourceUrl());
     assertEquals(mediaType, mediaResourceTechnicalMetadata.getMediaType());
+    assertEquals(mediaTierBeforeLicense, mediaResourceTechnicalMetadata.getMediaTierBeforeLicenseCorrection());
     assertEquals(mimeType, mediaResourceTechnicalMetadata.getMimeType());
     assertNotSame(elementLinkTypes, mediaResourceTechnicalMetadata.getElementLinkTypes());
     assertTrue(CollectionUtils.isEqualCollection(elementLinkTypes, mediaResourceTechnicalMetadata.getElementLinkTypes()));
