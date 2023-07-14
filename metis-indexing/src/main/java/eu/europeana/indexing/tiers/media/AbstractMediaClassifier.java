@@ -49,9 +49,11 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     // Compute the media tier based on whether it has suitable web resources.
     final MediaTier mediaTier;
+    final MediaTier mediaTierBeforeLicenseCorrection;
     List<MediaResourceTechnicalMetadata> mediaResourceTechnicalMetadataList = new LinkedList<>();
     if (webResources.isEmpty()) {
       mediaTier = classifyEntityWithoutWebResources(entity, hasLandingPage);
+      mediaTierBeforeLicenseCorrection = mediaTier;
     } else {
       final List<MediaResourceTechnicalMetadata> descendingMediaResourceTechnicalMetadata =
           webResources.stream().map(
@@ -61,6 +63,11 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
       //Get the highest value or else default
       mediaTier = descendingMediaResourceTechnicalMetadata.stream().map(MediaResourceTechnicalMetadata::getMediaTier).findFirst()
                                                           .orElse(MediaTier.T0);
+      //Get the highest value of content tier before license correction or else default
+      mediaTierBeforeLicenseCorrection = descendingMediaResourceTechnicalMetadata.stream()
+          .map(MediaResourceTechnicalMetadata::getMediaTierBeforeLicenseCorrection)
+          .findFirst()
+          .orElse(MediaTier.T0);
       mediaResourceTechnicalMetadataList = descendingMediaResourceTechnicalMetadata;
     }
     MediaType mediaTypeResult = getMediaType();
@@ -68,6 +75,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown.Builder()
             .setRecordType(mediaTypeResult)
+            .setMediaTierBeforeLicenseCorrection(mediaTierBeforeLicenseCorrection)
             .setLicenseType(entityLicenseType)
             .setThumbnailAvailable(hasThumbnails)
             .setLandingPageAvailable(hasLandingPage)
@@ -113,7 +121,8 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
                                          .setMimeType(webResource.getMimeType())
                                          .setElementLinkTypes(webResource.getLinkTypes())
                                          .setLicenseType(webResourceLicense)
-                                         .setMediaTier(mediaTier);
+                                         .setMediaTier(mediaTier)
+                                         .setMediaTierBeforeLicenseCorrection(resourceTier);
 
     return mediaResourceTechnicalMetadataBuilder.build();
   }

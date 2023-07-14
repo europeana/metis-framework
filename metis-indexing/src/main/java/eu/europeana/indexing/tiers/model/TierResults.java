@@ -1,5 +1,10 @@
 package eu.europeana.indexing.tiers.model;
 
+import eu.europeana.indexing.tiers.model.TierClassifier.TierClassification;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
+import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
+import eu.europeana.indexing.utils.LicenseType;
+
 /**
  * Object that encapsulates the content and metadata tiers values.
  * It can not change set new values.
@@ -8,17 +13,41 @@ package eu.europeana.indexing.tiers.model;
 public class TierResults {
 
     private final MediaTier mediaTier;
+    private final MediaTier contentTierBeforeLicenseCorrection;
+    private final LicenseType licenseType;
     private final MetadataTier metadataTier;
+    private final MetadataTier metadataTierLanguage;
+    private final MetadataTier metadataTierEnablingElements;
+    private final MetadataTier metadataTierContextualClasses;
 
     /**
      * Constructor
      *
-     * @param mediaTier The value for content tier
-     * @param metadataTier The value for metadata tier
+     * @param mediaTierClassification The object containing the media classification of the record
+     * @param metadataTierClassification The object containing the metadata classification of the record
      */
-    public TierResults(MediaTier mediaTier, MetadataTier metadataTier) {
-        this.mediaTier = mediaTier;
-        this.metadataTier = metadataTier;
+    public TierResults(TierClassification<MediaTier, ContentTierBreakdown> mediaTierClassification,
+        TierClassification<MetadataTier, MetadataTierBreakdown> metadataTierClassification) {
+        this.mediaTier = mediaTierClassification.getTier();
+        this.metadataTier = metadataTierClassification.getTier();
+        contentTierBeforeLicenseCorrection = mediaTierClassification.getClassification().getMediaTierBeforeLicenseCorrection();
+        licenseType = mediaTierClassification.getClassification().getLicenseType();
+        metadataTierLanguage = metadataTierClassification.getClassification().getLanguageBreakdown().getMetadataTier();
+        metadataTierEnablingElements = metadataTierClassification.getClassification().getEnablingElements().getMetadataTier();
+        metadataTierContextualClasses = metadataTierClassification.getClassification().getContextualClasses().getMetadataTier();
+    }
+
+    /**
+     * Constructor that initializes with null values
+     */
+    public TierResults() {
+        mediaTier = null;
+        metadataTier = null;
+        contentTierBeforeLicenseCorrection = null;
+        licenseType = null;
+        metadataTierLanguage = null;
+        metadataTierEnablingElements = null;
+        metadataTierContextualClasses = null;
     }
 
     /**
@@ -30,11 +59,51 @@ public class TierResults {
     }
 
     /**
+     * Returns the value of content tier after license correction
+     * @return the value of content tier after license correction
+     */
+    public MediaTier getContentTierBeforeLicenseCorrection(){
+        return contentTierBeforeLicenseCorrection;
+    }
+
+    /**
+     * Returns the license type of the record
+     * @return the license type of the record
+     */
+    public LicenseType getLicenseType(){
+        return licenseType;
+    }
+
+    /**
      * Returns the value for metadata tier
      * @return the value of metadata tier
      */
     public MetadataTier getMetadataTier() {
         return metadataTier;
+    }
+
+    /**
+     * Returns the value for the metadata tier for language dimension
+     * @return the value for the metadata tier for language dimension
+     */
+    public MetadataTier getMetadataTierLanguage(){
+        return metadataTierLanguage;
+    }
+
+    /**
+     * Returns the value for the metadata tier for enabling elements dimension
+     * @return the value for the metadata tier for enabling elements dimension
+     */
+    public MetadataTier getMetadataTierEnablingElements(){
+        return metadataTierEnablingElements;
+    }
+
+    /**
+     * Returns the value for the metadata tier for contextual classes dimension
+     * @return the value for the metadata tier for contextual classes dimension
+     */
+    public MetadataTier getMetadataTierContextualClasses(){
+        return metadataTierContextualClasses;
     }
 
 }

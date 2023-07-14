@@ -27,4 +27,20 @@ public enum MetadataTier implements Tier {
   public String toString() {
     return stringRepresentation;
   }
+
+  public static MetadataTier getEnum(String value){
+    MetadataTier result = null;
+    for(MetadataTier tier: MetadataTier.values()) {
+      if(tier.stringRepresentation.equals(value)) {
+        result = tier;
+        break;
+      }
+    }
+
+    if(result == null){
+      throw new IllegalArgumentException("Nu such value " + value + " exists");
+    } else {
+      return result;
+    }
+  }
 }
