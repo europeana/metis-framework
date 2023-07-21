@@ -11,34 +11,25 @@ import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
-
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
+import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.dereference.DereferencedEntities;
-
+import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Alt;
-import eu.europeana.metis.schema.jibx.Concept.Choice;
-import eu.europeana.metis.schema.jibx.Date;
-
-import eu.europeana.metis.schema.jibx.Lat;
-import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.AltLabel;
-import eu.europeana.metis.schema.jibx.HasPart;
-import eu.europeana.metis.schema.jibx.IsPartOf;
-import eu.europeana.metis.schema.jibx._Long;
-import eu.europeana.metis.schema.jibx.Note;
-import eu.europeana.metis.schema.jibx.PrefLabel;
-import eu.europeana.metis.schema.jibx.SameAs;
 import eu.europeana.metis.schema.jibx.Begin;
 import eu.europeana.metis.schema.jibx.BiographicalInformation;
-import eu.europeana.metis.schema.jibx.ProfessionOrOccupation;
-import eu.europeana.metis.schema.jibx.PlaceOfBirth;
-import eu.europeana.metis.schema.jibx.PlaceOfDeath;
+import eu.europeana.metis.schema.jibx.BroadMatch;
+import eu.europeana.metis.schema.jibx.Broader;
+import eu.europeana.metis.schema.jibx.CloseMatch;
+import eu.europeana.metis.schema.jibx.Concept.Choice;
+import eu.europeana.metis.schema.jibx.Date;
 import eu.europeana.metis.schema.jibx.DateOfBirth;
 import eu.europeana.metis.schema.jibx.DateOfDeath;
 import eu.europeana.metis.schema.jibx.DateOfEstablishment;
@@ -47,24 +38,29 @@ import eu.europeana.metis.schema.jibx.End;
 import eu.europeana.metis.schema.jibx.ExactMatch;
 import eu.europeana.metis.schema.jibx.Gender;
 import eu.europeana.metis.schema.jibx.HasMet;
+import eu.europeana.metis.schema.jibx.HasPart;
 import eu.europeana.metis.schema.jibx.HiddenLabel;
 import eu.europeana.metis.schema.jibx.Identifier;
 import eu.europeana.metis.schema.jibx.InScheme;
 import eu.europeana.metis.schema.jibx.IsNextInSequence;
+import eu.europeana.metis.schema.jibx.IsPartOf;
 import eu.europeana.metis.schema.jibx.IsRelatedTo;
+import eu.europeana.metis.schema.jibx.Lat;
 import eu.europeana.metis.schema.jibx.NarrowMatch;
 import eu.europeana.metis.schema.jibx.Narrower;
 import eu.europeana.metis.schema.jibx.Notation;
+import eu.europeana.metis.schema.jibx.Note;
+import eu.europeana.metis.schema.jibx.PlaceOfBirth;
+import eu.europeana.metis.schema.jibx.PlaceOfDeath;
+import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.PrefLabel;
+import eu.europeana.metis.schema.jibx.ProfessionOrOccupation;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.Related;
 import eu.europeana.metis.schema.jibx.RelatedMatch;
+import eu.europeana.metis.schema.jibx.SameAs;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import eu.europeana.enrichment.api.internal.FieldType;
-import eu.europeana.metis.schema.jibx.AboutType;
-import eu.europeana.metis.schema.jibx.BroadMatch;
-import eu.europeana.metis.schema.jibx.Broader;
-import eu.europeana.metis.schema.jibx.CloseMatch;
-
+import eu.europeana.metis.schema.jibx._Long;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -379,7 +375,7 @@ public class EntityMergeEngine {
     return convertedEntity;
   }
 
-  private static AboutType convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase) {
+  public static AboutType convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase) {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;

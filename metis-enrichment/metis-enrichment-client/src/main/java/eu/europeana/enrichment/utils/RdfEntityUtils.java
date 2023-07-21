@@ -166,7 +166,7 @@ public final class RdfEntityUtils {
         .collect(Collectors.toList());
   }
 
-  private static boolean isEuropeanaProxy(ProxyType proxy) {
+  public static boolean isEuropeanaProxy(ProxyType proxy) {
     return proxy.getEuropeanaProxy() != null && proxy.getEuropeanaProxy().isEuropeanaProxy();
   }
 
