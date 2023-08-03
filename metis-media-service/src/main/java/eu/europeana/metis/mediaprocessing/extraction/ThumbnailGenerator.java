@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This class performs thumbnail generation for images and PDF files using ImageMagick.
  */
-class ThumbnailGenerator {
+public class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 
@@ -75,7 +75,7 @@ class ThumbnailGenerator {
    * @param commandExecutor A command executor. The calling class is responsible for closing this object.
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
-  ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
+  public ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
     this(commandExecutor, getGlobalImageMagickCommand(commandExecutor), initColorMap().toString());
   }
 
@@ -196,7 +196,7 @@ class ThumbnailGenerator {
    * but does not contain null values or thumbnails without content.
    * @throws MediaExtractionException In case a problem occurred.
    */
-  Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url, String detectedMimeType,
+  public Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url, String detectedMimeType,
       File content, boolean removeAlpha) throws MediaExtractionException {
 
     // Sanity checking

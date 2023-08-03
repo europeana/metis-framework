@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * <p>The command provided is sanitized before executed based on a predefined regex, for safety. In
  * case of an invalid command an exception will be thrown.</p>
  */
-class CommandExecutor {
+public class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
   private static final int PROCESS_TERMINATION_TIMEOUT_SECONDS = 30;
@@ -33,7 +33,7 @@ class CommandExecutor {
    * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take before it is forcibly destroyed
    * (i.e. cancelled).
    */
-  CommandExecutor(int commandTimeout) {
+  public CommandExecutor(int commandTimeout) {
     this(commandTimeout, CommandExecutor::createProcess);
   }
 
