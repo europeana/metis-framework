@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author jochen
  */
-class ImageMetadata {
+public class ImageMetadata {
 
   private final int width;
   private final int height;
