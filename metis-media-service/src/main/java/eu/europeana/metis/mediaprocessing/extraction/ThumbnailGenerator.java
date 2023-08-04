@@ -401,7 +401,7 @@ public class ThumbnailGenerator {
     return result;
   }
 
-  private static String md5Hex(String s) throws MediaExtractionException {
+  public static String md5Hex(String s) throws MediaExtractionException {
     try {
       byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
       // Note: we have no choice but to use MD5, this is agreed upon with the API implementation.
