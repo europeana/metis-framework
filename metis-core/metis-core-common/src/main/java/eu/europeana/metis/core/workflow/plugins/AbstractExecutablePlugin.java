@@ -87,8 +87,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     this.executionProgress = executionProgress;
   }
 
+  // TODO: 24/08/2023 This last boolean needs to be cleaned.
   private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
-    return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false, published, false);
+    return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false);
   }
 
   private DpsTask createDpsTaskForPluginWithExistingDataset(Map<String, String> parameters,

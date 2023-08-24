@@ -356,8 +356,7 @@ class TestProxiesService {
 
     // Mock getting the records from eCloud.
     final String ecloudId = "ECLOUDID1";
-    final CloudTagsResponse cloudTagsResponse = new CloudTagsResponse(ecloudId, false, false,
-        false);
+    final CloudTagsResponse cloudTagsResponse = new CloudTagsResponse(ecloudId, false);
     when(ecloudDataSetServiceClient
         .getRevisionsWithDeletedFlagSetToFalse(anyString(), anyString(), anyString(), anyString(), anyString(),
             anyString(), anyInt())).thenReturn(Collections.singletonList(cloudTagsResponse));
