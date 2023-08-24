@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "zookeeper")
-public class ZookeeperProperties {
+public class ZookeeperConfigurationProperties {
 
     private String[] hosts;
     private int[] ports;

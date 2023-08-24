@@ -8,13 +8,13 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "solr")
-public class SolrZookeeperProperties {
+public class SolrZookeeperConfigurationProperties {
 
   private String[] hosts;
 
   @NestedConfigurationProperty
   //Keep the name as is(zookeeper) for the spring mapping.
-  private ZookeeperProperties zookeeper;
+  private ZookeeperConfigurationProperties zookeeper;
 
   public String[] getHosts() {
     return hosts == null ? null : hosts.clone();
@@ -24,11 +24,11 @@ public class SolrZookeeperProperties {
     this.hosts = hosts == null ? null : hosts.clone();
   }
 
-  public ZookeeperProperties getZookeeper() {
+  public ZookeeperConfigurationProperties getZookeeper() {
     return zookeeper;
   }
 
-  public void setZookeeper(ZookeeperProperties zookeeper) {
+  public void setZookeeper(ZookeeperConfigurationProperties zookeeper) {
     this.zookeeper = zookeeper;
   }
 }

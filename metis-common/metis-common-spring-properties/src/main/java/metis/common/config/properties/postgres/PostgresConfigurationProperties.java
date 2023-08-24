@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "postgres")
-public class PostgresProperties {
+public class PostgresConfigurationProperties {
 
   private String server;
   private String username;

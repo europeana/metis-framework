@@ -7,6 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "publish.solr")
-public class PublishSolrZookeeperProperties extends SolrZookeeperProperties {
+public class PublishSolrZookeeperConfigurationProperties extends SolrZookeeperConfigurationProperties {
 
 }

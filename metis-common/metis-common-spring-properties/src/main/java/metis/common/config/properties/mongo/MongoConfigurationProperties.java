@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "mongo")
-public class MongoProperties {
+public class MongoConfigurationProperties {
 
     private String[] hosts;
     private int[] ports;

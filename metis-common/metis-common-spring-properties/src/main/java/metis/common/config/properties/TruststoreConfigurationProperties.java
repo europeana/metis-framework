@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "truststore")
-public class TruststoreProperties {
+public class TruststoreConfigurationProperties {
 
   private String path;
   private String password;
