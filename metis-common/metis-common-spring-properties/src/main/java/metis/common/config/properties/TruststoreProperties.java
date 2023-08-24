@@ -1,13 +1,9 @@
 package metis.common.config.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
- * Class that is used to read all configuration properties for the application.
- * <p>
- * It uses {@link PropertySource} to identify the properties on application startup
- * </p>
+ * Class using {@link ConfigurationProperties} loading.
  */
 @ConfigurationProperties(prefix = "truststore")
 public class TruststoreProperties {

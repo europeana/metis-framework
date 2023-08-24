@@ -2,6 +2,9 @@ package metis.common.config.properties.solr;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Class using {@link ConfigurationProperties} loading.
+ */
 @ConfigurationProperties(prefix = "zookeeper")
 public class ZookeeperProperties {
 
@@ -11,11 +14,11 @@ public class ZookeeperProperties {
     private String defaultCollection;
 
     public void setHosts(String[] hosts) {
-        this.hosts = hosts;
+        this.hosts = hosts == null ? null : hosts.clone();
     }
 
     public void setPorts(int[] ports) {
-        this.ports = ports;
+        this.ports = ports == null ? null : ports.clone();
     }
 
     public void setChroot(String chroot) {
@@ -27,11 +30,11 @@ public class ZookeeperProperties {
     }
 
     public String[] getHosts() {
-        return hosts;
+        return hosts == null ? null : hosts.clone();
     }
 
     public int[] getPorts() {
-        return ports;
+        return ports == null ? null : ports.clone();
     }
 
     public String getChroot() {
