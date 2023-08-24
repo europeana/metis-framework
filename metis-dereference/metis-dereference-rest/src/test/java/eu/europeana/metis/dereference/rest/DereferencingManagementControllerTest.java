@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.rest.config.properties.MetisDereferenceConfigurationProperties;
 import eu.europeana.metis.dereference.rest.controller.DereferencingController;
 import eu.europeana.metis.dereference.rest.controller.DereferencingManagementController;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
@@ -28,7 +29,6 @@ import eu.europeana.metis.utils.RestEndpoints;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,8 +49,10 @@ class DereferencingManagementControllerTest {
   void setUp() {
     deRefManagementServiceMock = mock(DereferencingManagementService.class);
 
+    MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties = new MetisDereferenceConfigurationProperties();
+    metisDereferenceConfigurationProperties.setAllowedUrlDomains("valid.domain.com");
     DereferencingManagementController dereferencingManagementController = new DereferencingManagementController(
-        deRefManagementServiceMock, Set.of("valid.domain.com"));
+        deRefManagementServiceMock, metisDereferenceConfigurationProperties);
 
     deRefManagementControllerMock = MockMvcBuilders.standaloneSetup(dereferencingManagementController)
                                                    .setControllerAdvice(new RestResponseExceptionHandler()).build();
