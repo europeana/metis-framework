@@ -11,6 +11,7 @@ public class HibernateConfigurationProperties {
   private String dialect;
   private Connection connection;
   private C3p0 c3p0;
+  private Hbm2ddl hbm2ddl;
 
   public String getDialect() {
     return dialect;
@@ -34,6 +35,14 @@ public class HibernateConfigurationProperties {
 
   public void setC3p0(C3p0 c3p0) {
     this.c3p0 = c3p0;
+  }
+
+  public Hbm2ddl getHbm2ddl() {
+    return hbm2ddl;
+  }
+
+  public void setHbm2ddl(Hbm2ddl hbm2ddl) {
+    this.hbm2ddl = hbm2ddl;
   }
 
   public static class Connection {
@@ -113,6 +122,19 @@ public class HibernateConfigurationProperties {
 
     public void setMaxStatements(String maxStatements) {
       this.maxStatements = maxStatements;
+    }
+  }
+
+  public static class Hbm2ddl {
+
+    private String auto;
+
+    public String getAuto() {
+      return auto;
+    }
+
+    public void setAuto(String auto) {
+      this.auto = auto;
     }
   }
 }
