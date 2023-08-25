@@ -178,10 +178,10 @@ public class MetisCoreConfigurationProperties {
     }
 
     public String[] getAllowedCorsHosts() {
-        return allowedCorsHosts;
+      return allowedCorsHosts == null ? null : allowedCorsHosts.clone();
     }
 
     public void setAllowedCorsHosts(String[] allowedCorsHosts) {
-        this.allowedCorsHosts = allowedCorsHosts;
+      this.allowedCorsHosts = allowedCorsHosts == null ? null : allowedCorsHosts.clone();
     }
 }

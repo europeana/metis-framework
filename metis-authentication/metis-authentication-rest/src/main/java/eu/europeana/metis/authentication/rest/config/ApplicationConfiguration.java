@@ -161,7 +161,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
         .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
       CustomTruststoreAppender
-          .appendCustomTrustoreToDefault(truststoreConfigurationProperties.getPath(),
+          .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
               truststoreConfigurationProperties.getPassword());
       LOGGER.info("Custom truststore appended to default truststore");
     }

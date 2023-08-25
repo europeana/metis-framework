@@ -46,7 +46,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     SocksProxyConfigurationProperties.class, MongoConfigurationProperties.class,
     MetisDereferenceConfigurationProperties.class})
 @EnableScheduling
-@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest.controller",
+@ComponentScan(basePackages = {
+    "eu.europeana.metis.dereference.rest.controller",
     "eu.europeana.metis.dereference.rest.exceptions"})
 @EnableWebMvc
 public class ApplicationConfiguration implements WebMvcConfigurer {
@@ -68,19 +69,47 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
       SocksProxyConfigurationProperties socksProxyConfigurationProperties,
       MongoConfigurationProperties mongoConfigurationProperties)
       throws CustomTruststoreAppender.TrustStoreConfigurationException {
-    ApplicationConfiguration.initializeApplication(truststoreConfigurationProperties);
+    ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
+    ApplicationConfiguration.initializeSocksProxy(socksProxyConfigurationProperties);
+    this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
+  }
 
-    // Initialize the socks proxy.
+  /**
+   * Truststore initializer
+   *
+   * @param truststoreConfigurationProperties the truststore configuration properties
+   * @throws CustomTruststoreAppender.TrustStoreConfigurationException In case a problem occurred with the truststore.
+   */
+  static void initializeTruststore(TruststoreConfigurationProperties truststoreConfigurationProperties)
+      throws CustomTruststoreAppender.TrustStoreConfigurationException {
+    if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
+        .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
+      CustomTruststoreAppender
+          .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
+              truststoreConfigurationProperties.getPassword());
+      LOGGER.info("Custom truststore appended to default truststore");
+    }
+  }
+
+  /**
+   * Socks proxy initializer.
+   *
+   * @param socksProxyConfigurationProperties the socks proxy configuration properties
+   */
+  static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
     if (socksProxyConfigurationProperties.isEnabled()) {
       new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
           socksProxyConfigurationProperties.getUsername(),
           socksProxyConfigurationProperties.getPassword()).init();
       LOGGER.info("Socks proxy enabled");
     }
+  }
 
+  public static MongoClient getMongoClient(MongoConfigurationProperties mongoConfigurationProperties) {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
-    mongoProperties.setAllProperties(mongoConfigurationProperties.getHosts(),
+    mongoProperties.setAllProperties(
+        mongoConfigurationProperties.getHosts(),
         mongoConfigurationProperties.getPorts(),
         mongoConfigurationProperties.getAuthenticationDatabase(),
         mongoConfigurationProperties.getUsername(),
@@ -89,26 +118,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
         ReadPreferenceValue.PRIMARY_PREFERRED,
         mongoConfigurationProperties.getApplicationName());
 
-    this.mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
-  }
-
-  /**
-   * This method performs the initializing tasks for the application.
-   *
-   * @param truststoreConfigurationProperties The properties.
-   * @throws CustomTruststoreAppender.TrustStoreConfigurationException In case a problem occurred with the truststore.
-   */
-  static void initializeApplication(TruststoreConfigurationProperties truststoreConfigurationProperties)
-      throws CustomTruststoreAppender.TrustStoreConfigurationException {
-
-    // Load the trust store file.
-    if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
-        .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
-      CustomTruststoreAppender
-          .appendCustomTrustoreToDefault(truststoreConfigurationProperties.getPath(),
-              truststoreConfigurationProperties.getPassword());
-      LOGGER.info("Custom truststore appended to default truststore");
-    }
+    return new MongoClientProvider<>(mongoProperties).createMongoClient();
   }
 
   /**
