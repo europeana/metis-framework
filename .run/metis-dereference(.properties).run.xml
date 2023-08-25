@@ -5,9 +5,9 @@
       <env name="logging.config" value="file:///data/metis-configuration/k8s/common-components/log4j2-xml/log4j2.xml"/>
       <env name="server.servlet.context-path" value="/metis-dereference"/>
       <env name="spring.config.location"
-        value="file:///data/metis-configuration/metis-framework/metis-dereference/metis-dereference-rest/k8s/overlays/production/components/properties/application.properties"/>
+        value="file:///data/metis-configuration/metis-framework/metis-dereference/metis-dereference-rest/k8s/overlays/test/components/properties/application.properties"/>
       <env name="truststore.path"
-        value="$PROJECT_DIR$/../metis-configuration/k8s/common-components/custom-truststore-jks/custom-truststore.jks"/>
+        value="/data/metis-configuration/k8s/common-components/custom-truststore-jks/custom-truststore.jks"/>
     </envs>
     <module name="metis-dereference-rest"/>
     <option name="SPRING_BOOT_MAIN_CLASS" value="eu.europeana.metis.dereference.rest.Application"/>
