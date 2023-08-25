@@ -1,5 +1,7 @@
 #Spring
 logging.config=/data/logging/log4j2.xml
+#logging.config=log4j2.xml
+server.error.whitelabel.enabled=false
 spring.servlet.multipart.max-file-size=5MB
 spring.servlet.multipart.max-request-size=5MB
 spring.autoconfigure.exclude=\
@@ -11,111 +13,108 @@ spring.autoconfigure.exclude=\
 truststore.path=
 truststore.password=
 
-#Orchestration
-max.concurrent.threads=
-dps.monitor.check.interval.in.secs=
-dps.connect.timeout.in.millisecs=
-dps.read.timeout.in.millisecs=
-failsafe.margin.of.inactivity.in.secs=
-periodic.failsafe.check.in.millisecs=
-periodic.scheduler.check.in.millisecs=
-polling.timeout.for.cleaning.completion.service.in.millisecs=
-#If a task passed this cap the task will be cancelled
-period.of.no.processed.records.change.in.minutes=
-thread.limit.throttling.level.weak=
-thread.limit.throttling.level.medium=
-thread.limit.throttling.level.strong=
-
 #Socks Proxy
-socks.proxy.enabled=
-socks.proxy.host=
-socks.proxy.port=
-socks.proxy.username=
-socks.proxy.password=
+socks-proxy.enabled=
+socks-proxy.host=
+socks-proxy.port=
+socks-proxy.username=
+socks-proxy.password=
+
+#Orchestration
+metis-core.maxConcurrentThreads=1
+metis-core.dpsMonitorCheckIntervalInSeconds=5
+metis-core.dpsConnectTimeoutInMilliseconds=10000
+metis-core.dpsReadTimeoutInMilliseconds=30000
+metis-core.failsafeMarginOfInactivityInSeconds=5
+metis-core.periodicFailsafeCheckInMilliseconds=60000
+metis-core.periodicSchedulerCheckInMilliseconds=90000
+metis-core.pollingTimeoutForCleaningCompletionServiceInMilliseconds=10000
+#If a task passed this cap the task will be cancelled
+metis-core.periodOfNoProcessedRecordsChangeInMinutes=30
+metis-core.threadLimitThrottlingLevelWeak=16
+metis-core.threadLimitThrottlingLevelMedium=8
+metis-core.threadLimitThrottlingLevelStrong=4
+#Use this to specify the FQDN where the application will be hosted under
+metis-core.baseUrl=https://metis-core-rest.test.eanadev.org
+#Use this to specify the maximum execution list length that is served by
+#Metis Core (regardless on whether the list is paginated).
+metis-core.maxServedExecutionListLength=200
+metis-core.maxDepublishRecordIdsPerDataset=1000
+#Use this to specify the default sampling size for Link Checking
+metis-core.linkCheckingDefaultSamplingSize=1000
+#Solr
+metis-core.solrCommitPeriodInMinutes=15
+# Authentication
+metis-core.authenticationBaseUrl=
+# CORS
+metis-core.allowedCorsHosts=
 
 #RabbitMq
 rabbitmq.host=
 rabbitmq.port=
 rabbitmq.username=
 rabbitmq.password=
-rabbitmq.virtual.host=
-rabbitmq.queue.name=
-rabbitmq.highest.priority=
-rabbitmq.enableSSL=
-#True if a custom certificate is used in the truststore defined above
-rabbitmq.enable.custom.truststore=
+rabbitmq.virtualHost=/
+rabbitmq.queueName=UserWorkflowExecution
+rabbitmq.highestPriority=10
+rabbitmq.enableSsl=
+rabbitmq.enableCustomTruststore=
 
 #Mongo
 mongo.hosts=
-mongo.port=
-mongo.authentication.db=
+mongo.ports=
+mongo.authenticationDatabase=
 mongo.username=
 mongo.password=
-mongo.enableSSL=
-mongo.db=
-mongo.application.name=
+mongo.enableSsl=
+mongo.database=metis-core
+mongo.applicationName=metis-core-local
 
 #Redis
 redis.host=
-redis.port=0
+redis.port=
 redis.username=
 redis.password=
-redis.enableSSL=
-#True if a custom certificate is used in the truststore defined above
-redis.enable.custom.truststore=
-redisson.connection.pool.size=
-redisson.connect.timeout.in.millisecs=
-redisson.lock.watchdog.timeout.in.secs=
+redis.enableSsl=
+redis.enableCustomTruststore=
+redis.redisson.connectionPoolSize=16
+redis.redisson.connectTimeoutInSeconds=60
+redis.redisson.lockWatchdogTimeoutInSeconds=120
 #Setting to -1 disables DNS monitoring
-redisson.dns.monitor.interval.in.millisecs=
-redisson.idle.connection.timeout.in.millisecs=
-redisson.retry.attempts=
+redis.redisson.dnsMonitorIntervalInSeconds=60
+redis.redisson.idleConnectionTimeoutInSeconds=60
+redis.redisson.retryAttempts=10
 
-solr.commit.period.in.mins=
-
-#ECloud
+# ECloud
 ecloud.baseUrl=
-ecloud.dps.baseUrl=
+ecloud.dpsBaseUrl=
 ecloud.provider=
 ecloud.username=
 ecloud.password=
 
-#Validation
-validation.external.schema.zip=
-validation.external.schema.root=
-validation.external.schematron.root=
-validation.internal.schema.zip=
-validation.internal.schema.root=
-validation.internal.schematron.root=
+#Validation parameters
+validation.validationExternalSchemaZip=
+validation.validationExternalSchemaRoot=
+validation.validationExternalSchematronRoot=
+validation.validationInternalSchemaZip=
+validation.validationInternalSchemaRoot=
+validation.validationInternalSchematronRoot=
 
-#Authentication
-authentication.baseUrl=
-
-#CORS
-allowed.cors.hosts=*
-
-#Use this to specify the FQDN where the application will be hosted under
-metis.core.baseUrl=
-#Use this to specify the maximum execution list length that is served by 
-#Metis Core (regardless on whether the list is paginated).
-metis.core.max.served.execution.list.length=
-metis.core.max.depublish.record.ids.per.dataset=
-metis.link.checking.default.sampling.size=
-
-#Actuator health probes
+#Actuator
 management.endpoint.health.probes.enabled=true
 management.health.livenessState.enabled=true
 management.health.readinessState.enabled=true
 
 #Elastic APM
-elastic.apm.enabled=false
+elastic.apm.enabled=true
 elastic.apm.recording=true
 elastic.apm.instrument=true
 elastic.apm.service_name=metis-core-local
 elastic.apm.server_url=
-elastic.apm.environment=test
+elastic.apm.environment=local
 elastic.apm.application_packages=eu.europeana
 elastic.apm.log_level=ERROR
 elastic.apm.capture_body=all
 elastic.apm.capture_headers=true
 elastic.apm.metrics_interval=5s
+

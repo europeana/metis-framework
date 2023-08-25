@@ -15,6 +15,7 @@ import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
+import java.lang.invoke.MethodHandles;
 import java.util.Set;
 import javax.annotation.PreDestroy;
 import metis.common.config.properties.SocksProxyConfigurationProperties;
@@ -50,7 +51,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class ApplicationConfiguration implements WebMvcConfigurer {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final MongoClient mongoClient;
   private ProcessedEntityDao processedEntityDao;
 
@@ -88,7 +89,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
         ReadPreferenceValue.PRIMARY_PREFERRED,
         mongoConfigurationProperties.getApplicationName());
 
-    mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    this.mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
   }
 
   /**
