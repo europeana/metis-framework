@@ -127,7 +127,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   }
 
   @Bean
-  public RecordDao getRecordDao(MongoClient mongoClient, MongoConfigurationProperties mongoConfigurationProperties) {
+  public RecordDao getRecordDao(MongoConfigurationProperties mongoConfigurationProperties) {
     return new RecordDao(mongoClient, mongoConfigurationProperties.getDatabase());
   }
 
