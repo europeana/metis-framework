@@ -60,8 +60,8 @@ public class AuthenticationController {
   /**
    * Register a user using an authorization header.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Basic Base64Encoded(email:password) </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Basic
+   * Base64Encoded(email:password) </p>
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
@@ -84,8 +84,8 @@ public class AuthenticationController {
   /**
    * Login functionality, which checks if the user with email exists and generates an access token.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Basic Base64Encoded(email:password) </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Basic
+   * Base64Encoded(email:password) </p>
    * @return {@link MetisUserView}
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -112,8 +112,8 @@ public class AuthenticationController {
   /**
    * Update a users password by authentication with an access token.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param oldAndNewPasswordParameters contains the old and new password
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -133,7 +133,7 @@ public class AuthenticationController {
       throw new BadContentException("oldPassword or newPassword not provided");
     }
     if (oldAndNewPasswordParameters.getOldPassword()
-        .equals(oldAndNewPasswordParameters.getNewPassword())) {
+                                   .equals(oldAndNewPasswordParameters.getNewPassword())) {
       throw new BadContentException("newPassword must be different than oldPassword");
     }
     String accessToken = authenticationService
@@ -151,8 +151,8 @@ public class AuthenticationController {
   /**
    * Delete a user from the system.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param emailParameter the class that contains the email parameter to act upon
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -185,8 +185,8 @@ public class AuthenticationController {
   /**
    * Update a user by re-retrieving the user from the remote CRM.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param emailParameter the class that contains the email parameter to act upon
    * @return updated {@link MetisUserView}
    * @throws GenericMetisException which can be one of:
@@ -222,8 +222,8 @@ public class AuthenticationController {
   /**
    * Change the {@link AccountRole} of a user.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param emailParameter the class that contains the email parameter to act upon
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -257,8 +257,8 @@ public class AuthenticationController {
    * Get a user using a user identifier.
    * <p>POST method is used to pass the user identifier through the body</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @param userIdParameter the class that contains the userId parameter to act upon
    * @return the metis user
    * @throws GenericMetisException which can be one of:
@@ -284,8 +284,8 @@ public class AuthenticationController {
   /**
    * Retrieve a user by using an access token.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @return the corresponding {@link MetisUserView}
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -309,8 +309,8 @@ public class AuthenticationController {
   /**
    * Retrieve a list of all the users in the system.
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
+   * accessTokenHere </p>
    * @return the list with all the {@link MetisUserView}s
    * @throws GenericMetisException which can be one of:
    * <ul>

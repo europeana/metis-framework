@@ -210,6 +210,13 @@ public class WebResourceWrapper {
   }
 
   /**
+   * @return The 'ebucore:fileByteSize' value of the web resource as long, or 0 if none is set.
+   */
+  public long getFileByteSize() {
+    return webResource.getFileByteSize() == null ? 0L : webResource.getFileByteSize().getLong();
+  }
+
+  /**
    * @return The 'ebucore:sampleSize' value of the web resource as long, or 0 if none is set.
    */
   public long getSampleSize() {
@@ -250,5 +257,23 @@ public class WebResourceWrapper {
    */
   public Optional<LicenseType> getLicenseType() {
     return Optional.of(webResource).map(WebResourceType::getRights).map(LicenseType::getLicenseType);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    WebResourceWrapper that = (WebResourceWrapper) o;
+    return webResource.getAbout().equals(that.getAbout()) && linkTypes.containsAll(that.getLinkTypes());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(webResource.getAbout(), linkTypes);
   }
 }

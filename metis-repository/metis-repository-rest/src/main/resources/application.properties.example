@@ -1,4 +1,5 @@
 #Spring
+logging.config=
 spring.servlet.multipart.max-file-size=5MB
 spring.servlet.multipart.max-request-size=5MB
 spring.autoconfigure.exclude=\
@@ -12,22 +13,42 @@ springdoc.paths-to-match=/**
 server.error.whitelabel.enabled=false
 
 #Socks Proxy
-socks.proxy.enabled=false
-socks.proxy.host=
-socks.proxy.port=
-socks.proxy.username=
-socks.proxy.password=
+socks-proxy.enabled=
+socks-proxy.host=
+socks-proxy.port=
+socks-proxy.username=
+socks-proxy.password=
+
+##Truststore
+truststore.path=
+truststore.password=
 
 #Mongo
 mongo.hosts=
-mongo.port=
-mongo.authentication.db=
+mongo.ports=
+mongo.authenticationDatabase=
 mongo.username=
 mongo.password=
-mongo.enable.ssl=
-mongo.application.name=
-mongo.record.db=
+mongo.enableSsl=
+mongo.database=
+mongo.applicationName=
 
-#Truststore
-truststore.path=
-truststore.password=
+#Actuator
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+
+# Elastic APM
+elastic.apm.enabled=false
+elastic.apm.recording=true
+elastic.apm.instrument=true
+elastic.apm.service_name=metis-repository
+elastic.apm.server_url=
+elastic.apm.environment=local
+elastic.apm.application_packages=eu.europeana
+elastic.apm.log_level=ERROR
+elastic.apm.capture_body=all
+elastic.apm.capture_headers=true
+elastic.apm.metrics_interval=5s
+
+

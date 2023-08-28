@@ -24,11 +24,13 @@ import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
+import metis.common.config.properties.TruststoreConfigurationProperties;
+import metis.common.config.properties.rabbitmq.RabbitmqConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,51 +39,41 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@EnableConfigurationProperties({RabbitmqConfigurationProperties.class, TruststoreConfigurationProperties.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 @EnableScheduling
 public class QueueConfig implements WebMvcConfigurer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(QueueConfig.class);
-
-  private final ConfigurationPropertiesHolder propertiesHolder;
   private QueueConsumer queueConsumer;
 
   private Connection connection;
   private Channel publisherChannel;
   private Channel consumerChannel;
 
-  /**
-   * Constructor with the required properties class.
-   *
-   * @param propertiesHolder the properties holder
-   */
-  @Autowired
-  public QueueConfig(ConfigurationPropertiesHolder propertiesHolder) {
-    this.propertiesHolder = propertiesHolder;
-  }
-
   @Bean
-  Connection getConnection()
+  Connection getConnection(RabbitmqConfigurationProperties rabbitmqConfigurationProperties,
+      TruststoreConfigurationProperties truststoreConfigurationProperties)
       throws KeyManagementException, NoSuchAlgorithmException, IOException, TimeoutException, KeyStoreException, CertificateException {
     ConnectionFactory connectionFactory = new ConnectionFactory();
-    connectionFactory.setHost(propertiesHolder.getRabbitmqHost());
-    connectionFactory.setPort(propertiesHolder.getRabbitmqPort());
+    connectionFactory.setHost(rabbitmqConfigurationProperties.getHost());
+    connectionFactory.setPort(rabbitmqConfigurationProperties.getPort());
     connectionFactory.setVirtualHost(
-        StringUtils.isNotBlank(propertiesHolder.getRabbitmqVirtualHost()) ? propertiesHolder
-            .getRabbitmqVirtualHost() : "/");
-    connectionFactory.setUsername(propertiesHolder.getRabbitmqUsername());
-    connectionFactory.setPassword(propertiesHolder.getRabbitmqPassword());
+        StringUtils.isNotBlank(rabbitmqConfigurationProperties.getVirtualHost()) ? rabbitmqConfigurationProperties
+            .getVirtualHost() : "/");
+    connectionFactory.setUsername(rabbitmqConfigurationProperties.getUsername());
+    connectionFactory.setPassword(rabbitmqConfigurationProperties.getPassword());
     connectionFactory.setAutomaticRecoveryEnabled(true);
-    if (propertiesHolder.isRabbitmqEnableSSL()) {
-      if (propertiesHolder.isRabbitmqEnableCustomTruststore()) {
+    if (rabbitmqConfigurationProperties.isEnableSsl()) {
+      if (rabbitmqConfigurationProperties.isEnableCustomTruststore()) {
         // Load the ssl context with the provided truststore
         final KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
         // This file is determined in the config files, it does not pose a risk.
         @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
         final Path trustStoreFile = Paths.get(
-            propertiesHolder.getTruststorePath());
+            truststoreConfigurationProperties.getPath());
         try (final InputStream inputStream = Files.newInputStream(trustStoreFile)) {
-          keyStore.load(inputStream, propertiesHolder.getTruststorePassword().toCharArray());
+          keyStore.load(inputStream, truststoreConfigurationProperties.getPassword().toCharArray());
         }
         TrustManagerFactory trustManagerFactory = TrustManagerFactory
             .getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -104,42 +96,47 @@ public class QueueConfig implements WebMvcConfigurer {
   }
 
   @Bean(name = "rabbitmqPublisherChannel")
-  Channel getRabbitmqPublisherChannel(Connection connection) throws IOException {
+  Channel getRabbitmqPublisherChannel(Connection connection, RabbitmqConfigurationProperties rabbitmqConfigurationProperties)
+      throws IOException {
     publisherChannel = connection.createChannel();
-    setupChannelProperties(publisherChannel);
+    setupChannelProperties(publisherChannel, rabbitmqConfigurationProperties);
     return publisherChannel;
   }
 
   @Bean(name = "rabbitmqConsumerChannel")
-  Channel getRabbitmqConsumerChannel(Connection connection) throws IOException {
+  Channel getRabbitmqConsumerChannel(Connection connection, RabbitmqConfigurationProperties rabbitmqConfigurationProperties)
+      throws IOException {
     consumerChannel = connection.createChannel();
-    setupChannelProperties(consumerChannel);
+    setupChannelProperties(consumerChannel, rabbitmqConfigurationProperties);
     return consumerChannel;
   }
 
-  private void setupChannelProperties(Channel channel) throws IOException {
+  private void setupChannelProperties(Channel channel, RabbitmqConfigurationProperties rabbitmqConfigurationProperties)
+      throws IOException {
     Map<String, Object> args = new ConcurrentHashMap<>();
     args.put("x-max-priority",
-        propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
+        rabbitmqConfigurationProperties.getHighestPriority());//Higher number means higher priority
     //Second boolean durable to false
-    channel.queueDeclare(propertiesHolder.getRabbitmqQueueName(), false, false, false, args);
+    channel.queueDeclare(rabbitmqConfigurationProperties.getQueueName(), false, false, false, args);
   }
 
   @Bean
-  public QueueConsumer getQueueConsumer(WorkflowExecutorManager workflowExecutionManager,
+  public QueueConsumer getQueueConsumer(
+      RabbitmqConfigurationProperties rabbitmqConfigurationProperties,
+      WorkflowExecutorManager workflowExecutionManager,
       WorkflowExecutionMonitor workflowExecutionMonitor,
       @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel) throws IOException {
     queueConsumer = new QueueConsumer(rabbitmqConsumerChannel,
-        propertiesHolder.getRabbitmqQueueName(), workflowExecutionManager, workflowExecutionManager,
+        rabbitmqConfigurationProperties.getQueueName(), workflowExecutionManager, workflowExecutionManager,
         workflowExecutionMonitor);
     return queueConsumer;
   }
 
-  @Scheduled(fixedDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}",
-      initialDelayString = "${polling.timeout.for.cleaning.completion.service.in.millisecs}")
+  // TODO: 24/08/2023 Is there a better way to load the configuration here?
+  @Scheduled(
+      fixedDelayString = "${metis-core.pollingTimeoutForCleaningCompletionServiceInMilliseconds}",
+      initialDelayString = "${metis-core.pollingTimeoutForCleaningCompletionServiceInMilliseconds}")
   public void runQueueConsumerCleanup() throws InterruptedException {
-    LOGGER.debug("Queue consumer cleanup started (runs every {} milliseconds).",
-        propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInMillisecs());
     this.queueConsumer.checkAndCleanCompletionService();
     LOGGER.debug("Queue consumer cleanup finished.");
   }

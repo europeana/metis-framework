@@ -5,8 +5,10 @@ import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import eu.europeana.metis.core.rest.config.properties.MetisCoreConfigurationProperties;
 import javax.annotation.PreDestroy;
-import org.springframework.beans.factory.annotation.Autowired;
+import metis.common.config.properties.ecloud.EcloudConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,68 +21,80 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2017-11-22
  */
 @Configuration
+@EnableConfigurationProperties({
+    MetisCoreConfigurationProperties.class, EcloudConfigurationProperties.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 public class ECloudConfig implements WebMvcConfigurer {
 
-  private final ConfigurationPropertiesHolder propertiesHolder;
   private DataSetServiceClient dataSetServiceClient;
   private RecordServiceClient recordServiceClient;
   private FileServiceClient fileServiceClient;
   private DpsClient dpsClient;
   private UISClient uisClient;
 
-  /**
-   * Constructor.
-   *
-   * @param propertiesHolder Object containing the configuration properties.
-   */
-  @Autowired
-  public ECloudConfig(ConfigurationPropertiesHolder propertiesHolder) {
-    this.propertiesHolder = propertiesHolder;
-  }
 
   @Bean
-  DataSetServiceClient dataSetServiceClient() {
-    dataSetServiceClient = new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(),
-        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
-        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
-        propertiesHolder.getDpsReadTimeoutInMillisecs());
+  DataSetServiceClient dataSetServiceClient(
+      MetisCoreConfigurationProperties metisCoreConfigurationProperties,
+      EcloudConfigurationProperties ecloudConfigurationProperties) {
+    dataSetServiceClient = new DataSetServiceClient(
+        ecloudConfigurationProperties.getBaseUrl(),
+        ecloudConfigurationProperties.getUsername(),
+        ecloudConfigurationProperties.getPassword(),
+        metisCoreConfigurationProperties.getDpsConnectTimeoutInMilliseconds(),
+        metisCoreConfigurationProperties.getDpsReadTimeoutInMilliseconds());
     return dataSetServiceClient;
   }
 
   @Bean
-  RecordServiceClient recordServiceClient() {
-    recordServiceClient = new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(),
-        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
-        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
-        propertiesHolder.getDpsReadTimeoutInMillisecs());
+  RecordServiceClient recordServiceClient(
+      MetisCoreConfigurationProperties metisCoreConfigurationProperties,
+      EcloudConfigurationProperties ecloudConfigurationProperties) {
+    recordServiceClient = new RecordServiceClient(
+        ecloudConfigurationProperties.getBaseUrl(),
+        ecloudConfigurationProperties.getUsername(),
+        ecloudConfigurationProperties.getPassword(),
+        metisCoreConfigurationProperties.getDpsConnectTimeoutInMilliseconds(),
+        metisCoreConfigurationProperties.getDpsReadTimeoutInMilliseconds());
     return recordServiceClient;
   }
 
   @Bean
-  FileServiceClient fileServiceClient() {
-    fileServiceClient = new FileServiceClient(propertiesHolder.getEcloudBaseUrl(),
-        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
-        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
-        propertiesHolder.getDpsReadTimeoutInMillisecs());
+  FileServiceClient fileServiceClient(
+      MetisCoreConfigurationProperties metisCoreConfigurationProperties,
+      EcloudConfigurationProperties ecloudConfigurationProperties) {
+    fileServiceClient = new FileServiceClient(
+        ecloudConfigurationProperties.getBaseUrl(),
+        ecloudConfigurationProperties.getUsername(),
+        ecloudConfigurationProperties.getPassword(),
+        metisCoreConfigurationProperties.getDpsConnectTimeoutInMilliseconds(),
+        metisCoreConfigurationProperties.getDpsReadTimeoutInMilliseconds());
     return fileServiceClient;
   }
 
   @Bean
-  DpsClient dpsClient() {
-    dpsClient = new DpsClient(propertiesHolder.getEcloudDpsBaseUrl(),
-        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
-        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
-        propertiesHolder.getDpsReadTimeoutInMillisecs());
+  DpsClient dpsClient(
+      MetisCoreConfigurationProperties metisCoreConfigurationProperties,
+      EcloudConfigurationProperties ecloudConfigurationProperties) {
+    dpsClient = new DpsClient(
+        ecloudConfigurationProperties.getBaseUrl(),
+        ecloudConfigurationProperties.getUsername(),
+        ecloudConfigurationProperties.getPassword(),
+        metisCoreConfigurationProperties.getDpsConnectTimeoutInMilliseconds(),
+        metisCoreConfigurationProperties.getDpsReadTimeoutInMilliseconds());
     return dpsClient;
   }
 
   @Bean
-  UISClient uisClient() {
-    uisClient = new UISClient(propertiesHolder.getEcloudBaseUrl(),
-        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
-        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
-        propertiesHolder.getDpsReadTimeoutInMillisecs());
+  UISClient uisClient(
+      MetisCoreConfigurationProperties metisCoreConfigurationProperties,
+      EcloudConfigurationProperties ecloudConfigurationProperties) {
+    uisClient = new UISClient(
+        ecloudConfigurationProperties.getBaseUrl(),
+        ecloudConfigurationProperties.getUsername(),
+        ecloudConfigurationProperties.getPassword(),
+        metisCoreConfigurationProperties.getDpsConnectTimeoutInMilliseconds(),
+        metisCoreConfigurationProperties.getDpsReadTimeoutInMilliseconds());
     return uisClient;
   }
 

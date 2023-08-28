@@ -29,19 +29,19 @@ public final class CustomTruststoreAppender {
   }
 
   /**
-   * Will append the provided truststore to the default trustore from the system.
+   * Will append the provided truststore to the default truststore from the system.
    *
-   * @param trustorePath the path to the truststore file
-   * @param trustorePassword the password to access the trustore file
-   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom trustore to the default
+   * @param path the path to the truststore file
+   * @param password the password to access the truststore file
+   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom truststore to the default
    */
-  public static void appendCustomTrustoreToDefault(String trustorePath, String trustorePassword)
+  public static void appendCustomTruststoreToDefault(String path, String password)
       throws TrustStoreConfigurationException {
 
     try {
       X509TrustManager defaultX509TrustManager = getDefaultX509TrustManager();
-      X509TrustManager customX509TrustManager = getCustomX509TrustManager(trustorePath,
-          trustorePassword);
+      X509TrustManager customX509TrustManager = getCustomX509TrustManager(path,
+          password);
 
       X509TrustManager mergedX509TrustManager = new CustomX509TrustManager(defaultX509TrustManager,
           customX509TrustManager);
@@ -52,6 +52,22 @@ public final class CustomTruststoreAppender {
     } catch (NoSuchAlgorithmException | KeyStoreException | IOException | CertificateException | KeyManagementException e) {
       throw new TrustStoreConfigurationException(e);
     }
+  }
+
+  /**
+   * Will append the provided truststore to the default truststore from the system.
+   *
+   * @param path the path to the truststore file
+   * @param password the password to access the truststore file
+   * @throws TrustStoreConfigurationException if any issue arises during the appending of the custom truststore to the default
+   * @
+   * @deprecated Use {@link #appendCustomTruststoreToDefault(String, String)}
+   */
+  // TODO: 25/08/2023 Remove this when version >= 12-SNAPSHOT
+  @Deprecated(since = "11", forRemoval = true)
+  public static void appendCustomTrustoreToDefault(String path, String password)
+      throws TrustStoreConfigurationException {
+    CustomTruststoreAppender.appendCustomTruststoreToDefault(path, password);
   }
 
   private static X509TrustManager getDefaultX509TrustManager()

@@ -20,7 +20,7 @@ class CustomTruststoreAppenderTest {
   void appendCustomTrustoreToDefault() throws URISyntaxException {
     final String customTruststorePath = Paths.get(this.getClass().getClassLoader().getResource("custom.jks").toURI()).toString();
     assertDoesNotThrow(() ->
-        CustomTruststoreAppender.appendCustomTrustoreToDefault(customTruststorePath, "europeana")
+        CustomTruststoreAppender.appendCustomTruststoreToDefault(customTruststorePath, "europeana")
     );
   }
 
@@ -28,7 +28,7 @@ class CustomTruststoreAppenderTest {
   void appendCustomTrustoreToDefaultException() throws URISyntaxException {
     final String customTruststorePath = Paths.get(this.getClass().getClassLoader().getResource("custom.jks").toURI()).toString();
     assertThrows(TrustStoreConfigurationException.class, () ->
-        CustomTruststoreAppender.appendCustomTrustoreToDefault(customTruststorePath, "euro")
+        CustomTruststoreAppender.appendCustomTruststoreToDefault(customTruststorePath, "euro")
     );
   }
 }
