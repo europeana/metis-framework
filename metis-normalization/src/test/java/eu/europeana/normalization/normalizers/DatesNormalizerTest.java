@@ -12,7 +12,7 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_SPACES_VARIANT;
 import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -199,8 +199,8 @@ class DatesNormalizerTest {
         of("02?-1915", null, null),
 
         //Numeric date with space " "
-        of("1905 09 01", "1905-09-01", YYYY_MM_DD_SPACES),
-        of("0 2 1980", "1980-02", YYYY_MM_DD_SPACES),
+        of("1905 09 01", "1905-09-01", NUMERIC_SPACES_VARIANT),
+        of("0 2 1980", "1980-02", NUMERIC_SPACES_VARIANT),
 
         //More than 4 digits year
         of("18720601/18720630", null, null),

@@ -2,7 +2,7 @@ package eu.europeana.normalization.dates.extraction;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.YYYY_MM_DD_SPACES;
+import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_SPACES_VARIANT;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.DMY_INDICES;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.YMD_INDICES;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DASH_DOT_DELIMITERS;
@@ -37,8 +37,8 @@ public enum NumericPartsPattern {
   YMD_XX(DASH_DOT_SLASH_DELIMITERS, YMD_INDICES, NUMERIC_ALL_VARIANTS_XX),
   DMY_XX(DASH_DOT_SLASH_DELIMITERS, DMY_INDICES, NUMERIC_ALL_VARIANTS_XX),
 
-  YMD_SPACES(SPACE_DELIMITER, YMD_INDICES, YYYY_MM_DD_SPACES),
-  DMY_SPACES(SPACE_DELIMITER, DMY_INDICES, YYYY_MM_DD_SPACES),
+  YMD_SPACES(SPACE_DELIMITER, YMD_INDICES, NUMERIC_SPACES_VARIANT),
+  DMY_SPACES(SPACE_DELIMITER, DMY_INDICES, NUMERIC_SPACES_VARIANT),
 
   YMD_SPACED_DASH_RANGE(SPACED_DASH_RANGE, YMD_INDICES, NUMERIC_ALL_VARIANTS),
   DMY_SPACED_DASH_RANGE(SPACED_DASH_RANGE, DMY_INDICES, NUMERIC_ALL_VARIANTS),
@@ -125,7 +125,7 @@ public enum NumericPartsPattern {
       year = "(\\d{2}(?:XX|UU|--|\\?\\?)|\\d{3}(?!\\?)[XU]|\\d{4})";
       delimiterDigits = "(?:" + dateDelimiters + "(\\d{2}|XX|UU|(?<!-)--|\\?\\?))?";
       digitsDelimiter = "(?:(\\d{2}|XX|UU|--(?!-)|\\?\\?)" + dateDelimiters + ")?";
-    } else if (dateNormalizationExtractorMatchId == YYYY_MM_DD_SPACES) {
+    } else if (dateNormalizationExtractorMatchId == NUMERIC_SPACES_VARIANT) {
       year = "(\\d{4})";
       delimiterDigits = dateDelimiters + "(\\d{1,2})";
       digitsDelimiter = "(\\d{1,2})" + dateDelimiters;
@@ -169,7 +169,7 @@ public enum NumericPartsPattern {
     String getDatesDelimiters();
   }
 
-  public enum NumericDateDelimiters implements DateDelimiters {
+  enum NumericDateDelimiters implements DateDelimiters {
     DASH_DOT_SLASH_DELIMITERS("[\\-./]"),
     DOT_SLASH_DELIMITERS("[./]"),
     DASH_DOT_DELIMITERS("[\\-.]"),
