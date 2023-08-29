@@ -42,7 +42,7 @@ public class PatternMonthNameDateExtractor extends AbstractDateExtractor {
                       + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<year>\\d{4})\\s*",
                   Pattern.CASE_INSENSITIVE));
       patternMonthDayYear.put(month, Pattern.compile("\\s*" + monthNamesPattern
-              + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<day>\\d\\d?)[ .,][a-zA-Z]{0,2}[ .,](?<year>\\d{4})\\s*",
+              + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<day>\\d\\d?)[ .,]([a-zA-Z]{0,2}[ .,])?(?<year>\\d{4})\\s*",
           Pattern.CASE_INSENSITIVE));
       patternMonthYear.put(month,
           Pattern.compile("\\s*" + monthNamesPattern + "[ .,]([a-zA-Z]{0,2}[ .,])?(?<year>\\d{4})\\s*",
