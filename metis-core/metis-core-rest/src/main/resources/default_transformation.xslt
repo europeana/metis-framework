@@ -39,8 +39,8 @@
   <!-- Fixed strings to mint URIs -->
   <xsl:variable name="europeana"       select="'Europeana Foundation'" />
   <!--
-  <xsl:variable name="provider_uri"    select="/rdf:RDF/edm:ProvidedCHO[1]/@rdf:about" /><xsl:variable name="uri_cho"         select="f:mintUri($prefix_cho   , $datasetId, $provider_uri)" /><xsl:variable name="uri_dproxy"      select="f:mintUri($prefix_dproxy, $datasetId, $provider_uri)" /><xsl:variable name="uri_pproxy"      select="f:mintUri($prefix_pproxy, $datasetId, $provider_uri)" /><xsl:variable name="uri_eproxy"      select="f:mintUri($prefix_eproxy, $datasetId, $provider_uri)" /><xsl:variable name="uri_daggr"       select="f:mintUri($prefix_daggr , $datasetId, $provider_uri)" /><xsl:variable name="uri_paggr"       select="f:mintUri($prefix_paggr , $datasetId, $provider_uri)" /><xsl:variable name="uri_eaggr"       select="f:mintUri($prefix_eaggr , $datasetId, $provider_uri)" />
-  -->
+<xsl:variable name="provider_uri"    select="/rdf:RDF/edm:ProvidedCHO[1]/@rdf:about" /><xsl:variable name="uri_cho"         select="f:mintUri($prefix_cho   , $datasetId, $provider_uri)" /><xsl:variable name="uri_dproxy"      select="f:mintUri($prefix_dproxy, $datasetId, $provider_uri)" /><xsl:variable name="uri_pproxy"      select="f:mintUri($prefix_pproxy, $datasetId, $provider_uri)" /><xsl:variable name="uri_eproxy"      select="f:mintUri($prefix_eproxy, $datasetId, $provider_uri)" /><xsl:variable name="uri_daggr"       select="f:mintUri($prefix_daggr , $datasetId, $provider_uri)" /><xsl:variable name="uri_paggr"       select="f:mintUri($prefix_paggr , $datasetId, $provider_uri)" /><xsl:variable name="uri_eaggr"       select="f:mintUri($prefix_eaggr , $datasetId, $provider_uri)" />
+-->
   <xsl:variable name="uri_cho"         select="$providedCHOAboutId" />
   <xsl:variable name="uri_dproxy"      select="concat('/proxy/provider', $providedCHOAboutId)" />
   <xsl:variable name="uri_pproxy"      select="concat('/proxy/aggregator', $providedCHOAboutId)" />
@@ -415,7 +415,7 @@
     <xsl:copy/>
   </xsl:template>
   <xsl:template match="*">
-    <xsl:element name="{name()}">
+    <xsl:element name="{name()}" namespace="{namespace-uri()}">
       <xsl:copy-of select="@rdf:resource"/>
       <xsl:copy-of select="@xml:lang"/>
       <xsl:copy-of select="@rdf:datatype"/>
