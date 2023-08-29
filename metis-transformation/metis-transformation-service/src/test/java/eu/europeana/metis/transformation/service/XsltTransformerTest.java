@@ -1,6 +1,8 @@
 package eu.europeana.metis.transformation.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,6 +13,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,14 +29,17 @@ class XsltTransformerTest {
   @Test
   void shouldTransformGivenFile()
       throws TransformationException, IOException, ParserConfigurationException, SAXException {
-    URL xsltFile = getClass().getClassLoader().getResource("sample_xslt.xslt");
-    byte[] fileToTransform = readFile("xmlForTesting.xml");
-    StringWriter wr = new XsltTransformer(xsltFile.toString(), xsltFile.openStream()).transform(
+    final URL xsltFile = getClass().getClassLoader().getResource("sample_xslt.xslt");
+    assertNotNull(xsltFile);
+    assertDoesNotThrow(xsltFile::toURI);
+    final byte[] fileToTransform = readFile("xmlForTesting.xml");
+    final StringWriter stringWriter = new XsltTransformer(xsltFile.toString(), xsltFile.openStream()).transform(
         fileToTransform, null);
+    final String transformed = stringWriter.toString();
 
-    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-    Document doc = dBuilder.parse(new InputSource(new StringReader(wr.toString())));
+    final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+    final Document doc = dBuilder.parse(new InputSource(new StringReader(transformed)));
     assertEquals("html", doc.getDocumentElement().getNodeName());
     assertEquals(1, doc.getElementsByTagName("h2").getLength());
     assertEquals(1, doc.getElementsByTagName("table").getLength());
@@ -64,9 +70,9 @@ class XsltTransformerTest {
   }
 
   private byte[] readFile(String fileName) throws IOException {
-    String myXml = IOUtils
-        .toString(getClass().getClassLoader().getResource(fileName), StandardCharsets.UTF_8.name());
-    byte[] bytes = myXml.getBytes(StandardCharsets.UTF_8);
+    String xml = IOUtils.toString(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)),
+        StandardCharsets.UTF_8);
+    byte[] bytes = xml.getBytes(StandardCharsets.UTF_8);
     InputStream contentStream = new ByteArrayInputStream(bytes);
     return IOUtils.toByteArray(contentStream);
   }
