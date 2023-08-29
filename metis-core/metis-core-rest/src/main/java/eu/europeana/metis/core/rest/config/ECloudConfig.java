@@ -77,7 +77,7 @@ public class ECloudConfig implements WebMvcConfigurer {
       MetisCoreConfigurationProperties metisCoreConfigurationProperties,
       EcloudConfigurationProperties ecloudConfigurationProperties) {
     dpsClient = new DpsClient(
-        ecloudConfigurationProperties.getBaseUrl(),
+        ecloudConfigurationProperties.getDpsBaseUrl(),
         ecloudConfigurationProperties.getUsername(),
         ecloudConfigurationProperties.getPassword(),
         metisCoreConfigurationProperties.getDpsConnectTimeoutInMilliseconds(),
