@@ -206,6 +206,10 @@ class DatesNormalizerTest {
         of("18720601/18720630", null, null),
         of("19471950/19501953", null, null),
 
+        //Month alphabetical name
+        of("18 September 1914", "1914-09-18", MONTH_NAME),
+        of("c.6 Nov 1902", "1902-11-06~", MONTH_NAME),
+
         of("-2100/-1550", "-2100/-1550", EDTF),
         // TODO: 21/12/2022 Check the below, expected null but returns 1952-02-25 instead
         //    of("1952-02-25T00:00:00Z-1952-02-25T23:59:59Z", null),
@@ -236,7 +240,6 @@ class DatesNormalizerTest {
         //Ambiguous pattern
         of("187-?]", null, null),
 
-        of("18. September 1914", "1914-09-18", MONTH_NAME),
         of("19960216-19960619", null, null),
         of("-0549-01-01T00:00:00Z", "-0549-01-01", EDTF),
         of("1942-1943 c.", null, null),
@@ -246,7 +249,6 @@ class DatesNormalizerTest {
         of("ISO9126", null, null),
         of("1985-10-xx", "1985-10", NUMERIC_ALL_VARIANTS_XX),
         of("14:27", null, null),
-        of("c.6 Nov 1902", "1902-11-06~", MONTH_NAME),
         of("-1234", "-1234", EDTF),
         of("09.1972 (gathering)", "1972-09", NUMERIC_ALL_VARIANTS)
     );

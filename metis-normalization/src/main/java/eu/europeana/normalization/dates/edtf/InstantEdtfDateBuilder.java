@@ -78,7 +78,7 @@ public class InstantEdtfDateBuilder {
     InstantEdtfDate instantEdtfDate;
     instantEdtfDate = buildInternal();
     //Try once more if flexible date
-    if (instantEdtfDate == null && flexibleDateBuild) {
+    if (instantEdtfDate == null && isPositive(month) && isPositive(day) && flexibleDateBuild) {
       swapMonthDay();
       instantEdtfDate = buildInternal();
     }
@@ -136,15 +136,19 @@ public class InstantEdtfDateBuilder {
 
   private void parseMonthDay() throws DateExtractionException {
     try {
-      if (month != null && month >= 1) {
+      if (isPositive(month)) {
         monthObj = Month.of(month);
-        if (day != null && day >= 1) {
+        if (isPositive(day)) {
           yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
         }
       }
     } catch (DateTimeException e) {
       throw new DateExtractionException("Failed to instantiate month and day", e);
     }
+  }
+
+  private boolean isPositive(Integer value) {
+    return value != null && value > 0;
   }
 
   private void validateDateNotInFuture() throws DateExtractionException {

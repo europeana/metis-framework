@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction;
 
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 public class MonthMultilingual {
 
-  private final Map<Month, Set<String>> monthToAllLanguagesStringsMap;
+  private final EnumMap<Month, Set<String>> monthToAllLanguagesStringsMap;
 
   /**
    * Default constructor.
@@ -34,6 +35,10 @@ public class MonthMultilingual {
       }
       monthToAllLanguagesStringsMap.put(month, languageValues);
     }
+  }
+
+  public Map<Month, Set<String>> getMonthToAllLanguagesStringsMap() {
+    return Collections.unmodifiableMap(monthToAllLanguagesStringsMap);
   }
 
   /**
