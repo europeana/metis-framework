@@ -43,16 +43,6 @@ public class MonthMultilingual {
   }
 
   /**
-   * Get all languages string values for a month.
-   *
-   * @param month the month
-   * @return the set of all string representations
-   */
-  public Set<String> getMonthStrings(Month month) {
-    return monthToAllLanguagesStringsMap.get(month);
-  }
-
-  /**
    * Get the month index based on a month name in any supported language, full or short, standard or stand-alone.
    *
    * @param monthName the month name
@@ -62,6 +52,12 @@ public class MonthMultilingual {
     return getMonth(monthName).getValue();
   }
 
+  /**
+   * Get {@link Month} by name.
+   *
+   * @param monthName the month name
+   * @return the month
+   */
   public Month getMonth(String monthName) {
     return monthToAllLanguagesStringsMap.entrySet().stream().filter(entry -> entry.getValue().contains(monthName))
                                         .findFirst().map(Entry::getKey).orElse(null);

@@ -15,6 +15,7 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DatePartsIndices;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.lang.invoke.MethodHandles;
 import java.time.Month;
 import java.util.Arrays;
@@ -95,7 +96,8 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
         () -> DateQualification.NO_QUALIFICATION);
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
     try {
-      final Matcher matcher = monthNameDatePattern.getPattern().matcher(inputValue);
+      final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
+      final Matcher matcher = monthNameDatePattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
         final Month month = monthMultilingual.getMonth(
             matcher.group(monthNameDatePattern.getDatePartsIndices().getMonthIndex()));
