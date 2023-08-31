@@ -1,9 +1,9 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationResult.getNoMatchResult;
-import static eu.europeana.normalization.dates.extraction.dateextractors.MonthNameDateExtractor.DatePartsIndices.DMY_INDICES;
-import static eu.europeana.normalization.dates.extraction.dateextractors.MonthNameDateExtractor.DatePartsIndices.MDY_INDICES;
-import static eu.europeana.normalization.dates.extraction.dateextractors.MonthNameDateExtractor.DatePartsIndices.MY_INDICES;
+import static eu.europeana.normalization.dates.extraction.DatePartsIndices.DMY_INDICES;
+import static eu.europeana.normalization.dates.extraction.DatePartsIndices.MDY_INDICES;
+import static eu.europeana.normalization.dates.extraction.DatePartsIndices.MY_INDICES;
 import static java.util.regex.Pattern.compile;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -13,6 +13,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import eu.europeana.normalization.dates.extraction.DatePartsIndices;
 import eu.europeana.normalization.dates.extraction.MonthMultilingual;
 import java.lang.invoke.MethodHandles;
 import java.time.Month;
@@ -22,8 +23,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,30 +72,6 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
 
     public DatePartsIndices getDatePartsIndices() {
       return datePartsIndices;
-    }
-  }
-
-  enum DatePartsIndices {
-    DMY_INDICES(ImmutableTriple.of(3, 2, 1)),
-    MDY_INDICES(ImmutableTriple.of(3, 1, 2)),
-    MY_INDICES(ImmutableTriple.of(2, 1, null));
-
-    private final Triple<Integer, Integer, Integer> indicesTriple;
-
-    DatePartsIndices(Triple<Integer, Integer, Integer> indicesTriple) {
-      this.indicesTriple = indicesTriple;
-    }
-
-    public Integer getYearIndex() {
-      return indicesTriple.getLeft();
-    }
-
-    public Integer getMonthIndex() {
-      return indicesTriple.getMiddle();
-    }
-
-    public Integer getDayIndex() {
-      return indicesTriple.getRight();
     }
   }
 

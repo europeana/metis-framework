@@ -3,8 +3,8 @@ package eu.europeana.normalization.dates.extraction;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_SPACES_VARIANT;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.DMY_INDICES;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.DatePartsIndices.YMD_INDICES;
+import static eu.europeana.normalization.dates.extraction.DatePartsIndices.DMY_INDICES;
+import static eu.europeana.normalization.dates.extraction.DatePartsIndices.YMD_INDICES;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DASH_DOT_DELIMITERS;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DASH_DOT_SLASH_DELIMITERS;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DOT_SLASH_DELIMITERS;
@@ -21,8 +21,6 @@ import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.regex.Pattern;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
 
 /**
  * Enum with all the acceptable date patterns used for numeric dates.
@@ -232,32 +230,6 @@ public enum NumericPartsPattern {
 
     public String getUnspecifiedCharacters() {
       return unspecifiedCharacters;
-    }
-  }
-
-  /**
-   * Simple internal enum that contains the indices order of a DMY and YMD date formatting.
-   */
-  enum DatePartsIndices {
-    DMY_INDICES(ImmutableTriple.of(3, 2, 1)),
-    YMD_INDICES(ImmutableTriple.of(1, 2, 3));
-
-    private final Triple<Integer, Integer, Integer> indicesTriple;
-
-    DatePartsIndices(Triple<Integer, Integer, Integer> indicesTriple) {
-      this.indicesTriple = indicesTriple;
-    }
-
-    public Integer getYearIndex() {
-      return indicesTriple.getLeft();
-    }
-
-    public Integer getMonthIndex() {
-      return indicesTriple.getMiddle();
-    }
-
-    public Integer getDayIndex() {
-      return indicesTriple.getRight();
     }
   }
 }
