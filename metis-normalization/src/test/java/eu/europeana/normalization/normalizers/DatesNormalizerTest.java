@@ -106,7 +106,6 @@ class DatesNormalizerTest {
 
         //Centuries numeric
         of("18..", "18XX", CENTURY_NUMERIC),
-        of("19??", "19XX", NUMERIC_ALL_VARIANTS_XX),
         of("192?", null, null),// ambiguous
         of("[171-]", null, null), // ambiguous
         of("19th century", "18XX", CENTURY_NUMERIC),
@@ -178,9 +177,15 @@ class DatesNormalizerTest {
         // this may not be a 100% correct normalisation, maybe it is not a range but two dates
         of("1651 [ca. 1656]", "1651~/1656~", NUMERIC_RANGE_ALL_VARIANTS),
 
-        //Numeric year
+        //Numeric year all variants
         of("(17--?)", "17XX?", NUMERIC_ALL_VARIANTS_XX),
         of("[19--?]", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("19--?]", "19XX?", NUMERIC_ALL_VARIANTS_XX),
+        of("19--]", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("19xx", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("19??", "19XX", NUMERIC_ALL_VARIANTS_XX),
+        of("[ca. 16??]", "16XX~", NUMERIC_ALL_VARIANTS_XX),
+        of("[ca. 16??]", "16XX~", NUMERIC_ALL_VARIANTS_XX),
 
         //Numeric date with dot "."
         of("21.1.1921", "1921-01-21", NUMERIC_ALL_VARIANTS),
@@ -189,11 +194,14 @@ class DatesNormalizerTest {
         of("28.05.1969", "1969-05-28", NUMERIC_ALL_VARIANTS),
         of("11.11.1947", "1947-11-11", NUMERIC_ALL_VARIANTS),
         of("23.02.[18--]", "18XX-02-23", NUMERIC_ALL_VARIANTS_XX),
+        of("15.02.1985 (identification)", "1985-02-15", NUMERIC_ALL_VARIANTS),
+        of("09.1972 (gathering)", "1972-09", NUMERIC_ALL_VARIANTS),
         of("28. 1. 1240", null, null),
 
         //Numeric date with dash "-"
         of("1941-22-06", "1941-06-22", NUMERIC_ALL_VARIANTS),
         of("1937-10-??", "1937-10", NUMERIC_ALL_VARIANTS_XX),
+        of("1985-10-xx", "1985-10", NUMERIC_ALL_VARIANTS_XX),
         of("199--09-28", null, null),
         of("01?-1905", null, null),
         of("02?-1915", null, null),
@@ -210,32 +218,29 @@ class DatesNormalizerTest {
         of("18 September 1914", "1914-09-18", MONTH_NAME),
         of("c.6 Nov 1902", "1902-11-06~", MONTH_NAME),
 
-        of("-2100/-1550", "-2100/-1550", EDTF),
+        //Non-standard date format
+        of("Sat Jan 01 01:00:00 CET 1701", "1701-01-01", FORMATTED_FULL_DATE),
+        of("2013-03-21 18:45:36 UTC", "2013-03-21", FORMATTED_FULL_DATE),
+        of("2013-09-07 09:31:51 UTC", "2013-09-07", FORMATTED_FULL_DATE),
+
         // TODO: 21/12/2022 Check the below, expected null but returns 1952-02-25 instead
         //    of("1952-02-25T00:00:00Z-1952-02-25T23:59:59Z", null),
-        of("2013-09-07 09:31:51 UTC", "2013-09-07", FORMATTED_FULL_DATE),
+        of("-2100/-1550", "-2100/-1550", EDTF),
         of("1997-07-18T00:00:00 [Create]", "1997-07-18", EDTF),
         of("1924 ca.", null, null),
         of("[1712?]", "1712?", EDTF),
         of("circa 1712", "1712~", EDTF),
         of("[ca. 1946]", "1946~", EDTF),
         of("1651?]", "1651?", EDTF),
-        of("19--?]", "19XX?", NUMERIC_ALL_VARIANTS_XX),
         of(". 1885", null, null),
         of("- 1885", null, null),
         of("1749 (Herstellung (Werk))", "1749", EDTF),
         of("1939; 1954; 1955; 1978; 1939-1945", null, null), // multiple dates no suported
         of("[17__]", null, null),// this pattern is not supported (this pattern was never tested
-        of("19--]", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("19xx", "19XX", NUMERIC_ALL_VARIANTS_XX),
-        of("Sat Jan 01 01:00:00 CET 1701", "1701-01-01", FORMATTED_FULL_DATE),
-        of("2013-03-21 18:45:36 UTC", "2013-03-21", FORMATTED_FULL_DATE),
-        of("15.02.1985 (identification)", "1985-02-15", NUMERIC_ALL_VARIANTS),
         of("091090", null, null),
         of("-0043-12-07", "-0043-12-07", EDTF),
         of("imp. 1901", null, null),
         of("u.1707-1739", null, null),// what does 'u.' mean?
-        of("22.07.1971 (identification)", "1971-07-22", NUMERIC_ALL_VARIANTS),
 
         //Ambiguous pattern
         of("187-?]", null, null),
@@ -245,12 +250,9 @@ class DatesNormalizerTest {
         of("1942-1943 c.", null, null),
         of("(1942)", "1942", EDTF),
         of("-3.6982", null, null),
-        of("[ca. 16??]", "16XX~", NUMERIC_ALL_VARIANTS_XX),
         of("ISO9126", null, null),
-        of("1985-10-xx", "1985-10", NUMERIC_ALL_VARIANTS_XX),
         of("14:27", null, null),
-        of("-1234", "-1234", EDTF),
-        of("09.1972 (gathering)", "1972-09", NUMERIC_ALL_VARIANTS)
+        of("-1234", "-1234", EDTF)
     );
 
   }
