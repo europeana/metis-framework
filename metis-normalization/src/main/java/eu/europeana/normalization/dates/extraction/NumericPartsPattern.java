@@ -88,9 +88,9 @@ public enum NumericPartsPattern {
   NumericPartsPattern(DateDelimiters dateDelimiters, DatePartsIndices dateFormatIndices,
       DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     this.dateNormalizationExtractorMatchId = dateNormalizationExtractorMatchId;
-    this.yearIndex = dateFormatIndices.tripleIndices.getLeft();
-    this.monthIndex = dateFormatIndices.tripleIndices.getMiddle();
-    this.dayIndex = dateFormatIndices.tripleIndices.getRight();
+    this.yearIndex = dateFormatIndices.getYearIndex();
+    this.monthIndex = dateFormatIndices.getMonthIndex();
+    this.dayIndex = dateFormatIndices.getDayIndex();
 
     this.pattern = NumericPartsPattern.generatePattern(dateDelimiters.getDatesDelimiters(), dateNormalizationExtractorMatchId,
         dateFormatIndices);
@@ -242,10 +242,22 @@ public enum NumericPartsPattern {
     DMY_INDICES(ImmutableTriple.of(3, 2, 1)),
     YMD_INDICES(ImmutableTriple.of(1, 2, 3));
 
-    private final Triple<Integer, Integer, Integer> tripleIndices;
+    private final Triple<Integer, Integer, Integer> indicesTriple;
 
-    DatePartsIndices(Triple<Integer, Integer, Integer> tripleIndices) {
-      this.tripleIndices = tripleIndices;
+    DatePartsIndices(Triple<Integer, Integer, Integer> indicesTriple) {
+      this.indicesTriple = indicesTriple;
+    }
+
+    public Integer getYearIndex() {
+      return indicesTriple.getLeft();
+    }
+
+    public Integer getMonthIndex() {
+      return indicesTriple.getMiddle();
+    }
+
+    public Integer getDayIndex() {
+      return indicesTriple.getRight();
     }
   }
 }

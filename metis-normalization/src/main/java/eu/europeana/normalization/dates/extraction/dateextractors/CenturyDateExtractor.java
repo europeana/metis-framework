@@ -50,7 +50,7 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
   private static final String CENTURY_PREFIX = "(?:(?:s|sec|saec)\\s|(?:s|sec|saec)\\.\\s?)?";
   private static final String QUESTION_MARK = "\\??";
 
-  enum PatternCenturyDateOperation {
+  private enum PatternCenturyDateOperation {
     PATTERN_YYYY(
         compile(QUESTION_MARK + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + QUESTION_MARK, CASE_INSENSITIVE),
         Integer::parseInt, DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
@@ -95,48 +95,44 @@ public class CenturyDateExtractor extends AbstractDateExtractor {
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) {
     return Arrays.stream(PatternCenturyDateOperation.values())
-                 .map(operation -> {
-                   try {
-                     return extractInstance(inputValue, requestedDateQualification, operation,
-                         flexibleDateBuild);
-                   } catch (DateExtractionException e) {
-                     LOGGER.warn("Failed instance extraction!", e);
-                   }
-                   return DateNormalizationResult.getNoMatchResult(inputValue);
-                 })
+                 .map(operation -> extract(inputValue, requestedDateQualification, operation, flexibleDateBuild))
                  .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()
                      == DateNormalizationResultStatus.MATCHED).findFirst()
                  .orElse(DateNormalizationResult.getNoMatchResult(inputValue));
   }
 
-  private DateNormalizationResult extractInstance(String inputValue, DateQualification requestedDateQualification,
+  private DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       PatternCenturyDateOperation patternCenturyDateOperation,
-      boolean allowSwitchMonthDay) throws DateExtractionException {
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
-
-    final Matcher matcher = patternCenturyDateOperation.getPattern().matcher(sanitizedValue);
+      boolean allowSwitchMonthDay) {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    if (matcher.matches()) {
-      AbstractEdtfDate abstractEdtfDate;
-      InstantEdtfDateBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);
-      InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification)
+    try {
+      final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
+      final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
+          (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+
+      final Matcher matcher = patternCenturyDateOperation.getPattern().matcher(sanitizedValue);
+      if (matcher.matches()) {
+        AbstractEdtfDate abstractEdtfDate;
+        InstantEdtfDateBuilder startDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 1);
+        InstantEdtfDate startEdtfDate = startDatePartBuilder.withDateQualification(dateQualification)
+                                                            .withFlexibleDateBuild(allowSwitchMonthDay).build();
+
+        boolean isInterval = matcher.groupCount() == 2;
+        if (isInterval) {
+          InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
+          InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
                                                           .withFlexibleDateBuild(allowSwitchMonthDay).build();
+          abstractEdtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withFlexibleDateBuild(allowSwitchMonthDay)
+                                                                                    .build();
+        } else {
+          abstractEdtfDate = startEdtfDate;
+        }
 
-      boolean isInterval = matcher.groupCount() == 2;
-      if (isInterval) {
-        InstantEdtfDateBuilder endDatePartBuilder = extractEdtfDatePart(patternCenturyDateOperation, matcher, 2);
-        InstantEdtfDate endEdtfDate = endDatePartBuilder.withDateQualification(dateQualification)
-                                                        .withFlexibleDateBuild(allowSwitchMonthDay).build();
-        abstractEdtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withFlexibleDateBuild(allowSwitchMonthDay)
-                                                                                  .build();
-      } else {
-        abstractEdtfDate = startEdtfDate;
+        dateNormalizationResult = new DateNormalizationResult(patternCenturyDateOperation.getDateNormalizationExtractorMatchId(),
+            inputValue, abstractEdtfDate);
       }
-
-      dateNormalizationResult = new DateNormalizationResult(patternCenturyDateOperation.getDateNormalizationExtractorMatchId(),
-          inputValue, abstractEdtfDate);
+    } catch (DateExtractionException e) {
+      LOGGER.warn("Failed instance extraction!", e);
     }
     return dateNormalizationResult;
   }

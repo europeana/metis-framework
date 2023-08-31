@@ -34,6 +34,7 @@ public class BriefRangeDateExtractor extends AbstractDateExtractor {
 
   private final Pattern briefRangePattern = Pattern.compile("\\??(\\d{3,4})[\\-/](\\d{2})\\??");
 
+  @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);

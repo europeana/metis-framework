@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -58,8 +59,12 @@ public class MonthMultilingual {
    * @return the month index
    */
   public Integer getMonthIndexValue(String monthName) {
+    return getMonth(monthName).getValue();
+  }
+
+  public Month getMonth(String monthName) {
     return monthToAllLanguagesStringsMap.entrySet().stream().filter(entry -> entry.getValue().contains(monthName))
-                                        .findFirst().map(entry -> entry.getKey().getValue()).orElse(null);
+                                        .findFirst().map(Entry::getKey).orElse(null);
   }
 
 }

@@ -8,6 +8,7 @@ import static java.util.regex.Pattern.compile;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.edtf.DateQualification;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
@@ -65,11 +66,11 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
       if (matcher.matches()) {
         InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
-          dateNormalizationResult = new DateNormalizationResult(
-              numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue,
-              instantEdtfDateBuilder.withDateQualification(dateQualification).withFlexibleDateBuild(allowSwitchMonthDay)
-                                    .build());
-          break;
+        final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(dateQualification)
+                                                                      .withFlexibleDateBuild(allowSwitchMonthDay).build();
+        dateNormalizationResult = new DateNormalizationResult(
+            numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue, instantEdtfDate);
+        break;
       }
     }
 
