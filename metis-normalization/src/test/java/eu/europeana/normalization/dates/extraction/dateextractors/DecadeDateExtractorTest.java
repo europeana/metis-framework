@@ -5,7 +5,6 @@ import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFI
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -20,7 +19,7 @@ class DecadeDateExtractorTest {
 
   @ParameterizedTest
   @MethodSource
-  void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+  void extract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = DECADE_DATE_EXTRACTOR.extractDateProperty(input, NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
@@ -29,45 +28,45 @@ class DecadeDateExtractorTest {
       assertEquals(expected, actual);
       assertEquals(actual.contains("?"),
           dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
-      assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
+      assertEquals(DECADE, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }
 
   private static Stream<Arguments> extract() {
     return Stream.of(
-        of("180x", "180X", DECADE),
-        of("180u", "180X", DECADE),
-        of("180X", "180X", DECADE),
-        of("180U", "180X", DECADE),
-        of("  180u  ", "180X", DECADE),
-        of("180x?", "180X?", DECADE),
-        of("180u?", "180X?", DECADE),
-        of("180??", "180X?", DECADE),
-        of("?180x", "180X?", DECADE),
-        of("?180u", "180X?", DECADE),
-        of("?180x?", "180X?", DECADE),
-        of("?180u?", "180X?", DECADE),
-        of("?180??", "180X?", DECADE),
+        of("180x", "180X"),
+        of("180u", "180X"),
+        of("180X", "180X"),
+        of("180U", "180X"),
+        of("  180u  ", "180X"),
+        of("180x?", "180X?"),
+        of("180u?", "180X?"),
+        of("180??", "180X?"),
+        of("?180x", "180X?"),
+        of("?180u", "180X?"),
+        of("?180x?", "180X?"),
+        of("?180u?", "180X?"),
+        of("?180??", "180X?"),
 
         //Future dates not allowed
-        of("222u", null, null),
+        of("222u", null),
         //This is an ambiguous case because hyphen can be used as a separator
-        of("180-?", null, null),
+        of("180-?", null),
         //Ambiguous, possible open end
-        of("180-", null, null),
-        of("180s", null, null),//Non u, x or ?
-        of("180?", null, null), //Only one question mark not supported
+        of("180-", null),
+        of("180s", null),//Non u, x or ?
+        of("180?", null), //Only one question mark not supported
         //Too many digits
-        of("1800", null, null),
-        of("?1280x", null, null),
-        of("?1280u?", null, null),
-        of("?1280??", null, null),
-        of("1280??", null, null),
+        of("1800", null),
+        of("?1280x", null),
+        of("?1280u?", null),
+        of("?1280??", null),
+        of("1280??", null),
 
-        of("18??", null, null), //Too few digits
-        of("18--", null, null), //Too few digits
-        of("18..", null, null), //Too few digits
-        of("1...", null, null) //Too few digits
+        of("18??", null), //Too few digits
+        of("18--", null), //Too few digits
+        of("18..", null), //Too few digits
+        of("1...", null) //Too few digits
     );
   }
 

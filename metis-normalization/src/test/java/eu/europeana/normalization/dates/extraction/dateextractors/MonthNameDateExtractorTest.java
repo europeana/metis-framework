@@ -5,7 +5,6 @@ import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFI
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import java.util.stream.Stream;
@@ -20,22 +19,22 @@ class MonthNameDateExtractorTest {
   @ParameterizedTest
   @MethodSource
   void extractDayMonthYear(String input, String expected) {
-    assertExtract(input, expected, MONTH_NAME);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractMonthDayYear(String input, String expected) {
-    assertExtract(input, expected, MONTH_NAME);
+    assertExtract(input, expected);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractMonthYear(String input, String expected) {
-    assertExtract(input, expected, MONTH_NAME);
+    assertExtract(input, expected);
   }
 
-  void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
+  void assertExtract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = PATTERN_MONTH_NAME_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
     if (expected == null) {
@@ -44,7 +43,7 @@ class MonthNameDateExtractorTest {
       final String actual = dateNormalizationResult.getEdtfDate().toString();
       assertEquals(expected, actual);
       assertEquals(NO_QUALIFICATION, dateNormalizationResult.getEdtfDate().getDateQualification());
-      assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
+      assertEquals(MONTH_NAME, dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }
 
@@ -138,37 +137,36 @@ class MonthNameDateExtractorTest {
     );
   }
 
-  // TODO: 29/08/2023 Add "of" cases other formats of month name and further tests
   private static Stream<Arguments> extractMonthYear() {
 
     return Stream.of(
         //MONTH-YEAR
-        //        of("November 1989", "1989-11"),
-        //        of("November.1989", "1989-11"),
-        //        of("November,1989", "1989-11"),
-        //
-        //        //Some other languages or name formats
-        //        of("nov. 1989", "1989-11"),
-        //        of("ное 1989", "1989-11"),
-        //        of("Νοεμβρίου 1989", "1989-11"),
-        //        of("January 1989", "1989-01"),
+        of("November 1989", "1989-11"),
+        of("November.1989", "1989-11"),
+        of("November,1989", "1989-11"),
+
+        //Some other languages or name formats
+        of("nov. 1989", "1989-11"),
+        of("ное 1989", "1989-11"),
+        of("Νοεμβρίου 1989", "1989-11"),
+        of("January 1989", "1989-01"),
         //Incorrect month year
         of("November 9989", null),
-        of("November 9989", null)
+        of("November 9989", null),
         //Too few digits on year
-        //        of("January 989", null),
-        //        of("January.989", null),
-        //        of("January,989", null),
-        //        //Too many digits on year
-        //        of("January 12345", null),
-        //
-        //        //Other invalids
-        //        //Double spaces should not match
-        //        of("November  1989", null),
-        //        //Double dots should not match
-        //        of("November..1989", null),
-        //        //Double commas should not match
-        //        of("November,,1989", null)
+        of("January 989", null),
+        of("January.989", null),
+        of("January,989", null),
+        //Too many digits on year
+        of("January 12345", null),
+
+        //Other invalids
+        //Double spaces should not match
+        of("November  1989", null),
+        //Double dots should not match
+        of("November..1989", null),
+        //Double commas should not match
+        of("November,,1989", null)
     );
   }
 
