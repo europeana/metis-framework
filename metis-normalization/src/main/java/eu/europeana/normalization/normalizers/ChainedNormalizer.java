@@ -1,11 +1,11 @@
 package eu.europeana.normalization.normalizers;
 
+import eu.europeana.normalization.model.NormalizationReport;
+import eu.europeana.normalization.util.NormalizationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.w3c.dom.Document;
-import eu.europeana.normalization.model.NormalizationReport;
-import eu.europeana.normalization.util.NormalizationException;
 
 /**
  * This class represents a normalizer with concatenated normalizer subtasks. This normalizer accepts
