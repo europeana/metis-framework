@@ -32,13 +32,11 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Examples of some cases:
  * <ul>
- *   <li>
- *     01 November 1989
- *     01.November.1989
- *     01,November,1989
- *     November 01 1989
- *     November 1989
- *   </li>
+ *   <li>01 November 1989</li>
+ *   <li>01.November.1989</li>
+ *   <li>01,November,1989</li>
+ *   <li>November 01 1989</li>
+ *   <li>November 1989</li>
  * </ul>
  * </p>
  */
@@ -51,8 +49,9 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
 
   private static final MonthMultilingual monthMultilingual = new MonthMultilingual();
   private static final String MONTH_JOINED_VALUES =
-      monthMultilingual.getMonthToAllLanguagesStringsMap().values().stream().flatMap(Set::stream).collect(
-          Collectors.joining("|", "(", ")"));
+      monthMultilingual.getMonthToAllLanguagesStringsMap().values().stream().flatMap(Set::stream)
+                       .map(Pattern::quote)
+                       .collect(Collectors.joining("|", "(", ")"));
 
   private enum MonthNameDatePattern {
     DAY_MONTH_YEAR_PATTERN(compilePattern(new String[]{DAY_REGEX, MONTH_JOINED_VALUES, YEAR_REGEX}), DMY_INDICES),
