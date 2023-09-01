@@ -3,19 +3,16 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateQualification;
+import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
+import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/**
- * A year with an indication of the era, for example ‘3000 BC’. Currently, the normalisation process recognizes ‘BC/AD’ and
- * ‘AC/DC’, but the abbreviations used in other languages will be supported in the future. Or a date range where the start/end
- * years contain an indication of the era.
- */
-public class PatternBcAdDateExtractor extends AbstractDateExtractor {
+public class PatternBcAdRangeDateExtractor extends AbstractDateExtractor {
 
   static final HashSet<String> bcAbbreviations = new HashSet<>();
 
@@ -54,33 +51,55 @@ public class PatternBcAdDateExtractor extends AbstractDateExtractor {
     }
   }
 
-  Pattern patYyyy;
+  Pattern patRange;
 
-  public PatternBcAdDateExtractor() {
+  public PatternBcAdRangeDateExtractor() {
     String patYearBcAd = "(?<year>\\d{2,4})\\s*(?<era>";
     patYearBcAd += bcAbbreviations.stream().collect(Collectors.joining("|"));
     patYearBcAd += adAbbreviations.stream().collect(Collectors.joining("|"));
     patYearBcAd = patYearBcAd.substring(0, patYearBcAd.length() - 1) + ")\\.?";
 
-    patYyyy = Pattern.compile(patYearBcAd, Pattern.CASE_INSENSITIVE);
+    patRange = Pattern.compile(
+        patYearBcAd + "\\s*[\\-\\/]\\s*" + patYearBcAd.replace("<year>", "<year2>").replace("<era>", "<era2>"),
+        Pattern.CASE_INSENSITIVE);
   }
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
-    Matcher m = patYyyy.matcher(inputValue);
+    Matcher m = patRange.matcher(inputValue);
     if (m.matches()) {
-      final InstantEdtfDateBuilder instantEdtfDateBuilder;
-      if (bcAbbreviations.contains(m.group("era").toLowerCase())) {
-        instantEdtfDateBuilder = new InstantEdtfDateBuilder(-Integer.parseInt(m.group("year")));
+      final InstantEdtfDateBuilder startDatePartBuilder;
+      if (isBc(m.group("era"))) {
+        startDatePartBuilder = new InstantEdtfDateBuilder(-Integer.parseInt(m.group("year")));
       } else {
-        instantEdtfDateBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
+        startDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")));
       }
+      InstantEdtfDate start = startDatePartBuilder.withDateQualification(requestedDateQualification)
+                                                  .withFlexibleDateBuild(flexibleDateBuild).build();
+
+      final InstantEdtfDateBuilder endDatePartBuilder;
+      if (isBc(m.group("era2"))) {
+        endDatePartBuilder = new InstantEdtfDateBuilder(-Integer.parseInt(m.group("year2")));
+      } else {
+        endDatePartBuilder = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year2")));
+      }
+      InstantEdtfDate end = endDatePartBuilder.withDateQualification(requestedDateQualification)
+                                              .withFlexibleDateBuild(flexibleDateBuild).build();
+
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
-          instantEdtfDateBuilder.withDateQualification(requestedDateQualification).withFlexibleDateBuild(
-                                    flexibleDateBuild)
-                                .build());
+          new IntervalEdtfDateBuilder(start, end).withFlexibleDateBuild(flexibleDateBuild).build());
     }
     return DateNormalizationResult.getNoMatchResult(inputValue);
   }
+
+  private boolean isBc(String abbreviation) {
+    for (Pattern pat : bcAbbreviationsPatterns) {
+      if (pat.matcher(abbreviation).matches()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
