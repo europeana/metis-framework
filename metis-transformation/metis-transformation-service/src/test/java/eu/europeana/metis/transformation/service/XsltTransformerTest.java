@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
@@ -70,10 +69,9 @@ class XsltTransformerTest {
   }
 
   private byte[] readFile(String fileName) throws IOException {
-    String xml = IOUtils.toString(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)),
+    final String xml = IOUtils.toString(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(fileName)),
         StandardCharsets.UTF_8);
-    byte[] bytes = xml.getBytes(StandardCharsets.UTF_8);
-    InputStream contentStream = new ByteArrayInputStream(bytes);
-    return IOUtils.toByteArray(contentStream);
+    final byte[] bytes = xml.getBytes(StandardCharsets.UTF_8);
+    return IOUtils.toByteArray(new ByteArrayInputStream(bytes));
   }
 }
