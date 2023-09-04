@@ -9,6 +9,7 @@ import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.dateextractors.BcAdDateExtractor;
+import eu.europeana.normalization.dates.extraction.dateextractors.BcAdRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.BriefRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
@@ -18,7 +19,6 @@ import eu.europeana.normalization.dates.extraction.dateextractors.EdtfDateExtrac
 import eu.europeana.normalization.dates.extraction.dateextractors.MonthNameDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormatedFullDateDateExtractor;
 import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
@@ -127,7 +127,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new MonthNameDateExtractor(),
         new PatternFormatedFullDateDateExtractor(),
         new BcAdDateExtractor(),
-        new PatternBcAdRangeDateExtractor(),
+        new BcAdRangeDateExtractor(),
         new PatternLongNegativeYearDateExtractor());
 
     extractorsInOrderForGenericProperties =
