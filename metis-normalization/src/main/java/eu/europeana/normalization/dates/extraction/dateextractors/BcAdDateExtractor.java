@@ -34,13 +34,10 @@ public class BcAdDateExtractor extends AbstractDateExtractor {
 
   private static final String YEAR_REGEX = "(\\d{1,4})";
   private static final String DELIMITERS_REGEX = " ";
-  private final Set<String> adAbbreviations = new HashSet<>();
-  private final Pattern pattern;
+  private static final Set<String> adAbbreviations = new HashSet<>();
+  private static final Pattern pattern;
 
-  /**
-   * Constructor.
-   */
-  public BcAdDateExtractor() {
+  static {
     final Set<String> bcAbbreviations = new HashSet<>();
     for (EuropeanLanguage europeanLanguage : EuropeanLanguage.values()) {
       final DateFormatSymbols symbols = DateFormatSymbols.getInstance(europeanLanguage.getLocale());
