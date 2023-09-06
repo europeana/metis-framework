@@ -9,10 +9,10 @@ import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.Nu
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DASH_DOT_SLASH_DELIMITERS;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.DOT_SLASH_DELIMITERS;
 import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericDateDelimiters.SPACE_DELIMITER;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.DASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.SLASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.SPACED_DASH_RANGE;
-import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters.SPACE_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeQualifier.DASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeQualifier.SLASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeQualifier.SPACED_DASH_RANGE;
+import static eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeQualifier.SPACE_RANGE;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
@@ -164,6 +164,7 @@ public enum NumericPartsPattern {
 
 
   private interface DateDelimiters {
+
     String getDatesDelimiters();
   }
 
@@ -179,12 +180,11 @@ public enum NumericPartsPattern {
       this.datesDelimiters = datesDelimiters;
     }
 
-
-    @Override
     public String getDatesDelimiters() {
       return datesDelimiters;
     }
   }
+
 
   /**
    * Enum that contains the special characters(dates separator, dates delimiters, unspecified range doundary) for each range
@@ -194,18 +194,18 @@ public enum NumericPartsPattern {
    * boundaries.
    * </p>
    */
-  public enum NumericRangeDateDelimiters implements DateDelimiters {
+  public enum NumericRangeQualifier implements DateDelimiters, DatesSeparator {
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
-    SPACED_DASH_RANGE(" - ", DASH_DOT_SLASH_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS),
+    SPACED_DASH_RANGE(" - ", DASH_DOT_SLASH_DELIMITERS, NumericRangeQualifier.DEFAULT_UNSPECIFIED_CHARACTERS),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "./" delimiters
-    PIPE_RANGE("\\|", DASH_DOT_SLASH_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS),
+    PIPE_RANGE("\\|", DASH_DOT_SLASH_DELIMITERS, NumericRangeQualifier.DEFAULT_UNSPECIFIED_CHARACTERS),
     //For space separator we don't accept unspecified boundaries
     //Does not exist in XX
     SPACE_RANGE(" ", DASH_DOT_SLASH_DELIMITERS, null),
     //"[XU]"
     DASH_RANGE("-", DOT_SLASH_DELIMITERS, "\\?|\\.\\."),
     //"[XU]" with "-" delimiter, "[\\-XU]" with "." delimiter
-    SLASH_RANGE("/", DASH_DOT_DELIMITERS, NumericRangeDateDelimiters.DEFAULT_UNSPECIFIED_CHARACTERS);
+    SLASH_RANGE("/", DASH_DOT_DELIMITERS, NumericRangeQualifier.DEFAULT_UNSPECIFIED_CHARACTERS);
 
     public static final String DEFAULT_UNSPECIFIED_CHARACTERS = "\\?|-|\\.\\.";
 
@@ -213,12 +213,13 @@ public enum NumericPartsPattern {
     private final String datesDelimiters;
     private final String unspecifiedCharacters;
 
-    NumericRangeDateDelimiters(String datesSeparator, NumericDateDelimiters datesDelimiters, String unspecifiedCharacters) {
+    NumericRangeQualifier(String datesSeparator, NumericDateDelimiters datesDelimiters, String unspecifiedCharacters) {
       this.datesSeparator = datesSeparator;
       this.datesDelimiters = datesDelimiters.getDatesDelimiters();
       this.unspecifiedCharacters = unspecifiedCharacters;
     }
 
+    @Override
     public String getDatesSeparator() {
       return datesSeparator;
     }

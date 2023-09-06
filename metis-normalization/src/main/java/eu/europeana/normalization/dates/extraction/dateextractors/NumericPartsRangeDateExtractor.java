@@ -13,42 +13,24 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
-import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeDateDelimiters;
+import eu.europeana.normalization.dates.extraction.NumericPartsPattern.NumericRangeQualifier;
 import java.util.List;
 
 /**
  * Patterns for numeric date ranges with variations in the separators of date components.
  * <p>We reuse the already existent {@link NumericPartsDateExtractor} code for the boundaries.</p>
  */
-public class NumericPartsRangeDateExtractor extends AbstractDateExtractor implements
-    RangeDateExtractor<NumericRangeDateDelimiters> {
+public class NumericPartsRangeDateExtractor extends AbstractRangeDateExtractor<NumericRangeQualifier> {
 
   private static final NumericPartsDateExtractor NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR = new NumericPartsDateExtractor();
 
-  /**
-   * Extract the date normalization result for a range.
-   * <p>
-   * The date is split in two boundaries using the {@link NumericRangeDateDelimiters#values()} as a separator. The result will
-   * contain the first split that is exactly splitting the original value in two parts(boundaries) and those two boundaries are
-   * valid parsable boundaries or null if none found.
-   * </p>
-   *
-   * @param inputValue the range value to attempt parsing
-   * @return the date normalization result
-   */
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    return extractRange(inputValue, requestedDateQualification, flexibleDateBuild);
-  }
-
-  @Override
-  public boolean isRangeMatchSuccess(NumericRangeDateDelimiters rangeDateDelimiters, DateNormalizationResult startDateResult,
+  public boolean isRangeMatchSuccess(NumericRangeQualifier numericRangeQualifier, DateNormalizationResult startDateResult,
       DateNormalizationResult endDateResult) {
     return startDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
         && endDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
         && !areYearsAmbiguous((InstantEdtfDate) startDateResult.getEdtfDate(), (InstantEdtfDate) endDateResult.getEdtfDate(),
-        rangeDateDelimiters);
+        numericRangeQualifier);
   }
 
   /**
@@ -56,13 +38,13 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor implem
    *
    * @param startDate the start date of a range
    * @param endDate the end date of the range
-   * @param numericRangeSpecialCharacters the date separator of the range
+   * @param numericRangeQualifier the numeric range qualifier
    * @return true if the range is ambiguous
    */
   private boolean areYearsAmbiguous(InstantEdtfDate startDate, InstantEdtfDate endDate,
-      NumericRangeDateDelimiters numericRangeSpecialCharacters) {
+      NumericRangeQualifier numericRangeQualifier) {
     boolean isAmbiguous = false;
-    if (numericRangeSpecialCharacters == NumericRangeDateDelimiters.DASH_RANGE) {
+    if (numericRangeQualifier == NumericRangeQualifier.DASH_RANGE) {
       final boolean isStartDeclared = startDate.getDateBoundaryType() == DateBoundaryType.DECLARED;
       final boolean isStartThreeDigit =
           isStartDeclared && Integer.toString(startDate.getYear().getValue()).matches("\\d{3}");
@@ -74,28 +56,18 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor implem
   }
 
   @Override
-  public List<NumericRangeDateDelimiters> getDateDelimiters() {
-    return List.of(NumericRangeDateDelimiters.values());
+  public List<NumericRangeQualifier> getRangeDateQualifiers() {
+    return List.of(NumericRangeQualifier.values());
   }
 
   @Override
-  public String getDatesSeparator(NumericRangeDateDelimiters dateDelimiters) {
-    return dateDelimiters.getDatesSeparator();
-  }
-
-  @Override
-  public DateNormalizationResult extractStartDateNormalizationResult(String dateString,
-      NumericRangeDateDelimiters rangeDateDelimiters, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    return extractDate(dateString, rangeDateDelimiters, requestedDateQualification, flexibleDateBuild);
-  }
-
-  @Override
-  public DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
-      String dateString,
-      NumericRangeDateDelimiters rangeDateDelimiters, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    return extractDate(dateString, rangeDateDelimiters, requestedDateQualification, flexibleDateBuild);
+  public DateNormalizationResultRangePair extractDateNormalizationResult(String startString,
+      String endString, NumericRangeQualifier numericRangeQualifier, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild)
+      throws DateExtractionException {
+    return new DateNormalizationResultRangePair(
+        extractDate(startString, numericRangeQualifier, requestedDateQualification, flexibleDateBuild),
+        extractDate(endString, numericRangeQualifier, requestedDateQualification, flexibleDateBuild));
   }
 
   @Override
@@ -107,11 +79,11 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor implem
   }
 
   private static DateNormalizationResult extractDate(String dateString,
-      NumericRangeDateDelimiters rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      NumericRangeQualifier numericRangeQualifier, DateQualification requestedDateQualification, boolean flexibleDateBuild)
       throws DateExtractionException {
     final DateNormalizationResult dateNormalizationResult;
-    if (rangeDateDelimiters.getUnspecifiedCharacters() != null && dateString.matches(
-        rangeDateDelimiters.getUnspecifiedCharacters())) {
+    if (numericRangeQualifier.getUnspecifiedCharacters() != null && dateString.matches(
+        numericRangeQualifier.getUnspecifiedCharacters())) {
       dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString, InstantEdtfDate.getOpenInstance());
     } else {
       dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString, requestedDateQualification,

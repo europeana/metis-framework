@@ -5,49 +5,33 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
 import java.util.List;
 
 /**
  * Extractor for BC and AD date ranges with variations in the separators of date components.
  * <p>We reuse the already existent {@link BcAdDateExtractor} code for the boundaries.</p>
  */
-public class BcAdRangeDateExtractor extends AbstractDateExtractor implements RangeDateExtractor<String> {
+public class BcAdRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDatesSeparator> {
 
   private static final BcAdDateExtractor BC_AD_DATE_EXTRACTOR = new BcAdDateExtractor();
-  private static final String[] DATES_DELIMITERS = new String[]{"-", "/"};
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    return extractRange(inputValue, requestedDateQualification, flexibleDateBuild);
+  public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
+      DefaultDatesSeparator rangeDateDelimiters,
+      DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
+    return new DateNormalizationResultRangePair(
+        BC_AD_DATE_EXTRACTOR.extract(startString, requestedDateQualification, flexibleDateBuild),
+        BC_AD_DATE_EXTRACTOR.extract(endString, requestedDateQualification, flexibleDateBuild));
   }
 
   @Override
-  public DateNormalizationResult extractStartDateNormalizationResult(String dateString, String rangeDateDelimiters,
-      DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    return BC_AD_DATE_EXTRACTOR.extract(dateString, requestedDateQualification, flexibleDateBuild);
+  public List<DefaultDatesSeparator> getRangeDateQualifiers() {
+    return List.of(DefaultDatesSeparator.values());
   }
 
   @Override
-  public DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
-      String dateString, String rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
-      throws DateExtractionException {
-    return BC_AD_DATE_EXTRACTOR.extract(dateString, requestedDateQualification, flexibleDateBuild);
-  }
-
-  @Override
-  public List<String> getDateDelimiters() {
-    return List.of(DATES_DELIMITERS);
-  }
-
-  @Override
-  public String getDatesSeparator(String dateDelimiter) {
-    return dateDelimiter;
-  }
-
-  @Override
-  public boolean isRangeMatchSuccess(String rangeDateDelimiters, DateNormalizationResult startDateResult,
+  public boolean isRangeMatchSuccess(DefaultDatesSeparator rangeDateDelimiters, DateNormalizationResult startDateResult,
       DateNormalizationResult endDateResult) {
     return startDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
         && endDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED;

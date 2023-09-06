@@ -5,7 +5,7 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 
 /**
- * The interface for all the implementation of date patterns
+ * The interface for date extractors.
  */
 public interface DateExtractor {
 
