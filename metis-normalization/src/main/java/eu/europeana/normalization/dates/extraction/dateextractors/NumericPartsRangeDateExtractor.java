@@ -84,9 +84,31 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor implem
   }
 
   @Override
-  public DateNormalizationResult extractDateNormalizationResult(String dateString,
+  public DateNormalizationResult extractStartDateNormalizationResult(String dateString,
       NumericRangeDateDelimiters rangeDateDelimiters, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
+    return extractDate(dateString, rangeDateDelimiters, requestedDateQualification, flexibleDateBuild);
+  }
+
+  @Override
+  public DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
+      String dateString,
+      NumericRangeDateDelimiters rangeDateDelimiters, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) throws DateExtractionException {
+    return extractDate(dateString, rangeDateDelimiters, requestedDateQualification, flexibleDateBuild);
+  }
+
+  @Override
+  public DateNormalizationExtractorMatchId getDateNormalizationExtractorId(DateNormalizationResult startDateResult,
+      DateNormalizationResult endDateResult) {
+    final boolean isStartXX = startDateResult.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX;
+    final boolean isEndXX = endDateResult.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX;
+    return isStartXX || isEndXX ? NUMERIC_RANGE_ALL_VARIANTS_XX : NUMERIC_RANGE_ALL_VARIANTS;
+  }
+
+  private static DateNormalizationResult extractDate(String dateString,
+      NumericRangeDateDelimiters rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      throws DateExtractionException {
     final DateNormalizationResult dateNormalizationResult;
     if (rangeDateDelimiters.getUnspecifiedCharacters() != null && dateString.matches(
         rangeDateDelimiters.getUnspecifiedCharacters())) {
@@ -96,13 +118,5 @@ public class NumericPartsRangeDateExtractor extends AbstractDateExtractor implem
           NumericPartsPattern.NUMERIC_RANGE_SET, flexibleDateBuild);
     }
     return dateNormalizationResult;
-  }
-
-  @Override
-  public DateNormalizationExtractorMatchId getDateNormalizationExtractorId(DateNormalizationResult startDateResult,
-      DateNormalizationResult endDateResult) {
-    final boolean isStartXX = startDateResult.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX;
-    final boolean isEndXX = endDateResult.getDateNormalizationExtractorMatchId() == NUMERIC_ALL_VARIANTS_XX;
-    return isStartXX || isEndXX ? NUMERIC_RANGE_ALL_VARIANTS_XX : NUMERIC_RANGE_ALL_VARIANTS;
   }
 }

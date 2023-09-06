@@ -1,18 +1,20 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
+import static eu.europeana.normalization.dates.DateNormalizationResult.getNoMatchResult;
 import static eu.europeana.normalization.dates.YearPrecision.CENTURY;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.time.Month;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,42 +32,104 @@ import java.util.regex.Pattern;
  *   Therefore in this extractor we check only the values that are higher than 12 to avoid a mismatch.
  * </p>
  */
-public class BriefRangeDateExtractor extends AbstractDateExtractor {
+public class BriefRangeDateExtractor extends AbstractDateExtractor implements RangeDateExtractor<String> {
 
-  private final Pattern briefRangePattern = Pattern.compile("\\??(\\d{3,4})[\\-/](\\d{2})\\??");
+  private static final String OPTIONAL_QUESTION_MARK = "\\??";
+  private static final Pattern YEAR_PATTERN = Pattern.compile(OPTIONAL_QUESTION_MARK + "(\\d{2,4})" + OPTIONAL_QUESTION_MARK);
+  private static final String[] DATES_DELIMITERS = new String[]{"-", "/"};
 
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+    return extractRange(inputValue, requestedDateQualification, flexibleDateBuild);
+  }
 
-    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    final Matcher matcher = briefRangePattern.matcher(sanitizedValue);
-    if (matcher.matches()) {
-      final int startYearFourDigits = Integer.parseInt(matcher.group(1));
-      final int startYearLastTwoDigits = startYearFourDigits % CENTURY.getDuration();
-      final int endYearTwoDigits = Integer.parseInt(matcher.group(2));
-      final int endYearFourDigits = (startYearFourDigits / CENTURY.getDuration()) * CENTURY.getDuration() + endYearTwoDigits;
+  @Override
+  public DateNormalizationResult extractStartDateNormalizationResult(String dateString, String rangeDateDelimiters,
+      DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) throws DateExtractionException {
+    DateNormalizationResult dateNormalizationResult = getNoMatchResult(dateString);
+    final DateNormalizationResult startYearDateDateNormalizationResult = extractYear(dateString, requestedDateQualification,
+        flexibleDateBuild);
 
-      if (endYearTwoDigits > Month.DECEMBER.getValue() && startYearLastTwoDigits < endYearTwoDigits) {
-        final InstantEdtfDate startDate = new InstantEdtfDateBuilder(startYearFourDigits)
-            .withDateQualification(dateQualification)
-            .withFlexibleDateBuild(flexibleDateBuild)
-            .build();
-
-        final InstantEdtfDate endDate = new InstantEdtfDateBuilder(endYearFourDigits)
-            .withDateQualification(dateQualification)
-            .withFlexibleDateBuild(flexibleDateBuild)
-            .build();
-
-        dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
-            new IntervalEdtfDateBuilder(startDate, endDate).withFlexibleDateBuild(flexibleDateBuild).build());
+    if (startYearDateDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
+      int startYearDigitsLength = (int) (
+          Math.log10(((InstantEdtfDate) startYearDateDateNormalizationResult.getEdtfDate()).getYear().getValue()) + 1);
+      if (startYearDigitsLength > 2) {
+        dateNormalizationResult = startYearDateDateNormalizationResult;
       }
     }
 
     return dateNormalizationResult;
+  }
+
+  @Override
+  public DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
+      String dateString, String rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      throws DateExtractionException {
+    DateNormalizationResult dateNormalizationResult = getNoMatchResult(dateString);
+    final DateNormalizationResult endDateNormalizationResult = extractYear(dateString, requestedDateQualification,
+        flexibleDateBuild);
+
+    if (endDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
+      final DateQualification endDateQualification = endDateNormalizationResult.getEdtfDate().getDateQualification();
+
+      final int startYearFourDigits = ((InstantEdtfDate) startDateNormalizationResult.getEdtfDate()).getYear().getValue();
+      final int startYearLastTwoDigits = startYearFourDigits % CENTURY.getDuration();
+      final int endYear = ((InstantEdtfDate) endDateNormalizationResult.getEdtfDate()).getYear().getValue();
+
+      int endYearDigitsLength = (int) (Math.log10(endYear) + 1);
+      if (endYearDigitsLength == 2 && endYear > Month.DECEMBER.getValue() && startYearLastTwoDigits < endYear) {
+        final int endYearFourDigits = (startYearFourDigits / CENTURY.getDuration()) * CENTURY.getDuration() + endYear;
+        final InstantEdtfDate endInstantEdtfDate = new InstantEdtfDateBuilder(endYearFourDigits).withDateQualification(
+            endDateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+        dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, dateString,
+            endInstantEdtfDate);
+      }
+    }
+
+    return dateNormalizationResult;
+  }
+
+  private DateNormalizationResult extractYear(String dateString, DateQualification requestedDateQualification,
+      boolean flexibleDateBuild) throws DateExtractionException {
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(dateString);
+    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
+        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(dateString);
+    final Matcher matcher = YEAR_PATTERN.matcher(sanitizedValue);
+    if (matcher.matches()) {
+      final int year = Integer.parseInt(matcher.group(1));
+      final InstantEdtfDate instantEdtfDate = new InstantEdtfDateBuilder(year).withDateQualification(dateQualification)
+                                                                              .withFlexibleDateBuild(flexibleDateBuild).build();
+      dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, dateString,
+          instantEdtfDate);
+    }
+    return dateNormalizationResult;
+  }
+
+  @Override
+  public List<String> getDateDelimiters() {
+    return List.of(DATES_DELIMITERS);
+  }
+
+  @Override
+  public String getDatesSeparator(String dateDelimiter) {
+    return dateDelimiter;
+  }
+
+  @Override
+  public boolean isRangeMatchSuccess(String rangeDateDelimiters, DateNormalizationResult startDateResult,
+      DateNormalizationResult endDateResult) {
+    return startDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED
+        && endDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED;
+  }
+
+  @Override
+  public DateNormalizationExtractorMatchId getDateNormalizationExtractorId(DateNormalizationResult startDateResult,
+      DateNormalizationResult endDateResult) {
+    return DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE;
   }
 }
 

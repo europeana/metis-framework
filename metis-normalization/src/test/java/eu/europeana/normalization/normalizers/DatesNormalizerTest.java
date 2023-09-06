@@ -77,14 +77,14 @@ class DatesNormalizerTest {
   }
 
   private static Stream<Arguments> extractDateProperties() {
-    Stream<Arguments> argumentsWithoutLabel = Stream.of(
-        extractDatePropertiesWithoutLabel()
-    ).flatMap(Function.identity()).map(arguments ->
-    {
-      Object[] argumentsWithLabel = Arrays.copyOf(arguments.get(), arguments.get().length + 1);
-      argumentsWithLabel[argumentsWithLabel.length - 1] = null;
-      return of(argumentsWithLabel);
-    });
+    Stream<Arguments> argumentsWithoutLabel =
+        Stream.of(extractDatePropertiesWithoutLabel()
+        ).flatMap(Function.identity()).map(arguments ->
+        {
+          Object[] argumentsWithLabel = Arrays.copyOf(arguments.get(), arguments.get().length + 1);
+          argumentsWithLabel[argumentsWithLabel.length - 1] = null;
+          return of(argumentsWithLabel);
+        });
     return Stream.concat(extractDatePropertiesWithLabel(), argumentsWithoutLabel);
   }
 
@@ -101,7 +101,7 @@ class DatesNormalizerTest {
     return Stream.of(
         //Brief dates. Those are similar to EDFT but should match first.
         of("2014/15", "2014/2015", BRIEF_DATE_RANGE),
-        of("1889/98? (Herstellung)", "1889?/1898?", BRIEF_DATE_RANGE),
+        of("1889/98? (Herstellung)", "1889/1898?", BRIEF_DATE_RANGE),
         of("1918-20", "1918/1920", BRIEF_DATE_RANGE),
 
         //Centuries numeric

@@ -23,9 +23,16 @@ public class BcAdRangeDateExtractor extends AbstractDateExtractor implements Ran
   }
 
   @Override
-  public DateNormalizationResult extractDateNormalizationResult(String dateString, String rangeDateDelimiters,
+  public DateNormalizationResult extractStartDateNormalizationResult(String dateString, String rangeDateDelimiters,
       DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
+    return BC_AD_DATE_EXTRACTOR.extract(dateString, requestedDateQualification, flexibleDateBuild);
+  }
+
+  @Override
+  public DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
+      String dateString, String rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      throws DateExtractionException {
     return BC_AD_DATE_EXTRACTOR.extract(dateString, requestedDateQualification, flexibleDateBuild);
   }
 

@@ -22,10 +22,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class BriefRangeDateExtractorTest {
 
-  private final BriefRangeDateExtractor briefRangeDateExtractor = new BriefRangeDateExtractor();
+  private static final BriefRangeDateExtractor BRIEF_RANGE_DATE_EXTRACTOR = new BriefRangeDateExtractor();
 
   private void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = briefRangeDateExtractor.extractDateProperty(input, NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = BRIEF_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
+        NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
     } else {
@@ -61,10 +62,11 @@ class BriefRangeDateExtractorTest {
   private static Stream<Arguments> extractBrief() {
     return Stream.of(
         of("1989/90", "1989/1990"),
-        of("1989/90?", "1989?/1990?"),
+        of("1989/90?", "1989/1990?"),
         of("1989-90", "1989/1990"),
-        of("1989-90?", "1989?/1990?"),
-        of("1900-13", "1900/1913"),
+        of("1989-90?", "1989/1990?"),
+        of("1989-90", "1989/1990"),
+        of("989-90", "0989/0990"),
 
         //End date lower rightmost two digits than start year
         of("1989/89", null),

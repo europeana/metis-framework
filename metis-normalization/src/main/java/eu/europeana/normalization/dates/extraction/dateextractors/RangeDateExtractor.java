@@ -2,6 +2,7 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -31,15 +32,30 @@ public interface RangeDateExtractor<T> {
   /**
    * Extract the date normalization result for the range.
    *
-   * @param dateString the range date string
+   * @param dateString the date string
    * @param rangeDateDelimiters the range date delimiters
-   * @param requestedDateQualification the requested qualifiedification
+   * @param requestedDateQualification the requested qualification
    * @param flexibleDateBuild the boolean opting flexible date build
    * @return the date normalization result
    * @throws DateExtractionException if the date extraction failed
    */
-  DateNormalizationResult extractDateNormalizationResult(String dateString, T rangeDateDelimiters,
+  DateNormalizationResult extractStartDateNormalizationResult(String dateString, T rangeDateDelimiters,
       DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException;
+
+  /**
+   * Extract the date normalization result for the range.
+   *
+   * @param startDateNormalizationResult the extracted start date boundary
+   * @param dateString the date string
+   * @param rangeDateDelimiters the range date delimiters
+   * @param requestedDateQualification the requested qualification
+   * @param flexibleDateBuild the boolean opting flexible date build
+   * @return the date normalization result
+   * @throws DateExtractionException if the date extraction failed
+   */
+  DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
+      String dateString, T rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      throws DateExtractionException;
 
   /**
    * Checks if a provided date range was successfully extracted
@@ -80,7 +96,7 @@ public interface RangeDateExtractor<T> {
       boolean flexibleDateBuild) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult startDateResult;
-    DateNormalizationResult endDateResult;
+    DateNormalizationResult endDateResult = DateNormalizationResult.getNoMatchResult(inputValue);
     DateNormalizationResult rangeDate = DateNormalizationResult.getNoMatchResult(inputValue);
     for (T numericRangeDateDelimiters : getDateDelimiters()) {
       // Split with -1 limit does not discard empty splits
@@ -89,11 +105,14 @@ public interface RangeDateExtractor<T> {
       // This also guarantees that the separator used is not used for unknown characters.
       if (sanitizedDateSplitArray.length == 2) {
         // Try extraction and verify
-        startDateResult = extractDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeDateDelimiters,
+        startDateResult = extractStartDateNormalizationResult(sanitizedDateSplitArray[0], numericRangeDateDelimiters,
             requestedDateQualification,
             flexibleDateBuild);
-        endDateResult = extractDateNormalizationResult(sanitizedDateSplitArray[1], numericRangeDateDelimiters,
-            requestedDateQualification, flexibleDateBuild);
+        if (startDateResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
+          endDateResult = extractEndDateNormalizationResult(startDateResult, sanitizedDateSplitArray[1],
+              numericRangeDateDelimiters,
+              requestedDateQualification, flexibleDateBuild);
+        }
         if (isRangeMatchSuccess(numericRangeDateDelimiters, startDateResult, endDateResult)) {
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startDateResult, endDateResult);
@@ -102,9 +121,9 @@ public interface RangeDateExtractor<T> {
           rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }
+
       }
     }
     return rangeDate;
   }
-
 }
