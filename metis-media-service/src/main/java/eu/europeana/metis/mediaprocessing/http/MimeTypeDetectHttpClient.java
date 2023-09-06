@@ -45,14 +45,13 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
     try (final InputStream inputStream = contentRetriever.getContent()) {
       final Metadata metadata = new Metadata();
       final String resourceName = getResourceNameFromUrl(actualUri);
-      if (resourceName != null) {
-        metadata.set(Metadata.RESOURCE_NAME_KEY, resourceName);
-      }
       if (mimeType != null) {
         final int separatorIndex = mimeType.indexOf(';');
         final String adjustedMimeType =
                 separatorIndex < 0 ? mimeType : mimeType.substring(0, separatorIndex);
         metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
+      } else if (resourceName != null) {
+        metadata.set(Metadata.RESOURCE_NAME_KEY, resourceName);
       }
       if (fileSize != null) {
         metadata.set(Metadata.CONTENT_LENGTH, fileSize.toString());
