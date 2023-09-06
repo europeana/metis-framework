@@ -205,17 +205,26 @@ class EdtfDateExtractorTest {
 
   private static Stream<Arguments> letterPrefixedCalendarYearLevel1() {
     return Stream.of(
+        of("Y-123456789", "Y-123456789"),
+        //Non prefixed
+        of("-123456789", null),
         //Future dates are not valid
-        of("Y170000002", null),
-        of("Y-170000002", "Y-170000002"),
+        of("Y123456789", null),
+        //Month and day not valid
+        of("Y123456789/11/01", null),
         //Overflow, max is +-999999999
-        of("Y1700000002", null),
-        of("Y-1700000002", null),
+        of("Y1234567890", null),
+        of("Y-1234567890", null),
         //Too low values
         of("Y0", null),
         of("Y1", null),
         of("Y-1", null),
-        of("Y", null)
+        of("Y", null),
+
+        //Ranges
+        of("Y-123456789/Y-123456788", "Y-123456789/Y-123456788"),
+        //Non prefixed
+        of("-123456789/-123456788", null)
     );
   }
 

@@ -45,7 +45,7 @@ public class InstantEdtfDateBuilder {
   private YearPrecision yearPrecision;
   private DateQualification dateQualification;
   private boolean flexibleDateBuild = true;
-  private boolean longDatePrefixedWithY = false;
+  private boolean isLongYear = false;
 
   /**
    * Constructor which initializes the builder with the minimum requirement of year value.
@@ -123,13 +123,13 @@ public class InstantEdtfDateBuilder {
 
   private void parseYear() throws DateExtractionException {
     Objects.requireNonNull(year, "Year value can never be null");
-    if (longDatePrefixedWithY && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
+    if (isLongYear && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
       throw new DateExtractionException(
-          format("Prefixed year with 'Y' is enabled indicating that year should have absolute value greater than %s",
-              THRESHOLD_4_DIGITS_YEAR));
-    } else if (!longDatePrefixedWithY && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
+          format("isLong is %s indicating that year should have absolute value greater than %s",
+              true, THRESHOLD_4_DIGITS_YEAR));
+    } else if (!isLongYear && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
       throw new DateExtractionException(
-          format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
+          format("Year absolute value is greater than %s, and isLong is %s", THRESHOLD_4_DIGITS_YEAR, false));
     }
     yearObj = Year.of(year * yearPrecision.getDuration());
   }
@@ -168,7 +168,7 @@ public class InstantEdtfDateBuilder {
 
   private void validateStrict() throws DateExtractionException {
     //If it is not a long year, and we want to be strict we further validate
-    boolean notLongYearAndStrictBuild = !longDatePrefixedWithY && !flexibleDateBuild;
+    boolean notLongYearAndStrictBuild = !isLongYear && !flexibleDateBuild;
     // TODO: 15/02/2023 Check this instruction. It used to be like that
     //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
     //  but do we actually need the check on unknown?
@@ -245,8 +245,8 @@ public class InstantEdtfDateBuilder {
    *
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withLongYearPrefixedWithY() {
-    this.longDatePrefixedWithY = true;
+  public InstantEdtfDateBuilder withLongYear() {
+    this.isLongYear = true;
     return this;
   }
 

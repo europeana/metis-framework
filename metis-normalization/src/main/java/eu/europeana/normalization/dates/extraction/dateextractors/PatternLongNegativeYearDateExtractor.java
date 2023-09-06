@@ -37,8 +37,8 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
           computeDateQualification(requestedDateQualification,
               () -> (m.group("uncertain") != null || m.group("uncertain2") != null) ? UNCERTAIN : NO_QUALIFICATION);
 
-      final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year"))).withDateQualification(
-          dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+      final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group("year")))
+          .withLongYear().withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue, datePart);
     }
     final Matcher m2 = patYyyyyyRange.matcher(inputValue);
@@ -47,10 +47,10 @@ public class PatternLongNegativeYearDateExtractor extends AbstractDateExtractor 
           computeDateQualification(requestedDateQualification,
               () -> (m2.group("uncertain") != null || m2.group("uncertain2") != null) ? UNCERTAIN : NO_QUALIFICATION);
 
-      final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year"))).withDateQualification(
-          dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
-      final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year2"))).withDateQualification(
-          dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+      final InstantEdtfDate startDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year")))
+          .withLongYear().withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+      final InstantEdtfDate endDatePart = new InstantEdtfDateBuilder(Integer.parseInt(m2.group("year2")))
+          .withLongYear().withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
       IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(startDatePart, endDatePart).withFlexibleDateBuild(
           flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue, intervalEdtfDate);
