@@ -15,6 +15,8 @@ import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +26,7 @@ import java.util.regex.Pattern;
  * <p>
  * The end year in this extractor has to:
  *   <ul>
- *     <li>Be higher than 12 to avoid matching a month value from other extractors.</li>
+ *     <li>Be higher than 12(or lower than -12) to avoid matching a month value from other extractors.</li>
  *     <li>Be higher than the two rightmost digits of the start year.</li>
  *   </ul>
  * </p>
@@ -36,7 +38,7 @@ import java.util.regex.Pattern;
 public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDatesSeparator> {
 
   private static final String OPTIONAL_QUESTION_MARK = "\\??";
-  private static final Pattern YEAR_PATTERN = Pattern.compile(OPTIONAL_QUESTION_MARK + "(\\d{2,4})" + OPTIONAL_QUESTION_MARK);
+  private static final Pattern YEAR_PATTERN = Pattern.compile(OPTIONAL_QUESTION_MARK + "(-?\\d{2,4})" + OPTIONAL_QUESTION_MARK);
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString,
@@ -56,8 +58,8 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
         flexibleDateBuild);
 
     if (startYearDateDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
-      int startYearDigitsLength = (int) (
-          Math.log10(((InstantEdtfDate) startYearDateDateNormalizationResult.getEdtfDate()).getYear().getValue()) + 1);
+      int absoluteYear = Math.abs(((InstantEdtfDate) startYearDateDateNormalizationResult.getEdtfDate()).getYear().getValue());
+      int startYearDigitsLength = (int) (Math.log10(absoluteYear) + 1);
       if (startYearDigitsLength > 2) {
         dateNormalizationResult = startYearDateDateNormalizationResult;
       }
@@ -80,8 +82,9 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
         final int startYearLastTwoDigits = startYearFourDigits % CENTURY.getDuration();
         final int endYear = ((InstantEdtfDate) endDateNormalizationResult.getEdtfDate()).getYear().getValue();
 
-        int endYearDigitsLength = (int) (Math.log10(endYear) + 1);
-        if (endYearDigitsLength == 2 && endYear > Month.DECEMBER.getValue() && startYearLastTwoDigits < endYear) {
+        int absoluteEndYear = Math.abs(endYear);
+        int endYearDigitsLength = (int) (Math.log10(absoluteEndYear) + 1);
+        if (endYearDigitsLength == 2 && Math.abs(endYear) > Month.DECEMBER.getValue() && startYearLastTwoDigits < endYear) {
           final int endYearFourDigits = (startYearFourDigits / CENTURY.getDuration()) * CENTURY.getDuration() + endYear;
           final InstantEdtfDate endInstantEdtfDate = new InstantEdtfDateBuilder(endYearFourDigits).withDateQualification(
               endDateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
@@ -114,7 +117,7 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
 
   @Override
   public List<DefaultDatesSeparator> getRangeDateQualifiers() {
-    return List.of(DefaultDatesSeparator.values());
+    return new ArrayList<>(EnumSet.of(DefaultDatesSeparator.SLASH_DELIMITER));
   }
 
   @Override

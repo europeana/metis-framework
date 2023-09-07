@@ -6,6 +6,8 @@ import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class BcAdRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
 
   @Override
   public List<DefaultDatesSeparator> getRangeDateQualifiers() {
-    return List.of(DefaultDatesSeparator.values());
+    return new ArrayList<>(EnumSet.of(DefaultDatesSeparator.SLASH_DELIMITER));
   }
 
   @Override

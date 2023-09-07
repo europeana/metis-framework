@@ -12,9 +12,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class PatternLongNegativeYearDateExtractorTest {
+class LongNegativeYearDateExtractorTest {
 
-  private static final PatternLongNegativeYearDateExtractor PATTERN_LONG_NEGATIVE_YEAR_DATE_EXTRACTOR = new PatternLongNegativeYearDateExtractor();
+  private static final LongNegativeYearDateExtractor LONG_NEGATIVE_YEAR_DATE_EXTRACTOR = new LongNegativeYearDateExtractor();
 
   @ParameterizedTest
   @MethodSource
@@ -23,7 +23,7 @@ class PatternLongNegativeYearDateExtractorTest {
   }
 
   void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = PATTERN_LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extractDateProperty(input,
+    final DateNormalizationResult dateNormalizationResult = LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
@@ -45,12 +45,11 @@ class PatternLongNegativeYearDateExtractorTest {
         of("-123456789", "Y-123456789"),
 
         //Future dates are not valid
-        of("Y123456789", null),
+        of("123456789", null),
         //Less digits
         of("-1234", null),
         //Greater digits
         of("-1234567890", null)
     );
   }
-
 }

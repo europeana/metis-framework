@@ -102,7 +102,6 @@ class DatesNormalizerTest {
         //Brief dates. Those are similar to EDFT but should match first.
         of("2014/15", "2014/2015", BRIEF_DATE_RANGE),
         of("1889/98? (Herstellung)", "1889/1898?", BRIEF_DATE_RANGE),
-        of("1918-20", "1918/1920", BRIEF_DATE_RANGE),
 
         //Centuries numeric
         of("18..", "18XX", CENTURY_NUMERIC),

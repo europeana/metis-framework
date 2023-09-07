@@ -20,12 +20,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class BriefRangeDateExtractorTest {
+class LongNegativeYearRangeDateExtractorTest {
 
-  private static final BriefRangeDateExtractor BRIEF_RANGE_DATE_EXTRACTOR = new BriefRangeDateExtractor();
+  private static final LongNegativeYearRangeDateExtractor LONG_NEGATIVE_YEAR_RANGE_DATE_EXTRACTOR = new LongNegativeYearRangeDateExtractor();
 
-  private void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = BRIEF_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
+  @ParameterizedTest
+  @MethodSource
+  void extract(String input, String expected) {
+    assertExtract(input, expected);
+  }
+
+  void assertExtract(String input, String expected) {
+    final DateNormalizationResult dateNormalizationResult = LONG_NEGATIVE_YEAR_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
     if (expected == null) {
       assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
@@ -38,7 +44,7 @@ class BriefRangeDateExtractorTest {
         assertEdtfDate(expected, (InstantEdtfDate) dateNormalizationResult.getEdtfDate());
       }
       assertEquals(expected, edtfDate.toString());
-      assertEquals(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE,
+      assertEquals(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR,
           dateNormalizationResult.getDateNormalizationExtractorMatchId());
     }
   }
@@ -51,45 +57,33 @@ class BriefRangeDateExtractorTest {
         instantEdtfDate.getDateBoundaryType() == OPEN || instantEdtfDate.getDateBoundaryType() == UNKNOWN);
   }
 
-  @ParameterizedTest
-  @MethodSource
-  void extractBrief(String input, String expected) {
-    assertExtract(input, expected);
-  }
+  private static Stream<Arguments> extract() {
 
-  private static Stream<Arguments> extractBrief() {
     return Stream.of(
-        //Slash
-        of("1989/90", "1989/1990"),
-        of("1989/90?", "1989/1990?"),
-        of("-1989/-88", "-1989/-1988"),
-        of("-1989/-88?", "-1989/-1988?"),
-        of("-1989/-13", "-1989/-1913"),
+        of("-12345/-12344", "Y-12345/Y-12344"),
+        of("-123456/-123455", "Y-123456/Y-123455"),
+        of("-1234567/-1234566", "Y-1234567/Y-1234566"),
+        of("-12345678/-12345677", "Y-12345678/Y-12345677"),
+        of("-123456789/-123456788", "Y-123456789/Y-123456788"),
 
-        //Dash not supported
-        of("1989-90", null),
-        of("1989-90?", null),
-        of("1989-90", null),
-        of("989-90", null),
+        //Uncertain
+        of("-12345?/-12344", "Y-12345?/Y-12344"),
+        of("-12345/-12344?", "Y-12345/Y-12344?"),
+        of("-12345?/-12344?", "Y-12345?/Y-12344?"),
 
-        //End date lower rightmost two digits than start year
-        of("1989/89", null),
-        of("1989/88", null),
-        of("1989-89", null),
-        of("1989-88", null),
+        //Dash
+        of("-12345--12344", null),
+        of("-123456--123455", null),
+        of("-1234567--1234566", null),
+        of("-12345678--12345677", null),
+        of("-123456789--123456788", null),
 
-        //More than two digits on end year not allowed
-        of("1989/990", null),
-        of("1989-990", null),
-
-        //End year cannot be lower or equal than +-12
-        of("1900/01", null),
-        of("1900/12", null),
-        of("-1989/-12", null),
-
-        //Less than three digits on start year
-        of("89-90", null)
+        //Future dates are not valid
+        of("123456788/123456789", null),
+        //Less digits
+        of("-1234/-1233", null),
+        //Greater digits
+        of("-1234567890/-1234567889", null)
     );
   }
-
 }
