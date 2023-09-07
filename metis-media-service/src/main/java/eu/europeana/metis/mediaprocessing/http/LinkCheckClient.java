@@ -1,6 +1,8 @@
 package eu.europeana.metis.mediaprocessing.http;
 
 import eu.europeana.metis.network.AbstractHttpClient;
+import org.springframework.http.ContentDisposition;
+
 import java.net.URI;
 
 /**
@@ -29,8 +31,8 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
   }
 
   @Override
-  protected Void createResult(String providedLink, URI actualUri, String mimeType, Long fileSize,
-      ContentRetriever contentRetriever) {
+  protected Void createResult(String providedLink, URI actualUri, ContentDisposition contentDisposition,
+                              String mimeType, Long fileSize, ContentRetriever contentRetriever) {
     return null;
   }
 }

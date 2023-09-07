@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.ContentDisposition;
 
 /**
  * An implementation of {@link AbstractHttpClient} that returns a String (assuming UTF-8 encoding).
@@ -31,8 +32,8 @@ public class StringHttpClient extends AbstractHttpClient<URI, StringContent> {
   }
 
   @Override
-  protected StringContent createResult(URI providedLink, URI actualUri, String mimeType,
-          Long fileSize, ContentRetriever contentRetriever) throws IOException {
+  protected StringContent createResult(URI providedLink, URI actualUri, ContentDisposition contentDisposition,
+                                       String mimeType, Long fileSize, ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
       return new StringContent(IOUtils.toString(inputStream, StandardCharsets.UTF_8), mimeType);
     }

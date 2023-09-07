@@ -57,7 +57,7 @@ class StringHttpClientTest {
     final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(responseEntity::getContent,
         closeables::add);
 
-    StringContent actualContent = stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"),
+    StringContent actualContent = stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"), null,
         "text/plain", 7L, contentRetriever);
 
     assertEquals("content", actualContent.getContent());
@@ -71,7 +71,7 @@ class StringHttpClientTest {
     when(contentRetriever.getContent()).thenThrow(IOException.class);
 
     assertThrows(IOException.class,
-        () -> stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"),
+        () -> stringHttpClient.createResult(new URI("/resource/provided"), new URI("/resource/actual"), null,
             "text/plain", 7L, contentRetriever));
   }
 
