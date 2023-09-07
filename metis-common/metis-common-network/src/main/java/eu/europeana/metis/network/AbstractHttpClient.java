@@ -188,7 +188,7 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
                   return re.getHeader("Content-Disposition") != null ?
                           ContentDisposition.parse(re.getHeader("Content-Disposition").getValue()) : null;
                 } catch (ProtocolException ex) {
-                  LOGGER.debug("No content-disposition header, nothing to do");
+                  LOGGER.debug("No content-disposition header, nothing to do", ex);
                   return null;
                 }
               }
