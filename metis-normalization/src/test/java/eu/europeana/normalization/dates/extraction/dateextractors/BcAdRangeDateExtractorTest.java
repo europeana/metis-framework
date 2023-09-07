@@ -77,5 +77,4 @@ class BcAdRangeDateExtractorTest {
         of("1989 BC-0 AD", null)
     );
   }
-
 }

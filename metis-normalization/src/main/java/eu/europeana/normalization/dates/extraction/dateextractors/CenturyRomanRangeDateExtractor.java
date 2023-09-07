@@ -6,28 +6,30 @@ import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
- * Extractor for BC and AD date ranges with variations in the separators of date components.
- * <p>We reuse the already existent {@link BcAdDateExtractor} code for the boundaries.</p>
+ * Extractor for Roman century ranges.
+ * <p>We reuse the already existent {@link CenturyRomanDateExtractor} code for the boundaries.</p>
  */
-public class BcAdRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDatesSeparator> {
+public class CenturyRomanRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDatesSeparator> {
 
-  private static final BcAdDateExtractor BC_AD_DATE_EXTRACTOR = new BcAdDateExtractor();
+  private static final CenturyRomanDateExtractor ROMAN_CENTURY_DATE_EXTRACTOR = new CenturyRomanDateExtractor();
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
       DefaultDatesSeparator rangeDateDelimiters,
       DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        BC_AD_DATE_EXTRACTOR.extract(startString, requestedDateQualification, flexibleDateBuild),
-        BC_AD_DATE_EXTRACTOR.extract(endString, requestedDateQualification, flexibleDateBuild));
+        ROMAN_CENTURY_DATE_EXTRACTOR.extract(startString, requestedDateQualification, flexibleDateBuild),
+        ROMAN_CENTURY_DATE_EXTRACTOR.extract(endString, requestedDateQualification, flexibleDateBuild));
   }
 
   @Override
   public List<DefaultDatesSeparator> getRangeDateQualifiers() {
-    return List.of(DefaultDatesSeparator.values());
+    return new ArrayList<>(EnumSet.of(DefaultDatesSeparator.DASH_DELIMITER));
   }
 
   @Override
@@ -40,6 +42,6 @@ public class BcAdRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
   @Override
   public DateNormalizationExtractorMatchId getDateNormalizationExtractorId(DateNormalizationResult startDateResult,
       DateNormalizationResult endDateResult) {
-    return DateNormalizationExtractorMatchId.BC_AD;
+    return DateNormalizationExtractorMatchId.CENTURY_RANGE_ROMAN;
   }
 }
