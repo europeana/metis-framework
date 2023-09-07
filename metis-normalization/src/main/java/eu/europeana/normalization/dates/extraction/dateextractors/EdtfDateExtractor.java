@@ -18,6 +18,7 @@ import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.lang.invoke.MethodHandles;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
@@ -69,17 +70,18 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
 
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
       boolean allowSwitchMonthDay) throws DateExtractionException {
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(dateInput);
     final InstantEdtfDate instantEdtfDate;
     Integer longYear;
-    if (UNKNOWN.getDeserializedRepresentation().equals(dateInput)) {
+    if (UNKNOWN.getDeserializedRepresentation().equals(sanitizedValue)) {
       instantEdtfDate = InstantEdtfDate.getUnknownInstance();
-    } else if (OPEN.getDeserializedRepresentation().equals(dateInput)) {
+    } else if (OPEN.getDeserializedRepresentation().equals(sanitizedValue)) {
       instantEdtfDate = InstantEdtfDate.getOpenInstance();
-    } else if ((longYear = getLongYear(dateInput)) != null) {
+    } else if ((longYear = getLongYear(sanitizedValue)) != null) {
       instantEdtfDate = new InstantEdtfDateBuilder(longYear)
           .withLongYear().withDateQualification(requestedDateQualification).build();
     } else {
-      instantEdtfDate = extractInstantEdtfDate(dateInput, requestedDateQualification, allowSwitchMonthDay);
+      instantEdtfDate = extractInstantEdtfDate(sanitizedValue, requestedDateQualification, allowSwitchMonthDay);
     }
     return instantEdtfDate;
   }

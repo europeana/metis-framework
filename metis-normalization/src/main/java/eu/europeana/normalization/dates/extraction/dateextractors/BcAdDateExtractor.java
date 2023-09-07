@@ -9,7 +9,6 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.EuropeanLanguage;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.text.DateFormatSymbols;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,10 +54,9 @@ public class BcAdDateExtractor extends AbstractDateExtractor {
       boolean flexibleDateBuild) throws DateExtractionException {
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
         () -> DateQualification.NO_QUALIFICATION);
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
 
-    Matcher matcher = pattern.matcher(sanitizedValue);
+    Matcher matcher = pattern.matcher(inputValue);
     if (matcher.matches()) {
       final int year = Integer.parseInt(matcher.group(1));
       //Year should not be 0 on an era

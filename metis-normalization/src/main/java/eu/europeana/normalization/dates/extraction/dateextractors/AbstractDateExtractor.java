@@ -4,8 +4,10 @@ import static eu.europeana.normalization.dates.DateNormalizationResult.getNoMatc
 import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
+import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
+import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.lang.invoke.MethodHandles;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
@@ -46,15 +48,19 @@ public abstract class AbstractDateExtractor implements DateExtractor {
 
   private DateNormalizationResult getDateNormalizationResult(String inputValue, DateQualification dateQualification,
       boolean flexibleDateBuild) {
+    //Use this as the result in case of no match instead of the internal sanitized one
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
+    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
+    DateNormalizationResult extractDateNormalizationResult = null;
     try {
-      dateNormalizationResult = extract(inputValue, dateQualification, flexibleDateBuild);
+      extractDateNormalizationResult = extract(sanitizedValue, dateQualification, flexibleDateBuild);
     } catch (DateExtractionException e) {
-      LOGGER.debug(format("Date extraction failed %s: ", inputValue), e);
+      LOGGER.debug(format("Date extraction failed %s: ", sanitizedValue), e);
     }
-    //Sanity check to avoid null return.
-    if (dateNormalizationResult == null) {
-      dateNormalizationResult = getNoMatchResult(inputValue);
+    //Sanity check to avoid null value
+    if (extractDateNormalizationResult != null
+        && extractDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
+      dateNormalizationResult = extractDateNormalizationResult;
     }
     return dateNormalizationResult;
   }

@@ -12,7 +12,6 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.function.ToIntFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,11 +72,10 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (CenturyNumericDatePattern centerNumericDatePattern : CenturyNumericDatePattern.values()) {
-      final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
       final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-          (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+          (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
 
-      final Matcher matcher = centerNumericDatePattern.getPattern().matcher(sanitizedValue);
+      final Matcher matcher = centerNumericDatePattern.getPattern().matcher(inputValue);
       if (matcher.matches()) {
         final String century = matcher.group(1);
         InstantEdtfDateBuilder instantEdtfDateBuilder = new InstantEdtfDateBuilder(

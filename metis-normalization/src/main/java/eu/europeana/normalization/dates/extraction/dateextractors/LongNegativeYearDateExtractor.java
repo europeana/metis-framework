@@ -9,7 +9,6 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,12 +24,11 @@ public class LongNegativeYearDateExtractor extends AbstractDateExtractor {
   @Override
   public DateNormalizationResult extract(String dateString, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(dateString);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(dateString);
-    final Matcher matcher = YEAR_PATTERN.matcher(sanitizedValue);
+    final Matcher matcher = YEAR_PATTERN.matcher(dateString);
     if (matcher.matches()) {
       final int year = Integer.parseInt(matcher.group(1));
       final InstantEdtfDate instantEdtfDate =

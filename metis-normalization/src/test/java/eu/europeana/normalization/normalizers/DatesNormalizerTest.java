@@ -131,10 +131,10 @@ class DatesNormalizerTest {
 
         //Numeric range '/'
         of("1872-06-01/1872-06-30", "1872-06-01/1872-06-30", EDTF),
-        of(" 1820/1820", "1820/1820", NUMERIC_RANGE_ALL_VARIANTS),
-        of("1918 / 1919", "1918/1919", NUMERIC_RANGE_ALL_VARIANTS),
+        of(" 1820/1820", "1820/1820", EDTF),
+        of("1918 / 1919", "1918/1919", EDTF),
         of("1205/1215 [Herstellung]", "1205/1215", EDTF),
-        of(" 1757/1757", "1757/1757", NUMERIC_RANGE_ALL_VARIANTS),
+        of(" 1757/1757", "1757/1757", EDTF),
         of("ca 1757/1757", "1757~/1757~", EDTF),
         of("1990 BC-1989 BC", "-1989/-1988", BC_AD),
         of("1990 π.Χ.-1989 π.Χ.", "-1989/-1988", BC_AD),

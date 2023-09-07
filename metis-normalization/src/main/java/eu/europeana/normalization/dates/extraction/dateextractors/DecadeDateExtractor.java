@@ -10,7 +10,6 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,12 +39,11 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
   @Override
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    final Matcher matcher = decadePattern.matcher(sanitizedValue);
+    final Matcher matcher = decadePattern.matcher(inputValue);
     if (matcher.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(matcher.group(1)))
           .withYearPrecision(DECADE)

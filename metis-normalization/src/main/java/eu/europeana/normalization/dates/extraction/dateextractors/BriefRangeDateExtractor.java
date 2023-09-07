@@ -13,7 +13,6 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -99,12 +98,11 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
 
   private DateNormalizationResult extractYear(String dateString, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(dateString);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(dateString);
-    final Matcher matcher = YEAR_PATTERN.matcher(sanitizedValue);
+    final Matcher matcher = YEAR_PATTERN.matcher(dateString);
     if (matcher.matches()) {
       final int year = Integer.parseInt(matcher.group(1));
       final InstantEdtfDate instantEdtfDate = new InstantEdtfDateBuilder(year).withDateQualification(dateQualification)

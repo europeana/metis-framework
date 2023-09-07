@@ -12,7 +12,6 @@ import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.RomanToNumber;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,10 +40,9 @@ public class CenturyRomanDateExtractor extends AbstractDateExtractor {
   public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (sanitizedValue.startsWith("?") || sanitizedValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
-    final Matcher matcher = ROMAN_2_TO_21_PATTERN.matcher(sanitizedValue);
+        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+    final Matcher matcher = ROMAN_2_TO_21_PATTERN.matcher(inputValue);
     if (matcher.matches()) {
       final int century = RomanToNumber.romanToDecimal(matcher.group(1)) - 1;
       final InstantEdtfDateBuilder instantEdtfDateBuilder =

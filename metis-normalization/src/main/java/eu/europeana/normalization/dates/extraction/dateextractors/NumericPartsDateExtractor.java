@@ -12,7 +12,6 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
-import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -56,14 +55,13 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
   protected DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       Set<NumericPartsPattern> numericPatternValues,
       boolean allowSwitchMonthDay) throws DateExtractionException {
-    final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(inputValue);
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (STARTING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(sanitizedValue).find())
+        (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find())
             ? UNCERTAIN : NO_QUALIFICATION);
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
-      final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(sanitizedValue);
+      final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(inputValue);
       if (matcher.matches()) {
         InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
         final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(dateQualification)
