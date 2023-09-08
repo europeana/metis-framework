@@ -27,10 +27,12 @@ import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.client5.http.protocol.RedirectLocations;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.http.ProtocolException;
 import org.apache.hc.core5.util.TimeValue;
 import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ContentDisposition;
 
 /**
  * <p>
@@ -181,12 +183,21 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
       final RedirectLocations redirectUris = context.getRedirectLocations();
       final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
               : redirectUris.get(redirectUris.size() - 1);
-
+      final ContentDisposition contentDisposition = Optional.ofNullable(responseObject).map( re -> {
+                try {
+                  return re.getHeader("Content-Disposition") != null ?
+                          ContentDisposition.parse(re.getHeader("Content-Disposition").getValue()) : null;
+                } catch (ProtocolException ex) {
+                  LOGGER.debug("No content-disposition header, nothing to do", ex);
+                  return null;
+                }
+              }
+      ).orElse(null);
       // Obtain the result (check for timeout just in case).
       final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(
               responseEntity == null ? InputStream::nullInputStream : responseEntity::getContent,
               closeables::add);
-      return createResult(link, actualUri, mimeType, fileSize, contentRetriever);
+      return createResult(link, actualUri, contentDisposition, mimeType, fileSize,  contentRetriever);
 
     } catch (URISyntaxException e) {
 
@@ -254,7 +265,7 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
    * @return The resulting object.
    * @throws IOException In case a connection or other IO problem occurred.
    */
-  protected abstract R createResult(I providedLink, URI actualUri, String mimeType, Long fileSize,
+  protected abstract R createResult(I providedLink, URI actualUri, ContentDisposition contentDisposition, String mimeType, Long fileSize,
           ContentRetriever contentRetriever) throws IOException;
 
   @Override
