@@ -49,12 +49,12 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
    *
    * @param inputValue the input value
    * @param numericPatternValues the patterns to check against
-   * @param allowSwitchMonthDay allow switching month and day values if month and day original values are not valid
+   * @param flexibleDateBuild allow switching month and day values if month and day original values are not valid
    * @return the date normalization result
    */
   protected DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
       Set<NumericPartsPattern> numericPatternValues,
-      boolean allowSwitchMonthDay) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
         (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find())
             ? UNCERTAIN : NO_QUALIFICATION);
@@ -65,7 +65,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
       if (matcher.matches()) {
         InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
         final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(dateQualification)
-                                                                      .withFlexibleDateBuild(allowSwitchMonthDay).build();
+                                                                      .withFlexibleDateBuild(flexibleDateBuild).build();
         dateNormalizationResult = new DateNormalizationResult(
             numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue, instantEdtfDate);
         break;

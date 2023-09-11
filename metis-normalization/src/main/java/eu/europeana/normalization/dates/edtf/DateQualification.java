@@ -14,7 +14,7 @@ public enum DateQualification {
   APPROXIMATE("~"),
   UNCERTAIN_APPROXIMATE("%");
 
-  public static final Pattern CHECK_QUALIFICATION_PATTERN = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
+  public static final Pattern CHECK_QUALIFICATION_PATTERN = Pattern.compile("^[^?~%]*([?~%])$");
   private final String character;
 
   DateQualification(String character) {

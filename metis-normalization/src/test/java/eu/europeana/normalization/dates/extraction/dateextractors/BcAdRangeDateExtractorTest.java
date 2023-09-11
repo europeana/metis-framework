@@ -2,17 +2,15 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.BC_AD;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class BcAdRangeDateExtractorTest {
+class BcAdRangeDateExtractorTest implements DateExtractorTest {
 
   private static final BcAdRangeDateExtractor BC_AD_RANGE_DATE_EXTRACTOR = new BcAdRangeDateExtractor();
 
@@ -25,18 +23,10 @@ class BcAdRangeDateExtractorTest {
   void assertExtract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = BC_AD_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
-    if (expected == null) {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    } else {
-      final String actual = dateNormalizationResult.getEdtfDate().toString();
-      assertEquals(expected, actual);
-      assertEquals(NO_QUALIFICATION, dateNormalizationResult.getEdtfDate().getDateQualification());
-      assertEquals(BC_AD, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-    }
+    assertDateNormalizationResult(dateNormalizationResult, expected, BC_AD);
   }
 
   private static Stream<Arguments> extract() {
-
     return Stream.of(
         //BC-BC
         of("1990 BC-1989 BC", "-1989/-1988"),

@@ -54,22 +54,22 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
   }
 
   protected IntervalEdtfDate extractInterval(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     String startPart = dateInput.substring(0, dateInput.indexOf(DATE_INTERVAL_SEPARATOR));
     String endPart = dateInput.substring(dateInput.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
-    final InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, allowSwitchMonthDay);
-    final InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, allowSwitchMonthDay);
+    final InstantEdtfDate start = extractInstant(startPart, requestedDateQualification, flexibleDateBuild);
+    final InstantEdtfDate end = extractInstant(endPart, requestedDateQualification, flexibleDateBuild);
 
     //Are both ends unknown or open, then it is not a date
     if ((end.getDateBoundaryType() == UNKNOWN || end.getDateBoundaryType() == OPEN) &&
         (start.getDateBoundaryType() == UNKNOWN || start.getDateBoundaryType() == OPEN)) {
       throw new DateExtractionException(dateInput);
     }
-    return new IntervalEdtfDateBuilder(start, end).withFlexibleDateBuild(allowSwitchMonthDay).build();
+    return new IntervalEdtfDateBuilder(start, end).withFlexibleDateBuild(flexibleDateBuild).build();
   }
 
   protected InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final String sanitizedValue = DateFieldSanitizer.cleanSpacesAndTrim(dateInput);
     final InstantEdtfDate instantEdtfDate;
     Integer longYear;
@@ -81,7 +81,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
       instantEdtfDate = new InstantEdtfDateBuilder(longYear)
           .withLongYear().withDateQualification(requestedDateQualification).build();
     } else {
-      instantEdtfDate = extractInstantEdtfDate(sanitizedValue, requestedDateQualification, allowSwitchMonthDay);
+      instantEdtfDate = extractInstantEdtfDate(sanitizedValue, requestedDateQualification, flexibleDateBuild);
     }
     return instantEdtfDate;
   }
@@ -106,14 +106,14 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
   }
 
   private static InstantEdtfDate extractInstantEdtfDate(String dateInput, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateExtractionException {
-    Matcher matcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
+      boolean flexibleDateBuild) throws DateExtractionException {
+    Matcher qualificationMatcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
     String dateInputStrippedModifier = dateInput;
     DateQualification dateQualification = requestedDateQualification;
 
-    boolean containsQualification = matcher.matches();
-    if (containsQualification && (requestedDateQualification == null || requestedDateQualification == NO_QUALIFICATION)) {
-      final String modifier = matcher.group(1);
+    if (qualificationMatcher.matches() && (requestedDateQualification == null
+        || requestedDateQualification == NO_QUALIFICATION)) {
+      final String modifier = qualificationMatcher.group(1);
       if (StringUtils.isNotEmpty(modifier)) {
         dateQualification = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
         dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
@@ -123,7 +123,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualification)
-        .withFlexibleDateBuild(allowSwitchMonthDay)
+        .withFlexibleDateBuild(flexibleDateBuild)
         .build();
   }
 

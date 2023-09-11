@@ -1,34 +1,23 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.CENTURY_RANGE_ROMAN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class CenturyRomanRangeDateExtractorTest {
+class CenturyRomanRangeDateExtractorTest implements DateExtractorTest {
 
   private static final CenturyRomanRangeDateExtractor ROMAN_CENTURY_RANGE_DATE_EXTRACTOR = new CenturyRomanRangeDateExtractor();
 
   void assertExtract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = ROMAN_CENTURY_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
-    if (expected == null) {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    } else {
-      final String actual = dateNormalizationResult.getEdtfDate().toString();
-      assertEquals(expected, actual);
-      assertEquals(actual.contains("?"),
-          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
-      assertEquals(CENTURY_RANGE_ROMAN, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-    }
+    assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.CENTURY_RANGE_ROMAN);
   }
 
   @ParameterizedTest

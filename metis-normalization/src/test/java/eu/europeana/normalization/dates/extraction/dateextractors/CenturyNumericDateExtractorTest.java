@@ -2,33 +2,22 @@ package eu.europeana.normalization.dates.extraction.dateextractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.CENTURY_NUMERIC;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class CenturyNumericDateExtractorTest {
+class CenturyNumericDateExtractorTest implements DateExtractorTest {
 
   private static final CenturyNumericDateExtractor CENTURY_DATE_EXTRACTOR = new CenturyNumericDateExtractor();
 
   void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = CENTURY_DATE_EXTRACTOR.extractDateProperty(input, NO_QUALIFICATION);
-    if (expected == null) {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    } else {
-      final String actual = dateNormalizationResult.getEdtfDate().toString();
-      assertEquals(expected, actual);
-      assertEquals(actual.contains("?"),
-          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
-      assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-    }
+    assertDateNormalizationResult(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
   }
 
   @ParameterizedTest

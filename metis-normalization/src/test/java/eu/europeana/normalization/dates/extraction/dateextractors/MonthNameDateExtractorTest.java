@@ -1,18 +1,16 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.MONTH_NAME;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class MonthNameDateExtractorTest {
+class MonthNameDateExtractorTest implements DateExtractorTest {
 
   private static final MonthNameDateExtractor PATTERN_MONTH_NAME_DATE_EXTRACTOR = new MonthNameDateExtractor();
 
@@ -37,18 +35,10 @@ class MonthNameDateExtractorTest {
   void assertExtract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = PATTERN_MONTH_NAME_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
-    if (expected == null) {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    } else {
-      final String actual = dateNormalizationResult.getEdtfDate().toString();
-      assertEquals(expected, actual);
-      assertEquals(NO_QUALIFICATION, dateNormalizationResult.getEdtfDate().getDateQualification());
-      assertEquals(MONTH_NAME, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-    }
+    assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.MONTH_NAME);
   }
 
   private static Stream<Arguments> extractDayMonthYear() {
-
     return Stream.of(
         //DAY-MONTH-YEAR
         of("01 November 1989", "1989-11-01"),

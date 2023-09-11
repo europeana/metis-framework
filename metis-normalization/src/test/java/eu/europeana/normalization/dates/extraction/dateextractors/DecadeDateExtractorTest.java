@@ -1,19 +1,16 @@
 package eu.europeana.normalization.dates.extraction.dateextractors;
 
-import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.DECADE;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
+import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class DecadeDateExtractorTest {
+class DecadeDateExtractorTest implements DateExtractorTest {
 
   private static final DecadeDateExtractor DECADE_DATE_EXTRACTOR = new DecadeDateExtractor();
 
@@ -21,15 +18,7 @@ class DecadeDateExtractorTest {
   @MethodSource
   void extract(String input, String expected) {
     final DateNormalizationResult dateNormalizationResult = DECADE_DATE_EXTRACTOR.extractDateProperty(input, NO_QUALIFICATION);
-    if (expected == null) {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    } else {
-      final String actual = dateNormalizationResult.getEdtfDate().toString();
-      assertEquals(expected, actual);
-      assertEquals(actual.contains("?"),
-          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
-      assertEquals(DECADE, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-    }
+    assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.DECADE);
   }
 
   private static Stream<Arguments> extract() {

@@ -13,95 +13,42 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_SPACES_VARIANT;
-import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
-import eu.europeana.normalization.dates.edtf.DateBoundaryType;
-import eu.europeana.normalization.dates.edtf.DateQualification;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
+import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractorTest;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class DatesNormalizerTest {
+class DatesNormalizerTest implements DateExtractorTest {
 
   private final static DatesNormalizer NORMALIZER = new DatesNormalizer();
 
   @ParameterizedTest
   @MethodSource
   void extractDatePropertiesWithLabel(String input, String expected,
-      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
-      String label) {
-    assertExtractWithLabel(input, expected, dateNormalizationExtractorMatchId, label);
+      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId, String expectedLabel) {
+    final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeDateProperty(input);
+    assertDateNormalizationResult(dateNormalizationResult, expected, dateNormalizationExtractorMatchId, expectedLabel);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractDatePropertiesWithoutLabel(String input, String expected,
       DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    assertExtract(input, expected, dateNormalizationExtractorMatchId);
+    final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeDateProperty(input);
+    assertDateNormalizationResult(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
   }
 
   @ParameterizedTest
   @MethodSource
   void extractGenericPropertiesWithoutLabel(String input, String expected,
       DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    assertExtractGenericProperties(input, expected, dateNormalizationExtractorMatchId);
-  }
-
-  void assertExtractWithLabel(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId,
-      String label) {
-    final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeDateProperty(input);
-    assertExtract(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
-    assertEquals(label, dateNormalizationResult.getEdtfDate().getLabel());
-  }
-
-  void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeDateProperty(input);
-    assertExtract(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
-  }
-
-  void assertExtractGenericProperties(String input, String expected,
-      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = NORMALIZER.normalizeGenericProperty(input);
-    assertExtract(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
-  }
-
-  void assertExtract(DateNormalizationResult dateNormalizationResult, String expected,
-      DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    if (expected != null) {
-      assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-      AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
-      if (edtfDate instanceof IntervalEdtfDate) {
-        String startPart = expected.substring(0, expected.indexOf(DATE_INTERVAL_SEPARATOR));
-        String endPart = expected.substring(expected.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
-        InstantEdtfDate start = ((IntervalEdtfDate) edtfDate).getStart();
-        InstantEdtfDate end = ((IntervalEdtfDate) edtfDate).getEnd();
-        assertEdtfDate(startPart, start);
-        assertEdtfDate(endPart, end);
-      } else {
-        assertEdtfDate(expected, (InstantEdtfDate) dateNormalizationResult.getEdtfDate());
-      }
-      assertEquals(expected, edtfDate.toString());
-    } else {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    }
-  }
-
-  private static void assertEdtfDate(String expected, InstantEdtfDate instantEdtfDate) {
-    assertEquals(expected.contains("?"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN);
-    assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == DateQualification.APPROXIMATE);
-    assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == DateQualification.UNCERTAIN_APPROXIMATE);
-    assertEquals(expected.equals(DateBoundaryType.OPEN.getSerializedRepresentation()),
-        instantEdtfDate.getDateBoundaryType() == DateBoundaryType.OPEN
-            || instantEdtfDate.getDateBoundaryType() == DateBoundaryType.UNKNOWN);
+    assertDateNormalizationResult(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
   }
 
   private static Stream<Arguments> extractDatePropertiesWithLabel() {
@@ -115,9 +62,9 @@ class DatesNormalizerTest {
 
   private static Stream<Arguments> extractDatePropertiesWithoutLabel() {
     return Stream.of(
-        //Brief dates. Those are similar to EDFT but should match first.
+        //Brief dates. Those are similar to EDTF but should match first.
         of("2014/15", "2014/2015", BRIEF_DATE_RANGE),
-        of("1889/98? (Herstellung)", "1889/1898?", BRIEF_DATE_RANGE),
+        of("1889/98? (text in parentheses)", "1889/1898?", BRIEF_DATE_RANGE),
 
         //Centuries numeric
         of("18..", "18XX", CENTURY_NUMERIC),
@@ -125,7 +72,7 @@ class DatesNormalizerTest {
         of("[171-]", null, null), // ambiguous
         of("19th century", "18XX", CENTURY_NUMERIC),
         of("2nd century", "01XX", CENTURY_NUMERIC),
-        of("[10th century]", "09XX", CENTURY_NUMERIC), // not supported
+        of("[10th century]", "09XX", CENTURY_NUMERIC),
         of("12th century BC", null, null), // not supported
 
         //Centuries roman
@@ -135,7 +82,7 @@ class DatesNormalizerTest {
         of("S. XVI-XX", "15XX/19XX", CENTURY_RANGE_ROMAN),
         of("S.VIII-XV", "07XX/14XX", CENTURY_RANGE_ROMAN),
         of("S. XVI-XVIII", "15XX/17XX", CENTURY_RANGE_ROMAN),
-        of("S. XVIII-", null, null), // open-ended period
+        of("S. XVIII-", null, null),
         of("[XVI-XIX]", "15XX/18XX", CENTURY_RANGE_ROMAN),
         of("SVV", null, null),
 
@@ -149,7 +96,7 @@ class DatesNormalizerTest {
         of("1872-06-01/1872-06-30", "1872-06-01/1872-06-30", EDTF),
         of(" 1820/1820", "1820/1820", EDTF),
         of("1918 / 1919", "1918/1919", EDTF),
-        of("1205/1215 [Herstellung]", "1205/1215", EDTF),
+        of("1205/1215 [text in brackets]", "1205/1215", EDTF),
         of(" 1757/1757", "1757/1757", EDTF),
         of("ca 1757/1757", "1757~/1757~", EDTF),
         of("1990 BC-1989 BC", "-1989/-1988", BC_AD),
@@ -177,8 +124,10 @@ class DatesNormalizerTest {
         of("192?-1958", null, null),
         of("[ca. 1920-1930]", "1920~/1930~", NUMERIC_RANGE_ALL_VARIANTS),
         of("1937--1938", null, null),
-        of("[ca. 193-]", null, null),// ambiguous
-        of("1990-", null, null), // open-ended period not supported
+        // ambiguous
+        of("[ca. 193-]", null, null),
+        // open-ended period not supported
+        of("1990-", null, null),
 
         //Numeric range '|'
         of("1910/05/31 | 1910/05/01", "1910-05-01/1910-05-31", NUMERIC_RANGE_ALL_VARIANTS),
@@ -208,8 +157,8 @@ class DatesNormalizerTest {
         of("28.05.1969", "1969-05-28", NUMERIC_ALL_VARIANTS),
         of("11.11.1947", "1947-11-11", NUMERIC_ALL_VARIANTS),
         of("23.02.[18--]", "18XX-02-23", NUMERIC_ALL_VARIANTS_XX),
-        of("15.02.1985 (identification)", "1985-02-15", NUMERIC_ALL_VARIANTS),
-        of("09.1972 (gathering)", "1972-09", NUMERIC_ALL_VARIANTS),
+        of("15.02.1985 (text in parentheses)", "1985-02-15", NUMERIC_ALL_VARIANTS),
+        of("09.1972 (text in parentheses)", "1972-09", NUMERIC_ALL_VARIANTS),
         of("28. 1. 1240", null, null),
 
         //Numeric date with dash "-"
@@ -249,12 +198,13 @@ class DatesNormalizerTest {
         of(". 1885", null, null),
         of("- 1885", null, null),
         of("1749 (text in parentheses (text in parentheses))", "1749", EDTF),
-        of("1939; 1954; 1955; 1978; 1939-1945", null, null), // multiple dates no supported
-        of("[17__]", null, null),// this pattern is not supported (this pattern was never tested
+        // multiple dates no supported
+        of("1939; 1954; 1955; 1978; 1939-1945", null, null),
+        of("[17__]", null, null),
         of("091090", null, null),
         of("-0043-12-07", "-0043-12-07", EDTF),
         of("imp. 1901", null, null),
-        of("u.1707-1739", null, null),// what does 'u.' mean?
+        of("u.1707-1739", null, null),
 
         //Ambiguous pattern
         of("187-?]", null, null),

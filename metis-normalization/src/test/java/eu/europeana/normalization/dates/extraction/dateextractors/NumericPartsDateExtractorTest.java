@@ -4,19 +4,16 @@ import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_ALL_VARIANTS_XX;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_SPACES_VARIANT;
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class NumericPartsDateExtractorTest {
+class NumericPartsDateExtractorTest implements DateExtractorTest {
 
   private static final NumericPartsDateExtractor NUMERIC_PARTS_DATE_EXTRACTOR = new NumericPartsDateExtractor();
 
@@ -53,19 +50,10 @@ class NumericPartsDateExtractorTest {
   void assertExtract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
     final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_DATE_EXTRACTOR.extractDateProperty(input,
         NO_QUALIFICATION);
-    if (expected == null) {
-      assertEquals(DateNormalizationResultStatus.NO_MATCH, dateNormalizationResult.getDateNormalizationResultStatus());
-    } else {
-      final String actual = dateNormalizationResult.getEdtfDate().toString();
-      assertEquals(expected, actual);
-      assertEquals(actual.contains("?"),
-          dateNormalizationResult.getEdtfDate().getDateQualification() == DateQualification.UNCERTAIN);
-      assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
-    }
+    assertDateNormalizationResult(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
   }
 
   private static Stream<Arguments> extractDateSpaces() {
-
     return Stream.of(
         of("1989 11 01", "1989-11-01"),
         of("1989 11 01?", "1989-11-01?"),
@@ -85,7 +73,6 @@ class NumericPartsDateExtractorTest {
   }
 
   private static Stream<Arguments> extractYMD() {
-
     return Stream.of(
         //YEAR
         //A month and day can be missing
@@ -151,7 +138,6 @@ class NumericPartsDateExtractorTest {
   }
 
   private static Stream<Arguments> extractDMY() {
-
     return Stream.of(
         //MONTH-YEAR
         of("11-1989", "1989-11"),
@@ -220,7 +206,6 @@ class NumericPartsDateExtractorTest {
   }
 
   private static Stream<Arguments> extractYMD_XX() {
-
     return Stream.of(
         //YEAR
         of("198X", "198X"),
@@ -336,7 +321,6 @@ class NumericPartsDateExtractorTest {
   }
 
   private static Stream<Arguments> extractDMY_XX() {
-
     return Stream.of(
         //YEAR-MONTH
         of("XX.1989", "1989"),

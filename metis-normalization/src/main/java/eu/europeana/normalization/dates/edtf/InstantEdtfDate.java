@@ -188,7 +188,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     int centuryDivision = year.getValue() / YearPrecision.CENTURY.getDuration();
     int centuryModulo = year.getValue() % YearPrecision.CENTURY.getDuration();
     //For case 1900 it is 19th. For case 1901 it is 20th century
-    return centuryModulo == 0 ? centuryDivision : centuryDivision + 1;
+    return (centuryModulo == 0) ? centuryDivision : (centuryDivision + 1);
   }
 
   /**

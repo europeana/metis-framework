@@ -98,7 +98,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
   }
 
   private InstantEdtfDate extractDate(Matcher matcher, DateQualification requestedDateQualification,
-      boolean allowSwitchMonthDay) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
@@ -107,7 +107,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
         DateQualification dateQualification = computeDateQualification(requestedDateQualification,
             () -> DateQualification.NO_QUALIFICATION);
         instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
-                                                                      .withFlexibleDateBuild(allowSwitchMonthDay).build();
+                                                                      .withFlexibleDateBuild(flexibleDateBuild).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

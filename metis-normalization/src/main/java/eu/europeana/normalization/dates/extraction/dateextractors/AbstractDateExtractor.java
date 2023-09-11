@@ -57,7 +57,7 @@ public abstract class AbstractDateExtractor implements DateExtractor {
     } catch (DateExtractionException e) {
       LOGGER.debug(format("Date extraction failed %s: ", sanitizedValue), e);
     }
-    //Sanity check to avoid null value
+    //Sanity check to avoid null value and replace with the matched result
     if (extractDateNormalizationResult != null
         && extractDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
       dateNormalizationResult = extractDateNormalizationResult;
