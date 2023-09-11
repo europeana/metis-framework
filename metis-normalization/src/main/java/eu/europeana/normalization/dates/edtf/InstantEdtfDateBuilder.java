@@ -172,7 +172,8 @@ public class InstantEdtfDateBuilder {
     // TODO: 15/02/2023 Check this instruction. It used to be like that
     //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
     //  but do we actually need the check on unknown?
-    boolean isDateNonPrecise = dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
+    boolean isDateNonPrecise =
+        dateQualification == DateQualification.UNCERTAIN || (yearPrecision != null && yearPrecision != YearPrecision.YEAR);
     boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
     if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
       throw new DateExtractionException("Date is invalid according to our strict profile!");
