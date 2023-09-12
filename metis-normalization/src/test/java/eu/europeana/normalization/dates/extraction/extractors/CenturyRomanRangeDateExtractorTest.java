@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -15,8 +14,7 @@ class CenturyRomanRangeDateExtractorTest implements DateExtractorTest {
   private static final CenturyRomanRangeDateExtractor ROMAN_CENTURY_RANGE_DATE_EXTRACTOR = new CenturyRomanRangeDateExtractor();
 
   void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = ROMAN_CENTURY_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
-        NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = ROMAN_CENTURY_RANGE_DATE_EXTRACTOR.extractDateProperty(input);
     assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.CENTURY_RANGE_ROMAN);
   }
 

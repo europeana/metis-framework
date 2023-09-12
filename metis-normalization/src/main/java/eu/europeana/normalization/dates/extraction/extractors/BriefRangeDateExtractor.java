@@ -42,19 +42,18 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString,
       String endString, DefaultDatesSeparator rangeDateDelimiters,
-      DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     final DateNormalizationResult startDateNormalizationResult = extractStartDateNormalizationResult(startString,
-        requestedDateQualification, flexibleDateBuild);
+        flexibleDateBuild);
     final DateNormalizationResult endDateNormalizationResult = extractEndDateNormalizationResult(startDateNormalizationResult,
-        endString, requestedDateQualification, flexibleDateBuild);
+        endString, flexibleDateBuild);
     return new DateNormalizationResultRangePair(startDateNormalizationResult, endDateNormalizationResult);
   }
 
-  private DateNormalizationResult extractStartDateNormalizationResult(String dateString,
-      DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
+  private DateNormalizationResult extractStartDateNormalizationResult(String dateString, boolean flexibleDateBuild)
+      throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(dateString);
-    final DateNormalizationResult startYearDateDateNormalizationResult = extractYear(dateString, requestedDateQualification,
-        flexibleDateBuild);
+    final DateNormalizationResult startYearDateDateNormalizationResult = extractYear(dateString, flexibleDateBuild);
 
     if (startYearDateDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
       int absoluteYear = Math.abs(((InstantEdtfDate) startYearDateDateNormalizationResult.getEdtfDate()).getYear().getValue());
@@ -68,11 +67,10 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
   }
 
   private DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
-      String dateString, DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
+      String dateString, boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(dateString);
     if (startDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
-      final DateNormalizationResult endDateNormalizationResult = extractYear(dateString, requestedDateQualification,
-          flexibleDateBuild);
+      final DateNormalizationResult endDateNormalizationResult = extractYear(dateString, flexibleDateBuild);
 
       if (endDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
         final DateQualification endDateQualification = endDateNormalizationResult.getEdtfDate().getDateQualification();
@@ -96,10 +94,9 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
     return dateNormalizationResult;
   }
 
-  private DateNormalizationResult extractYear(String dateString, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+  private DateNormalizationResult extractYear(String dateString, boolean flexibleDateBuild) throws DateExtractionException {
+    final DateQualification dateQualification =
+        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(dateString);
     final Matcher matcher = YEAR_PATTERN.matcher(dateString);

@@ -186,8 +186,6 @@ class DatesNormalizerTest implements DateExtractorTest {
         of("2013-03-21 18:45:36 UTC", "2013-03-21", FORMATTED_FULL_DATE),
         of("2013-09-07 09:31:51 UTC", "2013-09-07", FORMATTED_FULL_DATE),
 
-        // TODO: 21/12/2022 Check the below, expected null but returns 1952-02-25 instead
-        //    of("1952-02-25T00:00:00Z-1952-02-25T23:59:59Z", null),
         of("-2100/-1550", "-2100/-1550", EDTF),
         of("1997-07-18T00:00:00 [text in brackets]", "1997-07-18", EDTF),
         of("1924 ca.", null, null),

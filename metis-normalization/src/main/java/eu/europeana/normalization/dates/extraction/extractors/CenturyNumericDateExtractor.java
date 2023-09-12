@@ -68,12 +68,12 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (CenturyNumericDatePattern centerNumericDatePattern : CenturyNumericDatePattern.values()) {
-      final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-          (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+      final DateQualification dateQualification =
+          (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
 
       final Matcher matcher = centerNumericDatePattern.getPattern().matcher(inputValue);
       if (matcher.matches()) {

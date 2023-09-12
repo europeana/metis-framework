@@ -5,7 +5,7 @@ import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.APPROXIMATE;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN_APPROXIMATE;
-import static eu.europeana.normalization.dates.edtf.IntervalEdtfDate.DATE_INTERVAL_SEPARATOR;
+import static eu.europeana.normalization.dates.extraction.DefaultDatesSeparator.SLASH_DELIMITER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -44,8 +44,8 @@ public interface DateExtractorTest {
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {
-        String expectedStart = expected.substring(0, expected.indexOf(DATE_INTERVAL_SEPARATOR));
-        String expectedEnd = expected.substring(expected.indexOf(DATE_INTERVAL_SEPARATOR) + 1);
+        String expectedStart = expected.substring(0, expected.indexOf(SLASH_DELIMITER.getDatesSeparator()));
+        String expectedEnd = expected.substring(expected.indexOf(SLASH_DELIMITER.getDatesSeparator()) + 1);
         InstantEdtfDate startInstantEdtfDate = ((IntervalEdtfDate) edtfDate).getStart();
         InstantEdtfDate endInstantEdtfDate = ((IntervalEdtfDate) edtfDate).getEnd();
         assertQualification(expectedStart, startInstantEdtfDate);

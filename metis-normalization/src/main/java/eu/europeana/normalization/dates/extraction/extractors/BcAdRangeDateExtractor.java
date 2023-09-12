@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
 import java.util.List;
@@ -19,10 +18,10 @@ public class BcAdRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
       DefaultDatesSeparator rangeDateDelimiters,
-      DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        BC_AD_DATE_EXTRACTOR.extract(startString, requestedDateQualification, flexibleDateBuild),
-        BC_AD_DATE_EXTRACTOR.extract(endString, requestedDateQualification, flexibleDateBuild));
+        BC_AD_DATE_EXTRACTOR.extract(startString, flexibleDateBuild),
+        BC_AD_DATE_EXTRACTOR.extract(endString, flexibleDateBuild));
   }
 
   @Override

@@ -9,7 +9,6 @@ import static java.util.regex.Pattern.compile;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -79,19 +78,16 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
     return Arrays.stream(MonthNameDatePattern.values())
-                 .map(operation -> extract(operation, requestedDateQualification, inputValue))
+                 .map(operation -> extract(operation, inputValue))
                  .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()
                      == DateNormalizationResultStatus.MATCHED).findFirst()
                  .orElse(getNoMatchResult(inputValue));
   }
 
-  private DateNormalizationResult extract(MonthNameDatePattern monthNameDatePattern, DateQualification requestedDateQualification,
-      String inputValue) {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
-        () -> DateQualification.NO_QUALIFICATION);
+  private DateNormalizationResult extract(MonthNameDatePattern monthNameDatePattern, String inputValue) {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
     try {
       final Matcher matcher = monthNameDatePattern.getPattern().matcher(inputValue);
@@ -100,8 +96,7 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
             matcher.group(monthNameDatePattern.getDatePartsIndices().getMonthIndex()));
         final InstantEdtfDateBuilder instantEdtfDateBuilder = new InstantEdtfDateBuilder(
             Integer.parseInt(matcher.group(monthNameDatePattern.getDatePartsIndices().getYearIndex())))
-            .withMonth(month.getValue())
-            .withDateQualification(dateQualification);
+            .withMonth(month.getValue());
         getDayIfPresent(monthNameDatePattern, matcher).ifPresent(instantEdtfDateBuilder::withDay);
         final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.build();
         dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.MONTH_NAME, inputValue,

@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -32,17 +31,14 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
   Pattern patFormatedDate3 = Pattern.compile("(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})(\\.\\d{1,3})?");
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
-        () -> DateQualification.NO_QUALIFICATION);
-
     Matcher m = patFormatedDate2.matcher(inputValue);
     if (m.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
           .withDay(Integer.parseInt(m.group(3)))
-          .withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+          .withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate.matcher(inputValue);
@@ -50,7 +46,7 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(6)))
           .withMonth(monthNames.getMonthIndexValue(m.group(1)))
           .withDay(Integer.parseInt(m.group(2)))
-          .withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+          .withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     m = patFormatedDate3.matcher(inputValue);
@@ -58,7 +54,7 @@ public class PatternFormatedFullDateDateExtractor extends AbstractDateExtractor 
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(m.group(1)))
           .withMonth(Integer.parseInt(m.group(2)))
           .withDay(Integer.parseInt(m.group(3)))
-          .withDateQualification(dateQualification).withFlexibleDateBuild(flexibleDateBuild).build();
+          .withFlexibleDateBuild(flexibleDateBuild).build();
       return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, datePart);
     }
     return DateNormalizationResult.getNoMatchResult(inputValue);

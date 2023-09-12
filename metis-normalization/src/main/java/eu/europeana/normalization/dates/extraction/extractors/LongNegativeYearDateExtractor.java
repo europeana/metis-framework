@@ -22,10 +22,10 @@ public class LongNegativeYearDateExtractor extends AbstractDateExtractor {
   private static final Pattern YEAR_PATTERN = Pattern.compile(OPTIONAL_QUESTION_MARK + "(-?\\d{5,9})" + OPTIONAL_QUESTION_MARK);
 
   @Override
-  public DateNormalizationResult extract(String dateString, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String dateString,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+    final DateQualification dateQualification =
+        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(dateString);
     final Matcher matcher = YEAR_PATTERN.matcher(dateString);

@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -33,8 +32,7 @@ class MonthNameDateExtractorTest implements DateExtractorTest {
   }
 
   void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = PATTERN_MONTH_NAME_DATE_EXTRACTOR.extractDateProperty(input,
-        NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = PATTERN_MONTH_NAME_DATE_EXTRACTOR.extractDateProperty(input);
     assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.MONTH_NAME);
   }
 

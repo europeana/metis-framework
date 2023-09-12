@@ -1,7 +1,6 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.BC_AD;
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -21,8 +20,7 @@ class BcAdRangeDateExtractorTest implements DateExtractorTest {
   }
 
   void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = BC_AD_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
-        NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = BC_AD_RANGE_DATE_EXTRACTOR.extractDateProperty(input);
     assertDateNormalizationResult(dateNormalizationResult, expected, BC_AD);
   }
 

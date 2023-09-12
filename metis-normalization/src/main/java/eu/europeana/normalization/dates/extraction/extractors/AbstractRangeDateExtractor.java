@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
@@ -32,13 +31,12 @@ public abstract class AbstractRangeDateExtractor<T extends DatesSeparator> exten
    * </p>
    *
    * @param inputValue the range value to attempt parsing
-   * @param requestedDateQualification the overwriting value of date qualification, if any
    * @param flexibleDateBuild the flag indicating if during creating of the dates we are flexible with validation
    * @return the date normalization result
    * @throws DateExtractionException if anything happened during the extraction of the date
    */
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult rangeDate = DateNormalizationResult.getNoMatchResult(inputValue);
     for (T rangeDateQualifier : getRangeDateQualifiers()) {
@@ -51,8 +49,7 @@ public abstract class AbstractRangeDateExtractor<T extends DatesSeparator> exten
       // This also guarantees that the separator used is not used for unknown characters.
       if (sanitizedDateList.size() == 2) {
         final DateNormalizationResultRangePair dateNormalizationResultRangePair = extractDateNormalizationResult(
-            sanitizedDateList.get(0), sanitizedDateList.get(1), rangeDateQualifier, requestedDateQualification,
-            flexibleDateBuild);
+            sanitizedDateList.get(0), sanitizedDateList.get(1), rangeDateQualifier, flexibleDateBuild);
         final DateNormalizationResult startResult = dateNormalizationResultRangePair.getStartDateNormalizationResult();
         final DateNormalizationResult endResult = dateNormalizationResultRangePair.getEndDateNormalizationResult();
         if (isRangeMatchSuccess(rangeDateQualifier, startResult, endResult)) {

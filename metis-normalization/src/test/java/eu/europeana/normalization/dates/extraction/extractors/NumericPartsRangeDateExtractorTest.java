@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS;
 import static eu.europeana.normalization.dates.DateNormalizationExtractorMatchId.NUMERIC_RANGE_ALL_VARIANTS_XX;
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -39,8 +38,7 @@ class NumericPartsRangeDateExtractorTest implements DateExtractorTest {
   }
 
   void extract(String input, String expected, DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId) {
-    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
-        NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = NUMERIC_PARTS_RANGE_DATE_EXTRACTOR.extractDateProperty(input);
     assertDateNormalizationResult(dateNormalizationResult, expected, dateNormalizationExtractorMatchId);
   }
 }

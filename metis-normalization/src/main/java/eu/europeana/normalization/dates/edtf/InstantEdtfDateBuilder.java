@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.edtf;
 
 import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
 
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -41,11 +40,30 @@ public class InstantEdtfDateBuilder {
   private Integer year;
   private Integer month;
   private Integer day;
-  private TemporalAccessor temporalAccessor;
-  private YearPrecision yearPrecision;
-  private DateQualification dateQualification;
+  private YearPrecision yearPrecision = YearPrecision.YEAR;
+  private DateQualification dateQualification = NO_QUALIFICATION;
   private boolean flexibleDateBuild = true;
   private boolean isLongYear = false;
+
+  /**
+   * Constructor copying values from a {@link DateBoundaryType#DECLARED} dates.
+   * <p>For non DECLARED dates this has no effect.</p>
+   *
+   * @param instantEdtfDate the instant edtf date
+   */
+  public InstantEdtfDateBuilder(InstantEdtfDate instantEdtfDate) {
+    if (instantEdtfDate.getDateBoundaryType() == DateBoundaryType.DECLARED) {
+      yearPrecision = instantEdtfDate.getYearPrecision();
+      year = instantEdtfDate.getYear().getValue() / yearPrecision.getDuration();
+      if (instantEdtfDate.getMonth() != null) {
+        month = instantEdtfDate.getMonth().getValue();
+      }
+      if (instantEdtfDate.getYearMonthDay() != null) {
+        day = instantEdtfDate.getYearMonthDay().getDayOfMonth();
+      }
+      dateQualification = instantEdtfDate.getDateQualification();
+    }
+  }
 
   /**
    * Constructor which initializes the builder with the minimum requirement of year value.
@@ -65,7 +83,12 @@ public class InstantEdtfDateBuilder {
    * @param temporalAccessor the temporal accessor
    */
   public InstantEdtfDateBuilder(TemporalAccessor temporalAccessor) {
-    this.temporalAccessor = temporalAccessor;
+    day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+        temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+    month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+        temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+    year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+        temporalAccessor.get(ChronoField.YEAR) : null;
   }
 
   /**
@@ -75,8 +98,7 @@ public class InstantEdtfDateBuilder {
    * @throws DateExtractionException if something went wrong during date validation
    */
   public InstantEdtfDate build() throws DateExtractionException {
-    InstantEdtfDate instantEdtfDate;
-    instantEdtfDate = buildInternal();
+    InstantEdtfDate instantEdtfDate = buildInternal();
     //Try once more if flexible date
     if (instantEdtfDate == null && isPositive(month) && isPositive(day) && flexibleDateBuild) {
       swapMonthDay();
@@ -92,14 +114,7 @@ public class InstantEdtfDateBuilder {
 
   private InstantEdtfDate buildInternal() {
     InstantEdtfDate instantEdtfDate = null;
-    //Setup defaults
-    yearPrecision = ofNullable(yearPrecision).orElse(YearPrecision.YEAR);
-    dateQualification = ofNullable(dateQualification).orElse(NO_QUALIFICATION);
-
     try {
-      if (temporalAccessor != null) {
-        parseTemporalAccessor();
-      }
       parseYear();
       parseMonthDay();
       validateDateNotInFuture();
@@ -109,16 +124,6 @@ public class InstantEdtfDateBuilder {
       LOGGER.debug("Date build failed.", e);
     }
     return instantEdtfDate;
-  }
-
-  private void parseTemporalAccessor() {
-    LOGGER.debug("TemporalAccessor present. Overwriting values.");
-    day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-        temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-    month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-        temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-    year = temporalAccessor.isSupported(ChronoField.YEAR) ?
-        temporalAccessor.get(ChronoField.YEAR) : null;
   }
 
   private void parseYear() throws DateExtractionException {

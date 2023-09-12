@@ -39,9 +39,9 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
   private static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
-    return extract(inputValue, requestedDateQualification, NumericPartsPattern.NUMERIC_SET, flexibleDateBuild);
+    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, flexibleDateBuild);
   }
 
   /**
@@ -52,12 +52,11 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
    * @param flexibleDateBuild allow switching month and day values if month and day original values are not valid
    * @return the date normalization result
    */
-  protected DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
-      Set<NumericPartsPattern> numericPatternValues,
+  protected DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
+    final DateQualification dateQualification =
         (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find())
-            ? UNCERTAIN : NO_QUALIFICATION);
+            ? UNCERTAIN : NO_QUALIFICATION;
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {

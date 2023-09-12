@@ -37,10 +37,10 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
   private static final Pattern decadePattern = Pattern.compile("\\??(\\d{3})(?:[XU]\\??|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+    final DateQualification dateQualification =
+        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = decadePattern.matcher(inputValue);

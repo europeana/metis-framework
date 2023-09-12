@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateBoundaryType;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
@@ -48,14 +47,14 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
 
   @Override
-  public DateNormalizationResult extract(String value, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String value,
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(value);
     if (isValidScheme(value)) {
       Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-      InstantEdtfDate start = extractDate(matcher, requestedDateQualification, flexibleDateBuild);
+      InstantEdtfDate start = extractDate(matcher, flexibleDateBuild);
       matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-      InstantEdtfDate end = extractDate(matcher, requestedDateQualification, flexibleDateBuild);
+      InstantEdtfDate end = extractDate(matcher, flexibleDateBuild);
       String name = extractName(value);
 
       //At least one end has to be specified
@@ -97,17 +96,13 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
     return isValidScheme;
   }
 
-  private InstantEdtfDate extractDate(Matcher matcher, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  private InstantEdtfDate extractDate(Matcher matcher, boolean flexibleDateBuild) throws DateExtractionException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
-        DateQualification dateQualification = computeDateQualification(requestedDateQualification,
-            () -> DateQualification.NO_QUALIFICATION);
-        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withDateQualification(dateQualification)
-                                                                      .withFlexibleDateBuild(flexibleDateBuild).build();
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withFlexibleDateBuild(flexibleDateBuild).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

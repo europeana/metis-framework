@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
 import java.util.ArrayList;
@@ -25,11 +24,11 @@ public class LongNegativeYearRangeDateExtractor extends AbstractRangeDateExtract
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
-      DefaultDatesSeparator rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      DefaultDatesSeparator rangeDateDelimiters, boolean flexibleDateBuild)
       throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(startString, requestedDateQualification, flexibleDateBuild),
-        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(endString, requestedDateQualification, flexibleDateBuild));
+        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(startString, flexibleDateBuild),
+        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(endString, flexibleDateBuild));
   }
 
   @Override

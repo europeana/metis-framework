@@ -5,7 +5,6 @@ import static java.util.regex.Pattern.compile;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.EuropeanLanguage;
@@ -50,10 +49,8 @@ public class BcAdDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
-        () -> DateQualification.NO_QUALIFICATION);
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
 
     Matcher matcher = pattern.matcher(inputValue);
@@ -64,8 +61,7 @@ public class BcAdDateExtractor extends AbstractDateExtractor {
         final boolean isAd = adAbbreviations.contains(matcher.group(2));
         int yearSign = isAd ? 1 : -1;
         int yearAdjusted = (isAd ? year : (year - 1)) * yearSign;
-        InstantEdtfDateBuilder instantEdtfDateBuilder =
-            new InstantEdtfDateBuilder(yearAdjusted).withDateQualification(dateQualification);
+        InstantEdtfDateBuilder instantEdtfDateBuilder = new InstantEdtfDateBuilder(yearAdjusted);
         dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
             instantEdtfDateBuilder.build());
       }

@@ -1,7 +1,6 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
 import static eu.europeana.normalization.dates.edtf.DateQualification.CHECK_QUALIFICATION_PATTERN;
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR;
 
@@ -32,23 +31,19 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification,
-        () -> DateQualification.NO_QUALIFICATION);
-    final InstantEdtfDate instantEdtfDate = extractInstant(inputValue, dateQualification, flexibleDateBuild);
+    final InstantEdtfDate instantEdtfDate = extractInstant(inputValue, flexibleDateBuild);
     return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, instantEdtfDate);
   }
 
-  private InstantEdtfDate extractInstant(String dateInput, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  private InstantEdtfDate extractInstant(String dateInput, boolean flexibleDateBuild) throws DateExtractionException {
     final InstantEdtfDate instantEdtfDate;
     Integer longYear;
     if ((longYear = getLongYear(dateInput)) != null) {
-      instantEdtfDate = new InstantEdtfDateBuilder(longYear)
-          .withLongYear().withDateQualification(requestedDateQualification).build();
+      instantEdtfDate = new InstantEdtfDateBuilder(longYear).withLongYear().build();
     } else {
-      instantEdtfDate = extractInstantEdtfDate(dateInput, requestedDateQualification, flexibleDateBuild);
+      instantEdtfDate = extractInstantEdtfDate(dateInput, flexibleDateBuild);
     }
     return instantEdtfDate;
   }
@@ -72,14 +67,13 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     return longYear;
   }
 
-  private static InstantEdtfDate extractInstantEdtfDate(String dateInput, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  private static InstantEdtfDate extractInstantEdtfDate(String dateInput, boolean flexibleDateBuild)
+      throws DateExtractionException {
     Matcher qualificationMatcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
     String dateInputStrippedModifier = dateInput;
-    DateQualification dateQualification = requestedDateQualification;
+    DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
 
-    if (qualificationMatcher.matches() && (requestedDateQualification == null
-        || requestedDateQualification == NO_QUALIFICATION)) {
+    if (qualificationMatcher.matches()) {
       final String modifier = qualificationMatcher.group(1);
       if (StringUtils.isNotEmpty(modifier)) {
         dateQualification = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));

@@ -37,11 +37,11 @@ public class CenturyRomanDateExtractor extends AbstractDateExtractor {
       OPTIONAL_QUESTION_MARK + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE);
 
   @Override
-  public DateNormalizationResult extract(String inputValue, DateQualification requestedDateQualification,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    final DateQualification dateQualification = computeDateQualification(requestedDateQualification, () ->
-        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION);
+    final DateQualification dateQualification =
+        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
     final Matcher matcher = ROMAN_2_TO_21_PATTERN.matcher(inputValue);
     if (matcher.matches()) {
       final int century = RomanToNumber.romanToDecimal(matcher.group(1)) - 1;

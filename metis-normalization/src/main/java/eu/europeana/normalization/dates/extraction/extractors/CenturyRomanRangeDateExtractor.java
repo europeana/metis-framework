@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
 import java.util.ArrayList;
@@ -21,10 +20,10 @@ public class CenturyRomanRangeDateExtractor extends AbstractRangeDateExtractor<D
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
       DefaultDatesSeparator rangeDateDelimiters,
-      DateQualification requestedDateQualification, boolean flexibleDateBuild) throws DateExtractionException {
+      boolean flexibleDateBuild) throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        ROMAN_CENTURY_DATE_EXTRACTOR.extract(startString, requestedDateQualification, flexibleDateBuild),
-        ROMAN_CENTURY_DATE_EXTRACTOR.extract(endString, requestedDateQualification, flexibleDateBuild));
+        ROMAN_CENTURY_DATE_EXTRACTOR.extract(startString, flexibleDateBuild),
+        ROMAN_CENTURY_DATE_EXTRACTOR.extract(endString, flexibleDateBuild));
   }
 
   @Override

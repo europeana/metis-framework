@@ -7,7 +7,6 @@ import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.DateNormalizationResultStatus;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DefaultDatesSeparator;
@@ -30,11 +29,10 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
-      DefaultDatesSeparator rangeDateDelimiters, DateQualification requestedDateQualification, boolean flexibleDateBuild)
+      DefaultDatesSeparator rangeDateDelimiters, boolean flexibleDateBuild)
       throws DateExtractionException {
-    DateNormalizationResult startDateNormalizationResult = extractInstant(startString, requestedDateQualification,
-        flexibleDateBuild);
-    DateNormalizationResult endDateNormalizationResult = extractInstant(endString, requestedDateQualification, flexibleDateBuild);
+    DateNormalizationResult startDateNormalizationResult = extractInstant(startString, flexibleDateBuild);
+    DateNormalizationResult endDateNormalizationResult = extractInstant(endString, flexibleDateBuild);
     InstantEdtfDate startInstantEdtfDate = (InstantEdtfDate) startDateNormalizationResult.getEdtfDate();
     InstantEdtfDate endInstantEdtfDate = (InstantEdtfDate) endDateNormalizationResult.getEdtfDate();
 
@@ -48,8 +46,7 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
     return new DateNormalizationResultRangePair(startDateNormalizationResult, endDateNormalizationResult);
   }
 
-  private DateNormalizationResult extractInstant(String dateInput, DateQualification requestedDateQualification,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  private DateNormalizationResult extractInstant(String dateInput, boolean flexibleDateBuild) throws DateExtractionException {
     final DateNormalizationResult dateNormalizationResult;
     if (UNKNOWN.getDeserializedRepresentation().equals(dateInput)) {
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, dateInput,
@@ -58,7 +55,7 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, dateInput,
           InstantEdtfDate.getOpenInstance());
     } else {
-      dateNormalizationResult = EDTF_DATE_EXTRACTOR.extract(dateInput, requestedDateQualification, flexibleDateBuild);
+      dateNormalizationResult = EDTF_DATE_EXTRACTOR.extract(dateInput, flexibleDateBuild);
     }
     return dateNormalizationResult;
   }

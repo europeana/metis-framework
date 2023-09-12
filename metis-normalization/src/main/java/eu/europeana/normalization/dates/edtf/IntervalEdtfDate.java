@@ -60,6 +60,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    return format("%s%s%s", start.toString(), SLASH_DELIMITER, end.toString());
+    return format("%s%s%s", start.toString(), SLASH_DELIMITER.getDatesSeparator(), end.toString());
   }
 }

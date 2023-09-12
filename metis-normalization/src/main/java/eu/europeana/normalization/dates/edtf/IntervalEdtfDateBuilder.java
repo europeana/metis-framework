@@ -21,7 +21,7 @@ public class IntervalEdtfDateBuilder {
   private InstantEdtfDate end;
   private String label;
 
-  private boolean flexibleDateBuild = false;
+  private boolean flexibleDateBuild = true;
 
   /**
    * Constructor which initializes the builder with the start and end date boundaries.

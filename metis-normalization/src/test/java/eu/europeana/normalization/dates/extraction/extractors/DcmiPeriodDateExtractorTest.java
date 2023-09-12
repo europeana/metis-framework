@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -22,8 +21,7 @@ class DcmiPeriodDateExtractorTest implements DateExtractorTest {
   @MethodSource("extractData")
   @DisplayName("Extract DCMI Period")
   void extract(String input, String expected, String expectedLabel) {
-    DateNormalizationResult dateNormalizationResult = DCMI_PERIOD_DATE_EXTRACTOR.extractDateProperty(input,
-        NO_QUALIFICATION);
+    DateNormalizationResult dateNormalizationResult = DCMI_PERIOD_DATE_EXTRACTOR.extractDateProperty(input);
     assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.DCMI_PERIOD,
         expectedLabel);
   }

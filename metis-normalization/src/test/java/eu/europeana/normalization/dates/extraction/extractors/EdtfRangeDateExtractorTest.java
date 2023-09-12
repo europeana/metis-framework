@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
@@ -16,8 +15,7 @@ class EdtfRangeDateExtractorTest implements DateExtractorTest {
   private static final EdtfRangeDateExtractor EDTF_RANGE_DATE_EXTRACTOR = new EdtfRangeDateExtractor();
 
   private void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = EDTF_RANGE_DATE_EXTRACTOR.extractDateProperty(input,
-        NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = EDTF_RANGE_DATE_EXTRACTOR.extractDateProperty(input);
     assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.EDTF);
   }
 

@@ -2,7 +2,6 @@ package eu.europeana.normalization.dates.extraction.extractors;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.DatesSeparator;
 import java.util.List;
@@ -23,13 +22,12 @@ public interface RangeDateExtractor<T extends DatesSeparator> {
    * @param startString the start date string
    * @param endString the end date string
    * @param rangeDateDelimiters the range date delimiters
-   * @param requestedDateQualification the requested qualification
    * @param flexibleDateBuild the boolean opting flexible date build
    * @return the start and end date result pair
    * @throws DateExtractionException if the date extraction failed
    */
   DateNormalizationResultRangePair extractDateNormalizationResult(
-      String startString, String endString, T rangeDateDelimiters, DateQualification requestedDateQualification,
+      String startString, String endString, T rangeDateDelimiters,
       boolean flexibleDateBuild) throws DateExtractionException;
 
   /**
