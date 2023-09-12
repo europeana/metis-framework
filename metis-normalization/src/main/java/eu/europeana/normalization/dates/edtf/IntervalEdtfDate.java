@@ -1,5 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
+import static eu.europeana.normalization.dates.extraction.DefaultDatesSeparator.SLASH_DELIMITER;
 import static java.lang.String.format;
 
 /**
@@ -7,7 +8,6 @@ import static java.lang.String.format;
  */
 public class IntervalEdtfDate extends AbstractEdtfDate {
 
-  public static final String DATE_INTERVAL_SEPARATOR = "/";
   private InstantEdtfDate start;
   private InstantEdtfDate end;
 
@@ -60,6 +60,6 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
 
   @Override
   public String toString() {
-    return format("%s%s%s", start.toString(), DATE_INTERVAL_SEPARATOR, end.toString());
+    return format("%s%s%s", start.toString(), SLASH_DELIMITER, end.toString());
   }
 }

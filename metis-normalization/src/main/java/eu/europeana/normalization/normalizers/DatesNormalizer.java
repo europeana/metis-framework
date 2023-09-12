@@ -18,6 +18,7 @@ import eu.europeana.normalization.dates.extraction.extractors.DateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.DcmiPeriodDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.DecadeDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.EdtfDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.EdtfRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.LongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.LongNegativeYearRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.MonthNameDateExtractor;
@@ -122,6 +123,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     extractorsInOrderForDateProperties = List.of(
         new BriefRangeDateExtractor(),
         new EdtfDateExtractor(),
+        new EdtfRangeDateExtractor(),
         new CenturyNumericDateExtractor(),
         new CenturyRomanDateExtractor(),
         new CenturyRomanRangeDateExtractor(),

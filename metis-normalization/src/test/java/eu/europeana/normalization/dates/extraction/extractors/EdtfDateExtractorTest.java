@@ -13,10 +13,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class EdtfDateExtractorTest implements DateExtractorTest {
 
-  private final EdtfDateExtractor edtfDateExtractor = new EdtfDateExtractor();
+  private static final EdtfDateExtractor EDTF_DATE_EXTRACTOR = new EdtfDateExtractor();
 
   private void assertExtract(String input, String expected) {
-    final DateNormalizationResult dateNormalizationResult = edtfDateExtractor.extractDateProperty(input, NO_QUALIFICATION);
+    final DateNormalizationResult dateNormalizationResult = EDTF_DATE_EXTRACTOR.extractDateProperty(input, NO_QUALIFICATION);
     assertDateNormalizationResult(dateNormalizationResult, expected, DateNormalizationExtractorMatchId.EDTF);
   }
 
@@ -43,12 +43,6 @@ class EdtfDateExtractorTest implements DateExtractorTest {
 
   @ParameterizedTest
   @MethodSource
-  void dateIntervalRepresentationLevel0(String input, String expected) {
-    assertExtract(input, expected);
-  }
-
-  @ParameterizedTest
-  @MethodSource
   @DisplayName("Letter-prefixed calendar year")
   void letterPrefixedCalendarYearLevel1(String input, String expected) {
     assertExtract(input, expected);
@@ -65,22 +59,6 @@ class EdtfDateExtractorTest implements DateExtractorTest {
   @MethodSource
   @DisplayName("Negative Calendar Year")
   void negativeCalendarYearLevel1(String input, String expected) {
-    assertExtract(input, expected);
-  }
-
-
-  @ParameterizedTest
-  @MethodSource
-  @DisplayName("Open time interval")
-  void openTimeIntervalLevel1(String input, String expected) {
-    assertExtract(input, expected);
-  }
-
-
-  @ParameterizedTest
-  @MethodSource
-  @DisplayName("Unknown time interval")
-  void unknownTimeIntervalLevel1(String input, String expected) {
     assertExtract(input, expected);
   }
 
@@ -148,26 +126,6 @@ class EdtfDateExtractorTest implements DateExtractorTest {
     );
   }
 
-  private static Stream<Arguments> dateIntervalRepresentationLevel0() {
-    return Stream.of(
-        of("1989/1990", "1989/1990"),
-        of("1989-11/1990-11", "1989-11/1990-11"),
-        of("1989-11-01/1990-11-01", "1989-11-01/1990-11-01"),
-        of("1989-11-01/1990-11", "1989-11-01/1990-11"),
-        of("1989-11-01/1990", "1989-11-01/1990"),
-        of("1989/1990-11", "1989/1990-11"),
-        of("1989/1990-11-01", "1989/1990-11-01"),
-        of("1989-00/1990-00", null),
-        of("1989-00-00/1990-00-00", null),
-        of("1989 / 1990", "1989/1990"),
-        //Dash not valid
-        of("1989-1990", null),
-        //Missing digits
-        of("989-1990", null),
-        of("1989-990", null)
-    );
-  }
-
   private static Stream<Arguments> letterPrefixedCalendarYearLevel1() {
     return Stream.of(
         of("Y-123456789", "Y-123456789"),
@@ -185,11 +143,7 @@ class EdtfDateExtractorTest implements DateExtractorTest {
         of("Y1", null),
         of("Y-1", null),
         of("Y", null),
-
-        //Ranges
-        of("Y-123456789/Y-123456788", "Y-123456789/Y-123456788"),
-        //Non prefixed
-        of("-123456789/-123456788", null)
+        of("YnonValidNumber", null)
     );
   }
 
@@ -209,85 +163,6 @@ class EdtfDateExtractorTest implements DateExtractorTest {
         of("-9999", "-9999"),
         of("-0989", "-0989"),
         of("-11989", null)
-    );
-  }
-
-  private static Stream<Arguments> openTimeIntervalLevel1() {
-    return Stream.of(
-        //Open start
-        of("../1989-11-01", "../1989-11-01"),
-        of("../1989-11", "../1989-11"),
-        of("../1989", "../1989"),
-        of("../1989-11-01~", "../1989-11-01~"),
-        of("../1989-11~", "../1989-11~"),
-        of("../1989~", "../1989~"),
-        of("../1989-11-01?", "../1989-11-01?"),
-        of("../1989-11?", "../1989-11?"),
-        of("../1989?", "../1989?"),
-        of("../1989-11-01%", "../1989-11-01%"),
-        of("../1989-11%", "../1989-11%"),
-        of("../1989%", "../1989%"),
-        of(".. / 1989-11-01", "../1989-11-01"),
-        of("../ 1989-11-01", "../1989-11-01"),
-        of(".. /1989-11-01", "../1989-11-01"),
-
-        //Open end
-        of("1989-11-01/..", "1989-11-01/.."),
-        of("1989-11/..", "1989-11/.."),
-        of("1989/..", "1989/.."),
-        of("1989-11-01~/..", "1989-11-01~/.."),
-        of("1989-11~/..", "1989-11~/.."),
-        of("1989~/..", "1989~/.."),
-        of("1989-11-01?/..", "1989-11-01?/.."),
-        of("1989-11?/..", "1989-11?/.."),
-        of("1989?/..", "1989?/.."),
-        of("1989-11-01%/..", "1989-11-01%/.."),
-        of("1989-11%/..", "1989-11%/.."),
-        of("1989%/..", "1989%/.."),
-        of("1989-11-01 / ..", "1989-11-01/.."),
-        of("1989-11-01 /..", "1989-11-01/.."),
-        of("1989-11-01/ ..", "1989-11-01/.."),
-        of("../..", null)
-    );
-  }
-
-
-  private static Stream<Arguments> unknownTimeIntervalLevel1() {
-    return Stream.of(
-        //Unknown start
-        of("/1989-11-01", "../1989-11-01"),
-        of("/1989-11", "../1989-11"),
-        of("/1989", "../1989"),
-        of("/1989-11-01~", "../1989-11-01~"),
-        of("/1989-11~", "../1989-11~"),
-        of("/1989~", "../1989~"),
-        of("/1989-11-01?", "../1989-11-01?"),
-        of("/1989-11?", "../1989-11?"),
-        of("/1989?", "../1989?"),
-        of("/1989-11-01%", "../1989-11-01%"),
-        of("/1989-11%", "../1989-11%"),
-        of("/1989%", "../1989%"),
-        of(" / 1989-11-01", "../1989-11-01"),
-        of("/ 1989-11-01", "../1989-11-01"),
-        of(" /1989-11-01", "../1989-11-01"),
-
-        //Unknown end
-        of("1989-11-01/", "1989-11-01/.."),
-        of("1989-11/", "1989-11/.."),
-        of("1989/", "1989/.."),
-        of("1989-11-01~/", "1989-11-01~/.."),
-        of("1989-11~/", "1989-11~/.."),
-        of("1989~/", "1989~/.."),
-        of("1989-11-01?/", "1989-11-01?/.."),
-        of("1989-11?/", "1989-11?/.."),
-        of("1989?/", "1989?/.."),
-        of("1989-11-01%/", "1989-11-01%/.."),
-        of("1989-11%/", "1989-11%/.."),
-        of("1989%/", "1989%/.."),
-        of("1989-11-01 / ", "1989-11-01/.."),
-        of("1989-11-01 /", "1989-11-01/.."),
-        of("1989-11-01/ ", "1989-11-01/.."),
-        of("/", null)
     );
   }
 }
