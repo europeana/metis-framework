@@ -37,33 +37,13 @@ public class InstantEdtfDateBuilder {
   private Year yearObj;
   private Month monthObj;
   private LocalDate yearMonthDayObj;
-  private Integer year;
+  private final Integer year;
   private Integer month;
   private Integer day;
   private YearPrecision yearPrecision = YearPrecision.YEAR;
   private DateQualification dateQualification = NO_QUALIFICATION;
   private boolean flexibleDateBuild = true;
   private boolean isLongYear = false;
-
-  /**
-   * Constructor copying values from a {@link DateBoundaryType#DECLARED} dates.
-   * <p>For non DECLARED dates this has no effect.</p>
-   *
-   * @param instantEdtfDate the instant edtf date
-   */
-  public InstantEdtfDateBuilder(InstantEdtfDate instantEdtfDate) {
-    if (instantEdtfDate.getDateBoundaryType() == DateBoundaryType.DECLARED) {
-      yearPrecision = instantEdtfDate.getYearPrecision();
-      year = instantEdtfDate.getYear().getValue() / yearPrecision.getDuration();
-      if (instantEdtfDate.getMonth() != null) {
-        month = instantEdtfDate.getMonth().getValue();
-      }
-      if (instantEdtfDate.getYearMonthDay() != null) {
-        day = instantEdtfDate.getYearMonthDay().getDayOfMonth();
-      }
-      dateQualification = instantEdtfDate.getDateQualification();
-    }
-  }
 
   /**
    * Constructor which initializes the builder with the minimum requirement of year value.

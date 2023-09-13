@@ -18,13 +18,15 @@ public class IntervalEdtfDate extends AbstractEdtfDate {
   }
 
   @Override
+  public void overwriteQualification(DateQualification dateQualification) {
+    start.overwriteQualification(dateQualification);
+    end.overwriteQualification(dateQualification);
+  }
+
+  @Override
   public DateQualification getDateQualification() {
-    // TODO: 24/02/2023 To verify what this should return.
-    if (start.getDateQualification() == DateQualification.NO_QUALIFICATION) {
-      return end.getDateQualification();
-    } else {
-      return start.getDateQualification();
-    }
+    return start.getDateQualification().compareTo(end.getDateQualification()) >= 0
+        ? start.getDateQualification() : end.getDateQualification();
   }
 
   @Override

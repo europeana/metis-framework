@@ -8,10 +8,6 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
-import eu.europeana.normalization.dates.edtf.IntervalEdtfDateBuilder;
-import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.extractors.BcAdDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.BcAdRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.BriefRangeDateExtractor;
@@ -300,48 +296,14 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(input);
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
-      final DateQualification dateQualification;
-      if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
-        dateQualification = DateQualification.APPROXIMATE;
-      } else {
-        dateQualification = DateQualification.NO_QUALIFICATION;
-      }
       dateNormalizationResult = normalizeFunction.apply(dateExtractors, sanitizedDate);
-      dateNormalizationResult = overwriteQualification(dateQualification, dateNormalizationResult);
-
       if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED) {
+        if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
+          dateNormalizationResult.getEdtfDate().overwriteQualification(DateQualification.APPROXIMATE);
+        }
         //Re-create result containing sanitization operation.
         dateNormalizationResult = new DateNormalizationResult(dateNormalizationResult, sanitizedDate.getSanitizeOperation());
       }
-    }
-    return dateNormalizationResult;
-  }
-
-  private static DateNormalizationResult overwriteQualification(DateQualification requestedDateQualification,
-      DateNormalizationResult extractedDateNormalizationResult) {
-    DateNormalizationResult dateNormalizationResult = extractedDateNormalizationResult;
-    try {
-      if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED
-          && requestedDateQualification != null && requestedDateQualification != DateQualification.NO_QUALIFICATION) {
-        AbstractEdtfDate edtfDate = extractedDateNormalizationResult.getEdtfDate();
-        if (edtfDate instanceof InstantEdtfDate) {
-          edtfDate = new InstantEdtfDateBuilder((InstantEdtfDate) edtfDate)
-              .withDateQualification(requestedDateQualification).build();
-        } else if (edtfDate instanceof IntervalEdtfDate) {
-          final InstantEdtfDate startEdtfDate = new InstantEdtfDateBuilder(((IntervalEdtfDate) edtfDate).getStart())
-              .withDateQualification(requestedDateQualification).build();
-          final InstantEdtfDate endEdtfDate;
-          endEdtfDate = new InstantEdtfDateBuilder(((IntervalEdtfDate) edtfDate).getEnd())
-              .withDateQualification(requestedDateQualification).build();
-          edtfDate = new IntervalEdtfDateBuilder(startEdtfDate, endEdtfDate).withLabel(edtfDate.getLabel()).build();
-        }
-        dateNormalizationResult = new DateNormalizationResult(
-            extractedDateNormalizationResult.getDateNormalizationExtractorMatchId(),
-            extractedDateNormalizationResult.getOriginalInput(), edtfDate);
-      }
-    } catch (DateExtractionException e) {
-      LOGGER.debug("This should not happen since the date provided should be a valid one.", e);
-      dateNormalizationResult = DateNormalizationResult.getNoMatchResult(extractedDateNormalizationResult.getOriginalInput());
     }
     return dateNormalizationResult;
   }

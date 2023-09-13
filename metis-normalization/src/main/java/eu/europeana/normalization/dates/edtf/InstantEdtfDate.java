@@ -58,6 +58,11 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     this.dateBoundaryType = dateBoundaryType;
   }
 
+  @Override
+  public void overwriteQualification(DateQualification dateQualification) {
+    this.dateQualification = dateQualification;
+  }
+
   /**
    * Create an {@link DateBoundaryType#UNKNOWN} instant.
    *

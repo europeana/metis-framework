@@ -26,8 +26,8 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
   private static final String NON_SPACE_NON_SEMICOLON = "[^\\s;]*";
   private static final String NON_SPACE_NON_LINE_END = "[^\\s$]*";
   private static final String VALUE_ENDING = "(?:;|$)";
-  private static final String SPACE_VALUE_ENDING = "\\s*" + VALUE_ENDING;
-  private static final String EQUALS_SPACES_WRAPPED = "\\s*=\\s*";
+  private static final String SPACE_VALUE_ENDING = "\\s?" + VALUE_ENDING;
+  private static final String EQUALS_SPACES_WRAPPED = "\\s?=\\s?";
   private static final String DCMI_FIELD_REGEX =
       EQUALS_SPACES_WRAPPED + "(" + NON_SPACE_NON_SEMICOLON + "|" + NON_SPACE_NON_LINE_END + ")" + SPACE_VALUE_ENDING;
   private static final Pattern DCMI_PERIOD_SCHEME_PATTERN = Pattern.compile("scheme" + DCMI_FIELD_REGEX);
@@ -59,10 +59,11 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
 
       //At least one end has to be specified
       if (start.getDateBoundaryType() == DateBoundaryType.DECLARED || end.getDateBoundaryType() == DateBoundaryType.DECLARED) {
-        IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder(start, end).withLabel(name)
-                                                                                   .withFlexibleDateBuild(
-                                                                                       flexibleDateBuild)
-                                                                                   .build();
+        IntervalEdtfDate intervalEdtfDate =
+            new IntervalEdtfDateBuilder(start, end)
+                .withLabel(name)
+                .withFlexibleDateBuild(flexibleDateBuild)
+                .build();
         dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
             intervalEdtfDate);
       }

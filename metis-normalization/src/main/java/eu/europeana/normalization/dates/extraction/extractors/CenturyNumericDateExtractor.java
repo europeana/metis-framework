@@ -1,8 +1,6 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
 import static eu.europeana.normalization.dates.YearPrecision.CENTURY;
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
 
@@ -30,7 +28,6 @@ import java.util.regex.Pattern;
  */
 public class CenturyNumericDateExtractor extends AbstractDateExtractor {
 
-  private static final String OPTIONAL_QUESTION_MARK = "\\??";
   private static final String NUMERIC_10_TO_21_ENDING_DOTS_REGEX = "(1\\d|2[0-1])\\.{2}";
   private static final String NUMERIC_1_TO_21_SUFFIXED_REGEX = "(2?1st|2nd|3rd|(?:1\\d|[4-9]|20)th)\\scentury";
 
@@ -72,8 +69,7 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (CenturyNumericDatePattern centerNumericDatePattern : CenturyNumericDatePattern.values()) {
-      final DateQualification dateQualification =
-          (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
+      final DateQualification dateQualification = checkDateQualification(inputValue);
 
       final Matcher matcher = centerNumericDatePattern.getPattern().matcher(inputValue);
       if (matcher.matches()) {

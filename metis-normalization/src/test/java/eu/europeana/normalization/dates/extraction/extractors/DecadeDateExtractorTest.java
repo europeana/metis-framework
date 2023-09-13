@@ -42,8 +42,10 @@ class DecadeDateExtractorTest implements DateExtractorTest {
         of("180-?", null),
         //Ambiguous, possible open end
         of("180-", null),
-        of("180s", null),//Non u, x or ?
-        of("180?", null), //Only one question mark not supported
+        //Non u, x or ?
+        of("180s", null),
+        //Only one question mark not supported
+        of("180?", null),
         //Too many digits
         of("1800", null),
         of("?1280x", null),

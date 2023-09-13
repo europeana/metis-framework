@@ -44,6 +44,12 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
     return extract(inputValue, NumericPartsPattern.NUMERIC_SET, flexibleDateBuild);
   }
 
+  @Override
+  public DateQualification checkDateQualification(String inputValue) {
+    return (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find())
+        ? UNCERTAIN : NO_QUALIFICATION;
+  }
+
   /**
    * Validates and returns a date normalization result of provided input value.
    *
@@ -54,9 +60,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
    */
   protected DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification =
-        (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find())
-            ? UNCERTAIN : NO_QUALIFICATION;
+    final DateQualification dateQualification = checkDateQualification(inputValue);
 
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {

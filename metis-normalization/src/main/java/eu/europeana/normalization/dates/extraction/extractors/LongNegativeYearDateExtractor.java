@@ -1,8 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
-
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.DateQualification;
@@ -18,24 +15,22 @@ import java.util.regex.Pattern;
  */
 public class LongNegativeYearDateExtractor extends AbstractDateExtractor {
 
-  private static final String OPTIONAL_QUESTION_MARK = "\\??";
   private static final Pattern YEAR_PATTERN = Pattern.compile(OPTIONAL_QUESTION_MARK + "(-?\\d{5,9})" + OPTIONAL_QUESTION_MARK);
 
   @Override
-  public DateNormalizationResult extract(String dateString,
+  public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification =
-        (dateString.startsWith("?") || dateString.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
+    final DateQualification dateQualification = checkDateQualification(inputValue);
 
-    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(dateString);
-    final Matcher matcher = YEAR_PATTERN.matcher(dateString);
+    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
+    final Matcher matcher = YEAR_PATTERN.matcher(inputValue);
     if (matcher.matches()) {
       final int year = Integer.parseInt(matcher.group(1));
       final InstantEdtfDate instantEdtfDate =
           new InstantEdtfDateBuilder(year).withDateQualification(dateQualification)
                                           .withLongYear()
                                           .withFlexibleDateBuild(flexibleDateBuild).build();
-      dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, dateString,
+      dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue,
           instantEdtfDate);
     }
     return dateNormalizationResult;

@@ -14,7 +14,6 @@ import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.lang.invoke.MethodHandles;
 import java.time.temporal.TemporalAccessor;
 import java.util.regex.Matcher;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,18 +66,23 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     return longYear;
   }
 
-  private static InstantEdtfDate extractInstantEdtfDate(String dateInput, boolean flexibleDateBuild)
-      throws DateExtractionException {
-    Matcher qualificationMatcher = CHECK_QUALIFICATION_PATTERN.matcher(dateInput);
-    String dateInputStrippedModifier = dateInput;
+  @Override
+  public DateQualification checkDateQualification(String inputValue) {
+    final Matcher qualificationMatcher = CHECK_QUALIFICATION_PATTERN.matcher(inputValue);
     DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
-
     if (qualificationMatcher.matches()) {
       final String modifier = qualificationMatcher.group(1);
-      if (StringUtils.isNotEmpty(modifier)) {
-        dateQualification = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
-        dateInputStrippedModifier = dateInput.substring(0, dateInput.length() - 1);
-      }
+      dateQualification = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
+    }
+    return dateQualification;
+  }
+
+  private InstantEdtfDate extractInstantEdtfDate(String inputValue, boolean flexibleDateBuild)
+      throws DateExtractionException {
+    final DateQualification dateQualification = checkDateQualification(inputValue);
+    String dateInputStrippedModifier = inputValue;
+    if (dateQualification != DateQualification.NO_QUALIFICATION) {
+      dateInputStrippedModifier = inputValue.substring(0, inputValue.length() - 1);
     }
 
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);

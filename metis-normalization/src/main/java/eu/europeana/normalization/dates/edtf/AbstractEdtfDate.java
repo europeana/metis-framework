@@ -17,6 +17,13 @@ public abstract class AbstractEdtfDate {
     this.label = label;
   }
 
+  /**
+   * Overwrite the date qualification, mainly used for pre-sanitized values.
+   *
+   * @param dateQualification the date qualification
+   */
+  public abstract void overwriteQualification(DateQualification dateQualification);
+
   public String getLabel() {
     return label;
   }

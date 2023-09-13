@@ -1,8 +1,6 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
 import static eu.europeana.normalization.dates.YearPrecision.CENTURY;
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
-import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
 
@@ -30,7 +28,6 @@ import java.util.regex.Pattern;
  */
 public class CenturyRomanDateExtractor extends AbstractDateExtractor {
 
-  private static final String OPTIONAL_QUESTION_MARK = "\\??";
   private static final String CENTURY_PREFIX = "(?:(?:s|sec|saec)\\s|(?:s|sec|saec)\\.\\s?)?";
   private static final String ROMAN_1_TO_21_REGEX = "(X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
   private static final Pattern ROMAN_2_TO_21_PATTERN = compile(
@@ -40,8 +37,7 @@ public class CenturyRomanDateExtractor extends AbstractDateExtractor {
   public DateNormalizationResult extract(String inputValue,
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
-    final DateQualification dateQualification =
-        (inputValue.startsWith("?") || inputValue.endsWith("?")) ? UNCERTAIN : NO_QUALIFICATION;
+    final DateQualification dateQualification = checkDateQualification(inputValue);
     final Matcher matcher = ROMAN_2_TO_21_PATTERN.matcher(inputValue);
     if (matcher.matches()) {
       final int century = RomanToNumber.romanToDecimal(matcher.group(1)) - 1;
