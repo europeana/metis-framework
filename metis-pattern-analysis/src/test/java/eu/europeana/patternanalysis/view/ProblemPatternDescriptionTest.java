@@ -23,13 +23,13 @@ class ProblemPatternDescriptionTest {
         "CONCISENESS");
     assertProblemPatternDescription(ProblemPatternDescription.P2, "P2", "Equal title and description fields", "WARNING",
         "CONCISENESS");
-    assertProblemPatternDescription(ProblemPatternDescription.P3, "P3", "Near-Identical title and description fields", "NOTICE",
+    assertProblemPatternDescription(ProblemPatternDescription.P3, "P3", "Near-Identical title and description fields", "WARNING",
         "CONCISENESS");
-    assertProblemPatternDescription(ProblemPatternDescription.P5, "P5", "Unrecognizable title", "NOTICE", "ACCURACY");
-    assertProblemPatternDescription(ProblemPatternDescription.P6, "P6", "Non-meaningful title", "NOTICE", "ACCURACY");
-    assertProblemPatternDescription(ProblemPatternDescription.P7, "P7", "Missing description fields", "NOTICE", "COMPLETENESS");
+    assertProblemPatternDescription(ProblemPatternDescription.P5, "P5", "Unrecognizable title", "WARNING", "ACCURACY");
+    assertProblemPatternDescription(ProblemPatternDescription.P6, "P6", "Non-meaningful title", "WARNING", "ACCURACY");
+    assertProblemPatternDescription(ProblemPatternDescription.P7, "P7", "Missing description fields", "WARNING", "COMPLETENESS");
     assertProblemPatternDescription(ProblemPatternDescription.P9, "P9", "Very short description", "WARNING", "ACCURACY");
-    assertProblemPatternDescription(ProblemPatternDescription.P12, "P12", "Extremely long values", "NOTICE", "ACCURACY");
+    assertProblemPatternDescription(ProblemPatternDescription.P12, "P12", "Extremely long values", "WARNING", "ACCURACY");
   }
 
   @Test
