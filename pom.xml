@@ -170,7 +170,7 @@
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.resources.plugin>3.2.0</version.maven.resources.plugin>
     <version.mockito.core>4.3.1</version.mockito.core>
-    <version.morphia.core>2.3.0</version.morphia.core>
+    <version.morphia.core>2.4.5</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.postgresql>42.5.1</version.postgresql>
     <version.powermock>2.0.9</version.powermock>
@@ -191,11 +191,13 @@
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
     <version.tika.core>1.26</version.tika.core>
-    <version.wiremock-jre>2.34.0</version.wiremock-jre>
+    <version.wiremock-jre>2.35.1</version.wiremock-jre>
+    <version.testcontainers>1.19.0</version.testcontainers>
     <version.xerces>2.12.2</version.xerces>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
     <version.xsom>20140925</version.xsom>
     <version.zip4j>2.8.0</version.zip4j>
+    <version.jetbrains>24.0.1</version.jetbrains>
   </properties>
 
   <dependencyManagement>
@@ -622,6 +624,11 @@
             <artifactId>wstx-asl</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${version.jetbrains}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
