@@ -28,7 +28,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.dspace</groupId>
+            <groupId>io.gdcc</groupId>
             <artifactId>xoai-service-provider</artifactId>
         </dependency>
         <dependency>

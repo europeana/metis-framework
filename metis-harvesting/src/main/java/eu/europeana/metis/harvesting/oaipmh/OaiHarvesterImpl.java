@@ -18,15 +18,15 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 import org.apache.commons.io.IOUtils;
-import org.dspace.xoai.model.oaipmh.Header;
-import org.dspace.xoai.model.oaipmh.Verb;
-import org.dspace.xoai.serviceprovider.ServiceProvider;
-import org.dspace.xoai.serviceprovider.exceptions.BadArgumentException;
-import org.dspace.xoai.serviceprovider.exceptions.OAIRequestException;
-import org.dspace.xoai.serviceprovider.model.Context;
-import org.dspace.xoai.serviceprovider.parameters.GetRecordParameters;
-import org.dspace.xoai.serviceprovider.parameters.ListIdentifiersParameters;
-import org.dspace.xoai.serviceprovider.parameters.Parameters;
+import io.gdcc.xoai.model.oaipmh.results.record.Header;
+import io.gdcc.xoai.model.oaipmh.verbs.Verb;
+import io.gdcc.xoai.serviceprovider.ServiceProvider;
+import io.gdcc.xoai.serviceprovider.exceptions.BadArgumentException;
+import io.gdcc.xoai.serviceprovider.exceptions.OAIRequestException;
+import io.gdcc.xoai.serviceprovider.model.Context;
+import io.gdcc.xoai.serviceprovider.parameters.GetRecordParameters;
+import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
+import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
@@ -81,10 +81,10 @@ public class OaiHarvesterImpl implements OaiHarvester {
     ListIdentifiersParameters parameters = ListIdentifiersParameters.request()
             .withMetadataPrefix(harvest.getMetadataPrefix());
     if (harvest.getFrom() != null) {
-      parameters.withFrom(Date.from(harvest.getFrom()));
+      parameters.withFrom(Date.from(harvest.getFrom()).toInstant());
     }
     if (harvest.getUntil() != null) {
-      parameters.withUntil(Date.from(harvest.getUntil()));
+      parameters.withUntil(Date.from(harvest.getUntil()).toInstant());
     }
     if (harvest.getSetSpec() != null) {
       parameters.withSetSpec(harvest.getSetSpec());
@@ -99,18 +99,18 @@ public class OaiHarvesterImpl implements OaiHarvester {
             .withIdentifier(oaiIdentifier).withMetadataFormatPrefix(repository.getMetadataPrefix());
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
             .include(getRecordParameters);
-    final byte[] record;
+    final byte[] byteArrayRecord;
     try (final CloseableOaiClient oaiClient = connectionClientFactory
             .createConnectionClient(repository.getRepositoryUrl());
             final InputStream recordStream = performThrowingFunction(oaiClient,
                     client -> client.execute(parameters))) {
-      record = IOUtils.toByteArray(recordStream);
+      byteArrayRecord = IOUtils.toByteArray(recordStream);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(
               "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
               oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
     }
-    return new OaiRecordParser().parseOaiRecord(record);
+    return new OaiRecordParser().parseOaiRecord(byteArrayRecord);
   }
 
   @Override
