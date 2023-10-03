@@ -27,4 +27,20 @@ public enum MediaTier implements Tier {
   public String toString() {
     return stringRepresentation;
   }
+
+  public static MediaTier getEnum(String value){
+    MediaTier result = null;
+    for(MediaTier tier: MediaTier.values()) {
+      if(tier.stringRepresentation.equals(value)) {
+        result = tier;
+        break;
+      }
+    }
+
+    if(result == null){
+      throw new IllegalArgumentException("Nu such value " + value + " exists");
+    } else {
+      return result;
+    }
+  }
 }

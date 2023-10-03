@@ -13,14 +13,14 @@ public enum ProblemPatternDescription {
       ProblemPatternQualityDimension.CONCISENESS),
   P2(ProblemPatternId.P2, "Equal title and description fields", ProblemPatternSeverity.WARNING,
       ProblemPatternQualityDimension.CONCISENESS),
-  P3(ProblemPatternId.P3, "Near-Identical title and description fields", ProblemPatternSeverity.NOTICE,
+  P3(ProblemPatternId.P3, "Near-Identical title and description fields", ProblemPatternSeverity.WARNING,
       ProblemPatternQualityDimension.CONCISENESS),
-  P5(ProblemPatternId.P5, "Unrecognizable title", ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
-  P6(ProblemPatternId.P6, "Non-meaningful title", ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY),
-  P7(ProblemPatternId.P7, "Missing description fields", ProblemPatternSeverity.NOTICE,
+  P5(ProblemPatternId.P5, "Unrecognizable title", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
+  P6(ProblemPatternId.P6, "Non-meaningful title", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
+  P7(ProblemPatternId.P7, "Missing description fields", ProblemPatternSeverity.WARNING,
       ProblemPatternQualityDimension.COMPLETENESS),
   P9(ProblemPatternId.P9, "Very short description", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
-  P12(ProblemPatternId.P12, "Extremely long values", ProblemPatternSeverity.NOTICE, ProblemPatternQualityDimension.ACCURACY);
+  P12(ProblemPatternId.P12, "Extremely long values", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY);
 
   private final ProblemPatternId problemPatternId;
   private final String problemPatternTitle;

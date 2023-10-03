@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
-import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.AltLabel;
 import eu.europeana.metis.schema.jibx.Begin;

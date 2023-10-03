@@ -2,18 +2,18 @@ package eu.europeana.normalization.normalizers;
 
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.XpathQuery;
+import java.lang.invoke.MethodHandles;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.iri.IRI;
 import org.apache.jena.iri.IRIFactory;
 import org.apache.jena.iri.Violation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 
 /**
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CleanIRIViolationsNormalizer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
   private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
@@ -62,15 +62,15 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
   public List<NormalizedValueWithConfidence> normalizeValue(String value) {
     List<NormalizedValueWithConfidence> result = new ArrayList<>();
 
-    if (!StringUtils.isBlank(value)) {
-      iri = iriFactory.create(value);
+    if (StringUtils.isNotBlank(value)) {
+      iri = iriFactory.create(value.trim());
       final String normalizedValue;
 
       try {
         normalizedValue = iri.toURI().toString();
         result = Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
       } catch (URISyntaxException e) {
-        LOG.debug("There was some trouble normalizing the value for IRI Violation");
+        LOGGER.debug("There was some trouble normalizing the value for IRI Violation", e);
       }
     }
     return result;

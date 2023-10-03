@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>10</version>
+  <version>11</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -170,7 +170,7 @@
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.resources.plugin>3.2.0</version.maven.resources.plugin>
     <version.mockito.core>4.3.1</version.mockito.core>
-    <version.morphia.core>2.2.1</version.morphia.core>
+    <version.morphia.core>2.3.0</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.postgresql>42.5.1</version.postgresql>
     <version.powermock>2.0.9</version.powermock>
@@ -230,6 +230,14 @@
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-zoho</artifactId>
         <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${version.spring.boot}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
 
       <dependency>

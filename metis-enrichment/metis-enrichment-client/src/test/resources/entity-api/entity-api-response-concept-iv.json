@@ -1,0 +1,53 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "https://api.europeana.eu/entity/search?wskey=api2demo&text=ethics&lang=nl&type=concept&query=ethics&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 1,
+  "partOf": {
+    "id": "https://api.europeana.eu/entity/search?wskey=api2demo&text=ethics&lang=nl&type=concept&query=ethics",
+    "type": "ResultList",
+    "total": 1
+  },
+  "items": [
+    {
+      "id": "http://data.europeana.eu/concept/3401",
+      "type": "Concept",
+      "isShownBy": {
+        "id": "https://glam.uni.wroc.pl/iiif/image-api/RKP_IV_F_48_3103_0001/full/full/0/default.jpg",
+        "type": "WebResource",
+        "source": "http://data.europeana.eu/item/0940429/_nn8W1sR",
+        "thumbnail": "https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fglam.uni.wroc.pl%2Fiiif%2Fimage-api%2FRKP_IV_F_48_3103_0001%2Ffull%2Ffull%2F0%2Fdefault.jpg&type=TEXT"
+      },
+      "prefLabel": {
+        "nl": "Ethiek"
+      },
+      "note": {
+        "nl": [
+          "Tak van de filosofie die zich bezighoudt met bezinning over het juiste handelen"
+        ]
+      },
+      "exactMatch": [
+        "http://www.wikidata.org/entity/Q9465",
+        "https://d-nb.info/gnd/4015602-3",
+        "http://id.loc.gov/authorities/names/sh85045096",
+        "http://data.bnf.fr/ark:/12148/cb119756872",
+        "http://id.ndl.go.jp/auth/ndlna/00569521",
+        "http://id.nlm.nih.gov/mesh/D004989",
+        "http://purl.org/bncf/tid/761",
+        "https://www.freebase.com/m/02jhc",
+        "https://g.co/kg/m/02jhc",
+        "http://id.nlm.nih.gov/mesh/K01.752.566.479",
+        "http://id.nlm.nih.gov/mesh/N05.350",
+        "http://datos.bne.es/resource/XX4583626",
+        "http://vocab.getty.edu/aat/300054290",
+        "http://vocab.getty.edu/aat/300055939",
+        "http://iconclass.org/11L52",
+        "http://www.yso.fi/onto/yso/p3166",
+        "http://babelnet.org/rdf/s00031712n",
+        "http://vocabularies.unesco.org/thesaurus/concept283",
+        "http://cv.iptc.org/newscodes/mediatopic/20000814",
+        "http://uri.gbv.de/terminology/bk/08.38"
+      ]
+    }
+  ]
+}

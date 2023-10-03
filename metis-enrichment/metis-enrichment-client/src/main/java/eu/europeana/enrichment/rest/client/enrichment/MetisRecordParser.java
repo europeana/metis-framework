@@ -47,9 +47,12 @@ public class MetisRecordParser implements RecordParser {
     //Proxy search terms
     final Set<SearchTermContext> resultSearchTermsSet = getFieldValueSet(ProxyFieldType.values(),
         RdfEntityUtils.getProviderProxies(rdf));
-    resultSearchTermsSet
-        .addAll(getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList()));
+    resultSearchTermsSet.addAll(getAggregationSearchTerms(rdf));
     return resultSearchTermsSet;
+  }
+
+  public Set<SearchTermContext> getAggregationSearchTerms(RDF rdf) {
+    return getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList());
   }
 
   private <T extends AboutType> Set<SearchTermContext> getFieldValueSet(FieldType<T>[] fieldTypes,

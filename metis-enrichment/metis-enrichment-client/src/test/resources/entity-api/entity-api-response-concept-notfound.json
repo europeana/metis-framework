@@ -1,0 +1,11 @@
+{
+  "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
+  "id": "https://api.europeana.eu/entity/search?wskey=api2demo&text=XXXXXXXXX&lang=nl&type=concept&query=XXXXXXXXX&page=0&pageSize=10",
+  "type": "ResultPage",
+  "total": 0,
+  "partOf": {
+    "id": "https://api.europeana.eu/entity/search?wskey=api2demo&text=XXXXXXXXX&lang=nl&type=concept&query=XXXXXXXXX",
+    "type": "ResultList",
+    "total": 0
+  }
+}

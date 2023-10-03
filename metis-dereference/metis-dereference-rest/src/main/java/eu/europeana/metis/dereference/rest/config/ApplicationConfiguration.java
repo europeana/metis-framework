@@ -2,6 +2,7 @@ package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.dereference.rest.config.properties.MetisDereferenceConfigurationProperties;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
@@ -10,18 +11,24 @@ import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
+import eu.europeana.metis.mongo.connection.MongoProperties;
+import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
-import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
+import java.lang.invoke.MethodHandles;
 import java.util.Set;
 import javax.annotation.PreDestroy;
+import metis.common.config.properties.SocksProxyConfigurationProperties;
+import metis.common.config.properties.TruststoreConfigurationProperties;
+import metis.common.config.properties.mongo.MongoConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.filter.ForwardedHeaderFilter;
@@ -34,59 +41,84 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Entry class with configuration fields and beans initialization for the application.
  */
 @Configuration
-@Import({ElasticAPMConfiguration.class})
+@EnableConfigurationProperties({
+    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class,
+    SocksProxyConfigurationProperties.class, MongoConfigurationProperties.class,
+    MetisDereferenceConfigurationProperties.class})
 @EnableScheduling
-@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest.controller",
+@ComponentScan(basePackages = {
+    "eu.europeana.metis.dereference.rest.controller",
     "eu.europeana.metis.dereference.rest.exceptions"})
 @EnableWebMvc
 public class ApplicationConfiguration implements WebMvcConfigurer {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
-
-  private final ConfigurationPropertiesHolder propertiesHolder;
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final MongoClient mongoClient;
+  private ProcessedEntityDao processedEntityDao;
 
   /**
-   * Autowired constructor for Spring Configuration class.
+   * Constructor.
    *
-   * @param propertiesHolder the object that holds all boot configuration values
-   * @throws TrustStoreConfigurationException if the configuration of the truststore failed
+   * @param truststoreConfigurationProperties the truststore configuration properties
+   * @param socksProxyConfigurationProperties the socks proxy configuration properties
+   * @param mongoConfigurationProperties the mongo configuration properties
+   * @throws CustomTruststoreAppender.TrustStoreConfigurationException if the configuration of the truststore failed
    */
-  public ApplicationConfiguration(ConfigurationPropertiesHolder propertiesHolder) throws TrustStoreConfigurationException {
-    mongoClient = ApplicationConfiguration.initializeApplication(propertiesHolder);
-    this.propertiesHolder = propertiesHolder;
+  @Autowired
+  public ApplicationConfiguration(TruststoreConfigurationProperties truststoreConfigurationProperties,
+      SocksProxyConfigurationProperties socksProxyConfigurationProperties,
+      MongoConfigurationProperties mongoConfigurationProperties)
+      throws CustomTruststoreAppender.TrustStoreConfigurationException {
+    ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
+    ApplicationConfiguration.initializeSocksProxy(socksProxyConfigurationProperties);
+    this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
   }
 
   /**
-   * This method performs the initializing tasks for the application.
+   * Truststore initializer
    *
-   * @param propertiesHolder The properties.
-   * @return The Mongo client that can be used to access the mongo database.
-   * @throws TrustStoreConfigurationException In case a problem occurred with the truststore.
+   * @param truststoreConfigurationProperties the truststore configuration properties
+   * @throws CustomTruststoreAppender.TrustStoreConfigurationException In case a problem occurred with the truststore.
    */
-  static MongoClient initializeApplication(ConfigurationPropertiesHolder propertiesHolder)
-      throws TrustStoreConfigurationException {
-
-    // Load the trust store file.
-    if (StringUtils.isNotEmpty(propertiesHolder.getTruststorePath()) && StringUtils
-        .isNotEmpty(propertiesHolder.getTruststorePassword())) {
+  static void initializeTruststore(TruststoreConfigurationProperties truststoreConfigurationProperties)
+      throws CustomTruststoreAppender.TrustStoreConfigurationException {
+    if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
+        .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
       CustomTruststoreAppender
-          .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(),
-              propertiesHolder.getTruststorePassword());
+          .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
+              truststoreConfigurationProperties.getPassword());
       LOGGER.info("Custom truststore appended to default truststore");
     }
+  }
 
-    // Initialize the socks proxy.
-    if (propertiesHolder.isSocksProxyEnabled()) {
-      new SocksProxy(propertiesHolder.getSocksProxyHost(), propertiesHolder.getSocksProxyPort(),
-          propertiesHolder
-              .getSocksProxyUsername(),
-          propertiesHolder.getSocksProxyPassword()).init();
+  /**
+   * Socks proxy initializer.
+   *
+   * @param socksProxyConfigurationProperties the socks proxy configuration properties
+   */
+  static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
+    if (socksProxyConfigurationProperties.isEnabled()) {
+      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
+          socksProxyConfigurationProperties.getUsername(),
+          socksProxyConfigurationProperties.getPassword()).init();
       LOGGER.info("Socks proxy enabled");
     }
+  }
 
-    // Initialize the Mongo connection
-    return new MongoClientProvider<>(propertiesHolder.getMongoProperties()).createMongoClient();
+  public static MongoClient getMongoClient(MongoConfigurationProperties mongoConfigurationProperties) {
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties.setAllProperties(
+        mongoConfigurationProperties.getHosts(),
+        mongoConfigurationProperties.getPorts(),
+        mongoConfigurationProperties.getAuthenticationDatabase(),
+        mongoConfigurationProperties.getUsername(),
+        mongoConfigurationProperties.getPassword(),
+        mongoConfigurationProperties.isEnableSsl(),
+        ReadPreferenceValue.PRIMARY_PREFERRED,
+        mongoConfigurationProperties.getApplicationName());
+
+    return new MongoClientProvider<>(mongoProperties).createMongoClient();
   }
 
   /**
@@ -133,18 +165,19 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   }
 
   @Bean
-  ProcessedEntityDao getProcessedEntityDao() {
-    return new ProcessedEntityDao(mongoClient, propertiesHolder.getEntityDb());
+  ProcessedEntityDao getProcessedEntityDao(MongoConfigurationProperties mongoConfigurationProperties) {
+    processedEntityDao = new ProcessedEntityDao(mongoClient, mongoConfigurationProperties.getDatabase());
+    return processedEntityDao;
   }
 
   @Bean
-  VocabularyDao getVocabularyDao() {
-    return new VocabularyDao(mongoClient, propertiesHolder.getVocabularyDb());
+  VocabularyDao getVocabularyDao(MongoConfigurationProperties mongoConfigurationProperties) {
+    return new VocabularyDao(mongoClient, mongoConfigurationProperties.getDatabase());
   }
 
   @Bean
-  Set<String> getAllowedUrlDomains() {
-    return Set.of(propertiesHolder.getAllowedUrlDomains());
+  Set<String> getAllowedUrlDomains(MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties) {
+    return Set.of(metisDereferenceConfigurationProperties.getAllowedUrlDomains());
   }
 
   /**
@@ -164,19 +197,19 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * redis instance/cluster is used for multiple services then the cache for other services is cleared as well. This task is
    * scheduled by a cron expression.
    */
-
-  @Scheduled(cron = "${dereference.purge.emptyxml.frequency}")
+  // TODO: 24/08/2023 Is there a better way to load the configuration here?
+  @Scheduled(cron = "${metis-dereference.getPurgeEmptyXmlFrequency}")
   public void dereferenceCacheNullOrEmpty() {
-    getProcessedEntityDao().purgeByNullOrEmptyXml();
+    processedEntityDao.purgeByNullOrEmptyXml();
   }
 
   /**
    * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster is used for multiple
    * services then the cache for other services is cleared as well. This task is scheduled by a cron expression.
    */
-  @Scheduled(cron = "${dereference.purge.all.frequency}")
+  @Scheduled(cron = "${metis-dereference.getPurgeAllFrequency}")
   public void dereferenceCachePurgeAll() {
-    getProcessedEntityDao().purgeAll();
+    processedEntityDao.purgeAll();
   }
 
   /**

@@ -9,13 +9,14 @@ import static eu.europeana.metis.mongo.utils.MorphiaUtils.getListOfQueryRetryabl
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 
+import dev.morphia.UpdateOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
-import dev.morphia.query.experimental.filters.Filter;
-import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.experimental.updates.UpdateOperator;
-import dev.morphia.query.experimental.updates.UpdateOperators;
+import dev.morphia.query.filters.Filter;
+import dev.morphia.query.filters.Filters;
+import dev.morphia.query.updates.UpdateOperator;
+import dev.morphia.query.updates.UpdateOperators;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -302,7 +303,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .set("sequence", datasetIdSequence.getSequence());
 
     retryableExternalRequestForNetworkExceptions(
-        () -> updateQuery.update(updateOperator).execute());
+        () -> updateQuery.update(new UpdateOptions(), updateOperator));
     return datasetIdSequence.getSequence();
   }
 

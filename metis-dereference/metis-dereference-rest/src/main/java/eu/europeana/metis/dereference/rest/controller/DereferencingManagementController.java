@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.rest.controller;
 
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.rest.config.properties.MetisDereferenceConfigurationProperties;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.exception.BadContentException;
@@ -43,12 +44,13 @@ public class DereferencingManagementController {
    * Constructor parameterized.
    *
    * @param service the dereferencing management service
-   * @param allowedUrlDomains the allowed valid url prefixes
+   * @param metisDereferenceConfigurationProperties the metis dereference configuration properties
    */
   @Autowired
-  public DereferencingManagementController(DereferencingManagementService service, Set<String> allowedUrlDomains) {
+  public DereferencingManagementController(DereferencingManagementService service,
+      MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties) {
     this.service = service;
-    this.allowedUrlDomains = new HashSet<>(allowedUrlDomains);
+    this.allowedUrlDomains = new HashSet<>(Set.of(metisDereferenceConfigurationProperties.getAllowedUrlDomains()));
   }
 
   /**

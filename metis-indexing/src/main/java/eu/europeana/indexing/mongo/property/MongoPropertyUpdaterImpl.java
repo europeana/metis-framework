@@ -5,9 +5,8 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import com.mongodb.DuplicateKeyException;
 import dev.morphia.UpdateOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.Update;
-import dev.morphia.query.experimental.updates.UpdateOperator;
-import dev.morphia.query.experimental.updates.UpdateOperators;
+import dev.morphia.query.updates.UpdateOperator;
+import dev.morphia.query.updates.UpdateOperators;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
@@ -61,7 +60,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     this.updated = updated;
     this.mongoServer = mongoServer;
     this.updateOperators = Optional.ofNullable(updateOperators).stream().flatMap(Collection::stream)
-        .collect(Collectors.toList());
+                                   .collect(Collectors.toList());
     this.queryCreator = queryCreator;
   }
 
@@ -86,9 +85,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   /**
-   * Checks whether two maps contain exactly the same key value combinations. The value lists are
-   * said to be the same if they contain the same elements, regardless of the order but counting
-   * multiplicity.
+   * Checks whether two maps contain exactly the same key value combinations. The value lists are said to be the same if they
+   * contain the same elements, regardless of the order but counting multiplicity.
    *
    * @param mapA The first map.
    * @param mapB The second map.
@@ -106,8 +104,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   /**
-   * Check if two arrays contain the same values, regardless of the order, but counting
-   * multiplicity.
+   * Check if two arrays contain the same values, regardless of the order, but counting multiplicity.
    *
    * @param arrA The first array.
    * @param arrB The second array.
@@ -173,8 +170,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   private static List<WebResourceImpl> castWebResourceList(List<? extends WebResource> input) {
-    return input == null ? null : input.stream().map(webResource -> ((WebResourceImpl) webResource))
-        .collect(Collectors.toList());
+    return input == null ? null : input.stream().map(WebResourceImpl.class::cast)
+                                       .collect(Collectors.toList());
   }
 
   @Override
@@ -200,24 +197,27 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> new ArrayList<>(entities.stream()
-        .map(entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer))
-        .collect(Collectors.toMap(AbstractEdmEntity::getAbout, Function.identity(), (o1, o2) -> o2))
-        .values());
+                                                                                     .map(entity -> objectUpdater.update(entity,
+                                                                                         ancestorInformation, null, null,
+                                                                                         mongoServer))
+                                                                                     .collect(Collectors.toMap(
+                                                                                         AbstractEdmEntity::getAbout,
+                                                                                         Function.identity(), (o1, o2) -> o2))
+                                                                                     .values());
     final BiPredicate<List<P>, List<P>> equality = (w1, w2) -> listEquals(w1, w2,
         ENTITY_COMPARATOR);
     updateProperty(updateField, getter, equality, preprocessing);
   }
 
   /**
-   * This method updates a given object property. This method tests if there is anything to update.
-   * If there is, after this method is called, {@link #applyOperations()} will include the update.
+   * This method updates a given object property. This method tests if there is anything to update. If there is, after this method
+   * is called, {@link #applyOperations()} will include the update.
    *
-   * @param updateField The name of the field to update. This is the name under which they will be
-   * stored in the operations list (see {@link #applyOperations()}).
+   * @param updateField The name of the field to update. This is the name under which they will be stored in the operations list
+   * (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    * @param equality Predicate that checks for equality between two property values.
-   * @param preprocessing The pre-processing to be applied to the update property value before
-   * comparing and storing.
+   * @param preprocessing The pre-processing to be applied to the update property value before comparing and storing.
    */
   private <P> void updateProperty(String updateField, Function<T, P> getter,
       BiPredicate<P, P> equality, UnaryOperator<P> preprocessing) {
@@ -273,22 +273,20 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       updaterSupplier.get().delete(ancestorInformation, mongoServer);
     } else {
       updaterSupplier.get().update((WebResourceMetaInfoImpl) entity, ancestorInformation,
-              null, null, mongoServer);
+          null, null, mongoServer);
     }
   }
 
   @Override
   public T applyOperations() {
-    final UpdateOperator firstUpdateOperator = updateOperators.get(0);
-    final UpdateOperator[] extraUpdateOperators = this.updateOperators
-        .subList(1, this.updateOperators.size()).toArray(UpdateOperator[]::new);
-    final Update<T> update = queryCreator.get().update(firstUpdateOperator, extraUpdateOperators);
+    final UpdateOperator[] extraUpdateOperators = this.updateOperators.toArray(UpdateOperator[]::new);
     final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
+    final Query<T> update = queryCreator.get();
     try {
-      retryableExternalRequestForNetworkExceptions(() -> update.execute(updateOptions));
+      retryableExternalRequestForNetworkExceptions(() -> update.update(updateOptions, extraUpdateOperators));
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      update.execute(updateOptions);
+      update.update(updateOptions, extraUpdateOperators);
     }
     return queryCreator.get().first();
   }

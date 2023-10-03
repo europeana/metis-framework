@@ -109,6 +109,7 @@ class AbstractMediaClassifierTest {
         .setElementLinkTypes(Collections.emptySet())
         .setLicenseType(LicenseType.OPEN)
         .setMediaTier(MediaTier.T3)
+        .setMediaTierBeforeLicenseCorrection(MediaTier.T4)
         .build();
     final MediaResourceTechnicalMetadata mediaResourceTechnicalMetadata2 = new MediaResourceTechnicalMetadataBuilder(
         new ResolutionTierMetadataBuilder().build())
@@ -117,6 +118,7 @@ class AbstractMediaClassifierTest {
         .setElementLinkTypes(Collections.emptySet())
         .setLicenseType(LicenseType.OPEN)
         .setMediaTier(MediaTier.T4)
+        .setMediaTierBeforeLicenseCorrection(MediaTier.T2)
         .build();
 
     doReturn(Arrays.asList(resource1, resource2)).when(entity).getWebResourceWrappers(

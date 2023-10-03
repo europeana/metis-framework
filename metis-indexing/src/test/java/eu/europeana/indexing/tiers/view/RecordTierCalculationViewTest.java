@@ -41,6 +41,7 @@ class RecordTierCalculationViewTest {
             .setElementLinkTypes(Set.of(WebResourceLinkType.IS_SHOWN_AT))
             .setLicenseType(LicenseType.RESTRICTED)
             .setMediaTier(MediaTier.T1)
+            .setMediaTierBeforeLicenseCorrection(MediaTier.T3)
             .build();
 
     final RecordTierCalculationView recordTierCalculationView = new RecordTierCalculationView(new RecordTierCalculationSummary(),
@@ -52,6 +53,7 @@ class RecordTierCalculationViewTest {
                 .setMediaResource3DAvailable(true)
                 .setEmbeddableMediaAvailable(true)
                 .setMediaResourceTechnicalMetadataList(Collections.singletonList(mediaResourceTechnicalMetadata))
+                .setMediaTierBeforeLicenseCorrection(MediaTier.T3)
                 .build(),
         new MetadataTierBreakdown(languageBreakdown, enablingElementsBreakdown,
             contextualClassesBreakdown));

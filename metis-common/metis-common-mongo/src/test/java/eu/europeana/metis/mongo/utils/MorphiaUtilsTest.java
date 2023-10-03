@@ -1,7 +1,7 @@
 package eu.europeana.metis.mongo.utils;
 
-import static dev.morphia.query.experimental.filters.Filters.eq;
-import static dev.morphia.query.experimental.filters.Filters.or;
+import static dev.morphia.query.filters.Filters.eq;
+import static dev.morphia.query.filters.Filters.or;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -10,8 +10,8 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.model.Collation;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
-import dev.morphia.aggregation.experimental.Aggregation;
-import dev.morphia.aggregation.experimental.AggregationOptions;
+import dev.morphia.aggregation.Aggregation;
+import dev.morphia.aggregation.AggregationOptions;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import dev.morphia.query.FindOptions;

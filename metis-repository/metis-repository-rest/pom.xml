@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-repository</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>10</version>
+    <version>11</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>metis-repository-rest</artifactId>
@@ -48,6 +48,11 @@
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common-spring-properties</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

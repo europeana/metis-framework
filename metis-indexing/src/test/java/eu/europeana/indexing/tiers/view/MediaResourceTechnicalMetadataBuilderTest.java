@@ -44,6 +44,8 @@ class MediaResourceTechnicalMetadataBuilderTest {
     assertThrows(NullPointerException.class, mediaResourceTechnicalMetadataBuilder::build);
     final MediaTier mediaTier = MediaTier.T0;
     mediaResourceTechnicalMetadataBuilder.setMediaTier(mediaTier);
+    final MediaTier mediaTierBeforeLicense = MediaTier.T1;
+    mediaResourceTechnicalMetadataBuilder.setMediaTierBeforeLicenseCorrection(mediaTierBeforeLicense);
 
     //Object should be valid now
     assertDoesNotThrow(mediaResourceTechnicalMetadataBuilder::build);
@@ -59,6 +61,7 @@ class MediaResourceTechnicalMetadataBuilderTest {
     mediaResourceTechnicalMetadata = mediaResourceTechnicalMetadataBuilder.build();
     assertEquals(resourceUrl, mediaResourceTechnicalMetadata.getResourceUrl());
     assertEquals(mediaType, mediaResourceTechnicalMetadata.getMediaType());
+    assertEquals(mediaTierBeforeLicense, mediaResourceTechnicalMetadata.getMediaTierBeforeLicenseCorrection());
     assertEquals(mimeType, mediaResourceTechnicalMetadata.getMimeType());
     assertNotSame(elementLinkTypes, mediaResourceTechnicalMetadata.getElementLinkTypes());
     assertTrue(CollectionUtils.isEqualCollection(elementLinkTypes, mediaResourceTechnicalMetadata.getElementLinkTypes()));

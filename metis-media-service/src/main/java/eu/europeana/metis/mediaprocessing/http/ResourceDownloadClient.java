@@ -12,6 +12,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ContentDisposition;
 
 /**
  * An {@link AbstractHttpClient} that obtains the actual content of a resource link.
@@ -107,7 +108,7 @@ public class ResourceDownloadClient extends
 
   @Override
   protected Resource createResult(Pair<RdfResourceEntry, DownloadMode> providedLink, URI actualUri,
-      String mimeType, Long fileSize, ContentRetriever contentRetriever) throws IOException {
+  ContentDisposition contentDisposition, String mimeType, Long fileSize, ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
     final RdfResourceEntry resourceEntry = providedLink.getLeft();

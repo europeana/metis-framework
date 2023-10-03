@@ -1,20 +1,24 @@
-#Truststore configuration
-truststore.path=
+#Spring
+logging.config=/data/logging/log4j2.xml
+#logging.config=log4j2.xml
+server.error.whitelabel.enabled=false
+
+#Truststore
+truststore.path=/data/certificates/custom-truststore.jks
 truststore.password=
 
 #Zoho configuration
-#It's retrieved when registering the application on Zoho. It's one use only and every subsequent use shouldn't impact the application
-zoho.initial.grant.token=
-zoho.refresh.token=
-zoho.current.user.email=
-zoho.client.id=
-zoho.client.secret=
-zoho.redirect.uri=
+zoho.initialGrantToken=
+zoho.refreshToken=
+zoho.currentUserEmail=
+zoho.clientId=
+zoho.clientSecret=
+zoho.redirectUri=
 
 #Hibernate configuration
-hibernate.connection.driver_class=org.postgresql.Driver
-hibernate.connection.url=jdbc:
 hibernate.dialect=org.hibernate.dialect.PostgreSQL82Dialect
+hibernate.connection.driver_class=org.postgresql.Driver
+hibernate.connection.url=jdbc:postgresql://
 hibernate.connection.username=
 hibernate.connection.password=
 hibernate.c3p0.min_size=5
@@ -23,24 +27,21 @@ hibernate.c3p0.timeout=1800
 hibernate.c3p0.max_statements=50
 
 #Miscellaneus
-metis.access.token.expire.time.in.mins=10
-allowed.cors.hosts=*
+metis-authentication.accessTokenExpireTimeInMinutes=10
+metis-authentication.allowedCorsHosts=*
 
 #Actuator
 management.endpoint.health.probes.enabled=true
 management.health.livenessState.enabled=true
 management.health.readinessState.enabled=true
 
-#Logging
-logging.config=
-
 # Elastic APM
-elastic.apm.enabled=false
+elastic.apm.enabled=true
 elastic.apm.recording=true
 elastic.apm.instrument=true
 elastic.apm.service_name=metis-authentication
 elastic.apm.server_url=
-elastic.apm.environment=test
+elastic.apm.environment=local
 elastic.apm.application_packages=eu.europeana
 elastic.apm.log_level=ERROR
 elastic.apm.capture_body=all
