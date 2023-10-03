@@ -4,7 +4,6 @@ import static eu.europeana.normalization.dates.edtf.DateBoundaryType.OPEN;
 import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
 import static eu.europeana.normalization.dates.edtf.DateQualification.APPROXIMATE;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
-import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN_APPROXIMATE;
 import static eu.europeana.normalization.dates.extraction.DefaultDatesSeparator.SLASH_DELIMITER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,9 +17,15 @@ import eu.europeana.normalization.dates.edtf.IntervalEdtfDate;
 public interface DateExtractorTest {
 
   default void assertQualification(String expected, InstantEdtfDate instantEdtfDate) {
-    assertEquals(expected.contains("?"), instantEdtfDate.getDateQualification() == UNCERTAIN);
-    assertEquals(expected.contains("~"), instantEdtfDate.getDateQualification() == APPROXIMATE);
-    assertEquals(expected.contains("%"), instantEdtfDate.getDateQualification() == UNCERTAIN_APPROXIMATE);
+    assertEquals(expected.contains("?"),
+        instantEdtfDate.getDateQualifications().contains(UNCERTAIN) &&
+            !instantEdtfDate.getDateQualifications().contains(APPROXIMATE));
+    assertEquals(expected.contains("~"),
+        instantEdtfDate.getDateQualifications().contains(APPROXIMATE) &&
+            !instantEdtfDate.getDateQualifications().contains(UNCERTAIN));
+    assertEquals(expected.contains("%"),
+        instantEdtfDate.getDateQualifications().contains(UNCERTAIN) &&
+            instantEdtfDate.getDateQualifications().contains(APPROXIMATE));
   }
 
   default void assertBoundaryType(String expected, InstantEdtfDate instantEdtfDate) {

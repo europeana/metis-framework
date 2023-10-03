@@ -4,7 +4,6 @@ import static eu.europeana.normalization.dates.YearPrecision.DECADE;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -36,16 +35,13 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
       OPTIONAL_QUESTION_MARK + "(\\d{3})(?:[XU]" + OPTIONAL_QUESTION_MARK + "|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = checkDateQualification(inputValue);
-
+  public DateNormalizationResult extract(String inputValue, boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = decadePattern.matcher(inputValue);
     if (matcher.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(matcher.group(1)))
           .withYearPrecision(DECADE)
-          .withDateQualification(dateQualification)
+          .withDateQualification(getQualification(inputValue))
           .withFlexibleDateBuild(flexibleDateBuild)
           .build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);

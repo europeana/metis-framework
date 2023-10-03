@@ -6,7 +6,6 @@ import static java.util.regex.Pattern.compile;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
-import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -69,15 +68,13 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
       boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (CenturyNumericDatePattern centerNumericDatePattern : CenturyNumericDatePattern.values()) {
-      final DateQualification dateQualification = checkDateQualification(inputValue);
-
       final Matcher matcher = centerNumericDatePattern.getPattern().matcher(inputValue);
       if (matcher.matches()) {
         final String century = matcher.group(1);
         InstantEdtfDateBuilder instantEdtfDateBuilder = new InstantEdtfDateBuilder(
             centerNumericDatePattern.getCenturyExtractorFunction().applyAsInt(century))
             .withYearPrecision(CENTURY);
-        InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(dateQualification)
+        InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(getQualification(inputValue))
                                                                 .withFlexibleDateBuild(flexibleDateBuild).build();
         dateNormalizationResult =
             new DateNormalizationResult(centerNumericDatePattern.getDateNormalizationExtractorMatchId(), inputValue,

@@ -299,7 +299,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
       dateNormalizationResult = normalizeFunction.apply(dateExtractors, sanitizedDate);
       if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED) {
         if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
-          dateNormalizationResult.getEdtfDate().overwriteQualification(DateQualification.APPROXIMATE);
+          dateNormalizationResult.getEdtfDate().addQualification(DateQualification.APPROXIMATE);
         }
         //Re-create result containing sanitization operation.
         dateNormalizationResult = new DateNormalizationResult(dateNormalizationResult, sanitizedDate.getSanitizeOperation());
@@ -369,11 +369,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     // Create and add skosNote elements to timespan in case of approximate or uncertain dates.
-    if (edtfDate.getDateQualification() == DateQualification.APPROXIMATE) {
+    if (edtfDate.getDateQualifications().contains(DateQualification.APPROXIMATE)) {
       final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("approximate"));
     }
-    if (edtfDate.getDateQualification() == DateQualification.UNCERTAIN) {
+    if (edtfDate.getDateQualifications().contains(DateQualification.UNCERTAIN)) {
       final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("uncertain"));
     }

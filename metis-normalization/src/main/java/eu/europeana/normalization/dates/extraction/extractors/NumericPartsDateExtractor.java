@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.DateQualification.UNCERTAIN;
 import static java.util.Optional.ofNullable;
 import static java.util.regex.Pattern.compile;
@@ -12,6 +11,7 @@ import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import eu.europeana.normalization.dates.extraction.NumericPartsPattern;
+import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -45,9 +45,12 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateQualification checkDateQualification(String inputValue) {
-    return (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find())
-        ? UNCERTAIN : NO_QUALIFICATION;
+  public Set<DateQualification> getQualification(String inputValue) {
+    final Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
+    if (STARTING_UNCERTAIN_PATTERN.matcher(inputValue).find() || ENDING_UNCERTAIN_PATTERN.matcher(inputValue).find()) {
+      dateQualifications.add(UNCERTAIN);
+    }
+    return dateQualifications;
   }
 
   /**
@@ -60,14 +63,12 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
    */
   protected DateNormalizationResult extract(String inputValue, Set<NumericPartsPattern> numericPatternValues,
       boolean flexibleDateBuild) throws DateExtractionException {
-    final DateQualification dateQualification = checkDateQualification(inputValue);
-
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (NumericPartsPattern numericWithMissingPartsPattern : numericPatternValues) {
       final Matcher matcher = numericWithMissingPartsPattern.getPattern().matcher(inputValue);
       if (matcher.matches()) {
         InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
-        final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(dateQualification)
+        final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(getQualification(inputValue))
                                                                       .withFlexibleDateBuild(flexibleDateBuild).build();
         dateNormalizationResult = new DateNormalizationResult(
             numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue, instantEdtfDate);

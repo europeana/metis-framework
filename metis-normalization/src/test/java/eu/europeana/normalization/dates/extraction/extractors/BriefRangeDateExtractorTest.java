@@ -29,15 +29,16 @@ class BriefRangeDateExtractorTest implements DateExtractorTest {
         //Slash
         of("1989/90", "1989/1990"),
         of("1989/90?", "1989/1990?"),
-        of("-1989/-88", "-1989/-1988"),
-        of("-1989/-88?", "-1989/-1988?"),
-        of("-1989/-13", "-1989/-1913"),
+        of("?1989/90", "1989?/1990"),
+        of("?1989/90?", "1989?/1990?"),
+        of("-1989/-88", null),
 
-        //Dash not supported
-        of("1989-90", null),
-        of("1989-90?", null),
-        of("1989-90", null),
-        of("989-90", null),
+        //Dash
+        of("1989-90", "1989/1990"),
+        of("1989-90?", "1989/1990?"),
+        of("?1989-90", "1989?/1990"),
+        of("?1989-90?", "1989?/1990?"),
+        of("989-90", "0989/0990"),
 
         //End date lower rightmost two digits than start year
         of("1989/89", null),
@@ -49,10 +50,9 @@ class BriefRangeDateExtractorTest implements DateExtractorTest {
         of("1989/990", null),
         of("1989-990", null),
 
-        //End year cannot be lower or equal than +-12
+        //End year cannot be lower or equal than 12
         of("1900/01", null),
         of("1900/12", null),
-        of("-1989/-12", null),
 
         //Less than three digits on start year
         of("89-90", null)

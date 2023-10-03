@@ -13,6 +13,8 @@ import eu.europeana.normalization.dates.edtf.Iso8601Parser;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
 import java.lang.invoke.MethodHandles;
 import java.time.temporal.TemporalAccessor;
+import java.util.EnumSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,27 +69,27 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateQualification checkDateQualification(String inputValue) {
+  public Set<DateQualification> getQualification(String inputValue) {
     final Matcher qualificationMatcher = CHECK_QUALIFICATION_PATTERN.matcher(inputValue);
-    DateQualification dateQualification = DateQualification.NO_QUALIFICATION;
+    Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
     if (qualificationMatcher.matches()) {
       final String modifier = qualificationMatcher.group(1);
-      dateQualification = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
+      dateQualifications = DateQualification.fromCharacter(String.valueOf(modifier.charAt(0)));
     }
-    return dateQualification;
+    return dateQualifications;
   }
 
   private InstantEdtfDate extractInstantEdtfDate(String inputValue, boolean flexibleDateBuild)
       throws DateExtractionException {
-    final DateQualification dateQualification = checkDateQualification(inputValue);
+    final Set<DateQualification> dateQualifications = getQualification(inputValue);
     String dateInputStrippedModifier = inputValue;
-    if (dateQualification != DateQualification.NO_QUALIFICATION) {
+    if (!dateQualifications.isEmpty()) {
       dateInputStrippedModifier = inputValue.substring(0, inputValue.length() - 1);
     }
 
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
-        .withDateQualification(dateQualification)
+        .withDateQualification(dateQualifications)
         .withFlexibleDateBuild(flexibleDateBuild)
         .build();
   }

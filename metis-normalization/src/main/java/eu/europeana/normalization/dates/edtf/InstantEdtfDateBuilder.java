@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.edtf;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static java.lang.String.format;
 
 import eu.europeana.normalization.dates.YearPrecision;
@@ -13,7 +12,9 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,7 @@ public class InstantEdtfDateBuilder {
   private Integer month;
   private Integer day;
   private YearPrecision yearPrecision = YearPrecision.YEAR;
-  private DateQualification dateQualification = NO_QUALIFICATION;
+  private final Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
   private boolean flexibleDateBuild = true;
   private boolean isLongYear = false;
 
@@ -155,7 +156,8 @@ public class InstantEdtfDateBuilder {
     //If it is not a long year, and we want to be strict we further validate
     boolean notLongYearAndStrictBuild = !isLongYear && !flexibleDateBuild;
     boolean isDateNonPrecise =
-        dateQualification == DateQualification.UNCERTAIN || (yearPrecision != null && yearPrecision != YearPrecision.YEAR);
+        dateQualifications.contains(DateQualification.UNCERTAIN) || (yearPrecision != null
+            && yearPrecision != YearPrecision.YEAR);
     boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
     if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
       throw new DateExtractionException("Date is invalid according to our strict profile!");
@@ -204,11 +206,11 @@ public class InstantEdtfDateBuilder {
   /**
    * Add date qualification.
    *
-   * @param dateQualification the date qualification
+   * @param dateQualifications the date qualifications
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withDateQualification(DateQualification dateQualification) {
-    this.dateQualification = dateQualification;
+  public InstantEdtfDateBuilder withDateQualification(Set<DateQualification> dateQualifications) {
+    this.dateQualifications.addAll(dateQualifications);
     return this;
   }
 
@@ -249,7 +251,7 @@ public class InstantEdtfDateBuilder {
     return yearPrecision;
   }
 
-  public DateQualification getDateQualification() {
-    return dateQualification;
+  public Set<DateQualification> getDateQualifications() {
+    return EnumSet.copyOf(dateQualifications);
   }
 }
