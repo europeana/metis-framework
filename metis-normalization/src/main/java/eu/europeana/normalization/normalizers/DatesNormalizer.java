@@ -180,10 +180,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     // Perform the two different kinds of normalizations
     final InternalNormalizationReport report = new InternalNormalizationReport();
-    report.mergeWith(normalizeElements(document, europeanaProxy, DATE_PROPERTY_FIELDS,
-        this::normalizeDateProperty));
-    report.mergeWith(normalizeElements(document, europeanaProxy, GENERIC_PROPERTY_FIELDS,
-        this::normalizeGenericProperty));
+    report.mergeWith(normalizeElements(document, europeanaProxy, DATE_PROPERTY_FIELDS, this::normalizeDateProperty));
+    report.mergeWith(normalizeElements(document, europeanaProxy, GENERIC_PROPERTY_FIELDS, this::normalizeGenericProperty));
     return report;
   }
 
@@ -214,6 +212,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final String elementText = XmlUtil.getElementText(element);
     final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
     if (dateNormalizationResult.getDateNormalizationResultStatus() == NO_MATCH) {
+      LOGGER.debug("Normalization did not find a match");
       return;
     }
 
@@ -229,10 +228,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final Element reference = XmlUtil.createElement(elementType, europeanaProxy, List.of());
     final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
         reference.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
-    final Attr dctermsIsPartOfResource = document.createAttributeNS(
+    final Attr dcTermsIsPartOfResource = document.createAttributeNS(
         RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
-    dctermsIsPartOfResource.setValue(timespanId);
-    reference.setAttributeNode(dctermsIsPartOfResource);
+    dcTermsIsPartOfResource.setValue(timespanId);
+    reference.setAttributeNode(dcTermsIsPartOfResource);
 
     // Update the report.
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
