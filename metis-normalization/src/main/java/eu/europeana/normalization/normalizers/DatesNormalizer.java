@@ -19,12 +19,12 @@ import eu.europeana.normalization.dates.extraction.extractors.DcmiPeriodDateExtr
 import eu.europeana.normalization.dates.extraction.extractors.DecadeDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.EdtfDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.EdtfRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.FullDateDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.LongNegativeYearDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.LongNegativeYearRangeDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.MonthNameDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.NumericPartsDateExtractor;
 import eu.europeana.normalization.dates.extraction.extractors.NumericPartsRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.extractors.PatternFormatedFullDateDateExtractor;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
 import eu.europeana.normalization.dates.sanitize.SanitizedDate;
@@ -138,7 +138,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
         new NumericPartsDateExtractor(),
         new DcmiPeriodDateExtractor(),
         new MonthNameDateExtractor(),
-        new PatternFormatedFullDateDateExtractor(),
+        new FullDateDateExtractor(),
         new BcAdDateExtractor(),
         new BcAdRangeDateExtractor(),
         new LongNegativeYearDateExtractor(),
