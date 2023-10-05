@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
 import static java.lang.String.format;
+import static java.time.format.DateTimeFormatter.ofPattern;
 
 import eu.europeana.normalization.dates.DateNormalizationExtractorMatchId;
 import eu.europeana.normalization.dates.DateNormalizationResult;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.LinkedList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -36,20 +38,24 @@ public class FullDateDateExtractor extends AbstractDateExtractor {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final List<DateTimeFormatter> DATE_TIME_FORMATTERS = new LinkedList<>();
 
+  public static final int MIN_MILLISECONDS_WIDTH = 0;
+  public static final int MAX_MILLISECONDS_WIDTH = 3;
+
   static {
     DATE_TIME_FORMATTERS.add(
         new DateTimeFormatterBuilder()
-            .append(DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz"))
-            .appendOptional(DateTimeFormatter.ofPattern("x"))
-            .append(DateTimeFormatter.ofPattern(" yyyy"))
+            .append(ofPattern("EEE MMM dd HH:mm:ss zzz"))
+            .appendOptional(ofPattern("x"))
+            .append(ofPattern(" yyyy"))
             .toFormatter()
     );
     DATE_TIME_FORMATTERS.add(
         new DateTimeFormatterBuilder()
-            .append(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            .append(ofPattern("yyyy-MM-dd HH:mm:ss"))
+            .appendFraction(ChronoField.MILLI_OF_SECOND, MIN_MILLISECONDS_WIDTH, MAX_MILLISECONDS_WIDTH, true)
             .optionalStart()
-            .append(DateTimeFormatter.ofPattern(" zzz"))
-            .appendOptional(DateTimeFormatter.ofPattern("x"))
+            .append(ofPattern(" zzz"))
+            .appendOptional(ofPattern("x"))
             .optionalEnd()
             .toFormatter()
     );
