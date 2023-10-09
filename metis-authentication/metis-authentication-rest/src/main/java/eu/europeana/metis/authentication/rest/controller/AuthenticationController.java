@@ -100,10 +100,16 @@ public class AuthenticationController {
   @ResponseBody
   public MetisUserView loginUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
+    MetisUserView metisUserView;
     Credentials credentials = authenticationService
         .validateAuthorizationHeaderWithCredentials(authorization);
-    MetisUserView metisUserView = authenticationService
-        .loginUser(credentials.getEmail(), credentials.getPassword());
+    try {
+      metisUserView = authenticationService
+          .loginUser(credentials.getEmail(), credentials.getPassword());
+    } catch (GenericMetisException e) {
+      LOGGER.info("Authentication failed for user with email: {}", credentials.getEmail());
+      throw e;
+    }
     LOGGER.info("User with email: {} and user id: {} logged in", metisUserView.getEmail(),
         metisUserView.getUserId());
     return metisUserView;
