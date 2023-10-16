@@ -1,0 +1,34 @@
+{
+  "inputData": {
+    "DATASET_URLS": [
+      "https://ecloud.psnc.pl/api//data-providers/metis_production/data-sets/377ac607-f729-483d-a86d-2c005150c46d"
+    ]
+  },
+  "parameters": {
+    "REVISION_PROVIDER": "metis_production",
+    "USE_ALT_INDEXING_ENV": "false",
+    "REVISION_NAME": "PREVIEW",
+    "OUTPUT_DATA_SETS": "https://ecloud.psnc.pl/api//data-providers/metis_production/data-sets/377ac607-f729-483d-a86d-2c005150c46d",
+    "RECORD_DATE": "2020-07-30T10:00:42.882Z",
+    "REPRESENTATION_NAME": "metadataRecord",
+    "REVISION_TIMESTAMP": "2020-07-27T07:14:13.188Z",
+    "PRESERVE_TIMESTAMPS": "false",
+    "METIS_DATASET_ID": "253",
+    "TARGET_INDEXING_DATABASE": "PUBLISH",
+    "PERFORM_REDIRECTS": "true",
+    "DATASET_IDS_TO_REDIRECT_FROM": "",
+    "NEW_REPRESENTATION_NAME": "metadataRecord",
+    "PREVIOUS_TASK_ID": "907164749163806963"
+  },
+  "outputRevision": {
+    "revisionName": "PUBLISH",
+    "revisionProviderId": "metis_production",
+    "creationTimeStamp": 1596103242882,
+    "published": false,
+    "acceptance": false,
+    "deleted": false
+  },
+  "taskId": 3288236868706322562,
+  "taskName": "",
+  "harvestingDetails": null
+}
