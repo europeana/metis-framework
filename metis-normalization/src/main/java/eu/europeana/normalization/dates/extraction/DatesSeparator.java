@@ -5,5 +5,5 @@ package eu.europeana.normalization.dates.extraction;
  */
 public interface DatesSeparator {
 
-  String getDatesSeparator();
+  String getStringRepresentation();
 }

@@ -49,8 +49,8 @@ public interface DateExtractorTest {
       assertEquals(dateNormalizationExtractorMatchId, dateNormalizationResult.getDateNormalizationExtractorMatchId());
       AbstractEdtfDate edtfDate = dateNormalizationResult.getEdtfDate();
       if (edtfDate instanceof IntervalEdtfDate) {
-        String expectedStart = expected.substring(0, expected.indexOf(SLASH_DELIMITER.getDatesSeparator()));
-        String expectedEnd = expected.substring(expected.indexOf(SLASH_DELIMITER.getDatesSeparator()) + 1);
+        String expectedStart = expected.substring(0, expected.indexOf(SLASH_DELIMITER.getStringRepresentation()));
+        String expectedEnd = expected.substring(expected.indexOf(SLASH_DELIMITER.getStringRepresentation()) + 1);
         InstantEdtfDate startInstantEdtfDate = ((IntervalEdtfDate) edtfDate).getStart();
         InstantEdtfDate endInstantEdtfDate = ((IntervalEdtfDate) edtfDate).getEnd();
         assertQualification(expectedStart, startInstantEdtfDate);

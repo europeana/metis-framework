@@ -38,7 +38,6 @@ class MonthNameDateExtractorTest implements DateExtractorTest {
 
   private static Stream<Arguments> extractDayMonthYear() {
     return Stream.of(
-        //DAY-MONTH-YEAR
         of("01 November 1989", "1989-11-01"),
         of("32 November 1989", null),
         of("01.November.1989", "1989-11-01"),
@@ -56,6 +55,11 @@ class MonthNameDateExtractorTest implements DateExtractorTest {
         of("01 ное 1989", "1989-11-01"),
         of("01 Νοεμβρίου 1989", "1989-11-01"),
         of("01 January 1989", "1989-01-01"),
+        of("01 Νοεμβρίου 1989", "1989-11-01"),
+        of("01 νοεμβρίου 1989", "1989-11-01"),
+        of("01 ΝΟΕΜΒΡΊΟΥ 1989", "1989-11-01"),
+        //Italian
+        of("01 Novembre 1989", "1989-11-01"),
 
         //Incorrect month
         of("99 November 9989", null),
@@ -83,7 +87,6 @@ class MonthNameDateExtractorTest implements DateExtractorTest {
   private static Stream<Arguments> extractMonthDayYear() {
 
     return Stream.of(
-        //DAY-MONTH-YEAR
         of("November 01 1989", "1989-11-01"),
         of("November 32 1989", null),
         of("November.01.1989", "1989-11-01"),
@@ -99,8 +102,12 @@ class MonthNameDateExtractorTest implements DateExtractorTest {
         //Some other languages or name formats
         of("nov. 01 1989", "1989-11-01"),
         of("ное 01 1989", "1989-11-01"),
-        of("Νοεμβρίου 01 1989", "1989-11-01"),
         of("January 01 1989", "1989-01-01"),
+        of("Νοεμβρίου 01 1989", "1989-11-01"),
+        of("νοεμβρίου 01 1989", "1989-11-01"),
+        of("ΝΟΕΜΒΡΊΟΥ 01 1989", "1989-11-01"),
+        //Italian
+        of("Novembre 01 1989", "1989-11-01"),
 
         //Incorrect month
         of("November 99 9989", null),
@@ -136,8 +143,13 @@ class MonthNameDateExtractorTest implements DateExtractorTest {
         //Some other languages or name formats
         of("nov. 1989", "1989-11"),
         of("ное 1989", "1989-11"),
-        of("Νοεμβρίου 1989", "1989-11"),
         of("January 1989", "1989-01"),
+        of("Νοεμβρίου 1989", "1989-11"),
+        of("νοεμβρίου 1989", "1989-11"),
+        of("ΝΟΕΜΒΡΊΟΥ 1989", "1989-11"),
+        //Italian
+        of("Novembre 1989", "1989-11"),
+
         //Incorrect month year
         of("November 9989", null),
         of("November 9989", null),

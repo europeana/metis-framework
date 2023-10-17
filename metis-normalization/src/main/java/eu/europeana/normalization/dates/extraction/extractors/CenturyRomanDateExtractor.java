@@ -30,7 +30,7 @@ public class CenturyRomanDateExtractor extends AbstractDateExtractor {
   private static final String CENTURY_PREFIX = "(?:(?:s|sec|saec)\\s|(?:s|sec|saec)\\.\\s?)?";
   private static final String ROMAN_1_TO_21_REGEX = "(X?(?:IX|IV|VI{0,3}|I{1,3})|X|XXI?)";
   private static final Pattern ROMAN_2_TO_21_PATTERN = compile(
-      OPTIONAL_QUESTION_MARK + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE);
+      OPTIONAL_QUESTION_MARK_REGEX + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + OPTIONAL_QUESTION_MARK_REGEX, CASE_INSENSITIVE);
 
   @Override
   public DateNormalizationResult extract(String inputValue,

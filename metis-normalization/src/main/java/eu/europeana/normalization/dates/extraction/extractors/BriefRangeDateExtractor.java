@@ -33,7 +33,8 @@ import java.util.regex.Pattern;
  */
 public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDatesSeparator> {
 
-  private static final Pattern YEAR_PATTERN = Pattern.compile(OPTIONAL_QUESTION_MARK + "(\\d{2,4})" + OPTIONAL_QUESTION_MARK);
+  private static final Pattern YEAR_PATTERN = Pattern.compile(
+      OPTIONAL_QUESTION_MARK_REGEX + "(\\d{2,4})" + OPTIONAL_QUESTION_MARK_REGEX);
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString,
@@ -80,7 +81,7 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
         if (endYearDigitsLength == 2 && Math.abs(endYear) > Month.DECEMBER.getValue() && startYearLastTwoDigits < endYear) {
           final int endYearFourDigits = (startYearFourDigits / CENTURY.getDuration()) * CENTURY.getDuration() + endYear;
           final InstantEdtfDate endInstantEdtfDate = new InstantEdtfDateBuilder(endYearFourDigits).withDateQualification(
-              endDateQualifications).withFlexibleDateBuild(flexibleDateBuild).build();
+              endDateQualifications).withAllowDayMonthSwap(flexibleDateBuild).build();
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, dateString,
               endInstantEdtfDate);
         }
@@ -96,7 +97,7 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
     if (matcher.matches()) {
       final int year = Integer.parseInt(matcher.group(1));
       final InstantEdtfDate instantEdtfDate = new InstantEdtfDateBuilder(year).withDateQualification(getQualification(inputValue))
-                                                                              .withFlexibleDateBuild(flexibleDateBuild).build();
+                                                                              .withAllowDayMonthSwap(flexibleDateBuild).build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
           instantEdtfDate);
     }

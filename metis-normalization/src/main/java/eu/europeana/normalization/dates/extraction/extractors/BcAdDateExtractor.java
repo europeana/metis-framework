@@ -61,7 +61,7 @@ public class BcAdDateExtractor extends AbstractDateExtractor {
         final boolean isAd = adAbbreviations.contains(matcher.group(2));
         int yearSign = isAd ? 1 : -1;
         int yearAdjusted = (isAd ? year : (year - 1)) * yearSign;
-        InstantEdtfDateBuilder instantEdtfDateBuilder = new InstantEdtfDateBuilder(yearAdjusted);
+        final InstantEdtfDateBuilder instantEdtfDateBuilder = new InstantEdtfDateBuilder(yearAdjusted);
         dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BC_AD, inputValue,
             instantEdtfDateBuilder.build());
       }

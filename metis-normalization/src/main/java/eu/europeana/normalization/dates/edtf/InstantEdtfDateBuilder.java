@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Builder class for {@link InstantEdtfDate}.
  * <p>During {@link #build()} it will verify all the parameters that have been requested.
- * The {@link #build()}, if {@link #withFlexibleDateBuild(boolean)} was called with {@code true}, will also attempt a second time
+ * The {@link #build()}, if {@link #withAllowDayMonthSwap(boolean)} was called with {@code true}, will also attempt a second time
  * by switching month and day values if the original values were invalid. Furthermore, there are a set of constructors that can
  * start the builder and will perform a build with specific characteristics:
  * <ul>
@@ -43,8 +43,8 @@ public class InstantEdtfDateBuilder {
   private Integer day;
   private YearPrecision yearPrecision = YearPrecision.YEAR;
   private final Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
-  private boolean flexibleDateBuild = true;
-  private boolean isLongYear = false;
+  private boolean allowDayMonthSwap = true;
+  private boolean isMoreThanFourDigitsYear = false;
 
   /**
    * Constructor which initializes the builder with the minimum requirement of year value.
@@ -81,7 +81,7 @@ public class InstantEdtfDateBuilder {
   public InstantEdtfDate build() throws DateExtractionException {
     InstantEdtfDate instantEdtfDate = buildInternal();
     //Try once more if flexible date
-    if (instantEdtfDate == null && isPositive(month) && isPositive(day) && flexibleDateBuild) {
+    if (instantEdtfDate == null && isPositive(month) && isPositive(day) && allowDayMonthSwap) {
       swapMonthDay();
       instantEdtfDate = buildInternal();
     }
@@ -109,13 +109,13 @@ public class InstantEdtfDateBuilder {
 
   private void parseYear() throws DateExtractionException {
     Objects.requireNonNull(year, "Year value can never be null");
-    if (isLongYear && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
+    if (isMoreThanFourDigitsYear && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
       throw new DateExtractionException(
-          format("isLong is %s indicating that year should have absolute value greater than %s",
+          format("isLongerThanFourDigitsYear is %s indicating that year should have absolute value greater than %s",
               true, THRESHOLD_4_DIGITS_YEAR));
-    } else if (!isLongYear && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
+    } else if (!isMoreThanFourDigitsYear && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
       throw new DateExtractionException(
-          format("Year absolute value is greater than %s, and isLong is %s", THRESHOLD_4_DIGITS_YEAR, false));
+          format("Year absolute value is greater than %s, and isLongerThanFourDigitsYear is %s", THRESHOLD_4_DIGITS_YEAR, false));
     }
     yearObj = Year.of(year * yearPrecision.getDuration());
   }
@@ -154,12 +154,12 @@ public class InstantEdtfDateBuilder {
 
   private void validateStrict() throws DateExtractionException {
     //If it is not a long year, and we want to be strict we further validate
-    boolean notLongYearAndStrictBuild = !isLongYear && !flexibleDateBuild;
+    boolean isNotMoreThanFourDigitsYearAndStrictBuild = !isMoreThanFourDigitsYear && !allowDayMonthSwap;
     boolean isDateNonPrecise =
         dateQualifications.contains(DateQualification.UNCERTAIN) || (yearPrecision != null
             && yearPrecision != YearPrecision.YEAR);
     boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
-    if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
+    if (isNotMoreThanFourDigitsYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
       throw new DateExtractionException("Date is invalid according to our strict profile!");
     }
   }
@@ -215,13 +215,13 @@ public class InstantEdtfDateBuilder {
   }
 
   /**
-   * Opt in/out for flexible date building.
+   * Opt in/out for day month swap if original values failed validation.
    *
-   * @param flexibleDateBuild the boolean (dis|en)abling the flexibility
+   * @param allowDayMonthSwap the boolean (dis|en)abling the day and month swap
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withFlexibleDateBuild(boolean flexibleDateBuild) {
-    this.flexibleDateBuild = flexibleDateBuild;
+  public InstantEdtfDateBuilder withAllowDayMonthSwap(boolean allowDayMonthSwap) {
+    this.allowDayMonthSwap = allowDayMonthSwap;
     return this;
   }
 
@@ -230,8 +230,8 @@ public class InstantEdtfDateBuilder {
    *
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withLongYear() {
-    this.isLongYear = true;
+  public InstantEdtfDateBuilder withMoreThanFourDigitsYear() {
+    this.isMoreThanFourDigitsYear = true;
     return this;
   }
 

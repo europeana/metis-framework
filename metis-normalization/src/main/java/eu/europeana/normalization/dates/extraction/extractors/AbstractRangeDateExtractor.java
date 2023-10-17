@@ -22,6 +22,12 @@ import java.util.stream.Collectors;
 public abstract class AbstractRangeDateExtractor<T extends DatesSeparator> extends AbstractDateExtractor implements
     RangeDateExtractor<T> {
 
+  public static final int KEEP_EMPTY_SPLITS_LIMIT_VALUE = -1;
+  /**
+   * The date split has to be exactly two. This also guarantees that the separator used is not used for unknown characters.
+   */
+  public static final int VALID_SPLIT_SIZE = 2;
+
   /**
    * Extract the date normalization result for a range.
    * <p>
@@ -36,18 +42,14 @@ public abstract class AbstractRangeDateExtractor<T extends DatesSeparator> exten
    * @throws DateExtractionException if anything happened during the extraction of the date
    */
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult rangeDate = DateNormalizationResult.getNoMatchResult(inputValue);
     for (T rangeDateQualifier : getRangeDateQualifiers()) {
-      // Split with -1 limit does not discard empty splits
       final List<String> sanitizedDateList =
-          Arrays.stream(inputValue.split(rangeDateQualifier.getDatesSeparator(), -1))
+          Arrays.stream(inputValue.split(rangeDateQualifier.getStringRepresentation(), KEEP_EMPTY_SPLITS_LIMIT_VALUE))
                 .map(DateFieldSanitizer::cleanSpacesAndTrim).collect(
                     Collectors.toList());
-      // The sanitizedDateList has to be exactly in two, and then we can verify.
-      // This also guarantees that the separator used is not used for unknown characters.
-      if (sanitizedDateList.size() == 2) {
+      if (sanitizedDateList.size() == VALID_SPLIT_SIZE) {
         final DateNormalizationResultRangePair dateNormalizationResultRangePair = extractDateNormalizationResult(
             sanitizedDateList.get(0), sanitizedDateList.get(1), rangeDateQualifier, flexibleDateBuild);
         final DateNormalizationResult startResult = dateNormalizationResultRangePair.getStartDateNormalizationResult();
@@ -56,7 +58,7 @@ public abstract class AbstractRangeDateExtractor<T extends DatesSeparator> exten
           final DateNormalizationExtractorMatchId dateNormalizationExtractorMatchId =
               getDateNormalizationExtractorId(startResult, endResult);
           final IntervalEdtfDate intervalEdtfDate = new IntervalEdtfDateBuilder((InstantEdtfDate) startResult.getEdtfDate(),
-              (InstantEdtfDate) endResult.getEdtfDate()).withFlexibleDateBuild(flexibleDateBuild).build();
+              (InstantEdtfDate) endResult.getEdtfDate()).withAllowStartEndSwap(flexibleDateBuild).build();
           rangeDate = new DateNormalizationResult(dateNormalizationExtractorMatchId, inputValue, intervalEdtfDate);
           break;
         }

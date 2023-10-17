@@ -220,7 +220,7 @@ public enum NumericPartsPattern {
     }
 
     @Override
-    public String getDatesSeparator() {
+    public String getStringRepresentation() {
       return datesSeparator;
     }
 

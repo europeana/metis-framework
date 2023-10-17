@@ -25,8 +25,8 @@ public class LongNegativeYearDateExtractor extends AbstractDateExtractor {
       final int year = Integer.parseInt(matcher.group(1));
       final InstantEdtfDate instantEdtfDate =
           new InstantEdtfDateBuilder(year).withDateQualification(getQualification(inputValue))
-                                          .withLongYear()
-                                          .withFlexibleDateBuild(flexibleDateBuild).build();
+                                          .withMoreThanFourDigitsYear()
+                                          .withAllowDayMonthSwap(flexibleDateBuild).build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue,
           instantEdtfDate);
     }

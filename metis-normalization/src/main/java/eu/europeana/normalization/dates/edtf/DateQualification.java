@@ -11,13 +11,11 @@ import java.util.regex.Pattern;
 public enum DateQualification {
   UNCERTAIN, APPROXIMATE;
 
-  private static final String CHARACTER_UNCERTAIN = "?";
-  private static final String CHARACTER_APPROXIMATE = "~";
-  private static final String CHARACTER_UNCERTAIN_APPROXIMATE = "%";
-  private static final String QUALIFICATION_CHARACTER_REGEX =
-      CHARACTER_UNCERTAIN + CHARACTER_APPROXIMATE + CHARACTER_UNCERTAIN_APPROXIMATE;
-  public static final Pattern CHECK_QUALIFICATION_PATTERN = Pattern.compile(
-      "^[^" + QUALIFICATION_CHARACTER_REGEX + "]*([" + QUALIFICATION_CHARACTER_REGEX + "])$");
+  private static final String UNCERTAIN_CHARACTER = "?";
+  private static final String APPROXIMATE_CHARACTER = "~";
+  private static final String UNCERTAIN_APPROXIMATE_CHARACTER = "%";
+  private static final String CHARACTERS_REGEX = UNCERTAIN_CHARACTER + APPROXIMATE_CHARACTER + UNCERTAIN_APPROXIMATE_CHARACTER;
+  public static final Pattern PATTERN = Pattern.compile("^[^" + CHARACTERS_REGEX + "]*([" + CHARACTERS_REGEX + "])$");
 
   /**
    * Get the enum values based on the character provided.
@@ -28,12 +26,12 @@ public enum DateQualification {
    */
   public static Set<DateQualification> fromCharacter(String character) {
     final Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
-    if (CHARACTER_UNCERTAIN_APPROXIMATE.equals(character)) {
+    if (UNCERTAIN_APPROXIMATE_CHARACTER.equals(character)) {
       dateQualifications.add(DateQualification.UNCERTAIN);
       dateQualifications.add(DateQualification.APPROXIMATE);
-    } else if (CHARACTER_UNCERTAIN.equals(character)) {
+    } else if (UNCERTAIN_CHARACTER.equals(character)) {
       dateQualifications.add(DateQualification.UNCERTAIN);
-    } else if (CHARACTER_APPROXIMATE.equals(character)) {
+    } else if (APPROXIMATE_CHARACTER.equals(character)) {
       dateQualifications.add(DateQualification.APPROXIMATE);
     }
     return dateQualifications;
@@ -48,11 +46,11 @@ public enum DateQualification {
   public static String getCharacterFromQualifications(Set<DateQualification> dateQualifications) {
     final String character;
     if (dateQualifications.contains(UNCERTAIN) && dateQualifications.contains(APPROXIMATE)) {
-      character = CHARACTER_UNCERTAIN_APPROXIMATE;
+      character = UNCERTAIN_APPROXIMATE_CHARACTER;
     } else if (dateQualifications.contains(UNCERTAIN)) {
-      character = CHARACTER_UNCERTAIN;
+      character = UNCERTAIN_CHARACTER;
     } else if (dateQualifications.contains(APPROXIMATE)) {
-      character = CHARACTER_APPROXIMATE;
+      character = APPROXIMATE_CHARACTER;
     } else {
       character = "";
     }

@@ -32,10 +32,11 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
 
   private enum CenturyNumericDatePattern {
     PATTERN_YYYY(
-        compile(OPTIONAL_QUESTION_MARK + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE),
+        compile(OPTIONAL_QUESTION_MARK_REGEX + NUMERIC_10_TO_21_ENDING_DOTS_REGEX + OPTIONAL_QUESTION_MARK_REGEX,
+            CASE_INSENSITIVE),
         Integer::parseInt, DateNormalizationExtractorMatchId.CENTURY_NUMERIC),
     PATTERN_ENGLISH(
-        compile(OPTIONAL_QUESTION_MARK + NUMERIC_1_TO_21_SUFFIXED_REGEX + OPTIONAL_QUESTION_MARK, CASE_INSENSITIVE),
+        compile(OPTIONAL_QUESTION_MARK_REGEX + NUMERIC_1_TO_21_SUFFIXED_REGEX + OPTIONAL_QUESTION_MARK_REGEX, CASE_INSENSITIVE),
         century -> (Integer.parseInt(century.substring(0, century.length() - 2)) - 1),
         DateNormalizationExtractorMatchId.CENTURY_NUMERIC);
 
@@ -75,7 +76,7 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
             centerNumericDatePattern.getCenturyExtractorFunction().applyAsInt(century))
             .withYearPrecision(CENTURY);
         InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(getQualification(inputValue))
-                                                                .withFlexibleDateBuild(flexibleDateBuild).build();
+                                                                .withAllowDayMonthSwap(flexibleDateBuild).build();
         dateNormalizationResult =
             new DateNormalizationResult(centerNumericDatePattern.getDateNormalizationExtractorMatchId(), inputValue,
                 instantEdtfDate);

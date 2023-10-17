@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class DecadeDateExtractor extends AbstractDateExtractor {
 
   private static final Pattern decadePattern = Pattern.compile(
-      OPTIONAL_QUESTION_MARK + "(\\d{3})(?:[XU]" + OPTIONAL_QUESTION_MARK + "|\\?\\?)", Pattern.CASE_INSENSITIVE);
+      OPTIONAL_QUESTION_MARK_REGEX + "(\\d{3})(?:[XU]" + OPTIONAL_QUESTION_MARK_REGEX + "|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   @Override
   public DateNormalizationResult extract(String inputValue, boolean flexibleDateBuild) throws DateExtractionException {
@@ -42,7 +42,7 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(matcher.group(1)))
           .withYearPrecision(DECADE)
           .withDateQualification(getQualification(inputValue))
-          .withFlexibleDateBuild(flexibleDateBuild)
+          .withAllowDayMonthSwap(flexibleDateBuild)
           .build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }

@@ -67,7 +67,7 @@ public class FullDateDateExtractor extends AbstractDateExtractor {
       final LocalDateTime localDateTime = parseDateWithLocales(inputValue, dateTimeFormatter);
       if (localDateTime != null) {
         final InstantEdtfDate instantEdtfDate = new InstantEdtfDateBuilder(localDateTime)
-            .withFlexibleDateBuild(flexibleDateBuild)
+            .withAllowDayMonthSwap(flexibleDateBuild)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, instantEdtfDate);
       }

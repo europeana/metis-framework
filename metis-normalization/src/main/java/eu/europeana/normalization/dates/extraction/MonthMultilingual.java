@@ -1,10 +1,13 @@
 package eu.europeana.normalization.dates.extraction;
 
+import static java.util.Collections.unmodifiableSet;
+
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -29,27 +32,21 @@ public class MonthMultilingual {
     for (Month month : Month.values()) {
       final HashSet<String> languageValues = new HashSet<>();
       for (EuropeanLanguage europeanLanguage : EuropeanLanguage.values()) {
-        languageValues.add(month.getDisplayName(TextStyle.SHORT, europeanLanguage.getLocale()));
-        languageValues.add(month.getDisplayName(TextStyle.SHORT_STANDALONE, europeanLanguage.getLocale()));
-        languageValues.add(month.getDisplayName(TextStyle.FULL, europeanLanguage.getLocale()));
-        languageValues.add(month.getDisplayName(TextStyle.FULL_STANDALONE, europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.SHORT, europeanLanguage.getLocale())
+                                .toLowerCase(europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.SHORT_STANDALONE, europeanLanguage.getLocale())
+                                .toLowerCase(europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.FULL, europeanLanguage.getLocale())
+                                .toLowerCase(europeanLanguage.getLocale()));
+        languageValues.add(month.getDisplayName(TextStyle.FULL_STANDALONE, europeanLanguage.getLocale())
+                                .toLowerCase(europeanLanguage.getLocale()));
       }
-      monthToAllLanguagesStringsMap.put(month, languageValues);
+      monthToAllLanguagesStringsMap.put(month, unmodifiableSet(languageValues));
     }
   }
 
   public Map<Month, Set<String>> getMonthToAllLanguagesStringsMap() {
     return Collections.unmodifiableMap(monthToAllLanguagesStringsMap);
-  }
-
-  /**
-   * Get the month index based on a month name in any supported language, full or short, standard or stand-alone.
-   *
-   * @param monthName the month name
-   * @return the month index
-   */
-  public Integer getMonthIndexValue(String monthName) {
-    return getMonth(monthName).getValue();
   }
 
   /**
@@ -59,7 +56,8 @@ public class MonthMultilingual {
    * @return the month
    */
   public Month getMonth(String monthName) {
-    return monthToAllLanguagesStringsMap.entrySet().stream().filter(entry -> entry.getValue().contains(monthName))
+    return monthToAllLanguagesStringsMap.entrySet().stream()
+                                        .filter(entry -> entry.getValue().contains(monthName.toLowerCase(Locale.ROOT)))
                                         .findFirst().map(Entry::getKey).orElse(null);
   }
 

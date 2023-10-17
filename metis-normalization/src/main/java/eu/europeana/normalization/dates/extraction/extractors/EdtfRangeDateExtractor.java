@@ -33,8 +33,8 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
       throws DateExtractionException {
     DateNormalizationResult startDateNormalizationResult = extractInstant(startString, flexibleDateBuild);
     DateNormalizationResult endDateNormalizationResult = extractInstant(endString, flexibleDateBuild);
-    InstantEdtfDate startInstantEdtfDate = (InstantEdtfDate) startDateNormalizationResult.getEdtfDate();
-    InstantEdtfDate endInstantEdtfDate = (InstantEdtfDate) endDateNormalizationResult.getEdtfDate();
+    final InstantEdtfDate startInstantEdtfDate = (InstantEdtfDate) startDateNormalizationResult.getEdtfDate();
+    final InstantEdtfDate endInstantEdtfDate = (InstantEdtfDate) endDateNormalizationResult.getEdtfDate();
 
     //Are both ends unknown or open, then it is not a date
     if ((startInstantEdtfDate.getDateBoundaryType() == UNKNOWN || startInstantEdtfDate.getDateBoundaryType() == OPEN) &&

@@ -69,7 +69,7 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
       if (matcher.matches()) {
         InstantEdtfDateBuilder instantEdtfDateBuilder = extractDateProperty(numericWithMissingPartsPattern, matcher);
         final InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(getQualification(inputValue))
-                                                                      .withFlexibleDateBuild(flexibleDateBuild).build();
+                                                                      .withAllowDayMonthSwap(flexibleDateBuild).build();
         dateNormalizationResult = new DateNormalizationResult(
             numericWithMissingPartsPattern.getDateNormalizationExtractorMatchId(), inputValue, instantEdtfDate);
         break;

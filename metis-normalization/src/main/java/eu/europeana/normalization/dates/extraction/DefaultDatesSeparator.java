@@ -7,14 +7,14 @@ public enum DefaultDatesSeparator implements DatesSeparator {
   DASH_DELIMITER("-"),
   SLASH_DELIMITER("/");
 
-  private final String datesSeparator;
+  private final String stringRepresentation;
 
-  DefaultDatesSeparator(String datesSeparator) {
-    this.datesSeparator = datesSeparator;
+  DefaultDatesSeparator(String stringRepresentation) {
+    this.stringRepresentation = stringRepresentation;
   }
 
   @Override
-  public String getDatesSeparator() {
-    return datesSeparator;
+  public String getStringRepresentation() {
+    return stringRepresentation;
   }
 }

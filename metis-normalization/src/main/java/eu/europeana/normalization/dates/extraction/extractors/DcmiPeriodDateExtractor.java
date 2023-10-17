@@ -47,22 +47,21 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
   private static final Set<String> W3C_DTF_SCHEME_VALUES = Set.of("W3C-DTF", "W3CDTF");
 
   @Override
-  public DateNormalizationResult extract(String value,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String value, boolean flexibleDateBuild) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(value);
     if (isValidScheme(value)) {
       Matcher matcher = DCMI_PERIOD_START_PATTERN.matcher(value);
-      InstantEdtfDate start = extractDate(matcher, flexibleDateBuild);
+      final InstantEdtfDate start = extractDate(matcher, flexibleDateBuild);
       matcher = DCMI_PERIOD_END_PATTERN.matcher(value);
-      InstantEdtfDate end = extractDate(matcher, flexibleDateBuild);
+      final InstantEdtfDate end = extractDate(matcher, flexibleDateBuild);
       String name = extractName(value);
 
       //At least one end has to be specified
       if (start.getDateBoundaryType() == DateBoundaryType.DECLARED || end.getDateBoundaryType() == DateBoundaryType.DECLARED) {
-        IntervalEdtfDate intervalEdtfDate =
+        final IntervalEdtfDate intervalEdtfDate =
             new IntervalEdtfDateBuilder(start, end)
                 .withLabel(name)
-                .withFlexibleDateBuild(flexibleDateBuild)
+                .withAllowStartEndSwap(flexibleDateBuild)
                 .build();
         dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DCMI_PERIOD, value,
             intervalEdtfDate);
@@ -103,7 +102,7 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
-        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withFlexibleDateBuild(flexibleDateBuild).build();
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withAllowDayMonthSwap(flexibleDateBuild).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

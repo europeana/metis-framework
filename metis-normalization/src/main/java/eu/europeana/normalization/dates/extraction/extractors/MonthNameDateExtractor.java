@@ -74,7 +74,7 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
   }
 
   private static Pattern compilePattern(String[] parts) {
-    return compile(String.join(DELIMITERS_REGEX, parts), Pattern.CASE_INSENSITIVE);
+    return compile(String.join(DELIMITERS_REGEX, parts), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
   }
 
   @Override

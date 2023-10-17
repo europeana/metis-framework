@@ -1,6 +1,5 @@
 package eu.europeana.normalization.dates.extraction.extractors;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.CHECK_QUALIFICATION_PATTERN;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.OVER_4_DIGITS_YEAR_PREFIX;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR;
 
@@ -40,16 +39,16 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
 
   private InstantEdtfDate extractInstant(String dateInput, boolean flexibleDateBuild) throws DateExtractionException {
     final InstantEdtfDate instantEdtfDate;
-    Integer longYear;
-    if ((longYear = getLongYear(dateInput)) != null) {
-      instantEdtfDate = new InstantEdtfDateBuilder(longYear).withLongYear().build();
+    final Integer moreThanFourDigitsYear = getMoreThanFourDigitsYear(dateInput);
+    if (moreThanFourDigitsYear != null) {
+      instantEdtfDate = new InstantEdtfDateBuilder(moreThanFourDigitsYear).withMoreThanFourDigitsYear().build();
     } else {
       instantEdtfDate = extractInstantEdtfDate(dateInput, flexibleDateBuild);
     }
     return instantEdtfDate;
   }
 
-  private static Integer getLongYear(String dateInput) {
+  private static Integer getMoreThanFourDigitsYear(String dateInput) {
     final boolean startsWithY = dateInput.startsWith(String.valueOf(OVER_4_DIGITS_YEAR_PREFIX));
     Integer longYear = null;
     if (startsWithY) {
@@ -70,7 +69,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
 
   @Override
   public Set<DateQualification> getQualification(String inputValue) {
-    final Matcher qualificationMatcher = CHECK_QUALIFICATION_PATTERN.matcher(inputValue);
+    final Matcher qualificationMatcher = DateQualification.PATTERN.matcher(inputValue);
     Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
     if (qualificationMatcher.matches()) {
       final String modifier = qualificationMatcher.group(1);
@@ -90,7 +89,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualifications)
-        .withFlexibleDateBuild(flexibleDateBuild)
+        .withAllowDayMonthSwap(flexibleDateBuild)
         .build();
   }
 

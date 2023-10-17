@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractDateExtractor implements DateExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-  static final String OPTIONAL_QUESTION_MARK = "\\??";
+  static final String OPTIONAL_QUESTION_MARK_REGEX = "\\??";
 
   /**
    * Reusable default checking of Date qualification on an input.
@@ -37,7 +37,7 @@ public abstract class AbstractDateExtractor implements DateExtractor {
   }
 
   /**
-   * Utility method for calling {@link DateExtractor#extract(String, boolean)} with allowSwitchesDuringValidation as true.
+   * Utility method for calling {@link DateExtractor#extract(String, boolean)} with flexibleDateBuild as true.
    * <p>It also captures relevant exceptions so that return is performed</p>
    *
    * @param inputValue the input value
@@ -49,7 +49,7 @@ public abstract class AbstractDateExtractor implements DateExtractor {
   }
 
   /**
-   * Utility method for calling {@link DateExtractor#extract(String, boolean)} with allowSwitchesDuringValidation as false.
+   * Utility method for calling {@link DateExtractor#extract(String, boolean)} with flexibleDateBuild as false.
    * <p>It also captures relevant exceptions so that return is performed</p>
    *
    * @param inputValue the input value

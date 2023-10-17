@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
  * Builder class for {@link IntervalEdtfDate}.
  * <p>
  * During {@link #build()} it will verify all the parameters that have been requested. The {@link #build()}, if
- * {@link #withFlexibleDateBuild(boolean)} was called with {@code true}, will also attempt a second time by switching start and
- * end values if the original values were invalid.
+ * {@link #withAllowStartEndSwap(boolean)} was called with {@code true}, will also attempt a second time by switching
+ * start and end values if the original values were invalid.
  * </p>
  */
 public class IntervalEdtfDateBuilder {
@@ -20,8 +20,7 @@ public class IntervalEdtfDateBuilder {
   private InstantEdtfDate start;
   private InstantEdtfDate end;
   private String label;
-
-  private boolean flexibleDateBuild = true;
+  private boolean allowStartEndSwap = true;
 
   /**
    * Constructor which initializes the builder with the start and end date boundaries.
@@ -47,13 +46,13 @@ public class IntervalEdtfDateBuilder {
   }
 
   /**
-   * Opt in/out for flexible date building.
+   * Opt in/out for start end swap if original values failed validation.
    *
-   * @param flexibleDateBuild the boolean (dis|en)abling the flexibility
+   * @param allowStartEndSwap the boolean (dis|en)abling the start and end swap
    * @return the extended builder
    */
-  public IntervalEdtfDateBuilder withFlexibleDateBuild(boolean flexibleDateBuild) {
-    this.flexibleDateBuild = flexibleDateBuild;
+  public IntervalEdtfDateBuilder withAllowStartEndSwap(boolean allowStartEndSwap) {
+    this.allowStartEndSwap = allowStartEndSwap;
     return this;
   }
 
@@ -67,13 +66,11 @@ public class IntervalEdtfDateBuilder {
     IntervalEdtfDate intervalEdtfDate;
     intervalEdtfDate = buildInternal();
     //Try once more if switching allowed
-    if (intervalEdtfDate == null && flexibleDateBuild) {
-      //Retry with swapping month and day
+    if (intervalEdtfDate == null && allowStartEndSwap) {
       switchStartWithEnd();
       intervalEdtfDate = buildInternal();
     }
 
-    //Still nothing, we are done.
     if (intervalEdtfDate == null) {
       throw new DateExtractionException("Could not instantiate date");
     }
