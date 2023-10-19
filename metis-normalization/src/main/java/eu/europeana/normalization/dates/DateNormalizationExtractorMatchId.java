@@ -19,7 +19,7 @@ public enum DateNormalizationExtractorMatchId {
   NUMERIC_ALL_VARIANTS_XX("numeric date (various separators and unknown parts)"),
   NUMERIC_RANGE_ALL_VARIANTS("numeric date interval (various separators)"),
   NUMERIC_RANGE_ALL_VARIANTS_XX("numeric date interval (various separators and unknown parts)"),
-  YYYY_MM_DD_SPACES("numeric date (whitespace separators)");
+  NUMERIC_SPACES_VARIANT("numeric date (whitespace separators)");
 
   final String label;
 

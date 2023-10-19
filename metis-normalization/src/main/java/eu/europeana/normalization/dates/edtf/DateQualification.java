@@ -1,6 +1,7 @@
 package eu.europeana.normalization.dates.edtf;
 
-import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -8,32 +9,51 @@ import java.util.regex.Pattern;
  * Specification</a>
  */
 public enum DateQualification {
+  UNCERTAIN, APPROXIMATE;
 
-  NO_QUALIFICATION(""),
-  UNCERTAIN("?"),
-  APPROXIMATE("~"),
-  UNCERTAIN_APPROXIMATE("%");
-
-  public static final Pattern CHECK_QUALIFICATION_PATTERN = Pattern.compile("^[^\\?~%]*([\\?~%]?)$");
-  private final String character;
-
-  DateQualification(String character) {
-    this.character = character;
-  }
+  private static final String UNCERTAIN_CHARACTER = "?";
+  private static final String APPROXIMATE_CHARACTER = "~";
+  private static final String UNCERTAIN_APPROXIMATE_CHARACTER = "%";
+  private static final String CHARACTERS_REGEX = UNCERTAIN_CHARACTER + APPROXIMATE_CHARACTER + UNCERTAIN_APPROXIMATE_CHARACTER;
+  public static final Pattern PATTERN = Pattern.compile("^[^" + CHARACTERS_REGEX + "]*([" + CHARACTERS_REGEX + "])$");
 
   /**
-   * Get the enum value based on the character provided.
-   * <p>It will return a matched enum value or {@link #NO_QUALIFICATION}.</p>
+   * Get the enum values based on the character provided.
+   * <p>It will return an empty set or the set with the applicable qualifications.</p>
    *
    * @param character the provided character
    * @return the enum value
    */
-  public static DateQualification fromCharacter(String character) {
-    return Arrays.stream(DateQualification.values()).filter(value -> value.character.equals(character)).findFirst().orElse(
-        NO_QUALIFICATION);
+  public static Set<DateQualification> fromCharacter(String character) {
+    final Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
+    if (UNCERTAIN_APPROXIMATE_CHARACTER.equals(character)) {
+      dateQualifications.add(DateQualification.UNCERTAIN);
+      dateQualifications.add(DateQualification.APPROXIMATE);
+    } else if (UNCERTAIN_CHARACTER.equals(character)) {
+      dateQualifications.add(DateQualification.UNCERTAIN);
+    } else if (APPROXIMATE_CHARACTER.equals(character)) {
+      dateQualifications.add(DateQualification.APPROXIMATE);
+    }
+    return dateQualifications;
   }
 
-  public String getCharacter() {
+  /**
+   * Get the string representation based on the provided date qualifications.
+   *
+   * @param dateQualifications the date qualifications
+   * @return the string representation
+   */
+  public static String getCharacterFromQualifications(Set<DateQualification> dateQualifications) {
+    final String character;
+    if (dateQualifications.contains(UNCERTAIN) && dateQualifications.contains(APPROXIMATE)) {
+      character = UNCERTAIN_APPROXIMATE_CHARACTER;
+    } else if (dateQualifications.contains(UNCERTAIN)) {
+      character = UNCERTAIN_CHARACTER;
+    } else if (dateQualifications.contains(APPROXIMATE)) {
+      character = APPROXIMATE_CHARACTER;
+    } else {
+      character = "";
+    }
     return character;
   }
 }
