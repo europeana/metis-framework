@@ -65,8 +65,7 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     for (CenturyNumericDatePattern centerNumericDatePattern : CenturyNumericDatePattern.values()) {
       final Matcher matcher = centerNumericDatePattern.getPattern().matcher(inputValue);
@@ -76,7 +75,7 @@ public class CenturyNumericDateExtractor extends AbstractDateExtractor {
             centerNumericDatePattern.getCenturyExtractorFunction().applyAsInt(century))
             .withYearPrecision(CENTURY);
         InstantEdtfDate instantEdtfDate = instantEdtfDateBuilder.withDateQualification(getQualification(inputValue))
-                                                                .withAllowDayMonthSwap(flexibleDateBuild).build();
+                                                                .withAllowDayMonthSwap(allowDayMonthSwap).build();
         dateNormalizationResult =
             new DateNormalizationResult(centerNumericDatePattern.getDateNormalizationExtractorMatchId(), inputValue,
                 instantEdtfDate);

@@ -24,11 +24,11 @@ public class LongNegativeYearRangeDateExtractor extends AbstractRangeDateExtract
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
-      DefaultDatesSeparator rangeDateDelimiters, boolean flexibleDateBuild)
+      DefaultDatesSeparator rangeDateDelimiters, boolean allowDayMonthSwap)
       throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(startString, flexibleDateBuild),
-        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(endString, flexibleDateBuild));
+        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(startString, allowDayMonthSwap),
+        LONG_NEGATIVE_YEAR_DATE_EXTRACTOR.extract(endString, allowDayMonthSwap));
   }
 
   @Override

@@ -96,13 +96,13 @@ public class DcmiPeriodDateExtractor extends AbstractDateExtractor {
     return isValidScheme;
   }
 
-  private InstantEdtfDate extractDate(Matcher matcher, boolean flexibleDateBuild) throws DateExtractionException {
+  private InstantEdtfDate extractDate(Matcher matcher, boolean allowDayMonthSwap) throws DateExtractionException {
     InstantEdtfDate instantEdtfDate = null;
     if (matcher.find()) {
       final String fieldValue = matcher.group(1);
       if (StringUtils.isNotBlank(fieldValue)) {
         TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(fieldValue);
-        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withAllowDayMonthSwap(flexibleDateBuild).build();
+        instantEdtfDate = new InstantEdtfDateBuilder(temporalAccessor).withAllowDayMonthSwap(allowDayMonthSwap).build();
       }
       //if we find it again we declare invalid
       if (matcher.find()) {

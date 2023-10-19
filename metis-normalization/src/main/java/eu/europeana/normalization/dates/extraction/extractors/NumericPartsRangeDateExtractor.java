@@ -62,11 +62,11 @@ public class NumericPartsRangeDateExtractor extends AbstractRangeDateExtractor<N
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString,
       String endString, NumericRangeQualifier numericRangeQualifier,
-      boolean flexibleDateBuild)
+      boolean allowDayMonthSwap)
       throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        extractDate(startString, numericRangeQualifier, flexibleDateBuild),
-        extractDate(endString, numericRangeQualifier, flexibleDateBuild));
+        extractDate(startString, numericRangeQualifier, allowDayMonthSwap),
+        extractDate(endString, numericRangeQualifier, allowDayMonthSwap));
   }
 
   @Override
@@ -78,7 +78,7 @@ public class NumericPartsRangeDateExtractor extends AbstractRangeDateExtractor<N
   }
 
   private static DateNormalizationResult extractDate(String dateString,
-      NumericRangeQualifier numericRangeQualifier, boolean flexibleDateBuild)
+      NumericRangeQualifier numericRangeQualifier, boolean allowDayMonthSwap)
       throws DateExtractionException {
     final DateNormalizationResult dateNormalizationResult;
     if (numericRangeQualifier.getUnspecifiedCharacters() != null && dateString.matches(
@@ -86,7 +86,7 @@ public class NumericPartsRangeDateExtractor extends AbstractRangeDateExtractor<N
       dateNormalizationResult = new DateNormalizationResult(NUMERIC_ALL_VARIANTS, dateString, InstantEdtfDate.getOpenInstance());
     } else {
       dateNormalizationResult = NUMERIC_WITH_MISSING_PARTS_DATE_EXTRACTOR.extract(dateString,
-          NumericPartsPattern.NUMERIC_RANGE_SET, flexibleDateBuild);
+          NumericPartsPattern.NUMERIC_RANGE_SET, allowDayMonthSwap);
     }
     return dateNormalizationResult;
   }

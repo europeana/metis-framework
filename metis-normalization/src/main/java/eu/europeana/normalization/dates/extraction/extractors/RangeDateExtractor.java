@@ -22,13 +22,13 @@ public interface RangeDateExtractor<T extends DatesSeparator> {
    * @param startString the start date string
    * @param endString the end date string
    * @param rangeDateDelimiters the range date delimiters
-   * @param flexibleDateBuild the boolean opting flexible date build
+   * @param allowDayMonthSwap the boolean opting flexible date build
    * @return the start and end date result pair
    * @throws DateExtractionException if the date extraction failed
    */
   DateNormalizationResultRangePair extractDateNormalizationResult(
       String startString, String endString, T rangeDateDelimiters,
-      boolean flexibleDateBuild) throws DateExtractionException;
+      boolean allowDayMonthSwap) throws DateExtractionException;
 
   /**
    * Checks if a provided date range was successfully extracted

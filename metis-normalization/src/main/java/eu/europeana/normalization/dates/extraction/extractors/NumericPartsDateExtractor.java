@@ -39,9 +39,8 @@ public class NumericPartsDateExtractor extends AbstractDateExtractor {
   private static final String UNKNOWN_CHARACTERS_REGEX = "[XU?-]";
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, flexibleDateBuild);
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
+    return extract(inputValue, NumericPartsPattern.NUMERIC_SET, allowDayMonthSwap);
   }
 
   @Override

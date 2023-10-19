@@ -17,8 +17,7 @@ public class LongNegativeYearDateExtractor extends AbstractDateExtractor {
   private static final Pattern YEAR_PATTERN = Pattern.compile("(-?\\d{5,9})");
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = YEAR_PATTERN.matcher(inputValue);
     if (matcher.matches()) {
@@ -26,7 +25,7 @@ public class LongNegativeYearDateExtractor extends AbstractDateExtractor {
       final InstantEdtfDate instantEdtfDate =
           new InstantEdtfDateBuilder(year).withDateQualification(getQualification(inputValue))
                                           .withMoreThanFourDigitsYear()
-                                          .withAllowDayMonthSwap(flexibleDateBuild).build();
+                                          .withAllowDayMonthSwap(allowDayMonthSwap).build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.LONG_NEGATIVE_YEAR, inputValue,
           instantEdtfDate);
     }

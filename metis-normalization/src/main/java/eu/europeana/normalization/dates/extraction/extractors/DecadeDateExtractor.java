@@ -35,14 +35,14 @@ public class DecadeDateExtractor extends AbstractDateExtractor {
       OPTIONAL_QUESTION_MARK_REGEX + "(\\d{3})(?:[XU]" + OPTIONAL_QUESTION_MARK_REGEX + "|\\?\\?)", Pattern.CASE_INSENSITIVE);
 
   @Override
-  public DateNormalizationResult extract(String inputValue, boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = decadePattern.matcher(inputValue);
     if (matcher.matches()) {
       final InstantEdtfDate datePart = new InstantEdtfDateBuilder(Integer.parseInt(matcher.group(1)))
           .withYearPrecision(DECADE)
           .withDateQualification(getQualification(inputValue))
-          .withAllowDayMonthSwap(flexibleDateBuild)
+          .withAllowDayMonthSwap(allowDayMonthSwap)
           .build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.DECADE, inputValue, datePart);
     }

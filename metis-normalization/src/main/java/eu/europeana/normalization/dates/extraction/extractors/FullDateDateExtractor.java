@@ -62,12 +62,12 @@ public class FullDateDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue, boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     for (DateTimeFormatter dateTimeFormatter : DATE_TIME_FORMATTERS) {
       final LocalDateTime localDateTime = parseDateWithLocales(inputValue, dateTimeFormatter);
       if (localDateTime != null) {
         final InstantEdtfDate instantEdtfDate = new InstantEdtfDateBuilder(localDateTime)
-            .withAllowDayMonthSwap(flexibleDateBuild)
+            .withAllowDayMonthSwap(allowDayMonthSwap)
             .build();
         return new DateNormalizationResult(DateNormalizationExtractorMatchId.FORMATTED_FULL_DATE, inputValue, instantEdtfDate);
       }

@@ -49,8 +49,7 @@ public class BcAdDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(inputValue);
 
     Matcher matcher = pattern.matcher(inputValue);

@@ -39,18 +39,18 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString,
       String endString, DefaultDatesSeparator rangeDateDelimiters,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    final DateNormalizationResult startDateNormalizationResult = extractStartDateNormalizationResult(startString,
-        flexibleDateBuild);
-    final DateNormalizationResult endDateNormalizationResult = extractEndDateNormalizationResult(startDateNormalizationResult,
-        endString, flexibleDateBuild);
+      boolean allowDayMonthSwap) throws DateExtractionException {
+    final DateNormalizationResult startDateNormalizationResult =
+        extractStartDateNormalizationResult(startString, allowDayMonthSwap);
+    final DateNormalizationResult endDateNormalizationResult =
+        extractEndDateNormalizationResult(startDateNormalizationResult, endString, allowDayMonthSwap);
     return new DateNormalizationResultRangePair(startDateNormalizationResult, endDateNormalizationResult);
   }
 
-  private DateNormalizationResult extractStartDateNormalizationResult(String dateString, boolean flexibleDateBuild)
+  private DateNormalizationResult extractStartDateNormalizationResult(String dateString, boolean allowDayMonthSwap)
       throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(dateString);
-    final DateNormalizationResult startYearDateDateNormalizationResult = extractYear(dateString, flexibleDateBuild);
+    final DateNormalizationResult startYearDateDateNormalizationResult = extractYear(dateString, allowDayMonthSwap);
 
     if (startYearDateDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
       int absoluteYear = Math.abs(((InstantEdtfDate) startYearDateDateNormalizationResult.getEdtfDate()).getYear().getValue());
@@ -64,10 +64,10 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
   }
 
   private DateNormalizationResult extractEndDateNormalizationResult(DateNormalizationResult startDateNormalizationResult,
-      String dateString, boolean flexibleDateBuild) throws DateExtractionException {
+      String dateString, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = getNoMatchResult(dateString);
     if (startDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
-      final DateNormalizationResult endDateNormalizationResult = extractYear(dateString, flexibleDateBuild);
+      final DateNormalizationResult endDateNormalizationResult = extractYear(dateString, allowDayMonthSwap);
 
       if (endDateNormalizationResult.getDateNormalizationResultStatus() == DateNormalizationResultStatus.MATCHED) {
         final Set<DateQualification> endDateQualifications = endDateNormalizationResult.getEdtfDate().getDateQualifications();
@@ -81,7 +81,7 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
         if (endYearDigitsLength == 2 && Math.abs(endYear) > Month.DECEMBER.getValue() && startYearLastTwoDigits < endYear) {
           final int endYearFourDigits = (startYearFourDigits / CENTURY.getDuration()) * CENTURY.getDuration() + endYear;
           final InstantEdtfDate endInstantEdtfDate = new InstantEdtfDateBuilder(endYearFourDigits).withDateQualification(
-              endDateQualifications).withAllowDayMonthSwap(flexibleDateBuild).build();
+              endDateQualifications).withAllowDayMonthSwap(allowDayMonthSwap).build();
           dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, dateString,
               endInstantEdtfDate);
         }
@@ -91,13 +91,13 @@ public class BriefRangeDateExtractor extends AbstractRangeDateExtractor<DefaultD
     return dateNormalizationResult;
   }
 
-  private DateNormalizationResult extractYear(String inputValue, boolean flexibleDateBuild) throws DateExtractionException {
+  private DateNormalizationResult extractYear(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = YEAR_PATTERN.matcher(inputValue);
     if (matcher.matches()) {
       final int year = Integer.parseInt(matcher.group(1));
       final InstantEdtfDate instantEdtfDate = new InstantEdtfDateBuilder(year).withDateQualification(getQualification(inputValue))
-                                                                              .withAllowDayMonthSwap(flexibleDateBuild).build();
+                                                                              .withAllowDayMonthSwap(allowDayMonthSwap).build();
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.BRIEF_DATE_RANGE, inputValue,
           instantEdtfDate);
     }

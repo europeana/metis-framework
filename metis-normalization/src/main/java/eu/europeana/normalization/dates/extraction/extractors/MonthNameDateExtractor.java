@@ -78,8 +78,7 @@ public class MonthNameDateExtractor extends AbstractDateExtractor {
   }
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     return Arrays.stream(MonthNameDatePattern.values())
                  .map(operation -> extract(operation, inputValue))
                  .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()

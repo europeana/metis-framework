@@ -18,10 +18,10 @@ public class BcAdRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
       DefaultDatesSeparator rangeDateDelimiters,
-      boolean flexibleDateBuild) throws DateExtractionException {
+      boolean allowDayMonthSwap) throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        BC_AD_DATE_EXTRACTOR.extract(startString, flexibleDateBuild),
-        BC_AD_DATE_EXTRACTOR.extract(endString, flexibleDateBuild));
+        BC_AD_DATE_EXTRACTOR.extract(startString, allowDayMonthSwap),
+        BC_AD_DATE_EXTRACTOR.extract(endString, allowDayMonthSwap));
   }
 
   @Override

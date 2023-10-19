@@ -20,10 +20,10 @@ public class CenturyRomanRangeDateExtractor extends AbstractRangeDateExtractor<D
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
       DefaultDatesSeparator rangeDateDelimiters,
-      boolean flexibleDateBuild) throws DateExtractionException {
+      boolean allowDayMonthSwap) throws DateExtractionException {
     return new DateNormalizationResultRangePair(
-        ROMAN_CENTURY_DATE_EXTRACTOR.extract(startString, flexibleDateBuild),
-        ROMAN_CENTURY_DATE_EXTRACTOR.extract(endString, flexibleDateBuild));
+        ROMAN_CENTURY_DATE_EXTRACTOR.extract(startString, allowDayMonthSwap),
+        ROMAN_CENTURY_DATE_EXTRACTOR.extract(endString, allowDayMonthSwap));
   }
 
   @Override

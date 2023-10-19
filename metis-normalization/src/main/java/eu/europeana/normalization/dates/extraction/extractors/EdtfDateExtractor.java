@@ -31,19 +31,18 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
   private static final Iso8601Parser ISO_8601_PARSER = new Iso8601Parser();
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
-    final InstantEdtfDate instantEdtfDate = extractInstant(inputValue, flexibleDateBuild);
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
+    final InstantEdtfDate instantEdtfDate = extractInstant(inputValue, allowDayMonthSwap);
     return new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, inputValue, instantEdtfDate);
   }
 
-  private InstantEdtfDate extractInstant(String dateInput, boolean flexibleDateBuild) throws DateExtractionException {
+  private InstantEdtfDate extractInstant(String dateInput, boolean allowDayMonthSwap) throws DateExtractionException {
     final InstantEdtfDate instantEdtfDate;
     final Integer moreThanFourDigitsYear = getMoreThanFourDigitsYear(dateInput);
     if (moreThanFourDigitsYear != null) {
       instantEdtfDate = new InstantEdtfDateBuilder(moreThanFourDigitsYear).withMoreThanFourDigitsYear().build();
     } else {
-      instantEdtfDate = extractInstantEdtfDate(dateInput, flexibleDateBuild);
+      instantEdtfDate = extractInstantEdtfDate(dateInput, allowDayMonthSwap);
     }
     return instantEdtfDate;
   }
@@ -78,7 +77,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     return dateQualifications;
   }
 
-  private InstantEdtfDate extractInstantEdtfDate(String inputValue, boolean flexibleDateBuild)
+  private InstantEdtfDate extractInstantEdtfDate(String inputValue, boolean allowDayMonthSwap)
       throws DateExtractionException {
     final Set<DateQualification> dateQualifications = getQualification(inputValue);
     String dateInputStrippedModifier = inputValue;
@@ -89,7 +88,7 @@ public class EdtfDateExtractor extends AbstractDateExtractor {
     final TemporalAccessor temporalAccessor = ISO_8601_PARSER.parseDatePart(dateInputStrippedModifier);
     return new InstantEdtfDateBuilder(temporalAccessor)
         .withDateQualification(dateQualifications)
-        .withAllowDayMonthSwap(flexibleDateBuild)
+        .withAllowDayMonthSwap(allowDayMonthSwap)
         .build();
   }
 

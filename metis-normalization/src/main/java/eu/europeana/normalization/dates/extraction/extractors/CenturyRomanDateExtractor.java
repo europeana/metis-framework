@@ -33,8 +33,7 @@ public class CenturyRomanDateExtractor extends AbstractDateExtractor {
       OPTIONAL_QUESTION_MARK_REGEX + CENTURY_PREFIX + ROMAN_1_TO_21_REGEX + OPTIONAL_QUESTION_MARK_REGEX, CASE_INSENSITIVE);
 
   @Override
-  public DateNormalizationResult extract(String inputValue,
-      boolean flexibleDateBuild) throws DateExtractionException {
+  public DateNormalizationResult extract(String inputValue, boolean allowDayMonthSwap) throws DateExtractionException {
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(inputValue);
     final Matcher matcher = ROMAN_2_TO_21_PATTERN.matcher(inputValue);
     if (matcher.matches()) {

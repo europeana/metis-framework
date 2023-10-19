@@ -29,10 +29,10 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
 
   @Override
   public DateNormalizationResultRangePair extractDateNormalizationResult(String startString, String endString,
-      DefaultDatesSeparator rangeDateDelimiters, boolean flexibleDateBuild)
+      DefaultDatesSeparator rangeDateDelimiters, boolean allowDayMonthSwap)
       throws DateExtractionException {
-    DateNormalizationResult startDateNormalizationResult = extractInstant(startString, flexibleDateBuild);
-    DateNormalizationResult endDateNormalizationResult = extractInstant(endString, flexibleDateBuild);
+    DateNormalizationResult startDateNormalizationResult = extractInstant(startString, allowDayMonthSwap);
+    DateNormalizationResult endDateNormalizationResult = extractInstant(endString, allowDayMonthSwap);
     final InstantEdtfDate startInstantEdtfDate = (InstantEdtfDate) startDateNormalizationResult.getEdtfDate();
     final InstantEdtfDate endInstantEdtfDate = (InstantEdtfDate) endDateNormalizationResult.getEdtfDate();
 
@@ -46,7 +46,7 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
     return new DateNormalizationResultRangePair(startDateNormalizationResult, endDateNormalizationResult);
   }
 
-  private DateNormalizationResult extractInstant(String dateInput, boolean flexibleDateBuild) throws DateExtractionException {
+  private DateNormalizationResult extractInstant(String dateInput, boolean allowDayMonthSwap) throws DateExtractionException {
     final DateNormalizationResult dateNormalizationResult;
     if (UNKNOWN.getDeserializedRepresentation().equals(dateInput)) {
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, dateInput,
@@ -55,7 +55,7 @@ public class EdtfRangeDateExtractor extends AbstractRangeDateExtractor<DefaultDa
       dateNormalizationResult = new DateNormalizationResult(DateNormalizationExtractorMatchId.EDTF, dateInput,
           InstantEdtfDate.getOpenInstance());
     } else {
-      dateNormalizationResult = EDTF_DATE_EXTRACTOR.extract(dateInput, flexibleDateBuild);
+      dateNormalizationResult = EDTF_DATE_EXTRACTOR.extract(dateInput, allowDayMonthSwap);
     }
     return dateNormalizationResult;
   }
