@@ -15,10 +15,9 @@ import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractIndexPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
@@ -35,8 +34,6 @@ import eu.europeana.metis.core.workflow.plugins.LinkCheckingPlugin;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPlugin;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.MetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPlugin;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
@@ -54,6 +51,10 @@ import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Class to initialize the mongo collections and the {@link Datastore} connection. It also performs
@@ -111,6 +112,7 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
     mapper.getEntityModel(DepublishRecordId.class);
     // Plugins
     mapper.getEntityModel(AbstractMetisPlugin.class);
+    mapper.getEntityModel(AbstractExecutablePlugin.class);
     mapper.getEntityModel(DepublishPlugin.class);
     mapper.getEntityModel(EnrichmentPlugin.class);
     mapper.getEntityModel(HTTPHarvestPlugin.class);
@@ -128,6 +130,8 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
 
     // Plugins metadata
     mapper.getEntityModel(AbstractMetisPluginMetadata.class);
+    mapper.getEntityModel(AbstractHarvestPluginMetadata.class);
+    mapper.getEntityModel(AbstractIndexPluginMetadata.class);
     mapper.getEntityModel(DepublishPluginMetadata.class);
     mapper.getEntityModel(EnrichmentPluginMetadata.class);
     mapper.getEntityModel(HTTPHarvestPluginMetadata.class);
