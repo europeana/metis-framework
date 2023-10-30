@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
-import org.dspace.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.model.oaipmh.results.record.Header;
 
 /**
  * This is a immutable class representing an OAI-PMH record header.
@@ -36,8 +36,7 @@ public class OaiRecordHeader implements Serializable {
    * @return An instance.
    */
   static OaiRecordHeader convert(Header header) {
-    return new OaiRecordHeader(header.getIdentifier(), header.isDeleted(),
-            Optional.ofNullable(header.getDatestamp()).map(Date::toInstant).orElse(null));
+    return new OaiRecordHeader(header.getIdentifier(), header.isDeleted(), header.getDatestamp());
   }
 
   public String getOaiIdentifier() {
