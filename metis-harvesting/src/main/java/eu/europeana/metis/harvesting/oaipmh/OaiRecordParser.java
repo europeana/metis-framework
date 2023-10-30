@@ -1,8 +1,5 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
-import com.lyncode.xml.matchers.XmlEventMatchers;
 import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,9 +21,13 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactoryConfigurationException;
+
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
+import io.gdcc.xoai.xmlio.matchers.XmlEventMatchers;
 import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.xpath.XPathFactoryImpl;
-import org.dspace.xoai.serviceprovider.parsers.HeaderParser;
+import io.gdcc.xoai.serviceprovider.parsers.HeaderParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;

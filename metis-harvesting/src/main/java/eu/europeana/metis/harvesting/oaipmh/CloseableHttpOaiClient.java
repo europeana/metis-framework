@@ -11,18 +11,18 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.dspace.xoai.serviceprovider.exceptions.HttpException;
-import org.dspace.xoai.serviceprovider.parameters.Parameters;
+import io.gdcc.xoai.serviceprovider.exceptions.HttpException;
+import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is an implementation of {@link org.dspace.xoai.serviceprovider.client.OAIClient} that needs
+ * This is an implementation of {@link io.gdcc.xoai.serviceprovider.client.OAIClient} that needs
  * to be closed.
  *
- * @see org.dspace.xoai.serviceprovider.client.HttpOAIClient
+ * @see io.gdcc.xoai.serviceprovider.client.OAIClient
  */
-public class CloseableHttpOaiClient implements CloseableOaiClient {
+public class CloseableHttpOaiClient extends CloseableOaiClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CloseableHttpOaiClient.class);
 
