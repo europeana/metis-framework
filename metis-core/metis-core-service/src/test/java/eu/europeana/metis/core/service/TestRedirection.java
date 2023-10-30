@@ -16,6 +16,8 @@ import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
@@ -39,10 +41,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RedirectionTest {
+class TestRedirection {
 
     @Mock
     private DatasetXsltDao datasetXsltDao;
@@ -58,67 +61,6 @@ class RedirectionTest {
 
     @InjectMocks
     private WorkflowExecutionFactory workflowExecutionFactory;
-
-    @Test
-    void redirectionReviewWithPerformRedirectsWhenAncestorRootIsDifferent() throws BadContentException {
-        final int priority = 0;
-        final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = getIndexToPreviewPluginMetadata();
-        final IndexToPreviewPlugin indexToPreviewPlugin = getIndexToPreviewPlugin(indexToPreviewPluginMetadata, getExecutionProgress());
-
-        final IndexToPublishPluginMetadata indexToPublishPluginMetadata = getIndexToPublishPluginMetadata(indexToPreviewPlugin);
-        indexToPublishPluginMetadata.setPerformRedirects(true);
-        final IndexToPublishPlugin indexToPublishPlugin = getIndexToPublishPlugin(indexToPublishPluginMetadata, getExecutionProgress());
-
-        final PluginWithExecutionId<ExecutablePlugin> indexToPublishPluginPluginWithExecutionId =
-                new PluginWithExecutionId<>("executionId", indexToPublishPlugin);
-        when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
-                .thenReturn(indexToPublishPluginPluginWithExecutionId);
-
-        final PluginWithExecutionId<ExecutablePlugin> indexToPreviewPluginPluginWithExecutionId =
-                new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
-        when(dataEvolutionUtils.getRootAncestor(any()))
-                .thenReturn(indexToPreviewPluginPluginWithExecutionId)
-                .thenReturn(indexToPublishPluginPluginWithExecutionId);
-
-        final String datasetId = "datasetId";
-        final ObjectId objectId = new ObjectId();
-        final Workflow workflow = getWorkflow(datasetId, objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
-        final Dataset dataset = getTestDataset(datasetId);
-        final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
-
-        final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor, priority);
-
-        final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPlugins().stream().findFirst().get();
-        assertTrue(abstractMetisPlugin.getPluginMetadata().isPerformRedirects());
-    }
-
-    @Test
-    void redirectionReviewWithPerformRedirectsWhenRedirectIdsPresent() throws BadContentException {
-        final int priority = 0;
-        final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = getIndexToPreviewPluginMetadata();
-        final IndexToPreviewPlugin indexToPreviewPlugin = getIndexToPreviewPlugin(indexToPreviewPluginMetadata, getExecutionProgress());
-
-        final IndexToPublishPluginMetadata indexToPublishPluginMetadata = getIndexToPublishPluginMetadata(indexToPreviewPlugin);
-        indexToPublishPluginMetadata.setPerformRedirects(true);
-        final IndexToPublishPlugin indexToPublishPlugin = getIndexToPublishPlugin(indexToPublishPluginMetadata, getExecutionProgress());
-
-        final PluginWithExecutionId<ExecutablePlugin> indexToPublishPluginPluginWithExecutionId =
-                new PluginWithExecutionId<>("executionId", indexToPublishPlugin);
-        when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
-                .thenReturn(indexToPublishPluginPluginWithExecutionId);
-
-        final String datasetId = "datasetId";
-        final ObjectId objectId = new ObjectId();
-        final Workflow workflow = getWorkflow(datasetId, objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
-        final Dataset dataset = getTestDataset(datasetId);
-        dataset.setDatasetIdsToRedirectFrom(List.of("253"));
-        final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
-
-        final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor, priority);
-
-        final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPlugins().stream().findFirst().get();
-        assertTrue(abstractMetisPlugin.getPluginMetadata().isPerformRedirects());
-    }
 
     @NotNull
     private static Workflow getWorkflow(String datasetId, ObjectId objectId, IndexToPublishPluginMetadata indexToPublishPluginMetadata) {
@@ -141,6 +83,21 @@ class RedirectionTest {
         indexToPublishPluginMetadata.setPreviousRevisionInformation(indexToPreviewPlugin);
         indexToPublishPluginMetadata.setRevisionNamePreviousPlugin("revisionName");
         return indexToPublishPluginMetadata;
+    }
+
+    @NotNull
+    private static HTTPHarvestPlugin getHttpHarvestPlugin(HTTPHarvestPluginMetadata httpHarvestPluginMetadata,
+                                                          Date startDate,
+                                                          Date finishDate,
+                                                          ExecutionProgress executionProgress) {
+        final HTTPHarvestPlugin httpHarvestPlugin = (HTTPHarvestPlugin)
+                ExecutablePluginFactory.createPlugin(httpHarvestPluginMetadata);
+        httpHarvestPlugin.setExecutionProgress(executionProgress);
+        httpHarvestPlugin.setPluginStatus(PluginStatus.FINISHED);
+        httpHarvestPlugin.setStartedDate(startDate);
+        httpHarvestPlugin.setFinishedDate(finishDate);
+        httpHarvestPlugin.setDataStatus(DataStatus.VALID);
+        return httpHarvestPlugin;
     }
 
     @NotNull
@@ -180,6 +137,16 @@ class RedirectionTest {
     }
 
     @NotNull
+    private static HTTPHarvestPluginMetadata getHttpHarvestPluginMetadata() {
+        final HTTPHarvestPluginMetadata httpHarvestPluginMetadata = new HTTPHarvestPluginMetadata();
+        httpHarvestPluginMetadata.setUrl("http://url.org");
+        httpHarvestPluginMetadata.setUser("user");
+        httpHarvestPluginMetadata.setIncrementalHarvest(false);
+        httpHarvestPluginMetadata.setEnabled(true);
+        return httpHarvestPluginMetadata;
+    }
+
+    @NotNull
     private static IndexToPreviewPluginMetadata getIndexToPreviewPluginMetadata() {
         final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = new IndexToPreviewPluginMetadata();
         indexToPreviewPluginMetadata.setIncrementalIndexing(false);
@@ -212,5 +179,91 @@ class RedirectionTest {
         dataset.setNotes("");
         dataset.setEcloudDatasetId("377ac607-f729-483d-a86d-2c005150c46d");
         return dataset;
+    }
+
+    @Test
+    void redirectionReviewWithPerformRedirectsWhenAncestorRootIsDifferent() throws BadContentException {
+        final int priority = 0;
+        final HTTPHarvestPluginMetadata httpHarvestPluginMetadata = getHttpHarvestPluginMetadata();
+        final HTTPHarvestPlugin httpHarvestPlugin = getHttpHarvestPlugin(httpHarvestPluginMetadata,
+                Date.from(Instant.now().minus(42, ChronoUnit.MINUTES)),
+                Date.from(Instant.now().minus(28, ChronoUnit.MINUTES)),
+                getExecutionProgress());
+        final PluginWithExecutionId<ExecutablePlugin> httpHarvestPluginWithExecutionId =
+                new PluginWithExecutionId<>("executionId", httpHarvestPlugin);
+
+        final HTTPHarvestPluginMetadata httpHarvestPluginMetadata2 = getHttpHarvestPluginMetadata();
+        final HTTPHarvestPlugin httpHarvestPlugin2 = getHttpHarvestPlugin(httpHarvestPluginMetadata2,
+                Date.from(Instant.now().minus(45, ChronoUnit.MINUTES)),
+                Date.from(Instant.now().minus(30, ChronoUnit.MINUTES)),
+                getExecutionProgress());
+        final PluginWithExecutionId<ExecutablePlugin> httpHarvestPluginWithExecutionId2 =
+                new PluginWithExecutionId<>("executionId2", httpHarvestPlugin2);
+
+        final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = getIndexToPreviewPluginMetadata();
+        final IndexToPreviewPlugin indexToPreviewPlugin = getIndexToPreviewPlugin(indexToPreviewPluginMetadata, getExecutionProgress());
+
+        final IndexToPublishPluginMetadata indexToPublishPluginMetadata = getIndexToPublishPluginMetadata(indexToPreviewPlugin);
+        final IndexToPublishPlugin indexToPublishPlugin = getIndexToPublishPlugin(indexToPublishPluginMetadata, getExecutionProgress());
+
+        final PluginWithExecutionId<ExecutablePlugin> indexToPublishPluginWithExecutionId =
+                new PluginWithExecutionId<>("executionId", indexToPublishPlugin);
+        when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
+                .thenReturn(indexToPublishPluginWithExecutionId);
+
+        when(dataEvolutionUtils.getRootAncestor(any()))
+                .thenReturn(httpHarvestPluginWithExecutionId)
+                .thenReturn(httpHarvestPluginWithExecutionId2);
+
+        final String datasetId = "datasetId";
+        final ObjectId objectId = new ObjectId();
+        final Workflow workflow = getWorkflow(datasetId, objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
+        final Dataset dataset = getTestDataset(datasetId);
+        final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
+
+        final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor, priority);
+
+        final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPlugins().stream().findFirst().get();
+        assertTrue(abstractMetisPlugin.getPluginMetadata().isPerformRedirects());
+    }
+
+    @Test
+    void redirectionReviewWithPerformRedirectsWhenRedirectIdsPresent() throws BadContentException {
+        final int priority = 0;
+        final HTTPHarvestPluginMetadata httpHarvestPluginMetadata = getHttpHarvestPluginMetadata();
+        final HTTPHarvestPlugin httpHarvestPlugin = getHttpHarvestPlugin(httpHarvestPluginMetadata,
+                Date.from(Instant.now().minus(42, ChronoUnit.MINUTES)),
+                Date.from(Instant.now().minus(28, ChronoUnit.MINUTES)),
+                getExecutionProgress());
+        final PluginWithExecutionId<ExecutablePlugin> httpHarvestPluginWithExecutionId =
+                new PluginWithExecutionId<>("executionId", httpHarvestPlugin);
+
+        final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = getIndexToPreviewPluginMetadata();
+        final IndexToPreviewPlugin indexToPreviewPlugin = getIndexToPreviewPlugin(indexToPreviewPluginMetadata, getExecutionProgress());
+
+        final IndexToPublishPluginMetadata indexToPublishPluginMetadata = getIndexToPublishPluginMetadata(indexToPreviewPlugin);
+        final IndexToPublishPlugin indexToPublishPlugin = getIndexToPublishPlugin(indexToPublishPluginMetadata, getExecutionProgress());
+
+        final PluginWithExecutionId<ExecutablePlugin> indexToPublishPluginPluginWithExecutionId =
+                new PluginWithExecutionId<>("executionId", indexToPublishPlugin);
+
+        when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
+                .thenReturn(indexToPublishPluginPluginWithExecutionId);
+        final PluginWithExecutionId<ExecutablePlugin> indexToPreviewPluginPluginWithExecutionId =
+                new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
+        lenient().when(dataEvolutionUtils.getRootAncestor(any()))
+                .thenReturn(httpHarvestPluginWithExecutionId);
+
+        final String datasetId = "datasetId";
+        final ObjectId objectId = new ObjectId();
+        final Workflow workflow = getWorkflow(datasetId, objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
+        final Dataset dataset = getTestDataset(datasetId);
+        dataset.setDatasetIdsToRedirectFrom(List.of("253"));
+        final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
+
+        final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor, priority);
+
+        final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPlugins().stream().findFirst().get();
+        assertTrue(abstractMetisPlugin.getPluginMetadata().isPerformRedirects());
     }
 }
