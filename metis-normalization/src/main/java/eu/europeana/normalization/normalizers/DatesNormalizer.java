@@ -8,18 +8,23 @@ import eu.europeana.normalization.dates.DateNormalizationResult;
 import eu.europeana.normalization.dates.edtf.AbstractEdtfDate;
 import eu.europeana.normalization.dates.edtf.DateQualification;
 import eu.europeana.normalization.dates.edtf.InstantEdtfDate;
-import eu.europeana.normalization.dates.extraction.dateextractors.BriefRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.CenturyDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.DateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.DcmiPeriodDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.DecadeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.EdtfDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.NumericPartsRangeDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternBcAdDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternFormatedFullDateDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternLongNegativeYearDateExtractor;
-import eu.europeana.normalization.dates.extraction.dateextractors.PatternMonthNameDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.BcAdDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.BcAdRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.BriefRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.CenturyNumericDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.CenturyRomanDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.CenturyRomanRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.DateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.DcmiPeriodDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.DecadeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.EdtfDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.EdtfRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.FullDateDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.LongNegativeYearDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.LongNegativeYearRangeDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.MonthNameDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.NumericPartsDateExtractor;
+import eu.europeana.normalization.dates.extraction.extractors.NumericPartsRangeDateExtractor;
 import eu.europeana.normalization.dates.sanitize.DateFieldSanitizer;
 import eu.europeana.normalization.dates.sanitize.SanitizeOperation;
 import eu.europeana.normalization.dates.sanitize.SanitizedDate;
@@ -29,10 +34,12 @@ import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
+import java.lang.invoke.MethodHandles;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -40,6 +47,8 @@ import javax.xml.xpath.XPathExpressionException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -56,13 +65,15 @@ import org.w3c.dom.Element;
  */
 public class DatesNormalizer implements RecordNormalizeAction {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   private static final Namespace.Element EDM_PROVIDED_CHO = Namespace.EDM.getElement("ProvidedCHO");
   private static final Namespace.Element EDM_WEB_RESOURCE = Namespace.EDM.getElement("WebResource");
   private static final Namespace.Element EDM_AGENT = Namespace.EDM.getElement("Agent");
   private static final Namespace.Element EDM_PLACE = Namespace.EDM.getElement("Place");
   private static final Namespace.Element EDM_TIMESPAN = Namespace.EDM.getElement("TimeSpan");
   private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
-  private static final Namespace.Element SKOS_PREFLABEL = Namespace.SKOS.getElement("prefLabel");
+  private static final Namespace.Element SKOS_PREF_LABEL = Namespace.SKOS.getElement("prefLabel");
   private static final Namespace.Element XML_LANG = Namespace.XML.getElement("lang");
   private static final Namespace.Element SKOS_NOTATION = Namespace.SKOS.getElement("notation");
   private static final Namespace.Element SKOS_NOTE = Namespace.SKOS.getElement("note");
@@ -70,7 +81,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
   private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
   private static final Namespace.Element EDM_BEGIN = Namespace.EDM.getElement("begin");
   private static final Namespace.Element EDM_END = Namespace.EDM.getElement("end");
-  private static final Namespace.Element DCTERMS_ISPARTOF = Namespace.DCTERMS.getElement("isPartOf");
+  private static final Namespace.Element DC_TERMS_IS_PART_OF = Namespace.DCTERMS.getElement("isPartOf");
   private static final Namespace.Element ORE_PROXY = Namespace.ORE.getElement("Proxy");
   private static final Namespace.Element EDM_EUROPEANA_PROXY = Namespace.EDM.getElement("europeanaProxy");
 
@@ -118,33 +129,42 @@ public class DatesNormalizer implements RecordNormalizeAction {
     extractorsInOrderForDateProperties = List.of(
         new BriefRangeDateExtractor(),
         new EdtfDateExtractor(),
-        new CenturyDateExtractor(),
+        new EdtfRangeDateExtractor(),
+        new CenturyNumericDateExtractor(),
+        new CenturyRomanDateExtractor(),
+        new CenturyRomanRangeDateExtractor(),
         new DecadeDateExtractor(),
         new NumericPartsRangeDateExtractor(),
         new NumericPartsDateExtractor(),
         new DcmiPeriodDateExtractor(),
-        new PatternMonthNameDateExtractor(),
-        new PatternFormatedFullDateDateExtractor(),
-        new PatternBcAdDateExtractor(),
-        new PatternLongNegativeYearDateExtractor());
+        new MonthNameDateExtractor(),
+        new FullDateDateExtractor(),
+        new BcAdDateExtractor(),
+        new BcAdRangeDateExtractor(),
+        new LongNegativeYearDateExtractor(),
+        new LongNegativeYearRangeDateExtractor());
 
     extractorsInOrderForGenericProperties =
         extractorsInOrderForDateProperties.stream()
-                                          .filter(
-                                              not(BriefRangeDateExtractor.class::isInstance))
-                                          .collect(Collectors.toList());
+                                          .filter(not(BriefRangeDateExtractor.class::isInstance)).collect(Collectors.toList());
 
     normalizationOperationsInOrderDateProperty = List.of(
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, DateQualification.NO_QUALIFICATION),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize1stTimeDateProperty,
-            SanitizeOperation::isApproximateSanitizeOperationForDateProperty),
-        input -> normalizeInput(extractorsInOrderForDateProperties, input, dateFieldSanitizer::sanitize2ndTimeDateProperty,
-            SanitizeOperation::isApproximateSanitizeOperationForDateProperty));
+        input -> normalizeInput(extractorsInOrderForDateProperties, input),
+        input -> normalizeInputSanitized(extractorsInOrderForDateProperties, input,
+            dateFieldSanitizer::sanitize1stTimeDateProperty,
+            SanitizeOperation::isApproximateSanitizeOperationForDateProperty,
+            (dateExtractors, sanitizedDate) -> normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString())),
+        input -> normalizeInputSanitized(extractorsInOrderForDateProperties, input,
+            dateFieldSanitizer::sanitize2ndTimeDateProperty,
+            SanitizeOperation::isApproximateSanitizeOperationForDateProperty,
+            (dateExtractors, sanitizedDate) -> normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString())));
 
     normalizationOperationsInOrderGenericProperty = List.of(
-        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input, DateQualification.NO_QUALIFICATION),
-        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input,
-            dateFieldSanitizer::sanitizeGenericProperty, SanitizeOperation::isApproximateSanitizeOperationForGenericProperty));
+        input -> normalizeInputGeneric(extractorsInOrderForGenericProperties, input),
+        input -> normalizeInputSanitized(extractorsInOrderForGenericProperties, input,
+            dateFieldSanitizer::sanitizeGenericProperty,
+            SanitizeOperation::isApproximateSanitizeOperationForGenericProperty,
+            (dateExtractors, sanitizedDate) -> normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString())));
   }
 
   private static Pair<Namespace.Element, XpathQuery> getProxySubtagQuery(Namespace.Element subtag) {
@@ -160,10 +180,8 @@ public class DatesNormalizer implements RecordNormalizeAction {
 
     // Perform the two different kinds of normalizations
     final InternalNormalizationReport report = new InternalNormalizationReport();
-    report.mergeWith(normalizeElements(document, europeanaProxy, DATE_PROPERTY_FIELDS,
-        this::normalizeDateProperty));
-    report.mergeWith(normalizeElements(document, europeanaProxy, GENERIC_PROPERTY_FIELDS,
-        this::normalizeGenericProperty));
+    report.mergeWith(normalizeElements(document, europeanaProxy, DATE_PROPERTY_FIELDS, this::normalizeDateProperty));
+    report.mergeWith(normalizeElements(document, europeanaProxy, GENERIC_PROPERTY_FIELDS, this::normalizeGenericProperty));
     return report;
   }
 
@@ -194,6 +212,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final String elementText = XmlUtil.getElementText(element);
     final DateNormalizationResult dateNormalizationResult = normalizationFunction.apply(elementText);
     if (dateNormalizationResult.getDateNormalizationResultStatus() == NO_MATCH) {
+      LOGGER.debug("Normalization did not find a match");
       return;
     }
 
@@ -209,10 +228,10 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final Element reference = XmlUtil.createElement(elementType, europeanaProxy, List.of());
     final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
         reference.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
-    final Attr dctermsIsPartOfResource = document.createAttributeNS(
+    final Attr dcTermsIsPartOfResource = document.createAttributeNS(
         RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
-    dctermsIsPartOfResource.setValue(timespanId);
-    reference.setAttributeNode(dctermsIsPartOfResource);
+    dcTermsIsPartOfResource.setValue(timespanId);
+    reference.setAttributeNode(dcTermsIsPartOfResource);
 
     // Update the report.
     report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
@@ -256,58 +275,31 @@ public class DatesNormalizer implements RecordNormalizeAction {
     return dateNormalizationResult;
   }
 
-  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String inputDate,
-      DateQualification dateQualification) {
-    return dateExtractors.stream().map(
-                             dateExtractor -> dateExtractor.extractDateProperty(inputDate, dateQualification))
+  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String inputDate) {
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractDateProperty(inputDate))
                          .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()
                              == MATCHED).findFirst()
                          .orElse(DateNormalizationResult.getNoMatchResult(inputDate));
   }
 
-  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input,
-      DateQualification dateQualification) {
-    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractGenericProperty(input, dateQualification))
+  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input) {
+    return dateExtractors.stream().map(dateExtractor -> dateExtractor.extractGenericProperty(input))
                          .filter(dateNormalizationResult -> dateNormalizationResult.getDateNormalizationResultStatus()
                              == MATCHED).findFirst()
                          .orElse(DateNormalizationResult.getNoMatchResult(input));
   }
 
-  private DateNormalizationResult normalizeInput(List<DateExtractor> dateExtractors, String input,
-      Function<String, SanitizedDate> sanitizeFunction, Predicate<SanitizeOperation> checkIfApproximateCleanOperationId) {
+  private DateNormalizationResult normalizeInputSanitized(List<DateExtractor> dateExtractors, String input,
+      Function<String, SanitizedDate> sanitizeFunction, Predicate<SanitizeOperation> checkIfApproximateCleanOperationId,
+      BiFunction<List<DateExtractor>, SanitizedDate, DateNormalizationResult> normalizeFunction) {
     final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
     DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(input);
     if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
-      final DateQualification dateQualification;
-      if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
-        dateQualification = DateQualification.APPROXIMATE;
-      } else {
-        dateQualification = DateQualification.NO_QUALIFICATION;
-      }
-      dateNormalizationResult = normalizeInput(dateExtractors, sanitizedDate.getSanitizedDateString(), dateQualification);
-
+      dateNormalizationResult = normalizeFunction.apply(dateExtractors, sanitizedDate);
       if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED) {
-        //Re-create result containing sanitization operation.
-        dateNormalizationResult = new DateNormalizationResult(dateNormalizationResult, sanitizedDate.getSanitizeOperation());
-      }
-    }
-    return dateNormalizationResult;
-  }
-
-  private DateNormalizationResult normalizeInputGeneric(List<DateExtractor> dateExtractors, String input,
-      Function<String, SanitizedDate> sanitizeFunction, Predicate<SanitizeOperation> checkIfApproximateCleanOperationId) {
-    final SanitizedDate sanitizedDate = sanitizeFunction.apply(input);
-    DateNormalizationResult dateNormalizationResult = DateNormalizationResult.getNoMatchResult(input);
-    if (sanitizedDate != null && StringUtils.isNotEmpty(sanitizedDate.getSanitizedDateString())) {
-      if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
-        dateNormalizationResult = normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString(),
-            DateQualification.APPROXIMATE);
-      } else {
-        dateNormalizationResult = normalizeInputGeneric(dateExtractors, sanitizedDate.getSanitizedDateString(),
-            DateQualification.NO_QUALIFICATION);
-      }
-
-      if (dateNormalizationResult.getDateNormalizationResultStatus() == MATCHED) {
+        if (checkIfApproximateCleanOperationId.test(sanitizedDate.getSanitizeOperation())) {
+          dateNormalizationResult.getEdtfDate().addQualification(DateQualification.APPROXIMATE);
+        }
         //Re-create result containing sanitization operation.
         dateNormalizationResult = new DateNormalizationResult(dateNormalizationResult, sanitizedDate.getSanitizeOperation());
       }
@@ -362,7 +354,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     timeSpan.setAttributeNode(rdfAbout);
 
     // Create and add skosPrefLabel to timespan
-    final Element skosPrefLabel = XmlUtil.createElement(SKOS_PREFLABEL, timeSpan, null);
+    final Element skosPrefLabel = XmlUtil.createElement(SKOS_PREF_LABEL, timeSpan, null);
     if (StringUtils.isNotBlank(edtfDate.getLabel())) {
       skosPrefLabel.setNodeValue(edtfDate.getLabel());
       skosPrefLabel.appendChild(document.createTextNode(edtfDate.getLabel()));
@@ -376,11 +368,11 @@ public class DatesNormalizer implements RecordNormalizeAction {
     }
 
     // Create and add skosNote elements to timespan in case of approximate or uncertain dates.
-    if (edtfDate.getDateQualification() == DateQualification.APPROXIMATE) {
+    if (edtfDate.getDateQualifications().contains(DateQualification.APPROXIMATE)) {
       final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("approximate"));
     }
-    if (edtfDate.getDateQualification() == DateQualification.UNCERTAIN) {
+    if (edtfDate.getDateQualifications().contains(DateQualification.UNCERTAIN)) {
       final Element skosNote = XmlUtil.createElement(SKOS_NOTE, timeSpan, null);
       skosNote.appendChild(document.createTextNode("uncertain"));
     }
@@ -407,7 +399,7 @@ public class DatesNormalizer implements RecordNormalizeAction {
     final String fullResourceName = XmlUtil.getPrefixedElementName(RDF_RESOURCE,
         timeSpan.lookupPrefix(RDF_RESOURCE.getNamespace().getUri()));
     for (int century = Math.max(1, startCentury); century <= Math.max(0, endCentury); century++) {
-      final Element dctermsIsPartOf = XmlUtil.createElement(DCTERMS_ISPARTOF, timeSpan, null);
+      final Element dctermsIsPartOf = XmlUtil.createElement(DC_TERMS_IS_PART_OF, timeSpan, null);
       final Attr dctermsIsPartOfResource = document.createAttributeNS(RDF_RESOURCE.getNamespace().getUri(), fullResourceName);
       dctermsIsPartOfResource.setValue("http://data.europeana.eu/timespan/" + century);
       dctermsIsPartOf.setAttributeNode(dctermsIsPartOfResource);

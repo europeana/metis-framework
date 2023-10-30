@@ -4,7 +4,7 @@
     <parent>
         <artifactId>metis-framework</artifactId>
         <groupId>eu.europeana.metis</groupId>
-        <version>11-SNAPSHOT</version>
+        <version>12-SNAPSHOT</version>
     </parent>
     <artifactId>metis-harvesting</artifactId>
 
@@ -28,7 +28,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.dspace</groupId>
+            <groupId>io.gdcc</groupId>
             <artifactId>xoai-service-provider</artifactId>
         </dependency>
         <dependency>

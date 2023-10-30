@@ -3,7 +3,6 @@ package eu.europeana.normalization.dates.edtf;
 import static eu.europeana.normalization.dates.edtf.DateBoundaryType.DECLARED;
 import static eu.europeana.normalization.dates.edtf.DateBoundaryType.OPEN;
 import static eu.europeana.normalization.dates.edtf.DateBoundaryType.UNKNOWN;
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static eu.europeana.normalization.dates.edtf.InstantEdtfDateBuilder.THRESHOLD_4_DIGITS_YEAR;
 import static eu.europeana.normalization.dates.edtf.Iso8601Parser.ISO_8601_MINIMUM_YEAR_DIGITS;
 import static java.lang.Math.abs;
@@ -19,7 +18,9 @@ import java.time.MonthDay;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.TemporalAccessor;
+import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,11 +39,13 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
   private Month month;
   private LocalDate yearMonthDay;
   private YearPrecision yearPrecision;
-  private DateQualification dateQualification = NO_QUALIFICATION;
+  private Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
   private DateBoundaryType dateBoundaryType = DECLARED;
 
   /**
    * Restricted constructor by provided {@link InstantEdtfDateBuilder}.
+   * <p>All fields apart from {@link #dateQualifications} are strictly contained in the constructor. The date qualifications can
+   * be further extended to, for example, add an approximate qualification for a date that was sanitized.</p>
    *
    * @param instantEdtfDateBuilder the builder with all content verified
    */
@@ -51,11 +54,16 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     year = instantEdtfDateBuilder.getYearObj();
     month = instantEdtfDateBuilder.getMonthObj();
     yearMonthDay = instantEdtfDateBuilder.getYearMonthDayObj();
-    dateQualification = instantEdtfDateBuilder.getDateQualification();
+    dateQualifications = instantEdtfDateBuilder.getDateQualifications();
   }
 
   private InstantEdtfDate(DateBoundaryType dateBoundaryType) {
     this.dateBoundaryType = dateBoundaryType;
+  }
+
+  @Override
+  public void addQualification(DateQualification dateQualification) {
+    this.dateQualifications.add(dateQualification);
   }
 
   /**
@@ -188,7 +196,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     int centuryDivision = year.getValue() / YearPrecision.CENTURY.getDuration();
     int centuryModulo = year.getValue() % YearPrecision.CENTURY.getDuration();
     //For case 1900 it is 19th. For case 1901 it is 20th century
-    return centuryModulo == 0 ? centuryDivision : centuryDivision + 1;
+    return (centuryModulo == 0) ? centuryDivision : (centuryDivision + 1);
   }
 
   /**
@@ -230,7 +238,7 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
       stringBuilder.append(
           ofNullable(yearMonthDay).map(LocalDate::getDayOfMonth).map(decimalFormat::format).map(d -> "-" + d).orElse(""));
     }
-    stringBuilder.append(dateQualification.getCharacter());
+    stringBuilder.append(DateQualification.getCharacterFromQualifications(dateQualifications));
     return stringBuilder.toString();
   }
 
@@ -256,13 +264,13 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     }
     InstantEdtfDate that = (InstantEdtfDate) o;
     return yearPrecision == that.yearPrecision && Objects.equals(year, that.year) && Objects.equals(month,
-        that.month) && Objects.equals(yearMonthDay, that.yearMonthDay) && dateQualification == that.dateQualification
+        that.month) && Objects.equals(yearMonthDay, that.yearMonthDay) && dateQualifications == that.dateQualifications
         && dateBoundaryType == that.dateBoundaryType;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(yearPrecision, year, month, yearMonthDay, dateQualification, dateBoundaryType);
+    return Objects.hash(yearPrecision, year, month, yearMonthDay, dateQualifications, dateBoundaryType);
   }
 
   public Year getYear() {
@@ -281,8 +289,8 @@ public final class InstantEdtfDate extends AbstractEdtfDate implements Comparabl
     return yearPrecision;
   }
 
-  public DateQualification getDateQualification() {
-    return dateQualification;
+  public Set<DateQualification> getDateQualifications() {
+    return EnumSet.copyOf(dateQualifications);
   }
 
   public DateBoundaryType getDateBoundaryType() {

@@ -1,8 +1,6 @@
 package eu.europeana.normalization.dates.edtf;
 
-import static eu.europeana.normalization.dates.edtf.DateQualification.NO_QUALIFICATION;
 import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
 
 import eu.europeana.normalization.dates.YearPrecision;
 import eu.europeana.normalization.dates.extraction.DateExtractionException;
@@ -14,14 +12,16 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Builder class for {@link InstantEdtfDate}.
  * <p>During {@link #build()} it will verify all the parameters that have been requested.
- * The {@link #build()}, if {@link #withFlexibleDateBuild(boolean)} was called with {@code true}, will also attempt a second time
+ * The {@link #build()}, if {@link #withAllowDayMonthSwap(boolean)} was called with {@code true}, will also attempt a second time
  * by switching month and day values if the original values were invalid. Furthermore, there are a set of constructors that can
  * start the builder and will perform a build with specific characteristics:
  * <ul>
@@ -38,14 +38,13 @@ public class InstantEdtfDateBuilder {
   private Year yearObj;
   private Month monthObj;
   private LocalDate yearMonthDayObj;
-  private Integer year;
+  private final Integer year;
   private Integer month;
   private Integer day;
-  private TemporalAccessor temporalAccessor;
-  private YearPrecision yearPrecision;
-  private DateQualification dateQualification;
-  private boolean flexibleDateBuild = true;
-  private boolean longDatePrefixedWithY = false;
+  private YearPrecision yearPrecision = YearPrecision.YEAR;
+  private final Set<DateQualification> dateQualifications = EnumSet.noneOf(DateQualification.class);
+  private boolean allowDayMonthSwap = true;
+  private boolean isMoreThanFourDigitsYear = false;
 
   /**
    * Constructor which initializes the builder with the minimum requirement of year value.
@@ -65,7 +64,12 @@ public class InstantEdtfDateBuilder {
    * @param temporalAccessor the temporal accessor
    */
   public InstantEdtfDateBuilder(TemporalAccessor temporalAccessor) {
-    this.temporalAccessor = temporalAccessor;
+    day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
+        temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
+    month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
+        temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
+    year = temporalAccessor.isSupported(ChronoField.YEAR) ?
+        temporalAccessor.get(ChronoField.YEAR) : null;
   }
 
   /**
@@ -75,10 +79,9 @@ public class InstantEdtfDateBuilder {
    * @throws DateExtractionException if something went wrong during date validation
    */
   public InstantEdtfDate build() throws DateExtractionException {
-    InstantEdtfDate instantEdtfDate;
-    instantEdtfDate = buildInternal();
+    InstantEdtfDate instantEdtfDate = buildInternal();
     //Try once more if flexible date
-    if (instantEdtfDate == null && flexibleDateBuild) {
+    if (instantEdtfDate == null && isPositive(month) && isPositive(day) && allowDayMonthSwap) {
       swapMonthDay();
       instantEdtfDate = buildInternal();
     }
@@ -92,14 +95,7 @@ public class InstantEdtfDateBuilder {
 
   private InstantEdtfDate buildInternal() {
     InstantEdtfDate instantEdtfDate = null;
-    //Setup defaults
-    yearPrecision = ofNullable(yearPrecision).orElse(YearPrecision.YEAR);
-    dateQualification = ofNullable(dateQualification).orElse(NO_QUALIFICATION);
-
     try {
-      if (temporalAccessor != null) {
-        parseTemporalAccessor();
-      }
       parseYear();
       parseMonthDay();
       validateDateNotInFuture();
@@ -111,40 +107,34 @@ public class InstantEdtfDateBuilder {
     return instantEdtfDate;
   }
 
-  private void parseTemporalAccessor() {
-    LOGGER.debug("TemporalAccessor present. Overwriting values.");
-    day = temporalAccessor.isSupported(ChronoField.DAY_OF_MONTH) ?
-        temporalAccessor.get(ChronoField.DAY_OF_MONTH) : null;
-    month = temporalAccessor.isSupported(ChronoField.MONTH_OF_YEAR) ?
-        temporalAccessor.get(ChronoField.MONTH_OF_YEAR) : null;
-    year = temporalAccessor.isSupported(ChronoField.YEAR) ?
-        temporalAccessor.get(ChronoField.YEAR) : null;
-  }
-
   private void parseYear() throws DateExtractionException {
     Objects.requireNonNull(year, "Year value can never be null");
-    if (longDatePrefixedWithY && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
+    if (isMoreThanFourDigitsYear && Math.abs(year) <= THRESHOLD_4_DIGITS_YEAR) {
       throw new DateExtractionException(
-          format("Prefixed year with 'Y' is enabled indicating that year should have absolute value greater than %s",
-              THRESHOLD_4_DIGITS_YEAR));
-    } else if (!longDatePrefixedWithY && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
+          format("isLongerThanFourDigitsYear is %s indicating that year should have absolute value greater than %s",
+              true, THRESHOLD_4_DIGITS_YEAR));
+    } else if (!isMoreThanFourDigitsYear && Math.abs(year) > THRESHOLD_4_DIGITS_YEAR) {
       throw new DateExtractionException(
-          format("Year absolute value greater than %s, should be prefixed with 'Y'", THRESHOLD_4_DIGITS_YEAR));
+          format("Year absolute value is greater than %s, and isLongerThanFourDigitsYear is %s", THRESHOLD_4_DIGITS_YEAR, false));
     }
     yearObj = Year.of(year * yearPrecision.getDuration());
   }
 
   private void parseMonthDay() throws DateExtractionException {
     try {
-      if (month != null && month >= 1) {
+      if (isPositive(month)) {
         monthObj = Month.of(month);
-        if (day != null && day >= 1) {
+        if (isPositive(day)) {
           yearMonthDayObj = LocalDate.of(yearObj.getValue(), monthObj.getValue(), day);
         }
       }
     } catch (DateTimeException e) {
       throw new DateExtractionException("Failed to instantiate month and day", e);
     }
+  }
+
+  private boolean isPositive(Integer value) {
+    return value != null && value > 0;
   }
 
   private void validateDateNotInFuture() throws DateExtractionException {
@@ -164,13 +154,12 @@ public class InstantEdtfDateBuilder {
 
   private void validateStrict() throws DateExtractionException {
     //If it is not a long year, and we want to be strict we further validate
-    boolean notLongYearAndStrictBuild = !longDatePrefixedWithY && !flexibleDateBuild;
-    // TODO: 15/02/2023 Check this instruction. It used to be like that
-    //  return edtfDatePart.isUnknown() || edtfDatePart.isUncertain() || edtfDatePart.getYearPrecision() != null;
-    //  but do we actually need the check on unknown?
-    boolean isDateNonPrecise = dateQualification == DateQualification.UNCERTAIN || yearPrecision != null;
+    boolean isNotMoreThanFourDigitsYearAndStrictBuild = !isMoreThanFourDigitsYear && !allowDayMonthSwap;
+    boolean isDateNonPrecise =
+        dateQualifications.contains(DateQualification.UNCERTAIN) || (yearPrecision != null
+            && yearPrecision != YearPrecision.YEAR);
     boolean notCompleteDate = monthObj == null || yearMonthDayObj == null;
-    if (notLongYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
+    if (isNotMoreThanFourDigitsYearAndStrictBuild && (isDateNonPrecise || notCompleteDate)) {
       throw new DateExtractionException("Date is invalid according to our strict profile!");
     }
   }
@@ -217,22 +206,22 @@ public class InstantEdtfDateBuilder {
   /**
    * Add date qualification.
    *
-   * @param dateQualification the date qualification
+   * @param dateQualifications the date qualifications
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withDateQualification(DateQualification dateQualification) {
-    this.dateQualification = dateQualification;
+  public InstantEdtfDateBuilder withDateQualification(Set<DateQualification> dateQualifications) {
+    this.dateQualifications.addAll(dateQualifications);
     return this;
   }
 
   /**
-   * Opt in/out for flexible date building.
+   * Opt in/out for day month swap if original values failed validation.
    *
-   * @param flexibleDateBuild the boolean (dis|en)abling the flexibility
+   * @param allowDayMonthSwap the boolean (dis|en)abling the day and month swap
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withFlexibleDateBuild(boolean flexibleDateBuild) {
-    this.flexibleDateBuild = flexibleDateBuild;
+  public InstantEdtfDateBuilder withAllowDayMonthSwap(boolean allowDayMonthSwap) {
+    this.allowDayMonthSwap = allowDayMonthSwap;
     return this;
   }
 
@@ -241,8 +230,8 @@ public class InstantEdtfDateBuilder {
    *
    * @return the extended builder
    */
-  public InstantEdtfDateBuilder withLongYearPrefixedWithY() {
-    this.longDatePrefixedWithY = true;
+  public InstantEdtfDateBuilder withMoreThanFourDigitsYear() {
+    this.isMoreThanFourDigitsYear = true;
     return this;
   }
 
@@ -262,7 +251,7 @@ public class InstantEdtfDateBuilder {
     return yearPrecision;
   }
 
-  public DateQualification getDateQualification() {
-    return dateQualification;
+  public Set<DateQualification> getDateQualifications() {
+    return EnumSet.copyOf(dateQualifications);
   }
 }

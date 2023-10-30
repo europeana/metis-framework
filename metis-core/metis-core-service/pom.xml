@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>11-SNAPSHOT</version>
+    <version>12-SNAPSHOT</version>
   </parent>
   <artifactId>metis-core-service</artifactId>
 
@@ -131,6 +131,10 @@
       <artifactId>awaitility</artifactId>
       <version>${version.awaitability}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
