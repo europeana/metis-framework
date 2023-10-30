@@ -6,20 +6,22 @@ import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
+import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
-import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import eu.europeana.metis.mongo.model.HasMongoObjectId;
+import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import eu.europeana.metis.utils.CommonStringValues;
+import org.bson.types.ObjectId;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.bson.types.ObjectId;
 
 /**
  * Is the structure where the combined plugins of harvesting and the other plugins will be stored.
@@ -41,10 +43,12 @@ import org.bson.types.ObjectId;
     @Index(fields = {@Field("updatedDate")}),
     @Index(fields = {@Field("finishedDate")}),
     //Embedded indexes definitions should be referenced on the parent entity
-    @Index(fields = {@Field("metisPlugins.id")}),
-    @Index(fields = {@Field("metisPlugins.startedDate")}),
-    @Index(fields = {@Field("metisPlugins.updatedDate")}),
-    @Index(fields = {@Field("metisPlugins.finishedDate")})})
+    // disabling index validation mapping due metisPlugins is an AbstractMetisPlugin<?>
+    // so ? can be anything. Morphia has a potential feature lack when normalizing
+    @Index(fields = {@Field("metisPlugins.id")}, options = @IndexOptions(disableValidation = true)),
+    @Index(fields = {@Field("metisPlugins.startedDate")}, options = @IndexOptions(disableValidation = true)),
+    @Index(fields = {@Field("metisPlugins.updatedDate")}, options = @IndexOptions(disableValidation = true)),
+    @Index(fields = {@Field("metisPlugins.finishedDate")}, options = @IndexOptions(disableValidation = true))})
 public class WorkflowExecution implements HasMongoObjectId {
 
   @Id
