@@ -81,10 +81,10 @@ public class OaiHarvesterImpl implements OaiHarvester {
     ListIdentifiersParameters parameters = ListIdentifiersParameters.request()
             .withMetadataPrefix(harvest.getMetadataPrefix());
     if (harvest.getFrom() != null) {
-      parameters.withFrom(Date.from(harvest.getFrom()).toInstant());
+      parameters.withFrom(harvest.getFrom());
     }
     if (harvest.getUntil() != null) {
-      parameters.withUntil(Date.from(harvest.getUntil()).toInstant());
+      parameters.withUntil(harvest.getUntil());
     }
     if (harvest.getSetSpec() != null) {
       parameters.withSetSpec(harvest.getSetSpec());

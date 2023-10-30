@@ -36,8 +36,7 @@ public class OaiRecordHeader implements Serializable {
    * @return An instance.
    */
   static OaiRecordHeader convert(Header header) {
-    return new OaiRecordHeader(header.getIdentifier(), header.isDeleted(),
-            Optional.ofNullable(header.getDatestamp()).orElse(null));
+    return new OaiRecordHeader(header.getIdentifier(), header.isDeleted(), header.getDatestamp());
   }
 
   public String getOaiIdentifier() {

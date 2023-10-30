@@ -102,12 +102,11 @@ public class OaiPmhController {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             final WriterContext context = new XmlOAIWriterContext();
-            XmlWriter writer = new XmlWriter(outputStream, context);
-            try {
+
+            try (XmlWriter writer = new XmlWriter(outputStream, context)) {
                 result.write(writer);
-            } finally {
-                writer.close();
             }
+
             return outputStream.toString();
         } catch (XMLStreamException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A problem occurred while serializing the response.",
@@ -142,7 +141,7 @@ public class OaiPmhController {
         return new GetRecord(resultRecord);
     }
 
-    private class XmlOAIWriterContext implements WriterContext {
+    private static class XmlOAIWriterContext implements WriterContext {
         @Override
         public Granularity getGranularity() {
             return Granularity.Day;
