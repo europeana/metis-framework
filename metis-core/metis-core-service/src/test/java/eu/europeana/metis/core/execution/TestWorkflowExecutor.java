@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -17,6 +18,8 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
+import eu.europeana.cloud.service.dps.exception.AccessDeniedOrObjectDoesNotExistException;
+import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.SystemId;
@@ -216,7 +219,6 @@ class TestWorkflowExecutor {
     verify(oaipmhHarvestPlugin).setFailMessage(notNull());
     verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
-
   @Test
   void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
@@ -232,11 +234,57 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
-    doThrow(new ExternalTaskException("Some error"))
-        .doThrow(new ExternalTaskException("Some " + "error")).when(oaipmhHarvestPlugin)
-        .monitor(dpsClient);
+
+    Throwable[] dpsException100Times=new Throwable[100];
+    Arrays.setAll(dpsException100Times, index -> new DpsException());
+    doThrow(dpsException100Times)
+        .doReturn(new MonitorResult(TaskState.PROCESSED, null))
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
+
+    doReturn(currentlyProcessingExecutionProgress).when(oaipmhHarvestPlugin).getExecutionProgress();
+
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution))
+        .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+    when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(0);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
+    workflowExecutor.call();
+
+    verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    verify(oaipmhHarvestPlugin).setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
+    verify(oaipmhHarvestPlugin, atLeastOnce()).setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
+    verify(oaipmhHarvestPlugin, never()).setFailMessage(notNull());
+  }
+
+  @Test
+  void callNonMockedFieldValue_MonitorFailsOnAccessDeniedOrObjectDoesNotExistException() throws Exception {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
+
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.spy(OaipmhHarvestPlugin.class);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
+
+    WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+    workflowExecution.setId(new ObjectId());
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
+
+    doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
+    doThrow(new AccessDeniedOrObjectDoesNotExistException())
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
     doReturn(currentlyProcessingExecutionProgress).when(oaipmhHarvestPlugin).getExecutionProgress();
 
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
@@ -279,9 +327,9 @@ class TestWorkflowExecutor {
     workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
-    final ExternalTaskException exception = new ExternalTaskException("Some error",
+    final DpsException exception = new DpsException("Some error",
         new HttpServerErrorException(HttpStatus.BAD_GATEWAY));
-    final ExternalTaskException[] externalTaskExceptions = new ExternalTaskException[WorkflowExecutor.MAX_CANCEL_OR_MONITOR_FAILURES];
+    final DpsException[] externalTaskExceptions = new DpsException[WorkflowExecutor.MAX_CANCEL_OR_MONITOR_FAILURES];
     Arrays.fill(externalTaskExceptions, exception);
     doThrow(externalTaskExceptions)
         .doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -366,7 +414,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callExecutionInRUNNINGState() throws ExternalTaskException {
+  void callExecutionInRUNNINGState() throws DpsException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -412,7 +460,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateINQUEUE() throws ExternalTaskException {
+  void callCancellingStateINQUEUE() throws ExternalTaskException, DpsException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 
@@ -451,7 +499,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateRUNNING() throws ExternalTaskException {
+  void callCancellingStateRUNNING() throws ExternalTaskException, DpsException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 

@@ -221,14 +221,10 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   @Override
-  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
+  public MonitorResult monitor(DpsClient dpsClient) throws DpsException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
-    TaskInfo taskInfo;
-    try {
-      taskInfo = dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
-    } catch (DpsException | RuntimeException e) {
-      throw new ExternalTaskException("Requesting task progress failed", e);
-    }
+    TaskInfo taskInfo =
+        dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
     LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
     updateExecutionProgress(taskInfo);
     return new MonitorResult(taskInfo.getState(), taskInfo.getStateDescription());
