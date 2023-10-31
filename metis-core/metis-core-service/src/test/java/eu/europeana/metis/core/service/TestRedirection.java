@@ -4,8 +4,6 @@ import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -48,12 +46,6 @@ import static org.mockito.Mockito.when;
 class TestRedirection {
 
     @Mock
-    private DatasetXsltDao datasetXsltDao;
-
-    @Mock
-    private DepublishRecordIdDao depublishRecordIdDao;
-
-    @Mock
     private WorkflowExecutionDao workflowExecutionDao;
 
     @Mock
@@ -63,9 +55,9 @@ class TestRedirection {
     private WorkflowExecutionFactory workflowExecutionFactory;
 
     @NotNull
-    private static Workflow getWorkflow(String datasetId, ObjectId objectId, IndexToPublishPluginMetadata indexToPublishPluginMetadata) {
+    private static Workflow getWorkflow(ObjectId objectId, IndexToPublishPluginMetadata indexToPublishPluginMetadata) {
         final Workflow workflow = new Workflow();
-        workflow.setDatasetId(datasetId);
+        workflow.setDatasetId("datasetId");
         workflow.setId(objectId);
         workflow.setMetisPluginsMetadata(List.of(indexToPublishPluginMetadata));
         return workflow;
@@ -139,7 +131,7 @@ class TestRedirection {
     @NotNull
     private static HTTPHarvestPluginMetadata getHttpHarvestPluginMetadata() {
         final HTTPHarvestPluginMetadata httpHarvestPluginMetadata = new HTTPHarvestPluginMetadata();
-        httpHarvestPluginMetadata.setUrl("http://url.org");
+        httpHarvestPluginMetadata.setUrl("https://url.org");
         httpHarvestPluginMetadata.setUser("user");
         httpHarvestPluginMetadata.setIncrementalHarvest(false);
         httpHarvestPluginMetadata.setEnabled(true);
@@ -159,9 +151,9 @@ class TestRedirection {
     }
 
     @NotNull
-    private static Dataset getTestDataset(String datasetId) {
+    private static Dataset getTestDataset() {
         final Dataset dataset = new Dataset();
-        dataset.setDatasetId(datasetId);
+        dataset.setDatasetId("datasetId");
         dataset.setCountry(Country.GERMANY);
         dataset.setDescription("");
         dataset.setOrganizationId("1482250000001617026");
@@ -215,10 +207,9 @@ class TestRedirection {
                 .thenReturn(httpHarvestPluginWithExecutionId)
                 .thenReturn(httpHarvestPluginWithExecutionId2);
 
-        final String datasetId = "datasetId";
         final ObjectId objectId = new ObjectId();
-        final Workflow workflow = getWorkflow(datasetId, objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
-        final Dataset dataset = getTestDataset(datasetId);
+        final Workflow workflow = getWorkflow(objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
+        final Dataset dataset = getTestDataset();
         final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
 
         final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor, priority);
@@ -249,15 +240,10 @@ class TestRedirection {
 
         when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
                 .thenReturn(indexToPublishPluginPluginWithExecutionId);
-        final PluginWithExecutionId<ExecutablePlugin> indexToPreviewPluginPluginWithExecutionId =
-                new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
-        lenient().when(dataEvolutionUtils.getRootAncestor(any()))
-                .thenReturn(httpHarvestPluginWithExecutionId);
 
-        final String datasetId = "datasetId";
         final ObjectId objectId = new ObjectId();
-        final Workflow workflow = getWorkflow(datasetId, objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
-        final Dataset dataset = getTestDataset(datasetId);
+        final Workflow workflow = getWorkflow(objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
+        final Dataset dataset = getTestDataset();
         dataset.setDatasetIdsToRedirectFrom(List.of("253"));
         final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
 
