@@ -40,6 +40,7 @@ class EmbeddableMediaTest {
         Arguments.of("https://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=", true),
 
         Arguments.of("http://www.euscreen.eu/item.html", true),
+        Arguments.of("https://www.euscreen.eu/item.html*", true),
 
         Arguments.of("https://sketchfab.com/3d-models", true),
         Arguments.of("https://sketchfab.com/models/", true),
