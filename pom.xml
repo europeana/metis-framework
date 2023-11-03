@@ -14,7 +14,6 @@
     <module>metis-dereference</module>
     <module>metis-validation</module>
     <module>metis-enrichment</module>
-    <module>metis-normalization</module>
     <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
