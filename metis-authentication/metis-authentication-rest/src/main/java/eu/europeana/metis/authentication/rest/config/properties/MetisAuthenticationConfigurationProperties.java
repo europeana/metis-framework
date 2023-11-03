@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MetisAuthenticationConfigurationProperties {
 
   private int accessTokenExpireTimeInMinutes;
-  private String allowedCorsHosts;
+  private String[] allowedCorsHosts;
 
   public int getAccessTokenExpireTimeInMinutes() {
     return accessTokenExpireTimeInMinutes;
@@ -19,11 +19,11 @@ public class MetisAuthenticationConfigurationProperties {
     this.accessTokenExpireTimeInMinutes = accessTokenExpireTimeInMinutes;
   }
 
-  public String getAllowedCorsHosts() {
-    return allowedCorsHosts;
+  public String[] getAllowedCorsHosts() {
+    return allowedCorsHosts == null ? null : allowedCorsHosts.clone();
   }
 
-  public void setAllowedCorsHosts(String allowedCorsHosts) {
-    this.allowedCorsHosts = allowedCorsHosts;
+  public void setAllowedCorsHosts(String[] allowedCorsHosts) {
+    this.allowedCorsHosts = allowedCorsHosts == null ? null : allowedCorsHosts.clone();
   }
 }
