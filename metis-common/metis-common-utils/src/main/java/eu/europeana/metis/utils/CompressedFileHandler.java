@@ -220,6 +220,7 @@ public class CompressedFileHandler {
 
   private static Path zipSlipVulnerabilityProtect(String entryName, Path targetDir)
       throws IOException {
+    entryName = entryName.replace(" ", "+");
     // https://snyk.io/research/zip-slip-vulnerability
     Path targetDirResolved = targetDir.resolve(entryName);
     // make sure normalized file still has targetDir as its prefix else throw exception
