@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.Mapper;
 import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.filters.Filters;
@@ -60,7 +61,8 @@ public class RecordRedirectDao {
         .collectionNaming(NamingStrategy.identity()).build();
     final Datastore morphiaDatastore = Morphia
         .createDatastore(mongoClient, databaseName, mapperOptions);
-    morphiaDatastore.getMapper().map(RecordRedirect.class);
+    final Mapper mapper = morphiaDatastore.getMapper();
+    mapper.getEntityModel(RecordRedirect.class);
     LOGGER.info("Datastore initialized");
     return morphiaDatastore;
   }
