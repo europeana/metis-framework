@@ -12,11 +12,14 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.derived.AttributionSnippet;
+import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.BasicProxyImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.ConceptSchemeImpl;
+import eu.europeana.corelib.solr.entity.DatasetImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.EventImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
@@ -94,6 +97,9 @@ public class RecordDao {
     mapper.getEntityModel(LicenseImpl.class);
     mapper.getEntityModel(ServiceImpl.class);
     mapper.getEntityModel(QualityAnnotationImpl.class);
+    mapper.getEntityModel(AttributionSnippet.class);
+    mapper.getEntityModel(TimespanImpl.class);
+    mapper.getEntityModel(WebResourceImpl.class);
     LOGGER.info("Datastore initialized");
 
     return morphiaDatastore;
