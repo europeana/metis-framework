@@ -10,6 +10,10 @@ import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.derived.AttributionSnippet;
@@ -98,6 +102,10 @@ public class RecordDao {
     mapper.getEntityModel(QualityAnnotationImpl.class);
     mapper.getEntityModel(AttributionSnippet.class);
     mapper.getEntityModel(DatasetImpl.class);
+    mapper.getEntityModel(ImageMetaInfoImpl.class);
+    mapper.getEntityModel(AudioMetaInfoImpl.class);
+    mapper.getEntityModel(TextMetaInfoImpl.class);
+    mapper.getEntityModel(VideoMetaInfoImpl.class);
     LOGGER.info("Datastore initialized");
 
     return morphiaDatastore;
