@@ -98,8 +98,7 @@ public class RecordDao {
     mapper.getEntityModel(ServiceImpl.class);
     mapper.getEntityModel(QualityAnnotationImpl.class);
     mapper.getEntityModel(AttributionSnippet.class);
-    mapper.getEntityModel(TimespanImpl.class);
-    mapper.getEntityModel(WebResourceImpl.class);
+    mapper.getEntityModel(DatasetImpl.class);
     LOGGER.info("Datastore initialized");
 
     return morphiaDatastore;
