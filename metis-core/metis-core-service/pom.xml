@@ -25,8 +25,8 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <artifactId>metis-transformation-service</artifactId>
       <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-transformation-service</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -83,8 +83,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock</artifactId>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-standalone</artifactId>
       <scope>test</scope>
       <exclusions>
         <exclusion>
