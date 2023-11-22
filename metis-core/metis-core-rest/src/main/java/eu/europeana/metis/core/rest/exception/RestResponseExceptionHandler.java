@@ -1,10 +1,10 @@
 package eu.europeana.metis.core.rest.exception;
 
-import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
