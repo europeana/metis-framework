@@ -92,13 +92,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!--    Overwrite Lombok coming from ecloud dependencies so that jdk 21 will compile-->
-    <!--    Remove it once the transitive dependency of lombok is updated or removed.-->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
-    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>

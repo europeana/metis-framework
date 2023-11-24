@@ -11,6 +11,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.spring.boot>2.7.5</version.spring.boot>
   </properties>
 
   <modules>

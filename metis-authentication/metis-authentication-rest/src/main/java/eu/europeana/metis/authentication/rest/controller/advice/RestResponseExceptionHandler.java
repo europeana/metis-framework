@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.rest.controller.advice;
 
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import org.hibernate.TransactionException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;

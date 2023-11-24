@@ -33,14 +33,21 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.*;
 
 class EnrichmentWorkerImplTest {
 
@@ -66,10 +73,10 @@ class EnrichmentWorkerImplTest {
         return Stream.of(
                 Arguments.of(getResourceFileContent("enrichment/sample_enrichment_exception.rdf"), RecordStatus.STOP),
                 Arguments.of(getResourceFileContent("enrichment/sample_dereference_not_found.rdf"), RecordStatus.STOP),
-//                Arguments.of(getResourceFileContent("enrichment/sample_dereference_redirect.rdf"), RecordStatus.CONTINUE),
-//                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_noentity.rdf"), RecordStatus.CONTINUE),
-                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_failure.rdf"), RecordStatus.STOP)
-//                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_success.rdf"), RecordStatus.CONTINUE)
+                Arguments.of(getResourceFileContent("enrichment/sample_dereference_redirect.rdf"), RecordStatus.CONTINUE),
+                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_noentity.rdf"), RecordStatus.CONTINUE),
+                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_failure.rdf"), RecordStatus.STOP),
+                Arguments.of(getResourceFileContent("enrichment/sample_enrichment_success.rdf"), RecordStatus.CONTINUE)
         );
     }
 
