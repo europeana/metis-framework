@@ -51,7 +51,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${version.maven.compiler.plugin}</version>
           <configuration>
-            <release>11</release>
+            <release>17</release>
           </configuration>
         </plugin>
         <!--Setup highest directory path, so that it can be used as a variable avoiding relative paths-->
@@ -121,7 +121,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.ecloud>10-SNAPSHOT</version.ecloud>
-    <version.metis-schema>8</version.metis-schema>
+    <version.metis-schema>9-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
@@ -142,7 +142,7 @@
     <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
     <version.gdcc.xoai>5.2.0</version.gdcc.xoai>
 
-    <version.embedded.mongo>3.0.0</version.embedded.mongo>
+    <version.embedded.mongo>4.10.1</version.embedded.mongo>
     <version.hamcrest>1.3</version.hamcrest>
     <version.hibernate.core>5.4.32.Final</version.hibernate.core>
     <version.ibm.icu4j>69.1</version.ibm.icu4j>
