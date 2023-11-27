@@ -20,7 +20,6 @@ import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyIn;
 import eu.europeana.metis.schema.jibx.ProxyType;
-import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.Service;
@@ -46,8 +45,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * This class is a wrapper around instances of type {@link RDF}. Its responsibility is to hide the
- * RDF structure and objects needed when extracting information from the records.
+ * This class is a wrapper around instances of type {@link RDF}. Its responsibility is to hide the RDF structure and objects
+ * needed when extracting information from the records.
  *
  * @author jochen
  */
@@ -64,6 +63,28 @@ public class RdfWrapper {
     this.rdfRecord = rdfRecord;
   }
 
+  private static boolean isEuropeanaProxy(ProxyType proxy) {
+    return Optional.of(proxy).map(ProxyType::getEuropeanaProxy)
+                   .map(EuropeanaProxy::isEuropeanaProxy).orElse(Boolean.FALSE);
+  }
+
+  private static <T extends AboutType> List<T> getFilteredPropertyList(List<T> propertyList) {
+    return getFilteredPropertyStream(propertyList).collect(Collectors.toList());
+  }
+
+  private static <T extends AboutType> Stream<T> getFilteredPropertyStream(List<T> propertyList) {
+    return getPropertyStream(propertyList).filter(Objects::nonNull)
+                                          .filter(resource -> StringUtils.isNotBlank(resource.getAbout()));
+  }
+
+  private static <T extends AboutType> List<T> getPropertyList(List<T> propertyList) {
+    return propertyList == null ? Collections.emptyList() : propertyList;
+  }
+
+  private static <T extends AboutType> Stream<T> getPropertyStream(List<T> propertyList) {
+    return propertyList == null ? Stream.empty() : propertyList.stream();
+  }
+
   /**
    * This method extracts the rdf:about from the RDF object.
    *
@@ -75,15 +96,14 @@ public class RdfWrapper {
   }
 
   /**
-   * This method extracts the dataset name or, if that doesn't exist, the collection name from the
-   * RDF object.
+   * This method extracts the dataset name or, if that doesn't exist, the collection name from the RDF object.
    *
    * @return The dataset name, or the empty string if no dataset name or collection name is known.
    */
   public String getDatasetName() {
     final Optional<EuropeanaAggregationType> aggregation = getEuropeanaAggregation();
     final Optional<String> datasetName = aggregation.map(EuropeanaAggregationType::getDatasetName)
-        .map(DatasetName::getString).filter(StringUtils::isNotBlank);
+                                                    .map(DatasetName::getString).filter(StringUtils::isNotBlank);
     final Optional<String> collectionName = aggregation
         .map(EuropeanaAggregationType::getCollectionName).map(CollectionName::getString)
         .filter(StringUtils::isNotBlank);
@@ -102,29 +122,29 @@ public class RdfWrapper {
   public List<Identifier> getProviderProxyIdentifiers() {
     final List<Choice> choiceList = getProviderProxiesChoices();
     return choiceList.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier)
-        .filter(Objects::nonNull).collect(Collectors.toList());
+                     .filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   public List<Title> getProviderProxyTitles() {
     final List<Choice> choiceList = getProviderProxiesChoices();
     return choiceList.stream().filter(Choice::ifTitle).map(Choice::getTitle)
-        .filter(Objects::nonNull).collect(Collectors.toList());
+                     .filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   public List<Description> getProviderProxyDescriptions() {
     final List<Choice> choiceList = getProviderProxiesChoices();
     return choiceList.stream().filter(Choice::ifDescription).map(Choice::getDescription)
-        .filter(Objects::nonNull).collect(Collectors.toList());
+                     .filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   public List<Choice> getProviderProxiesChoices() {
     return getProviderProxies().stream().map(EuropeanaType::getChoiceList).filter(Objects::nonNull)
-        .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
+                               .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   public List<IsShownBy> getIsShownByList() {
     return getAggregations().stream().map(Aggregation::getIsShownBy).filter(Objects::nonNull)
-        .collect(Collectors.toList());
+                            .collect(Collectors.toList());
   }
 
   /**
@@ -152,12 +172,7 @@ public class RdfWrapper {
    */
   public List<ProxyType> getProviderProxies() {
     return getProxies().stream().filter(proxy -> !isEuropeanaProxy(proxy))
-        .collect(Collectors.toList());
-  }
-
-  private static boolean isEuropeanaProxy(ProxyType proxy) {
-    return Optional.of(proxy).map(ProxyType::getEuropeanaProxy)
-        .map(EuropeanaProxy::isEuropeanaProxy).orElse(Boolean.FALSE);
+                       .collect(Collectors.toList());
   }
 
   /**
@@ -172,9 +187,8 @@ public class RdfWrapper {
   /**
    * Extract provider aggregations.
    * <p>To find provider aggregations we first find the {@link ProxyType}s of the record that has
-   * an <b>EMPTY</b> {@link ProxyType#getLineageList()}. From those we return any aggregation, in
-   * the record, that its about value matches any value in the {@link
-   * ProxyType#getProxyInList()}.</p>
+   * an <b>EMPTY</b> {@link ProxyType#getLineageList()}. From those we return any aggregation, in the record, that its about value
+   * matches any value in the {@link ProxyType#getProxyInList()}.</p>
    *
    * @return the list of aggregations
    */
@@ -185,9 +199,8 @@ public class RdfWrapper {
   /**
    * Extract aggregator aggregations.
    * <p>To find aggregator aggregations we first find the {@link ProxyType}s of the record that
-   * has a <b>NON EMPTY</b> {@link ProxyType#getLineageList()}. From those we return any
-   * aggregation, in the record, that its about value matches any value in the {@link
-   * ProxyType#getProxyInList()}.</p>
+   * has a <b>NON EMPTY</b> {@link ProxyType#getLineageList()}. From those we return any aggregation, in the record, that its
+   * about value matches any value in the {@link ProxyType#getProxyInList()}.</p>
    *
    * @return the list of aggregations
    */
@@ -218,29 +231,29 @@ public class RdfWrapper {
    */
   public EdmType getEdmType() {
     final Set<EdmType> types = getProxies().stream().map(ProxyType::getType)
-        .filter(Objects::nonNull).map(Type2::getType).filter(Objects::nonNull)
-        .collect(Collectors.toSet());
+                                           .filter(Objects::nonNull).map(Type2::getType).filter(Objects::nonNull)
+                                           .collect(Collectors.toSet());
     return (types.size() == 1) ? types.iterator().next() : null;
   }
 
   /**
-   * Determines whether this entity has a landing page. An entity has a landing page if there is at
-   * least one web resource of type 'isShownAt', representing technical metadata of some (non-empty)
-   * mime type.
+   * Determines whether this entity has a landing page. An entity has a landing page if there is at least one web resource of type
+   * 'isShownAt', representing technical metadata of some (non-empty) mime type.
    *
    * @return Whether this entity has a landing page.
    */
   public boolean hasLandingPage() {
     return getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
-        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
+                                                                              .map(WebResourceWrapper::getMimeType)
+                                                                              .anyMatch(StringUtils::isNotBlank);
   }
 
   /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those with a non-blank about value and that have at least one of the given types.
+   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a
+   * non-blank about value and that have at least one of the given types.
    *
-   * @param types The types to which we limit our search. We only return web resources that have at
-   * least one of the given types. Cannot be null.
+   * @param types The types to which we limit our search. We only return web resources that have at least one of the given types.
+   * Cannot be null.
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceWrapper> getWebResourceWrappers(Set<WebResourceLinkType> types) {
@@ -280,11 +293,11 @@ public class RdfWrapper {
   }
 
   /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those with a non-blank about value and that have at least one of the given types.
+   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a
+   * non-blank about value and that have at least one of the given types.
    *
-   * @param types The types to which we limit our search. We only return web resources that have at
-   * least one of the given types. Cannot be null.
+   * @param types The types to which we limit our search. We only return web resources that have at least one of the given types.
+   * Cannot be null.
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceType> getWebResources(Set<WebResourceLinkType> types) {
@@ -311,6 +324,76 @@ public class RdfWrapper {
   }
 
   /**
+   * Obtains the list of agents from an RDF record. This will filter the objects: it only returns those with a non-blank about
+   * value.
+   *
+   * @return The agents. Is not null, but could be empty.
+   */
+  public List<AgentType> getAgents() {
+    return getFilteredPropertyList(rdfRecord.getAgentList());
+  }
+
+  /**
+   * Obtains the list of organization from an RDF record. This will filter the objects: it only returns those with a non-blank
+   * about value.
+   *
+   * @return The organizations. Is not null, but could be empty.
+   */
+  public List<Organization> getOrganizations() {
+    return getFilteredPropertyList(rdfRecord.getOrganizationList());
+  }
+
+  /**
+   * Obtains the list of concepts from an RDF record. This will filter the objects: it only returns those with a non-blank about
+   * value.
+   *
+   * @return The concepts. Is not null, but could be empty.
+   */
+  public List<Concept> getConcepts() {
+    return getFilteredPropertyList(rdfRecord.getConceptList());
+  }
+
+  /**
+   * Obtains the list of licenses from an RDF record. This will filter the objects: it only returns those with a non-blank about
+   * value.
+   *
+   * @return The licenses. Is not null, but could be empty.
+   */
+  public List<License> getLicenses() {
+    return getFilteredPropertyList(rdfRecord.getLicenseList());
+  }
+
+  /**
+   * Obtains the list of places from an RDF record. This will filter the objects: it only returns those with a non-blank about
+   * value.
+   *
+   * @return The places. Is not null, but could be empty.
+   */
+  public List<PlaceType> getPlaces() {
+    return getFilteredPropertyList(rdfRecord.getPlaceList());
+  }
+
+  /**
+   * Obtains the list of time spans from an RDF record. This will filter the objects: it only returns those with a non-blank about
+   * value.
+   *
+   * @return The time spans. Is not null, but could be empty.
+   */
+  public List<TimeSpanType> getTimeSpans() {
+    return getFilteredPropertyList(rdfRecord.getTimeSpanList());
+  }
+
+  /**
+   * Obtains the list of services from an RDF record. This will filter the objects: it only returns those with a non-blank about
+   * value.
+   *
+   * @return The services. Is not null, but could be empty.
+   */
+  public List<Service> getServices() {
+    return getFilteredPropertyList(rdfRecord.getServiceList());
+  }
+
+  /**
    * This method retrieves all URLs (as {@link String} objects) that this entity contains of the given link type.
    *
    * @param type The link type for which to retrieve the urls.
@@ -325,21 +408,21 @@ public class RdfWrapper {
   /**
    * This method creates a map of all web resource URLs in this entity with the given link types.
    *
-   * @param types The types to which we limit our search. We only return web resources that have at
-   * least one of the given types.
-   * @return The map of URLs to link types. The link types will include all types with which a given
-   * URL occurs, not just those those that we searched for.
+   * @param types The types to which we limit our search. We only return web resources that have at least one of the given types.
+   * @return The map of URLs to link types. The link types will include all types with which a given URL occurs, not just those
+   * those that we searched for.
    */
   private Map<String, Set<WebResourceLinkType>> getAllLinksForTypes(
       Set<WebResourceLinkType> types) {
 
     // All types with the urls that have that type. This is the complete overview.
     final Map<WebResourceLinkType, Set<String>> urlsByType = Stream.of(WebResourceLinkType.values())
-        .collect(Collectors.toMap(Function.identity(), this::getUrlsOfType));
+                                                                   .collect(Collectors.toMap(Function.identity(),
+                                                                       this::getUrlsOfType));
 
     // The result map with empty type lists. Only contains the urls with one of the required types.
     final Map<String, Set<WebResourceLinkType>> result = types.stream().map(urlsByType::get)
-        .flatMap(Set::stream).collect(
+                                                              .flatMap(Set::stream).collect(
             Collectors.toMap(Function.identity(), url -> new HashSet<>(), (url1, url2) -> url1));
 
     // Add the right types to the urls.
@@ -355,86 +438,6 @@ public class RdfWrapper {
     return result;
   }
 
-  /**
-   * Obtains the list of agents from an RDF record. This will filter the objects: it only returns
-   * those with a non-blank about value.
-   *
-   * @return The agents. Is not null, but could be empty.
-   */
-  public List<AgentType> getAgents() {
-    return getFilteredPropertyList(rdfRecord.getAgentList());
-  }
-
-  /**
-   * Obtains the list of organization from an RDF record. This will filter the objects: it only returns
-   * those with a non-blank about value.
-   *
-   * @return The organizations. Is not null, but could be empty.
-   */
-  public List<Organization> getOrganizations() {
-    return getFilteredPropertyList(rdfRecord.getOrganizationList());
-  }
-
-  /**
-   * Obtains the list of concepts from an RDF record. This will filter the objects: it only returns
-   * those with a non-blank about value.
-   *
-   * @return The concepts. Is not null, but could be empty.
-   */
-  public List<Concept> getConcepts() {
-    return getFilteredPropertyList(rdfRecord.getConceptList());
-  }
-
-  /**
-   * Obtains the list of licenses from an RDF record. This will filter the objects: it only returns
-   * those with a non-blank about value.
-   *
-   * @return The licenses. Is not null, but could be empty.
-   */
-  public List<License> getLicenses() {
-    return getFilteredPropertyList(rdfRecord.getLicenseList());
-  }
-
-  /**
-   * Obtains the list of places from an RDF record. This will filter the objects: it only returns
-   * those with a non-blank about value.
-   *
-   * @return The places. Is not null, but could be empty.
-   */
-  public List<PlaceType> getPlaces() {
-    return getFilteredPropertyList(rdfRecord.getPlaceList());
-  }
-
-  /**
-   * Obtains the list of time spans from an RDF record. This will filter the objects: it only
-   * returns those with a non-blank about value.
-   *
-   * @return The time spans. Is not null, but could be empty.
-   */
-  public List<TimeSpanType> getTimeSpans() {
-    return getFilteredPropertyList(rdfRecord.getTimeSpanList());
-  }
-
-  /**
-   * Obtains the list of services from an RDF record. This will filter the objects: it only returns
-   * those with a non-blank about value.
-   *
-   * @return The services. Is not null, but could be empty.
-   */
-  public List<Service> getServices() {
-    return getFilteredPropertyList(rdfRecord.getServiceList());
-  }
-
-  /**
-   * Obtain the list of quality annotations from an RDF record. This will filter the objects: it only returns those with a
-   * non-blank about value.
-   *
-   * @return The quality annotations. Is not null, but could be empty.
-   */
-  public List<QualityAnnotation> getQualityAnnotations() {
-    return getFilteredPropertyList(rdfRecord.getQualityAnnotationList());
-  }
-
   private List<Aggregation> getAggregations(Predicate<? super ProxyType> proxyTypePredicate) {
     final Set<String> proxyInList = getProviderProxies().stream().filter(proxyTypePredicate)
                                                         .map(ProxyType::getProxyInList).flatMap(List::stream)
@@ -444,22 +447,5 @@ public class RdfWrapper {
     return rdfRecord.getAggregationList().stream()
                     .filter(aggregation -> proxyInList.contains(aggregation.getAbout()))
                     .collect(Collectors.toList());
-  }
-
-  private static <T extends AboutType> List<T> getFilteredPropertyList(List<T> propertyList) {
-    return getFilteredPropertyStream(propertyList).collect(Collectors.toList());
-  }
-
-  private static <T extends AboutType> Stream<T> getFilteredPropertyStream(List<T> propertyList) {
-    return getPropertyStream(propertyList).filter(Objects::nonNull)
-                                          .filter(resource -> StringUtils.isNotBlank(resource.getAbout()));
-  }
-
-  private static <T extends AboutType> List<T> getPropertyList(List<T> propertyList) {
-    return propertyList == null ? Collections.emptyList() : propertyList;
-  }
-
-  private static <T extends AboutType> Stream<T> getPropertyStream(List<T> propertyList) {
-    return propertyList == null ? Stream.empty() : propertyList.stream();
   }
 }

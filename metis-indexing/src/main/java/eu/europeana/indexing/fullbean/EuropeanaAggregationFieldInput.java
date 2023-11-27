@@ -53,8 +53,6 @@ final class EuropeanaAggregationFieldInput
     String edmPreview = Optional.ofNullable(aggregation.getPreview())
         .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmPreview(edmPreview);
-    mongoAggregation.setDqvHasQualityAnnotation(
-        FieldInputUtils.resourceListToArray(aggregation.getHasQualityAnnotationList()));
 
     return mongoAggregation;
   }

@@ -1,5 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -7,6 +8,7 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.Created;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
 import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.Modified;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -35,6 +37,19 @@ import java.util.stream.Stream;
  */
 public class RdfToFullBeanConverter {
 
+  private static Date convertToDate(String dateString) {
+    return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
+  }
+
+  private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
+      boolean returnNullIfEmpty) {
+    final List<T> result = sourceList.stream().map(converter).collect(Collectors.toList());
+    if (result.isEmpty() && returnNullIfEmpty) {
+      return null;
+    }
+    return result;
+  }
+
   /**
    * Converts an RDF to Full Bean.
    *
@@ -59,8 +74,16 @@ public class RdfToFullBeanConverter {
     fullBean.setOrganizations(convertList(record.getOrganizations(), new OrganizationFieldInput(), false));
     fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), false));
     fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
-    fullBean.setQualityAnnotations(
-        convertList(record.getQualityAnnotations(), new QualityAnnotationFieldInput(), false));
+
+    // >> this will be updated in a next ticket the mongo part
+    var qualityAnnotations = record.getAggregations()
+                                   .stream()
+                                   .flatMap(qa -> qa.getHasQualityAnnotationList().stream())
+                                   .map(HasQualityAnnotation::getQualityAnnotation)
+                                   .collect(Collectors.toList());
+
+    fullBean.setQualityAnnotations(convertList(qualityAnnotations, new QualityAnnotationFieldInput(record.getAbout()), false));
+    // << this will be updated in a next ticket the mongo part
 
     // Set properties related to the Europeana aggregation
     fullBean.setEuropeanaCollectionName(new String[]{record.getDatasetName()});
@@ -69,14 +92,17 @@ public class RdfToFullBeanConverter {
     fullBean.setEuropeanaAggregation(
         europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
-        .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
+                        .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
     fullBean.setTimestampCreated(
         europeanaAggregation.map(EuropeanaAggregationType::getCreated).map(Created::getString)
-            .map(RdfToFullBeanConverter::convertToDate).orElse(null));
+                            .map(RdfToFullBeanConverter::convertToDate).orElse(null));
     fullBean.setTimestampUpdated(
         europeanaAggregation.map(EuropeanaAggregationType::getModified).map(Modified::getString)
-            .map(RdfToFullBeanConverter::convertToDate).orElse(null));
-
+                            .map(RdfToFullBeanConverter::convertToDate).orElse(null));
+    // << to be updated with mongo ticket
+    fullBean.getEuropeanaAggregation().setDqvHasQualityAnnotation(
+        fullBean.getQualityAnnotations().stream().map(AbstractEdmEntity::getAbout).toArray(String[]::new));
+    // << to be updated with mongo ticket
     // Done.
     return fullBean;
   }
@@ -100,7 +126,7 @@ public class RdfToFullBeanConverter {
 
     //We choose to add leftovers on the first provider aggregation
     final AggregationImpl firstProviderAggregation = Optional.ofNullable(providerAggregations)
-        .stream().flatMap(List::stream).findFirst().orElse(null);
+                                                             .stream().flatMap(List::stream).findFirst().orElse(null);
     if (firstProviderAggregation != null) {
       final List<WebResourceImpl> providerAggregationWebResources = firstProviderAggregation
           .getWebResources().stream().map(WebResourceImpl.class::cast).collect(Collectors.toList());
@@ -110,20 +136,7 @@ public class RdfToFullBeanConverter {
 
     //Combine aggregation lists
     return Stream.of(providerAggregations, aggregatorAggregations).filter(Objects::nonNull)
-        .flatMap(List::stream).map(Aggregation.class::cast).collect(Collectors.toList());
-  }
-
-  private static Date convertToDate(String dateString) {
-    return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
-  }
-
-  private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
-      boolean returnNullIfEmpty) {
-    final List<T> result = sourceList.stream().map(converter).collect(Collectors.toList());
-    if (result.isEmpty() && returnNullIfEmpty) {
-      return null;
-    }
-    return result;
+                 .flatMap(List::stream).map(Aggregation.class::cast).collect(Collectors.toList());
   }
 
   private static class WebResourcesExtractor implements Supplier<List<WebResourceImpl>> {
@@ -139,13 +152,14 @@ public class RdfToFullBeanConverter {
     public List<WebResourceImpl> get() {
       if (webResources == null) {
         final Collection<WebResourceType> webResourcesBeforeConversion = record.getWebResources()
-            .stream().collect(Collectors.toMap(WebResourceType::getAbout, UnaryOperator.identity(),
-                (first, second) -> first)).values();
+                                                                               .stream().collect(
+                Collectors.toMap(WebResourceType::getAbout, UnaryOperator.identity(),
+                    (first, second) -> first)).values();
         if (webResourcesBeforeConversion.isEmpty()) {
           webResources = Collections.emptyList();
         } else {
           webResources = webResourcesBeforeConversion.stream().map(new WebResourceFieldInput())
-              .collect(Collectors.toList());
+                                                     .collect(Collectors.toList());
         }
       }
       return Collections.unmodifiableList(webResources);

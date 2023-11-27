@@ -4,6 +4,9 @@ import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This enum lists the content and metadata tiers that exist.
@@ -22,21 +25,11 @@ public enum RdfTier {
   CONTENT_TIER_4("http://www.europeana.eu/schemas/epf/contentTier4", MediaTier.T4, EdmLabel.CONTENT_TIER);
 
   private final String uri;
-  private final String aboutSuffix;
   private final Tier tier;
   private final EdmLabel edmLabel;
 
-  RdfTier(String uri, MediaTier tier, EdmLabel edmLabel) {
-    this(uri, "#contentTier", tier, edmLabel);
-  }
-
-  RdfTier(String uri, MetadataTier tier, EdmLabel edmLabel) {
-    this(uri, "#metadataTier", tier, edmLabel);
-  }
-
-  RdfTier(String uri, String aboutSuffix, Tier tier, EdmLabel edmLabel) {
+  RdfTier(String uri, Tier tier, EdmLabel edmLabel) {
     this.uri = uri;
-    this.aboutSuffix = aboutSuffix;
     this.tier = tier;
     this.edmLabel = edmLabel;
   }
@@ -45,12 +38,15 @@ public enum RdfTier {
     return uri;
   }
 
-  public Tier getTier() {
-    return tier;
+  public Set<String> getCompetingUris() {
+    return Stream.of(values())
+                 .filter(value -> value.edmLabel == this.edmLabel)
+                 .map(RdfTier::getUri)
+                 .collect(Collectors.toSet());
   }
 
-  public String getAboutSuffix() {
-    return aboutSuffix;
+  public Tier getTier() {
+    return tier;
   }
 
   public EdmLabel getEdmLabel() {
