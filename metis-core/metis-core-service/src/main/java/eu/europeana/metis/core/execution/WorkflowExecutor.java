@@ -4,7 +4,7 @@ import static java.lang.Thread.currentThread;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
-import eu.europeana.cloud.service.dps.exception.AccessDeniedOrObjectDoesNotExistException;
+
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
@@ -27,6 +27,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -406,17 +407,17 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             workflowExecution.getId(), plugin.getPluginType()), e);
         currentThread().interrupt();
         return;
-      }catch (AccessDeniedOrObjectDoesNotExistException e){
+      } catch (UnrecoverableExternalTaskException e) {
         LOGGER.warn(String
-            .format("workflowExecutionId: %s, pluginType: %s - AccessDeniedOrObjectDoesNotExistException"
+            .format("workflowExecutionId: %s, pluginType: %s - UnrecoverableExternalTaskException"
                 + " occurred. Setting task state failed ", workflowExecution.getId(), plugin.getPluginType()), e);
         // Set plugin to FAILED and return immediately
-          plugin.setFinishedDate(null);
-          plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-          plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
-              ExceptionUtils.getStackTrace(e)));
-          return;
-    }catch ( ExternalTaskException | DpsException | RuntimeException e) {
+        plugin.setFinishedDate(null);
+        plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+        plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
+            ExceptionUtils.getStackTrace(e)));
+        return;
+      } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn(String
             .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
                 workflowExecution.getId(), plugin.getPluginType()), e);

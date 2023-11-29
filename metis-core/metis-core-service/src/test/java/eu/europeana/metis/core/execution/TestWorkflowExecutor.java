@@ -18,8 +18,6 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
-import eu.europeana.cloud.service.dps.exception.AccessDeniedOrObjectDoesNotExistException;
-import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.SystemId;
@@ -33,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -239,7 +238,7 @@ class TestWorkflowExecutor {
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
 
     Throwable[] dpsException100Times=new Throwable[100];
-    Arrays.setAll(dpsException100Times, index -> new DpsException());
+    Arrays.setAll(dpsException100Times, index -> new ExternalTaskException("Some error"));
     doThrow(dpsException100Times)
         .doReturn(new MonitorResult(TaskState.PROCESSED, null))
         .when(oaipmhHarvestPlugin).monitor(dpsClient);
@@ -266,7 +265,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callNonMockedFieldValue_MonitorFailsOnAccessDeniedOrObjectDoesNotExistException() throws Exception {
+  void callNonMockedFieldValue_MonitorFailsOnUnrecoverableExternalTaskException() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -283,7 +282,7 @@ class TestWorkflowExecutor {
     workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
-    doThrow(new AccessDeniedOrObjectDoesNotExistException())
+    doThrow(new UnrecoverableExternalTaskException("Check progress failed!", new Exception("Some error")))
         .when(oaipmhHarvestPlugin).monitor(dpsClient);
     doReturn(currentlyProcessingExecutionProgress).when(oaipmhHarvestPlugin).getExecutionProgress();
 
@@ -327,9 +326,9 @@ class TestWorkflowExecutor {
     workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
-    final DpsException exception = new DpsException("Some error",
+    final ExternalTaskException exception = new ExternalTaskException("Some error",
         new HttpServerErrorException(HttpStatus.BAD_GATEWAY));
-    final DpsException[] externalTaskExceptions = new DpsException[WorkflowExecutor.MAX_CANCEL_OR_MONITOR_FAILURES];
+    final ExternalTaskException[] externalTaskExceptions = new ExternalTaskException[WorkflowExecutor.MAX_CANCEL_OR_MONITOR_FAILURES];
     Arrays.fill(externalTaskExceptions, exception);
     doThrow(externalTaskExceptions)
         .doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -414,7 +413,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callExecutionInRUNNINGState() throws DpsException {
+  void callExecutionInRUNNINGState() throws ExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -460,7 +459,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateINQUEUE() throws ExternalTaskException, DpsException {
+  void callCancellingStateINQUEUE() throws ExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 
@@ -499,7 +498,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateRUNNING() throws ExternalTaskException, DpsException {
+  void callCancellingStateRUNNING() throws ExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 

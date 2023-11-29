@@ -6,9 +6,11 @@ import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.PluginParameterKeys;
+import eu.europeana.cloud.service.dps.exception.AccessDeniedOrObjectDoesNotExistException;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -221,10 +223,16 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   @Override
-  public MonitorResult monitor(DpsClient dpsClient) throws DpsException {
+  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
-    TaskInfo taskInfo =
-        dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
+    TaskInfo taskInfo;
+    try {
+      taskInfo = dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
+    }catch (AccessDeniedOrObjectDoesNotExistException e){
+      throw new UnrecoverableExternalTaskException("Requesting task progress failed", e);
+    } catch (DpsException | RuntimeException e) {
+      throw new ExternalTaskException("Requesting task progress failed", e);
+    }
     LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
     updateExecutionProgress(taskInfo);
     return new MonitorResult(taskInfo.getState(), taskInfo.getStateDescription());
