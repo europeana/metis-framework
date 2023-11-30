@@ -38,13 +38,6 @@ public enum RdfTier {
     return uri;
   }
 
-  public Set<String> getCompetingUris() {
-    return Stream.of(values())
-                 .filter(value -> value.edmLabel == this.edmLabel)
-                 .map(RdfTier::getUri)
-                 .collect(Collectors.toSet());
-  }
-
   public Tier getTier() {
     return tier;
   }

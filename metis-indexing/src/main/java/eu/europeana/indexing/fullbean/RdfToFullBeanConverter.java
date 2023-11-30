@@ -1,6 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -11,6 +10,7 @@ import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
 import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
 import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.Modified;
+import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.time.Instant;
@@ -50,6 +50,21 @@ public class RdfToFullBeanConverter {
     return result;
   }
 
+  private static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
+    return rdfWrappedRecord.getAggregations()
+                           .stream()
+                           .flatMap(qa -> {
+                             if (qa.getHasQualityAnnotationList() == null) {
+                               return null;
+                             } else {
+                               return qa.getHasQualityAnnotationList().stream();
+                             }
+                           })
+                           .filter(Objects::nonNull)
+                           .map(HasQualityAnnotation::getQualityAnnotation)
+                           .collect(Collectors.toList());
+  }
+
   /**
    * Converts an RDF to Full Bean.
    *
@@ -63,8 +78,7 @@ public class RdfToFullBeanConverter {
     fullBean.setAbout(record.getAbout());
 
     // Set list properties.
-    fullBean
-        .setProvidedCHOs(convertList(record.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
+    fullBean.setProvidedCHOs(convertList(record.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
     fullBean.setProxies(convertList(record.getProxies(), new ProxyFieldInput(), false));
     fullBean.setAggregations(convertAggregations(record));
     fullBean.setConcepts(convertList(record.getConcepts(), new ConceptFieldInput(), false));
@@ -74,23 +88,18 @@ public class RdfToFullBeanConverter {
     fullBean.setOrganizations(convertList(record.getOrganizations(), new OrganizationFieldInput(), false));
     fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), false));
     fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
-
-    // >> this will be updated in a next ticket the mongo part
-    var qualityAnnotations = record.getAggregations()
-                                   .stream()
-                                   .flatMap(qa -> qa.getHasQualityAnnotationList().stream())
-                                   .map(HasQualityAnnotation::getQualityAnnotation)
-                                   .collect(Collectors.toList());
-
-    fullBean.setQualityAnnotations(convertList(qualityAnnotations, new QualityAnnotationFieldInput(record.getAbout()), false));
-    // << this will be updated in a next ticket the mongo part
+    // >> this will be updated in a next ticket the mongo part parent ticket MET-5631
+    var qualityAnnotationsList = convertList(getQualityAnnotations(record), new QualityAnnotationFieldInput(record.getAbout()),
+        false);
+    fullBean.setQualityAnnotations(qualityAnnotationsList);
+    // << this will be updated in a next ticket the mongo part parent ticket MET-5631
 
     // Set properties related to the Europeana aggregation
     fullBean.setEuropeanaCollectionName(new String[]{record.getDatasetName()});
     final Optional<EuropeanaAggregationType> europeanaAggregation = record
         .getEuropeanaAggregation();
     fullBean.setEuropeanaAggregation(
-        europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
+        europeanaAggregation.map(new EuropeanaAggregationFieldInput(qualityAnnotationsList)).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
                         .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
     fullBean.setTimestampCreated(
@@ -99,10 +108,6 @@ public class RdfToFullBeanConverter {
     fullBean.setTimestampUpdated(
         europeanaAggregation.map(EuropeanaAggregationType::getModified).map(Modified::getString)
                             .map(RdfToFullBeanConverter::convertToDate).orElse(null));
-    // << to be updated with mongo ticket
-    fullBean.getEuropeanaAggregation().setDqvHasQualityAnnotation(
-        fullBean.getQualityAnnotations().stream().map(AbstractEdmEntity::getAbout).toArray(String[]::new));
-    // << to be updated with mongo ticket
     // Done.
     return fullBean;
   }

@@ -2,6 +2,7 @@ package eu.europeana.indexing.mongo;
 
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
 
+import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.common.DatabaseProperties;
 import eu.europeana.metis.common.SettingsHolder;
@@ -15,6 +16,7 @@ public class MongoIndexingSettings implements SettingsHolder {
   private String mongoDatabaseName;
   private String recordRedirectDatabaseName;
   private final MongoProperties<SetupRelatedIndexingException> mongoProperties;
+  private IndexingProperties indexingProperties;
 
   /**
    * Instantiates a new Mongo indexing settings.
@@ -70,5 +72,23 @@ public class MongoIndexingSettings implements SettingsHolder {
   @Override
   public DatabaseProperties getDatabaseProperties() {
     return mongoProperties;
+  }
+
+  /**
+   * Gets indexing properties.
+   *
+   * @return the indexing properties
+   */
+  public IndexingProperties getIndexingProperties() {
+    return indexingProperties;
+  }
+
+  /**
+   * Sets indexing properties.
+   *
+   * @param indexingProperties the indexing properties
+   */
+  public void setIndexingProperties(IndexingProperties indexingProperties) {
+    this.indexingProperties = indexingProperties;
   }
 }

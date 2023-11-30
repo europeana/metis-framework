@@ -120,10 +120,11 @@ public final class RdfTierUtils {
     final Stream<HasQualityAnnotation> existingAnnotations = Optional
         .ofNullable(aggregatorAggregation.getHasQualityAnnotationList()).stream()
         .flatMap(Collection::stream)
-        .filter(existingLink -> !rdfTier.getCompetingUris()
-                                        .contains(link.getQualityAnnotation()
+        .filter(existingLink -> !link.getQualityAnnotation()
                                                       .getHasBody()
-                                                      .getResource()));
+                                                      .getResource().equals(existingLink.getQualityAnnotation()
+                                                                                        .getHasBody()
+                                                                                        .getResource()));
     aggregatorAggregation.setHasQualityAnnotationList(
         Stream.concat(existingAnnotations, Stream.of(link)).collect(Collectors.toList()));
   }
