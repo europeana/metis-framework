@@ -174,7 +174,7 @@
     <version.postgresql>42.5.1</version.postgresql>
     <version.powermock>2.0.9</version.powermock>
     <version.rabbitmq>5.12.0</version.rabbitmq>
-    <version.redisson>3.15.5</version.redisson>
+    <version.redisson>3.24.3</version.redisson>
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.slf4j>1.7.30</version.slf4j>
