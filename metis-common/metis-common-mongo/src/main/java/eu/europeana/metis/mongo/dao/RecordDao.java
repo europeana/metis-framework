@@ -17,6 +17,7 @@ import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.derived.AttributionSnippet;
+import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.BasicProxyImpl;
@@ -84,6 +85,7 @@ public class RecordDao {
     mapper.getEntityModel(FullBeanImpl.class);
     mapper.getEntityModel(ProvidedCHOImpl.class);
     mapper.getEntityModel(AgentImpl.class);
+    mapper.getEntityModel(AddressImpl.class);
     mapper.getEntityModel(AggregationImpl.class);
     mapper.getEntityModel(OrganizationImpl.class);
     mapper.getEntityModel(ConceptImpl.class);
