@@ -5,10 +5,8 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
-import eu.europeana.metis.schema.jibx.AggregatedCHO;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Created;
-import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
 import eu.europeana.metis.schema.jibx.HasBody;
 import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
 import eu.europeana.metis.schema.jibx.HasTarget;
@@ -17,14 +15,13 @@ import eu.europeana.metis.schema.jibx.RDF;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class provides utilities methods with respect to the tiers in {@link RdfTier}.
@@ -48,8 +45,8 @@ public final class RdfTierUtils {
   public static RdfTier getTier(
       eu.europeana.corelib.definitions.edm.entity.QualityAnnotation annotation) {
     return Optional.ofNullable(annotation)
-        .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getBody)
-        .map(tiersByUri::get).orElse(null);
+                   .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getBody)
+                   .map(tiersByUri::get).orElse(null);
   }
 
   /**
@@ -88,50 +85,47 @@ public final class RdfTierUtils {
 
     // Determine if there is something to reference and somewhere to add the reference.
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    final Set<String> aggregationAbouts = rdfWrapper.getAggregations().stream()
-        .filter(Objects::nonNull).map(Aggregation::getAbout).filter(StringUtils::isNotBlank)
-        .collect(Collectors.toSet());
-    if (aggregationAbouts.isEmpty()) {
-      throw new RecordRelatedIndexingException("Cannot find provider aggregation in record.");
+    final Aggregation aggregatorAggregation = rdfWrapper.getAggregatorAggregations()
+                                                        .stream()
+                                                        .filter(Objects::nonNull)
+                                                        .findAny()
+                                                        .orElse(rdfWrapper.getProviderAggregations()
+                                                                          .stream()
+                                                                          .filter(Objects::nonNull)
+                                                                          .findAny()
+                                                                          .orElse(null));
+
+    if (aggregatorAggregation == null) {
+      throw new RecordRelatedIndexingException("Cannot find suitable aggregator or provider aggregation in record.");
     }
-    final EuropeanaAggregationType europeanaAggregation = rdfWrapper.getEuropeanaAggregation()
-        .orElseThrow(() -> new RecordRelatedIndexingException(
-            "Cannot find Europeana aggregation in record."));
-    final String choAbout = Optional.ofNullable(europeanaAggregation.getAggregatedCHO()).map(
-        AggregatedCHO::getResource).orElseThrow(() -> new RecordRelatedIndexingException(
-        "Cannot find aggregated CHO in Europeana aggregation."));
-    final String annotationAboutBase = "/item" + choAbout;
 
     // Create the annotation
     final QualityAnnotation annotation = new QualityAnnotation();
     final Created created = new Created();
     created.setString(Instant.now().toString());
     annotation.setCreated(created);
-    annotation.setHasTargetList(aggregationAbouts.stream().map(about -> {
-      final HasTarget hasTarget = new HasTarget();
-      hasTarget.setResource(about);
-      return hasTarget;
-    }).collect(Collectors.toList()));
+
+    final HasTarget hasTarget = new HasTarget();
+    hasTarget.setResource(aggregatorAggregation.getAbout());
+    annotation.setHasTargetList(List.of(hasTarget));
+
     final HasBody hasBody = new HasBody();
     hasBody.setResource(rdfTier.getUri());
     annotation.setHasBody(hasBody);
-    annotation.setAbout(annotationAboutBase + rdfTier.getAboutSuffix());
-
-    // Add the annotation (remove all annotations with the same about)
-    final Stream<QualityAnnotation> existingAnnotations = rdfWrapper.getQualityAnnotations()
-        .stream()
-        .filter(existingAnnotation -> !annotation.getAbout().equals(existingAnnotation.getAbout()));
-    rdf.setQualityAnnotationList(
-        Stream.concat(existingAnnotations, Stream.of(annotation)).collect(Collectors.toList()));
 
     // Add the link to the annotation to the europeana aggregation.
     final HasQualityAnnotation link = new HasQualityAnnotation();
-    link.setResource(annotation.getAbout());
-    final Stream<HasQualityAnnotation> existingLinks = Optional
-        .ofNullable(europeanaAggregation.getHasQualityAnnotationList()).stream()
+    link.setQualityAnnotation(annotation);
+
+    final Stream<HasQualityAnnotation> existingAnnotations = Optional
+        .ofNullable(aggregatorAggregation.getHasQualityAnnotationList()).stream()
         .flatMap(Collection::stream)
-        .filter(existingLink -> !link.getResource().equals(existingLink.getResource()));
-    europeanaAggregation.setHasQualityAnnotationList(
-        Stream.concat(existingLinks, Stream.of(link)).collect(Collectors.toList()));
+        .filter(existingLink -> !link.getQualityAnnotation()
+                                                      .getHasBody()
+                                                      .getResource().equals(existingLink.getQualityAnnotation()
+                                                                                        .getHasBody()
+                                                                                        .getResource()));
+    aggregatorAggregation.setHasQualityAnnotationList(
+        Stream.concat(existingAnnotations, Stream.of(link)).collect(Collectors.toList()));
   }
 }

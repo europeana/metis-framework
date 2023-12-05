@@ -1,20 +1,29 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
+import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
+import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
+import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
-import eu.europeana.metis.schema.jibx.ResourceType;
-import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 
 /**
- * Converts a {@link EuropeanaAggregationType} from an {@link eu.europeana.metis.schema.jibx.RDF}
- * to a {@link EuropeanaAggregationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
+ * Converts a {@link EuropeanaAggregationType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
+ * {@link EuropeanaAggregationImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 final class EuropeanaAggregationFieldInput
     implements Function<EuropeanaAggregationType, EuropeanaAggregationImpl> {
+
+  final List<? extends QualityAnnotation> qualityAnnotations;
+
+  public EuropeanaAggregationFieldInput(List<? extends QualityAnnotation> qualityAnnotations) {
+    this.qualityAnnotations = qualityAnnotations;
+  }
 
   @Override
   public EuropeanaAggregationImpl apply(EuropeanaAggregationType aggregation) {
@@ -40,7 +49,7 @@ final class EuropeanaAggregationFieldInput
     mongoAggregation.setEdmLanguage(language);
 
     String agCHO = Optional.ofNullable(aggregation.getAggregatedCHO())
-        .map(ResourceType::getResource).orElse(null);
+                           .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setAggregatedCHO(agCHO);
 
     Map<String, List<String>> edmRights =
@@ -51,11 +60,16 @@ final class EuropeanaAggregationFieldInput
     String[] hasViewList = FieldInputUtils.resourceListToArray(aggregation.getHasViewList());
     mongoAggregation.setEdmHasView(hasViewList);
     String edmPreview = Optional.ofNullable(aggregation.getPreview())
-        .map(ResourceType::getResource).orElse(null);
+                                .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmPreview(edmPreview);
-    mongoAggregation.setDqvHasQualityAnnotation(
-        FieldInputUtils.resourceListToArray(aggregation.getHasQualityAnnotationList()));
 
+    // << to be updated with mongo parent ticket MET-5631
+    mongoAggregation.setDqvHasQualityAnnotation(
+        qualityAnnotations.stream()
+                          .filter(Objects::nonNull)
+                          .map(AbstractEdmEntity::getAbout)
+                          .toArray(String[]::new));
+    // << to be updated with mongo parent ticket MET-5631
     return mongoAggregation;
   }
 }

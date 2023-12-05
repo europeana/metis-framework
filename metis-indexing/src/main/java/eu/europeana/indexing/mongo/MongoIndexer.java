@@ -5,12 +5,21 @@ import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
+import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
+import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
+import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.model.TierResults;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
+import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
+import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.lang.invoke.MethodHandles;
@@ -27,7 +36,9 @@ public class MongoIndexer implements SimpleIndexer {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
-
+  private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
+  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
+  private final IndexingProperties indexingProperties;
 
   /**
    * Instantiates a new Mongo indexer.
@@ -38,6 +49,7 @@ public class MongoIndexer implements SimpleIndexer {
   public MongoIndexer(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
     this.connectionProvider = new MongoConnectionProvider(settings);
     this.stringToRdfConverterSupplier = StringToFullBeanConverter::new;
+    this.indexingProperties = settings.getIndexingProperties();
   }
 
   /**
@@ -59,7 +71,20 @@ public class MongoIndexer implements SimpleIndexer {
 
     LOGGER.info("Processing record {}", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
+    preProcessRecord(rdfRecord);
     publisher.publishMongo(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
+  }
+
+  private void preProcessRecord(RDF rdfRecord) throws IndexingException {
+    final RdfWrapper rdfWrapper = new RdfWrapper(rdfRecord);
+    TierResults tierCalculationsResult = new TierResults();
+    if (indexingProperties.isPerformTierCalculation() && indexingProperties.getTypesEnabledForTierCalculation()
+                                                           .contains(rdfWrapper.getEdmType())) {
+      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
+          metadataClassifier.classify(rdfWrapper));
+      RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMediaTier());
+      RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMetadataTier());
+    }
   }
 
   /**
