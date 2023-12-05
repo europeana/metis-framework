@@ -218,6 +218,7 @@ class TestWorkflowExecutor {
     verify(oaipmhHarvestPlugin).setFailMessage(notNull());
     verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
+
   @Test
   void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
@@ -237,7 +238,7 @@ class TestWorkflowExecutor {
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
 
-    Throwable[] dpsException100Times=new Throwable[100];
+    Throwable[] dpsException100Times = new Throwable[100];
     Arrays.setAll(dpsException100Times, index -> new ExternalTaskException("Some error"));
     doThrow(dpsException100Times)
         .doReturn(new MonitorResult(TaskState.PROCESSED, null))
