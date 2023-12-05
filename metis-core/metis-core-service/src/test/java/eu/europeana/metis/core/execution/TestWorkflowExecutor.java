@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -30,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -232,11 +234,57 @@ class TestWorkflowExecutor {
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
 
     doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
-    doThrow(new ExternalTaskException("Some error"))
-        .doThrow(new ExternalTaskException("Some " + "error")).when(oaipmhHarvestPlugin)
-        .monitor(dpsClient);
+
+    Throwable[] dpsException100Times = new Throwable[100];
+    Arrays.setAll(dpsException100Times, index -> new ExternalTaskException("Some error"));
+    doThrow(dpsException100Times)
+        .doReturn(new MonitorResult(TaskState.PROCESSED, null))
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
+
+    doReturn(currentlyProcessingExecutionProgress).when(oaipmhHarvestPlugin).getExecutionProgress();
+
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution))
+        .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+    when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(0);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution, persistenceProvider,
+        workflowExecutionSettings);
+    workflowExecutor.call();
+
+    verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    verify(oaipmhHarvestPlugin).setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
+    verify(oaipmhHarvestPlugin, atLeastOnce()).setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
+    verify(oaipmhHarvestPlugin, never()).setFailMessage(notNull());
+  }
+
+  @Test
+  void callNonMockedFieldValue_MonitorFailsOnUnrecoverableExternalTaskException() throws Exception {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
+
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.spy(OaipmhHarvestPlugin.class);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
+
+    WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+    workflowExecution.setId(new ObjectId());
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setStartedDate(new Date());
+
+    doReturn(oaipmhHarvestPluginMetadata).when(oaipmhHarvestPlugin).getPluginMetadata();
+    doThrow(new UnrecoverableExternalTaskException("Check progress failed!", new Exception("Some error")))
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
     doReturn(currentlyProcessingExecutionProgress).when(oaipmhHarvestPlugin).getExecutionProgress();
 
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
@@ -366,7 +414,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callExecutionInRUNNINGState() throws ExternalTaskException {
+  void callExecutionInRUNNINGState() throws ExternalTaskException, UnrecoverableExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -412,7 +460,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateINQUEUE() throws ExternalTaskException {
+  void callCancellingStateINQUEUE() throws ExternalTaskException, UnrecoverableExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 
@@ -451,7 +499,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateRUNNING() throws ExternalTaskException {
+  void callCancellingStateRUNNING() throws ExternalTaskException, UnrecoverableExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 
