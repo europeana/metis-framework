@@ -223,7 +223,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   @Override
-  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
+  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException, UnrecoverableExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
     TaskInfo taskInfo;
     try {

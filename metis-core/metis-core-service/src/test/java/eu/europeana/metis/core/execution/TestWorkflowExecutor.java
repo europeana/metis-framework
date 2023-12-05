@@ -413,7 +413,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callExecutionInRUNNINGState() throws ExternalTaskException {
+  void callExecutionInRUNNINGState() throws ExternalTaskException, UnrecoverableExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -459,7 +459,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateINQUEUE() throws ExternalTaskException {
+  void callCancellingStateINQUEUE() throws ExternalTaskException, UnrecoverableExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 
@@ -498,7 +498,7 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateRUNNING() throws ExternalTaskException {
+  void callCancellingStateRUNNING() throws ExternalTaskException, UnrecoverableExternalTaskException {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
 
