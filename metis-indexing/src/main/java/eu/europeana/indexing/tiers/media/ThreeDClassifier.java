@@ -1,6 +1,7 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
@@ -13,7 +14,7 @@ import eu.europeana.metis.schema.model.MediaType;
 class ThreeDClassifier extends AbstractMediaClassifier {
 
   @Override
-  MediaTier preClassifyEntity(RdfWrapper entity) {
+  TierClassification<MediaTier, ContentTierBreakdown> preClassifyEntity(RdfWrapper entity) {
 
     // We always have to look at the web resources.
     return null;

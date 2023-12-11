@@ -8,6 +8,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
@@ -38,7 +39,7 @@ class AbstractMediaClassifierTest {
   static void setup() {
     classifier = spy(new AbstractMediaClassifier() {
       @Override
-      MediaTier preClassifyEntity(RdfWrapper entity) {
+      TierClassification<MediaTier, ContentTierBreakdown> preClassifyEntity(RdfWrapper entity) {
         return null;
       }
 

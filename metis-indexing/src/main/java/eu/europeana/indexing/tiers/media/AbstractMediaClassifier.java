@@ -31,11 +31,9 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
   public final TierClassification<MediaTier, ContentTierBreakdown> classify(RdfWrapper entity) {
 
     // Look at the entity as a whole: we may classify without considering the web resources.
-    final MediaTier entityTier = preClassifyEntity(entity);
+    final TierClassification<MediaTier, ContentTierBreakdown> entityTier = preClassifyEntity(entity);
     if (entityTier != null) {
-      return new TierClassification<>(entityTier, new ContentTierBreakdown.Builder()
-                      .setMediaResourceTechnicalMetadataList(Collections.emptyList())
-                      .build());
+      return entityTier;
     }
 
     // Find candidate web resources
@@ -134,7 +132,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
    * @param entity The entity to classify.
    * @return The classification of this entity. Returns null if we can not do it without looking at the web resources.
    */
-  abstract MediaTier preClassifyEntity(RdfWrapper entity);
+  abstract TierClassification<MediaTier, ContentTierBreakdown> preClassifyEntity(RdfWrapper entity);
 
   /**
    * This method is used to classify an entity without suitable web resources. If this method is called for an entity, the method
