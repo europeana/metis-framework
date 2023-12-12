@@ -51,7 +51,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${version.maven.compiler.plugin}</version>
           <configuration>
-            <release>17</release>
+            <release>21</release>
           </configuration>
         </plugin>
         <!--Setup highest directory path, so that it can be used as a variable avoiding relative paths-->
@@ -132,7 +132,6 @@
     <version.awaitability>1.7.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
-    <version.com.github.tomakehurst.wiremock>2.27.2</version.com.github.tomakehurst.wiremock>
     <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commonscompress>1.21</version.commonscompress>
@@ -180,7 +179,7 @@
     <version.slf4j>1.7.30</version.slf4j>
     <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.spring>5.3.7</version.spring>
-    <version.spring.boot>2.7.8</version.spring.boot>
+    <version.spring.boot>2.7.18</version.spring.boot>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.security>5.5.0</version.spring.security>
@@ -190,7 +189,7 @@
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
     <version.tika.core>1.26</version.tika.core>
-    <version.wiremock-jre>2.35.1</version.wiremock-jre>
+    <version.org.wiremock>3.3.1</version.org.wiremock>
     <version.testcontainers>1.19.0</version.testcontainers>
     <version.xerces>2.12.2</version.xerces>
     <version.xmlunit.matchers>2.8.2</version.xmlunit.matchers>
@@ -567,9 +566,9 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>com.github.tomakehurst</groupId>
-        <artifactId>wiremock</artifactId>
-        <version>${version.com.github.tomakehurst.wiremock}</version>
+        <groupId>org.wiremock</groupId>
+        <artifactId>wiremock-standalone</artifactId>
+        <version>${version.org.wiremock}</version>
         <scope>test</scope>
         <exclusions>
           <exclusion>

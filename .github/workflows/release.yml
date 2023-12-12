@@ -16,7 +16,7 @@ on:
 
 jobs:
   ci-release:
-    uses: europeana/metis-actions/.github/workflows/release.yml@jdk17
+    uses: europeana/metis-actions/.github/workflows/release.yml@jdk21
     with:
       release-version: ${{ github.event.inputs.release-version }}
       commit-hash-branch: ${{ github.event.inputs.commit-hash-branch }}
