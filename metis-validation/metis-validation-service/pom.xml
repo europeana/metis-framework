@@ -75,11 +75,9 @@
       <version>${version.spring.context}</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
     <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock</artifactId>
-      <scope>test</scope>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-standalone</artifactId>
     </dependency>
     <dependency>
       <groupId>org.powermock</groupId>

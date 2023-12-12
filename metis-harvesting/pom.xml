@@ -37,9 +37,8 @@
             <version>${version.saxon.he}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock</artifactId>
-            <version>${version.com.github.tomakehurst.wiremock}</version>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

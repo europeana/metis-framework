@@ -28,10 +28,8 @@
       <artifactId>mockito-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock-jre8</artifactId>
-      <version>${version.wiremock-jre}</version>
-      <scope>test</scope>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-standalone</artifactId>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
