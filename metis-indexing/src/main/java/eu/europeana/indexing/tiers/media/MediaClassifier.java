@@ -51,6 +51,8 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
     final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier = getDeferredClassifier(entity.getEdmType());
     if (deferredClassifier == null) {
       return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown.Builder()
+              .setMediaTierBeforeLicenseCorrection(MediaTier.T0)
+              .setLicenseType(entity.getLicenseType())
               .setMediaResourceTechnicalMetadataList(Collections.emptyList())
               .build());
     }

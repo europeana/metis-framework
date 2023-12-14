@@ -1,11 +1,13 @@
 package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata.ResolutionTierMetadataBuilder;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
+import java.util.Collections;
 
 /**
  * Classifier for images.
@@ -17,10 +19,15 @@ class ImageClassifier extends AbstractMediaClassifier {
   private static final int RESOLUTION_LARGE = 950_000;
 
   @Override
-  MediaTier preClassifyEntity(RdfWrapper entity) {
+  TierClassification<MediaTier, ContentTierBreakdown> preClassifyEntity(RdfWrapper entity) {
 
     // If the entity has no thumbnails, it can only be tiered 0.
-    return entity.hasThumbnails() ? null : MediaTier.T0;
+    return entity.hasThumbnails() ? null : new TierClassification<>(MediaTier.T0, new ContentTierBreakdown.Builder()
+        .setThumbnailAvailable(false)
+        .setMediaTierBeforeLicenseCorrection(MediaTier.T0)
+        .setLicenseType(entity.getLicenseType())
+        .setMediaResourceTechnicalMetadataList(Collections.emptyList())
+        .build());
   }
 
   @Override

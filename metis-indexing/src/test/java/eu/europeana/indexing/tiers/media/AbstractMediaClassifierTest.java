@@ -8,6 +8,8 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.TierClassifier.TierClassification;
+import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata;
 import eu.europeana.indexing.tiers.view.MediaResourceTechnicalMetadata.MediaResourceTechnicalMetadataBuilder;
 import eu.europeana.indexing.tiers.view.ResolutionTierMetadata;
@@ -38,7 +40,7 @@ class AbstractMediaClassifierTest {
   static void setup() {
     classifier = spy(new AbstractMediaClassifier() {
       @Override
-      MediaTier preClassifyEntity(RdfWrapper entity) {
+      TierClassification<MediaTier, ContentTierBreakdown> preClassifyEntity(RdfWrapper entity) {
         return null;
       }
 
@@ -72,7 +74,13 @@ class AbstractMediaClassifierTest {
   @Test
   void testClassify_PreClassify() {
     final RdfWrapper entity = mock(RdfWrapper.class);
-    doReturn(MediaTier.T0).when(classifier).preClassifyEntity(entity);
+    TierClassification<MediaTier, ContentTierBreakdown> mock =  new TierClassification<>(MediaTier.T0, new ContentTierBreakdown.Builder()
+        .setThumbnailAvailable(false)
+        .setMediaTierBeforeLicenseCorrection(MediaTier.T0)
+        .setLicenseType(entity.getLicenseType())
+        .setMediaResourceTechnicalMetadataList(Collections.emptyList())
+        .build());
+    doReturn(mock).when(classifier).preClassifyEntity(entity);
     assertEquals(MediaTier.T0, classifier.classify(entity).getTier());
   }
 

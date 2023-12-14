@@ -74,7 +74,7 @@ class ImageClassifierTest {
     doReturn(true).when(entity).hasThumbnails();
     assertNull(classifier.preClassifyEntity(entity));
     doReturn(false).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
+    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity).getTier());
   }
 
   @ParameterizedTest(name = "[{index}] - expectedTier:{0} for resolution:{1}")
