@@ -130,16 +130,16 @@ public class MetisRecordParser implements RecordParser {
 
   private static Set<String> getSameAsLinks(AboutType contextualClass) {
     final List<? extends ResourceType> result;
-    if (contextualClass instanceof AgentType) {
-      result = ((AgentType) contextualClass).getSameAList();
-    } else if (contextualClass instanceof Concept) {
-      result = Optional.ofNullable(((Concept) contextualClass).getChoiceList()).stream()
+    if (contextualClass instanceof AgentType agentType) {
+      result = agentType.getSameAList();
+    } else if (contextualClass instanceof Concept concept) {
+      result = Optional.ofNullable(concept.getChoiceList()).stream()
           .flatMap(Collection::stream).filter(Objects::nonNull).filter(Concept.Choice::ifExactMatch)
                        .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).toList();
-    } else if (contextualClass instanceof PlaceType) {
-      result = ((PlaceType) contextualClass).getSameAList();
-    } else if (contextualClass instanceof TimeSpanType) {
-      result = ((TimeSpanType) contextualClass).getSameAList();
+    } else if (contextualClass instanceof PlaceType placeType) {
+      result = placeType.getSameAList();
+    } else if (contextualClass instanceof TimeSpanType timeSpanType) {
+      result = timeSpanType.getSameAList();
     } else {
       result = null;
     }

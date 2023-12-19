@@ -41,7 +41,6 @@ import eu.europeana.metis.core.workflow.plugins.AbstractHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
-import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
@@ -572,9 +571,8 @@ public class OrchestratorService {
           "workflowExecutionId: %s, pluginId: %s - Found plugin root that is not a harvesting plugin.",
           workflowExecution.getId(), harvestPlugin.getId()));
     }
-    return (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
-        && ((AbstractHarvestPluginMetadata) harvestPlugin.getPluginMetadata())
-        .isIncrementalHarvest();
+    return (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata abstractHarvestPluginMetadata)
+        && abstractHarvestPluginMetadata.isIncrementalHarvest();
   }
 
   /**
@@ -763,9 +761,8 @@ public class OrchestratorService {
         we don't have to look further into the past for all depublish actions after the last
         publish). We should make this code more robust by not assuming that here. */
     final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestExecutablePublish
-        && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
-        && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
-        .isDatasetDepublish();
+        && (lastExecutableDepublishPlugin instanceof DepublishPlugin depublishPlugin)
+        && depublishPlugin.getPluginMetadata().isDatasetDepublish();
 
     boolean lastPublishHasDeletedRecords = computeRecordCountsAndCheckDeletedRecords(lastExecutablePublishPlugin,
         executionInfo::setLastPublishedRecords, executionInfo::setTotalPublishedRecords);
@@ -834,8 +831,8 @@ public class OrchestratorService {
   }
 
   private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {
-    final boolean dataIsValid = !(plugin instanceof ExecutablePlugin)
-        || MetisPlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
+    final boolean dataIsValid = !(plugin instanceof ExecutablePlugin executablePlugin)
+        || MetisPlugin.getDataStatus(executablePlugin) == DataStatus.VALID;
     final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() < DateUtils
         .calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
     return dataIsValid && enoughTimeHasPassed;
@@ -936,11 +933,11 @@ public class OrchestratorService {
 
   private static boolean canDisplayRawXml(MetisPlugin plugin) {
     final boolean result;
-    if (plugin instanceof ExecutablePlugin) {
+    if (plugin instanceof ExecutablePlugin executablePlugin) {
       final boolean dataIsValid =
-          MetisPlugin.getDataStatus(((ExecutablePlugin) plugin)) == DataStatus.VALID;
-      final ExecutionProgress progress = ((ExecutablePlugin) plugin).getExecutionProgress();
-      final boolean pluginHasBlacklistedType = Optional.of(((ExecutablePlugin) plugin))
+          MetisPlugin.getDataStatus(executablePlugin) == DataStatus.VALID;
+      final ExecutionProgress progress = executablePlugin.getExecutionProgress();
+      final boolean pluginHasBlacklistedType = Optional.of(executablePlugin)
           .map(ExecutablePlugin::getPluginMetadata)
           .map(ExecutablePluginMetadata::getExecutablePluginType)
           .map(NO_XML_PREVIEW_TYPES::contains).orElse(Boolean.TRUE);

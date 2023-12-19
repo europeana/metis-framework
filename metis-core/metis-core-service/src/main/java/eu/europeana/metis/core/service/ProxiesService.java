@@ -542,8 +542,8 @@ public class ProxiesService {
     // Get the plugin for which to get the records and return.
     final MetisPlugin plugin = workflowExecution
         .getMetisPluginWithType(pluginType.toPluginType()).orElse(null);
-    if (plugin instanceof ExecutablePlugin) {
-      return new ImmutablePair<>(workflowExecution, (ExecutablePlugin) plugin);
+    if (plugin instanceof ExecutablePlugin executablePlugin) {
+      return new ImmutablePair<>(workflowExecution, executablePlugin);
     }
     return null;
   }

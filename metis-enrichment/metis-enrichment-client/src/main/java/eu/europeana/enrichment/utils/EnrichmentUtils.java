@@ -199,8 +199,8 @@ public final class EnrichmentUtils {
     if (booleanSupplier.getAsBoolean()) {
       R result = supplier.get();
       String value;
-      if (result instanceof LiteralType) {
-        value = getLiteralValue((LiteralType) result);
+      if (result instanceof LiteralType literalType) {
+        value = getLiteralValue(literalType);
       } else {
         value = getResourceorLiteralValue((ResourceOrLiteralType) result);
       }
@@ -213,8 +213,8 @@ public final class EnrichmentUtils {
     if (booleanSupplier.getAsBoolean()) {
       R result = supplier.get();
       String value;
-      if (result instanceof LiteralType) {
-        value = getLiteralValue((LiteralType) result);
+      if (result instanceof LiteralType literalType) {
+        value = getLiteralValue(literalType);
       } else {
         value = getResourceorLiteralValue((ResourceOrLiteralType) result);
       }

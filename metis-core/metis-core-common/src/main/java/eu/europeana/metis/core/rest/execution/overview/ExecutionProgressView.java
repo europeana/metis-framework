@@ -36,9 +36,8 @@ public class ExecutionProgressView {
         .filter(plugin -> EXECUTING_STATUS_SET.contains(plugin.getPluginStatus())).findFirst()
         .orElse(null);
     this.stepsTotal = metisPlugins.size();
-    if (currentPlugin instanceof AbstractExecutablePlugin) {
-      this.currentPluginProgress = new PluginProgressView(
-          ((AbstractExecutablePlugin) currentPlugin).getExecutionProgress());
+    if (currentPlugin instanceof AbstractExecutablePlugin abstractExecutablePlugin) {
+      this.currentPluginProgress = new PluginProgressView(abstractExecutablePlugin.getExecutionProgress());
     }
   }
 

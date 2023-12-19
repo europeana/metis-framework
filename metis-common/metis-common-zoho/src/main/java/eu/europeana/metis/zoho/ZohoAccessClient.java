@@ -141,8 +141,7 @@ public class ZohoAccessClient {
     if (response != null && !isEmptyContent(response) && response.isExpected()) {
       //Get the object from response
       ResponseHandler responseHandler = response.getObject();
-      if (responseHandler instanceof ResponseWrapper) {
-        ResponseWrapper responseWrapper = (ResponseWrapper) responseHandler;
+      if (responseHandler instanceof ResponseWrapper responseWrapper) {
         return responseWrapper.getData();
       }
     }
@@ -158,8 +157,7 @@ public class ZohoAccessClient {
     if (response != null && response.isExpected()) {
       //Get the object from response
       DeletedRecordsHandler deletedRecordsHandler = response.getObject();
-      if (deletedRecordsHandler instanceof DeletedRecordsWrapper) {
-        DeletedRecordsWrapper deletedRecordsWrapper = (DeletedRecordsWrapper) deletedRecordsHandler;
+      if (deletedRecordsHandler instanceof DeletedRecordsWrapper deletedRecordsWrapper) {
         return deletedRecordsWrapper.getData();
       }
     }

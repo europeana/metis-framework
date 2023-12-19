@@ -424,8 +424,8 @@ public class DataEvolutionUtils {
   }
 
   private static boolean isIncrementalHarvest(PluginWithExecutionId<ExecutablePlugin> rootHarvest) {
-    return (rootHarvest.getPlugin().getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
-        && ((AbstractHarvestPluginMetadata) rootHarvest.getPlugin().getPluginMetadata()).isIncrementalHarvest();
+    return (rootHarvest.getPlugin().getPluginMetadata() instanceof AbstractHarvestPluginMetadata abstractHarvestPluginMetadata)
+        && abstractHarvestPluginMetadata.isIncrementalHarvest();
   }
 
   /**

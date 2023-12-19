@@ -19,10 +19,10 @@ public class SimpleIndexerFactory {
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
   public SimpleIndexer getIndexer(SettingsHolder settings) throws SetupRelatedIndexingException {
-    if (settings instanceof SolrIndexingSettings) {
-      return new SolrIndexer((SolrIndexingSettings) settings);
-    } else if (settings instanceof MongoIndexingSettings) {
-      return new MongoIndexer((MongoIndexingSettings) settings);
+    if (settings instanceof SolrIndexingSettings solrIndexingSettings) {
+      return new SolrIndexer(solrIndexingSettings);
+    } else if (settings instanceof MongoIndexingSettings mongoIndexingSettings) {
+      return new MongoIndexer(mongoIndexingSettings);
     } else {
       throw new IllegalArgumentException("Invalid property configuration");
     }

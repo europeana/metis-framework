@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A class with a static method to combine the default trustore with a custom trustore into one and use that during the
+ * A class with a static method to combine the default truststore with a custom truststore into one and use that during the
  * application lifecycle.
  */
 public final class CustomTruststoreAppender {
@@ -80,8 +80,8 @@ public final class CustomTruststoreAppender {
     // Get hold of the default trust manager
     X509TrustManager defaultX509TrustManager = null;
     for (TrustManager trustManager : trustManagerFactory.getTrustManagers()) {
-      if (trustManager instanceof X509TrustManager) {
-        defaultX509TrustManager = (X509TrustManager) trustManager;
+      if (trustManager instanceof X509TrustManager x509TrustManager) {
+        defaultX509TrustManager = x509TrustManager;
         break;
       }
     }
@@ -103,8 +103,8 @@ public final class CustomTruststoreAppender {
 
     X509TrustManager customX509TrustManager = null;
     for (TrustManager trustManager : trustManagerFactory.getTrustManagers()) {
-      if (trustManager instanceof X509TrustManager) {
-        customX509TrustManager = (X509TrustManager) trustManager;
+      if (trustManager instanceof X509TrustManager x509TrustManager) {
+        customX509TrustManager = x509TrustManager;
         break;
       }
     }
