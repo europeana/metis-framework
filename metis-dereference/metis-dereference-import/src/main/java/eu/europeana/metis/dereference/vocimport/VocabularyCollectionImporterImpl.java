@@ -20,13 +20,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * This is the default implementation of the vocabulary importing functionality.
  */
-final class VocabularyCollectionImporterImpl implements VocabularyCollectionImporter {
-
-  private final Location directoryLocation;
-
-  VocabularyCollectionImporterImpl(Location directoryLocation) {
-    this.directoryLocation = directoryLocation;
-  }
+record VocabularyCollectionImporterImpl(Location directoryLocation) implements VocabularyCollectionImporter {
 
   @Override
   public Iterable<VocabularyLoader> importVocabularies() throws VocabularyImportException {

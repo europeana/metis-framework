@@ -65,7 +65,7 @@ public class MetisRecordParser implements RecordParser {
               .add(fieldType));
     }
     return fieldValueFieldTypesMap.entrySet().stream().map(
-        entry -> new SearchTermContext(entry.getKey().getValue(), entry.getKey().getLanguage(),
+        entry -> new SearchTermContext(entry.getKey().value(), entry.getKey().language(),
             entry.getValue())).collect(Collectors.toSet());
   }
 
@@ -139,7 +139,7 @@ public class MetisRecordParser implements RecordParser {
     } else if (contextualClass instanceof PlaceType placeType) {
       result = placeType.getSameAList();
     } else if (contextualClass instanceof TimeSpanType timeSpanType) {
-      result = timeSpanType.getSameAList();
+      result = ((TimeSpanType) contextualClass).getSameAList();
     } else {
       result = null;
     }
