@@ -192,19 +192,10 @@ public class MediaExtractorImpl implements MediaExtractor {
   MediaProcessor chooseMediaProcessor(MediaType mediaType) {
     final MediaProcessor processor;
     switch (mediaType) {
-      case TEXT:
-        processor = textProcessor;
-        break;
-      case AUDIO:
-      case VIDEO:
-        processor = audioVideoProcessor;
-        break;
-      case IMAGE:
-        processor = imageProcessor;
-        break;
-      default:
-        processor = null;
-        break;
+      case TEXT -> processor = textProcessor;
+      case AUDIO, VIDEO -> processor = audioVideoProcessor;
+      case IMAGE -> processor = imageProcessor;
+      default -> processor = null;
     }
     return processor;
   }

@@ -200,23 +200,13 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private Set<String> getUrls(Document document, UrlType type) throws RdfDeserializationException {
 
     // Determine the right expression to apply.
-    final XPathExpressionWrapper expression;
+    final XPathExpressionWrapper expression =
     switch (type) {
-      case OBJECT:
-        expression = getObjectExpression;
-        break;
-      case HAS_VIEW:
-        expression = getHasViewExpression;
-        break;
-      case IS_SHOWN_AT:
-        expression = getIsShownAtExpression;
-        break;
-      case IS_SHOWN_BY:
-        expression = getIsShownByExpression;
-        break;
-      default:
-        return Collections.emptySet();
-    }
+      case OBJECT -> getObjectExpression;
+      case HAS_VIEW -> getHasViewExpression;
+      case IS_SHOWN_AT -> getIsShownAtExpression;
+      case IS_SHOWN_BY -> getIsShownByExpression;
+    };
 
     // Evaluate the expression and convert the node list to a set of attribute values.
     final NodeList nodes = expression.evaluate(document);

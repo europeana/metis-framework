@@ -50,12 +50,8 @@ public class DepublishRecordIdView {
       DepublicationStatus depublicationStatusView = null;
       if (depublicationStatus != null) {
         switch (depublicationStatus) {
-          case DEPUBLISHED:
-            depublicationStatusView = DepublicationStatus.DEPUBLISHED;
-            break;
-          case PENDING_DEPUBLICATION:
-          default:
-            depublicationStatusView = DepublicationStatus.PENDING;
+          case DEPUBLISHED -> depublicationStatusView = DepublicationStatus.DEPUBLISHED;
+          default -> depublicationStatusView = DepublicationStatus.PENDING;
         }
       }
       return depublicationStatusView;

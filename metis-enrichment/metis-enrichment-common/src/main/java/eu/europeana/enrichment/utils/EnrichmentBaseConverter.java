@@ -52,27 +52,12 @@ public final class EnrichmentBaseConverter {
    * @return the enrichment base
    */
   public static EnrichmentBase convertEntitiesToEnrichmentBase(Entity entity) {
-    final EnrichmentBase enrichmentBase;
-    switch (EntityTypes.valueOf(entity.getType())) {
-      case Agent:
-        enrichmentBase = new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
-        break;
-      case Place:
-        enrichmentBase = new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
-        break;
-      case Concept:
-        enrichmentBase = new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
-        break;
-      case TimeSpan:
-        enrichmentBase = new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
-        break;
-      case Organization:
-        enrichmentBase = new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
-        break;
-      default:
-        enrichmentBase = null;
-        break;
-    }
-    return enrichmentBase;
+    return switch (EntityTypes.valueOf(entity.getType())) {
+      case Agent -> new Agent((eu.europeana.entitymanagement.definitions.model.Agent) entity);
+      case Place -> new Place((eu.europeana.entitymanagement.definitions.model.Place) entity);
+      case Concept -> new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
+      case TimeSpan -> new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
+      case Organization -> new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+    };
   }
 }
