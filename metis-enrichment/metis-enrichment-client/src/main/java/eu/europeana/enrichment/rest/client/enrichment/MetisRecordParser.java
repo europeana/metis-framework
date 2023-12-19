@@ -75,7 +75,7 @@ public class MetisRecordParser implements RecordParser {
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
     final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
-        .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
+                                            .flatMap(Collection::stream).filter(Objects::nonNull).toList();
     final Map<String, Set<ProxyFieldType>> directReferences = new HashMap<>();
     for (ProxyFieldType field : ProxyFieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
@@ -135,7 +135,7 @@ public class MetisRecordParser implements RecordParser {
     } else if (contextualClass instanceof Concept) {
       result = Optional.ofNullable(((Concept) contextualClass).getChoiceList()).stream()
           .flatMap(Collection::stream).filter(Objects::nonNull).filter(Concept.Choice::ifExactMatch)
-          .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).collect(Collectors.toList());
+                       .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).toList();
     } else if (contextualClass instanceof PlaceType) {
       result = ((PlaceType) contextualClass).getSameAList();
     } else if (contextualClass instanceof TimeSpanType) {

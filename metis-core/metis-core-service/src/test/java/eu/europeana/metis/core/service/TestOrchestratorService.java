@@ -722,7 +722,7 @@ class TestOrchestratorService {
       final Dataset result = new Dataset();
       result.setDatasetId(id);
       return result;
-    }).collect(Collectors.toList());
+    }).toList();
     final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
 
     // Check for all datasets and for regular user: should query all datasets to which that user's
@@ -775,7 +775,7 @@ class TestOrchestratorService {
       final Dataset result = new Dataset();
       result.setDatasetId(id);
       return result;
-    }).collect(Collectors.toList());
+    }).toList();
     final List<ExecutionDatasetPair> data = TestObjectFactory.createExecutionsWithDatasets(4);
 
     // Check for all datasets and for regular user: should query all datasets to which that user's

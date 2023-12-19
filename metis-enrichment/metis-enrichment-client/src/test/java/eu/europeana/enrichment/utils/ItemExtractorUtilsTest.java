@@ -98,7 +98,7 @@ public class ItemExtractorUtilsTest {
       List<ResourceType> result = output
           .stream()
           .filter(x -> x.getResource().equals(resource.getResource()))
-          .collect(Collectors.toList());
+          .toList();
 
       assertEquals(1, result.size());
     }
@@ -121,7 +121,7 @@ public class ItemExtractorUtilsTest {
       List<ResourceOrLiteralType> result = output
           .stream()
           .filter(x -> x.getResource().getResource().equals(labelResource.getResource()))
-          .collect(Collectors.toList());
+          .toList();
 
       assertEquals(1, result.size());
     }

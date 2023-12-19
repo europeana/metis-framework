@@ -29,7 +29,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -487,7 +486,7 @@ public class AuthenticationService {
 
   private static List<MetisUserView> convert(List<MetisUser> records) {
     return Optional.ofNullable(records).stream().flatMap(Collection::stream).map(MetisUserView::new)
-                   .collect(Collectors.toList());
+                   .toList();
   }
 }
 

@@ -238,7 +238,7 @@ class ClientEntityResolverTest {
                                       .map(entityType -> entityType.name().toLowerCase(Locale.US))
                                       .collect(Collectors.joining(","));
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::peekFirst)
-                                         .filter(Objects::nonNull).collect(Collectors.toList());
+                                         .filter(Objects::nonNull).toList();
       when(entityClientApi.getEnrichment(entry.getKey().getTextValue(), entry.getValue().getExpectedConvertedLanguage(),
           entityTypes, null)).thenReturn(children);
 
@@ -266,7 +266,7 @@ class ClientEntityResolverTest {
   void resolveById(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
-                                         .collect(Collectors.toList());
+                                         .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
         when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
@@ -354,7 +354,7 @@ class ClientEntityResolverTest {
   void resolveByUri(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
-                                         .collect(Collectors.toList());
+                                         .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
         when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
@@ -389,7 +389,7 @@ class ClientEntityResolverTest {
 
   private void parentMatching(EntitiesAndExpectedEnrichmentBases entry, List<Entity> children) {
     final List<Entity> parentEntities = entry.getEntitiesWithParents().stream().flatMap(List::stream)
-                                             .filter(entity -> !children.contains(entity)).collect(Collectors.toList());
+                                             .filter(entity -> !children.contains(entity)).toList();
     for (Entity parentEntity : parentEntities) {
       when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
     }

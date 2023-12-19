@@ -140,7 +140,7 @@ public class DepublishRecordIdDao {
       depublishRecordId.setDepublicationStatus(depublicationStatus);
       depublishRecordId.setDepublicationDate(depublicationDate);
       return depublishRecordId;
-    }).collect(Collectors.toList());
+    }).toList();
     retryableExternalRequestForNetworkExceptions(() -> {
       morphiaDatastoreProvider.getDatastore().save(objectsToAdd);
       return Optional.empty();
@@ -227,7 +227,7 @@ public class DepublishRecordIdDao {
     final List<DepublishRecordId> result = getListOfQueryRetryable(query, findOptions);
 
     // Convert result to right object.
-    return result.stream().map(DepublishRecordIdView::new).collect(Collectors.toList());
+    return result.stream().map(DepublishRecordIdView::new).toList();
   }
 
   /**

@@ -459,7 +459,7 @@ public class EntityMergeEngine {
         List<AboutType> aboutTypeList = entry.getValue()
                                              .stream()
                                              .map(base -> convertAndAddEntity(rdf, base))
-                                             .collect(Collectors.toList());
+                                             .toList();
         if (dereferencedEntities.getClassType().equals(Aggregation.class)) {
           replaceResourceWithLinkInAggregation(rdf, aboutTypeList, entry.getKey());
         }

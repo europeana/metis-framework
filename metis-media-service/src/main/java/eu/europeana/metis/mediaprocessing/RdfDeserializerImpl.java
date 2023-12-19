@@ -1,13 +1,12 @@
 package eu.europeana.metis.mediaprocessing;
 
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.RdfNamespaceContext;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -179,7 +178,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static List<RdfResourceEntry> convertToResourceEntries(
           Map<String, Set<UrlType>> urlWithTypes) {
     return urlWithTypes.entrySet().stream().map(RdfDeserializerImpl::convertToResourceEntry)
-            .collect(Collectors.toList());
+                       .toList();
   }
 
   private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, Set<UrlType>> entry) {

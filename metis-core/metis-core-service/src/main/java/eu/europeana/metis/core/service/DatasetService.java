@@ -1,15 +1,13 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.core.common.TransformationParameters;
-import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.utils.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUserView;
+import eu.europeana.metis.core.common.TransformationParameters;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -30,6 +28,8 @@ import eu.europeana.metis.transformation.service.EuropeanaIdCreator;
 import eu.europeana.metis.transformation.service.EuropeanaIdException;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
+import eu.europeana.metis.utils.CommonStringValues;
+import eu.europeana.metis.utils.RestEndpoints;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -546,7 +546,7 @@ public class DatasetService {
         LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
         return new Record(record.getEcloudId(), e.getMessage());
       }
-    }).collect(Collectors.toList());
+    }).toList();
   }
 
   /**
@@ -671,10 +671,10 @@ public class DatasetService {
     }
     final String[] words = searchString.split("\\s+");
     final List<String> datasetIdWords = Arrays.stream(words)
-        .filter(word -> Character.isDigit(word.charAt(0))).collect(Collectors.toList());
+                                              .filter(word -> Character.isDigit(word.charAt(0))).toList();
 
     final List<String> minimumLengthWords = Arrays.stream(words)
-        .filter(word -> word.length() >= MINIMUM_WORD_LENGTH).collect(Collectors.toList());
+                                                  .filter(word -> word.length() >= MINIMUM_WORD_LENGTH).toList();
 
     List<Dataset> datasets = new ArrayList<>();
     if (!datasetIdWords.isEmpty() || !minimumLengthWords.isEmpty()) {
@@ -697,7 +697,7 @@ public class DatasetService {
           }
           return datasetSearchView;
         }
-    ).collect(Collectors.toList());
+    ).toList();
   }
 
   public int getDatasetsPerRequestLimit() {

@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -201,7 +200,7 @@ public class MongoProperties<E extends Exception> implements DatabaseProperties 
   private List<ServerAddress> getMongoAddressesFromHostsAndPorts(String[] hosts, int[] ports)
       throws E {
     return new InetAddressUtil<>(this.exceptionCreator).getAddressesFromHostsAndPorts(hosts, ports)
-        .stream().map(ServerAddress::new).collect(Collectors.toList());
+                                                       .stream().map(ServerAddress::new).toList();
   }
 
   /**

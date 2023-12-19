@@ -1,12 +1,11 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.model.Orientation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Resource metadata for image resources.
@@ -72,7 +71,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
         throw new MediaExtractionException("Unrecognized hex String: " + badColor.get());
       }
       // TODO dominant colors start with '#' due to legacy systems
-      this.dominantColors = dominantColors.stream().map(c -> "#" + c).collect(Collectors.toList());
+      this.dominantColors = dominantColors.stream().map(c -> "#" + c).toList();
     }
   }
 

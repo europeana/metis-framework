@@ -534,7 +534,7 @@ public class OrchestratorService {
     // Compile and return the result.
     final List<WorkflowExecutionView> convertedData = data.getResults().stream().map(
         execution -> new WorkflowExecutionView(execution, isIncremental(execution),
-            OrchestratorService::canDisplayRawXml)).collect(Collectors.toList());
+            OrchestratorService::canDisplayRawXml)).toList();
     final ResponseListWrapper<WorkflowExecutionView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(convertedData, getWorkflowExecutionsPerRequest(), nextPage,
         data.isMaxResultCountReached());
@@ -613,7 +613,7 @@ public class OrchestratorService {
     }
     final List<ExecutionAndDatasetView> views = resultList.getResults().stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
-        .collect(Collectors.toList());
+                                                          .toList();
     final ResponseListWrapper<ExecutionAndDatasetView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(views, getWorkflowExecutionsPerRequest(), nextPage, pageCount,
         resultList.isMaxResultCountReached());
@@ -876,7 +876,7 @@ public class OrchestratorService {
     // Filter the executions.
     final List<Execution> executions = allExecutions.getResults().stream().filter(
             entry -> entry.getMetisPlugins().stream().anyMatch(OrchestratorService::canDisplayRawXml))
-        .map(OrchestratorService::convert).collect(Collectors.toList());
+                                                    .map(OrchestratorService::convert).toList();
 
     // Done
     final ExecutionHistory result = new ExecutionHistory();
@@ -919,7 +919,7 @@ public class OrchestratorService {
     // Compile the result.
     final List<PluginWithDataAvailability> plugins = execution.getMetisPlugins().stream()
         .filter(OrchestratorService::canDisplayRawXml).map(OrchestratorService::convert)
-        .collect(Collectors.toList());
+                                                              .toList();
     final PluginsWithDataAvailability result = new PluginsWithDataAvailability();
     result.setPlugins(plugins);
 

@@ -44,7 +44,7 @@ public class EnricherImpl implements Enricher {
                                                                      httpStatus.value() >= HttpStatus.MULTIPLE_CHOICES.value()
                                                                          && httpStatus.value()
                                                                          < HttpStatus.INTERNAL_SERVER_ERROR.value())
-                                                                 .collect(Collectors.toList());
+                                                                 .toList();
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
   private final EntityMergeEngine entityMergeEngine;

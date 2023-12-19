@@ -10,7 +10,6 @@ import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.vocabulary.EntityTypes;
 import java.io.StringReader;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
@@ -43,7 +42,7 @@ public final class EnrichmentBaseConverter {
    * @return the enrichment bases
    */
   public static List<EnrichmentBase> convertEntitiesToEnrichmentBase(List<Entity> entities) {
-    return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase).collect(Collectors.toList());
+    return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase).toList();
   }
 
   /**

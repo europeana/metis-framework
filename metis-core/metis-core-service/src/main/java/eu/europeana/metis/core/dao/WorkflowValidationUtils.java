@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.util.CollectionUtils;
 
@@ -91,7 +90,7 @@ public class WorkflowValidationUtils {
 
     // Compile the list of enabled plugins.
     final List<AbstractExecutablePluginMetadata> enabledPlugins = metisPluginsMetadata
-            .stream().filter(ExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
+        .stream().filter(ExecutablePluginMetadata::isEnabled).toList();
 
     // Workflow should not be empty and all should have a type.
     if (enabledPlugins.isEmpty()) {
