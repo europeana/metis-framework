@@ -455,7 +455,7 @@ class TestProxiesService {
     final Record record2 = new Record("ID 2", "test content 2");
     final Record record3 = new Record("ID 3", "test content 3");
     final List<String> idList = Stream.of(record1, record2, record3).map(Record::getEcloudId)
-                                      .collect(Collectors.toList());
+                                      .toList();
 
     // Mock the method for getting records
     doReturn(record1).when(proxiesService).getRecord(plugin, record1.getEcloudId());

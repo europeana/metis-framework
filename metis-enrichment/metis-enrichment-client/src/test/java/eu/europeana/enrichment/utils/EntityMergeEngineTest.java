@@ -39,7 +39,6 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.CollectionUtils;
 
@@ -418,7 +417,7 @@ class EntityMergeEngineTest {
   // Compares those choices of the right type. Returns the number of choices covered.
   private <O, C> int verifyChoiceList(List<O> original, eu.europeana.metis.schema.jibx.Concept copy,
       Predicate<Choice> choiceFilter, Function<Choice, C> choiceGetter, BiConsumer<O, C> objectVerification) {
-    final List<C> items = copy.getChoiceList().stream().filter(choiceFilter).map(choiceGetter).collect(Collectors.toList());
+    final List<C> items = copy.getChoiceList().stream().filter(choiceFilter).map(choiceGetter).toList();
     verifyList(original, items, objectVerification);
     return items.size();
   }
@@ -429,7 +428,7 @@ class EntityMergeEngineTest {
     // We compare all non-null originals.
     final List<O> filteredOriginal;
     if (original != null) {
-      filteredOriginal = original.stream().filter(Objects::nonNull).collect(Collectors.toList());
+      filteredOriginal = original.stream().filter(Objects::nonNull).toList();
     } else {
       filteredOriginal = Collections.emptyList();
     }
@@ -577,7 +576,7 @@ class EntityMergeEngineTest {
     inputList.add(createSecondPlaceWithNullValues());
     final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
         Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
-        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
 
     // Perform merge
     RDF rdf = new RDF();
@@ -608,7 +607,7 @@ class EntityMergeEngineTest {
     inputList.add(createOrganization());
     final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
         Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
-        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
 
     // Perform merge
     RDF rdf = new RDF();
@@ -641,7 +640,7 @@ class EntityMergeEngineTest {
     });
     final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
         Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
-        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).collect(Collectors.toList());
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
     RDF rdf = new RDF();
     EntityMergeEngine entityMergeEngine = new EntityMergeEngine();
     IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,

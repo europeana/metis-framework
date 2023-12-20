@@ -4,7 +4,6 @@ import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -73,7 +72,7 @@ public class EnrichmentResultBaseWrapper {
    */
   public static List<EnrichmentResultBaseWrapper> createEnrichmentResultBaseWrapperList(
       Collection<List<EnrichmentBase>> resultList, DereferenceResultStatus dereferenceStatus) {
-    return resultList.stream().map(item -> new EnrichmentResultBaseWrapper(item, dereferenceStatus)).collect(Collectors.toList());
+    return resultList.stream().map(item -> new EnrichmentResultBaseWrapper(item, dereferenceStatus)).toList();
   }
 
   public DereferenceResultStatus getDereferenceStatus() {

@@ -3,7 +3,6 @@ package eu.europeana.metis.zoho;
 import com.zoho.crm.api.util.Choice;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.json.JSONObject;
 
@@ -47,7 +46,7 @@ public final class ZohoUtils {
     if (!JSONObject.NULL.equals(object) && object instanceof List<?> && CollectionUtils
         .isNotEmpty((List<?>) object) && ((List<?>) object).get(0) instanceof Choice<?>) {
       return ((List<Choice<?>>) object).stream().map(Choice::getValue).map(String.class::cast)
-          .collect(Collectors.toList());
+                                       .toList();
     }
     return Collections.emptyList();
   }

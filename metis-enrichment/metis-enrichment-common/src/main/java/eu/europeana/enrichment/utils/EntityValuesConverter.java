@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public final class EntityValuesConverter {
 
@@ -80,14 +79,14 @@ public final class EntityValuesConverter {
     if (resources == null) {
       return new ArrayList<>();
     }
-    return resources.stream().map(Part::new).collect(Collectors.toList());
+    return resources.stream().map(Part::new).toList();
   }
 
   public static List<Resource> convertToResourceList(String[] resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
-    return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
+    return Arrays.stream(resources).map(Resource::new).toList();
   }
 
   public static VcardAddresses getVcardAddresses(Address address) {

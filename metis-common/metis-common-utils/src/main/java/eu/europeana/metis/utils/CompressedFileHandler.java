@@ -58,22 +58,12 @@ public class CompressedFileHandler {
       throw new IOException("Can't process archive of this type: " + compressedFile);
     }
     switch (compressingExtension) {
-      case ZIP:
-        extractZipFile(compressedFile, destinationFolder);
-        break;
-      case GZIP:
-        extractGzFile(compressedFile, destinationFolder);
-        break;
-      case TAR:
-        extractTarFile(compressedFile, destinationFolder);
-        break;
-      case TGZIP:
-      case TAR_GZ:
-        extractTarGzFile(compressedFile, destinationFolder);
-        break;
-      default:
-        throw new IllegalStateException(
-            "Shouldn't be here. Extension found: " + compressingExtension.name());
+      case ZIP -> extractZipFile(compressedFile, destinationFolder);
+      case GZIP -> extractGzFile(compressedFile, destinationFolder);
+      case TAR -> extractTarFile(compressedFile, destinationFolder);
+      case TGZIP, TAR_GZ -> extractTarGzFile(compressedFile, destinationFolder);
+      default -> throw new IllegalStateException(
+          "Shouldn't be here. Extension found: " + compressingExtension.name());
     }
   }
 

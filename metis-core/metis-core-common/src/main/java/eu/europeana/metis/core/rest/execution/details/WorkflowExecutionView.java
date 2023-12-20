@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * This class represents the full information on a workflow execution needed for the execution
@@ -59,7 +58,7 @@ public class WorkflowExecutionView {
     this.isIncremental = isIncremental;
     this.metisPlugins = execution.getMetisPlugins().stream()
             .map(plugin -> new PluginView(plugin, canDisplayRawXml.test(plugin)))
-            .collect(Collectors.toList());
+                                 .toList();
   }
 
   public String getId() {

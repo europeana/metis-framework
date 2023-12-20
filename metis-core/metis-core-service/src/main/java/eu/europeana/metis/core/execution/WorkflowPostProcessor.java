@@ -86,10 +86,10 @@ public class WorkflowPostProcessor {
   private void indexPostProcess(AbstractExecutablePlugin<?> indexPlugin, String datasetId)
       throws DpsException, InvalidIndexPluginException, BadContentException {
     TargetIndexingDatabase targetIndexingDatabase;
-    if (indexPlugin instanceof IndexToPreviewPlugin) {
-      targetIndexingDatabase = ((IndexToPreviewPlugin) indexPlugin).getTargetIndexingDatabase();
-    } else if (indexPlugin instanceof IndexToPublishPlugin) {
-      targetIndexingDatabase = ((IndexToPublishPlugin) indexPlugin).getTargetIndexingDatabase();
+    if (indexPlugin instanceof IndexToPreviewPlugin indexToPreviewPlugin) {
+      targetIndexingDatabase = indexToPreviewPlugin.getTargetIndexingDatabase();
+    } else if (indexPlugin instanceof IndexToPublishPlugin indexToPublishPlugin) {
+      targetIndexingDatabase = indexToPublishPlugin.getTargetIndexingDatabase();
 
       final boolean isIncremental = ((IndexToPublishPlugin) indexPlugin).getPluginMetadata().isIncrementalIndexing();
 

@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 
 /**
@@ -141,7 +140,7 @@ public class TestObjectFactory {
    */
   public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
     return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
-        .collect(Collectors.toList());
+                                             .toList();
   }
 
   /**

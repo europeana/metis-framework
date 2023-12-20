@@ -379,20 +379,16 @@ public class EntityMergeEngine {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;
-    if (enrichmentBase instanceof Place) {
-      entity = convertAndAddEntity((Place) enrichmentBase, EntityMergeEngine::convertPlace,
-          rdf::getPlaceList, rdf::setPlaceList);
-    } else if (enrichmentBase instanceof Agent) {
-      entity = convertAndAddEntity((Agent) enrichmentBase, EntityMergeEngine::convertAgent,
-          rdf::getAgentList, rdf::setAgentList);
-    } else if (enrichmentBase instanceof Concept) {
-      entity = convertAndAddEntity((Concept) enrichmentBase, EntityMergeEngine::convertConcept,
-          rdf::getConceptList, rdf::setConceptList);
-    } else if (enrichmentBase instanceof TimeSpan) {
-      entity = convertAndAddEntity((TimeSpan) enrichmentBase, EntityMergeEngine::convertTimeSpan,
-          rdf::getTimeSpanList, rdf::setTimeSpanList);
-    } else if (enrichmentBase instanceof Organization) {
-      entity = convertAndAddEntity((Organization) enrichmentBase,
+    if (enrichmentBase instanceof Place place) {
+      entity = convertAndAddEntity(place, EntityMergeEngine::convertPlace, rdf::getPlaceList, rdf::setPlaceList);
+    } else if (enrichmentBase instanceof Agent agent) {
+      entity = convertAndAddEntity(agent, EntityMergeEngine::convertAgent, rdf::getAgentList, rdf::setAgentList);
+    } else if (enrichmentBase instanceof Concept concept) {
+      entity = convertAndAddEntity(concept, EntityMergeEngine::convertConcept, rdf::getConceptList, rdf::setConceptList);
+    } else if (enrichmentBase instanceof TimeSpan timeSpan) {
+      entity = convertAndAddEntity(timeSpan, EntityMergeEngine::convertTimeSpan, rdf::getTimeSpanList, rdf::setTimeSpanList);
+    } else if (enrichmentBase instanceof Organization organization) {
+      entity = convertAndAddEntity(organization,
           EntityMergeEngine::convertOrganization, rdf::getOrganizationList,
           rdf::setOrganizationList);
     } else {
@@ -459,7 +455,7 @@ public class EntityMergeEngine {
         List<AboutType> aboutTypeList = entry.getValue()
                                              .stream()
                                              .map(base -> convertAndAddEntity(rdf, base))
-                                             .collect(Collectors.toList());
+                                             .toList();
         if (dereferencedEntities.getClassType().equals(Aggregation.class)) {
           replaceResourceWithLinkInAggregation(rdf, aboutTypeList, entry.getKey());
         }

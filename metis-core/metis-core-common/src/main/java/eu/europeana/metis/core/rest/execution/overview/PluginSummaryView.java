@@ -30,10 +30,9 @@ public class PluginSummaryView {
     this.failMessage = plugin.getFailMessage();
     this.startedDate = plugin.getStartedDate();
     this.finishedDate = plugin.getFinishedDate();
-    if (plugin instanceof AbstractExecutablePlugin) {
-      this.updatedDate = ((AbstractExecutablePlugin) plugin).getUpdatedDate();
-      this.progress = new PluginProgressView(
-          ((AbstractExecutablePlugin) plugin).getExecutionProgress());
+    if (plugin instanceof AbstractExecutablePlugin abstractExecutablePlugin) {
+      this.updatedDate = abstractExecutablePlugin.getUpdatedDate();
+      this.progress = new PluginProgressView(abstractExecutablePlugin.getExecutionProgress());
     }
   }
 

@@ -4,7 +4,6 @@ import static java.lang.Thread.currentThread;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
-
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.ExecutedMetisPluginId;
@@ -21,9 +20,9 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DpsTaskSettings;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
@@ -334,16 +333,14 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     // get the information from the harvesting plugin.
     final boolean incrementalHarvest =
-            (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
-                    && ((AbstractHarvestPluginMetadata) harvestPlugin.getPluginMetadata())
-                    .isIncrementalHarvest();
+        harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata abstractHarvestPluginMetadata
+            && abstractHarvestPluginMetadata.isIncrementalHarvest();
     final Date harvestDate = harvestPlugin.getStartedDate();
 
     // Set the information to the indexing plugin.
-    if (indexingPlugin.getPluginMetadata() instanceof AbstractIndexPluginMetadata) {
-      final var metadata = (AbstractIndexPluginMetadata) indexingPlugin.getPluginMetadata();
-      metadata.setIncrementalIndexing(incrementalHarvest);
-      metadata.setHarvestDate(harvestDate);
+    if (indexingPlugin.getPluginMetadata() instanceof AbstractIndexPluginMetadata abstractIndexPluginMetadata) {
+      abstractIndexPluginMetadata.setIncrementalIndexing(incrementalHarvest);
+      abstractIndexPluginMetadata.setHarvestDate(harvestDate);
     }
   }
 
@@ -365,8 +362,12 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   }
 
   private AbstractExecutablePlugin expectExecutablePlugin(AbstractMetisPlugin plugin) {
-    if (plugin == null || plugin instanceof AbstractExecutablePlugin) {
-      return (AbstractExecutablePlugin) plugin;
+    if (plugin == null) {
+      return null;
+    }
+
+    if (plugin instanceof AbstractExecutablePlugin abstractExecutablePlugin) {
+      return abstractExecutablePlugin;
     }
     throw new IllegalStateException(String.format(
         "workflowExecutionId: %s, pluginId: %s - Found plugin that is not an executable plugin.",

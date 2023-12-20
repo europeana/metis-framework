@@ -48,24 +48,12 @@ public class RdfWrapper {
   }
 
   private static Stream<ResourceType> getLinksOfType(Aggregation aggregation, UrlType type) {
-    final Stream<ResourceType> result;
-    switch (type) {
-      case OBJECT:
-        result = Stream.of(aggregation.getObject());
-        break;
-      case HAS_VIEW:
-        result = stream(aggregation.getHasViewList());
-        break;
-      case IS_SHOWN_AT:
-        result = Stream.of(aggregation.getIsShownAt());
-        break;
-      case IS_SHOWN_BY:
-        result = Stream.of(aggregation.getIsShownBy());
-        break;
-      default:
-        throw new IllegalStateException();
-    }
-    return result;
+    return switch (type) {
+      case OBJECT -> Stream.of(aggregation.getObject());
+      case HAS_VIEW -> stream(aggregation.getHasViewList());
+      case IS_SHOWN_AT -> Stream.of(aggregation.getIsShownAt());
+      case IS_SHOWN_BY -> Stream.of(aggregation.getIsShownBy());
+    };
   }
 
   /**

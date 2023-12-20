@@ -4,7 +4,6 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -59,6 +58,6 @@ public class InetAddressUtil<E extends Exception> {
     // Compile the server address list
     return IntStream.range(0, hosts.length)
         .mapToObj(index -> new InetSocketAddress(hosts[index], portGetter.applyAsInt(index)))
-        .collect(Collectors.toList());
+                    .toList();
   }
 }

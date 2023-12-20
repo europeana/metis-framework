@@ -49,7 +49,6 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -627,7 +626,7 @@ class TestWorkflowExecutionDao {
     assertFalse(resultWithoutFilter.isMaxResultCountReached());
     final List<String> actualOrderWithoutFilter = resultWithoutFilter.getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-        .map(ObjectId::toString).collect(Collectors.toList());
+                                                                     .map(ObjectId::toString).toList();
     assertEquals(expectedOrder, actualOrderWithoutFilter);
 
     // Try with empty dataset ids Set.
@@ -638,7 +637,7 @@ class TestWorkflowExecutionDao {
     assertFalse(resultWithEmptyDatasetIdsSet.isMaxResultCountReached());
     final List<String> actualOrderWithEmptyDatasetIdsSet = resultWithEmptyDatasetIdsSet.getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-        .map(ObjectId::toString).collect(Collectors.toList());
+                                                                                       .map(ObjectId::toString).toList();
     assertEquals(expectedOrder, actualOrderWithEmptyDatasetIdsSet);
 
     // Try with filtering on dataset.
@@ -651,7 +650,7 @@ class TestWorkflowExecutionDao {
     assertFalse(resultWithFilter.isMaxResultCountReached());
     final List<String> actualOrderWithFilter = resultWithFilter.getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-        .map(ObjectId::toString).collect(Collectors.toList());
+                                                               .map(ObjectId::toString).toList();
     assertEquals(expectedOrder, actualOrderWithFilter);
 
     // Try with filtering on pluginStatuses and pluginTypes.
@@ -664,7 +663,7 @@ class TestWorkflowExecutionDao {
     assertFalse(resultWithFilterPlugin.isMaxResultCountReached());
     final List<String> actualOrderWithFilterPlugin = resultWithFilterPlugin.getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-        .map(ObjectId::toString).collect(Collectors.toList());
+                                                                           .map(ObjectId::toString).toList();
     assertEquals(Collections.singletonList(cancelledOldId), actualOrderWithFilterPlugin);
     assertEquals(2,
         resultWithFilterPlugin.getResults().get(0).getExecution().getMetisPlugins().size());
@@ -680,7 +679,7 @@ class TestWorkflowExecutionDao {
     final List<String> actualOrderWithFilterPluginNoItems = resultWithFilterPluginNoItems
         .getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-        .map(ObjectId::toString).collect(Collectors.toList());
+        .map(ObjectId::toString).toList();
     assertEquals(0, actualOrderWithFilterPluginNoItems.size());
 
     // Try with filter on non-existing dataset.
@@ -704,7 +703,7 @@ class TestWorkflowExecutionDao {
     assertFalse(resultWithPaging.isMaxResultCountReached());
     final List<String> actualOrderWithPaging = resultWithPaging.getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-        .map(ObjectId::toString).collect(Collectors.toList());
+                                                               .map(ObjectId::toString).toList();
     assertEquals(expectedOrder.subList(pageSize * pageNumber, pageSize * (pageNumber + pageCount)),
         actualOrderWithPaging);
 

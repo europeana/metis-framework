@@ -35,7 +35,7 @@ class CompressedFileHandlerRecordsTest {
 
     // Create ZIP file with bad content and CompressedFileHandler that rejects everything
     final List<ZipEntry> entries =
-        Stream.of("A", "B", "C").map(name -> createEntry(name, false)).collect(Collectors.toList());
+        Stream.of("A", "B", "C").map(name -> createEntry(name, false)).toList();
     final CompressedFileHandler reader = spy(CompressedFileHandler.class);
     final ZipFile zipFileWithBadContent = mock(ZipFile.class);
     doReturn(entries.stream()).when(zipFileWithBadContent).stream();
@@ -50,8 +50,7 @@ class CompressedFileHandlerRecordsTest {
     final List<String> goodEntries = Arrays.asList("A", "B", "C");
     final List<ZipEntry> entries = goodEntries.stream().map(name -> createEntry(name, false)).collect(Collectors.toList());
     final List<String> badEntries = Arrays.asList("X", "Y", "Z");
-    entries.addAll(
-        badEntries.stream().map(name -> createEntry(name, true)).collect(Collectors.toList()));
+    entries.addAll(badEntries.stream().map(name -> createEntry(name, true)).toList());
 
     // The content is equal to the name.
     final ZipFile zipFile = mock(ZipFile.class);

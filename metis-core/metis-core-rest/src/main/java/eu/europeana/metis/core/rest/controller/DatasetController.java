@@ -26,7 +26,6 @@ import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -615,7 +614,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Country.getCountryListSortedByName().stream().map(CountryView::new)
-            .collect(Collectors.toList());
+                  .toList();
   }
 
   /**
@@ -638,7 +637,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Language.getLanguageListSortedByName().stream().map(LanguageView::new)
-                   .collect(Collectors.toList());
+                   .toList();
   }
 
   /**

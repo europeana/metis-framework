@@ -65,7 +65,7 @@ public class MetisRecordParser implements RecordParser {
               .add(fieldType));
     }
     return fieldValueFieldTypesMap.entrySet().stream().map(
-        entry -> new SearchTermContext(entry.getKey().getValue(), entry.getKey().getLanguage(),
+        entry -> new SearchTermContext(entry.getKey().value(), entry.getKey().language(),
             entry.getValue())).collect(Collectors.toSet());
   }
 
@@ -75,7 +75,7 @@ public class MetisRecordParser implements RecordParser {
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
     final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
-        .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
+                                            .flatMap(Collection::stream).filter(Objects::nonNull).toList();
     final Map<String, Set<ProxyFieldType>> directReferences = new HashMap<>();
     for (ProxyFieldType field : ProxyFieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
@@ -130,15 +130,15 @@ public class MetisRecordParser implements RecordParser {
 
   private static Set<String> getSameAsLinks(AboutType contextualClass) {
     final List<? extends ResourceType> result;
-    if (contextualClass instanceof AgentType) {
-      result = ((AgentType) contextualClass).getSameAList();
-    } else if (contextualClass instanceof Concept) {
-      result = Optional.ofNullable(((Concept) contextualClass).getChoiceList()).stream()
+    if (contextualClass instanceof AgentType agentType) {
+      result = agentType.getSameAList();
+    } else if (contextualClass instanceof Concept concept) {
+      result = Optional.ofNullable(concept.getChoiceList()).stream()
           .flatMap(Collection::stream).filter(Objects::nonNull).filter(Concept.Choice::ifExactMatch)
-          .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).collect(Collectors.toList());
-    } else if (contextualClass instanceof PlaceType) {
-      result = ((PlaceType) contextualClass).getSameAList();
-    } else if (contextualClass instanceof TimeSpanType) {
+                       .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).toList();
+    } else if (contextualClass instanceof PlaceType placeType) {
+      result = placeType.getSameAList();
+    } else if (contextualClass instanceof TimeSpanType timeSpanType) {
       result = ((TimeSpanType) contextualClass).getSameAList();
     } else {
       result = null;

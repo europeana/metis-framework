@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.util.CollectionUtils;
 
@@ -91,7 +90,7 @@ public class WorkflowValidationUtils {
 
     // Compile the list of enabled plugins.
     final List<AbstractExecutablePluginMetadata> enabledPlugins = metisPluginsMetadata
-            .stream().filter(ExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
+        .stream().filter(ExecutablePluginMetadata::isEnabled).toList();
 
     // Workflow should not be empty and all should have a type.
     if (enabledPlugins.isEmpty()) {
@@ -150,23 +149,20 @@ public class WorkflowValidationUtils {
   private void validateAndTrimHarvestParameters(String datasetId,
           Iterable<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
     for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
-      if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
-        final OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) pluginMetadata;
-        final URI validatedUri = validateUrl(oaipmhMetadata.getUrl());
-        oaipmhMetadata
+      if (pluginMetadata instanceof OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata) {
+        final URI validatedUri = validateUrl(oaipmhHarvestPluginMetadata.getUrl());
+        oaipmhHarvestPluginMetadata
                 .setUrl(new URIBuilder(validatedUri).removeQuery().setFragment(null).toString());
-        oaipmhMetadata.setMetadataFormat(oaipmhMetadata.getMetadataFormat() == null ? null
-                : oaipmhMetadata.getMetadataFormat().trim());
-        oaipmhMetadata.setSetSpec(
-                oaipmhMetadata.getSetSpec() == null ? null : oaipmhMetadata.getSetSpec().trim());
+        oaipmhHarvestPluginMetadata.setMetadataFormat(oaipmhHarvestPluginMetadata.getMetadataFormat() == null ? null
+            : oaipmhHarvestPluginMetadata.getMetadataFormat().trim());
+        oaipmhHarvestPluginMetadata.setSetSpec(
+            oaipmhHarvestPluginMetadata.getSetSpec() == null ? null : oaipmhHarvestPluginMetadata.getSetSpec().trim());
       }
-      if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
-        final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
-        httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
+      if (pluginMetadata instanceof HTTPHarvestPluginMetadata httpHarvestPluginMetadata) {
+        httpHarvestPluginMetadata.setUrl(validateUrl(httpHarvestPluginMetadata.getUrl()).toString());
       }
-      if (pluginMetadata instanceof AbstractHarvestPluginMetadata) {
-        final var harvestMetadata = (AbstractHarvestPluginMetadata) pluginMetadata;
-        if (harvestMetadata.isIncrementalHarvest() && !isIncrementalHarvestingAllowed(datasetId)) {
+      if (pluginMetadata instanceof AbstractHarvestPluginMetadata abstractHarvestPluginMetadata) {
+        if (abstractHarvestPluginMetadata.isIncrementalHarvest() && !isIncrementalHarvestingAllowed(datasetId)) {
           throw new BadContentException("Can't perform incremental harvesting for this dataset.");
         }
       }

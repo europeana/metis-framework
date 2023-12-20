@@ -2,7 +2,6 @@ package eu.europeana.patternanalysis;
 
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.BooleanUtils.isFalse;
@@ -36,7 +35,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.LongestCommonSubsequence;
@@ -84,7 +82,7 @@ public class ProblemPatternAnalyzer {
     final List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList)
                                                 .filter(Objects::nonNull)
                                                 .flatMap(Collection::stream)
-                                                .collect(toList());
+                                                .toList();
 
     final List<String> titles = getChoicesInStringList(choices, Choice::ifTitle, Choice::getTitle, LiteralType::getString);
     final List<String> descriptions = getChoicesInStringList(choices, Choice::ifDescription, Choice::getDescription,
@@ -99,7 +97,7 @@ public class ProblemPatternAnalyzer {
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
       Function<Choice, T> choiceGetter, Function<T, String> getString) {
-    return choices.stream().filter(Objects::nonNull).filter(choicePredicate).map(choiceGetter).map(getString).collect(toList());
+    return choices.stream().filter(Objects::nonNull).filter(choicePredicate).map(choiceGetter).map(getString).toList();
   }
 
   private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
@@ -126,7 +124,7 @@ public class ProblemPatternAnalyzer {
   private List<ProxyType> getProviderProxies(RDF rdf) {
     return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
                    .filter(Objects::nonNull).filter(ProblemPatternAnalyzer::isProviderProxy)
-                   .collect(Collectors.toList());
+                   .toList();
   }
 
   /**
@@ -157,7 +155,7 @@ public class ProblemPatternAnalyzer {
 
     return equalTitlesAndDescriptions.stream().map(
         value -> new ProblemOccurrence(abbreviateElement(value))
-    ).collect(toList());
+    ).toList();
   }
 
   private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
@@ -168,7 +166,7 @@ public class ProblemPatternAnalyzer {
     final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
         <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
     return descriptions.stream().filter(StringUtils::isNotBlank).filter(not(title::equalsIgnoreCase))
-                       .filter(lcsPredicate.and(distancePredicate)).collect(toList());
+                       .filter(lcsPredicate.and(distancePredicate)).toList();
   }
 
   /**
@@ -197,7 +195,7 @@ public class ProblemPatternAnalyzer {
         entry -> entry.getValue().stream().map(
             value -> new ProblemOccurrence(format("%s <--> %s", abbreviateElement(entry.getKey()), abbreviateElement(value)))
         )
-    ).collect(toList());
+    ).toList();
   }
 
   /**
@@ -224,7 +222,7 @@ public class ProblemPatternAnalyzer {
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
     return titles.stream().filter(moreThanThresholdUnrecognizableCharacters.or(containsIdentifier))
                  .map(title -> new ProblemOccurrence(abbreviateElement(title))
-                 ).collect(toList());
+                 ).toList();
   }
 
   /**
@@ -236,7 +234,7 @@ public class ProblemPatternAnalyzer {
   private List<ProblemOccurrence> checkP6(List<String> titles) {
     return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
                  .map(title -> new ProblemOccurrence(abbreviateElement(title)))
-                 .collect(toList());
+                 .toList();
   }
 
   /**
@@ -263,7 +261,7 @@ public class ProblemPatternAnalyzer {
     return descriptions.stream().filter(StringUtils::isNotBlank)
                        .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
                        .map(description -> new ProblemOccurrence(abbreviateElement(description)))
-                       .collect(toList());
+                       .toList();
   }
 
   /**
@@ -276,7 +274,7 @@ public class ProblemPatternAnalyzer {
   private List<ProblemOccurrence> checkP12(List<String> titles) {
     return titles.stream().filter(title -> title.length() > MAX_TITLE_LENGTH)
                  .map(title -> new ProblemOccurrence(abbreviateElement(title)))
-                 .collect(toList());
+                 .toList();
   }
 
   private Optional<ProblemPattern> constructProblemPattern(String recordId, ProblemPatternDescription problemPatternDescription,

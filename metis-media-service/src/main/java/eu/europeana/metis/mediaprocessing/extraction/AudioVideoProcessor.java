@@ -27,12 +27,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
@@ -137,20 +135,14 @@ class AudioVideoProcessor implements MediaProcessor {
 
   @Override
   public ResourceExtractionResultImpl copyMetadata(Resource resource, String detectedMimeType) {
-    final AbstractResourceMetadata metadata;
+    final AbstractResourceMetadata metadata =
     switch (MediaType.getMediaType(detectedMimeType)) {
-      case AUDIO:
-        metadata = new AudioResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-            resource.getProvidedFileSize());
-        break;
-      case VIDEO:
-        metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-            resource.getProvidedFileSize());
-        break;
-      default:
-        metadata = null;
-        break;
-    }
+      case AUDIO -> new AudioResourceMetadata(detectedMimeType, resource.getResourceUrl(),
+          resource.getProvidedFileSize());
+      case VIDEO -> new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
+          resource.getProvidedFileSize());
+      default -> null;
+    };
     return metadata == null ? null : new ResourceExtractionResultImpl(metadata);
   }
 

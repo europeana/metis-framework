@@ -188,16 +188,11 @@ class ExternalRequestUtilTest {
       if (retryCount < maxRetries) {
         retryCount++;
         switch ((retryCount % 5) + 1) {
-          case 1:
-            throw new RuntimeException(new IOException("IO test exception"));
-          case 2:
-            throw new RuntimeException(new IllegalArgumentException("Illegal argument test exception"));
-          case 3:
-            throw new RuntimeException(new ArithmeticException("Arithmetic test exception"));
-          case 4:
-            throw new RuntimeException(new ArrayIndexOutOfBoundsException("Array test exception"));
-          case 5:
-            throw new RuntimeException(new NullPointerException("Null pointer test exception"));
+          case 1 -> throw new RuntimeException(new IOException("IO test exception"));
+          case 2 -> throw new RuntimeException(new IllegalArgumentException("Illegal argument test exception"));
+          case 3 -> throw new RuntimeException(new ArithmeticException("Arithmetic test exception"));
+          case 4 -> throw new RuntimeException(new ArrayIndexOutOfBoundsException("Array test exception"));
+          case 5 -> throw new RuntimeException(new NullPointerException("Null pointer test exception"));
         }
         return maxRetries;
       } else {
@@ -209,18 +204,12 @@ class ExternalRequestUtilTest {
       if (retryCount < maxRetries) {
         retryCount++;
         switch ((retryCount % 6) + 1) {
-          case 1:
-            throw new UnknownHostException("Unknown host test exception");
-          case 2:
-            throw new HttpServerErrorException(HttpStatus.BAD_GATEWAY, "test exception");
-          case 3:
-            throw new SocketTimeoutException("Socket timeout test exception");
-          case 4:
-            throw new SocketException("Socket exception test exception");
-          case 5:
-            throw new ServiceUnavailableException("Service unavailable test exception");
-          case 6:
-            throw new NotFoundException("Not found test exception");
+          case 1 -> throw new UnknownHostException("Unknown host test exception");
+          case 2 -> throw new HttpServerErrorException(HttpStatus.BAD_GATEWAY, "test exception");
+          case 3 -> throw new SocketTimeoutException("Socket timeout test exception");
+          case 4 -> throw new SocketException("Socket exception test exception");
+          case 5 -> throw new ServiceUnavailableException("Service unavailable test exception");
+          case 6 -> throw new NotFoundException("Not found test exception");
         }
         return maxRetries;
       } else {

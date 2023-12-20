@@ -102,31 +102,26 @@ public class WorkflowExecutionFactory {
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) throws BadContentException {
 
     // Add some extra configuration to the plugin metadata depending on the type.
-    if (pluginMetadata instanceof TransformationPluginMetadata) {
-      setupXsltIdForPluginMetadata(dataset, ((TransformationPluginMetadata) pluginMetadata));
-    } else if (pluginMetadata instanceof ValidationExternalPluginMetadata) {
-      this.setupValidationExternalForPluginMetadata(
-          (ValidationExternalPluginMetadata) pluginMetadata, getValidationExternalProperties());
-    } else if (pluginMetadata instanceof ValidationInternalPluginMetadata) {
-      this.setupValidationInternalForPluginMetadata(
-          (ValidationInternalPluginMetadata) pluginMetadata, getValidationInternalProperties());
-    } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata) {
-      ((IndexToPreviewPluginMetadata) pluginMetadata)
-          .setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
+    if (pluginMetadata instanceof TransformationPluginMetadata transformationPluginMetadata) {
+      setupXsltIdForPluginMetadata(dataset, transformationPluginMetadata);
+    } else if (pluginMetadata instanceof ValidationExternalPluginMetadata validationExternalPluginMetadata) {
+      this.setupValidationExternalForPluginMetadata(validationExternalPluginMetadata, getValidationExternalProperties());
+    } else if (pluginMetadata instanceof ValidationInternalPluginMetadata validationInternalPluginMetadata) {
+      this.setupValidationInternalForPluginMetadata(validationInternalPluginMetadata, getValidationInternalProperties());
+    } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata indexToPreviewPluginMetadata) {
+      indexToPreviewPluginMetadata.setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PREVIEW, typesInWorkflowBeforeThisPlugin);
-      ((IndexToPreviewPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
-    } else if (pluginMetadata instanceof IndexToPublishPluginMetadata) {
-      ((IndexToPublishPluginMetadata) pluginMetadata)
-          .setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
+      indexToPreviewPluginMetadata.setPerformRedirects(performRedirects);
+    } else if (pluginMetadata instanceof IndexToPublishPluginMetadata indexToPublishPluginMetadata) {
+      indexToPublishPluginMetadata.setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
-      ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
-    } else if (pluginMetadata instanceof DepublishPluginMetadata) {
-      setupDepublishPluginMetadata(dataset, ((DepublishPluginMetadata) pluginMetadata));
-    } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
-      ((LinkCheckingPluginMetadata) pluginMetadata)
-          .setSampleSize(getDefaultSamplingSizeForLinkChecking());
+      indexToPublishPluginMetadata.setPerformRedirects(performRedirects);
+    } else if (pluginMetadata instanceof DepublishPluginMetadata depublishPluginMetadata) {
+      setupDepublishPluginMetadata(dataset, depublishPluginMetadata);
+    } else if (pluginMetadata instanceof LinkCheckingPluginMetadata linkCheckingPluginMetadata) {
+      linkCheckingPluginMetadata.setSampleSize(getDefaultSamplingSizeForLinkChecking());
     }
 
     // Create the plugin

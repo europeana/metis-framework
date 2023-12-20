@@ -64,25 +64,13 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
     if (edmType == null) {
       deferredClassifier = null;
     } else {
-      switch (edmType) {
-        case SOUND:
-          deferredClassifier = audioClassifier;
-          break;
-        case IMAGE:
-          deferredClassifier = imageClassifier;
-          break;
-        case TEXT:
-          deferredClassifier = textClassifier;
-          break;
-        case VIDEO:
-          deferredClassifier = videoClassifier;
-          break;
-        case _3_D:
-          deferredClassifier = threeDClassifier;
-          break;
-        default:
-          deferredClassifier = null;
-      }
+      deferredClassifier = switch (edmType) {
+        case SOUND -> audioClassifier;
+        case IMAGE -> imageClassifier;
+        case TEXT -> textClassifier;
+        case VIDEO -> videoClassifier;
+        case _3_D -> threeDClassifier;
+      };
     }
     return deferredClassifier;
   }
