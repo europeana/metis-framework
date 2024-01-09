@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+>
+  <edm:ProvidedCHO rdf:about="/277/CMC_HA_1185"/>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1872.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1285083</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#006400</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1877.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">745863</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1885.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3627387</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1881.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">726018</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1864.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1015745</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1868.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1158850</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F5F5F5</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFFAFA</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFFFFF</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D3D3D3</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1865.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1135482</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1878.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">732612</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F5F5F5</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1873.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1048189</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#483D8B</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1860.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1036897</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D3D3D3</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#DCDCDC</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F5F5F5</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1034035</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1882.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">765975</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#483D8B</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1869.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1194370</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F5F5F5</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#DCDCDC</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFFFFF</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1866.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1143849</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1858.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1000190</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1883.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3599870</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1861.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">982180</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D3D3D3</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1874.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">781410</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#483D8B</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1875.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">779425</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1857.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1042807</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#778899</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1870.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1183566</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1879.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">736561</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1859.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1012580</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F5F5F5</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1884.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3449601</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1862.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">986861</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1871.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1181393</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1876.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">764134</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1863.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1021053</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1867.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1143685</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#B0C4DE</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D3D3D3</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1880.JPG">
+    <dc:description xml:lang="en">Link between houses 7 and 8 at Skara Brae, Orkney, Scotland, taken from the grassy knoll. This
+      is one image from a collection of digital photographs taken to create a panorama movie of the path and also used as texture
+      maps for a 3D model.
+    </dc:description>
+    <dc:format xml:lang="en">jpg</dc:format>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC Associates</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">715148</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2336</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3504</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource
+    rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg">
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">122220</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1024</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1024</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#000000</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#696969</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#708090</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_photo.html">
+    <ebucore:hasMimeType>application/xhtml+xml</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">3778</ebucore:fileByteSize>
+  </edm:WebResource>
+  <edm:Place rdf:about="iid:6744/SP.1">
+    <wgs84_pos:lat>59.04861</wgs84_pos:lat>
+    <wgs84_pos:long>-3.343056</wgs84_pos:long>
+    <wgs84_pos:alt>7.0</wgs84_pos:alt>
+    <skos:prefLabel xml:lang="en">Skara Brae</skos:prefLabel>
+  </edm:Place>
+  <edm:TimeSpan rdf:about="HA/1185#timespan">
+    <skos:prefLabel xml:lang="en">Neolithic</skos:prefLabel>
+    <edm:begin>-3180</edm:begin>
+    <edm:end>-2500</edm:end>
+    <owl:sameAs rdf:resource="https://www.wikidata.org/wiki/Q2314809"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300019272"/>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#19XX">
+    <skos:prefLabel xml:lang="zxx">19XX</skos:prefLabel>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1901-01-01</edm:begin>
+    <edm:end>2000-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">19XX</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/20">
+    <skos:prefLabel xml:lang="de">20. Jahrhundert</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">1900-luku</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">XX век</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Século XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">20 век</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">XX amžius</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">20. stoljeće</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">20. gadsimts</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">XXe siècle</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">20. század</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">20. storočie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">20. stoletje</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">20ú haois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Segle XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">1900-talet</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">20ός αιώνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">20th century</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">XX secolo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Siglo XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">20. sajand</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">20. století</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">XX. mendea</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">XX wiek</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">20. århundrede</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Secolul al XX-lea</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">20e eeuw</skos:prefLabel>
+    <skos:altLabel xml:lang="sv">20:e århundradet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">20:e seklet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-tal</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (århundrade)</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (sekel)</skos:altLabel>
+    <skos:altLabel xml:lang="ru">20 век</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século 20</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século vinte</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Periodo 1901-2000</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Ciclo (1901-2000)</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">Twentieth century</skos:altLabel>
+    <skos:altLabel xml:lang="en">The past century</skos:altLabel>
+    <skos:altLabel xml:lang="en">History, 20th Century</skos:altLabel>
+    <skos:altLabel xml:lang="en">XX Century</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="it">20° secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">'900</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="fr">20e siècle</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo 20</skos:altLabel>
+    <skos:altLabel xml:lang="es">El siglo pasado</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo veinte</skos:altLabel>
+    <edm:begin>1901-01-01</edm:begin>
+    <edm:end>2000-12-31</edm:end>
+    <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/19"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q6927"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh2002012476"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh85139020"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D049673"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/089_x"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/089_x"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.504.968"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404514"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/20th_century"/>
+  </edm:TimeSpan>
+  <skos:Concept rdf:about="http://vocab.getty.edu/aat/300000810">
+    <skos:altLabel xml:lang="en">archaeological site</skos:altLabel>
+    <skos:altLabel xml:lang="en">archeological sites</skos:altLabel>
+    <skos:altLabel xml:lang="en">sites, archaeological</skos:altLabel>
+    <skos:altLabel xml:lang="en">sites, archeological</skos:altLabel>
+    <skos:altLabel xml:lang="nl">archeologische site</skos:altLabel>
+    <skos:altLabel xml:lang="nl">archeologische vindplaatsen</skos:altLabel>
+    <skos:altLabel xml:lang="pt">sítio arqueológico</skos:altLabel>
+    <skos:altLabel xml:lang="es">sitio arqueológico</skos:altLabel>
+    <skos:altLabel xml:lang="es">yacimiento arqueológico</skos:altLabel>
+    <skos:broader rdf:resource="http://vocab.getty.edu/aat/300000809"/>
+    <skos:note xml:lang="en">Locations where human activities once took place and some form of material evidence has been left
+      behind, particularly sites where evidence of past activity is being or has been investigated using the discipline of
+      archaeology.
+    </skos:note>
+    <skos:note xml:lang="es">Designa un lugar con evidencias de actividad humana.</skos:note>
+    <skos:note xml:lang="nl">Locaties waar ooit menselijke activiteiten hebben plaatsgevonden en waar materiële resten, in wat
+      voor vorm dan ook, zijn achtergebleven.
+    </skos:note>
+    <skos:note xml:lang="pt">Locais onde as atividades humanas ocorreram e alguma forma de evidência material foi deixada para
+      trás, particularmente locais onde evidências de atividades anteriores estão sendo ou foram investigadas usando a disciplina
+      de arqueologia.
+    </skos:note>
+    <skos:prefLabel xml:lang="en">archaeological sites</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">archeologische sites</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">sítios arqueológicos</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">sitios arqueológicos</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://vocab.getty.edu/aat/300008372">
+    <skos:altLabel xml:lang="en">village</skos:altLabel>
+    <skos:altLabel xml:lang="nl">dorp</skos:altLabel>
+    <skos:altLabel xml:lang="de">Dörfer</skos:altLabel>
+    <skos:altLabel xml:lang="pt">vila</skos:altLabel>
+    <skos:altLabel xml:lang="es">aldea</skos:altLabel>
+    <skos:broader rdf:resource="http://vocab.getty.edu/aat/300008347"/>
+    <skos:note xml:lang="en">Distinctions among villages, towns, and cities are relative and vary according to their individual
+      regional contexts. Villages generally designate units of compact settlement, varying in size but usually larger than hamlets
+      and smaller than towns and distinguished from the surrounding rural territory.
+    </skos:note>
+    <skos:note xml:lang="es">Diferencias entre aldeas, pueblos y ciudades son relativas y varían según su contexo regional
+      individual. Por lo general, las aldeas son unidades de asentamiento compacto, variables en tamaño, siendo comúnmente más
+      grandes que los caseríos y más pequeñas que los pueblos, y que aparecen diferenciadas en el territorio rural circundante.
+    </skos:note>
+    <skos:note xml:lang="nl">Het onderscheid tussen dorp, kleine stad en grote stad is betrekkelijk en varieert naar gelang de
+      individuele, regionale context. Dorp is meestal een aanduiding voor een compacte nederzetting, die kan variëren in grootte,
+      maar meestal groter is dan een buurtschap en kleiner dan een stad en die zich duidelijk onderscheidt van het landelijke
+      gebied eromheen.
+    </skos:note>
+    <skos:note xml:lang="de">Die Unterscheidung zwischen Dorf, Kleinstadt und Stadt ist immer relativ und schwankt entsprechend
+      ihrer individuellen, regionalen Kontexte. Ein Dorf bezeichnet im Allgemeinen eine geschlossene, in der Größe variierende
+      Siedlung, ist aber größer als ein Weiler und kleiner als ein Städtchen und unterscheidet sich von der ländlichen Umgebung.
+    </skos:note>
+    <skos:note xml:lang="pt">As distinções entre aldeias, vilas e cidades são relativas e variam de acordo com seus contextos
+      regionais individuais. As vilas geralmente designam unidades de assentamento compacto, variando em tamanho, mas geralmente
+      maiores do que aldeias e menores do que cidades e distintas do território rural circundante.
+    </skos:note>
+    <skos:prefLabel xml:lang="en">villages</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">dorpen</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Dorf</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">vilas</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">aldeas</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/48">
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q125191"/>
+    <skos:exactMatch rdf:resource="https://schema.org/Photograph"/>
+    <skos:exactMatch rdf:resource="http://id.cabi.org/cabt/89399"/>
+    <skos:exactMatch rdf:resource="http://eurovoc.europa.eu/c_cdec6719"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh85101195"/>
+    <skos:exactMatch rdf:resource="http://data.bnf.fr/ark:/12148/cb12010336g"/>
+    <skos:exactMatch rdf:resource="http://www.idref.fr/028224248/id"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D059036"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/068jd"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/068jd"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/V02.697"/>
+    <skos:exactMatch rdf:resource="http://datos.bne.es/resource/XX5169059"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300046300"/>
+    <skos:exactMatch rdf:resource="http://iconclass.org/48C614"/>
+    <skos:exactMatch rdf:resource="http://id.worldcat.org/fast/1061684"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p2699"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s00032381n"/>
+    <skos:exactMatch rdf:resource="http://thesaurus.europeanafashion.eu/thesaurus/10460"/>
+    <skos:exactMatch rdf:resource="http://zbw.eu/stw/descriptor/14046-6"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept11166"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/genreForms/gf2017027249"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/ysa/Y100000"/>
+    <skos:exactMatch rdf:resource="http://dbpedia.org/resource/Photograph"/>
+    <skos:note xml:lang="de">Abbild der Realität, welches durch auftreffendes Licht auf eine lichtempfindliche Oberfläche erzeugt
+      wurde
+    </skos:note>
+    <skos:note xml:lang="ru">Изображение, полученное в результате фотографического процесса</skos:note>
+    <skos:note xml:lang="sv">Bild skapad genom att låta ljus falla på en ljuskänslig yta</skos:note>
+    <skos:note xml:lang="fi">Kameralla otettu liikkumaton kuva jostakin kohteesta</skos:note>
+    <skos:note xml:lang="pt">Imagem criada pela luz atingindo uma superfície fotossensível</skos:note>
+    <skos:note xml:lang="bg">Двуизмерно изображение</skos:note>
+    <skos:note xml:lang="en">Image created by light falling on a light-sensitive surface</skos:note>
+    <skos:note xml:lang="it">Immagine creata dall'impressione della luce su un supporto fotosensibile</skos:note>
+    <skos:note xml:lang="fr">Image créée par un photographe</skos:note>
+    <skos:note xml:lang="hu">Optikai úton, fényérzékeny anyagra készített, vegyi eljárással rögzített (negatív) kép</skos:note>
+    <skos:note xml:lang="es">Imagen creada por un fotógrafo</skos:note>
+    <skos:note xml:lang="cs">Obrázek vytvořený světlem dopadajícím na světlosenzitivní povrch</skos:note>
+    <skos:note xml:lang="pl">Obraz utworzony przez światło padające na materiał światłoczuły</skos:note>
+    <skos:note xml:lang="da">Billede skabt af lyset, der falder på en lysfølsom overflade</skos:note>
+    <skos:note xml:lang="nl">Met camera of ander apparaat gemaakte afbeelding en gereproduceerd als plaatje gewoonlijk op een
+      gevoelige ondergrond en gevormd door chemische lichtactie of stralingsenergie
+    </skos:note>
+    <skos:prefLabel xml:lang="de">Fotografie</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Valokuva</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Фотография</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Fotografia</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Снимка</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Fotografija</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Fotoattēls</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Fotografija</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Photographie</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Fénykép</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Fotograf</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Fotografija</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Grianghraf</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Fotografia</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Fotografi</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Φωτογραφία</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">Fotografija</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Photograph</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Foto</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Fotografía</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Foto</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">Argazkilaritza</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Fotografie</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Fotografia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Fotografie</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Fotografi</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Foto</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/25">
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q839954"/>
+    <skos:exactMatch rdf:resource="http://dati.beniculturali.it/cis/ArchaeologicalArea"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh2004001339"/>
+    <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/2069"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/012ww9"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/012ww9"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300000810"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300387007"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p38240"/>
+    <skos:exactMatch rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s16741381n"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept2680"/>
+    <skos:exactMatch rdf:resource="http://dbpedia.org/resource/Archaeological_site"/>
+    <skos:note xml:lang="de">Ort, an dem Überreste der Vergangenheit erhalten geblieben sind</skos:note>
+    <skos:note xml:lang="fi">Tietyllä paikalla kiinteästi sijaitsevien jäännösten muodostama kokonaisuus</skos:note>
+    <skos:note xml:lang="sv">Plats där fornlämning påträffats</skos:note>
+    <skos:note xml:lang="ru">Объект материальной культуры, несущий в себе определённый объём информации о прошлом</skos:note>
+    <skos:note xml:lang="pt">Local onde se concentram vestígios arquelógicos</skos:note>
+    <skos:note xml:lang="el">Τοποθεσία στην οποία βρίσκονται ενδείξεις ανθρώπινης δραστηριότητας του παρελθόντος</skos:note>
+    <skos:note xml:lang="en">Place (or group of physical sites) in which evidence of past activity is preserved</skos:note>
+    <skos:note xml:lang="hr">Mjesto na kojemu postoji veća količina sačuvanih izrađevina i tvorevina iz prošlosti</skos:note>
+    <skos:note xml:lang="it">Luogo in cui si conservano tracce dell'attività umana del passato</skos:note>
+    <skos:note xml:lang="fr">Lieu ou groupe de sites physiques où sont préservées des preuves de l'activité préhistorique,
+      historique ou contemporaine
+    </skos:note>
+    <skos:note xml:lang="es">Lugar donde se concentran vestigios arqueológicos</skos:note>
+    <skos:note xml:lang="cs">Místo nebo skupina míst, kde jsou zachovány důkazy a pozůstatky historické aktivity</skos:note>
+    <skos:note xml:lang="ca">Lloc on es conserven vestigis arqueològics</skos:note>
+    <skos:note xml:lang="nl">Plaats waar men archeologische vondsten heeft gedaan</skos:note>
+    <skos:prefLabel xml:lang="de">Archäologische Stätte</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Археологическое место</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Arkeologinen kohde</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Sítio arqueológico</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Археологически обект</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Archeologinė vieta</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Arheoloģiskais piemineklis</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Arheološko nalazište</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Site archéologique</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Régészeti lelőhely</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Archeologická lokalita</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Arheološko najdišče</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Suíomh seandálaíochta</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Jaciment arqueològic</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Arkeologisk lokal</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Αρχαιολογική θέση</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Archaeological site</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Sito archeologico</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Yacimiento arqueológico</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Muistis</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">Arkeologia-aztarnategi</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Archeologická lokalita</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Stanowisko archeologiczne</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Sit arheologic</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Arkæologisk område</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Archeologische vindplaats</skos:prefLabel>
+    <skos:related rdf:resource="http://data.europeana.eu/concept/80"/>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/277/CMC_HA_1185">
+    <edm:aggregatedCHO rdf:resource="/277/CMC_HA_1185"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000004502043"></edm:dataProvider>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1857.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1858.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1859.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1860.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1861.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1862.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1863.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1864.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1865.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1866.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1867.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1868.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1869.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1870.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1871.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1872.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1873.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1874.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1875.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1876.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1877.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1878.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1879.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1880.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1881.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1882.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1883.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1884.JPG"/>
+    <edm:hasView rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1885.JPG"/>
+    <edm:isShownAt rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_photo.html"/>
+    <edm:isShownBy
+      rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856.JPG"/>
+    <edm:object
+      rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000004671084"></edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/277/CMC_HA_1185">
+    <dc:date rdf:resource="#19XX"></dc:date>
+    <dc:identifier>CMC_HA/1185</dc:identifier>
+    <dc:language>eng</dc:language>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/48"></dc:subject>
+    <dc:date rdf:resource="http://data.europeana.eu/timespan/20"></dc:date>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/25"></dc:subject>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/277/CMC_HA_1185"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/277/CMC_HA_1185"/>
+    <ore:lineage rdf:resource="/proxy/provider/277/CMC_HA_1185"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/277/CMC_HA_1185">
+    <dc:date xml:lang="en">20th Century</dc:date>
+    <dc:description xml:lang="en">Collection of digital photographs taken in August 2005 with a 'fish eye' lens for the specific
+      purpose of creating an interactive panoramic tour.Skara Brae is an archaeological site with exceptionally well preserved
+      remains that show the stone built furniture and internal structure of ten Neolithic houses and their narrow connecting
+      passageways. Radio Carbon dates show that the village was occupied for around 600 years between 3200 and 2200 BC. There
+      appear to be two main structural phases to the occupation.Between the later houses at Skara Brae is a network of low winding
+      passages. These made it possible to travel between Houses 1-7 without going outside. The passages are around a meter high
+      and roofed with stone slabs. The main passage has bar-holes in the walls at either end suggesting that it could have been
+      sealed from the inside.There were further bar-holes at the entrances to each of the houses allowing them to be closed and
+      barred with stone slabs.The monument is now managed by Historic Scotland and is a key element of the Heart of Neolithic
+      Orkney World Heritage Site.
+    </dc:description>
+    <dc:format>jpg</dc:format>
+    <dc:identifier>http://3dicons.dcu.gr/object/HA/1185</dc:identifier>
+    <dc:language xml:lang="en">English</dc:language>
+    <dc:relation rdf:resource="http://3dicons.dcu.gr/object/HA/1185"></dc:relation>
+    <dc:relation rdf:resource="http://3dicons.dcu.gr/object/HA/54"></dc:relation>
+    <dc:rights xml:lang="en">© CMC Associates 2005</dc:rights>
+    <dc:source xml:lang="en">CMC</dc:source>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300008372"></dc:subject>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300000810"></dc:subject>
+    <dc:subject xml:lang="en">Photograph</dc:subject>
+    <dc:title xml:lang="en">Panoramic Photography of link path 7-8 at Skara Brae</dc:title>
+    <dc:type>Image</dc:type>
+    <dcterms:isPartOf xml:lang="en">3D ICONS</dcterms:isPartOf>
+    <dcterms:isPartOf rdf:resource="http://3dicons.dcu.gr/object/HA/54"></dcterms:isPartOf>
+    <dcterms:spatial rdf:resource="iid:6744/SP.1"></dcterms:spatial>
+    <dcterms:temporal xml:lang="en">Neolithic</dcterms:temporal>
+    <dcterms:temporal rdf:resource="HA/1185#timespan"></dcterms:temporal>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/277/CMC_HA_1185"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/277/CMC_HA_1185"/>
+    <edm:type>IMAGE</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/277/CMC_HA_1185">
+    <edm:aggregatedCHO rdf:resource="/277/CMC_HA_1185"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>277_local_09012024_1543</edm:datasetName>
+    <edm:country>Netherlands</edm:country>
+    <edm:preview
+      rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg"/>
+    <edm:language>nl</edm:language>
+    <edm:completeness>10</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004502043">
+    <skos:prefLabel xml:lang="en">CMC - CMC Associates Ltd.</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004671084">
+    <skos:prefLabel xml:lang="en">CARARE</skos:prefLabel>
+  </foaf:Organization>
+</rdf:RDF>

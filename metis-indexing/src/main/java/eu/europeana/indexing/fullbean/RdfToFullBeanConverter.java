@@ -41,7 +41,7 @@ public class RdfToFullBeanConverter {
     return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
   }
 
-  private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
+  protected static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
       boolean returnNullIfEmpty) {
     final List<T> result = sourceList.stream().map(converter).collect(Collectors.toList());
     if (result.isEmpty() && returnNullIfEmpty) {
@@ -50,7 +50,7 @@ public class RdfToFullBeanConverter {
     return result;
   }
 
-  private static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
+  protected static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
     return rdfWrappedRecord.getAggregations()
                            .stream()
                            .flatMap(qa -> {
@@ -88,11 +88,8 @@ public class RdfToFullBeanConverter {
     fullBean.setOrganizations(convertList(record.getOrganizations(), new OrganizationFieldInput(), false));
     fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), false));
     fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
-    // >> this will be updated in a next ticket the mongo part parent ticket MET-5631
-    var qualityAnnotationsList = convertList(getQualityAnnotations(record), new QualityAnnotationFieldInput(record.getAbout()),
-        false);
+    var qualityAnnotationsList = convertList(getQualityAnnotations(record), new QualityAnnotationFieldInput(), false);
     fullBean.setQualityAnnotations(qualityAnnotationsList);
-    // << this will be updated in a next ticket the mongo part parent ticket MET-5631
 
     // Set properties related to the Europeana aggregation
     fullBean.setEuropeanaCollectionName(new String[]{record.getDatasetName()});

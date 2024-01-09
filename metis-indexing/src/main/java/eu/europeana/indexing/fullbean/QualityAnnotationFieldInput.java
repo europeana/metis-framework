@@ -17,21 +17,9 @@ import java.util.function.Function;
 public class QualityAnnotationFieldInput implements
     Function<QualityAnnotation, QualityAnnotationImpl> {
 
-  private final String about;
-
-  public QualityAnnotationFieldInput(String about) {
-    this.about = about;
-  }
-
   @Override
   public QualityAnnotationImpl apply(QualityAnnotation qualityAnnotation) {
     QualityAnnotationImpl qualityAnnotationImpl = new QualityAnnotationImpl();
-    final String aboutTierSuffix = qualityAnnotation.getHasBody()
-                                                    .getResource()
-                                                    .startsWith("http://www.europeana.eu/schemas/epf/metadataTier") ?
-        "#metadataTier" : "#contentTier";
-
-    qualityAnnotationImpl.setAbout("/item" + about + aboutTierSuffix);
     qualityAnnotationImpl.setCreated(
         Optional.ofNullable(qualityAnnotation.getCreated()).map(ResourceOrLiteralType::getString)
                 .orElse(null));
