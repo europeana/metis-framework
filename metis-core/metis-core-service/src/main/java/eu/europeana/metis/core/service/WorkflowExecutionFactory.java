@@ -170,9 +170,10 @@ public class WorkflowExecutionFactory {
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
 
     // Get some history from the database: find the latest successful plugin of the same type.
+    // Note: we don't limit to valid data: perhaps the data is deprecated after reindexing.
     final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulPlugin = workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
-            EnumSet.of(executablePluginType), true);
+            EnumSet.of(executablePluginType), false);
 
     // Check if we can find the answer in the workflow itself. Iterate backwards and see what we find.
     for (int i = typesInWorkflowBeforeThisPlugin.size() - 1; i >= 0; i--) {
