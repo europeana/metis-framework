@@ -7,6 +7,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
@@ -17,6 +18,7 @@ import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -141,5 +143,20 @@ public class TestRedirectionBase {
     indexToPublishPlugin.setFinishedDate(Date.from(Instant.now().minus(30, ChronoUnit.MINUTES)));
     indexToPublishPlugin.setDataStatus(DataStatus.VALID);
     return indexToPublishPlugin;
+  }
+
+  @NotNull
+  static List<ExecutablePluginType> getExecutablePluginTypes() {
+    final List<ExecutablePluginType> typesInWorkflow = new ArrayList<>();
+    typesInWorkflow.add(ExecutablePluginType.HTTP_HARVEST);
+    typesInWorkflow.add(ExecutablePluginType.VALIDATION_EXTERNAL);
+    typesInWorkflow.add(ExecutablePluginType.TRANSFORMATION);
+    typesInWorkflow.add(ExecutablePluginType.VALIDATION_INTERNAL);
+    typesInWorkflow.add(ExecutablePluginType.NORMALIZATION);
+    typesInWorkflow.add(ExecutablePluginType.ENRICHMENT);
+    typesInWorkflow.add(ExecutablePluginType.MEDIA_PROCESS);
+    typesInWorkflow.add(ExecutablePluginType.PREVIEW);
+    typesInWorkflow.add(ExecutablePluginType.PUBLISH);
+    return typesInWorkflow;
   }
 }

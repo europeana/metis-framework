@@ -1,11 +1,9 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.common.TransformationParameters;
-import eu.europeana.metis.core.dao.DataEvolutionUtils;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
@@ -28,12 +26,9 @@ import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
 
 /**
  * Class that contains various functionality for "helping" the {@link OrchestratorService}.
@@ -45,9 +40,7 @@ public class WorkflowExecutionFactory {
 
   private final DatasetXsltDao datasetXsltDao;
   private final DepublishRecordIdDao depublishRecordIdDao;
-  private final WorkflowExecutionDao workflowExecutionDao;
-  private final DataEvolutionUtils dataEvolutionUtils;
-  private final RedirectionService redirectionService;
+  private final RedirectionInferrer redirectionInferrer;
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
@@ -58,17 +51,13 @@ public class WorkflowExecutionFactory {
    *
    * @param datasetXsltDao the Dao instance to access the dataset xslts
    * @param depublishRecordIdDao The Dao instance to access depublish records.
-   * @param workflowExecutionDao the Dao instance to access the workflow executions
-   * @param dataEvolutionUtils the utilities class for workflow operations
+   * @param redirectionInferrer the service instance to access redirection logic
    */
   public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao,
-      DepublishRecordIdDao depublishRecordIdDao, WorkflowExecutionDao workflowExecutionDao,
-      DataEvolutionUtils dataEvolutionUtils) {
+      DepublishRecordIdDao depublishRecordIdDao, RedirectionInferrer redirectionInferrer) {
     this.datasetXsltDao = datasetXsltDao;
     this.depublishRecordIdDao = depublishRecordIdDao;
-    this.workflowExecutionDao = workflowExecutionDao;
-    this.dataEvolutionUtils = dataEvolutionUtils;
-    this.redirectionService = new RedirectionService(workflowExecutionDao,dataEvolutionUtils);
+    this.redirectionInferrer = redirectionInferrer;
   }
 
   // Expect the dataset to be synced with eCloud.
@@ -112,12 +101,12 @@ public class WorkflowExecutionFactory {
       this.setupValidationInternalForPluginMetadata(validationInternalPluginMetadata, getValidationInternalProperties());
     } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata indexToPreviewPluginMetadata) {
       indexToPreviewPluginMetadata.setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
-      boolean performRedirects = redirectionService.shouldRedirectsBePerformed(dataset, workflowPredecessor,
+      boolean performRedirects = redirectionInferrer.shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PREVIEW, typesInWorkflowBeforeThisPlugin);
       indexToPreviewPluginMetadata.setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof IndexToPublishPluginMetadata indexToPublishPluginMetadata) {
       indexToPublishPluginMetadata.setDatasetIdsToRedirectFrom(dataset.getDatasetIdsToRedirectFrom());
-      boolean performRedirects = redirectionService.shouldRedirectsBePerformed(dataset, workflowPredecessor,
+      boolean performRedirects = redirectionInferrer.shouldRedirectsBePerformed(dataset, workflowPredecessor,
           ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
       indexToPublishPluginMetadata.setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof DepublishPluginMetadata depublishPluginMetadata) {

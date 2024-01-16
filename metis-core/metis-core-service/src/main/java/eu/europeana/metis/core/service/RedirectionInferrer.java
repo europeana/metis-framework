@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import org.springframework.util.CollectionUtils;
 
-public class RedirectionService {
+public class RedirectionInferrer {
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final DataEvolutionUtils dataEvolutionUtils;
 
-  public RedirectionService(WorkflowExecutionDao workflowExecutionDao, DataEvolutionUtils dataEvolutionUtils) {
+  public RedirectionInferrer(WorkflowExecutionDao workflowExecutionDao, DataEvolutionUtils dataEvolutionUtils) {
     this.workflowExecutionDao = workflowExecutionDao;
     this.dataEvolutionUtils = dataEvolutionUtils;
   }

@@ -52,7 +52,7 @@ public final class ExecutablePluginFactory {
    * new plugins's id and data status.
    *
    * @param metadata The metadata for which to create a plugin. Cannot be null.
-   * @return A new pluing instance.
+   * @return A new plugin instance.
    */
   public static AbstractExecutablePlugin createPlugin(ExecutablePluginMetadata metadata) {
 
