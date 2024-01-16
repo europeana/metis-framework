@@ -1,6 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
 import eu.europeana.metis.schema.jibx.ResourceType;
@@ -16,12 +15,6 @@ import java.util.function.Function;
  */
 final class EuropeanaAggregationFieldInput
     implements Function<EuropeanaAggregationType, EuropeanaAggregationImpl> {
-
-  final List<? extends QualityAnnotation> qualityAnnotations;
-
-  public EuropeanaAggregationFieldInput(List<? extends QualityAnnotation> qualityAnnotations) {
-    this.qualityAnnotations = qualityAnnotations;
-  }
 
   @Override
   public EuropeanaAggregationImpl apply(EuropeanaAggregationType aggregation) {

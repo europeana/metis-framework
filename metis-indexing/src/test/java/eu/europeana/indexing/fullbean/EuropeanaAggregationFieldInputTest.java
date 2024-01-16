@@ -1,7 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import static eu.europeana.indexing.fullbean.RdfToFullBeanConverter.convertList;
-import static eu.europeana.indexing.fullbean.RdfToFullBeanConverter.getQualityAnnotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -23,8 +21,7 @@ class EuropeanaAggregationFieldInputTest {
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RdfWrapper inputRdf = new RdfWrapper(conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_rdf.xml")));
-    europeanaAggregationFieldInput = new EuropeanaAggregationFieldInput(
-        convertList(getQualityAnnotations(inputRdf), new QualityAnnotationFieldInput(), false));
+    europeanaAggregationFieldInput = new EuropeanaAggregationFieldInput();
 
     List<EuropeanaAggregation> aggregationList = inputRdf.getEuropeanaAggregation().stream()
                                                          .map(a -> europeanaAggregationFieldInput.apply(a))
