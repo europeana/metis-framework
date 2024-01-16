@@ -13,50 +13,53 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.DataEvolutionUtils;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
-import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.BadContentException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
-import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class TestRedirection {
 
-  @Mock
   private WorkflowExecutionDao workflowExecutionDao;
-
-  @Mock
   private DataEvolutionUtils dataEvolutionUtils;
-
-  @InjectMocks
   private WorkflowExecutionFactory workflowExecutionFactory;
+
+  @BeforeEach
+  void setup() {
+    workflowExecutionDao = mock(WorkflowExecutionDao.class);
+    dataEvolutionUtils = mock(DataEvolutionUtils.class);
+    DatasetXsltDao datasetXsltDao = mock(DatasetXsltDao.class);
+    DepublishRecordIdDao depublishRecordIdDao = mock(DepublishRecordIdDao.class);
+    RedirectionInferrer redirectionInferrer = new RedirectionInferrer(workflowExecutionDao, dataEvolutionUtils);
+
+    workflowExecutionFactory = new WorkflowExecutionFactory(datasetXsltDao, depublishRecordIdDao, redirectionInferrer);
+  }
 
   @Test
   void redirectionReviewWithPerformRedirectsWhenAncestorRootIsDifferent() throws BadContentException {
