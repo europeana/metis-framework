@@ -41,7 +41,7 @@ public class RdfToFullBeanConverter {
     return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
   }
 
-  protected static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
+  private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
       boolean returnNullIfEmpty) {
     final List<T> result = sourceList.stream().map(converter).collect(Collectors.toList());
     if (result.isEmpty() && returnNullIfEmpty) {
@@ -50,7 +50,7 @@ public class RdfToFullBeanConverter {
     return result;
   }
 
-  protected static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
+  private static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
     return rdfWrappedRecord.getAggregations()
                            .stream()
                            .flatMap(qa -> {
@@ -96,7 +96,7 @@ public class RdfToFullBeanConverter {
     final Optional<EuropeanaAggregationType> europeanaAggregation = record
         .getEuropeanaAggregation();
     fullBean.setEuropeanaAggregation(
-        europeanaAggregation.map(new EuropeanaAggregationFieldInput(qualityAnnotationsList)).orElse(null));
+        europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
                         .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
     fullBean.setTimestampCreated(
