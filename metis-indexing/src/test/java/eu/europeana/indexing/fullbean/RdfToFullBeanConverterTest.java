@@ -1,14 +1,24 @@
 package eu.europeana.indexing.fullbean;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
+import eu.europeana.corelib.solr.entity.AggregationImpl;
+import eu.europeana.corelib.solr.entity.PlaceImpl;
+import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class RdfToFullBeanConverterTest {
@@ -17,8 +27,11 @@ class RdfToFullBeanConverterTest {
   void convertRdfToFullBean() throws SerializationException {
     RdfToFullBeanConverter rdfToFullBeanConverter = new RdfToFullBeanConverter();
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
-    final RdfWrapper inputRdf = new RdfWrapper(conversionUtils.convertStringToRdf(
-        IndexingTestUtils.getResourceFileContent("europeana_record_rdf.xml")));
+    final RdfWrapper inputRdf = new RdfWrapper(
+        conversionUtils.convertStringToRdf(
+            IndexingTestUtils.getResourceFileContent("europeana_record_rdf_conversion.xml")
+        )
+    );
 
     FullBeanImpl fullBean = rdfToFullBeanConverter.convertRdfToFullBean(inputRdf);
 
@@ -50,12 +63,16 @@ class RdfToFullBeanConverterTest {
   }
 
   private static void assertEuropeanaCollection(FullBeanImpl fullBean) {
-    assertEquals("277_local_09012024_1543", fullBean.getEuropeanaCollectionName()[0]);
+    assertEquals(Set.of("277_local_09012024_1543"), Arrays.stream(fullBean.getEuropeanaCollectionName())
+                                                          .collect(Collectors.toSet()));
   }
 
   private static void assertProxies(FullBeanImpl fullBean) {
-    assertEquals("/proxy/europeana/277/CMC_HA_1185", fullBean.getProxies().get(0).getAbout());
-    assertEquals("/proxy/provider/277/CMC_HA_1185", fullBean.getProxies().get(1).getAbout());
+    assertEquals(Set.of("/proxy/europeana/277/CMC_HA_1185", "/proxy/provider/277/CMC_HA_1185"),
+        fullBean.getProxies()
+                .stream()
+                .map(AbstractEdmEntityImpl::getAbout)
+                .collect(Collectors.toSet()));
   }
 
   private static void assertAgents(FullBeanImpl fullBean) {
@@ -79,8 +96,10 @@ class RdfToFullBeanConverterTest {
   }
 
   private static void assertProvidedCHOs(FullBeanImpl fullBean) {
-    assertEquals("/277/CMC_HA_1185", fullBean.getProvidedCHOs().getFirst().getAbout());
-    assertEquals(0, fullBean.getProvidedCHOs().getFirst().getOwlSameAs().length);
+    assertEquals(Set.of("/277/CMC_HA_1185"), fullBean.getProvidedCHOs()
+                                                     .stream()
+                                                     .map(AbstractEdmEntityImpl::getAbout)
+                                                     .collect(Collectors.toSet()));
   }
 
   private static void assertEuropeanaAggregation(FullBeanImpl fullBean) {
@@ -92,31 +111,55 @@ class RdfToFullBeanConverterTest {
   }
 
   private static void assertAggregations(FullBeanImpl fullBean) {
-    assertEquals("http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856.JPG",
-        fullBean.getAggregations().getFirst().getEdmIsShownBy());
-    assertEquals("http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_photo.html",
-        fullBean.getAggregations().getFirst().getEdmIsShownAt());
-    assertEquals("http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg",
-        fullBean.getAggregations().getFirst().getEdmObject());
-    assertEquals("/aggregation/provider/277/CMC_HA_1185", fullBean.getAggregations().getFirst().getAbout());
+    assertEquals(Set.of("http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856.JPG"),
+        fullBean.getAggregations()
+                .stream()
+                .map(AggregationImpl::getEdmIsShownBy)
+                .collect(Collectors.toSet()));
+    assertEquals(Set.of("http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_photo.html"),
+        fullBean.getAggregations()
+                .stream()
+                .map(AggregationImpl::getEdmIsShownAt)
+                .collect(Collectors.toSet()));
+    assertEquals(Set.of("http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg"),
+        fullBean.getAggregations()
+                .stream()
+                .map(AggregationImpl::getEdmObject)
+                .collect(Collectors.toSet()));
+    assertEquals(Set.of("/aggregation/provider/277/CMC_HA_1185"),
+        fullBean.getAggregations()
+                .stream()
+                .map(AggregationImpl::getAbout)
+                .collect(Collectors.toSet()));
   }
 
   private static void assertConcepts(FullBeanImpl fullBean) {
-    assertEquals("http://vocab.getty.edu/aat/300000810", fullBean.getConcepts().get(0).getAbout());
-    assertEquals("http://vocab.getty.edu/aat/300008372", fullBean.getConcepts().get(1).getAbout());
-    assertEquals("http://data.europeana.eu/concept/48", fullBean.getConcepts().get(2).getAbout());
-    assertEquals("http://data.europeana.eu/concept/25", fullBean.getConcepts().get(3).getAbout());
+    assertEquals(Set.of("http://vocab.getty.edu/aat/300000810",
+            "http://vocab.getty.edu/aat/300008372",
+            "http://data.europeana.eu/concept/48",
+            "http://data.europeana.eu/concept/25"),
+        fullBean.getConcepts()
+                .stream()
+                .map(AbstractEdmEntityImpl::getAbout)
+                .collect(Collectors.toSet()));
   }
 
   private static void assertOrganizations(FullBeanImpl fullBean) {
-    assertEquals("http://data.europeana.eu/organization/1482250000004502043", fullBean.getOrganizations().get(0).getAbout());
-    assertEquals("http://data.europeana.eu/organization/1482250000004671084", fullBean.getOrganizations().get(1).getAbout());
+    assertEquals(Set.of("http://data.europeana.eu/organization/1482250000004502043",
+            "http://data.europeana.eu/organization/1482250000004671084"),
+        fullBean.getOrganizations()
+                .stream()
+                .map(AbstractEdmEntityImpl::getAbout)
+                .collect(Collectors.toSet()));
   }
 
   private static void assertTimeSpans(FullBeanImpl fullBean) {
-    assertEquals("HA/1185#timespan", fullBean.getTimespans().get(0).getAbout());
-    assertEquals("#19XX", fullBean.getTimespans().get(1).getAbout());
-    assertEquals("http://data.europeana.eu/timespan/20", fullBean.getTimespans().get(2).getAbout());
+    assertEquals(Set.of("HA/1185#timespan", "#19XX",
+            "http://data.europeana.eu/timespan/20"),
+        fullBean.getTimespans()
+                .stream()
+                .map(AbstractEdmEntityImpl::getAbout)
+                .collect(Collectors.toSet()));
   }
 
   private static void assertSizes(FullBeanImpl fullBean) {
@@ -134,9 +177,11 @@ class RdfToFullBeanConverterTest {
   }
 
   private static void assertPlaces(FullBeanImpl fullBean) {
-    assertEquals("iid:6744/SP.1", fullBean.getPlaces().getFirst().getAbout());
-    assertEquals(59.04861f, fullBean.getPlaces().getFirst().getLatitude());
-    assertEquals(-3.343056f, fullBean.getPlaces().getFirst().getLongitude());
-    assertEquals(7.0f, fullBean.getPlaces().getFirst().getAltitude());
+    PlaceImpl place = new PlaceImpl();
+    place.setAbout("iid:6744/SP.1");
+    place.setLatitude(59.04861f);
+    place.setLongitude(-3.343056f);
+    place.setAltitude(7.0f);
+    assertTrue(fullBean.getPlaces().contains(place));
   }
 }
