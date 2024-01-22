@@ -158,7 +158,7 @@
     <version.jena.core>4.7.0</version.jena.core>
     <version.jersey>2.21</version.jersey>
     <version.json>20210307</version.json>
-    <version.json.path>2.5.0</version.json.path>
+    <version.json.path>2.9.0</version.json.path>
     <version.jul.to.slf4j>1.7.30</version.jul.to.slf4j>
     <version.junit>5.7.2</version.junit>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
