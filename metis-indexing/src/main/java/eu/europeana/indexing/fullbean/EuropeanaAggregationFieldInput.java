@@ -1,14 +1,11 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
-import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -18,12 +15,6 @@ import java.util.function.Function;
  */
 final class EuropeanaAggregationFieldInput
     implements Function<EuropeanaAggregationType, EuropeanaAggregationImpl> {
-
-  final List<? extends QualityAnnotation> qualityAnnotations;
-
-  public EuropeanaAggregationFieldInput(List<? extends QualityAnnotation> qualityAnnotations) {
-    this.qualityAnnotations = qualityAnnotations;
-  }
 
   @Override
   public EuropeanaAggregationImpl apply(EuropeanaAggregationType aggregation) {
@@ -63,13 +54,6 @@ final class EuropeanaAggregationFieldInput
                                 .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmPreview(edmPreview);
 
-    // << to be updated with mongo parent ticket MET-5631
-    mongoAggregation.setDqvHasQualityAnnotation(
-        qualityAnnotations.stream()
-                          .filter(Objects::nonNull)
-                          .map(AbstractEdmEntity::getAbout)
-                          .toArray(String[]::new));
-    // << to be updated with mongo parent ticket MET-5631
     return mongoAggregation;
   }
 }

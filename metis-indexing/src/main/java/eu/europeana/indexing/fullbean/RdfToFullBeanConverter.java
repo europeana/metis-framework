@@ -88,18 +88,15 @@ public class RdfToFullBeanConverter {
     fullBean.setOrganizations(convertList(record.getOrganizations(), new OrganizationFieldInput(), false));
     fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), false));
     fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
-    // >> this will be updated in a next ticket the mongo part parent ticket MET-5631
-    var qualityAnnotationsList = convertList(getQualityAnnotations(record), new QualityAnnotationFieldInput(record.getAbout()),
-        false);
+    var qualityAnnotationsList = convertList(getQualityAnnotations(record), new QualityAnnotationFieldInput(), false);
     fullBean.setQualityAnnotations(qualityAnnotationsList);
-    // << this will be updated in a next ticket the mongo part parent ticket MET-5631
 
     // Set properties related to the Europeana aggregation
     fullBean.setEuropeanaCollectionName(new String[]{record.getDatasetName()});
     final Optional<EuropeanaAggregationType> europeanaAggregation = record
         .getEuropeanaAggregation();
     fullBean.setEuropeanaAggregation(
-        europeanaAggregation.map(new EuropeanaAggregationFieldInput(qualityAnnotationsList)).orElse(null));
+        europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
                         .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
     fullBean.setTimestampCreated(
