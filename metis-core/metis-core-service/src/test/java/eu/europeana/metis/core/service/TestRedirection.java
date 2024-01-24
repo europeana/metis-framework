@@ -1,14 +1,13 @@
 package eu.europeana.metis.core.service;
 
-import static eu.europeana.metis.core.service.TestRedirectionBase.getExecutionProgress;
-import static eu.europeana.metis.core.service.TestRedirectionBase.getHttpHarvestPlugin;
-import static eu.europeana.metis.core.service.TestRedirectionBase.getHttpHarvestPluginMetadata;
-import static eu.europeana.metis.core.service.TestRedirectionBase.getIndexToPreviewPlugin;
-import static eu.europeana.metis.core.service.TestRedirectionBase.getIndexToPreviewPluginMetadata;
-import static eu.europeana.metis.core.service.TestRedirectionBase.getIndexToPublishPlugin;
 import static eu.europeana.metis.core.service.TestRedirectionBase.getIndexToPublishPluginMetadata;
 import static eu.europeana.metis.core.service.TestRedirectionBase.getTestDataset;
+import static eu.europeana.metis.core.service.TestRedirectionBase.getValidationExternalProperties;
+import static eu.europeana.metis.core.service.TestRedirectionBase.getValidationInternalProperties;
 import static eu.europeana.metis.core.service.TestRedirectionBase.getWorkflow;
+import static eu.europeana.metis.core.service.TestRedirectionBase.getWorkflowFromNormalization;
+import static eu.europeana.metis.core.service.TestRedirectionBase.getWorkflowPostReindex;
+import static eu.europeana.metis.core.service.TestRedirectionBase.getWorkflowPreReindex;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -26,15 +25,10 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPlugin;
-import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -64,88 +58,72 @@ class TestRedirection {
   @Test
   void redirectionReviewWithPerformRedirectsWhenAncestorRootIsDifferent() throws BadContentException {
     final int priority = 0;
-    final HTTPHarvestPluginMetadata httpHarvestPluginMetadata = getHttpHarvestPluginMetadata();
-    final HTTPHarvestPlugin httpHarvestPlugin = getHttpHarvestPlugin(httpHarvestPluginMetadata,
-        Date.from(Instant.now().minus(42, ChronoUnit.MINUTES)),
-        Date.from(Instant.now().minus(28, ChronoUnit.MINUTES)),
-        getExecutionProgress());
+    final Dataset dataset = getTestDataset();
+    final WorkflowExecution workflowExecutionPre = getWorkflowPreReindex(dataset);
+    final WorkflowExecution workflowExecutionPost = getWorkflowPostReindex(dataset);
+
     final PluginWithExecutionId<ExecutablePlugin> httpHarvestPluginWithExecutionId =
-        new PluginWithExecutionId<>("executionId", httpHarvestPlugin);
+        new PluginWithExecutionId<>("executionIdH1",
+            (ExecutablePlugin) workflowExecutionPre.getMetisPluginWithType(PluginType.HTTP_HARVEST).get());
 
-    final HTTPHarvestPluginMetadata httpHarvestPluginMetadata2 = getHttpHarvestPluginMetadata();
-    final HTTPHarvestPlugin httpHarvestPlugin2 = getHttpHarvestPlugin(httpHarvestPluginMetadata2,
-        Date.from(Instant.now().minus(45, ChronoUnit.MINUTES)),
-        Date.from(Instant.now().minus(30, ChronoUnit.MINUTES)),
-        getExecutionProgress());
     final PluginWithExecutionId<ExecutablePlugin> httpHarvestPluginWithExecutionId2 =
-        new PluginWithExecutionId<>("executionId2", httpHarvestPlugin2);
-
-    final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = getIndexToPreviewPluginMetadata();
-    final IndexToPreviewPlugin indexToPreviewPlugin = getIndexToPreviewPlugin(indexToPreviewPluginMetadata,
-        getExecutionProgress());
-
-    final IndexToPublishPluginMetadata indexToPublishPluginMetadata = getIndexToPublishPluginMetadata(indexToPreviewPlugin);
-    final IndexToPublishPlugin indexToPublishPlugin = getIndexToPublishPlugin(indexToPublishPluginMetadata,
-        getExecutionProgress());
+        new PluginWithExecutionId<>("executionIdH2",
+            (ExecutablePlugin) workflowExecutionPost.getMetisPluginWithType(PluginType.HTTP_HARVEST).get());
 
     final PluginWithExecutionId<ExecutablePlugin> indexToPublishPluginWithExecutionId =
-        new PluginWithExecutionId<>("executionId", indexToPublishPlugin);
+        new PluginWithExecutionId<>("executionIdV1",
+            (ExecutablePlugin) workflowExecutionPre.getMetisPluginWithType(PluginType.PUBLISH).get());
     when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
         .thenReturn(indexToPublishPluginWithExecutionId);
+    final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionIdV2",
+        (ExecutablePlugin) workflowExecutionPost.getMetisPluginWithType(PluginType.VALIDATION_INTERNAL).get());
 
-    when(dataEvolutionUtils.getRootAncestor(any()))
-        .thenReturn(httpHarvestPluginWithExecutionId)
+    when(dataEvolutionUtils.getRootAncestor(indexToPublishPluginWithExecutionId))
+        .thenReturn(httpHarvestPluginWithExecutionId);
+    when(dataEvolutionUtils.getRootAncestor(predecessor))
         .thenReturn(httpHarvestPluginWithExecutionId2);
 
-    final ObjectId objectId = new ObjectId();
-    final Workflow workflow = getWorkflow(objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
-    final Dataset dataset = getTestDataset();
-    final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
+    final Workflow workflow = getWorkflowFromNormalization(dataset);
 
+    workflowExecutionFactory.setValidationInternalProperties(getValidationInternalProperties());
+    workflowExecutionFactory.setValidationExternalProperties(getValidationExternalProperties());
     final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor,
         priority);
 
-    final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPlugins().stream()
-                                                                                                   .findFirst().get();
+    final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPluginWithType(
+        PluginType.PUBLISH).get();
     assertTrue(abstractMetisPlugin.getPluginMetadata().isPerformRedirects());
   }
 
   @Test
   void redirectionReviewWithPerformRedirectsWhenRedirectIdsPresent() throws BadContentException {
     final int priority = 0;
-    final HTTPHarvestPluginMetadata httpHarvestPluginMetadata = getHttpHarvestPluginMetadata();
-    final HTTPHarvestPlugin httpHarvestPlugin = getHttpHarvestPlugin(httpHarvestPluginMetadata,
-        Date.from(Instant.now().minus(42, ChronoUnit.MINUTES)),
-        Date.from(Instant.now().minus(28, ChronoUnit.MINUTES)),
-        getExecutionProgress());
-    final PluginWithExecutionId<ExecutablePlugin> httpHarvestPluginWithExecutionId =
-        new PluginWithExecutionId<>("executionId", httpHarvestPlugin);
-
-    final IndexToPreviewPluginMetadata indexToPreviewPluginMetadata = getIndexToPreviewPluginMetadata();
-    final IndexToPreviewPlugin indexToPreviewPlugin = getIndexToPreviewPlugin(indexToPreviewPluginMetadata,
-        getExecutionProgress());
-
-    final IndexToPublishPluginMetadata indexToPublishPluginMetadata = getIndexToPublishPluginMetadata(indexToPreviewPlugin);
-    final IndexToPublishPlugin indexToPublishPlugin = getIndexToPublishPlugin(indexToPublishPluginMetadata,
-        getExecutionProgress());
+    final Dataset dataset = getTestDataset();
+    final WorkflowExecution workflowExecutionPre = getWorkflowPreReindex(dataset);
 
     final PluginWithExecutionId<ExecutablePlugin> indexToPublishPluginPluginWithExecutionId =
-        new PluginWithExecutionId<>("executionId", indexToPublishPlugin);
+        new PluginWithExecutionId<>("executionId",
+            (ExecutablePlugin) workflowExecutionPre.getMetisPluginWithType(PluginType.PUBLISH).get());
 
     when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean()))
         .thenReturn(indexToPublishPluginPluginWithExecutionId);
 
     final ObjectId objectId = new ObjectId();
-    final Workflow workflow = getWorkflow(objectId, getIndexToPublishPluginMetadata(indexToPreviewPlugin));
-    final Dataset dataset = getTestDataset();
+    final Workflow workflow = getWorkflow(objectId, getIndexToPublishPluginMetadata(Date.from(Instant.now()),
+        ((ExecutablePlugin) workflowExecutionPre.getMetisPluginWithType(PluginType.PREVIEW).get()).getPluginMetadata()
+                                                                                                  .getRevisionNamePreviousPlugin(),
+        ((ExecutablePlugin) workflowExecutionPre.getMetisPluginWithType(PluginType.PREVIEW).get()).getPluginMetadata()
+                                                                                                  .getRevisionTimestampPreviousPlugin()));
+
     dataset.setDatasetIdsToRedirectFrom(List.of("253"));
-    final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId", indexToPreviewPlugin);
+    final PluginWithExecutionId<ExecutablePlugin> predecessor = new PluginWithExecutionId<>("executionId",
+        ((ExecutablePlugin) workflowExecutionPre.getMetisPluginWithType(PluginType.PREVIEW).get()));
 
     final WorkflowExecution workflowExecution = workflowExecutionFactory.createWorkflowExecution(workflow, dataset, predecessor,
         priority);
 
-    final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPlugins().stream()
-                                                                                                   .findFirst().get();
+    final AbstractMetisPlugin<IndexToPublishPluginMetadata> abstractMetisPlugin = workflowExecution.getMetisPluginWithType(
+        PluginType.PUBLISH).get();
     assertTrue(abstractMetisPlugin.getPluginMetadata().isPerformRedirects());
   }
 }
