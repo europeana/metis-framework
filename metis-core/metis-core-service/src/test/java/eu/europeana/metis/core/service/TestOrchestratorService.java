@@ -116,6 +116,7 @@ class TestOrchestratorService {
   private static final int SOLR_COMMIT_PERIOD_IN_MINS = 15;
   private static WorkflowExecutionDao workflowExecutionDao;
   private static DataEvolutionUtils dataEvolutionUtils;
+  private static RedirectionInferrer redirectionInferrer;
   private static WorkflowValidationUtils validationUtils;
   private static WorkflowDao workflowDao;
   private static DatasetDao datasetDao;
@@ -140,8 +141,9 @@ class TestOrchestratorService {
     redissonClient = mock(RedissonClient.class);
     authorizer = mock(Authorizer.class);
 
+    redirectionInferrer = new RedirectionInferrer(workflowExecutionDao, dataEvolutionUtils);
     workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao,
-        depublishRecordIdDao, workflowExecutionDao, dataEvolutionUtils));
+        depublishRecordIdDao, redirectionInferrer));
     workflowExecutionFactory.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
     workflowExecutionFactory.setValidationInternalProperties(
