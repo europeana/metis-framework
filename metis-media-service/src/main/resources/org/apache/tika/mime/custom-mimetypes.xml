@@ -2,9 +2,9 @@
 <mime-info>
   <mime-type type="model/obj">
     <glob pattern="*.obj"/>
-<!--    <magic priority="50">-->
-<!--      <match value="0x00051600" type="string" offset="0"/>-->
-<!--    </magic>-->
+    <magic priority="50">
+      <match value="#Obj" type="string"/>
+    </magic>
   </mime-type>
 </mime-info>
 
