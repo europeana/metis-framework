@@ -34,14 +34,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 class EnablingElementsBreakdownClassifierTest {
 
-  @Test
-  void testClassify() {
+  @ParameterizedTest
+  @EnumSource
+  void testClassify(ClassifierMode classifierMode) {
     // Create mocked objects
     final RdfWrapper entity = mock(RdfWrapper.class);
-    final EnablingElementsClassifier classifier = spy(new EnablingElementsClassifier());
+    final EnablingElementsClassifier classifier = spy(new EnablingElementsClassifier(classifierMode));
     final EnablingElementInventory inventory = mock(EnablingElementInventory.class);
     doReturn(inventory).when(classifier).performEnablingElementInventory(entity);
 
@@ -77,14 +80,16 @@ class EnablingElementsBreakdownClassifierTest {
     assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
   }
 
-  @Test
-  void testPerformEnablingElementInventory() {
+  @ParameterizedTest
+  @EnumSource
+  void testPerformEnablingElementInventory(ClassifierMode classifierMode) {
 
     // Create mocked objects
     final RdfWrapper entity = mock(RdfWrapper.class);
     final List<ProxyType> providerProxies = new ArrayList<>();
     doReturn(providerProxies).when(entity).getProviderProxies();
-    final EnablingElementsClassifier classifier = spy(new EnablingElementsClassifier());
+    doReturn(providerProxies).when(entity).getProxies();
+    final EnablingElementsClassifier classifier = spy(new EnablingElementsClassifier(classifierMode));
     final Map<String, Set<Class<? extends AboutType>>> contextualObjectMap = new HashMap<>();
     doReturn(contextualObjectMap).when(classifier).createContextualObjectMap(entity);
 
@@ -116,11 +121,12 @@ class EnablingElementsBreakdownClassifierTest {
   }
 
 
-  @Test
-  void testCreateContextualObjectMap() {
+  @ParameterizedTest
+  @EnumSource
+  void testCreateContextualObjectMap(ClassifierMode classifierMode) {
 
     // Create entity and classifier
-    final EnablingElementsClassifier classifier = new EnablingElementsClassifier();
+    final EnablingElementsClassifier classifier = new EnablingElementsClassifier(classifierMode);
     final RdfWrapper entity = mock(RdfWrapper.class);
 
     // Test with empty lists. Note: null lists, null objects and blank about values cannot happen.
@@ -164,11 +170,12 @@ class EnablingElementsBreakdownClassifierTest {
         result.get(link5));
   }
 
-  @Test
-  void testAnalyzeForElements() {
+  @ParameterizedTest
+  @EnumSource
+  void testAnalyzeForElements(ClassifierMode classifierMode) {
 
     // Create some objects.
-    final EnablingElementsClassifier classifier = new EnablingElementsClassifier();
+    final EnablingElementsClassifier classifier = new EnablingElementsClassifier(classifierMode);
     final String link = "link";
     final Map<String, Set<Class<? extends AboutType>>> contextualObjectMap = Collections
         .singletonMap(link, EnumSet.allOf(ContextualClassGroup.class).stream()

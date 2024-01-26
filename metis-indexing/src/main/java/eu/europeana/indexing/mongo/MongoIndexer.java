@@ -13,6 +13,7 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.tiers.metadata.ClassifierMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
@@ -37,7 +38,10 @@ public class MongoIndexer implements SimpleIndexer {
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
   private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
+  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier(
+      ClassifierMode.PROVIDER_PROXIES);
+  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifierEuropeana = ClassifierFactory.getMetadataClassifier(
+      ClassifierMode.ALL_PROXIES);
   private final IndexingProperties indexingProperties;
 
   /**
@@ -84,6 +88,11 @@ public class MongoIndexer implements SimpleIndexer {
           metadataClassifier.classify(rdfWrapper));
       RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMediaTier());
       RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMetadataTier());
+
+      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
+          metadataClassifierEuropeana.classify(rdfWrapper));
+      RdfTierUtils.setTierEuropeana(rdfRecord, tierCalculationsResult.getMediaTier());
+      RdfTierUtils.setTierEuropeana(rdfRecord, tierCalculationsResult.getMetadataTier());
     }
   }
 

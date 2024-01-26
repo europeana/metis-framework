@@ -1,6 +1,7 @@
 package eu.europeana.indexing.tiers;
 
 import eu.europeana.indexing.tiers.media.MediaClassifier;
+import eu.europeana.indexing.tiers.metadata.ClassifierMode;
 import eu.europeana.indexing.tiers.metadata.ContextualClassesClassifier;
 import eu.europeana.indexing.tiers.metadata.EnablingElementsClassifier;
 import eu.europeana.indexing.tiers.metadata.LanguageClassifier;
@@ -20,10 +21,22 @@ public final class ClassifierFactory {
   }
 
   /**
-   * @return A classifier for the metadata tier.
+   * @return A classifier for the metadata tier with Provider Proxies as default mode.
    */
   public static TierClassifier<MetadataTier, MetadataTierBreakdown> getMetadataClassifier() {
     return new MetadataClassifier(new LanguageClassifier(), new EnablingElementsClassifier(), new ContextualClassesClassifier());
+  }
+
+  /**
+   * @param classifierMode select the classifier mode for the metadata tier.
+   * @return A classifier for the metadata tier.
+   */
+  public static TierClassifier<MetadataTier, MetadataTierBreakdown> getMetadataClassifier(ClassifierMode classifierMode) {
+    return new MetadataClassifier(
+        new LanguageClassifier(classifierMode),
+        new EnablingElementsClassifier(classifierMode),
+        new ContextualClassesClassifier(classifierMode)
+    );
   }
 
   /**

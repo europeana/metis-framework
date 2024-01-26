@@ -5,6 +5,7 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.tiers.metadata.ClassifierMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
@@ -40,8 +41,8 @@ public class IndexerImpl implements Indexer {
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
   private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
-
+  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier(ClassifierMode.PROVIDER_PROXIES);
+  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifierEuropeana = ClassifierFactory.getMetadataClassifier(ClassifierMode.ALL_PROXIES);
   /**
    * Constructor.
    *
@@ -152,6 +153,11 @@ public class IndexerImpl implements Indexer {
               metadataClassifier.classify(rdfWrapper));
       RdfTierUtils.setTier(rdf, tierCalculationsResult.getMediaTier());
       RdfTierUtils.setTier(rdf, tierCalculationsResult.getMetadataTier());
+
+      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
+          metadataClassifierEuropeana.classify(rdfWrapper));
+      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResult.getMediaTier());
+      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResult.getMetadataTier());
     }
 
     return tierCalculationsResult;
