@@ -20,19 +20,14 @@ import org.apache.solr.common.SolrInputDocument;
 public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<EuropeanaAggregation> {
 
   private final List<? extends License> licenses;
-  private final Function<String, QualityAnnotation> qualityAnnotationGetter;
 
   /**
    * Constructor.
    *
    * @param licenses the list of licenses for the record. Is not null and does not contain null values.
-   * @param qualityAnnotationGetter Function to obtain the quality annotation for a given about value. This function will only
-   * return a non-null value if the annotation is suitable for adding to the solr.
    */
-  public EuropeanaAggregationSolrCreator(List<? extends License> licenses,
-      Function<String, QualityAnnotation> qualityAnnotationGetter) {
+  public EuropeanaAggregationSolrCreator(List<? extends License> licenses) {
     this.licenses = new ArrayList<>(licenses);
-    this.qualityAnnotationGetter = qualityAnnotationGetter;
   }
 
   @Override
@@ -45,10 +40,5 @@ public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<Euro
         europeanaAggregation.getEdmPreview());
     new WebResourceSolrCreator(licenses)
         .addAllToDocument(doc, europeanaAggregation.getWebResources());
-    final List<QualityAnnotation> annotationsToAdd = Optional
-        .ofNullable(europeanaAggregation.getDqvHasQualityAnnotation()).stream().flatMap(Arrays::stream)
-        .filter(StringUtils::isNotBlank).distinct()
-        .map(qualityAnnotationGetter).filter(Objects::nonNull).collect(Collectors.toList());
-    new QualityAnnotationSolrCreator().addAllToDocument(doc, annotationsToAdd);
   }
 }

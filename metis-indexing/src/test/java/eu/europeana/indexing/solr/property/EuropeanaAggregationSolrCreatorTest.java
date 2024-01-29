@@ -51,7 +51,7 @@ class EuropeanaAggregationSolrCreatorTest {
         qualityAnnotationMetadata1.getAbout(), qualityAnnotationMetadata1);
 
     final EuropeanaAggregationSolrCreator europeanaAggregationSolrCreator = new EuropeanaAggregationSolrCreator(
-        List.of(license1, license2), qualityAnnotationMap::get);
+        List.of(license1, license2));
 
     WebResource webResource1 = new WebResourceImpl();
     webResource1.setAbout("webResource1About");
