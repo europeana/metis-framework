@@ -2,16 +2,9 @@ package eu.europeana.indexing.solr.property;
 
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.License;
-import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.indexing.solr.EdmLabel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
 /**
