@@ -5,6 +5,8 @@ import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
+import eu.europeana.indexing.IndexerPreprocessor;
+import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -27,6 +29,7 @@ public class SolrIndexer implements SimpleIndexer {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
+  private final IndexingProperties indexingProperties;
 
   /**
    * Create SolrIndexer object indicating solr connection properties
@@ -37,6 +40,7 @@ public class SolrIndexer implements SimpleIndexer {
   public SolrIndexer(SolrIndexingSettings settings) throws SetupRelatedIndexingException {
     this.connectionProvider = new SolrConnectionProvider(settings);
     this.stringToRdfConverterSupplier = StringToFullBeanConverter::new;
+    this.indexingProperties = settings.getIndexingProperties();
   }
 
   /**
@@ -58,6 +62,7 @@ public class SolrIndexer implements SimpleIndexer {
 
     LOGGER.info("Processing {} record...", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
+    IndexerPreprocessor.preprocessRecord(rdfRecord, indexingProperties);
     publisher.publishSolr(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
   }
 

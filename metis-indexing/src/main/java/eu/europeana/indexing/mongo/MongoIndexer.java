@@ -5,6 +5,7 @@ import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
+import eu.europeana.indexing.IndexerPreprocessor;
 import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
@@ -27,7 +28,7 @@ import java.time.Instant;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import eu.europeana.indexing.IndexerPreprocessor;
 /**
  * Creates a record for indexing in Mongo
  */
@@ -36,8 +37,7 @@ public class MongoIndexer implements SimpleIndexer {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
-  private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
+
   private final IndexingProperties indexingProperties;
 
   /**
@@ -71,20 +71,10 @@ public class MongoIndexer implements SimpleIndexer {
 
     LOGGER.info("Processing record {}", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
-    preProcessRecord(rdfRecord);
-    publisher.publishMongo(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
-  }
 
-  private void preProcessRecord(RDF rdfRecord) throws IndexingException {
-    final RdfWrapper rdfWrapper = new RdfWrapper(rdfRecord);
-    TierResults tierCalculationsResult = new TierResults();
-    if (indexingProperties.isPerformTierCalculation() && indexingProperties.getTypesEnabledForTierCalculation()
-                                                           .contains(rdfWrapper.getEdmType())) {
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
-          metadataClassifier.classify(rdfWrapper));
-      RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMediaTier());
-      RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMetadataTier());
-    }
+    IndexerPreprocessor.preprocessRecord(rdfRecord, indexingProperties);
+
+    publisher.publishMongo(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
   }
 
   /**
