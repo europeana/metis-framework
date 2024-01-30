@@ -36,20 +36,6 @@ class EuropeanaAggregationSolrCreatorTest {
     license2.setAbout("license2About");
     license2.setOdrlInheritFrom("license2OdrlInheritFrom");
 
-    QualityAnnotation qualityAnnotationContent1 = new QualityAnnotationImpl();
-    qualityAnnotationContent1.setAbout("qualityAnnotationContent1About");
-    qualityAnnotationContent1.setBody(RdfTier.CONTENT_TIER_0.getUri());
-    QualityAnnotation qualityAnnotationContent2 = new QualityAnnotationImpl();
-    qualityAnnotationContent2.setAbout("qualityAnnotationContent2About");
-    qualityAnnotationContent2.setBody(RdfTier.CONTENT_TIER_1.getUri());
-    QualityAnnotation qualityAnnotationMetadata1 = new QualityAnnotationImpl();
-    qualityAnnotationMetadata1.setAbout("qualityAnnotationMetadata1About");
-    qualityAnnotationMetadata1.setBody(RdfTier.METADATA_TIER_0.getUri());
-
-    final Map<String, QualityAnnotation> qualityAnnotationMap = Map.of(qualityAnnotationContent1.getAbout(),
-        qualityAnnotationContent1, qualityAnnotationContent2.getAbout(), qualityAnnotationContent2,
-        qualityAnnotationMetadata1.getAbout(), qualityAnnotationMetadata1);
-
     final EuropeanaAggregationSolrCreator europeanaAggregationSolrCreator = new EuropeanaAggregationSolrCreator(
         List.of(license1, license2));
 
@@ -82,9 +68,7 @@ class EuropeanaAggregationSolrCreatorTest {
     europeanaAggregation.setEdmCountry(Map.of("edmCountryKey", List.of("countryValue")));
     europeanaAggregation.setEdmLanguage(Map.of("edmLanguageKey", List.of("languageValue")));
     europeanaAggregation.setEdmPreview("previewValue");
-    europeanaAggregation.setDqvHasQualityAnnotation(
-        new String[]{qualityAnnotationContent1.getAbout(), qualityAnnotationContent2.getAbout(),
-            qualityAnnotationMetadata1.getAbout()});
+    europeanaAggregation.setDqvHasQualityAnnotation(null);
 
     europeanaAggregationSolrCreator.addToDocument(solrInputDocument, europeanaAggregation);
 
@@ -111,10 +95,5 @@ class EuropeanaAggregationSolrCreatorTest {
     //Verify webResource2
     verifyMap(solrInputDocument, EdmLabel.WR_EDM_RIGHTS, webResource2.getWebResourceEdmRights());
     verifyMap(solrInputDocument, EdmLabel.WR_DC_RIGHTS, webResource2.getWebResourceDcRights());
-
-    //Verify QualityAnnotation Fields
-    verifyCollection(solrInputDocument, EdmLabel.CONTENT_TIER,
-        List.of(RdfTier.CONTENT_TIER_0.getTier().toString(), RdfTier.CONTENT_TIER_1.getTier().toString()));
-    verifyCollection(solrInputDocument, EdmLabel.METADATA_TIER, List.of(RdfTier.METADATA_TIER_0.getTier().toString()));
   }
 }
