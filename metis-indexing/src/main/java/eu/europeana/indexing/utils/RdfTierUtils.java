@@ -5,6 +5,7 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
+import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Created;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
@@ -23,6 +24,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class provides utilities methods with respect to the tiers in {@link RdfTier}.
@@ -82,7 +84,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeana(RDF rdf, MediaTier contentTier) throws IndexingException {
-    setTierInternalE(rdf, contentTier);
+    setTierInternalEuropeana(rdf, contentTier);
   }
 
   /**
@@ -93,18 +95,14 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
-    setTierInternalE(rdf, tier);
+    setTierInternalEuropeana(rdf, tier);
   }
 
   private static void setTierInternal(RDF rdf, Tier tier)
       throws IndexingException {
 
     // Get the right instance of RdfTier.
-    final RdfTier rdfTier = tiersByValue.get(tier);
-    if (rdfTier == null) {
-      throw new SetupRelatedIndexingException("Cannot find settings for tier value "
-          + tier.getClass());
-    }
+    final RdfTier rdfTier = getRdfTier(tier);
 
     // Determine if there is something to reference and somewhere to add the reference.
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
@@ -118,63 +116,69 @@ public final class RdfTierUtils {
                                                                           .findAny()
                                                                           .orElse(null));
 
-    if (aggregatorAggregation == null) {
-      throw new RecordRelatedIndexingException("Cannot find suitable aggregator or provider aggregation in record.");
-    }
+    checkAggregationNotNull(aggregatorAggregation);
 
     // Create the annotation
-    final QualityAnnotation annotation = new QualityAnnotation();
-    final Created created = new Created();
-    created.setString(Instant.now().toString());
-    annotation.setCreated(created);
+    final HasQualityAnnotation link = getQualityAnnotation(aggregatorAggregation.getAbout(), rdfTier);
 
-    final HasTarget hasTarget = new HasTarget();
-    hasTarget.setResource(aggregatorAggregation.getAbout());
-    annotation.setHasTargetList(List.of(hasTarget));
-
-    final HasBody hasBody = new HasBody();
-    hasBody.setResource(rdfTier.getUri());
-    annotation.setHasBody(hasBody);
-
-    // Add the link to the annotation to the europeana aggregation.
-    final HasQualityAnnotation link = new HasQualityAnnotation();
-    link.setQualityAnnotation(annotation);
-
-    final Stream<HasQualityAnnotation> existingAnnotations = Optional
-        .ofNullable(aggregatorAggregation.getHasQualityAnnotationList()).stream()
-        .flatMap(Collection::stream)
-        .filter(existingLink -> !link.getQualityAnnotation()
-                                     .getHasBody()
-                                     .getResource().equals(existingLink.getQualityAnnotation()
-                                                                       .getHasBody()
-                                                                       .getResource()));
     aggregatorAggregation.setHasQualityAnnotationList(
-        Stream.concat(existingAnnotations, Stream.of(link)).collect(Collectors.toList()));
+        Stream.concat(getExistingAnnotations(link, aggregatorAggregation.getHasQualityAnnotationList()), Stream.of(link))
+              .collect(Collectors.toList()));
   }
 
-  private static void setTierInternalE(RDF rdf, Tier tier)
+  private static void setTierInternalEuropeana(RDF rdf, Tier tier)
       throws IndexingException {
 
+    final RdfTier rdfTier = getRdfTier(tier);
+
+    // Determine if there is something to reference and somewhere to add the reference.
+    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+
+    final EuropeanaAggregationType europeanaAggregationType = rdfWrapper.getEuropeanaAggregation()
+                                                                        .stream()
+                                                                        .filter(Objects::nonNull)
+                                                                        .findAny()
+                                                                        .orElse(null);
+
+    checkAggregationNotNull(europeanaAggregationType);
+
+    final HasQualityAnnotation link = getQualityAnnotation(europeanaAggregationType.getAbout(), rdfTier);
+
+    europeanaAggregationType.setHasQualityAnnotationList(
+        Stream.concat(getExistingAnnotations(link, europeanaAggregationType.getHasQualityAnnotationList()), Stream.of(link))
+              .collect(Collectors.toList()));
+  }
+
+  @NotNull
+  private static RdfTier getRdfTier(Tier tier) throws SetupRelatedIndexingException {
     // Get the right instance of RdfTier.
     final RdfTier rdfTier = tiersByValue.get(tier);
     if (rdfTier == null) {
       throw new SetupRelatedIndexingException("Cannot find settings for tier value "
           + tier.getClass());
     }
+    return rdfTier;
+  }
 
-    // Determine if there is something to reference and somewhere to add the reference.
-    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-
-    final EuropeanaAggregationType aggregatorAggregation = rdfWrapper.getEuropeanaAggregation()
-                                                                     .stream()
-                                                                     .filter(Objects::nonNull)
-                                                                     .findAny()
-                                                                     .orElse(null);
-
+  private static void checkAggregationNotNull(AboutType aggregatorAggregation) throws RecordRelatedIndexingException {
     if (aggregatorAggregation == null) {
       throw new RecordRelatedIndexingException("Cannot find suitable aggregator or provider aggregation in record.");
     }
+  }
 
+  private static Stream<HasQualityAnnotation> getExistingAnnotations(HasQualityAnnotation link,
+      List<HasQualityAnnotation> qualityAnnotations) {
+    return Optional.ofNullable(qualityAnnotations).stream()
+                   .flatMap(Collection::stream)
+                   .filter(existingLink -> !link.getQualityAnnotation()
+                                                .getHasBody()
+                                                .getResource().equals(existingLink.getQualityAnnotation()
+                                                                                  .getHasBody()
+                                                                                  .getResource()));
+  }
+
+  @NotNull
+  private static HasQualityAnnotation getQualityAnnotation(String aggregatorAggregation, RdfTier rdfTier) {
     // Create the annotation
     final QualityAnnotation annotation = new QualityAnnotation();
     final Created created = new Created();
@@ -182,7 +186,7 @@ public final class RdfTierUtils {
     annotation.setCreated(created);
 
     final HasTarget hasTarget = new HasTarget();
-    hasTarget.setResource(aggregatorAggregation.getAbout());
+    hasTarget.setResource(aggregatorAggregation);
     annotation.setHasTargetList(List.of(hasTarget));
 
     final HasBody hasBody = new HasBody();
@@ -192,16 +196,6 @@ public final class RdfTierUtils {
     // Add the link to the annotation to the europeana aggregation.
     final HasQualityAnnotation link = new HasQualityAnnotation();
     link.setQualityAnnotation(annotation);
-
-    final Stream<HasQualityAnnotation> existingAnnotations = Optional
-        .ofNullable(aggregatorAggregation.getHasQualityAnnotationList()).stream()
-        .flatMap(Collection::stream)
-        .filter(existingLink -> !link.getQualityAnnotation()
-                                     .getHasBody()
-                                     .getResource().equals(existingLink.getQualityAnnotation()
-                                                                       .getHasBody()
-                                                                       .getResource()));
-    aggregatorAggregation.setHasQualityAnnotationList(
-        Stream.concat(existingAnnotations, Stream.of(link)).collect(Collectors.toList()));
+    return link;
   }
 }

@@ -18,9 +18,12 @@ import eu.europeana.metis.schema.jibx.RDF;
  */
 public class IndexerPreprocessor {
 
-  private static final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier(ClassifierMode.PROVIDER_PROXIES);
-  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifierEuropeana = ClassifierFactory.getMetadataClassifier(ClassifierMode.ALL_PROXIES);
+  private static final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier =
+      ClassifierFactory.getMediaClassifier();
+  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier =
+      ClassifierFactory.getMetadataClassifier(ClassifierMode.PROVIDER_PROXIES);
+  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifierEuropeana =
+      ClassifierFactory.getMetadataClassifier(ClassifierMode.ALL_PROXIES);
 
   private IndexerPreprocessor() {
   }

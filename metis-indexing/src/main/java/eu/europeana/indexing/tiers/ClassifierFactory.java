@@ -21,6 +21,8 @@ public final class ClassifierFactory {
   }
 
   /**
+   * get a classifier with in default mode
+   *
    * @return A classifier for the metadata tier with Provider Proxies as default mode.
    */
   public static TierClassifier<MetadataTier, MetadataTierBreakdown> getMetadataClassifier() {
@@ -28,6 +30,8 @@ public final class ClassifierFactory {
   }
 
   /**
+   * get a metadata classifier with a mode
+   *
    * @param classifierMode select the classifier mode for the metadata tier.
    * @return A classifier for the metadata tier.
    */
@@ -40,6 +44,8 @@ public final class ClassifierFactory {
   }
 
   /**
+   * get a media classifier
+   *
    * @return A classifier for the media tier.
    */
   public static TierClassifier<MediaTier, ContentTierBreakdown> getMediaClassifier() {
