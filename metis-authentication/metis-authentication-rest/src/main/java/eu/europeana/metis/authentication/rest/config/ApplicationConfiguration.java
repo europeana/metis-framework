@@ -209,12 +209,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
         zohoConfigurationProperties.getCurrentUserEmail(), zohoConfigurationProperties.getClientId(),
         zohoConfigurationProperties.getClientSecret(), zohoConfigurationProperties.getInitialGrantToken(),
         zohoConfigurationProperties.getRedirectUri());
-    try {
-      //Make a call to zoho so that the grant token will generate the first pair of access/refresh tokens
-      zohoAccessClient.getZohoRecordContactByEmail("");
-    } catch (RuntimeException runtimeException) {
-      LOGGER.error("Zoho initial call when initializing bean", runtimeException);
-    }
+
     return zohoAccessClient;
   }
 
