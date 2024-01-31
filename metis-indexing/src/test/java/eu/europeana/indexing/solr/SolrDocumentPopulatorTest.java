@@ -4,6 +4,7 @@ import static eu.europeana.indexing.solr.EdmLabel.COVERAGE_LOCATION_WGS;
 import static eu.europeana.indexing.solr.EdmLabel.CURRENT_LOCATION_WGS;
 import static eu.europeana.indexing.solr.EdmLabel.EUROPEANA_ID;
 import static eu.europeana.indexing.solr.EdmLabel.LOCATION_WGS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -47,6 +48,8 @@ class SolrDocumentPopulatorTest {
     documentPopulator.populateWithFacets(document, rdfWrapper);
 
     assertTrue(document.get(EUROPEANA_ID.toString()).getValues().contains(fullBean.getAbout()));
+    assertEquals( "2", document.getFieldValue(EdmLabel.CONTENT_TIER.toString()));
+    assertEquals( "A", document.getFieldValue(EdmLabel.METADATA_TIER.toString()));
     assertTrue(CollectionUtils.isEqualCollection(document.get(CURRENT_LOCATION_WGS.toString()).getValues(),
         List.of("50.75,4.5")));
     assertTrue(CollectionUtils.isEqualCollection(document.get(COVERAGE_LOCATION_WGS.toString()).getValues(),

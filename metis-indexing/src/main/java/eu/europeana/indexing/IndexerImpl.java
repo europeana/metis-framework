@@ -4,14 +4,7 @@ import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
-import eu.europeana.indexing.tiers.ClassifierFactory;
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
 import eu.europeana.indexing.tiers.model.TierResults;
-import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
-import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
-import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.io.IOException;
@@ -22,7 +15,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +31,7 @@ public class IndexerImpl implements Indexer {
   private final AbstractConnectionProvider connectionProvider;
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
-  private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
+
 
   /**
    * Constructor.
@@ -103,31 +94,6 @@ public class IndexerImpl implements Indexer {
     indexRdfs(List.of(rdfRecord), indexingProperties);
   }
 
-  private void indexRecords(List<RDF> records, IndexingProperties properties,
-      Predicate<TierResults> tierResultsConsumer) throws IndexingException {
-    if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
-      throw new SetupRelatedIndexingException(
-          "Record redirect dao has not been initialized and performing redirects is requested");
-    }
-    LOGGER.info("Processing {} records...", records.size());
-    final FullBeanPublisher publisher =
-        connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
-
-    for (RDF rdfRecord : records) {
-      if(tierResultsConsumer.test(preprocessRecord(rdfRecord, properties))) {
-        if (properties.isPerformRedirects()) {
-          publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
-              properties.getDatasetIdsForRedirection());
-        } else {
-          publisher.publish(new RdfWrapper(rdfRecord), properties.getRecordDate(),
-              properties.getDatasetIdsForRedirection());
-        }
-      }
-    }
-
-    LOGGER.info("Successfully processed {} records.", records.size());
-  }
-
   @Override
   public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
     index(List.of(stringRdfRecord), indexingProperties);
@@ -135,26 +101,9 @@ public class IndexerImpl implements Indexer {
 
   @Override
   public void index(String stringRdfRecord, IndexingProperties indexingProperties,
-                    Predicate<TierResults> tierResultsConsumer) throws IndexingException {
+      Predicate<TierResults> tierResultsConsumer) throws IndexingException {
     final RDF rdfRecord = stringToRdfConverterSupplier.get().convertStringToRdf(stringRdfRecord);
     indexRecords(List.of(rdfRecord), indexingProperties, tierResultsConsumer);
-  }
-
-  private TierResults preprocessRecord(RDF rdf, IndexingProperties properties)
-      throws IndexingException {
-
-    // Perform the tier classification
-    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    TierResults tierCalculationsResult = new TierResults();
-    if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
-                                                           .contains(rdfWrapper.getEdmType())) {
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
-              metadataClassifier.classify(rdfWrapper));
-      RdfTierUtils.setTier(rdf, tierCalculationsResult.getMediaTier());
-      RdfTierUtils.setTier(rdf, tierCalculationsResult.getMetadataTier());
-    }
-
-    return tierCalculationsResult;
   }
 
   @Override
@@ -198,6 +147,31 @@ public class IndexerImpl implements Indexer {
   @Override
   public long countRecords(String datasetId) {
     return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId);
+  }
+
+  private void indexRecords(List<RDF> records, IndexingProperties properties,
+      Predicate<TierResults> tierResultsConsumer) throws IndexingException {
+    if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
+      throw new SetupRelatedIndexingException(
+          "Record redirect dao has not been initialized and performing redirects is requested");
+    }
+    LOGGER.info("Processing {} records...", records.size());
+    final FullBeanPublisher publisher =
+        connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
+
+    for (RDF rdfRecord : records) {
+      if (tierResultsConsumer.test(IndexerPreprocessor.preprocessRecord(rdfRecord, properties))) {
+        if (properties.isPerformRedirects()) {
+          publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
+              properties.getDatasetIdsForRedirection());
+        } else {
+          publisher.publish(new RdfWrapper(rdfRecord), properties.getRecordDate(),
+              properties.getDatasetIdsForRedirection());
+        }
+      }
+    }
+
+    LOGGER.info("Successfully processed {} records.", records.size());
   }
 
   /**
