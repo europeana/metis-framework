@@ -25,6 +25,7 @@ import eu.europeana.metis.core.rest.config.properties.MetisCoreConfigurationProp
 import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.service.RedirectionInferrer;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.service.WorkflowExecutionFactory;
 import eu.europeana.metis.core.workflow.ValidationProperties;
@@ -158,11 +159,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
       @Qualifier("validationExternalProperties") ValidationProperties validationExternalProperties,
       @Qualifier("validationInternalProperties") ValidationProperties validationInternalProperties,
-      WorkflowExecutionDao workflowExecutionDao, DataEvolutionUtils dataEvolutionUtils,
+      RedirectionInferrer redirectionInferrer,
       DatasetXsltDao datasetXsltDao, DepublishRecordIdDao depublishRecordIdDao,
       MetisCoreConfigurationProperties metisCoreConfigurationProperties) {
     WorkflowExecutionFactory workflowExecutionFactory = new WorkflowExecutionFactory(datasetXsltDao,
-        depublishRecordIdDao, workflowExecutionDao, dataEvolutionUtils);
+        depublishRecordIdDao, redirectionInferrer);
     workflowExecutionFactory
         .setValidationExternalProperties(validationExternalProperties);
     workflowExecutionFactory
@@ -170,6 +171,12 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     workflowExecutionFactory.setDefaultSamplingSizeForLinkChecking(
         metisCoreConfigurationProperties.getLinkCheckingDefaultSamplingSize());
     return workflowExecutionFactory;
+  }
+
+  @Bean
+  public RedirectionInferrer getRedirectionInferrer(WorkflowExecutionDao workflowExecutionDao,
+      DataEvolutionUtils dataEvolutionUtils) {
+    return new RedirectionInferrer(workflowExecutionDao, dataEvolutionUtils);
   }
 
   @Bean

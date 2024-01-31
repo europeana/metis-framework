@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info>
+  <mime-type type="model/obj">
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.obj"/>
+  </mime-type>
+</mime-info>
+

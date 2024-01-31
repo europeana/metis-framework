@@ -5,6 +5,7 @@ import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
+import eu.europeana.indexing.IndexerPreprocessor;
 import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
@@ -12,15 +13,6 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
-import eu.europeana.indexing.tiers.ClassifierFactory;
-import eu.europeana.indexing.tiers.metadata.ClassifierMode;
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
-import eu.europeana.indexing.tiers.model.TierResults;
-import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
-import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
-import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.lang.invoke.MethodHandles;
@@ -28,7 +20,6 @@ import java.time.Instant;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * Creates a record for indexing in Mongo
  */
@@ -37,11 +28,7 @@ public class MongoIndexer implements SimpleIndexer {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
-  private final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier(
-      ClassifierMode.PROVIDER_PROXIES);
-  private final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifierEuropeana = ClassifierFactory.getMetadataClassifier(
-      ClassifierMode.ALL_PROXIES);
+
   private final IndexingProperties indexingProperties;
 
   /**
@@ -75,25 +62,10 @@ public class MongoIndexer implements SimpleIndexer {
 
     LOGGER.info("Processing record {}", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
-    preProcessRecord(rdfRecord);
+
+    IndexerPreprocessor.preprocessRecord(rdfRecord, indexingProperties);
+
     publisher.publishMongo(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
-  }
-
-  private void preProcessRecord(RDF rdfRecord) throws IndexingException {
-    final RdfWrapper rdfWrapper = new RdfWrapper(rdfRecord);
-    TierResults tierCalculationsResult = new TierResults();
-    if (indexingProperties.isPerformTierCalculation() && indexingProperties.getTypesEnabledForTierCalculation()
-                                                           .contains(rdfWrapper.getEdmType())) {
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
-          metadataClassifier.classify(rdfWrapper));
-      RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMediaTier());
-      RdfTierUtils.setTier(rdfRecord, tierCalculationsResult.getMetadataTier());
-
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
-          metadataClassifierEuropeana.classify(rdfWrapper));
-      RdfTierUtils.setTierEuropeana(rdfRecord, tierCalculationsResult.getMediaTier());
-      RdfTierUtils.setTierEuropeana(rdfRecord, tierCalculationsResult.getMetadataTier());
-    }
   }
 
   /**

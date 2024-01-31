@@ -121,7 +121,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.ecloud>10-SNAPSHOT</version.ecloud>
-    <version.metis-schema>9-SNAPSHOT</version.metis-schema>
+    <version.metis-schema>10-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.1</version.apache.httpclient>
