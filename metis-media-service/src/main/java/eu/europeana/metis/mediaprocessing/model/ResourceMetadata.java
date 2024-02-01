@@ -17,6 +17,7 @@ public class ResourceMetadata implements IResourceMetadata {
   private ImageResourceMetadata imageResourceMetadata;
   private TextResourceMetadata textResourceMetadata;
   private VideoResourceMetadata videoResourceMetadata;
+  private ThreeDResourceMetadata threeDResourceMetadata;
 
   /**
    * Constructor for audio resources.
@@ -67,6 +68,18 @@ public class ResourceMetadata implements IResourceMetadata {
   }
 
   /**
+   * Constructor for 3D resources.
+   *
+   * @param threeDResourceMetadata The resource metadata.
+   */
+  public ResourceMetadata(ThreeDResourceMetadata threeDResourceMetadata) {
+    if (threeDResourceMetadata == null) {
+      throw new IllegalArgumentException();
+    }
+    this.threeDResourceMetadata = threeDResourceMetadata;
+  }
+
+  /**
    * Constructor. Don't use this: it's required for deserialization.
    */
   ResourceMetadata() {
@@ -82,6 +95,8 @@ public class ResourceMetadata implements IResourceMetadata {
       result = textResourceMetadata;
     } else if (videoResourceMetadata != null) {
       result = videoResourceMetadata;
+    } else if (threeDResourceMetadata != null){
+      result = threeDResourceMetadata;
     } else {
       throw new IllegalStateException();
     }
