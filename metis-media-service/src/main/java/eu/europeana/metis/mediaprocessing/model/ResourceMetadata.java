@@ -17,7 +17,7 @@ public class ResourceMetadata implements IResourceMetadata {
   private ImageResourceMetadata imageResourceMetadata;
   private TextResourceMetadata textResourceMetadata;
   private VideoResourceMetadata videoResourceMetadata;
-  private ThreeDResourceMetadata threeDResourceMetadata;
+  private Media3dResourceMetadata threeDResourceMetadata;
 
   /**
    * Constructor for audio resources.
@@ -72,7 +72,7 @@ public class ResourceMetadata implements IResourceMetadata {
    *
    * @param threeDResourceMetadata The resource metadata.
    */
-  public ResourceMetadata(ThreeDResourceMetadata threeDResourceMetadata) {
+  public ResourceMetadata(Media3dResourceMetadata threeDResourceMetadata) {
     if (threeDResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
