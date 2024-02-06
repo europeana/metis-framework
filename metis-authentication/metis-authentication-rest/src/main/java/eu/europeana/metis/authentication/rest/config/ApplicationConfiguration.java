@@ -210,7 +210,18 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
         zohoConfigurationProperties.getClientSecret(), zohoConfigurationProperties.getInitialGrantToken(),
         zohoConfigurationProperties.getRedirectUri());
 
+    checkGrantToken(zohoAccessClient, "");
     return zohoAccessClient;
+  }
+
+  private static void checkGrantToken(ZohoAccessClient zohoAccessClient, String currentUserEmail) {
+    try {
+      //Make a call to zoho so that the grant token will generate the first pair of access/refresh tokens
+      zohoAccessClient.getZohoRecordContactByEmail(currentUserEmail);
+      LOGGER.info("Grant Token Check Success");
+    } catch (Exception exception) {
+      LOGGER.error("Grant Token Check Failure", exception);
+    }
   }
 
   /**
