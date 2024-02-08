@@ -14,6 +14,10 @@
     <module>metis-enrichment-client</module>
   </modules>
 
+  <properties>
+    <version.spring>6.1.2</version.spring>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
