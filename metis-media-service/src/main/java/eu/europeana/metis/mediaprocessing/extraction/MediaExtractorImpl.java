@@ -49,6 +49,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final ImageProcessor imageProcessor;
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
+  private final Media3dProcessor media3dProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -62,13 +63,14 @@ public class MediaExtractorImpl implements MediaExtractor {
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
-      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor) {
+      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor, Media3dProcessor media3dProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
     this.imageProcessor = imageProcessor;
     this.audioVideoProcessor = audioVideoProcessor;
     this.textProcessor = textProcessor;
+    this.media3dProcessor = media3dProcessor;
   }
 
   /**
@@ -98,6 +100,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
     this.textProcessor = new TextProcessor(thumbnailGenerator,
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
+    this.media3dProcessor = new Media3dProcessor();
   }
 
   @Override
@@ -195,6 +198,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       case TEXT -> processor = textProcessor;
       case AUDIO, VIDEO -> processor = audioVideoProcessor;
       case IMAGE -> processor = imageProcessor;
+      case THREE_D -> processor = media3dProcessor;
       default -> processor = null;
     }
     return processor;

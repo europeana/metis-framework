@@ -55,6 +55,7 @@ class MediaExtractorImplTest {
   private static ImageProcessor imageProcessor;
   private static AudioVideoProcessor audioVideoProcessor;
   private static TextProcessor textProcessor;
+  private static Media3dProcessor media3dProcessor;
 
   private static MediaExtractorImpl mediaExtractor;
 
@@ -67,8 +68,9 @@ class MediaExtractorImplTest {
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
+    media3dProcessor = mock(Media3dProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor));
+        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
   }
 
   @BeforeEach
