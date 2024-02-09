@@ -269,6 +269,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   @Override
   public void close() throws IOException {
     resourceDownloadClient.close();
+    mimeTypeDetectHttpClient.close();
   }
 
   /**
