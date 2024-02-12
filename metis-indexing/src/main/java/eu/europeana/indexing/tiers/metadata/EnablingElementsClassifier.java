@@ -29,10 +29,26 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
   private static final int MIN_GROUPS_TIER_A = 1;
   private static final int MIN_GROUPS_TIER_B = 2;
   private static final int MIN_GROUPS_TIER_C = 2;
+  private final ClassifierMode classifierMode;
+
+  /**
+   * Instantiates a new Enabling elements' classifier.
+   */
+  public EnablingElementsClassifier() {
+    this.classifierMode = ClassifierMode.PROVIDER_PROXIES;
+  }
+
+  /**
+   * Instantiates a new Enabling elements' classifier.
+   *
+   * @param classifierMode the classifier mode
+   */
+  public EnablingElementsClassifier(ClassifierMode classifierMode) {
+    this.classifierMode = classifierMode;
+  }
 
   @Override
   public EnablingElementsBreakdown classifyBreakdown(RdfWrapper entity) {
-
     // Perform the element inventory
     final EnablingElementInventory inventory = performEnablingElementInventory(entity);
 
@@ -64,25 +80,50 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     return metadataTier;
   }
 
+  /**
+   * The type Enabling element inventory.
+   */
   static class EnablingElementInventory {
 
     private final Set<EnablingElement> elements;
     private final Set<ContextualClassGroup> groups;
 
+    /**
+     * Instantiates a new Enabling element inventory.
+     *
+     * @param elements the elements
+     * @param groups the groups
+     */
     EnablingElementInventory(Set<EnablingElement> elements, Set<ContextualClassGroup> groups) {
       this.elements = elements == null ? new HashSet<>() : new HashSet<>(elements);
       this.groups = groups == null ? new HashSet<>() : new HashSet<>(groups);
     }
 
+    /**
+     * Gets elements.
+     *
+     * @return the elements
+     */
     public Set<EnablingElement> getElements() {
       return new HashSet<>(elements);
     }
 
+    /**
+     * Gets groups.
+     *
+     * @return the groups
+     */
     public Set<ContextualClassGroup> getGroups() {
       return new HashSet<>(groups);
     }
   }
 
+  /**
+   * Perform enabling element inventory enabling element inventory.
+   *
+   * @param entity the entity
+   * @return the enabling element inventory
+   */
   EnablingElementInventory performEnablingElementInventory(RdfWrapper entity) {
 
     // Gather the contextual objects in one map.
@@ -93,9 +134,16 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     final Set<EnablingElement> elements = EnumSet.noneOf(EnablingElement.class);
     final Set<ContextualClassGroup> groups = EnumSet.noneOf(ContextualClassGroup.class);
 
+    List<ProxyType> proxies;
+    switch (classifierMode) {
+      case ALL_PROXIES -> proxies = entity.getProxies();
+      case PROVIDER_PROXIES -> proxies = entity.getProviderProxies();
+      default -> throw new IllegalStateException("Unexpected mode: " + classifierMode);
+    }
     for (EnablingElement element : EnablingElement.values()) {
       final Set<ContextualClassGroup> groupsToAdd = analyzeForElement(element,
-          entity.getProviderProxies(), contextualObjectMap);
+          proxies, contextualObjectMap);
+
       if (!groupsToAdd.isEmpty()) {
         elements.add(element);
         groups.addAll(groupsToAdd);
@@ -105,11 +153,25 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
     return new EnablingElementInventory(elements, groups);
   }
 
+  /**
+   * Analyze for element set.
+   *
+   * @param element the element
+   * @param proxies the proxies
+   * @param contextualObjectMap the contextual object map
+   * @return the set
+   */
   Set<ContextualClassGroup> analyzeForElement(EnablingElement element, List<ProxyType> proxies,
       Map<String, Set<Class<? extends AboutType>>> contextualObjectMap) {
     return element.analyze(proxies, contextualObjectMap);
   }
 
+  /**
+   * Create contextual object map map.
+   *
+   * @param entity the entity
+   * @return the map
+   */
   Map<String, Set<Class<? extends AboutType>>> createContextualObjectMap(RdfWrapper entity) {
 
     // Collect the objects we are interested in.

@@ -13,14 +13,6 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
-import eu.europeana.indexing.tiers.ClassifierFactory;
-import eu.europeana.indexing.tiers.model.MediaTier;
-import eu.europeana.indexing.tiers.model.MetadataTier;
-import eu.europeana.indexing.tiers.model.TierClassifier;
-import eu.europeana.indexing.tiers.model.TierResults;
-import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
-import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
-import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.lang.invoke.MethodHandles;
@@ -28,7 +20,6 @@ import java.time.Instant;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.indexing.IndexerPreprocessor;
 /**
  * Creates a record for indexing in Mongo
  */

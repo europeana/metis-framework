@@ -51,18 +51,29 @@ public class RdfToFullBeanConverter {
   }
 
   private static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
-    return rdfWrappedRecord.getAggregations()
-                           .stream()
-                           .flatMap(qa -> {
-                             if (qa.getHasQualityAnnotationList() == null) {
-                               return null;
-                             } else {
-                               return qa.getHasQualityAnnotationList().stream();
-                             }
-                           })
-                           .filter(Objects::nonNull)
-                           .map(HasQualityAnnotation::getQualityAnnotation)
-                           .collect(Collectors.toList());
+    return Stream.concat(rdfWrappedRecord.getEuropeanaAggregation()
+                                         .stream()
+                                         .flatMap(qa -> {
+                                           if (qa.getHasQualityAnnotationList() == null) {
+                                             return null;
+                                           } else {
+                                             return qa.getHasQualityAnnotationList().stream();
+                                           }
+                                         })
+                                         .filter(Objects::nonNull)
+                                         .map(HasQualityAnnotation::getQualityAnnotation),
+                     rdfWrappedRecord.getAggregations()
+                                     .stream()
+                                     .flatMap(qa -> {
+                                       if (qa.getHasQualityAnnotationList() == null) {
+                                         return null;
+                                       } else {
+                                         return qa.getHasQualityAnnotationList().stream();
+                                       }
+                                     })
+                                     .filter(Objects::nonNull)
+                                     .map(HasQualityAnnotation::getQualityAnnotation))
+                 .toList();
   }
 
   /**

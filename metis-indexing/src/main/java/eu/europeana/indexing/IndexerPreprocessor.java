@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.tiers.metadata.ClassifierMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
@@ -17,8 +18,12 @@ import eu.europeana.metis.schema.jibx.RDF;
  */
 public class IndexerPreprocessor {
 
-  private static final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier = ClassifierFactory.getMediaClassifier();
-  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier = ClassifierFactory.getMetadataClassifier();
+  private static final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier =
+      ClassifierFactory.getMediaClassifier();
+  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifier =
+      ClassifierFactory.getMetadataClassifier(ClassifierMode.PROVIDER_PROXIES);
+  private static final TierClassifier<MetadataTier, MetadataTierBreakdown> metadataClassifierEuropeana =
+      ClassifierFactory.getMetadataClassifier(ClassifierMode.ALL_PROXIES);
 
   private IndexerPreprocessor() {
   }
@@ -39,9 +44,15 @@ public class IndexerPreprocessor {
     TierResults tierCalculationsResult = new TierResults();
     if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
                                                            .contains(rdfWrapper.getEdmType())) {
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper), metadataClassifier.classify(rdfWrapper));
+      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
+          metadataClassifier.classify(rdfWrapper));
       RdfTierUtils.setTier(rdf, tierCalculationsResult.getMediaTier());
       RdfTierUtils.setTier(rdf, tierCalculationsResult.getMetadataTier());
+
+      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
+          metadataClassifierEuropeana.classify(rdfWrapper));
+      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResult.getMediaTier());
+      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResult.getMetadataTier());
     }
 
     return tierCalculationsResult;
