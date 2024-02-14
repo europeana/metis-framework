@@ -54,6 +54,11 @@
       <artifactId>corelib-storage</artifactId>
     </dependency>
     <dependency>
+      <groupId>eu.europeana.corelib</groupId>
+      <artifactId>corelib-schemaorg</artifactId>
+      <version>${version.corelib}</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
@@ -83,6 +88,10 @@
               <groupId>org.apache.logging.log4j</groupId>
               <artifactId>*</artifactId>
             </exclusion>
+          <exclusion>
+            <groupId>eu.europeana.corelib</groupId>
+            <artifactId>corelib-schemaorg</artifactId>
+          </exclusion>
         </exclusions>
     </dependency>
 
