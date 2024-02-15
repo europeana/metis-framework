@@ -204,6 +204,7 @@ class MediaExtractorImplTest {
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
     assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
+    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
     assertNull(mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
   }
 
@@ -300,10 +301,12 @@ class MediaExtractorImplTest {
     doReturn(true).when(imageProcessor).downloadResourceForFullProcessing();
     doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();
+    doReturn(false).when(media3dProcessor).downloadResourceForFullProcessing();
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("image/unknown_type"));
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("text/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("audio/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("video/unknown_type"));
+    assertFalse(mediaExtractor.shouldDownloadForFullProcessing("model/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("unknown_type"));
   }
 

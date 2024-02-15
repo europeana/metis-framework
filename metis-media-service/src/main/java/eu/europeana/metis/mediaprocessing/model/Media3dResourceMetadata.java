@@ -1,7 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import java.util.List;
-
 public class Media3dResourceMetadata extends AbstractResourceMetadata{
 
   /**
