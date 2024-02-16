@@ -27,7 +27,7 @@ import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
@@ -65,52 +65,6 @@ class AuthenticationControllerTest {
   @AfterEach
   void tearDown() {
     reset(authenticationService);
-  }
-
-  @Test
-  void registerUser() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-
-    authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.CREATED.value()));
-
-    verify(authenticationService).registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
-  }
-
-  @Test
-  void registerUserHeaderBadContentException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenThrow(new BadContentException(""));
-
-    authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
-
-    verify(authenticationService, times(0)).registerUser(anyString(), anyString());
-  }
-
-  @Test
-  void registerUserNoUserFoundException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-    doThrow(new NoUserFoundException("")).when(authenticationService)
-        .registerUser(anyString(), anyString());
-    authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
-  }
-
-  @Test
-  void registerUserUserAlreadyExistsException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-    doThrow(new UserAlreadyExistsException("")).when(authenticationService)
-        .registerUser(anyString(), anyString());
-    authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.CONFLICT.value()));
   }
 
   @Test
@@ -246,113 +200,6 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  void updateUser() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenReturn(EXAMPLE_ACCESS_TOKEN);
-
-    when(
-        authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, EXAMPLE_EMAIL))
-        .thenReturn(true);
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.OK.value()));
-    verify(authenticationService).updateUserFromZoho(EXAMPLE_EMAIL);
-  }
-
-  @Test
-  void updateUserBadContentException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenThrow(new BadContentException(""));
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
-    verify(authenticationService, times(0))
-        .hasPermissionToRequestUserUpdate(anyString(), anyString());
-    verify(authenticationService, times(0)).updateUserFromZoho(anyString());
-  }
-
-  @Test
-  void updateUserNoUserFoundException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenReturn(EXAMPLE_ACCESS_TOKEN);
-
-    when(
-        authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, EXAMPLE_EMAIL))
-        .thenReturn(true);
-    doThrow(new NoUserFoundException("")).when(authenticationService)
-        .updateUserFromZoho(EXAMPLE_EMAIL);
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
-  }
-
-  @Test
-  void updateUserUserUnauthorizedException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenReturn(EXAMPLE_ACCESS_TOKEN);
-
-    when(
-        authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, EXAMPLE_EMAIL))
-        .thenReturn(false);
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
-    verify(authenticationService, times(0)).updateUserFromZoho(anyString());
-  }
-
-  @Test
-  void updateUserToMakeAdmin() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenReturn(EXAMPLE_ACCESS_TOKEN);
-    when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(true);
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
-    verify(authenticationService).updateUserMakeAdmin(EXAMPLE_EMAIL);
-  }
-
-  @Test
-  void updateUserToMakeAdminBadContentException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenThrow(new BadContentException(""));
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
-    verify(authenticationService, times(0)).isUserAdmin(anyString());
-    verify(authenticationService, times(0)).updateUserMakeAdmin(anyString());
-  }
-
-  @Test
   void updateUserToMakeAdminNoUserFoundException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
@@ -368,22 +215,6 @@ class AuthenticationControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
-  }
-
-  @Test
-  void updateUserToMakeAdminUserUnauthorizedException() throws Exception {
-    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
-        .thenReturn(EXAMPLE_ACCESS_TOKEN);
-    when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(false);
-
-    final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
-    authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
-        .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
-    verify(authenticationService, times(0)).updateUserMakeAdmin(anyString());
   }
 
   @Test

@@ -58,30 +58,6 @@ public class AuthenticationController {
   }
 
   /**
-   * Register a user using an authorization header.
-   *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Basic
-   * Base64Encoded(email:password) </p>
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
-   * while constructing the user.</li>
-   * <li>{@link NoUserFoundException} if the user was not found in the remote CRM.</li>
-   * <li>{@link UserAlreadyExistsException} if the user already exists in the system.</li>
-   * </ul>
-   */
-  @PostMapping(value = RestEndpoints.AUTHENTICATION_REGISTER)
-  @ResponseStatus(HttpStatus.CREATED)
-  public void registerUser(@RequestHeader("Authorization") String authorization)
-      throws GenericMetisException {
-
-    Credentials credentials = authenticationService
-        .validateAuthorizationHeaderWithCredentials(authorization);
-    authenticationService.registerUser(credentials.getEmail(), credentials.getPassword());
-    LOGGER.info("User with email {} has been registered", credentials.getEmail());
-  }
-
-  /**
    * Login functionality, which checks if the user with email exists and generates an access token.
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Basic
@@ -184,77 +160,6 @@ public class AuthenticationController {
     authenticationService.deleteUser(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("User with email: {} deleted",
-          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
-    }
-  }
-
-  /**
-   * Update a user by re-retrieving the user from the remote CRM.
-   *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
-   * accessTokenHere </p>
-   * @param emailParameter the class that contains the email parameter to act upon
-   * @return updated {@link MetisUserView}
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
-   * cannot be authenticated or the user is unauthorized.</li>
-   * </ul>
-   */
-  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
-  public MetisUserView updateUser(@RequestHeader("Authorization") String authorization,
-      @RequestBody EmailParameter emailParameter)
-      throws GenericMetisException {
-    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
-      throw new BadContentException("email parameter is empty");
-    }
-    String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);
-    if (!authenticationService
-        .hasPermissionToRequestUserUpdate(accessToken, emailParameter.getEmail())) {
-      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
-    }
-    MetisUserView metisUserView = authenticationService.updateUserFromZoho(emailParameter.getEmail());
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated",
-          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
-    }
-    return metisUserView;
-  }
-
-  /**
-   * Change the {@link AccountRole} of a user.
-   *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
-   * accessTokenHere </p>
-   * @param emailParameter the class that contains the email parameter to act upon
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
-   * cannot be authenticated or the user is unauthorized.</li>
-   * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
-   * </ul>
-   */
-  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
-      @RequestBody EmailParameter emailParameter)
-      throws GenericMetisException {
-    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
-      throw new BadContentException("userEmailToMakeAdmin is empty");
-    }
-    String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);
-    if (!authenticationService.isUserAdmin(accessToken)) {
-      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
-    }
-    authenticationService.updateUserMakeAdmin(emailParameter.getEmail());
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} made admin",
           CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
     }
   }

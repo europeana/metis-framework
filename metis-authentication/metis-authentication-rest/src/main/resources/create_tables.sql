@@ -24,10 +24,3 @@ CREATE TABLE IF NOT EXISTS metis_user_access_tokens (
  access_token VARCHAR(255) UNIQUE NOT NULL,
  timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
-
-CREATE TABLE IF NOT EXISTS metis_zoho_oauth_tokens (
- user_identifier VARCHAR(100) PRIMARY KEY,
- access_token VARCHAR(100) NOT NULL,
- refresh_token VARCHAR(100) NOT NULL,
- expiry_time bigint NOT NULL
-);
