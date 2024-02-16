@@ -12,28 +12,9 @@ class Media3dProcessor implements MediaProcessor{
   @Override
   public ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)
       throws MediaExtractionException {
-
-    // Sanity check
-    try {
-      if (!resource.hasContent()) {
-        throw new MediaExtractionException("File does not exist or does not have content.");
-      }
-    } catch (IOException e) {
-      throw new MediaExtractionException("Could not determine whether resource has content.", e);
-    }
-
-    // Get the size of the resource
-    final Long contentSize;
-    try {
-      contentSize = nullIfNegative(resource.getContentSize());
-    } catch (IOException e) {
-      throw new MediaExtractionException(
-          "Could not determine the size of the resource " + resource.getResourceUrl(), e);
-    }
-
     // Set the metadata in the web resource.
     final Media3dResourceMetadata resourceMetadata;
-    resourceMetadata = new Media3dResourceMetadata(detectedMimeType, resource.getResourceUrl(), contentSize);
+    resourceMetadata = new Media3dResourceMetadata(detectedMimeType, resource.getResourceUrl(), resource.getProvidedFileSize());
 
     // Done.
     return new ResourceExtractionResultImpl(resourceMetadata, null);
@@ -47,6 +28,6 @@ class Media3dProcessor implements MediaProcessor{
 
   @Override
   public boolean downloadResourceForFullProcessing() {
-    return true;
+    return false;
   }
 }

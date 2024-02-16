@@ -55,6 +55,7 @@ class MediaExtractorImplTest {
   private static ImageProcessor imageProcessor;
   private static AudioVideoProcessor audioVideoProcessor;
   private static TextProcessor textProcessor;
+  private static Media3dProcessor media3dProcessor;
 
   private static MediaExtractorImpl mediaExtractor;
 
@@ -67,8 +68,9 @@ class MediaExtractorImplTest {
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
+    media3dProcessor = mock(Media3dProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor));
+        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
   }
 
   @BeforeEach
@@ -202,6 +204,7 @@ class MediaExtractorImplTest {
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
     assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
+    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
     assertNull(mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
   }
 
@@ -298,10 +301,12 @@ class MediaExtractorImplTest {
     doReturn(true).when(imageProcessor).downloadResourceForFullProcessing();
     doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();
+    doReturn(false).when(media3dProcessor).downloadResourceForFullProcessing();
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("image/unknown_type"));
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("text/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("audio/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("video/unknown_type"));
+    assertFalse(mediaExtractor.shouldDownloadForFullProcessing("model/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("unknown_type"));
   }
 

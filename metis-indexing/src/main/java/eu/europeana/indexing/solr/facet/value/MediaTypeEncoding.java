@@ -8,7 +8,7 @@ import eu.europeana.metis.schema.model.MediaType;
  */
 public enum MediaTypeEncoding implements FacetValue {
 
-  IMAGE(1), AUDIO(2), VIDEO(3), TEXT(4);
+  IMAGE(1), AUDIO(2), VIDEO(3), TEXT(4), THREE_D(5);
 
   private int code;
 
