@@ -1,7 +1,7 @@
 package eu.europeana.metis.repository.rest.config;
 
 import com.mongodb.client.MongoClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
+//import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
@@ -85,12 +85,13 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * @param socksProxyConfigurationProperties the socks proxy configuration properties
    */
   static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
-    }
+    //TODO: Need to remove SocksProxy
+//    if (socksProxyConfigurationProperties.isEnabled()) {
+//      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
+//          socksProxyConfigurationProperties.getUsername(),
+//          socksProxyConfigurationProperties.getPassword()).init();
+//      LOGGER.info("Socks proxy enabled");
+//    }
   }
 
   public static MongoClient getMongoClient(MongoConfigurationProperties mongoConfigurationProperties) {

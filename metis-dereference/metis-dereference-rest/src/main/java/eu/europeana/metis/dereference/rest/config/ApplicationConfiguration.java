@@ -1,7 +1,7 @@
 package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.client.MongoClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
+//import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.dereference.rest.config.properties.MetisDereferenceConfigurationProperties;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
@@ -97,12 +97,13 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * @param socksProxyConfigurationProperties the socks proxy configuration properties
    */
   static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
-    }
+    //TODO: Need to remove SocksProxy
+//    if (socksProxyConfigurationProperties.isEnabled()) {
+//      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
+//          socksProxyConfigurationProperties.getUsername(),
+//          socksProxyConfigurationProperties.getPassword()).init();
+//      LOGGER.info("Socks proxy enabled");
+//    }
   }
 
   public static MongoClient getMongoClient(MongoConfigurationProperties mongoConfigurationProperties) {

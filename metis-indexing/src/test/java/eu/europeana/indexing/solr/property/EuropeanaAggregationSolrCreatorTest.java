@@ -7,14 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.License;
-import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.corelib.solr.entity.QualityAnnotationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.solr.EdmLabel;
-import eu.europeana.indexing.utils.RdfTier;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -68,7 +65,6 @@ class EuropeanaAggregationSolrCreatorTest {
     europeanaAggregation.setEdmCountry(Map.of("edmCountryKey", List.of("countryValue")));
     europeanaAggregation.setEdmLanguage(Map.of("edmLanguageKey", List.of("languageValue")));
     europeanaAggregation.setEdmPreview("previewValue");
-    europeanaAggregation.setDqvHasQualityAnnotation(null);
 
     europeanaAggregationSolrCreator.addToDocument(solrInputDocument, europeanaAggregation);
 

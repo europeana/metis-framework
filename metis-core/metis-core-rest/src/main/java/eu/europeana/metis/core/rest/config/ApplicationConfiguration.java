@@ -2,7 +2,7 @@ package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
+//import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -130,12 +130,13 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
    * @param socksProxyConfigurationProperties the socks proxy configuration properties
    */
   static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
-    }
+    //TODO: Need to remove SocksProxy
+//    if (socksProxyConfigurationProperties.isEnabled()) {
+//      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
+//          socksProxyConfigurationProperties.getUsername(),
+//          socksProxyConfigurationProperties.getPassword()).init();
+//      LOGGER.info("Socks proxy enabled");
+//    }
   }
 
   public static MongoClient getMongoClient(MongoConfigurationProperties mongoConfigurationProperties) {
