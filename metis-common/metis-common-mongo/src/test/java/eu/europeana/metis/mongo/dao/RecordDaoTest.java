@@ -19,7 +19,6 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
-import eu.europeana.corelib.edm.model.metainfo.ThreeDMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -193,8 +192,7 @@ class RecordDaoTest {
         new String[]{"1,1,1"}, ImageOrientation.LANDSCAPE);
     final VideoMetaInfoImpl videoMetaInfo = new VideoMetaInfoImpl(256, 256, 3600L, "video/mp4", 50.00, 8194L, "mp4", "1080p", 8);
     final TextMetaInfoImpl textMetaInfo = new TextMetaInfoImpl("docx", 2048L, 600, true, "book");
-    final ThreeDMetaInfoImpl threeDMetaInfo = new ThreeDMetaInfoImpl("model/obj", 2048L);
-    return new WebResourceMetaInfoImpl("51eec080f582833f264dad08", imageMetaInfo, audioMetaInfo, videoMetaInfo, textMetaInfo, threeDMetaInfo);
+    return new WebResourceMetaInfoImpl("51eec080f582833f264dad08", imageMetaInfo, audioMetaInfo, videoMetaInfo, textMetaInfo);
   }
 
   private static void assertMappedClasses(Datastore datastore) {
