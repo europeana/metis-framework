@@ -1,7 +1,6 @@
 package eu.europeana.metis.repository.rest.config;
 
 import com.mongodb.client.MongoClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
@@ -10,7 +9,6 @@ import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import javax.annotation.PreDestroy;
-import metis.common.config.properties.SocksProxyConfigurationProperties;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
@@ -35,8 +33,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 @EnableConfigurationProperties({
-    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class,
-    SocksProxyConfigurationProperties.class, MongoConfigurationProperties.class})
+    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class, MongoConfigurationProperties.class})
 @ComponentScan(basePackages = {
     "eu.europeana.metis.repository.rest.controller",
     "eu.europeana.metis.repository.rest.view"})
@@ -49,16 +46,13 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * Constructor.
    *
    * @param truststoreConfigurationProperties the truststore configuration properties
-   * @param socksProxyConfigurationProperties the socks proxy configuration properties
    * @throws TrustStoreConfigurationException If something goes wrong initializing the application
    */
   @Autowired
   public ApplicationConfiguration(TruststoreConfigurationProperties truststoreConfigurationProperties,
-      SocksProxyConfigurationProperties socksProxyConfigurationProperties,
       MongoConfigurationProperties mongoConfigurationProperties)
       throws CustomTruststoreAppender.TrustStoreConfigurationException {
     ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
-    ApplicationConfiguration.initializeSocksProxy(socksProxyConfigurationProperties);
     this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
   }
 
@@ -76,20 +70,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
           .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
               truststoreConfigurationProperties.getPassword());
       LOGGER.info("Custom truststore appended to default truststore");
-    }
-  }
-
-  /**
-   * Socks proxy initializer.
-   *
-   * @param socksProxyConfigurationProperties the socks proxy configuration properties
-   */
-  static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
     }
   }
 

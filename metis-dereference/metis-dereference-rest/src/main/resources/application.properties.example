@@ -8,13 +8,6 @@ spring.autoconfigure.exclude=\
 springdoc.packages-to-scan=eu.europeana.metis.dereference.rest
 springdoc.paths-to-match=/**
 
-#Socks Proxy
-socks-proxy.enabled=false
-socks-proxy.host=
-socks-proxy.port=
-socks-proxy.username=
-socks-proxy.password=
-
 ##Truststore
 truststore.path=
 truststore.password=

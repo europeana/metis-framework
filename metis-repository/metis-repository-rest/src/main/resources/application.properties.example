@@ -12,13 +12,6 @@ springdoc.paths-to-match=/**
 #Server
 server.error.whitelabel.enabled=false
 
-#Socks Proxy
-socks-proxy.enabled=
-socks-proxy.host=
-socks-proxy.port=
-socks-proxy.username=
-socks-proxy.password=
-
 ##Truststore
 truststore.path=
 truststore.password=

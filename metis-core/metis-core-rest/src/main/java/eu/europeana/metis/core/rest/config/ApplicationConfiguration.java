@@ -2,7 +2,6 @@ package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -30,7 +29,6 @@ import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.annotation.PreDestroy;
-import metis.common.config.properties.SocksProxyConfigurationProperties;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.ecloud.EcloudConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
@@ -67,8 +65,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  */
 @Configuration
 @EnableConfigurationProperties({
-    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class,
-    SocksProxyConfigurationProperties.class, MongoConfigurationProperties.class,
+    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class, MongoConfigurationProperties.class,
     MetisCoreConfigurationProperties.class, EcloudConfigurationProperties.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
 public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationContextAware {
@@ -87,11 +84,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
    */
   @Autowired
   public ApplicationConfiguration(TruststoreConfigurationProperties truststoreConfigurationProperties,
-      SocksProxyConfigurationProperties socksProxyConfigurationProperties,
       MongoConfigurationProperties mongoConfigurationProperties)
       throws TrustStoreConfigurationException {
     ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
-    ApplicationConfiguration.initializeSocksProxy(socksProxyConfigurationProperties);
     this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
   }
 
@@ -121,20 +116,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
           .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
               truststoreConfigurationProperties.getPassword());
       LOGGER.info("Custom truststore appended to default truststore");
-    }
-  }
-
-  /**
-   * Socks proxy initializer.
-   *
-   * @param socksProxyConfigurationProperties the socks proxy configuration properties
-   */
-  static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
     }
   }
 
