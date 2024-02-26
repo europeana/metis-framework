@@ -13,13 +13,6 @@ spring.autoconfigure.exclude=\
 truststore.path=
 truststore.password=
 
-#Socks Proxy
-socks-proxy.enabled=
-socks-proxy.host=
-socks-proxy.port=
-socks-proxy.username=
-socks-proxy.password=
-
 #Orchestration
 metis-core.maxConcurrentThreads=1
 metis-core.dpsMonitorCheckIntervalInSeconds=5
