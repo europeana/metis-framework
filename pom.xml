@@ -132,7 +132,7 @@
     <version.awaitability>1.7.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
-    <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
+    <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commonscompress>1.21</version.commonscompress>
     <version.corelib>2.16.2</version.corelib>

@@ -14,8 +14,9 @@
       <artifactId>metis-common-utils</artifactId>
     </dependency>
     <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common-zoho</artifactId>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${version.commons.codec}</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>

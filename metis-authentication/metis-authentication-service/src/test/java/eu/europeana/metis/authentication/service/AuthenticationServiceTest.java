@@ -11,25 +11,19 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.zoho.crm.api.record.Record;
-import com.zoho.crm.api.util.Choice;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
-import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.zoho.ZohoAccessClient;
-import eu.europeana.metis.zoho.ZohoException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.AfterEach;
@@ -48,31 +42,33 @@ class AuthenticationServiceTest {
   private static final String EXAMPLE_PASSWORD = "123qwe456";
   private static final String EXAMPLE_ACCESS_TOKEN = "1234567890qwertyuiopasdfghjklQWE";
   private static PsqlMetisUserDao psqlMetisUserDao;
-  private static ZohoAccessClient zohoAccessClient;
+
   private static AuthenticationService authenticationService;
+
+  private MetisUser registerAndCaptureMetisUser() throws Exception {
+    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
+    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor
+        .forClass(MetisUser.class);
+    verify(psqlMetisUserDao).createMetisUser(metisUserArgumentCaptor.capture());
+    return metisUserArgumentCaptor.getValue();
+  }
 
   @BeforeAll
   static void setUp() {
     psqlMetisUserDao = Mockito.mock(PsqlMetisUserDao.class);
-    zohoAccessClient = Mockito.mock(ZohoAccessClient.class);
-    authenticationService = new AuthenticationService(psqlMetisUserDao, zohoAccessClient);
+    authenticationService = new AuthenticationService(psqlMetisUserDao);
   }
 
   @AfterEach
   void cleanUp() {
     Mockito.reset(psqlMetisUserDao);
-    Mockito.reset(zohoAccessClient);
   }
 
   @Test
   void registerUser() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
 
-    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(getZohoRecordAccount()));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).createMetisUser(any(MetisUser.class));
   }
@@ -84,79 +80,6 @@ class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     assertThrows(UserAlreadyExistsException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-  }
-
-  @Test
-  void registerUserFailsOnZohoUserRetrieval() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenThrow(new ZohoException("Exception"));
-    assertThrows(GenericMetisException.class,
-        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-  }
-
-  @Test
-  void registerUserDoesNotExistInZoho() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString())).thenReturn(Optional.empty());
-    assertThrows(NoUserFoundException.class,
-        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-  }
-
-  @Test
-  void registerUserParsingUserFromZohoNoOrganizationNameProvided() throws Exception {
-    final Record zohoRecordContactWithAccountInTheFieldsNoOrganizationName = getZohoRecordContactWithAccountInTheFieldsNoOrganizationName();
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFieldsNoOrganizationName));
-    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(getZohoRecordAccountNoOrganizationName()));
-    assertThrows(BadContentException.class,
-        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-
-  }
-
-  @Test
-  void registerUserFailsOnZohoOrganizationRetrieval() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(getZohoRecordContactWithAccountInTheFields()));
-    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.empty());
-    assertThrows(BadContentException.class,
-        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-  }
-
-  @Test
-  void updateUserFromZoho() throws Exception {
-    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
-
-    MetisUser metisUser = new MetisUser();
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(getZohoRecordAccount()));
-    authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
-    verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
-  }
-
-  @Test
-  void updateUserFromZohoAnAdminStaysAdmin() throws Exception {
-    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
-
-    MetisUser metisUser = new MetisUser();
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(getZohoRecordAccount()));
-    ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor
-        .forClass(MetisUser.class);
-    authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
-    verify(psqlMetisUserDao).updateMetisUser(metisUserArgumentCaptor.capture());
-    assertEquals(AccountRole.METIS_ADMIN, metisUserArgumentCaptor.getValue().getAccountRole());
   }
 
   @Test
@@ -442,65 +365,5 @@ class AuthenticationServiceTest {
     assertEquals(metisUsers.size(), allUsersRetrieved.size());
     assertEquals(metisUsers.stream().map(MetisUser::getEmail).collect(Collectors.toSet()),
         allUsersRetrieved.stream().map(MetisUserView::getEmail).collect(Collectors.toSet()));
-  }
-
-  private MetisUser registerAndCaptureMetisUser() throws Exception {
-    final Record zohoRecordContactWithAccountInTheFields = getZohoRecordContactWithAccountInTheFields();
-
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClient.getZohoRecordContactByEmail(anyString()))
-        .thenReturn(Optional.of(zohoRecordContactWithAccountInTheFields));
-    when(zohoAccessClient.getZohoRecordOrganizationByName(anyString()))
-        .thenReturn(Optional.of(getZohoRecordAccount()));
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
-    ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor
-        .forClass(MetisUser.class);
-    verify(psqlMetisUserDao).createMetisUser(metisUserArgumentCaptor.capture());
-    return metisUserArgumentCaptor.getValue();
-  }
-
-  private static Record getZohoRecordContactWithAccountInTheFieldsNoOrganizationName() {
-    return getZohoRecordContact(false);
-  }
-
-  private static Record getZohoRecordContactWithAccountInTheFields() {
-    return getZohoRecordContact(true);
-  }
-
-  private static Record getZohoRecordContact(boolean setAccountName) {
-    final Record zohoRecordContact = new Record();
-    zohoRecordContact.setId(1482250000004168044L);
-    zohoRecordContact.addKeyValue("Pick_List_3", "EUROPEANA_DATA_OFFICER");
-    zohoRecordContact.addKeyValue("Metis_user", true);
-
-    final Record accountRecord = new Record();
-    accountRecord.setId(1482250000004168050L);
-    if (setAccountName) {
-      accountRecord.addKeyValue("name", "Europeana Foundation");
-    }
-    zohoRecordContact.addKeyValue("Account_Name", accountRecord);
-
-    return zohoRecordContact;
-  }
-
-  private static Record getZohoRecordAccount() {
-    return getZohoRecordAccount(true);
-  }
-
-  private static Record getZohoRecordAccountNoOrganizationName() {
-    return getZohoRecordAccount(false);
-  }
-
-  private static Record getZohoRecordAccount(boolean setLookupName) {
-    final Record zohoRecordAccount = new Record();
-    zohoRecordAccount.setId(1482250000004168050L);
-    List<Choice<String>> choices = new ArrayList<>();
-    choices.add(new Choice<>("Aggregator"));
-    zohoRecordAccount.addKeyValue("Organisation_Role2", choices);
-    if (setLookupName) {
-      zohoRecordAccount.addKeyValue("Account_Name", "Europeana Foundation");
-    }
-
-    return zohoRecordAccount;
   }
 }

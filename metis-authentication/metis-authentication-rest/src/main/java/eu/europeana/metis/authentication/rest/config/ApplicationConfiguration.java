@@ -7,20 +7,15 @@ import eu.europeana.metis.authentication.rest.config.properties.MetisAuthenticat
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
-import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
-import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
-import eu.europeana.metis.zoho.ZohoAccessClient;
-import eu.europeana.metis.zoho.ZohoException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.postgres.HibernateConfigurationProperties;
 import metis.common.config.properties.zoho.ZohoConfigurationProperties;
@@ -74,7 +69,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
-  private MetisZohoOAuthPSQLHandler metisZohoOAuthPSQLHandler;
   private ApplicationContext applicationContext;
 
   /**
@@ -102,7 +96,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisUser.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
-    configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
 
     //Apply code configuration to allow spring boot to handle the properties injection
     configuration.setProperty("hibernate.connection.driver_class",
@@ -149,25 +142,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     this.applicationContext = applicationContext;
   }
 
-  /**
-   * This method performs the initializing tasks for the application.
-   *
-   * @param truststoreConfigurationProperties The properties.
-   * @throws CustomTruststoreAppender.TrustStoreConfigurationException In case a problem occurred with the truststore.
-   */
-  static void initializeApplication(TruststoreConfigurationProperties truststoreConfigurationProperties)
-      throws CustomTruststoreAppender.TrustStoreConfigurationException {
-
-    // Load the trust store file.
-    if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
-        .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
-      CustomTruststoreAppender
-          .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
-              truststoreConfigurationProperties.getPassword());
-      LOGGER.info("Custom truststore appended to default truststore");
-    }
-  }
-
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     MetisAuthenticationConfigurationProperties metisAuthenticationConfigurationProperties =
@@ -180,38 +154,12 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
    * Get the Service for authentication.
    *
    * @param psqlMetisUserDao the dao instance to access user information from the internal database
-   * @param zohoAccessClient the zoho client
    * @return the authentication service instance
    */
   @Bean
-  public AuthenticationService getAuthenticationService(PsqlMetisUserDao psqlMetisUserDao,
-      ZohoAccessClient zohoAccessClient) {
-    authenticationService = new AuthenticationService(psqlMetisUserDao, zohoAccessClient);
+  public AuthenticationService getAuthenticationService(PsqlMetisUserDao psqlMetisUserDao) {
+    authenticationService = new AuthenticationService(psqlMetisUserDao);
     return authenticationService;
-  }
-
-  /**
-   * Get the zoho access client.
-   *
-   * @param sessionFactory the session factory
-   * @param zohoConfigurationProperties the zoho configuration properties
-   * @return the zoho access client
-   * @throws ZohoException if a zoho configuration error occurred
-   */
-  @Bean
-  public ZohoAccessClient getZohoAccessClient(SessionFactory sessionFactory,
-      ZohoConfigurationProperties zohoConfigurationProperties) throws ZohoException {
-    metisZohoOAuthPSQLHandler = new MetisZohoOAuthPSQLHandler(sessionFactory, zohoConfigurationProperties.getCurrentUserEmail(),
-        zohoConfigurationProperties.getRefreshToken(),
-        zohoConfigurationProperties.getClientId(), zohoConfigurationProperties.getClientSecret());
-
-    final ZohoAccessClient zohoAccessClient = new ZohoAccessClient(metisZohoOAuthPSQLHandler,
-        zohoConfigurationProperties.getCurrentUserEmail(), zohoConfigurationProperties.getClientId(),
-        zohoConfigurationProperties.getClientSecret(), zohoConfigurationProperties.getInitialGrantToken(),
-        zohoConfigurationProperties.getRedirectUri());
-    //Make a call to zoho so that the grant token will generate the first pair of access/refresh tokens
-    zohoAccessClient.getZohoRecordContactByEmail("");
-    return zohoAccessClient;
   }
 
   /**
@@ -238,22 +186,28 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     authenticationService.expireAccessTokens();
   }
 
-  /**
-   * Closes connections to databases when the application stops.
-   */
-  @PreDestroy
-  public void close() {
-    if (sessionFactory != null && !sessionFactory.isClosed()) {
-      sessionFactory.close();
-    }
-    if (metisZohoOAuthPSQLHandler != null) {
-      metisZohoOAuthPSQLHandler.close();
-    }
-  }
-
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
+  }
+
+  /**
+   * This method performs the initializing tasks for the application.
+   *
+   * @param truststoreConfigurationProperties The properties.
+   * @throws CustomTruststoreAppender.TrustStoreConfigurationException In case a problem occurred with the truststore.
+   */
+  static void initializeApplication(TruststoreConfigurationProperties truststoreConfigurationProperties)
+      throws CustomTruststoreAppender.TrustStoreConfigurationException {
+
+    // Load the trust store file.
+    if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
+        .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
+      CustomTruststoreAppender
+          .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
+              truststoreConfigurationProperties.getPassword());
+      LOGGER.info("Custom truststore appended to default truststore");
+    }
   }
 }
