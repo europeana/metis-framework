@@ -82,8 +82,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${version.spring.test}</version>
-      <scope>test</scope>
     </dependency>
     <!-- testcontainers -->
     <dependency>

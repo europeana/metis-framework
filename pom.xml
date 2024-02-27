@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eu.europeana.metis</groupId>
@@ -178,12 +179,9 @@
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.slf4j>1.7.30</version.slf4j>
     <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.spring>5.3.7</version.spring>
-    <version.spring.boot>2.7.18</version.spring.boot>
-    <version.spring.beans>${version.spring}</version.spring.beans>
-    <version.spring.context>${version.spring}</version.spring.context>
+    <version.spring>6.1.4</version.spring>
+    <version.spring.boot>3.2.3</version.spring.boot>
     <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
-    <version.spring.test>${version.spring}</version.spring.test>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
     <version.springdoc.openapi>1.6.14</version.springdoc.openapi>
     <version.swagger>3.0.0</version.swagger>
@@ -200,6 +198,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${version.spring}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <!-- METIS COMMONS -->
       <dependency>
         <groupId>eu.europeana.metis</groupId>
@@ -544,7 +549,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
-        <version>${version.spring.test}</version>
+        <version>${version.spring}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -636,6 +641,7 @@
       <artifactId>slf4j-api</artifactId>
       <version>${version.slf4j}</version>
     </dependency>
+
   </dependencies>
 
   <repositories>
