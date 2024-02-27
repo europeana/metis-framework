@@ -182,7 +182,7 @@
     <version.spring.boot>2.7.18</version.spring.boot>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.spring.context>${version.spring}</version.spring.context>
-    <version.spring.security>5.5.0</version.spring.security>
+    <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
     <version.spring.test>${version.spring}</version.spring.test>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
     <version.springdoc.openapi>1.6.14</version.springdoc.openapi>

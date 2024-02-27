@@ -21,8 +21,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${version.spring.security}</version>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>${version.spring.security.crypto}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
