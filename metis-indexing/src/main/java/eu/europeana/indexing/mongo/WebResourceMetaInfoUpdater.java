@@ -5,6 +5,7 @@ import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
+import eu.europeana.corelib.definitions.edm.model.metainfo.ThreeDMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.indexing.mongo.property.MongoObjectManager;
@@ -144,15 +145,12 @@ public class WebResourceMetaInfoUpdater extends
 
     // 3D info
     if (!propertyUpdater.removeObjectIfNecessary("threeDMetaInfo",
-        WebResourceMetaInfoImpl::getTextMetaInfo)) {
-      propertyUpdater.updateString("textMetaInfo.mimeType",
-          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getMimeType));
-      propertyUpdater.updateObject("textMetaInfo.fileSize",
-          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getFileSize));
-      propertyUpdater.updateObject("textMetaInfo.resolution",
-          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getResolution));
-      propertyUpdater.updateString("textMetaInfo.rdfType",
-          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getRdfType));
+        WebResourceMetaInfoImpl::getThreeDMetaInfo)) {
+      propertyUpdater.updateString("threeDMetaInfo.mimeType",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getMimeType));
+      propertyUpdater.updateObject("threeDMetaInfo.fileSize",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getFileSize));
+
     }
   }
 

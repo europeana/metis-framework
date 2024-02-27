@@ -68,7 +68,6 @@ class EuropeanaAggregationSolrCreatorTest {
     europeanaAggregation.setEdmCountry(Map.of("edmCountryKey", List.of("countryValue")));
     europeanaAggregation.setEdmLanguage(Map.of("edmLanguageKey", List.of("languageValue")));
     europeanaAggregation.setEdmPreview("previewValue");
-    europeanaAggregation.setDqvHasQualityAnnotation(null);
 
     europeanaAggregationSolrCreator.addToDocument(solrInputDocument, europeanaAggregation);
 

@@ -48,8 +48,6 @@ class EuropeanaAggregationUpdaterTest extends MongoEntityUpdaterTest<EuropeanaAg
     testArrayPropertyUpdate(propertyUpdater, "aggregates", EuropeanaAggregation::setAggregates);
     testWebResourcesPropertyUpdate(propertyUpdater, "webResources",
         EuropeanaAggregationImpl::setWebResources, rootAbout);
-    testArrayPropertyUpdate(propertyUpdater, "dqvHasQualityAnnotation",
-        EuropeanaAggregation::setDqvHasQualityAnnotation, true);
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
