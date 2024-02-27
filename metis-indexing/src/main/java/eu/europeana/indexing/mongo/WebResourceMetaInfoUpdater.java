@@ -141,6 +141,19 @@ public class WebResourceMetaInfoUpdater extends
       propertyUpdater.updateObject("videoMetaInfo.duration",
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getDuration));
     }
+
+    // 3D info
+    if (!propertyUpdater.removeObjectIfNecessary("threeDMetaInfo",
+        WebResourceMetaInfoImpl::getTextMetaInfo)) {
+      propertyUpdater.updateString("textMetaInfo.mimeType",
+          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getMimeType));
+      propertyUpdater.updateObject("textMetaInfo.fileSize",
+          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getFileSize));
+      propertyUpdater.updateObject("textMetaInfo.resolution",
+          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getResolution));
+      propertyUpdater.updateString("textMetaInfo.rdfType",
+          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getRdfType));
+    }
   }
 
   private <P, I> Function<WebResourceMetaInfoImpl, P> createGetter(
