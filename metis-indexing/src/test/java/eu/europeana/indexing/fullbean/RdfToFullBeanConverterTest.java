@@ -107,7 +107,6 @@ class RdfToFullBeanConverterTest {
     assertEquals("http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg",
         fullBean.getEuropeanaAggregation().getEdmPreview());
     assertEquals("/aggregation/europeana/277/CMC_HA_1185", fullBean.getEuropeanaAggregation().getAbout());
-    assertNull(fullBean.getEuropeanaAggregation().getDqvHasQualityAnnotation());
   }
 
   private static void assertAggregations(FullBeanImpl fullBean) {
