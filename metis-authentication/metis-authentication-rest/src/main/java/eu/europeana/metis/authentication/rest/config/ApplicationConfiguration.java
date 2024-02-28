@@ -20,7 +20,7 @@ import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.postgres.HibernateConfigurationProperties;
 import metis.common.config.properties.zoho.ZohoConfigurationProperties;
@@ -130,7 +130,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
         Transaction tx = session.beginTransaction();
-        session.createSQLQuery(createTablesSql).executeUpdate();
+        session.createQuery(createTablesSql).executeUpdate();
         tx.commit();
       });
     }

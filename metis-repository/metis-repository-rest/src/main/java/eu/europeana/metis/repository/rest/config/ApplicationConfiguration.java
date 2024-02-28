@@ -8,7 +8,7 @@ import eu.europeana.metis.repository.rest.dao.RecordDao;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;

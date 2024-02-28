@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.ecloud.EcloudConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;

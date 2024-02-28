@@ -14,13 +14,15 @@ import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.TransactionException;
 import org.hibernate.query.Query;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaCriteriaQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -194,8 +196,8 @@ class TestPsqlMetisUserDao {
 
   @Test
   void expireAccessTokens() {
-    final CriteriaBuilder builder = Mockito.mock(CriteriaBuilder.class);
-    final CriteriaQuery<MetisUserAccessToken> criteriaQuery = Mockito.mock(CriteriaQuery.class);
+    final HibernateCriteriaBuilder builder = Mockito.mock(HibernateCriteriaBuilder.class);
+    final JpaCriteriaQuery<MetisUserAccessToken> criteriaQuery = Mockito.mock(JpaCriteriaQuery.class);
     final Query<MetisUserAccessToken> query = Mockito.mock(Query.class);
 
     when(session.beginTransaction()).thenReturn(transaction);
@@ -320,8 +322,8 @@ class TestPsqlMetisUserDao {
 
   @Test
   void getAllMetisUsers() {
-    final CriteriaBuilder builder = Mockito.mock(CriteriaBuilder.class);
-    final CriteriaQuery<MetisUser> criteriaQuery = Mockito.mock(CriteriaQuery.class);
+    final HibernateCriteriaBuilder builder = Mockito.mock(HibernateCriteriaBuilder.class);
+    final JpaCriteriaQuery<MetisUser> criteriaQuery = Mockito.mock(JpaCriteriaQuery.class);
     final Query<MetisUser> query = Mockito.mock(Query.class);
     ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
     metisUsers.add(new MetisUser());

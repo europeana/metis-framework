@@ -84,7 +84,7 @@
     <!--        </exclusion>-->
     <!--        <exclusion>-->
     <!--          <artifactId>jsr311-api</artifactId>-->
-    <!--          <groupId>javax.ws.rs</groupId>-->
+    <!--          <groupId>jakarta.ws.rs</groupId>-->
     <!--        </exclusion>-->
     <!--        <exclusion>-->
     <!--          <artifactId>mockito-all</artifactId>-->
@@ -138,16 +138,6 @@
       <version>${version.jackson}</version>
     </dependency>
 
-    <!--Is used to remove the deployment exception in tomcat about class not found SLF4JBridgeHandler-->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>${version.jul.to.slf4j}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>

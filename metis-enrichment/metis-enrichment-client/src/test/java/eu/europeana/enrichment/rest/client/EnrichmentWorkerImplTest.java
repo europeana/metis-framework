@@ -241,48 +241,48 @@ class EnrichmentWorkerImplTest {
     private static void setDereferenceMocks() {
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=https%3A%2F%2Fsws.geonames.org%2F597427%2F"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-geoname.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=https%3A%2F%2Fsws.geonames.org%2F597427%2F1"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withStatus(HttpStatus.NOT_FOUND.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fvocab.getty.edu%2Faat%2F300136900"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-vocabulary.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fvocab.getty.edu%2Faat%2F300008372"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-null.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fvocab.getty.edu%2Faat%2F300000810"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-no-vocabulary.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fdata.europeana.eu%2Fconcept%2F3401"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-normal-ii.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fdata.europeana.eu%2Fconcept%2FXXXXXXXXX"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(
@@ -290,28 +290,28 @@ class EnrichmentWorkerImplTest {
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.mimo-db.eu%2FInstrumentsKeywords%2F3052"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-normal.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fwww.mimo-db.eu%2FInstrumentsKeywords%2F0"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-null.xml"))
                                 .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(get(urlEqualTo(
                 "/dereference?uri=http%3A%2F%2Fsemantics.gr%2Fauthorities%2Fthematic_tags%2F994210004"))
-                .withHost(equalTo("dereference-rest.mock"))
+
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/xml")
                         .withBody(getResourceFileContent("dereference/dereference-normal-redirect.xml"))
                         .withStatus(HttpStatus.OK.value())));
         wireMockServer.stubFor(
                 get(urlEqualTo("/dereference?uri=http%3A%2F%2Fvocab.getty.edu%2Faat%2F400136800"))
-                        .withHost(equalTo("dereference-rest.mock"))
+
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/xml")
                                 .withBody(getResourceFileContent("dereference/dereference-failure.xml"))
@@ -338,11 +338,12 @@ class EnrichmentWorkerImplTest {
         final Enricher enricher = enricherProvider.create();
 
         DereferencerProvider dereferencerProvider = new DereferencerProvider();
-        dereferencerProvider.setEnrichmentPropertiesValues("http://entity-api.mock/entitymgmt",
-                "http://entity-api.mock/entity",
-                "api2demo");
+        dereferencerProvider.setEnrichmentPropertiesValues(
+            "http://localhost:" + wireMockServer.port() + "/entitymgmt",
+            "http://localhost:" + wireMockServer.port() + "/entity",
+            "api2demo");
 
-        dereferencerProvider.setDereferenceUrl("http://dereference-rest.mock");
+        dereferencerProvider.setDereferenceUrl("http://localhost:" + wireMockServer.port());
         final Dereferencer dereferencer = dereferencerProvider.create();
 
         // Execute the worker

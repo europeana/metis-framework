@@ -26,12 +26,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.ws.rs.QueryParam;
+import jakarta.ws.rs.QueryParam;
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
@@ -66,16 +67,15 @@ public class OaiPmhController {
     @GetMapping(value = RestEndpoints.REPOSITORY_OAI_ENDPOINT,
             produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     @ApiOperation(value = "OAI endpoint (supporting only the ListIdentifiers and GetRecord verbs)")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Illegal OAI request"),
             @ApiResponse(code = 404, message = "Unknown dataset or record ID"),
             @ApiResponse(code = 500, message = "Error processing the request")})
     public String oaiPmh(
-            @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @QueryParam("verb") String verb,
-            @ApiParam(value = "The set (required for ListIdentifiers)") @QueryParam("set") String set,
-            @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @QueryParam("metadataPrefix") String metadataPrefix,
-            @ApiParam(value = "The record identifier (required for GetRecord)") @QueryParam("identifier") String identifier) {
+            @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @RequestParam("verb") String verb,
+            @ApiParam(value = "The set (required for ListIdentifiers)") @RequestParam("set") String set,
+            @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @RequestParam("metadataPrefix") String metadataPrefix,
+            @ApiParam(value = "The record identifier (required for GetRecord)") @RequestParam("identifier") String identifier) {
 
         // Check the metadata prefix
         if (!"edm".equals(metadataPrefix)) {

@@ -75,7 +75,7 @@ class HttpHarvestControllerTest {
     });
 
     assertEquals(
-        "500 INTERNAL_SERVER_ERROR \"There was problems while zipping the records.\"; nested exception is java.lang.RuntimeException",
+        "500 INTERNAL_SERVER_ERROR \"There was problems while zipping the records.\"",
         expectedException.getMessage());
 
   }

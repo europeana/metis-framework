@@ -2,10 +2,10 @@ package eu.europeana.metis.authentication.user;
 
 import com.zoho.api.authenticator.OAuthToken;
 import com.zoho.api.authenticator.OAuthToken.TokenType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * The token information for the Zoho service.
