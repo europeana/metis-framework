@@ -21,6 +21,7 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.springframework.security.authentication.BadCredentialsException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -40,18 +42,20 @@ class AuthenticationServiceTest {
 
   private static final String EXAMPLE_EMAIL = "example@example.com";
   private static final String EXAMPLE_PASSWORD = "123qwe456";
+  private static final String EXAMPLE_DBPASSWORD = "$2a$13$OdybqNUfuu7B5K7bFEdIyedLE4ukie/Ky67eD2xoEBlw6gZn/BqJW";
   private static final String EXAMPLE_ACCESS_TOKEN = "1234567890qwertyuiopasdfghjklQWE";
   private static PsqlMetisUserDao psqlMetisUserDao;
 
   private static AuthenticationService authenticationService;
 
-  private MetisUser registerAndCaptureMetisUser() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
-    ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor
-        .forClass(MetisUser.class);
-    verify(psqlMetisUserDao).createMetisUser(metisUserArgumentCaptor.capture());
-    return metisUserArgumentCaptor.getValue();
+  private MetisUser getMetisUser() {
+    MetisUser metisUser = new MetisUser();
+    metisUser.setUserId("userId");
+    metisUser.setEmail(EXAMPLE_EMAIL);
+    metisUser.setPassword(EXAMPLE_DBPASSWORD);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+
+    return metisUser;
   }
 
   @BeforeAll
@@ -66,28 +70,22 @@ class AuthenticationServiceTest {
   }
 
   @Test
-  void registerUser() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
+  void registerUser() {
+    MetisUser metisUser = getMetisUser();
+    metisUser.setPassword(null);
+    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
 
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
-    verify(psqlMetisUserDao).createMetisUser(any(MetisUser.class));
+    verify(psqlMetisUserDao).getMetisUserByEmail(any(String.class));
+    verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
   }
 
   @Test
   void registerUserAlreadyExistsInDB() {
-    MetisUser metisUser = new MetisUser();
-    metisUser.setEmail(EXAMPLE_EMAIL);
+    MetisUser metisUser = getMetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    assertThrows(UserAlreadyExistsException.class,
+    assertThrows(BadCredentialsException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-  }
-
-  @Test
-  void updateUserFromZohoNoUserFound() {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    assertThrows(NoUserFoundException.class,
-        () -> authenticationService.updateUserFromZoho(EXAMPLE_EMAIL));
-    verify(psqlMetisUserDao, times(0)).updateMetisUser(any(MetisUser.class));
   }
 
   @Test
@@ -161,15 +159,16 @@ class AuthenticationServiceTest {
 
   @Test
   void loginUser() throws Exception {
-    MetisUser metisUser = registerAndCaptureMetisUser();
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
+    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(getMetisUser());
+
     authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+
     verify(psqlMetisUserDao).createUserAccessToken(any(MetisUserAccessToken.class));
   }
 
   @Test
   void loginUserTokenExistsSoUpdateTimestamp() throws Exception {
-    MetisUser metisUser = registerAndCaptureMetisUser();
+    MetisUser metisUser = getMetisUser();
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);

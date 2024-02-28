@@ -6,7 +6,6 @@ import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.authentication.utils.MetisUserUtils;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
@@ -21,10 +20,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -83,49 +86,22 @@ public class AuthenticationService {
    * system.</li>
    * </ul>
    */
-  public void registerUser(String email, String password) throws GenericMetisException {
-
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (Objects.nonNull(storedMetisUser)) {
-      throw new UserAlreadyExistsException(
-          String.format("User with email: %s already exists", email));
-    }
-
-    MetisUser metisUser = constructMetisUserFromZoho(email);
-    String hashedPassword = generatePasswordHashing(password);
-    metisUser.setPassword(hashedPassword);
-
-    psqlMetisUserDao.createMetisUser(metisUser);
-  }
-
-  /**
-   * Re-fetches a user by email from the remote CRM and updates its information in the system.
-   *
-   * @param email the email to check for updating
-   * @return the updated {@link MetisUserView}
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link BadContentException} if any other problem occurred while constructing the
-   * user.</li>
-   * <li>{@link NoUserFoundException} if the user was not found in the system.</li>
-   * </ul>
-   */
-  public MetisUserView updateUserFromZoho(String email) throws GenericMetisException {
+  public void registerUser(String email, String password) {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (Objects.isNull(storedMetisUser)) {
-      throw new NoUserFoundException(String.format("User with email: %s does not exist", email));
+      throw new UsernameNotFoundException(
+          String.format("User with email: %s don't exist", email));
     }
-
-    MetisUser metisUser = constructMetisUserFromZoho(email);
-    //Keep previous information, that are not in Zoho
-    metisUser.setPassword(storedMetisUser.getPassword());
-    metisUser.setMetisUserAccessToken(storedMetisUser.getMetisUserAccessToken());
-    if (storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
-      metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    if (storedMetisUser.getPassword()!=null) {
+      throw new BadCredentialsException("The password is already set");
     }
+    // only if is null
+    final long genId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+    storedMetisUser.setUserId(Long.toString(genId));
 
-    psqlMetisUserDao.updateMetisUser(metisUser);
-    return convert(storedMetisUser);
+    storedMetisUser.setPassword(generatePasswordHashing(password));
+
+    psqlMetisUserDao.updateMetisUser(storedMetisUser);
   }
 
   /**
@@ -370,13 +346,6 @@ public class AuthenticationService {
    */
   public List<MetisUserView> getAllUsers() {
     return convert(psqlMetisUserDao.getAllMetisUsers());
-  }
-
-  private MetisUser constructMetisUserFromZoho(String email) {
-
-    //Construct Default User
-    MetisUser metisUser = MetisUserUtils.checkFieldsAndPopulateMetisUser(email);
-    return metisUser;
   }
 
   private String generatePasswordHashing(String password) {

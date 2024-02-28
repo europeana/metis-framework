@@ -189,43 +189,6 @@ public class AuthenticationController {
   }
 
   /**
-   * Update a user by re-retrieving the user from the remote CRM.
-   *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
-   * accessTokenHere </p>
-   * @param emailParameter the class that contains the email parameter to act upon
-   * @return updated {@link MetisUserView}
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
-   * cannot be authenticated or the user is unauthorized.</li>
-   * </ul>
-   */
-  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
-  public MetisUserView updateUser(@RequestHeader("Authorization") String authorization,
-      @RequestBody EmailParameter emailParameter)
-      throws GenericMetisException {
-    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
-      throw new BadContentException("email parameter is empty");
-    }
-    String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);
-    if (!authenticationService
-        .hasPermissionToRequestUserUpdate(accessToken, emailParameter.getEmail())) {
-      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
-    }
-    MetisUserView metisUserView = authenticationService.updateUserFromZoho(emailParameter.getEmail());
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated",
-          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
-    }
-    return metisUserView;
-  }
-
-  /**
    * Change the {@link AccountRole} of a user.
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
