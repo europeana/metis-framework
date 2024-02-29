@@ -26,13 +26,13 @@
       <artifactId>spring-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
+      <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${version.hibernate.core}</version>
     </dependency>
     <!--We choose c3p0 for the connection pooling-->
     <dependency>
-      <groupId>org.hibernate</groupId>
+      <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-c3p0</artifactId>
       <version>${version.hibernate.core}</version>
     </dependency>
