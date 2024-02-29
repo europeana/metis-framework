@@ -162,9 +162,8 @@
     <version.json.path>2.5.0</version.json.path>
     <version.junit>5.10.2</version.junit>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
-    <version.log4j>2.21.1</version.log4j>
+    <version.log4j>2.23.0</version.log4j>
     <version.slf4j>2.0.12</version.slf4j>
-    <version.jul.to.slf4j>1.7.30</version.jul.to.slf4j>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
     <version.maven.release>2.5.3</version.maven.release>
@@ -583,7 +582,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j-impl</artifactId>
+        <artifactId>log4j-slf4j2-impl</artifactId>
         <version>${version.log4j}</version>
         <exclusions>
           <exclusion>
