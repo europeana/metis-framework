@@ -4,11 +4,11 @@ The values are checked in the application.
 Creating the first admin requires a user to register through the application and then manually update the user role to METIS_ADMIN.
 */
 CREATE TABLE IF NOT EXISTS metis_users (
- user_id VARCHAR(100),
+ user_id VARCHAR(100) DEFAULT NULL,
  email VARCHAR(40) PRIMARY KEY,
  last_name VARCHAR(40),
  first_name VARCHAR(40),
- password VARCHAR(255),
+ password VARCHAR(255) DEFAULT NULL,
  organization_id VARCHAR(100),
  organization_name VARCHAR(100),
  account_role VARCHAR(40),

@@ -33,6 +33,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -70,14 +71,18 @@ class AuthenticationServiceTest {
   }
 
   @Test
-  void registerUser() {
+  void registerUserPasswordAndId() {
     MetisUser metisUser = getMetisUser();
+    metisUser.setUserId(null);
     metisUser.setPassword(null);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-
+    ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor
+        .forClass(MetisUser.class);
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+
     verify(psqlMetisUserDao).getMetisUserByEmail(any(String.class));
-    verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
+    verify(psqlMetisUserDao).updateMetisUser(metisUserArgumentCaptor.capture());
+    assertNotNull(metisUserArgumentCaptor.getValue().getUserId());
   }
 
   @Test
@@ -85,6 +90,13 @@ class AuthenticationServiceTest {
     MetisUser metisUser = getMetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     assertThrows(BadCredentialsException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
+  }
+
+  @Test
+  void registerUserNotFound() {
+    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
+    assertThrows(UsernameNotFoundException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 

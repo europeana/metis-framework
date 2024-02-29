@@ -77,13 +77,10 @@ public class AuthenticationService {
    *
    * @param email the unique email of the user
    * @param password the password of the user
-   * @throws GenericMetisException which can be one of:
+   * @throws Exceptions which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if any other problem occurred while constructing the
-   * user.</li>
-   * <li>{@link NoUserFoundException} if user was not found in the system.</li>
-   * <li>{@link UserAlreadyExistsException} if user with the same email already exists in the
-   * system.</li>
+   * <li>{@link BadCredentialsException} if the password is already set.</li>
+   * <li>{@link UsernameNotFoundException} if user was not found in the system.</li>
    * </ul>
    */
   public void registerUser(String email, String password) {
@@ -95,9 +92,10 @@ public class AuthenticationService {
     if (storedMetisUser.getPassword()!=null) {
       throw new BadCredentialsException("The password is already set");
     }
-    // only if is null
-    final long genId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-    storedMetisUser.setUserId(Long.toString(genId));
+    if (storedMetisUser.getUserId() == null) {
+      final long genId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+      storedMetisUser.setUserId(Long.toString(genId));
+    }
 
     storedMetisUser.setPassword(generatePasswordHashing(password));
 
