@@ -12,7 +12,7 @@ import eu.europeana.metis.authentication.user.UserIdParameter;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
@@ -67,7 +67,7 @@ public class AuthenticationController {
    * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
    * while constructing the user.</li>
    * <li>{@link NoUserFoundException} if the user was not found in the remote CRM.</li>
-   * <li>{@link UserAlreadyExistsException} if the user already exists in the system.</li>
+   * <li>{@link UserAlreadyRegisteredException} if the user already exists in the system.</li>
    * </ul>
    */
   @PostMapping(value = RestEndpoints.AUTHENTICATION_REGISTER)

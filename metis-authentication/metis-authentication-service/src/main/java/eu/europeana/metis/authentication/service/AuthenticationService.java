@@ -9,7 +9,7 @@ import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.nio.charset.StandardCharsets;
@@ -25,8 +25,6 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -77,20 +75,19 @@ public class AuthenticationService {
    *
    * @param email the unique email of the user
    * @param password the password of the user
-   * @throws Exceptions which can be one of:
+   * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadCredentialsException} if the password is already set.</li>
+   * <li>{@link UserAlreadyRegisteredException} the user is already registered, the password is already set.</li>
    * <li>{@link UsernameNotFoundException} if user was not found in the system.</li>
    * </ul>
    */
-  public void registerUser(String email, String password) {
+  public void registerUser(String email, String password) throws GenericMetisException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (Objects.isNull(storedMetisUser)) {
-      throw new UsernameNotFoundException(
-          String.format("User with email: %s don't exist", email));
+      throw new NoUserFoundException(String.format("User with email: %s don't exist", email));
     }
-    if (storedMetisUser.getPassword()!=null) {
-      throw new BadCredentialsException("The password is already set");
+    if (storedMetisUser.getPassword() != null) {
+      throw new UserAlreadyRegisteredException(String.format("User with email: %s already exists", email));
     }
     if (storedMetisUser.getUserId() == null) {
       final long genId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;

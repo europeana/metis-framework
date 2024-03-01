@@ -27,7 +27,7 @@ import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
@@ -103,11 +103,11 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  void registerUserUserAlreadyExistsException() throws Exception {
+  void registerUserUserAlreadyRegisteredException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-    doThrow(new UserAlreadyExistsException("")).when(authenticationService)
-        .registerUser(anyString(), anyString());
+    doThrow(new UserAlreadyRegisteredException("")).when(authenticationService)
+                                                   .registerUser(anyString(), anyString());
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
         HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.CONFLICT.value()));

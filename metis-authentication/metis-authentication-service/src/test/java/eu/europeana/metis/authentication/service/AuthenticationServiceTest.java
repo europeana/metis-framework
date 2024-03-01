@@ -18,10 +18,10 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,8 +32,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -71,7 +69,7 @@ class AuthenticationServiceTest {
   }
 
   @Test
-  void registerUserPasswordAndId() {
+  void registerUserPasswordAndId() throws GenericMetisException {
     MetisUser metisUser = getMetisUser();
     metisUser.setUserId(null);
     metisUser.setPassword(null);
@@ -89,14 +87,14 @@ class AuthenticationServiceTest {
   void registerUserAlreadyExistsInDB() {
     MetisUser metisUser = getMetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    assertThrows(BadCredentialsException.class,
+    assertThrows(UserAlreadyRegisteredException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
   @Test
   void registerUserNotFound() {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    assertThrows(UsernameNotFoundException.class,
+    assertThrows(NoUserFoundException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
