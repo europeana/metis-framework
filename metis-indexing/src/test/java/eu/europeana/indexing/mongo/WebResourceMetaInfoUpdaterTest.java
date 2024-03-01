@@ -14,6 +14,7 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.ThreeDMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
@@ -52,6 +53,7 @@ class WebResourceMetaInfoUpdaterTest extends
     metaInfo.setImageMetaInfo(new ImageMetaInfoImpl());
     metaInfo.setTextMetaInfo(new TextMetaInfoImpl());
     metaInfo.setVideoMetaInfo(new VideoMetaInfoImpl());
+    metaInfo.setThreeDMetaInfo(new ThreeDMetaInfoImpl());
     verify(propertyUpdater, times(1))
         .removeObjectIfNecessary(eq("audioMetaInfo"), getterCaptor.capture());
     assertSame(metaInfo.getAudioMetaInfo(), getterCaptor.getValue().apply(metaInfo));
@@ -64,6 +66,9 @@ class WebResourceMetaInfoUpdaterTest extends
     verify(propertyUpdater, times(1))
         .removeObjectIfNecessary(eq("videoMetaInfo"), getterCaptor.capture());
     assertSame(metaInfo.getVideoMetaInfo(), getterCaptor.getValue().apply(metaInfo));
+    verify(propertyUpdater, times(1))
+        .removeObjectIfNecessary(eq("threeDMetaInfo"), getterCaptor.capture());
+    assertSame(metaInfo.getThreeDMetaInfo(), getterCaptor.getValue().apply(metaInfo));
 
     // Test all the audio values
     testStringPropertyUpdate(propertyUpdater, "audioMetaInfo.mimeType",
@@ -127,6 +132,13 @@ class WebResourceMetaInfoUpdaterTest extends
     testObjectPropertyUpdate(propertyUpdater,"videoMetaInfo.duration",
         createSetterForVideo(VideoMetaInfoImpl::setDuration), 45L);
 
+    // Test all the 3D values
+    testStringPropertyUpdate(propertyUpdater,"threeDMetaInfo.mimeType",
+        createSetterForThreeD(ThreeDMetaInfoImpl::setMimeType));
+    testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.fileSize",
+        createSetterForThreeD(ThreeDMetaInfoImpl::setFileSize), 30L);
+
+
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }
@@ -165,6 +177,8 @@ class WebResourceMetaInfoUpdaterTest extends
     verify(propertyUpdater, times(1))
         .removeObjectIfNecessary(eq("videoMetaInfo"), getterCaptor.capture());
     assertSame(metaInfo.getVideoMetaInfo(), getterCaptor.getValue().apply(metaInfo));
+    verify(propertyUpdater, times(1))
+        .removeObjectIfNecessary(eq("threeDMetaInfo"), getterCaptor.capture());
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
@@ -207,6 +221,16 @@ class WebResourceMetaInfoUpdaterTest extends
         metaInfo.setVideoMetaInfo(new VideoMetaInfoImpl());
       }
       setter.accept(metaInfo.getVideoMetaInfo(), value);
+    };
+  }
+
+  private <F> BiConsumer<WebResourceMetaInfoImpl, F> createSetterForThreeD(
+      BiConsumer<ThreeDMetaInfoImpl, F> setter) {
+    return (metaInfo, value) -> {
+      if (metaInfo.getThreeDMetaInfo() == null) {
+        metaInfo.setThreeDMetaInfo(new ThreeDMetaInfoImpl());
+      }
+      setter.accept(metaInfo.getThreeDMetaInfo(), value);
     };
   }
 }

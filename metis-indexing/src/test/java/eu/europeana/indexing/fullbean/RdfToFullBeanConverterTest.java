@@ -1,6 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -10,13 +9,11 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -107,7 +104,6 @@ class RdfToFullBeanConverterTest {
     assertEquals("http://www.cmcassociates.co.uk/Skara_Brae/images/panorama_photos/link7-8grassyknoll/_I2P1856_th.jpg",
         fullBean.getEuropeanaAggregation().getEdmPreview());
     assertEquals("/aggregation/europeana/277/CMC_HA_1185", fullBean.getEuropeanaAggregation().getAbout());
-    assertNull(fullBean.getEuropeanaAggregation().getDqvHasQualityAnnotation());
   }
 
   private static void assertAggregations(FullBeanImpl fullBean) {
