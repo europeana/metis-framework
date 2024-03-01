@@ -68,7 +68,7 @@ public class DereferencerImpl implements Dereferencer {
   private static URL checkIfUrlIsValid(HashSet<Report> reports, String id) {
     try {
       URI uri = new URI(id);
-      return new URL(uri.toString());
+      return new URI(uri.toString()).toURL();
     } catch (URISyntaxException | MalformedURLException e) {
       reports.add(Report
           .buildDereferenceIgnore()

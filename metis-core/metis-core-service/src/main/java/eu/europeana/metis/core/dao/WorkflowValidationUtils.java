@@ -211,7 +211,9 @@ public class WorkflowValidationUtils {
       throw new BadContentException("Harvesting parameters are missing");
     }
     try {
-      return new URL(urlString.trim()).toURI();
+      final URI uri = new URI(urlString.trim());
+      uri.toURL();
+      return uri;
     } catch (MalformedURLException | URISyntaxException e) {
       throw new BadContentException("Harvesting parameters are invalid", e);
     }

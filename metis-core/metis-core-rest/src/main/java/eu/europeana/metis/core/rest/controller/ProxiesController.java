@@ -33,15 +33,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Proxies Controller which encapsulates functionality that has to be proxied to an external
  * resource.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-02-26
  */
-@Controller
+@RestController
 public class ProxiesController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ProxiesController.class);

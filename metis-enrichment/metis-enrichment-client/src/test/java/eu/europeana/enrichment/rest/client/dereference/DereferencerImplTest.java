@@ -23,6 +23,8 @@ import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -159,7 +161,7 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferencerHappyFlow() throws MalformedURLException {
+    void testDereferencerHappyFlow() throws MalformedURLException, URISyntaxException {
         // Create mocks of the dependencies
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
@@ -211,7 +213,7 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferenceInvalidUrl() throws MalformedURLException {
+    void testDereferenceInvalidUrl() throws MalformedURLException, URISyntaxException {
         // Create mocks of the dependencies
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
@@ -235,7 +237,8 @@ class DereferencerImplTest {
     @Disabled("TODO: MET-4255 Improve execution time, think feasibility of @Value(\"${max-retries}\")")
     @ParameterizedTest
     @MethodSource("providedExceptions")
-    void testDereferenceNetworkException(Exception ex, Type expectedMessageType, String expectedMessage) throws MalformedURLException {
+    void testDereferenceNetworkException(Exception ex, Type expectedMessageType, String expectedMessage)
+        throws MalformedURLException, URISyntaxException {
         // Create mocks of the dependencies
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
@@ -320,7 +323,7 @@ class DereferencerImplTest {
     }
 
     // Verify merge calls
-    private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) throws MalformedURLException {
+    private void verifyMergeHappyFlow(EntityMergeEngine entityMergeEngine) throws MalformedURLException, URISyntaxException {
         ArgumentCaptor<List<DereferencedEntities>> argumentCaptor = ArgumentCaptor.forClass(List.class);
         List<DereferencedEntities> expectedList = prepareExpectedList();
         verify(entityMergeEngine, times(1))
@@ -360,7 +363,7 @@ class DereferencerImplTest {
         verify(dereferencer, times(1)).extractReferencesForDereferencing(inputRdf);
     }
 
-    private void verifyMergeExceptionFlow(EntityMergeEngine entityMergeEngine) throws MalformedURLException {
+    private void verifyMergeExceptionFlow(EntityMergeEngine entityMergeEngine) throws MalformedURLException, URISyntaxException {
         ArgumentCaptor<List<DereferencedEntities>> argumentCaptor = ArgumentCaptor.forClass((Class) List.class);
         List<DereferencedEntities> expectedList = prepareExpectedListMergeNull();
         verify(entityMergeEngine, times(1))
@@ -385,8 +388,8 @@ class DereferencerImplTest {
         assertTrue(argumentCaptor.getValue().get(0).getReportMessages().isEmpty());
     }
 
-    private List<DereferencedEntities> prepareExpectedList() throws MalformedURLException {
-        ReferenceTermImpl expectedReferenceTerm1 = new ReferenceTermImpl(new URL("http://data.europeana.eu.host/concept"));
+    private List<DereferencedEntities> prepareExpectedList() throws MalformedURLException, URISyntaxException {
+        ReferenceTermImpl expectedReferenceTerm1 = new ReferenceTermImpl(new URI("http://data.europeana.eu.host/concept").toURL());
         Set<Report> expectedReports1 = Set.of(Report.buildDereferenceError()
                         .withValue("http://data.europeana.eu.host/concept")
                         .withMessage("Dereference or Coreferencing failed."),
@@ -398,7 +401,7 @@ class DereferencerImplTest {
                 Map.of(expectedReferenceTerm1, new ArrayList<>()),
                 expectedReports1, Concept.class);
 
-        ReferenceTermImpl expectedReferenceTerm2 = new ReferenceTermImpl(new URL("http://valid-example.host/place"));
+        ReferenceTermImpl expectedReferenceTerm2 = new ReferenceTermImpl(new URI("http://valid-example.host/place").toURL());
         List<EnrichmentBase> expectedEnrichmentBaseList2 = new ArrayList<>();
         expectedEnrichmentBaseList2.add(
                 DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
@@ -409,7 +412,7 @@ class DereferencerImplTest {
                 Map.of(expectedReferenceTerm2, expectedEnrichmentBaseList2),
                 Collections.emptySet(), PlaceType.class);
 
-        ReferenceTermImpl expectedReferenceTerm3 = new ReferenceTermImpl(new URL("http://valid-example.host/about"));
+        ReferenceTermImpl expectedReferenceTerm3 = new ReferenceTermImpl(new URI("http://valid-example.host/about").toURL());
         List<EnrichmentBase> expectedEnrichmentBaseList3 = new ArrayList<>();
         expectedEnrichmentBaseList3.add(
                 DEREFERENCE_RESULT.get(0).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
@@ -423,7 +426,7 @@ class DereferencerImplTest {
         return List.of(expectedDereferencedEntities3, expectedDereferencedEntities1, expectedDereferencedEntities2);
     }
 
-    private List<DereferencedEntities> prepareExpectedListMergeNull() throws MalformedURLException {
+    private List<DereferencedEntities> prepareExpectedListMergeNull() throws MalformedURLException, URISyntaxException {
         Report expectedReportConcept = Report.buildDereferenceWarn()
                 .withStatus(HttpStatus.BAD_REQUEST)
                 .withValue("http://valid-example.host/concept")
@@ -437,9 +440,9 @@ class DereferencerImplTest {
                 .withValue("http://valid-example.host/about")
                 .withMessage("HttpClientErrorException.BadRequest: 400 Bad Request");
 
-        ReferenceTermImpl referenceTerm1 = new ReferenceTermImpl(new URL("http://valid-example.host/about"));
-        ReferenceTermImpl referenceTerm2 = new ReferenceTermImpl(new URL("http://valid-example.host/concept"));
-        ReferenceTermImpl referenceTerm3 = new ReferenceTermImpl(new URL("http://valid-example.host/place"));
+        ReferenceTermImpl referenceTerm1 = new ReferenceTermImpl(new URI("http://valid-example.host/about").toURL());
+        ReferenceTermImpl referenceTerm2 = new ReferenceTermImpl(new URI("http://valid-example.host/concept").toURL());
+        ReferenceTermImpl referenceTerm3 = new ReferenceTermImpl(new URI("http://valid-example.host/place").toURL());
 
         DereferencedEntities dereferencedEntities1 = new DereferencedEntities(Map.of(referenceTerm1, Collections.emptyList()),
                 Set.of(expectedReportAbout), AboutType.class);
