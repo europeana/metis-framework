@@ -84,7 +84,7 @@ public class AuthenticationService {
   public void registerUser(String email, String password) throws GenericMetisException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (Objects.isNull(storedMetisUser)) {
-      throw new NoUserFoundException(String.format("User with email: %s don't exist", email));
+      throw new NoUserFoundException(String.format("User with email: %s doesn't exist", email));
     }
     if (storedMetisUser.getPassword() != null) {
       throw new UserAlreadyRegisteredException(String.format("User with email: %s already exists", email));

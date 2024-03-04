@@ -16,9 +16,9 @@ import java.io.Reader;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.postgres.HibernateConfigurationProperties;
-import metis.common.config.properties.zoho.ZohoConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -56,7 +56,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableConfigurationProperties({
     ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class,
-    HibernateConfigurationProperties.class, ZohoConfigurationProperties.class,
+    HibernateConfigurationProperties.class,
     MetisAuthenticationConfigurationProperties.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest.controller"})
 @EnableScheduling
@@ -184,6 +184,16 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
   @Scheduled(fixedDelay = 60 * 1000, initialDelay = 60 * 1000) //1min
   public void expireAccessTokens() {
     authenticationService.expireAccessTokens();
+  }
+
+  /**
+   * Closes connections to databases when the application stops.
+   */
+  @PreDestroy
+  public void close() {
+    if (sessionFactory != null && !sessionFactory.isClosed()) {
+      sessionFactory.close();
+    }
   }
 
   @Override
