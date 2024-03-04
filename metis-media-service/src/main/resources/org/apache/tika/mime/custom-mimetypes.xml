@@ -8,5 +8,17 @@
     <sub-class-of type="application/vnd.ms-pki.stl"/>
     <glob pattern="*.stl"/>
   </mime-type>
+  <mime-type type="model/x.stl-ascii">
+    <sub-class-of type="text/plain"/>
+    <magic>
+      <match value="solid" type="string" offset="0"/>
+    </magic>
+  </mime-type>
+  <mime-type type="model/x.stl-binary">
+    <sub-class-of type="application/vnd.ms-pki.stl"/>
+    <magic>
+      <match value="\00" type="string" offset="81"/>
+    </magic>
+  </mime-type>
 </mime-info>
 
