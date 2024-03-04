@@ -121,7 +121,12 @@ public class MetisRecordParser implements RecordParser {
     for (Map.Entry<String, Set<ProxyFieldType>> entry : resultMap.entrySet()) {
       ReferenceTermContext value;
       try {
-        value = new ReferenceTermContext(new URI(entry.getKey()).toURL(), entry.getValue());
+        final URI uri = new URI(entry.getKey());
+        if (!uri.isAbsolute()) {
+          throw new MalformedURLException("URL is not absolute");
+        }
+
+        value = new ReferenceTermContext(uri.toURL(), entry.getValue());
         result.add(value);
       } catch (MalformedURLException | URISyntaxException e) {
         LOGGER.debug("Invalid enrichment reference found: {}", entry.getKey());
