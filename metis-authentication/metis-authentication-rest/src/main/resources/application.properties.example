@@ -7,14 +7,6 @@ server.error.whitelabel.enabled=false
 truststore.path=/data/certificates/custom-truststore.jks
 truststore.password=
 
-#Zoho configuration
-zoho.initialGrantToken=
-zoho.refreshToken=
-zoho.currentUserEmail=
-zoho.clientId=
-zoho.clientSecret=
-zoho.redirectUri=
-
 #Hibernate configuration
 hibernate.dialect=org.hibernate.dialect.PostgreSQL82Dialect
 hibernate.connection.driver_class=org.postgresql.Driver
