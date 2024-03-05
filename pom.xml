@@ -136,7 +136,7 @@
     <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commons-compress>1.26.0</version.commons-compress>
-    <version.corelib>2.16.2</version.corelib>
+    <version.corelib>2.16.8</version.corelib>
 
     <!-- These two versions are interdependent. -->
     <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
