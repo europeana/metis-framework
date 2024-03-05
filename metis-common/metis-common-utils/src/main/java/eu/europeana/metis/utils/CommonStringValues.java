@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 public final class CommonStringValues {
 
   public static final String WRONG_ACCESS_TOKEN = "Wrong access token";
-  public static final String COULD_NOT_PARSE_USER_RETURNED_FROM_ZOHO = "Could not parse user returned from Zoho";
   public static final String BATCH_OF_DATASETS_RETURNED = "Batch of: {} datasets returned, using batch nextPage: {}";
   public static final String NEXT_PAGE_CANNOT_BE_NEGATIVE = "nextPage cannot be a negative number";
   public static final String PAGE_COUNT_CANNOT_BE_ZERO_OR_NEGATIVE = "pageCount cannot be zero or a negative number";

@@ -5,6 +5,7 @@ import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
+import eu.europeana.corelib.definitions.edm.model.metainfo.ThreeDMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.indexing.mongo.property.MongoObjectManager;
@@ -140,6 +141,16 @@ public class WebResourceMetaInfoUpdater extends
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getFrameRate));
       propertyUpdater.updateObject("videoMetaInfo.duration",
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getDuration));
+    }
+
+    // 3D info
+    if (!propertyUpdater.removeObjectIfNecessary("threeDMetaInfo",
+        WebResourceMetaInfoImpl::getThreeDMetaInfo)) {
+      propertyUpdater.updateString("threeDMetaInfo.mimeType",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getMimeType));
+      propertyUpdater.updateObject("threeDMetaInfo.fileSize",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getFileSize));
+
     }
   }
 

@@ -125,7 +125,7 @@
     <version.metis-schema>10-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
-    <version.apache.httpclient>5.1</version.apache.httpclient>
+    <version.apache.httpclient>5.3.1</version.apache.httpclient>
     <version.commons-fileupload>1.4</version.commons-fileupload>
     <version.commons.io>2.9.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
@@ -133,7 +133,7 @@
     <version.awaitability>4.2.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
-    <version.com.zoho.crm.java-sdk>3.0.1</version.com.zoho.crm.java-sdk>
+    <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commons-compress>1.26.0</version.commons-compress>
     <version.corelib>2.16.2</version.corelib>
@@ -227,11 +227,6 @@
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-utils</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>eu.europeana.metis</groupId>
-        <artifactId>metis-common-zoho</artifactId>
         <version>${project.version}</version>
       </dependency>
 

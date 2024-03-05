@@ -13,6 +13,7 @@ import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.ThreeDMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -108,6 +109,7 @@ public class RecordDao {
     mapper.getEntityModel(AudioMetaInfoImpl.class);
     mapper.getEntityModel(TextMetaInfoImpl.class);
     mapper.getEntityModel(VideoMetaInfoImpl.class);
+    mapper.getEntityModel(ThreeDMetaInfoImpl.class);
     LOGGER.info("Datastore initialized");
 
     return morphiaDatastore;
