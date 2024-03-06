@@ -181,7 +181,7 @@
     <version.spring.boot>3.2.3</version.spring.boot>
     <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
-    <version.springdoc.openapi>1.6.14</version.springdoc.openapi>
+    <version.springdoc-openapi-starter-webmvc-ui>2.3.0</version.springdoc-openapi-starter-webmvc-ui>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
     <version.tika.core>1.26</version.tika.core>

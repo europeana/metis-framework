@@ -31,8 +31,8 @@
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-      <version>${version.springdoc.openapi}</version>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>${version.springdoc-openapi-starter-webmvc-ui}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
