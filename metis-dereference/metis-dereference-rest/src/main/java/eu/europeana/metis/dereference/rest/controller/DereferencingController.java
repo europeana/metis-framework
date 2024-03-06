@@ -48,7 +48,6 @@ public class DereferencingController {
    */
   @GetMapping(value = RestEndpoints.DEREFERENCE, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   @Operation(description = "Dereference a URI", responses = {@ApiResponse(responseCode = "200")})
   public EnrichmentResultList dereference(@Parameter(name = "uri") @RequestParam("uri") String resourceId) {
     try {
@@ -78,7 +77,6 @@ public class DereferencingController {
    */
   @PostMapping(value = RestEndpoints.DEREFERENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   @Operation(description = "Dereference a list URI", responses = {@ApiResponse(responseCode = "200")})
   public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
     try {
