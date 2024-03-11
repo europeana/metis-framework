@@ -25,7 +25,6 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +77,7 @@ public class AuthenticationService {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserAlreadyRegisteredException} the user is already registered, the password is already set.</li>
-   * <li>{@link UsernameNotFoundException} if user was not found in the system.</li>
+   * <li>{@link NoUserFoundException} if user was not found in the system.</li>
    * </ul>
    */
   public void registerUser(String email, String password) throws GenericMetisException {

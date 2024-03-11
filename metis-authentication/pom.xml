@@ -16,11 +16,4 @@
     <module>metis-authentication-rest-client</module>
   </modules>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${version.jackson}</version>
-    </dependency>
-  </dependencies>
 </project>

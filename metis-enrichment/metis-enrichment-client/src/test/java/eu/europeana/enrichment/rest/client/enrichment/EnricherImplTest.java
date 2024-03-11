@@ -26,6 +26,8 @@ import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.exception.TechnicalRuntimeException;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,11 +81,11 @@ class EnricherImplTest {
         .add(new SearchTermContext("value3", "pt", Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
 
     try {
-      final URL reference = new URL("http://urlValue");
+      final URL reference = new URI("http://urlValue").toURL();
       REFERENCE_ENRICHMENT_RESULT = new HashMap<>();
       ReferenceTermContext referenceTermContext = new ReferenceTermContext(reference, Set.of(ProxyFieldType.DCTERMS_SPATIAL));
       REFERENCE_ENRICHMENT_RESULT.put(referenceTermContext, List.of(place1));
-    } catch (MalformedURLException e) {
+    } catch (MalformedURLException | URISyntaxException e) {
       throw new RuntimeException(e);
     }
   }
@@ -149,7 +151,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferencesHappyFlow() throws MalformedURLException {
+  void testEnrichReferencesHappyFlow() throws MalformedURLException, URISyntaxException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -158,7 +160,7 @@ class EnricherImplTest {
 
     // When the enricher
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
-    ReferenceTermContext referenceTermContext = new ReferenceTermContext(new URL("http://urlValue"),
+    ReferenceTermContext referenceTermContext = new ReferenceTermContext(new URI("http://urlValue").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
         Set.of(referenceTermContext));
@@ -169,7 +171,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceWarnFlow() throws MalformedURLException {
+  void testEnrichReferenceWarnFlow() throws MalformedURLException, URISyntaxException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -182,7 +184,7 @@ class EnricherImplTest {
     // When the enricher a 301
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
 
-    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URL("http://urlValue1"),
+    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URI("http://urlValue1").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
 
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
@@ -193,7 +195,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesWarning1Flow(), enrichReferences.getRight());
 
     // When the enricher a 400
-    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URL("http://urlValue2"),
+    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URI("http://urlValue2").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(
         Set.of(referenceTermContext2));
@@ -204,7 +206,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceExceptionFlow() throws MalformedURLException {
+  void testEnrichReferenceExceptionFlow() throws MalformedURLException, URISyntaxException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -221,7 +223,7 @@ class EnricherImplTest {
     // When the enricher a null nested exception
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
 
-    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URL("http://urlValue1"),
+    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URI("http://urlValue1").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
 
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
@@ -232,7 +234,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesError1Flow(), enrichReferences.getRight());
 
     // When the enricher a nested 307 exception
-    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URL("http://urlValue2"),
+    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URI("http://urlValue2").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext2));
 
@@ -241,7 +243,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesWarnError2Flow(), enrichReferences.getRight());
 
     // When the enricher with a NullPointerException
-    ReferenceTermContext referenceTermContext3 = new ReferenceTermContext(new URL("http://urlValue3"),
+    ReferenceTermContext referenceTermContext3 = new ReferenceTermContext(new URI("http://urlValue3").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext3));
 
@@ -250,7 +252,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesError3Flow(),enrichReferences.getRight());
 
     // When the enricher with a Null Cause
-    ReferenceTermContext referenceTermContext4 = new ReferenceTermContext(new URL("http://urlValue4"),
+    ReferenceTermContext referenceTermContext4 = new ReferenceTermContext(new URI("http://urlValue4").toURL(),
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext4));
 

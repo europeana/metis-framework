@@ -61,6 +61,37 @@
       <artifactId>ecloud-service-dps-rest-client-java</artifactId>
       <version>${version.ecloud}</version>
     </dependency>
+    <!--    <dependency>-->
+    <!--      <groupId>eu.europeana.corelib</groupId>-->
+    <!--      <artifactId>corelib-web</artifactId>-->
+    <!--      <version>${version.corelib}</version>-->
+    <!--      <exclusions>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>eu.europeana.corelib</groupId>-->
+    <!--          <artifactId>corelib-definitions</artifactId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <artifactId>wstx-asl</artifactId>-->
+    <!--          <groupId>org.codehaus.woodstox</groupId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>org.slf4j</groupId>-->
+    <!--          <artifactId>slf4j-simple</artifactId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>org.slf4j</groupId>-->
+    <!--          <artifactId>slf4j-jdk14</artifactId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <artifactId>jsr311-api</artifactId>-->
+    <!--          <groupId>jakarta.ws.rs</groupId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <artifactId>mockito-all</artifactId>-->
+    <!--          <groupId>org.mockito</groupId>-->
+    <!--        </exclusion>-->
+    <!--      </exclusions>-->
+    <!--    </dependency>-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
@@ -107,16 +138,6 @@
       <version>${version.jackson}</version>
     </dependency>
 
-    <!--Is used to remove the deployment exception in tomcat about class not found SLF4JBridgeHandler-->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>${version.jul.to.slf4j}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>

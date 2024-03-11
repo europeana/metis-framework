@@ -151,7 +151,7 @@ public class ProxiesService {
    * @param metisUserView the user wishing to perform this operation
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
-   * @return true if final report available, false if not or ecloud response {@link javax.ws.rs.core.Response.Status)} is not OK,
+   * @return true if final report available, false if not or ecloud response {@link jakarta.ws.rs.core.Response.Status)} is not OK,
    * based on {@link DpsClient#checkIfErrorReportExists}
    * @throws GenericMetisException can be one of:
    * <ul>

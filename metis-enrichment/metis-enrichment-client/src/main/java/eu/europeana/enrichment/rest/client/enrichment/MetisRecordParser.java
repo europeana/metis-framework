@@ -17,6 +17,8 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
@@ -119,9 +121,14 @@ public class MetisRecordParser implements RecordParser {
     for (Map.Entry<String, Set<ProxyFieldType>> entry : resultMap.entrySet()) {
       ReferenceTermContext value;
       try {
-        value = new ReferenceTermContext(new URL(entry.getKey()), entry.getValue());
+        final URI uri = new URI(entry.getKey());
+        if (!uri.isAbsolute()) {
+          throw new MalformedURLException("URL is not absolute");
+        }
+
+        value = new ReferenceTermContext(uri.toURL(), entry.getValue());
         result.add(value);
-      } catch (MalformedURLException e) {
+      } catch (MalformedURLException | URISyntaxException e) {
         LOGGER.debug("Invalid enrichment reference found: {}", entry.getKey());
       }
     }

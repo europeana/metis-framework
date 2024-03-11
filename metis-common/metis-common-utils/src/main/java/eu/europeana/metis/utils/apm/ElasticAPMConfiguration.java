@@ -3,7 +3,7 @@ package eu.europeana.metis.utils.apm;
 import co.elastic.apm.attach.ElasticApmAttacher;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
