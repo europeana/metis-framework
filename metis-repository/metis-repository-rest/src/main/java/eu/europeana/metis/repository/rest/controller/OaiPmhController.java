@@ -73,9 +73,9 @@ public class OaiPmhController {
             @ApiResponse(code = 500, message = "Error processing the request")})
     public String oaiPmh(
             @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @RequestParam("verb") String verb,
-            @ApiParam(value = "The set (required for ListIdentifiers)") @RequestParam("set") String set,
+            @ApiParam(value = "The set (required for ListIdentifiers)") @RequestParam(value = "set", required = false) String set,
             @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @RequestParam("metadataPrefix") String metadataPrefix,
-            @ApiParam(value = "The record identifier (required for GetRecord)") @RequestParam("identifier") String identifier) {
+            @ApiParam(value = "The record identifier (required for GetRecord)") @RequestParam(value = "identifier", required = false) String identifier) {
 
         // Check the metadata prefix
         if (!"edm".equals(metadataPrefix)) {
