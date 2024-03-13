@@ -9,7 +9,6 @@
     <glob pattern="*.gltf"/>
   </mime-type>
   <mime-type type="model/gltf-binary">
-    <sub-class-of type="text/plain"/>
     <glob pattern="*.glb"/>
   </mime-type>
 </mime-info>
