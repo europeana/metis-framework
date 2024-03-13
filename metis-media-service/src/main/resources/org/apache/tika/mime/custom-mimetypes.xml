@@ -7,9 +7,22 @@
   <mime-type type="model/x.stl-ascii">
     <sub-class-of type="text/plain"/>
     <magic>
-      <match value="solid" type="string" offset="0"/>
+      <!-- It must start with the word 'solid', following it may contain 0 or many whitespaces,
+       following with 1 or many letters/numbers and new line, which then must follow with the word 'facet'-->
+      <match value="^solid *[A-Za-z0-9,;'.?! \n]+facet" type="regex" offset="0"/>
     </magic>
 <!--    <glob pattern="*.stl"/> Conflicts with already existing *.stl in tika-->
   </mime-type>
+  <mime-type type="model/x.stl-binary">
+    <sub-class-of type="application/vnd.ms-pki.stl"/>
+    <magic>
+      <match value=".*" type="regex" offset="0"/>
+    </magic>
+  </mime-type>
+  <mime-type type="model/stl">
+    <sub-class-of type="application/vnd.ms-pki.stl"/>
+    <magic>
+      <match value=".*" type="regex" offset="0"/>
+    </magic>
+  </mime-type>
 </mime-info>
-

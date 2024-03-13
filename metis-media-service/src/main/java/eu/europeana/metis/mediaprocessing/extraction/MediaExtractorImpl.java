@@ -175,15 +175,6 @@ public class MediaExtractorImpl implements MediaExtractor {
       }
     }
 
-    //Tika already detects *.stl type of files, but returns a different name.
-    //There are only two types of stl files: binary and ascii. Ascii type detection is already in
-    //custom-mimetypes file.
-    //The only other type missing is the binary, which is handled here. If the type detected is
-    //"application/vnd.ms-pki.stl" then return instead "model/x.stl-binary"
-    if("application/vnd.ms-pki.stl".equals(detectedMimeType)){
-      return "model/x.stl-binary";
-    }
-
     // Done
     return detectedMimeType;
   }
