@@ -4,5 +4,12 @@
     <sub-class-of type="text/plain"/>
     <glob pattern="*.obj"/>
   </mime-type>
+  <mime-type type="model/gltf+json">
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.gltf"/>
+  </mime-type>
+  <mime-type type="model/gltf-binary">
+    <glob pattern="*.glb"/>
+  </mime-type>
 </mime-info>
 

@@ -53,4 +53,40 @@ class MimeTypeDetectHttpClientTest {
     assertEquals(EXPECTED_MIME_TYPE, detectedMimeType);
   }
 
+  @Test
+  void download_detectMimeTypeGltf_expectSuccess() throws IOException, URISyntaxException {
+    // given
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/adamHead.gltf")) {
+      byte[] audioBytes = inputStream.readAllBytes();
+      wireMockExtension.stubFor(get("/imagen_id.do?idImagen=10610909").willReturn(aResponse()
+          .withStatus(200)
+          .withBody(audioBytes)
+          .withHeader("Content-Disposition", "inline; filename=\"adamHead.gltf\"")));
+    }
+    final String url = String.format("http://localhost:%d/imagen_id.do?idImagen=10610909", wireMockExtension.getPort());
+    // when
+    String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
+
+    // then
+    assertEquals("model/gltf+json", detectedMimeType);
+  }
+
+  @Test
+  void download_detectMimeTypeGlb_expectSuccess() throws IOException, URISyntaxException {
+    // given
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/Duck.glb")) {
+      byte[] audioBytes = inputStream.readAllBytes();
+      wireMockExtension.stubFor(get("/imagen_id.do?idImagen=10610909").willReturn(aResponse()
+          .withStatus(200)
+          .withBody(audioBytes)
+          .withHeader("Content-Disposition", "inline; filename=\"Duck.glb\"")));
+    }
+    final String url = String.format("http://localhost:%d/imagen_id.do?idImagen=10610909", wireMockExtension.getPort());
+    // when
+    String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
+
+    // then
+    assertEquals("model/gltf-binary", detectedMimeType);
+  }
+
 }
