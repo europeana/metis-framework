@@ -88,4 +88,23 @@ class MimeTypeDetectHttpClientTest {
         assertEquals("model/x.stl-binary", detectedMimeType);
     }
 
+    @Test
+    void download_returnProvidedMimeType_expectSuccess() throws IOException {
+        // given
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/Cube_3d_printing_sample.stl")) {
+            byte[] fileBytes = inputStream.readAllBytes();
+            wireMockExtension.stubFor(get("/imagen_id.do?idImagen=10610909").willReturn(aResponse()
+                .withStatus(200)
+                .withBody(fileBytes)
+                .withHeader("Content-Disposition", "inline; filename=\"Cube_3d_printing_sample.stl\"")
+                .withHeader("Content-Type", "model/stl")));
+        }
+        final String url = String.format("http://localhost:%d/imagen_id.do?idImagen=10610909", wireMockExtension.getPort());
+        // when
+        String detectedMimeType = mimeTypeDetectHttpClient.download(new URL(url));
+
+        // then
+        assertEquals("model/stl", detectedMimeType);
+    }
+
 }

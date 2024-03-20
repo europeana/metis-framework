@@ -15,14 +15,8 @@
   </mime-type>
   <mime-type type="model/x.stl-binary">
     <sub-class-of type="application/vnd.ms-pki.stl"/>
-    <magic>
-      <match value=".*" type="regex" offset="0"/>
-    </magic>
   </mime-type>
   <mime-type type="model/stl">
     <sub-class-of type="application/vnd.ms-pki.stl"/>
-    <magic>
-      <match value=".*" type="regex" offset="0"/>
-    </magic>
   </mime-type>
 </mime-info>
