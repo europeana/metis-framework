@@ -4,6 +4,7 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.ThreeDMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
@@ -147,6 +148,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
           case IMAGE -> this::addImageMetaInfo;
           case TEXT -> this::addTextMetaInfo;
           case VIDEO -> this::addVideoMetaInfo;
+          case THREE_D -> this::add3DMetaInfo;
           default -> null;
         };
 
@@ -235,6 +237,15 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setDuration(convertToLong(source.getDuration()));
 
     target.setVideoMetaInfo(metaInfo);
+  }
+
+  private void add3DMetaInfo(WebResourceType source, WebResourceMetaInfoImpl target) {
+    ThreeDMetaInfoImpl metaInfo = new ThreeDMetaInfoImpl();
+
+    metaInfo.setMimeType(convertToString(source.getHasMimeType()));
+    metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
+
+    target.setThreeDMetaInfo(metaInfo);
   }
 
   private static Long convertToLong(Duration duration) {

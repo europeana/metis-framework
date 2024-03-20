@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -113,12 +114,16 @@ public class SchemaProvider {
   private String prepareDirectoryName(String name) throws SchemaProviderException {
     URL url;
     try {
-      url = new URL(name);
+      final URI uri = new URI(name);
+      if (!uri.isAbsolute()) {
+        throw new SchemaProviderException("URL is not absolute");
+      }
+      url = uri.toURL();
       String host = url.getHost();
       String file = url.getFile();
       return host + "_" + StringUtils
           .substringAfter(StringUtils.substringBeforeLast(file, "."), "/");
-    } catch (MalformedURLException e) {
+    } catch (MalformedURLException | URISyntaxException e) {
       throw new SchemaProviderException(e);
     }
   }

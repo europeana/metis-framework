@@ -33,15 +33,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Proxies Controller which encapsulates functionality that has to be proxied to an external
  * resource.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-02-26
  */
-@Controller
+@RestController
 public class ProxiesController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ProxiesController.class);
@@ -108,7 +106,7 @@ public class ProxiesController {
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
    * @return true if final report available, false if not or ecloud response {@link
-   * javax.ws.rs.core.Response.Status)} is not OK, based on {@link eu.europeana.cloud.client.dps.rest.DpsClient#checkIfErrorReportExists}
+   * jakarta.ws.rs.core.Response.Status)} is not OK, based on {@link eu.europeana.cloud.client.dps.rest.DpsClient#checkIfErrorReportExists}
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no

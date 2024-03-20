@@ -78,7 +78,6 @@ public class RecordController {
       consumes = {MediaType.APPLICATION_XML_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   @ApiOperation(value = "The given record is put into the database. If the record ID already "
       + "exists, the record is overwritten. Note that record IDs are normalized to contain "
       + "only the characters a-z, A-Z, 0-9 and `_`. But contrary to the batch upload method, they "
@@ -113,7 +112,6 @@ public class RecordController {
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   @ApiOperation(value = "The given records are put into the database as non-deleted records. The "
       + "record IDs are computed to be the file name (without the extension) prefixed by the "
       + "dataset ID. If a record ID already exists, the record is overwritten. Note that record "
@@ -124,7 +122,7 @@ public class RecordController {
       @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
       @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false)
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-      @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestPart MultipartFile recordsZipFile) {
+      @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestPart("recordsZipFile") MultipartFile recordsZipFile) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
         Objects.requireNonNullElseGet(dateStamp, Instant::now));
@@ -154,7 +152,6 @@ public class RecordController {
   @PutMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER,
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   @ApiOperation(value = "The header fields of the given record is updated.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or unknown record ID"),
       @ApiResponse(code = 500, message = "Error processing the record")})
@@ -193,7 +190,6 @@ public class RecordController {
   @GetMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID,
       produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   @ApiOperation(value = "The record is retrieved from the database.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Record ID is invalid or unknown"),
       @ApiResponse(code = 500, message = "Error processing the request")})
@@ -209,7 +205,6 @@ public class RecordController {
 
   @DeleteMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID)
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   @ApiOperation(value = "The record is deleted from the database. Note: this is not the same as "
       + "marking a record as deleted.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "Record ID is invalid or unknown"),

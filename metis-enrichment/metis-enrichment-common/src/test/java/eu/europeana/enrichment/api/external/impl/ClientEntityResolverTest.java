@@ -21,6 +21,8 @@ import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.definitions.model.Place;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -252,10 +254,10 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveById_Entity_Without_Parents() throws MalformedURLException {
+  void resolveById_Entity_Without_Parents() throws MalformedURLException, URISyntaxException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
-    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(PARENT_URI));
+    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
@@ -290,10 +292,10 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_Without_Parents() throws MalformedURLException {
+  void resolveByUri_Entity_Without_Parents() throws MalformedURLException, URISyntaxException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
-    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(PARENT_URI));
+    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
@@ -302,8 +304,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException {
-    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
+  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException, URISyntaxException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
     placeEntity.setIsPartOfArray(List.of(PARENT_URI));
@@ -318,8 +320,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK() throws MalformedURLException {
-    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_SAME_AS_URI));
+  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_SAME_AS_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
     placeEntity.setIsPartOfArray(List.of(PARENT_URI));
@@ -335,8 +337,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws MalformedURLException {
-    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
+  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
     placeEntity.setIsPartOfArray(List.of(PARENT_URI));

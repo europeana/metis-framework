@@ -12,7 +12,7 @@ import eu.europeana.metis.authentication.user.UserIdParameter;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Contains all the calls that are related to user authentication.
@@ -38,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
-@Controller
+@RestController
 public class AuthenticationController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
@@ -67,7 +68,7 @@ public class AuthenticationController {
    * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
    * while constructing the user.</li>
    * <li>{@link NoUserFoundException} if the user was not found in the remote CRM.</li>
-   * <li>{@link UserAlreadyExistsException} if the user already exists in the system.</li>
+   * <li>{@link UserAlreadyRegisteredException} if the user already exists in the system.</li>
    * </ul>
    */
   @PostMapping(value = RestEndpoints.AUTHENTICATION_REGISTER)
@@ -186,43 +187,6 @@ public class AuthenticationController {
       LOGGER.info("User with email: {} deleted",
           CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
     }
-  }
-
-  /**
-   * Update a user by re-retrieving the user from the remote CRM.
-   *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
-   * accessTokenHere </p>
-   * @param emailParameter the class that contains the email parameter to act upon
-   * @return updated {@link MetisUserView}
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
-   * cannot be authenticated or the user is unauthorized.</li>
-   * </ul>
-   */
-  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
-  public MetisUserView updateUser(@RequestHeader("Authorization") String authorization,
-      @RequestBody EmailParameter emailParameter)
-      throws GenericMetisException {
-    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
-      throw new BadContentException("email parameter is empty");
-    }
-    String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);
-    if (!authenticationService
-        .hasPermissionToRequestUserUpdate(accessToken, emailParameter.getEmail())) {
-      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
-    }
-    MetisUserView metisUserView = authenticationService.updateUserFromZoho(emailParameter.getEmail());
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated",
-          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
-    }
-    return metisUserView;
   }
 
   /**

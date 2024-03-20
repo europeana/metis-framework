@@ -5,6 +5,7 @@ import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
+import eu.europeana.corelib.definitions.edm.model.metainfo.ThreeDMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.VideoMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.indexing.mongo.property.MongoObjectManager;
@@ -19,7 +20,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,6 +141,16 @@ public class WebResourceMetaInfoUpdater extends
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getFrameRate));
       propertyUpdater.updateObject("videoMetaInfo.duration",
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getDuration));
+    }
+
+    // 3D info
+    if (!propertyUpdater.removeObjectIfNecessary("threeDMetaInfo",
+        WebResourceMetaInfoImpl::getThreeDMetaInfo)) {
+      propertyUpdater.updateString("threeDMetaInfo.mimeType",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getMimeType));
+      propertyUpdater.updateObject("threeDMetaInfo.fileSize",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getFileSize));
+
     }
   }
 

@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * Enumeration that holds the different vocabularies supported for enrichment

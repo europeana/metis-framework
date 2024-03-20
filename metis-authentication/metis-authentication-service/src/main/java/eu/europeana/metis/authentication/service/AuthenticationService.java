@@ -1,24 +1,17 @@
 package eu.europeana.metis.authentication.service;
 
-import com.zoho.crm.api.record.Record;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.CommonStringValues;
-import eu.europeana.metis.zoho.OrganizationRole;
-import eu.europeana.metis.zoho.ZohoAccessClient;
-import eu.europeana.metis.zoho.ZohoConstants;
-import eu.europeana.metis.zoho.ZohoException;
-import eu.europeana.metis.zoho.ZohoUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -27,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
@@ -43,28 +37,36 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
 
+  public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
+      "Could not convert internal user");
   private static final int LOG_ROUNDS = 13;
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
   @SuppressWarnings("java:S6418") // It is not an actual token
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private static final Pattern TOKEN_MATCHING_PATTERN = Pattern.compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
-  public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
-      "Could not convert internal user");
   private final PsqlMetisUserDao psqlMetisUserDao;
-  private final ZohoAccessClient zohoAccessClient;
+
 
   /**
    * Constructor of class with required parameters
    *
    * @param psqlMetisUserDao the psql object to access postgres database
-   * @param zohoAccessClient the object to communicate with Zoho
    */
   @Autowired
-  public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao,
-      ZohoAccessClient zohoAccessClient) {
+  public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao) {
     this.psqlMetisUserDao = psqlMetisUserDao;
-    this.zohoAccessClient = zohoAccessClient;
+
+  }
+
+  private static MetisUserView convert(MetisUser metisUser) throws BadContentException {
+    return Optional.ofNullable(metisUser).map(MetisUserView::new)
+                   .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+  }
+
+  private static List<MetisUserView> convert(List<MetisUser> records) {
+    return Optional.ofNullable(records).stream().flatMap(Collection::stream).map(MetisUserView::new)
+                   .toList();
   }
 
   /**
@@ -74,119 +76,26 @@ public class AuthenticationService {
    * @param password the password of the user
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if any other problem occurred while constructing the
-   * user.</li>
+   * <li>{@link UserAlreadyRegisteredException} the user is already registered, the password is already set.</li>
    * <li>{@link NoUserFoundException} if user was not found in the system.</li>
-   * <li>{@link UserAlreadyExistsException} if user with the same email already exists in the
-   * system.</li>
    * </ul>
    */
   public void registerUser(String email, String password) throws GenericMetisException {
-
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (Objects.nonNull(storedMetisUser)) {
-      throw new UserAlreadyExistsException(
-          String.format("User with email: %s already exists", email));
-    }
-
-    MetisUser metisUser = constructMetisUserFromZoho(email);
-    String hashedPassword = generatePasswordHashing(password);
-    metisUser.setPassword(hashedPassword);
-
-    psqlMetisUserDao.createMetisUser(metisUser);
-  }
-
-  /**
-   * Re-fetches a user by email from the remote CRM and updates its information in the system.
-   *
-   * @param email the email to check for updating
-   * @return the updated {@link MetisUserView}
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link BadContentException} if any other problem occurred while constructing the
-   * user.</li>
-   * <li>{@link NoUserFoundException} if the user was not found in the system.</li>
-   * </ul>
-   */
-  public MetisUserView updateUserFromZoho(String email) throws GenericMetisException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (Objects.isNull(storedMetisUser)) {
-      throw new NoUserFoundException(String.format("User with email: %s does not exist", email));
+      throw new NoUserFoundException(String.format("User with email: %s doesn't exist", email));
+    }
+    if (storedMetisUser.getPassword() != null) {
+      throw new UserAlreadyRegisteredException(String.format("User with email: %s already exists", email));
+    }
+    if (storedMetisUser.getUserId() == null) {
+      final long genId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+      storedMetisUser.setUserId(Long.toString(genId));
     }
 
-    MetisUser metisUser = constructMetisUserFromZoho(email);
-    //Keep previous information, that are not in Zoho
-    metisUser.setPassword(storedMetisUser.getPassword());
-    metisUser.setMetisUserAccessToken(storedMetisUser.getMetisUserAccessToken());
-    if (storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
-      metisUser.setAccountRole(AccountRole.METIS_ADMIN);
-    }
+    storedMetisUser.setPassword(generatePasswordHashing(password));
 
-    psqlMetisUserDao.updateMetisUser(metisUser);
-    return convert(storedMetisUser);
-  }
-
-  private MetisUser constructMetisUserFromZoho(String email) throws GenericMetisException {
-    //Get user from zoho
-    final Optional<Record> zohoRecord;
-    try {
-      zohoRecord = zohoAccessClient.getZohoRecordContactByEmail(email);
-    } catch (ZohoException e) {
-      throw new GenericMetisException("Could not retrieve Zoho user", e);
-    }
-    if (zohoRecord.isEmpty()) {
-      throw new NoUserFoundException("User was not found in Zoho");
-    }
-
-    //Construct User
-    MetisUser metisUser = ZohoMetisUserUtils
-        .checkZohoFieldsAndPopulateMetisUser(zohoRecord.get());
-
-    if (StringUtils.isBlank(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
-        || metisUser.getAccountRole() == null) {
-      throw new BadContentException(
-          "Bad content while constructing metisUser, user does not have all the "
-              + "required fields defined properly in Zoho(Organization Name, Metis user, Account Role)");
-    }
-
-    //Check if organization role is valid
-    checkMetisUserOrganizationRole(metisUser);
-
-    return metisUser;
-  }
-
-  private void checkMetisUserOrganizationRole(MetisUser metisUser) throws BadContentException {
-    final Optional<Record> recordOrganization;
-    try {
-      recordOrganization = zohoAccessClient
-          .getZohoRecordOrganizationByName(metisUser.getOrganizationName());
-    } catch (ZohoException e) {
-      throw new BadContentException("Could not retrieve Zoho organization", e);
-    }
-    if (recordOrganization.isEmpty()) {
-      throw new BadContentException("Organization Role from Zoho is empty");
-    }
-    final List<String> organizationRoleStringList = ZohoUtils.stringListSupplier(
-        recordOrganization.get().getKeyValue(ZohoConstants.ORGANIZATION_ROLE_FIELD));
-
-    OrganizationRole organizationRole = null;
-    for (String organizationRoleString : organizationRoleStringList) {
-      organizationRole = OrganizationRole.getRoleFromName(organizationRoleString);
-      if (organizationRole != null) {
-        break;
-      }
-    }
-    if (organizationRole == null) {
-      throw new BadContentException("Organization Role from Zoho is empty");
-    }
-  }
-
-  private String generatePasswordHashing(String password) {
-    return BCrypt.hashpw(password, BCrypt.gensalt(LOG_ROUNDS));
-  }
-
-  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry) {
-    return BCrypt.checkpw(passwordToTry, metisUser.getPassword());
+    psqlMetisUserDao.updateMetisUser(storedMetisUser);
   }
 
   /**
@@ -243,33 +152,6 @@ public class AuthenticationService {
     if (accessToken.length() != ACCESS_TOKEN_LENGTH || !TOKEN_MATCHING_PATTERN.matcher(accessToken)
                                                                               .matches()) {
       throw new UserUnauthorizedException("Access token invalid");
-    }
-    return accessToken;
-  }
-
-  private Credentials decodeAuthorizationHeaderWithCredentials(String authorization) {
-    Credentials credentials = null;
-    if (Objects.nonNull(authorization) && authorization.startsWith("Basic")) {
-      // Authorization: Basic base64credentials
-      String base64Credentials = authorization.substring("Basic".length()).trim();
-      String credentialsString = new String(Base64.getDecoder().decode(base64Credentials),
-          StandardCharsets.UTF_8);
-      // credentials = username:password
-      String[] splitCredentials = credentialsString.split(":", CREDENTIAL_FIELDS_NUMBER);
-      if (splitCredentials.length == CREDENTIAL_FIELDS_NUMBER) {
-        credentials = new Credentials(splitCredentials[0], splitCredentials[1]);
-      }
-    }
-    return credentials;
-  }
-
-  private String decodeAuthorizationHeaderWithAccessToken(String authorization) {
-    final String accessToken;
-    if (Objects.nonNull(authorization) && authorization.startsWith("Bearer")) {
-      // Authorization: Bearer accessToken
-      accessToken = authorization.substring("Bearer".length()).trim();
-    } else {
-      accessToken = "";
     }
     return accessToken;
   }
@@ -370,16 +252,6 @@ public class AuthenticationService {
                                                                                              storedMetisUserToUpdate.getEmail());
   }
 
-  String generateAccessToken() {
-    final SecureRandom rnd = new SecureRandom();
-    StringBuilder sb = new StringBuilder(ACCESS_TOKEN_LENGTH);
-    for (int i = 0; i < ACCESS_TOKEN_LENGTH; i++) {
-      sb.append(ACCESS_TOKEN_CHARACTER_BASKET
-          .charAt(rnd.nextInt(ACCESS_TOKEN_CHARACTER_BASKET.length())));
-    }
-    return sb.toString();
-  }
-
   /**
    * Checks and removes access tokens in the system based on the current date.
    */
@@ -428,15 +300,6 @@ public class AuthenticationService {
     return convert(authenticateUserInternal(accessToken));
   }
 
-  private MetisUser authenticateUserInternal(String accessToken) throws GenericMetisException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
-    if (Objects.isNull(storedMetisUser)) {
-      throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
-    psqlMetisUserDao.updateAccessTokenTimestampByAccessToken(accessToken);
-    return storedMetisUser;
-  }
-
   /**
    * Checks if a user, using an access token, has permission to request a list of all the users.
    *
@@ -479,14 +342,58 @@ public class AuthenticationService {
     return convert(psqlMetisUserDao.getAllMetisUsers());
   }
 
-  private static MetisUserView convert(MetisUser metisUser) throws BadContentException {
-    return Optional.ofNullable(metisUser).map(MetisUserView::new)
-                   .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+  private String generatePasswordHashing(String password) {
+    return BCrypt.hashpw(password, BCrypt.gensalt(LOG_ROUNDS));
   }
 
-  private static List<MetisUserView> convert(List<MetisUser> records) {
-    return Optional.ofNullable(records).stream().flatMap(Collection::stream).map(MetisUserView::new)
-                   .toList();
+  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry) {
+    return BCrypt.checkpw(passwordToTry, metisUser.getPassword());
+  }
+
+  private Credentials decodeAuthorizationHeaderWithCredentials(String authorization) {
+    Credentials credentials = null;
+    if (Objects.nonNull(authorization) && authorization.startsWith("Basic")) {
+      // Authorization: Basic base64credentials
+      String base64Credentials = authorization.substring("Basic".length()).trim();
+      String credentialsString = new String(Base64.getDecoder().decode(base64Credentials),
+          StandardCharsets.UTF_8);
+      // credentials = username:password
+      String[] splitCredentials = credentialsString.split(":", CREDENTIAL_FIELDS_NUMBER);
+      if (splitCredentials.length == CREDENTIAL_FIELDS_NUMBER) {
+        credentials = new Credentials(splitCredentials[0], splitCredentials[1]);
+      }
+    }
+    return credentials;
+  }
+
+  private String decodeAuthorizationHeaderWithAccessToken(String authorization) {
+    final String accessToken;
+    if (Objects.nonNull(authorization) && authorization.startsWith("Bearer")) {
+      // Authorization: Bearer accessToken
+      accessToken = authorization.substring("Bearer".length()).trim();
+    } else {
+      accessToken = "";
+    }
+    return accessToken;
+  }
+
+  private MetisUser authenticateUserInternal(String accessToken) throws GenericMetisException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
+    if (Objects.isNull(storedMetisUser)) {
+      throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN);
+    }
+    psqlMetisUserDao.updateAccessTokenTimestampByAccessToken(accessToken);
+    return storedMetisUser;
+  }
+
+  String generateAccessToken() {
+    final SecureRandom rnd = new SecureRandom();
+    StringBuilder sb = new StringBuilder(ACCESS_TOKEN_LENGTH);
+    for (int i = 0; i < ACCESS_TOKEN_LENGTH; i++) {
+      sb.append(ACCESS_TOKEN_CHARACTER_BASKET
+          .charAt(rnd.nextInt(ACCESS_TOKEN_CHARACTER_BASKET.length())));
+    }
+    return sb.toString();
   }
 }
 

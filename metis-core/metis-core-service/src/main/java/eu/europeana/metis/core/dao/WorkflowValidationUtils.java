@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import org.apache.http.client.utils.URIBuilder;
+import org.apache.hc.core5.net.URIBuilder;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -211,7 +211,9 @@ public class WorkflowValidationUtils {
       throw new BadContentException("Harvesting parameters are missing");
     }
     try {
-      return new URL(urlString.trim()).toURI();
+      final URI uri = new URI(urlString.trim());
+      uri.toURL();
+      return uri;
     } catch (MalformedURLException | URISyntaxException e) {
       throw new BadContentException("Harvesting parameters are invalid", e);
     }

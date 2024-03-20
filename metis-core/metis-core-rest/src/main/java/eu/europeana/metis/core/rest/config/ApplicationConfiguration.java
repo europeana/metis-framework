@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.ecloud.EcloudConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
@@ -68,14 +68,13 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
     ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class, MongoConfigurationProperties.class,
     MetisCoreConfigurationProperties.class, EcloudConfigurationProperties.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
-public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationContextAware {
+public class ApplicationConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final MongoClient mongoClient;
 
   @Value(value = "classpath:default_transformation.xslt")
   private Resource defaultTransformation;
-  private ApplicationContext applicationContext;
 
   /**
    * Autowired constructor for Spring Configuration class.
@@ -89,18 +88,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
     this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
   }
-
-  /**
-   * Set the application context.
-   *
-   * @param applicationContext the application context
-   * @throws BeansException if a beans exception occurs
-   */
-  @Override
-  public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
-  }
-
 
   /**
    * This method performs the initializing tasks for the application.
@@ -133,14 +120,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
         mongoConfigurationProperties.getApplicationName());
 
     return new MongoClientProvider<>(mongoProperties).createMongoClient();
-  }
-
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    MetisCoreConfigurationProperties metisCoreConfigurationProperties =
-        applicationContext.getBean(MetisCoreConfigurationProperties.class);
-    registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-            .allowedOrigins(metisCoreConfigurationProperties.getAllowedCorsHosts());
   }
 
   @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
@@ -270,12 +249,5 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
   @Bean
   public ViewResolver viewResolver() {
     return new BeanNameViewResolver();
-  }
-
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
-    converters.add(new MappingJackson2XmlHttpMessageConverter());
-    converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
   }
 }

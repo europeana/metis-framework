@@ -21,7 +21,7 @@ public class LanguageCodeConverter {
   static {
     HashSet<String> all2CodeLanguages = new HashSet<>();
     Map<String, String> all3CodeLanguages = new HashMap<>();
-    Arrays.stream(Locale.getISOLanguages()).map(Locale::new).forEach(locale -> {
+    Arrays.stream(Locale.getISOLanguages()).map(Locale::of).forEach(locale -> {
       all2CodeLanguages.add(locale.getLanguage());
       all3CodeLanguages.put(locale.getISO3Language(), locale.getLanguage());
     });

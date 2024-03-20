@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Exception when a user already exists on the underlying database.
+ * Exception when a user already registered on the underlying database.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-30
  */
-@ResponseStatus(value = HttpStatus.CONFLICT, reason = "User Already Exists")
-public class UserAlreadyExistsException extends GenericMetisException {
+@ResponseStatus(value = HttpStatus.CONFLICT, reason = "User already registered")
+public class UserAlreadyRegisteredException extends GenericMetisException {
 
   private static final long serialVersionUID = -3332292346834265371L;
 
@@ -20,7 +20,7 @@ public class UserAlreadyExistsException extends GenericMetisException {
    * @param message the detail message. The detail message is saved for later retrieval by the
    * {@link #getMessage()} method.
    */
-  public UserAlreadyExistsException(String message) {
+  public UserAlreadyRegisteredException(String message) {
     super(message);
   }
 }

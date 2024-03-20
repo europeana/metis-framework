@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  * {@link ExternalTaskException}
  * {@link GenericMetisException}
  * {@link NoUserFoundException}
- * {@link UserAlreadyExistsException}
+ * {@link UserAlreadyRegisteredException}
  * {@link UserUnauthorizedException}
  * {@link StructuredExceptionWrapper}
  *
@@ -70,7 +70,7 @@ class UtilsExceptionTest {
 
   @Test
   void testUserAlreadyExistsException() {
-    UserAlreadyExistsException actualException = assertThrows(UserAlreadyExistsException.class,
+    UserAlreadyRegisteredException actualException = assertThrows(UserAlreadyRegisteredException.class,
         UtilsThrower::throwUserAlreadyExistsException);
     assertEquals("User already exists", actualException.getMessage());
   }
@@ -138,8 +138,8 @@ class UtilsExceptionTest {
       throw new NoUserFoundException("No user found");
     }
 
-    public static void throwUserAlreadyExistsException() throws UserAlreadyExistsException {
-      throw new UserAlreadyExistsException("User already exists");
+    public static void throwUserAlreadyExistsException() throws UserAlreadyRegisteredException {
+      throw new UserAlreadyRegisteredException("User already exists");
     }
 
     public static void throwUserUnauthorizedException() throws UserUnauthorizedException {

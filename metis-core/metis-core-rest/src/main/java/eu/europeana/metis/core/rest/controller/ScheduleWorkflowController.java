@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Contains all the calls that are related to scheduling workflows.
@@ -39,7 +40,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-05
  */
-@Controller
+@RestController
 public class ScheduleWorkflowController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleWorkflowController.class);
