@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 
 
@@ -93,7 +92,7 @@ class MimeTypeDetectHttpClientTest {
     }
 
     @Test
-    void download_returnProvidedMimeType_expectSuccess() throws IOException, URISyntaxException {
+    void download_returnProvidedStlMimeType_expectSuccess() throws IOException, URISyntaxException {
         // given
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/Cube_3d_printing_sample.stl")) {
             byte[] fileBytes = inputStream.readAllBytes();
