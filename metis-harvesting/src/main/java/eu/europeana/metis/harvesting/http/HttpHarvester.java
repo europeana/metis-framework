@@ -1,9 +1,13 @@
 package eu.europeana.metis.harvesting.http;
 
+import eu.europeana.metis.harvesting.FullRecord;
+import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.function.Consumer;
 
 /**
@@ -40,29 +44,47 @@ public interface HttpHarvester {
 
   /**
    * It creates a {@link HttpRecordIterator} with a InputStream into a temporary file directory. When finished using the created
-   * iterator, the method {@link HttpRecordIterator#deleteIteratorContent()} should be used to clean up leftover files.
+   * iterator, the iterator should be closed to clean up leftover files.
    *
    * @param input The input stream from which we create the iterator
    * @param compressedFileType The type of compressed file type
    * @return A HttpRecordIterator based on a temporary file location
    * @throws HarvesterException In case there is an issue while using the input stream
    */
-  HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType)
-      throws HarvesterException;
+  HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input,
+      CompressedFileExtension compressedFileType) throws HarvesterException;
+
+  /**
+   * It creates a {@link HarvestingIterator} with a InputStream into a temporary file directory. When finished using the created
+   * iterator, the iterator should be closed to clean up leftover files.
+   *
+   * @param input The input stream from which we create the iterator
+   * @param compressedFileType The type of compressed file type
+   * @return A HttpRecordIterator based on a temporary file location
+   * @throws HarvesterException In case there is an issue while using the input stream
+   */
+  FullRecordHarvestingIterator<ArchiveEntry, Path> createFullRecordHarvestIterator(InputStream input,
+      CompressedFileExtension compressedFileType) throws HarvesterException;
 
   /**
    * An object representing an entry in a file archive.
    */
-  interface ArchiveEntry {
+  interface ArchiveEntry extends FullRecord {
 
     /**
      * @return The name of the entry. This is the file name (including extension, excluding the path).
+     * @deprecated Use {@link #getHarvestingIdentifier()} instead.
      */
-    String getEntryName();
+    @Deprecated
+    default String getEntryName() {
+      return getHarvestingIdentifier();
+    }
 
     /**
      * @return The content of the entry (in memory).
+     * @deprecated Use {@link #getContent()} instead.
      */
+    @Deprecated
     ByteArrayInputStream getEntryContent();
   }
 }

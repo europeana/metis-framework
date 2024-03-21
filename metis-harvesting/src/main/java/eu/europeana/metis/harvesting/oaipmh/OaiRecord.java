@@ -1,5 +1,6 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
+import eu.europeana.metis.harvesting.FullRecord;
 import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -8,7 +9,7 @@ import java.util.function.Supplier;
 /**
  * This is a immutable class representing an (OAI-embedded) record along with it's OAI header.
  */
-public class OaiRecord {
+public class OaiRecord implements FullRecord {
 
   private final OaiRecordHeader header;
   private final byte[] record;
@@ -28,16 +29,24 @@ public class OaiRecord {
     return header;
   }
 
-  /**
-   * Makes the embedded record available.
-   *
-   * @return An input stream containing the record. The caller needs to close it after use.
-   * @throws HarvesterException In case the record is marked as deleted.
-   */
-  public InputStream getRecord() throws HarvesterException {
+  @Override
+  public String getHarvestingIdentifier() {
+    return getHeader().getOaiIdentifier();
+  }
+
+  @Override
+  public InputStream getContent() throws HarvesterException {
     if (getHeader().isDeleted()) {
       throw new HarvesterException("The record is deleted.");
     }
     return new ByteArrayInputStream(record);
+  }
+
+  /**
+   * @deprecated use {@link #getContent()} instead.
+   */
+  @Deprecated
+  public InputStream getRecord() throws HarvesterException {
+    return getContent();
   }
 }
