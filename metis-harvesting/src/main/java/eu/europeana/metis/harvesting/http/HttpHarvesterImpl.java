@@ -271,6 +271,11 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     @Override
+    public void forEachNonDeleted(ReportingIteration<R> action) throws HarvesterException {
+      forEach(action);
+    }
+
+    @Override
     public Integer countRecords() throws HarvesterException {
       // Go by each path only: no need to inspect the full file.
       final AtomicInteger counter = new AtomicInteger(0);

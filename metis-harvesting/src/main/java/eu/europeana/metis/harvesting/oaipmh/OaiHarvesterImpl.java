@@ -118,7 +118,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   @Override
   public Integer countRecords(OaiHarvest harvest) throws HarvesterException {
-    try (OaiRecordHeaderIterator iterator = harvestRecordHeaders(harvest)) {
+    try (HarvestingIterator<?, ?> iterator = harvestRecordHeaders(harvest)) {
       return iterator.countRecords();
     } catch (IOException e) {
       throw new HarvesterException("Problem while closing iterator.", e);
@@ -257,6 +257,11 @@ public class OaiHarvesterImpl implements OaiHarvester {
       } catch (RuntimeException e) {
         throw new HarvesterException("Problem while iterating through OAI headers.", e);
       }
+    }
+
+    @Override
+    public void forEachNonDeleted(ReportingIteration<R> action) throws HarvesterException {
+      forEachFiltered(action, Predicate.not(OaiRecordHeader::isDeleted));
     }
 
     @Override
