@@ -40,7 +40,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.apache.tika.Tika;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ class MediaExtractorImplTest {
   private static ResourceDownloadClient resourceDownloadClient;
   private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private static CommandExecutor commandExecutor;
-  private static Tika tika;
+  private static TikaWrapper tika;
 
   private static ImageProcessor imageProcessor;
   private static AudioVideoProcessor audioVideoProcessor;
@@ -65,13 +64,13 @@ class MediaExtractorImplTest {
     resourceDownloadClient = mock(ResourceDownloadClient.class);
     mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
     commandExecutor = mock(CommandExecutor.class);
-    tika = mock(Tika.class);
+    tika = mock(TikaWrapper.class);
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
     media3dProcessor = mock(Media3dProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        new TikaWrapper(), imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
+        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
   }
 
   @BeforeEach
