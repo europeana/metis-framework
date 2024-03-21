@@ -1,12 +1,14 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+
+import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -57,24 +59,15 @@ public class OaiHarvesterImpl implements OaiHarvester {
   }
 
   @Override
-  public OaiRecordHeaderIterator harvestRecordHeaders(OaiHarvest harvest)
-          throws HarvesterException {
-    final ListIdentifiersParameters parameters = prepareListIdentifiersParameters(harvest);
-    final Iterator<Header> iterator;
-    final CloseableOaiClient client = connectionClientFactory.createConnectionClient(
-            harvest.getRepositoryUrl());
-    try {
-      iterator = new ServiceProvider(new Context().withOAIClient(client))
-              .listIdentifiers(parameters);
-    } catch (RuntimeException | BadArgumentException e) {
-      try {
-        client.close();
-      } catch (IOException ioException) {
-        LOGGER.info("Could not close connection client.", ioException);
-      }
-      throw new HarvesterException(e.getMessage(), e);
-    }
-    return new HeaderIterator(iterator, client);
+  public OaiRecordHeaderIterator harvestRecordHeaders(OaiHarvest harvest) {
+    return new RecordHeaderIterator(connectionClientFactory.createConnectionClient(
+        harvest.getRepositoryUrl()), harvest);
+  }
+
+  @Override
+  public FullRecordHarvestingIterator<OaiRecord, OaiRecordHeader> harvestRecords(OaiHarvest harvest) {
+    return new FullRecordIterator(connectionClientFactory.createConnectionClient(
+        harvest.getRepositoryUrl()), harvest);
   }
 
   private static ListIdentifiersParameters prepareListIdentifiersParameters(OaiHarvest harvest) {
@@ -95,41 +88,44 @@ public class OaiHarvesterImpl implements OaiHarvester {
   @Override
   public OaiRecord harvestRecord(OaiRepository repository, String oaiIdentifier)
           throws HarvesterException {
-    final GetRecordParameters getRecordParameters = GetRecordParameters.request()
-            .withIdentifier(oaiIdentifier).withMetadataFormatPrefix(repository.getMetadataPrefix());
-    final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
-            .include(getRecordParameters);
-    final byte[] byteArrayRecord;
-    try (final CloseableOaiClient oaiClient = connectionClientFactory
-            .createConnectionClient(repository.getRepositoryUrl());
-            final InputStream recordStream = performThrowingFunction(oaiClient,
-                    client -> client.execute(parameters))) {
-      byteArrayRecord = IOUtils.toByteArray(recordStream);
-    } catch (OAIRequestException | IOException e) {
+     try (final CloseableOaiClient oaiClient = connectionClientFactory
+            .createConnectionClient(repository.getRepositoryUrl())) {
+      return harvestRecord(oaiClient, repository, oaiIdentifier);
+    } catch (IOException e) {
       throw new HarvesterException(String.format(
               "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
               oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
+    }
+  }
+
+  private static OaiRecord harvestRecord(CloseableOaiClient oaiClient, OaiRepository repository,
+      String oaiIdentifier) throws HarvesterException {
+    final GetRecordParameters getRecordParameters = GetRecordParameters.request()
+        .withIdentifier(oaiIdentifier).withMetadataFormatPrefix(repository.getMetadataPrefix());
+    final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
+        .include(getRecordParameters);
+    final byte[] byteArrayRecord;
+    try (final InputStream recordStream = performThrowingFunction(oaiClient,
+            client -> client.execute(parameters))) {
+      byteArrayRecord = IOUtils.toByteArray(recordStream);
+    } catch (OAIRequestException | IOException e) {
+      throw new HarvesterException(String.format(
+          "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
+          oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
     }
     return new OaiRecordParser().parseOaiRecord(byteArrayRecord);
   }
 
   @Override
   public Integer countRecords(OaiHarvest harvest) throws HarvesterException {
-    final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.ListIdentifiers)
-            .include(prepareListIdentifiersParameters(harvest));
-    try (final CloseableOaiClient oaiClient = connectionClientFactory
-            .createConnectionClient(harvest.getRepositoryUrl());
-            final InputStream listIdentifiersResponse = performThrowingFunction(oaiClient,
-                    client -> client.execute(parameters))) {
-      return readCompleteListSizeFromXML(listIdentifiersResponse);
-    } catch (OAIRequestException | IOException e) {
-      throw new HarvesterException(String.format(
-              "Problem with counting records for endpoint %1$s because of: %2$s",
-              harvest.getRepositoryUrl(), e.getMessage()), e);
+    try (OaiRecordHeaderIterator iterator = harvestRecordHeaders(harvest)) {
+      return iterator.countRecords();
+    } catch (IOException e) {
+      throw new HarvesterException("Problem while closing iterator.", e);
     }
   }
 
-  private Integer readCompleteListSizeFromXML(InputStream stream) throws HarvesterException {
+  private static Integer readCompleteListSizeFromXML(InputStream stream) throws HarvesterException {
     final XPathExpression expr;
     try {
       final XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -168,34 +164,92 @@ public class OaiHarvesterImpl implements OaiHarvester {
     CloseableOaiClient createConnectionClient(String oaiPmhEndpoint);
   }
 
+  private static class RecordHeaderIterator extends OaiHarvestingIterator<OaiRecordHeader>
+      implements OaiRecordHeaderIterator {
+
+    public RecordHeaderIterator(CloseableOaiClient oaiClient, OaiHarvest harvest) {
+      super(oaiClient, harvest);
+    }
+
+    @Override
+    public void forEachFiltered(ReportingIteration<OaiRecordHeader> action,
+        Predicate<OaiRecordHeader> filter) throws HarvesterException {
+      forEachHeaderFiltered(action, filter);
+    }
+  }
+
+  private static class FullRecordIterator extends OaiHarvestingIterator<OaiRecord>
+      implements FullRecordHarvestingIterator<OaiRecord, OaiRecordHeader> {
+
+    public FullRecordIterator(CloseableOaiClient oaiClient, OaiHarvest harvest) {
+      super(oaiClient, harvest);
+    }
+
+    @Override
+    public void forEachFiltered(ReportingIteration<OaiRecord> action,
+        Predicate<OaiRecordHeader> filter) throws HarvesterException {
+      forEachRecordFiltered(action, filter);
+    }
+  }
+
   /**
    * Iterator for harvesting. It wraps a source iterator and provides additional closing
    * functionality for the connection client.
    */
-  private static class HeaderIterator implements OaiRecordHeaderIterator {
+  private static abstract class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader> {
 
-    private final Iterator<Header> source;
+    private Iterator<Header> source = null;
     private final CloseableOaiClient oaiClient;
+    private final OaiHarvest harvest;
 
     /**
      * Constructor.
      *
-     * @param source The source iterator.
      * @param oaiClient The client to close when the iterator is closed.
+     * @param harvest The harvest request to execute.
      */
-    public HeaderIterator(Iterator<Header> source, CloseableOaiClient oaiClient) {
-      this.source = source;
+    public OaiHarvestingIterator(CloseableOaiClient oaiClient, OaiHarvest harvest) {
       this.oaiClient = oaiClient;
+      this.harvest = harvest;
     }
 
-    @Override
-    public void forEachFiltered(final ReportingIteration<OaiRecordHeader> action,
-            final Predicate<OaiRecordHeader> filter) throws HarvesterException {
-      final ReportingIterationWrapper singleIteration = new ReportingIterationWrapper(action,
-              filter);
+    private Iterator<Header> getOrCreateSource() throws HarvesterException {
+      if (this.source != null) {
+        return source;
+      }
+      final ListIdentifiersParameters parameters = prepareListIdentifiersParameters(harvest);
       try {
-        while (source.hasNext()) {
-          final IterationResult result = singleIteration.process(source.next());
+        this.source = new ServiceProvider(new Context().withOAIClient(this.oaiClient))
+            .listIdentifiers(parameters);
+      } catch (RuntimeException | BadArgumentException e) {
+        try {
+          this.close();
+        } catch (IOException ioException) {
+          LOGGER.info("Could not close connection client.", ioException);
+        }
+        throw new HarvesterException(e.getMessage(), e);
+      }
+      return this.source;
+    }
+
+    public void forEachRecordFiltered(final ReportingIteration<OaiRecord> action,
+        final Predicate<OaiRecordHeader> filter) throws HarvesterException {
+      final RecordPostProcessing<OaiRecord> postProcessing = header -> harvestRecord(oaiClient, harvest, header.getOaiIdentifier());
+      forEachWithPostProcessing(action, postProcessing, filter);
+    }
+
+    public void forEachHeaderFiltered(final ReportingIteration<OaiRecordHeader> action,
+        final Predicate<OaiRecordHeader> filter) throws HarvesterException {
+      forEachWithPostProcessing(action, header -> header, filter);
+    }
+
+    public <O> void forEachWithPostProcessing(final ReportingIteration<O> action,
+            final RecordPostProcessing<O> postProcessing, final Predicate<OaiRecordHeader> filter)
+        throws HarvesterException {
+      final SingleIteration<O> singleIteration = new SingleIteration<>(filter, postProcessing, action);
+      try {
+        while (getOrCreateSource().hasNext()) {
+          final IterationResult result = singleIteration.process(getOrCreateSource().next());
           if (IterationResult.TERMINATE == result) {
             break;
           }
@@ -206,30 +260,42 @@ public class OaiHarvesterImpl implements OaiHarvester {
     }
 
     @Override
+    public Integer countRecords() throws HarvesterException {
+      final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.ListIdentifiers)
+          .include(prepareListIdentifiersParameters(harvest));
+      try (final InputStream listIdentifiersResponse = performThrowingFunction(oaiClient,
+              client -> client.execute(parameters))) {
+        return readCompleteListSizeFromXML(listIdentifiersResponse);
+      } catch (OAIRequestException | IOException e) {
+        throw new HarvesterException(String.format(
+            "Problem with counting records for endpoint %1$s because of: %2$s",
+            harvest.getRepositoryUrl(), e.getMessage()), e);
+      }
+    }
+
+    @Override
     public void close() throws IOException {
       this.oaiClient.close();
     }
   }
 
-  private static class ReportingIterationWrapper implements ReportingIteration<Header> {
+  private interface RecordPostProcessing<O> {
 
-    private final ReportingIteration<OaiRecordHeader> action;
-    private final Predicate<OaiRecordHeader> filter;
-
-    public ReportingIterationWrapper(ReportingIteration<OaiRecordHeader> action,
-            Predicate<OaiRecordHeader> filter) {
-      this.action = action;
-      this.filter = filter;
-    }
-
-    @Override
-    public IterationResult process(Header input) {
-      final OaiRecordHeader header = OaiRecordHeader.convert(input);
-      if (filter.test(header)) {
-        return Optional.ofNullable(action.process(header)).orElseThrow(() ->
-                new IllegalArgumentException("Iteration result cannot be null."));
-      }
-      return IterationResult.CONTINUE;
-    }
+    O postProcess(OaiRecordHeader input) throws HarvesterException;
   }
+
+  private record SingleIteration<O>(Predicate<OaiRecordHeader> filter,
+                                    RecordPostProcessing<O> postProcessing,
+                                    ReportingIteration<O> action) {
+
+    public IterationResult process(Header input) throws HarvesterException {
+        final OaiRecordHeader header = OaiRecordHeader.convert(input);
+        if (filter.test(header)) {
+          return Optional.ofNullable(postProcessing.postProcess(header))
+              .map(action::process)
+              .orElseThrow(() -> new HarvesterException("Iteration result cannot be null."));
+        }
+        return IterationResult.CONTINUE;
+      }
+    }
 }
