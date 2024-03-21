@@ -32,6 +32,16 @@ public interface HarvestingIterator<R, C> extends Closeable {
   }
 
   /**
+   * Iterate through all non-deleted records. If the specific harvest type does not support
+   * identifying which records are deleted at source, this method will behave just like
+   * {@link #forEach(ReportingIteration)}. I.e. all records are assumed to not be deleted.
+   *
+   * @param action The iteration to perform. It needs to return a result.
+   * @throws HarvesterException In case there was a problem while harvesting.
+   */
+  void forEachNonDeleted(ReportingIteration<R> action) throws HarvesterException;
+
+  /**
    * Attempts to count the number of records. This method may make assumptions, and any result is
    * only indicative. Server requests or other IO operations may be performed in order to perform
    * this count, so this method is to be used sparingly.
