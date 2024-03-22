@@ -66,7 +66,7 @@ public class VocabularyCollectionImporterFactory {
     public Location resolve(String relativeLocation) throws BadContentException {
       try {
         return new UrlLocation(url.toURI().resolve(relativeLocation).toURL());
-      } catch (URISyntaxException | MalformedURLException e) {
+      } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
         throw new BadContentException(
             String.format("Provided url '%s' and relative location %s, failed to parse.", url, relativeLocation), e);
       }

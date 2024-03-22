@@ -5,6 +5,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performT
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -138,7 +139,13 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
 
     // Set up the connection.
     final String resourceUrl = getResourceUrl(link);
-    final HttpGet httpGet = new HttpGet(resourceUrl);
+    final HttpGet httpGet;
+    try {
+      httpGet = new HttpGet(resourceUrl);
+    } catch (IllegalArgumentException e) {
+      LOGGER.debug("Malformed URL", e);
+      throw new MalformedURLException(e.getMessage());
+    }
     requestHeaders.forEach(httpGet::setHeader);
     final HttpClientContext context = HttpClientContext.create();
 

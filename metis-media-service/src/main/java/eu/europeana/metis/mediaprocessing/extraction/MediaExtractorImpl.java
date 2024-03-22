@@ -160,7 +160,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       hasContent = resource.hasContent();
       detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
           : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
-    } catch (IOException e) {
+    } catch (IOException | IllegalArgumentException e) {
       throw new MediaExtractionException("Mime type checking error", e);
     }
 

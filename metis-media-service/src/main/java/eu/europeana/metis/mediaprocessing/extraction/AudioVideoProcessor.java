@@ -204,7 +204,7 @@ class AudioVideoProcessor implements MediaProcessor {
         .getActualLocation().toURL().openStream()) {
       mpd = parser.parse(inputStream);
 
-    } catch (IOException e) {
+    } catch (IOException | IllegalArgumentException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
 

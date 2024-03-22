@@ -69,7 +69,7 @@ public class DereferencerImpl implements Dereferencer {
     try {
       URI uri = new URI(id);
       return new URI(uri.toString()).toURL();
-    } catch (URISyntaxException | MalformedURLException e) {
+    } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
       reports.add(Report
           .buildDereferenceIgnore()
           .withStatus(HttpStatus.OK)
