@@ -223,23 +223,22 @@ public class HttpHarvesterImpl implements HttpHarvester {
     private final Path extractedDirectory;
 
     public HttpHarvestIterator(Path extractedDirectory) {
+      if (extractedDirectory == null) {
+        throw new IllegalStateException("Extracted directory is null. This should not happen.");
+      }
       this.extractedDirectory = extractedDirectory;
     }
 
     protected String getExtractedDirectory() {
-      return extractedDirectory != null ? extractedDirectory.toString() : "";
+      return extractedDirectory.toString();
     }
 
     @Override
     public void close() {
-      if (extractedDirectory != null) {
-        try {
-          FileUtils.deleteDirectory(extractedDirectory.toFile());
-        } catch (IOException e) {
-          LOGGER.warn("Could not delete directory.", e);
-        }
-      } else {
-        LOGGER.warn("Extracted directory undefined, nothing removed.");
+      try {
+        FileUtils.deleteDirectory(extractedDirectory.toFile());
+      } catch (IOException e) {
+        LOGGER.warn("Could not delete directory.", e);
       }
     }
 
@@ -257,7 +256,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       List<Pair<Path, Exception>> exception = new ArrayList<>(1);
       forEachPathFiltered(path -> {
         try (InputStream content = Files.newInputStream(path)) {
-          return action.process(new ArchiveEntryImpl(path.getFileName().toString(),
+          return action.process(new ArchiveEntryImpl(extractedDirectory.relativize(path).toString(),
               new ByteArrayInputStream(IOUtils.toByteArray(content))));
         } catch (IOException | RuntimeException e) {
           exception.add(new ImmutablePair<>(path, e));
@@ -330,17 +329,22 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  private record ArchiveEntryImpl(String entryName, ByteArrayInputStream entryContent)
+  private record ArchiveEntryImpl(String relativeFilePath, ByteArrayInputStream entryContent)
       implements ArchiveEntry {
 
     @Override
     public String getHarvestingIdentifier() {
-      return entryName;
+      return relativeFilePath;
     }
 
     @Override
     public ByteArrayInputStream getContent() {
       return entryContent;
+    }
+
+    @Override
+    public boolean isDeleted() {
+      return false;
     }
 
     @Override

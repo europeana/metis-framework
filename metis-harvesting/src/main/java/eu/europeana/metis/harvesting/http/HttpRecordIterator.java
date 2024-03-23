@@ -16,14 +16,11 @@ public interface HttpRecordIterator extends HarvestingIterator<Path, Path> {
   /**
    * Returns the extracted directory used to create the iterator if there is any
    *
-   * @deprecated (see TODO explanation)
-   *
-   * TODO JV This method is (I think) only used for computing the relative file path
-   *  (by way of harvesting ID) in the Sandbox. We should make that the return value of
-   *  {@link eu.europeana.metis.harvesting.http.HttpHarvester.ArchiveEntry#getHarvestingIdentifier()}
-   *  so that we don't have to expose this directory. It is also less of a security risk.
-   *
    * @return The extracted directory as a string if there is any, empty string if there is none
+   *
+   * @deprecated This method seems to be used only to compute the relative path of the file. Use
+   * {@link eu.europeana.metis.harvesting.http.HttpHarvester.ArchiveEntry#getHarvestingIdentifier()}
+   * instead.
    */
   @Deprecated
   String getExtractedDirectory();

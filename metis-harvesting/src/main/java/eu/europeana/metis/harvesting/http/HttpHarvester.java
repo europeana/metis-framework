@@ -67,7 +67,8 @@ public interface HttpHarvester {
       CompressedFileExtension compressedFileType) throws HarvesterException;
 
   /**
-   * An object representing an entry in a file archive.
+   * An object representing an entry in a file archive. The harvesting identifier is the file name
+   * (including the path relative to the archive root).
    */
   interface ArchiveEntry extends FullRecord {
 
@@ -77,7 +78,7 @@ public interface HttpHarvester {
      */
     @Deprecated
     default String getEntryName() {
-      return getHarvestingIdentifier();
+      return Path.of(getHarvestingIdentifier()).getFileName().toString();
     }
 
     /**
