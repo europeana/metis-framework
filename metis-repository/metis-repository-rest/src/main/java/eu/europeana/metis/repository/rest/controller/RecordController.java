@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -128,8 +127,13 @@ public class RecordController {
         Objects.requireNonNullElseGet(dateStamp, Instant::now));
     try (final InputStream inputStream = recordsZipFile.getInputStream()) {
       new HttpHarvesterImpl().harvestRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
-        final byte[] content = entry.getEntryContent().readAllBytes();
-        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getEntryName());
+        final byte[] content;
+        try (InputStream contentStream = entry.getContent()) {
+          content = contentStream.readAllBytes();
+        } catch (HarvesterException | IOException e) {
+          throw new IllegalStateException("Unexpected error while harvesting.", e);
+        }
+        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getHarvestingIdentifier());
         saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result, false);
       });
     } catch (IOException | HarvesterException | RuntimeException e) {

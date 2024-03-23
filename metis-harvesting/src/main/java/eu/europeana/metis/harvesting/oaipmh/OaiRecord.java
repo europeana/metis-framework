@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.util.function.Supplier;
 
 /**
- * This is a immutable class representing an (OAI-embedded) record along with it's OAI header.
+ * This is a immutable class representing an (OAI-embedded) record along with it's OAI header. The
+ * harvesting identifier is the OAI identifier.
  */
 public class OaiRecord implements FullRecord {
 
@@ -35,11 +36,16 @@ public class OaiRecord implements FullRecord {
   }
 
   @Override
-  public InputStream getContent() throws HarvesterException {
-    if (getHeader().isDeleted()) {
-      throw new HarvesterException("The record is deleted.");
+  public ByteArrayInputStream getContent() {
+    if (isDeleted()) {
+      throw new IllegalStateException("Record is deleted at source.");
     }
     return new ByteArrayInputStream(record);
+  }
+
+  @Override
+  public boolean isDeleted() {
+    return getHeader().isDeleted();
   }
 
   /**
