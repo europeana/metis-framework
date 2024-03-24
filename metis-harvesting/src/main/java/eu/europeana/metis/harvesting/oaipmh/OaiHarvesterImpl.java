@@ -4,6 +4,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performT
 
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvesterIOException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
@@ -249,9 +250,14 @@ public class OaiHarvesterImpl implements OaiHarvester {
       final SingleIteration<O> singleIteration = new SingleIteration<>(filter, postProcessing, action);
       try {
         while (getOrCreateSource().hasNext()) {
-          final IterationResult result = singleIteration.process(getOrCreateSource().next());
-          if (IterationResult.TERMINATE == result) {
-            break;
+          final Header header = Optional.of(getOrCreateSource().next())
+              .orElseThrow(() -> new HarvesterException("Unexpected null header."));
+          try {
+            if (singleIteration.process(header) == IterationResult.TERMINATE) {
+              break;
+            }
+          } catch (HarvesterIOException e) {
+            throw new HarvesterException("Problem while processing: " + header.getIdentifier(), e);
           }
         }
       } catch (RuntimeException e) {
@@ -293,11 +299,12 @@ public class OaiHarvesterImpl implements OaiHarvester {
                                     RecordPostProcessing<O> postProcessing,
                                     ReportingIteration<O> action) {
 
-    public IterationResult process(Header input) throws HarvesterException {
+    public IterationResult process(Header input) throws HarvesterException, HarvesterIOException {
         final OaiRecordHeader header = OaiRecordHeader.convert(input);
         if (filter.test(header)) {
-          return Optional.ofNullable(postProcessing.postProcess(header))
-              .map(action::process)
+          final O postProcessResult = Optional.ofNullable(postProcessing.postProcess(header))
+              .orElseThrow(() -> new HarvesterException("Post processing result cannot be null."));
+          return Optional.ofNullable(action.process(postProcessResult))
               .orElseThrow(() -> new HarvesterException("Iteration result cannot be null."));
         }
         return IterationResult.CONTINUE;

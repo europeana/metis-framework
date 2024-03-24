@@ -4,6 +4,7 @@ import eu.europeana.metis.harvesting.FullRecord;
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
+import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -39,6 +40,21 @@ public interface HttpHarvester {
    * @param action The action to be performed.
    * @throws HarvesterException In case there was an issue during the harvest.
    */
+  void harvestFullRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
+      ReportingIteration<ArchiveEntry> action) throws HarvesterException;
+
+  /**
+   * Harvest from HTTP (compressed archive). This is a convenience method for {@link #harvestRecords(String, String)} that copies
+   * the input stream to a temporary file (in the system's temporary directory) first. An attempt will be made to remove the
+   * temporary file before this method returns.
+   *
+   * @param inputStream The input stream containing the compressed archive.
+   * @param compressedFileType The type of the archive.
+   * @param action The action to be performed.
+   * @throws HarvesterException In case there was an issue during the harvest.
+   * @deprecated Use {@link #harvestFullRecords(InputStream, CompressedFileExtension, ReportingIteration)} instead.
+   */
+  @Deprecated
   void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
       Consumer<ArchiveEntry> action) throws HarvesterException;
 
