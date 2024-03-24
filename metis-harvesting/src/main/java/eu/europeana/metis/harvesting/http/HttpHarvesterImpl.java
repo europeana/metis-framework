@@ -6,6 +6,7 @@ import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvesterIOException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
@@ -26,9 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -37,8 +36,6 @@ import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,18 +49,23 @@ public class HttpHarvesterImpl implements HttpHarvester {
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
   @Override
-  public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
-      Consumer<ArchiveEntry> action) throws HarvesterException {
-
-    // Now perform the harvesting - go by each file.
+  public void harvestFullRecords(InputStream inputStream,
+      CompressedFileExtension compressedFileType, ReportingIteration<ArchiveEntry> action)
+      throws HarvesterException {
     try (final HarvestingIterator<ArchiveEntry, Path> iterator = createFullRecordHarvestIterator(inputStream, compressedFileType)) {
-      iterator.forEach(file -> {
-        action.accept(file);
-        return IterationResult.CONTINUE;
-      });
+      iterator.forEach(action);
     } catch (IOException e) {
       throw new HarvesterException("Could not clean up.", e);
     }
+  }
+
+  @Override
+  public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
+      Consumer<ArchiveEntry> action) throws HarvesterException {
+    this.harvestFullRecords(inputStream, compressedFileType, file -> {
+      action.accept(file);
+      return IterationResult.CONTINUE;
+    });
   }
 
   @Override
@@ -253,20 +255,14 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     public void forEachFileFiltered(ReportingIteration<ArchiveEntry> action, Predicate<Path> filter)
         throws HarvesterException {
-      List<Pair<Path, Exception>> exception = new ArrayList<>(1);
       forEachPathFiltered(path -> {
         try (InputStream content = Files.newInputStream(path)) {
           return action.process(new ArchiveEntryImpl(extractedDirectory.relativize(path).toString(),
               new ByteArrayInputStream(IOUtils.toByteArray(content))));
         } catch (IOException | RuntimeException e) {
-          exception.add(new ImmutablePair<>(path, e));
-          return IterationResult.TERMINATE;
+          throw new HarvesterIOException("Could not process path " + path + ".", e);
         }
       }, filter);
-      if (!exception.isEmpty()) {
-        throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
-            exception.get(0).getValue());
-      }
     }
 
     @Override
@@ -300,7 +296,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
       if (!filter.test(file)) {
         return FileVisitResult.CONTINUE;
       }
@@ -315,7 +311,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       if (result == null) {
         throw new IllegalArgumentException("Iteration result cannot be null.");
       }
-      return IterationResult.TERMINATE == result ? FileVisitResult.TERMINATE
+      return result == IterationResult.TERMINATE ? FileVisitResult.TERMINATE
           : FileVisitResult.CONTINUE;
     }
 

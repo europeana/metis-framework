@@ -11,11 +11,11 @@ public interface FullRecord {
    * Makes the record's content available.
    *
    * @return An input stream containing the record. The caller needs to close it after use.
-   * @throws HarvesterException In case the record is not (no longer) available.
+   * @throws HarvesterIOException  In case there was a problem obtaining the content.
    * @throws IllegalStateException In case the record is deleted at source (see
    *                               {@link #isDeleted()}).
    */
-  InputStream getContent() throws HarvesterException;
+  InputStream getContent() throws HarvesterIOException;
 
   /**
    * @return Whether this record is deleted at source. If the specific harvest type does not support

@@ -19,6 +19,9 @@ public interface ReportingIteration<T> {
    *
    * @param data The data to process.
    * @return Whether to continue processing.
+   * @throws HarvesterIOException in case there was a harvesting related issue. This will cause the
+   *                              remaining records not to be processed (as if
+   *                              {@link IterationResult#TERMINATE} was passed).
    */
-  IterationResult process(T data);
+  IterationResult process(T data) throws HarvesterIOException;
 }
