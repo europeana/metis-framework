@@ -98,7 +98,6 @@ public class AuthenticationController {
    */
   @PostMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   public MetisUserView loginUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     MetisUserView metisUserView;
@@ -239,7 +238,6 @@ public class AuthenticationController {
    */
   @PostMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_USER_ID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   public MetisUserView getUserByUserId(@RequestHeader("Authorization") String authorization,
       @RequestBody UserIdParameter userIdParameter) throws GenericMetisException {
     String accessToken = authenticationService
@@ -265,7 +263,6 @@ public class AuthenticationController {
    */
   @GetMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_TOKEN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   public MetisUserView getUserByAccessToken(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     String accessToken = authenticationService
@@ -291,7 +288,6 @@ public class AuthenticationController {
    */
   @GetMapping(value = RestEndpoints.AUTHENTICATION_USERS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   public List<MetisUserView> getAllUsers(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     String accessToken = authenticationService

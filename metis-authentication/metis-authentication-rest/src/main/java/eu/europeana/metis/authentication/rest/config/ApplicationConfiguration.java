@@ -172,7 +172,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
   public PsqlMetisUserDao getPsqlMetisUserDao(SessionFactory sessionFactory,
       MetisAuthenticationConfigurationProperties metisAuthenticationConfigurationProperties) {
     PsqlMetisUserDao psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
-    psqlMetisUserDao.setAccessTokenExpireTimeInMins(
+    psqlMetisUserDao.setAccessTokenExpireTimeInMinutes(
         metisAuthenticationConfigurationProperties.getAccessTokenExpireTimeInMinutes());
     return psqlMetisUserDao;
   }
