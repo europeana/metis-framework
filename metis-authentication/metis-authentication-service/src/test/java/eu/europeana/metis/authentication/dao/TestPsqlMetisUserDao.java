@@ -43,7 +43,7 @@ class TestPsqlMetisUserDao {
   static void prepareBeforeClass() {
     sessionFactory = Mockito.mock(SessionFactory.class);
     psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
-    psqlMetisUserDao.setAccessTokenExpireTimeInMins(10);
+    psqlMetisUserDao.setAccessTokenExpireTimeInMinutes(10);
 
     session = Mockito.mock(Session.class);
     transaction = Mockito.mock(Transaction.class);
@@ -206,7 +206,7 @@ class TestPsqlMetisUserDao {
     metisUserAccessToken.setAccessToken("qwertyuiop");
     Date now = new Date();
     metisUserAccessToken.setTimestamp(new Date(
-        now.getTime() - ((psqlMetisUserDao.getAccessTokenExpireTimeInMins() + 1) * 60000L)));
+        now.getTime() - ((psqlMetisUserDao.getAccessTokenExpireTimeInMinutes() + 1) * 60000L)));
     metisUserAccessTokens.add(metisUserAccessToken);
     when(session.getCriteriaBuilder()).thenReturn(builder);
     when(builder.createQuery(MetisUserAccessToken.class)).thenReturn(criteriaQuery);
