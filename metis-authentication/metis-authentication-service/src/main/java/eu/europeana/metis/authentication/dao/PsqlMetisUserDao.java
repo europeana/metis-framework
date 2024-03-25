@@ -33,15 +33,15 @@ public class PsqlMetisUserDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PsqlMetisUserDao.class);
   private static final long ONE_MINUTE_IN_MILLIS = 60_000;
-  private static final int DEFAULT_EXPIRE_TIME_IN_MINS = 10;
+  private static final int DEFAULT_EXPIRE_TIME_IN_MINUTES = 10;
   private static final int DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS = 100;
   private static final String ACCESS_TOKEN_STRING = "accessToken";
   private static final String EMAIL_STRING = "email";
-  private static final String USER_ID_STRING = "user_id";
+  private static final String USER_ID_STRING = "userId";
   private static final String TIMESTAMP_STRING = "timestamp";
   private static final String ACCESS_ROLE_STRING = "accessRole";
 
-  private int accessTokenExpireTimeInMins = DEFAULT_EXPIRE_TIME_IN_MINS;
+  private int accessTokenExpireTimeInMinutes = DEFAULT_EXPIRE_TIME_IN_MINUTES;
   private final SessionFactory sessionFactory;
 
   /**
@@ -210,7 +210,7 @@ public class PsqlMetisUserDao {
       MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
       long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
       Date afterAddingTenMins = new Date(
-          accessTokenInMillis + (getAccessTokenExpireTimeInMins() * ONE_MINUTE_IN_MILLIS));
+          accessTokenInMillis + (getAccessTokenExpireTimeInMinutes() * ONE_MINUTE_IN_MILLIS));
       if (afterAddingTenMins.compareTo(date) <= 0) {
         //Remove access token
         MutationQuery deleteQuery = session.createMutationQuery(String
@@ -223,15 +223,15 @@ public class PsqlMetisUserDao {
     }
   }
 
-  public void setAccessTokenExpireTimeInMins(int accessTokenExpireTimeInMins) {
+  public void setAccessTokenExpireTimeInMinutes(int accessTokenExpireTimeInMinutes) {
     synchronized (this) {
-      this.accessTokenExpireTimeInMins = accessTokenExpireTimeInMins;
+      this.accessTokenExpireTimeInMinutes = accessTokenExpireTimeInMinutes;
     }
   }
 
-  int getAccessTokenExpireTimeInMins() {
+  int getAccessTokenExpireTimeInMinutes() {
     synchronized (this) {
-      return accessTokenExpireTimeInMins;
+      return accessTokenExpireTimeInMinutes;
     }
   }
 
