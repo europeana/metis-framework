@@ -214,7 +214,7 @@ public class WorkflowValidationUtils {
       final URI uri = new URI(urlString.trim());
       uri.toURL();
       return uri;
-    } catch (MalformedURLException | URISyntaxException e) {
+    } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
       throw new BadContentException("Harvesting parameters are invalid", e);
     }
   }

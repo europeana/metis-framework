@@ -4,6 +4,7 @@ import eu.europeana.metis.harvesting.HarvestingClientSettings;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -74,7 +75,12 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
     // Set up the request and the response. Note: we are aware that the user can inject parameters
     // in the provided URL, but that is currently the exact functionality we need to support.
     @SuppressWarnings("findsecbugs:HTTP_PARAMETER_POLLUTION")
-    final HttpGet request = new HttpGet(parameters.toUrl(baseUrl));
+    final HttpGet request;
+    try {
+      request = new HttpGet(parameters.toUrl(baseUrl));
+    } catch (IllegalArgumentException e) {
+      throw new HttpException(e);
+    }
     final CloseableHttpResponse response;
     try {
       response = httpClient.execute(request);

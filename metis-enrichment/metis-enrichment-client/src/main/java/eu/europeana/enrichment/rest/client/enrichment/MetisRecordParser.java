@@ -128,7 +128,7 @@ public class MetisRecordParser implements RecordParser {
 
         value = new ReferenceTermContext(uri.toURL(), entry.getValue());
         result.add(value);
-      } catch (MalformedURLException | URISyntaxException e) {
+      } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
         LOGGER.debug("Invalid enrichment reference found: {}", entry.getKey());
       }
     }

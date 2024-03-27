@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -136,7 +137,12 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException {
-    final URL archiveUrl = new URI(archiveUrlString).toURL();
+    final URL archiveUrl;
+    try {
+      archiveUrl = new URI(archiveUrlString).toURL();
+    } catch (IllegalArgumentException e) {
+      throw new MalformedURLException(e.getMessage());
+    }
     if (!SUPPORTED_PROTOCOLS.contains(archiveUrl.getProtocol())) {
       throw new IOException("This functionality does not support this protocol ("
           + archiveUrl.getProtocol() + ").");

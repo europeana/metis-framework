@@ -163,7 +163,7 @@ public class DereferencingManagementController {
       if ("https".equals(scheme) && allowedUrlDomains.contains(remoteHost)) {
         return Optional.of(uri.toURL());
       }
-    } catch (URISyntaxException | MalformedURLException e) {
+    } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
       throw new BadContentException(String.format("Provided directoryUrl '%s', failed to parse.", directoryUrl), e);
     }
 
