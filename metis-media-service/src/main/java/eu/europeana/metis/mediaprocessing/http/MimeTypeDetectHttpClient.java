@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.network.AbstractHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tika.Tika;
@@ -24,7 +25,7 @@ import java.net.URL;
  */
 public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
 
-    private final Tika tika = new Tika();
+    private final TikaWrapper tika = new TikaWrapper();
 
     /**
      * Constructor.

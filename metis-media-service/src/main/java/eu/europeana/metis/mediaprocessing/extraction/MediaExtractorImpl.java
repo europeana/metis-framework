@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   private final ResourceDownloadClient resourceDownloadClient;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
-  private final Tika tika;
+  private final TikaWrapper tika;
 
   private final ImageProcessor imageProcessor;
   private final AudioVideoProcessor audioVideoProcessor;
@@ -62,7 +63,7 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param textProcessor A text processor.
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
-      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
+      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika, ImageProcessor imageProcessor,
       AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor, Media3dProcessor media3dProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
@@ -95,7 +96,7 @@ public class MediaExtractorImpl implements MediaExtractor {
             this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
-    this.tika = new Tika();
+    this.tika = new TikaWrapper();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
     this.textProcessor = new TextProcessor(thumbnailGenerator,
