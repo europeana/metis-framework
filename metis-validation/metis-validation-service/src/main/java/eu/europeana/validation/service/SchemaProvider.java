@@ -123,7 +123,7 @@ public class SchemaProvider {
       String file = url.getFile();
       return host + "_" + StringUtils
           .substringAfter(StringUtils.substringBeforeLast(file, "."), "/");
-    } catch (MalformedURLException | URISyntaxException e) {
+    } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
       throw new SchemaProviderException(e);
     }
   }
