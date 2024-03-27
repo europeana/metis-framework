@@ -27,6 +27,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.apache.tika.Tika;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ class MediaExtractorImplTest {
   private static ResourceDownloadClient resourceDownloadClient;
   private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private static CommandExecutor commandExecutor;
-  private static Tika tika;
+  private static TikaWrapper tika;
 
   private static ImageProcessor imageProcessor;
   private static AudioVideoProcessor audioVideoProcessor;
@@ -64,7 +64,7 @@ class MediaExtractorImplTest {
     resourceDownloadClient = mock(ResourceDownloadClient.class);
     mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
     commandExecutor = mock(CommandExecutor.class);
-    tika = mock(Tika.class);
+    tika = mock(TikaWrapper.class);
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
