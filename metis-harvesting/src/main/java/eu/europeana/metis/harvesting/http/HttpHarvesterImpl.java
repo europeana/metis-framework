@@ -334,6 +334,15 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     @Override
+    public void writeContent(OutputStream outputStream) throws HarvesterIOException {
+      try {
+        IOUtils.copy(entryContent, outputStream);
+      } catch (IOException e) {
+        throw new HarvesterIOException("Could not write the record.", e);
+      }
+    }
+
+    @Override
     public ByteArrayInputStream getContent() {
       return entryContent;
     }

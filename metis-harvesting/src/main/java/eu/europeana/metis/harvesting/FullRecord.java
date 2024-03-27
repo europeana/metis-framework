@@ -1,11 +1,23 @@
 package eu.europeana.metis.harvesting;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This interface represents a harvested record.
  */
 public interface FullRecord {
+
+  /**
+   * Makes the record's content available.
+   *
+   * @param outputStream The output stream to which to write the content. The caller needs to close
+   *                     it after use.
+   * @throws HarvesterIOException  In case there was a problem obtaining the content.
+   * @throws IllegalStateException In case the record is deleted at source (see
+   *                               {@link #isDeleted()}).
+   */
+  void writeContent(OutputStream outputStream) throws HarvesterIOException;
 
   /**
    * Makes the record's content available.
