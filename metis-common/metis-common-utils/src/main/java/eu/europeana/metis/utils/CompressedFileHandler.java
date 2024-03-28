@@ -202,7 +202,7 @@ public class CompressedFileHandler {
     return entryName.replaceAll("[" + FILE_NAME_BANNED_CHARACTERS + "]", "_");
   }
 
-  private static void extract(ArchiveInputStream is, ArchiveEntry entry, Path newPath) throws IOException {
+  private static void extract(ArchiveInputStream<?> is, ArchiveEntry entry, Path newPath) throws IOException {
 
     if (entry.isDirectory()) {
       Files.createDirectories(newPath);
