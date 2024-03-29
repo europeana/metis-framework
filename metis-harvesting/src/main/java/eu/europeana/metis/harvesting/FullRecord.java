@@ -1,5 +1,6 @@
 package eu.europeana.metis.harvesting;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -13,21 +14,21 @@ public interface FullRecord {
    *
    * @param outputStream The output stream to which to write the content. The caller needs to close
    *                     it after use.
-   * @throws HarvesterIOException  In case there was a problem obtaining the content.
+   * @throws IOException           In case there was a problem obtaining the content.
    * @throws IllegalStateException In case the record is deleted at source (see
    *                               {@link #isDeleted()}).
    */
-  void writeContent(OutputStream outputStream) throws HarvesterIOException;
+  void writeContent(OutputStream outputStream) throws IOException;
 
   /**
    * Makes the record's content available.
    *
    * @return An input stream containing the record. The caller needs to close it after use.
-   * @throws HarvesterIOException  In case there was a problem obtaining the content.
+   * @throws IOException           In case there was a problem obtaining the content.
    * @throws IllegalStateException In case the record is deleted at source (see
    *                               {@link #isDeleted()}).
    */
-  InputStream getContent() throws HarvesterIOException;
+  InputStream getContent() throws IOException;
 
   /**
    * @return Whether this record is deleted at source. If the specific harvest type does not support

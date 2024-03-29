@@ -6,7 +6,6 @@ import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.HarvesterIOException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
@@ -265,8 +264,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
         try (InputStream content = Files.newInputStream(path)) {
           return action.process(new ArchiveEntryImpl(extractedDirectory.relativize(path).toString(),
               new ByteArrayInputStream(IOUtils.toByteArray(content))));
-        } catch (IOException | RuntimeException e) {
-          throw new HarvesterIOException("Could not process path " + path + ".", e);
+        } catch (RuntimeException e) {
+          throw new IOException("Could not process path " + path + ".", e);
         }
       }, filter);
     }
@@ -340,12 +339,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     @Override
-    public void writeContent(OutputStream outputStream) throws HarvesterIOException {
-      try {
-        IOUtils.copy(entryContent, outputStream);
-      } catch (IOException e) {
-        throw new HarvesterIOException("Could not write the record.", e);
-      }
+    public void writeContent(OutputStream outputStream) throws IOException {
+       IOUtils.copy(entryContent, outputStream);
     }
 
     @Override

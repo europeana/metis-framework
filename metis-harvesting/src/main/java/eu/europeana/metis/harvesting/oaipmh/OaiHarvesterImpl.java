@@ -4,7 +4,6 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performT
 
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.HarvesterIOException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
@@ -256,7 +255,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
             if (singleIteration.process(header) == IterationResult.TERMINATE) {
               break;
             }
-          } catch (HarvesterIOException e) {
+          } catch (IOException e) {
             throw new HarvesterException("Problem while processing: " + header.getIdentifier(), e);
           }
         }
@@ -299,7 +298,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
                                     RecordPostProcessing<O> postProcessing,
                                     ReportingIteration<O> action) {
 
-    public IterationResult process(Header input) throws HarvesterException, HarvesterIOException {
+    public IterationResult process(Header input) throws HarvesterException, IOException {
         final OaiRecordHeader header = OaiRecordHeader.convert(input);
         if (filter.test(header)) {
           final O postProcessResult = Optional.ofNullable(postProcessing.postProcess(header))

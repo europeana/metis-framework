@@ -2,7 +2,6 @@ package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.FullRecord;
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.HarvesterIOException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,15 +38,11 @@ public class OaiRecord implements FullRecord {
   }
 
   @Override
-  public void writeContent(OutputStream outputStream) throws HarvesterIOException {
+  public void writeContent(OutputStream outputStream) throws IOException {
     if (isDeleted()) {
       throw new IllegalStateException("Record is deleted at source.");
     }
-    try {
-      outputStream.write(this.record);
-    } catch (IOException e) {
-      throw new HarvesterIOException("Could not write the record.", e);
-    }
+    outputStream.write(this.record);
   }
 
   @Override
