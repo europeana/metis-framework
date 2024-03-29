@@ -46,7 +46,17 @@ public class DereferenceClient {
     final HttpHeaders headers = new HttpHeaders();
     headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
     final HttpEntity<String> entity = new HttpEntity<>(headers);
-    final Vocabulary[] result = restTemplate.exchange(hostUrl + RestEndpoints.VOCABULARIES,
+    final String uriString = hostUrl + RestEndpoints.VOCABULARIES;
+    final URI uri;
+    try {
+      // Normalize to remove double '/' between host and path.
+      uri = new URI(uriString).normalize();
+    } catch (URISyntaxException e) {
+      // Cannot really happen.
+      LOGGER.warn("URL [{}] is not valid.", uriString, e);
+      throw new IllegalStateException("Could not contact dereference service.");
+    }
+    final Vocabulary[] result = restTemplate.exchange(uri,
             HttpMethod.GET, entity, Vocabulary[].class).getBody();
     return Optional.ofNullable(result).map(Arrays::asList).orElseGet(Collections::emptyList);
   }
@@ -75,16 +85,16 @@ public class DereferenceClient {
       return null;
     }
 
-    // Compile the dereference URI.
+    // Compile the dereference URI (normalize to remove double '/' between host and path).
     final String dereferenceUrlString =
         hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString;
     URI dereferenceUrl;
     try {
-      dereferenceUrl = new URI(hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString);
+      dereferenceUrl = new URI(dereferenceUrlString).normalize();
     } catch (URISyntaxException e) {
       // Cannot really happen.
       LOGGER.warn("URL [{}] is not valid.", dereferenceUrlString, e);
-      return null;
+      throw new IllegalStateException("Could not contact dereference service.", e);
     }
 
     // Execute the dereference call.
