@@ -3,6 +3,7 @@ package eu.europeana.metis.harvesting;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.Instant;
 
 /**
  * This interface represents a harvested record.
@@ -41,4 +42,11 @@ public interface FullRecord {
    * from the record ID (rdf:about) and may exist only in the context of this harvest.
    */
   String getHarvestingIdentifier();
+
+  /**
+   * Returns the timestamp associated with the record.
+   *
+   * @return The timestamp. Or null if no timestamp is known.
+   */
+  Instant getTimeStamp();
 }

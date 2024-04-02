@@ -27,6 +27,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
+import java.time.Instant;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -357,6 +358,11 @@ public class HttpHarvesterImpl implements HttpHarvester {
     @Deprecated
     public ByteArrayInputStream getEntryContent() {
       return getContent();
+    }
+
+    @Override
+    public Instant getTimeStamp() {
+      return null;
     }
   }
 }

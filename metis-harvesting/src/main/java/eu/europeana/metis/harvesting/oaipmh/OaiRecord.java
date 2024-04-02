@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.Instant;
 import java.util.function.Supplier;
 
 /**
@@ -64,5 +65,10 @@ public class OaiRecord implements FullRecord {
   @Deprecated
   public InputStream getRecord() throws HarvesterException {
     return getContent();
+  }
+
+  @Override
+  public Instant getTimeStamp() {
+    return header.getDatestamp();
   }
 }
