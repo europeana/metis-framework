@@ -124,8 +124,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     try (Session dbSession = sessionFactory.openSession()) {
       performAction(dbSession, session -> {
         Transaction tx = session.beginTransaction();
-        NativeQueryImpl<Void> nativeQuery = new NativeQueryImpl<>(createTablesSql, (SharedSessionContractImplementor) session);
-        nativeQuery.executeUpdate();
+        session.createNativeQuery(createTablesSql).executeUpdate();
         tx.commit();
       });
     }
