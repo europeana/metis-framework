@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
@@ -44,11 +45,12 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   private final ResourceDownloadClient resourceDownloadClient;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
-  private final Tika tika;
+  private final TikaWrapper tika;
 
   private final ImageProcessor imageProcessor;
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
+  private final Media3dProcessor media3dProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -61,14 +63,15 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param textProcessor A text processor.
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
-      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
-      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor) {
+      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika, ImageProcessor imageProcessor,
+      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor, Media3dProcessor media3dProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
     this.imageProcessor = imageProcessor;
     this.audioVideoProcessor = audioVideoProcessor;
     this.textProcessor = textProcessor;
+    this.media3dProcessor = media3dProcessor;
   }
 
   /**
@@ -93,11 +96,12 @@ public class MediaExtractorImpl implements MediaExtractor {
             this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
-    this.tika = new Tika();
+    this.tika = new TikaWrapper();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
     this.textProcessor = new TextProcessor(thumbnailGenerator,
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
+    this.media3dProcessor = new Media3dProcessor();
   }
 
   @Override
@@ -157,7 +161,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       hasContent = resource.hasContent();
       detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
           : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
-    } catch (IOException e) {
+    } catch (IOException | IllegalArgumentException e) {
       throw new MediaExtractionException("Mime type checking error", e);
     }
 
@@ -192,19 +196,11 @@ public class MediaExtractorImpl implements MediaExtractor {
   MediaProcessor chooseMediaProcessor(MediaType mediaType) {
     final MediaProcessor processor;
     switch (mediaType) {
-      case TEXT:
-        processor = textProcessor;
-        break;
-      case AUDIO:
-      case VIDEO:
-        processor = audioVideoProcessor;
-        break;
-      case IMAGE:
-        processor = imageProcessor;
-        break;
-      default:
-        processor = null;
-        break;
+      case TEXT -> processor = textProcessor;
+      case AUDIO, VIDEO -> processor = audioVideoProcessor;
+      case IMAGE -> processor = imageProcessor;
+      case THREE_D -> processor = media3dProcessor;
+      default -> processor = null;
     }
     return processor;
   }
@@ -278,6 +274,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   @Override
   public void close() throws IOException {
     resourceDownloadClient.close();
+    mimeTypeDetectHttpClient.close();
   }
 
   /**

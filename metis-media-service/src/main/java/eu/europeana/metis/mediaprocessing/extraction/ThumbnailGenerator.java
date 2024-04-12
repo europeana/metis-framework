@@ -182,7 +182,7 @@ public class ThumbnailGenerator {
 
   private static List<String> splitByNewLine(String input) {
     return Stream.of(input.split("\\R")).filter(StringUtils::isNotBlank)
-                 .collect(Collectors.toList());
+                 .toList();
   }
 
   /**
@@ -447,14 +447,14 @@ public class ThumbnailGenerator {
       final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
       final List<String> colorStrings =
           splitByNewLine(segments[3]).stream().sorted(Collections.reverseOrder())
-                                     .limit(COMMAND_RESULT_MAX_COLORS).collect(Collectors.toList());
+                                     .limit(COMMAND_RESULT_MAX_COLORS).toList();
       final Supplier<Stream<Matcher>> streamMatcherSupplier = () -> colorStrings.stream()
                                                                                 .map(pattern::matcher);
       if (!streamMatcherSupplier.get().allMatch(Matcher::find)) {
         throw new IllegalStateException("Invalid color line found.");
       }
       final List<String> dominantColors = streamMatcherSupplier.get().filter(Matcher::find)
-                                                               .map(matcher -> matcher.group(1)).collect(Collectors.toList());
+                                                               .map(matcher -> matcher.group(1)).toList();
 
       // Get width, height and color space
       final List<String> metadata = splitByNewLine(segments[1]);

@@ -1,5 +1,7 @@
 package eu.europeana.metis.dereference.service;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -18,18 +20,6 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import eu.europeana.metis.exception.BadContentException;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -43,8 +33,17 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+import jakarta.xml.bind.JAXBException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
@@ -250,14 +249,13 @@ public class MongoDereferenceService implements DereferenceService {
     private void extractBroaderResources(Pair<EnrichmentBase, DereferenceResultStatus> resource,
                                          Set<String> destination) {
         final Stream<String> resourceIdStream;
-        if (resource.getLeft() instanceof Concept) {
-            resourceIdStream = getStream(((Concept) resource.getLeft()).getBroader()).map(
-                    Resource::getResource);
-        } else if (resource.getLeft() instanceof TimeSpan) {
-            resourceIdStream = Optional.ofNullable(((TimeSpan) resource.getLeft()).getIsPartOf()).stream()
+        if (resource.getLeft() instanceof Concept concept) {
+            resourceIdStream = getStream(concept.getBroader()).map(Resource::getResource);
+        } else if (resource.getLeft() instanceof TimeSpan timeSpan) {
+            resourceIdStream = Optional.ofNullable(timeSpan.getIsPartOf()).stream()
                     .flatMap(List::stream).map(LabelResource::getResource);
-        } else if (resource.getLeft() instanceof Place) {
-            resourceIdStream = Optional.ofNullable(((Place) resource.getLeft()).getIsPartOf()).stream()
+        } else if (resource.getLeft() instanceof Place place) {
+            resourceIdStream = Optional.ofNullable(place.getIsPartOf()).stream()
                     .flatMap(Collection::stream).map(LabelResource::getResource);
         } else {
             resourceIdStream = Stream.empty();

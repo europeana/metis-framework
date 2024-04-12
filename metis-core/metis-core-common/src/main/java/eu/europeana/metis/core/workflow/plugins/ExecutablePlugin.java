@@ -3,6 +3,7 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 
 /**
  * This interface represents plugins that are executable by Metis.
@@ -59,7 +60,7 @@ public interface ExecutablePlugin extends MetisPlugin {
    * the task.
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException;
+  MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException, UnrecoverableExternalTaskException;
 
   /**
    * Request a cancel call to the external execution.

@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="metis-core-rest/Dockerfile" type="docker-deploy" factoryName="dockerfile"
+                   folderName="docker-run-configuration" server-name="Docker">
+        <deployment type="dockerfile">
+            <settings>
+                <option name="imageTag" value="europeana/metis-core"/>
+                <option name="containerName" value="metis-core"/>
+                <option name="commandLineOptions"
+                        value="-p 8080:8080  -v /data/metis-configuration/metis-framework/metis-core/metis-core-rest/k8s/overlays/local/components/properties/application.properties:/application.properties -v /data/metis-configuration/k8s/common-components/custom-truststore-jks/custom-truststore.jks:/data/certificates/custom-truststore.jks -v /data/metis-configuration/k8s/common-components/log4j2-xml/log4j2.xml:/data/logging/log4j2.xml"/>
+                <option name="sourceFilePath" value="metis-core/metis-core-rest/Dockerfile"/>
+            </settings>
+        </deployment>
+        <method v="2"/>
+    </configuration>
+</component>

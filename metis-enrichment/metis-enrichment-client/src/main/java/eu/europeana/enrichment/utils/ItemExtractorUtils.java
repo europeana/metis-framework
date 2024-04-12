@@ -16,7 +16,6 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * Utility class for extracting items from different structures.
@@ -39,7 +38,7 @@ public final class ItemExtractorUtils {
       result = new ArrayList<>();
     } else {
       result = sourceList.stream().filter(Objects::nonNull).map(converter)
-          .collect(Collectors.toList());
+                         .toList();
     }
     return result;
   }

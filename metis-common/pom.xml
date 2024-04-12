@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>11</version>
+    <version>12</version>
   </parent>
   <artifactId>metis-common</artifactId>
   <packaging>pom</packaging>
@@ -15,7 +15,6 @@
     <module>metis-common-mongo</module>
     <module>metis-common-solr</module>
     <module>metis-common-network</module>
-    <module>metis-common-zoho</module>
     <module>metis-common-spring-properties</module>
   </modules>
 </project>

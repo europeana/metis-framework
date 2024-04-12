@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 
 /**
@@ -137,7 +136,7 @@ public class TestObjectFactory {
   public static List<WorkflowExecutionView> createListOfWorkflowExecutions(int size) {
     return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
             .map(execution -> new WorkflowExecutionView(execution, false, plugin -> true))
-            .collect(Collectors.toList());
+                                             .toList();
   }
 
   /**
@@ -150,7 +149,7 @@ public class TestObjectFactory {
   public static List<ExecutionAndDatasetView> createListOfExecutionOverviews(int size) {
     return createExecutionsWithDatasets(size).stream()
         .map(pair -> new ExecutionAndDatasetView(pair.getExecution(), pair.getDataset()))
-        .collect(Collectors.toList());
+                                             .toList();
   }
 
   private static List<ExecutionDatasetPair> createExecutionsWithDatasets(int size) {

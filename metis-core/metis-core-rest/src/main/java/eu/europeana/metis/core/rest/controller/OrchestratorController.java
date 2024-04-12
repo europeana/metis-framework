@@ -43,16 +43,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Contains all the calls that are related to Orchestration.
  * <p>The {@link OrchestratorService} has control on how to orchestrate different components of the
  * system</p>
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-28
  */
-@Controller
+@RestController
 public class OrchestratorController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorController.class);

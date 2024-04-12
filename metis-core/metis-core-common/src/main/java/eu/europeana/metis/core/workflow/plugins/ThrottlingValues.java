@@ -51,17 +51,11 @@ public class ThrottlingValues {
 
     public int getThreadNumberFromThrottlingLevel(ThrottlingLevel throttlingLevel){
         int result;
-        switch (throttlingLevel){
-            case MEDIUM:
-                result = medium;
-                break;
-            case STRONG:
-                result = strong;
-                break;
-            default:
-                result = weak;
-                break;
-        }
+      switch (throttlingLevel) {
+        case MEDIUM -> result = medium;
+        case STRONG -> result = strong;
+        default -> result = weak;
+      }
 
         return result;
     }

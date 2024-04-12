@@ -35,7 +35,9 @@ final class EmbeddableMedia {
       "http://www.theeuropeanlibrary.org/tel4/newspapers/issue/fullscreen/",
       "https://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=");
 
-  private static final Collection<String> URL_EUSCREEN = Arrays.asList("http://www.euscreen.eu/item.html");
+  private static final Collection<String> URL_EUSCREEN = Arrays.asList(
+          "http://www.euscreen.eu/item.html",
+          "https://www.euscreen.eu/item.html*");
 
   private static final Collection<String> URL_SKETCHFAB = Arrays.asList(
       "https://sketchfab.com/3d-models",

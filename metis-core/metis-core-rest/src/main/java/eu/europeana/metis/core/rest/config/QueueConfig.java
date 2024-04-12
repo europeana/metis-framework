@@ -21,7 +21,7 @@ import java.security.cert.CertificateException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeoutException;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import metis.common.config.properties.TruststoreConfigurationProperties;

@@ -1,13 +1,12 @@
 package eu.europeana.metis.mediaprocessing;
 
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.RdfNamespaceContext;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -179,7 +178,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static List<RdfResourceEntry> convertToResourceEntries(
           Map<String, Set<UrlType>> urlWithTypes) {
     return urlWithTypes.entrySet().stream().map(RdfDeserializerImpl::convertToResourceEntry)
-            .collect(Collectors.toList());
+                       .toList();
   }
 
   private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, Set<UrlType>> entry) {
@@ -201,23 +200,13 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private Set<String> getUrls(Document document, UrlType type) throws RdfDeserializationException {
 
     // Determine the right expression to apply.
-    final XPathExpressionWrapper expression;
+    final XPathExpressionWrapper expression =
     switch (type) {
-      case OBJECT:
-        expression = getObjectExpression;
-        break;
-      case HAS_VIEW:
-        expression = getHasViewExpression;
-        break;
-      case IS_SHOWN_AT:
-        expression = getIsShownAtExpression;
-        break;
-      case IS_SHOWN_BY:
-        expression = getIsShownByExpression;
-        break;
-      default:
-        return Collections.emptySet();
-    }
+      case OBJECT -> getObjectExpression;
+      case HAS_VIEW -> getHasViewExpression;
+      case IS_SHOWN_AT -> getIsShownAtExpression;
+      case IS_SHOWN_BY -> getIsShownByExpression;
+    };
 
     // Evaluate the expression and convert the node list to a set of attribute values.
     final NodeList nodes = expression.evaluate(document);

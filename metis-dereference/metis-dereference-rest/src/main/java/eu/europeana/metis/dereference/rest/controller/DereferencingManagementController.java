@@ -28,11 +28,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller for managing vocabularies and entities Created by gmamakis on 12-2-16.
  */
-@Controller
+@RestController
 public class DereferencingManagementController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);
@@ -59,7 +60,6 @@ public class DereferencingManagementController {
    * @return The List of all the registered vocabularies
    */
   @GetMapping(value = RestEndpoints.VOCABULARIES, produces = "application/json")
-  @ResponseBody
   @Operation(description = "Retrieve all the vocabularies", responses = {@ApiResponse(responseCode = "200")})
   public List<Vocabulary> getAllVocabularies() {
     return service.getAllVocabularies();
@@ -70,7 +70,6 @@ public class DereferencingManagementController {
    * services then the cache for other services is cleared as well.
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY)
-  @ResponseBody
   @Operation(description = "Empty the cache")
   public void emptyCache() {
     service.emptyCache();
@@ -80,7 +79,6 @@ public class DereferencingManagementController {
    * Empty the cache for all Resources without an XML representation
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_XML)
-  @ResponseBody
   @Operation(description = "Empty the cache without XML representations")
   public void emptyCacheByEmptyXml() {
     service.purgeByNullOrEmptyXml();
@@ -92,7 +90,6 @@ public class DereferencingManagementController {
    * @param resourceId The resourceId to empty the cache for
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_RESOURCE)
-  @ResponseBody
   @Operation(description = "Empty the cache by resource Id")
   public void emptyCacheByResourceId(
       @Parameter(description = "Id (URI) of resource to clear cache", required = true) @RequestParam(value = "resourceId") String resourceId) {
@@ -105,7 +102,6 @@ public class DereferencingManagementController {
    * @param vocabularyId The vocabularyId to empty the cache for
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_VOCABULARY)
-  @ResponseBody
   @Operation(description = "Empty the cache by vocabulary Id")
   public void emptyCacheByVocabularyId(
       @Parameter(description = "Id of vocabulary to clear cache", required = true) @RequestParam(value = "vocabularyId") String vocabularyId) {
@@ -120,7 +116,6 @@ public class DereferencingManagementController {
    * @return sting containing an error message otherwise empty
    */
   @PostMapping(value = RestEndpoints.LOAD_VOCABULARIES)
-  @ResponseBody
   @Operation(description = "Load and replace the vocabularies listed by the given vocabulary directory. Does NOT purge the cache.",
       responses = {
           @ApiResponse(responseCode = "200", description = "Vocabularies loaded successfully."),
@@ -168,7 +163,7 @@ public class DereferencingManagementController {
       if ("https".equals(scheme) && allowedUrlDomains.contains(remoteHost)) {
         return Optional.of(uri.toURL());
       }
-    } catch (URISyntaxException | MalformedURLException e) {
+    } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
       throw new BadContentException(String.format("Provided directoryUrl '%s', failed to parse.", directoryUrl), e);
     }
 

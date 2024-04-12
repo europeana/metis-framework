@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>11</version>
+    <version>12</version>
   </parent>
   <artifactId>metis-common-network</artifactId>
 
@@ -19,14 +19,13 @@
       <version>${version.apache.httpclient}</version>
     </dependency>
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${version.javax.ws.rs.api}</version>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>${version.jakarta.ws.rs.api}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>${version.spring}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -64,4 +63,17 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${version.spring}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 </project>

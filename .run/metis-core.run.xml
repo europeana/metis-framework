@@ -1,0 +1,42 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="metis-core" type="SpringBootApplicationConfigurationType"
+                   factoryName="Spring Boot" folderName="spring-run-configuration">
+        <option name="ALTERNATIVE_JRE_PATH" value="temurin-21"/>
+        <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true"/>
+        <envs>
+            <env name="logging.config"
+                 value="file:///data/metis-configuration/k8s/common-components/log4j2-xml/log4j2.xml"/>
+            <env name="server.servlet.context-path" value="/metis-core"/>
+            <env name="spring.config.location"
+                 value="file:///data/metis-configuration/metis-framework/metis-core/metis-core-rest/k8s/overlays/local/components/properties/application.properties"/>
+            <env name="truststore.path"
+                 value="/data/metis-configuration/k8s/common-components/custom-truststore-jks/custom-truststore.jks"/>
+        </envs>
+        <module name="metis-core-rest"/>
+        <option name="SPRING_BOOT_MAIN_CLASS" value="eu.europeana.metis.core.rest.Application"/>
+        <extension name="coverage">
+            <pattern>
+                <option name="PATTERN" value="eu.europeana.metis.core.rest.*"/>
+                <option name="ENABLED" value="true"/>
+            </pattern>
+        </extension>
+        <extension name="net.ashald.envfile">
+            <option name="IS_ENABLED" value="false"/>
+            <option name="IS_SUBST" value="false"/>
+            <option name="IS_PATH_MACRO_SUPPORTED" value="false"/>
+            <option name="IS_IGNORE_MISSING_FILES" value="false"/>
+            <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false"/>
+            <ENTRIES>
+                <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false"/>
+            </ENTRIES>
+        </extension>
+        <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+            <option name="credential"/>
+            <option name="region"/>
+            <option name="useCurrentConnection" value="false"/>
+        </extension>
+        <method v="2">
+            <option name="Make" enabled="true"/>
+        </method>
+    </configuration>
+</component>

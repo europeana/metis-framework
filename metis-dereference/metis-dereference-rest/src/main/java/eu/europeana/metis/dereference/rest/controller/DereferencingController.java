@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Dereferencing REST endpoint Created by gmamakis on 12-2-16.
  */
-@Controller
+@RestController
 public class DereferencingController {
 
   private final DereferenceService dereferenceService;
@@ -47,7 +48,6 @@ public class DereferencingController {
    */
   @GetMapping(value = RestEndpoints.DEREFERENCE, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   @Operation(description = "Dereference a URI", responses = {@ApiResponse(responseCode = "200")})
   public EnrichmentResultList dereference(@Parameter(name = "uri") @RequestParam("uri") String resourceId) {
     try {
@@ -77,7 +77,6 @@ public class DereferencingController {
    */
   @PostMapping(value = RestEndpoints.DEREFERENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseBody
   @Operation(description = "Dereference a list URI", responses = {@ApiResponse(responseCode = "200")})
   public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
     try {

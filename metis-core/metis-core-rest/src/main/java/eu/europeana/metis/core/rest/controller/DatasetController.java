@@ -26,7 +26,6 @@ import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +42,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Contains all the calls that are related to Datasets.
  * <p>The {@link DatasetService} has control on how to manipulate a dataset</p>
  */
-@Controller
+@RestController
 public class DatasetController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetController.class);
@@ -615,7 +615,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Country.getCountryListSortedByName().stream().map(CountryView::new)
-            .collect(Collectors.toList());
+                  .toList();
   }
 
   /**
@@ -638,7 +638,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Language.getLanguageListSortedByName().stream().map(LanguageView::new)
-                   .collect(Collectors.toList());
+                   .toList();
   }
 
   /**

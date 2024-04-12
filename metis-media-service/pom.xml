@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>11</version>
+    <version>12</version>
   </parent>
   <artifactId>metis-media-service</artifactId>
 
@@ -25,21 +25,15 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${version.javax.ws.rs.api}</version>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>${version.jakarta.ws.rs.api}</version>
     </dependency>
 
     <dependency>
       <groupId>io.lindstrom</groupId>
       <artifactId>mpd-parser</artifactId>
       <version>${version.mpd.parser}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -67,8 +61,8 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
 
     <dependency>
@@ -133,10 +127,8 @@
       <artifactId>mockito-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock-jre8</artifactId>
-      <version>${version.wiremock-jre}</version>
-      <scope>test</scope>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-standalone</artifactId>
     </dependency>
   </dependencies>
 </project>

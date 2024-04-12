@@ -2,6 +2,7 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
+import jakarta.annotation.PreDestroy;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,20 +15,16 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Schema service service Created by gmamakis on 18-12-15.
- */
 @Service
 public class ValidationExecutionService {
 
+  private static final int DEFAULT_THREADS_COUNT = 10;
   private final ClasspathResourceResolver lsResourceResolver;
   private final ExecutorService es;
   private final SchemaProvider schemaProvider;
-  private static final int DEFAULT_THREADS_COUNT = 10;
 
   /**
    * Creates {@link ValidationExecutionService} instance based on given configuration
@@ -46,14 +43,12 @@ public class ValidationExecutionService {
 
 
   /**
-   * Constructs the service instance that has default configuration but uses external property file
-   * with default URLs for edm-internal and edm-external schemas. The properties must contain:
-   * predefinedSchemas=EDM-INTERNAL,EDM-EXTERNAL predefinedSchemas.EDM-INTERNAL.url=
-   * predefinedSchemas.EDM-INTERNAL.rootLocation= predefinedSchemas.EDM-EXTERNAL.url=
+   * Constructs the service instance that has default configuration but uses external property file with default URLs for
+   * edm-internal and edm-external schemas. The properties must contain: predefinedSchemas=EDM-INTERNAL,EDM-EXTERNAL
+   * predefinedSchemas.EDM-INTERNAL.url= predefinedSchemas.EDM-INTERNAL.rootLocation= predefinedSchemas.EDM-EXTERNAL.url=
    * predefinedSchemas.EDM-EXTERNAL.rootLocation=
    *
-   * @param predefinedSchemasLocations properties with defined URLs and locations for edm-internal
-   * and edm-external schemas
+   * @param predefinedSchemasLocations properties with defined URLs and locations for edm-internal and edm-external schemas
    */
   public ValidationExecutionService(Properties predefinedSchemasLocations) {
     this(() -> DEFAULT_THREADS_COUNT, new ClasspathResourceResolver(),
@@ -77,9 +72,9 @@ public class ValidationExecutionService {
    * @return A service result
    */
   public ValidationResult singleValidation(final String schema, final String rootFileLocation,
-          String schematronFileLocation, final String document) {
+      String schematronFileLocation, final String document) {
     try (final ByteArrayInputStream inputStream = new ByteArrayInputStream(
-            document.getBytes(StandardCharsets.UTF_8))) {
+        document.getBytes(StandardCharsets.UTF_8))) {
       return singleValidation(schema, rootFileLocation, schematronFileLocation, inputStream);
     } catch (IOException e) {
       // Shouldn't happen
@@ -97,9 +92,9 @@ public class ValidationExecutionService {
    * @return A service result
    */
   public ValidationResult singleValidation(final String schema, final String rootFileLocation,
-          String schematronFileLocation, final InputStream document) {
+      String schematronFileLocation, final InputStream document) {
     return new Validator(schema, rootFileLocation, schematronFileLocation, document,
-            schemaProvider, lsResourceResolver).call();
+        schemaProvider, lsResourceResolver).call();
   }
 
   /**

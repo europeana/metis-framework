@@ -120,8 +120,8 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   private <I> List<Entity> resolveEntities(I batchItem, boolean uriSearch) {
-    if (batchItem instanceof ReferenceTerm) {
-      return resolveReference((ReferenceTerm) batchItem, uriSearch);
+    if (batchItem instanceof ReferenceTerm referenceTerm) {
+      return resolveReference(referenceTerm, uriSearch);
     } else {
       return resolveTextSearch((SearchTerm) batchItem);
     }

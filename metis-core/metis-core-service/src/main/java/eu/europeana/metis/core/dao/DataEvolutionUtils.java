@@ -241,44 +241,18 @@ public class DataEvolutionUtils {
    * be null, but can be the empty set in case the plugin type requires no predecessor.
    */
   public static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
-    final Set<ExecutablePluginType> predecessorTypes;
-    switch (pluginType) {
-      case VALIDATION_EXTERNAL:
-        predecessorTypes = HARVEST_PLUGIN_GROUP;
-        break;
-      case TRANSFORMATION:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL);
-        break;
-      case VALIDATION_INTERNAL:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.TRANSFORMATION);
-        break;
-      case NORMALIZATION:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL);
-        break;
-      case ENRICHMENT:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.NORMALIZATION);
-        break;
-      case MEDIA_PROCESS:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.ENRICHMENT);
-        break;
-      case PREVIEW:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.MEDIA_PROCESS);
-        break;
-      case PUBLISH:
-        predecessorTypes = EnumSet.of(ExecutablePluginType.PREVIEW);
-        break;
-      case LINK_CHECKING:
-        predecessorTypes = ALL_EXCEPT_LINK_GROUP;
-        break;
-      case DEPUBLISH:
-      case HTTP_HARVEST:
-      case OAIPMH_HARVEST:
-        predecessorTypes = Collections.emptySet();
-        break;
-      default:
-        throw new IllegalArgumentException("Unrecognized type: " + pluginType);
-    }
-    return predecessorTypes;
+    return switch (pluginType) {
+      case VALIDATION_EXTERNAL -> HARVEST_PLUGIN_GROUP;
+      case TRANSFORMATION -> EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL);
+      case VALIDATION_INTERNAL -> EnumSet.of(ExecutablePluginType.TRANSFORMATION);
+      case NORMALIZATION -> EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL);
+      case ENRICHMENT -> EnumSet.of(ExecutablePluginType.NORMALIZATION);
+      case MEDIA_PROCESS -> EnumSet.of(ExecutablePluginType.ENRICHMENT);
+      case PREVIEW -> EnumSet.of(ExecutablePluginType.MEDIA_PROCESS);
+      case PUBLISH -> EnumSet.of(ExecutablePluginType.PREVIEW);
+      case LINK_CHECKING -> ALL_EXCEPT_LINK_GROUP;
+      case DEPUBLISH, HTTP_HARVEST, OAIPMH_HARVEST -> Collections.emptySet();
+    };
   }
 
   /**
@@ -424,8 +398,8 @@ public class DataEvolutionUtils {
   }
 
   private static boolean isIncrementalHarvest(PluginWithExecutionId<ExecutablePlugin> rootHarvest) {
-    return (rootHarvest.getPlugin().getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
-        && ((AbstractHarvestPluginMetadata) rootHarvest.getPlugin().getPluginMetadata()).isIncrementalHarvest();
+    return (rootHarvest.getPlugin().getPluginMetadata() instanceof AbstractHarvestPluginMetadata abstractHarvestPluginMetadata)
+        && abstractHarvestPluginMetadata.isIncrementalHarvest();
   }
 
   /**

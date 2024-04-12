@@ -4,6 +4,7 @@ import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSu
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -21,6 +22,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
  * This class performs XSL transforms (XSLT). Instances of this class are <b>not thread-safe</b>. For each thread a new instance
  * needs to be created, but, due to the caching mechanism of the XSLT compilation, this operation is not very expensive.
  */
-public class XsltTransformer {
+public class XsltTransformer implements Closeable {
 
   private static final CacheWithExpirationTime<String, Templates> TEMPLATES_CACHE =
       new CacheWithExpirationTime<>();
@@ -250,4 +252,10 @@ public class XsltTransformer {
       throw new TransformationException(e);
     }
   }
+
+  @Override
+  public void close() {
+    httpClient.close();
+  }
+
 }

@@ -27,6 +27,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.apache.tika.Tika;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,11 +50,12 @@ class MediaExtractorImplTest {
   private static ResourceDownloadClient resourceDownloadClient;
   private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private static CommandExecutor commandExecutor;
-  private static Tika tika;
+  private static TikaWrapper tika;
 
   private static ImageProcessor imageProcessor;
   private static AudioVideoProcessor audioVideoProcessor;
   private static TextProcessor textProcessor;
+  private static Media3dProcessor media3dProcessor;
 
   private static MediaExtractorImpl mediaExtractor;
 
@@ -63,12 +64,13 @@ class MediaExtractorImplTest {
     resourceDownloadClient = mock(ResourceDownloadClient.class);
     mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
     commandExecutor = mock(CommandExecutor.class);
-    tika = mock(Tika.class);
+    tika = mock(TikaWrapper.class);
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
+    media3dProcessor = mock(Media3dProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor));
+        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
   }
 
   @BeforeEach
@@ -202,6 +204,7 @@ class MediaExtractorImplTest {
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
     assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
+    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
     assertNull(mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
   }
 
@@ -298,10 +301,12 @@ class MediaExtractorImplTest {
     doReturn(true).when(imageProcessor).downloadResourceForFullProcessing();
     doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();
+    doReturn(false).when(media3dProcessor).downloadResourceForFullProcessing();
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("image/unknown_type"));
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("text/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("audio/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("video/unknown_type"));
+    assertFalse(mediaExtractor.shouldDownloadForFullProcessing("model/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("unknown_type"));
   }
 

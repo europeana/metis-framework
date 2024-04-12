@@ -8,6 +8,7 @@ import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -20,10 +21,26 @@ import org.jetbrains.annotations.NotNull;
 public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreakdown> {
 
   private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
-
   private static final float MIN_RATE_FOR_T1 = 0.25F;
   private static final float MIN_RATE_FOR_T2 = 0.5F;
   private static final float MIN_RATE_FOR_T3 = 0.75F;
+  private final ClassifierMode classifierMode;
+
+  /**
+   * Instantiates a new Language classifier.
+   */
+  public LanguageClassifier() {
+    this.classifierMode = ClassifierMode.PROVIDER_PROXIES;
+  }
+
+  /**
+   * Instantiates a new Language classifier.
+   *
+   * @param classifierMode the classifier mode
+   */
+  public LanguageClassifier(ClassifierMode classifierMode) {
+    this.classifierMode = classifierMode;
+  }
 
   private static <T> Set<T> differenceOfSets(final Set<T> setOne, final Set<T> setTwo) {
     Set<T> result = new HashSet<>(setOne);
@@ -34,7 +51,7 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
   @Override
   public LanguageBreakdown classifyBreakdown(RdfWrapper entity) {
 
-    final LanguageTagStatistics languageTagStatistics = createLanguageTagStatistics(entity);
+    final LanguageTagStatistics languageTagStatistics = createLanguageTagStatistics(entity, classifierMode);
     final Set<PropertyType> qualifiedProperties = languageTagStatistics.getQualifiedProperties();
     final Set<PropertyType> qualifiedPropertiesWithLanguage = languageTagStatistics.getQualifiedPropertiesWithLanguage();
     final Set<PropertyType> qualifiedPropertiesWithoutLanguage = differenceOfSets(qualifiedProperties,
@@ -43,8 +60,10 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
     final MetadataTier metadataTier = calculateMetadataTier(languageTagStatistics.getPropertiesWithLanguageRatio());
 
     return new LanguageBreakdown(qualifiedProperties.size(),
-        qualifiedPropertiesWithoutLanguage.stream().map(PropertyType::getTypedClass)
-                                          .map(rdfConversionUtils::getQualifiedElementNameForClass).collect(Collectors.toSet()),
+        qualifiedPropertiesWithoutLanguage.stream()
+                                          .map(PropertyType::getTypedClass)
+                                          .map(rdfConversionUtils::getQualifiedElementNameForClass)
+                                          .collect(Collectors.toSet()),
         metadataTier);
   }
 
@@ -63,14 +82,33 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
     return metadataTier;
   }
 
-  LanguageTagStatistics createLanguageTagStatistics(RdfWrapper entity) {
+  /**
+   * Create language tag statistics language tag statistics.
+   *
+   * @param entity the entity
+   * @param classifierMode the classifier mode
+   * @return the language tag statistics
+   */
+  LanguageTagStatistics createLanguageTagStatistics(RdfWrapper entity, ClassifierMode classifierMode) {
     final LanguageTagStatistics statistics = new LanguageTagStatistics(entity.getPlaces(),
         entity.getTimeSpans(), entity.getConcepts());
-    entity.getProviderProxies().stream().filter(Objects::nonNull)
-          .forEach(proxy -> addProxyToStatistics(proxy, statistics));
+    List<ProxyType> proxies;
+    switch (classifierMode) {
+      case ALL_PROXIES -> proxies = entity.getProxies();
+      case PROVIDER_PROXIES -> proxies = entity.getProviderProxies();
+      default -> throw new IllegalStateException("Unexpected mode: " + classifierMode);
+    }
+    proxies.stream().filter(Objects::nonNull)
+           .forEach(proxy -> addProxyToStatistics(proxy, statistics));
     return statistics;
   }
 
+  /**
+   * Add proxy to statistics.
+   *
+   * @param proxy the proxy
+   * @param statistics the statistics
+   */
   void addProxyToStatistics(ProxyType proxy, LanguageTagStatistics statistics) {
     Optional.of(proxy).map(ProxyType::getChoiceList).orElseGet(Collections::emptyList)
             .forEach(statistics::addToStatistics);

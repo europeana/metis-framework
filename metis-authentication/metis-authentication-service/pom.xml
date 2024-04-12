@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-authentication</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>11</version>
+    <version>12</version>
   </parent>
   <artifactId>metis-authentication-service</artifactId>
 
@@ -12,7 +12,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>${version.spring}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -21,8 +20,8 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>${version.spring.security}</version>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>${version.spring.security.crypto}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
@@ -37,4 +36,16 @@
       <artifactId>junit-jupiter-engine</artifactId>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${version.spring}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

@@ -17,7 +17,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import com.jayway.awaitility.Awaitility;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
@@ -39,6 +38,7 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.awaitility.Awaitility;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,7 +1,6 @@
 package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.client.MongoClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.dereference.rest.config.properties.MetisDereferenceConfigurationProperties;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
@@ -15,10 +14,9 @@ import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
+import jakarta.annotation.PreDestroy;
 import java.lang.invoke.MethodHandles;
 import java.util.Set;
-import javax.annotation.PreDestroy;
-import metis.common.config.properties.SocksProxyConfigurationProperties;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
@@ -43,14 +41,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableConfigurationProperties({
     ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class,
-    SocksProxyConfigurationProperties.class, MongoConfigurationProperties.class,
-    MetisDereferenceConfigurationProperties.class})
+    MongoConfigurationProperties.class, MetisDereferenceConfigurationProperties.class})
 @EnableScheduling
 @ComponentScan(basePackages = {
     "eu.europeana.metis.dereference.rest.controller",
     "eu.europeana.metis.dereference.rest.exceptions"})
-@EnableWebMvc
-public class ApplicationConfiguration implements WebMvcConfigurer {
+public class ApplicationConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final MongoClient mongoClient;
@@ -60,17 +56,14 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
    * Constructor.
    *
    * @param truststoreConfigurationProperties the truststore configuration properties
-   * @param socksProxyConfigurationProperties the socks proxy configuration properties
    * @param mongoConfigurationProperties the mongo configuration properties
    * @throws CustomTruststoreAppender.TrustStoreConfigurationException if the configuration of the truststore failed
    */
   @Autowired
   public ApplicationConfiguration(TruststoreConfigurationProperties truststoreConfigurationProperties,
-      SocksProxyConfigurationProperties socksProxyConfigurationProperties,
       MongoConfigurationProperties mongoConfigurationProperties)
       throws CustomTruststoreAppender.TrustStoreConfigurationException {
     ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
-    ApplicationConfiguration.initializeSocksProxy(socksProxyConfigurationProperties);
     this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
   }
 
@@ -88,20 +81,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
           .appendCustomTruststoreToDefault(truststoreConfigurationProperties.getPath(),
               truststoreConfigurationProperties.getPassword());
       LOGGER.info("Custom truststore appended to default truststore");
-    }
-  }
-
-  /**
-   * Socks proxy initializer.
-   *
-   * @param socksProxyConfigurationProperties the socks proxy configuration properties
-   */
-  static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
     }
   }
 
@@ -150,18 +129,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
   @Bean
   public VocabularyCollectionImporterFactory getVocabularyCollectionImporterFactory() {
     return new VocabularyCollectionImporterFactory();
-  }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/swagger-ui/**")
-            .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-            .resourceChain(false);
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "/swagger-ui/index.html");
   }
 
   @Bean

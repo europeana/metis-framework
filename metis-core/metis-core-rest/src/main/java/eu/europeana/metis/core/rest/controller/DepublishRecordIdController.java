@@ -32,12 +32,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Controller for calls related to depublish record ids.
  */
-@Controller
+@RestController
 public class DepublishRecordIdController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DepublishRecordIdController.class);

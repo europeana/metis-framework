@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.containing;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
@@ -470,7 +469,6 @@ class AudioVideoProcessorTest {
         .thenReturn(new URI("http://127.0.0.1:" + portForWireMock + "/test-url.mpd"));
 
     wireMockServer.stubFor(get(urlEqualTo("/test-url.mpd"))
-        .withHeader("Accept", containing("text"))
         .willReturn(aResponse()
             .withStatus(200)
             .withHeader("Content-Type", "application/xml")

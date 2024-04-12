@@ -51,6 +51,8 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
     final TierClassifier<MediaTier, ContentTierBreakdown> deferredClassifier = getDeferredClassifier(entity.getEdmType());
     if (deferredClassifier == null) {
       return new TierClassification<>(MediaTier.T0, new ContentTierBreakdown.Builder()
+              .setMediaTierBeforeLicenseCorrection(MediaTier.T0)
+              .setLicenseType(entity.getLicenseType())
               .setMediaResourceTechnicalMetadataList(Collections.emptyList())
               .build());
     }
@@ -62,25 +64,13 @@ public class MediaClassifier implements TierClassifier<MediaTier, ContentTierBre
     if (edmType == null) {
       deferredClassifier = null;
     } else {
-      switch (edmType) {
-        case SOUND:
-          deferredClassifier = audioClassifier;
-          break;
-        case IMAGE:
-          deferredClassifier = imageClassifier;
-          break;
-        case TEXT:
-          deferredClassifier = textClassifier;
-          break;
-        case VIDEO:
-          deferredClassifier = videoClassifier;
-          break;
-        case _3_D:
-          deferredClassifier = threeDClassifier;
-          break;
-        default:
-          deferredClassifier = null;
-      }
+      deferredClassifier = switch (edmType) {
+        case SOUND -> audioClassifier;
+        case IMAGE -> imageClassifier;
+        case TEXT -> textClassifier;
+        case VIDEO -> videoClassifier;
+        case _3_D -> threeDClassifier;
+      };
     }
     return deferredClassifier;
   }

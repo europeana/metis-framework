@@ -151,7 +151,7 @@ public class ProxiesService {
    * @param metisUserView the user wishing to perform this operation
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
-   * @return true if final report available, false if not or ecloud response {@link javax.ws.rs.core.Response.Status)} is not OK,
+   * @return true if final report available, false if not or ecloud response {@link jakarta.ws.rs.core.Response.Status)} is not OK,
    * based on {@link DpsClient#checkIfErrorReportExists}
    * @throws GenericMetisException can be one of:
    * <ul>
@@ -542,8 +542,8 @@ public class ProxiesService {
     // Get the plugin for which to get the records and return.
     final MetisPlugin plugin = workflowExecution
         .getMetisPluginWithType(pluginType.toPluginType()).orElse(null);
-    if (plugin instanceof ExecutablePlugin) {
-      return new ImmutablePair<>(workflowExecution, (ExecutablePlugin) plugin);
+    if (plugin instanceof ExecutablePlugin executablePlugin) {
+      return new ImmutablePair<>(workflowExecution, executablePlugin);
     }
     return null;
   }

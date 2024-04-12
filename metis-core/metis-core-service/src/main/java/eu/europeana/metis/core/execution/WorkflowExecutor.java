@@ -1,6 +1,5 @@
 package eu.europeana.metis.core.execution;
 
-import static eu.europeana.metis.network.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 import static java.lang.Thread.currentThread;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
@@ -21,13 +20,13 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DpsTaskSettings;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ThrottlingValues;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
-import eu.europeana.metis.network.ExternalRequestUtil;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.glassfish.jersey.message.internal.MessageBodyProviderNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -335,16 +333,14 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
 
     // get the information from the harvesting plugin.
     final boolean incrementalHarvest =
-            (harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata)
-                    && ((AbstractHarvestPluginMetadata) harvestPlugin.getPluginMetadata())
-                    .isIncrementalHarvest();
+        harvestPlugin.getPluginMetadata() instanceof AbstractHarvestPluginMetadata abstractHarvestPluginMetadata
+            && abstractHarvestPluginMetadata.isIncrementalHarvest();
     final Date harvestDate = harvestPlugin.getStartedDate();
 
     // Set the information to the indexing plugin.
-    if (indexingPlugin.getPluginMetadata() instanceof AbstractIndexPluginMetadata) {
-      final var metadata = (AbstractIndexPluginMetadata) indexingPlugin.getPluginMetadata();
-      metadata.setIncrementalIndexing(incrementalHarvest);
-      metadata.setHarvestDate(harvestDate);
+    if (indexingPlugin.getPluginMetadata() instanceof AbstractIndexPluginMetadata abstractIndexPluginMetadata) {
+      abstractIndexPluginMetadata.setIncrementalIndexing(incrementalHarvest);
+      abstractIndexPluginMetadata.setHarvestDate(harvestDate);
     }
   }
 
@@ -366,8 +362,12 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
   }
 
   private AbstractExecutablePlugin expectExecutablePlugin(AbstractMetisPlugin plugin) {
-    if (plugin == null || plugin instanceof AbstractExecutablePlugin) {
-      return (AbstractExecutablePlugin) plugin;
+    if (plugin == null) {
+      return null;
+    }
+
+    if (plugin instanceof AbstractExecutablePlugin abstractExecutablePlugin) {
+      return abstractExecutablePlugin;
     }
     throw new IllegalStateException(String.format(
         "workflowExecutionId: %s, pluginId: %s - Found plugin that is not an executable plugin.",
@@ -408,36 +408,21 @@ public class WorkflowExecutor implements Callable<Pair<WorkflowExecution, Boolea
             workflowExecution.getId(), plugin.getPluginType()), e);
         currentThread().interrupt();
         return;
-      } catch (ExternalTaskException e) {
-        final Throwable cause = ExternalRequestUtil.getRootCause(e);
-        // TODO: 14/05/2021 We might want to remove this or find a better way to handle the shutdown of metis-core because, it seems that this occurred during an execution of a plugin and therefore the plugin went out of the loop.
-        // The next plugin was tried but was marked FAILED because the previous plugin didn't finish and it automatically marked the previous plugin CANCELLED
-        // which shouldn't happen.(The plugin was still in progress in ecloud)
-//        if (cause instanceof IllegalStateException) {
-//          //If the application has a forcible shutdown we might experience the JerseyClient in DpsClient
-//          // internally closing down without our consent even if we would have a synchronized close
-//          // implemented. This catch gives us a little more assurance of avoiding an execution
-//          // being marked as failed.
-//          LOGGER.warn("Application is probably shutting down at the moment and dpsClient has "
-//              + "closed without our consent, so we are ignoring this exception.", e);
-//          return;
-//        }
+      } catch (UnrecoverableExternalTaskException e) {
+        LOGGER.warn(String
+            .format("workflowExecutionId: %s, pluginType: %s - UnrecoverableExternalTaskException"
+                + " occurred. Setting task state failed ", workflowExecution.getId(), plugin.getPluginType()), e);
+        // Set plugin to FAILED and return immediately
+        plugin.setFinishedDate(null);
+        plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+        plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
+            ExceptionUtils.getStackTrace(e)));
+        return;
+      } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn(String
             .format("workflowExecutionId: %s, pluginType: %s - ExternalTaskException occurred.",
                 workflowExecution.getId(), plugin.getPluginType()), e);
-        // TODO: 08/01/2021 Remove the check on MessageBodyProviderNotFoundException when
-        //  DpsClient is updated and doesn't throw it anymore
-        if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
-            UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)
-            && !(cause instanceof MessageBodyProviderNotFoundException)
-            && !(cause instanceof IllegalStateException)) {
-          // Set plugin to FAILED and return immediately
-          plugin.setFinishedDate(null);
-          plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-          plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
-              ExceptionUtils.getStackTrace(e)));
-          return;
-        }
+
         consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(String.format(
             "workflowExecutionId: %s, pluginType: %s - Monitoring of external task failed %s "

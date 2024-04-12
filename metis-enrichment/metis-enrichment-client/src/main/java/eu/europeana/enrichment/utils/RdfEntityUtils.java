@@ -142,7 +142,7 @@ public final class RdfEntityUtils {
     final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList()).stream()
         .flatMap(Collection::stream).filter(Objects::nonNull).map(ProxyType::getChoiceList)
         .filter(Objects::nonNull).flatMap(List::stream).filter(Objects::nonNull)
-        .collect(Collectors.toList());
+                                                          .toList();
     final Map<ProxyFieldType, Set<String>> result = new EnumMap<>(ProxyFieldType.class);
     for (ProxyFieldType linkType : ProxyFieldType.values()) {
       final Set<String> links = allChoices.stream().map(linkType::getResourceIfRightChoice)
@@ -163,7 +163,7 @@ public final class RdfEntityUtils {
   public static List<ProxyType> getProviderProxies(RDF rdf) {
     return Optional.ofNullable(rdf.getProxyList()).stream().flatMap(Collection::stream)
         .filter(Objects::nonNull).filter(proxy -> !isEuropeanaProxy(proxy))
-        .collect(Collectors.toList());
+                   .toList();
   }
 
   public static boolean isEuropeanaProxy(ProxyType proxy) {

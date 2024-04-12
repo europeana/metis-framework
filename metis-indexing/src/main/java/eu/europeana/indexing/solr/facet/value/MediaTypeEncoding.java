@@ -8,7 +8,7 @@ import eu.europeana.metis.schema.model.MediaType;
  */
 public enum MediaTypeEncoding implements FacetValue {
 
-  IMAGE(1), AUDIO(2), VIDEO(3), TEXT(4);
+  IMAGE(1), AUDIO(2), VIDEO(3), TEXT(4), THREE_D(5);
 
   private int code;
 
@@ -32,23 +32,13 @@ public enum MediaTypeEncoding implements FacetValue {
     if (mediaType == null) {
       result = null;
     } else {
-      switch (mediaType) {
-        case AUDIO:
-          result = MediaTypeEncoding.AUDIO;
-          break;
-        case IMAGE:
-          result = MediaTypeEncoding.IMAGE;
-          break;
-        case TEXT:
-          result = MediaTypeEncoding.TEXT;
-          break;
-        case VIDEO:
-          result = MediaTypeEncoding.VIDEO;
-          break;
-        default:
-          result = null;
-          break;
-      }
+      result = switch (mediaType) {
+        case AUDIO -> MediaTypeEncoding.AUDIO;
+        case IMAGE -> MediaTypeEncoding.IMAGE;
+        case TEXT -> MediaTypeEncoding.TEXT;
+        case VIDEO -> MediaTypeEncoding.VIDEO;
+        default -> null;
+      };
     }
     return result;
   }

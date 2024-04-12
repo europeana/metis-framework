@@ -40,6 +40,7 @@ public class CompressedFileHandler {
 
   private static final String MAC_TEMP_FOLDER = "__MACOSX";
   private static final String MAC_TEMP_FILE = ".DS_Store";
+  public static final String FILE_NAME_BANNED_CHARACTERS = "% $:?&#<>|*," + Character.MIN_VALUE;
 
 
   /**
@@ -57,22 +58,12 @@ public class CompressedFileHandler {
       throw new IOException("Can't process archive of this type: " + compressedFile);
     }
     switch (compressingExtension) {
-      case ZIP:
-        extractZipFile(compressedFile, destinationFolder);
-        break;
-      case GZIP:
-        extractGzFile(compressedFile, destinationFolder);
-        break;
-      case TAR:
-        extractTarFile(compressedFile, destinationFolder);
-        break;
-      case TGZIP:
-      case TAR_GZ:
-        extractTarGzFile(compressedFile, destinationFolder);
-        break;
-      default:
-        throw new IllegalStateException(
-            "Shouldn't be here. Extension found: " + compressingExtension.name());
+      case ZIP -> extractZipFile(compressedFile, destinationFolder);
+      case GZIP -> extractGzFile(compressedFile, destinationFolder);
+      case TAR -> extractTarFile(compressedFile, destinationFolder);
+      case TGZIP, TAR_GZ -> extractTarGzFile(compressedFile, destinationFolder);
+      default -> throw new IllegalStateException(
+          "Shouldn't be here. Extension found: " + compressingExtension.name());
     }
   }
 
@@ -135,8 +126,9 @@ public class CompressedFileHandler {
     try (ZipArchiveInputStream is = new ZipArchiveInputStream(Files.newInputStream(compressedFile))) {
       ZipArchiveEntry entry;
       while ((entry = is.getNextZipEntry()) != null) {
+        final String entryName = replaceBannedCharacters(entry.getName());
         // create a new path, protect against malicious zip files
-        Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
+        final Path newPath = zipSlipVulnerabilityProtect(entryName, destinationFolder);
         if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
           nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
         }
@@ -159,8 +151,9 @@ public class CompressedFileHandler {
 
       ArchiveEntry entry;
       while ((entry = ti.getNextEntry()) != null) {
+        final String entryName = replaceBannedCharacters(entry.getName());
         // create a new path, protect against malicious zip files
-        Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
+        final Path newPath = zipSlipVulnerabilityProtect(entryName, destinationFolder);
         if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
           nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
         }
@@ -191,8 +184,9 @@ public class CompressedFileHandler {
     try (TarArchiveInputStream is = new TarArchiveInputStream(Files.newInputStream(compressedFile))) {
       TarArchiveEntry entry;
       while ((entry = is.getNextTarEntry()) != null) {
+        final String entryName = replaceBannedCharacters(entry.getName());
         // create a new path, protect against malicious tar files
-        Path newPath = zipSlipVulnerabilityProtect(entry.getName(), destinationFolder);
+        final Path newPath = zipSlipVulnerabilityProtect(entryName, destinationFolder);
         if (CompressedFileExtension.hasCompressedFileExtension(entry.getName())) {
           nestedCompressedFiles.add(destinationFolder.resolve(entry.getName()));
         }
@@ -202,6 +196,10 @@ public class CompressedFileHandler {
     for (Path nestedCompressedFile : nestedCompressedFiles) {
       extractFile(nestedCompressedFile, nestedCompressedFile.getParent());
     }
+  }
+
+  private static String replaceBannedCharacters(String entryName) {
+    return entryName.replaceAll("[" + FILE_NAME_BANNED_CHARACTERS + "]", "_");
   }
 
   private static void extract(ArchiveInputStream is, ArchiveEntry entry, Path newPath) throws IOException {

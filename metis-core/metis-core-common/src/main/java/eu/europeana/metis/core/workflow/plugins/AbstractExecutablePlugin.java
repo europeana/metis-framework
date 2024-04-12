@@ -6,9 +6,11 @@ import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.PluginParameterKeys;
+import eu.europeana.cloud.service.dps.exception.AccessDeniedOrObjectDoesNotExistException;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.UnrecoverableExternalTaskException;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -93,7 +95,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   private DpsTask createDpsTaskForPluginWithExistingDataset(Map<String, String> parameters,
-                                                            DpsTaskSettings dpsTaskSettings, boolean publish) {
+      DpsTaskSettings dpsTaskSettings, boolean publish) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -108,7 +110,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForHarvestPlugin(DpsTaskSettings dpsTaskSettings,
-                                        Map<String, String> extraParameters, String targetUrl, boolean incrementalProcessing) {
+      Map<String, String> extraParameters, String targetUrl, boolean incrementalProcessing) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -136,7 +138,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForProcessPlugin(DpsTaskSettings dpsTaskSettings,
-                                        Map<String, String> extraParameters) {
+      Map<String, String> extraParameters) {
     Map<String, String> parameters = new HashMap<>();
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
@@ -157,8 +159,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForIndexPlugin(DpsTaskSettings dpsTaskSettings, String datasetId,
-                                      boolean incrementalIndexing, Date harvestDate, boolean preserveTimestamps,
-                                      List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
+      boolean incrementalIndexing, Date harvestDate, boolean preserveTimestamps,
+      List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
     final DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
     dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     final Map<String, String> extraParameters = new HashMap<>();
@@ -173,21 +175,24 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     return createDpsTaskForProcessPlugin(dpsTaskSettings, extraParameters);
   }
 
-  Map<String, String> createParametersForValidationExternal(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
+  Map<String, String> createParametersForValidationExternal(String urlOfSchemasZip, String schemaRootPath,
+      String schematronRootPath) {
     final Map<String, String> parametersForValidation = createParametersForValidation(urlOfSchemasZip, schemaRootPath,
         schematronRootPath);
     parametersForValidation.put(PluginParameterKeys.GENERATE_STATS, Boolean.TRUE.toString());
     return parametersForValidation;
   }
 
-  Map<String, String> createParametersForValidationInternal(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
+  Map<String, String> createParametersForValidationInternal(String urlOfSchemasZip, String schemaRootPath,
+      String schematronRootPath) {
     final Map<String, String> parametersForValidation = createParametersForValidation(urlOfSchemasZip, schemaRootPath,
         schematronRootPath);
     parametersForValidation.put(PluginParameterKeys.GENERATE_STATS, Boolean.FALSE.toString());
     return parametersForValidation;
   }
 
-  private Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath, String schematronRootPath) {
+  private Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath,
+      String schematronRootPath) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put(PluginParameterKeys.SCHEMA_NAME, urlOfSchemasZip);
     extraParameters.put(PluginParameterKeys.ROOT_LOCATION, schemaRootPath);
@@ -221,11 +226,13 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   @Override
-  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
+  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException, UnrecoverableExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
     TaskInfo taskInfo;
     try {
       taskInfo = dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
+    } catch (AccessDeniedOrObjectDoesNotExistException e) {
+      throw new UnrecoverableExternalTaskException("Requesting task progress failed", e);
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task progress failed", e);
     }

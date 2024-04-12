@@ -17,6 +17,7 @@ import eu.europeana.indexing.solr.property.LicenseSolrCreator;
 import eu.europeana.indexing.solr.property.PlaceSolrCreator;
 import eu.europeana.indexing.solr.property.ProvidedChoSolrCreator;
 import eu.europeana.indexing.solr.property.ProxySolrCreator;
+import eu.europeana.indexing.solr.property.QualityAnnotationSolrCreator;
 import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
@@ -29,11 +30,9 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -74,18 +73,19 @@ public class SolrDocumentPopulator {
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
         .ofNullable(annotation.getTarget()).stream().flatMap(Arrays::stream)
         .anyMatch(acceptableTargets::contains);
-    final Map<String, QualityAnnotation> qualityAnnotations = Optional
+    final List<QualityAnnotation> annotationsToAdd = Optional
         .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElseGet(Stream::empty)
         .filter(Objects::nonNull)
-        .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
-        .filter(hasAcceptableTarget).collect(
-            Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
+        .filter(annotation -> StringUtils.isNotBlank(annotation.getBody()))
+        .filter(hasAcceptableTarget)
+        .collect(Collectors.toList());
+    new QualityAnnotationSolrCreator().addAllToDocument(document, annotationsToAdd);
 
     // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
     new AggregationSolrCreator(licenses, fullBean.getOrganizations())
         .addToDocument(document, getDataProviderAggregations(fullBean).get(0));
-    new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
+    new EuropeanaAggregationSolrCreator(licenses)
         .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
     new ConceptSolrCreator().addAllToDocument(document, fullBean.getConcepts());

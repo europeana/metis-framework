@@ -25,9 +25,9 @@ public enum AccountRole {
       throw new BadContentException("Account Role is not valid");
     }
 
-    for (AccountRole acountRole : AccountRole.values()) {
-      if (acountRole.name().equalsIgnoreCase(name)) {
-        return acountRole;
+    for (AccountRole accountRole : AccountRole.values()) {
+      if (accountRole.name().equalsIgnoreCase(name)) {
+        return accountRole;
       }
     }
     throw new BadContentException("Account Role is not valid");

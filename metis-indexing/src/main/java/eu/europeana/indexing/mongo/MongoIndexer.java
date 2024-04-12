@@ -5,6 +5,8 @@ import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
+import eu.europeana.indexing.IndexerPreprocessor;
+import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.SimpleIndexer;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -18,7 +20,6 @@ import java.time.Instant;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * Creates a record for indexing in Mongo
  */
@@ -28,6 +29,7 @@ public class MongoIndexer implements SimpleIndexer {
   private final AbstractConnectionProvider connectionProvider;
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
 
+  private final IndexingProperties indexingProperties;
 
   /**
    * Instantiates a new Mongo indexer.
@@ -38,6 +40,7 @@ public class MongoIndexer implements SimpleIndexer {
   public MongoIndexer(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
     this.connectionProvider = new MongoConnectionProvider(settings);
     this.stringToRdfConverterSupplier = StringToFullBeanConverter::new;
+    this.indexingProperties = settings.getIndexingProperties();
   }
 
   /**
@@ -59,6 +62,9 @@ public class MongoIndexer implements SimpleIndexer {
 
     LOGGER.info("Processing record {}", rdfRecord);
     final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
+
+    IndexerPreprocessor.preprocessRecord(rdfRecord, indexingProperties);
+
     publisher.publishMongo(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
   }
 

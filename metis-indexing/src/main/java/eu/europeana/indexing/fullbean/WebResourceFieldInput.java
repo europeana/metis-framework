@@ -4,6 +4,7 @@ import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
+import eu.europeana.corelib.edm.model.metainfo.ThreeDMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
@@ -34,8 +35,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Converts a {@link WebResourceType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
- * {@link WebResourceImpl} for a {@link eu.europeana.metis.schema.edm.beans.FullBean}.
+ * Converts a {@link WebResourceType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a {@link WebResourceImpl} for a
+ * {@link eu.europeana.metis.schema.edm.beans.FullBean}.
  */
 class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl> {
 
@@ -139,24 +140,17 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     // Get the media type and determine meta data creator
     final MediaType mediaType = Optional.ofNullable(webResource.getHasMimeType())
-        .map(HasMimeType::getHasMimeType).map(MediaType::getMediaType).orElse(MediaType.OTHER);
-    final BiConsumer<WebResourceType, WebResourceMetaInfoImpl> metaDataCreator;
-    switch (mediaType) {
-      case AUDIO:
-        metaDataCreator = this::addAudioMetaInfo;
-        break;
-      case IMAGE:
-        metaDataCreator = this::addImageMetaInfo;
-        break;
-      case TEXT:
-        metaDataCreator = this::addTextMetaInfo;
-        break;
-      case VIDEO:
-        metaDataCreator = this::addVideoMetaInfo;
-        break;
-      default:
-        metaDataCreator = null;
-    }
+                                        .map(HasMimeType::getHasMimeType).map(MediaType::getMediaType).orElse(MediaType.OTHER);
+
+    final BiConsumer<WebResourceType, WebResourceMetaInfoImpl> metaDataCreator =
+        switch (mediaType) {
+          case AUDIO -> this::addAudioMetaInfo;
+          case IMAGE -> this::addImageMetaInfo;
+          case TEXT -> this::addTextMetaInfo;
+          case VIDEO -> this::addVideoMetaInfo;
+          case THREE_D -> this::add3DMetaInfo;
+          default -> null;
+        };
 
     // If we have a creator, use it.
     if (metaDataCreator != null) {
@@ -245,6 +239,15 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     target.setVideoMetaInfo(metaInfo);
   }
 
+  private void add3DMetaInfo(WebResourceType source, WebResourceMetaInfoImpl target) {
+    ThreeDMetaInfoImpl metaInfo = new ThreeDMetaInfoImpl();
+
+    metaInfo.setMimeType(convertToString(source.getHasMimeType()));
+    metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
+
+    target.setThreeDMetaInfo(metaInfo);
+  }
+
   private static Long convertToLong(Duration duration) {
     if (duration == null || StringUtils.isBlank(duration.getDuration())) {
       return null;
@@ -274,10 +277,10 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
   private static Integer convertToInteger(NonNegativeIntegerType data) {
     return Optional.ofNullable(data).map(NonNegativeIntegerType::getInteger)
-        .map(BigInteger::intValue).orElse(null);
+                   .map(BigInteger::intValue).orElse(null);
   }
 
-  private static String convertToString(CodecName data){
+  private static String convertToString(CodecName data) {
     return Optional.ofNullable(data).map(CodecName::getCodecName).orElse(null);
   }
 }

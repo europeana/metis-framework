@@ -180,17 +180,9 @@ public class WebResourceWrapper {
     // Determine color space type.
     final ColorSpace result;
     switch (colorSpace.getHasColorSpace()) {
-      case OTHER:
-        result = ColorSpace.OTHER;
-        break;
-      case GRAYSCALE:
-      case REC601_LUMA:
-      case REC709_LUMA:
-        result = ColorSpace.GRAYSCALE;
-        break;
-      default:
-        result = ColorSpace.COLOR;
-        break;
+      case OTHER -> result = ColorSpace.OTHER;
+      case GRAYSCALE, REC601_LUMA, REC709_LUMA -> result = ColorSpace.GRAYSCALE;
+      default -> result = ColorSpace.COLOR;
     }
 
     // Done.

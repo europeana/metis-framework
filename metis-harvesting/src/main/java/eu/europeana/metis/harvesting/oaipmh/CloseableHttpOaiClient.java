@@ -4,6 +4,7 @@ import eu.europeana.metis.harvesting.HarvestingClientSettings;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -11,18 +12,18 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.dspace.xoai.serviceprovider.exceptions.HttpException;
-import org.dspace.xoai.serviceprovider.parameters.Parameters;
+import io.gdcc.xoai.serviceprovider.exceptions.HttpException;
+import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is an implementation of {@link org.dspace.xoai.serviceprovider.client.OAIClient} that needs
+ * This is an implementation of {@link io.gdcc.xoai.serviceprovider.client.OAIClient} that needs
  * to be closed.
  *
- * @see org.dspace.xoai.serviceprovider.client.HttpOAIClient
+ * @see io.gdcc.xoai.serviceprovider.client.OAIClient
  */
-public class CloseableHttpOaiClient implements CloseableOaiClient {
+public class CloseableHttpOaiClient extends CloseableOaiClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CloseableHttpOaiClient.class);
 
@@ -74,7 +75,12 @@ public class CloseableHttpOaiClient implements CloseableOaiClient {
     // Set up the request and the response. Note: we are aware that the user can inject parameters
     // in the provided URL, but that is currently the exact functionality we need to support.
     @SuppressWarnings("findsecbugs:HTTP_PARAMETER_POLLUTION")
-    final HttpGet request = new HttpGet(parameters.toUrl(baseUrl));
+    final HttpGet request;
+    try {
+      request = new HttpGet(parameters.toUrl(baseUrl));
+    } catch (IllegalArgumentException e) {
+      throw new HttpException(e);
+    }
     final CloseableHttpResponse response;
     try {
       response = httpClient.execute(request);

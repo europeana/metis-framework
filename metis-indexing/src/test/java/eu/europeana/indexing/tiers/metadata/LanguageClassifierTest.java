@@ -26,18 +26,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class LanguageClassifierTest {
 
-  @Test
-  void testClassify() {
+  @ParameterizedTest
+  @EnumSource
+  void testClassify(ClassifierMode classifierMode) {
 
     // Create mocks
-    final LanguageClassifier classifier = spy(new LanguageClassifier());
+    final LanguageClassifier classifier = spy(new LanguageClassifier(classifierMode));
     final LanguageTagStatistics statistics = mock(LanguageTagStatistics.class);
     final RdfWrapper entity = mock(RdfWrapper.class);
-    doReturn(statistics).when(classifier).createLanguageTagStatistics(entity);
+    doReturn(statistics).when(classifier).createLanguageTagStatistics(entity, classifierMode);
 
     // Try for different values of the ratio
     doReturn(0.0).when(statistics).getPropertiesWithLanguageRatio();
@@ -58,8 +64,17 @@ class LanguageClassifierTest {
     assertEquals(MetadataTier.TC, classifier.classifyBreakdown(entity).getMetadataTier());
   }
 
-  @Test
-  void testCreateLanguageTagStatistics() {
+  static Stream<Arguments> enumSource() {
+    return Stream.of(
+        Arguments.arguments(ClassifierMode.ALL_PROXIES, 1,1,1,3),
+        Arguments.arguments(ClassifierMode.PROVIDER_PROXIES, 1,1,0,2)
+    );
+  }
+
+  @ParameterizedTest
+  @MethodSource("enumSource")
+  void testCreateLanguageTagStatistics(ClassifierMode classifierMode,
+      int expectedP1, int expectedP2, int expectedP3, int expectedTimes) {
 
     // Create the RDF
     final RdfWrapper rdf = mock(RdfWrapper.class);
@@ -85,20 +100,26 @@ class LanguageClassifierTest {
     providerProxy2.setEuropeanaProxy(new EuropeanaProxy());
     providerProxy2.getEuropeanaProxy().setEuropeanaProxy(false);
     doReturn(Arrays.asList(providerProxy1, providerProxy2, null)).when(rdf).getProviderProxies();
+    final ProxyType providerProxy3 = new ProxyType();
+    providerProxy3.setEuropeanaProxy(new EuropeanaProxy());
+    providerProxy3.getEuropeanaProxy().setEuropeanaProxy(true);
+    doReturn(Arrays.asList(providerProxy1, providerProxy2, providerProxy3, null)).when(rdf).getProxies();
 
     // Test the method.
-    final LanguageClassifier classifier = spy(new LanguageClassifier());
-    final LanguageTagStatistics result = classifier.createLanguageTagStatistics(rdf);
-    verify(classifier, times(1)).addProxyToStatistics(providerProxy1, result);
-    verify(classifier, times(1)).addProxyToStatistics(providerProxy2, result);
-    verify(classifier, times(2)).addProxyToStatistics(any(), any());
+    final LanguageClassifier classifier = spy(new LanguageClassifier(classifierMode));
+    final LanguageTagStatistics result = classifier.createLanguageTagStatistics(rdf, classifierMode);
+    verify(classifier, times(expectedP1)).addProxyToStatistics(providerProxy1, result);
+    verify(classifier, times(expectedP2)).addProxyToStatistics(providerProxy2, result);
+    verify(classifier, times(expectedP3)).addProxyToStatistics(providerProxy3, result);
+    verify(classifier, times(expectedTimes)).addProxyToStatistics(any(), any());
   }
 
-  @Test
-  void testAddProxyToStatistics() {
+  @ParameterizedTest
+  @EnumSource
+  void testAddProxyToStatistics(ClassifierMode classifierMode) {
 
     // Create mocks
-    final LanguageClassifier classifier = spy(new LanguageClassifier());
+    final LanguageClassifier classifier = spy(new LanguageClassifier(classifierMode));
     final LanguageTagStatistics statistics = mock(LanguageTagStatistics.class);
 
     // Test with proxy without data.

@@ -22,7 +22,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -73,11 +72,11 @@ public final class EnrichmentUtils {
     final List<String> dateStrings = providerProxies.stream().map(EuropeanaType::getChoiceList)
             .filter(Objects::nonNull).flatMap(Collection::stream)
             .map(EnrichmentUtils::getDateFromChoice).filter(Objects::nonNull)
-            .collect(Collectors.toList());
+                                                    .toList();
 
     // Parse them and set them in the europeana proxy.
     final List<Year> yearList = new YearParser().parse(dateStrings).stream()
-        .map(EnrichmentUtils::createYear).collect(Collectors.toList());
+                                                .map(EnrichmentUtils::createYear).toList();
     europeanaProxy.setYearList(yearList);
   }
 
@@ -132,7 +131,7 @@ public final class EnrichmentUtils {
     List<String> titles = new ArrayList<>();
 
     List<Choice> choices = providerProxies.stream().map(EuropeanaType::getChoiceList)
-            .filter(Objects::nonNull).flatMap(Collection::stream).collect(Collectors.toList());
+                                          .filter(Objects::nonNull).flatMap(Collection::stream).toList();
     Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap = createCollectionsForResourceOrLiteralType(
         choices, descriptions, titles);
     addResourceOrLiteralTypeFromMapsToList(uniqueResourceOrLiteralTypeClassesMap, tags);
@@ -200,8 +199,8 @@ public final class EnrichmentUtils {
     if (booleanSupplier.getAsBoolean()) {
       R result = supplier.get();
       String value;
-      if (result instanceof LiteralType) {
-        value = getLiteralValue((LiteralType) result);
+      if (result instanceof LiteralType literalType) {
+        value = getLiteralValue(literalType);
       } else {
         value = getResourceorLiteralValue((ResourceOrLiteralType) result);
       }
@@ -214,8 +213,8 @@ public final class EnrichmentUtils {
     if (booleanSupplier.getAsBoolean()) {
       R result = supplier.get();
       String value;
-      if (result instanceof LiteralType) {
-        value = getLiteralValue((LiteralType) result);
+      if (result instanceof LiteralType literalType) {
+        value = getLiteralValue(literalType);
       } else {
         value = getResourceorLiteralValue((ResourceOrLiteralType) result);
       }
@@ -271,13 +270,13 @@ public final class EnrichmentUtils {
   private static Collection<String> extractWordsFromFields(Collection<String> fields) {
     return fields.stream().filter(StringUtils::isNotEmpty)
         .map(EnrichmentUtils::extractWordsFromField)
-        .flatMap(Collection::stream).collect(Collectors.toList());
+                 .flatMap(Collection::stream).toList();
   }
 
   private static List<String> extractWordsFromField(String field) {
     return Arrays.stream(field.split("\\W"))
         .filter(word -> StringUtils.isNotEmpty(word) && word.length() >= MIN_WORD_LENGTH)
-        .map(word -> word.toLowerCase(Locale.US)).collect(Collectors.toList());
+                 .map(word -> word.toLowerCase(Locale.US)).toList();
   }
 
   private static boolean isListFullOfEmptyValues(List<String> descriptions) {

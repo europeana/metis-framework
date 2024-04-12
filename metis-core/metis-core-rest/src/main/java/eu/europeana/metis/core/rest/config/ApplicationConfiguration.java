@@ -2,7 +2,6 @@ package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -29,8 +28,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.annotation.PreDestroy;
-import metis.common.config.properties.SocksProxyConfigurationProperties;
+import jakarta.annotation.PreDestroy;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.ecloud.EcloudConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
@@ -67,18 +65,16 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  */
 @Configuration
 @EnableConfigurationProperties({
-    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class,
-    SocksProxyConfigurationProperties.class, MongoConfigurationProperties.class,
+    ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class, MongoConfigurationProperties.class,
     MetisCoreConfigurationProperties.class, EcloudConfigurationProperties.class})
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest.controller"})
-public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationContextAware {
+public class ApplicationConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final MongoClient mongoClient;
 
   @Value(value = "classpath:default_transformation.xslt")
   private Resource defaultTransformation;
-  private ApplicationContext applicationContext;
 
   /**
    * Autowired constructor for Spring Configuration class.
@@ -87,25 +83,11 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
    */
   @Autowired
   public ApplicationConfiguration(TruststoreConfigurationProperties truststoreConfigurationProperties,
-      SocksProxyConfigurationProperties socksProxyConfigurationProperties,
       MongoConfigurationProperties mongoConfigurationProperties)
       throws TrustStoreConfigurationException {
     ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
-    ApplicationConfiguration.initializeSocksProxy(socksProxyConfigurationProperties);
     this.mongoClient = ApplicationConfiguration.getMongoClient(mongoConfigurationProperties);
   }
-
-  /**
-   * Set the application context.
-   *
-   * @param applicationContext the application context
-   * @throws BeansException if a beans exception occurs
-   */
-  @Override
-  public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-    this.applicationContext = applicationContext;
-  }
-
 
   /**
    * This method performs the initializing tasks for the application.
@@ -124,20 +106,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     }
   }
 
-  /**
-   * Socks proxy initializer.
-   *
-   * @param socksProxyConfigurationProperties the socks proxy configuration properties
-   */
-  static void initializeSocksProxy(SocksProxyConfigurationProperties socksProxyConfigurationProperties) {
-    if (socksProxyConfigurationProperties.isEnabled()) {
-      new SocksProxy(socksProxyConfigurationProperties.getHost(), socksProxyConfigurationProperties.getPort(),
-          socksProxyConfigurationProperties.getUsername(),
-          socksProxyConfigurationProperties.getPassword()).init();
-      LOGGER.info("Socks proxy enabled");
-    }
-  }
-
   public static MongoClient getMongoClient(MongoConfigurationProperties mongoConfigurationProperties) {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
@@ -152,14 +120,6 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
         mongoConfigurationProperties.getApplicationName());
 
     return new MongoClientProvider<>(mongoProperties).createMongoClient();
-  }
-
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    MetisCoreConfigurationProperties metisCoreConfigurationProperties =
-        applicationContext.getBean(MetisCoreConfigurationProperties.class);
-    registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-            .allowedOrigins(metisCoreConfigurationProperties.getAllowedCorsHosts());
   }
 
   @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
@@ -289,12 +249,5 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
   @Bean
   public ViewResolver viewResolver() {
     return new BeanNameViewResolver();
-  }
-
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
-    converters.add(new MappingJackson2XmlHttpMessageConverter());
-    converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
   }
 }

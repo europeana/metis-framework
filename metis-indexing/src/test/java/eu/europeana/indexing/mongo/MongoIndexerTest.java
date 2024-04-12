@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.web.exception.EuropeanaException;
+import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
 import eu.europeana.indexing.base.TestContainerFactoryIT;
@@ -20,6 +21,9 @@ import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +155,10 @@ class MongoIndexerTest {
       MongoIndexingSettings mongoIndexingSettings = new MongoIndexingSettings(mongoProperties);
       mongoIndexingSettings.setMongoDatabaseName(mongoDatabase);
       mongoIndexingSettings.setRecordRedirectDatabaseName(mongoRedirectDatabase);
+      IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+          true,
+          List.of(), true, true);
+      mongoIndexingSettings.setIndexingProperties(indexingProperties);
       return mongoIndexingSettings;
     }
 

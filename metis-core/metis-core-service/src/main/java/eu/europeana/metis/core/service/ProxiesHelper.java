@@ -28,7 +28,7 @@ class ProxiesHelper {
     final List<NodePathStatistics> nodePathStatisticsList = nodesByXPath.entrySet().stream()
         .map(ProxiesHelper::compileNodePathStatistics)
         .sorted(Comparator.comparing(NodePathStatistics::getxPath))
-        .collect(Collectors.toList());
+                                                                        .toList();
 
     // Done.
     final RecordStatistics result = new RecordStatistics();
@@ -53,7 +53,7 @@ class ProxiesHelper {
     final List<NodeValueStatistics> nodeValueStatisticsList = nodes.stream()
         .map(nodeValueConverter)
         .sorted(Comparator.comparing(NodeValueStatistics::getValue))
-        .collect(Collectors.toList());
+                                                                   .toList();
     final NodePathStatistics nodePathStatistics = new NodePathStatistics();
     nodePathStatistics.setxPath(nodePath);
     nodePathStatistics.setNodeValueStatistics(nodeValueStatisticsList);
@@ -77,7 +77,7 @@ class ProxiesHelper {
         .map(ProxiesHelper::compileAttributeStatistics)
         .sorted(Comparator.comparing(AttributeStatistics::getxPath)
             .thenComparing(AttributeStatistics::getValue))
-        .collect(Collectors.toList());
+                                                                    .toList();
     final NodeValueStatistics nodeValueStatistics = new NodeValueStatistics();
     nodeValueStatistics.setValue(nodeValue);
     nodeValueStatistics.setOccurrences(occurrence);

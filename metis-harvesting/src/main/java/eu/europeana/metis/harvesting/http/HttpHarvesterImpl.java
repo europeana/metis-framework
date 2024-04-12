@@ -13,6 +13,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.FileVisitResult;
@@ -82,7 +85,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     final Path downloadedFile;
     try {
       downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
-    } catch (IOException e) {
+    } catch (IOException | URISyntaxException e) {
       throw new HarvesterException("Problem downloading archive " + archiveUrl + ".", e);
     }
 
@@ -128,8 +131,13 @@ public class HttpHarvesterImpl implements HttpHarvester {
     return new FileIterator(extractedDirectory);
   }
 
-  private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException {
-    final URL archiveUrl = new URL(archiveUrlString);
+  private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException {
+    final URL archiveUrl;
+    try {
+      archiveUrl = new URI(archiveUrlString).toURL();
+    } catch (IllegalArgumentException e) {
+      throw new MalformedURLException(e.getMessage());
+    }
     if (!SUPPORTED_PROTOCOLS.contains(archiveUrl.getProtocol())) {
       throw new IOException("This functionality does not support this protocol ("
           + archiveUrl.getProtocol() + ").");

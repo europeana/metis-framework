@@ -21,6 +21,8 @@ import eu.europeana.entity.client.web.EntityClientApi;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.definitions.model.Place;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -238,7 +240,7 @@ class ClientEntityResolverTest {
                                       .map(entityType -> entityType.name().toLowerCase(Locale.US))
                                       .collect(Collectors.joining(","));
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::peekFirst)
-                                         .filter(Objects::nonNull).collect(Collectors.toList());
+                                         .filter(Objects::nonNull).toList();
       when(entityClientApi.getEnrichment(entry.getKey().getTextValue(), entry.getValue().getExpectedConvertedLanguage(),
           entityTypes, null)).thenReturn(children);
 
@@ -252,10 +254,10 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveById_Entity_Without_Parents() throws MalformedURLException {
+  void resolveById_Entity_Without_Parents() throws MalformedURLException, URISyntaxException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
-    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(PARENT_URI));
+    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
@@ -266,7 +268,7 @@ class ClientEntityResolverTest {
   void resolveById(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
-                                         .collect(Collectors.toList());
+                                         .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
         when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
@@ -290,10 +292,10 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_Without_Parents() throws MalformedURLException {
+  void resolveByUri_Entity_Without_Parents() throws MalformedURLException, URISyntaxException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
-    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(PARENT_URI));
+    final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
     int enrichmentBasesExpectedResults = 1;
     LinkedList<Entity> entityWithParents = new LinkedList<>();
     entityWithParents.add(placeEntity);
@@ -302,8 +304,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException {
-    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
+  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException, URISyntaxException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
     placeEntity.setIsPartOfArray(List.of(PARENT_URI));
@@ -318,8 +320,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK() throws MalformedURLException {
-    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_SAME_AS_URI));
+  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_SAME_AS_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
     placeEntity.setIsPartOfArray(List.of(PARENT_URI));
@@ -335,8 +337,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws MalformedURLException {
-    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URL(CHILD_URI));
+  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException {
+    ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
     placeEntity.setIsPartOfArray(List.of(PARENT_URI));
@@ -354,7 +356,7 @@ class ClientEntityResolverTest {
   void resolveByUri(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
-                                         .collect(Collectors.toList());
+                                         .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
         when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
@@ -389,7 +391,7 @@ class ClientEntityResolverTest {
 
   private void parentMatching(EntitiesAndExpectedEnrichmentBases entry, List<Entity> children) {
     final List<Entity> parentEntities = entry.getEntitiesWithParents().stream().flatMap(List::stream)
-                                             .filter(entity -> !children.contains(entity)).collect(Collectors.toList());
+                                             .filter(entity -> !children.contains(entity)).toList();
     for (Entity parentEntity : parentEntities) {
       when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
     }

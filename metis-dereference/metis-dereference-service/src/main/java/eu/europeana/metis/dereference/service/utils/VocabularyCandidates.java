@@ -66,7 +66,7 @@ public final class VocabularyCandidates {
     } else {
       candidates = searchedVocabularies.stream()
                                        .filter(vocabulary -> vocabularyMatchesUri(resourceId, vocabulary))
-                                       .collect(Collectors.toList());
+                                       .toList();
     }
 
     // Log and done.

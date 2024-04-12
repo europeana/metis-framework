@@ -5,7 +5,7 @@ on: push
 jobs:
 
   ci:
-    uses: europeana/metis-actions/.github/workflows/ci.yml@main
+    uses: europeana/metis-actions/.github/workflows/ci.yml@jdk21
     with:
       sonar_organization: europeana
       sonar_project_key: europeana_metis-framework
@@ -14,14 +14,14 @@ jobs:
 
   deploy-artifacts:
     needs: ci
-    uses: europeana/metis-actions/.github/workflows/deploy-artifacts.yml@main
+    uses: europeana/metis-actions/.github/workflows/deploy-artifacts.yml@jdk21
     secrets:
       ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
       ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
 
   docker-build_metis-authentication:
     needs: ci
-    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@jdk21
     with:
       docker-organization: europeana
       docker-image-name: metis-authentication
@@ -31,7 +31,7 @@ jobs:
       DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-core:
     needs: ci
-    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@jdk21
     with:
       docker-organization: europeana
       docker-image-name: metis-core
@@ -41,7 +41,7 @@ jobs:
       DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-dereference:
     needs: ci
-    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@jdk21
     with:
       docker-organization: europeana
       docker-image-name: metis-dereference
@@ -51,7 +51,7 @@ jobs:
       DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-repository:
     needs: ci
-    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
+    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@jdk21
     with:
       docker-organization: europeana
       docker-image-name: metis-repository
