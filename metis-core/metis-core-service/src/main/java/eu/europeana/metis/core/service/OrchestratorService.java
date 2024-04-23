@@ -547,7 +547,7 @@ public class OrchestratorService {
    * @return true if incremental, false otherwise
    */
   private boolean isIncremental(WorkflowExecution workflowExecution) {
-    final AbstractMetisPlugin<?> firstPluginInList = workflowExecution.getMetisPlugins().get(0);
+    final AbstractMetisPlugin<?> firstPluginInList = workflowExecution.getMetisPlugins().getFirst();
     // Non-executable plugins are not to be checked
     if (!(firstPluginInList instanceof AbstractExecutablePlugin)) {
       return false;

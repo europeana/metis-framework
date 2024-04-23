@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
+import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
@@ -185,7 +186,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       final int separatorIndex = providedMimeType.indexOf(';');
       final String adjustedMimeType =
           separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
-      metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
+      metadata.set(CONTENT_TYPE, adjustedMimeType);
     }
     try (final InputStream stream = TikaInputStream.get(path, metadata)) {
       return tika.detect(stream, metadata);

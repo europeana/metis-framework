@@ -42,7 +42,6 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.awaitility.Awaitility;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

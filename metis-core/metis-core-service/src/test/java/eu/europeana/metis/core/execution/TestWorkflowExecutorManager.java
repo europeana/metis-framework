@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -84,7 +83,8 @@ class TestWorkflowExecutorManager {
     String objectId = new ObjectId().toString();
     int priority = 0;
     doThrow(new IOException("Some Error")).when(rabbitmqPublisherChannel)
-        .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class), any(byte[].class));
+                                          .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class),
+                                              any(byte[].class));
     assertDoesNotThrow(() -> workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority));
   }
 }

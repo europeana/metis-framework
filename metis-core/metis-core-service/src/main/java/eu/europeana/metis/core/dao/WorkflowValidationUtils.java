@@ -108,13 +108,13 @@ public class WorkflowValidationUtils {
 
     // Check that first plugin is not link checking (except if it is the only plugin)
     if (enabledPlugins.size() > 1
-        && enabledPlugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
+        && enabledPlugins.getFirst().getPluginType() == PluginType.LINK_CHECKING) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
 
     // Make sure that all enabled plugins (except the first) have a predecessor within the workflow.
     final EnumSet<ExecutablePluginType> previousTypesInWorkflow = EnumSet
-        .of(enabledPlugins.get(0).getExecutablePluginType());
+        .of(enabledPlugins.getFirst().getExecutablePluginType());
     for (int i = 1; i < enabledPlugins.size(); i++) {
 
       // Find the permissible predecessors
@@ -140,7 +140,7 @@ public class WorkflowValidationUtils {
 
     // Check the presence of the predecessor and return it.
     return dataEvolutionUtils
-        .computePredecessorPlugin(enabledPlugins.get(0).getExecutablePluginType(),
+        .computePredecessorPlugin(enabledPlugins.getFirst().getExecutablePluginType(),
             enforcedPredecessorType, workflow.getDatasetId());
   }
 
