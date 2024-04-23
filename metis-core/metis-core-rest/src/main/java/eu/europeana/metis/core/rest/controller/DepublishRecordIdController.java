@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,8 +51,7 @@ public class DepublishRecordIdController {
    * Autowired constructor with all required parameters.
    *
    * @param depublishRecordIdService the service for depublished records.
-   * @param authenticationClient the java client to communicate with the external authentication
-   * service
+   * @param authenticationClient the java client to communicate with the external authentication service
    */
   @Autowired
   public DepublishRecordIdController(DepublishRecordIdService depublishRecordIdService,
@@ -63,8 +61,7 @@ public class DepublishRecordIdController {
   }
 
   /**
-   * Adds a list of record ids to be depublished for the dataset - the version for a simple text
-   * body.
+   * Adds a list of record ids to be depublished for the dataset - the version for a simple text body.
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
    * @param datasetId The dataset ID to which the depublish record ids belong.
@@ -92,8 +89,7 @@ public class DepublishRecordIdController {
   }
 
   /**
-   * Adds a list of record ids to be depublished for the dataset - the version for a multipart
-   * file.
+   * Adds a list of record ids to be depublished for the dataset - the version for a multipart file.
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
    * @param datasetId The dataset ID to which the depublish record ids belong.
@@ -118,9 +114,8 @@ public class DepublishRecordIdController {
   }
 
   /**
-   * Deletes a list of record ids from the database. Only record ids that are in a {@link
-   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
-   * state will be removed.
+   * Deletes a list of record ids from the database. Only record ids that are in a
+   * {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION} state will be removed.
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
    * @param datasetId The dataset ID to which the depublish record ids belong.
@@ -184,19 +179,17 @@ public class DepublishRecordIdController {
   }
 
   /**
-   * Does checking, prepares and adds a WorkflowExecution with a single Depublish step in the queue.
-   * That means it updates the status of the WorkflowExecution to {@link
-   * eu.europeana.metis.core.workflow.WorkflowStatus#INQUEUE}, adds it to the database and also it's
-   * identifier goes into the distributed queue of WorkflowExecutions.
+   * Does checking, prepares and adds a WorkflowExecution with a single Depublish step in the queue. That means it updates the
+   * status of the WorkflowExecution to {@link eu.europeana.metis.core.workflow.WorkflowStatus#INQUEUE}, adds it to the database
+   * and also it's identifier goes into the distributed queue of WorkflowExecutions.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier for which the execution will take place
    * @param datasetDepublish true for dataset depublication, false for record depublication
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
-   * highest
-   * @param recordIdsInSeparateLines the specific pending record ids to depublish. Only record ids
-   * that are marked as {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
-   * in the database will be attempted for depublication.
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
+   * @param recordIdsInSeparateLines the specific pending record ids to depublish. Only record ids that are marked as
+   * {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION} in the database will be
+   * attempted for depublication.
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
    * <ul>

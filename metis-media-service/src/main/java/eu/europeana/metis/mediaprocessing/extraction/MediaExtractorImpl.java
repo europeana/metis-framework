@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Set;
-import org.apache.tika.Tika;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import org.slf4j.Logger;
@@ -78,22 +77,22 @@ public class MediaExtractorImpl implements MediaExtractor {
    * Constructor for non-testing purposes.
    *
    * @param redirectCount The maximum number of times we will follow a redirect.
-   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation
-   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
-   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe
-   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
+   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation command is allowed to take
+   * before it is forcibly destroyed (i.e. cancelled).
+   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe command is allowed to take before
+   * it is forcibly destroyed (i.e. cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
    * @param responseTimeout The response timeout in milliseconds for downloading resources.
    * @param downloadTimeout The download timeout in milliseconds for downloading resources.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
   public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
-          int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
-          throws MediaProcessorException {
+      int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
+      throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
-            this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
+        this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
     this.tika = new TikaWrapper();
@@ -137,7 +136,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
       result = ProcessingMode.FULL;
     } else if (URL_TYPES_FOR_REDUCED_PROCESSING.stream()
-        .anyMatch(resourceEntry.getUrlTypes()::contains)) {
+                                               .anyMatch(resourceEntry.getUrlTypes()::contains)) {
       result = ProcessingMode.REDUCED;
     } else {
       result = ProcessingMode.NONE;
@@ -222,7 +221,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         }
       };
       try (final Resource resourceWithContent = this.resourceDownloadClient
-              .downloadWithContent(downloadInput)) {
+          .downloadWithContent(downloadInput)) {
         performThrowingAction(resourceWithContent, action);
       }
     }
@@ -278,11 +277,10 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   /**
-   * @return true if and only if resources of the given type need to be downloaded before performing
-   * full processing.
+   * @return true if and only if resources of the given type need to be downloaded before performing full processing.
    */
   boolean shouldDownloadForFullProcessing(String mimeType) {
     return Optional.of(MediaType.getMediaType(mimeType)).map(this::chooseMediaProcessor)
-        .map(MediaProcessor::downloadResourceForFullProcessing).orElse(Boolean.FALSE);
+                   .map(MediaProcessor::downloadResourceForFullProcessing).orElse(Boolean.FALSE);
   }
 }
