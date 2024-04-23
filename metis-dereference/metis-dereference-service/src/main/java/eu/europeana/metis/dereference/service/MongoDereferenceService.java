@@ -300,7 +300,7 @@ public class MongoDereferenceService implements DereferenceService {
 
         // If we do not have any cached entity, we need to compute it
         if (cachedEntity == null || cachedVocabularyChanged) {
-            transformedEntityVocabulary = retrieveAndTransformEntity(resourceId, cachedEntity);
+            transformedEntityVocabulary = retrieveTransformAndEvaluateEntity(resourceId, cachedEntity);
 
         } else {
             // if there was no xml entity but a vocabulary that means no entity for vocabulary
@@ -309,17 +309,14 @@ public class MongoDereferenceService implements DereferenceService {
                 cachedVocabulary, DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY);
             } else {
                 // otherwise If we have something in the cache we return that instead
-                transformedEntityVocabulary = new DereferenceResultWrapper(cachedEntity.getXml(),
-                        cachedVocabulary, DereferenceResultStatus.SUCCESS);
+                transformedEntityVocabulary = retrieveTransformAndEvaluateEntity(resourceId, cachedEntity);
             }
         }
 
         return transformedEntityVocabulary;
     }
 
-    //TODO: Pass as parameter cache entity
-    //TODO: Rename method accordingly
-    private DereferenceResultWrapper retrieveAndTransformEntity(String resourceId, ProcessedEntity cachedEntity)
+    private DereferenceResultWrapper retrieveTransformAndEvaluateEntity(String resourceId, ProcessedEntity cachedEntity)
             throws URISyntaxException {
 
         final VocabularyCandidates vocabularyCandidates = VocabularyCandidates
@@ -332,7 +329,11 @@ public class MongoDereferenceService implements DereferenceService {
         MongoDereferencedEntity entityTransformed = new MongoDereferencedEntity(null, null);
         //Only if we have vocabularies we continue
         if (!vocabularyCandidates.isEmpty()) {
-            originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
+            if (cachedEntity == null) {
+                originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
+            } else {
+                originalEntity = new MongoDereferencedEntity(cachedEntity.getXml(), DereferenceResultStatus.SUCCESS);
+            }
             //If original entity exists, try transformation
             if (originalEntity.getEntity() != null
                 && originalEntity.getDereferenceResultStatus() == DereferenceResultStatus.SUCCESS) {
@@ -357,15 +358,12 @@ public class MongoDereferenceService implements DereferenceService {
         DereferenceResultWrapper result = evaluateTransformedEntityAndVocabulary(vocabularyCandidates, transformedEntity,
             chosenVocabulary, originalEntity);
 
-        //TODO: Save entity here
-        //TODO: If transformedEntityVocabulary has SUCCESS, then save
-        //TODO: Else save the original entity/or the xml of the original entity
-        if (entityTransformed.getDereferenceResultStatus() == DereferenceResultStatus.SUCCESS){
-            saveEntity(resourceId, cachedEntity,
+        if (entityTransformed.getDereferenceResultStatus() == DereferenceResultStatus.SUCCESS && cachedEntity == null) {
+            saveEntity(resourceId,
                 new DereferenceResultWrapper(entityTransformed.getEntity(),
                     result.getVocabulary()));
-        } else {
-            saveEntity(resourceId, cachedEntity,
+        } else if (cachedEntity == null) {
+            saveEntity(resourceId,
                 new DereferenceResultWrapper(originalEntity.getEntity(),
                     result.getVocabulary()));
         }
@@ -373,15 +371,14 @@ public class MongoDereferenceService implements DereferenceService {
         return result;
     }
 
-    private void saveEntity(String resourceId, ProcessedEntity cachedEntity,
-                            DereferenceResultWrapper transformedEntityAndVocabularyPair) {
+    private void saveEntity(String resourceId, DereferenceResultWrapper transformedEntityAndVocabularyPair) {
 
         final String entityXml = transformedEntityAndVocabularyPair.getEntity();
         final Vocabulary vocabulary = transformedEntityAndVocabularyPair.getVocabulary();
         final String vocabularyIdString = Optional.ofNullable(vocabulary).map(Vocabulary::getId)
                 .map(ObjectId::toString).orElse(null);
         //Save entity
-        ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
+        ProcessedEntity entityToCache =  new ProcessedEntity();
         entityToCache.setResourceId(resourceId);
         entityToCache.setXml(entityXml);
         entityToCache.setVocabularyId(vocabularyIdString);
