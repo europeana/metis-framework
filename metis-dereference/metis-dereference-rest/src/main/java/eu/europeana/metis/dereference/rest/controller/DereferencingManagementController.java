@@ -22,12 +22,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -130,7 +128,9 @@ public class DereferencingManagementController {
         service.loadVocabularies(validatedLocationUrl.get());
         return ResponseEntity.ok().build();
       }
-      return ResponseEntity.badRequest().body("The url of the directory to import is not valid.");
+      return
+          ResponseEntity
+              .badRequest().body("The url of the directory to import is not valid.");
     } catch (BadContentException e) {
       LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.badRequest().body(e.getMessage());

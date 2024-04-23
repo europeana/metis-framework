@@ -521,8 +521,10 @@ public class DatasetService {
     try {
       final TransformationParameters transformationParameters = new TransformationParameters(
           dataset);
-      transformer = new XsltTransformer(xsltUrl, transformationParameters.getDatasetName(),
-          transformationParameters.getEdmCountry(), transformationParameters.getEdmLanguage());
+      transformer =
+          new XsltTransformer
+              (xsltUrl, transformationParameters.getDatasetName(), transformationParameters.getEdmCountry(),
+                  transformationParameters.getEdmLanguage());
       europeanIdCreator = new EuropeanaIdCreator();
     } catch (TransformationException e) {
       throw new XsltSetupException("Could not setup XSL transformation.", e);
