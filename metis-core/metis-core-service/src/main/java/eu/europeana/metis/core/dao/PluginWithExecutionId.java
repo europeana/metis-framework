@@ -20,9 +20,7 @@ public class PluginWithExecutionId<T extends MetisPlugin> {
    * @param plugin The plugin.
    */
   public PluginWithExecutionId(WorkflowExecution execution, T plugin) {
-
-    this(
-        execution.getId().toString(), plugin);
+    this(execution.getId().toString(), plugin);
   }
 
   /**
