@@ -125,7 +125,7 @@ public class CompressedFileHandler {
     final List<Path> nestedCompressedFiles = new ArrayList<>();
     try (ZipArchiveInputStream is = new ZipArchiveInputStream(Files.newInputStream(compressedFile))) {
       ZipArchiveEntry entry;
-      while ((entry = is.getNextZipEntry()) != null) {
+      while ((entry = is.getNextEntry()) != null) {
         final String entryName = replaceBannedCharacters(entry.getName());
         // create a new path, protect against malicious zip files
         final Path newPath = zipSlipVulnerabilityProtect(entryName, destinationFolder);
@@ -183,7 +183,7 @@ public class CompressedFileHandler {
     final List<Path> nestedCompressedFiles = new ArrayList<>();
     try (TarArchiveInputStream is = new TarArchiveInputStream(Files.newInputStream(compressedFile))) {
       TarArchiveEntry entry;
-      while ((entry = is.getNextTarEntry()) != null) {
+      while ((entry = is.getNextEntry()) != null) {
         final String entryName = replaceBannedCharacters(entry.getName());
         // create a new path, protect against malicious tar files
         final Path newPath = zipSlipVulnerabilityProtect(entryName, destinationFolder);
@@ -202,7 +202,7 @@ public class CompressedFileHandler {
     return entryName.replaceAll("[" + FILE_NAME_BANNED_CHARACTERS + "]", "_");
   }
 
-  private static void extract(ArchiveInputStream is, ArchiveEntry entry, Path newPath) throws IOException {
+  private static void extract(ArchiveInputStream<?> is, ArchiveEntry entry, Path newPath) throws IOException {
 
     if (entry.isDirectory()) {
       Files.createDirectories(newPath);
