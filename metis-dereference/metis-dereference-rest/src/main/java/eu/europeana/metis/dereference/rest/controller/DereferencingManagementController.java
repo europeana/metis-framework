@@ -129,11 +129,10 @@ public class DereferencingManagementController {
         return ResponseEntity.ok().build();
       }
       return
-          ResponseEntity
-              .badRequest().body("The url of the directory to import is not valid.");
+          ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The url of the directory to import is not valid.");
     } catch (BadContentException e) {
       LOGGER.warn("Could not load vocabularies", e);
-      return ResponseEntity.badRequest().body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     } catch (VocabularyImportException e) {
       LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
