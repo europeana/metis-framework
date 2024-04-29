@@ -4,9 +4,6 @@ import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This enum lists the content and metadata tiers that exist.

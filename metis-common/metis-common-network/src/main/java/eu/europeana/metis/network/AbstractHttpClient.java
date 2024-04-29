@@ -19,6 +19,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -82,15 +83,18 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
   protected AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
           int requestTimeout) {
 
-    // Set the request config settings
-    final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
-            .setConnectTimeout(Timeout.ofMilliseconds(connectTimeout))
-            .setResponseTimeout(Timeout.ofMilliseconds(responseTimeout)).build();
-    this.requestTimeout = requestTimeout;
+    final ConnectionConfig connectionConfig = ConnectionConfig.custom()
+                                                   .setConnectTimeout(Timeout.ofMilliseconds(connectTimeout))
+                                                   .setSocketTimeout(Timeout.ofMilliseconds(responseTimeout)).build();
 
     // Create a connection manager tuned to one thread use.
     connectionManager = new PoolingHttpClientConnectionManager();
+    connectionManager.setDefaultConnectionConfig(connectionConfig);
     connectionManager.setDefaultMaxPerRoute(1);
+
+    // Set the request config settings
+    final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount).build();
+    this.requestTimeout = requestTimeout;
 
     // Build the client.
     client = HttpClients.custom().setDefaultRequestConfig(requestConfig)

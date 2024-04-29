@@ -19,7 +19,6 @@ import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,9 +35,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is the Metis implementation of record parsing. When extracting references from an RDF file,
- * it returns both the references in the provider proxy as well as any declared equivalency (sameAs
- * or exactMatch) references in the referenced contextual classes.
+ * This is the Metis implementation of record parsing. When extracting references from an RDF file, it returns both the references
+ * in the provider proxy as well as any declared equivalency (sameAs or exactMatch) references in the referenced contextual
+ * classes.
  */
 public class MetisRecordParser implements RecordParser {
 
@@ -62,9 +61,9 @@ public class MetisRecordParser implements RecordParser {
     final Map<FieldValue, Set<FieldType<T>>> fieldValueFieldTypesMap = new HashMap<>();
     for (FieldType<T> fieldType : fieldTypes) {
       aboutTypes.stream().map(fieldType::extractFieldValuesForEnrichment)
-          .flatMap(Collection::stream).forEach(
-          value -> fieldValueFieldTypesMap.computeIfAbsent(value, key -> new HashSet<>())
-              .add(fieldType));
+                .flatMap(Collection::stream).forEach(
+                    value -> fieldValueFieldTypesMap.computeIfAbsent(value, key -> new HashSet<>())
+                                                    .add(fieldType));
     }
     return fieldValueFieldTypesMap.entrySet().stream().map(
         entry -> new SearchTermContext(entry.getKey().value(), entry.getKey().language(),
@@ -81,7 +80,7 @@ public class MetisRecordParser implements RecordParser {
     final Map<String, Set<ProxyFieldType>> directReferences = new HashMap<>();
     for (ProxyFieldType field : ProxyFieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
-          .flatMap(Set::stream).collect(Collectors.toSet());
+                                             .flatMap(Set::stream).collect(Collectors.toSet());
       for (String directLink : directLinks) {
         directReferences.computeIfAbsent(directLink, key -> new HashSet<>()).add(field);
       }
@@ -100,13 +99,13 @@ public class MetisRecordParser implements RecordParser {
       }
     };
     Optional.ofNullable(rdf.getAgentList()).orElseGet(Collections::emptyList)
-        .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeProcessor);
     Optional.ofNullable(rdf.getConceptList()).orElseGet(Collections::emptyList)
-        .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeProcessor);
     Optional.ofNullable(rdf.getPlaceList()).orElseGet(Collections::emptyList)
-        .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeProcessor);
     Optional.ofNullable(rdf.getTimeSpanList()).orElseGet(Collections::emptyList)
-        .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeProcessor);
 
     // Merge the two maps.
     final Map<String, Set<ProxyFieldType>> resultMap = mergeMapInto(directReferences,
@@ -137,22 +136,19 @@ public class MetisRecordParser implements RecordParser {
 
   private static Set<String> getSameAsLinks(AboutType contextualClass) {
     final List<? extends ResourceType> result;
-    if (contextualClass instanceof AgentType agentType) {
-      result = agentType.getSameAList();
-    } else if (contextualClass instanceof Concept concept) {
-      result = Optional.ofNullable(concept.getChoiceList()).stream()
-          .flatMap(Collection::stream).filter(Objects::nonNull).filter(Concept.Choice::ifExactMatch)
-                       .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).toList();
-    } else if (contextualClass instanceof PlaceType placeType) {
-      result = placeType.getSameAList();
-    } else if (contextualClass instanceof TimeSpanType timeSpanType) {
-      result = ((TimeSpanType) contextualClass).getSameAList();
-    } else {
-      result = null;
-    }
+    result = switch (contextualClass) {
+      case AgentType agentType -> agentType.getSameAList();
+      case Concept concept -> Optional.ofNullable(concept.getChoiceList()).stream()
+                                      .flatMap(Collection::stream).filter(Objects::nonNull).filter(Concept.Choice::ifExactMatch)
+                                      .map(Concept.Choice::getExactMatch).filter(Objects::nonNull).toList();
+      case PlaceType placeType -> placeType.getSameAList();
+      case TimeSpanType timeSpanType -> timeSpanType.getSameAList();
+      default -> null;
+    };
+
     return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
-        .filter(Objects::nonNull).map(ResourceType::getResource).filter(StringUtils::isNotBlank)
-        .collect(Collectors.toSet());
+                   .filter(Objects::nonNull).map(ResourceType::getResource).filter(StringUtils::isNotBlank)
+                   .collect(Collectors.toSet());
   }
 
   private static <T, S> Map<T, Set<S>> mergeMapInto(Map<T, Set<S>> map1, Map<T, Set<S>> map2) {

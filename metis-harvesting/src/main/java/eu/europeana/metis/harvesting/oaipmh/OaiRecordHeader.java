@@ -1,10 +1,8 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
+import io.gdcc.xoai.model.oaipmh.results.record.Header;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
-import java.util.Optional;
-import io.gdcc.xoai.model.oaipmh.results.record.Header;
 
 /**
  * This is a immutable class representing an OAI-PMH record header.
@@ -19,6 +17,7 @@ public class OaiRecordHeader implements Serializable {
 
   /**
    * Constructor.
+   *
    * @param oaiIdentifier The OAI-PMH identifier of the record.
    * @param isDeleted Whether the record is marked as deleted.
    * @param datestamp The datestamp of the record.

@@ -1,13 +1,12 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.model.Media3dResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
-import eu.europeana.metis.mediaprocessing.model.Media3dResourceMetadata;
-import java.io.IOException;
 
-class Media3dProcessor implements MediaProcessor{
+class Media3dProcessor implements MediaProcessor {
 
   @Override
   public ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)

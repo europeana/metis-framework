@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.service;
 
+import static java.util.function.Predicate.not;
+
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.common.TransformationParameters;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -39,7 +41,6 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.redisson.api.RLock;
@@ -50,8 +51,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Contains business logic of how to manipulate datasets in the system using several components. The
- * functionality in this class is checked for user authentication.
+ * Contains business logic of how to manipulate datasets in the system using several components. The functionality in this class
+ * is checked for user authentication.
  */
 @Service
 public class DatasetService {
@@ -136,7 +137,7 @@ public class DatasetService {
 
       dataset.setCreatedDate(new Date());
       //Add fake ecloudDatasetId to avoid null errors in the database
-      dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
+      dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID()));
 
       int nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();
       dataset.setDatasetId(Integer.toString(nextInSequenceDatasetId));
@@ -152,8 +153,7 @@ public class DatasetService {
    * Update an already existent dataset.
    *
    * @param metisUserView the {@link MetisUserView} to authorize with
-   * @param dataset the provided dataset with the changes and the datasetId included in the {@link
-   * Dataset}
+   * @param dataset the provided dataset with the changes and the datasetId included in the {@link Dataset}
    * @param xsltString the text of the String representation
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -267,14 +267,11 @@ public class DatasetService {
     }
 
     //Are there datasets that have a reference to the datasetId that is to be removed
-    final List<Dataset> datasetsThatHaveAReference = datasetDao
-        .getAllDatasetsByDatasetIdsToRedirectFrom(datasetId);
+    final List<Dataset> datasetsThatHaveAReference = datasetDao.getAllDatasetsByDatasetIdsToRedirectFrom(datasetId);
     //Clear references of the datasetId
     datasetsThatHaveAReference.forEach(ds -> {
       final List<String> datasetIdsToRedirectFrom = ds.getDatasetIdsToRedirectFrom();
-      ds.setDatasetIdsToRedirectFrom(
-          datasetIdsToRedirectFrom.stream().filter(id -> !id.equals(datasetId))
-              .collect(Collectors.toList()));
+      ds.setDatasetIdsToRedirectFrom(datasetIdsToRedirectFrom.stream().filter(not(id -> id.equals(datasetId))).toList());
       datasetDao.update(ds);
     });
 
@@ -338,8 +335,7 @@ public class DatasetService {
   public DatasetXslt getDatasetXsltByDatasetId(MetisUserView metisUserView,
       String datasetId) throws GenericMetisException {
     Dataset dataset = authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
-    DatasetXslt datasetXslt =
-        datasetXsltDao.getById(dataset.getXsltId() == null ? null : dataset.getXsltId().toString());
+    DatasetXslt datasetXslt = datasetXsltDao.getById(dataset.getXsltId() == null ? null : dataset.getXsltId().toString());
     if (datasetXslt == null) {
       throw new NoXsltFoundException(String.format(
           "No datasetXslt found for dataset with datasetId: '%s' and xsltId: '%s' in METIS",
@@ -364,8 +360,7 @@ public class DatasetService {
   public DatasetXslt getDatasetXsltByXsltId(String xsltId) throws GenericMetisException {
     DatasetXslt datasetXslt = datasetXsltDao.getById(xsltId);
     if (datasetXslt == null) {
-      throw new NoXsltFoundException(
-          String.format("No datasetXslt found with xsltId: '%s' in METIS", xsltId));
+      throw new NoXsltFoundException(String.format("No datasetXslt found with xsltId: '%s' in METIS", xsltId));
     }
     return datasetXslt;
   }
@@ -373,11 +368,9 @@ public class DatasetService {
   /**
    * Create a new default xslt in the database.
    * <p>
-   * Each dataset can have it's own custom xslt but a default xslt should always be available.
-   * Creating a new default xslt will create a new {@link DatasetXslt} object and the older one will
-   * still be available. The created {@link DatasetXslt} will have {@link
-   * DatasetXslt#getDatasetId()} equal to -1 to indicate that it is not related to a specific
-   * dataset.
+   * Each dataset can have it's own custom xslt but a default xslt should always be available. Creating a new default xslt will
+   * create a new {@link DatasetXslt} object and the older one will still be available. The created {@link DatasetXslt} will have
+   * {@link DatasetXslt#getDatasetId()} equal to -1 to indicate that it is not related to a specific dataset.
    * </p>
    *
    * @param metisUserView the {@link MetisUserView} to authorize with
@@ -405,9 +398,8 @@ public class DatasetService {
   /**
    * Get the latest default xslt.
    * <p>
-   * It is an method that does not require authentication and it is meant to be used from external
-   * service to download the corresponding xslt. At the point of writing, ECloud transformation
-   * topology is using it. {@link TransformationPlugin}
+   * It is an method that does not require authentication and it is meant to be used from external service to download the
+   * corresponding xslt. At the point of writing, ECloud transformation topology is using it. {@link TransformationPlugin}
    * </p>
    *
    * @return the text representation of the String xslt non escaped
@@ -427,19 +419,15 @@ public class DatasetService {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method can be used, for example, after a response from {@link
-   * ProxiesService#getListOfFileContentsFromPluginExecution(MetisUserView, String,
-   * ExecutablePluginType, String, int)} to try a transformation on a list of xmls just after
-   * validation external to preview an example result.
+   * This method can be used, for example, after a response from
+   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUserView, String, ExecutablePluginType, String, int)} to
+   * try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
    * @param metisUserView the {@link MetisUserView} to authorize with
-   * @param datasetId the dataset identifier, it is required for authentication and for the dataset
-   * fields xslt injection
-   * @param records the list of {@link Record} for which {@link Record#getXmlRecord()} returns a
-   * non-null value
-   * @return a list of {@link Record}s with {@link Record#getXmlRecord()} returning the transformed
-   * XML
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} for which {@link Record#getXmlRecord()} returns a non-null value
+   * @return a list of {@link Record}s with {@link Record#getXmlRecord()} returning the transformed XML
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
@@ -460,9 +448,8 @@ public class DatasetService {
     }
     String xsltUrl;
     synchronized (this) {
-      xsltUrl = metisCoreUrl + RestEndpoints
-          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
-              Collections.singletonList(datasetXslt.getId().toString()));
+      xsltUrl = metisCoreUrl +
+          RestEndpoints.resolve(RestEndpoints.DATASETS_XSLT_XSLTID, Collections.singletonList(datasetXslt.getId().toString()));
     }
     return transformRecords(dataset, records, xsltUrl);
   }
@@ -470,19 +457,15 @@ public class DatasetService {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method can be used, for example, after a response from {@link
-   * ProxiesService#getListOfFileContentsFromPluginExecution(MetisUserView, String,
-   * ExecutablePluginType, String, int)} to try a transformation on a list of xmls just after
-   * validation external to preview an example result.
+   * This method can be used, for example, after a response from
+   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUserView, String, ExecutablePluginType, String, int)} to
+   * try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
    * @param metisUserView the {@link MetisUserView} to authorize with
-   * @param datasetId the dataset identifier, it is required for authentication and for the dataset
-   * fields xslt injection
-   * @param records the list of {@link Record} for which {@link Record#getXmlRecord()} returns a
-   * non-null value
-   * @return a list of {@link Record}s with {@link Record#getXmlRecord()} returning the transformed
-   * XML
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} for which {@link Record#getXmlRecord()} returns a non-null value
+   * @return a list of {@link Record}s with {@link Record#getXmlRecord()} returning the transformed XML
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
@@ -505,8 +488,7 @@ public class DatasetService {
     String xsltUrl;
     synchronized (this) {
       xsltUrl = metisCoreUrl + RestEndpoints
-          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
-              Collections.singletonList(datasetXslt.getId().toString()));
+          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, Collections.singletonList(datasetXslt.getId().toString()));
     }
 
     return transformRecords(dataset, records, xsltUrl);
@@ -516,37 +498,33 @@ public class DatasetService {
       throws XsltSetupException {
 
     // Set up transformer.
-    final XsltTransformer transformer;
     final EuropeanaIdCreator europeanIdCreator;
-    try {
-      final TransformationParameters transformationParameters = new TransformationParameters(
-          dataset);
-      transformer = new XsltTransformer(xsltUrl, transformationParameters.getDatasetName(),
-          transformationParameters.getEdmCountry(), transformationParameters.getEdmLanguage());
+    final TransformationParameters transformationParameters = new TransformationParameters(dataset);
+    try (XsltTransformer transformer = new XsltTransformer(xsltUrl, transformationParameters.getDatasetName(),
+        transformationParameters.getEdmCountry(), transformationParameters.getEdmLanguage())) {
       europeanIdCreator = new EuropeanaIdCreator();
+
+      // Transform the records.
+      return records.stream().map(record -> {
+        try {
+          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = europeanIdCreator
+              .constructEuropeanaId(record.getXmlRecord(), dataset.getDatasetId());
+          return new Record(record.getEcloudId(),
+              transformer.transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8), europeanaGeneratedIdsMap).toString());
+        } catch (TransformationException e) {
+          LOGGER.info("Record from list failed transformation", e);
+          return new Record(record.getEcloudId(), e.getMessage());
+        } catch (EuropeanaIdException e) {
+          LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
+          return new Record(record.getEcloudId(), e.getMessage());
+        }
+      }).toList();
     } catch (TransformationException e) {
       throw new XsltSetupException("Could not setup XSL transformation.", e);
     } catch (EuropeanaIdException e) {
       throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED,
           e);
     }
-
-    // Transform the records.
-    return records.stream().map(record -> {
-      try {
-        EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = europeanIdCreator
-            .constructEuropeanaId(record.getXmlRecord(), dataset.getDatasetId());
-        return new Record(record.getEcloudId(), transformer
-            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8),
-                europeanaGeneratedIdsMap).toString());
-      } catch (TransformationException e) {
-        LOGGER.info("Record from list failed transformation", e);
-        return new Record(record.getEcloudId(), e.getMessage());
-      } catch (EuropeanaIdException e) {
-        LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
-        return new Record(record.getEcloudId(), e.getMessage());
-      }
-    }).toList();
   }
 
   /**
@@ -650,10 +628,9 @@ public class DatasetService {
    * @param metisUserView the {@link MetisUserView} to authorize with
    * @param searchString a string that may contain multiple words separated by spaces.
    * <p>The search will be performed on the fields datasetId, datasetName, provider, dataProvider.
-   * The words that start with a numeric character will be considered as part of the datasetId
-   * search and that field is searched as a "starts with" operation. All words that from a certain
-   * length threshold and above e.g. 3 will be used, as AND operations, for searching the fields
-   * datasetName, provider, dataProvider</p>
+   * The words that start with a numeric character will be considered as part of the datasetId search and that field is searched
+   * as a "starts with" operation. All words that from a certain length threshold and above e.g. 3 will be used, as AND
+   * operations, for searching the fields datasetName, provider, dataProvider</p>
    * @param nextPage the nextPage number, must be positive
    * @return a list with the dataset search view results
    * @throws GenericMetisException which can be one of:

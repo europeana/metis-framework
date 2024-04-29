@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +39,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -86,7 +84,6 @@ public class DatasetController {
   @PostMapping(value = RestEndpoints.DATASETS, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
   public Dataset createDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
       throws GenericMetisException {
@@ -179,7 +176,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public Dataset getByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
@@ -211,7 +207,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public DatasetXslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
 
@@ -240,7 +235,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_XSLT_XSLTID, produces = {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public String getXsltByXsltId(@PathVariable("xsltId") String xsltId)
       throws GenericMetisException {
     DatasetXslt datasetXslt = datasetService.getDatasetXsltByXsltId(xsltId);
@@ -269,7 +263,6 @@ public class DatasetController {
       MediaType.TEXT_PLAIN_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
   public DatasetXslt createDefaultXslt(@RequestHeader("Authorization") String authorization,
       @RequestBody String xsltString)
       throws GenericMetisException {
@@ -296,7 +289,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, produces = {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public String getLatestDefaultXslt() throws GenericMetisException {
     DatasetXslt datasetXslt = datasetService.getLatestDefaultXslt();
     LOGGER.info("Default XSLT with xsltId '{}' found", datasetXslt.getId());
@@ -306,9 +298,9 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String,
-   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after validation external to preview an
-   * example result.
+   * This method is meant to be used after a response from
+   * {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, ExecutablePluginType, String)} to try a
+   * transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
@@ -328,7 +320,6 @@ public class DatasetController {
   @PostMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM, consumes = {
       MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public List<Record> transformRecordsUsingLatestDatasetXslt(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -340,9 +331,9 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String,
-   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after validation external to preview an
-   * example result.
+   * This method is meant to be used after a response from
+   * {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, ExecutablePluginType, String)} to try a
+   * transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
@@ -362,7 +353,6 @@ public class DatasetController {
   @PostMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM_DEFAULT, consumes = {
       MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public List<Record> transformRecordsUsingLatestDefaultXslt(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -387,7 +377,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_DATASETNAME, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public Dataset getByDatasetName(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetName") String datasetName)
       throws GenericMetisException {
@@ -416,7 +405,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_PROVIDER, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByProvider(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("provider") String provider,
@@ -455,7 +443,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_INTERMEDIATE_PROVIDER, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByIntermediateProvider(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("intermediateProvider") String intermediateProvider,
@@ -495,7 +482,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("dataProvider") String dataProvider,
@@ -534,7 +520,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_ORGANIZATION_ID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("organizationId") String organizationId,
@@ -573,7 +558,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_ORGANIZATION_NAME, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationName(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("organizationName") String organizationName,
@@ -610,7 +594,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_COUNTRIES, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public List<CountryView> getDatasetsCountries(
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -633,7 +616,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_LANGUAGES, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public List<LanguageView> getDatasetsLanguages(
       @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -662,7 +644,6 @@ public class DatasetController {
   @GetMapping(value = RestEndpoints.DATASETS_SEARCH, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<DatasetSearchView> getDatasetSearch(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "searchString") String searchString,

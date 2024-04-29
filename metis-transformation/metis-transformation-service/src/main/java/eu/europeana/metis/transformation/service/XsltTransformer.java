@@ -35,7 +35,7 @@ public class XsltTransformer implements Closeable {
   private static final CacheWithExpirationTime<String, Templates> TEMPLATES_CACHE =
       new CacheWithExpirationTime<>();
 
-  private static final HttpClient httpClient = HttpClient.newBuilder().build();
+  private final HttpClient httpClient = HttpClient.newBuilder().build();
   private final Transformer transformer;
 
   /**
@@ -101,7 +101,7 @@ public class XsltTransformer implements Closeable {
     setTransformerParameters(datasetName, edmCountry, edmLanguage);
   }
 
-  private static Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
+  private Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
 
@@ -112,7 +112,7 @@ public class XsltTransformer implements Closeable {
    * @return the templates
    * @throws CacheValueSupplierException if the input stream reading fails as well
    */
-  private static Templates getTemplatesFromUrlOrStream(String xsltKey,
+  private Templates getTemplatesFromUrlOrStream(String xsltKey,
       InputStream xsltInputStream) throws CacheValueSupplierException {
     Templates templates;
     try {
@@ -134,7 +134,7 @@ public class XsltTransformer implements Closeable {
     }
   }
 
-  private static Templates createTemplatesFromUrl(String xsltUrl)
+  private Templates createTemplatesFromUrl(String xsltUrl)
       throws CacheValueSupplierException {
 
     HttpRequest httpRequest = HttpRequest.newBuilder()

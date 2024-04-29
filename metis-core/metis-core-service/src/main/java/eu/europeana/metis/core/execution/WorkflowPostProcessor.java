@@ -77,62 +77,67 @@ public class WorkflowPostProcessor {
    * Performs post-processing for indexing plugins
    *
    * @param indexPlugin The index plugin
-   * @param datasetId   The dataset id
-   * @throws DpsException                If communication with e-cloud dps failed
+   * @param datasetId The dataset id
+   * @throws DpsException If communication with e-cloud dps failed
    * @throws InvalidIndexPluginException If invalid type of plugin
-   * @throws BadContentException         In case the records would violate the maximum number of de-published records that each
-   *                                     dataset can have.
+   * @throws BadContentException In case the records would violate the maximum number of de-published records that each dataset
+   * can have.
    */
   private void indexPostProcess(AbstractExecutablePlugin<?> indexPlugin, String datasetId)
       throws DpsException, InvalidIndexPluginException, BadContentException {
     TargetIndexingDatabase targetIndexingDatabase;
-    if (indexPlugin instanceof IndexToPreviewPlugin indexToPreviewPlugin) {
-      targetIndexingDatabase = indexToPreviewPlugin.getTargetIndexingDatabase();
-    } else if (indexPlugin instanceof IndexToPublishPlugin indexToPublishPlugin) {
-      targetIndexingDatabase = indexToPublishPlugin.getTargetIndexingDatabase();
-
-      final boolean isIncremental = ((IndexToPublishPlugin) indexPlugin).getPluginMetadata().isIncrementalIndexing();
-
-      if (isIncremental) {
-        // get all currently de-published records IDs from the database and create their full versions
-        final Set<String> depublishedRecordIds = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(
-            datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-            DepublicationStatus.DEPUBLISHED);
-        final Map<String, String> depublishedRecordIdsByFullId = depublishedRecordIds.stream()
-            .collect(Collectors.toMap(id -> RecordIdUtils.composeFullRecordId(datasetId, id),
-                Function.identity()));
-
-        // Check which have been published by the index action - use full record IDs for eCloud.
-        if (!CollectionUtils.isEmpty(depublishedRecordIdsByFullId)) {
-          final List<String> publishedRecordIds = dpsClient.searchPublishedDatasetRecords(datasetId,
-              new ArrayList<>(depublishedRecordIdsByFullId.keySet()));
-
-          // Remove the 'depublished' status. Note: we need to check for an empty result (otherwise
-          // the DAO call will update all records). Use the simple record IDs again.
-          if (!CollectionUtils.isEmpty(publishedRecordIds)) {
-            depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
-                publishedRecordIds.stream().map(depublishedRecordIdsByFullId::get)
-                    .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null);
-          }
-        }
-      } else {
-        // reset de-publish status, pass null, all records will be de-published
-        depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-            DepublicationStatus.PENDING_DEPUBLICATION, null);
+    switch (indexPlugin) {
+      case IndexToPreviewPlugin indexToPreviewPlugin -> targetIndexingDatabase = indexToPreviewPlugin.getTargetIndexingDatabase();
+      case IndexToPublishPlugin indexToPublishPlugin -> {
+        targetIndexingDatabase = indexToPublishPlugin.getTargetIndexingDatabase();
+        reinstateDepublishRecordIdsStatus((IndexToPublishPlugin) indexPlugin, datasetId);
       }
-    } else {
-      throw new InvalidIndexPluginException("Plugin is not of the types supported");
+      default -> throw new InvalidIndexPluginException("Plugin is not of the types supported");
     }
     final Integer databaseTotalRecords = retryableExternalRequestForNetworkExceptionsThrowing(() ->
         (int) dpsClient.getTotalMetisDatabaseRecords(datasetId, targetIndexingDatabase));
     indexPlugin.getExecutionProgress().setTotalDatabaseRecords(databaseTotalRecords);
   }
 
+  private void reinstateDepublishRecordIdsStatus(IndexToPublishPlugin indexPlugin, String datasetId)
+      throws BadContentException, DpsException {
+    final boolean isIncremental = indexPlugin.getPluginMetadata().isIncrementalIndexing();
+    if (isIncremental) {
+      // get all currently de-published records IDs from the database and create their full versions
+      final Set<String> depublishedRecordIds = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(
+          datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+          DepublicationStatus.DEPUBLISHED);
+      final Map<String, String> depublishedRecordIdsByFullId = depublishedRecordIds.stream()
+                                                                                   .collect(Collectors.toMap(
+                                                                                       id -> RecordIdUtils.composeFullRecordId(
+                                                                                           datasetId, id),
+                                                                                       Function.identity()));
+
+      // Check which have been published by the index action - use full record IDs for eCloud.
+      if (!CollectionUtils.isEmpty(depublishedRecordIdsByFullId)) {
+        final List<String> publishedRecordIds = dpsClient.searchPublishedDatasetRecords(datasetId,
+            new ArrayList<>(depublishedRecordIdsByFullId.keySet()));
+
+        // Remove the 'depublished' status. Note: we need to check for an empty result (otherwise
+        // the DAO call will update all records). Use the simple record IDs again.
+        if (!CollectionUtils.isEmpty(publishedRecordIds)) {
+          depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
+              publishedRecordIds.stream().map(depublishedRecordIdsByFullId::get)
+                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null);
+        }
+      }
+    } else {
+      // reset de-publish status, pass null, all records will be de-published
+      depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
+          DepublicationStatus.PENDING_DEPUBLICATION, null);
+    }
+  }
+
   /**
    * Performs post-processing for de-publish plugins
    *
    * @param depublishPlugin The de-publish plugin
-   * @param datasetId       The dataset id
+   * @param datasetId The dataset id
    * @throws DpsException If communication with e-cloud dps failed
    */
   private void depublishPostProcess(DepublishPlugin depublishPlugin, String datasetId)
@@ -146,7 +151,7 @@ public class WorkflowPostProcessor {
 
   /**
    * @param depublishPlugin The de-publish plugin
-   * @param datasetId       The dataset id
+   * @param datasetId The dataset id
    * @throws DpsException If communication with e-cloud dps failed
    */
   private void depublishRecordPostProcess(DepublishPlugin depublishPlugin, String datasetId)
@@ -166,10 +171,11 @@ public class WorkflowPostProcessor {
 
     // Mark the records as DEPUBLISHED.
     final Map<String, Set<String>> successfulRecords = subTasks.stream()
-        .filter(subTask -> subTask.getRecordState() == RecordState.SUCCESS)
-        .map(SubTaskInfo::getResource).map(RecordIdUtils::decomposeFullRecordId)
-        .collect(Collectors.groupingBy(Pair::getLeft,
-            Collectors.mapping(Pair::getRight, Collectors.toSet())));
+                                                               .filter(subTask -> subTask.getRecordState() == RecordState.SUCCESS)
+                                                               .map(SubTaskInfo::getResource)
+                                                               .map(RecordIdUtils::decomposeFullRecordId)
+                                                               .collect(Collectors.groupingBy(Pair::getLeft,
+                                                                   Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
             DepublicationStatus.DEPUBLISHED, new Date()));

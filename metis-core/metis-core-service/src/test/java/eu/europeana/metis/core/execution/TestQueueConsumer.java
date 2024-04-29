@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.execution;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -122,12 +123,12 @@ class TestQueueConsumer {
   }
 
   @Test
-  void handleDelivery() throws Exception {
+  void handleDelivery() throws IOException {
     String objectId = new ObjectId().toString();
     int priority = 0;
     Envelope envelope = new Envelope(1, false, "", "");
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
-        .priority(priority).build();
+                                                                             .priority(priority).build();
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
 
     when(workflowExecutionMonitor.claimExecution(objectId))
@@ -136,8 +137,8 @@ class TestQueueConsumer {
 
     QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
         workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
-    queueConsumer
-        .handleDelivery("1", envelope, basicProperties, objectId.getBytes(StandardCharsets.UTF_8));
+    assertDoesNotThrow(
+        () -> queueConsumer.handleDelivery("1", envelope, basicProperties, objectId.getBytes(StandardCharsets.UTF_8)));
   }
 
   @Test
@@ -147,7 +148,7 @@ class TestQueueConsumer {
     int priority = 0;
     Envelope envelope = new Envelope(1, false, "", "");
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
-        .priority(priority).build();
+                                                                             .priority(priority).build();
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
 
     when(workflowExecutionMonitor.claimExecution(objectId))
@@ -169,7 +170,7 @@ class TestQueueConsumer {
     int priority = 0;
     Envelope envelope = new Envelope(1, false, "", "");
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
-        .priority(priority).build();
+                                                                             .priority(priority).build();
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setCancelling(true);
 
@@ -213,7 +214,7 @@ class TestQueueConsumer {
 
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
-        .priority(priority).build();
+                                                                             .priority(priority).build();
     Envelope envelope = new Envelope(1, false, "", "");
     ObjectId objectId1 = new ObjectId(Date.from(Instant.now().minusSeconds(1)));
     ObjectId objectId2 = new ObjectId(Date.from(Instant.now()));
@@ -269,7 +270,7 @@ class TestQueueConsumer {
         new QueueConsumer(rabbitmqConsumerChannel, null, workflowExecutorManager,
             workflowExecutorManager, workflowExecutionMonitor));
     doThrow(InterruptedException.class).doCallRealMethod().when(queueConsumer)
-        .checkAndCleanCompletionService();
+                                       .checkAndCleanCompletionService();
 
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
@@ -281,9 +282,9 @@ class TestQueueConsumer {
     queueConsumer.checkAndCleanCompletionService();
 
     Awaitility.await().forever()
-        .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+              .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
     Awaitility.await().forever()
-        .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+              .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertTrue(0 <= queueConsumer.getThreadsCounter() && queueConsumer.getThreadsCounter() <= 3);
   }
 }
