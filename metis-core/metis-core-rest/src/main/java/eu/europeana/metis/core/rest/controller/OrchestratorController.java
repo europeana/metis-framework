@@ -32,7 +32,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +40,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,8 +69,8 @@ public class OrchestratorController {
   }
 
   /**
-   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
-   * plugins. If plugins are disabled, they (their settings) are still saved.
+   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested plugins. If plugins are disabled,
+   * they (their settings) are still saved.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier to relate the workflow to
@@ -93,7 +91,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
   public void createWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -105,9 +102,9 @@ public class OrchestratorController {
   }
 
   /**
-   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains
-   * the requested plugins. If plugins are disabled, they (their settings) are still saved. Any
-   * settings in plugins that are not sent in the request are removed.
+   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains the requested plugins. If
+   * plugins are disabled, they (their settings) are still saved. Any settings in plugins that are not sent in the request are
+   * removed.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the identifier of the dataset for which the workflow should be updated
@@ -126,7 +123,6 @@ public class OrchestratorController {
   @PutMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ResponseBody
   public void updateWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -180,7 +176,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public Workflow getWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
@@ -196,18 +191,16 @@ public class OrchestratorController {
   //WORKFLOW EXECUTIONS
 
   /**
-   * Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the
-   * status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and
-   * also it's identifier goes into the distributed queue of WorkflowExecutions. The source data for
-   * the first plugin in the workflow can be controlled, if required, from the {@code
-   * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
-   * parameter, will be used as the source data.
+   * Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the status of the WorkflowExecution
+   * to {@link WorkflowStatus#INQUEUE}, adds it to the database and also it's identifier goes into the distributed queue of
+   * WorkflowExecutions. The source data for the first plugin in the workflow can be controlled, if required, from the
+   * {@code enforcedPredecessorType}, which means that the last valid plugin that is provided with that parameter, will be used as
+   * the source data.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier for which the execution will take place
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
-   * highest
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -230,7 +223,6 @@ public class OrchestratorController {
   @PostMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -249,8 +241,8 @@ public class OrchestratorController {
   }
 
   /**
-   * Request to cancel a workflow execution. The execution will go into a cancelling state until
-   * it's properly {@link WorkflowStatus#CANCELLED} from the system
+   * Request to cancel a workflow execution. The execution will go into a cancelling state until it's properly
+   * {@link WorkflowStatus#CANCELLED} from the system
    *
    * @param authorization the authorization header with the access token
    * @param executionId the execution identifier of the execution to cancel
@@ -267,7 +259,6 @@ public class OrchestratorController {
   @DeleteMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ResponseBody
   public void cancelWorkflowExecution(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("executionId") String executionId)
@@ -297,7 +288,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public WorkflowExecution getWorkflowExecutionByExecutionId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("executionId") String executionId) throws GenericMetisException {
@@ -313,8 +303,7 @@ public class OrchestratorController {
   }
 
   /**
-   * This method returns whether currently it is permitted/possible to perform incremental
-   * harvesting for the given dataset.
+   * This method returns whether currently it is permitted/possible to perform incremental harvesting for the given dataset.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId The ID of the dataset for which to check.
@@ -328,29 +317,27 @@ public class OrchestratorController {
    * </ul>
    */
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_INCREMENTAL, produces = {
-          MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public IncrementalHarvestingAllowedView isIncrementalHarvestingAllowed(
-          @RequestHeader("Authorization") String authorization,
-          @PathVariable("datasetId") String datasetId) throws GenericMetisException {
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return new IncrementalHarvestingAllowedView(
-            orchestratorService.isIncrementalHarvestingAllowed(metisUserView, datasetId));
+        orchestratorService.isIncrementalHarvestingAllowed(metisUserView, datasetId));
   }
 
   /**
-   * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
-   * there was a previous successful finished plugin that follows a specific order (unless the {@code
-   * enforcedPredecessorType} is used) and that has the latest successful harvest plugin as an ancestor.
+   * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if there was a previous
+   * successful finished plugin that follows a specific order (unless the {@code enforcedPredecessorType} is used) and that has
+   * the latest successful harvest plugin as an ancestor.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier of which the executions are based on
    * @param pluginType the pluginType to be checked for allowance of execution
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can
-   * be null if the {@code pluginType} is the first one in the total order of executions e.g. One of
-   * the harvesting plugins.
+   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can be null if the
+   * {@code pluginType} is the first one in the total order of executions e.g. One of the harvesting plugins.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the no plugin was
@@ -364,7 +351,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public MetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -401,7 +387,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public DatasetExecutionInformation getDatasetExecutionInformation(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
@@ -435,7 +420,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutionsByDatasetId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -457,7 +441,7 @@ public class OrchestratorController {
 
   /**
    * Get all WorkflowExecutions paged. Not filtered by datasetId.
-   *
+   * <p>
    * TODO JV This endpoint is no longer in use. Consider removing it.
    *
    * @param authorization the authorization header with the access token
@@ -476,7 +460,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
@@ -496,9 +479,9 @@ public class OrchestratorController {
   }
 
   /**
-   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an
-   * overview. First the ones in queue, then those in progress and then those that are finalized.
-   * They will be sorted by creation date. This method does support pagination.
+   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an overview. First the ones in
+   * queue, then those in progress and then those that are finalized. They will be sorted by creation date. This method does
+   * support pagination.
    *
    * @param authorization the authorization header with the access token
    * @param pluginStatuses the plugin statuses to filter. Can be null.
@@ -518,7 +501,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "pluginStatus", required = false) Set<PluginStatus> pluginStatuses,
@@ -564,7 +546,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public ExecutionHistory getDatasetExecutionHistory(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
@@ -577,8 +558,8 @@ public class OrchestratorController {
   }
 
   /**
-   * Retrieve a list of executable plugins with data availability {@link
-   * PluginsWithDataAvailability} for a given workflow execution.
+   * Retrieve a list of executable plugins with data availability {@link PluginsWithDataAvailability} for a given workflow
+   * execution.
    *
    * @param authorization the authorization header with the access token
    * @param executionId the identifier of the execution for which to get the plugins
@@ -594,7 +575,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("executionId") String executionId) throws GenericMetisException {
@@ -607,8 +587,7 @@ public class OrchestratorController {
   }
 
   /**
-   * Get the evolution of the records from when they were first imported until (and excluding) the
-   * specified version.
+   * Get the evolution of the records from when they were first imported until (and excluding) the specified version.
    *
    * @param authorization The authorization header with the access token
    * @param workflowExecutionId The ID of the workflow exection in which the version is created.
@@ -625,7 +604,6 @@ public class OrchestratorController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public VersionEvolution getRecordEvolutionForVersion(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("workflowExecutionId") String workflowExecutionId,

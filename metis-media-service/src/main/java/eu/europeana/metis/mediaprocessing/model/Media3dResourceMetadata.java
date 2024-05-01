@@ -3,6 +3,11 @@ package eu.europeana.metis.mediaprocessing.model;
 public class Media3dResourceMetadata extends AbstractResourceMetadata{
 
   /**
+   * Implements {@link java.io.Serializable}.
+   */
+  private static final long serialVersionUID = -2887423565606864723L;
+
+  /**
    * Constructor.
    *
    * @param mimeType The resource mime type.

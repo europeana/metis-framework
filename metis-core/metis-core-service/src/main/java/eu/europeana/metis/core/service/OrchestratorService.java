@@ -547,7 +547,7 @@ public class OrchestratorService {
    * @return true if incremental, false otherwise
    */
   private boolean isIncremental(WorkflowExecution workflowExecution) {
-    final AbstractMetisPlugin<?> firstPluginInList = workflowExecution.getMetisPlugins().get(0);
+    final AbstractMetisPlugin<?> firstPluginInList = workflowExecution.getMetisPlugins().getFirst();
     // Non-executable plugins are not to be checked
     if (!(firstPluginInList instanceof AbstractExecutablePlugin)) {
       return false;
@@ -753,16 +753,8 @@ public class OrchestratorService {
         firstPublishPlugin == null ? null : firstPublishPlugin.getFinishedDate());
 
     // Determine the depublication situation of the dataset
-    final boolean depublishHappenedAfterLatestExecutablePublish =
-        lastExecutableDepublishPlugin != null && lastExecutablePublishPlugin != null &&
-            lastExecutablePublishPlugin.getFinishedDate()
-                .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
-    /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
-        we don't have to look further into the past for all depublish actions after the last
-        publish). We should make this code more robust by not assuming that here. */
-    final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestExecutablePublish
-        && (lastExecutableDepublishPlugin instanceof DepublishPlugin depublishPlugin)
-        && depublishPlugin.getPluginMetadata().isDatasetDepublish();
+    final boolean datasetCurrentlyDepublished = isDatasetCurrentlyDepublished(lastExecutablePublishPlugin,
+        lastExecutableDepublishPlugin);
 
     boolean lastPublishHasDeletedRecords = computeRecordCountsAndCheckDeletedRecords(lastExecutablePublishPlugin,
         executionInfo::setLastPublishedRecords, executionInfo::setTotalPublishedRecords);
@@ -812,6 +804,19 @@ public class OrchestratorService {
       status = null;
     }
     executionInfo.setPublicationStatus(status);
+  }
+
+  private static boolean isDatasetCurrentlyDepublished(ExecutablePlugin lastExecutablePublishPlugin,
+      ExecutablePlugin lastExecutableDepublishPlugin) {
+    final boolean depublishHappenedAfterLatestExecutablePublish =
+        lastExecutableDepublishPlugin != null && lastExecutablePublishPlugin != null &&
+            lastExecutablePublishPlugin.getFinishedDate().compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
+    /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
+        we don't have to look further into the past for all depublish actions after the last
+        publish). We should make this code more robust by not assuming that here. */
+    return depublishHappenedAfterLatestExecutablePublish
+        && (lastExecutableDepublishPlugin instanceof DepublishPlugin depublishPlugin)
+        && depublishPlugin.getPluginMetadata().isDatasetDepublish();
   }
 
   private boolean computeRecordCountsAndCheckDeletedRecords(ExecutablePlugin executablePlugin, IntConsumer lastRecordsSetter,
@@ -991,7 +996,7 @@ public class OrchestratorService {
       evolutionStep.setPluginType(plugin.getPluginMetadata().getExecutablePluginType());
       evolutionStep.setFinishedTime(plugin.getFinishedDate());
       return evolutionStep;
-    }).collect(Collectors.toList()));
+    }).toList());
     return versionEvolution;
   }
 

@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.execution;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -82,7 +83,8 @@ class TestWorkflowExecutorManager {
     String objectId = new ObjectId().toString();
     int priority = 0;
     doThrow(new IOException("Some Error")).when(rabbitmqPublisherChannel)
-        .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class), any(byte[].class));
-    workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
+                                          .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class),
+                                              any(byte[].class));
+    assertDoesNotThrow(() -> workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority));
   }
 }

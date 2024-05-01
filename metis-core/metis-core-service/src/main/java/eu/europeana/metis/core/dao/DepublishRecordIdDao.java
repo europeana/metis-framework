@@ -31,6 +31,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
@@ -51,8 +53,9 @@ public class DepublishRecordIdDao {
    * @param morphiaDatastoreProvider The datastore provider.
    * @param maxDepublishRecordIdsPerDataset The maximum number of records we allow per dataset.
    */
+  @Autowired
   public DepublishRecordIdDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
-      long maxDepublishRecordIdsPerDataset) {
+      @Value("${max.depublish.record.ids.per.dataset}") long maxDepublishRecordIdsPerDataset) {
     this(morphiaDatastoreProvider, maxDepublishRecordIdsPerDataset,
         RequestLimits.DEPUBLISHED_RECORDS_PER_REQUEST.getLimit());
   }
@@ -305,8 +308,7 @@ public class DepublishRecordIdDao {
       query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus));
     }
     if (StringUtils.isNotBlank(searchQuery)) {
-      query.filter(
-          Filters.regex(DepublishRecordId.RECORD_ID_FIELD).pattern(Pattern.quote(searchQuery)));
+      query.filter(Filters.regex(DepublishRecordId.RECORD_ID_FIELD, Pattern.quote(searchQuery)));
     }
 
     return query;
