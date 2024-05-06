@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import com.mongodb.client.MongoClient;
@@ -55,7 +54,7 @@ class MongoDereferenceServiceTest {
         vocabularyDaoDatastore = this.getDatastore();
       }
     };
-    ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
+    ProcessedEntityDao processedEntityDao = new ProcessedEntityDao(mongoClient, "processedEntity");
     service = spy(new MongoDereferenceService(new RdfRetriever(), processedEntityDao, vocabularyDao));
   }
 
@@ -214,5 +213,21 @@ class MongoDereferenceServiceTest {
     assertNotNull(result);
     assertTrue(result.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result.getDereferenceStatus());
+  }
+
+  @Test
+  void testDereference_IdempotentResult() {
+    final String entityId = "https://d-nb.info/gnd/XXXX";
+
+    //Test the method
+    DereferenceResult result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result.getDereferenceStatus());
+    //Test it again it should remain consistent
+    result = service.dereference(entityId);
+    assertNotNull(result);
+    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result.getDereferenceStatus());
   }
 }
