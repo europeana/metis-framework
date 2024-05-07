@@ -34,11 +34,11 @@ import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -91,12 +91,12 @@ class EnrichmentWorkerImplTest {
     }
 
     private static void setEntityAPIMocks() {
-        wireMockServer.stubFor(get(urlEqualTo("/entitymgmt/concept/base/84?wskey=api2demo"))
+        wireMockServer.stubFor(get(urlEqualTo("/entitymgmt/concept/84?wskey=api2demo"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withBody(getResourceFileContent("entity-api/entity-api-response-mgmt-concept-base.json"))
                         .withStatus(HttpStatus.OK.value())));
-        wireMockServer.stubFor(get(urlEqualTo("/entitymgmt/concept/base/3401?wskey=api2demo"))
+        wireMockServer.stubFor(get(urlEqualTo("/entitymgmt/concept/3401?wskey=api2demo"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withBody(getResourceFileContent("entity-api/entity-api-response-mgmt-concept-base-ii.json"))
@@ -137,7 +137,7 @@ class EnrichmentWorkerImplTest {
                                 .withStatus(HttpStatus.OK.value())));
 
         wireMockServer.stubFor(
-                get(urlEqualTo("/entitymgmt/organization/base/1482250000004671158?wskey=api2demo"))
+                get(urlEqualTo("/entitymgmt/organization/1482250000004671158?wskey=api2demo"))
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", "application/json")
                                 .withBody(getResourceFileContent("entity-api/entity-api-response-mgmt-organization-base.json"))
@@ -206,7 +206,7 @@ class EnrichmentWorkerImplTest {
                                 .withHeader("Content-Type", "application/json")
                                 .withBody(getResourceFileContent("entity-api/entity-api-response-concept-ii.json"))
                                 .withStatus(HttpStatus.OK.value())));
-        wireMockServer.stubFor(get(urlEqualTo("/entitymgmt/concept/base/62?wskey=api2demo"))
+        wireMockServer.stubFor(get(urlEqualTo("/entitymgmt/concept/62?wskey=api2demo"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withBody(
@@ -325,10 +325,6 @@ class EnrichmentWorkerImplTest {
         setDereferenceMocks();
         setEntityAPIMocks();
 
-        TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
-        modeSetWithBoth.add(Mode.ENRICHMENT);
-        modeSetWithBoth.add(Mode.DEREFERENCE);
-
         EnricherProvider enricherProvider = new EnricherProvider();
         enricherProvider.setEnrichmentPropertiesValues(
                 "http://localhost:" + wireMockServer.port() + "/entitymgmt",
@@ -349,11 +345,12 @@ class EnrichmentWorkerImplTest {
         // Execute the worker
         final EnrichmentWorkerImpl worker = new EnrichmentWorkerImpl(dereferencer, enricher);
 
-        ProcessedResult<String> output = worker.process(inputRecord, modeSetWithBoth);
+        ProcessedResult<String> output = worker.process(inputRecord, Set.of(Mode.ENRICHMENT, Mode.DEREFERENCE));
 
         LOGGER.info("REPORT: {}\n\n", output.getReport());
         LOGGER.info("RECORD: {}\n\n", output.getProcessedRecord());
         LOGGER.info("STATUS: {}", output.getRecordStatus());
+
         assertEquals(recordStatus, output.getRecordStatus());
     }
 
@@ -527,17 +524,18 @@ class EnrichmentWorkerImplTest {
         final EnrichmentWorkerImpl worker = spy(new EnrichmentWorkerImpl(null, null));
 
         final ProcessedResult<String> stringProcessedResult = worker.process(
-                "<?xml version=\"1.0\"?>\n"
-                        + "<rdf:RDF\n"
-                        + "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-                        + "xmlns:si=\"https://www.europeana.eu/rdf/\">\n"
-                        + "<rdf:Description rdf:about=\"https://www.europeana.eu\">\n"
-                        + "  <si:title>Europe Cultural Heritage</si:title>\n"
-                        + "  <si:author>Europeana</si:author>\n"
-                        + "</rdf:Description>\n"
-                        + "</rdf:RDF>");
+            """
+                <?xml version="1.0"?>
+                <rdf:RDF
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:si="https://www.europeana.eu/rdf/">
+                <rdf:Description rdf:about="https://www.europeana.eu">
+                  <si:title>Europe Cultural Heritage</si:title>
+                  <si:author>Europeana</si:author>
+                </rdf:Description>
+                </rdf:RDF>""");
         final String returnedString = stringProcessedResult.getProcessedRecord();
-        assertEquals(null, returnedString);
+        assertNull(returnedString);
         for (Report report : stringProcessedResult.getReport()) {
             assertEquals(Type.ERROR, report.getMessageType());
             assertTrue(report.getMessage().contains("Error serializing rdf"));
