@@ -24,20 +24,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Proxies Controller which encapsulates functionality that has to be proxied to an external
- * resource.
+ * Proxies Controller which encapsulates functionality that has to be proxied to an external resource.
  */
 @RestController
 public class ProxiesController {
@@ -82,7 +79,6 @@ public class ProxiesController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public List<SubTaskInfo> getExternalTaskLogs(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("topologyName") String topologyName,
@@ -105,8 +101,8 @@ public class ProxiesController {
    * @param authorization the authorization header with the access token
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
-   * @return true if final report available, false if not or ecloud response {@link
-   * jakarta.ws.rs.core.Response.Status)} is not OK, based on {@link eu.europeana.cloud.client.dps.rest.DpsClient#checkIfErrorReportExists}
+   * @return true if final report available, false if not or ecloud response {@link jakarta.ws.rs.core.Response.Status)} is not
+   * OK, based on {@link eu.europeana.cloud.client.dps.rest.DpsClient#checkIfErrorReportExists}
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
@@ -118,7 +114,6 @@ public class ProxiesController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT_EXISTS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public Map<String, Boolean> existsExternalTaskReport(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("topologyName") String topologyName,
@@ -135,8 +130,8 @@ public class ProxiesController {
   }
 
   /**
-   * Get the final report that includes all the errors grouped. The number of ids per error can be
-   * specified through the parameters.
+   * Get the final report that includes all the errors grouped. The number of ids per error can be specified through the
+   * parameters.
    *
    * @param authorization the authorization header with the access token
    * @param topologyName the topology name of the task
@@ -156,7 +151,6 @@ public class ProxiesController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public TaskErrorsInfo getExternalTaskReport(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("topologyName") String topologyName,
@@ -192,7 +186,6 @@ public class ProxiesController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public RecordStatistics getExternalTaskStatistics(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("topologyName") String topologyName,
@@ -207,8 +200,8 @@ public class ProxiesController {
   }
 
   /**
-   * Get additional statistics on a node. This method can be used to elaborate on one of the items
-   * returned by {@link #getExternalTaskStatistics(String, String, long)}.
+   * Get additional statistics on a node. This method can be used to elaborate on one of the items returned by
+   * {@link #getExternalTaskStatistics(String, String, long)}.
    *
    * @param authorization the authorization header with the access token
    * @param topologyName the topology name of the task
@@ -228,7 +221,6 @@ public class ProxiesController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_NODE_STATISTICS,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public NodePathStatistics getAdditionalNodeStatistics(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("topologyName") String topologyName,
@@ -246,14 +238,13 @@ public class ProxiesController {
   }
 
   /**
-   * Get a list with record contents from the external resource based on an workflow execution and
-   * {@link PluginType}.
+   * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
-   * @param nextPage the string representation of the next page which is provided from the response
-   * and can be used to get the next page of results.
+   * @param nextPage the string representation of the next page which is provided from the response and can be used to get the
+   * next page of results.
    * TODO: The nextPage parameter is currently ignored and we should decide if we would support it again in the future.
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
@@ -269,7 +260,6 @@ public class ProxiesController {
   @GetMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public RecordsResponse getListOfFileContentsFromPluginExecution(
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
@@ -283,16 +273,15 @@ public class ProxiesController {
   }
 
   /**
-   * Get a list with record contents from the external resource for a specific list of IDS based on
-   * a workflow execution and {@link PluginType}.
+   * Get a list with record contents from the external resource for a specific list of IDS based on a workflow execution and
+   * {@link PluginType}.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
-   * @return the list of records from the external resource matching the input ID list. If no record
-   * with the matching ID was found in the given workflow step, no entry for this record will appear
-   * in the result list.
+   * @return the list of records from the external resource matching the input ID list. If no record with the matching ID was
+   * found in the given workflow step, no entry for this record will appear in the result list.
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
@@ -307,7 +296,6 @@ public class ProxiesController {
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public RecordsResponse getListOfFileContentsFromPluginExecution(
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
@@ -318,14 +306,15 @@ public class ProxiesController {
     return proxiesService.getListOfFileContentsFromPluginExecution(metisUserView, workflowExecutionId,
         pluginType, ecloudIds);
   }
+
   /**
    * Get an eCloudId from the external resource for a specific searchId.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
    * @param idToSearch the ID we are searching for and for which we want to find a record
-   * @return the CloudId from the external resource matching the input ID. If no record
-   * with the matching ID was found, it will return an empty string.
+   * @return the CloudId from the external resource matching the input ID. If no record with the matching ID was found, it will
+   * return an empty string.
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
@@ -339,7 +328,6 @@ public class ProxiesController {
   @PostMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORD_SEARCH_BY_ID,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public Record searchRecordByIdFromPluginExecution(
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
@@ -351,16 +339,15 @@ public class ProxiesController {
   }
 
   /**
-   * Get a list with record contents from the external resource for a specific list of IDS based on
-   * a workflow execution and the predecessor of the given {@link PluginType}.
+   * Get a list with record contents from the external resource for a specific list of IDS based on a workflow execution and the
+   * predecessor of the given {@link PluginType}.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
-   * @return the list of records from the external resource matching the input ID list. If no record
-   * with the matching ID was found in the given workflow step, no entry for this record will appear
-   * in the result list.
+   * @return the list of records from the external resource matching the input ID list. If no record with the matching ID was
+   * found in the given workflow step, no entry for this record will appear in the result list.
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if an error occurred while
@@ -372,18 +359,18 @@ public class ProxiesController {
    * </ul>
    */
   @PostMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_FROM_PREDECESSOR_PLUGIN,
-          consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public RecordsResponse getListOfFileContentsFromPredecessorOfPluginExecution(
-          @RequestHeader("Authorization") String authorization,
-          @RequestParam("workflowExecutionId") String workflowExecutionId,
-          @RequestParam("pluginType") ExecutablePluginType pluginType,
-          @RequestBody ListOfIds ecloudIds
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam("workflowExecutionId") String workflowExecutionId,
+      @RequestParam("pluginType") ExecutablePluginType pluginType,
+      @RequestBody ListOfIds ecloudIds
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.getListOfFileContentsFromPredecessorPluginExecution(metisUserView, workflowExecutionId, pluginType, ecloudIds);
+    return proxiesService.getListOfFileContentsFromPredecessorPluginExecution(metisUserView, workflowExecutionId, pluginType,
+        ecloudIds);
   }
 
 }

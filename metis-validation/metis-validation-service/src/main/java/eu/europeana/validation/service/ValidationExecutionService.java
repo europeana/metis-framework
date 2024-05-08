@@ -135,7 +135,7 @@ public class ValidationExecutionService {
   }
 
   @PreDestroy
-  void cleanup() throws IOException {
+  public void cleanup() throws IOException {
     if (es != null) {
       es.shutdown();
     }

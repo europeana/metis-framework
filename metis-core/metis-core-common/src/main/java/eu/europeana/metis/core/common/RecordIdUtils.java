@@ -19,7 +19,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public final class RecordIdUtils {
 
   private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
-  private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
+  private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("\\W");
   private static final Pattern FULL_RECORD_ID_PATTERN = Pattern.compile("^/([^/\\s]+)/([^/\\s]+)$");
 
   private RecordIdUtils() {
@@ -73,7 +73,7 @@ public final class RecordIdUtils {
   public static Set<String> checkAndNormalizeRecordIds(String datasetId,
           String recordIdsInSeparateLines) throws BadContentException {
     final String[] recordIds = LINE_SEPARATION_PATTERN.split(recordIdsInSeparateLines);
-    final Set<String> normalizedRecordIds = new HashSet<>(recordIds.length);
+    final Set<String> normalizedRecordIds = HashSet.newHashSet(recordIds.length);
     for (String recordId : recordIds) {
       checkAndNormalizeRecordId(datasetId, recordId).ifPresent(normalizedRecordIds::add);
     }

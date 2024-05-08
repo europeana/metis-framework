@@ -1,12 +1,21 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
+import io.gdcc.xoai.model.oaipmh.results.record.Header;
+import io.gdcc.xoai.model.oaipmh.verbs.Verb;
+import io.gdcc.xoai.serviceprovider.ServiceProvider;
+import io.gdcc.xoai.serviceprovider.exceptions.BadArgumentException;
+import io.gdcc.xoai.serviceprovider.exceptions.OAIRequestException;
+import io.gdcc.xoai.serviceprovider.model.Context;
+import io.gdcc.xoai.serviceprovider.parameters.GetRecordParameters;
+import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
+import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -18,15 +27,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 import org.apache.commons.io.IOUtils;
-import io.gdcc.xoai.model.oaipmh.results.record.Header;
-import io.gdcc.xoai.model.oaipmh.verbs.Verb;
-import io.gdcc.xoai.serviceprovider.ServiceProvider;
-import io.gdcc.xoai.serviceprovider.exceptions.BadArgumentException;
-import io.gdcc.xoai.serviceprovider.exceptions.OAIRequestException;
-import io.gdcc.xoai.serviceprovider.model.Context;
-import io.gdcc.xoai.serviceprovider.parameters.GetRecordParameters;
-import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
-import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
@@ -40,7 +40,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
   private static final Logger LOGGER = LoggerFactory.getLogger(OaiHarvesterImpl.class);
 
   private static final String COMPLETE_LIST_SIZE_XPATH =
-          "/*[local-name()='OAI-PMH']" +
+      "/*[local-name()='OAI-PMH']" +
           "/*[local-name()='ListIdentifiers']" +
           "/*[local-name()='resumptionToken']";
   public static final String COMPLETE_LIST_SIZE = "completeListSize";
@@ -58,14 +58,14 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   @Override
   public OaiRecordHeaderIterator harvestRecordHeaders(OaiHarvest harvest)
-          throws HarvesterException {
+      throws HarvesterException {
     final ListIdentifiersParameters parameters = prepareListIdentifiersParameters(harvest);
     final Iterator<Header> iterator;
     final CloseableOaiClient client = connectionClientFactory.createConnectionClient(
-            harvest.getRepositoryUrl());
+        harvest.getRepositoryUrl());
     try {
       iterator = new ServiceProvider(new Context().withOAIClient(client))
-              .listIdentifiers(parameters);
+          .listIdentifiers(parameters);
     } catch (RuntimeException | BadArgumentException e) {
       try {
         client.close();
@@ -79,7 +79,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   private static ListIdentifiersParameters prepareListIdentifiersParameters(OaiHarvest harvest) {
     ListIdentifiersParameters parameters = ListIdentifiersParameters.request()
-            .withMetadataPrefix(harvest.getMetadataPrefix());
+                                                                    .withMetadataPrefix(harvest.getMetadataPrefix());
     if (harvest.getFrom() != null) {
       parameters.withFrom(harvest.getFrom());
     }
@@ -94,21 +94,22 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
   @Override
   public OaiRecord harvestRecord(OaiRepository repository, String oaiIdentifier)
-          throws HarvesterException {
+      throws HarvesterException {
     final GetRecordParameters getRecordParameters = GetRecordParameters.request()
-            .withIdentifier(oaiIdentifier).withMetadataFormatPrefix(repository.getMetadataPrefix());
+                                                                       .withIdentifier(oaiIdentifier)
+                                                                       .withMetadataFormatPrefix(repository.getMetadataPrefix());
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
-            .include(getRecordParameters);
+                                            .include(getRecordParameters);
     final byte[] byteArrayRecord;
     try (final CloseableOaiClient oaiClient = connectionClientFactory
-            .createConnectionClient(repository.getRepositoryUrl());
-            final InputStream recordStream = performThrowingFunction(oaiClient,
-                    client -> client.execute(parameters))) {
+        .createConnectionClient(repository.getRepositoryUrl());
+        final InputStream recordStream = performThrowingFunction(oaiClient,
+            client -> client.execute(parameters))) {
       byteArrayRecord = IOUtils.toByteArray(recordStream);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(
-              "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
-              oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
+          "Problem with harvesting record %1$s for endpoint %2$s because of: %3$s",
+          oaiIdentifier, repository.getRepositoryUrl(), e.getMessage()), e);
     }
     return new OaiRecordParser().parseOaiRecord(byteArrayRecord);
   }
@@ -116,16 +117,16 @@ public class OaiHarvesterImpl implements OaiHarvester {
   @Override
   public Integer countRecords(OaiHarvest harvest) throws HarvesterException {
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.ListIdentifiers)
-            .include(prepareListIdentifiersParameters(harvest));
+                                            .include(prepareListIdentifiersParameters(harvest));
     try (final CloseableOaiClient oaiClient = connectionClientFactory
-            .createConnectionClient(harvest.getRepositoryUrl());
-            final InputStream listIdentifiersResponse = performThrowingFunction(oaiClient,
-                    client -> client.execute(parameters))) {
+        .createConnectionClient(harvest.getRepositoryUrl());
+        final InputStream listIdentifiersResponse = performThrowingFunction(oaiClient,
+            client -> client.execute(parameters))) {
       return readCompleteListSizeFromXML(listIdentifiersResponse);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(
-              "Problem with counting records for endpoint %1$s because of: %2$s",
-              harvest.getRepositoryUrl(), e.getMessage()), e);
+          "Problem with counting records for endpoint %1$s because of: %2$s",
+          harvest.getRepositoryUrl(), e.getMessage()), e);
     }
   }
 
@@ -141,7 +142,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
     }
     try {
       final Node resumptionTokenNode = (Node) expr
-              .evaluate(new InputSource(stream), XPathConstants.NODE);
+          .evaluate(new InputSource(stream), XPathConstants.NODE);
       if (resumptionTokenNode != null) {
         final Node node = resumptionTokenNode.getAttributes().getNamedItem(COMPLETE_LIST_SIZE);
         if (node != null) {
@@ -169,8 +170,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
   }
 
   /**
-   * Iterator for harvesting. It wraps a source iterator and provides additional closing
-   * functionality for the connection client.
+   * Iterator for harvesting. It wraps a source iterator and provides additional closing functionality for the connection client.
    */
   private static class HeaderIterator implements OaiRecordHeaderIterator {
 
@@ -190,9 +190,9 @@ public class OaiHarvesterImpl implements OaiHarvester {
 
     @Override
     public void forEachFiltered(final ReportingIteration<OaiRecordHeader> action,
-            final Predicate<OaiRecordHeader> filter) throws HarvesterException {
+        final Predicate<OaiRecordHeader> filter) throws HarvesterException {
       final ReportingIterationWrapper singleIteration = new ReportingIterationWrapper(action,
-              filter);
+          filter);
       try {
         while (source.hasNext()) {
           final IterationResult result = singleIteration.process(source.next());
@@ -217,7 +217,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
     private final Predicate<OaiRecordHeader> filter;
 
     public ReportingIterationWrapper(ReportingIteration<OaiRecordHeader> action,
-            Predicate<OaiRecordHeader> filter) {
+        Predicate<OaiRecordHeader> filter) {
       this.action = action;
       this.filter = filter;
     }
@@ -227,7 +227,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
       final OaiRecordHeader header = OaiRecordHeader.convert(input);
       if (filter.test(header)) {
         return Optional.ofNullable(action.process(header)).orElseThrow(() ->
-                new IllegalArgumentException("Iteration result cannot be null."));
+            new IllegalArgumentException("Iteration result cannot be null."));
       }
       return IterationResult.CONTINUE;
     }

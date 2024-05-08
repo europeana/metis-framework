@@ -532,7 +532,7 @@ class TestDatasetService {
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(datasetXslt);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
-    listOfRecords.get(0).setXmlRecord("invalid xml");
+    listOfRecords.getFirst().setXmlRecord("invalid xml");
 
     String xsltUrl = RestEndpoints
         .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
@@ -551,8 +551,7 @@ class TestDatasetService {
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
     Document doc;
-    assertFalse(
-        records.get(0).getXmlRecord().contains("edm:ProvidedCHO")); //First record is invalid
+    assertFalse(records.getFirst().getXmlRecord().contains("edm:ProvidedCHO")); //First record is invalid
     for (int i = 1; i < records.size(); i++) {
       doc = dBuilder.parse(new InputSource(new StringReader(records.get(i).getXmlRecord())));
       assertEquals(1, doc.getElementsByTagName("edm:ProvidedCHO").getLength());

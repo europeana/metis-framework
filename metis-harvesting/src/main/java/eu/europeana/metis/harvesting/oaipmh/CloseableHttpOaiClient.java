@@ -1,10 +1,11 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.HarvestingClientSettings;
+import io.gdcc.xoai.serviceprovider.exceptions.HttpException;
+import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -12,14 +13,11 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import io.gdcc.xoai.serviceprovider.exceptions.HttpException;
-import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is an implementation of {@link io.gdcc.xoai.serviceprovider.client.OAIClient} that needs
- * to be closed.
+ * This is an implementation of {@link io.gdcc.xoai.serviceprovider.client.OAIClient} that needs to be closed.
  *
  * @see io.gdcc.xoai.serviceprovider.client.OAIClient
  */
@@ -43,14 +41,14 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
     this.numberOfRetries = settings.getNumberOfRetries();
     this.timeBetweenRetries = settings.getTimeBetweenRetries();
     final RequestConfig requestConfig = RequestConfig.custom()
-            .setConnectTimeout(settings.getConnectionTimeout())
-            .setSocketTimeout(settings.getSocketTimeout())
-            .setConnectionRequestTimeout(settings.getRequestTimeout())
-            .build();
+                                                     .setConnectTimeout(settings.getConnectionTimeout())
+                                                     .setSocketTimeout(settings.getSocketTimeout())
+                                                     .setConnectionRequestTimeout(settings.getRequestTimeout())
+                                                     .build();
     this.httpClient = HttpClientBuilder.create()
-            .setDefaultRequestConfig(requestConfig)
-            .setUserAgent(settings.getUserAgent())
-            .build();
+                                       .setDefaultRequestConfig(requestConfig)
+                                       .setUserAgent(settings.getUserAgent())
+                                       .build();
   }
 
   @Override
@@ -63,7 +61,7 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
           throw e;
         }
         LOGGER.warn("Error executing request. Retries left:{}. Request: {}", triesLeft,
-                parameters.toUrl(baseUrl));
+            parameters.toUrl(baseUrl));
         waitForNextRetry();
       }
     }
@@ -93,7 +91,7 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
     if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
       closeSilently(request, response);
       throw new HttpException("Error querying service. Returned HTTP Status Code: "
-              + response.getStatusLine().getStatusCode());
+          + response.getStatusLine().getStatusCode());
     }
 
     // So we have success. We return the content.
@@ -125,8 +123,7 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
   }
 
   /**
-   * An implementation of an input stream that wraps around a source input stream but allows
-   * additional closing functionality.
+   * An implementation of an input stream that wraps around a source input stream but allows additional closing functionality.
    */
   private static class HttpOaiClientInputStream extends InputStream {
 
@@ -142,7 +139,7 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
      * @param response The response - to be closed when the stream is closed.
      */
     public HttpOaiClientInputStream(InputStream source, HttpGet request,
-            CloseableHttpResponse response) {
+        CloseableHttpResponse response) {
       this.source = source;
       this.request = request;
       this.response = response;

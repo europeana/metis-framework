@@ -8,7 +8,6 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
-import org.springframework.stereotype.Component;
 
 /**
  * This is a Maven-enabled enforcer rule that can be used in a maven project. For an example of how
@@ -45,7 +44,6 @@ import org.springframework.stereotype.Component;
  * </plugins></build>
  * }</pre>
  */
-@Component
 public class VocabularyCollectionMavenRule implements EnforcerRule {
 
   /**

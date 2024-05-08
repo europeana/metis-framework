@@ -20,7 +20,6 @@ import eu.europeana.metis.utils.CommonStringValues;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
@@ -44,7 +43,7 @@ public class WorkflowValidationUtils {
    * @param dataEvolutionUtils The utilities class for sorting out data evolution
    */
   public WorkflowValidationUtils(DepublishRecordIdDao depublishRecordIdDao,
-          DataEvolutionUtils dataEvolutionUtils) {
+      DataEvolutionUtils dataEvolutionUtils) {
     this.depublishRecordIdDao = depublishRecordIdDao;
     this.dataEvolutionUtils = dataEvolutionUtils;
   }
@@ -67,8 +66,7 @@ public class WorkflowValidationUtils {
    * </ol>
    *
    * @param workflow The workflow to validate.
-   * @param enforcedPredecessorType If not null, overrides the predecessor type of the first
-   * plugin.
+   * @param enforcedPredecessorType If not null, overrides the predecessor type of the first plugin.
    * @return The predecessor of the first plugin. Or null if no predecessor is required.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -79,7 +77,7 @@ public class WorkflowValidationUtils {
    * </ul>
    */
   public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
-          ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
+      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Workflow should have a plugin list.
     List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
@@ -97,9 +95,9 @@ public class WorkflowValidationUtils {
       throw new BadContentException("Workflow should not be empty.");
     }
     if (enabledPlugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-            .anyMatch(Objects::isNull)) {
+                      .anyMatch(Objects::isNull)) {
       throw new BadContentException(
-              "There are enabled plugins of which the type could not be determined.");
+          "There are enabled plugins of which the type could not be determined.");
     }
 
     // Validate dataset/record depublication
@@ -110,23 +108,23 @@ public class WorkflowValidationUtils {
 
     // Check that first plugin is not link checking (except if it is the only plugin)
     if (enabledPlugins.size() > 1
-            && enabledPlugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
+        && enabledPlugins.getFirst().getPluginType() == PluginType.LINK_CHECKING) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
 
     // Make sure that all enabled plugins (except the first) have a predecessor within the workflow.
     final EnumSet<ExecutablePluginType> previousTypesInWorkflow = EnumSet
-            .of(enabledPlugins.get(0).getExecutablePluginType());
+        .of(enabledPlugins.getFirst().getExecutablePluginType());
     for (int i = 1; i < enabledPlugins.size(); i++) {
 
       // Find the permissible predecessors
       final ExecutablePluginType pluginType = enabledPlugins.get(i).getExecutablePluginType();
       final Set<ExecutablePluginType> permissiblePredecessors = DataEvolutionUtils
-              .getPredecessorTypes(pluginType);
+          .getPredecessorTypes(pluginType);
 
       // Check if we have the right predecessor plugin types in the workflow
       final boolean hasNoPredecessor = !permissiblePredecessors.isEmpty() &&
-              permissiblePredecessors.stream().noneMatch(previousTypesInWorkflow::contains);
+          permissiblePredecessors.stream().noneMatch(previousTypesInWorkflow::contains);
       if (hasNoPredecessor) {
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
@@ -142,17 +140,17 @@ public class WorkflowValidationUtils {
 
     // Check the presence of the predecessor and return it.
     return dataEvolutionUtils
-            .computePredecessorPlugin(enabledPlugins.get(0).getExecutablePluginType(),
-                    enforcedPredecessorType, workflow.getDatasetId());
+        .computePredecessorPlugin(enabledPlugins.getFirst().getExecutablePluginType(),
+            enforcedPredecessorType, workflow.getDatasetId());
   }
 
   private void validateAndTrimHarvestParameters(String datasetId,
-          Iterable<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
+      Iterable<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
     for (AbstractExecutablePluginMetadata pluginMetadata : enabledPlugins) {
       if (pluginMetadata instanceof OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata) {
         final URI validatedUri = validateUrl(oaipmhHarvestPluginMetadata.getUrl());
         oaipmhHarvestPluginMetadata
-                .setUrl(new URIBuilder(validatedUri).removeQuery().setFragment(null).toString());
+            .setUrl(new URIBuilder(validatedUri).removeQuery().setFragment(null).toString());
         oaipmhHarvestPluginMetadata.setMetadataFormat(oaipmhHarvestPluginMetadata.getMetadataFormat() == null ? null
             : oaipmhHarvestPluginMetadata.getMetadataFormat().trim());
         oaipmhHarvestPluginMetadata.setSetSpec(
@@ -170,8 +168,7 @@ public class WorkflowValidationUtils {
   }
 
   /**
-   * This method returns whether currently it is permitted/possible to perform incremental
-   * harvesting for the given dataset.
+   * This method returns whether currently it is permitted/possible to perform incremental harvesting for the given dataset.
    *
    * @param datasetId The ID of the dataset for which to check.
    * @return Whether we can perform incremental harvesting for the dataset.
@@ -182,26 +179,30 @@ public class WorkflowValidationUtils {
   }
 
   private void validateDepublishPlugin(String datasetId,
-          List<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
+      List<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
     // If depublish requested, make sure it's the only plugin in the workflow
     final Optional<DepublishPluginMetadata> depublishPluginMetadata = enabledPlugins.stream()
-            .filter(plugin -> plugin.getExecutablePluginType().toPluginType() == PluginType.DEPUBLISH)
-            .map(plugin -> (DepublishPluginMetadata) plugin).findFirst();
+                                                                                    .filter(plugin ->
+                                                                                        plugin.getExecutablePluginType()
+                                                                                              .toPluginType()
+                                                                                            == PluginType.DEPUBLISH)
+                                                                                    .map(DepublishPluginMetadata.class::cast)
+                                                                                    .findFirst();
     if (enabledPlugins.size() > 1 && depublishPluginMetadata.isPresent()) {
       throw new BadContentException(
-              "If DEPUBLISH plugin enabled, no other enabled plugins are allowed.");
+          "If DEPUBLISH plugin enabled, no other enabled plugins are allowed.");
     }
 
     // If record depublication requested, check if there are pending record ids in the db
     if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
-            .isDatasetDepublish()) {
+                                                                       .isDatasetDepublish()) {
       final Set<String> pendingDepublicationIds = depublishRecordIdDao
-              .getAllDepublishRecordIdsWithStatus(datasetId,
-                      DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-                      DepublicationStatus.PENDING_DEPUBLICATION);
+          .getAllDepublishRecordIdsWithStatus(datasetId,
+              DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+              DepublicationStatus.PENDING_DEPUBLICATION);
       if (CollectionUtils.isEmpty(pendingDepublicationIds)) {
         throw new BadContentException(
-                "Record depublication requested but there are no pending depublication record ids in the db");
+            "Record depublication requested but there are no pending depublication record ids in the db");
       }
     }
   }

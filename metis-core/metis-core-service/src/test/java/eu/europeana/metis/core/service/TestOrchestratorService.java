@@ -303,10 +303,10 @@ class TestOrchestratorService {
         orchestratorService.getWorkflowExecutionByExecutionId(metisUserView, workflowExecutionId));
 
     // Test when the workflow execution does not exist
-    when(workflowExecutionDao.getById(eq(workflowExecutionId))).thenReturn(null);
+    when(workflowExecutionDao.getById(workflowExecutionId)).thenReturn(null);
     assertNull(
         orchestratorService.getWorkflowExecutionByExecutionId(metisUserView, workflowExecutionId));
-    when(workflowExecutionDao.getById(eq(workflowExecutionId))).thenReturn(workflowExecution);
+    when(workflowExecutionDao.getById(workflowExecutionId)).thenReturn(workflowExecution);
     assertSame(workflowExecution,
         orchestratorService.getWorkflowExecutionByExecutionId(metisUserView, workflowExecutionId));
 
@@ -707,8 +707,8 @@ class TestOrchestratorService {
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(
-        eq(Collections.singleton(datasetId)), eq(workflowStatuses), eq(DaoFieldNames.ID), eq(false),
-        eq(nextPage), eq(1), eq(false));
+        Collections.singleton(datasetId), workflowStatuses, DaoFieldNames.ID, false,
+        nextPage, 1, false);
     verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
@@ -737,8 +737,8 @@ class TestOrchestratorService {
         DaoFieldNames.CREATED_DATE, false, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUserView);
     verifyNoMoreInteractions(authorizer);
-    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(eq(datasetIds),
-        eq(workflowStatuses), eq(DaoFieldNames.CREATED_DATE), eq(false), eq(nextPage), eq(1), eq(false));
+    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(datasetIds,
+        workflowStatuses, DaoFieldNames.CREATED_DATE, false, nextPage, 1, false);
     verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }

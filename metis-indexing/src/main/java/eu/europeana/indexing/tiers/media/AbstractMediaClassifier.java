@@ -14,7 +14,6 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.schema.model.MediaType;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.LinkedList;
@@ -63,36 +62,38 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
                                                           .orElse(MediaTier.T0);
       //Get the highest value of content tier before license correction or else default
       mediaTierBeforeLicenseCorrection = descendingMediaResourceTechnicalMetadata.stream()
-          .map(MediaResourceTechnicalMetadata::getMediaTierBeforeLicenseCorrection)
-          .findFirst()
-          .orElse(MediaTier.T0);
+                                                                                 .map(
+                                                                                     MediaResourceTechnicalMetadata::getMediaTierBeforeLicenseCorrection)
+                                                                                 .findFirst()
+                                                                                 .orElse(MediaTier.T0);
       mediaResourceTechnicalMetadataList = descendingMediaResourceTechnicalMetadata;
     }
     MediaType mediaTypeResult = getMediaType();
-    boolean hasMediaResource3DAvailable = mediaTypeResult == MediaType.THREE_D && (mediaTier != MediaTier.T0 && mediaTier != MediaTier.T1);
+    boolean hasMediaResource3DAvailable =
+        mediaTypeResult == MediaType.THREE_D && (mediaTier != MediaTier.T0 && mediaTier != MediaTier.T1);
 
     final ContentTierBreakdown contentTierBreakdown = new ContentTierBreakdown.Builder()
-            .setRecordType(mediaTypeResult)
-            .setMediaTierBeforeLicenseCorrection(mediaTierBeforeLicenseCorrection)
-            .setLicenseType(entityLicenseType)
-            .setThumbnailAvailable(hasThumbnails)
-            .setLandingPageAvailable(hasLandingPage)
-            .setMediaResource3DAvailable(hasMediaResource3DAvailable)
-            .setEmbeddableMediaAvailable(hasEmbeddableMedia)
-            .setMediaResourceTechnicalMetadataList(mediaResourceTechnicalMetadataList).build();
+        .setRecordType(mediaTypeResult)
+        .setMediaTierBeforeLicenseCorrection(mediaTierBeforeLicenseCorrection)
+        .setLicenseType(entityLicenseType)
+        .setThumbnailAvailable(hasThumbnails)
+        .setLandingPageAvailable(hasLandingPage)
+        .setMediaResource3DAvailable(hasMediaResource3DAvailable)
+        .setEmbeddableMediaAvailable(hasEmbeddableMedia)
+        .setMediaResourceTechnicalMetadataList(mediaResourceTechnicalMetadataList).build();
 
     return new TierClassification<>(mediaTier, contentTierBreakdown);
   }
 
   /**
-   * This method is used to classify a web resource. If this method is called for an entity, the method {@link
-   * #classifyEntityWithoutWebResources(RdfWrapper, boolean)} is not called for it. Otherwise, it is, once for each suitable web
-   * resource.
+   * This method is used to classify a web resource. If this method is called for an entity, the method
+   * {@link #classifyEntityWithoutWebResources(RdfWrapper, boolean)} is not called for it. Otherwise, it is, once for each
+   * suitable web resource.
    *
    * @param webResource The web resource.
    * @param entityLicense The license type that holds for the entity. If the web resource does not have a license, then this
-   * license will be used for the web resource during the tier calculation. If it's null it will be set to {@link
-   * LicenseType#CLOSED}.
+   * license will be used for the web resource during the tier calculation. If it's null it will be set to
+   * {@link LicenseType#CLOSED}.
    * @param hasLandingPage Whether the entity has a landing page.
    * @param hasEmbeddableMedia Whether the entity has embeddable media.
    * @return The classification.
