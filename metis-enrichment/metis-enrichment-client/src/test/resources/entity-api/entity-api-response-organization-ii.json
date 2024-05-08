@@ -1,52 +1,66 @@
 {
   "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
-  "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&type=organization&text=Lietuvos%20Centrinis%20Valstyb%C3%A9s%20Archyvas&page=0&pageSize=10",
-  "type": "ResultPage",
-  "total": 1,
-  "partOf": {
-    "id": "https://entity-api-v2-production.eanadev.org/entity/search?wskey=api2demo&type=organization&text=Lietuvos%20Centrinis%20Valstyb%C3%A9s%20Archyvas",
-    "type": "ResultList",
-    "total": 1
+  "id": "http://data.europeana.eu/organization/2852",
+  "type": "Organization",
+  "prefLabel": {
+    "lt": "Lietuvos Centrinis Valstybes Archyvas",
+    "en": "Lithuanian Central State Archives"
   },
-  "items": [
+  "acronym": {
+    "lt": [
+      "LCVA"
+    ]
+  },
+  "description": {
+    "cs": "Litevský národní archiv",
+    "en": "Lithuanian   national archives"
+  },
+  "europeanaRole": [
     {
-      "id": "http://data.europeana.eu/organization/1482250000004507806",
-      "type": "Organization",
-      "prefLabel": {
-        "en": "Lithuanian Central State Archives",
-        "lt": "Lietuvos Centrinis Valstybes Archyvas"
-      },
-      "acronym": {
-        "lt": [
-          "LCVA"
-        ]
-      },
-      "description": {
-        "cs": "Litevský národní archiv",
-        "en": "Lithuanian   national archives"
-      },
-      "europeanaRole": [
-        "Data Provider"
-      ],
-      "organizationDomain": [
-        "Archive"
-      ],
-      "country": "LT",
-      "homepage": "http://www.archyvai.lt",
-      "mbox": [
-        "lcva@archyvai.lt"
-      ],
-      "identifier": [
-        "1482250000004507806"
-      ],
-      "sameAs": [
-        "https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000004507806",
-        "http://www.wikidata.org/entity/Q16458815",
-        "http://viaf.org/viaf/137563199",
-        "http://d-nb.info/gnd/1023214474",
-        "http://id.loc.gov/authorities/names/no2005018599",
-        "http://g.co/kg/g/12353pr3"
-      ]
+      "id": "http://data.europeana.eu/vocabulary/role/ProvidingInstitution",
+      "type": "Concept"
     }
-  ]
+  ],
+  "country": {
+    "id": "http://data.europeana.eu/place/94",
+    "type": "Place"
+  },
+  "language": [
+    "lt"
+  ],
+  "homepage": "http://www.archyvai.lt",
+  "mbox": [
+    "lcva@archyvai.lt"
+  ],
+  "hasAddress": {
+    "id": "https://crm.zoho.eu/crm/org20085137532/tab/Accounts/486281000000941518#address",
+    "type": "Address",
+    "countryName": "Lithuania"
+  },
+  "identifier": [
+    "486281000000941518"
+  ],
+  "sameAs": [
+    "https://crm.zoho.eu/crm/org20085137532/tab/Accounts/486281000000941518",
+    "http://www.wikidata.org/entity/Q16458815",
+    "http://data.europeana.eu/organization/1482250000004507806",
+    "http://viaf.org/viaf/137563199",
+    "http://d-nb.info/gnd/1023214474",
+    "http://id.loc.gov/authorities/names/no2005018599",
+    "http://g.co/kg/g/12353pr3"
+  ],
+  "isAggregatedBy": {
+    "id": "http://data.europeana.eu/organization/2852#aggregation",
+    "type": "Aggregation",
+    "created": "2024-02-22T17:17:16Z",
+    "modified": "2024-04-12T19:52:36Z",
+    "pageRank": 0.0,
+    "recordCount": 12812,
+    "score": 946,
+    "aggregates": [
+      "http://data.europeana.eu/organization/2852#aggr_europeana",
+      "http://data.europeana.eu/organization/2852#aggr_source_1",
+      "http://data.europeana.eu/organization/2852#aggr_source_2"
+    ]
+  }
 }

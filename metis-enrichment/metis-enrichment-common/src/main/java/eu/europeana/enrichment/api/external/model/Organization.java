@@ -136,7 +136,7 @@ public class Organization extends AgentBase {
   }
 
   private void init(eu.europeana.entitymanagement.definitions.model.Organization organization) {
-    this.country = organization.getCountry();
+    this.country = organization.getCountry().getEntityId();
     this.homepage = new Resource(organization.getHomepage());
     this.descriptions = convertMapToLabels(organization.getDescription());
     this.acronyms = convertMultilingualMapToLabel(organization.getAcronym());

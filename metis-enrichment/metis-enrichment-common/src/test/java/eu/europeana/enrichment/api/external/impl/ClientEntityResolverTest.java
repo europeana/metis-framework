@@ -23,7 +23,6 @@ import eu.europeana.entitymanagement.definitions.model.Place;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -390,8 +389,10 @@ class ClientEntityResolverTest {
   }
 
   private void parentMatching(EntitiesAndExpectedEnrichmentBases entry, List<Entity> children) {
+    final Set<String> childIds = children.stream().map(Entity::getEntityId).collect(Collectors.toSet());
     final List<Entity> parentEntities = entry.getEntitiesWithParents().stream().flatMap(List::stream)
-                                             .filter(entity -> !children.contains(entity)).toList();
+                                             .filter(entity -> !childIds.contains(entity.getEntityId()))
+                                             .toList();
     for (Entity parentEntity : parentEntities) {
       when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
     }

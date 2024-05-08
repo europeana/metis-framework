@@ -1,6 +1,6 @@
 {
   "@context": "http://www.europeana.eu/schemas/context/entity.jsonld",
-  "id": "http://data.europeana.eu/organization/1482250000004671158",
+  "id": "http://data.europeana.eu/organization/1585",
   "type": "Organization",
   "prefLabel": {
     "en": "The European Film Gateway"
@@ -13,49 +13,50 @@
   "hiddenLabel": [
     "EFG - The European Film Gateway"
   ],
-  "europeanaRole": {
-    "en": [
-      "Aggregator",
-      "Data Partner"
-    ]
+  "europeanaRole": [
+    {
+      "id": "http://data.europeana.eu/vocabulary/role/Aggregator",
+      "type": "Concept"
+    },
+    {
+      "id": "http://data.europeana.eu/vocabulary/role/ProvidingInstitution",
+      "type": "Concept"
+    }
+  ],
+  "country": {
+    "id": "http://data.europeana.eu/place/80",
+    "type": "Place"
   },
-  "organizationDomain": {
-    "en": [
-      "Film"
-    ]
-  },
-  "geographicLevel": {
-    "en": "European"
-  },
-  "country": "DE",
   "language": [
     "en"
   ],
   "homepage": "http://www.europeanfilmgateway.eu",
   "hasAddress": {
-    "id": "https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000004671158#address",
+    "id": "https://crm.zoho.eu/crm/org20085137532/tab/Accounts/486281000000944495#address",
+    "type": "Address",
     "streetAddress": "Schaumainkai 41",
     "postalCode": "60596",
     "locality": "Frankfurt am Main",
     "countryName": "Germany"
   },
   "identifier": [
-    "1482250000004671158"
+    "486281000000944495"
   ],
   "sameAs": [
-    "https://crm.zoho.com/crm/org51823723/tab/Accounts/1482250000004671158"
+    "https://crm.zoho.eu/crm/org20085137532/tab/Accounts/486281000000944495",
+    "http://data.europeana.eu/organization/1482250000004671158"
   ],
   "isAggregatedBy": {
-    "id": "http://data.europeana.eu/organization/1482250000004671158#aggregation",
+    "id": "http://data.europeana.eu/organization/1585#aggregation",
     "type": "Aggregation",
-    "created": "2022-10-17T15:41:19Z",
-    "modified": "2022-12-05T17:18:33Z",
+    "created": "2024-02-22T17:13:29Z",
+    "modified": "2024-04-12T19:09:35Z",
     "pageRank": 0.0,
-    "recordCount": 624987,
-    "score": 2829,
+    "recordCount": 601694,
+    "score": 1331,
     "aggregates": [
-      "http://data.europeana.eu/organization/1482250000004671158#aggr_europeana",
-      "http://data.europeana.eu/organization/1482250000004671158#aggr_source_1"
+      "http://data.europeana.eu/organization/1585#aggr_europeana",
+      "http://data.europeana.eu/organization/1585#aggr_source_1"
     ]
   }
 }

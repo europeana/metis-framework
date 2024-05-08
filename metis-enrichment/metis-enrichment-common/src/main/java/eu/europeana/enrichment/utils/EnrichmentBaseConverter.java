@@ -12,6 +12,7 @@ import java.io.StringReader;
 import java.util.List;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
+import java.util.Objects;
 
 /**
  * This class contains conversion tools for the {@link EnrichmentBase} class.
@@ -42,7 +43,8 @@ public final class EnrichmentBaseConverter {
    * @return the enrichment bases
    */
   public static List<EnrichmentBase> convertEntitiesToEnrichmentBase(List<Entity> entities) {
-    return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase).toList();
+    return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase)
+        .filter(Objects::nonNull).toList();
   }
 
   /**
@@ -58,6 +60,7 @@ public final class EnrichmentBaseConverter {
       case Concept -> new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
       case TimeSpan -> new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
       case Organization -> new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+      default -> null;
     };
   }
 }
