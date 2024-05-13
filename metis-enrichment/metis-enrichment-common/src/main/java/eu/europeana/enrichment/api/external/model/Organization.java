@@ -7,12 +7,14 @@ import static eu.europeana.enrichment.utils.EntityValuesConverter.convertMapToLa
 import static eu.europeana.enrichment.utils.EntityValuesConverter.convertMultilingualMapToLabel;
 import static eu.europeana.enrichment.utils.EntityValuesConverter.getVcardAddresses;
 
+import eu.europeana.entitymanagement.definitions.model.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.Optional;
 
 /**
  * This class stores result of the parsing of XSLT/XML organization file with Wikidata content
@@ -136,7 +138,7 @@ public class Organization extends AgentBase {
   }
 
   private void init(eu.europeana.entitymanagement.definitions.model.Organization organization) {
-    this.country = organization.getCountry().getEntityId();
+    this.country = Optional.ofNullable(organization.getCountry()).map(Entity::getEntityId).orElse(null);
     this.homepage = new Resource(organization.getHomepage());
     this.descriptions = convertMapToLabels(organization.getDescription());
     this.acronyms = convertMultilingualMapToLabel(organization.getAcronym());
