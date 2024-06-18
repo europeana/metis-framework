@@ -4,7 +4,9 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 import static eu.europeana.metis.utils.TempFileUtils.createSecureTempDirectoryAndFile;
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
+import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.utils.CompressedFileExtension;
@@ -25,17 +27,16 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,29 +50,23 @@ public class HttpHarvesterImpl implements HttpHarvester {
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
   @Override
+  public void harvestFullRecords(InputStream inputStream,
+      CompressedFileExtension compressedFileType, ReportingIteration<ArchiveEntry> action)
+      throws HarvesterException {
+    try (final HarvestingIterator<ArchiveEntry, Path> iterator = createFullRecordHarvestIterator(inputStream, compressedFileType)) {
+      iterator.forEach(action);
+    } catch (IOException e) {
+      throw new HarvesterException("Could not clean up.", e);
+    }
+  }
+
+  @Override
   public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
       Consumer<ArchiveEntry> action) throws HarvesterException {
-
-    // Now perform the harvesting - go by each file.
-    final HttpRecordIterator iterator = createTemporaryHttpHarvestIterator(inputStream, compressedFileType);
-    List<Pair<Path, Exception>> exception = new ArrayList<>(1);
-    iterator.forEach(path -> {
-      try (InputStream content = Files.newInputStream(path)) {
-        action.accept(new ArchiveEntryImpl(path.getFileName().toString(),
-            new ByteArrayInputStream(IOUtils.toByteArray(content))));
-        return IterationResult.CONTINUE;
-      } catch (IOException | RuntimeException e) {
-        exception.add(new ImmutablePair<>(path, e));
-        return IterationResult.TERMINATE;
-      }
+    this.harvestFullRecords(inputStream, compressedFileType, file -> {
+      action.accept(file);
+      return IterationResult.CONTINUE;
     });
-
-    iterator.deleteIteratorContent();
-
-    if (!exception.isEmpty()) {
-      throw new HarvesterException("Could not process path " + exception.get(0).getKey() + ".",
-          exception.get(0).getValue());
-    }
   }
 
   @Override
@@ -90,24 +85,34 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
 
     // Perform the harvesting
-    return harvestRecords(downloadedFile);
+    return new PathIterator(extractArchive(downloadedFile));
   }
 
   @Override
-  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input, CompressedFileExtension compressedFileType)
-      throws HarvesterException {
+  public FullRecordHarvestingIterator<ArchiveEntry, Path> createFullRecordHarvestIterator(InputStream input,
+      CompressedFileExtension compressedFileType) throws HarvesterException {
+    return new RecordIterator(extractArchiveSecurely(input, compressedFileType));
+  }
+
+  @Override
+  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input,
+      CompressedFileExtension compressedFileType) throws HarvesterException {
+    return new PathIterator(extractArchiveSecurely(input, compressedFileType));
+  }
+
+  private Path extractArchiveSecurely(InputStream input,
+      CompressedFileExtension compressedFileType) throws HarvesterException {
     try {
       final Path tempFile = createSecureTempDirectoryAndFile(HttpHarvesterImpl.class.getSimpleName(),
           HttpHarvesterImpl.class.getSimpleName(), compressedFileType.getExtension());
       copyInputStreamToFile(input, tempFile.toFile());
-      return harvestRecords(tempFile);
+      return extractArchive(tempFile);
     } catch (IOException e) {
       throw new HarvesterException("Problem saving archive.", e);
     }
-
   }
 
-  private HttpRecordIterator harvestRecords(Path archiveFile) throws HarvesterException {
+  private Path extractArchive(Path archiveFile) throws HarvesterException {
 
     // Extract the archive.
     final Path extractedDirectory = archiveFile.toAbsolutePath().getParent();
@@ -127,8 +132,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
       throw new HarvesterException("Problem correcting directory rights.", e);
     }
 
-    // Return the iterator
-    return new FileIterator(extractedDirectory);
+    // Return the extracted directory
+    return extractedDirectory;
   }
 
   private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException {
@@ -181,42 +186,105 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  /**
-   * Iterator for harvesting
-   */
-  private static class FileIterator implements HttpRecordIterator {
+  private static class RecordIterator extends HttpHarvestIterator<ArchiveEntry>
+      implements FullRecordHarvestingIterator<ArchiveEntry, Path> {
 
-    private final Path extractedDirectory;
+    public RecordIterator(Path extractedDirectory) {
+      super(extractedDirectory);
+    }
 
-    public FileIterator(Path extractedDirectory) {
-      this.extractedDirectory = extractedDirectory;
+    @Override
+    public void forEachFiltered(ReportingIteration<ArchiveEntry> action, Predicate<Path> filter)
+        throws HarvesterException {
+      forEachFileFiltered(action, filter);
+    }
+  }
+
+  private static class PathIterator extends HttpHarvestIterator<Path> implements HttpRecordIterator {
+
+    public PathIterator(Path extractedDirectory) {
+      super(extractedDirectory);
+    }
+
+    @Override
+    public void forEachFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
+        throws HarvesterException {
+      forEachPathFiltered(action, filter);
     }
 
     @Override
     public String getExtractedDirectory() {
-      return extractedDirectory != null ? extractedDirectory.toString() : "";
+      return super.getExtractedDirectory();
     }
 
     @Override
     public void deleteIteratorContent() {
-      if (extractedDirectory != null) {
-        try {
-          FileUtils.deleteDirectory(extractedDirectory.toFile());
-        } catch (IOException e) {
-          LOGGER.warn("Could not delete directory.", e);
-        }
-      } else {
-        LOGGER.warn("Extracted directory undefined, nothing removed.");
+      this.close();
+    }
+  }
+
+  /**
+   * Iterator for harvesting
+   */
+  private static abstract class HttpHarvestIterator<R> implements HarvestingIterator<R, Path> {
+
+    private final Path extractedDirectory;
+
+    public HttpHarvestIterator(Path extractedDirectory) {
+      if (extractedDirectory == null) {
+        throw new IllegalStateException("Extracted directory is null. This should not happen.");
       }
+      this.extractedDirectory = extractedDirectory;
+    }
+
+    protected String getExtractedDirectory() {
+      return extractedDirectory.toString();
     }
 
     @Override
-    public void forEach(ReportingIteration<Path> action) throws HarvesterException {
+    public void close() {
       try {
-        Files.walkFileTree(extractedDirectory, new FileIteration(action));
+        FileUtils.deleteDirectory(extractedDirectory.toFile());
+      } catch (IOException e) {
+        LOGGER.warn("Could not delete directory.", e);
+      }
+    }
+
+    public void forEachPathFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
+        throws HarvesterException {
+      try {
+        Files.walkFileTree(extractedDirectory, new FileIteration(action, filter));
       } catch (IOException e) {
         throw new HarvesterException("Exception while iterating through the extracted files.", e);
       }
+    }
+
+    public void forEachFileFiltered(ReportingIteration<ArchiveEntry> action, Predicate<Path> filter)
+        throws HarvesterException {
+      forEachPathFiltered(path -> {
+        try (InputStream content = Files.newInputStream(path)) {
+          return action.process(new ArchiveEntryImpl(extractedDirectory.relativize(path).toString(),
+              new ByteArrayInputStream(IOUtils.toByteArray(content))));
+        } catch (RuntimeException e) {
+          throw new IOException("Could not process path " + path + ".", e);
+        }
+      }, filter);
+    }
+
+    @Override
+    public void forEachNonDeleted(ReportingIteration<R> action) throws HarvesterException {
+      forEach(action);
+    }
+
+    @Override
+    public Integer countRecords() throws HarvesterException {
+      // Go by each path only: no need to inspect the full file.
+      final AtomicInteger counter = new AtomicInteger(0);
+      forEachPathFiltered(path -> {
+        counter.incrementAndGet();
+        return IterationResult.CONTINUE;
+      }, path -> true);
+      return counter.get();
     }
   }
 
@@ -226,13 +294,18 @@ public class HttpHarvesterImpl implements HttpHarvester {
     private static final String MAC_TEMP_FOLDER = "__MACOSX";
 
     private final ReportingIteration<Path> action;
+    private final Predicate<Path> filter;
 
-    public FileIteration(ReportingIteration<Path> action) {
+    public FileIteration(ReportingIteration<Path> action, Predicate<Path> filter) {
       this.action = action;
+      this.filter = filter;
     }
 
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+      if (!filter.test(file)) {
+        return FileVisitResult.CONTINUE;
+      }
       final Path fileName = file.getFileName();
       if (fileName != null && MAC_TEMP_FILE.equals(fileName.toString())) {
         return FileVisitResult.CONTINUE;
@@ -244,7 +317,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       if (result == null) {
         throw new IllegalArgumentException("Iteration result cannot be null.");
       }
-      return IterationResult.TERMINATE == result ? FileVisitResult.TERMINATE
+      return result == IterationResult.TERMINATE ? FileVisitResult.TERMINATE
           : FileVisitResult.CONTINUE;
     }
 
@@ -258,24 +331,38 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  private static class ArchiveEntryImpl implements ArchiveEntry {
+  private record ArchiveEntryImpl(String relativeFilePath, ByteArrayInputStream entryContent)
+      implements ArchiveEntry {
 
-    final String entryName;
-    final ByteArrayInputStream entryContent;
-
-    public ArchiveEntryImpl(String entryName, ByteArrayInputStream entryContent) {
-      this.entryName = entryName;
-      this.entryContent = entryContent;
+    @Override
+    public String getHarvestingIdentifier() {
+      return relativeFilePath;
     }
 
     @Override
-    public String getEntryName() {
-      return entryName;
+    public void writeContent(OutputStream outputStream) throws IOException {
+       IOUtils.copy(entryContent, outputStream);
     }
 
     @Override
-    public ByteArrayInputStream getEntryContent() {
+    public ByteArrayInputStream getContent() {
       return entryContent;
+    }
+
+    @Override
+    public boolean isDeleted() {
+      return false;
+    }
+
+    @Override
+    @Deprecated
+    public ByteArrayInputStream getEntryContent() {
+      return getContent();
+    }
+
+    @Override
+    public Instant getTimeStamp() {
+      return null;
     }
   }
 }

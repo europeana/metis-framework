@@ -1,6 +1,7 @@
 package eu.europeana.metis.repository.rest.controller;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.repository.rest.dao.Record;
 import eu.europeana.metis.repository.rest.dao.RecordDao;
@@ -126,10 +127,14 @@ public class RecordController {
     final InsertionResult result = new InsertionResult(datasetId,
         Objects.requireNonNullElseGet(dateStamp, Instant::now));
     try (final InputStream inputStream = recordsZipFile.getInputStream()) {
-      new HttpHarvesterImpl().harvestRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
-        final byte[] content = entry.getEntryContent().readAllBytes();
-        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getEntryName());
+      new HttpHarvesterImpl().harvestFullRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
+        final byte[] content;
+        try (InputStream contentStream = entry.getContent()) {
+          content = contentStream.readAllBytes();
+        }
+        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getHarvestingIdentifier());
         saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result, false);
+        return IterationResult.CONTINUE;
       });
     } catch (IOException | HarvesterException | RuntimeException e) {
 

@@ -74,7 +74,7 @@ class OaiHarvesterImplTest {
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
 
     final OaiRecord oaiRecord = harvester.harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId);
-    assertThrows(HarvesterException.class, oaiRecord::getRecord);
+    assertThrows(IllegalStateException.class, oaiRecord::getRecord);
   }
 
   @Test
