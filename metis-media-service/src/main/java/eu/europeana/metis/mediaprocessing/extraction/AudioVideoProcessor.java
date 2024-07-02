@@ -52,8 +52,10 @@ class AudioVideoProcessor implements MediaProcessor {
   private static String globalFfprobeCommand;
 
   private final CommandExecutor commandExecutor;
+
   private final String ffprobeCommand;
 
+  private MediaProcessor nextProcessor;
   /**
    * Constructor. This is a wrapper for {@link AudioVideoProcessor#AudioVideoProcessor(CommandExecutor, String)} where the
    * property is detected. It is advisable to use this constructor for non-testing purposes.
@@ -131,6 +133,16 @@ class AudioVideoProcessor implements MediaProcessor {
   @Override
   public boolean downloadResourceForFullProcessing() {
     return false;
+  }
+
+  /**
+   * This creates structure to enable a chain of media processors
+   *
+   * @param nextProcessable next media processor in the chain
+   */
+  @Override
+  public void setNextProcessor(MediaProcessor nextProcessable) {
+   this.nextProcessor = nextProcessable;
   }
 
   @Override

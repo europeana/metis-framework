@@ -1,11 +1,13 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.schema.jibx.AudioChannelNumber;
 import eu.europeana.metis.schema.jibx.BitRate;
 import eu.europeana.metis.schema.jibx.CodecName;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.DoubleType;
 import eu.europeana.metis.schema.jibx.Duration;
+import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.HasColorSpace;
 import eu.europeana.metis.schema.jibx.HasMimeType;
 import eu.europeana.metis.schema.jibx.Height;
@@ -19,6 +21,7 @@ import eu.europeana.metis.schema.jibx.SampleSize;
 import eu.europeana.metis.schema.jibx.SpatialResolution;
 import eu.europeana.metis.schema.jibx.StringType;
 import eu.europeana.metis.schema.jibx.Type1;
+import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import eu.europeana.metis.schema.jibx.Width;
 import eu.europeana.metis.schema.model.Orientation;
@@ -144,6 +147,20 @@ class WebResource {
 
   void setResolution(Integer resolution) {
     resource.setSpatialResolution(uintVal(SpatialResolution::new, resolution));
+  }
+
+  void setEdmType(EdmType edmType) {
+    if (edmType == null) {
+      resource.setType1(null);
+    } else if (isValidEdmType(edmType)) {
+      Type2 type2 = new Type2();
+      type2.setType(edmType);
+      resource.setType1(type2);
+    }
+  }
+
+  boolean isValidEdmType(EdmType edmType) {
+    return edmType.equals(EdmType.IMAGE) || edmType.equals(EdmType.VIDEO);
   }
 
   private static <T extends IntegerType> T intVal(Supplier<T> constructor, Integer value) {

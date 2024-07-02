@@ -18,14 +18,20 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
+import eu.europeana.metis.mediaprocessing.MediaExtractor;
+import eu.europeana.metis.mediaprocessing.MediaProcessorFactory;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.ProcessingMode;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
+import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -33,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -56,6 +63,7 @@ class MediaExtractorImplTest {
   private static AudioVideoProcessor audioVideoProcessor;
   private static TextProcessor textProcessor;
   private static Media3dProcessor media3dProcessor;
+  private static OEmbedProcessor oEmbedProcessor;
 
   private static MediaExtractorImpl mediaExtractor;
 
@@ -69,14 +77,15 @@ class MediaExtractorImplTest {
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
     media3dProcessor = mock(Media3dProcessor.class);
+    oEmbedProcessor = mock(OEmbedProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
+        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor));
   }
 
   @BeforeEach
   void resetMocks() {
     reset(resourceDownloadClient, mimeTypeDetectHttpClient, commandExecutor, tika, imageProcessor,
-        audioVideoProcessor, textProcessor, mediaExtractor);
+        audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor);
   }
 
   @Test
@@ -203,9 +212,9 @@ class MediaExtractorImplTest {
     assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
-    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
+    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
     assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
-    assertNull(mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
+    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
   }
 
   @Test
@@ -333,5 +342,31 @@ class MediaExtractorImplTest {
   private void testGetMode(ProcessingMode expected, Set<UrlType> urlTypes) {
     final RdfResourceEntry entry = new RdfResourceEntry("url string", new ArrayList<>(urlTypes));
     assertEquals(expected, mediaExtractor.getMode(entry));
+  }
+
+  @Test
+  void getOEmbedJson() throws MediaProcessorException, MediaExtractionException {
+    MediaExtractor mediaExtractor1 = new MediaProcessorFactory().createMediaExtractor();
+    final String resourceUrl = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915";
+
+    final String detectedMimeType = "application/json+oembed";
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
+    ResourceExtractionResult resourceExtractionResult = mediaExtractor1.performMediaExtraction(rdfResourceEntry, false );
+    assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
+  }
+
+  @Test
+  void getOEmbedXml() throws MediaProcessorException, MediaExtractionException {
+    MediaExtractor mediaExtractor1 = new MediaProcessorFactory().createMediaExtractor();
+    final String resourceUrl = "https://vimeo.com/api/oembed.xml?url=https%3A%2F%2Fvimeo.com%2F24416915";
+
+    final String detectedMimeType = "application/xml+oembed";
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
+    ResourceExtractionResult resourceExtractionResult = mediaExtractor1.performMediaExtraction(rdfResourceEntry, false );
+    assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
   }
 }

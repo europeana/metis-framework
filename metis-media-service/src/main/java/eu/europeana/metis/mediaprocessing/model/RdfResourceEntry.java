@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.jibx.RDF;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +20,21 @@ public class RdfResourceEntry implements Serializable {
 
   private String resourceUrl;
   private Set<UrlType> urlTypes;
+  private RDF rdfRecord;
+
+
+  /**
+   * Instantiates a new Rdf resource entry.
+   *
+   * @param resourceUrl The URL of the resource.
+   * @param urlTypes The resource URL types with which this resource is referenced.
+   * @param rdfRecord the rdf record
+   */
+  public RdfResourceEntry(String resourceUrl, Set<UrlType> urlTypes, RDF rdfRecord) {
+    this.resourceUrl = resourceUrl;
+    this.urlTypes = new HashSet<>(urlTypes);
+    this.rdfRecord = rdfRecord;
+  }
 
   /**
    * Constructor.
