@@ -64,7 +64,7 @@ class MediaExtractorImplTest {
   private static TextProcessor textProcessor;
   private static Media3dProcessor media3dProcessor;
   private static OEmbedProcessor oEmbedProcessor;
-
+  private static LinkedProcessor linkedProcessor;
   private static MediaExtractorImpl mediaExtractor;
 
   @BeforeAll
@@ -78,14 +78,15 @@ class MediaExtractorImplTest {
     textProcessor = mock(TextProcessor.class);
     media3dProcessor = mock(Media3dProcessor.class);
     oEmbedProcessor = mock(OEmbedProcessor.class);
+    linkedProcessor = mock(LinkedProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor));
+        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor, linkedProcessor));
   }
 
   @BeforeEach
   void resetMocks() {
     reset(resourceDownloadClient, mimeTypeDetectHttpClient, commandExecutor, tika, imageProcessor,
-        audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor);
+        audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor, linkedProcessor);
   }
 
   @Test
@@ -212,9 +213,9 @@ class MediaExtractorImplTest {
     assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
     assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
-    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
+    assertSame(linkedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
     assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
-    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
+    assertSame(linkedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
   }
 
   @Test
@@ -308,6 +309,7 @@ class MediaExtractorImplTest {
   @Test
   void testShouldDownloadForFullProcessing() {
     doReturn(true).when(imageProcessor).downloadResourceForFullProcessing();
+    doReturn(true, false).when(linkedProcessor).downloadResourceForFullProcessing();
     doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(media3dProcessor).downloadResourceForFullProcessing();

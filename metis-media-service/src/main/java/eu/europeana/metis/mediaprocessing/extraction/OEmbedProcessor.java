@@ -79,7 +79,7 @@ public class OEmbedProcessor implements MediaProcessor {
         resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
       }
       case "video" -> {
-        Double duration = getDurationFromVideo(embedModel);
+        Double duration = getDurationFromModel(embedModel);
         VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(detectedMimeType,
             resource.getResourceUrl(),
             resource.getProvidedFileSize(), duration, null, embedModel.getWidth(), embedModel.getHeight(), null, null);
@@ -91,8 +91,8 @@ public class OEmbedProcessor implements MediaProcessor {
     return resourceExtractionResult;
   }
 
-  private static Double getDurationFromVideo(OEmbedModel embedModel) {
-    Double duration = null;
+  private static Double getDurationFromModel(OEmbedModel embedModel) {
+    Double duration;
     try {
       duration = Double.parseDouble(embedModel.getDuration());
     } catch (NumberFormatException e) {
@@ -112,7 +112,11 @@ public class OEmbedProcessor implements MediaProcessor {
    */
   @Override
   public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType) throws MediaExtractionException {
-    return null;
+    if (detectedMimeType.startsWith("application/json+oembed") || detectedMimeType.startsWith("application/xml+oembed")) {
+      return null;
+    } else {
+      return this.nextProcessor.copyMetadata(resource, detectedMimeType);
+    }
   }
 
   /**

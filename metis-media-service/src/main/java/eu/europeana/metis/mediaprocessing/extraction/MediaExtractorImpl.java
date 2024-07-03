@@ -6,7 +6,6 @@ import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
-import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedXmlProcessor;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
@@ -53,6 +52,8 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final TextProcessor textProcessor;
   private final Media3dProcessor media3dProcessor;
   private final OEmbedProcessor oEmbedProcessor;
+  private final LinkedProcessor linkedProcessor;
+
   /**
    * Constructor meant for testing purposes.
    *
@@ -66,7 +67,8 @@ public class MediaExtractorImpl implements MediaExtractor {
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika,
       ImageProcessor imageProcessor, AudioVideoProcessor audioVideoProcessor,
-      TextProcessor textProcessor, Media3dProcessor media3dProcessor, OEmbedProcessor oEmbedProcessor) {
+      TextProcessor textProcessor, Media3dProcessor media3dProcessor,
+      OEmbedProcessor oEmbedProcessor, LinkedProcessor linkedProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
@@ -75,6 +77,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.textProcessor = textProcessor;
     this.media3dProcessor = media3dProcessor;
     this.oEmbedProcessor = oEmbedProcessor;
+    this.linkedProcessor = linkedProcessor;
   }
 
   /**
@@ -106,7 +109,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
-
+    this.linkedProcessor = new LinkedProcessor();
     initChainOfProcessors();
   }
 
@@ -114,6 +117,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.imageProcessor.setNextProcessor(null);
     this.audioVideoProcessor.setNextProcessor(null);
     this.media3dProcessor.setNextProcessor(null);
+    this.linkedProcessor.setNextProcessor(oEmbedProcessor);
     this.oEmbedProcessor.setNextProcessor(textProcessor);
     this.textProcessor.setNextProcessor(null);
   }
@@ -210,7 +214,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   MediaProcessor chooseMediaProcessor(MediaType mediaType) {
     final MediaProcessor processor;
     switch (mediaType) {
-      case TEXT, OTHER -> processor = oEmbedProcessor;
+      case TEXT, OTHER -> processor = linkedProcessor;
       case AUDIO, VIDEO -> processor = audioVideoProcessor;
       case IMAGE -> processor = imageProcessor;
       case THREE_D -> processor = media3dProcessor;

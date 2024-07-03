@@ -2,7 +2,12 @@ package eu.europeana.metis.mediaprocessing.wrappers;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
 import org.apache.tika.Tika;
+import org.apache.tika.config.TikaConfig;
+import org.apache.tika.detect.CompositeDetector;
+import org.apache.tika.detect.DefaultDetector;
 import org.apache.tika.metadata.Metadata;
 
 /**
@@ -16,7 +21,13 @@ public class TikaWrapper {
    * It creates a new instance of Tika
    */
   public TikaWrapper() {
-    this.tika = new Tika();
+    OEmbedJsonFileDetector embedJsonFileDetector = new OEmbedJsonFileDetector();
+    OEmbedXmlFileDetector embedXmlFileDetector = new OEmbedXmlFileDetector();
+    CompositeDetector compositeDetector = new CompositeDetector(
+        List.of(embedJsonFileDetector, embedXmlFileDetector, new DefaultDetector())
+    );
+
+    this.tika = new Tika(compositeDetector);
   }
 
   /**

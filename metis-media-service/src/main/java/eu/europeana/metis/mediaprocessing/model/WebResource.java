@@ -156,6 +156,8 @@ class WebResource {
       Type2 type2 = new Type2();
       type2.setType(edmType);
       resource.setType1(type2);
+    } else {
+      resource.setType1(null);
     }
   }
 

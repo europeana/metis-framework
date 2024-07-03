@@ -217,7 +217,7 @@ class WebResourceTest {
   }
 
   @Test
-  void testSetEdmType() throws MediaExtractionException {
+  void testSetEdmType() {
     final WebResourceType resourceType = new WebResourceType();
     final WebResource webResource = new WebResource(resourceType);
     webResource.setEdmType(EdmType.VIDEO);
@@ -234,11 +234,11 @@ class WebResourceTest {
     final WebResourceType resourceType = new WebResourceType();
     final WebResource webResource = new WebResource(resourceType);
 
-    Exception exception = assertThrows(MediaExtractionException.class, () -> webResource.setEdmType(EdmType.TEXT));
-    assertEquals("Unsupported edm type: TEXT", exception.getMessage());
-    exception = assertThrows(MediaExtractionException.class, () -> webResource.setEdmType(EdmType.SOUND));
-    assertEquals("Unsupported edm type: SOUND", exception.getMessage());
-    exception = assertThrows(MediaExtractionException.class, () -> webResource.setEdmType(EdmType._3_D));
-    assertEquals("Unsupported edm type: _3_D", exception.getMessage());
+    webResource.setEdmType(EdmType.TEXT);
+    assertNull(resourceType.getType1());
+    webResource.setEdmType(EdmType.SOUND);
+    assertNull(resourceType.getType1());
+    webResource.setEdmType(EdmType._3_D);
+    assertNull(resourceType.getType1());
   }
 }

@@ -1,10 +1,13 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
+
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.network.AbstractHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
+import org.apache.tika.metadata.TikaMimeKeys;
 import org.springframework.http.ContentDisposition;
 
 import java.io.IOException;
@@ -77,7 +80,7 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
             final Metadata metadata = new Metadata();
             final String resourceName = getResourceNameFromContentDispositionOrFromActualURI(contentDisposition, actualUri);
             if (resourceName != null) {
-                metadata.set(Metadata.RESOURCE_NAME_KEY, resourceName);
+                metadata.set(RESOURCE_NAME_KEY, resourceName);
             }
             if (mimeType != null) {
                 final int separatorIndex = mimeType.indexOf(';');

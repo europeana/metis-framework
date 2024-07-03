@@ -107,7 +107,7 @@ class MimeTypeDetectHttpClientTest {
         String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
 
         // then
-        assertEquals("model/stl", detectedMimeType);
+        assertEquals("model/x.stl-binary", detectedMimeType);
     }
 
   @Test
