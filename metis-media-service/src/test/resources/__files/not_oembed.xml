@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:region="http://www.country-regions.fake/">
+  <rdf:Description rdf:about="http://en.wikipedia.org/wiki/Oxford">
+    <dc:title>Oxford</dc:title>
+    <dc:coverage>Oxfordshire</dc:coverage>
+    <dc:publisher>Wikipedia</dc:publisher>
+    <region:population>10000</region:population>
+    <region:principaltown rdf:resource="http://www.country-regions.fake/oxford"/>
+  </rdf:Description>
+</rdf:RDF>

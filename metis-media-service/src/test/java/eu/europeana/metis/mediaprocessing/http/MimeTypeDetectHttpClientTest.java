@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 class MimeTypeDetectHttpClientTest {
@@ -146,4 +146,39 @@ class MimeTypeDetectHttpClientTest {
     assertEquals("model/gltf-binary", detectedMimeType);
   }
 
+  @Test
+  void download_detectMimeTypeOembedJson_expectSuccess() throws IOException, URISyntaxException {
+    // given
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json")) {
+      byte[] audioBytes = inputStream.readAllBytes();
+      wireMockExtension.stubFor(get("/api/oembed.json?url=https://vimeo.com/24416915").willReturn(aResponse()
+          .withStatus(200)
+          .withBody(audioBytes)
+          .withHeader("Content-Disposition", "inline; filename=\"oembed.json\"")));
+    }
+    final String url = String.format("http://localhost:%d/api/oembed.json?url=https://vimeo.com/24416915", wireMockExtension.getPort());
+    // when
+    String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
+
+    // then
+    assertEquals("application/json", detectedMimeType);
+  }
+
+  @Test
+  void download_detectMimeTypeOembedXml_expectSuccess() throws IOException, URISyntaxException {
+    // given
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.xml")) {
+      byte[] audioBytes = inputStream.readAllBytes();
+      wireMockExtension.stubFor(get("/api/oembed.xml?url=https://vimeo.com/24416915").willReturn(aResponse()
+          .withStatus(200)
+          .withBody(audioBytes)
+          .withHeader("Content-Disposition", "inline; filename=\"oembed.xml\"")));
+    }
+    final String url = String.format("http://localhost:%d/api/oembed.xml?url=https://vimeo.com/24416915", wireMockExtension.getPort());
+    // when
+    String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
+
+    // then
+    assertEquals("application/xml", detectedMimeType);
+  }
 }

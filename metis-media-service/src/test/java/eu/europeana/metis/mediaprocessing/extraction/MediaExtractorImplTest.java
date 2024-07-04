@@ -33,6 +33,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
@@ -47,6 +48,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.apache.tika.metadata.Metadata;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -347,28 +349,47 @@ class MediaExtractorImplTest {
   }
 
   @Test
-  void getOEmbedJson() throws MediaProcessorException, MediaExtractionException {
-    MediaExtractor mediaExtractor1 = new MediaProcessorFactory().createMediaExtractor();
+  void getOEmbedJson() throws MediaExtractionException, IOException {
     final String resourceUrl = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915";
 
     final String detectedMimeType = "application/json+oembed";
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY));
-    final ResourceImpl resource = spy(
+    final Resource resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
-    ResourceExtractionResult resourceExtractionResult = mediaExtractor1.performMediaExtraction(rdfResourceEntry, false );
+    doReturn(true)
+        .when(resource).hasContent();
+    doReturn(detectedMimeType)
+        .when(tika).detect(any(InputStream.class),any(Metadata.class));
+    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.json").getPath()))
+        .when(resource).getContentPath();
+    doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
+    ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(new VideoResourceMetadata(detectedMimeType,resourceUrl,0L));
+    doReturn(extractionResult).when(linkedProcessor).extractMetadata(resource,detectedMimeType,false);
+
+    ResourceExtractionResult resourceExtractionResult = mediaExtractor.performMediaExtraction(rdfResourceEntry, false );
     assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
   }
 
   @Test
-  void getOEmbedXml() throws MediaProcessorException, MediaExtractionException {
-    MediaExtractor mediaExtractor1 = new MediaProcessorFactory().createMediaExtractor();
+  void getOEmbedXml() throws MediaExtractionException, IOException {
+
     final String resourceUrl = "https://vimeo.com/api/oembed.xml?url=https%3A%2F%2Fvimeo.com%2F24416915";
 
     final String detectedMimeType = "application/xml+oembed";
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY));
     final ResourceImpl resource = spy(
-        new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
-    ResourceExtractionResult resourceExtractionResult = mediaExtractor1.performMediaExtraction(rdfResourceEntry, false );
+        new ResourceImpl(rdfResourceEntry, detectedMimeType, null, URI.create(resourceUrl)));
+    doReturn(true)
+        .when(resource).hasContent();
+    doReturn(detectedMimeType)
+        .when(tika).detect(any(InputStream.class),any(Metadata.class));
+    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.xml").getPath()))
+        .when(resource).getContentPath();
+    doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
+    ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(new VideoResourceMetadata(detectedMimeType,resourceUrl,0L));
+    doReturn(extractionResult).when(linkedProcessor).extractMetadata(resource,detectedMimeType,false);
+
+    ResourceExtractionResult resourceExtractionResult = mediaExtractor.performMediaExtraction(rdfResourceEntry, false );
     assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
   }
 }

@@ -1,16 +1,26 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
+import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromXml;
+import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor;
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * The type OEmbed xml file detector.
+ */
 public class OEmbedXmlFileDetector implements Detector {
 
+  public static final Logger LOGGER = LoggerFactory.getLogger(OEmbedXmlFileDetector.class);
   private static final MediaType OEMBED_XML = MediaType.application("xml+oembed");
 
   /**
@@ -29,25 +39,18 @@ public class OEmbedXmlFileDetector implements Detector {
    * @param input document input stream, or <code>null</code>
    * @param metadata input metadata for the document
    * @return detected media type, or <code>application/octet-stream</code>
-   * @throws IOException if the document input stream could not be read
+   * Log warns exception if the document input stream could not be read
    */
   @Override
   public MediaType detect(InputStream input, Metadata metadata) {
     try {
-      XmlMapper xmlMapper = new XmlMapper();
-      xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
       input.reset();
-      OEmbedModel embedModel = xmlMapper.readValue(input.readAllBytes(), OEmbedModel.class);
-      if (embedModel != null
-          && (embedModel.getVersion() != null
-          && embedModel.getVersion().startsWith("1.0"))
-          && (embedModel.getType() != null
-          && (embedModel.getType().equalsIgnoreCase("photo")
-          || embedModel.getType().equalsIgnoreCase("video")))
-          && (embedModel.getWidth() > 0 && embedModel.getHeight() > 0)) {
+      OEmbedModel embedModel = getOEmbedModelfromXml(input.readAllBytes());
+      if (isOEmbed(embedModel)) {
         return OEMBED_XML;
       }
     } catch (Exception e) {
+      LOGGER.warn("unable to read xml returning octet stream: ",e);
       return MediaType.OCTET_STREAM;
     }
     return MediaType.OCTET_STREAM;
