@@ -1,15 +1,11 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.LOGGER;
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromJson;
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor;
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serial;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
@@ -23,6 +19,8 @@ public class OEmbedJsonFileDetector implements Detector {
 
   public static final Logger LOGGER = LoggerFactory.getLogger(OEmbedJsonFileDetector.class);
   private static final MediaType OEMBED_JSON = MediaType.application("json+oembed");
+  @Serial
+  private static final long serialVersionUID = -3009429767832982324L;
 
   /**
    * Detects the content type of the given input document. Returns
@@ -39,19 +37,21 @@ public class OEmbedJsonFileDetector implements Detector {
    *
    * @param input document input stream, or <code>null</code>
    * @param metadata input metadata for the document
-   * @return detected media type, or <code>application/octet-stream</code>
-   * Log warns exception if the document input stream could not be read
+   * @return detected media type, or <code>application/octet-stream</code> Log warns exception if the document input stream could
+   * not be read
    */
   @Override
   public MediaType detect(InputStream input, Metadata metadata) {
     try {
-      input.reset();
+      if (input.available() == 0) {
+        input.reset();
+      }
       OEmbedModel embedModel = getOEmbedModelfromJson(input.readAllBytes());
       if (isOEmbed(embedModel)) {
         return OEMBED_JSON;
       }
     } catch (Exception e) {
-      LOGGER.warn("unable to read json returning octet stream: ",e);
+      LOGGER.warn("unable to read json returning octet stream: ", e);
       return MediaType.OCTET_STREAM;
     }
     return MediaType.OCTET_STREAM;

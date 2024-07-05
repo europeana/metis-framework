@@ -3,11 +3,7 @@ package eu.europeana.metis.mediaprocessing.wrappers;
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromXml;
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor;
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
-import java.io.IOException;
 import java.io.InputStream;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
@@ -38,19 +34,21 @@ public class OEmbedXmlFileDetector implements Detector {
    *
    * @param input document input stream, or <code>null</code>
    * @param metadata input metadata for the document
-   * @return detected media type, or <code>application/octet-stream</code>
-   * Log warns exception if the document input stream could not be read
+   * @return detected media type, or <code>application/octet-stream</code> Log warns exception if the document input stream could
+   * not be read
    */
   @Override
   public MediaType detect(InputStream input, Metadata metadata) {
     try {
-      input.reset();
+      if (input.available() == 0) {
+        input.reset();
+      }
       OEmbedModel embedModel = getOEmbedModelfromXml(input.readAllBytes());
       if (isOEmbed(embedModel)) {
         return OEMBED_XML;
       }
     } catch (Exception e) {
-      LOGGER.warn("unable to read xml returning octet stream: ",e);
+      LOGGER.warn("unable to read xml returning octet stream: ", e);
       return MediaType.OCTET_STREAM;
     }
     return MediaType.OCTET_STREAM;

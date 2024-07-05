@@ -97,6 +97,7 @@ public class OEmbedProcessor implements MediaProcessor {
       throws MediaExtractionException {
 
     ResourceExtractionResult resourceExtractionResult = null;
+    // the content for this oembed needs to be downloaded to be examined
     if (resource.getContentPath() != null) {
       try {
         OEmbedModel embedModel = null;
@@ -115,6 +116,9 @@ public class OEmbedProcessor implements MediaProcessor {
       } catch (IOException e) {
         throw new MediaExtractionException("Unable to read OEmbedded resource", e);
       }
+      // pass it on to the next processor to handle
+    } else {
+      resourceExtractionResult = this.nextProcessor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     }
 
     return resourceExtractionResult;
