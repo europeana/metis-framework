@@ -4,7 +4,9 @@ import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getO
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
 
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serial;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
@@ -18,6 +20,8 @@ public class OEmbedXmlFileDetector implements Detector {
 
   public static final Logger LOGGER = LoggerFactory.getLogger(OEmbedXmlFileDetector.class);
   private static final MediaType OEMBED_XML = MediaType.application("xml+oembed");
+  @Serial
+  private static final long serialVersionUID = -4502227849462535039L;
 
   /**
    * Detects the content type of the given input document. Returns
@@ -34,15 +38,13 @@ public class OEmbedXmlFileDetector implements Detector {
    *
    * @param input document input stream, or <code>null</code>
    * @param metadata input metadata for the document
-   * @return detected media type, or <code>application/octet-stream</code> Log warns exception if the document input stream could
-   * not be read
+   * @return detected media type, or <code>application/octet-stream</code>
+   * @throws IOException exception if the document input stream could not be read
    */
   @Override
-  public MediaType detect(InputStream input, Metadata metadata) {
+  public MediaType detect(InputStream input, Metadata metadata) throws IOException {
     try {
-      if (input.available() == 0) {
-        input.reset();
-      }
+      input.mark(Integer.MAX_VALUE);
       OEmbedModel embedModel = getOEmbedModelfromXml(input.readAllBytes());
       if (isOEmbed(embedModel)) {
         return OEMBED_XML;
@@ -50,6 +52,8 @@ public class OEmbedXmlFileDetector implements Detector {
     } catch (Exception e) {
       LOGGER.warn("unable to read xml returning octet stream: ", e);
       return MediaType.OCTET_STREAM;
+    } finally {
+      input.reset();
     }
     return MediaType.OCTET_STREAM;
   }

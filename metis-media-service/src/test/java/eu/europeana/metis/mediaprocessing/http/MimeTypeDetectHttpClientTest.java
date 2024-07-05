@@ -150,10 +150,11 @@ class MimeTypeDetectHttpClientTest {
   void download_detectMimeTypeOembedJson_expectSuccess() throws IOException, URISyntaxException {
     // given
     try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json")) {
-      byte[] audioBytes = inputStream.readAllBytes();
-      wireMockExtension.stubFor(get("/api/oembed.json?url=https://vimeo.com/24416915").willReturn(aResponse()
+      byte[] jsonBytes = inputStream.readAllBytes();
+      wireMockExtension.stubFor(get("/api/oembed.json?url=https://vimeo.com/24416915")
+          .willReturn(aResponse()
           .withStatus(200)
-          .withBody(audioBytes)
+          .withBody(jsonBytes)
           .withHeader("Content-Disposition", "inline; filename=\"oembed.json\"")));
     }
     final String url = String.format("http://localhost:%d/api/oembed.json?url=https://vimeo.com/24416915", wireMockExtension.getPort());
@@ -161,17 +162,18 @@ class MimeTypeDetectHttpClientTest {
     String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
 
     // then
-    assertEquals("application/json", detectedMimeType);
+    assertEquals("application/json+oembed", detectedMimeType);
   }
 
   @Test
   void download_detectMimeTypeOembedXml_expectSuccess() throws IOException, URISyntaxException {
     // given
     try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.xml")) {
-      byte[] audioBytes = inputStream.readAllBytes();
-      wireMockExtension.stubFor(get("/api/oembed.xml?url=https://vimeo.com/24416915").willReturn(aResponse()
+      byte[] xmlBytes = inputStream.readAllBytes();
+      wireMockExtension.stubFor(get("/api/oembed.xml?url=https://vimeo.com/24416915")
+          .willReturn(aResponse()
           .withStatus(200)
-          .withBody(audioBytes)
+          .withBody(xmlBytes)
           .withHeader("Content-Disposition", "inline; filename=\"oembed.xml\"")));
     }
     final String url = String.format("http://localhost:%d/api/oembed.xml?url=https://vimeo.com/24416915", wireMockExtension.getPort());
@@ -179,6 +181,6 @@ class MimeTypeDetectHttpClientTest {
     String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
 
     // then
-    assertEquals("application/xml", detectedMimeType);
+    assertEquals("application/xml+oembed", detectedMimeType);
   }
 }

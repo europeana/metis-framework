@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.wrappers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class OEmbedJsonFileDetectorTest {
 
   @Test
-  void detect() {
+  void detect() throws IOException {
     OEmbedJsonFileDetector detector = new OEmbedJsonFileDetector();
 
     MediaType result = detector.detect(getClass().getClassLoader().getResourceAsStream("__files/oembed.json"), new Metadata());
@@ -18,7 +19,7 @@ class OEmbedJsonFileDetectorTest {
   }
 
   @Test
-  void no_detect() {
+  void no_detect() throws IOException {
     OEmbedJsonFileDetector detector = new OEmbedJsonFileDetector();
 
     MediaType result = detector.detect(getClass().getClassLoader().getResourceAsStream("__files/not_oembed.json"),
