@@ -6,6 +6,7 @@ import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
@@ -28,6 +29,7 @@ import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -160,13 +162,15 @@ public class WorkflowExecutionFactory {
         pendingDepublicationIds = depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
                 DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-                DepublicationStatus.PENDING_DEPUBLICATION);
+                DepublicationStatus.PENDING_DEPUBLICATION)
+            .stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
       } else {
         //Match provided record ids that are marked as PENDING_DEPUBLICATION in the database
         pendingDepublicationIds = depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
                 DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-                DepublicationStatus.PENDING_DEPUBLICATION, recordIdsToDepublish);
+                DepublicationStatus.PENDING_DEPUBLICATION, recordIdsToDepublish)
+            .stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
       }
       pluginMetadata.setRecordIdsToDepublish(pendingDepublicationIds);
     }

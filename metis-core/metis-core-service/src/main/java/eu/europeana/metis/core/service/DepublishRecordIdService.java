@@ -12,6 +12,7 @@ import eu.europeana.metis.core.common.RecordIdUtils;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -66,7 +67,7 @@ public class DepublishRecordIdService {
    * </ul>
    */
   public int addRecordIdsToBeDepublished(MetisUserView metisUserView, String datasetId,
-      String recordIdsInSeparateLines) throws GenericMetisException {
+      String recordIdsInSeparateLines, DepublicationReason depublicationReason) throws GenericMetisException {
 
     // Authorize.
     authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
@@ -76,7 +77,7 @@ public class DepublishRecordIdService {
         recordIdsInSeparateLines);
 
     // Add the records.
-    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
+    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds, depublicationReason);
   }
 
   /**

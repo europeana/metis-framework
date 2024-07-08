@@ -17,6 +17,7 @@ import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -24,9 +25,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +114,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case adding the records would violate the maximum number of depublished records that each
    * dataset can have.
    */
-  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds)
+  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds, DepublicationReason depublicationReason)
       throws BadContentException {
 
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -129,12 +134,12 @@ public class DepublishRecordIdDao {
     }
 
     // Add the records and we're done.
-    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null);
+    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null, depublicationReason);
     return recordIdsToAdd.size();
   }
 
   void addRecords(Set<String> recordIdsToAdd, String datasetId,
-      DepublicationStatus depublicationStatus, Instant depublicationDate) {
+      DepublicationStatus depublicationStatus, Instant depublicationDate, DepublicationReason depublicationReason) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
       depublishRecordId.setId(new ObjectId());
@@ -142,6 +147,7 @@ public class DepublishRecordIdDao {
       depublishRecordId.setRecordId(recordId);
       depublishRecordId.setDepublicationStatus(depublicationStatus);
       depublishRecordId.setDepublicationDate(depublicationDate);
+      depublishRecordId.setDepublicationReason(depublicationReason);
       return depublishRecordId;
     }).toList();
     retryableExternalRequestForNetworkExceptions(() -> {
@@ -247,7 +253,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case the records would violate the maximum number of depublished records that each dataset can
    * have.
    */
-  public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
+  public List<DepublishRecordId> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus) throws BadContentException {
     return getAllDepublishRecordIdsWithStatus(datasetId, sortField, sortDirection,
@@ -270,7 +276,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case the records would violate the maximum number of depublished records that each dataset can
    * have.
    */
-  public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
+  public List<DepublishRecordId> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus, Set<String> recordIds) throws BadContentException {
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -295,7 +301,7 @@ public class DepublishRecordIdDao {
     final List<DepublishRecordId> result = getListOfQueryRetryable(query, findOptions);
 
     // Convert result to right object.
-    return result.stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+    return result.stream().filter(distinctByRecordId(DepublishRecordId::getRecordId)).collect(Collectors.toList());
   }
 
   private Query<DepublishRecordId> prepareQueryForDepublishRecordIds(String datasetId,
@@ -328,7 +334,7 @@ public class DepublishRecordIdDao {
    * {@link DepublicationStatus#PENDING_DEPUBLICATION}
    */
   public void markRecordIdsWithDepublicationStatus(String datasetId, Set<String> recordIds,
-      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate) {
+      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate, DepublicationReason depublicationReason) {
 
     // Check correctness of parameters
     if (Objects.isNull(depublicationStatus) || StringUtils.isBlank(datasetId)) {
@@ -353,7 +359,7 @@ public class DepublishRecordIdDao {
                                                    .filter(
                                                        date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
                                                    .map(Date::toInstant).orElse(null);
-      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant);
+      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant, depublicationReason);
 
       // Compute the records to update - if there are none, we're done.
       recordIdsToUpdate = new HashSet<>(recordIds);
@@ -402,6 +408,12 @@ public class DepublishRecordIdDao {
   long deleteRecords(Query<DepublishRecordId> query) {
     return retryableExternalRequestForNetworkExceptions(
         () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
+  }
+
+  private static <T> Predicate<T> distinctByRecordId(Function<? super T, ?> keyExtractor) {
+
+    Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+    return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
   }
 
 }

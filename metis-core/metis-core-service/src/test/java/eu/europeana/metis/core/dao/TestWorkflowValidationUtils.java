@@ -122,7 +122,7 @@ public class TestWorkflowValidationUtils {
     when(depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(workflowDepublish.getDatasetId(),
                     DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-                    DepublicationStatus.PENDING_DEPUBLICATION)).thenReturn(Collections.emptySet());
+                    DepublicationStatus.PENDING_DEPUBLICATION)).thenReturn(Collections.emptyList());
     assertThrows(BadContentException.class, () -> validationUtils
             .validateWorkflowPlugins(workflowDepublish, null));
 

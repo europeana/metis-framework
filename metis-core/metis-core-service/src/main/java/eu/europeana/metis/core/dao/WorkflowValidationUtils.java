@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.dao;
 
+import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
@@ -196,7 +197,7 @@ public class WorkflowValidationUtils {
     // If record depublication requested, check if there are pending record ids in the db
     if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
                                                                        .isDatasetDepublish()) {
-      final Set<String> pendingDepublicationIds = depublishRecordIdDao
+      final List<DepublishRecordId> pendingDepublicationIds = depublishRecordIdDao
           .getAllDepublishRecordIdsWithStatus(datasetId,
               DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
               DepublicationStatus.PENDING_DEPUBLICATION);

@@ -8,6 +8,7 @@ import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
@@ -15,6 +16,8 @@ import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,11 +80,13 @@ public class DepublishRecordIdController {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
+      @PathVariable("datasetId") String datasetId,
+      @RequestParam(value = "depublicationReason", defaultValue = "Unknown") DepublicationReason depublicationReason,
+      @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
-        .addRecordIdsToBeDepublished(metisUserView, datasetId, recordIdsInSeparateLines);
+        .addRecordIdsToBeDepublished(metisUserView, datasetId, recordIdsInSeparateLines, depublicationReason);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
           CRLF_PATTERN.matcher(datasetId).replaceAll(""));
@@ -106,10 +111,11 @@ public class DepublishRecordIdController {
       MediaType.MULTIPART_FORM_DATA_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId,
+      @PathVariable("datasetId") String datasetId, @RequestParam(value = "depublicationReason", defaultValue = "Unknown")
+      DepublicationReason depublicationReason,
       @RequestPart("depublicationFile") MultipartFile recordIdsFile
   ) throws GenericMetisException, IOException {
-    createRecordIdsToBeDepublished(authorization, datasetId,
+    createRecordIdsToBeDepublished(authorization, datasetId, depublicationReason,
         new String(recordIdsFile.getBytes(), StandardCharsets.UTF_8));
   }
 
@@ -222,5 +228,12 @@ public class DepublishRecordIdController {
     return depublishRecordIdService
         .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId,
             datasetDepublish, priority, recordIdsInSeparateLines);
+  }
+
+  @GetMapping(value = RestEndpoints.DEPUBLISH_REASONS, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  public List<String> getAllPossibleDepublicationReasons(){
+    return Collections.emptyList();
   }
 }

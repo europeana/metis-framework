@@ -14,6 +14,7 @@ import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
+import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.InvalidIndexPluginException;
 import eu.europeana.metis.core.service.OrchestratorService;
@@ -23,6 +24,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPlugin;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
@@ -104,14 +106,15 @@ public class WorkflowPostProcessor {
     final boolean isIncremental = indexPlugin.getPluginMetadata().isIncrementalIndexing();
     if (isIncremental) {
       // get all currently de-published records IDs from the database and create their full versions
-      final Set<String> depublishedRecordIds = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(
+      final List<DepublishRecordId> depublishedRecordIds = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(
           datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
           DepublicationStatus.DEPUBLISHED);
+      DepublicationReason depublicationReason = depublishedRecordIds.getFirst().getDepublicationReason();
       final Map<String, String> depublishedRecordIdsByFullId = depublishedRecordIds.stream()
                                                                                    .collect(Collectors.toMap(
-                                                                                       id -> RecordIdUtils.composeFullRecordId(
-                                                                                           datasetId, id),
-                                                                                       Function.identity()));
+                                                                                       record -> RecordIdUtils.composeFullRecordId(
+                                                                                           datasetId, record.getRecordId()),
+                                                                                       DepublishRecordId::getRecordId));
 
       // Check which have been published by the index action - use full record IDs for eCloud.
       if (!CollectionUtils.isEmpty(depublishedRecordIdsByFullId)) {
@@ -123,13 +126,14 @@ public class WorkflowPostProcessor {
         if (!CollectionUtils.isEmpty(publishedRecordIds)) {
           depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
               publishedRecordIds.stream().map(depublishedRecordIdsByFullId::get)
-                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null);
+                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null,
+              depublicationReason);
         }
       }
     } else {
       // reset de-publish status, pass null, all records will be de-published
       depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-          DepublicationStatus.PENDING_DEPUBLICATION, null);
+          DepublicationStatus.PENDING_DEPUBLICATION, null, null);
     }
   }
 
@@ -178,7 +182,7 @@ public class WorkflowPostProcessor {
                                                                    Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
-            DepublicationStatus.DEPUBLISHED, new Date()));
+            DepublicationStatus.DEPUBLISHED, new Date(), null));
 
     // Set publication fitness to PARTIALLY FIT (if not set to the more severe UNFIT).
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
@@ -195,7 +199,7 @@ public class WorkflowPostProcessor {
 
     // Set all depublished records back to PENDING.
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-        DepublicationStatus.PENDING_DEPUBLICATION, null);
+        DepublicationStatus.PENDING_DEPUBLICATION, null, null);
     // Find latest PUBLISH Type Plugin and set dataStatus to DELETED.
     final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);

@@ -10,9 +10,13 @@ public enum DepublicationReason {
   GENERIC("Generic"),
   UNKNOWN("Unknown");
 
-  private String valueAsString;
+  private final String valueAsString;
 
   DepublicationReason(String valueAsString) {
     this.valueAsString = valueAsString;
+  }
+  
+  public String toString(){
+    return valueAsString;
   }
 }
