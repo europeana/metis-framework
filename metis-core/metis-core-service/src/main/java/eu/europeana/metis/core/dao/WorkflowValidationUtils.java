@@ -197,7 +197,7 @@ public class WorkflowValidationUtils {
     // If record depublication requested, check if there are pending record ids in the db
     if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
                                                                        .isDatasetDepublish()) {
-      final List<DepublishRecordId> pendingDepublicationIds = depublishRecordIdDao
+      final Set<String> pendingDepublicationIds = depublishRecordIdDao
           .getAllDepublishRecordIdsWithStatus(datasetId,
               DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
               DepublicationStatus.PENDING_DEPUBLICATION);

@@ -106,15 +106,14 @@ public class WorkflowPostProcessor {
     final boolean isIncremental = indexPlugin.getPluginMetadata().isIncrementalIndexing();
     if (isIncremental) {
       // get all currently de-published records IDs from the database and create their full versions
-      final List<DepublishRecordId> depublishedRecordIds = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(
+      final Set<String> depublishedRecordIds = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(
           datasetId, DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
           DepublicationStatus.DEPUBLISHED);
-      DepublicationReason depublicationReason = depublishedRecordIds.getFirst().getDepublicationReason();
       final Map<String, String> depublishedRecordIdsByFullId = depublishedRecordIds.stream()
                                                                                    .collect(Collectors.toMap(
-                                                                                       record -> RecordIdUtils.composeFullRecordId(
-                                                                                           datasetId, record.getRecordId()),
-                                                                                       DepublishRecordId::getRecordId));
+                                                                                       id -> RecordIdUtils.composeFullRecordId(
+                                                                                           datasetId, id),
+                                                                                       Function.identity()));
 
       // Check which have been published by the index action - use full record IDs for eCloud.
       if (!CollectionUtils.isEmpty(depublishedRecordIdsByFullId)) {
@@ -126,8 +125,7 @@ public class WorkflowPostProcessor {
         if (!CollectionUtils.isEmpty(publishedRecordIds)) {
           depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
               publishedRecordIds.stream().map(depublishedRecordIdsByFullId::get)
-                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null,
-              depublicationReason);
+                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null, null);
         }
       }
     } else {

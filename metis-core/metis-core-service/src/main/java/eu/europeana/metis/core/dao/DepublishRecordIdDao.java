@@ -25,13 +25,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -253,7 +249,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case the records would violate the maximum number of depublished records that each dataset can
    * have.
    */
-  public List<DepublishRecordId> getAllDepublishRecordIdsWithStatus(String datasetId,
+  public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus) throws BadContentException {
     return getAllDepublishRecordIdsWithStatus(datasetId, sortField, sortDirection,
@@ -276,7 +272,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case the records would violate the maximum number of depublished records that each dataset can
    * have.
    */
-  public List<DepublishRecordId> getAllDepublishRecordIdsWithStatus(String datasetId,
+  public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus, Set<String> recordIds) throws BadContentException {
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -301,7 +297,7 @@ public class DepublishRecordIdDao {
     final List<DepublishRecordId> result = getListOfQueryRetryable(query, findOptions);
 
     // Convert result to right object.
-    return result.stream().filter(distinctByRecordId(DepublishRecordId::getRecordId)).collect(Collectors.toList());
+    return result.stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
   }
 
   private Query<DepublishRecordId> prepareQueryForDepublishRecordIds(String datasetId,
@@ -408,12 +404,6 @@ public class DepublishRecordIdDao {
   long deleteRecords(Query<DepublishRecordId> query) {
     return retryableExternalRequestForNetworkExceptions(
         () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
-  }
-
-  private static <T> Predicate<T> distinctByRecordId(Function<? super T, ?> keyExtractor) {
-
-    Map<Object, Boolean> seen = new ConcurrentHashMap<>();
-    return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
   }
 
 }

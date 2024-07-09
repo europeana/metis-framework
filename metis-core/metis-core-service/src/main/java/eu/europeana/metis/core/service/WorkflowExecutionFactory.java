@@ -162,15 +162,13 @@ public class WorkflowExecutionFactory {
         pendingDepublicationIds = depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
                 DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-                DepublicationStatus.PENDING_DEPUBLICATION)
-            .stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+                DepublicationStatus.PENDING_DEPUBLICATION);
       } else {
         //Match provided record ids that are marked as PENDING_DEPUBLICATION in the database
         pendingDepublicationIds = depublishRecordIdDao
             .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
                 DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-                DepublicationStatus.PENDING_DEPUBLICATION, recordIdsToDepublish)
-            .stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+                DepublicationStatus.PENDING_DEPUBLICATION, recordIdsToDepublish);
       }
       pluginMetadata.setRecordIdsToDepublish(pendingDepublicationIds);
     }

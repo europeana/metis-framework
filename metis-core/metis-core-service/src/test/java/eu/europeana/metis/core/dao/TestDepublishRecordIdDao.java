@@ -176,16 +176,14 @@ public class TestDepublishRecordIdDao {
         .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now(), DepublicationReason.UNKNOWN);
     Set<String> result = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(datasetId,
         DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-        DepublicationStatus.DEPUBLISHED, setTest)
-        .stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+        DepublicationStatus.DEPUBLISHED, setTest);
 
     assertEquals(1, result.size());
 
     //Check also when requesting without recordIds set parameter
     result = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(datasetId,
         DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-        DepublicationStatus.DEPUBLISHED)
-        .stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+        DepublicationStatus.DEPUBLISHED);
 
     assertEquals(1, result.size());
   }

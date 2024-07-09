@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -16,9 +17,11 @@ import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,10 +233,33 @@ public class DepublishRecordIdController {
             datasetDepublish, priority, recordIdsInSeparateLines);
   }
 
+  /**
+   * API to return all possible values of depublication reasons
+   * @return All possible values of depublication reasons
+   */
   @GetMapping(value = RestEndpoints.DEPUBLISH_REASONS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  public List<String> getAllPossibleDepublicationReasons(){
-    return Collections.emptyList();
+  public List<DepublicationReasonView> getAllPossibleDepublicationReasons(){
+    return Arrays.stream(DepublicationReason.values()).filter(value -> value != DepublicationReason.UNKNOWN)
+                 .map(DepublicationReasonView::new).collect(Collectors.toList());
+  }
+
+  private static class DepublicationReasonView {
+
+    @JsonProperty("name")
+    private final String name;
+    @JsonProperty("valueAsString")
+    private final String valueAsString;
+
+    /**
+     * Instantiates a new DepublicationReason view.
+     *
+     * @param depublicationReason the depublication reason
+     */
+    DepublicationReasonView(DepublicationReason depublicationReason) {
+      this.name = depublicationReason.name();
+      this.valueAsString = depublicationReason.toString();
+    }
   }
 }
