@@ -18,7 +18,6 @@ import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -84,7 +83,7 @@ public class DepublishRecordIdController {
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "depublicationReason", defaultValue = "Unknown") DepublicationReason depublicationReason,
+      @RequestParam(value = "depublicationReason") DepublicationReason depublicationReason,
       @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -114,8 +113,8 @@ public class DepublishRecordIdController {
       MediaType.MULTIPART_FORM_DATA_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId, @RequestParam(value = "depublicationReason", defaultValue = "Unknown")
-      DepublicationReason depublicationReason,
+      @PathVariable("datasetId") String datasetId,
+      @RequestParam(value = "depublicationReason") DepublicationReason depublicationReason,
       @RequestPart("depublicationFile") MultipartFile recordIdsFile
   ) throws GenericMetisException, IOException {
     createRecordIdsToBeDepublished(authorization, datasetId, depublicationReason,
@@ -240,7 +239,7 @@ public class DepublishRecordIdController {
   @GetMapping(value = RestEndpoints.DEPUBLISH_REASONS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  public List<DepublicationReasonView> getAllPossibleDepublicationReasons(){
+  public List<DepublicationReasonView> getAllDepublicationReasons(){
     return Arrays.stream(DepublicationReason.values()).filter(value -> value != DepublicationReason.UNKNOWN)
                  .map(DepublicationReasonView::new).collect(Collectors.toList());
   }
