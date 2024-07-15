@@ -45,11 +45,11 @@ public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
     this.recordIdsToDepublish = new HashSet<>(recordIdsToDepublish);
   }
 
-  public void setDeletionReason(DepublicationReason depublicationReason) {
+  public void setDepublicationReason(DepublicationReason depublicationReason) {
     this.depublicationReason = depublicationReason;
   }
 
-  public DepublicationReason getDeletionReason() {
+  public DepublicationReason getDepublicationReason() {
     return depublicationReason;
   }
 }

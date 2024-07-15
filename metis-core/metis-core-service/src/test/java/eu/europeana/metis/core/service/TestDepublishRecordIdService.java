@@ -126,7 +126,8 @@ public class TestDepublishRecordIdService {
 
     //Do the actual call
     WorkflowExecution result = depublishRecordIdService
-        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines);
+        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines,
+            DepublicationReason.GENERIC);
 
     //Verify interactions
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);

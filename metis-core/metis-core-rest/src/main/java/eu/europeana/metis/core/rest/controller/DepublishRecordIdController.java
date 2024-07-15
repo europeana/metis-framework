@@ -223,13 +223,14 @@ public class DepublishRecordIdController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "datasetDepublish", defaultValue = "" + true) boolean datasetDepublish,
+      @RequestParam(value = "depublicationReason") DepublicationReason depublicationReason,
       @RequestParam(value = "priority", defaultValue = "0") int priority,
       @RequestBody(required = false) String recordIdsInSeparateLines)
       throws GenericMetisException {
     MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return depublishRecordIdService
         .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId,
-            datasetDepublish, priority, recordIdsInSeparateLines);
+            datasetDepublish, priority, recordIdsInSeparateLines, depublicationReason);
   }
 
   /**

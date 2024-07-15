@@ -27,7 +27,7 @@ public class DepublishRecordIdView {
     this.depublicationDate = record.getDepublicationDate();
     this.depublicationStatus = DepublicationStatus
         .convertFromModelToView(record.getDepublicationStatus());
-    this.depublicationReason = record.getDepublicationReason();
+    this.depublicationReason = record.getDepublicationReason() == null ? DepublicationReason.UNKNOWN : record.getDepublicationReason();
   }
 
   public String getRecordId() {
