@@ -63,7 +63,7 @@ public class RdfWrapper {
     this.rdfRecord = rdfRecord;
   }
 
-  private static boolean isEuropeanaProxy(ProxyType proxy) {
+  public static boolean isEuropeanaProxy(ProxyType proxy) {
     return Optional.of(proxy).map(ProxyType::getEuropeanaProxy)
                    .map(EuropeanaProxy::isEuropeanaProxy).orElse(Boolean.FALSE);
   }
