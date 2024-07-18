@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -236,8 +235,7 @@ public class FullBeanPublisher {
         SolrDocumentList solrDocuments = getExistingDocuments(queryParamMap);
         createdDate = (Date) solrDocuments.stream()
                                           .map(document -> document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()))
-                                          .collect(Collectors.toList())
-                                          .stream().findFirst().orElse(recordDate);
+                                          .toList().stream().findFirst().orElse(recordDate);
       }
       setUpdateAndCreateTime(null, fullBean, Pair.of(recordDate, createdDate));
     }

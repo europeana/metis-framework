@@ -10,7 +10,6 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.function.Predicate.not;
-import static org.apache.commons.lang3.BooleanUtils.isTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -83,7 +82,7 @@ public class SolrDocumentPopulator {
     // Gather the licenses.
     final List<LicenseImpl> licenses = ofNullable(fullBean.getLicenses()).stream()
                                                                          .flatMap(List::stream).filter(Objects::nonNull)
-                                                                         .collect(Collectors.toList());
+                                                                         .toList();
 
     // Gather the quality annotations.
     final Set<String> acceptableTargets = ofNullable(fullBean.getAggregations()).stream()
@@ -107,9 +106,9 @@ public class SolrDocumentPopulator {
     new QualityAnnotationSolrCreator().addAllToDocument(document, annotationsToAdd);
 
     // Add the containing objects.
-    new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
+    new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().getFirst());
     new AggregationSolrCreator(licenses, fullBean.getOrganizations())
-        .addToDocument(document, getDataProviderAggregations(fullBean).get(0));
+        .addToDocument(document, getDataProviderAggregations(fullBean).getFirst());
     new EuropeanaAggregationSolrCreator(licenses)
         .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
@@ -235,9 +234,8 @@ public class SolrDocumentPopulator {
     List<String> proxyInResult = fullBean.getProxies().stream()
                                          .filter(not(ProxyImpl::isEuropeanaProxy))
                                          .filter(proxy -> ArrayUtils.isEmpty(proxy.getLineage())).map(ProxyImpl::getProxyIn)
-                                         .map(Arrays::asList).flatMap(List::stream).collect(Collectors.toList());
+                                         .map(Arrays::asList).flatMap(List::stream).toList();
 
-    return fullBean.getAggregations().stream().filter(x -> proxyInResult.contains(x.getAbout()))
-                   .collect(Collectors.toList());
+    return fullBean.getAggregations().stream().filter(x -> proxyInResult.contains(x.getAbout())).toList();
   }
 }
