@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:doap="http://usefulinc.com/ns/doap#"
+  xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:svcs="http://rdfs.org/sioc/services#"
+>
+  <edm:ProvidedCHO rdf:about="/875/object_NLS2__RS_18_______2LYQ776"/>
+  <edm:WebResource
+    rdf:about="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/full/full/0/default.jpg">
+    <dc:format>image/jpg</dc:format>
+    <dc:type>text</dc:type>
+    <dc:type>images</dc:type>
+    <dcterms:conformsTo>TEI P5 ENRICH Schema</dcterms:conformsTo>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">241107</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1379</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">827</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#DEB887</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#9ACD32</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#CD5C5C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFE4B5</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A52A2A</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+    <dcterms:isReferencedBy
+      rdf:resource="https://collectiones.manuscriptorium.com/assorted/NLS___/NLS2__/6/NLS___-NLS2__RS_18_______2LYQ776-sr"></dcterms:isReferencedBy>
+    <svcs:has_service rdf:resource="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/"/>
+  </edm:WebResource>
+  <edm:WebResource
+    rdf:about="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/full/!400,400/0/default.jpg">
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">26028</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">400</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">239</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#DEB887</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2E8B57</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#BC8F8F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#F0E68C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#9ACD32</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+  </edm:WebResource>
+  <edm:WebResource
+    rdf:about="http://www.manuscriptorium.com/apps/index.php?direct=record&amp;pid=NLS___-NLS2__RS_18_______2LYQ776-sr">
+    <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">0</ebucore:fileByteSize>
+  </edm:WebResource>
+  <edm:TimeSpan rdf:about="#1426%2F1450">
+    <skos:prefLabel xml:lang="zxx">1426/1450</skos:prefLabel>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/15"></dcterms:isPartOf>
+    <edm:begin>1426-01-01</edm:begin>
+    <edm:end>1450-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1426/1450</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#1942">
+    <skos:prefLabel xml:lang="zxx">1942</skos:prefLabel>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1942-01-01</edm:begin>
+    <edm:end>1942-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1942</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/20">
+    <skos:prefLabel xml:lang="de">20. Jahrhundert</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">1900-luku</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">XX век</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Século XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">20 век</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">XX amžius</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">20. stoljeće</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">20. gadsimts</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">XXe siècle</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">20. század</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">20. storočie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">20. stoletje</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">20ú haois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Segle XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">1900-talet</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">20ός αιώνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">20th century</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">XX secolo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Siglo XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">20. sajand</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">20. století</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">XX. mendea</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">XX wiek</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">20. århundrede</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Secolul al XX-lea</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">20e eeuw</skos:prefLabel>
+    <skos:altLabel xml:lang="sv">20:e århundradet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">20:e seklet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-tal</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (århundrade)</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (sekel)</skos:altLabel>
+    <skos:altLabel xml:lang="ru">20 век</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século 20</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século vinte</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Periodo 1901-2000</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Ciclo (1901-2000)</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">Twentieth century</skos:altLabel>
+    <skos:altLabel xml:lang="en">The past century</skos:altLabel>
+    <skos:altLabel xml:lang="en">History, 20th Century</skos:altLabel>
+    <skos:altLabel xml:lang="en">XX Century</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="it">20° secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">'900</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="fr">20e siècle</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo 20</skos:altLabel>
+    <skos:altLabel xml:lang="es">El siglo pasado</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo veinte</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo XX después de Cristo</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo XX d. C.</skos:altLabel>
+    <edm:begin>1901-01-01</edm:begin>
+    <edm:end>2000-12-31</edm:end>
+    <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/19"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q6927"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh2002012476"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh85139020"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D049673"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/089_x"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/089_x"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.504.968"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404514"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/1159810"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/20th_century"/>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/15">
+    <skos:prefLabel xml:lang="de">15. Jahrhundert</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">1400-luku</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">XV век</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Século XV</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">15 век</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">XV amžius</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">15. stoljeće</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">15. gadsimts</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">XVe siècle</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">15. század</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">15. storočie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">15. stoletje</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">15ú haois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Segle XV</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">1400-talet</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">15ος αιώνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">15th century</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">XV secolo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Siglo XV</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">15. sajand</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">15. století</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">XV. mendea</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">XV wiek</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">15. århundrede</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Secolul al XV-lea</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">15e eeuw</skos:prefLabel>
+    <skos:altLabel xml:lang="ru">15 век</skos:altLabel>
+    <skos:altLabel xml:lang="sv">15:e århundradet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">15:e seklet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1400-tal</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1400-talet (århundrade)</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1400-talet (sekel)</skos:altLabel>
+    <skos:altLabel xml:lang="en">15th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">15th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">Quatro Cento</skos:altLabel>
+    <skos:altLabel xml:lang="it">Quattrocento</skos:altLabel>
+    <skos:altLabel xml:lang="it">15° secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">Secolo XV</skos:altLabel>
+    <skos:altLabel xml:lang="it">XV Secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">Quindicesimo secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">XV secolo d.C</skos:altLabel>
+    <skos:altLabel xml:lang="it">Quattrocento</skos:altLabel>
+    <skos:altLabel xml:lang="fr">15e siècle</skos:altLabel>
+    <edm:begin>1401-01-01</edm:begin>
+    <edm:end>1500-01-01</edm:end>
+    <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/14"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q7018"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh85048142"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D049668"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/08b1m"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/08b1m"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.475.500"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404465"/>
+    <owl:sameAs rdf:resource="http://babelnet.org/rdf/s02814426n"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/15th_century"/>
+  </edm:TimeSpan>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/2830">
+    <skos:broader rdf:resource="http://data.europeana.eu/concept/17"/>
+    <skos:broader rdf:resource="http://data.europeana.eu/concept/26"/>
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q213924"/>
+    <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4148186-0"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/01qk0"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/01qk0"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300224200"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p13680"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s00020361n"/>
+    <skos:exactMatch rdf:resource="http://dbpedia.org/resource/Codex"/>
+    <skos:note xml:lang="de">Manuskript in Buchform (Vorläufer des Heutigen Buches)</skos:note>
+    <skos:note xml:lang="ru">Одна из исторических форм книги</skos:note>
+    <skos:note xml:lang="fi">Käsin kirjoitettu kirja</skos:note>
+    <skos:note xml:lang="bg">Ръкопис</skos:note>
+    <skos:note xml:lang="en">Book with handwritten content</skos:note>
+    <skos:note xml:lang="it">Manoscritto in forma di libro</skos:note>
+    <skos:note xml:lang="fr">Cahier formé de pages manuscrites reliées ensemble, ancêtre du livre moderne</skos:note>
+    <skos:note xml:lang="hu">Kézzel írott középkori könyv</skos:note>
+    <skos:note xml:lang="es">Libro compuesto de páginas manuscritas</skos:note>
+    <skos:note xml:lang="cs">Rukopis ve formě knihy</skos:note>
+    <skos:note xml:lang="pl">Forma książki w postaci stron złączonych u grzbietu (zwłaszcza w kontekście historycznym jako
+      manuskrypt)
+    </skos:note>
+    <skos:note xml:lang="da">Håndskreven bog</skos:note>
+    <skos:note xml:lang="ca">Llibre compost de pàgines manuscrites</skos:note>
+    <skos:prefLabel xml:lang="de">Kodex</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Кодекс</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Koodeksi</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Códice</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Кодекс</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Kodeksas</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Kodeks</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Kodekss</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Codex</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Kódex</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Zákonník</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Kodeks</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Coidéacs</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Còdex</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Codex</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Κώδικας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Codex</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Codice</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Códice</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Koodeks</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">Kodex</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Kodex</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Kodeks</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Codex</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Kodeks</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Codex</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/81">
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q12554"/>
+    <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4129108-6"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh85085001"/>
+    <skos:exactMatch rdf:resource="http://data.bnf.fr/ark:/12148/cb133185191"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D049691"/>
+    <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/1066"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/04rjz"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/04rjz"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.500"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300020756"/>
+    <skos:exactMatch rdf:resource="http://iconclass.org/23T25"/>
+    <skos:exactMatch rdf:resource="http://id.worldcat.org/fast/1020301"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p2559"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s00025241n"/>
+    <skos:exactMatch rdf:resource="http://zbw.eu/stw/descriptor/15696-4"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept8948"/>
+    <skos:exactMatch rdf:resource="http://dbpedia.org/resource/Middle_Ages"/>
+    <skos:note xml:lang="de">Historische Epoche</skos:note>
+    <skos:note xml:lang="sv">Period i Europas historia mellan antiken och renässansen från slutet av 400-talet till 1400-talet
+    </skos:note>
+    <skos:note xml:lang="ru">Период истории, следующий за Античностью и предшествующий Новому времени</skos:note>
+    <skos:note xml:lang="fi">Euroopan historian ajanjakso vuosina 400–1500</skos:note>
+    <skos:note xml:lang="pt">Período da história entre 476 d.c a 1453</skos:note>
+    <skos:note xml:lang="el">Ιστορική περίοδος</skos:note>
+    <skos:note xml:lang="en">Period of European history from the 5th to the late 15th-century</skos:note>
+    <skos:note xml:lang="lv">Laika posms no 5. līdz 15. gadsimtam</skos:note>
+    <skos:note xml:lang="it">Periodo della storia europea compreso tra il V e il XV secolo</skos:note>
+    <skos:note xml:lang="fr">Période de l'histoire de l'Europe, du début du Ve siècle à la fin du XVe siècle</skos:note>
+    <skos:note xml:lang="es">Período histórico de la civilización occidental</skos:note>
+    <skos:note xml:lang="cs">Dějinná epocha</skos:note>
+    <skos:note xml:lang="eu">Europako garai historiko</skos:note>
+    <skos:note xml:lang="sk">Obdobie dejín</skos:note>
+    <skos:note xml:lang="pl">Epoka w dziejach Europy (VI–XV w.)</skos:note>
+    <skos:note xml:lang="ro">Perioadă în istoria europeană ce a ținut din anul 476 până în 1453</skos:note>
+    <skos:note xml:lang="ca">Període històric de la civilització occidental</skos:note>
+    <skos:note xml:lang="nl">Periode in de Europese geschiedenis</skos:note>
+    <skos:prefLabel xml:lang="de">Mittelalter</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Keskiaika</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Средние века</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Idade Média</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Средновековие</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Viduramžiai</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Srednji vijek</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Viduslaiki</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Moyen Âge</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Középkor</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Stredovek</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Srednji vek</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">An Mheánaois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Edat mitjana</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Medeltiden</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Μεσαίωνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">Medjuevu</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Middle Ages</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Medioevo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Edad Media</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Keskaeg</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Středověk</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">Erdi Aroa</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Średniowiecze</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Middelalderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Evul Mediu</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Middeleeuwen</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/2967">
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q107274057"/>
+    <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4273696-1"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300411614"/>
+    <skos:note xml:lang="en">Interaction, communication, artifacts, and customs related to written texts</skos:note>
+    <skos:note xml:lang="sl">Interakcija, komunikacija, artefakti in običaji, povezani s pisnimi besedili</skos:note>
+    <skos:note xml:lang="nl">Interactie, communicatie, objecten en gebruiken met betrekking tot schriftelijk vastgelegde
+      teksten.
+    </skos:note>
+    <skos:prefLabel xml:lang="cs">Čtenářská kultura</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Lesekultur</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Reading culture</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Bralna kultura</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Lasīšanas kultūra</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Leescultuur</skos:prefLabel>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/875/object_NLS2__RS_18_______2LYQ776">
+    <edm:aggregatedCHO rdf:resource="/875/object_NLS2__RS_18_______2LYQ776"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/4574"></edm:dataProvider>
+    <edm:isShownAt
+      rdf:resource="http://www.manuscriptorium.com/apps/index.php?direct=record&amp;pid=NLS___-NLS2__RS_18_______2LYQ776-sr"/>
+    <edm:isShownBy
+      rdf:resource="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/full/full/0/default.jpg"/>
+    <edm:object
+      rdf:resource="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/full/!400,400/0/default.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/4577"></edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/875/object_NLS2__RS_18_______2LYQ776">
+    <dc:date rdf:resource="#1942"></dc:date>
+    <dc:date rdf:resource="#1426%2F1450"></dc:date>
+    <dcterms:created rdf:resource="#1942"></dcterms:created>
+    <dcterms:created rdf:resource="#1426%2F1450"></dcterms:created>
+    <dcterms:issued rdf:resource="#1942"></dcterms:issued>
+    <dc:identifier>http://www.manuscriptorium.com/object/NLS2__RS_18_______2LYQ776</dc:identifier>
+    <dc:language>chu</dc:language>
+    <dc:format rdf:resource="http://data.europeana.eu/concept/2830"></dc:format>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/81"></dc:subject>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/2967"></dc:subject>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <edm:year>1942</edm:year>
+    <ore:proxyFor rdf:resource="/875/object_NLS2__RS_18_______2LYQ776"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/875/object_NLS2__RS_18_______2LYQ776"/>
+    <ore:lineage rdf:resource="/proxy/provider/875/object_NLS2__RS_18_______2LYQ776"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/875/object_NLS2__RS_18_______2LYQ776">
+    <dc:creator xml:lang="sr">????????? ??????????</dc:creator>
+    <dc:creator rdf:resource="auth_0002"></dc:creator>
+    <dc:creator xml:lang="sr">????? ?????</dc:creator>
+    <dc:creator xml:lang="sr">??????</dc:creator>
+    <dc:creator xml:lang="sr">?????? II</dc:creator>
+    <dc:creator xml:lang="sr">????? ??????????</dc:creator>
+    <dc:date>1426-1450</dc:date>
+    <dc:date>1942</dc:date>
+    <dc:description>???? ???????? ???? ????? ????????? ?? ????? ???????? ?????? (???????-??????) ? ?????? ?? ??????? ? ?????????
+      ??????? ??. ?????????? ??????? ?? ???????? ????? ??????, ???????????? ???????? ??. ???? ? ??. ???????, ????????? ??????? ??.
+      ???????????? ????????, ?????????? ????????? ? ????????? ??????? ??. ????, ????????? ??????? ??. ??????? ?? ?????????,
+      ???????? ??. ???????????? ???????? ? ??. ???????????? ?????????? ?? ???????????? ?????? ? ??????? ??. ???????????? ????????
+      ?? ???????? ????? ??????.
+    </dc:description>
+    <dc:description>????? II ???? ???????? (95 ?.) ???????? ?????????? ??????????? I ???? (158 ?.), ??? ????? ?? ?? ?????? ?
+      ???????? ???? ???????? ?????????? ????????, ??. ???????? ??????.
+    </dc:description>
+    <dc:description>???????? ????????, ????????? ??? ?. ??? ?. 35. ?. 82 ?? ???? ??????. ?????????? ?? ?. 14v, 37v ? 56v. ???????
+      ?? 1966. ??????????? ? ???.
+    </dc:description>
+    <dc:description>22,5 ? 15,2</dc:description>
+    <dc:description>22,5 ? 14,5</dc:description>
+    <dc:description>??????????? ?????; ??????? ??????.</dc:description>
+    <dc:description>????????? ????????? ?? ????????? ????????.</dc:description>
+    <dc:description>?? ?. 1r: ????? ?????????? ?? 1942; ?? ?. 110v, ????? ????? ????; ?? 123r: ???????? ???????? ? ???? ? ????????
+      ???????; 156v, ??????? ?????????; ?? ?????????? ?????? ????? ??????, ?? 1755, ????? ? ???? ????? ?????? ?? ???? ???? ?????
+      ????????? ??????????.
+    </dc:description>
+    <dc:description>????, ???? 27,818</dc:description>
+    <dc:description>????????????, ???????? ? ????????? ??????, ???????? ???????? ?????? ??????.</dc:description>
+    <dc:format xml:lang="en">codex</dc:format>
+    <dc:identifier>?? 18</dc:identifier>
+    <dc:language>cu</dc:language>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300020756"></dc:subject>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300411614"></dc:subject>
+    <dc:subject rdf:resource="http://www.wikidata.org/entity/Q107274053"></dc:subject>
+    <dc:title>????? ????????? ?? ???????-?????? ? ??????</dc:title>
+    <dcterms:created>1426-1450</dcterms:created>
+    <dcterms:created xml:lang="sr">????? ????????? XV ?. ? 1525.</dcterms:created>
+    <dcterms:created>1942</dcterms:created>
+    <dcterms:extent>21 x 28,2</dcterms:extent>
+    <dcterms:isPartOf xml:lang="en">Art of Reading in the Middle Ages: updated item</dcterms:isPartOf>
+    <dcterms:isReferencedBy>?. ?????????-????????, ?. ???????????-?????, ?. ??????, ???? ????????? ???????? ??????? ??????????
+      ??????. ????? ????, ??????? 1986, 30-34.
+    </dcterms:isReferencedBy>
+    <dcterms:issued>1942</dcterms:issued>
+    <dcterms:medium xml:lang="en">chart</dcterms:medium>
+    <dcterms:spatial xml:lang="sr">??????</dcterms:spatial>
+    <edm:currentLocation>Belgrade</edm:currentLocation>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/875/object_NLS2__RS_18_______2LYQ776"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/875/object_NLS2__RS_18_______2LYQ776"/>
+    <edm:type>TEXT</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/875/object_NLS2__RS_18_______2LYQ776">
+    <edm:aggregatedCHO rdf:resource="/875/object_NLS2__RS_18_______2LYQ776"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>875_e2e_tests_test_source</edm:datasetName>
+    <edm:country>Europe</edm:country>
+    <edm:preview
+      rdf:resource="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/full/!400,400/0/default.jpg"/>
+    <edm:language>mul</edm:language>
+    <edm:completeness>7</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/4574">
+    <skos:prefLabel xml:lang="en">National Library of Serbia</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/4577">
+    <skos:prefLabel xml:lang="en">Manuscriptorium</skos:prefLabel>
+  </foaf:Organization>
+  <svcs:Service rdf:about="https://imagines.manuscriptorium.com/loris/NLS___-NLS2__RS_18_______2LYQ776-sr/id_001/">
+    <dcterms:conformsTo rdf:resource="http://iiif.io/api/image"></dcterms:conformsTo>
+    <doap:implements rdf:resource="http://iiif.io/api/image/2/level2.json"/>
+  </svcs:Service>
+</rdf:RDF>
