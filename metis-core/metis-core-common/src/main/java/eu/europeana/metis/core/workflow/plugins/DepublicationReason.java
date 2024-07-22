@@ -6,7 +6,7 @@ public enum DepublicationReason {
   GDPR("GDPR"),
   LACK_OF_PERMISSIONS("Lack of permissions"),
   SENSITIVE_CONTENT("Sensitive content"),
-  REMOVED_DATA_ST_SOURCE("Removed data source"),
+  REMOVED_DATA_AT_SOURCE("Removed data at source"),
   GENERIC("Generic"),
   UNKNOWN("Unknown");
 
