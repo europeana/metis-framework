@@ -26,6 +26,7 @@ import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.List;
 import java.util.Set;
@@ -67,11 +68,11 @@ public class TestDepublishRecordIdService {
 
   @Test
   void addRecordIdsToBeDepublishedTest() throws GenericMetisException {
-    depublishRecordIdService.addRecordIdsToBeDepublished(metisUserView, datasetId, "1002");
+    depublishRecordIdService.addRecordIdsToBeDepublished(metisUserView, datasetId, "1002", DepublicationReason.UNKNOWN);
 
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verify(depublishRecordIdService, times(1)).checkAndNormalizeRecordIds(any(), any());
-    verify(depublishRecordIdDao, times(1)).createRecordIdsToBeDepublished(any(), any());
+    verify(depublishRecordIdDao, times(1)).createRecordIdsToBeDepublished(any(), any(), any());
     verifyNoMoreInteractions(orchestratorService);
 
 
@@ -125,7 +126,8 @@ public class TestDepublishRecordIdService {
 
     //Do the actual call
     WorkflowExecution result = depublishRecordIdService
-        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines);
+        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines,
+            DepublicationReason.GENERIC);
 
     //Verify interactions
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);

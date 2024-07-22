@@ -19,6 +19,7 @@ import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import java.time.Instant;
@@ -70,7 +71,7 @@ public class TestDepublishRecordIdDao {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<String> setTest = Set.of("1001");
 
-    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest);
+    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest, DepublicationReason.UNKNOWN);
 
     assertEquals(1, provider.getDatastore().find(DepublishRecordId.class).count());
     assertEquals("1001",
@@ -83,7 +84,7 @@ public class TestDepublishRecordIdDao {
     final Set<String> setTest = Set.of("1008", "1009", "1010", "1011", "1012", "1013");
 
     Throwable exception = assertThrows(BadContentException.class,
-        () -> depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest));
+        () -> depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest, DepublicationReason.UNKNOWN));
 
     assertEquals(
         "Can't add these records: this would violate the maximum number of records per dataset.",
@@ -98,7 +99,7 @@ public class TestDepublishRecordIdDao {
     doReturn(6L).when(depublishRecordIdDao).countDepublishRecordIdsForDataset(datasetId);
 
     Throwable exception = assertThrows(BadContentException.class,
-        () -> depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest));
+        () -> depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, setTest, DepublicationReason.UNKNOWN));
 
     assertEquals(
         "Can't add these records: this would violate the maximum number of records per dataset.",
@@ -118,7 +119,7 @@ public class TestDepublishRecordIdDao {
         () -> depublishRecordIdDao.deletePendingRecordIds(datasetId, biggerThanAllowedSet));
 
     depublishRecordIdDao
-        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
+        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now(), DepublicationReason.UNKNOWN);
     assertEquals(1, provider.getDatastore().find(DepublishRecordId.class).count());
 
     depublishRecordIdDao.deletePendingRecordIds(datasetId, setTest);
@@ -132,7 +133,7 @@ public class TestDepublishRecordIdDao {
     final Set<String> setTest = Set.of("1003");
 
     depublishRecordIdDao
-        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
+        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now(), DepublicationReason.UNKNOWN);
     long result = depublishRecordIdDao.countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
     assertEquals(1L, result);
   }
@@ -143,7 +144,7 @@ public class TestDepublishRecordIdDao {
     final Set<String> setTest = Set.of("1004", "1005");
 
     depublishRecordIdDao
-        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now());
+        .addRecords(setTest, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, Instant.now(),DepublicationReason.UNKNOWN);
     List<DepublishRecordIdView> find1004 = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
             SortDirection.ASCENDING, "1004");
@@ -172,7 +173,7 @@ public class TestDepublishRecordIdDao {
             DepublicationStatus.DEPUBLISHED, biggerThanAllowedSet));
 
     depublishRecordIdDao
-        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now());
+        .addRecords(setTest, datasetId, DepublicationStatus.DEPUBLISHED, Instant.now(), DepublicationReason.UNKNOWN);
     Set<String> result = depublishRecordIdDao.getAllDepublishRecordIdsWithStatus(datasetId,
         DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
         DepublicationStatus.DEPUBLISHED, setTest);
@@ -195,17 +196,17 @@ public class TestDepublishRecordIdDao {
 
     //Null depublication status
     assertThrows(IllegalArgumentException.class, () -> depublishRecordIdDao
-        .markRecordIdsWithDepublicationStatus(datasetId, recordIdsSet, null, date));
+        .markRecordIdsWithDepublicationStatus(datasetId, recordIdsSet, null, date, DepublicationReason.UNKNOWN));
 
     //Blank dataset id
     assertThrows(IllegalArgumentException.class, () -> depublishRecordIdDao
         .markRecordIdsWithDepublicationStatus(null, recordIdsSet,
-            DepublicationStatus.PENDING_DEPUBLICATION, date));
+            DepublicationStatus.PENDING_DEPUBLICATION, date, DepublicationReason.UNKNOWN));
 
     //Depublished status but date null
     assertThrows(IllegalArgumentException.class, () -> depublishRecordIdDao
         .markRecordIdsWithDepublicationStatus(datasetId, recordIdsSet,
-            DepublicationStatus.DEPUBLISHED, null));
+            DepublicationStatus.DEPUBLISHED, null, DepublicationReason.UNKNOWN));
   }
 
   @Test
@@ -216,7 +217,7 @@ public class TestDepublishRecordIdDao {
     Date date = Date.from(Instant.now());
 
     //Create recordIds
-    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, recordIdsSet);
+    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, recordIdsSet, DepublicationReason.UNKNOWN);
     //Check stored recordIds
     List<DepublishRecordIdView> findAll = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -227,7 +228,7 @@ public class TestDepublishRecordIdDao {
     //Set to DEPUBLISHED
     depublishRecordIdDao
         .markRecordIdsWithDepublicationStatus(datasetId, null, DepublicationStatus.DEPUBLISHED,
-            date);
+            date, DepublicationReason.UNKNOWN);
     //Check stored recordIds
     findAll = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -238,7 +239,7 @@ public class TestDepublishRecordIdDao {
             .equals(Date.from(depublishRecordIdView.getDepublicationDate()))));
     //Set to PENDING_DEPUBLICATION
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-        DepublicationStatus.PENDING_DEPUBLICATION, date);
+        DepublicationStatus.PENDING_DEPUBLICATION, date, DepublicationReason.UNKNOWN);
     //Check stored recordIds
     findAll = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -257,7 +258,7 @@ public class TestDepublishRecordIdDao {
     Date date = Date.from(Instant.now());
 
     //Create recordIds
-    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, recordIdsToCreate);
+    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, recordIdsToCreate, DepublicationReason.UNKNOWN);
     //Check stored recordIds
     List<DepublishRecordIdView> findAll = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -267,7 +268,7 @@ public class TestDepublishRecordIdDao {
             .getDepublicationStatus() && null == depublishRecordIdView.getDepublicationDate()));
     //Set to DEPUBLISHED
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToUpdate,
-        DepublicationStatus.DEPUBLISHED, date);
+        DepublicationStatus.DEPUBLISHED, date, DepublicationReason.UNKNOWN);
     //Check stored recordIds
     findAll = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -278,7 +279,7 @@ public class TestDepublishRecordIdDao {
             .equals(Date.from(depublishRecordIdView.getDepublicationDate()))).count());
     //Set to PENDING_DEPUBLICATION
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToUpdate,
-        DepublicationStatus.PENDING_DEPUBLICATION, date);
+        DepublicationStatus.PENDING_DEPUBLICATION, date, DepublicationReason.UNKNOWN);
     //Check stored recordIds
     findAll = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, 0, DepublishRecordIdSortField.DEPUBLICATION_STATE,
@@ -298,10 +299,10 @@ public class TestDepublishRecordIdDao {
     Date date = Date.from(Instant.now());
 
     //Create recordIds
-    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, recordIdsToCreate);
+    depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, recordIdsToCreate, DepublicationReason.UNKNOWN);
     //Set to DEPUBLISHED
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, recordIdsToUpdate,
-        DepublicationStatus.DEPUBLISHED, date);
+        DepublicationStatus.DEPUBLISHED, date, DepublicationReason.UNKNOWN);
 
     //Check stored recordIds
     List<DepublishRecordIdView> findAll = depublishRecordIdDao

@@ -123,13 +123,13 @@ public class WorkflowPostProcessor {
         if (!CollectionUtils.isEmpty(publishedRecordIds)) {
           depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
               publishedRecordIds.stream().map(depublishedRecordIdsByFullId::get)
-                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null);
+                                .collect(Collectors.toSet()), DepublicationStatus.PENDING_DEPUBLICATION, null, null);
         }
       }
     } else {
       // reset de-publish status, pass null, all records will be de-published
       depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-          DepublicationStatus.PENDING_DEPUBLICATION, null);
+          DepublicationStatus.PENDING_DEPUBLICATION, null, null);
     }
   }
 
@@ -178,7 +178,7 @@ public class WorkflowPostProcessor {
                                                                    Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
-            DepublicationStatus.DEPUBLISHED, new Date()));
+            DepublicationStatus.DEPUBLISHED, new Date(), null));
 
     // Set publication fitness to PARTIALLY FIT (if not set to the more severe UNFIT).
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
@@ -195,7 +195,7 @@ public class WorkflowPostProcessor {
 
     // Set all depublished records back to PENDING.
     depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId, null,
-        DepublicationStatus.PENDING_DEPUBLICATION, null);
+        DepublicationStatus.PENDING_DEPUBLICATION, null, null);
     // Find latest PUBLISH Type Plugin and set dataStatus to DELETED.
     final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);

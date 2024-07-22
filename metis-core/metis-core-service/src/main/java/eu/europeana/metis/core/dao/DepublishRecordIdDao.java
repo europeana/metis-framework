@@ -17,6 +17,7 @@ import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case adding the records would violate the maximum number of depublished records that each
    * dataset can have.
    */
-  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds)
+  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds, DepublicationReason depublicationReason)
       throws BadContentException {
 
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -129,12 +130,12 @@ public class DepublishRecordIdDao {
     }
 
     // Add the records and we're done.
-    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null);
+    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null, depublicationReason);
     return recordIdsToAdd.size();
   }
 
   void addRecords(Set<String> recordIdsToAdd, String datasetId,
-      DepublicationStatus depublicationStatus, Instant depublicationDate) {
+      DepublicationStatus depublicationStatus, Instant depublicationDate, DepublicationReason depublicationReason) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
       depublishRecordId.setId(new ObjectId());
@@ -142,6 +143,7 @@ public class DepublishRecordIdDao {
       depublishRecordId.setRecordId(recordId);
       depublishRecordId.setDepublicationStatus(depublicationStatus);
       depublishRecordId.setDepublicationDate(depublicationDate);
+      depublishRecordId.setDepublicationReason(depublicationReason);
       return depublishRecordId;
     }).toList();
     retryableExternalRequestForNetworkExceptions(() -> {
@@ -328,7 +330,7 @@ public class DepublishRecordIdDao {
    * {@link DepublicationStatus#PENDING_DEPUBLICATION}
    */
   public void markRecordIdsWithDepublicationStatus(String datasetId, Set<String> recordIds,
-      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate) {
+      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate, DepublicationReason depublicationReason) {
 
     // Check correctness of parameters
     if (Objects.isNull(depublicationStatus) || StringUtils.isBlank(datasetId)) {
@@ -353,7 +355,7 @@ public class DepublishRecordIdDao {
                                                    .filter(
                                                        date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
                                                    .map(Date::toInstant).orElse(null);
-      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant);
+      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant, depublicationReason);
 
       // Compute the records to update - if there are none, we're done.
       recordIdsToUpdate = new HashSet<>(recordIds);
