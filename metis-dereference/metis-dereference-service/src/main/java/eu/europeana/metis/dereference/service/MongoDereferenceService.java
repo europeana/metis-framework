@@ -149,7 +149,7 @@ public class MongoDereferenceService implements DereferenceService {
      * </p>
      * <p>
      * A resource has references to its 'broader' resources (see
-     * {@link #extractBroaderResources(EnrichmentBase, Set)}). As such, the resources form a directed
+     * {@link #extractBroaderResources(Pair, Set)}). As such, the resources form a directed
      * graph and the iteration count is the distance from the requested resource. This method performs
      * a breadth-first search through this graph to retrieve all resources within a certain distance
      * from the requested resource.
@@ -360,12 +360,10 @@ public class MongoDereferenceService implements DereferenceService {
 
         if (entityTransformed.getDereferenceResultStatus() == DereferenceResultStatus.SUCCESS && cachedEntity == null) {
             saveEntity(resourceId,
-                new DereferenceResultWrapper(entityTransformed.getEntity(),
-                    result.getVocabulary()));
+                new DereferenceResultWrapper(entityTransformed.getEntity(), result.getVocabulary()));
         } else if (cachedEntity == null) {
             saveEntity(resourceId,
-                new DereferenceResultWrapper(originalEntity.getEntity(),
-                    result.getVocabulary()));
+                new DereferenceResultWrapper(originalEntity.getEntity(), result.getVocabulary()));
         }
 
         return result;
