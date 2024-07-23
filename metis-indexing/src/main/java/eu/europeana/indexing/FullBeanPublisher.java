@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -211,7 +210,7 @@ public class FullBeanPublisher {
   /**
    * Publishes an RDF to solr server
    *
-   * @param rdf RDF to publish.
+   * @param rdfWrapper RDF to publish.
    * @param recordDate The date that would represent the created/updated date of a record
    * @throws IndexingException which can be one of:
    * <ul>
@@ -221,26 +220,26 @@ public class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publishSolr(RdfWrapper rdf, Date recordDate) throws IndexingException {
-    final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
+  public void publishSolr(RdfWrapper rdfWrapper, Date recordDate) throws IndexingException {
+    final FullBeanImpl fullBean = convertRDFToFullBean(rdfWrapper);
     if (!preserveUpdateAndCreateTimesFromRdf) {
       Date createdDate;
-      if (rdf.getAbout() == null) {
+      if (rdfWrapper.getAbout() == null) {
         createdDate = recordDate;
       } else {
-        final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID, ClientUtils.escapeQueryChars(rdf.getAbout()));
+        final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID,
+            ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
         final Map<String, String> queryParamMap = new HashMap<>();
         queryParamMap.put("q", solrQuery);
         queryParamMap.put("fl", EdmLabel.TIMESTAMP_CREATED + "," + EdmLabel.EUROPEANA_ID);
         SolrDocumentList solrDocuments = getExistingDocuments(queryParamMap);
         createdDate = (Date) solrDocuments.stream()
                                           .map(document -> document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()))
-                                          .collect(Collectors.toList())
-                                          .stream().findFirst().orElse(recordDate);
+                                          .toList().stream().findFirst().orElse(recordDate);
       }
       setUpdateAndCreateTime(null, fullBean, Pair.of(recordDate, createdDate));
     }
-    publishToSolrFinal(rdf, fullBean);
+    publishToSolrFinal(rdfWrapper, fullBean);
   }
 
   private SolrDocumentList getExistingDocuments(Map<String, String> queryParamMap)
@@ -318,13 +317,14 @@ public class FullBeanPublisher {
     return fullBeanConverter.convertRdfToFullBean(rdf);
   }
 
-  private void publishToSolr(RdfWrapper rdf, FullBeanImpl fullBean) throws IndexingException {
+  private void publishToSolr(RdfWrapper rdfWrapper, FullBeanImpl fullBean) throws IndexingException {
 
     // Create Solr document.
     final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();
     final SolrInputDocument document = new SolrInputDocument();
     documentPopulator.populateWithProperties(document, fullBean);
-    documentPopulator.populateWithFacets(document, rdf);
+    documentPopulator.populateWithFacets(document, rdfWrapper);
+    documentPopulator.populateWithDateRanges(document, rdfWrapper);
 
     // Save Solr document.
     try {
