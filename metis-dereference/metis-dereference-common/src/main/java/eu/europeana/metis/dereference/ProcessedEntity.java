@@ -7,6 +7,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -27,12 +28,12 @@ public class ProcessedEntity {
   private ObjectId id;
 
   /**
-   * The resourceId (URI) of the resource
+   * The resourceId (URI) of the resource.
    **/
   private String resourceId;
 
   /**
-   * A xml representation of the mapped resource in one of the contextual resources
+   * A xml representation of the contextual resource (transformed from the original entity).
    **/
   private String xml;
 
@@ -40,6 +41,11 @@ public class ProcessedEntity {
    * The ID of the vocabulary of which the resource is part.
    **/
   private String vocabularyId;
+
+  /**
+   * The status of the dereference operation.
+   */
+  private DereferenceResultStatus resultStatus;
 
   @XmlElement
   public ObjectId getId() {
@@ -75,5 +81,14 @@ public class ProcessedEntity {
 
   public void setVocabularyId(String vocabularyId) {
     this.vocabularyId = vocabularyId;
+  }
+
+  @XmlElement
+  public DereferenceResultStatus getResultStatus() {
+    return resultStatus;
+  }
+
+  public void setResultStatus(DereferenceResultStatus resultStatus) {
+    this.resultStatus = resultStatus;
   }
 }

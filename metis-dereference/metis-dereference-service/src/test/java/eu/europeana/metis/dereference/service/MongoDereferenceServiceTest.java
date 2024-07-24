@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -104,25 +105,26 @@ class MongoDereferenceServiceTest {
   @Test
   void testDereference_Success() throws IOException, URISyntaxException {
 
-    // First time: no cache
+    // First time: no cached item available
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result0);
     assertEquals(1, result0.getEnrichmentBasesAsList().size());
     assertEquals(PLACE_ID, result0.getEnrichmentBasesAsList().get(0).getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result0.getDereferenceStatus());
+    verify(vocabularyDao, times(1)).getByUriSearch(anyString());
     verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
-//    assertTrue(CACHE.containsKey(PLACE_ID));
-    // TODO check the cached item.
+    assertTrue(CACHE.containsKey(PLACE_ID));
+    assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
     // Second time: use cache, no second retrieval.
-    // TODO
-/*    final DereferenceResult result1 = mongoDereferenceService.dereference(PLACE_ID);
+    clearInvocations(vocabularyDao, retriever);
+    final DereferenceResult result1 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result1);
     assertEquals(1, result1.getEnrichmentBasesAsList().size());
     assertEquals(PLACE_ID, result1.getEnrichmentBasesAsList().get(0).getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result1.getDereferenceStatus());
+    verify(vocabularyDao, never()).getByUriSearch(anyString());
     verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());
-    assertTrue(CACHE.containsKey(PLACE_ID));*/
   }
 
   @Test
@@ -134,34 +136,50 @@ class MongoDereferenceServiceTest {
 
   @Test
   void testDereference_NoVocabularyMatching() throws IOException, URISyntaxException {
+
+    // First time: no cached item available
     final String nonExistingVocabularyEntity = "http://XXX.YYYYYYY.org/3020251/";
-    final DereferenceResult emptyResult = dereferenceService.dereference(nonExistingVocabularyEntity);
-    assertNotNull(emptyResult);
-    assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
-    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, emptyResult.getDereferenceStatus());
+    final DereferenceResult result0 = dereferenceService.dereference(nonExistingVocabularyEntity);
+    assertNotNull(result0);
+    assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result0.getDereferenceStatus());
+    verify(vocabularyDao, times(1)).getByUriSearch(anyString());
     verify(retriever, never()).retrieve(anyString(), anyString());
-//    assertTrue(CACHE.containsKey(nonExistingVocabularyEntity));
-    // TODO check the cached item.
+    assertTrue(CACHE.containsKey(nonExistingVocabularyEntity));
+    assertEquals(result0.getDereferenceStatus(), CACHE.get(nonExistingVocabularyEntity).getResultStatus());
 
     // Second time: use cache, no second retrieval.
-    // TODO
+    clearInvocations(vocabularyDao, retriever);
+    final DereferenceResult result1 = dereferenceService.dereference(nonExistingVocabularyEntity);
+    assertNotNull(result1);
+    assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result1.getDereferenceStatus());
+    verify(vocabularyDao, never()).getByUriSearch(anyString());
+    verify(retriever, never()).retrieve(eq(nonExistingVocabularyEntity), anyString());
   }
 
   @Test
   void testDereference_NoEntityForVocabulary() throws IOException, URISyntaxException {
 
-    // Without cached item
+    // First time: no cached item available
     final String nonExistingId = GEONAMES_URI + "XXXXXX";
-    final DereferenceResult emptyResult = dereferenceService.dereference(nonExistingId);
-    assertNotNull(emptyResult);
-    assertTrue(emptyResult.getEnrichmentBasesAsList().isEmpty());
-    assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, emptyResult.getDereferenceStatus());
+    final DereferenceResult result0 = dereferenceService.dereference(nonExistingId);
+    assertNotNull(result0);
+    assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, result0.getDereferenceStatus());
+    verify(vocabularyDao, times(1)).getByUriSearch(anyString());
     verify(retriever, times(1)).retrieve(eq(nonExistingId), anyString());
-//    assertTrue(CACHE.containsKey(nonExistingId));
-    // TODO check the cached item.
+    assertTrue(CACHE.containsKey(nonExistingId));
+    assertEquals(result0.getDereferenceStatus(), CACHE.get(nonExistingId).getResultStatus());
 
     // Second time: use cache, no second retrieval.
-    // TODO
+    clearInvocations(vocabularyDao, retriever);
+    final DereferenceResult result1 = dereferenceService.dereference(nonExistingId);
+    assertNotNull(result1);
+    assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, result1.getDereferenceStatus());
+    verify(vocabularyDao, never()).getByUriSearch(anyString());
+    verify(retriever, never()).retrieve(eq(nonExistingId), anyString());
   }
 
   @Test
@@ -182,31 +200,49 @@ class MongoDereferenceServiceTest {
 
   @Test
   void testDereference_XmlXsltError() throws URISyntaxException, IOException {
+
+    // First time: no cached item available
     doReturn("THIS WILL BE AN ERROR").when(retriever).retrieve(eq(PLACE_ID), anyString());
-    final DereferenceResult result = dereferenceService.dereference(PLACE_ID);
-    assertNotNull(result);
-    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
-    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result.getDereferenceStatus());
+    final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
+    assertNotNull(result0);
+    assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result0.getDereferenceStatus());
+    verify(vocabularyDao, times(1)).getByUriSearch(anyString());
     verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
-//    assertTrue(CACHE.containsKey(PLACE_ID));
-    // TODO check the cached item.
+    assertTrue(CACHE.containsKey(PLACE_ID));
+    assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
     // Second time: use cache, no second retrieval.
-    // TODO
+    clearInvocations(vocabularyDao, retriever);
+    final DereferenceResult result1 = dereferenceService.dereference(PLACE_ID);
+    assertNotNull(result1);
+    assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result1.getDereferenceStatus());
+    verify(vocabularyDao, never()).getByUriSearch(anyString());
+    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());
   }
 
   @Test
   void testDereference_XmlXsltProduceNoContextualClass() throws URISyntaxException, IOException {
+
+    // First time: no cached item available
     doReturn("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><empty/>").when(retriever).retrieve(eq(PLACE_ID), anyString());
-    final DereferenceResult result = dereferenceService.dereference(PLACE_ID);
-    assertNotNull(result);
-    assertTrue(result.getEnrichmentBasesAsList().isEmpty());
-    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result.getDereferenceStatus());
+    final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
+    assertNotNull(result0);
+    assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result0.getDereferenceStatus());
+    verify(vocabularyDao, times(1)).getByUriSearch(anyString());
     verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
-//    assertTrue(CACHE.containsKey(PLACE_ID));
-    // TODO check the cached item.
+    assertTrue(CACHE.containsKey(PLACE_ID));
+    assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
     // Second time: use cache, no second retrieval.
-    // TODO
+    clearInvocations(vocabularyDao, retriever);
+    final DereferenceResult result1 = dereferenceService.dereference(PLACE_ID);
+    assertNotNull(result1);
+    assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
+    assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result1.getDereferenceStatus());
+    verify(vocabularyDao, never()).getByUriSearch(anyString());
+    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());
   }
 }

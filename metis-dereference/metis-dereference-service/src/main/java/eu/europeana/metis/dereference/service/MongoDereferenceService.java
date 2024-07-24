@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.IncomingRecordToEdmTransformer;
+import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
@@ -33,8 +34,10 @@ import java.util.stream.Stream;
 import jakarta.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,15 +154,6 @@ public class MongoDereferenceService implements DereferenceService {
         resourceIdStream.filter(Objects::nonNull).forEach(destination::add);
     }
 
-    // TODO this code is used to determine whether the vocabulary has changed. Don't forget this.
-/*  Vocabulary cachedVocabulary = null;
-    boolean cachedVocabularyChanged = false;
-    if (cachedEntity != null && StringUtils.isNotBlank(cachedEntity.getVocabularyId())) {
-        cachedVocabulary = vocabularyDao.get(cachedEntity.getVocabularyId());
-        cachedVocabularyChanged = cachedVocabulary == null;
-    }
-*/
-
     private TransformedEntity dereferenceSingleResource(String resourceId) {
 
         // Check for URI validity.
@@ -169,6 +163,20 @@ public class MongoDereferenceService implements DereferenceService {
             LOGGER.warn("Invalid URI: {} with message: {}", resourceId, e.getMessage());
             return new TransformedEntity(null, null, DereferenceResultStatus.INVALID_URL);
         }
+
+        // Check if a cached item exists for this resource ID.
+        final TransformedEntity cachedEntity = getFromCache(resourceId);
+        if (cachedEntity != null) {
+            return cachedEntity;
+        }
+
+        // So no cached item exists. Perform the actual algorithm and save the result to cache.
+        final TransformedEntity result = performDereferenceAlgorithmForSingleResource(resourceId);
+        saveToCache(resourceId, result);
+        return result;
+    }
+
+    private TransformedEntity performDereferenceAlgorithmForSingleResource(String resourceId) {
 
         // Find matching vocabularies, report if there are none.
         final VocabularyCandidates vocabularyCandidates;
@@ -211,20 +219,6 @@ public class MongoDereferenceService implements DereferenceService {
             : statuses.stream().findAny().orElseThrow(IllegalStateException::new);
         return new TransformedEntity(null, null, status);
     }
-
- /*   private void saveEntity(String resourceId, DereferenceResultWrapper transformedEntityAndVocabularyPair) {
-
-        final String entityXml = transformedEntityAndVocabularyPair.getEntity();
-        final Vocabulary vocabulary = transformedEntityAndVocabularyPair.getVocabulary();
-        final String vocabularyIdString = Optional.ofNullable(vocabulary).map(Vocabulary::getId)
-                .map(ObjectId::toString).orElse(null);
-        //Save entity
-        ProcessedEntity entityToCache =  new ProcessedEntity();
-        entityToCache.setResourceId(resourceId);
-        entityToCache.setXml(entityXml);
-        entityToCache.setVocabularyId(vocabularyIdString);
-        processedEntityDao.save(entityToCache);
-    }*/
 
     private TransformedEntity transformEntity(Vocabulary vocabulary, final String originalEntity,
                 final String resourceId) {
@@ -274,5 +268,39 @@ public class MongoDereferenceService implements DereferenceService {
         final DereferenceResultStatus dereferenceResultStatus = originalEntity == null ?
             DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY : DereferenceResultStatus.SUCCESS;
         return new OriginalEntity(originalEntity, dereferenceResultStatus);
+    }
+
+    private TransformedEntity getFromCache(String resourceId) {
+
+        // Try to find a cached entity. If there is none, we are done.
+        final ProcessedEntity cachedEntity = processedEntityDao.getByResourceId(resourceId);
+        if (cachedEntity == null) {
+            return null;
+        }
+
+        // Check the vocabulary. If it no longer exists, we need to process the entity again.
+        final Vocabulary vocabulary;
+        if (StringUtils.isNotBlank(cachedEntity.getVocabularyId())) {
+            vocabulary = vocabularyDao.get(cachedEntity.getVocabularyId());
+            if (vocabulary == null) {
+                return null;
+            }
+        } else {
+            vocabulary = null;
+        }
+
+        // Convert to a transformed entity and return.
+        return new TransformedEntity(vocabulary, cachedEntity.getXml(),
+            cachedEntity.getResultStatus());
+    }
+
+    private void saveToCache(String resourceId, TransformedEntity transformedEntity) {
+        final ProcessedEntity entityToCache = new ProcessedEntity();
+        entityToCache.setResourceId(resourceId);
+        entityToCache.setXml(transformedEntity.getTransformedEntity());
+        entityToCache.setVocabularyId(Optional.ofNullable(transformedEntity.getVocabulary())
+            .map(Vocabulary::getId).map(ObjectId::toString).orElse(null));
+        entityToCache.setResultStatus(transformedEntity.getResultStatus());
+        processedEntityDao.save(entityToCache);
     }
 }
