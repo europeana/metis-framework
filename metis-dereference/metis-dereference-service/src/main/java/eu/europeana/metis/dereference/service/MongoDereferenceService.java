@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -43,6 +43,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Implementation of {@link DereferenceService} that uses the MongoDB for retrieving vocabularies
+ * and for caching.
+ */
 @Component
 public class MongoDereferenceService implements DereferenceService {
 
@@ -95,8 +99,8 @@ public class MongoDereferenceService implements DereferenceService {
         // Deserialize the entity
         final EnrichmentBase deserializedEntity;
         try {
-            deserializedEntity = resource.getTransformedEntity() == null ? null
-                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getTransformedEntity());
+            deserializedEntity = resource.getEntity() == null ? null
+                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getEntity());
         } catch (JAXBException e) {
             LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
             return new DereferenceResult(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
@@ -127,8 +131,8 @@ public class MongoDereferenceService implements DereferenceService {
         final TransformedEntity resource = dereferenceSingleResource(resourceId);
         final EnrichmentBase deserializedEntity;
         try {
-            deserializedEntity = resource.getTransformedEntity() == null ? null
-                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getTransformedEntity());
+            deserializedEntity = resource.getEntity() == null ? null
+                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getEntity());
         } catch (JAXBException e) {
             LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
             return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
@@ -179,31 +183,21 @@ public class MongoDereferenceService implements DereferenceService {
     private TransformedEntity performDereferenceAlgorithmForSingleResource(String resourceId) {
 
         // Find matching vocabularies, report if there are none.
-        final VocabularyCandidates vocabularyCandidates;
-        try {
-            vocabularyCandidates = VocabularyCandidates.findVocabulariesForUrl(resourceId,
-                vocabularyDao::getByUriSearch);
-        } catch (URISyntaxException e) {
-            // Shouldn't happen as we checked this before.
-            LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
-                resourceId), e);
-            return new TransformedEntity(null, null, DereferenceResultStatus.FAILURE);
-        }
-        if (vocabularyCandidates.isEmpty()) {
-            return new TransformedEntity(null, null,
-                DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+        final Pair<VocabularyCandidates, DereferenceResultStatus> vocabularyCandidates = getCandidateVocabularies(resourceId);
+        if (vocabularyCandidates.getRight() != DereferenceResultStatus.SUCCESS) {
+            return new TransformedEntity(null, null, vocabularyCandidates.getRight());
         }
 
         // If there are vocabularies, we attempt to obtain the original entity from source.
         final OriginalEntity originalEntity = retrieveOriginalEntity(resourceId,
-            vocabularyCandidates.getVocabulariesSuffixes());
+            vocabularyCandidates.getLeft().getVocabulariesSuffixes());
         if (originalEntity.getResultStatus() != DereferenceResultStatus.SUCCESS) {
             return new TransformedEntity(null, null, originalEntity.getResultStatus());
         }
 
         // If we managed to obtain the original entity, we will try to transform it.
-        final Set<DereferenceResultStatus> statuses = new HashSet<>();
-        for (Vocabulary vocabulary : vocabularyCandidates.getVocabularies()) {
+        final Set<DereferenceResultStatus> statuses = EnumSet.noneOf(DereferenceResultStatus.class);
+        for (Vocabulary vocabulary : vocabularyCandidates.getLeft().getVocabularies()) {
             final TransformedEntity transformedEntity = transformEntity(vocabulary,
                 originalEntity.getEntity(), resourceId);
             if (transformedEntity.getResultStatus() == DereferenceResultStatus.SUCCESS) {
@@ -218,6 +212,29 @@ public class MongoDereferenceService implements DereferenceService {
             ? DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS
             : statuses.stream().findAny().orElseThrow(IllegalStateException::new);
         return new TransformedEntity(null, null, status);
+    }
+
+    private Pair<VocabularyCandidates, DereferenceResultStatus> getCandidateVocabularies(String resourceId) {
+
+        // Find matching vocabularies.
+        final VocabularyCandidates vocabularyCandidates;
+        try {
+            vocabularyCandidates = VocabularyCandidates.findVocabulariesForUrl(resourceId,
+                vocabularyDao::getByUriSearch);
+        } catch (URISyntaxException e) {
+            // Shouldn't happen as we checked this before.
+            LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
+                resourceId), e);
+            return new ImmutablePair<>(null, DereferenceResultStatus.FAILURE);
+        }
+
+        // Report if there are none.
+        if (vocabularyCandidates.isEmpty()) {
+            return new ImmutablePair<>(null, DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+        }
+
+        // Return result.
+        return new ImmutablePair<>(vocabularyCandidates, DereferenceResultStatus.SUCCESS);
     }
 
     private TransformedEntity transformEntity(Vocabulary vocabulary, final String originalEntity,
@@ -297,7 +314,7 @@ public class MongoDereferenceService implements DereferenceService {
     private void saveToCache(String resourceId, TransformedEntity transformedEntity) {
         final ProcessedEntity entityToCache = new ProcessedEntity();
         entityToCache.setResourceId(resourceId);
-        entityToCache.setXml(transformedEntity.getTransformedEntity());
+        entityToCache.setXml(transformedEntity.getEntity());
         entityToCache.setVocabularyId(Optional.ofNullable(transformedEntity.getVocabulary())
             .map(Vocabulary::getId).map(ObjectId::toString).orElse(null));
         entityToCache.setResultStatus(transformedEntity.getResultStatus());

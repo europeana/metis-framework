@@ -9,13 +9,19 @@ import eu.europeana.metis.dereference.Vocabulary;
 public class TransformedEntity {
 
   private final Vocabulary vocabulary;
-  private final String transformedEntity;
+  private final String entity;
   private final DereferenceResultStatus resultStatus;
 
-  public TransformedEntity(Vocabulary vocabulary, String transformedEntity,
+  /**
+   * Constructor
+   * @param vocabulary The vocabulary according to which this entity was transformed (can be null).
+   * @param entity The result entity (can be null).
+   * @param resultStatus The result status (should not be null).
+   */
+  public TransformedEntity(Vocabulary vocabulary, String entity,
       DereferenceResultStatus resultStatus) {
     this.vocabulary = vocabulary;
-    this.transformedEntity = transformedEntity;
+    this.entity = entity;
     this.resultStatus = resultStatus;
   }
 
@@ -23,8 +29,8 @@ public class TransformedEntity {
     return vocabulary;
   }
 
-  public String getTransformedEntity() {
-    return transformedEntity;
+  public String getEntity() {
+    return entity;
   }
 
   public DereferenceResultStatus getResultStatus() {

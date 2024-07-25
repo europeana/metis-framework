@@ -54,9 +54,9 @@ class MongoDereferenceServiceTest {
       spy(new MongoDereferenceService(retriever, processedEntityDao, vocabularyDao));
 
   private static final String GEONAMES_URI = "http://sws.geonames.org/";
-  private static Vocabulary GEONAMES;
+  private static Vocabulary geonames;
   private static final String PLACE_ID = "http://sws.geonames.org/3020251/";
-  private static String PLACE_SOURCE_ENTITY;
+  private static String placeSourceEntity;
 
   private static final Map<String, ProcessedEntity> CACHE = new HashMap<>();
 
@@ -64,16 +64,16 @@ class MongoDereferenceServiceTest {
   static void prepareData() throws IOException {
 
     // Create the vocabulary
-    GEONAMES = new Vocabulary();
-    GEONAMES.setId(new ObjectId(new Date()));
-    GEONAMES.setUris(Collections.singleton(GEONAMES_URI));
-    GEONAMES.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
+    geonames = new Vocabulary();
+    geonames.setId(new ObjectId(new Date()));
+    geonames.setUris(Collections.singleton(GEONAMES_URI));
+    geonames.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
         .getClassLoader().getResourceAsStream("geonames.xsl")), StandardCharsets.UTF_8));
-    GEONAMES.setName("Geonames");
-    GEONAMES.setIterations(0);
+    geonames.setName("Geonames");
+    geonames.setIterations(0);
 
     // Create the place
-    PLACE_SOURCE_ENTITY = IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
+    placeSourceEntity = IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
         .getClassLoader().getResourceAsStream("place_entity.xsl")), StandardCharsets.UTF_8);
   }
 
@@ -85,11 +85,11 @@ class MongoDereferenceServiceTest {
 
     // Add support for vocabulary in the mocks.
     final String searchString = new URI(GEONAMES_URI).getHost();
-    doReturn(List.of(GEONAMES)).when(vocabularyDao).getByUriSearch(searchString);
-    doReturn(GEONAMES).when(vocabularyDao).get(GEONAMES.getId().toString());
+    doReturn(List.of(geonames)).when(vocabularyDao).getByUriSearch(searchString);
+    doReturn(geonames).when(vocabularyDao).get(geonames.getId().toString());
 
     // Add support for the place in the mocks.
-    doReturn(PLACE_SOURCE_ENTITY).when(retriever).retrieve(eq(PLACE_ID), anyString());
+    doReturn(placeSourceEntity).when(retriever).retrieve(eq(PLACE_ID), anyString());
 
     // Clear cache and build the cache functionality
     CACHE.clear();
