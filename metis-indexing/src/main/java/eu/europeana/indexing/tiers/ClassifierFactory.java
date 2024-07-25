@@ -26,7 +26,7 @@ public final class ClassifierFactory {
    * @return A classifier for the metadata tier with Provider Proxies as default mode.
    */
   public static TierClassifier<MetadataTier, MetadataTierBreakdown> getMetadataClassifier() {
-    return new MetadataClassifier(new LanguageClassifier(), new EnablingElementsClassifier(), new ContextualClassesClassifier());
+    return getMetadataClassifier(ClassifierMode.PROVIDER_PROXIES);
   }
 
   /**
