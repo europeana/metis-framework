@@ -24,7 +24,7 @@ public class OEmbedProcessor implements MediaProcessor {
   /**
    * The constant LOGGER.
    */
-  public static final Logger LOGGER = LoggerFactory.getLogger(OEmbedProcessor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedProcessor.class);
 
   private MediaProcessor nextProcessor;
 
@@ -55,21 +55,68 @@ public class OEmbedProcessor implements MediaProcessor {
   }
 
   /**
-   * Is o embed boolean.
+   * Is valid oembed photo or video boolean.
+   *
+   * @param oEmbedModel the oembed model
+   * @return the boolean true complies the minimum required fields for each type
+   */
+  public static boolean isValidOEmbedPhotoOrVideo(OEmbedModel oEmbedModel) {
+    return hasValidVersion(oEmbedModel) && hasValidType(oEmbedModel);
+  }
+
+  /**
+   * Has valid type boolean.
    *
    * @param oEmbedModel the o embed model
    * @return the boolean
    */
-  public static boolean isOEmbed(OEmbedModel oEmbedModel) {
-    return oEmbedModel != null
-        && (oEmbedModel.getVersion() != null
-        && oEmbedModel.getVersion().startsWith("1.0"))
-        && (oEmbedModel.getType() != null
-        && (oEmbedModel.getType().equalsIgnoreCase("photo")
-        || oEmbedModel.getType().equalsIgnoreCase("video")))
+  private static boolean hasValidType(OEmbedModel oEmbedModel) {
+    return (isValidTypePhoto(oEmbedModel) || isValidTypeVideo(oEmbedModel));
+  }
+
+  /**
+   * Is valid type photo boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @return the boolean
+   */
+  private static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getType() != null
+        && oEmbedModel.getType().equalsIgnoreCase("photo")
+        && oEmbedModel.getUrl()!=null && !oEmbedModel.getUrl().isEmpty()
         && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
   }
 
+  /**
+   * Is valid type video boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @return the boolean
+   */
+  private static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getType() != null
+        && oEmbedModel.getType().equalsIgnoreCase("video")
+        && oEmbedModel.getHtml()!=null && !oEmbedModel.getHtml().isEmpty()
+        && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
+  }
+
+  /**
+   * Has valid version boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @return the boolean
+   */
+  private static boolean hasValidVersion(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getVersion() != null
+        && oEmbedModel.getVersion().startsWith("1.0");
+  }
+
+  /**
+   * Gets duration from model.
+   *
+   * @param oEmbedModel the o embed model
+   * @return the duration from model
+   */
   private static Double getDurationFromModel(OEmbedModel oEmbedModel) {
     Double duration;
     try {
@@ -96,7 +143,7 @@ public class OEmbedProcessor implements MediaProcessor {
   public ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)
       throws MediaExtractionException {
 
-    ResourceExtractionResult resourceExtractionResult = null;
+    ResourceExtractionResult resourceExtractionResult;
     // the content for this oembed needs to be downloaded to be examined
     if (resource.getContentPath() != null) {
       try {
@@ -106,7 +153,7 @@ public class OEmbedProcessor implements MediaProcessor {
         } else if (detectedMimeType.startsWith("application/xml")) {
           embedModel = getOEmbedModelfromXml(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
         }
-        if (isOEmbed(embedModel)) {
+        if (isValidOEmbedPhotoOrVideo(embedModel)) {
           resourceExtractionResult = getResourceExtractionResult(resource, detectedMimeType, mainThumbnailAvailable,
               embedModel);
         } else {

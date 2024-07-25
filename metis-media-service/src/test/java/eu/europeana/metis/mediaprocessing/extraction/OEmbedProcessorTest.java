@@ -3,7 +3,7 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
+import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isValidOEmbedPhotoOrVideo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -18,8 +18,6 @@ import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.ResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +56,7 @@ class OEmbedProcessorTest {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json");
     OEmbedModel oEmbedModel = OEmbedProcessor.getOEmbedModelfromJson(inputStream.readAllBytes());
     assertNotNull(oEmbedModel);
-    assertTrue(isOEmbed(oEmbedModel));
+    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
   }
 
   @Test
@@ -66,7 +64,7 @@ class OEmbedProcessorTest {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.xml");
     OEmbedModel oEmbedModel = OEmbedProcessor.getOEmbedModelfromXml(inputStream.readAllBytes());
     assertNotNull(oEmbedModel);
-    assertTrue(isOEmbed(oEmbedModel));
+    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
   }
 
   @Test

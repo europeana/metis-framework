@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromJson;
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
+import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isValidOEmbedPhotoOrVideo;
 
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OEmbedJsonFileDetector implements Detector {
 
-  public static final Logger LOGGER = LoggerFactory.getLogger(OEmbedJsonFileDetector.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedJsonFileDetector.class);
   private static final MediaType OEMBED_JSON = MediaType.application("json+oembed");
   @Serial
   private static final long serialVersionUID = -3009429767832982324L;
@@ -46,10 +46,10 @@ public class OEmbedJsonFileDetector implements Detector {
     try {
       input.mark(Integer.MAX_VALUE);
       OEmbedModel embedModel = getOEmbedModelfromJson(input.readAllBytes());
-      if (isOEmbed(embedModel)) {
+      if (isValidOEmbedPhotoOrVideo(embedModel)) {
         return OEMBED_JSON;
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
       LOGGER.warn("unable to read json returning octet stream: ", e);
       return MediaType.OCTET_STREAM;
     } finally {

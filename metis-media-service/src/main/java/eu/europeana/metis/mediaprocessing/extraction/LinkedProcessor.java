@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LinkedProcessor implements MediaProcessor {
-  public static final Logger LOGGER = LoggerFactory.getLogger(LinkedProcessor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(LinkedProcessor.class);
 
   private MediaProcessor nextProcessor;
   /**

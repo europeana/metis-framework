@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
 import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromXml;
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isOEmbed;
+import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isValidOEmbedPhotoOrVideo;
 
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class OEmbedXmlFileDetector implements Detector {
 
-  public static final Logger LOGGER = LoggerFactory.getLogger(OEmbedXmlFileDetector.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedXmlFileDetector.class);
   private static final MediaType OEMBED_XML = MediaType.application("xml+oembed");
   @Serial
   private static final long serialVersionUID = -4502227849462535039L;
@@ -46,10 +46,10 @@ public class OEmbedXmlFileDetector implements Detector {
     try {
       input.mark(Integer.MAX_VALUE);
       OEmbedModel embedModel = getOEmbedModelfromXml(input.readAllBytes());
-      if (isOEmbed(embedModel)) {
+      if (isValidOEmbedPhotoOrVideo(embedModel)) {
         return OEMBED_XML;
       }
-    } catch (Exception e) {
+    } catch (IOException e) {
       LOGGER.warn("unable to read xml returning octet stream: ", e);
       return MediaType.OCTET_STREAM;
     } finally {
