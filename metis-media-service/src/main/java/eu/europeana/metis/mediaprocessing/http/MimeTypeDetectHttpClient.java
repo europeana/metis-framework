@@ -4,16 +4,14 @@ import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
 
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.network.AbstractHttpClient;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.tika.Tika;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.metadata.TikaMimeKeys;
-import org.springframework.http.ContentDisposition;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
+import org.springframework.http.ContentDisposition;
 
 /**
  * An {@link AbstractHttpClient} that tries to determine the mime type of a link. It does so based

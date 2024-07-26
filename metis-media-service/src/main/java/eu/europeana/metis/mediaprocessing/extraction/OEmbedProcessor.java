@@ -13,6 +13,7 @@ import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +84,7 @@ public class OEmbedProcessor implements MediaProcessor {
   private static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
     return oEmbedModel != null && oEmbedModel.getType() != null
         && oEmbedModel.getType().equalsIgnoreCase("photo")
-        && oEmbedModel.getUrl()!=null && !oEmbedModel.getUrl().isEmpty()
+        && oEmbedModel.getUrl() != null && !oEmbedModel.getUrl().isEmpty()
         && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
   }
 
@@ -96,7 +97,7 @@ public class OEmbedProcessor implements MediaProcessor {
   private static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
     return oEmbedModel != null && oEmbedModel.getType() != null
         && oEmbedModel.getType().equalsIgnoreCase("video")
-        && oEmbedModel.getHtml()!=null && !oEmbedModel.getHtml().isEmpty()
+        && oEmbedModel.getHtml() != null && !oEmbedModel.getHtml().isEmpty()
         && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
   }
 
@@ -117,8 +118,8 @@ public class OEmbedProcessor implements MediaProcessor {
    * @param oEmbedModel the o embed model
    * @return the duration from model
    */
-  private static Double getDurationFromModel(OEmbedModel oEmbedModel) {
-    Double duration;
+  private static double getDurationFromModel(OEmbedModel oEmbedModel) {
+    double duration;
     try {
       duration = Double.parseDouble(oEmbedModel.getDuration());
     } catch (NumberFormatException e) {
@@ -210,7 +211,7 @@ public class OEmbedProcessor implements MediaProcessor {
   private ResourceExtractionResult getResourceExtractionResult(Resource resource, String detectedMimeType,
       boolean mainThumbnailAvailable, OEmbedModel oEmbedModel) throws MediaExtractionException {
     ResourceExtractionResult resourceExtractionResult;
-    switch (oEmbedModel.getType().toLowerCase()) {
+    switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
       case "photo" -> {
         ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(detectedMimeType,
             resource.getResourceUrl(),
