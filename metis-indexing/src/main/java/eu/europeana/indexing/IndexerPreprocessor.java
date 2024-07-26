@@ -33,7 +33,7 @@ public class IndexerPreprocessor {
    *
    * @param rdf the rdf
    * @param properties the properties
-   * @return the tier results
+   * @return the tier results for the provider data (i.e. {@link ClassifierMode#PROVIDER_PROXIES}).
    * @throws IndexingException the indexing exception
    */
   public static TierResults preprocessRecord(RDF rdf, IndexingProperties properties)
@@ -41,21 +41,21 @@ public class IndexerPreprocessor {
 
     // Perform the tier classification
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    TierResults tierCalculationsResult = new TierResults();
     if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
                                                            .contains(rdfWrapper.getEdmType())) {
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
-          metadataClassifier.classify(rdfWrapper));
-      RdfTierUtils.setTier(rdf, tierCalculationsResult.getMediaTier());
-      RdfTierUtils.setTier(rdf, tierCalculationsResult.getMetadataTier());
+      final TierResults tierCalculationsResultProvidedData = new TierResults(
+          mediaClassifier.classify(rdfWrapper), metadataClassifier.classify(rdfWrapper));
+      RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMediaTier());
+      RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMetadataTier());
 
-      tierCalculationsResult = new TierResults(mediaClassifier.classify(rdfWrapper),
-          metadataClassifierEuropeana.classify(rdfWrapper));
-      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResult.getMediaTier());
-      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResult.getMetadataTier());
+      final TierResults tierCalculationsResultEuropeana = new TierResults(
+          mediaClassifier.classify(rdfWrapper), metadataClassifierEuropeana.classify(rdfWrapper));
+      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMediaTier());
+      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMetadataTier());
+
+      return tierCalculationsResultProvidedData;
     }
 
-    return tierCalculationsResult;
+    return new TierResults();
   }
-
 }

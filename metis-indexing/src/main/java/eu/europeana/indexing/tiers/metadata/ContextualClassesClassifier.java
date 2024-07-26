@@ -37,7 +37,7 @@ public class ContextualClassesClassifier implements TierClassifierBreakdown<Cont
   private final ClassifierMode classifierMode;
 
   /**
-   * Instantiates a new Contextual classes classifier.
+   * Instantiates a new Contextual classes classifier for default mode {@link ClassifierMode#PROVIDER_PROXIES}.
    */
   public ContextualClassesClassifier() {
     this.classifierMode = ClassifierMode.PROVIDER_PROXIES;

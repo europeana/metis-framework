@@ -82,7 +82,10 @@ public interface Indexer extends Closeable {
    *
    * @param stringRdfRecord The record to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
-   * @param tierResultsConsumer The predicate deciding if the record should be published based on evaluated tier.
+   * @param tierResultsConsumer The predicate deciding whether the record should be published based
+   *                            on the evaluated tier. Note: the tier calculations that are provided
+   *                            to the consumer are for provider data only (i.e. mode
+   *                            {@link eu.europeana.indexing.tiers.metadata.ClassifierMode#PROVIDER_PROXIES}).
    * @throws IndexingException In case a problem occurred during indexing.
    */
   void index(String stringRdfRecord, IndexingProperties indexingProperties,
@@ -131,7 +134,9 @@ public interface Indexer extends Closeable {
    * @param recordContent The record to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
-   * @return A pair with both content tier and metadata tier calculations results of the given record
+   * @return A pair with both content tier and metadata tier calculations results of the given
+   * record. The tier calculations are for provider data only (i.e. mode
+   * {@link eu.europeana.indexing.tiers.metadata.ClassifierMode#PROVIDER_PROXIES}).
    */
   TierResults indexAndGetTierCalculations(InputStream recordContent,
       IndexingProperties indexingProperties) throws IndexingException;
