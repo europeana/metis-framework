@@ -35,7 +35,7 @@ class IndexerPreprocessorTest {
     // given
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RDF inputRdf = conversionUtils.convertStringToRdf(
-        IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
+        IndexingTestUtils.getResourceFileContent("europeana_record_tier_calculation_rdf.xml"));
     final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
         true,
         List.of(), true, true);
