@@ -1,97 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:cc="http://creativecommons.org/ns#" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:oa="http://www.w3.org/ns/oa#" xmlns:dqv="http://www.w3.org/ns/dqv#">
-  <edm:ProvidedCHO rdf:about="/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
-  <edm:WebResource rdf:about="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf">
-    <dc:description xml:lang="nl">c1739a4bddc51ed13cbb57f9d911dae9 - 62-7</dc:description>
-    <edm:rights rdf:resource="http://creativecommons.org/publicdomain/mark/1.0/"/>
-    <ebucore:hasMimeType>application/pdf</ebucore:hasMimeType>
-    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">13924049</ebucore:fileByteSize>
-    <edm:spatialResolution rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">300</edm:spatialResolution>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+>
+  <edm:ProvidedCHO rdf:about="/305/_nnhSX08"/>
+  <edm:WebResource rdf:about="http://mbc.malopolska.pl/Content/48386/d2j:big,0/0437_0001.djvu.jpg">
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">112031</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">562</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">761</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#C0C0C0</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#A9A9A9</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#BDB76B</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#BC8F8F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D2B48C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portrait</ebucore:orientation>
   </edm:WebResource>
-  <edm:WebResource rdf:about="https://archivesspace-pi.nl/repositories/11/archival_objects/42779">
+  <edm:WebResource rdf:about="http://fbc.pionier.net.pl/id/oai:mbc.malopolska.pl:48386">
     <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
-    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">0</ebucore:fileByteSize>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">1477</ebucore:fileByteSize>
   </edm:WebResource>
-  <edm:Agent rdf:about="http://data.europeana.eu/agent/174106">
-    <skos:prefLabel xml:lang="de">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="ru">Тит Брандсма</skos:prefLabel>
-    <skos:prefLabel xml:lang="sv">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="fi">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="pt">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="en">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="it">Tito Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="fr">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="sl">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="ga">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="pl">Tytus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="ro">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="ca">Titus Brandsma</skos:prefLabel>
-    <skos:prefLabel xml:lang="nl">Titus Brandsma</skos:prefLabel>
-    <skos:altLabel xml:lang="de">Anno Sjoerd Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="de">F. Titus Brandsma O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="ru">Брандсма, Титус</skos:altLabel>
-    <skos:altLabel xml:lang="ru">Титус Брандсма</skos:altLabel>
-    <skos:altLabel xml:lang="ru">Брандсма, Тит</skos:altLabel>
-    <skos:altLabel xml:lang="pt">Tito Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="pt">Beato tito brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="pt">Anno Sjoerd Titus Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="en">Titus Brandsma, O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="en">Anno Sjoerd Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="en">F. Titus Brandsma O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="it">Titus Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="fr">Anno Sjoerd Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="pl">Bł. Tytus</skos:altLabel>
-    <skos:altLabel xml:lang="pl">Błogosławiony Tytus</skos:altLabel>
-    <skos:altLabel xml:lang="ro">Anno Sjoerd Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="ro">F. Titus Brandsma O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="nl">Anno Sjoerd Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="nl">T. Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="ca">Tito Brandsma</skos:altLabel>
-    <skos:altLabel xml:lang="ca">Titus Brandsma, O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="ca">F. Titus Brandsma O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="ca">P. Titus Brandsma O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="ca">Fra Titus Brandsma O.Carm.</skos:altLabel>
-    <skos:altLabel xml:lang="ca">Anno Sjoerd Brandsma</skos:altLabel>
-    <skos:note xml:lang="de">Niederländischer Theologe im Widerstand gegen den Nationalsozialismus</skos:note>
-    <skos:note xml:lang="sv">Nederländsk karmelitermunk, präst, och professor i filosofi</skos:note>
-    <skos:note xml:lang="en">Dutch Carmelite friar, Catholic priest, professor of philosophy and saint</skos:note>
-    <skos:note xml:lang="it">Sacerdote olandese</skos:note>
-    <skos:note xml:lang="fr">Prêtre carme néerlandais, canonisé le 15 mai 2022</skos:note>
-    <skos:note xml:lang="ro">Călugăr carmelit, profesor de filozofie, victimă a regimului nazist</skos:note>
-    <skos:note xml:lang="nl">Nederlands priester, martelaar en heilige</skos:note>
-    <skos:note xml:lang="ca">Frare carmelita holandès, sacerdot catòlic, professor de filosofia i esperantista</skos:note>
-    <rdaGr2:dateOfBirth>1881-02-23</rdaGr2:dateOfBirth>
-    <rdaGr2:dateOfDeath>1942-07-26</rdaGr2:dateOfDeath>
-    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2962"></rdaGr2:professionOrOccupation>
-    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q454645"/>
-    <owl:sameAs rdf:resource="http://viaf.org/viaf/51745479"/>
-    <owl:sameAs rdf:resource="https://d-nb.info/gnd/11867322X"/>
-    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n80119298"/>
-    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb12249913m"/>
-    <owl:sameAs rdf:resource="http://www.idref.fr/031246303/id"/>
-    <owl:sameAs rdf:resource="https://www.freebase.com/m/0c3zfq"/>
-    <owl:sameAs rdf:resource="https://g.co/kg/m/0c3zfq"/>
-    <owl:sameAs rdf:resource="http://openlibrary.org/works/OL1412317A"/>
-    <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX1084886"/>
-    <owl:sameAs rdf:resource="http://data.bibliotheken.nl/id/thes/p06947074X"/>
-    <owl:sameAs rdf:resource="https://livedata.bibsys.no/authority/15005059"/>
-    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/60799"/>
-    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Titus_Brandsma"/>
-  </edm:Agent>
-  <edm:TimeSpan rdf:about="#1942%2F1942">
-    <skos:prefLabel xml:lang="zxx">1942/1942</skos:prefLabel>
+  <edm:TimeSpan rdf:about="#1923">
+    <skos:prefLabel xml:lang="zxx">1923</skos:prefLabel>
     <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
-    <edm:begin>1942-01-01</edm:begin>
-    <edm:end>1942-12-31</edm:end>
-    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1942/1942</skos:notation>
-  </edm:TimeSpan>
-  <edm:TimeSpan rdf:about="#1942%7E">
-    <skos:prefLabel xml:lang="zxx">1942~</skos:prefLabel>
-    <skos:note>approximate</skos:note>
-    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
-    <edm:begin>1942-01-01</edm:begin>
-    <edm:end>1942-12-31</edm:end>
-    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1942~</skos:notation>
+    <edm:begin>1923-01-01</edm:begin>
+    <edm:end>1923-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1923</skos:notation>
   </edm:TimeSpan>
   <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/20">
     <skos:prefLabel xml:lang="de">20. Jahrhundert</skos:prefLabel>
@@ -141,6 +81,11 @@
     <skos:altLabel xml:lang="it">'900</skos:altLabel>
     <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
     <skos:altLabel xml:lang="fr">20e siècle</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo 20</skos:altLabel>
+    <skos:altLabel xml:lang="es">El siglo pasado</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo veinte</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo XX después de Cristo</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo XX d. C.</skos:altLabel>
     <edm:begin>1901-01-01</edm:begin>
     <edm:end>2000-12-31</edm:end>
     <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/19"/>
@@ -152,82 +97,61 @@
     <owl:sameAs rdf:resource="https://g.co/kg/m/089_x"/>
     <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.504.968"/>
     <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404514"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/1159810"/>
     <owl:sameAs rdf:resource="http://dbpedia.org/resource/20th_century"/>
   </edm:TimeSpan>
-  <skos:Concept rdf:about="http://id.loc.gov/authorities/names/n80119298">
-    <skos:altLabel>Brandsma, Anno Sjoerd, 1881-1942</skos:altLabel>
-    <skos:altLabel>Brandsma, Titus, father, 1881-1942</skos:altLabel>
-    <skos:altLabel>Brandsma, Titus, Saint, 1881-1942</skos:altLabel>
-    <skos:closeMatch rdf:resource="http://www.wikidata.org/entity/Q454645"/>
-    <skos:closeMatch rdf:resource="http://id.worldcat.org/fast/60799"/>
-    <skos:closeMatch rdf:resource="http://id.worldcat.org/fast/60799"/>
-    <skos:closeMatch rdf:resource="http://www.wikidata.org/entity/Q454645"/>
-    <skos:exactMatch rdf:resource="http://viaf.org/viaf/sourceID/LC%7Cn++80119298#skos:Concept"/>
-    <skos:inScheme rdf:resource="http://id.loc.gov/authorities/names"/>
-    <skos:prefLabel>Brandsma, Titus, 1881-1942</skos:prefLabel>
-  </skos:Concept>
-  <skos:Concept rdf:about="http://vocab.getty.edu/aat/300379505">
-    <skos:altLabel xml:lang="en">archival material</skos:altLabel>
-    <skos:broader rdf:resource="http://vocab.getty.edu/aat/300185712"/>
-    <skos:note xml:lang="en">The physical materials that make up the mass of an archive. Distinguished from AAT "archives (groupings)."</skos:note>
-    <skos:note xml:lang="nl">De fysieke materialen die samen een archief vormen. In de AAT te onderscheiden van 'archieven (groepen)'.</skos:note>
-    <skos:prefLabel xml:lang="en">archival materials</skos:prefLabel>
-    <skos:prefLabel xml:lang="nl">archiefmateriaal</skos:prefLabel>
-  </skos:Concept>
-  <ore:Aggregation rdf:about="/aggregation/provider/50/_providedCHO_NL_BwdADRKF_2_62_7">
-    <edm:aggregatedCHO rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
-    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1482250000046543016"></edm:dataProvider>
-    <edm:isShownAt rdf:resource="https://archivesspace-pi.nl/repositories/11/archival_objects/42779"/>
-    <edm:isShownBy rdf:resource="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf"/>
-    <edm:object rdf:resource="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf"/>
-    <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000004671077"></edm:provider>
-    <edm:rights rdf:resource="http://creativecommons.org/publicdomain/mark/1.0/"/>
+  <ore:Aggregation rdf:about="/aggregation/provider/305/_nnhSX08">
+    <edm:aggregatedCHO rdf:resource="/305/_nnhSX08"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/2897"></edm:dataProvider>
+    <edm:isShownAt rdf:resource="http://fbc.pionier.net.pl/id/oai:mbc.malopolska.pl:48386"/>
+    <edm:object rdf:resource="http://mbc.malopolska.pl/Content/48386/d2j:big,0/0437_0001.djvu.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1566"></edm:provider>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
   </ore:Aggregation>
-  <ore:Proxy rdf:about="/proxy/europeana/50/_providedCHO_NL_BwdADRKF_2_62_7">
-    <dc:date rdf:resource="#1942%7E"></dc:date>
-    <dcterms:created rdf:resource="#1942%2F1942"></dcterms:created>
-    <dc:identifier>#providedCHO_NL-BwdADRKF-2_62-7</dc:identifier>
-    <dc:language>nld</dc:language>
-    <dc:creator rdf:resource="http://data.europeana.eu/agent/174106"></dc:creator>
-    <edm:europeanaProxy>true</edm:europeanaProxy>
-    <ore:proxyFor rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
-    <ore:proxyIn rdf:resource="/aggregation/europeana/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
-    <ore:lineage rdf:resource="/proxy/provider/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
-  </ore:Proxy>
-  <ore:Proxy rdf:about="/proxy/provider/50/_providedCHO_NL_BwdADRKF_2_62_7">
-    <dc:creator xml:lang="nl">Brandsma, Titus, O.Carm., 1881-1942</dc:creator>
-    <dc:creator rdf:resource="http://id.loc.gov/authorities/names/n80119298"></dc:creator>
-    <dc:date>[ca. 1942]</dc:date>
-    <dc:identifier>62-7</dc:identifier>
-    <dc:language>dut</dc:language>
-    <dc:title xml:lang="nl">Teksten (fotokopieën, vijf bladzijden), door
-      Titus geschreven voor zijn boek over de H. Theresia. (originelen aanwezig in
-      het N.C.I. te Boxmeer).</dc:title>
-    <dc:type rdf:resource="http://vocab.getty.edu/aat/300379505"></dc:type>
-    <dcterms:created>1942/1942</dcterms:created>
-    <dcterms:extent>1 omslag</dcterms:extent>
-    <dcterms:isPartOf rdf:resource="#providedCHO_NL-BwdADRKF-2"></dcterms:isPartOf>
-    <edm:isNextInSequence rdf:resource="#providedCHO_NL-BwdADRKF-2_62-6b"/>
+  <ore:Proxy rdf:about="/proxy/provider/305/_nnhSX08">
+    <dc:contributor xml:lang="pl">Beaupre, Antoni.(Red.)</dc:contributor>
+    <dc:date xml:lang="pl">1923</dc:date>
+    <dc:description xml:lang="pl">Wojewódzka Biblioteka Publiczna w Krakowie</dc:description>
+    <dc:format>image/vnd.djvu</dc:format>
+    <dc:language>pol</dc:language>
+    <dc:publisher xml:lang="pl">Spółka Wydawnicza "Czas"</dc:publisher>
+    <dc:rights xml:lang="pl">Biblioteka Książąt Czartoryskich</dc:rights>
+    <dc:subject xml:lang="pl">20 w.</dc:subject>
+    <dc:subject xml:lang="pl">gazety polskie</dc:subject>
+    <dc:title xml:lang="pl">Czas. 1923, nr 251 (10 XI)</dc:title>
+    <dc:type xml:lang="pl">czasopismo</dc:type>
+    <dcterms:extent>Dziennik polityczny i literacko-społeczny; organ konserwatystów. - Opis fiz.: 4 s. ; 61 cm.</dcterms:extent>
     <edm:europeanaProxy>false</edm:europeanaProxy>
-    <ore:proxyFor rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
-    <ore:proxyIn rdf:resource="/aggregation/provider/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
+    <ore:proxyFor rdf:resource="/305/_nnhSX08"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/305/_nnhSX08"/>
     <edm:type>TEXT</edm:type>
   </ore:Proxy>
-  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/50/_providedCHO_NL_BwdADRKF_2_62_7">
-    <edm:aggregatedCHO rdf:resource="/50/_providedCHO_NL_BwdADRKF_2_62_7"/>
+  <ore:Proxy rdf:about="/proxy/europeana/305/_nnhSX08">
+    <dc:date rdf:resource="#1923"></dc:date>
+    <dc:identifier>#nnhSX08</dc:identifier>
+    <dc:language>pol</dc:language>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <edm:year>1923</edm:year>
+    <ore:proxyFor rdf:resource="/305/_nnhSX08"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/305/_nnhSX08"/>
+    <ore:lineage rdf:resource="/proxy/provider/305/_nnhSX08"/>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/305/_nnhSX08">
+    <edm:aggregatedCHO rdf:resource="/305/_nnhSX08"/>
     <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
     <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
-    <edm:datasetName>50_test_13032023_1018</edm:datasetName>
+    <edm:datasetName>305_local_26072024_1620</edm:datasetName>
     <edm:country>Netherlands</edm:country>
-    <edm:preview rdf:resource="https://archivesspace-ed.nl/digital_objects/258/280/062-007.pdf"/>
+    <edm:preview rdf:resource="http://mbc.malopolska.pl/Content/48386/d2j:big,0/0437_0001.djvu.jpg"/>
     <edm:language>nl</edm:language>
-    <edm:completeness>8</edm:completeness>
+    <edm:completeness>6</edm:completeness>
   </edm:EuropeanaAggregation>
-  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000046543016">
-    <skos:prefLabel xml:lang="en">Archive and Documentation Center for RK Friesland</skos:prefLabel>
-    <skos:prefLabel xml:lang="nl">Archief- en Documentatiecentrum voor R.K. Friesland</skos:prefLabel>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1566">
+    <skos:prefLabel xml:lang="en">Digital Libraries Federation</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Federacja Bibliotek Cyfrowych</skos:prefLabel>
   </foaf:Organization>
-  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000004671077">
-    <skos:prefLabel xml:lang="en">Archives Portal Europe</skos:prefLabel>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/2897">
+    <skos:prefLabel xml:lang="en">Malopolska Digital Library</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Małopolska Biblioteka Cyfrowa</skos:prefLabel>
   </foaf:Organization>
 </rdf:RDF>
