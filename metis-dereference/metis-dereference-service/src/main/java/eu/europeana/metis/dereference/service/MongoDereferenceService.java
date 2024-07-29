@@ -35,8 +35,6 @@ import jakarta.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +53,15 @@ public class MongoDereferenceService implements DereferenceService {
     private final RdfRetriever retriever;
     private final ProcessedEntityDao processedEntityDao;
     private final VocabularyDao vocabularyDao;
+
+    private record DeserializedEntity(EnrichmentBase entity, DereferenceResultStatus status) {
+
+    }
+
+    private record MatchedVocabularies(VocabularyCandidates candidates,
+                                       DereferenceResultStatus status) {
+
+    }
 
     /**
      * Constructor.
@@ -108,26 +115,26 @@ public class MongoDereferenceService implements DereferenceService {
 
         // Perform the breadth-first search to search for broader terms (if needed).
         final int iterations = resource.getVocabulary().getIterations();
-        final Map<String, Pair<EnrichmentBase, DereferenceResultStatus>> result;
+        final Map<String, DeserializedEntity> result;
         if (iterations > 0) {
             result = GraphUtils.breadthFirstSearch(resourceId,
-                new ImmutablePair<>(deserializedEntity, resource.getResultStatus()),
+                new DeserializedEntity(deserializedEntity, resource.getResultStatus()),
                 resource.getVocabulary().getIterations(),
                 this::resolveBroaderValue, this::extractBroaderResources);
         } else {
             result = new HashMap<>();
-            result.put(resourceId, new ImmutablePair<>(deserializedEntity,
+            result.put(resourceId, new DeserializedEntity(deserializedEntity,
                 resource.getResultStatus()));
         }
 
         // Done. Collect results.
         return new DereferenceResult(
-                result.values().stream().map(Pair::getLeft).collect(Collectors.toList()),
-                result.values().stream().map(Pair::getRight).filter(Objects::nonNull).findFirst()
+                result.values().stream().map(DeserializedEntity::entity).collect(Collectors.toList()),
+                result.values().stream().map(DeserializedEntity::status).filter(Objects::nonNull).findFirst()
                         .orElse(DereferenceResultStatus.SUCCESS));
     }
 
-    private Pair<EnrichmentBase, DereferenceResultStatus> resolveBroaderValue(String resourceId) {
+    private DeserializedEntity resolveBroaderValue(String resourceId) {
         final TransformedEntity resource = dereferenceSingleResource(resourceId);
         final EnrichmentBase deserializedEntity;
         try {
@@ -135,21 +142,20 @@ public class MongoDereferenceService implements DereferenceService {
                 : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getEntity());
         } catch (JAXBException e) {
             LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
-            return new ImmutablePair<>(null, DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
+            return new DeserializedEntity(null, DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
         }
-        return new ImmutablePair<>(deserializedEntity, resource.getResultStatus());
+        return new DeserializedEntity(deserializedEntity, resource.getResultStatus());
     }
 
-    private void extractBroaderResources(Pair<EnrichmentBase, DereferenceResultStatus> resource,
-                                         Set<String> destination) {
+    private void extractBroaderResources(DeserializedEntity resource, Set<String> destination) {
         final Stream<String> resourceIdStream;
-        if (resource.getLeft() instanceof Concept concept) {
+        if (resource.entity instanceof Concept concept) {
             resourceIdStream = Optional.ofNullable(concept.getBroader()).stream()
                 .flatMap(Collection::stream).map(Resource::getResource);
-        } else if (resource.getLeft() instanceof TimeSpan timeSpan) {
+        } else if (resource.entity instanceof TimeSpan timeSpan) {
             resourceIdStream = Optional.ofNullable(timeSpan.getIsPartOf()).stream()
                 .flatMap(List::stream).map(LabelResource::getResource);
-        } else if (resource.getLeft() instanceof Place place) {
+        } else if (resource.entity instanceof Place place) {
             resourceIdStream = Optional.ofNullable(place.getIsPartOf()).stream()
                 .flatMap(Collection::stream).map(LabelResource::getResource);
         } else {
@@ -183,21 +189,21 @@ public class MongoDereferenceService implements DereferenceService {
     private TransformedEntity performDereferenceAlgorithmForSingleResource(String resourceId) {
 
         // Find matching vocabularies, report if there are none.
-        final Pair<VocabularyCandidates, DereferenceResultStatus> vocabularyCandidates = getCandidateVocabularies(resourceId);
-        if (vocabularyCandidates.getRight() != DereferenceResultStatus.SUCCESS) {
-            return new TransformedEntity(null, null, vocabularyCandidates.getRight());
+        final MatchedVocabularies vocabularyCandidates = getCandidateVocabularies(resourceId);
+        if (vocabularyCandidates.status != DereferenceResultStatus.SUCCESS) {
+            return new TransformedEntity(null, null, vocabularyCandidates.status);
         }
 
         // If there are vocabularies, we attempt to obtain the original entity from source.
         final OriginalEntity originalEntity = retrieveOriginalEntity(resourceId,
-            vocabularyCandidates.getLeft().getVocabulariesSuffixes());
+            vocabularyCandidates.candidates.getVocabulariesSuffixes());
         if (originalEntity.getResultStatus() != DereferenceResultStatus.SUCCESS) {
             return new TransformedEntity(null, null, originalEntity.getResultStatus());
         }
 
         // If we managed to obtain the original entity, we will try to transform it.
         final Set<DereferenceResultStatus> statuses = EnumSet.noneOf(DereferenceResultStatus.class);
-        for (Vocabulary vocabulary : vocabularyCandidates.getLeft().getVocabularies()) {
+        for (Vocabulary vocabulary : vocabularyCandidates.candidates.getVocabularies()) {
             final TransformedEntity transformedEntity = transformEntity(vocabulary,
                 originalEntity.getEntity(), resourceId);
             if (transformedEntity.getResultStatus() == DereferenceResultStatus.SUCCESS) {
@@ -214,7 +220,7 @@ public class MongoDereferenceService implements DereferenceService {
         return new TransformedEntity(null, null, status);
     }
 
-    private Pair<VocabularyCandidates, DereferenceResultStatus> getCandidateVocabularies(String resourceId) {
+    private MatchedVocabularies getCandidateVocabularies(String resourceId) {
 
         // Find matching vocabularies.
         final VocabularyCandidates vocabularyCandidates;
@@ -225,16 +231,16 @@ public class MongoDereferenceService implements DereferenceService {
             // Shouldn't happen as we checked this before.
             LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
                 resourceId), e);
-            return new ImmutablePair<>(null, DereferenceResultStatus.FAILURE);
+            return new MatchedVocabularies(null, DereferenceResultStatus.FAILURE);
         }
 
         // Report if there are none.
         if (vocabularyCandidates.isEmpty()) {
-            return new ImmutablePair<>(null, DereferenceResultStatus.NO_VOCABULARY_MATCHING);
+            return new MatchedVocabularies(null, DereferenceResultStatus.NO_VOCABULARY_MATCHING);
         }
 
         // Return result.
-        return new ImmutablePair<>(vocabularyCandidates, DereferenceResultStatus.SUCCESS);
+        return new MatchedVocabularies(vocabularyCandidates, DereferenceResultStatus.SUCCESS);
     }
 
     private TransformedEntity transformEntity(Vocabulary vocabulary, final String originalEntity,
