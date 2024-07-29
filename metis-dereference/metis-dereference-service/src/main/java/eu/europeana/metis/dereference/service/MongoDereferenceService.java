@@ -54,14 +54,15 @@ public class MongoDereferenceService implements DereferenceService {
     private final ProcessedEntityDao processedEntityDao;
     private final VocabularyDao vocabularyDao;
 
-    private record DeserializedEntity(EnrichmentBase entity, DereferenceResultStatus status) {
+    private record OriginalEntity(String entity, DereferenceResultStatus resultStatus) {}
 
-    }
+    private record TransformedEntity(Vocabulary vocabulary, String entity,
+                                     DereferenceResultStatus resultStatus) {}
+
+    private record DeserializedEntity(EnrichmentBase entity, DereferenceResultStatus status) {}
 
     private record MatchedVocabularies(VocabularyCandidates candidates,
-                                       DereferenceResultStatus status) {
-
-    }
+                                       DereferenceResultStatus status) {}
 
     /**
      * Constructor.
@@ -99,32 +100,32 @@ public class MongoDereferenceService implements DereferenceService {
 
         // Get the main object to dereference. In case of errors we are done.
         final TransformedEntity resource = dereferenceSingleResource(resourceId);
-        if (resource.getResultStatus() != DereferenceResultStatus.SUCCESS) {
-            return new DereferenceResult(resource.getResultStatus());
+        if (resource.resultStatus() != DereferenceResultStatus.SUCCESS) {
+            return new DereferenceResult(resource.resultStatus());
         }
 
         // Deserialize the entity
         final EnrichmentBase deserializedEntity;
         try {
-            deserializedEntity = resource.getEntity() == null ? null
-                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getEntity());
+            deserializedEntity = resource.entity() == null ? null
+                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.entity());
         } catch (JAXBException e) {
             LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
             return new DereferenceResult(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
         }
 
         // Perform the breadth-first search to search for broader terms (if needed).
-        final int iterations = resource.getVocabulary().getIterations();
+        final int iterations = resource.vocabulary().getIterations();
         final Map<String, DeserializedEntity> result;
         if (iterations > 0) {
             result = GraphUtils.breadthFirstSearch(resourceId,
-                new DeserializedEntity(deserializedEntity, resource.getResultStatus()),
-                resource.getVocabulary().getIterations(),
+                new DeserializedEntity(deserializedEntity, resource.resultStatus()),
+                resource.vocabulary().getIterations(),
                 this::resolveBroaderValue, this::extractBroaderResources);
         } else {
             result = new HashMap<>();
             result.put(resourceId, new DeserializedEntity(deserializedEntity,
-                resource.getResultStatus()));
+                resource.resultStatus()));
         }
 
         // Done. Collect results.
@@ -138,13 +139,13 @@ public class MongoDereferenceService implements DereferenceService {
         final TransformedEntity resource = dereferenceSingleResource(resourceId);
         final EnrichmentBase deserializedEntity;
         try {
-            deserializedEntity = resource.getEntity() == null ? null
-                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.getEntity());
+            deserializedEntity = resource.entity() == null ? null
+                : EnrichmentBaseConverter.convertToEnrichmentBase(resource.entity());
         } catch (JAXBException e) {
             LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
             return new DeserializedEntity(null, DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
         }
-        return new DeserializedEntity(deserializedEntity, resource.getResultStatus());
+        return new DeserializedEntity(deserializedEntity, resource.resultStatus());
     }
 
     private void extractBroaderResources(DeserializedEntity resource, Set<String> destination) {
@@ -197,19 +198,19 @@ public class MongoDereferenceService implements DereferenceService {
         // If there are vocabularies, we attempt to obtain the original entity from source.
         final OriginalEntity originalEntity = retrieveOriginalEntity(resourceId,
             vocabularyCandidates.candidates.getVocabulariesSuffixes());
-        if (originalEntity.getResultStatus() != DereferenceResultStatus.SUCCESS) {
-            return new TransformedEntity(null, null, originalEntity.getResultStatus());
+        if (originalEntity.resultStatus() != DereferenceResultStatus.SUCCESS) {
+            return new TransformedEntity(null, null, originalEntity.resultStatus());
         }
 
         // If we managed to obtain the original entity, we will try to transform it.
         final Set<DereferenceResultStatus> statuses = EnumSet.noneOf(DereferenceResultStatus.class);
         for (Vocabulary vocabulary : vocabularyCandidates.candidates.getVocabularies()) {
             final TransformedEntity transformedEntity = transformEntity(vocabulary,
-                originalEntity.getEntity(), resourceId);
-            if (transformedEntity.getResultStatus() == DereferenceResultStatus.SUCCESS) {
+                originalEntity.entity(), resourceId);
+            if (transformedEntity.resultStatus() == DereferenceResultStatus.SUCCESS) {
                 return transformedEntity;
             }
-            statuses.add(transformedEntity.getResultStatus());
+            statuses.add(transformedEntity.resultStatus());
         }
 
         // If we here, we did not find a successful transformation.
@@ -320,10 +321,10 @@ public class MongoDereferenceService implements DereferenceService {
     private void saveToCache(String resourceId, TransformedEntity transformedEntity) {
         final ProcessedEntity entityToCache = new ProcessedEntity();
         entityToCache.setResourceId(resourceId);
-        entityToCache.setXml(transformedEntity.getEntity());
-        entityToCache.setVocabularyId(Optional.ofNullable(transformedEntity.getVocabulary())
+        entityToCache.setXml(transformedEntity.entity());
+        entityToCache.setVocabularyId(Optional.ofNullable(transformedEntity.vocabulary())
             .map(Vocabulary::getId).map(ObjectId::toString).orElse(null));
-        entityToCache.setResultStatus(transformedEntity.getResultStatus());
+        entityToCache.setResultStatus(transformedEntity.resultStatus());
         processedEntityDao.save(entityToCache);
     }
 }
