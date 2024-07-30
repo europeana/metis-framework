@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.io.TikaInputStream;
@@ -109,17 +110,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
-    this.linkedProcessor = new LinkedProcessor();
-    initChainOfProcessors();
-  }
-
-  private void initChainOfProcessors() {
-    this.imageProcessor.setNextProcessor(null);
-    this.audioVideoProcessor.setNextProcessor(null);
-    this.media3dProcessor.setNextProcessor(null);
-    this.linkedProcessor.setNextProcessor(oEmbedProcessor);
-    this.oEmbedProcessor.setNextProcessor(textProcessor);
-    this.textProcessor.setNextProcessor(null);
+    this.linkedProcessor = new LinkedProcessor(List.of(oEmbedProcessor, textProcessor));
   }
 
   @Override

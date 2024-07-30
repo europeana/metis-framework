@@ -27,8 +27,6 @@ public class OEmbedProcessor implements MediaProcessor {
    */
   private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedProcessor.class);
 
-  private MediaProcessor nextProcessor;
-
   /**
    * Gets oembed model from json.
    *
@@ -155,18 +153,17 @@ public class OEmbedProcessor implements MediaProcessor {
           embedModel = getOEmbedModelfromXml(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
         }
         if (isValidOEmbedPhotoOrVideo(embedModel)) {
-          resourceExtractionResult = getResourceExtractionResult(resource, detectedMimeType, mainThumbnailAvailable,
+          resourceExtractionResult = getResourceExtractionResult(resource, detectedMimeType,
               embedModel);
         } else {
           LOGGER.warn("No oembed model found");
-          resourceExtractionResult = this.nextProcessor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
+          resourceExtractionResult = null;
         }
       } catch (IOException e) {
         throw new MediaExtractionException("Unable to read OEmbedded resource", e);
       }
-      // pass it on to the next processor to handle
     } else {
-      resourceExtractionResult = this.nextProcessor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
+      resourceExtractionResult = null;
     }
 
     return resourceExtractionResult;
@@ -183,11 +180,8 @@ public class OEmbedProcessor implements MediaProcessor {
    */
   @Override
   public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType) throws MediaExtractionException {
-    if (detectedMimeType.startsWith("application/json+oembed") || detectedMimeType.startsWith("application/xml+oembed")) {
-      return null;
-    } else {
-      return this.nextProcessor.copyMetadata(resource, detectedMimeType);
-    }
+    //if (detectedMimeType.startsWith("application/json+oembed") || detectedMimeType.startsWith("application/xml+oembed")) {
+    return null;
   }
 
   /**
@@ -198,18 +192,8 @@ public class OEmbedProcessor implements MediaProcessor {
     return true;
   }
 
-  /**
-   * This creates structure to enable a chain of media processors
-   *
-   * @param nextProcessable next media processor in the chain
-   */
-  @Override
-  public void setNextProcessor(MediaProcessor nextProcessable) {
-    this.nextProcessor = nextProcessable;
-  }
-
   private ResourceExtractionResult getResourceExtractionResult(Resource resource, String detectedMimeType,
-      boolean mainThumbnailAvailable, OEmbedModel oEmbedModel) throws MediaExtractionException {
+      OEmbedModel oEmbedModel) throws MediaExtractionException {
     ResourceExtractionResult resourceExtractionResult;
     switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
       case "photo" -> {
@@ -225,8 +209,7 @@ public class OEmbedProcessor implements MediaProcessor {
             resource.getProvidedFileSize(), duration, null, oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
         resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
       }
-      default ->
-          resourceExtractionResult = this.nextProcessor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
+      default -> resourceExtractionResult = null;
     }
     return resourceExtractionResult;
   }

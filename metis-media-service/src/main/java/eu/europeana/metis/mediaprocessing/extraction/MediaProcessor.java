@@ -46,12 +46,6 @@ interface MediaProcessor {
   boolean downloadResourceForFullProcessing();
 
   /**
-   * This creates structure to enable a chain of media processors
-   * @param nextProcessable next media processor in the chain
-   */
-  void setNextProcessor(MediaProcessor nextProcessable);
-
-  /**
    * Purges negative values.
    *
    * @param value The value to examine.

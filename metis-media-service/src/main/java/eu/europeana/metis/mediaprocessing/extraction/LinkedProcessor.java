@@ -3,13 +3,19 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import java.util.Iterator;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LinkedProcessor implements MediaProcessor {
   private static final Logger LOGGER = LoggerFactory.getLogger(LinkedProcessor.class);
 
-  private MediaProcessor nextProcessor;
+  private List<MediaProcessor> mediaProcessors;
+
+  public LinkedProcessor(List<MediaProcessor> mediaProcessorList) {
+    this.mediaProcessors = mediaProcessorList;
+  }
   /**
    * Process a resource by extracting the metadata from the content.
    *
@@ -26,7 +32,12 @@ public class LinkedProcessor implements MediaProcessor {
   public ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)
       throws MediaExtractionException {
     LOGGER.info("Extracting metadata for resource {}", resource);
-    return this.nextProcessor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
+    Iterator<MediaProcessor> iterator = mediaProcessors.iterator();
+    while (iterator.hasNext()) {
+      MediaProcessor mediaProcessor = iterator.next();
+
+    }
+    return null;
   }
 
   /**
@@ -41,7 +52,7 @@ public class LinkedProcessor implements MediaProcessor {
   @Override
   public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType) throws MediaExtractionException {
     LOGGER.info("Copying metadata for resource {}", resource);
-    return this.nextProcessor.copyMetadata(resource, detectedMimeType);
+    return null;
   }
 
   /**
@@ -49,16 +60,8 @@ public class LinkedProcessor implements MediaProcessor {
    */
   @Override
   public boolean downloadResourceForFullProcessing() {
-    return this.nextProcessor.downloadResourceForFullProcessing();
+
+    return true;
   }
 
-  /**
-   * This creates structure to enable a chain of media processors
-   *
-   * @param nextProcessable next media processor in the chain
-   */
-  @Override
-  public void setNextProcessor(MediaProcessor nextProcessable) {
-    this.nextProcessor = nextProcessable;
-  }
 }

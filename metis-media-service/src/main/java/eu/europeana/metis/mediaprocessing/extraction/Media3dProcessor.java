@@ -7,7 +7,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 
 class Media3dProcessor implements MediaProcessor {
-  private MediaProcessor nextProcessor;
+
   @Override
   public ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)
       throws MediaExtractionException {
@@ -30,13 +30,4 @@ class Media3dProcessor implements MediaProcessor {
     return false;
   }
 
-  /**
-   * This creates structure to enable a chain of media processors
-   *
-   * @param nextProcessable next media processor in the chain
-   */
-  @Override
-  public void setNextProcessor(MediaProcessor nextProcessable) {
-    this.nextProcessor = nextProcessable;
-  }
 }

@@ -45,10 +45,6 @@ class OEmbedProcessorTest {
         MediaProcessorFactory.DEFAULT_RESOURCE_CONNECT_TIMEOUT,
         MediaProcessorFactory.DEFAULT_RESOURCE_RESPONSE_TIMEOUT,
         MediaProcessorFactory.DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT);
-    ThumbnailGenerator thumbnailGenerator = mock(ThumbnailGenerator.class);
-    PdfToImageConverter pdfToImageConverter = mock(PdfToImageConverter.class);
-    TextProcessor textProcessor = new TextProcessor(thumbnailGenerator, pdfToImageConverter);
-    processor.setNextProcessor(textProcessor);
   }
 
   @Test
@@ -100,7 +96,7 @@ class OEmbedProcessorTest {
     ResourceExtractionResult resourceExtractionResult = processor.copyMetadata(oembedResource.resource,
         oembedResource.detectedMimeType);
     // then
-    assertNotNull(resourceExtractionResult);
+    assertNull(resourceExtractionResult);
   }
 
   @Test

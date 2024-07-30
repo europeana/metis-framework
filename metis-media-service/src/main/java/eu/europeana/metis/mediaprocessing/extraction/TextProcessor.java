@@ -43,7 +43,6 @@ class TextProcessor implements MediaProcessor {
   private final ThumbnailGenerator thumbnailGenerator;
   private final PdfToImageConverter pdfToImageConverter;
 
-  private MediaProcessor nextProcessor;
   /**
    * Constructor.
    *
@@ -58,16 +57,6 @@ class TextProcessor implements MediaProcessor {
   @Override
   public boolean downloadResourceForFullProcessing() {
     return true;
-  }
-
-  /**
-   * This creates structure to enable a chain of media processors
-   *
-   * @param nextProcessable next media processor in the chain
-   */
-  @Override
-  public void setNextProcessor(MediaProcessor nextProcessable) {
-    this.nextProcessor = nextProcessable;
   }
 
   @Override
