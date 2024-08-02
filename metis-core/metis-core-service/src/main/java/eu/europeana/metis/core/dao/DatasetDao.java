@@ -382,18 +382,14 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
     //Search on datasetId, only words that start with a numeric character
     for (String datasetIdWord : datasetIdWords) {
-      datasetIdFilters.add(Filters.regex(DATASET_ID.getFieldName())
-                                  .pattern(Pattern.compile("^" + Pattern.quote(datasetIdWord))));
+      datasetIdFilters.add(Filters.regex(DATASET_ID.getFieldName(), Pattern.compile("^" + Pattern.quote(datasetIdWord))));
     }
 
     //Search on provider and dataProvider
     for (String word : words) {
-      datasetNameFilters.add(Filters.regex(DATASET_NAME.getFieldName())
-                                    .pattern(Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
-      providerIdFilters.add(Filters.regex(PROVIDER.getFieldName())
-                                   .pattern(Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
-      dataProviderIdFilters.add(Filters.regex(DATA_PROVIDER.getFieldName())
-                                       .pattern(Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
+      datasetNameFilters.add(Filters.regex(DATASET_NAME.getFieldName(), (Pattern.compile(word, Pattern.CASE_INSENSITIVE))));
+      providerIdFilters.add(Filters.regex(PROVIDER.getFieldName(), Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
+      dataProviderIdFilters.add(Filters.regex(DATA_PROVIDER.getFieldName(), (Pattern.compile(word, Pattern.CASE_INSENSITIVE))));
     }
     final List<Filter> filterGroups = new ArrayList<>();
     if (!datasetIdFilters.isEmpty()) {

@@ -61,37 +61,6 @@
       <artifactId>ecloud-service-dps-rest-client-java</artifactId>
       <version>${version.ecloud}</version>
     </dependency>
-    <!--    <dependency>-->
-    <!--      <groupId>eu.europeana.corelib</groupId>-->
-    <!--      <artifactId>corelib-web</artifactId>-->
-    <!--      <version>${version.corelib}</version>-->
-    <!--      <exclusions>-->
-    <!--        <exclusion>-->
-    <!--          <groupId>eu.europeana.corelib</groupId>-->
-    <!--          <artifactId>corelib-definitions</artifactId>-->
-    <!--        </exclusion>-->
-    <!--        <exclusion>-->
-    <!--          <artifactId>wstx-asl</artifactId>-->
-    <!--          <groupId>org.codehaus.woodstox</groupId>-->
-    <!--        </exclusion>-->
-    <!--        <exclusion>-->
-    <!--          <groupId>org.slf4j</groupId>-->
-    <!--          <artifactId>slf4j-simple</artifactId>-->
-    <!--        </exclusion>-->
-    <!--        <exclusion>-->
-    <!--          <groupId>org.slf4j</groupId>-->
-    <!--          <artifactId>slf4j-jdk14</artifactId>-->
-    <!--        </exclusion>-->
-    <!--        <exclusion>-->
-    <!--          <artifactId>jsr311-api</artifactId>-->
-    <!--          <groupId>jakarta.ws.rs</groupId>-->
-    <!--        </exclusion>-->
-    <!--        <exclusion>-->
-    <!--          <artifactId>mockito-all</artifactId>-->
-    <!--          <groupId>org.mockito</groupId>-->
-    <!--        </exclusion>-->
-    <!--      </exclusions>-->
-    <!--    </dependency>-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>

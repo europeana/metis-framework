@@ -1,5 +1,7 @@
 package eu.europeana.metis.dereference.service;
 
+import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -18,6 +20,7 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import eu.europeana.metis.exception.BadContentException;
+import jakarta.xml.bind.JAXBException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,9 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import jakarta.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
@@ -130,7 +131,7 @@ public class MongoDereferenceService implements DereferenceService {
 
         // Done. Collect results.
         return new DereferenceResult(
-                result.values().stream().map(DeserializedEntity::entity).collect(Collectors.toList()),
+                result.values().stream().map(DeserializedEntity::entity).toList(),
                 result.values().stream().map(DeserializedEntity::status).filter(Objects::nonNull).findFirst()
                         .orElse(DereferenceResultStatus.SUCCESS));
     }
@@ -287,7 +288,7 @@ public class MongoDereferenceService implements DereferenceService {
 
         // Evaluate and return the result.
         if (originalEntity == null && LOGGER.isInfoEnabled()) {
-            LOGGER.info("No entity XML for uri {}", resourceId);
+            LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
         }
         final DereferenceResultStatus dereferenceResultStatus = originalEntity == null ?
             DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY : DereferenceResultStatus.SUCCESS;

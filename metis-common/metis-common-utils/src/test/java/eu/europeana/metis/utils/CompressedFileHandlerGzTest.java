@@ -19,14 +19,14 @@ import org.junit.jupiter.api.Test;
 public class CompressedFileHandlerGzTest {
 
   public static final String FILE_EXTENSION = ".tar.gz";
-  private final static String DESTINATION_DIR = String.format("src%1$stest%1$sresources%1$s__files%1$s", File.separator);
-  private final static int XML_FILES_COUNT = 13;
-  private final static String FILE_NAME = "gzFile";
-  private final static String FILE_NAME2 = "gzFileWithCompressedGZFiles";
-  private final static String FILE_NAME3 = "gzFilesWithMixedCompressedFiles";
-  private final static String FILE_NAME4 = "gzFileWithSubdirContainingSpaceInName";
-  private final static String XML_TYPE = "xml";
-  private final static String DESTINATION_NAME_FOR_ZIP_WITH_SPACES = "zip_file";
+  private static final String DESTINATION_DIR = String.format("src%1$stest%1$sresources%1$s__files%1$s", File.separator);
+  private static final int XML_FILES_COUNT = 13;
+  private static final String FILE_NAME = "gzFile";
+  private static final String FILE_NAME2 = "gzFileWithCompressedGZFiles";
+  private static final String FILE_NAME3 = "gzFilesWithMixedCompressedFiles";
+  private static final String FILE_NAME4 = "gzFileWithSubdirContainingSpaceInName";
+  private static final String XML_TYPE = "xml";
+  private static final String DESTINATION_NAME_FOR_ZIP_WITH_SPACES = "zip_file";
 
   @AfterAll
   public static void cleanUp() throws IOException {
@@ -50,14 +50,6 @@ public class CompressedFileHandlerGzTest {
 
   @Test
   void shouldUnpackTheTarGzFilesRecursivelyWithCompressedXMLFiles() throws IOException {
-    CompressedFileHandler.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION), Path.of(DESTINATION_DIR));
-    Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
-    assertNotNull(files);
-    assertEquals(XML_FILES_COUNT, files.size());
-  }
-
-  @Test
-  void shouldUnpackTheTGZFilesRecursivelyWithCompressedXMLFiles() throws IOException {
     CompressedFileHandler.extractFile(Path.of(DESTINATION_DIR + FILE_NAME2 + FILE_EXTENSION), Path.of(DESTINATION_DIR));
     Collection<File> files = getXMLFiles(DESTINATION_DIR + FILE_NAME2);
     assertNotNull(files);

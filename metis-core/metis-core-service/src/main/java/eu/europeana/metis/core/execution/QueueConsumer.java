@@ -111,15 +111,10 @@ public class QueueConsumer extends DefaultConsumer {
       } else if (workflowClaimed.equals(Boolean.TRUE)) {
         LOGGER.info("workflowExecutionId: {} - Claimed", workflowExecution.getId());
         handleClaimedExecution(workflowExecution);
-      } else if (workflowClaimed.equals(Boolean.FALSE)
-          && WorkflowExecutionMonitor.CLAIMABLE_STATUSES
-          .contains(workflowExecution.getWorkflowStatus())) {
-        LOGGER.info("workflowExecutionId: {} - Could not be claimed, discarding message",
-            workflowExecution.getId());
+      } else if (WorkflowExecutionMonitor.CLAIMABLE_STATUSES.contains(workflowExecution.getWorkflowStatus())) {
+        LOGGER.info("workflowExecutionId: {} - Could not be claimed, discarding message", workflowExecution.getId());
       } else {
-        LOGGER
-            .info("workflowExecutionId: {} - Does not have a claimable status, discarding message",
-                workflowExecution.getId());
+        LOGGER.info("workflowExecutionId: {} - Does not have a claimable status, discarding message", workflowExecution.getId());
       }
     } finally {
       sendAck(rabbitmqEnvelope, objectId);
