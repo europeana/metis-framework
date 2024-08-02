@@ -46,14 +46,17 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
   private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
 
+  private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY = "/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource[/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource =/rdf:RDF/edm:WebResource[svcs:has_service/@rdf:resource = /rdf:RDF/svcs:Service/@rdf:about and /rdf:RDF/svcs:Service/dcterms:conformsTo/@rdf:resource = \"https://oembed.com/\"]/@rdf:about]";
+  private static final String OEMBED_XPATH_CONDITION_HAS_VIEW = "/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource[/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource=/rdf:RDF/edm:WebResource[svcs:has_service/@rdf:resource = /rdf:RDF/svcs:Service/@rdf:about and /rdf:RDF/svcs:Service/dcterms:conformsTo/@rdf:resource = \"https://oembed.com/\"]/@rdf:about]";
+
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
-          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource"));
+      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource"));
   private final XPathExpressionWrapper getHasViewExpression = new XPathExpressionWrapper(
-          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource"));
+      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource |" + OEMBED_XPATH_CONDITION_HAS_VIEW));
   private final XPathExpressionWrapper getIsShownAtExpression = new XPathExpressionWrapper(
-          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource"));
+      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource"));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
-          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource"));
+      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource" + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
   private static class XPathExpressionWrapper extends
           AbstractThreadSafeWrapper<XPathExpression, RdfDeserializationException> {

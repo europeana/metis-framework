@@ -53,7 +53,6 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final TextProcessor textProcessor;
   private final Media3dProcessor media3dProcessor;
   private final OEmbedProcessor oEmbedProcessor;
-  private final LinkedProcessor linkedProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -69,7 +68,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika,
       ImageProcessor imageProcessor, AudioVideoProcessor audioVideoProcessor,
       TextProcessor textProcessor, Media3dProcessor media3dProcessor,
-      OEmbedProcessor oEmbedProcessor, LinkedProcessor linkedProcessor) {
+      OEmbedProcessor oEmbedProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
@@ -78,7 +77,6 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.textProcessor = textProcessor;
     this.media3dProcessor = media3dProcessor;
     this.oEmbedProcessor = oEmbedProcessor;
-    this.linkedProcessor = linkedProcessor;
   }
 
   /**
@@ -110,7 +108,6 @@ public class MediaExtractorImpl implements MediaExtractor {
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
-    this.linkedProcessor = new LinkedProcessor(List.of(oEmbedProcessor, textProcessor));
   }
 
   @Override
@@ -202,16 +199,27 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
-  MediaProcessor chooseMediaProcessor(MediaType mediaType) {
+  MediaProcessor chooseMediaProcessor(MediaType mediaType, String detectedMimeType) {
     final MediaProcessor processor;
     switch (mediaType) {
-      case TEXT, OTHER -> processor = linkedProcessor;
+      case TEXT, OTHER -> processor = chooseByDetectedMimeType(detectedMimeType);
       case AUDIO, VIDEO -> processor = audioVideoProcessor;
       case IMAGE -> processor = imageProcessor;
       case THREE_D -> processor = media3dProcessor;
       default -> processor = null;
     }
     return processor;
+  }
+
+  MediaProcessor chooseByDetectedMimeType(String detectedMimeType) {
+    if (detectedMimeType == null) {
+      return null;
+    } else if (detectedMimeType.startsWith("text/xml") || detectedMimeType.startsWith("application/xml")
+    || detectedMimeType.startsWith("application/json")) {
+      return oEmbedProcessor;
+    } else {
+      return textProcessor;
+    }
   }
 
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
@@ -264,7 +272,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Choose the right media processor.
-    final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
+    final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType);
 
     // Process the resource depending on the mode.
     final ResourceExtractionResult result;
@@ -290,7 +298,7 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @return true if and only if resources of the given type need to be downloaded before performing full processing.
    */
   boolean shouldDownloadForFullProcessing(String mimeType) {
-    return Optional.of(MediaType.getMediaType(mimeType)).map(this::chooseMediaProcessor)
+    return Optional.of(MediaType.getMediaType(mimeType)).map(mediaType -> chooseMediaProcessor(mediaType, mimeType))
                    .map(MediaProcessor::downloadResourceForFullProcessing).orElse(Boolean.FALSE);
   }
 }

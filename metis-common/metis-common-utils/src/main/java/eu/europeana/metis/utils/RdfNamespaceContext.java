@@ -19,6 +19,7 @@ public class RdfNamespaceContext implements NamespaceContext {
   public static final String RDF_NAMESPACE_PREFIX = "rdf";
   public static final String EDM_NAMESPACE_PREFIX = "edm";
   public static final String ORE_NAMESPACE_PREFIX = "ore";
+  public static final String SVCS_NAMESPACE_PREFIX = "svcs";
   
   private static final Map<String, String> PREFIX_TO_NAMESPACE_MAP = new HashMap<>();
 
@@ -30,6 +31,7 @@ public class RdfNamespaceContext implements NamespaceContext {
     PREFIX_TO_NAMESPACE_MAP.put(RDF_NAMESPACE_PREFIX, "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
     PREFIX_TO_NAMESPACE_MAP.put(ORE_NAMESPACE_PREFIX, "http://www.openarchives.org/ore/terms/");
     PREFIX_TO_NAMESPACE_MAP.put(EDM_NAMESPACE_PREFIX, "http://www.europeana.eu/schemas/edm/");
+    PREFIX_TO_NAMESPACE_MAP.put(SVCS_NAMESPACE_PREFIX,"http://rdfs.org/sioc/services#");
   }
 
   @Override
