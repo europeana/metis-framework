@@ -15,13 +15,12 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Class with utility methods for converting an instance of {@link eu.europeana.metis.schema.jibx.RDF}
- * to an instance of {@link eu.europeana.metis.schema.edm.beans.FullBean}.
+ * Class with utility methods for converting fields of {@link eu.europeana.metis.schema.jibx.RDF}
+ * to fields of {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class FieldInputUtils {
 
