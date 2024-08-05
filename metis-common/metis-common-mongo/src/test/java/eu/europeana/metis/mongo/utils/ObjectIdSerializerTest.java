@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -55,8 +54,7 @@ class ObjectIdSerializerTest {
   }
 
   private static JsonGenerator getJsonGenerator(Writer writer) throws IOException {
-    final JsonGenerator jsonGenerator = JsonFactory.builder().build().createGenerator(writer);
-    return jsonGenerator;
+    return JsonFactory.builder().build().createGenerator(writer);
   }
 
   private static SerializerProvider getSerializerProvider() {

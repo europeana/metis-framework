@@ -2,8 +2,8 @@ package eu.europeana.metis.mongo.connection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ReadPreference;
@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  */
 class MongoClientProviderTest {
 
-  private final static String DATABASE_NAME = "dbTest";
+  private static final String DATABASE_NAME = "dbTest";
 
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
@@ -39,7 +39,7 @@ class MongoClientProviderTest {
     embeddedLocalhostMongo.stop();
   }
 
-  private static MongoProperties getMongoProperties() {
+  private static MongoProperties<IllegalArgumentException> getMongoProperties() {
     final String mongoHost = embeddedLocalhostMongo.getMongoHost();
     final int mongoPort = embeddedLocalhostMongo.getMongoPort();
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
@@ -79,7 +79,7 @@ class MongoClientProviderTest {
 
     final Supplier<MongoClient> mongoClientSupplier = MongoClientProvider.createAsSupplier(String.format("mongodb://%s:%s", mongoHost, mongoPort));
 
-    assertTrue(mongoClientSupplier.get() instanceof MongoClient);
+    assertInstanceOf(MongoClient.class, mongoClientSupplier.get());
   }
 
   @Test
@@ -95,7 +95,7 @@ class MongoClientProviderTest {
     final MongoClient mongoClient = new MongoClientProvider<IllegalArgumentException>(getMongoProperties()).createMongoClient();
 
     assertNotNull(mongoClient);
-    assertTrue(mongoClient instanceof MongoClient);
+    assertInstanceOf(MongoClient.class, mongoClient);
   }
 
   @Test

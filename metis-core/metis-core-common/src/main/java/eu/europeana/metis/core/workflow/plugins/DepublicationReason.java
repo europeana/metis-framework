@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+/**
+ * Enum for depublication reason.
+ */
 public enum DepublicationReason {
 
   BROKEN_MEDIA_LINKS("Broken media links"),
@@ -15,7 +18,8 @@ public enum DepublicationReason {
   DepublicationReason(String valueAsString) {
     this.valueAsString = valueAsString;
   }
-  
+
+  @Override
   public String toString(){
     return valueAsString;
   }

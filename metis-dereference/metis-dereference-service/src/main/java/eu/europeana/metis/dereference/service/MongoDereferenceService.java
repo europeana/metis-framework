@@ -150,20 +150,16 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     private void extractBroaderResources(DeserializedEntity resource, Set<String> destination) {
-        final Stream<String> resourceIdStream;
-        if (resource.entity instanceof Concept concept) {
-            resourceIdStream = Optional.ofNullable(concept.getBroader()).stream()
-                .flatMap(Collection::stream).map(Resource::getResource);
-        } else if (resource.entity instanceof TimeSpan timeSpan) {
-            resourceIdStream = Optional.ofNullable(timeSpan.getIsPartOf()).stream()
-                .flatMap(List::stream).map(LabelResource::getResource);
-        } else if (resource.entity instanceof Place place) {
-            resourceIdStream = Optional.ofNullable(place.getIsPartOf()).stream()
-                .flatMap(Collection::stream).map(LabelResource::getResource);
-        } else {
-            resourceIdStream = Stream.empty();
-        }
-        resourceIdStream.filter(Objects::nonNull).forEach(destination::add);
+        final Stream<String> resourceIdStream = switch (resource.entity) {
+          case Concept concept -> Optional.ofNullable(concept.getBroader()).stream()
+                                          .flatMap(Collection::stream).map(Resource::getResource);
+          case TimeSpan timeSpan -> Optional.ofNullable(timeSpan.getIsPartOf()).stream()
+                                            .flatMap(List::stream).map(LabelResource::getResource);
+          case Place place -> Optional.ofNullable(place.getIsPartOf()).stream()
+                                      .flatMap(Collection::stream).map(LabelResource::getResource);
+          case null, default -> Stream.empty();
+        };
+      resourceIdStream.filter(Objects::nonNull).forEach(destination::add);
     }
 
     private TransformedEntity dereferenceSingleResource(String resourceId) {
