@@ -13,7 +13,7 @@ public class DepublishRecordIdView {
 
   private final String recordId;
   private final DepublicationStatus depublicationStatus;
-  private final DepublicationReason depublicationReason;
+  private final String depublicationReason;
 
   @JsonSerialize(using = IsoInstantSerializer.class)
   private final Instant depublicationDate;
@@ -27,7 +27,8 @@ public class DepublishRecordIdView {
     this.depublicationDate = record.getDepublicationDate();
     this.depublicationStatus = DepublicationStatus
         .convertFromModelToView(record.getDepublicationStatus());
-    this.depublicationReason = record.getDepublicationReason() == null ? DepublicationReason.UNKNOWN : record.getDepublicationReason();
+    this.depublicationReason = record.getDepublicationReason() == null ? DepublicationReason.UNKNOWN.toString() :
+        record.getDepublicationReason().toString();
   }
 
   public String getRecordId() {
@@ -42,7 +43,7 @@ public class DepublishRecordIdView {
     return depublicationDate;
   }
 
-  public DepublicationReason getDepublicationReason() {
+  public String getDepublicationReason() {
     return depublicationReason;
   }
 
