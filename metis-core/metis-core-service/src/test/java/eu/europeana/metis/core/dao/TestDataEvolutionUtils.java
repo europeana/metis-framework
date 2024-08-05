@@ -310,8 +310,8 @@ class TestDataEvolutionUtils {
         .compileVersionEvolution(plugin2, execution2);
     assertNotNull(resultForTwo);
     assertEquals(1, resultForTwo.size());
-    assertSame(plugin1, resultForThree.get(0).getLeft());
-    assertSame(execution1, resultForThree.get(0).getRight());
+    assertSame(plugin1, resultForThree.getFirst().getLeft());
+    assertSame(execution1, resultForThree.getFirst().getRight());
 
     // Execute the call to examine just one
     final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForOne = dataEvolutionUtils

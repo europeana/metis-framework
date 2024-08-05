@@ -105,7 +105,7 @@ public final class RdfEntityUtils {
                            referenceTerm.getReference().toString()))
                        .forEach(resourceOrLiteralType -> {
                          final Resource resource = new Resource();
-                         resource.setResource(listOfAboutTypes.get(0).getAbout());
+                         resource.setResource(listOfAboutTypes.getFirst().getAbout());
                          resourceOrLiteralType.setResource(resource);
                        });
       }

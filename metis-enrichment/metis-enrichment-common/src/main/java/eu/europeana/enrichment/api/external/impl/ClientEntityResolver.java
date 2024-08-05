@@ -103,7 +103,7 @@ public class ClientEntityResolver implements EntityResolver {
     // TODO: 02/06/2022 This is actually bypassing the batching.. This is the selected way to perform this for now.
     for (I batchItem : batch) {
       List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
-      result.put(batchItem, !enrichmentBaseList.isEmpty() ? enrichmentBaseList.stream().filter(Objects::nonNull).collect(Collectors.toList()) :
+      result.put(batchItem, !enrichmentBaseList.isEmpty() ? enrichmentBaseList.stream().filter(Objects::nonNull).toList() :
               Collections.emptyList());
     }
     return result;

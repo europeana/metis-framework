@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link Indexer}.
- *
- * @author jochen
  */
 public class IndexerImpl implements Indexer {
 
@@ -86,7 +84,7 @@ public class IndexerImpl implements Indexer {
     final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(recordContent);
     final List<TierResults> result = new ArrayList<>();
     indexRecords(List.of(rdfRecord), indexingProperties, result::add);
-    return result.get(0);
+    return result.getFirst();
   }
 
   @Override

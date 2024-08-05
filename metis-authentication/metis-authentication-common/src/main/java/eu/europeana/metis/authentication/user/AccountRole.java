@@ -5,9 +5,6 @@ import eu.europeana.metis.exception.BadContentException;
 
 /**
  * The Role of an account.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-10-31
  */
 public enum AccountRole {
   METIS_ADMIN, EUROPEANA_DATA_OFFICER, PROVIDER_VIEWER;

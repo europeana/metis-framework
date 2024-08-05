@@ -59,8 +59,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     this.current = current;
     this.updated = updated;
     this.mongoServer = mongoServer;
-    this.updateOperators = Optional.ofNullable(updateOperators).stream().flatMap(Collection::stream)
-                                   .collect(Collectors.toList());
+    this.updateOperators = Optional.ofNullable(updateOperators).stream().flatMap(Collection::stream).collect(Collectors.toList());
     this.queryCreator = queryCreator;
   }
 
@@ -170,8 +169,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   private static List<WebResourceImpl> castWebResourceList(List<? extends WebResource> input) {
-    return input == null ? null : input.stream().map(WebResourceImpl.class::cast)
-                                       .collect(Collectors.toList());
+    return input == null ? null : input.stream().map(WebResourceImpl.class::cast).toList();
   }
 
   @Override

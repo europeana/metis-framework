@@ -109,7 +109,7 @@ class MongoDereferenceServiceTest {
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result0);
     assertEquals(1, result0.getEnrichmentBasesAsList().size());
-    assertEquals(PLACE_ID, result0.getEnrichmentBasesAsList().get(0).getAbout());
+    assertEquals(PLACE_ID, result0.getEnrichmentBasesAsList().getFirst().getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
     verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
@@ -121,7 +121,7 @@ class MongoDereferenceServiceTest {
     final DereferenceResult result1 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result1);
     assertEquals(1, result1.getEnrichmentBasesAsList().size());
-    assertEquals(PLACE_ID, result1.getEnrichmentBasesAsList().get(0).getAbout());
+    assertEquals(PLACE_ID, result1.getEnrichmentBasesAsList().getFirst().getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
     verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());

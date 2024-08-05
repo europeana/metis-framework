@@ -52,9 +52,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Proxies Service which encapsulates functionality that has to be proxied to an external resource.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-02-26
  */
 public class ProxiesService {
 
@@ -565,7 +562,7 @@ public class ProxiesService {
     if (representations == null || representations.isEmpty()) {
       return null;
     }
-    final Representation representation = representations.get(0);
+    final Representation representation = representations.getFirst();
 
     // Perform checks on the file lists.
     if (representation.getFiles() == null || representation.getFiles().isEmpty()) {
@@ -573,7 +570,7 @@ public class ProxiesService {
           "Expecting one file in the representation, but received none. externalTaskId: %s, pluginType: %s, ecloudId: %s",
           plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
     }
-    final File file = representation.getFiles().get(0);
+    final File file = representation.getFiles().getFirst();
 
     // Obtain the file contents belonging to this representation version.
     try {

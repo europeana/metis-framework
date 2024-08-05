@@ -57,25 +57,25 @@ class TimespanFieldInputTest {
   private static void assertTimespanFieldInput(TimeSpanType timespan, TimespanImpl timespanMongo) {
     assertEquals(timespan.getAbout(), timespanMongo.getAbout());
     assertEquals(timespan.getBegin().getString(),
-        timespanMongo.getBegin().values().iterator().next().get(0));
+        timespanMongo.getBegin().values().iterator().next().getFirst());
     assertEquals(timespan.getEnd().getString(),
-        timespanMongo.getEnd().values().iterator().next().get(0));
-    assertEquals(timespan.getNoteList().get(0).getString(),
-        timespanMongo.getNote().values().iterator().next().get(0));
+        timespanMongo.getEnd().values().iterator().next().getFirst());
+    assertEquals(timespan.getNoteList().getFirst().getString(),
+        timespanMongo.getNote().values().iterator().next().getFirst());
     assertTrue(timespanMongo.getAltLabel()
-                            .containsKey(timespan.getAltLabelList().get(0).getLang().getLang()));
+                            .containsKey(timespan.getAltLabelList().getFirst().getLang().getLang()));
     assertTrue(timespanMongo.getPrefLabel()
-                            .containsKey(timespan.getPrefLabelList().get(0).getLang().getLang()));
+                            .containsKey(timespan.getPrefLabelList().getFirst().getLang().getLang()));
     assertTrue(timespanMongo.getHiddenLabel()
-                            .containsKey(timespan.getHiddenLabelList().get(0).getLang().getLang()));
-    assertEquals(timespan.getAltLabelList().get(0).getString(),
-        timespanMongo.getAltLabel().values().iterator().next().get(0));
-    assertEquals(timespan.getPrefLabelList().get(0).getString(),
-        timespanMongo.getPrefLabel().values().iterator().next().get(0));
-    assertEquals(timespan.getIsPartOfList().get(0).getResource().getResource(),
-        timespanMongo.getIsPartOf().values().iterator().next().get(0));
+                            .containsKey(timespan.getHiddenLabelList().getFirst().getLang().getLang()));
+    assertEquals(timespan.getAltLabelList().getFirst().getString(),
+        timespanMongo.getAltLabel().values().iterator().next().getFirst());
+    assertEquals(timespan.getPrefLabelList().getFirst().getString(),
+        timespanMongo.getPrefLabel().values().iterator().next().getFirst());
+    assertEquals(timespan.getIsPartOfList().getFirst().getResource().getResource(),
+        timespanMongo.getIsPartOf().values().iterator().next().getFirst());
     assertEquals(timespan.getNotation().getString(),
-        timespanMongo.getSkosNotation().values().iterator().next().get(0));
+        timespanMongo.getSkosNotation().values().iterator().next().getFirst());
   }
 
   private static TimeSpanType getTimeSpanType() {

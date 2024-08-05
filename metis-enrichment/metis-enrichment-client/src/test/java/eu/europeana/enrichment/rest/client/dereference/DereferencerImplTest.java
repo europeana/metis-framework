@@ -1,5 +1,23 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anySet;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
@@ -23,26 +41,12 @@ import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.net.URI;
-import java.net.URISyntaxException;
-import org.apache.commons.collections.CollectionUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.ArgumentCaptor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.ServiceUnavailableException;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,24 +59,18 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.ok;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anySet;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import org.apache.commons.collections.CollectionUtils;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.ArgumentCaptor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * Unit tests for {@link DereferencerImpl} class
@@ -166,7 +164,7 @@ class DereferencerImplTest {
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
-        doReturn(DEREFERENCE_RESULT.get(0),
+        doReturn(DEREFERENCE_RESULT.getFirst(),
                 DEREFERENCE_RESULT.subList(1, DEREFERENCE_RESULT.size()).toArray()).when(dereferenceClient)
                 .dereference(any());
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
@@ -218,7 +216,7 @@ class DereferencerImplTest {
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
-        doReturn(DEREFERENCE_RESULT.get(0),
+        doReturn(DEREFERENCE_RESULT.getFirst(),
                 DEREFERENCE_RESULT.subList(1, DEREFERENCE_RESULT.size()).toArray()).when(dereferenceClient)
                 .dereference(any());
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
@@ -383,9 +381,9 @@ class DereferencerImplTest {
         verify(entityMergeEngine, times(1))
                 .mergeReferenceEntitiesFromDereferencedEntities(any(), argumentCaptor.capture());
         assertEquals(1, argumentCaptor.getValue().size());
-        assertNull(argumentCaptor.getValue().get(0).getClassType());
-        assertTrue(argumentCaptor.getValue().get(0).getReferenceTermListMap().isEmpty());
-        assertTrue(argumentCaptor.getValue().get(0).getReportMessages().isEmpty());
+        assertNull(argumentCaptor.getValue().getFirst().getClassType());
+        assertTrue(argumentCaptor.getValue().getFirst().getReferenceTermListMap().isEmpty());
+        assertTrue(argumentCaptor.getValue().getFirst().getReportMessages().isEmpty());
     }
 
     private List<DereferencedEntities> prepareExpectedList() throws MalformedURLException, URISyntaxException {
@@ -404,9 +402,9 @@ class DereferencerImplTest {
         ReferenceTermImpl expectedReferenceTerm2 = new ReferenceTermImpl(new URI("http://valid-example.host/place").toURL());
         List<EnrichmentBase> expectedEnrichmentBaseList2 = new ArrayList<>();
         expectedEnrichmentBaseList2.add(
-                DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
+                DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().getFirst().getEnrichmentBaseList().getFirst());
         expectedEnrichmentBaseList2.add(
-                DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(1));
+                DEREFERENCE_RESULT.get(2).getEnrichmentBaseResultWrapperList().getFirst().getEnrichmentBaseList().get(1));
         expectedEnrichmentBaseList2.add(null);
         DereferencedEntities expectedDereferencedEntities2 = new DereferencedEntities(
                 Map.of(expectedReferenceTerm2, expectedEnrichmentBaseList2),
@@ -415,10 +413,10 @@ class DereferencerImplTest {
         ReferenceTermImpl expectedReferenceTerm3 = new ReferenceTermImpl(new URI("http://valid-example.host/about").toURL());
         List<EnrichmentBase> expectedEnrichmentBaseList3 = new ArrayList<>();
         expectedEnrichmentBaseList3.add(
-                DEREFERENCE_RESULT.get(0).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0));
+                DEREFERENCE_RESULT.getFirst().getEnrichmentBaseResultWrapperList().getFirst().getEnrichmentBaseList().get(0));
         expectedEnrichmentBaseList3.add(null);
         expectedEnrichmentBaseList3.add(
-                DEREFERENCE_RESULT.get(0).getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(2));
+                DEREFERENCE_RESULT.getFirst().getEnrichmentBaseResultWrapperList().getFirst().getEnrichmentBaseList().get(2));
         DereferencedEntities expectedDereferencedEntities3 = new DereferencedEntities(
                 Map.of(expectedReferenceTerm3, expectedEnrichmentBaseList3),
                 Collections.emptySet(), AboutType.class);

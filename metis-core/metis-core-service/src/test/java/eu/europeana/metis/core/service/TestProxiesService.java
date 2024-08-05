@@ -195,8 +195,8 @@ class TestProxiesService {
     final MetisUserView metisUserView = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
     TaskErrorsInfo taskErrorsInfoWithIdentifiers = TestObjectFactory
-        .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(0).getErrorType(),
-            taskErrorsInfo.getErrors().get(0).getMessage());
+        .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().getFirst().getErrorType(),
+            taskErrorsInfo.getErrors().getFirst().getMessage());
 
     when(dpsClient
         .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
@@ -212,7 +212,7 @@ class TestProxiesService {
     verifyNoMoreInteractions(authorizer);
 
     assertEquals(1, externalTaskReport.getErrors().size());
-    assertFalse(externalTaskReport.getErrors().get(0).getErrorDetails().isEmpty());
+    assertFalse(externalTaskReport.getErrors().getFirst().getErrorDetails().isEmpty());
   }
 
   @Test
@@ -370,8 +370,8 @@ class TestProxiesService {
         .getListOfFileContentsFromPluginExecution(metisUserView, TestObjectFactory.EXECUTIONID,
             plugin.getPluginMetadata().getExecutablePluginType(), null, 5);
     assertEquals(record.getXmlRecord(),
-        listOfFileContentsFromPluginExecution.getRecords().get(0).getXmlRecord());
-    assertEquals(ecloudId, listOfFileContentsFromPluginExecution.getRecords().get(0).getEcloudId());
+        listOfFileContentsFromPluginExecution.getRecords().getFirst().getXmlRecord());
+    assertEquals(ecloudId, listOfFileContentsFromPluginExecution.getRecords().getFirst().getEcloudId());
 
     // If the actual record could not be gotten, we need to see an exception.
     doReturn(null).when(proxiesService).getRecord(plugin, ecloudId);
@@ -473,8 +473,7 @@ class TestProxiesService {
     assertNotNull(result);
     assertNotNull(result.getRecords());
     assertEquals(idList.size(), result.getRecords().size());
-    assertEquals(idList,
-        result.getRecords().stream().map(Record::getEcloudId).collect(Collectors.toList()));
+    assertEquals(idList, result.getRecords().stream().map(Record::getEcloudId).toList());
 
     // Check that the call also works for an empty list
     input.setIds(Collections.emptyList());
@@ -495,7 +494,7 @@ class TestProxiesService {
     assertNotNull(resultWithMissingRecord.getRecords());
     assertEquals(idList.size() - 1, resultWithMissingRecord.getRecords().size());
     assertTrue(new HashSet<>(idList).containsAll(resultWithMissingRecord.getRecords().stream()
-        .map(Record::getEcloudId).collect(Collectors.toList())));
+        .map(Record::getEcloudId).toList()));
 
     // Check that if a record cannot be retrieved, the method fails.
     doThrow(ExternalTaskException.class).when(proxiesService)

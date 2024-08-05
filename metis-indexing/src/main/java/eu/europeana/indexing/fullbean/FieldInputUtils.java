@@ -68,7 +68,7 @@ final class FieldInputUtils {
       final Stream<String> values = Optional.ofNullable(listItem).map(valuesGetter)
                                             .filter(valueList -> !valueList.isEmpty()).stream().flatMap(Collection::stream);
       final List<String> filteredValues = values.filter(Objects::nonNull).map(String::trim)
-                                                .filter(StringUtils::isNotEmpty).collect(Collectors.toList());
+                                                .filter(StringUtils::isNotEmpty).toList();
 
       // If there are values to add, we add them to the map.
       if (!filteredValues.isEmpty()) {

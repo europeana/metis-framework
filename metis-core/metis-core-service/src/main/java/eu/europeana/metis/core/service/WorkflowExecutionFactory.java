@@ -32,9 +32,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Class that contains various functionality for "helping" the {@link OrchestratorService}.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-10-11
  */
 public class WorkflowExecutionFactory {
 

@@ -122,8 +122,7 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = getQualityAnnotation(aggregatorAggregation.getAbout(), rdfTier);
 
     aggregatorAggregation.setHasQualityAnnotationList(
-        Stream.concat(getExistingAnnotations(link, aggregatorAggregation.getHasQualityAnnotationList()), Stream.of(link))
-              .collect(Collectors.toList()));
+        Stream.concat(getExistingAnnotations(link, aggregatorAggregation.getHasQualityAnnotationList()), Stream.of(link)).toList());
   }
 
   private static void setTierInternalEuropeana(RDF rdf, Tier tier)
@@ -145,8 +144,7 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = getQualityAnnotation(europeanaAggregationType.getAbout(), rdfTier);
 
     europeanaAggregationType.setHasQualityAnnotationList(
-        Stream.concat(getExistingAnnotations(link, europeanaAggregationType.getHasQualityAnnotationList()), Stream.of(link))
-              .collect(Collectors.toList()));
+        Stream.concat(getExistingAnnotations(link, europeanaAggregationType.getHasQualityAnnotationList()), Stream.of(link)).toList());
   }
 
   @NotNull

@@ -84,17 +84,17 @@ class PlaceFieldInputTest {
     PlaceImpl placeMongo = new PlaceFieldInput().apply(place);
     mongoServerMock.getDatastore().save(placeMongo);
     assertEquals(place.getAbout(), placeMongo.getAbout());
-    assertEquals(place.getNoteList().get(0).getString(),
-        placeMongo.getNote().values().iterator().next().get(0));
+    assertEquals(place.getNoteList().getFirst().getString(),
+        placeMongo.getNote().values().iterator().next().getFirst());
     assertTrue(
-        placeMongo.getAltLabel().containsKey(place.getAltLabelList().get(0).getLang().getLang()));
-    assertEquals(place.getAltLabelList().get(0).getString(),
-        placeMongo.getAltLabel().values().iterator().next().get(0));
+        placeMongo.getAltLabel().containsKey(place.getAltLabelList().getFirst().getLang().getLang()));
+    assertEquals(place.getAltLabelList().getFirst().getString(),
+        placeMongo.getAltLabel().values().iterator().next().getFirst());
 
-    assertEquals(place.getPrefLabelList().get(0).getString(),
-        placeMongo.getPrefLabel().values().iterator().next().get(0));
-    assertEquals(place.getIsPartOfList().get(0).getString(),
-        placeMongo.getIsPartOf().values().iterator().next().get(0));
+    assertEquals(place.getPrefLabelList().getFirst().getString(),
+        placeMongo.getPrefLabel().values().iterator().next().getFirst());
+    assertEquals(place.getIsPartOfList().getFirst().getString(),
+        placeMongo.getIsPartOf().values().iterator().next().getFirst());
     assertEquals(Float.toString(place.getLat().getLat()), Float.toString(placeMongo.getLatitude()));
     assertEquals(Float.toString(place.getLong().getLong()),
         Float.toString(placeMongo.getLongitude()));

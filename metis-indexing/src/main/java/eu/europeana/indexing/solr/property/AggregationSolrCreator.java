@@ -24,8 +24,6 @@ import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Property Solr Creator for 'ore:Aggregation' tags.
- *
- * @author Yorgos.Mamakis@ europeana.eu
  */
 public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> {
 
@@ -44,9 +42,9 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
       List<OrganizationImpl> organizations) {
     this.licenses = new ArrayList<>(licenses);
     this.organizationPrefLabelMap = organizations.stream()
-            .filter(org -> StringUtils.isNotBlank(org.getAbout()))
-            .collect(Collectors.toMap(OrganizationImpl::getAbout,
-                    AggregationSolrCreator::findPrefLabelForOrganization, (o1, o2) -> o1));
+                                                 .filter(org -> StringUtils.isNotBlank(org.getAbout()))
+                                                 .collect(Collectors.toMap(OrganizationImpl::getAbout,
+                                                     AggregationSolrCreator::findPrefLabelForOrganization, (o1, o2) -> o1));
   }
 
   private static Pair<String, String> findPrefLabelForOrganization(OrganizationImpl organization) {
@@ -60,16 +58,16 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
             .flatMap(List::stream).filter(Objects::nonNull).findFirst()
             .ifPresent(value -> englishValues.add(new ImmutablePair<>("eng", value)));
     if (!englishValues.isEmpty()) {
-      return englishValues.get(0);
+      return englishValues.getFirst();
     }
 
     // Otherwise return any value (if available).
     return Optional.ofNullable(organization.getPrefLabel()).map(Map::entrySet).stream()
-            .flatMap(Collection::stream)
-            .filter(Objects::nonNull).filter(entry -> entry.getValue() != null)
-            .flatMap(entry -> entry.getValue().stream().filter(StringUtils::isNotBlank)
-                    .map(value -> new ImmutablePair<>(entry.getKey(), value)))
-            .findFirst().orElse(null);
+                   .flatMap(Collection::stream)
+                   .filter(Objects::nonNull).filter(entry -> entry.getValue() != null)
+                   .flatMap(entry -> entry.getValue().stream().filter(StringUtils::isNotBlank)
+                                          .map(value -> new ImmutablePair<>(entry.getKey(), value)))
+                   .findFirst().orElse(null);
   }
 
   @Override
@@ -88,7 +86,7 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
 
     //Single value, contains provider uri(in practice the list provided has one or no value)
     dataProviderPair.getLeft().stream().findFirst()
-        .ifPresent(uri -> SolrPropertyUtils.addValue(doc, EdmLabel.DATA_PROVIDER, uri));
+                    .ifPresent(uri -> SolrPropertyUtils.addValue(doc, EdmLabel.DATA_PROVIDER, uri));
     //Multivalued, contains provider and intermediate uris
     SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER, combinedProviderAndIntermediateUris);
 
@@ -138,7 +136,7 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
   }
 
   private void splitOrganizationUrisFromLiterals(Map<String, List<String>> urisLiteralsMap,
-          Set<String> organizationUris, Map<String, List<String>> literalsMap) {
+      Set<String> organizationUris, Map<String, List<String>> literalsMap) {
     for (Map.Entry<String, List<String>> entry : urisLiteralsMap.entrySet()) {
       final List<String> literals = new ArrayList<>();
       for (String value : entry.getValue()) {
@@ -155,7 +153,7 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
   }
 
   private void addOrganizationPrefLabelsToLiterals(Set<String> organizationUris,
-          Map<String, List<String>> literalsMap) {
+      Map<String, List<String>> literalsMap) {
     for (String organizationUri : organizationUris) {
       final Pair<String, String> entry = organizationPrefLabelMap.get(organizationUri);
       if (entry != null) {

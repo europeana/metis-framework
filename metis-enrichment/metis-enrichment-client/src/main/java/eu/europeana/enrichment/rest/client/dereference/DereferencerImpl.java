@@ -315,7 +315,7 @@ public class DereferencerImpl implements Dereferencer {
       resultMap.put(referenceTerm, Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
                                            .orElseGet(Collections::emptyList).stream()
                                            .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
-                                           .flatMap(List::stream).collect(Collectors.toList()));
+                                           .flatMap(List::stream).toList());
     }
 
     // Return the result.

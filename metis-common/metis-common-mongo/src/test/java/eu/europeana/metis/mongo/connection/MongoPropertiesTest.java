@@ -94,7 +94,7 @@ class MongoPropertiesTest {
   }
 
   private static void assertMongoPropertiesOnlyWithAuthentication(MongoProperties mongoProperties) throws Exception {
-    assertEquals("localhost:8521", mongoProperties.getMongoHosts().get(0).toString());
+    assertEquals("localhost:8521", mongoProperties.getMongoHosts().getFirst().toString());
     assertNotNull(mongoProperties.getMongoCredentials());
     assertEquals("authenticationdb", mongoProperties.getMongoCredentials().getSource());
     assertEquals("userName", mongoProperties.getMongoCredentials().getUserName());
@@ -102,7 +102,7 @@ class MongoPropertiesTest {
   }
 
   private static void assertMongoPropertiesWithoutAuthentication(MongoProperties mongoProperties) throws Exception {
-    assertEquals("localhost:8521", mongoProperties.getMongoHosts().get(0).toString());
+    assertEquals("localhost:8521", mongoProperties.getMongoHosts().getFirst().toString());
     assertNull(mongoProperties.getMongoCredentials());
   }
 

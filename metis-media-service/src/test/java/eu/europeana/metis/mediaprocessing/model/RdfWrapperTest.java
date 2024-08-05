@@ -60,7 +60,7 @@ class RdfWrapperTest {
     middleAggregation.getHasViewList().get(2).setResource(firstHasView);
     middleAggregation.getHasViewList().get(3).setResource(middleHasView);
     lastAggregation.setHasViewList(Collections.singletonList(new HasView()));
-    lastAggregation.getHasViewList().get(0).setResource(lastHasView);
+    lastAggregation.getHasViewList().getFirst().setResource(lastHasView);
 
     // Setup tests - isShownAt links
     final String firstIsShownAt = "firstIsShownAt";

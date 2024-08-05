@@ -12,7 +12,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
@@ -125,8 +124,7 @@ public enum ResourceLinkFromProxy {
   private static <T> Function<ProxyType, List<? extends T>> getPredicatesFromChoice(
       Predicate<Choice> isRightChoice, Function<Choice, T> getPredicateFromChoice) {
     return proxy -> Optional.of(proxy).map(ProxyType::getChoiceList).stream().flatMap(Collection::stream).filter(Objects::nonNull)
-                            .filter(isRightChoice)
-                            .map(getPredicateFromChoice).filter(Objects::nonNull).collect(Collectors.toList());
+                            .filter(isRightChoice).map(getPredicateFromChoice).filter(Objects::nonNull).toList();
   }
 
   LinkAndValueGetter getLinkAndValueGetter() {

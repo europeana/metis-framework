@@ -799,15 +799,13 @@ class TestOrchestratorService {
     verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
-    assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
-            .collect(Collectors.toList()),
+    assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId).toList(),
         result.stream().map(ExecutionAndDatasetView::getDataset)
-            .map(DatasetSummaryView::getDatasetId)
-            .collect(Collectors.toList()));
+            .map(DatasetSummaryView::getDatasetId).toList());
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-            .map(ObjectId::toString).collect(Collectors.toList()),
+            .map(ObjectId::toString).toList(),
         result.stream().map(ExecutionAndDatasetView::getExecution)
-            .map(ExecutionSummaryView::getId).collect(Collectors.toList()));
+            .map(ExecutionSummaryView::getId).toList());
   }
 
   @Test
@@ -836,15 +834,13 @@ class TestOrchestratorService {
     verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
-    assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
-            .collect(Collectors.toList()),
+    assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId).toList(),
         result.stream().map(ExecutionAndDatasetView::getDataset)
-            .map(DatasetSummaryView::getDatasetId)
-            .collect(Collectors.toList()));
+            .map(DatasetSummaryView::getDatasetId).toList());
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-            .map(ObjectId::toString).collect(Collectors.toList()),
+            .map(ObjectId::toString).toList(),
         result.stream().map(ExecutionAndDatasetView::getExecution)
-            .map(ExecutionSummaryView::getId).collect(Collectors.toList()));
+            .map(ExecutionSummaryView::getId).toList());
   }
 
   @Test
@@ -1057,8 +1053,8 @@ class TestOrchestratorService {
     // Verify the result
     assertEquals(1, result.getExecutions().size());
     assertEquals(execution1.getId().toString(),
-        result.getExecutions().get(0).getWorkflowExecutionId());
-    assertEquals(execution1.getStartedDate(), result.getExecutions().get(0).getStartedDate());
+        result.getExecutions().getFirst().getWorkflowExecutionId());
+    assertEquals(execution1.getStartedDate(), result.getExecutions().getFirst().getStartedDate());
   }
 
   @Test
@@ -1098,8 +1094,8 @@ class TestOrchestratorService {
     assertNotNull(result);
     assertNotNull(result.getPlugins());
     assertEquals(1, result.getPlugins().size());
-    assertEquals(plugin1.getPluginType(), result.getPlugins().get(0).getPluginType());
-    assertTrue(result.getPlugins().get(0).isCanDisplayRawXml());
+    assertEquals(plugin1.getPluginType(), result.getPlugins().getFirst().getPluginType());
+    assertTrue(result.getPlugins().getFirst().isCanDisplayRawXml());
 
     // Test when the workflow execution does not exist
     doReturn(null).when(orchestratorService)

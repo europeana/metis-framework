@@ -66,15 +66,14 @@ final class EmbeddableMedia {
           URL_VIMEO.stream(),
           URL_YOUTUBE.stream())
       .reduce(Stream::concat)
-      .get()
-      .collect(Collectors.toList());
+      .get().toList();
 
   // Create patterns from the urls, quote url, wildcards are allowed in the pattern, so we do not quote those,
   // and we also add a wildcard at the end of each url
   private static final Collection<Pattern> PATTERNS = URL_MATCHING_LIST.stream()
                                                                        .map(EmbeddableMedia::quotedRegexFromString)
                                                                        .map(Pattern::compile)
-                                                                       .collect(Collectors.toList());
+                                                                       .toList();
 
   // Quote the string but not asterisk(*) characters. Asterisk character get converted to the regex
   // equivalent (.*).

@@ -88,7 +88,7 @@ class MorphiaUtilsTest {
     final List<DummyEntity> dummyEntityList = MorphiaUtils.getListOfAggregationRetryable(aggregation, DummyEntity.class);
 
     assertEquals(1, dummyEntityList.size());
-    assertEquals(5, Integer.valueOf(dummyEntityList.get(0).name));
+    assertEquals(5, Integer.valueOf(dummyEntityList.getFirst().name));
   }
 
   @Test
@@ -103,7 +103,7 @@ class MorphiaUtilsTest {
         aggregationOptions);
 
     assertEquals(1, dummyEntityList.size());
-    assertEquals(5, Integer.valueOf(dummyEntityList.get(0).name));
+    assertEquals(5, Integer.valueOf(dummyEntityList.getFirst().name));
   }
 
   private static void addEntitiesToDatastore() {

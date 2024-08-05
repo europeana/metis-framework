@@ -10,10 +10,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 
-public class YearParserTest {
+class YearParserTest {
 
   @Test
-  public void parseTest() {
+  void parseTest() {
 
     // Mock parser
     final YearParser yearParser = spy(new YearParser());

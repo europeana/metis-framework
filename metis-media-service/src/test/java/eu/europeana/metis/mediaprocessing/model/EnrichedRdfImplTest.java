@@ -69,7 +69,7 @@ class EnrichedRdfImplTest {
     // Verify adding the first resource.
     verify(rdf, times(1)).setWebResourceList(notNull());
     assertEquals(1, rdf.getWebResourceList().size());
-    assertEquals(url1, rdf.getWebResourceList().get(0).getAbout());
+    assertEquals(url1, rdf.getWebResourceList().getFirst().getAbout());
     assertEquals(1, enrichedRdf.getResourceUrls().size());
     assertEquals(names1, enrichedRdf.getThumbnailTargetNames(url1));
     verify(resource1.getMetaData(), times(1)).updateResource(any());
