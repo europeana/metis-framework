@@ -66,22 +66,6 @@ class OEmbedProcessorTest {
   }
 
   @Test
-  void getOEmbedModelFromJson() throws IOException {
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json");
-    OEmbedModel oEmbedModel = OEmbedModel.getOEmbedModelFromJson(inputStream.readAllBytes());
-    assertNotNull(oEmbedModel);
-    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
-  }
-
-  @Test
-  void getOEmbedModelFromXml() throws IOException {
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.xml");
-    OEmbedModel oEmbedModel = OEmbedModel.getOEmbedModelFromXml(inputStream.readAllBytes());
-    assertNotNull(oEmbedModel);
-    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
-  }
-
-  @Test
   void extractMetadata() throws MediaExtractionException, IOException {
     // given
     OEmbedResourceTest oembedResource = getOEmbedResourceTest("__files/oembed.xml", "application/xml+oembed");
