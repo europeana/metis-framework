@@ -125,10 +125,10 @@ public enum Country {
    * @param countryName The string value to match the enum values with
    * @return The enum country values that matches the given string value
    */
-  public static Country fromCountryNameToISOCode(String countryName){
+  public static Country fromCountryNameToIsoCode(String countryName){
     Country result = null;
     for(Country country : values()){
-      if(country.name().equals(countryName)){
+      if(country.getName().equals(countryName)){
         result = country;
         break;
       }
