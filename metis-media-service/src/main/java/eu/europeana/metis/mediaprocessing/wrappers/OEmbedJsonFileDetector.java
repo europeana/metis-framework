@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromJson;
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromJson;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.isValidOEmbedPhotoOrVideo;
 
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class OEmbedJsonFileDetector implements Detector {
   public MediaType detect(InputStream input, Metadata metadata) throws IOException {
     try {
       input.mark(Integer.MAX_VALUE);
-      OEmbedModel embedModel = getOEmbedModelfromJson(input.readAllBytes());
+      OEmbedModel embedModel = getOEmbedModelFromJson(input.readAllBytes());
       if (isValidOEmbedPhotoOrVideo(embedModel)) {
         return OEMBED_JSON;
       }

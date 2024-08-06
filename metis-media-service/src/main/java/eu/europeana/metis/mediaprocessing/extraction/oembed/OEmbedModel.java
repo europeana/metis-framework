@@ -1,11 +1,25 @@
 package eu.europeana.metis.mediaprocessing.extraction.oembed;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
 import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Model based on the standard https://oembed.com/
  */
 public class OEmbedModel {
+
+  private static final String MAX_HEIGHT = "maxheight";
+  private static final String MAX_WIDTH = "maxwidth";
+  private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedModel.class);
   private String type;
   private String version;
   private String title;
@@ -22,6 +36,306 @@ public class OEmbedModel {
   private String thumbnail_width;
   private String html;
   private String duration;
+
+  enum ValidationType {
+    URL,
+    THUMBNAIL
+  }
+
+  /**
+   * Gets oembed model from json.
+   *
+   * @param jsonResource byte[]
+   * @return the oembed model from json
+   * @throws IOException the io exception
+   */
+  public static OEmbedModel getOEmbedModelFromJson(byte[] jsonResource) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    return objectMapper.readValue(jsonResource, OEmbedModel.class);
+  }
+
+  /**
+   * Gets oembed model from xml.
+   *
+   * @param xmlResource byte[]
+   * @return the oembed model from xml
+   * @throws IOException the io exception
+   */
+  public static OEmbedModel getOEmbedModelFromXml(byte[] xmlResource) throws IOException {
+    XmlMapper xmlMapper = new XmlMapper();
+    xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    return xmlMapper.readValue(xmlResource, OEmbedModel.class);
+  }
+
+  /**
+   * Is valid oembed photo or video boolean.
+   *
+   * @param oEmbedModel the oembed model
+   * @return the boolean true complies the minimum required fields for each type
+   */
+  public static boolean isValidOEmbedPhotoOrVideo(OEmbedModel oEmbedModel) {
+    return hasValidVersion(oEmbedModel) && hasValidType(oEmbedModel);
+  }
+
+  /**
+   * Has valid height size boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @param typeUrl the type url
+   * @return the boolean
+   */
+  public static boolean hasValidHeightSize(OEmbedModel oEmbedModel, String url, ValidationType typeUrl) {
+    boolean result = false;
+    Map<String, String> params;
+    if (oEmbedModel != null) {
+      try {
+        params = UriComponentsBuilder.fromUri(new URI(url)).
+                                     build()
+                                     .getQueryParams()
+                                     .toSingleValueMap();
+
+        if (containsMaxHeightAndMaxWidth(params) && hasValidMaxHeight(params)) {
+          switch (typeUrl) {
+            case URL -> {
+              if (isOEmbedValidHeight(oEmbedModel, params)) {
+                result = true;
+              } else {
+                LOGGER.warn("Not valid height according to max height");
+              }
+            }
+            case THUMBNAIL -> {
+              if (hasThumbnailUrl(oEmbedModel) && isOEmbedValidThumbnailHeight(oEmbedModel, params)) {
+                result = true;
+              } else {
+                LOGGER.warn("Not valid thumbnail size for max height parameter");
+              }
+            }
+            default -> throw new IllegalArgumentException("Unsupported type " + typeUrl);
+          }
+        }
+      } catch (URISyntaxException e) {
+        LOGGER.warn("Invalid url ", e);
+      } catch (NumberFormatException e) {
+        LOGGER.warn("Not valid dimension size", e);
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Has valid width size boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @param typeUrl the type url
+   * @return the boolean
+   */
+  public static boolean hasValidWidthSize(OEmbedModel oEmbedModel, String url, ValidationType typeUrl) {
+    boolean result = false;
+    Map<String, String> params;
+    if (oEmbedModel != null) {
+      try {
+        params = UriComponentsBuilder.fromUri(new URI(url)).
+                                     build()
+                                     .getQueryParams()
+                                     .toSingleValueMap();
+
+        if (containsMaxHeightAndMaxWidth(params) && hasValidMaxWidth(params)) {
+          switch (typeUrl) {
+            case URL -> {
+              if (isOEmbedValidWidth(oEmbedModel, params)) {
+                result = true;
+              } else {
+                LOGGER.warn("Not valid width according to max width");
+              }
+            }
+            case THUMBNAIL -> {
+              if (hasThumbnailUrl(oEmbedModel) && isOEmbedValidThumbnailWidth(oEmbedModel, params)) {
+                result = true;
+              } else {
+                LOGGER.warn("Not valid thumbnail size for max width parameter");
+              }
+            }
+            default -> throw new IllegalArgumentException("Unsupported type " + typeUrl);
+          }
+        }
+      } catch (URISyntaxException e) {
+        LOGGER.warn("Invalid url ", e);
+      } catch (NumberFormatException e) {
+        LOGGER.warn("Not valid dimension size", e);
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Check valid width and height dimensions.
+   *
+   * @param oEmbedModel the oEmbed model
+   */
+  public static void checkValidWidthAndHeightDimensions(OEmbedModel oEmbedModel, String url) {
+    if (hasValidHeightSize(oEmbedModel, url, ValidationType.URL)) {
+      LOGGER.info("Valid url dimensions of height");
+    } else {
+      LOGGER.warn("Not valid url dimensions of height");
+    }
+    if (hasValidWidthSize(oEmbedModel, url, ValidationType.URL)) {
+      LOGGER.info("Valid url dimensions of width");
+    } else {
+      LOGGER.warn("Not valid url dimensions of width");
+    }
+    if (hasValidHeightSize(oEmbedModel, url, ValidationType.THUMBNAIL)) {
+      LOGGER.info("Valid thumbnail dimensions of height");
+    } else {
+      LOGGER.warn("Not valid thumbnail dimensions of height");
+    }
+    if (hasValidWidthSize(oEmbedModel, url, ValidationType.THUMBNAIL)) {
+      LOGGER.info("Valid thumbnail dimensions of width");
+    } else {
+      LOGGER.warn("Not valid thumbnail dimensions of width");
+    }
+  }
+
+  /**
+   * Gets duration from model.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @return the duration from model
+   */
+  public static double getDurationFromModel(OEmbedModel oEmbedModel) {
+    double duration;
+    try {
+      duration = Double.parseDouble(oEmbedModel.getDuration());
+    } catch (NumberFormatException e) {
+      duration = 0.0;
+    }
+    return duration;
+  }
+
+  /**
+   * Is oEmbed valid thumbnail height boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @param params the params
+   * @return the boolean
+   */
+  private static boolean isOEmbedValidThumbnailHeight(OEmbedModel oEmbedModel, Map<String, String> params) {
+    return Integer.parseInt(oEmbedModel.getThumbnail_height()) <= Integer.parseInt(params.get(MAX_HEIGHT));
+  }
+
+  /**
+   * Is oEmbed valid thumbnail width boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @param params the params
+   * @return the boolean
+   */
+  private static boolean isOEmbedValidThumbnailWidth(OEmbedModel oEmbedModel, Map<String, String> params) {
+    return Integer.parseInt(oEmbedModel.getThumbnail_width()) <= Integer.parseInt(params.get(MAX_WIDTH));
+  }
+
+  /**
+   * Is oEmbed valid width boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @param params the params
+   * @return the boolean
+   */
+  private static boolean isOEmbedValidWidth(OEmbedModel oEmbedModel, Map<String, String> params) {
+    return oEmbedModel.getWidth() <= Integer.parseInt(params.get(MAX_WIDTH));
+  }
+
+  /**
+   * Is oEmbed valid height boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @param params the params
+   * @return the boolean
+   */
+  private static boolean isOEmbedValidHeight(OEmbedModel oEmbedModel, Map<String, String> params) {
+    return oEmbedModel.getHeight() <= Integer.parseInt(params.get(MAX_HEIGHT));
+  }
+
+  /**
+   * Has valid max height boolean.
+   *
+   * @param params the params
+   * @return the boolean
+   */
+  private static boolean hasValidMaxHeight(Map<String, String> params) {
+    return Integer.parseInt(params.get(MAX_HEIGHT)) > 0;
+  }
+
+  /**
+   * Has valid max width boolean.
+   *
+   * @param params the params
+   * @return the boolean
+   */
+  private static boolean hasValidMaxWidth(Map<String, String> params) {
+    return Integer.parseInt(params.get(MAX_WIDTH)) > 0;
+  }
+
+  private static boolean containsMaxHeightAndMaxWidth(Map<String, String> params) {
+    return params.containsKey(MAX_HEIGHT) || params.containsKey(MAX_WIDTH);
+  }
+
+  /**
+   * Has thumbnail url boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @return the boolean
+   */
+  private static boolean hasThumbnailUrl(OEmbedModel oEmbedModel) {
+    return oEmbedModel.getThumbnail_url() != null;
+  }
+
+  /**
+   * Has valid type boolean.
+   *
+   * @param oEmbedModel the o embed model
+   * @return the boolean
+   */
+  private static boolean hasValidType(OEmbedModel oEmbedModel) {
+    return (isValidTypePhoto(oEmbedModel) || isValidTypeVideo(oEmbedModel));
+  }
+
+  /**
+   * Is valid type photo boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @return the boolean
+   */
+  private static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getType() != null
+        && oEmbedModel.getType().equalsIgnoreCase("photo")
+        && oEmbedModel.getUrl() != null && !oEmbedModel.getUrl().isEmpty()
+        && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
+  }
+
+  /**
+   * Is valid type video boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @return the boolean
+   */
+  private static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getType() != null
+        && oEmbedModel.getType().equalsIgnoreCase("video")
+        && oEmbedModel.getHtml() != null && !oEmbedModel.getHtml().isEmpty()
+        && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
+  }
+
+  /**
+   * Has valid version boolean. private
+   *
+   * @param oEmbedModel the o embed model
+   * @return the boolean
+   */
+  private static boolean hasValidVersion(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getVersion() != null
+        && oEmbedModel.getVersion().startsWith("1.0");
+  }
 
   /**
    * Gets type.

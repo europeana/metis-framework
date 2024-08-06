@@ -1,8 +1,11 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.checkValidWidthAndHeightDimensions;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getDurationFromModel;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromJson;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromXml;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.isValidOEmbedPhotoOrVideo;
+
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
@@ -28,105 +31,6 @@ public class OEmbedProcessor implements MediaProcessor {
   private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedProcessor.class);
 
   /**
-   * Gets oembed model from json.
-   *
-   * @param jsonResource byte[]
-   * @return the oembed model from json
-   * @throws IOException the io exception
-   */
-  public static OEmbedModel getOEmbedModelfromJson(byte[] jsonResource) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    return objectMapper.readValue(jsonResource, OEmbedModel.class);
-  }
-
-  /**
-   * Gets oembed model from xml.
-   *
-   * @param xmlResource byte[]
-   * @return the oembed model from xml
-   * @throws IOException the io exception
-   */
-  public static OEmbedModel getOEmbedModelfromXml(byte[] xmlResource) throws IOException {
-    XmlMapper xmlMapper = new XmlMapper();
-    xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    return xmlMapper.readValue(xmlResource, OEmbedModel.class);
-  }
-
-  /**
-   * Is valid oembed photo or video boolean.
-   *
-   * @param oEmbedModel the oembed model
-   * @return the boolean true complies the minimum required fields for each type
-   */
-  public static boolean isValidOEmbedPhotoOrVideo(OEmbedModel oEmbedModel) {
-    return hasValidVersion(oEmbedModel) && hasValidType(oEmbedModel);
-  }
-
-  /**
-   * Has valid type boolean.
-   *
-   * @param oEmbedModel the o embed model
-   * @return the boolean
-   */
-  private static boolean hasValidType(OEmbedModel oEmbedModel) {
-    return (isValidTypePhoto(oEmbedModel) || isValidTypeVideo(oEmbedModel));
-  }
-
-  /**
-   * Is valid type photo boolean.
-   *
-   * @param oEmbedModel the o embed model
-   * @return the boolean
-   */
-  private static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
-    return oEmbedModel != null && oEmbedModel.getType() != null
-        && oEmbedModel.getType().equalsIgnoreCase("photo")
-        && oEmbedModel.getUrl() != null && !oEmbedModel.getUrl().isEmpty()
-        && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
-  }
-
-  /**
-   * Is valid type video boolean.
-   *
-   * @param oEmbedModel the o embed model
-   * @return the boolean
-   */
-  private static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
-    return oEmbedModel != null && oEmbedModel.getType() != null
-        && oEmbedModel.getType().equalsIgnoreCase("video")
-        && oEmbedModel.getHtml() != null && !oEmbedModel.getHtml().isEmpty()
-        && (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
-  }
-
-  /**
-   * Has valid version boolean.
-   *
-   * @param oEmbedModel the o embed model
-   * @return the boolean
-   */
-  private static boolean hasValidVersion(OEmbedModel oEmbedModel) {
-    return oEmbedModel != null && oEmbedModel.getVersion() != null
-        && oEmbedModel.getVersion().startsWith("1.0");
-  }
-
-  /**
-   * Gets duration from model.
-   *
-   * @param oEmbedModel the o embed model
-   * @return the duration from model
-   */
-  private static double getDurationFromModel(OEmbedModel oEmbedModel) {
-    double duration;
-    try {
-      duration = Double.parseDouble(oEmbedModel.getDuration());
-    } catch (NumberFormatException e) {
-      duration = 0.0;
-    }
-    return duration;
-  }
-
-  /**
    * Process a resource by extracting the metadata from the content.
    *
    * @param resource The resource to process. Note that the resource may not have content (see
@@ -148,13 +52,13 @@ public class OEmbedProcessor implements MediaProcessor {
       try {
         OEmbedModel embedModel = null;
         if (detectedMimeType.startsWith("application/json")) {
-          embedModel = getOEmbedModelfromJson(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
+          embedModel = getOEmbedModelFromJson(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
         } else if (detectedMimeType.startsWith("application/xml")) {
-          embedModel = getOEmbedModelfromXml(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
+          embedModel = getOEmbedModelFromXml(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
         }
         if (isValidOEmbedPhotoOrVideo(embedModel)) {
-          resourceExtractionResult = getResourceExtractionResult(resource, detectedMimeType,
-              embedModel);
+          checkValidWidthAndHeightDimensions(embedModel, resource.getResourceUrl());
+          resourceExtractionResult = getResourceExtractionResult(resource, detectedMimeType, embedModel);
         } else {
           LOGGER.warn("No oembed model found");
           resourceExtractionResult = null;
@@ -180,7 +84,6 @@ public class OEmbedProcessor implements MediaProcessor {
    */
   @Override
   public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType) throws MediaExtractionException {
-    //if (detectedMimeType.startsWith("application/json+oembed") || detectedMimeType.startsWith("application/xml+oembed")) {
     return null;
   }
 

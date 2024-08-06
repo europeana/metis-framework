@@ -21,7 +21,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.io.TikaInputStream;
@@ -202,7 +201,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   MediaProcessor chooseMediaProcessor(MediaType mediaType, String detectedMimeType) {
     final MediaProcessor processor;
     switch (mediaType) {
-      case TEXT, OTHER -> processor = chooseByDetectedMimeType(detectedMimeType);
+      case TEXT, OTHER -> processor = chooseByDetectedMimeType(mediaType, detectedMimeType);
       case AUDIO, VIDEO -> processor = audioVideoProcessor;
       case IMAGE -> processor = imageProcessor;
       case THREE_D -> processor = media3dProcessor;
@@ -211,14 +210,17 @@ public class MediaExtractorImpl implements MediaExtractor {
     return processor;
   }
 
-  MediaProcessor chooseByDetectedMimeType(String detectedMimeType) {
+  MediaProcessor chooseByDetectedMimeType(MediaType mediaType, String detectedMimeType) {
     if (detectedMimeType == null) {
       return null;
-    } else if (detectedMimeType.startsWith("text/xml") || detectedMimeType.startsWith("application/xml")
-    || detectedMimeType.startsWith("application/json")) {
+    } else if ((mediaType == MediaType.TEXT || mediaType == MediaType.OTHER) &&
+        (detectedMimeType.startsWith("text/xml") || detectedMimeType.startsWith("application/xml")
+            || detectedMimeType.startsWith("application/json"))) {
       return oEmbedProcessor;
-    } else {
+    } else if (mediaType == MediaType.TEXT) {
       return textProcessor;
+    } else {
+      return null;
     }
   }
 
@@ -272,19 +274,32 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Choose the right media processor.
-    final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType);
+    MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType);
 
-    // Process the resource depending on the mode.
-    final ResourceExtractionResult result;
+    ResourceExtractionResult result;
     if (processor == null) {
       result = null;
-    } else if (mode == ProcessingMode.FULL) {
+    } else {
+      result = getResourceExtractionResult(resource, mode, mainThumbnailAvailable, processor, detectedMimeType);
+    }
+    // No oEmbed detected try with text processing
+    if (processor instanceof OEmbedProcessor && result == null) {
+      processor = textProcessor;
+      result = getResourceExtractionResult(resource, mode, mainThumbnailAvailable, processor, detectedMimeType);
+    }
+    // Done
+    return result;
+  }
+
+  private static ResourceExtractionResult getResourceExtractionResult(Resource resource, ProcessingMode mode,
+      boolean mainThumbnailAvailable, MediaProcessor processor, String detectedMimeType) throws MediaExtractionException {
+    ResourceExtractionResult result;
+    // Process the resource depending on the mode.
+    if (mode == ProcessingMode.FULL) {
       result = processor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     } else {
       result = processor.copyMetadata(resource, detectedMimeType);
     }
-
-    // Done
     return result;
   }
 

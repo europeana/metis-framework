@@ -52,11 +52,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource"));
   private final XPathExpressionWrapper getHasViewExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource |" + OEMBED_XPATH_CONDITION_HAS_VIEW));
+      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource | " + OEMBED_XPATH_CONDITION_HAS_VIEW));
   private final XPathExpressionWrapper getIsShownAtExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource"));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource" + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
+      xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
   private static class XPathExpressionWrapper extends
           AbstractThreadSafeWrapper<XPathExpression, RdfDeserializationException> {

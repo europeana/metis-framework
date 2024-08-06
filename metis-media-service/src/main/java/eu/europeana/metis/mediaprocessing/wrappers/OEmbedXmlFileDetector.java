@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.getOEmbedModelfromXml;
-import static eu.europeana.metis.mediaprocessing.extraction.OEmbedProcessor.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromXml;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.isValidOEmbedPhotoOrVideo;
 
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class OEmbedXmlFileDetector implements Detector {
   public MediaType detect(InputStream input, Metadata metadata) throws IOException {
     try {
       input.mark(Integer.MAX_VALUE);
-      OEmbedModel embedModel = getOEmbedModelfromXml(input.readAllBytes());
+      OEmbedModel embedModel = getOEmbedModelFromXml(input.readAllBytes());
       if (isValidOEmbedPhotoOrVideo(embedModel)) {
         return OEMBED_XML;
       }
